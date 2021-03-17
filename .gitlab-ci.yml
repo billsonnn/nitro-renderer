@@ -1,0 +1,30 @@
+image: node:15.6
+
+stages:
+  - test
+  - build
+
+
+ESLinter:
+    stage: test
+    script:
+        - npm i
+        - node ./node_modules/eslint/bin/eslint.js src/
+    cache:
+        key: ${CI_COMMIT_BRANCH}
+        paths:
+            - node_modules
+
+Build Nitro:
+  stage: build
+  script:
+    - npm i
+    - npm run build-prod
+  cache:
+    key: ${CI_COMMIT_BRANCH}
+    paths:
+      - node_modules
+  artifacts:
+    expire_in: 2 weeks
+    paths:
+      - dist/*

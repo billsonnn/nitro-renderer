@@ -1,0 +1,23 @@
+{
+  "name": "nitro-renderer",
+  "version": "1.0.0",
+  "scripts": {
+    "eslint": "eslint ./src --fix"
+  },
+  "private": true,
+  "dependencies": {
+    "@pixi/filter-adjustment": "^3.1.1",
+    "pako": "^2.0.3",
+    "pixi.js": "^5.3.3",
+    "tslib": "^2.0.0",
+    "xml2js": "^0.4.23"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.35",
+    "@types/pako": "^1.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.15.0",
+    "@typescript-eslint/parser": "^4.15.0",
+    "eslint": "^7.19.0",
+    "typescript": "~4.2.3"
+  }
+}
