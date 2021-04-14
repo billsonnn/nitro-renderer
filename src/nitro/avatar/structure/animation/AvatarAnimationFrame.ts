@@ -1,4 +1,4 @@
-export class AnimationFrame
+export class AvatarAnimationFrame
 {
     private _number: number;
     private _assetPartDefinition: string;

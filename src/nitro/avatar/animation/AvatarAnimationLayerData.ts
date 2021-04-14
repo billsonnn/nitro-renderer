@@ -4,7 +4,7 @@ import { IActionDefinition } from '../actions/IActionDefinition';
 import { IActiveActionData } from '../actions/IActiveActionData';
 import { IAnimationLayerData } from './IAnimationLayerData';
 
-export class AnimationLayerData implements IAnimationLayerData
+export class AvatarAnimationLayerData implements IAnimationLayerData
 {
     public static BODYPART: string = 'bodypart';
     public static FX: string = 'fx';

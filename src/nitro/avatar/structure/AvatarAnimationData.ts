@@ -2,7 +2,7 @@ import { IActionDefinition } from '../actions/IActionDefinition';
 import { AnimationAction } from './animation/AnimationAction';
 import { IFigureSetData } from './IFigureSetData';
 
-export class AnimationData implements IFigureSetData
+export class AvatarAnimationData implements IFigureSetData
 {
     private _actions: Map<string, AnimationAction>;
 

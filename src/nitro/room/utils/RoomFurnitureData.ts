@@ -2,7 +2,7 @@
 import { Vector3d } from '../../../room/utils/Vector3d';
 import { IObjectData } from '../object/data/IObjectData';
 
-export class FurnitureData
+export class RoomFurnitureData
 {
     private _id: number;
     private _typeId: number;
