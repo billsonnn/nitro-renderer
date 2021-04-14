@@ -7,8 +7,8 @@ import { AvatarActionManager } from './actions/AvatarActionManager';
 import { IActionDefinition } from './actions/IActionDefinition';
 import { IActiveActionData } from './actions/IActiveActionData';
 import { Animation } from './animation/Animation';
-import { AnimationLayerData } from './animation/AnimationLayerData';
 import { AnimationManager } from './animation/AnimationManager';
+import { AvatarAnimationLayerData } from './animation/AvatarAnimationLayerData';
 import { AvatarImagePartContainer } from './AvatarImagePartContainer';
 import { AvatarRenderManager } from './AvatarRenderManager';
 import { AvatarDirectionAngle } from './enum/AvatarDirectionAngle';
@@ -17,8 +17,8 @@ import { IAvatarFigureContainer } from './IAvatarFigureContainer';
 import { IAvatarImage } from './IAvatarImage';
 import { IAvatarRenderManager } from './IAvatarRenderManager';
 import { AnimationAction } from './structure/animation/AnimationAction';
-import { AnimationFrame } from './structure/animation/AnimationFrame';
-import { AnimationData } from './structure/AnimationData';
+import { AvatarAnimationFrame } from './structure/animation/AvatarAnimationFrame';
+import { AvatarAnimationData } from './structure/AvatarAnimationData';
 import { AvatarCanvas } from './structure/AvatarCanvas';
 import { IFigurePartSet } from './structure/figure/IFigurePartSet';
 import { IPartColor } from './structure/figure/IPartColor';
@@ -32,7 +32,7 @@ export class AvatarStructure extends EventDispatcher
     private _geometry: AvatarModelGeometry;
     private _figureData: FigureSetData;
     private _partSetsData: PartSetsData;
-    private _animationData: AnimationData;
+    private _animationData: AvatarAnimationData;
     private _animationManager: AnimationManager;
     private _mandatorySetTypeIds: { [index: string]: { [index: number]: string[] } };
     private _actionManager: AvatarActionManager;
@@ -46,7 +46,7 @@ export class AvatarStructure extends EventDispatcher
         this._geometry              = null;
         this._figureData            = new FigureSetData();
         this._partSetsData          = new PartSetsData();
-        this._animationData         = new AnimationData();
+        this._animationData         = new AvatarAnimationData();
         this._animationManager      = new AnimationManager();
         this._mandatorySetTypeIds   = {};
         this._actionManager         = null;
@@ -168,9 +168,9 @@ export class AvatarStructure extends EventDispatcher
         return _local_6._Str_751(_local_4[_arg_3]);
     }
 
-    public _Str_1881(animation: string, frameCount: number, spriteId: string): AnimationLayerData
+    public _Str_1881(animation: string, frameCount: number, spriteId: string): AvatarAnimationLayerData
     {
-        return this._animationManager._Str_607(animation, frameCount, spriteId) as AnimationLayerData;
+        return this._animationManager._Str_607(animation, frameCount, spriteId) as AvatarAnimationLayerData;
     }
 
     public _Str_720(k: string): Animation
@@ -350,7 +350,7 @@ export class AvatarStructure extends EventDispatcher
         const _local_10: Animation = null;
         let _local_34: IActionDefinition = null;
 
-        let _local_20: AnimationFrame[] = [];
+        let _local_20: AvatarAnimationFrame[] = [];
         let _local_36:IPartColor = null;
 
         if(!_arg_3 == null) return [];

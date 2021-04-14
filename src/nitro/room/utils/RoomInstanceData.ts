@@ -1,7 +1,7 @@
-import { FurnitureData } from './FurnitureData';
 import { FurnitureStackingHeightMap } from './FurnitureStackingHeightMap';
 import { LegacyWallGeometry } from './LegacyWallGeometry';
 import { RoomCamera } from './RoomCamera';
+import { RoomFurnitureData } from './RoomFurnitureData';
 import { SelectedRoomObjectData } from './SelectedRoomObjectData';
 import { TileObjectMap } from './TileObjectMap';
 
@@ -17,8 +17,8 @@ export class RoomInstanceData
     private _placedObject: SelectedRoomObjectData;
     private _furnitureStackingHeightMap: FurnitureStackingHeightMap;
 
-    private _floorStack: Map<number, FurnitureData>;
-    private _wallStack: Map<number, FurnitureData>;
+    private _floorStack: Map<number, RoomFurnitureData>;
+    private _wallStack: Map<number, RoomFurnitureData>;
     private _mouseButtonCursorOwners: string[];
 
     constructor(roomId: number)
@@ -82,7 +82,7 @@ export class RoomInstanceData
         }
     }
 
-    public addPendingFurnitureFloor(data: FurnitureData): void
+    public addPendingFurnitureFloor(data: RoomFurnitureData): void
     {
         if(!data) return;
 
@@ -90,7 +90,7 @@ export class RoomInstanceData
         this._floorStack.set(data.id, data);
     }
 
-    public removePendingFunitureFloor(id: number): FurnitureData
+    public removePendingFunitureFloor(id: number): RoomFurnitureData
     {
         const existing = this._floorStack.get(id);
 
@@ -101,7 +101,7 @@ export class RoomInstanceData
         return existing;
     }
 
-    public getPendingFurnitureFloor(id: number): FurnitureData
+    public getPendingFurnitureFloor(id: number): RoomFurnitureData
     {
         const existing = this._floorStack.get(id);
 
@@ -112,7 +112,7 @@ export class RoomInstanceData
         return existing;
     }
 
-    public getNextPendingFurnitureFloor(): FurnitureData
+    public getNextPendingFurnitureFloor(): RoomFurnitureData
     {
         if(!this._floorStack.size) return null;
 
@@ -121,7 +121,7 @@ export class RoomInstanceData
         return this.getPendingFurnitureFloor(keys.next().value as number);
     }
 
-    public addPendingFurnitureWall(data: FurnitureData): void
+    public addPendingFurnitureWall(data: RoomFurnitureData): void
     {
         if(!data) return;
 
@@ -129,7 +129,7 @@ export class RoomInstanceData
         this._wallStack.set(data.id, data);
     }
 
-    public removePendingFurnitureWall(id: number): FurnitureData
+    public removePendingFurnitureWall(id: number): RoomFurnitureData
     {
         const existing = this._wallStack.get(id);
 
@@ -140,7 +140,7 @@ export class RoomInstanceData
         return existing;
     }
 
-    public getPendingFurnitureWall(id: number): FurnitureData
+    public getPendingFurnitureWall(id: number): RoomFurnitureData
     {
         const existing = this._wallStack.get(id);
 
@@ -151,7 +151,7 @@ export class RoomInstanceData
         return existing;
     }
 
-    public getNextPendingFurnitureWall(): FurnitureData
+    public getNextPendingFurnitureWall(): RoomFurnitureData
     {
         if(!this._wallStack.size) return null;
 

@@ -3,7 +3,7 @@ import { RoomObjectSpriteData } from '../../../room/data/RoomObjectSpriteData';
 import { Nitro } from '../../Nitro';
 import { IActiveActionData } from '../actions/IActiveActionData';
 import { AssetAliasCollection } from '../alias/AssetAliasCollection';
-import { AnimationLayerData } from '../animation/AnimationLayerData';
+import { AvatarAnimationLayerData } from '../animation/AvatarAnimationLayerData';
 import { AvatarImageBodyPartContainer } from '../AvatarImageBodyPartContainer';
 import { AvatarImagePartContainer } from '../AvatarImagePartContainer';
 import { AvatarStructure } from '../AvatarStructure';
@@ -232,7 +232,7 @@ export class AvatarImageCache
                             _local_7 = _local_18.action;
                         }
 
-                        if(_local_18.type === AnimationLayerData.BODYPART)
+                        if(_local_18.type === AvatarAnimationLayerData.BODYPART)
                         {
                             if(_local_18.action != null)
                             {
@@ -241,7 +241,7 @@ export class AvatarImageCache
 
                             _local_5 = _local_15;
                         }
-                        else if(_local_18.type === AnimationLayerData.FX) _local_5 = _local_15;
+                        else if(_local_18.type === AvatarAnimationLayerData.FX) _local_5 = _local_15;
 
                         _local_10 = _local_18.items;
                     }

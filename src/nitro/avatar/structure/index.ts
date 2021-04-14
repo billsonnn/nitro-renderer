@@ -1,5 +1,5 @@
 export * from './animation';
-export * from './AnimationData';
+export * from './AvatarAnimationData';
 export * from './AvatarCanvas';
 export * from './AvatarStructureDownload';
 export * from './figure';

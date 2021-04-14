@@ -99,11 +99,11 @@ import { RoomMessageHandler } from './RoomMessageHandler';
 import { RoomObjectEventHandler } from './RoomObjectEventHandler';
 import { RoomObjectLogicFactory } from './RoomObjectLogicFactory';
 import { RoomVariableEnum } from './RoomVariableEnum';
-import { FurnitureData } from './utils/FurnitureData';
 import { FurnitureStackingHeightMap } from './utils/FurnitureStackingHeightMap';
 import { LegacyWallGeometry } from './utils/LegacyWallGeometry';
 import { RoomCamera } from './utils/RoomCamera';
 import { RoomData } from './utils/RoomData';
+import { RoomFurnitureData } from './utils/RoomFurnitureData';
 import { RoomInstanceData } from './utils/RoomInstanceData';
 import { RoomObjectBadgeImageAssetListener } from './utils/RoomObjectBadgeImageAssetListener';
 import { SelectedRoomObjectData } from './utils/SelectedRoomObjectData';
@@ -941,7 +941,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         {
             if(!instanceData) continue;
 
-            let pendingData: FurnitureData  = null;
+            let pendingData: RoomFurnitureData  = null;
             let totalFurnitureAdded = 0;
             let furnitureAdded     = false;
 
@@ -1012,7 +1012,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         }
     }
 
-    private processPendingFurnitureFloor(roomId: number, id: number, data: FurnitureData): boolean
+    private processPendingFurnitureFloor(roomId: number, id: number, data: RoomFurnitureData): boolean
     {
         if(!data)
         {
@@ -1072,7 +1072,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return true;
     }
 
-    private processPendingFurnitureWall(roomId: number, id: number, data: FurnitureData): boolean
+    private processPendingFurnitureWall(roomId: number, id: number, data: RoomFurnitureData): boolean
     {
         if(!data)
         {
@@ -1912,7 +1912,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(!instanceData) return false;
 
-        const furnitureData = new FurnitureData(id, typeId, null, location, direction, state, objectData, extra, expires, usagePolicy, ownerId, ownerName, synchronized, realRoomObject, sizeZ);
+        const furnitureData = new RoomFurnitureData(id, typeId, null, location, direction, state, objectData, extra, expires, usagePolicy, ownerId, ownerName, synchronized, realRoomObject, sizeZ);
 
         instanceData.addPendingFurnitureFloor(furnitureData);
 
@@ -1925,7 +1925,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(!instanceData) return false;
 
-        const furnitureData = new FurnitureData(id, 0, typeName, location, direction, state, objectData, extra, expires, usagePolicy, ownerId, ownerName, synchronized, realRoomObject, sizeZ);
+        const furnitureData = new RoomFurnitureData(id, 0, typeName, location, direction, state, objectData, extra, expires, usagePolicy, ownerId, ownerName, synchronized, realRoomObject, sizeZ);
 
         instanceData.addPendingFurnitureFloor(furnitureData);
 
@@ -1942,7 +1942,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         objectData.setString(extra);
 
-        const furnitureData = new FurnitureData(id, typeId, null, location, direction, state, objectData, NaN, expires, usagePolicy, ownerId, ownerName, true, realRoomObject);
+        const furnitureData = new RoomFurnitureData(id, typeId, null, location, direction, state, objectData, NaN, expires, usagePolicy, ownerId, ownerName, true, realRoomObject);
 
         instanceData.addPendingFurnitureWall(furnitureData);
 

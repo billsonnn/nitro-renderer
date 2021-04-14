@@ -1,6 +1,6 @@
 ﻿import { AdjustmentFilter } from '@pixi/filter-adjustment';
 import { IActionDefinition } from './actions/IActionDefinition';
-import { AnimationFrame } from './structure/animation/AnimationFrame';
+import { AvatarAnimationFrame } from './structure/animation/AvatarAnimationFrame';
 import { IPartColor } from './structure/figure/IPartColor';
 
 export class AvatarImagePartContainer
@@ -10,14 +10,14 @@ export class AvatarImagePartContainer
     private _flippedPartType: string;
     private _partId: string;
     private _color: IPartColor;
-    private _frames: AnimationFrame[];
+    private _frames: AvatarAnimationFrame[];
     private _action: IActionDefinition;
     private _isColorable: boolean;
     private _isBlendable: boolean;
     private _blendTransform: AdjustmentFilter;
     private _paletteMapId: number;
 
-    constructor(k: string, _arg_2: string, _arg_3: string, _arg_4: IPartColor, _arg_5: AnimationFrame[], _arg_6: IActionDefinition, _arg_7: boolean, _arg_8: number, _arg_9: string = '', _arg_10: boolean = false, _arg_11: number = 1)
+    constructor(k: string, _arg_2: string, _arg_3: string, _arg_4: IPartColor, _arg_5: AvatarAnimationFrame[], _arg_6: IActionDefinition, _arg_7: boolean, _arg_8: number, _arg_9: string = '', _arg_10: boolean = false, _arg_11: number = 1)
     {
         this._bodyPartId        = k;
         this._partType          = _arg_2;
@@ -40,7 +40,7 @@ export class AvatarImagePartContainer
 
         const frameNumber = (k % this._frames.length);
 
-        if(this._frames[frameNumber] instanceof AnimationFrame)
+        if(this._frames[frameNumber] instanceof AvatarAnimationFrame)
         {
             return this._frames[frameNumber].number;
         }
@@ -48,13 +48,13 @@ export class AvatarImagePartContainer
         return frameNumber;
     }
 
-    public _Str_2258(k: number): AnimationFrame
+    public _Str_2258(k: number): AvatarAnimationFrame
     {
         const frameNumber = (k % this._frames.length);
 
         if(this._frames && (this._frames.length > frameNumber))
         {
-            if(this._frames[frameNumber] instanceof AnimationFrame)
+            if(this._frames[frameNumber] instanceof AvatarAnimationFrame)
             {
                 return this._frames[frameNumber];
             }
@@ -69,7 +69,7 @@ export class AvatarImagePartContainer
 
         if(this._frames && (this._frames.length > frameNumber))
         {
-            if(this._frames[frameNumber] instanceof AnimationFrame)
+            if(this._frames[frameNumber] instanceof AvatarAnimationFrame)
             {
                 const frame = this._frames[frameNumber];
 

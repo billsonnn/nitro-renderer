@@ -1,8 +1,8 @@
-import { AnimationFrame } from './AnimationFrame';
+import { AvatarAnimationFrame } from './AvatarAnimationFrame';
 
 export class AnimationActionPart
 {
-    private _frames: AnimationFrame[];
+    private _frames: AvatarAnimationFrame[];
 
     constructor(data: any)
     {
@@ -14,7 +14,7 @@ export class AnimationActionPart
             {
                 if(!frame) continue;
 
-                this._frames.push(new AnimationFrame(frame));
+                this._frames.push(new AvatarAnimationFrame(frame));
 
                 let repeats = frame.repeats || 0;
 
@@ -23,7 +23,7 @@ export class AnimationActionPart
         }
     }
 
-    public get frames(): AnimationFrame[]
+    public get frames(): AvatarAnimationFrame[]
     {
         return this._frames;
     }

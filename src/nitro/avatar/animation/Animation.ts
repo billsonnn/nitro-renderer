@@ -1,7 +1,7 @@
 ﻿import { IAssetAnimation, IAssetAnimationFrame } from '../../../core/asset/interfaces';
 import { AvatarStructure } from '../AvatarStructure';
 import { AddDataContainer } from './AddDataContainer';
-import { AnimationLayerData } from './AnimationLayerData';
+import { AvatarAnimationLayerData } from './AvatarAnimationLayerData';
 import { AvatarDataContainer } from './AvatarDataContainer';
 import { DirectionDataContainer } from './DirectionDataContainer';
 import { IAnimation } from './IAnimation';
@@ -13,14 +13,14 @@ export class Animation implements IAnimation
 
     private _id: string;
     private _description: string;
-    private _frames: AnimationLayerData[][];
+    private _frames: AvatarAnimationLayerData[][];
     private _spriteData: SpriteDataContainer[];
     private _avatarData: AvatarDataContainer;
     private _directionData: DirectionDataContainer;
     private _removeData: string[];
     private _addData: AddDataContainer[];
     private _overriddenActions: Map<string, string>;
-    private _overrideFrames: Map<string, AnimationLayerData[][]>;
+    private _overrideFrames: Map<string, AvatarAnimationLayerData[][]>;
     private _resetOnToggle: boolean;
 
     constructor(k: AvatarStructure, _arg_2: IAssetAnimation)
@@ -74,7 +74,7 @@ export class Animation implements IAnimation
 
                 this._overriddenActions.set(value, name);
 
-                const frames: AnimationLayerData[][] = [];
+                const frames: AvatarAnimationLayerData[][] = [];
 
                 this._Str_1031(frames, override.frames, k);
 
@@ -85,7 +85,7 @@ export class Animation implements IAnimation
         this._Str_1031(this._frames, _arg_2.frames, k);
     }
 
-    private _Str_1031(frames: AnimationLayerData[][], _arg_2: IAssetAnimationFrame[], _arg_3: AvatarStructure): void
+    private _Str_1031(frames: AvatarAnimationLayerData[][], _arg_2: IAssetAnimationFrame[], _arg_3: AvatarStructure): void
     {
         if(!_arg_2 || !_arg_2.length) return;
 
@@ -99,14 +99,14 @@ export class Animation implements IAnimation
 
             while(index < repeats)
             {
-                const layers: AnimationLayerData[] = [];
+                const layers: AvatarAnimationLayerData[] = [];
 
                 if(frame.bodyparts && frame.bodyparts.length)
                 {
                     for(const bodyPart of frame.bodyparts)
                     {
                         const definition    = _arg_3._Str_1675(bodyPart.action);
-                        const layer         = new AnimationLayerData(bodyPart, AnimationLayerData.BODYPART, definition);
+                        const layer         = new AvatarAnimationLayerData(bodyPart, AvatarAnimationLayerData.BODYPART, definition);
 
                         layers.push(layer);
                     }
@@ -117,7 +117,7 @@ export class Animation implements IAnimation
                     for(const fx of frame.fxs)
                     {
                         const definition    = _arg_3._Str_1675(fx.action);
-                        const layer         = new AnimationLayerData(fx, AnimationLayerData.FX, definition);
+                        const layer         = new AvatarAnimationLayerData(fx, AvatarAnimationLayerData.FX, definition);
 
                         layers.push(layer);
                     }
@@ -169,11 +169,11 @@ export class Animation implements IAnimation
         return this._overriddenActions.get(k);
     }
 
-    private _Str_2259(frameCount: number, _arg_2: string = null): AnimationLayerData[]
+    private _Str_2259(frameCount: number, _arg_2: string = null): AvatarAnimationLayerData[]
     {
         if(frameCount < 0) frameCount = 0;
 
-        let layers: AnimationLayerData[] = [];
+        let layers: AvatarAnimationLayerData[] = [];
 
         if(!_arg_2)
         {
@@ -201,12 +201,12 @@ export class Animation implements IAnimation
 
         for(const layer of this._Str_2259(k, _arg_2))
         {
-            if(layer.type === AnimationLayerData.BODYPART)
+            if(layer.type === AvatarAnimationLayerData.BODYPART)
             {
                 _local_3.push(layer.id);
             }
 
-            else if(layer.type === AnimationLayerData.FX)
+            else if(layer.type === AvatarAnimationLayerData.FX)
             {
                 if(this._addData && this._addData.length)
                 {
@@ -221,13 +221,13 @@ export class Animation implements IAnimation
         return _local_3;
     }
 
-    public _Str_607(frameCount: number, spriteId: string, _arg_3: string = null): AnimationLayerData
+    public _Str_607(frameCount: number, spriteId: string, _arg_3: string = null): AvatarAnimationLayerData
     {
         for(const layer of this._Str_2259(frameCount, _arg_3))
         {
             if(layer.id === spriteId) return layer;
 
-            if(layer.type === AnimationLayerData.FX)
+            if(layer.type === AvatarAnimationLayerData.FX)
             {
                 if(this._addData && this._addData.length)
                 {
