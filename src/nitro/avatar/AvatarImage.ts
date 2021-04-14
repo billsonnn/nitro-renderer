@@ -672,20 +672,8 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                 switch(_local_3)
                 {
                     case AvatarAction.POSTURE_LAY:
-                        if(this._mainDirection == 0)
-                        {
-                            this.setDirection(AvatarSetType.FULL, 4);
-                        }
-                        else
-                        {
-                            this.setDirection(AvatarSetType.FULL, 2);
-                        }
-                    // eslint-disable-next-line no-fallthrough
                     case AvatarAction.POSTURE_WALK:
                     case AvatarAction.POSTURE_STAND:
-                        this._useFullImageCache = true;
-                        this._useFullImageCache = true;
-                    // eslint-disable-next-line no-fallthrough
                     case AvatarAction.POSTURE_SWIM:
                     case AvatarAction.POSTURE_FLOAT:
                     case AvatarAction.POSTURE_SIT:
@@ -694,6 +682,24 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                     case AvatarAction.SNOWWAR_DIE_BACK:
                     case AvatarAction.SNOWWAR_PICK:
                     case AvatarAction.SNOWWAR_THROW:
+                        if((_local_3 === AvatarAction.POSTURE_LAY) || (_local_3 === AvatarAction.POSTURE_LAY) || (_local_3 === AvatarAction.POSTURE_LAY))
+                        {
+                            if(_local_3 === AvatarAction.POSTURE_LAY)
+                            {
+                                if(this._mainDirection == 0)
+                                {
+                                    this.setDirection(AvatarSetType.FULL, 4);
+                                }
+                                else
+                                {
+                                    this.setDirection(AvatarSetType.FULL, 2);
+                                }
+                            }
+
+                            this._useFullImageCache = true;
+                            this._useFullImageCache = true;
+                        }
+
                         this.addActionData(_local_3);
                         break;
                 }
@@ -710,11 +716,6 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                 }
                 break;
             case AvatarAction.EFFECT:
-                if((((((_local_3 === '33') || (_local_3 === '34')) || (_local_3 === '35')) || (_local_3 === '36')) || (_local_3 === '38')) || (_local_3 === '39'))
-                {
-                    this._useFullImageCache = true;
-                }
-            // eslint-disable-next-line no-fallthrough
             case AvatarAction.DANCE:
             case AvatarAction.TALK:
             case AvatarAction.EXPRESSION_WAVE:
@@ -728,6 +729,14 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             case AvatarAction.EXPRESSION_SNOWBOARD_OLLIE:
             case AvatarAction.EXPRESSION_SNOWBORD_360:
             case AvatarAction.EXPRESSION_RIDE_JUMP:
+                if(_local_3 === AvatarAction.EFFECT)
+                {
+                    if((((((_local_3 === '33') || (_local_3 === '34')) || (_local_3 === '35')) || (_local_3 === '36')) || (_local_3 === '38')) || (_local_3 === '39'))
+                    {
+                        this._useFullImageCache = true;
+                    }
+                }
+
                 this.addActionData(k, _local_3);
                 break;
             case AvatarAction.CARRY_OBJECT:

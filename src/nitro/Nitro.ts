@@ -83,7 +83,7 @@ export class Nitro extends Application implements INitro
         if(!Nitro.INSTANCE) Nitro.INSTANCE = this;
 
         this._nitroTimer                = new NitroTimer();
-        this._worker                    = new Worker('../nitro-worker.worker', { type: 'module' });
+        this._worker                    = null;
         this._core                      = core;
         this._events                    = new EventDispatcher();
         this._localization              = new NitroLocalizationManager();
@@ -102,7 +102,7 @@ export class Nitro extends Application implements INitro
         this._core.configuration.events.addEventListener(ConfigurationEvent.LOADED, this.onConfigurationLoadedEvent.bind(this));
         this._roomEngine.events.addEventListener(RoomEngineEvent.ENGINE_INITIALIZED, this.onRoomEngineReady.bind(this));
 
-        this._worker.onmessage = this.createWorkerEvent.bind(this);
+        if(this._worker) this._worker.onmessage = this.createWorkerEvent.bind(this);
     }
 
     public static bootstrap(): void
