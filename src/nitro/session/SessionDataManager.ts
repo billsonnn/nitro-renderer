@@ -22,14 +22,14 @@ import { BadgeImageManager } from './BadgeImageManager';
 import { SecurityLevel } from './enum/SecurityLevel';
 import { SessionDataPreferencesEvent } from './events/SessionDataPreferencesEvent';
 import { UserNameUpdateEvent } from './events/UserNameUpdateEvent';
-import { FurnitureDataParser } from './furniture/FurnitureDataParser';
+import { FurnitureDataLoader } from './furniture/FurnitureDataLoader';
 import { IFurnitureData } from './furniture/IFurnitureData';
 import { IFurnitureDataListener } from './furniture/IFurnitureDataListener';
 import { IgnoredUsersManager } from './IgnoredUsersManager';
 import { ISessionDataManager } from './ISessionDataManager';
 import { IProductData } from './product/IProductData';
 import { IProductDataListener } from './product/IProductDataListener';
-import { ProductDataParser } from './product/ProductDataParser';
+import { ProductDataLoader } from './product/ProductDataLoader';
 
 export class SessionDataManager extends NitroManager implements ISessionDataManager
 {
@@ -61,8 +61,8 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     private _floorItems: Map<number, IFurnitureData>;
     private _wallItems: Map<number, IFurnitureData>;
     private _products: Map<string, IProductData>;
-    private _furnitureData: FurnitureDataParser;
-    private _productData: ProductDataParser;
+    private _furnitureData: FurnitureDataLoader;
+    private _productData: ProductDataLoader;
 
     private _furnitureReady: boolean;
     private _productsReady: boolean;
@@ -161,9 +161,9 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     {
         this.destroyFurnitureData();
 
-        this._furnitureData = new FurnitureDataParser(this._floorItems, this._wallItems, Nitro.instance.localization);
+        this._furnitureData = new FurnitureDataLoader(this._floorItems, this._wallItems, Nitro.instance.localization);
 
-        this._furnitureData.addEventListener(FurnitureDataParser.FURNITURE_DATA_READY, this.onFurnitureDataReadyEvent);
+        this._furnitureData.addEventListener(FurnitureDataLoader.FURNITURE_DATA_READY, this.onFurnitureDataReadyEvent);
 
         this._furnitureData.loadFurnitureData(Nitro.instance.getConfiguration<string>('furnidata.url'));
     }
@@ -172,9 +172,9 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     {
         this.destroyProductData();
 
-        this._productData = new ProductDataParser(this._products);
+        this._productData = new ProductDataLoader(this._products);
 
-        this._productData.addEventListener(ProductDataParser.PDP_PRODUCT_DATA_READY, this.onProductDataReadyEvent);
+        this._productData.addEventListener(ProductDataLoader.PDP_PRODUCT_DATA_READY, this.onProductDataReadyEvent);
 
         this._productData.loadProductData(Nitro.instance.getConfiguration<string>('productdata.url'));
     }
@@ -335,7 +335,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     private onFurnitureDataReadyEvent(event: NitroEvent): void
     {
-        this._furnitureData.removeEventListener(FurnitureDataParser.FURNITURE_DATA_READY, this.onFurnitureDataReadyEvent);
+        this._furnitureData.removeEventListener(FurnitureDataLoader.FURNITURE_DATA_READY, this.onFurnitureDataReadyEvent);
 
         this._furnitureReady = true;
 
@@ -354,7 +354,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     private onProductDataReadyEvent(event: NitroEvent): void
     {
-        this._productData.removeEventListener(ProductDataParser.PDP_PRODUCT_DATA_READY, this.onProductDataReadyEvent);
+        this._productData.removeEventListener(ProductDataLoader.PDP_PRODUCT_DATA_READY, this.onProductDataReadyEvent);
 
         this._productsReady = true;
 

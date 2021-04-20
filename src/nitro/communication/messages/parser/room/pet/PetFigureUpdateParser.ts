@@ -1,12 +1,12 @@
 import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
-import { PetFigureData } from '../../inventory/pets/PetFigureData';
+import { PetFigureDataParser } from '../../inventory/pets/PetFigureDataParser';
 
 export class PetFigureUpdateParser implements IMessageParser
 {
     private _roomIndex: number;
     private _petId: number;
-    private _figureData: PetFigureData;
+    private _figureData: PetFigureDataParser;
     private _hasSaddle: boolean;
     private _isRiding: boolean;
 
@@ -21,7 +21,7 @@ export class PetFigureUpdateParser implements IMessageParser
 
         this._roomIndex     = wrapper.readInt();
         this._petId         = wrapper.readInt();
-        this._figureData    = new PetFigureData(wrapper);
+        this._figureData    = new PetFigureDataParser(wrapper);
         this._hasSaddle     = wrapper.readBoolean();
         this._isRiding      = wrapper.readBoolean();
 
@@ -38,7 +38,7 @@ export class PetFigureUpdateParser implements IMessageParser
         return this._petId;
     }
 
-    public get figureData(): PetFigureData
+    public get figureData(): PetFigureDataParser
     {
         return this._figureData;
     }

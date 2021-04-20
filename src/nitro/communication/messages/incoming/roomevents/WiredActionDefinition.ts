@@ -1,7 +1,7 @@
 ﻿import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
 import { Triggerable } from './Triggerable';
 
-export class ActionDefinition extends Triggerable
+export class WiredActionDefinition extends Triggerable
 {
     private _type: number;
     private _delayInPulses: number;

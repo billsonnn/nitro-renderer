@@ -11,3 +11,5 @@ export * from './navigator';
 export * from './OutgoingHeader';
 export * from './pet';
 export * from './room';
+export * from './roomevents';
+export * from './user';

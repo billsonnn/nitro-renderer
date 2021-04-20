@@ -3,7 +3,7 @@ import { NitroEvent } from '../../../core/events/NitroEvent';
 import { IProductData } from './IProductData';
 import { ProductData } from './ProductData';
 
-export class ProductDataParser extends EventDispatcher
+export class ProductDataLoader extends EventDispatcher
 {
     public static PDP_PRODUCT_DATA_READY: string = 'PDP_PRODUCT_DATA_READY';
     public static PDP_PRODUCT_DATA_FAILED: string = 'PDP_PRODUCT_DATA_FAILED';
@@ -38,14 +38,14 @@ export class ProductDataParser extends EventDispatcher
 
         this.parseProducts(data.productdata);
 
-        this.dispatchEvent(new NitroEvent(ProductDataParser.PDP_PRODUCT_DATA_READY));
+        this.dispatchEvent(new NitroEvent(ProductDataLoader.PDP_PRODUCT_DATA_READY));
     }
 
     private onProductDataError(error: Error): void
     {
         if(!error) return;
 
-        this.dispatchEvent(new NitroEvent(ProductDataParser.PDP_PRODUCT_DATA_FAILED));
+        this.dispatchEvent(new NitroEvent(ProductDataLoader.PDP_PRODUCT_DATA_FAILED));
     }
 
     private parseProducts(data: { [index: string]: any }): void

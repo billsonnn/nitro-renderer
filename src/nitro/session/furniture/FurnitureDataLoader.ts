@@ -1,12 +1,12 @@
+import { NitroLogger } from '../../../core/common/logger/NitroLogger';
 import { EventDispatcher } from '../../../core/events/EventDispatcher';
 import { NitroEvent } from '../../../core/events/NitroEvent';
 import { INitroLocalizationManager } from '../../localization/INitroLocalizationManager';
 import { FurnitureData } from './FurnitureData';
 import { FurnitureType } from './FurnitureType';
 import { IFurnitureData } from './IFurnitureData';
-import { NitroLogger } from '../../../core/common/logger/NitroLogger';
 
-export class FurnitureDataParser extends EventDispatcher
+export class FurnitureDataLoader extends EventDispatcher
 {
     public static FURNITURE_DATA_READY: string = 'FDP_FURNITURE_DATA_READY';
     public static FURNITURE_DATA_ERROR: string = 'FDP_FURNITURE_DATA_ERROR';
@@ -47,7 +47,7 @@ export class FurnitureDataParser extends EventDispatcher
 
         if(data.wallitemtypes) this.parseWallItems(data.wallitemtypes);
 
-        this.dispatchEvent(new NitroEvent(FurnitureDataParser.FURNITURE_DATA_READY));
+        this.dispatchEvent(new NitroEvent(FurnitureDataLoader.FURNITURE_DATA_READY));
     }
 
     private onFurnitureDataError(error: Error): void
@@ -56,7 +56,7 @@ export class FurnitureDataParser extends EventDispatcher
 
         console.error(error);
 
-        this.dispatchEvent(new NitroEvent(FurnitureDataParser.FURNITURE_DATA_ERROR));
+        this.dispatchEvent(new NitroEvent(FurnitureDataLoader.FURNITURE_DATA_ERROR));
     }
 
     private parseFloorItems(data: any): void

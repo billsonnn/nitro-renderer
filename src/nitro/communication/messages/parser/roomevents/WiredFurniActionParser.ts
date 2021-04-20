@@ -1,10 +1,10 @@
 import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
-import { ActionDefinition } from '../../incoming/roomevents/ActionDefinition';
+import { WiredActionDefinition } from '../../incoming/roomevents/WiredActionDefinition';
 
 export class WiredFurniActionParser implements IMessageParser
 {
-    private _definition: ActionDefinition;
+    private _definition: WiredActionDefinition;
 
     public flush(): boolean
     {
@@ -17,12 +17,12 @@ export class WiredFurniActionParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._definition = new ActionDefinition(wrapper);
+        this._definition = new WiredActionDefinition(wrapper);
 
         return true;
     }
 
-    public get definition(): ActionDefinition
+    public get definition(): WiredActionDefinition
     {
         return this._definition;
     }

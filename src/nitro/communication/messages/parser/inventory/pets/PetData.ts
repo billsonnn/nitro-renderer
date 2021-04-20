@@ -1,11 +1,11 @@
 ﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
-import { PetFigureData } from './PetFigureData';
+import { PetFigureDataParser } from './PetFigureDataParser';
 
 export class PetData
 {
     private _id: number;
     private _name: string;
-    private _figureData: PetFigureData;
+    private _figureData: PetFigureDataParser;
     private _level: number;
 
     constructor(wrapper: IMessageDataWrapper)
@@ -14,7 +14,7 @@ export class PetData
 
         this._id            = wrapper.readInt();
         this._name          = wrapper.readString();
-        this._figureData    = new PetFigureData(wrapper);
+        this._figureData    = new PetFigureDataParser(wrapper);
         this._level         = wrapper.readInt();
     }
 
@@ -58,7 +58,7 @@ export class PetData
         return this._figureData.figuredata;
     }
 
-    public get figureData():PetFigureData
+    public get figureData():PetFigureDataParser
     {
         return this._figureData;
     }

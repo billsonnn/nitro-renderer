@@ -149,9 +149,12 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
     {
         let value = this.getValue(key, false);
 
-        for(let i = 0; i < parameters.length; i++)
+        if(parameters)
         {
-            value = value.replace('%' + parameters[i] + '%', replacements[i]);
+            for(let i = 0; i < parameters.length; i++)
+            {
+                value = value.replace('%' + parameters[i] + '%', replacements[i]);
+            }
         }
 
         return value;
