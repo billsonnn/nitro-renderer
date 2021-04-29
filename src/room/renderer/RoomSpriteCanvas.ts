@@ -1080,4 +1080,9 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         return this._canvasUpdated;
     }
+
+    public set canvasUpdated(flag: boolean)
+    {
+        this._canvasUpdated = flag;
+    }
 }

@@ -1,4 +1,4 @@
-import { Rectangle, RenderTexture, Texture } from 'pixi.js';
+import { Rectangle, RenderTexture } from 'pixi.js';
 import { IRoomGeometry } from '../../utils/IRoomGeometry';
 import { IRoomObject } from '../IRoomObject';
 import { IObjectVisualizationData } from './IRoomObjectVisualizationData';
@@ -12,6 +12,6 @@ export interface IRoomObjectVisualization
     getImage(bgColor: number, originalId: number): RenderTexture;
     instanceId: number;
     object: IRoomObject;
-    image: Texture;
+    image: RenderTexture;
     updateSpriteCounter: number;
 }

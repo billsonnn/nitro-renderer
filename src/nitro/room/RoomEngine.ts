@@ -1,4 +1,4 @@
-import { Container, DisplayObject, Matrix, Point, Rectangle, Sprite, Texture } from 'pixi.js';
+import { Container, DisplayObject, Matrix, Point, Rectangle, RenderTexture, Sprite, Texture } from 'pixi.js';
 import { IDisposable } from '../../core/common/disposable/IDisposable';
 import { IUpdateReceiver } from '../../core/common/IUpdateReceiver';
 import { NitroLogger } from '../../core/common/logger/NitroLogger';
@@ -2972,12 +2972,12 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return this.getGenericRoomObjectImage(type, color, direction, scale, listener, bgColor, extras, null, state, frameCount);
     }
 
-    public getRoomObjectPetImage(typeId: number, paletteId: number, color: number, direction: IVector3D, scale: number, listener: IGetImageListener, _arg_7: boolean = true, bgColor: number = 0, customParts: PetCustomPart[] = null, posture: string = null): ImageResult
+    public getRoomObjectPetImage(typeId: number, paletteId: number, color: number, direction: IVector3D, scale: number, listener: IGetImageListener, headOnly: boolean = false, bgColor: number = 0, customParts: PetCustomPart[] = null, posture: string = null): ImageResult
     {
         let type: string = null;
         let value = ((((typeId + ' ') + paletteId) + ' ') + color.toString(16));
 
-        if(!_arg_7) value = (value + (' ' + 'head'));
+        if(headOnly) value = (value + (' ' + 'head'));
 
         if(customParts)
         {
@@ -3219,7 +3219,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                     const objectId      = roomObject.id;
                     const visualization = roomObject.visualization;
 
-                    let texture: Texture = null;
+                    let texture: RenderTexture = null;
 
                     if(visualization)
                     {

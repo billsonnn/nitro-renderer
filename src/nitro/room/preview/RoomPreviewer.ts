@@ -775,7 +775,7 @@ export class RoomPreviewer
         return renderingCanvas;
     }
 
-    public getGenericRoomObjectImage(type: string, value: string, direction: IVector3D, scale: number, listener:IGetImageListener, bgColor: number = 0, extras: string = null, objectData: IObjectData = null, state: number = -1, frame: number = -1, posture: string = null): ImageResult
+    public getGenericRoomObjectImage(type: string, value: string, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor: number = 0, extras: string = null, objectData: IObjectData = null, state: number = -1, frame: number = -1, posture: string = null): ImageResult
     {
         if(this.isRoomEngineReady)
         {
