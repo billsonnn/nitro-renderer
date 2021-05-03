@@ -758,7 +758,12 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
             }
             else
             {
-                if(typingAddition) this.removeAddition(AvatarVisualization.TYPING_BUBBLE_ID);
+                if(typingAddition)
+                {
+                    this.removeAddition(AvatarVisualization.TYPING_BUBBLE_ID);
+
+                    needsUpdate = true;
+                }
             }
         }
 
