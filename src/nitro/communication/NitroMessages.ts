@@ -142,6 +142,7 @@ import { FurnitureWallAddEvent } from './messages/incoming/room/furniture/wall/F
 import { FurnitureWallEvent } from './messages/incoming/room/furniture/wall/FurnitureWallEvent';
 import { FurnitureWallRemoveEvent } from './messages/incoming/room/furniture/wall/FurnitureWallRemoveEvent';
 import { FurnitureWallUpdateEvent } from './messages/incoming/room/furniture/wall/FurnitureWallUpdateEvent';
+import { RoomBlockedTilesEvent } from './messages/incoming/room/mapping/RoomBlockedTilesEvent';
 import { RoomDoorEvent } from './messages/incoming/room/mapping/RoomDoorEvent';
 import { RoomHeightMapEvent } from './messages/incoming/room/mapping/RoomHeightMapEvent';
 import { RoomHeightMapUpdateEvent } from './messages/incoming/room/mapping/RoomHeightMapUpdateEvent';
@@ -338,7 +339,10 @@ import { FurnitureMannequinSaveNameComposer } from './messages/outgoing/room/fur
 import { OpenPresentComposer } from './messages/outgoing/room/furniture/presents/OpenPresentComposer';
 import { ApplyTonerComposer } from './messages/outgoing/room/furniture/toner/ApplyTonerComposer';
 import { FurnitureWallUpdateComposer } from './messages/outgoing/room/furniture/wall/FurnitureWallUpdateComposer';
+import { RoomBlockedTilesComposer } from './messages/outgoing/room/mapping/RoomBlockedTilesComposer';
+import { RoomDoorSettingsComposer } from './messages/outgoing/room/mapping/RoomDoorSettingsComposer';
 import { RoomModelComposer } from './messages/outgoing/room/mapping/RoomModelComposer';
+import { RoomModelSaveComposer } from './messages/outgoing/room/mapping/RoomModelSaveComposer';
 import { RoomCreateComposer } from './messages/outgoing/room/RoomCreateComposer';
 import { RoomUnitChatComposer } from './messages/outgoing/room/unit/chat/RoomUnitChatComposer';
 import { RoomUnitChatShoutComposer } from './messages/outgoing/room/unit/chat/RoomUnitChatShoutComposer';
@@ -380,6 +384,23 @@ import { UserRespectComposer } from './messages/outgoing/user/UserRespectCompose
 import { UserWardrobePageComposer } from './messages/outgoing/user/wardrobe/UserWardrobePageComposer';
 import { UserWardrobeSaveComposer } from './messages/outgoing/user/wardrobe/UserWardrobeSaveComposer';
 import { MiniMailUnreadCountParser } from './messages/parser/friendlist/MiniMailUnreadCountParser';
+import { RequestSellItemComposer } from './messages/outgoing/inventory/marketplace/RequestSellItemComposer';
+import { MarketplaceSellItemEvent } from './messages/incoming/inventory/marketplace/MarketplaceSellItemEvent';
+import { MarketplaceConfigEvent } from './messages/incoming/catalog/MarketplaceConfigEvent';
+import { MarketplaceItemStatsEvent } from './messages/incoming/catalog/MarketplaceItemStatsEvent';
+import { MarketplaceSellItemComposer } from './messages/outgoing/inventory/marketplace/MarketplaceSellItemComposer';
+import { MarketplaceRequesstItemStatsComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequesstItemStatsComposer';
+import { MarketplaceRequestComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequestComposer';
+import { MarketplaceRequestOwnItemsComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequestOwnItemsComposer';
+import { MarketplaceOwnItemsEvent } from './messages/incoming/catalog/marketplace/MarketplaceOwnItemsEvent';
+import { MarketplaceTakeItemBackComposer } from './messages/outgoing/catalog/marketplace/MarketplaceTakeItemBackComposer';
+import { MarketplaceCancelItemEvent } from './messages/incoming/catalog/marketplace/MarketplaceCancelItemEvent';
+import { MarketplaceRedeemCreditsComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRedeemCreditsComposer';
+import { MarketplaceItemPostedEvent } from './messages/incoming/inventory/marketplace/MarketplaceItemPostedEvent';
+import { MarketplaceRequestOffersComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequestOffersComposer';
+import { MarketplaceOffersReceivedEvent } from './messages/incoming/catalog/marketplace/MarketplaceOffersReceivedEvent';
+import { MarketplaceBuyOfferComposer } from './messages/outgoing/catalog/marketplace/MarketplaceBuyOfferComposer';
+import { MarketplaceAfterOrderStatusEvent } from './messages/incoming/catalog/marketplace/MarketplaceAfterOrderStatusEvent';
 
 export class NitroMessages implements IMessageConfiguration
 {
@@ -589,6 +610,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.ROOM_MODEL_NAME, RoomModelNameEvent);
         this._events.set(IncomingHeader.ROOM_PAINT, RoomPaintEvent);
         this._events.set(IncomingHeader.ROOM_THICKNESS, RoomThicknessEvent);
+        this._events.set(IncomingHeader.ROOM_MODEL_BLOCKED_TILES, RoomBlockedTilesEvent);
 
         // PET
         this._events.set(IncomingHeader.PET_FIGURE_UPDATE, PetFigureUpdateEvent);
@@ -688,6 +710,16 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.MODERATION_TOPICS, ModtoolCallForHelpTopicsEvent);
         this._events.set(IncomingHeader.MODERATION_TOOL, ModtoolMainEvent);
         this._events.set(IncomingHeader.MODTOOL_VISITED_ROOMS_USER, ModtoolReceivedRoomsUserEvent);
+
+        // MARKETPLACE
+        this._events.set(IncomingHeader.MARKETPLACE_SELL_ITEM, MarketplaceSellItemEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_CONFIG, MarketplaceConfigEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_ITEM_STATS, MarketplaceItemStatsEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_OWN_ITEMS, MarketplaceOwnItemsEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_CANCEL_SALE, MarketplaceCancelItemEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_ITEM_POSTED, MarketplaceItemPostedEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_ITEMS_SEARCHED, MarketplaceOffersReceivedEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_AFTER_ORDER_STATUS, MarketplaceAfterOrderStatusEvent);
     }
 
     private registerComposers(): void
@@ -766,6 +798,11 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.CONVERT_GLOBAL_ROOM_ID, ConvertGlobalRoomIdMessageComposer);
 
         // INVENTORY
+
+        // MARKETPLACE
+        this._composers.set(OutgoingHeader.REQUEST_SELL_ITEM, RequestSellItemComposer);
+        this._composers.set(OutgoingHeader.REQUEST_MARKETPLACE_ITEM_STATS, MarketplaceRequesstItemStatsComposer);
+        this._composers.set(OutgoingHeader.MARKETPLACE_REDEEM_CREDITS, MarketplaceRedeemCreditsComposer);
 
         // FURNI
         this._composers.set(OutgoingHeader.USER_FURNITURE, FurnitureListComposer);
@@ -866,6 +903,9 @@ export class NitroMessages implements IMessageConfiguration
 
         // MAPPING
         this._composers.set(OutgoingHeader.ROOM_MODEL, RoomModelComposer);
+        this._composers.set(OutgoingHeader.ROOM_MODEL_BLOCKED_TILES, RoomBlockedTilesComposer);
+        this._composers.set(OutgoingHeader.ROOM_MODEL_DOOR, RoomDoorSettingsComposer);
+        this._composers.set(OutgoingHeader.ROOM_MODEL_SAVE, RoomModelSaveComposer);
 
         // UNIT
         this._composers.set(OutgoingHeader.UNIT_ACTION, RoomUnitActionComposer);
@@ -916,6 +956,14 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.PRESENT_OPEN_PRESENT, OpenPresentComposer);
 
         // INVENTORY
+
+        // MARKETPLACE
+        this._composers.set(OutgoingHeader.MARKETPLACE_CONFIG, MarketplaceRequestComposer);
+        this._composers.set(OutgoingHeader.MARKETPLACE_SELL_ITEM, MarketplaceSellItemComposer);
+        this._composers.set(OutgoingHeader.MARKETPLACE_REQUEST_OWN_ITEMS, MarketplaceRequestOwnItemsComposer);
+        this._composers.set(OutgoingHeader.MARKETPLACE_TAKE_BACK_ITEM, MarketplaceTakeItemBackComposer);
+        this._composers.set(OutgoingHeader.MARKETPLACE_REQUEST_OFFERS, MarketplaceRequestOffersComposer);
+        this._composers.set(OutgoingHeader.MARKETPLACE_BUY_OFFER, MarketplaceBuyOfferComposer);
 
         // BOTS
         this._composers.set(OutgoingHeader.USER_BOTS, GetBotInventoryComposer);

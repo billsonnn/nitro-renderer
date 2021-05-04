@@ -14,4 +14,7 @@ export * from './CatalogRedeemVoucherOkParser';
 export * from './CatalogSearchParser';
 export * from './CatalogSoldOutParser';
 export * from './CatalogUpdatedParser';
+export * from './marketplace';
+export * from './MarketplaceConfigParser';
+export * from './MarketplaceItemStatsParser';
 export * from './utils';

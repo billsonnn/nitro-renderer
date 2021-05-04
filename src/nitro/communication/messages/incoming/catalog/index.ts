@@ -14,3 +14,6 @@ export * from './CatalogRedeemVoucherOkEvent';
 export * from './CatalogSearchEvent';
 export * from './CatalogSoldOutEvent';
 export * from './CatalogUpdatedEvent';
+export * from './marketplace';
+export * from './MarketplaceConfigEvent';
+export * from './MarketplaceItemStatsEvent';

@@ -1,3 +1,4 @@
+export * from './RoomBlockedTilesParser';
 export * from './RoomDoorParser';
 export * from './RoomHeightMapParser';
 export * from './RoomHeightMapUpdateParser';

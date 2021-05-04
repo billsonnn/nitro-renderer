@@ -16,7 +16,6 @@ export class FurnitureDataLoader extends EventDispatcher
     private _localization: INitroLocalizationManager;
     private _nitroLogger: NitroLogger;
 
-
     constructor(floorItems: Map<number, IFurnitureData>, wallItems: Map<number, IFurnitureData>, localization: INitroLocalizationManager)
     {
         super();

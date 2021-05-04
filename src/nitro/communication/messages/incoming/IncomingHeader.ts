@@ -238,4 +238,11 @@ export class IncomingHeader
     public static HAND_ITEM_RECEIVED               = 354;
     public static PET_PLACING_ERROR                = 2913;
     public static BOT_ERROR                        = 639;
+    public static MARKETPLACE_SELL_ITEM            = 54;
+    public static MARKETPLACE_ITEM_STATS           = 725;
+    public static MARKETPLACE_OWN_ITEMS            = 3884;
+    public static MARKETPLACE_CANCEL_SALE          = 3264;
+    public static MARKETPLACE_ITEM_POSTED          = 1359;
+    public static MARKETPLACE_ITEMS_SEARCHED       = 680;
+    public static MARKETPLACE_AFTER_ORDER_STATUS   = 2032;
 }

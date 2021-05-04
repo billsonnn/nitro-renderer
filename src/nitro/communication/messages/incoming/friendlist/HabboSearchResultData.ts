@@ -21,9 +21,11 @@ export class HabboSearchResultData
         this._avatarMotto       = wrapper.readString();
         this._isAvatarOnline    = wrapper.readBoolean();
         this._canFollow         = wrapper.readBoolean();
+
+        this._lastOnlineData    = wrapper.readString(); // this was not assigned to anything on original packet
+
         this._avatarGender      = wrapper.readInt();
         this._avatarFigure      = wrapper.readString();
-        this._lastOnlineData    = wrapper.readString();
         this._realName          = wrapper.readString();
     }
 

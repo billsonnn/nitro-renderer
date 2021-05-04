@@ -1,3 +1,4 @@
+export * from './RoomBlockedTilesEvent';
 export * from './RoomDoorEvent';
 export * from './RoomHeightMapEvent';
 export * from './RoomHeightMapUpdateEvent';
