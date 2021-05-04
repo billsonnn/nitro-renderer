@@ -118,4 +118,14 @@ export class HighScoreDataType extends ObjectDataBase implements IObjectData
     {
         return this._entries;
     }
+
+    public get clearType(): number
+    {
+        return this._clearType;
+    }
+
+    public get scoreType(): number
+    {
+        return this._scoreType;
+    }
 }
