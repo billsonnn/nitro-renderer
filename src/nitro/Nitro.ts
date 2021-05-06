@@ -335,6 +335,12 @@ export class Nitro extends Application implements INitro
         HabboWebTools.sendHeartBeat();
     }
 
+    public setWorker(val: Worker): void
+    {
+        this._worker = val;
+        this._worker.onmessage = this.createWorkerEvent.bind(this);
+    }
+
     public get nitroTimer(): NitroTimer
     {
         return this._nitroTimer;
