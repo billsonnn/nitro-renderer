@@ -2750,7 +2750,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
     {
         if(!this._roomContentLoader || (id === -1)) return;
 
-        this._thumbnailObjectIdBank._Str_15187((id - 1));
+        this._thumbnailObjectIdBank.freeNumber((id - 1));
 
         const listeners = this._thumbnailCallbacks.get(assetName);
 
@@ -3013,7 +3013,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
             if(!roomInstance) return imageResult;
         }
 
-        let objectId        = this._imageObjectIdBank._Str_19709();
+        let objectId        = this._imageObjectIdBank.reserveNumber();
         const objectCategory  = this.getRoomObjectCategoryForType(type);
 
         if(objectId < 0) return imageResult;
@@ -3124,7 +3124,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         {
             roomInstance.removeRoomObject(objectId, objectCategory);
 
-            this._imageObjectIdBank._Str_15187((objectId - 1));
+            this._imageObjectIdBank.freeNumber((objectId - 1));
 
             imageResult.id = 0;
         }
@@ -3153,7 +3153,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
             if(!roomInstance) return imageResult;
         }
 
-        let objectId        = this._thumbnailObjectIdBank._Str_19709();
+        let objectId        = this._thumbnailObjectIdBank.reserveNumber();
         const objectCategory  = this.getRoomObjectCategoryForType(type);
 
         if(objectId < 0) return imageResult;
@@ -3190,7 +3190,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                 imageResult.image = asset;
             }
 
-            this._thumbnailObjectIdBank._Str_15187((objectId - 1));
+            this._thumbnailObjectIdBank.freeNumber((objectId - 1));
 
             imageResult.id = 0;
         }
@@ -3246,7 +3246,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
                     roomInstance.removeRoomObject(objectId, objectCategory);
 
-                    this._imageObjectIdBank._Str_15187((objectId - 1));
+                    this._imageObjectIdBank.freeNumber((objectId - 1));
 
                     const imageListeners = this._imageCallbacks.get(objectId.toString());
 

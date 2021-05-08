@@ -26,7 +26,7 @@
         this._freeNumbers       = null;
     }
 
-    public _Str_19709(): number
+    public reserveNumber(): number
     {
         if(this._freeNumbers.length > 0)
         {
@@ -40,7 +40,7 @@
         return -1;
     }
 
-    public _Str_15187(k: number): void
+    public freeNumber(k: number): void
     {
         const i = this._reservedNumbers.indexOf(k);
 
