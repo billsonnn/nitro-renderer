@@ -61,7 +61,7 @@ export class Rasterizer
     //     k.unlock();
     // }
 
-    public static _Str_16640(k: Texture): Texture
+    public static getFlipHBitmapData(k: Texture): Texture
     {
         if(!k) return null;
 
@@ -83,7 +83,7 @@ export class Rasterizer
         return TextureUtils.generateTexture(graphic);
     }
 
-    public static _Str_20706(k: Texture): Texture
+    public static getFlipVBitmapData(k: Texture): Texture
     {
         if(!k) return null;
 
@@ -105,7 +105,7 @@ export class Rasterizer
         return TextureUtils.generateTexture(graphic);
     }
 
-    public static _Str_20356(k: Texture): Texture
+    public static getFlipHVBitmapData(k: Texture): Texture
     {
         if(!k) return null;
 

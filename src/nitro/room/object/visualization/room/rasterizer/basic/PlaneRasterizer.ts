@@ -256,7 +256,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
                                     if(asset.flipH)
                                     {
-                                        newTexture = Rasterizer._Str_16640(texture);
+                                        newTexture = Rasterizer.getFlipHBitmapData(texture);
                                     }
 
                                     plane._Str_16790(newTexture, normalMinX, normalMaxX, normalMinY, normalMaxY, assetName);
