@@ -147,7 +147,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         }
     }
 
-    public _Str_20330(event: RoomSpriteMouseEvent, object: IRoomObject, geometry: IRoomGeometry): void
+    public processRoomCanvasMouseEvent(event: RoomSpriteMouseEvent, object: IRoomObject, geometry: IRoomGeometry): void
     {
         if(!event || !object) return;
 
