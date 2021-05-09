@@ -67,7 +67,7 @@ export class RoomObjectCache
         {
             if(!item) continue;
 
-            const sprites = item.sprites && item.sprites._Str_9272;
+            const sprites = item.sprites && item.sprites.sprites;
 
             if(!sprites || !sprites.length) continue;
 
@@ -137,7 +137,7 @@ export class RoomObjectCache
 
         for(const item of this._data.values())
         {
-            for(const sprite of item.sprites._Str_9272)
+            for(const sprite of item.sprites.sprites)
             {
                 if(sprite.sprite.spriteType === RoomObjectSpriteType._Str_8616) sprites.push(sprite);
             }

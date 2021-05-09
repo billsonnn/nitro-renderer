@@ -447,7 +447,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if(locationCache.locationChanged) update = true;
 
-        if(!sortableCache._Str_17574(visualization.instanceId, visualization.updateSpriteCounter) && !update)
+        if(!sortableCache.needsUpdate(visualization.instanceId, visualization.updateSpriteCounter) && !update)
         {
             return sortableCache.spriteCount;
         }
@@ -495,7 +495,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
                 if(!this.isSpriteVisible(spriteX, spriteY, texture.width, texture.height)) continue;
             }
 
-            let sortableSprite = sortableCache._Str_2505(spriteCount);
+            let sortableSprite = sortableCache.getSprite(spriteCount);
 
             if(!sortableSprite)
             {
@@ -523,7 +523,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             count++;
         }
 
-        sortableCache._Str_20276(spriteCount);
+        sortableCache.setSpriteCount(spriteCount);
 
         this._canvasUpdated = true;
 
