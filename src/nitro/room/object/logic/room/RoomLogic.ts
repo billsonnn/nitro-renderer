@@ -163,10 +163,10 @@ export class RoomLogic extends RoomObjectLogicBase
             this._Str_3576  = newColor;
         }
 
-        let _local_5 = ColorConverter._Str_22130(color);
+        let _local_5 = ColorConverter.rgbToHSL(color);
 
         _local_5    = ((_local_5 & 0xFFFF00) + newColor);
-        color       = ColorConverter._Str_13949(_local_5);
+        color       = ColorConverter.hslToRGB(_local_5);
 
         if(this.object.model) this.object.model.setValue(RoomObjectVariable.ROOM_BACKGROUND_COLOR, color);
     }
