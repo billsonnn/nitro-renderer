@@ -21,7 +21,7 @@ export class RoomSessionPetPackageEvent extends RoomSessionEvent
         this._nameValidationInfo = _arg_6;
     }
 
-    public get _Str_1577(): number
+    public get objectId(): number
     {
         return this._objectId;
     }

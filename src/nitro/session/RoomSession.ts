@@ -257,9 +257,9 @@ export class RoomSession extends Disposable implements IRoomSession
         this._connection.send(new MoodlightSettingsComposer());
     }
 
-    public openGift(_Str_1577: number): void
+    public openGift(objectId: number): void
     {
-        this._connection.send(new OpenPresentComposer(_Str_1577));
+        this._connection.send(new OpenPresentComposer(objectId));
     }
 
     public get connection(): IConnection

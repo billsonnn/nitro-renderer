@@ -429,7 +429,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         }
 
         const cache = this.getCacheItem(identifier);
-        cache._Str_1577 = object.instanceId;
+        cache.objectId = object.instanceId;
 
         const locationCache = cache.location;
         const sortableCache = cache.sprites;

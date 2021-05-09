@@ -79,7 +79,7 @@ export class RoomObjectCache
                 {
                     const data = new RoomObjectSpriteData();
 
-                    data.objectId   = item._Str_1577;
+                    data.objectId   = item.objectId;
                     data.x          = sprite.x;
                     data.y          = sprite.y;
                     data.z          = sprite.z;
