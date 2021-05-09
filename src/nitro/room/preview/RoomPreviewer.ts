@@ -850,4 +850,14 @@ export class RoomPreviewer
     {
         this._backgroundColor = color;
     }
+
+    public get width(): number
+    {
+        return this._currentPreviewCanvasWidth;
+    }
+
+    public get height(): number
+    {
+        return this._currentPreviewCanvasHeight;
+    }
 }
