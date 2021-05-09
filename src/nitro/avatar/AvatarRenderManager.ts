@@ -316,13 +316,13 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
             for(const id of typeIds)
             {
-                if(!container._Str_744(id))
+                if(!container.hasPartType(id))
                 {
                     const figurePartSet = this._structure._Str_2264(id, gender);
 
                     if(figurePartSet)
                     {
-                        container._Str_830(id, figurePartSet.id, [0]);
+                        container.updatePart(id, figurePartSet.id, [0]);
 
                         isValid = true;
                     }
@@ -341,7 +341,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
                             if(partSet)
                             {
-                                container._Str_830(id, partSet.id, [0]);
+                                container.updatePart(id, partSet.id, [0]);
 
                                 isValid = true;
                             }
@@ -359,7 +359,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         if(!this._structure) return 0;
 
         const figureData    = this._structure.figureData;
-        const parts         = Array.from(container._Str_1016());
+        const parts         = Array.from(container.getPartTypeIds());
 
         let clubLevel = 0;
 
@@ -374,7 +374,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
                 clubLevel = Math.max(partSet.clubLevel, clubLevel);
 
                 const palette   = figureData._Str_783(set._Str_734);
-                const colors   = container._Str_815(part);
+                const colors   = container.getPartColorIds(part);
 
                 for(const colorId of colors)
                 {
@@ -418,7 +418,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
             container._Str_2088(partSet.type, partSet.id, container.getColourIds(partSet.type));
         }
 
-        return container._Str_1008();
+        return container.getFigureString();
     }
 
     private _Str_1667(k: number[]): IFigurePartSet[]

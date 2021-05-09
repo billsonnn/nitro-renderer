@@ -240,7 +240,7 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
         if(!figureData) return pendingLibraries;
 
-        const setKeys = container._Str_1016();
+        const setKeys = container.getPartTypeIds();
 
         for(const key of setKeys)
         {
@@ -284,7 +284,7 @@ export class AvatarAssetDownloadManager extends EventDispatcher
             return;
         }
 
-        const figure            = container._Str_1008();
+        const figure            = container.getFigureString();
         const pendingLibraries  = this.getAvatarFigurePendingLibraries(container);
 
         if(pendingLibraries && pendingLibraries.length)

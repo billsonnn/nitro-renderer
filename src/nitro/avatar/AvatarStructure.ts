@@ -153,7 +153,7 @@ export class AvatarStructure extends EventDispatcher
 
     public _Str_867(k: IAvatarFigureContainer, _arg_2: string, _arg_3: number = 0): IPartColor
     {
-        const _local_4 = k._Str_815(_arg_2);
+        const _local_4 = k.getPartColorIds(_arg_2);
 
         if((!(_local_4)) || (_local_4.length < _arg_3)) return null;
 
@@ -388,7 +388,7 @@ export class AvatarStructure extends EventDispatcher
         }
 
         const _local_16     = this._geometry._Str_713(_arg_4, k, _arg_5, _local_9, _arg_7);
-        const  _local_21    = _arg_2._Str_1016();
+        const  _local_21    = _arg_2.getPartTypeIds();
 
         for(const _local_17 of _local_21)
         {
@@ -398,7 +398,7 @@ export class AvatarStructure extends EventDispatcher
             }
 
             const _local_28 = _arg_2.getPartSetId(_local_17);
-            const _local_29 = _arg_2._Str_815(_local_17);
+            const _local_29 = _arg_2.getPartColorIds(_local_17);
             const _local_30 = this._figureData._Str_740(_local_17);
 
 

@@ -98,7 +98,7 @@
         return [];
     }
 
-    public _Str_1008(): string
+    public getFigureString(): string
     {
         let figure = '';
 
