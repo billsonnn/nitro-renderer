@@ -30,7 +30,7 @@ export class RoomObjectSortableSpriteCacheItem
         this._Str_20276(0);
     }
 
-    public _Str_12937(sprite: SortableSprite): void
+    public addSprite(sprite: SortableSprite): void
     {
         this._sprites.push(sprite);
     }

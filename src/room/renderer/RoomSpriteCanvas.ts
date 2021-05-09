@@ -501,7 +501,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             {
                 sortableSprite = new SortableSprite();
 
-                sortableCache._Str_12937(sortableSprite);
+                sortableCache.addSprite(sortableSprite);
 
                 this._sortableSprites.push(sortableSprite);
 
