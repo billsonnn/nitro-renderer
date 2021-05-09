@@ -19,7 +19,7 @@ export class SpriteDataCollector
     private static _Str_17558: number   = 30;
 
     private _Str_6409: number;
-    private _Str_3008: number = 0;
+    private spriteCount: number = 0;
     private _Str_18433: number = 0;
 
     private static _Str_22230(k: RoomObjectSpriteData[], _arg_2: RoomEngine): RoomObjectSpriteData[]
@@ -197,7 +197,7 @@ export class SpriteDataCollector
 
                 if(!this._Str_6409) this._Str_6409 = _local_9.z;
 
-                this._Str_3008++;
+                this.spriteCount++;
             }
         }
 
@@ -319,7 +319,7 @@ export class SpriteDataCollector
             _local_9 = ((this._Str_6409) ? this._Str_6409 : 0);
         }
 
-        _local_9 = (_local_9 + ((this._Str_3008 * 1.776104) + (_arg_3.length * 2.31743)));
+        _local_9 = (_local_9 + ((this.spriteCount * 1.776104) + (_arg_3.length * 2.31743)));
 
         const _local_10 = new PlaneDrawingData(null, _arg_2);
 

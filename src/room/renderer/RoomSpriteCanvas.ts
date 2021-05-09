@@ -449,7 +449,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if(!sortableCache._Str_17574(visualization.instanceId, visualization.updateSpriteCounter) && !update)
         {
-            return sortableCache._Str_3008;
+            return sortableCache.spriteCount;
         }
 
         let x   = vector.x;

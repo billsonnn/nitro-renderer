@@ -15,7 +15,7 @@ export class RoomObjectSortableSpriteCacheItem
         this._isEmpty   = false;
     }
 
-    public get _Str_3008(): number
+    public get spriteCount(): number
     {
         return this._sprites.length;
     }
