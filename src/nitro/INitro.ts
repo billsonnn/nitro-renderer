@@ -27,6 +27,7 @@ export interface INitro extends Application
     addLinkEventTracker(tracker: ILinkEventTracker): void;
     removeLinkEventTracker(tracker: ILinkEventTracker): void;
     createLinkEvent(link: string): void;
+    setWorker(val: Worker): void;
     nitroTimer: NitroTimer;
     core: INitroCore;
     events: IEventDispatcher;
