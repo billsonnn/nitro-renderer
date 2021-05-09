@@ -1052,18 +1052,18 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
                 if(scale < 48)
                 {
-                    sprite._Str_3582 = 'sh_std_sd_1_0_0';
+                    sprite.libraryAssetName = 'sh_std_sd_1_0_0';
 
-                    this._shadow = this._avatarImage.getAsset(sprite._Str_3582);
+                    this._shadow = this._avatarImage.getAsset(sprite.libraryAssetName);
 
                     offsetX = -8;
                     offsetY = ((this._canStandUp) ? 6 : -3);
                 }
                 else
                 {
-                    sprite._Str_3582 = 'h_std_sd_1_0_0';
+                    sprite.libraryAssetName = 'h_std_sd_1_0_0';
 
-                    this._shadow = this._avatarImage.getAsset(sprite._Str_3582);
+                    this._shadow = this._avatarImage.getAsset(sprite.libraryAssetName);
 
                     offsetX = -17;
                     offsetY = ((this._canStandUp) ? 10 : -7);

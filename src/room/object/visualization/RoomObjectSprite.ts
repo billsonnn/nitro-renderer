@@ -26,8 +26,8 @@ export class RoomObjectSprite implements IRoomObjectSprite
     private _blendMode: number;
     private _color: number;
     private _relativeDepth: number;
-    private _Str_8253: boolean;
-    private _Str_11397: string;
+    private _varyingDepth: boolean;
+    private _libraryAssetName: string;
     private _clickHandling: boolean;
     private _visible: boolean;
     private _tag: string;
@@ -59,8 +59,8 @@ export class RoomObjectSprite implements IRoomObjectSprite
         this._blendMode         = BLEND_MODES.NORMAL;
         this._color             = 0xFFFFFF;
         this._relativeDepth     = 0;
-        this._Str_8253          = false;
-        this._Str_11397         = '';
+        this._varyingDepth          = false;
+        this._libraryAssetName         = '';
         this._clickHandling     = false;
         this._visible           = true;
         this._tag               = '';
@@ -303,28 +303,28 @@ export class RoomObjectSprite implements IRoomObjectSprite
         this._updateCounter++;
     }
 
-    public get _Str_4593(): boolean
+    public get varyingDepth(): boolean
     {
-        return this._Str_8253;
+        return this._varyingDepth;
     }
 
-    public set _Str_4593(flag: boolean)
+    public set varyingDepth(flag: boolean)
     {
-        if(flag === this._Str_8253) return;
+        if(flag === this._varyingDepth) return;
 
-        this._Str_8253 = flag;
+        this._varyingDepth = flag;
 
         this._updateCounter++;
     }
 
-    public get _Str_3582(): string
+    public get libraryAssetName(): string
     {
-        return this._Str_11397;
+        return this._libraryAssetName;
     }
 
-    public set _Str_3582(value: string)
+    public set libraryAssetName(value: string)
     {
-        this._Str_11397 = value;
+        this._libraryAssetName = value;
     }
 
     public get clickHandling(): boolean

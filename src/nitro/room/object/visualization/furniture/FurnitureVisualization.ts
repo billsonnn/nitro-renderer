@@ -318,7 +318,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
 
                 sprite.relativeDepth    = (relativeDepth * FurnitureVisualization.DEPTH_MULTIPLIER);
                 sprite.name             = assetName;
-                sprite._Str_3582        = this.getLibraryAssetNameForSprite(assetData, sprite);
+                sprite.libraryAssetName        = this.getLibraryAssetNameForSprite(assetData, sprite);
                 sprite.posture          = this.getPostureForAsset(scale, assetData.source);
                 sprite.clickHandling    = false;
             }

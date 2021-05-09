@@ -19,8 +19,8 @@ export interface IRoomObjectSprite
     blendMode: number;
     color: number;
     relativeDepth: number;
-    _Str_4593: boolean;
-    _Str_3582: string;
+    varyingDepth: boolean;
+    libraryAssetName: string;
     clickHandling: boolean;
     visible: boolean;
     tag: string;

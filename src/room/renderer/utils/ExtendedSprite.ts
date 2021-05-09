@@ -7,7 +7,7 @@ export class ExtendedSprite extends Sprite
     private _offsetY: number;
     private _tag: string;
     private _alphaTolerance: number;
-    private _Str_8253: boolean;
+    private _varyingDepth: boolean;
     private _clickHandling: boolean;
 
     private _pairedSpriteId: number;
@@ -21,7 +21,7 @@ export class ExtendedSprite extends Sprite
         this._offsetY                   = 0;
         this._tag                       = '';
         this._alphaTolerance            = 128;
-        this._Str_8253                  = false;
+        this._varyingDepth              = false;
         this._clickHandling             = false;
 
         this._pairedSpriteId            = -1;
@@ -219,14 +219,14 @@ export class ExtendedSprite extends Sprite
         this._alphaTolerance = tolerance;
     }
 
-    public get _Str_4593(): boolean
+    public get varyingDepth(): boolean
     {
-        return this._Str_8253;
+        return this._varyingDepth;
     }
 
-    public set _Str_4593(flag: boolean)
+    public set varyingDepth(flag: boolean)
     {
-        this._Str_8253 = flag;
+        this._varyingDepth = flag;
     }
 
     public get clickHandling(): boolean

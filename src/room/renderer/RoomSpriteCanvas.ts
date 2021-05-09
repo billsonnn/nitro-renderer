@@ -512,7 +512,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
             if((sprite.spriteType === RoomObjectSpriteType._Str_11629) || (sprite.spriteType === RoomObjectSpriteType._Str_10494))
             {
-                sortableSprite.sprite._Str_3582 = 'avatar_' + object.id;
+                sortableSprite.sprite.libraryAssetName = 'avatar_' + object.id;
             }
 
             sortableSprite.x    = (spriteX - this._screenOffsetX);
@@ -564,9 +564,9 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if(!objectSprite || !extendedSprite) return false;
 
-        if(extendedSprite._Str_4593 !== objectSprite._Str_4593)
+        if(extendedSprite.varyingDepth !== objectSprite.varyingDepth)
         {
-            if(extendedSprite._Str_4593 && !objectSprite._Str_4593)
+            if(extendedSprite.varyingDepth && !objectSprite.varyingDepth)
             {
                 this._display.removeChildAt(index);
 
@@ -585,7 +585,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             extendedSprite.tag              = objectSprite.tag;
             extendedSprite.alphaTolerance   = objectSprite.alphaTolerance;
             extendedSprite.name             = sprite.name;
-            extendedSprite._Str_4593        = objectSprite._Str_4593;
+            extendedSprite.varyingDepth        = objectSprite.varyingDepth;
             extendedSprite.clickHandling    = objectSprite.clickHandling;
             extendedSprite.filters          = objectSprite.filters;
 
@@ -663,7 +663,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         extendedSprite.offsetX          = sprite.offsetX;
         extendedSprite.offsetY          = sprite.offsetY;
         extendedSprite.name             = sprite.name;
-        extendedSprite._Str_4593        = sprite._Str_4593;
+        extendedSprite.varyingDepth        = sprite.varyingDepth;
         extendedSprite.clickHandling    = sprite.clickHandling;
         extendedSprite.blendMode        = sprite.blendMode;
         extendedSprite.filters          = sprite.filters;
