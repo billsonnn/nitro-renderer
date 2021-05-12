@@ -43,7 +43,7 @@ export class ImageData
         return this._rect;
     }
 
-    public get _Str_1076(): Point
+    public get regPoint(): Point
     {
         return this._regPoint;
     }

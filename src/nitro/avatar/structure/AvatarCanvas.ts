@@ -40,7 +40,7 @@ export class AvatarCanvas
         return this._id;
     }
 
-    public get _Str_1076(): Point
+    public get regPoint(): Point
     {
         return this._regPoint;
     }

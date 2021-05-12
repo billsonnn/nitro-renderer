@@ -358,17 +358,17 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                     return null;
                 }
 
-                isCachable = ((isCachable) && (part._Str_1807));
+                isCachable = ((isCachable) && (part.isCacheable));
 
-                const point = part._Str_1076.clone();
+                const point = part.regPoint.clone();
 
                 if(point)
                 {
                     point.x += avatarCanvas.offset.x;
                     point.y += avatarCanvas.offset.y;
 
-                    point.x += avatarCanvas._Str_1076.x;
-                    point.y += avatarCanvas._Str_1076.y;
+                    point.x += avatarCanvas.regPoint.x;
+                    point.y += avatarCanvas.regPoint.y;
 
                     const partContainer = new Container();
 
@@ -477,15 +477,15 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                     return null;
                 }
 
-                const point = part._Str_1076.clone();
+                const point = part.regPoint.clone();
 
                 if(point)
                 {
                     point.x += avatarCanvas.offset.x;
                     point.y += avatarCanvas.offset.y;
 
-                    point.x += avatarCanvas._Str_1076.x;
-                    point.y += avatarCanvas._Str_1076.y;
+                    point.x += avatarCanvas.regPoint.x;
+                    point.y += avatarCanvas.regPoint.y;
 
                     const partContainer = new Container();
 
@@ -542,15 +542,15 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                     return null;
                 }
 
-                const point = part._Str_1076.clone();
+                const point = part.regPoint.clone();
 
                 if(point)
                 {
                     point.x += avatarCanvas.offset.x;
                     point.y += avatarCanvas.offset.y;
 
-                    point.x += avatarCanvas._Str_1076.x;
-                    point.y += avatarCanvas._Str_1076.y;
+                    point.x += avatarCanvas.regPoint.x;
+                    point.y += avatarCanvas.regPoint.y;
 
                     const partContainer = new Container();
 

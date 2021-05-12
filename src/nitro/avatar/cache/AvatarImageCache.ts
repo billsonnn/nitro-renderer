@@ -280,7 +280,7 @@ export class AvatarImageCache
 
             if(_local_14 && !_arg_3)
             {
-                if(_local_14._Str_1807) _local_13._Str_1924(_local_14, frameCount);
+                if(_local_14.isCacheable) _local_13._Str_1924(_local_14, frameCount);
             }
             else
             {
@@ -443,7 +443,7 @@ export class AvatarImageCache
 
         const imageData     = this._Str_1236(this._unionImages, isFlipped);
         const canvasOffset  = ((this._scale === AvatarScaleType.LARGE) ? (this._canvas.height - 16) : (this._canvas.height - 8));
-        const offset        = new Point(-(imageData._Str_1076.x), (canvasOffset - imageData._Str_1076.y));
+        const offset        = new Point(-(imageData.regPoint.x), (canvasOffset - imageData.regPoint.y));
 
         if(isFlipped && (assetPartDefinition !== 'lay')) offset.x = (offset.x + ((this._scale === AvatarScaleType.LARGE) ? 67 : 31));
 
@@ -496,8 +496,8 @@ export class AvatarImageCache
             const flipH     = (!(isFlipped && data.flipH) && (isFlipped || data.flipH));
             const regPoint  = point.clone();
 
-            regPoint.x -= data._Str_1076.x;
-            regPoint.y -= data._Str_1076.y;
+            regPoint.x -= data.regPoint.x;
+            regPoint.y -= data.regPoint.y;
 
             if(isFlipped) regPoint.x = (container.width - (regPoint.x + data.rect.width));
 
