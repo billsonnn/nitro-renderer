@@ -365,8 +365,8 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                     {
                         const layerData = this._avatarImage.getLayerData(spriteData);
 
-                        let offsetX = spriteData._Str_809(direction);
-                        let offsetY = spriteData._Str_739(direction);
+                        let offsetX = spriteData.getDirectionOffsetX(direction);
+                        let offsetY = spriteData.getDirectionOffsetY(direction);
 
                         if(layerData)
                         {
@@ -399,12 +399,12 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                         const layerData = this._avatarImage.getLayerData(spriteData);
 
                         let frameNumber = 0;
-                        let offsetX     = spriteData._Str_809(direction);
-                        let offsetY     = spriteData._Str_739(direction);
-                        const offsetZ     = spriteData._Str_839(direction);
+                        let offsetX     = spriteData.getDirectionOffsetX(direction);
+                        let offsetY     = spriteData.getDirectionOffsetY(direction);
+                        const offsetZ     = spriteData.getDirectionOffsetZ(direction);
                         let dd          = 0;
 
-                        if(spriteData._Str_949) dd = direction;
+                        if(spriteData.hasDirections) dd = direction;
 
                         if(layerData)
                         {
@@ -437,7 +437,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                         sprite.offsetY  = (asset.offsetY + offsetY);
                         sprite.flipH    = asset.flipH;
 
-                        if(spriteData._Str_767)
+                        if(spriteData.hasStaticY)
                         {
                             sprite.offsetY += ((this._verticalOffset * scale) / (2 * AvatarVisualization._Str_12370));
                         }
