@@ -341,14 +341,14 @@ export class AvatarImageCache
 
             let color = 16777215;
 
-            if(!((direction == 7) && ((container._Str_1669 === 'fc') || (container._Str_1669 === 'ey'))))
+            if(!((direction == 7) && ((container.partType === 'fc') || (container.partType === 'ey'))))
             {
-                if(!((container._Str_1669 === 'ri') && !container._Str_1502))
+                if(!((container.partType === 'ri') && !container.partId))
                 {
-                    const partId            = container._Str_1502;
-                    const animationFrame    = container._Str_2258(frameCount);
+                    const partId            = container.partId;
+                    const animationFrame    = container.getFrameDefinition(frameCount);
 
-                    let partType    = container._Str_1669;
+                    let partType    = container.partType;
                     let frameNumber = 0;
 
                     if(animationFrame)
@@ -357,7 +357,7 @@ export class AvatarImageCache
 
                         if((animationFrame._Str_778) && (animationFrame._Str_778 !== '')) assetPartDefinition = animationFrame._Str_778;
                     }
-                    else frameNumber = container._Str_1674(frameCount);
+                    else frameNumber = container.getFrameIndex(frameCount);
 
                     let assetDirection  = direction;
                     let flipH           = false;
@@ -374,7 +374,7 @@ export class AvatarImageCache
                             else if(direction === 5)    assetDirection = 1;
                             else if(direction === 6)    assetDirection = 0;
 
-                            if(container._Str_1666 !== partType) partType = container._Str_1666;
+                            if(container.flippedPartType !== partType) partType = container.flippedPartType;
                         }
                     }
 

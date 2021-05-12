@@ -34,7 +34,7 @@ export class AvatarImagePartContainer
         if(this._partType === 'ey') this._isColorable = false;
     }
 
-    public _Str_1674(k: number): number
+    public getFrameIndex(k: number): number
     {
         if(!this._frames || !this._frames.length) return 0;
 
@@ -48,7 +48,7 @@ export class AvatarImagePartContainer
         return frameNumber;
     }
 
-    public _Str_2258(k: number): AvatarAnimationFrame
+    public getFrameDefinition(k: number): AvatarAnimationFrame
     {
         const frameNumber = (k % this._frames.length);
 
@@ -63,7 +63,7 @@ export class AvatarImagePartContainer
         return null;
     }
 
-    public _Str_1206(k: number): string
+    public getCacheableKey(k: number): string
     {
         const frameNumber = (k % this._frames.length);
 
@@ -73,24 +73,24 @@ export class AvatarImagePartContainer
             {
                 const frame = this._frames[frameNumber];
 
-                return (this._Str_1502 + ':' + frame._Str_778 + ':' + frame.number);
+                return (this.partId + ':' + frame._Str_778 + ':' + frame.number);
             }
         }
 
-        return (this._Str_1502 + ':' + frameNumber);
+        return (this.partId + ':' + frameNumber);
     }
 
-    public get _Str_1360(): string
+    public get bodyPartId(): string
     {
         return this._bodyPartId;
     }
 
-    public get _Str_1669(): string
+    public get partType(): string
     {
         return this._partType;
     }
 
-    public get _Str_1502(): string
+    public get partId(): string
     {
         return this._partId;
     }
@@ -115,17 +115,17 @@ export class AvatarImagePartContainer
         this._isColorable = k;
     }
 
-    public get _Str_1406(): number
+    public get paletteMapId(): number
     {
         return this._paletteMapId;
     }
 
-    public get _Str_1666(): string
+    public get flippedPartType(): string
     {
         return this._flippedPartType;
     }
 
-    public get _Str_1184(): boolean
+    public get isBlendable(): boolean
     {
         return this._isBlendable;
     }

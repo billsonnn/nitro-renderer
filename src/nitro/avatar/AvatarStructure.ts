@@ -474,7 +474,7 @@ export class AvatarStructure extends EventDispatcher
 
             for(const _local_23 of _local_11)
             {
-                if(_local_23._Str_1669 === _local_12)
+                if(_local_23.partType === _local_12)
                 {
                     if(_local_40)
                     {

@@ -48,7 +48,7 @@ export class AvatarImageDirectionCache
     {
         let name = '';
 
-        for(const part of this._partList) name += (part._Str_1206(k) + '/');
+        for(const part of this._partList) name += (part.getCacheableKey(k) + '/');
 
         return name;
     }
