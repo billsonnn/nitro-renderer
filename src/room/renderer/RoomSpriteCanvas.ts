@@ -510,7 +510,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
             sortableSprite.sprite = sprite;
 
-            if((sprite.spriteType === RoomObjectSpriteType._Str_11629) || (sprite.spriteType === RoomObjectSpriteType._Str_10494))
+            if((sprite.spriteType === RoomObjectSpriteType.AVATAR) || (sprite.spriteType === RoomObjectSpriteType.AVATAR_OWN))
             {
                 sortableSprite.sprite.libraryAssetName = 'avatar_' + object.id;
             }
@@ -724,12 +724,12 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         switch(_arg_2.spriteType)
         {
-            case RoomObjectSpriteType._Str_10494:
+            case RoomObjectSpriteType.AVATAR_OWN:
                 return;
-            case RoomObjectSpriteType._Str_8616:
+            case RoomObjectSpriteType.ROOM_PLANE:
                 sprite.alpha = RoomEnterEffect.getDelta(0.9);
                 return;
-            case RoomObjectSpriteType._Str_11629:
+            case RoomObjectSpriteType.AVATAR:
                 sprite.alpha = RoomEnterEffect.getDelta(0.5);
                 return;
             default:

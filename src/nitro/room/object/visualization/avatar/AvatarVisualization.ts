@@ -334,11 +334,11 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                 if(this._ownUser)
                 {
                     sprite.relativeDepth -= AvatarVisualization._Str_17708;
-                    sprite.spriteType = RoomObjectSpriteType._Str_10494;
+                    sprite.spriteType = RoomObjectSpriteType.AVATAR_OWN;
                 }
                 else
                 {
-                    sprite.spriteType = RoomObjectSpriteType._Str_11629;
+                    sprite.spriteType = RoomObjectSpriteType.AVATAR;
                 }
             }
 

@@ -75,7 +75,7 @@ export class RoomObjectCache
             {
                 if(!sprite) continue;
 
-                if((sprite.sprite.spriteType !== RoomObjectSpriteType._Str_8616) && (sprite.sprite.name !== ''))
+                if((sprite.sprite.spriteType !== RoomObjectSpriteType.ROOM_PLANE) && (sprite.sprite.name !== ''))
                 {
                     const data = new RoomObjectSpriteData();
 
@@ -139,7 +139,7 @@ export class RoomObjectCache
         {
             for(const sprite of item.sprites.sprites)
             {
-                if(sprite.sprite.spriteType === RoomObjectSpriteType._Str_8616) sprites.push(sprite);
+                if(sprite.sprite.spriteType === RoomObjectSpriteType.ROOM_PLANE) sprites.push(sprite);
             }
         }
 

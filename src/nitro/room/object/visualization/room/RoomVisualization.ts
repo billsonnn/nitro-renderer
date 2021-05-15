@@ -669,7 +669,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                     sprite.tag = 'plane@' + (planeIndex + 1);
                 }
 
-                sprite.spriteType = RoomObjectSpriteType._Str_8616;
+                sprite.spriteType = RoomObjectSpriteType.ROOM_PLANE;
             }
 
             planeIndex++;
