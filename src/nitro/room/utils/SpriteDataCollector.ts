@@ -403,11 +403,11 @@ export class SpriteDataCollector
                 const _local_12 = _local_11.plane;
                 const _local_13: Point[] = [];
 
-                const _local_14 = Vector3d.sum(_local_12.location, _local_12._Str_5424);
+                const _local_14 = Vector3d.sum(_local_12.location, _local_12.leftSide);
                 const _local_15 = _local_8.getScreenPoint(_local_12.location);
                 const _local_16 = _local_8.getScreenPoint(_local_14);
-                const _local_17 = _local_8.getScreenPoint(Vector3d.sum(_local_12.location, _local_12._Str_4968));
-                const _local_18 = _local_8.getScreenPoint(Vector3d.sum(_local_14, _local_12._Str_4968));
+                const _local_17 = _local_8.getScreenPoint(Vector3d.sum(_local_12.location, _local_12.rightSide));
+                const _local_18 = _local_8.getScreenPoint(Vector3d.sum(_local_14, _local_12.rightSide));
 
                 _local_13.push(_local_15, _local_16, _local_17, _local_18);
 
@@ -442,7 +442,7 @@ export class SpriteDataCollector
                 {
                     const _local_22 = SpriteDataCollector._Str_14110(_local_15, _local_16, _local_17, _local_18);
 
-                    for(const _local_23 of _local_12._Str_22136(_local_8))
+                    for(const _local_23 of _local_12.getDrawingDatas(_local_8))
                     {
                         _local_23.cornerPoints  = _local_22;
                         _local_23.z             = _local_11.z;

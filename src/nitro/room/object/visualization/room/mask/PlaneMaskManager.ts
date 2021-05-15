@@ -141,7 +141,7 @@ export class PlaneMaskManager
         return graphicName;
     }
 
-    public _Str_17859(k: Graphics, _arg_2: string, _arg_3: number, _arg_4: IVector3D, _arg_5: number, _arg_6: number): boolean
+    public updateMask(k: Graphics, _arg_2: string, _arg_3: number, _arg_4: IVector3D, _arg_5: number, _arg_6: number): boolean
     {
         const mask = this._masks.get(_arg_2);
 

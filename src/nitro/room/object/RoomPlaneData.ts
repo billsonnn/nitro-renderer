@@ -104,12 +104,12 @@ export class RoomPlaneData
         return this._loc;
     }
 
-    public get _Str_5424(): IVector3D
+    public get leftSide(): IVector3D
     {
         return this._leftSide;
     }
 
-    public get _Str_4968(): IVector3D
+    public get rightSide(): IVector3D
     {
         return this._rightSide;
     }

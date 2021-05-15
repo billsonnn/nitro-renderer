@@ -150,7 +150,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         this._textures.clear();
     }
 
-    protected _Str_10114(k: string): PlaneTexture
+    protected getTexture(k: string): PlaneTexture
     {
         return this._textures.get(k);
     }
@@ -446,7 +446,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
                     }
                 }
 
-                const texture   = this._Str_10114(textureId);
+                const texture   = this.getTexture(textureId);
                 const newCell   = new PlaneMaterialCell(texture, graphics, offsetPoints, limit);
 
                 cells.push(newCell);

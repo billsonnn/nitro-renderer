@@ -1385,7 +1385,7 @@ export class RoomPlaneParser
 
         if(!planeData) return null;
 
-        return planeData._Str_5424;
+        return planeData.leftSide;
     }
 
     public getPlaneRightSide(k: number): IVector3D
@@ -1396,7 +1396,7 @@ export class RoomPlaneParser
 
         if(!planeData) return null;
 
-        return planeData._Str_4968;
+        return planeData.rightSide;
     }
 
     public getPlaneNormalDirection(k: number): IVector3D

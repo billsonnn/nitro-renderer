@@ -507,7 +507,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                     if((leftSide.length < 1) || (rightSide.length < 1))
                     {
-                        plane._Str_18448 = false;
+                        plane.hasTexture = false;
                     }
 
                     if((_local_14.x === 0) && (_local_14.y === 0))
@@ -566,7 +566,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                     plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_WALL, true, secondaryNormals, _local_6);
                     if(((leftSide.length < 1) || (rightSide.length < 1)))
                     {
-                        plane._Str_18448 = false;
+                        plane.hasTexture = false;
                     }
                     if(((_local_14.x == 0) && (_local_14.y == 0)))
                     {
@@ -599,7 +599,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                 if(plane)
                 {
-                    plane._Str_16279 = this._data.maskManager;
+                    plane.maskManager = this._data.maskManager;
 
                     let _local_19 = 0;
 
@@ -610,7 +610,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                         const _local_22 = this._roomPlaneParser.getPlaneMaskLeftSideLength(index, _local_19);
                         const _local_23 = this._roomPlaneParser.getPlaneMaskRightSideLength(index, _local_19);
 
-                        plane._Str_24758(_local_20, _local_21, _local_22, _local_23);
+                        plane.addRectangleMask(_local_20, _local_21, _local_22, _local_23);
 
                         _local_19++;
                     }
@@ -643,9 +643,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
             const plane     = this._Str_2540[planeIndex];
             const sprite    = this.getSprite(planeIndex);
 
-            if(plane && sprite && plane._Str_5424 && plane._Str_4968)
+            if(plane && sprite && plane.leftSide && plane.rightSide)
             {
-                if((plane.type === RoomPlane.TYPE_WALL) && ((plane._Str_5424.length < 1) || (plane._Str_4968.length < 1)))
+                if((plane.type === RoomPlane.TYPE_WALL) && ((plane.leftSide.length < 1) || (plane.rightSide.length < 1)))
                 {
                     sprite.alphaTolerance = AlphaTolerance._Str_9268;
                 }
@@ -825,7 +825,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                             {
                                 depth = ((_local_12.relativeDepth + this._Str_25403) + (_local_10 / 1000));
 
-                                if((_local_12._Str_5424.length < 1) || (_local_12._Str_4968.length < 1))
+                                if((_local_12.leftSide.length < 1) || (_local_12.rightSide.length < 1))
                                 {
                                     depth = (depth + (RoomVisualization._Str_8621 * 0.5));
                                 }
@@ -885,7 +885,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
             if(plane)
             {
-                plane._Str_25213();
+                plane.resetBitmapMasks();
 
                 if(plane.type === RoomPlane.TYPE_LANDSCAPE) _local_4.push(index);
             }
@@ -916,22 +916,22 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                             if(_local_15 < 0.01)
                             {
-                                if(plane._Str_5424 && plane._Str_4968)
+                                if(plane.leftSide && plane.rightSide)
                                 {
-                                    const _local_16 = Vector3d.scalarProjection(_local_14, plane._Str_5424);
-                                    const _local_17 = Vector3d.scalarProjection(_local_14, plane._Str_4968);
+                                    const _local_16 = Vector3d.scalarProjection(_local_14, plane.leftSide);
+                                    const _local_17 = Vector3d.scalarProjection(_local_14, plane.rightSide);
 
                                     if((plane.type === RoomPlane.TYPE_WALL) || ((plane.type === RoomPlane.TYPE_LANDSCAPE) && (maskCategory === RoomPlaneBitmapMaskData.HOLE)))
                                     {
-                                        plane._Str_24569(maskType, _local_16, _local_17);
+                                        plane.addBitmapMask(maskType, _local_16, _local_17);
                                     }
                                     else
                                     {
                                         if(plane.type === RoomPlane.TYPE_LANDSCAPE)
                                         {
-                                            if(!plane._Str_14801) _local_6 = true;
+                                            if(!plane.canBeVisible) _local_6 = true;
 
-                                            plane._Str_14801 = true;
+                                            plane.canBeVisible = true;
 
                                             _local_5.push(i);
                                         }
@@ -956,7 +956,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
             {
                 const plane = this._Str_2540[planeIndex];
 
-                plane._Str_14801    = false;
+                plane.canBeVisible    = false;
                 _local_6            = true;
             }
 

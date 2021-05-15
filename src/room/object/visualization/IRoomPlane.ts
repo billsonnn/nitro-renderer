@@ -6,8 +6,8 @@ export interface IRoomPlane
 {
     uniqueId: number;
     location: IVector3D;
-    _Str_5424: IVector3D;
-    _Str_4968: IVector3D;
+    leftSide: IVector3D;
+    rightSide: IVector3D;
     color: number;
-    _Str_22136(_arg_1: IRoomGeometry): PlaneDrawingData[];
+    getDrawingDatas(_arg_1: IRoomGeometry): PlaneDrawingData[];
 }
