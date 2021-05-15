@@ -99,8 +99,8 @@ export class AvatarStructure extends EventDispatcher
 
         if(this._partSetsData.parse(k))
         {
-            this._partSetsData._Str_1102('ri')._Str_1583 = true;
-            this._partSetsData._Str_1102('li')._Str_1583 = true;
+            this._partSetsData._Str_1102('ri').appendToFigure = true;
+            this._partSetsData._Str_1102('li').appendToFigure = true;
 
             return true;
         }
@@ -292,9 +292,9 @@ export class AvatarStructure extends EventDispatcher
                             _local_12.setType = _local_13.id;
 
                             const _local_10 = this._partSetsData._Str_1520(_local_12);
-                            _local_10._Str_1583 = true;
+                            _local_10.appendToFigure = true;
 
-                            if(_local_13.base === '') _local_10._Str_1734 = 1;
+                            if(_local_13.base === '') _local_10.staticId = 1;
 
                             if(_local_4.indexOf(_local_6.id) === -1) _local_4.push(_local_6.id);
                         }
@@ -443,7 +443,7 @@ export class AvatarStructure extends EventDispatcher
 
                                 const _local_13 = this._partSetsData._Str_1102(_local_33.type);
 
-                                let _local_35 = (!_local_13) ? _local_33.type : _local_13._Str_1693;
+                                let _local_35 = (!_local_13) ? _local_33.type : _local_13.flippedSetType;
 
                                 if(!_local_35 || (_local_35 === '')) _local_35 = _local_33.type;
 
@@ -543,7 +543,7 @@ export class AvatarStructure extends EventDispatcher
                             let _local_45 = false;
                             let _local_46 = 1;
 
-                            if(_local_13._Str_1583)
+                            if(_local_13.appendToFigure)
                             {
                                 let _local_47 = '1';
 
@@ -552,9 +552,9 @@ export class AvatarStructure extends EventDispatcher
                                     _local_47 = _arg_3._Str_727;
                                 }
 
-                                if(_local_13._Str_2234())
+                                if(_local_13.hasStaticId())
                                 {
-                                    _local_47 = _local_13._Str_1734.toString();
+                                    _local_47 = _local_13.staticId.toString();
                                 }
 
                                 if(_local_10 != null)
