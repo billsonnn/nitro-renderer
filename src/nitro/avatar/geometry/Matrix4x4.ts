@@ -121,7 +121,7 @@ export class Matrix4x4
         return new Matrix4x4(this._data[0], this._data[3], this._data[6], this._data[1], this._data[4], this._data[7], this._data[2], this._data[5], this._data[8]);
     }
 
-    public _Str_1451(k: Matrix4x4): boolean
+    public equals(k: Matrix4x4): boolean
     {
         return false;
     }
