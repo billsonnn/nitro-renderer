@@ -686,7 +686,7 @@ export class RoomPlaneParser
                 _local_5 = ((_local_5 + 1) % _local_4.length);
                 _local_12--;
             }
-            _local_3._Str_17862(_local_6, _local_10, _local_12, _local_8, _local_9);
+            _local_3.addWall(_local_6, _local_10, _local_12, _local_8, _local_9);
             if((((_local_11.x == k.x) && (_local_11.y == k.y)) && ((!(_local_11.x == _local_6.x)) || (!(_local_11.y == _local_6.y)))))
             {
                 break;
@@ -715,9 +715,9 @@ export class RoomPlaneParser
             _local_5 = _local_2;
             _local_6 = 0;
             _local_7 = false;
-            while(((!(k._Str_25208(_local_2))) && (_local_2 < _local_3)))
+            while(((!(k.getBorder(_local_2))) && (_local_2 < _local_3)))
             {
-                if(k._Str_17084(_local_2))
+                if(k.getLeftTurn(_local_2))
                 {
                     _local_6++;
                 }
@@ -740,7 +740,7 @@ export class RoomPlaneParser
                 _local_8 = _local_4;
                 while(_local_8 <= _local_5)
                 {
-                    k._Str_15901(_local_8, true);
+                    k.setHideWall(_local_8, true);
                     _local_8++;
                 }
             }
@@ -761,11 +761,11 @@ export class RoomPlaneParser
         let _local_3 = 0;
         while(_local_3 < _local_2)
         {
-            if(!k._Str_10019(_local_3))
+            if(!k.getHideWall(_local_3))
             {
-                _local_4 = k._Str_10778(_local_3);
+                _local_4 = k.getCorner(_local_3);
                 _local_5 = k.getDirection(_local_3);
-                _local_6 = k._Str_13743(_local_3);
+                _local_6 = k.getLength(_local_3);
                 _local_7 = RoomWallData.WALL_DIRECTION_VECTORS[_local_5];
                 _local_8 = RoomWallData.WALL_NORMAL_VECTORS[_local_5];
                 _local_9 = 0;
@@ -776,7 +776,7 @@ export class RoomPlaneParser
                     {
                         if(((_local_10 > 0) && (_local_9 == 0)))
                         {
-                            k._Str_24531(_local_3, _local_10);
+                            k.setLength(_local_3, _local_10);
                             break;
                         }
                         _local_9++;
@@ -785,7 +785,7 @@ export class RoomPlaneParser
                     {
                         if(_local_9 > 0)
                         {
-                            k._Str_23976(_local_3, _local_9);
+                            k.moveCorner(_local_3, _local_9);
                             break;
                         }
                     }
@@ -793,7 +793,7 @@ export class RoomPlaneParser
                 }
                 if(_local_9 == _local_6)
                 {
-                    k._Str_15901(_local_3, true);
+                    k.setHideWall(_local_3, true);
                 }
             }
             _local_3++;
@@ -816,8 +816,8 @@ export class RoomPlaneParser
         let _local_9 = 0;
         while(_local_9 < _local_8)
         {
-            _local_10 = _arg_3._Str_10778(_local_9);
-            _local_11 = _arg_3._Str_19138(_local_9);
+            _local_10 = _arg_3.getCorner(_local_9);
+            _local_11 = _arg_3.getEndPoint(_local_9);
             if(k.x == _arg_2.x)
             {
                 if(((_local_10.x == k.x) && (_local_11.x == k.x)))
@@ -861,25 +861,25 @@ export class RoomPlaneParser
         let _local_4 = 0;
         while(_local_4 < _local_3)
         {
-            if(!k._Str_10019(_local_4))
+            if(!k.getHideWall(_local_4))
             {
-                _local_5 = k._Str_10778(_local_4);
+                _local_5 = k.getCorner(_local_4);
                 _local_6 = new Point(_local_5.x, _local_5.y);
                 _local_7 = RoomWallData.WALL_DIRECTION_VECTORS[k.getDirection(_local_4)];
-                _local_8 = k._Str_13743(_local_4);
+                _local_8 = k.getLength(_local_4);
                 _local_6.x = (_local_6.x + (_local_7.x * _local_8));
                 _local_6.y = (_local_6.y + (_local_7.y * _local_8));
                 _local_9 = this.resolveOriginalWallIndex(_local_5, _local_6, _arg_2);
                 if(_local_9 >= 0)
                 {
-                    if(_arg_2._Str_10019(_local_9))
+                    if(_arg_2.getHideWall(_local_9))
                     {
-                        k._Str_15901(_local_4, true);
+                        k.setHideWall(_local_4, true);
                     }
                 }
                 else
                 {
-                    k._Str_15901(_local_4, true);
+                    k.setHideWall(_local_4, true);
                 }
             }
             _local_4++;
@@ -901,11 +901,11 @@ export class RoomPlaneParser
 
         while(_local_7 < _local_3)
         {
-            if(!k._Str_10019(_local_7))
+            if(!k.getHideWall(_local_7))
             {
-                const _local_8 = k._Str_10778(_local_7);
+                const _local_8 = k.getCorner(_local_7);
                 const _local_9 = k.getDirection(_local_7);
-                const _local_10 = k._Str_13743(_local_7);
+                const _local_10 = k.getLength(_local_7);
                 const _local_11 = RoomWallData.WALL_DIRECTION_VECTORS[_local_9];
                 const _local_12 = RoomWallData.WALL_NORMAL_VECTORS[_local_9];
                 let _local_13 = -1;
@@ -935,7 +935,7 @@ export class RoomPlaneParser
 
                 _local_16 = Vector3d.dif(_local_16, _local_18);
 
-                const _local_20 = this.resolveOriginalWallIndex(_local_8, k._Str_19138(_local_7), _arg_2);
+                const _local_20 = this.resolveOriginalWallIndex(_local_8, k.getEndPoint(_local_7), _arg_2);
 
                 let _local_5 = 0;
                 let _local_6 = 0;
@@ -965,11 +965,11 @@ export class RoomPlaneParser
                     }
                 }
 
-                const _local_22 = k._Str_17084(_local_7);
-                const _local_23 = k._Str_17084((((_local_7 - 1) + _local_3) % _local_3));
-                const _local_24 = k._Str_10019(((_local_7 + 1) % _local_3));
-                const _local_25 = k._Str_25455(_local_7);
-                const _local_26 = k._Str_24163(_local_7);
+                const _local_22 = k.getLeftTurn(_local_7);
+                const _local_23 = k.getLeftTurn((((_local_7 - 1) + _local_3) % _local_3));
+                const _local_24 = k.getHideWall(((_local_7 + 1) % _local_3));
+                const _local_25 = k.getManuallyLeftCut(_local_7);
+                const _local_26 = k.getManuallyRightCut(_local_7);
 
                 this.addWall(_local_16, _local_18, _local_19, _local_21, ((!(_local_23)) || (_local_25)), ((!(_local_22)) || (_local_26)), (!(_local_24)));
             }
