@@ -411,7 +411,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
         container._Str_2153(k, _arg_2);
 
-        const partSets: IFigurePartSet[] = this._Str_1667(_arg_3);
+        const partSets: IFigurePartSet[] = this.resolveFigureSets(_arg_3);
 
         for(const partSet of partSets)
         {
@@ -421,7 +421,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         return container.getFigureString();
     }
 
-    private _Str_1667(k: number[]): IFigurePartSet[]
+    private resolveFigureSets(k: number[]): IFigurePartSet[]
     {
         const structure                     = this.structureData;
         const partSets: IFigurePartSet[]   = [];
@@ -436,7 +436,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         return partSets;
     }
 
-    public _Str_838(k: string, _arg_2: number): string[]
+    public getMandatoryAvatarPartSetIds(k: string, _arg_2: number): string[]
     {
         if(!this._structure) return null;
 

@@ -18,7 +18,7 @@ export interface IAvatarRenderManager extends INitroManager
     getFigureClubLevel(container: IAvatarFigureContainer, gender: string, searchParts: string[]): number;
     isValidFigureSetForGender(setId: number, gender: string): boolean;
     getFigureStringWithFigureIds(k: string, _arg_2: string, _arg_3: number[]): string;
-    _Str_838(k: string, _arg_2: number): string[];
+    getMandatoryAvatarPartSetIds(k: string, _arg_2: number): string[];
     getAssetByName(name: string): IGraphicAsset;
     assets: IAssetManager;
     isReady: boolean;
