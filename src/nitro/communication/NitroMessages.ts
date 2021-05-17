@@ -1,4 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
+import { CatalogPetBreedsEvent } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { ChangeNameUpdateEvent } from './messages/incoming/avatar/ChangeNameUpdateEvent';
 import { CatalogClubEvent } from './messages/incoming/catalog/CatalogClubEvent';
@@ -17,6 +18,12 @@ import { CatalogRedeemVoucherOkEvent } from './messages/incoming/catalog/Catalog
 import { CatalogSearchEvent } from './messages/incoming/catalog/CatalogSearchEvent';
 import { CatalogSoldOutEvent } from './messages/incoming/catalog/CatalogSoldOutEvent';
 import { CatalogUpdatedEvent } from './messages/incoming/catalog/CatalogUpdatedEvent';
+import { MarketplaceAfterOrderStatusEvent } from './messages/incoming/catalog/marketplace/MarketplaceAfterOrderStatusEvent';
+import { MarketplaceCancelItemEvent } from './messages/incoming/catalog/marketplace/MarketplaceCancelItemEvent';
+import { MarketplaceOffersReceivedEvent } from './messages/incoming/catalog/marketplace/MarketplaceOffersReceivedEvent';
+import { MarketplaceOwnItemsEvent } from './messages/incoming/catalog/marketplace/MarketplaceOwnItemsEvent';
+import { MarketplaceConfigEvent } from './messages/incoming/catalog/MarketplaceConfigEvent';
+import { MarketplaceItemStatsEvent } from './messages/incoming/catalog/MarketplaceItemStatsEvent';
 import { ClientPingEvent } from './messages/incoming/client/ClientPingEvent';
 import { DesktopViewEvent } from './messages/incoming/desktop/DesktopViewEvent';
 import { AcceptFriendResultEvent } from './messages/incoming/friendlist/AcceptFriendResultEvent';
@@ -63,6 +70,8 @@ import { FurnitureListInvalidateEvent } from './messages/incoming/inventory/furn
 import { FurnitureListRemovedEvent } from './messages/incoming/inventory/furni/FurnitureListRemovedEvent';
 import { FurniturePostItPlacedEvent } from './messages/incoming/inventory/furni/FurniturePostItPlacedEvent';
 import { FurnitureGiftOpenedEvent } from './messages/incoming/inventory/furni/gifts/FurnitureGiftOpenedEvent';
+import { MarketplaceItemPostedEvent } from './messages/incoming/inventory/marketplace/MarketplaceItemPostedEvent';
+import { MarketplaceSellItemEvent } from './messages/incoming/inventory/marketplace/MarketplaceSellItemEvent';
 import { PetAddedToInventoryEvent } from './messages/incoming/inventory/pets/PetAddedToInventoryEvent';
 import { PetInventoryEvent } from './messages/incoming/inventory/pets/PetInventoryEvent';
 import { PetRemovedFromInventory } from './messages/incoming/inventory/pets/PetRemovedFromInventoryEvent';
@@ -203,10 +212,18 @@ import { CatalogPageComposer } from './messages/outgoing/catalog/CatalogPageComp
 import { CatalogPurchaseComposer } from './messages/outgoing/catalog/CatalogPurchaseComposer';
 import { CatalogPurchaseGiftComposer } from './messages/outgoing/catalog/CatalogPurchaseGiftComposer';
 import { CatalogRequestGiftConfigurationComposer } from './messages/outgoing/catalog/CatalogRequestGiftConfigurationComposer';
+import { CatalogRequestPetBreedsComposer } from './messages/outgoing/catalog/CatalogRequestPetBreedsComposer';
 import { CatalogRequestVipGiftsComposer } from './messages/outgoing/catalog/CatalogRequestVipGiftsComposer';
 import { CatalogRequestVipOffersComposer } from './messages/outgoing/catalog/CatalogRequestVipOffersComposer';
 import { CatalogSearchComposer } from './messages/outgoing/catalog/CatalogSearchComposer';
 import { CatalogSelectClubGiftComposer } from './messages/outgoing/catalog/CatalogSelectClubGiftComposer';
+import { MarketplaceBuyOfferComposer } from './messages/outgoing/catalog/marketplace/MarketplaceBuyOfferComposer';
+import { MarketplaceRedeemCreditsComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRedeemCreditsComposer';
+import { MarketplaceRequesstItemStatsComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequesstItemStatsComposer';
+import { MarketplaceRequestComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequestComposer';
+import { MarketplaceRequestOffersComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequestOffersComposer';
+import { MarketplaceRequestOwnItemsComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequestOwnItemsComposer';
+import { MarketplaceTakeItemBackComposer } from './messages/outgoing/catalog/marketplace/MarketplaceTakeItemBackComposer';
 import { RedeemItemClothingComposer } from './messages/outgoing/catalog/RedeemItemClothingComposer';
 import { CatalogRedeemVoucherComposer } from './messages/outgoing/catalog/RedeemVoucherComposer';
 import { ClientPongComposer } from './messages/outgoing/client/ClientPongComposer';
@@ -251,6 +268,8 @@ import { SetActivatedBadgesComposer } from './messages/outgoing/inventory/badges
 import { GetBotInventoryComposer } from './messages/outgoing/inventory/bots/GetBotInventoryComposer';
 import { FurnitureList2Composer } from './messages/outgoing/inventory/furni/FurnitureList2Composer';
 import { FurnitureListComposer } from './messages/outgoing/inventory/furni/FurnitureListComposer';
+import { MarketplaceSellItemComposer } from './messages/outgoing/inventory/marketplace/MarketplaceSellItemComposer';
+import { RequestSellItemComposer } from './messages/outgoing/inventory/marketplace/RequestSellItemComposer';
 import { RequestPetsComposer } from './messages/outgoing/inventory/pets/RequestPetsComposer';
 import { TradingAcceptComposer } from './messages/outgoing/inventory/trading/TradingAcceptComposer';
 import { TradingCancelComposer } from './messages/outgoing/inventory/trading/TradingCancelComposer';
@@ -384,23 +403,6 @@ import { UserRespectComposer } from './messages/outgoing/user/UserRespectCompose
 import { UserWardrobePageComposer } from './messages/outgoing/user/wardrobe/UserWardrobePageComposer';
 import { UserWardrobeSaveComposer } from './messages/outgoing/user/wardrobe/UserWardrobeSaveComposer';
 import { MiniMailUnreadCountParser } from './messages/parser/friendlist/MiniMailUnreadCountParser';
-import { RequestSellItemComposer } from './messages/outgoing/inventory/marketplace/RequestSellItemComposer';
-import { MarketplaceSellItemEvent } from './messages/incoming/inventory/marketplace/MarketplaceSellItemEvent';
-import { MarketplaceConfigEvent } from './messages/incoming/catalog/MarketplaceConfigEvent';
-import { MarketplaceItemStatsEvent } from './messages/incoming/catalog/MarketplaceItemStatsEvent';
-import { MarketplaceSellItemComposer } from './messages/outgoing/inventory/marketplace/MarketplaceSellItemComposer';
-import { MarketplaceRequesstItemStatsComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequesstItemStatsComposer';
-import { MarketplaceRequestComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequestComposer';
-import { MarketplaceRequestOwnItemsComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequestOwnItemsComposer';
-import { MarketplaceOwnItemsEvent } from './messages/incoming/catalog/marketplace/MarketplaceOwnItemsEvent';
-import { MarketplaceTakeItemBackComposer } from './messages/outgoing/catalog/marketplace/MarketplaceTakeItemBackComposer';
-import { MarketplaceCancelItemEvent } from './messages/incoming/catalog/marketplace/MarketplaceCancelItemEvent';
-import { MarketplaceRedeemCreditsComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRedeemCreditsComposer';
-import { MarketplaceItemPostedEvent } from './messages/incoming/inventory/marketplace/MarketplaceItemPostedEvent';
-import { MarketplaceRequestOffersComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequestOffersComposer';
-import { MarketplaceOffersReceivedEvent } from './messages/incoming/catalog/marketplace/MarketplaceOffersReceivedEvent';
-import { MarketplaceBuyOfferComposer } from './messages/outgoing/catalog/marketplace/MarketplaceBuyOfferComposer';
-import { MarketplaceAfterOrderStatusEvent } from './messages/incoming/catalog/marketplace/MarketplaceAfterOrderStatusEvent';
 
 export class NitroMessages implements IMessageConfiguration
 {
@@ -441,6 +443,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.GIFT_CONFIG, CatalogGiftConfigurationEvent);
         this._events.set(IncomingHeader.REDEEM_VOUCHER_ERROR, CatalogRedeemVoucherErrorEvent);
         this._events.set(IncomingHeader.REDEEM_VOUCHER_OK, CatalogRedeemVoucherOkEvent);
+        this._events.set(IncomingHeader.CATALOG_RECEIVE_PET_BREEDS, CatalogPetBreedsEvent);
 
         // CLIENT
         this._events.set(IncomingHeader.CLIENT_PING, ClientPingEvent);
@@ -737,6 +740,7 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.GROUP_MEMBERSHIPS, CatalogGroupsComposer);
         this._composers.set(OutgoingHeader.GIFT_CONFIG, CatalogRequestGiftConfigurationComposer);
         this._composers.set(OutgoingHeader.CATALOG_SELECT_VIP_GIFT, CatalogSelectClubGiftComposer);
+        this._composers.set(OutgoingHeader.CATALOG_REQUESET_PET_BREEDS, CatalogRequestPetBreedsComposer);
 
         // CLIENT
         this._composers.set(OutgoingHeader.CLIENT_PONG, ClientPongComposer);

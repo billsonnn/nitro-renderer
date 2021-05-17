@@ -230,4 +230,5 @@ export class OutgoingHeader
     public static MARKETPLACE_REDEEM_CREDITS     = 2650;
     public static MARKETPLACE_REQUEST_OFFERS     = 2407;
     public static MARKETPLACE_BUY_OFFER          = 1603;
+    public static CATALOG_REQUESET_PET_BREEDS    = 1756;
 }

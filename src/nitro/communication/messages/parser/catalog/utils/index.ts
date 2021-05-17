@@ -4,6 +4,7 @@ export * from './CatalogGroupData';
 export * from './CatalogLocalizationData';
 export * from './CatalogPageData';
 export * from './CatalogPageOfferData';
+export * from './CatalogPetPaletteBreed';
 export * from './CatalogProductOfferData';
 export * from './CatalogPurchaseData';
 export * from './CatalogSearchData';

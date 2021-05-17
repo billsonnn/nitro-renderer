@@ -6,6 +6,7 @@ export * from './CatalogGroupsEvent';
 export * from './CatalogModeEvent';
 export * from './CatalogPageEvent';
 export * from './CatalogPagesEvent';
+export * from './CatalogPetBreedsEvent';
 export * from './CatalogPurchaseEvent';
 export * from './CatalogPurchaseFailedEvent';
 export * from './CatalogPurchaseUnavailableEvent';

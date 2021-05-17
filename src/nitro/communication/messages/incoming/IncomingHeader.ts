@@ -245,4 +245,5 @@ export class IncomingHeader
     public static MARKETPLACE_ITEM_POSTED          = 1359;
     public static MARKETPLACE_ITEMS_SEARCHED       = 680;
     public static MARKETPLACE_AFTER_ORDER_STATUS   = 2032;
+    public static CATALOG_RECEIVE_PET_BREEDS       = 3331;
 }

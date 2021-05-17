@@ -6,6 +6,7 @@ export * from './CatalogGroupsParser';
 export * from './CatalogModeParser';
 export * from './CatalogPageParser';
 export * from './CatalogPagesParser';
+export * from './CatalogPetBreedsParser';
 export * from './CatalogPurchaseFailedParser';
 export * from './CatalogPurchaseParser';
 export * from './CatalogPurchaseUnavailableParser';
