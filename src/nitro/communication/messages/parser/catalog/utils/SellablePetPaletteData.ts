@@ -1,6 +1,6 @@
 import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 
-export class CatalogPetPaletteBreed
+export class SellablePetPaletteData
 {
     private _type: number;
     private _breedId: number;

@@ -1,11 +1,11 @@
 import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
-import { CatalogPetPaletteBreed } from './utils';
+import { SellablePetPaletteData } from './utils';
 
-export class CatalogPetBreedsParser implements IMessageParser
+export class SellablePetPalettesParser implements IMessageParser
 {
     private _productCode: string;
-    private _palettes: CatalogPetPaletteBreed[];
+    private _palettes: SellablePetPaletteData[];
 
     public flush(): boolean
     {
@@ -25,7 +25,7 @@ export class CatalogPetBreedsParser implements IMessageParser
 
         while(totalPalettes > 0)
         {
-            this._palettes.push(new CatalogPetPaletteBreed(wrapper));
+            this._palettes.push(new SellablePetPaletteData(wrapper));
 
             totalPalettes--;
         }
@@ -38,7 +38,7 @@ export class CatalogPetBreedsParser implements IMessageParser
         return this._productCode;
     }
 
-    public get palettes(): CatalogPetPaletteBreed[]
+    public get palettes(): SellablePetPaletteData[]
     {
         return this._palettes;
     }
