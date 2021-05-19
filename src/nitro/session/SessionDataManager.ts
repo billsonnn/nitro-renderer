@@ -220,8 +220,6 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
             furnitureData.push(data);
         }
 
-        if(!furnitureData || !furnitureData.length) return null;
-
         return furnitureData;
     }
 
