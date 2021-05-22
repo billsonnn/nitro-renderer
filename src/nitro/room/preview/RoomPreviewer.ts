@@ -52,6 +52,7 @@ export class RoomPreviewer
     private _previousAutomaticStateChangeTime: number;
     private _addViewOffset: Point;
     private _backgroundColor: number = 305148561;
+    private _backgroundSprite: Sprite = null;
     private _disableUpdate: boolean = false;
 
     constructor(roomEngine: IRoomEngine, roomId: number = 1)
@@ -83,6 +84,13 @@ export class RoomPreviewer
             this._roomEngine.events.removeEventListener(RoomEngineObjectEvent.ADDED, this.onRoomObjectAdded);
             this._roomEngine.events.removeEventListener(RoomEngineObjectEvent.CONTENT_UPDATED, this.onRoomObjectAdded);
             this._roomEngine.events.removeEventListener(RoomEngineEvent.INITIALIZED, this.onRoomInitializedonRoomInitialized);
+        }
+
+        if(this._backgroundSprite)
+        {
+            this._backgroundSprite.destroy();
+
+            this._backgroundSprite = null;
         }
 
         if(this._planeParser)
@@ -438,13 +446,18 @@ export class RoomPreviewer
 
             if(displayObject && (this._backgroundColor !== null))
             {
-                const background = new Sprite(Texture.WHITE);
+                let backgroundSprite = this._backgroundSprite;
 
-                background.width    = width;
-                background.height   = height;
-                background.tint     = this._backgroundColor;
+                if(!backgroundSprite)
+                {
+                    backgroundSprite = new Sprite(Texture.WHITE);
 
-                displayObject.addChildAt(background, 0);
+                    displayObject.addChildAt(backgroundSprite, 0);
+                }
+
+                backgroundSprite.width    = width;
+                backgroundSprite.height   = height;
+                backgroundSprite.tint     = this._backgroundColor;
             }
 
             this._roomEngine.setRoomInstanceRenderingCanvasMask(this._previewRoomId, RoomPreviewer.PREVIEW_CANVAS_ID, true);
@@ -468,6 +481,12 @@ export class RoomPreviewer
         {
             this._currentPreviewCanvasWidth     = width;
             this._currentPreviewCanvasHeight    = height;
+
+            if(this._backgroundSprite)
+            {
+                this._backgroundSprite.width    = width;
+                this._backgroundSprite.height   = height;
+            }
 
             this._roomEngine.initializeRoomInstanceRenderingCanvas(this._previewRoomId, RoomPreviewer.PREVIEW_CANVAS_ID, width, height);
         }

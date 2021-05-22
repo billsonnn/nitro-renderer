@@ -94,6 +94,7 @@ import { RoomObjectCategory } from './object/RoomObjectCategory';
 import { RoomObjectUserType } from './object/RoomObjectUserType';
 import { RoomObjectVariable } from './object/RoomObjectVariable';
 import { RoomObjectVisualizationFactory } from './object/RoomObjectVisualizationFactory';
+import { PetColorResult } from './PetColorResult';
 import { RoomContentLoader } from './RoomContentLoader';
 import { RoomMessageHandler } from './RoomMessageHandler';
 import { RoomObjectEventHandler } from './RoomObjectEventHandler';
@@ -3525,6 +3526,13 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         if(!this._roomContentLoader) return false;
 
         return (this._roomContentLoader.getCollection(name) !== null);
+    }
+
+    public getPetColorResult(petIndex: number, paletteIndex: number): PetColorResult
+    {
+        if(!this._roomContentLoader) return null;
+
+        return this._roomContentLoader.getPetColorResult(petIndex, paletteIndex);
     }
 
     public modifyRoomObjectData(objectId: number, objectCategory: number, colorHex: string, text: string): boolean
