@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { SellablePetPalettesEvent } from './messages';
+import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, SellablePetPalettesEvent } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { ChangeNameUpdateEvent } from './messages/incoming/avatar/ChangeNameUpdateEvent';
 import { CatalogClubEvent } from './messages/incoming/catalog/CatalogClubEvent';
@@ -444,6 +444,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.REDEEM_VOUCHER_ERROR, CatalogRedeemVoucherErrorEvent);
         this._events.set(IncomingHeader.REDEEM_VOUCHER_OK, CatalogRedeemVoucherOkEvent);
         this._events.set(IncomingHeader.CATALOG_RECEIVE_PET_BREEDS, SellablePetPalettesEvent);
+        this._events.set(IncomingHeader.CATALOG_APPROVE_NAME_RESULT, CatalogApproveNameResultEvent);
 
         // CLIENT
         this._events.set(IncomingHeader.CLIENT_PING, ClientPingEvent);
@@ -938,6 +939,7 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.ROOM_MUTE, RoomMuteComposer);
 
         // USER
+        this._composers.set(OutgoingHeader.APPROVE_NAME, ApproveNameMessageComposer);
         this._composers.set(OutgoingHeader.USER_RESPECT, UserRespectComposer);
 
         // DATA
