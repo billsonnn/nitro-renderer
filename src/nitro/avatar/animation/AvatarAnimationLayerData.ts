@@ -41,7 +41,7 @@ export class AvatarAnimationLayerData implements IAnimationLayerData
         if(_arg_3)
         {
             this._action            = new ActiveActionData(_arg_3.state, this.base);
-            this._action._Str_742   = _arg_3;
+            this._action.definition   = _arg_3;
         }
     }
 

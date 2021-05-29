@@ -99,7 +99,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         this.setDirection(AvatarImage.DEFAULT_AVATAR_SET, AvatarImage.DEFAULT_DIRECTION);
         this._actions = [];
         this._defaultAction = new ActiveActionData(AvatarAction.POSTURE_STAND);
-        this._defaultAction._Str_742 = this._structure._Str_1675(AvatarImage.DEFAULT_ACTION);
+        this._defaultAction.definition = this._structure._Str_1675(AvatarImage.DEFAULT_ACTION);
         this.resetActions();
         this._fullImageCache = new AdvancedMap();
         this._animationFrameCount = 0;
@@ -246,25 +246,25 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         {
             for(const k of this._sortedActions)
             {
-                if(((k._Str_695 == 'fx') && ((((k._Str_727 == '33') || (k._Str_727 == '34')) || (k._Str_727 == '35')) || (k._Str_727 == '36'))))
+                if(((k.actionType == 'fx') && ((((k.actionParameter == '33') || (k.actionParameter == '34')) || (k.actionParameter == '35')) || (k.actionParameter == '36'))))
                 {
                     return (this._mainDirection + this._currentActionsString) + 0;
                 }
 
-                if(((k._Str_695 == 'fx') && ((k._Str_727 == '38') || (k._Str_727 == '39'))))
+                if(((k.actionType == 'fx') && ((k.actionParameter == '38') || (k.actionParameter == '39'))))
                 {
                     return (((this._mainDirection + '_') + this._headDirection) + this._currentActionsString) + (this._frameCounter % 11);
                 }
 
-                if((k._Str_695 === 'dance') && ((k._Str_727 === '1') || (k._Str_727 === '2') || (k._Str_727 === '3') || (k._Str_727 === '4')))
+                if((k.actionType === 'dance') && ((k.actionParameter === '1') || (k.actionParameter === '2') || (k.actionParameter === '3') || (k.actionParameter === '4')))
                 {
                     let frame = (this._frameCounter % 8);
 
-                    if((k._Str_727 === '3')) frame = (this._frameCounter % 10);
+                    if((k.actionParameter === '3')) frame = (this._frameCounter % 10);
 
-                    if((k._Str_727 === '4')) frame = (this._frameCounter % 16);
+                    if((k.actionParameter === '4')) frame = (this._frameCounter % 16);
 
-                    return (((this._mainDirection + k._Str_695) + k._Str_727) + frame);
+                    return (((this._mainDirection + k.actionType) + k.actionParameter) + frame);
                 }
             }
         }
@@ -291,12 +291,12 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         {
             return;
         }
-        const _local_2 = this._structure._Str_1664(this._scale, this._mainAction._Str_742._Str_868);
+        const _local_2 = this._structure._Str_1664(this._scale, this._mainAction.definition._Str_868);
         if(_local_2 == null)
         {
             return;
         }
-        const _local_3 = this.getBodyParts(k, this._mainAction._Str_742._Str_868, this._mainDirection);
+        const _local_3 = this.getBodyParts(k, this._mainAction.definition._Str_868, this._mainDirection);
         let _local_6 = (_local_3.length - 1);
         while(_local_6 >= 0)
         {
@@ -314,7 +314,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(!this._actionsSorted) this.endActionAppends();
 
-        const avatarCanvas = this._structure._Str_1664(this._scale, this._mainAction._Str_742._Str_868);
+        const avatarCanvas = this._structure._Str_1664(this._scale, this._mainAction.definition._Str_868);
 
         if(!avatarCanvas) return null;
 
@@ -331,7 +331,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             this._isCachedImage = false;
         }
 
-        const _local_6 = this.getBodyParts(setType, this._mainAction._Str_742._Str_868, this._mainDirection);
+        const _local_6 = this.getBodyParts(setType, this._mainAction.definition._Str_868, this._mainDirection);
 
         this._image = null;
 
@@ -444,11 +444,11 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(!this._actionsSorted) this.endActionAppends();
 
-        const avatarCanvas = this._structure._Str_1664(this._scale, this._mainAction._Str_742._Str_868);
+        const avatarCanvas = this._structure._Str_1664(this._scale, this._mainAction.definition._Str_868);
 
         if(!avatarCanvas) return null;
 
-        const setTypes  = this.getBodyParts(setType, this._mainAction._Str_742._Str_868, this._mainDirection);
+        const setTypes  = this.getBodyParts(setType, this._mainAction.definition._Str_868, this._mainDirection);
         const container = new Sprite();
         const sprite    = new Sprite(Texture.EMPTY);
 
@@ -509,11 +509,11 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(!this._actionsSorted) this.endActionAppends();
 
-        const avatarCanvas = this._structure._Str_1664(this._scale, this._mainAction._Str_742._Str_868);
+        const avatarCanvas = this._structure._Str_1664(this._scale, this._mainAction.definition._Str_868);
 
         if(!avatarCanvas) return null;
 
-        const setTypes  = this.getBodyParts(setType, this._mainAction._Str_742._Str_868, this._mainDirection);
+        const setTypes  = this.getBodyParts(setType, this._mainAction.definition._Str_868, this._mainDirection);
         const container = new Container();
         const sprite    = new Sprite(Texture.EMPTY);
 
@@ -646,9 +646,9 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         for(const k of this._sortedActions)
         {
-            if(k._Str_695 === AvatarAction.EFFECT)
+            if(k.actionType === AvatarAction.EFFECT)
             {
-                if(!this._effectManager.isAvatarEffectReady(parseInt(k._Str_727))) this._effectManager.downloadAvatarEffect(parseInt(k._Str_727), this);
+                if(!this._effectManager.isAvatarEffectReady(parseInt(k.actionParameter))) this._effectManager.downloadAvatarEffect(parseInt(k.actionParameter), this);
             }
         }
 
@@ -760,7 +760,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         while(_local_4 < this._actions.length)
         {
             _local_3 = this._actions[_local_4];
-            if(((_local_3._Str_695 == k) && (_local_3._Str_727 == _arg_2)))
+            if(((_local_3.actionType == k) && (_local_3.actionParameter == _arg_2)))
             {
                 return;
             }
@@ -783,7 +783,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         this._directionOffset = 0;
         this._structure._Str_2101(this);
         this._mainAction = this._defaultAction;
-        this._mainAction._Str_742 = this._defaultAction._Str_742;
+        this._mainAction.definition = this._defaultAction.definition;
         this.resetBodyPartCache(this._defaultAction);
         return true;
     }
@@ -799,8 +799,8 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         }
         for(const _local_3 of this._sortedActions)
         {
-            _local_2 = this._structure._Str_2018(_local_3._Str_695);
-            if(((!(_local_2 == null)) && (_local_2._Str_715(_local_3._Str_727))))
+            _local_2 = this._structure._Str_2018(_local_3.actionType);
+            if(((!(_local_2 == null)) && (_local_2._Str_715(_local_3.actionParameter))))
             {
                 k = true;
             }
@@ -837,11 +837,11 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
             for(const _local_4 of this._sortedActions)
             {
-                this._currentActionsString = (this._currentActionsString + (_local_4._Str_695 + _local_4._Str_727));
+                this._currentActionsString = (this._currentActionsString + (_local_4.actionType + _local_4.actionParameter));
 
-                if(_local_4._Str_695 === AvatarAction.EFFECT)
+                if(_local_4.actionType === AvatarAction.EFFECT)
                 {
-                    const _local_5 = parseInt(_local_4._Str_727);
+                    const _local_5 = parseInt(_local_4.actionParameter);
 
                     if(this._effectIdInUse !== _local_5) _local_2 = true;
 
@@ -880,13 +880,13 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         const _local_3: number    = Nitro.instance.time;
         const _local_4: string[]  = [];
 
-        for(const k of this._sortedActions) _local_4.push(k._Str_695);
+        for(const k of this._sortedActions) _local_4.push(k.actionType);
 
         for(const k of this._sortedActions)
         {
-            if((k && k._Str_742) && k._Str_742._Str_861)
+            if((k && k.definition) && k.definition._Str_861)
             {
-                const _local_2 = this._structure._Str_720(((k._Str_742.state + '.') + k._Str_727));
+                const _local_2 = this._structure._Str_720(((k.definition.state + '.') + k.actionParameter));
 
                 if(_local_2 && _local_2._Str_1892())
                 {
@@ -896,7 +896,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                     {
                         for(const _local_6 of _local_5)
                         {
-                            if(_local_4.indexOf(_local_6) >= 0) k._Str_707 = _local_2._Str_707(_local_6);
+                            if(_local_4.indexOf(_local_6) >= 0) k.overridingAction = _local_2.overridingAction(_local_6);
                         }
                     }
                 }
@@ -910,17 +910,17 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         for(const k of this._sortedActions)
         {
-            if(!((!(k)) || (!(k._Str_742))))
+            if(!((!(k)) || (!(k.definition))))
             {
-                if(k._Str_742._Str_861 && (k._Str_727 === '')) k._Str_727 = '1';
+                if(k.definition._Str_861 && (k.actionParameter === '')) k.actionParameter = '1';
 
                 this.setActionToParts(k, _local_3);
 
-                if(k._Str_742._Str_861)
+                if(k.definition._Str_861)
                 {
-                    this._isAnimating = k._Str_742._Str_801(k._Str_727);
+                    this._isAnimating = k.definition._Str_801(k.actionParameter);
 
-                    const _local_2 = this._structure._Str_720(((k._Str_742.state + '.') + k._Str_727));
+                    const _local_2 = this._structure._Str_720(((k.definition.state + '.') + k.actionParameter));
 
                     if(_local_2)
                     {
@@ -937,18 +937,18 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
     private setActionToParts(k: IActiveActionData, _arg_2: number): void
     {
-        if(((k == null) || (k._Str_742 == null)))
+        if(((k == null) || (k.definition == null)))
         {
             return;
         }
-        if(k._Str_742._Str_778 == '')
+        if(k.definition._Str_778 == '')
         {
             return;
         }
-        if(k._Str_742._Str_779)
+        if(k.definition._Str_779)
         {
             this._mainAction = k;
-            this._cache._Str_2014(k._Str_742._Str_868);
+            this._cache._Str_2014(k.definition._Str_868);
         }
         this._cache._Str_1565(k, _arg_2);
         this._changes = true;
@@ -958,12 +958,12 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
     {
         if(!k) return;
 
-        if(k._Str_742._Str_778 === '') return;
+        if(k.definition._Str_778 === '') return;
 
-        if(k._Str_742._Str_779)
+        if(k.definition._Str_779)
         {
             this._mainAction = k;
-            this._cache._Str_2014(k._Str_742._Str_868);
+            this._cache._Str_2014(k.definition._Str_868);
         }
 
         this._cache._Str_741(k);
@@ -1045,7 +1045,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
     public get mainAction(): string
     {
-        return this._mainAction._Str_695;
+        return this._mainAction.actionType;
     }
 
     public resetEffect(effect: number): void

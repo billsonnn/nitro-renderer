@@ -79,14 +79,14 @@ export class AvatarImageActionCache
 
         if(!k) k = this._Str_1233;
 
-        if(k._Str_707) return this._Str_586.get(k._Str_707);
+        if(k.overridingAction) return this._Str_586.get(k.overridingAction);
 
         return this._Str_586.get(k.id);
     }
 
     public _Str_1765(k: IActiveActionData, _arg_2: AvatarImageBodyPartCache): void
     {
-        if(k._Str_707) this._Str_586.set(k._Str_707, _arg_2);
+        if(k.overridingAction) this._Str_586.set(k.overridingAction, _arg_2);
         else this._Str_586.set(k.id, _arg_2);
     }
 

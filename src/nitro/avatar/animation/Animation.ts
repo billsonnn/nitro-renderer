@@ -162,7 +162,7 @@ export class Animation implements IAnimation
         return keys;
     }
 
-    public _Str_707(k: string): string
+    public overridingAction(k: string): string
     {
         if(!this._overriddenActions) return null;
 

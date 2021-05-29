@@ -32,42 +32,42 @@ export class ActiveActionData implements IActiveActionData
         return this._definition.id + '_' + this._actionParameter;
     }
 
-    public get _Str_695(): string
+    public get actionType(): string
     {
         return this._actionType;
     }
 
-    public get _Str_727(): string
+    public get actionParameter(): string
     {
         return this._actionParameter;
     }
 
-    public set _Str_727(parameter: string)
+    public set actionParameter(parameter: string)
     {
         this._actionParameter = parameter;
     }
 
-    public get _Str_742(): IActionDefinition
+    public get definition(): IActionDefinition
     {
         return this._definition;
     }
 
-    public set _Str_742(definition: IActionDefinition)
+    public set definition(definition: IActionDefinition)
     {
         this._definition = definition;
     }
 
-    public get _Str_664(): number
+    public get startFrame(): number
     {
         return this._startFrame;
     }
 
-    public get _Str_707(): string
+    public get overridingAction(): string
     {
         return this._overridingAction;
     }
 
-    public set _Str_707(action: string)
+    public set overridingAction(action: string)
     {
         this._overridingAction = action;
     }

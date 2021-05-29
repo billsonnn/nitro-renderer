@@ -106,7 +106,7 @@ export class AvatarActionManager
         {
             if(!activeAction) continue;
 
-            const action    = this._actions.get(activeAction._Str_695);
+            const action    = this._actions.get(activeAction.actionType);
             const offsets   = action && action._Str_805(_arg_2, _arg_3);
 
             if(offsets) canvasOffsets = offsets;
@@ -127,11 +127,11 @@ export class AvatarActionManager
         {
             if(!action) continue;
 
-            const definition = this._actions.get(action._Str_695);
+            const definition = this._actions.get(action.actionType);
 
             if(!definition) continue;
 
-            action._Str_742 = definition;
+            action.definition = definition;
 
             validatedActions.push(action);
         }
@@ -150,18 +150,18 @@ export class AvatarActionManager
         {
             if(!action) continue;
 
-            const localAction = this._actions.get(action._Str_695);
+            const localAction = this._actions.get(action.actionType);
 
-            if(localAction) preventions = preventions.concat(localAction._Str_733(action._Str_727));
+            if(localAction) preventions = preventions.concat(localAction._Str_733(action.actionParameter));
         }
 
         for(const action of actions)
         {
             if(!action) continue;
 
-            let actionType = action._Str_695;
+            let actionType = action.actionType;
 
-            if(action._Str_695 === 'fx') actionType = (actionType + ('.' + action._Str_727));
+            if(action.actionType === 'fx') actionType = (actionType + ('.' + action.actionParameter));
 
             if(preventions.indexOf(actionType) >= 0) continue;
 
@@ -175,8 +175,8 @@ export class AvatarActionManager
     {
         if(!actionOne || !actionTwo) return 0;
 
-        const precedenceOne = actionOne._Str_742.precedence;
-        const precedenceTwo = actionTwo._Str_742.precedence;
+        const precedenceOne = actionOne.definition.precedence;
+        const precedenceTwo = actionTwo.definition.precedence;
 
         if(precedenceOne < precedenceTwo) return 1;
 

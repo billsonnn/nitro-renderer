@@ -173,25 +173,25 @@ export class AvatarImageCache
         let _local_7 = _local_4._Str_2244();
         let frameCount = frameNumber;
 
-        if(_local_7._Str_742._Str_812) frameCount -= _local_7._Str_664;
+        if(_local_7.definition._Str_812) frameCount -= _local_7.startFrame;
 
         let _local_8                        = _local_7;
         let _local_9: string[]              = [];
         let _local_10: Map<string, string>  = new Map();
         const _local_11                       = new Point();
 
-        if(!((!(_local_7)) || (!(_local_7._Str_742))))
+        if(!((!(_local_7)) || (!(_local_7.definition))))
         {
-            if(_local_7._Str_742._Str_861)
+            if(_local_7.definition._Str_861)
             {
                 let _local_15 = _local_5;
 
-                const _local_16 = this._structure._Str_720(((_local_7._Str_742.state + '.') + _local_7._Str_727));
-                const _local_17 = (frameNumber - _local_7._Str_664);
+                const _local_16 = this._structure._Str_720(((_local_7.definition.state + '.') + _local_7.actionParameter));
+                const _local_17 = (frameNumber - _local_7.startFrame);
 
                 if(_local_16)
                 {
-                    const _local_18 = _local_16._Str_607(_local_17, k, _local_7._Str_707);
+                    const _local_18 = _local_16._Str_607(_local_17, k, _local_7.overridingAction);
 
                     if(_local_18)
                     {
@@ -331,7 +331,7 @@ export class AvatarImageCache
         }
 
         const isFlipped           = AvatarDirectionAngle.DIRECTION_IS_FLIPPED[direction] || false;
-        let assetPartDefinition = _arg_4._Str_742._Str_778;
+        let assetPartDefinition = _arg_4.definition._Str_778;
         let isCacheable         = true;
         let containerIndex      = (containers.length - 1);
 
