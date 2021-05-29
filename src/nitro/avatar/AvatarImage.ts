@@ -386,7 +386,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             partCount--;
         }
 
-        if(this._avatarSpriteData && this._avatarSpriteData._Str_832) this.convertToGrayscale(container);
+        if(this._avatarSpriteData && this._avatarSpriteData.paletteIsGrayscale) this.convertToGrayscale(container);
 
         if(!cache)
         {
@@ -404,7 +404,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(!this._reusableTexture) return null;
 
-        if(this._avatarSpriteData && this._avatarSpriteData._Str_832)
+        if(this._avatarSpriteData && this._avatarSpriteData.paletteIsGrayscale)
         {
             //this._reusableTexture = this.applyPalette(this._reusableTexture, this._avatarSpriteData.reds);
         }

@@ -48,7 +48,7 @@ export class AvatarDataContainer implements IAvatarDataContainer
             this._paletteIsGrayscale = false;
         }
 
-        this._colorMap = this._Str_1181(this._backGround, this._foreGround);
+        this._colorMap = this.generatePaletteMapForGrayscale(this._backGround, this._foreGround);
     }
 
     public get ink(): number
@@ -81,12 +81,12 @@ export class AvatarDataContainer implements IAvatarDataContainer
         return this._colorMap.get('alphas');
     }
 
-    public get _Str_832(): boolean
+    public get paletteIsGrayscale(): boolean
     {
         return this._paletteIsGrayscale;
     }
 
-    private _Str_1181(k: number, _arg_2: number): Map<string, number[]>
+    private generatePaletteMapForGrayscale(k: number, _arg_2: number): Map<string, number[]>
     {
         const _local_3 = ((k >> 24) & 0xFF);
         const _local_4 = ((k >> 16) & 0xFF);
