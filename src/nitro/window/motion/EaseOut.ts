@@ -10,6 +10,6 @@ export class EaseOut extends EaseRate
 
     public update(k: number): void
     {
-        this._interval.update(Math.pow(k, (1 / this._Str_21638)));
+        this._interval.update(Math.pow(k, (1 / this._rate)));
     }
 }

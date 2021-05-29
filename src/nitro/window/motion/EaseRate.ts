@@ -3,12 +3,12 @@ import { Interval } from './Interval';
 
 export class EaseRate extends Ease
 {
-    protected _Str_21638: number;
+    protected _rate: number;
 
     constructor(k: Interval, _arg_2: number)
     {
         super(k);
 
-        this._Str_21638 = _arg_2;
+        this._rate = _arg_2;
     }
 }
