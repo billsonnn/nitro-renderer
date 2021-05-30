@@ -30,10 +30,10 @@ export class AvatarActionManager
             this._actions.set(definition.state, definition);
         }
 
-        if(data.actionOffsets) this._Str_1767(data.actionOffsets);
+        if(data.actionOffsets) this.parseActionOffsets(data.actionOffsets);
     }
 
-    private _Str_1767(offsets: any): void
+    private parseActionOffsets(offsets: any): void
     {
         if(!offsets || !offsets.length) return;
 
@@ -82,7 +82,7 @@ export class AvatarActionManager
         return existing;
     }
 
-    public _Str_1027(): ActionDefinition
+    public getDefaultAction(): ActionDefinition
     {
         if(this._defaultAction) return this._defaultAction;
 
@@ -119,7 +119,7 @@ export class AvatarActionManager
     {
         if(!actions) return null;
 
-        actions = this._Str_1247(actions);
+        actions = this.filterActions(actions);
 
         const validatedActions: IActiveActionData[] = [];
 
@@ -141,7 +141,7 @@ export class AvatarActionManager
         return validatedActions;
     }
 
-    private _Str_1247(actions: IActiveActionData[]): IActiveActionData[]
+    private filterActions(actions: IActiveActionData[]): IActiveActionData[]
     {
         let preventions: string[]               = [];
         const activeActions: IActiveActionData[]  = [];

@@ -83,14 +83,14 @@ export class AvatarStructure extends EventDispatcher
         if(!_arg_2) return;
 
         this._actionManager = new AvatarActionManager(k, _arg_2);
-        this._defaultAction = this._actionManager._Str_1027();
+        this._defaultAction = this._actionManager.getDefaultAction();
     }
 
     public updateActions(data: any): void
     {
         this._actionManager.updateActions(data);
 
-        this._defaultAction = this._actionManager._Str_1027();
+        this._defaultAction = this._actionManager.getDefaultAction();
     }
 
     public initPartSets(k: any): boolean
