@@ -73,7 +73,7 @@ export class AvatarImagePartContainer
             {
                 const frame = this._frames[frameNumber];
 
-                return (this.partId + ':' + frame._Str_778 + ':' + frame.number);
+                return (this.partId + ':' + frame.assetPartDefinition + ':' + frame.number);
             }
         }
 

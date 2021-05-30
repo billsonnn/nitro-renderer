@@ -172,7 +172,7 @@ export class ActionDefinition implements IActionDefinition
         return this._activePartSet;
     }
 
-    public get _Str_778(): string
+    public get assetPartDefinition(): string
     {
         return this._assetPartDefinition;
     }

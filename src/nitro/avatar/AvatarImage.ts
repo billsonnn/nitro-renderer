@@ -941,7 +941,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         {
             return;
         }
-        if(k.definition._Str_778 == '')
+        if(k.definition.assetPartDefinition == '')
         {
             return;
         }
@@ -958,7 +958,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
     {
         if(!k) return;
 
-        if(k.definition._Str_778 === '') return;
+        if(k.definition.assetPartDefinition === '') return;
 
         if(k.definition._Str_779)
         {

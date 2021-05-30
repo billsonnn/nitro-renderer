@@ -331,7 +331,7 @@ export class AvatarImageCache
         }
 
         const isFlipped           = AvatarDirectionAngle.DIRECTION_IS_FLIPPED[direction] || false;
-        let assetPartDefinition = _arg_4.definition._Str_778;
+        let assetPartDefinition = _arg_4.definition.assetPartDefinition;
         let isCacheable         = true;
         let containerIndex      = (containers.length - 1);
 
@@ -355,7 +355,7 @@ export class AvatarImageCache
                     {
                         frameNumber = animationFrame.number;
 
-                        if((animationFrame._Str_778) && (animationFrame._Str_778 !== '')) assetPartDefinition = animationFrame._Str_778;
+                        if((animationFrame.assetPartDefinition) && (animationFrame.assetPartDefinition !== '')) assetPartDefinition = animationFrame.assetPartDefinition;
                     }
                     else frameNumber = container.getFrameIndex(frameCount);
 

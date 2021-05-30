@@ -7,7 +7,7 @@ export interface IActionDefinition
     activePartSet: string;
     _Str_779: boolean;
     _Str_804: boolean;
-    _Str_778: string;
+    assetPartDefinition: string;
     lay: string;
     _Str_868: string;
     _Str_861: boolean;
