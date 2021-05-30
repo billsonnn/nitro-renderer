@@ -130,7 +130,7 @@ export class Animation implements IAnimation
         }
     }
 
-    public _Str_2185(k: string = null): number
+    public frameCount(k: string = null): number
     {
         if(!k) return this._frames.length;
 

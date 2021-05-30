@@ -252,7 +252,7 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
             if(!figurePartSet) continue;
 
-            for(const part of figurePartSet._Str_806)
+            for(const part of figurePartSet.parts)
             {
                 if(!part) continue;
 

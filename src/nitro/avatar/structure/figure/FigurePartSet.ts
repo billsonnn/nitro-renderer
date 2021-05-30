@@ -80,7 +80,7 @@ export class FigurePartSet implements IFigurePartSet
         return -1;
     }
 
-    public _Str_989(k: string, _arg_2: number): IFigurePart
+    public getPart(k: string, _arg_2: number): IFigurePart
     {
         for(const part of this._parts)
         {
@@ -122,7 +122,7 @@ export class FigurePartSet implements IFigurePartSet
         return this._isSelectable;
     }
 
-    public get _Str_806(): IFigurePart[]
+    public get parts(): IFigurePart[]
     {
         return this._parts;
     }

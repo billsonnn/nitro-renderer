@@ -53,6 +53,6 @@ export class AvatarAnimationData implements IFigureSetData
 
         if(!animationAction) return 0;
 
-        return animationAction._Str_2185;
+        return animationAction.frameCount;
     }
 }

@@ -3,7 +3,7 @@ import { AnimationActionPart } from './AnimationActionPart';
 
 export class AnimationAction
 {
-    public static _Str_1934: Point = new Point(0, 0);
+    public static DEFAULT_OFFSET: Point = new Point(0, 0);
 
     private _id: string;
     private _actionParts: Map<string, AnimationActionPart>;
@@ -91,7 +91,7 @@ export class AnimationAction
         }
     }
 
-    public _Str_989(type: string): AnimationActionPart
+    public getPart(type: string): AnimationActionPart
     {
         if(!type) return null;
 
@@ -108,15 +108,15 @@ export class AnimationAction
         const frameNumber   = this._frameIndexes[frameIndex];
         const offsets       = this._bodyPartOffsets.get(frameNumber);
 
-        if(!offsets) return AnimationAction._Str_1934;
+        if(!offsets) return AnimationAction.DEFAULT_OFFSET;
 
         const frameOffset = offsets.get(frameId);
 
-        if(!frameOffset) return AnimationAction._Str_1934;
+        if(!frameOffset) return AnimationAction.DEFAULT_OFFSET;
 
         const offset = frameOffset.get(partId);
 
-        if(!offset) return AnimationAction._Str_1934;
+        if(!offset) return AnimationAction.DEFAULT_OFFSET;
 
         return offset;
     }
@@ -126,12 +126,12 @@ export class AnimationAction
         return this._id;
     }
 
-    public get _Str_806(): Map<string, AnimationActionPart>
+    public get parts(): Map<string, AnimationActionPart>
     {
         return this._actionParts;
     }
 
-    public get _Str_2185(): number
+    public get frameCount(): number
     {
         return this._frameCount;
     }

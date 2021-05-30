@@ -6,7 +6,7 @@ import { PlaneMaterial } from './PlaneMaterial';
 
 export class PlaneVisualizationLayer
 {
-    public static _Str_1934: number = 0;
+    public static DEFAULT_OFFSET: number = 0;
     public static ALIGN_TOP: number = 1;
     public static _Str_3606: number = 2;
     public static _Str_6914: number = PlaneVisualizationLayer.ALIGN_TOP;

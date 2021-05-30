@@ -342,7 +342,7 @@ export class AvatarStructure extends EventDispatcher
 
         if(_local_5) return _local_5.getFrameBodyPartOffset(_arg_2, _arg_3, _arg_4);
 
-        return AnimationAction._Str_1934;
+        return AnimationAction.DEFAULT_OFFSET;
     }
 
     public getParts(k: string, _arg_2:IAvatarFigureContainer, _arg_3:IActiveActionData, _arg_4: string, _arg_5: number, removes: string[], _arg_7: IAvatarImage, _arg_8: Map<string, string> = null): AvatarImagePartContainer[]
@@ -367,7 +367,7 @@ export class AvatarStructure extends EventDispatcher
 
             if(_local_10)
             {
-                _local_14 = this.getPopulatedArray(_local_10._Str_2185(_arg_3.overridingAction));
+                _local_14 = this.getPopulatedArray(_local_10.frameCount(_arg_3.overridingAction));
 
                 for(const _local_25 of _local_10._Str_1065(0, _arg_3.overridingAction))
                 {
@@ -415,13 +415,13 @@ export class AvatarStructure extends EventDispatcher
                     {
                         removes = removes.concat(_local_32._Str_790);
 
-                        for(const _local_33 of _local_32._Str_806)
+                        for(const _local_33 of _local_32.parts)
                         {
                             if(_local_16.indexOf(_local_33.type) > -1)
                             {
                                 if(_local_15)
                                 {
-                                    const _local_19 = _local_15._Str_989(_local_33.type);
+                                    const _local_19 = _local_15.getPart(_local_33.type);
 
                                     if(_local_19)
                                     {
@@ -506,7 +506,7 @@ export class AvatarStructure extends EventDispatcher
 
                     if(_local_15)
                     {
-                        const _local_19 = _local_15._Str_989(_local_12);
+                        const _local_19 = _local_15.getPart(_local_12);
 
                         if(_local_19)
                         {
@@ -570,7 +570,7 @@ export class AvatarStructure extends EventDispatcher
 
                                 if(_local_15)
                                 {
-                                    const _local_19 = _local_15._Str_989(_local_12);
+                                    const _local_19 = _local_15.getPart(_local_12);
 
                                     if(_local_19)
                                     {

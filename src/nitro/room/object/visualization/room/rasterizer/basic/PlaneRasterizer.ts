@@ -563,7 +563,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
                             let material: PlaneMaterial     = null;
                             let align: number               = PlaneVisualizationLayer._Str_6914;
                             let color: number               = FloorPlane._Str_2531;
-                            let offset: number              = PlaneVisualizationLayer._Str_1934;
+                            let offset: number              = PlaneVisualizationLayer.DEFAULT_OFFSET;
 
                             if(layer.materialId) material = this._Str_8547(layer.materialId);
 

@@ -71,7 +71,7 @@ export class PartSetsData implements IFigureSetData
 
         if(!activePartSet) return [];
 
-        return activePartSet._Str_806;
+        return activePartSet.parts;
     }
 
     public _Str_1102(part: string): PartDefinition
@@ -108,7 +108,7 @@ export class PartSetsData implements IFigureSetData
         return existing;
     }
 
-    public get _Str_806(): Map<string, PartDefinition>
+    public get parts(): Map<string, PartDefinition>
     {
         return this._parts;
     }
