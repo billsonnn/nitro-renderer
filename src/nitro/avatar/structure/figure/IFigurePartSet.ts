@@ -8,9 +8,9 @@ export interface IFigurePartSet
     gender: string;
     clubLevel: number;
     isColorable: boolean;
-    _Str_608: boolean;
+    isSelectable: boolean;
     parts: IFigurePart[];
-    _Str_790: string[];
-    _Str_653: boolean;
-    _Str_651: boolean;
+    hiddenLayers: string[];
+    isPreSelectable: boolean;
+    isSellable: boolean;
 }

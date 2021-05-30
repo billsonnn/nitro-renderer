@@ -140,7 +140,7 @@ export class PlaneVisualizationLayer
         return this._material;
     }
 
-    public _Str_751(): number
+    public getColor(): number
     {
         return this._color;
     }

@@ -54,7 +54,7 @@ export class FigurePart implements IFigurePart
         return this._index;
     }
 
-    public get _Str_827(): number
+    public get colorLayerIndex(): number
     {
         return this._colorLayerIndex;
     }

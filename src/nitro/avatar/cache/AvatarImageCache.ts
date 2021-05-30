@@ -397,7 +397,7 @@ export class AvatarImageCache
                         }
                         else
                         {
-                            if(container.isColorable && container.color) color = container.color._Str_915;
+                            if(container.isColorable && container.color) color = container.color.rgb;
 
                             const offset = new Point(-(asset.x), -(asset.y));
 

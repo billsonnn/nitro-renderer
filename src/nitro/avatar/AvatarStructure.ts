@@ -161,11 +161,11 @@ export class AvatarStructure extends EventDispatcher
 
         if(_local_5 == null) return null;
 
-        const _local_6 = this._figureData._Str_783(_local_5._Str_734);
+        const _local_6 = this._figureData._Str_783(_local_5.paletteID);
 
         if(!_local_6) return null;
 
-        return _local_6._Str_751(_local_4[_arg_3]);
+        return _local_6.getColor(_local_4[_arg_3]);
     }
 
     public getBodyPartData(animation: string, frameCount: number, spriteId: string): AvatarAnimationLayerData
@@ -405,15 +405,15 @@ export class AvatarStructure extends EventDispatcher
 
             if(_local_30)
             {
-                const _local_31 = this._figureData._Str_783(_local_30._Str_734);
+                const _local_31 = this._figureData._Str_783(_local_30.paletteID);
 
                 if(_local_31)
                 {
-                    const _local_32 = _local_30._Str_1020(_local_28);
+                    const _local_32 = _local_30.getPartSet(_local_28);
 
                     if(_local_32)
                     {
-                        removes = removes.concat(_local_32._Str_790);
+                        removes = removes.concat(_local_32.hiddenLayers);
 
                         for(const _local_33 of _local_32.parts)
                         {
@@ -447,12 +447,12 @@ export class AvatarStructure extends EventDispatcher
 
                                 if(!_local_35 || (_local_35 === '')) _local_35 = _local_33.type;
 
-                                if(_local_29 && (_local_29.length > (_local_33._Str_827 - 1)))
+                                if(_local_29 && (_local_29.length > (_local_33.colorLayerIndex - 1)))
                                 {
-                                    _local_36 = _local_31._Str_751(_local_29[(_local_33._Str_827 - 1)]);
+                                    _local_36 = _local_31.getColor(_local_29[(_local_33.colorLayerIndex - 1)]);
                                 }
 
-                                const _local_37 = (_local_33._Str_827 > 0);
+                                const _local_37 = (_local_33.colorLayerIndex > 0);
                                 const _local_18 = new AvatarImagePartContainer(k, _local_33.type, _local_33.id.toString(), _local_36, _local_20, _local_34, _local_37, _local_33.paletteMap, _local_35);
 
                                 _local_11.push(_local_18);

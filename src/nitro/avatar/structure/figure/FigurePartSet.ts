@@ -117,7 +117,7 @@ export class FigurePartSet implements IFigurePartSet
         return this._isColorable;
     }
 
-    public get _Str_608(): boolean
+    public get isSelectable(): boolean
     {
         return this._isSelectable;
     }
@@ -127,17 +127,17 @@ export class FigurePartSet implements IFigurePartSet
         return this._parts;
     }
 
-    public get _Str_790(): string[]
+    public get hiddenLayers(): string[]
     {
         return this._hiddenLayers;
     }
 
-    public get _Str_653(): boolean
+    public get isPreSelectable(): boolean
     {
         return this._isPreSelectable;
     }
 
-    public get _Str_651(): boolean
+    public get isSellable(): boolean
     {
         return this._isSellable;
     }

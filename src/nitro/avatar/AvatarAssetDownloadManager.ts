@@ -248,7 +248,7 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
             if(!set) continue;
 
-            const figurePartSet = set._Str_1020(container.getPartSetId(key));
+            const figurePartSet = set.getPartSet(container.getPartSetId(key));
 
             if(!figurePartSet) continue;
 

@@ -55,7 +55,7 @@ export class FigureSetData implements IFigureSetData, IStructureData
 
             if(setType)
             {
-                setType._Str_1874(_local_2);
+                setType.cleanUp(_local_2);
             }
             else
             {
@@ -81,7 +81,7 @@ export class FigureSetData implements IFigureSetData, IStructureData
             }
             else
             {
-                _local_4._Str_2015(_local_2);
+                _local_4.append(_local_2);
             }
         }
 
@@ -96,7 +96,7 @@ export class FigureSetData implements IFigureSetData, IStructureData
             }
             else
             {
-                _local_5._Str_2015(_local_3);
+                _local_5.append(_local_3);
             }
         }
 
@@ -109,7 +109,7 @@ export class FigureSetData implements IFigureSetData, IStructureData
 
         for(const set of this._setTypes.values())
         {
-            if(!set || !set._Str_895(k, _arg_2)) continue;
+            if(!set || !set.isMandatory(k, _arg_2)) continue;
 
             types.push(set.type);
         }
@@ -140,7 +140,7 @@ export class FigureSetData implements IFigureSetData, IStructureData
     {
         for(const set of this._setTypes.values())
         {
-            const partSet = set._Str_1020(k);
+            const partSet = set.getPartSet(k);
 
             if(!partSet) continue;
 

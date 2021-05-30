@@ -333,7 +333,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
                     if(setType)
                     {
-                        const figurePartSet = setType._Str_1020(container.getPartSetId(id));
+                        const figurePartSet = setType.getPartSet(container.getPartSetId(id));
 
                         if(!figurePartSet)
                         {
@@ -367,18 +367,18 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         {
             const set       = figureData._Str_740(part);
             const setId     = container.getPartSetId(part);
-            const partSet   = set._Str_1020(setId);
+            const partSet   = set.getPartSet(setId);
 
             if(partSet)
             {
                 clubLevel = Math.max(partSet.clubLevel, clubLevel);
 
-                const palette   = figureData._Str_783(set._Str_734);
+                const palette   = figureData._Str_783(set.paletteID);
                 const colors   = container.getPartColorIds(part);
 
                 for(const colorId of colors)
                 {
-                    const color = palette._Str_751(colorId);
+                    const color = palette.getColor(colorId);
 
                     clubLevel = Math.max(color.clubLevel, clubLevel);
                 }
@@ -391,7 +391,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         {
             const set = figureData._Str_740(part);
 
-            if(parts.indexOf(part) === -1) clubLevel = Math.max(set._Str_1002(gender), clubLevel);
+            if(parts.indexOf(part) === -1) clubLevel = Math.max(set.optionalFromClubLevel(gender), clubLevel);
         }
 
         return clubLevel;
