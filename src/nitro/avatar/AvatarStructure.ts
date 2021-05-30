@@ -251,9 +251,9 @@ export class AvatarStructure extends EventDispatcher
         let _local_3: string[] = [];
 
         const _local_4: string[]    = [];
-        const _local_5              = k.definition._Str_868;
+        const _local_5              = k.definition.geometryType;
 
-        if(k.definition._Str_861)
+        if(k.definition.isAnimation)
         {
             const _local_7 = ((k.definition.state + '.') + k.actionParameter);
             const _local_8 = this._animationManager.getAnimation(_local_7);
@@ -360,7 +360,7 @@ export class AvatarStructure extends EventDispatcher
         let _local_14: any[]                     = [ 0 ];
         const _local_15                               = this._animationData._Str_2244(_arg_3.definition);
 
-        if(_arg_3.definition._Str_861)
+        if(_arg_3.definition.isAnimation)
         {
             const _local_24 = ((_arg_3.definition.state + '.') + _arg_3.actionParameter);
             const _local_10 = this._animationManager.getAnimation(_local_24);

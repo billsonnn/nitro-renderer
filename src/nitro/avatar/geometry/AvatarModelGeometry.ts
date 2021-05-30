@@ -119,7 +119,7 @@ export class AvatarModelGeometry
 
         if(!avatarSet) return false;
 
-        return avatarSet._Str_779;
+        return avatarSet.isMain;
     }
 
     public getCanvas(k: string, _arg_2: string): AvatarCanvas

@@ -173,7 +173,7 @@ export class AvatarImageCache
         let _local_7 = _local_4._Str_2244();
         let frameCount = frameNumber;
 
-        if(_local_7.definition._Str_812) frameCount -= _local_7.startFrame;
+        if(_local_7.definition.startFromFrameZero) frameCount -= _local_7.startFrame;
 
         let _local_8                        = _local_7;
         let _local_9: string[]              = [];
@@ -182,7 +182,7 @@ export class AvatarImageCache
 
         if(!((!(_local_7)) || (!(_local_7.definition))))
         {
-            if(_local_7.definition._Str_861)
+            if(_local_7.definition.isAnimation)
             {
                 let _local_15 = _local_5;
 

@@ -54,7 +54,7 @@ export class AvatarActionManager
                 const y = (canvasOffset.y || 0);
                 const z = (canvasOffset.z || 0);
 
-                action._Str_772(size, direction, [ x, y, z ]);
+                action.setOffsets(size, direction, [ x, y, z ]);
             }
         }
     }
@@ -88,7 +88,7 @@ export class AvatarActionManager
 
         for(const action of this._actions.values())
         {
-            if(!action || !action._Str_804) continue;
+            if(!action || !action.isDefault) continue;
 
             this._defaultAction = action;
 
@@ -107,7 +107,7 @@ export class AvatarActionManager
             if(!activeAction) continue;
 
             const action    = this._actions.get(activeAction.actionType);
-            const offsets   = action && action._Str_805(_arg_2, _arg_3);
+            const offsets   = action && action.getOffsets(_arg_2, _arg_3);
 
             if(offsets) canvasOffsets = offsets;
         }
@@ -152,7 +152,7 @@ export class AvatarActionManager
 
             const localAction = this._actions.get(action.actionType);
 
-            if(localAction) preventions = preventions.concat(localAction._Str_733(action.actionParameter));
+            if(localAction) preventions = preventions.concat(localAction.getPrevents(action.actionParameter));
         }
 
         for(const action of actions)

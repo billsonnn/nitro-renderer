@@ -65,7 +65,7 @@ export class ActionDefinition implements IActionDefinition
         }
     }
 
-    public _Str_772(k: string, _arg_2: number, _arg_3: number[]): void
+    public setOffsets(k: string, _arg_2: number, _arg_3: number[]): void
     {
         if(!this._canvasOffsets) this._canvasOffsets = new Map();
 
@@ -81,7 +81,7 @@ export class ActionDefinition implements IActionDefinition
         existing.set(_arg_2, _arg_3);
     }
 
-    public _Str_805(k: string, _arg_2: number): number[]
+    public getOffsets(k: string, _arg_2: number): number[]
     {
         if(!this._canvasOffsets) return null;
 
@@ -103,7 +103,7 @@ export class ActionDefinition implements IActionDefinition
         return existing;
     }
 
-    public _Str_1350(id: string): string
+    public getParameterValue(id: string): string
     {
         if(!id) return '';
 
@@ -114,12 +114,12 @@ export class ActionDefinition implements IActionDefinition
         return existing;
     }
 
-    public _Str_733(type: string): string[]
+    public getPrevents(type: string): string[]
     {
-        return this._prevents.concat(this._Str_1889(type));
+        return this._prevents.concat(this.getTypePrevents(type));
     }
 
-    private _Str_1889(type: string): string[]
+    private getTypePrevents(type: string): string[]
     {
         if(!type) return [];
 
@@ -130,7 +130,7 @@ export class ActionDefinition implements IActionDefinition
         return existing.prevents;
     }
 
-    public _Str_715(k: string): boolean
+    public getPreventHeadTurn(k: string): boolean
     {
         if(!k) return this._preventHeadTurn;
 
@@ -138,10 +138,10 @@ export class ActionDefinition implements IActionDefinition
 
         if(!type) return this._preventHeadTurn;
 
-        return type._Str_1891;
+        return type.preventHeadTurn;
     }
 
-    public _Str_801(k: string): boolean
+    public isAnimated(k: string): boolean
     {
         if(!k) return true;
 
@@ -149,7 +149,7 @@ export class ActionDefinition implements IActionDefinition
 
         if(!type) return true;
 
-        return type._Str_801;
+        return type.isAnimated;
     }
 
     public get id(): string
@@ -182,27 +182,27 @@ export class ActionDefinition implements IActionDefinition
         return this._lay;
     }
 
-    public get _Str_868(): string
+    public get geometryType(): string
     {
         return this._geometryType;
     }
 
-    public get _Str_779(): boolean
+    public get isMain(): boolean
     {
         return this._isMain;
     }
 
-    public get _Str_804(): boolean
+    public get isDefault(): boolean
     {
         return this._isDefault;
     }
 
-    public get _Str_861(): boolean
+    public get isAnimation(): boolean
     {
         return this._isAnimation;
     }
 
-    public get _Str_812(): boolean
+    public get startFromFrameZero(): boolean
     {
         return this._startFromFrameZero;
     }

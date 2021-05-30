@@ -291,12 +291,12 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         {
             return;
         }
-        const _local_2 = this._structure.getCanvas(this._scale, this._mainAction.definition._Str_868);
+        const _local_2 = this._structure.getCanvas(this._scale, this._mainAction.definition.geometryType);
         if(_local_2 == null)
         {
             return;
         }
-        const _local_3 = this.getBodyParts(k, this._mainAction.definition._Str_868, this._mainDirection);
+        const _local_3 = this.getBodyParts(k, this._mainAction.definition.geometryType, this._mainDirection);
         let _local_6 = (_local_3.length - 1);
         while(_local_6 >= 0)
         {
@@ -314,7 +314,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(!this._actionsSorted) this.endActionAppends();
 
-        const avatarCanvas = this._structure.getCanvas(this._scale, this._mainAction.definition._Str_868);
+        const avatarCanvas = this._structure.getCanvas(this._scale, this._mainAction.definition.geometryType);
 
         if(!avatarCanvas) return null;
 
@@ -331,7 +331,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             this._isCachedImage = false;
         }
 
-        const _local_6 = this.getBodyParts(setType, this._mainAction.definition._Str_868, this._mainDirection);
+        const _local_6 = this.getBodyParts(setType, this._mainAction.definition.geometryType, this._mainDirection);
 
         this._image = null;
 
@@ -444,11 +444,11 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(!this._actionsSorted) this.endActionAppends();
 
-        const avatarCanvas = this._structure.getCanvas(this._scale, this._mainAction.definition._Str_868);
+        const avatarCanvas = this._structure.getCanvas(this._scale, this._mainAction.definition.geometryType);
 
         if(!avatarCanvas) return null;
 
-        const setTypes  = this.getBodyParts(setType, this._mainAction.definition._Str_868, this._mainDirection);
+        const setTypes  = this.getBodyParts(setType, this._mainAction.definition.geometryType, this._mainDirection);
         const container = new Sprite();
         const sprite    = new Sprite(Texture.EMPTY);
 
@@ -509,11 +509,11 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(!this._actionsSorted) this.endActionAppends();
 
-        const avatarCanvas = this._structure.getCanvas(this._scale, this._mainAction.definition._Str_868);
+        const avatarCanvas = this._structure.getCanvas(this._scale, this._mainAction.definition.geometryType);
 
         if(!avatarCanvas) return null;
 
-        const setTypes  = this.getBodyParts(setType, this._mainAction.definition._Str_868, this._mainDirection);
+        const setTypes  = this.getBodyParts(setType, this._mainAction.definition.geometryType, this._mainDirection);
         const container = new Container();
         const sprite    = new Sprite(Texture.EMPTY);
 
@@ -742,7 +742,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             case AvatarAction.CARRY_OBJECT:
             case AvatarAction.USE_OBJECT: {
                 const _local_4 = this._structure.getActionDefinitionWithState(k);
-                if(_local_4) _local_3 = _local_4._Str_1350(_local_3);
+                if(_local_4) _local_3 = _local_4.getParameterValue(_local_3);
                 this.addActionData(k, _local_3);
                 break;
             }
@@ -800,7 +800,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         for(const _local_3 of this._sortedActions)
         {
             _local_2 = this._structure.getActionDefinitionWithState(_local_3.actionType);
-            if(((!(_local_2 == null)) && (_local_2._Str_715(_local_3.actionParameter))))
+            if(((!(_local_2 == null)) && (_local_2.getPreventHeadTurn(_local_3.actionParameter))))
             {
                 k = true;
             }
@@ -884,7 +884,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         for(const k of this._sortedActions)
         {
-            if((k && k.definition) && k.definition._Str_861)
+            if((k && k.definition) && k.definition.isAnimation)
             {
                 const _local_2 = this._structure.getAnimation(((k.definition.state + '.') + k.actionParameter));
 
@@ -912,13 +912,13 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         {
             if(!((!(k)) || (!(k.definition))))
             {
-                if(k.definition._Str_861 && (k.actionParameter === '')) k.actionParameter = '1';
+                if(k.definition.isAnimation && (k.actionParameter === '')) k.actionParameter = '1';
 
                 this.setActionToParts(k, _local_3);
 
-                if(k.definition._Str_861)
+                if(k.definition.isAnimation)
                 {
-                    this._isAnimating = k.definition._Str_801(k.actionParameter);
+                    this._isAnimating = k.definition.isAnimated(k.actionParameter);
 
                     const _local_2 = this._structure.getAnimation(((k.definition.state + '.') + k.actionParameter));
 
@@ -945,10 +945,10 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         {
             return;
         }
-        if(k.definition._Str_779)
+        if(k.definition.isMain)
         {
             this._mainAction = k;
-            this._cache._Str_2014(k.definition._Str_868);
+            this._cache._Str_2014(k.definition.geometryType);
         }
         this._cache._Str_1565(k, _arg_2);
         this._changes = true;
@@ -960,10 +960,10 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(k.definition.assetPartDefinition === '') return;
 
-        if(k.definition._Str_779)
+        if(k.definition.isMain)
         {
             this._mainAction = k;
-            this._cache._Str_2014(k.definition._Str_868);
+            this._cache._Str_2014(k.definition.geometryType);
         }
 
         this._cache._Str_741(k);

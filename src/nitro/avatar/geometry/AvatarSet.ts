@@ -74,7 +74,7 @@
         return this._id;
     }
 
-    public get _Str_779(): boolean
+    public get isMain(): boolean
     {
         if(this._isMain) return true;
 
@@ -82,7 +82,7 @@
         {
             if(!avatarSet) continue;
 
-            if(!avatarSet._Str_779) continue;
+            if(!avatarSet.isMain) continue;
 
             return true;
         }
