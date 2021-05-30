@@ -9,7 +9,7 @@ import { SpriteDataContainer } from './SpriteDataContainer';
 
 export class Animation implements IAnimation
 {
-    private static _Str_2211: any[] = [];
+    private static EMPTY_ARRAY: any[] = [];
 
     private _id: string;
     private _description: string;
@@ -76,16 +76,16 @@ export class Animation implements IAnimation
 
                 const frames: AvatarAnimationLayerData[][] = [];
 
-                this._Str_1031(frames, override.frames, k);
+                this.parseFrames(frames, override.frames, k);
 
                 this._overrideFrames.set(name, frames);
             }
         }
 
-        this._Str_1031(this._frames, _arg_2.frames, k);
+        this.parseFrames(this._frames, _arg_2.frames, k);
     }
 
-    private _Str_1031(frames: AvatarAnimationLayerData[][], _arg_2: IAssetAnimationFrame[], _arg_3: AvatarStructure): void
+    private parseFrames(frames: AvatarAnimationLayerData[][], _arg_2: IAssetAnimationFrame[], _arg_3: AvatarStructure): void
     {
         if(!_arg_2 || !_arg_2.length) return;
 
@@ -144,14 +144,14 @@ export class Animation implements IAnimation
         return 0;
     }
 
-    public _Str_1892(): boolean
+    public hasOverriddenActions(): boolean
     {
         if(!this._overriddenActions) return false;
 
         return (this._overriddenActions.size > 0);
     }
 
-    public _Str_1571(): string[]
+    public overriddenActionNames(): string[]
     {
         if(!this._overriddenActions) return null;
 
@@ -169,7 +169,7 @@ export class Animation implements IAnimation
         return this._overriddenActions.get(k);
     }
 
-    private _Str_2259(frameCount: number, _arg_2: string = null): AvatarAnimationLayerData[]
+    private getFrame(frameCount: number, _arg_2: string = null): AvatarAnimationLayerData[]
     {
         if(frameCount < 0) frameCount = 0;
 
@@ -195,11 +195,11 @@ export class Animation implements IAnimation
         return layers;
     }
 
-    public _Str_1065(k: number, _arg_2: string=null): string[]
+    public getAnimatedBodyPartIds(k: number, _arg_2: string=null): string[]
     {
         const _local_3: string[] = [];
 
-        for(const layer of this._Str_2259(k, _arg_2))
+        for(const layer of this.getFrame(k, _arg_2))
         {
             if(layer.type === AvatarAnimationLayerData.BODYPART)
             {
@@ -221,9 +221,9 @@ export class Animation implements IAnimation
         return _local_3;
     }
 
-    public _Str_607(frameCount: number, spriteId: string, _arg_3: string = null): AvatarAnimationLayerData
+    public getLayerData(frameCount: number, spriteId: string, _arg_3: string = null): AvatarAnimationLayerData
     {
-        for(const layer of this._Str_2259(frameCount, _arg_3))
+        for(const layer of this.getFrame(frameCount, _arg_3))
         {
             if(layer.id === spriteId) return layer;
 
@@ -242,22 +242,22 @@ export class Animation implements IAnimation
         return null;
     }
 
-    public _Str_872(): boolean
+    public hasAvatarData(): boolean
     {
         return this._avatarData !== null;
     }
 
-    public _Str_776(): boolean
+    public hasDirectionData(): boolean
     {
         return this._directionData !== null;
     }
 
-    public _Str_706(): boolean
+    public hasAddData(): boolean
     {
         return this._addData !== null;
     }
 
-    public _Str_1550(k: string): AddDataContainer
+    public getAddData(k: string): AddDataContainer
     {
         if(this._addData)
         {
@@ -275,29 +275,29 @@ export class Animation implements IAnimation
         return this._id;
     }
 
-    public get _Str_786(): SpriteDataContainer[]
+    public get spriteData(): SpriteDataContainer[]
     {
-        return this._spriteData || Animation._Str_2211;
+        return this._spriteData || Animation.EMPTY_ARRAY;
     }
 
-    public get _Str_1475(): AvatarDataContainer
+    public get avatarData(): AvatarDataContainer
     {
         return this._avatarData;
     }
 
-    public get _Str_1493(): DirectionDataContainer
+    public get directionData(): DirectionDataContainer
     {
         return this._directionData;
     }
 
-    public get _Str_652(): string[]
+    public get removeData(): string[]
     {
-        return this._removeData || Animation._Str_2211;
+        return this._removeData || Animation.EMPTY_ARRAY;
     }
 
-    public get _Str_687(): AddDataContainer[]
+    public get addData(): AddDataContainer[]
     {
-        return this._addData || Animation._Str_2211;
+        return this._addData || Animation.EMPTY_ARRAY;
     }
 
     public toString(): string

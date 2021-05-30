@@ -170,7 +170,7 @@ export class AvatarStructure extends EventDispatcher
 
     public getBodyPartData(animation: string, frameCount: number, spriteId: string): AvatarAnimationLayerData
     {
-        return this._animationManager._Str_607(animation, frameCount, spriteId) as AvatarAnimationLayerData;
+        return this._animationManager.getLayerData(animation, frameCount, spriteId) as AvatarAnimationLayerData;
     }
 
     public getAnimation(k: string): Animation
@@ -260,9 +260,9 @@ export class AvatarStructure extends EventDispatcher
 
             if(_local_8)
             {
-                _local_3 = _local_8._Str_1065(0, k.overridingAction);
+                _local_3 = _local_8.getAnimatedBodyPartIds(0, k.overridingAction);
 
-                if(_local_8._Str_706())
+                if(_local_8.hasAddData())
                 {
                     const _local_11 = {
                         id: '',
@@ -280,7 +280,7 @@ export class AvatarStructure extends EventDispatcher
                         setType: ''
                     };
 
-                    for(const _local_13 of _local_8._Str_687)
+                    for(const _local_13 of _local_8.addData)
                     {
                         const _local_6 = this._geometry._Str_1919(_local_5, _local_13.align);
 
@@ -369,7 +369,7 @@ export class AvatarStructure extends EventDispatcher
             {
                 _local_14 = this.getPopulatedArray(_local_10.frameCount(_arg_3.overridingAction));
 
-                for(const _local_25 of _local_10._Str_1065(0, _arg_3.overridingAction))
+                for(const _local_25 of _local_10.getAnimatedBodyPartIds(0, _arg_3.overridingAction))
                 {
                     if(_local_25 === k)
                     {
@@ -559,11 +559,11 @@ export class AvatarStructure extends EventDispatcher
 
                                 if(_local_10 != null)
                                 {
-                                    const _local_48 = _local_10._Str_1550(_local_12);
+                                    const _local_48 = _local_10.getAddData(_local_12);
 
                                     if(_local_48)
                                     {
-                                        _local_45 = _local_48._Str_1096;
+                                        _local_45 = _local_48.isBlended;
                                         _local_46 = _local_48.blend;
                                     }
                                 }

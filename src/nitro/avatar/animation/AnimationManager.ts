@@ -34,13 +34,13 @@ export class AnimationManager implements IAnimationManager
         return existing;
     }
 
-    public _Str_607(animation: string, frameCount: number, spriteId: string): IAnimationLayerData
+    public getLayerData(animation: string, frameCount: number, spriteId: string): IAnimationLayerData
     {
         const existing = this.getAnimation(animation);
 
         if(!existing) return null;
 
-        return existing._Str_607(frameCount, spriteId);
+        return existing.getLayerData(frameCount, spriteId);
     }
 
     public get animations(): Map<string, IAnimation>

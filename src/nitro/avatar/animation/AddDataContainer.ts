@@ -54,7 +54,7 @@ export class AddDataContainer
         return this._blend;
     }
 
-    public get _Str_1096(): boolean
+    public get isBlended(): boolean
     {
         return this._blend !== 1;
     }

@@ -191,7 +191,7 @@ export class AvatarImageCache
 
                 if(_local_16)
                 {
-                    const _local_18 = _local_16._Str_607(_local_17, k, _local_7.overridingAction);
+                    const _local_18 = _local_16.getLayerData(_local_17, k, _local_7.overridingAction);
 
                     if(_local_18)
                     {
@@ -246,7 +246,7 @@ export class AvatarImageCache
                         _local_10 = _local_18.items;
                     }
 
-                    _local_9 = _local_16._Str_652;
+                    _local_9 = _local_16.removeData;
                 }
             }
         }

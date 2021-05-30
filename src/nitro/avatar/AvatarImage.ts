@@ -888,9 +888,9 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             {
                 const _local_2 = this._structure.getAnimation(((k.definition.state + '.') + k.actionParameter));
 
-                if(_local_2 && _local_2._Str_1892())
+                if(_local_2 && _local_2.hasOverriddenActions())
                 {
-                    const _local_5 = _local_2._Str_1571();
+                    const _local_5 = _local_2.overriddenActionNames();
 
                     if(_local_5)
                     {
@@ -924,11 +924,11 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
                     if(_local_2)
                     {
-                        this._sprites = this._sprites.concat(_local_2._Str_786);
+                        this._sprites = this._sprites.concat(_local_2.spriteData);
 
-                        if(_local_2._Str_776()) this._directionOffset = _local_2._Str_1493.offset;
+                        if(_local_2.hasDirectionData()) this._directionOffset = _local_2.directionData.offset;
 
-                        if(_local_2._Str_872()) this._avatarSpriteData = _local_2._Str_1475;
+                        if(_local_2.hasAvatarData()) this._avatarSpriteData = _local_2.avatarData;
                     }
                 }
             }
