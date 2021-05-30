@@ -47,7 +47,7 @@ export class FigureSetData implements IFigureSetData, IStructureData
         return true;
     }
 
-    public _Str_1133(k: any): void
+    public injectXML(k: any): void
     {
         for(const _local_2 of k.sets[0].settype)
         {
@@ -63,10 +63,10 @@ export class FigureSetData implements IFigureSetData, IStructureData
             }
         }
 
-        this._Str_1017(k);
+        this.appendXML(k);
     }
 
-    public _Str_1017(k: any): boolean
+    public appendXML(k: any): boolean
     {
         if(!k) return false;
 
@@ -126,17 +126,17 @@ export class FigureSetData implements IFigureSetData, IStructureData
         return setType.getDefaultPartSet(_arg_2);
     }
 
-    public _Str_740(k: string): ISetType
+    public getSetType(k: string): ISetType
     {
         return (this._setTypes.get(k) || null);
     }
 
-    public _Str_783(k: number): IPalette
+    public getPalette(k: number): IPalette
     {
         return (this._palettes.get(k.toString()) || null);
     }
 
-    public _Str_938(k: number): IFigurePartSet
+    public getFigurePartSet(k: number): IFigurePartSet
     {
         for(const set of this._setTypes.values())
         {

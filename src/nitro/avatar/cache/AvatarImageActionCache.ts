@@ -58,7 +58,7 @@ export class AvatarImageActionCache
         }
     }
 
-    public _Str_2244():IActiveActionData
+    public getAction():IActiveActionData
     {
         return this._Str_1233;
     }

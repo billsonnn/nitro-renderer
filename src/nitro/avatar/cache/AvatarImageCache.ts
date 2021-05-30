@@ -170,7 +170,7 @@ export class AvatarImageCache
         }
 
         let _local_5 = _local_4.getDirection();
-        let _local_7 = _local_4._Str_2244();
+        let _local_7 = _local_4.getAction();
         let frameCount = frameNumber;
 
         if(_local_7.definition.startFromFrameZero) frameCount -= _local_7.startFrame;

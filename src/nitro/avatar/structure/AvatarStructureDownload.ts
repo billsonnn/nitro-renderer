@@ -37,7 +37,7 @@ export class AvatarStructureDownload extends EventDispatcher
                 {
                     if(err || !results || !results.figuredata) throw new Error('invalid_figure_data');
 
-                    if(this._dataReceiver) this._dataReceiver._Str_1017(results.figuredata);
+                    if(this._dataReceiver) this._dataReceiver.appendXML(results.figuredata);
 
                     this.dispatchEvent(new NitroEvent(AvatarStructureDownload.AVATAR_STRUCTURE_DONE));
                 });

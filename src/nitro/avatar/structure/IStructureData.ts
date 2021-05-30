@@ -5,8 +5,8 @@ import { ISetType } from './figure/ISetType';
 export interface IStructureData
 {
     parse(data: any): boolean;
-    _Str_1017(k: any): boolean;
-    _Str_740(_arg_1: string): ISetType;
-    _Str_783(_arg_1: number): IPalette;
-    _Str_938(_arg_1: number): IFigurePartSet;
+    appendXML(k: any): boolean;
+    getSetType(_arg_1: string): ISetType;
+    getPalette(_arg_1: number): IPalette;
+    getFigurePartSet(_arg_1: number): IFigurePartSet;
 }

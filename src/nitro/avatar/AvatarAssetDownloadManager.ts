@@ -244,7 +244,7 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
         for(const key of setKeys)
         {
-            const set = figureData._Str_740(key);
+            const set = figureData.getSetType(key);
 
             if(!set) continue;
 

@@ -329,7 +329,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
                 }
                 else
                 {
-                    const setType = figureData._Str_740(id);
+                    const setType = figureData.getSetType(id);
 
                     if(setType)
                     {
@@ -365,7 +365,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
         for(const part of parts)
         {
-            const set       = figureData._Str_740(part);
+            const set       = figureData.getSetType(part);
             const setId     = container.getPartSetId(part);
             const partSet   = set.getPartSet(setId);
 
@@ -373,7 +373,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
             {
                 clubLevel = Math.max(partSet.clubLevel, clubLevel);
 
-                const palette   = figureData._Str_783(set.paletteID);
+                const palette   = figureData.getPalette(set.paletteID);
                 const colors   = container.getPartColorIds(part);
 
                 for(const colorId of colors)
@@ -389,7 +389,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
         for(const part of searchParts)
         {
-            const set = figureData._Str_740(part);
+            const set = figureData.getSetType(part);
 
             if(parts.indexOf(part) === -1) clubLevel = Math.max(set.optionalFromClubLevel(gender), clubLevel);
         }
@@ -400,7 +400,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     public isValidFigureSetForGender(setId: number, gender: string): boolean
     {
         const structure = this.structureData;
-        const partSet   = structure._Str_938(setId);
+        const partSet   = structure.getFigurePartSet(setId);
 
         return !!(partSet && ((partSet.gender.toUpperCase() === 'U') || (partSet.gender.toUpperCase() === gender.toUpperCase())));
     }
@@ -428,7 +428,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
         for(const _local_4 of k)
         {
-            const partSet = structure._Str_938(_local_4);
+            const partSet = structure.getFigurePartSet(_local_4);
 
             if(partSet) partSets.push(partSet);
         }
