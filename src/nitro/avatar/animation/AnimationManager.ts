@@ -14,7 +14,7 @@ export class AnimationManager implements IAnimationManager
         this._animations = new Map();
     }
 
-    public _Str_2061(structure: AvatarStructure, _arg_2: { [index: string]: IAssetAnimation }): boolean
+    public registerAnimation(structure: AvatarStructure, _arg_2: { [index: string]: IAssetAnimation }): boolean
     {
         const animationData = _arg_2[Object.keys(_arg_2)[0]];
 
@@ -25,7 +25,7 @@ export class AnimationManager implements IAnimationManager
         return true;
     }
 
-    public _Str_720(animation: string): Animation
+    public getAnimation(animation: string): Animation
     {
         const existing = this._animations.get(animation);
 
@@ -36,7 +36,7 @@ export class AnimationManager implements IAnimationManager
 
     public _Str_607(animation: string, frameCount: number, spriteId: string): IAnimationLayerData
     {
-        const existing = this._Str_720(animation);
+        const existing = this.getAnimation(animation);
 
         if(!existing) return null;
 

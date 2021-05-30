@@ -105,7 +105,7 @@ export class Animation implements IAnimation
                 {
                     for(const bodyPart of frame.bodyparts)
                     {
-                        const definition    = _arg_3._Str_1675(bodyPart.action);
+                        const definition    = _arg_3.getActionDefinition(bodyPart.action);
                         const layer         = new AvatarAnimationLayerData(bodyPart, AvatarAnimationLayerData.BODYPART, definition);
 
                         layers.push(layer);
@@ -116,7 +116,7 @@ export class Animation implements IAnimation
                 {
                     for(const fx of frame.fxs)
                     {
-                        const definition    = _arg_3._Str_1675(fx.action);
+                        const definition    = _arg_3.getActionDefinition(fx.action);
                         const layer         = new AvatarAnimationLayerData(fx, AvatarAnimationLayerData.FX, definition);
 
                         layers.push(layer);

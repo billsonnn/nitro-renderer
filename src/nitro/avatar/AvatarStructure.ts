@@ -71,14 +71,14 @@ export class AvatarStructure extends EventDispatcher
         this._mandatorySetTypeIds   = null;
     }
 
-    public _Str_1825(k: any): void
+    public initGeometry(k: any): void
     {
         if(!k) return;
 
         this._geometry = new AvatarModelGeometry(k);
     }
 
-    public _Str_1060(k: IAssetManager, _arg_2: any): void
+    public initActions(k: IAssetManager, _arg_2: any): void
     {
         if(!_arg_2) return;
 
@@ -86,14 +86,14 @@ export class AvatarStructure extends EventDispatcher
         this._defaultAction = this._actionManager._Str_1027();
     }
 
-    public _Str_1620(data: any): void
+    public updateActions(data: any): void
     {
-        this._actionManager._Str_1620(data);
+        this._actionManager.updateActions(data);
 
         this._defaultAction = this._actionManager._Str_1027();
     }
 
-    public _Str_1296(k: any): boolean
+    public initPartSets(k: any): boolean
     {
         if(!k) return false;
 
@@ -108,26 +108,26 @@ export class AvatarStructure extends EventDispatcher
         return false;
     }
 
-    public _Str_2229(k: any): boolean
+    public initAnimation(k: any): boolean
     {
         if(!k) return false;
 
         return this._animationData.parse(k);
     }
 
-    public _Str_1569(k: any): boolean
+    public initFigureData(k: any): boolean
     {
         if(!k) return false;
 
         return this._figureData.parse(k);
     }
 
-    public _Str_882(data: any): void
+    public injectFigureData(data: any): void
     {
         this._figureData._Str_1133(data);
     }
 
-    public _Str_1849(k: IAssetManager, _arg_2: string = 'fx', _arg_3: number = 200): void
+    public registerAnimations(k: IAssetManager, _arg_2: string = 'fx', _arg_3: number = 200): void
     {
         let index = 0;
 
@@ -139,19 +139,19 @@ export class AvatarStructure extends EventDispatcher
             {
                 const animationData = collection.data;
 
-                this._animationManager._Str_2061(this, animationData.animations);
+                this._animationManager.registerAnimation(this, animationData.animations);
             }
 
             index++;
         }
     }
 
-    public _Str_2061(data: { [index: string]: IAssetAnimation }): void
+    public registerAnimation(data: { [index: string]: IAssetAnimation }): void
     {
-        this._animationManager._Str_2061(this, data);
+        this._animationManager.registerAnimation(this, data);
     }
 
-    public _Str_867(k: IAvatarFigureContainer, _arg_2: string, _arg_3: number = 0): IPartColor
+    public getPartColor(k: IAvatarFigureContainer, _arg_2: string, _arg_3: number = 0): IPartColor
     {
         const _local_4 = k.getPartColorIds(_arg_2);
 
@@ -168,37 +168,37 @@ export class AvatarStructure extends EventDispatcher
         return _local_6._Str_751(_local_4[_arg_3]);
     }
 
-    public _Str_1881(animation: string, frameCount: number, spriteId: string): AvatarAnimationLayerData
+    public getBodyPartData(animation: string, frameCount: number, spriteId: string): AvatarAnimationLayerData
     {
         return this._animationManager._Str_607(animation, frameCount, spriteId) as AvatarAnimationLayerData;
     }
 
-    public _Str_720(k: string): Animation
+    public getAnimation(k: string): Animation
     {
-        return this._animationManager._Str_720(k) as Animation;
+        return this._animationManager.getAnimation(k) as Animation;
     }
 
-    public _Str_1675(k: string): ActionDefinition
+    public getActionDefinition(k: string): ActionDefinition
     {
-        return this._actionManager._Str_1675(k);
+        return this._actionManager.getActionDefinition(k);
     }
 
-    public _Str_2018(k: string): ActionDefinition
+    public getActionDefinitionWithState(k: string): ActionDefinition
     {
-        return this._actionManager._Str_2018(k);
+        return this._actionManager.getActionDefinitionWithState(k);
     }
 
-    public _Str_1939(k: string): boolean
+    public isMainAvatarSet(k: string): boolean
     {
-        return this._geometry._Str_1939(k);
+        return this._geometry.isMainAvatarSet(k);
     }
 
-    public _Str_711(k: IActiveActionData[]): IActiveActionData[]
+    public sortActions(k: IActiveActionData[]): IActiveActionData[]
     {
-        return this._actionManager._Str_711(k);
+        return this._actionManager.sortActions(k);
     }
 
-    public _Str_1936(k: IActiveActionData[]): number
+    public maxFrames(k: IActiveActionData[]): number
     {
         let _local_2 = 0;
 
@@ -209,7 +209,7 @@ export class AvatarStructure extends EventDispatcher
         return _local_2;
     }
 
-    public _Str_1733(k: string, _arg_2: number): string[]
+    public getMandatorySetTypeIds(k: string, _arg_2: number): string[]
     {
         if(!this._mandatorySetTypeIds[k])
         {
@@ -221,32 +221,32 @@ export class AvatarStructure extends EventDispatcher
             return this._mandatorySetTypeIds[k][_arg_2];
         }
 
-        this._mandatorySetTypeIds[k][_arg_2] = this._figureData._Str_1733(k, _arg_2);
+        this._mandatorySetTypeIds[k][_arg_2] = this._figureData.getMandatorySetTypeIds(k, _arg_2);
 
         return this._mandatorySetTypeIds[k][_arg_2];
     }
 
-    public _Str_2264(k: string, _arg_2: string): IFigurePartSet
+    public getDefaultPartSet(k: string, _arg_2: string): IFigurePartSet
     {
-        return this._figureData._Str_2264(k, _arg_2);
+        return this._figureData.getDefaultPartSet(k, _arg_2);
     }
 
-    public _Str_781(k: IActiveActionData[], _arg_2: string, _arg_3: number): number[]
+    public getCanvasOffsets(k: IActiveActionData[], _arg_2: string, _arg_3: number): number[]
     {
-        return this._actionManager._Str_781(k, _arg_2, _arg_3);
+        return this._actionManager.getCanvasOffsets(k, _arg_2, _arg_3);
     }
 
-    public _Str_1664(k: string, _arg_2: string): AvatarCanvas
+    public getCanvas(k: string, _arg_2: string): AvatarCanvas
     {
-        return this._geometry._Str_1664(k, _arg_2);
+        return this._geometry.getCanvas(k, _arg_2);
     }
 
-    public _Str_2101(k: IAvatarImage): void
+    public removeDynamicItems(k: IAvatarImage): void
     {
-        this._geometry._Str_2101(k);
+        this._geometry.removeDynamicItems(k);
     }
 
-    public _Str_2021(k: IActiveActionData, _arg_2: IAvatarImage): string[]
+    public getActiveBodyPartIds(k: IActiveActionData, _arg_2: IAvatarImage): string[]
     {
         let _local_3: string[] = [];
 
@@ -256,7 +256,7 @@ export class AvatarStructure extends EventDispatcher
         if(k.definition._Str_861)
         {
             const _local_7 = ((k.definition.state + '.') + k.actionParameter);
-            const _local_8 = this._animationManager._Str_720(_local_7);
+            const _local_8 = this._animationManager.getAnimation(_local_7);
 
             if(_local_8)
             {
@@ -324,28 +324,28 @@ export class AvatarStructure extends EventDispatcher
         return _local_4;
     }
 
-    public _Str_1695(k: string): string[]
+    public getBodyPartsUnordered(k: string): string[]
     {
         return this._geometry._Str_1307(k);
     }
 
-    public _Str_755(k: string, _arg_2: string, _arg_3: number): string[]
+    public getBodyParts(k: string, _arg_2: string, _arg_3: number): string[]
     {
         const _local_4 = AvatarDirectionAngle.DIRECTION_TO_ANGLE[_arg_3];
 
         return this._geometry._Str_2250(k, _local_4, _arg_2);
     }
 
-    public _Str_1888(k:IActiveActionData, _arg_2: number, _arg_3: number, _arg_4: string): Point
+    public getFrameBodyPartOffset(k:IActiveActionData, _arg_2: number, _arg_3: number, _arg_4: string): Point
     {
         const _local_5 = this._animationData._Str_2244(k.definition);
 
-        if(_local_5) return _local_5._Str_1888(_arg_2, _arg_3, _arg_4);
+        if(_local_5) return _local_5.getFrameBodyPartOffset(_arg_2, _arg_3, _arg_4);
 
         return AnimationAction._Str_1934;
     }
 
-    public _Str_713(k: string, _arg_2:IAvatarFigureContainer, _arg_3:IActiveActionData, _arg_4: string, _arg_5: number, removes: string[], _arg_7: IAvatarImage, _arg_8: Map<string, string> = null): AvatarImagePartContainer[]
+    public getParts(k: string, _arg_2:IAvatarFigureContainer, _arg_3:IActiveActionData, _arg_4: string, _arg_5: number, removes: string[], _arg_7: IAvatarImage, _arg_8: Map<string, string> = null): AvatarImagePartContainer[]
     {
         const _local_10: Animation = null;
         let _local_34: IActionDefinition = null;
@@ -363,11 +363,11 @@ export class AvatarStructure extends EventDispatcher
         if(_arg_3.definition._Str_861)
         {
             const _local_24 = ((_arg_3.definition.state + '.') + _arg_3.actionParameter);
-            const _local_10 = this._animationManager._Str_720(_local_24);
+            const _local_10 = this._animationManager.getAnimation(_local_24);
 
             if(_local_10)
             {
-                _local_14 = this._Str_1768(_local_10._Str_2185(_arg_3.overridingAction));
+                _local_14 = this.getPopulatedArray(_local_10._Str_2185(_arg_3.overridingAction));
 
                 for(const _local_25 of _local_10._Str_1065(0, _arg_3.overridingAction))
                 {
@@ -387,7 +387,7 @@ export class AvatarStructure extends EventDispatcher
             }
         }
 
-        const _local_16     = this._geometry._Str_713(_arg_4, k, _arg_5, _local_9, _arg_7);
+        const _local_16     = this._geometry.getParts(_arg_4, k, _arg_5, _local_9, _arg_7);
         const  _local_21    = _arg_2.getPartTypeIds();
 
         for(const _local_17 of _local_21)
@@ -599,7 +599,7 @@ export class AvatarStructure extends EventDispatcher
         return _local_22;
     }
 
-    private _Str_1768(k: number): number[]
+    private getPopulatedArray(k: number): number[]
     {
         const _local_2: number[] = [];
 
@@ -615,11 +615,11 @@ export class AvatarStructure extends EventDispatcher
         return _local_2;
     }
 
-    public _Str_672(): string[]
+    public getItemIds(): string[]
     {
         if(this._actionManager)
         {
-            const k = this._actionManager._Str_1675('CarryItem').params;
+            const k = this._actionManager.getActionDefinition('CarryItem').params;
 
             const _local_2 = [];
 

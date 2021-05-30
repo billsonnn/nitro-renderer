@@ -121,7 +121,7 @@ export class GeometryBodyPart extends Node3D
         return (existingPart !== null);
     }
 
-    public _Str_713(k: Matrix4x4, _arg_2: Vector3D, _arg_3: any[], _arg_4: IAvatarImage): string[]
+    public getParts(k: Matrix4x4, _arg_2: Vector3D, _arg_3: any[], _arg_4: IAvatarImage): string[]
     {
         const parts: [ number, GeometryItem ][] = [];
 

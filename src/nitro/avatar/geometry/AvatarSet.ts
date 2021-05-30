@@ -42,7 +42,7 @@
         {
             if(!avatarSet) continue;
 
-            bodyParts = bodyParts.concat(avatarSet._Str_755());
+            bodyParts = bodyParts.concat(avatarSet.getBodyParts());
         }
 
         this._allBodyParts = bodyParts;
@@ -64,7 +64,7 @@
         return null;
     }
 
-    public _Str_755(): string[]
+    public getBodyParts(): string[]
     {
         return this._allBodyParts.concat();
     }

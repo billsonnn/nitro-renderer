@@ -89,7 +89,7 @@ export class AvatarModelGeometry
         }
     }
 
-    public _Str_2101(k: IAvatarImage): void
+    public removeDynamicItems(k: IAvatarImage): void
     {
         for(const geometry of this._geometryTypes.values())
         {
@@ -110,10 +110,10 @@ export class AvatarModelGeometry
 
         if(!avatarSet) return [];
 
-        return avatarSet._Str_755();
+        return avatarSet.getBodyParts();
     }
 
-    public _Str_1939(k: string): boolean
+    public isMainAvatarSet(k: string): boolean
     {
         const avatarSet = this._avatarSet._Str_1498(k);
 
@@ -122,7 +122,7 @@ export class AvatarModelGeometry
         return avatarSet._Str_779;
     }
 
-    public _Str_1664(k: string, _arg_2: string): AvatarCanvas
+    public getCanvas(k: string, _arg_2: string): AvatarCanvas
     {
         const canvas = this._canvases.get(k);
 
@@ -271,7 +271,7 @@ export class AvatarModelGeometry
         return ids;
     }
 
-    public _Str_713(k: string, _arg_2: string, _arg_3: number, _arg_4: any[], _arg_5:IAvatarImage): string[]
+    public getParts(k: string, _arg_2: string, _arg_3: number, _arg_4: any[], _arg_5:IAvatarImage): string[]
     {
         if(this._Str_1332(k, _arg_2))
         {
@@ -279,7 +279,7 @@ export class AvatarModelGeometry
 
             this._transformation = Matrix4x4._Str_1560(_arg_3);
 
-            return part._Str_713(this._transformation, this._camera, _arg_4, _arg_5);
+            return part.getParts(this._transformation, this._camera, _arg_4, _arg_5);
         }
 
         return [];

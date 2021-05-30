@@ -14,10 +14,10 @@ export class AvatarActionManager
         this._actions       = new Map();
         this._defaultAction = null;
 
-        this._Str_1620(data);
+        this.updateActions(data);
     }
 
-    public _Str_1620(data: any): void
+    public updateActions(data: any): void
     {
         if(!data) return;
 
@@ -59,7 +59,7 @@ export class AvatarActionManager
         }
     }
 
-    public _Str_1675(id: string): ActionDefinition
+    public getActionDefinition(id: string): ActionDefinition
     {
         if(!id) return null;
 
@@ -73,7 +73,7 @@ export class AvatarActionManager
         return null;
     }
 
-    public _Str_2018(state: string): ActionDefinition
+    public getActionDefinitionWithState(state: string): ActionDefinition
     {
         const existing = this._actions.get(state);
 
@@ -98,7 +98,7 @@ export class AvatarActionManager
         return null;
     }
 
-    public _Str_781(k: IActiveActionData[], _arg_2: string, _arg_3: number): number[]
+    public getCanvasOffsets(k: IActiveActionData[], _arg_2: string, _arg_3: number): number[]
     {
         let canvasOffsets: number[] = [];
 
@@ -115,7 +115,7 @@ export class AvatarActionManager
         return canvasOffsets;
     }
 
-    public _Str_711(actions: IActiveActionData[]): IActiveActionData[]
+    public sortActions(actions: IActiveActionData[]): IActiveActionData[]
     {
         if(!actions) return null;
 

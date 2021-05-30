@@ -126,7 +126,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         if(!this._structure) return;
 
-        this._structure._Str_1825(HabboAvatarGeometry.geometry);
+        this._structure.initGeometry(HabboAvatarGeometry.geometry);
 
         this._geometryReady = true;
 
@@ -137,7 +137,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         if(!this._structure) return;
 
-        this._structure._Str_1296(HabboAvatarPartSets.partSets);
+        this._structure.initPartSets(HabboAvatarPartSets.partSets);
 
         this._partSetsReady = true;
 
@@ -148,7 +148,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         const defaultActions = Nitro.instance.getConfiguration<string>('avatar.default.actions');
 
-        if(defaultActions) this._structure._Str_1060(Nitro.instance.core.asset, defaultActions);
+        if(defaultActions) this._structure.initActions(Nitro.instance.core.asset, defaultActions);
 
         const request = new XMLHttpRequest();
 
@@ -162,7 +162,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
             {
                 if(!this._structure) return;
 
-                this._structure._Str_1620(JSON.parse(request.responseText));
+                this._structure.updateActions(JSON.parse(request.responseText));
 
                 this._actionsReady = true;
 
@@ -185,7 +185,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         if(!this._structure) return;
 
-        this._structure._Str_2229(HabboAvatarAnimations.animations);
+        this._structure.initAnimation(HabboAvatarAnimations.animations);
 
         this._animationsReady = true;
 
@@ -204,7 +204,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
             {
                 if(err || !results || !results.figuredata) throw new Error('invalid_default_figure_data');
 
-                if(this._structure) this._structure._Str_1569(results.figuredata);
+                if(this._structure) this._structure.initFigureData(results.figuredata);
             });
         }
 
@@ -308,7 +308,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         let isValid = false;
 
-        const typeIds = this._structure._Str_1733(gender, 2);
+        const typeIds = this._structure.getMandatorySetTypeIds(gender, 2);
 
         if(typeIds)
         {
@@ -318,7 +318,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
             {
                 if(!container.hasPartType(id))
                 {
-                    const figurePartSet = this._structure._Str_2264(id, gender);
+                    const figurePartSet = this._structure.getDefaultPartSet(id, gender);
 
                     if(figurePartSet)
                     {
@@ -337,7 +337,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
                         if(!figurePartSet)
                         {
-                            const partSet = this._structure._Str_2264(id, gender);
+                            const partSet = this._structure.getDefaultPartSet(id, gender);
 
                             if(partSet)
                             {
@@ -385,7 +385,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
             }
         }
 
-        if(!searchParts) searchParts = this._structure._Str_1695(AvatarSetType.FULL);
+        if(!searchParts) searchParts = this._structure.getBodyPartsUnordered(AvatarSetType.FULL);
 
         for(const part of searchParts)
         {
@@ -440,7 +440,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         if(!this._structure) return null;
 
-        return this._structure._Str_1733(k, _arg_2);
+        return this._structure.getMandatorySetTypeIds(k, _arg_2);
     }
 
     public getAssetByName(name: string): IGraphicAsset

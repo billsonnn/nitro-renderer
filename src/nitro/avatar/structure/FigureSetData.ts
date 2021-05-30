@@ -103,7 +103,7 @@ export class FigureSetData implements IFigureSetData, IStructureData
         return false;
     }
 
-    public _Str_1733(k: string, _arg_2: number): string[]
+    public getMandatorySetTypeIds(k: string, _arg_2: number): string[]
     {
         const types: string[] = [];
 
@@ -117,13 +117,13 @@ export class FigureSetData implements IFigureSetData, IStructureData
         return types;
     }
 
-    public _Str_2264(k: string, _arg_2: string): IFigurePartSet
+    public getDefaultPartSet(k: string, _arg_2: string): IFigurePartSet
     {
         const setType = this._setTypes.get(k);
 
         if(!setType) return null;
 
-        return setType._Str_2264(_arg_2);
+        return setType.getDefaultPartSet(_arg_2);
     }
 
     public _Str_740(k: string): ISetType

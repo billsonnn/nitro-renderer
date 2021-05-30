@@ -59,7 +59,7 @@ export class SetType implements ISetType
         for(const set of k.set) this._partSets.add(set['$'].id, new FigurePartSet(this._type, set));
     }
 
-    public _Str_2264(k: string): IFigurePartSet
+    public getDefaultPartSet(k: string): IFigurePartSet
     {
         for(const set of this._partSets.getValues())
         {

@@ -113,7 +113,7 @@ export class AvatarImageCache
 
     public setDirection(k: string, _arg_2: number): void
     {
-        const parts = this._structure._Str_1695(k);
+        const parts = this._structure.getBodyPartsUnordered(k);
 
         if(parts)
         {
@@ -130,7 +130,7 @@ export class AvatarImageCache
 
     public _Str_1565(k: IActiveActionData, _arg_2: number): void
     {
-        const _local_3 = this._structure._Str_2021(k, this._avatar);
+        const _local_3 = this._structure.getActiveBodyPartIds(k, this._avatar);
 
         for(const _local_4 of _local_3)
         {
@@ -186,7 +186,7 @@ export class AvatarImageCache
             {
                 let _local_15 = _local_5;
 
-                const _local_16 = this._structure._Str_720(((_local_7.definition.state + '.') + _local_7.actionParameter));
+                const _local_16 = this._structure.getAnimation(((_local_7.definition.state + '.') + _local_7.actionParameter));
                 const _local_17 = (frameNumber - _local_7.startFrame);
 
                 if(_local_16)
@@ -263,7 +263,7 @@ export class AvatarImageCache
 
         if(!_local_13 || _arg_3)
         {
-            const _local_19 = this._structure._Str_713(k, this._avatar.getFigure(), _local_8, this._geometryType, _local_5, _local_9, this._avatar, _local_10);
+            const _local_19 = this._structure.getParts(k, this._avatar.getFigure(), _local_8, this._geometryType, _local_5, _local_9, this._avatar, _local_10);
 
             _local_13 = new AvatarImageDirectionCache(_local_19);
 
@@ -288,7 +288,7 @@ export class AvatarImageCache
             }
         }
 
-        const offset = this._structure._Str_1888(_local_8, _local_5, frameCount, k);
+        const offset = this._structure.getFrameBodyPartOffset(_local_8, _local_5, frameCount, k);
 
         _local_11.x += offset.x;
         _local_11.y += offset.y;
@@ -325,7 +325,7 @@ export class AvatarImageCache
 
         if(!this._canvas)
         {
-            this._canvas = this._structure._Str_1664(this._scale, this._geometryType);
+            this._canvas = this._structure.getCanvas(this._scale, this._geometryType);
 
             if(!this._canvas) return null;
         }

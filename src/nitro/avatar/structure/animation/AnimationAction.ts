@@ -102,7 +102,7 @@ export class AnimationAction
         return existing;
     }
 
-    public _Str_1888(frameId: number, frameCount: number, partId: string): Point
+    public getFrameBodyPartOffset(frameId: number, frameCount: number, partId: string): Point
     {
         const frameIndex    = (frameCount % this._frameIndexes.length);
         const frameNumber   = this._frameIndexes[frameIndex];
