@@ -71,7 +71,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
                 const totalAnimatedLayers   = ((animatedLayers && animatedLayers.length) || 0);
                 const totalLayers           = (totalBasicLayers + totalAnimatedLayers);
 
-                const planeVisualization = plane._Str_20305(size, (totalLayers || 0), this._Str_17204(size, horizontalAngle, verticalAngle));
+                const planeVisualization = plane.createPlaneVisualization(size, (totalLayers || 0), this._Str_17204(size, horizontalAngle, verticalAngle));
 
                 if(planeVisualization)
                 {
@@ -157,7 +157,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
                             layerId++;
                         }
 
-                        planeVisualization._Str_23489(layerId, animationItems, this._Str_2697);
+                        planeVisualization._Str_23489(layerId, animationItems, this.assetCollection);
                     }
                 }
             }

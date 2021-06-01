@@ -14,7 +14,7 @@ export class LandscapePlane extends Plane
 
     public isStatic(k: number): boolean
     {
-        const _local_2 = this._Str_6009(k);
+        const _local_2 = this.getPlaneVisualization(k);
 
         if(_local_2) return !(_local_2._Str_20530);
 
@@ -36,7 +36,7 @@ export class LandscapePlane extends Plane
 
     public render(k: Graphics, _arg_2: number, _arg_3: number, _arg_4: number, _arg_5: IVector3D, _arg_6: boolean, _arg_7: number, _arg_8: number, _arg_9: number, _arg_10: number, _arg_11: number): Graphics
     {
-        const visualization = this._Str_6009(_arg_4);
+        const visualization = this.getPlaneVisualization(_arg_4);
 
         if(!visualization || !visualization.geometry) return null;
 

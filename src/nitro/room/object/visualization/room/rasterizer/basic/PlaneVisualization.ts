@@ -75,7 +75,7 @@ export class PlaneVisualization
         if(this._cachedBitmapNormal) this._cachedBitmapNormal = null;
     }
 
-    public _Str_3355(): void
+    public clearCache(): void
     {
         if(!this._isCached) return;
 
@@ -99,7 +99,7 @@ export class PlaneVisualization
 
                 const planeLayer = layer as PlaneVisualizationLayer;
 
-                planeLayer._Str_3355();
+                planeLayer.clearCache();
             }
         }
 
@@ -137,7 +137,7 @@ export class PlaneVisualization
         return true;
     }
 
-    public _Str_8988(): PlaneVisualizationLayer[]
+    public getLayers(): PlaneVisualizationLayer[]
     {
         return this._layers as PlaneVisualizationLayer[];
     }

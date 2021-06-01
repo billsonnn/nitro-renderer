@@ -79,7 +79,7 @@ export class PlaneMaterialCell
         this._extraItemCount    = 0;
     }
 
-    public _Str_3355(): void
+    public clearCache(): void
     {
         if(this._cachedBitmapData)
         {

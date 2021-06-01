@@ -60,7 +60,7 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
         }
     }
 
-    public _Str_3355(): void
+    public clearCache(): void
     {
         if(this._bitmapData)
         {

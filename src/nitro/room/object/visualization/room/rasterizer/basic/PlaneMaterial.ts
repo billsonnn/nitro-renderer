@@ -33,7 +33,7 @@ export class PlaneMaterial
         this._isCached = false;
     }
 
-    public _Str_3355(): void
+    public clearCache(): void
     {
         if(!this._isCached) return;
 
@@ -43,7 +43,7 @@ export class PlaneMaterial
             {
                 if(!item) continue;
 
-                item._Str_3355();
+                item.clearCache();
             }
         }
 

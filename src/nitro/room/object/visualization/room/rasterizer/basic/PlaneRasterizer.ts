@@ -43,7 +43,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         return this._data;
     }
 
-    protected get _Str_2697(): IGraphicAssetCollection
+    protected get assetCollection(): IGraphicAssetCollection
     {
         return this._assetCollection;
     }
@@ -97,20 +97,20 @@ export class PlaneRasterizer implements IPlaneRasterizer
         this._assetCollection   = null;
     }
 
-    public _Str_3355(): void
+    public clearCache(): void
     {
         for(const plane of this._planes.values())
         {
             if(!plane) continue;
 
-            plane._Str_3355();
+            plane.clearCache();
         }
 
         for(const material of this._materials.values())
         {
             if(!material) continue;
 
-            material._Str_3355();
+            material.clearCache();
         }
     }
 
@@ -201,7 +201,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
     private _Str_25281(): void
     {
-        if(this._data.textures && this._data.textures.length) this._Str_24250(this._data.textures, this._Str_2697);
+        if(this._data.textures && this._data.textures.length) this._Str_24250(this._data.textures, this.assetCollection);
 
         if(this._data.materials && this._data.materials.length) this._Str_22388(this._data.materials);
     }
@@ -548,7 +548,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
                 const layers = visualization.layers;
 
-                const planeVisualization = k._Str_20305(size, ((layers && layers.length) || 0), this._Str_17204(size, horizontalAngle, verticalAngle));
+                const planeVisualization = k.createPlaneVisualization(size, ((layers && layers.length) || 0), this._Str_17204(size, horizontalAngle, verticalAngle));
 
                 if(planeVisualization && (layers && layers.length))
                 {
@@ -598,12 +598,12 @@ export class PlaneRasterizer implements IPlaneRasterizer
         return k.toString();
     }
 
-    public _Str_8988(k: string): PlaneVisualizationLayer[]
+    public getLayers(k: string): PlaneVisualizationLayer[]
     {
         let planes = this._Str_3491(k);
 
         if(!planes) planes = this._Str_3491(PlaneRasterizer.DEFAULT);
 
-        return planes._Str_8988();
+        return planes.getLayers();
     }
 }

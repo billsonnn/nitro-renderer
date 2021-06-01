@@ -495,7 +495,7 @@ export class RoomPlane implements IRoomPlane
         if(this._isVisible)
         {
             const maskData  = this.resolveMasks(geometry);
-            const layers    = this._rasterizer._Str_8988(this._id);
+            const layers    = this._rasterizer.getLayers(this._id);
 
             let i = 0;
 

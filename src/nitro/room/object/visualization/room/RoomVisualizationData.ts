@@ -96,13 +96,13 @@ export class RoomVisualizationData extends Disposable implements IObjectVisualiz
         this._initialized = true;
     }
 
-    public _Str_3355(): void
+    public clearCache(): void
     {
-        if(this._wallRasterizer) this._wallRasterizer._Str_3355();
+        if(this._wallRasterizer) this._wallRasterizer.clearCache();
 
-        if(this._floorRasterizer) this._floorRasterizer._Str_3355();
+        if(this._floorRasterizer) this._floorRasterizer.clearCache();
 
-        if(this._landscapeRasterizer) this._landscapeRasterizer._Str_3355();
+        if(this._landscapeRasterizer) this._landscapeRasterizer.clearCache();
     }
 
     public get wallRasterizer(): WallRasterizer

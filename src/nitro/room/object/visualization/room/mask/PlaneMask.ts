@@ -53,7 +53,7 @@ export class PlaneMask
         return visualization;
     }
 
-    private _Str_8560(k: number): number
+    private getSizeIndex(k: number): number
     {
         let sizeIndex   = 0;
         const index       = 1;
@@ -77,7 +77,7 @@ export class PlaneMask
     {
         if(k === this._lastSize) return this._lastMaskVisualization;
 
-        const sizeIndex = this._Str_8560(k);
+        const sizeIndex = this.getSizeIndex(k);
 
         if(sizeIndex < this._sizes.length)
         {

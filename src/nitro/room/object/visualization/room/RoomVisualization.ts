@@ -175,7 +175,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(this._data)
         {
-            this._data._Str_3355();
+            this._data.clearCache();
 
             this._data = null;
         }

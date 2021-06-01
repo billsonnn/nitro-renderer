@@ -48,10 +48,10 @@ export class PlaneVisualizationLayer
         this._isDisposed    = true;
         this._material      = null;
 
-        this._Str_3355();
+        this.clearCache();
     }
 
-    public _Str_3355(): void
+    public clearCache(): void
     {
         if(this._bitmapData)
         {
