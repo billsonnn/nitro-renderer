@@ -102,7 +102,7 @@ export class PlaneMask
         return visualization.getAsset(_arg_2);
     }
 
-    public _Str_2125(k: number): string
+    public getAssetName(k: number): string
     {
         if(!this._assetNames) return null;
 

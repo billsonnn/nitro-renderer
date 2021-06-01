@@ -4,8 +4,8 @@ import { PlaneMaterialCellMatrix } from './PlaneMaterialCellMatrix';
 
 export class PlaneMaterial
 {
-    public static _Str_3268: number = -1;
-    public static _Str_3271: number = 1;
+    public static MIN_NORMAL_COORDINATE_VALUE: number = -1;
+    public static MAX_NORMAL_COORDINATE_VALUE: number = 1;
 
     private _planeMaterialItems: PlaneMaterialCellMatrix[];
     private _isCached: boolean;

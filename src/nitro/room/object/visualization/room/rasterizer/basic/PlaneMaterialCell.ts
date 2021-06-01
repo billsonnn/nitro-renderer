@@ -93,7 +93,7 @@ export class PlaneMaterialCell
     {
         if(this._texture)
         {
-            const texture = this._texture._Str_4913(k);
+            const texture = this._texture.getBitmap(k);
 
             if(texture) return texture.height;
         }
@@ -105,7 +105,7 @@ export class PlaneMaterialCell
     {
         if(!this._texture) return null;
 
-        const texture = this._texture._Str_4913(normal);
+        const texture = this._texture.getBitmap(normal);
 
         if(!texture) return null;
 
@@ -235,8 +235,8 @@ export class PlaneMaterialCell
         return null;
     }
 
-    public _Str_2125(k:IVector3D): string
+    public getAssetName(k:IVector3D): string
     {
-        return (this._texture == null) ? null : this._texture._Str_2125(k);
+        return (this._texture == null) ? null : this._texture.getAssetName(k);
     }
 }

@@ -407,7 +407,7 @@ export class AvatarImageCache
                             {
                                 const spriteData = new RoomObjectSpriteData();
 
-                                spriteData.name      = this._assets._Str_2125(assetName);
+                                spriteData.name      = this._assets.getAssetName(assetName);
                                 spriteData.x         = (-(offset.x) - 33);
                                 spriteData.y         = -(offset.y);
                                 spriteData.z         = (this._serverRenderData.length * -0.0001);

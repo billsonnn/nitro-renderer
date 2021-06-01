@@ -1,9 +1,9 @@
-﻿import { Texture } from 'pixi.js';
+import { Texture } from 'pixi.js';
 
 export class PlaneTextureBitmap
 {
-    public static _Str_3268: number = -1;
-    public static _Str_3271: number = 1;
+    public static MIN_NORMAL_COORDINATE_VALUE: number = -1;
+    public static MAX_NORMAL_COORDINATE_VALUE: number = 1;
 
     private _bitmap: Texture;
     private _normalMinX: number;

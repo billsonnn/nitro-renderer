@@ -123,10 +123,10 @@ export class PlaneMaskManager
 
             if(!asset) continue;
 
-            let normalMinX  = PlaneMaskVisualization._Str_3268;
-            let normalMaxX  = PlaneMaskVisualization._Str_3271;
-            let normalMinY  = PlaneMaskVisualization._Str_3268;
-            let normalMaxY  = PlaneMaskVisualization._Str_3271;
+            let normalMinX  = PlaneMaskVisualization.MIN_NORMAL_COORDINATE_VALUE;
+            let normalMaxX  = PlaneMaskVisualization.MAX_NORMAL_COORDINATE_VALUE;
+            let normalMinY  = PlaneMaskVisualization.MIN_NORMAL_COORDINATE_VALUE;
+            let normalMaxY  = PlaneMaskVisualization.MAX_NORMAL_COORDINATE_VALUE;
 
             if(bitmap.normalMinX !== undefined) normalMinX = bitmap.normalMinX;
             if(bitmap.normalMaxX !== undefined) normalMaxX = bitmap.normalMaxX;
@@ -135,7 +135,7 @@ export class PlaneMaskManager
 
             if(!asset.flipH) graphicName = assetName;
 
-            _arg_2._Str_16790(asset, normalMinX, normalMaxX, normalMinY, normalMaxY);
+            _arg_2.addBitmap(asset, normalMinX, normalMaxX, normalMinY, normalMaxY);
         }
 
         return graphicName;

@@ -16,8 +16,8 @@ export class PlaneMaterialCellMatrix
     public static _Str_6063: number     = 5;
     public static _Str_9127: number     = 6;
     public static _Str_18632: number    = PlaneMaterialCellMatrix._Str_7916;//1
-    public static _Str_3268: number     = -1;
-    public static _Str_3271: number     = 1;
+    public static MIN_NORMAL_COORDINATE_VALUE: number     = -1;
+    public static MAX_NORMAL_COORDINATE_VALUE: number     = 1;
     public static ALIGN_TOP: number     = 1;
     public static _Str_3606: number     = 2;
     public static _Str_6914: number     = PlaneMaterialCellMatrix.ALIGN_TOP;//1

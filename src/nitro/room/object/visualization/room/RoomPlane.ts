@@ -457,7 +457,7 @@ export class RoomPlane implements IRoomPlane
 
                 if(planeMask)
                 {
-                    const assetName = planeMask._Str_2125(k.scale);
+                    const assetName = planeMask.getAssetName(k.scale);
 
                     if(assetName)
                     {
@@ -520,7 +520,7 @@ export class RoomPlane implements IRoomPlane
 
                             for(const cell of column._Str_22299())
                             {
-                                const name = cell._Str_2125(normal);
+                                const name = cell.getAssetName(normal);
 
                                 if(name) assetNames.push(name);
                             }

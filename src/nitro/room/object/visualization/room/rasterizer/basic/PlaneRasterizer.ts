@@ -234,10 +234,10 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
                             const assetName = bitmap.assetName;
 
-                            let normalMinX = PlaneTexture._Str_3268;
-                            let normalMaxX = PlaneTexture._Str_3271;
-                            let normalMinY = PlaneTexture._Str_3268;
-                            let normalMaxY = PlaneTexture._Str_3271;
+                            let normalMinX = PlaneTexture.MIN_NORMAL_COORDINATE_VALUE;
+                            let normalMaxX = PlaneTexture.MAX_NORMAL_COORDINATE_VALUE;
+                            let normalMinY = PlaneTexture.MIN_NORMAL_COORDINATE_VALUE;
+                            let normalMaxY = PlaneTexture.MAX_NORMAL_COORDINATE_VALUE;
 
                             if(bitmap.normalMinX !== undefined) normalMinX = bitmap.normalMinX;
                             if(bitmap.normalMaxX !== undefined) normalMaxX = bitmap.normalMaxX;
@@ -259,7 +259,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
                                         newTexture = Rasterizer.getFlipHBitmapData(texture);
                                     }
 
-                                    plane._Str_16790(newTexture, normalMinX, normalMaxX, normalMinY, normalMaxY, assetName);
+                                    plane.addBitmap(newTexture, normalMinX, normalMaxX, normalMinY, normalMaxY, assetName);
                                 }
                             }
                         }
@@ -290,10 +290,10 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
                     let repeatMode  = matrix.repeatMode;
                     let align       = matrix.align;
-                    const normalMinX  = PlaneMaterialCellMatrix._Str_3268;
-                    const normalMaxX  = PlaneMaterialCellMatrix._Str_3271;
-                    const normalMinY  = PlaneMaterialCellMatrix._Str_3268;
-                    const normalMaxY  = PlaneMaterialCellMatrix._Str_3271;
+                    const normalMinX  = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE;
+                    const normalMaxX  = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE;
+                    const normalMinY  = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE;
+                    const normalMaxY  = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE;
 
                     switch(repeatMode)
                     {
