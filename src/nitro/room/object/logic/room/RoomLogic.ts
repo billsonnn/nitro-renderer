@@ -30,13 +30,13 @@ export class RoomLogic extends RoomObjectLogicBase
     private _planeParser: RoomPlaneParser;
     private _planeBitmapMaskParser: RoomPlaneBitmapMaskParser;
     private _color: number;
-    private _Str_3576: number;
-    private _Str_14932: number;
-    private _Str_17003: number;
-    private _Str_11287: number;
-    private _Str_16460: number;
-    private _Str_9785: number;
-    private _Str_17191: number;
+    private _light: number;
+    private _originalColor: number;
+    private _originalLight: number;
+    private _targetColor: number;
+    private _targetLight: number;
+    private _colorChangedTime: number;
+    private _colorTransitionLength: number;
     private _lastHoleUpdate: number;
     private _needsMapUpdate: boolean;
 
@@ -47,13 +47,13 @@ export class RoomLogic extends RoomObjectLogicBase
         this._planeParser           = new RoomPlaneParser();
         this._planeBitmapMaskParser = new RoomPlaneBitmapMaskParser();
         this._color                 = 0xFFFFFF;
-        this._Str_3576              = 0xFF;
-        this._Str_14932             = 0xFFFFFF;
-        this._Str_17003             = 0xFF;
-        this._Str_11287             = 0xFFFFFF;
-        this._Str_16460             = 0xFF;
-        this._Str_9785              = 0;
-        this._Str_17191             = 1500;
+        this._light                 = 0xFF;
+        this._originalColor         = 0xFFFFFF;
+        this._originalLight         = 0xFF;
+        this._targetColor           = 0xFFFFFF;
+        this._targetLight           = 0xFF;
+        this._colorChangedTime      = 0;
+        this._colorTransitionLength = 1500;
         this._lastHoleUpdate        = 0;
         this._needsMapUpdate        = false;
     }
@@ -103,7 +103,7 @@ export class RoomLogic extends RoomObjectLogicBase
     {
         super.update(time);
 
-        this._Str_24703(time);
+        this.updateBackgroundColor(time);
 
         if(this._needsMapUpdate)
         {
@@ -127,40 +127,40 @@ export class RoomLogic extends RoomObjectLogicBase
 
     }
 
-    private _Str_24703(k: number): void
+    private updateBackgroundColor(k: number): void
     {
-        if(!this.object || !this._Str_9785) return;
+        if(!this.object || !this._colorChangedTime) return;
 
         let color       = this._color;
-        let newColor    = this._Str_3576;
+        let newColor    = this._light;
 
-        if((k - this._Str_9785) >= this._Str_17191)
+        if((k - this._colorChangedTime) >= this._colorTransitionLength)
         {
-            color       = this._Str_11287;
-            newColor    = this._Str_16460;
+            color       = this._targetColor;
+            newColor    = this._targetLight;
 
-            this._Str_9785 = 0;
+            this._colorChangedTime = 0;
         }
         else
         {
-            let _local_7 = ((this._Str_14932 >> 16) & 0xFF);
-            let _local_8 = ((this._Str_14932 >> 8) & 0xFF);
-            let _local_9 = (this._Str_14932 & 0xFF);
+            let _local_7 = ((this._originalColor >> 16) & 0xFF);
+            let _local_8 = ((this._originalColor >> 8) & 0xFF);
+            let _local_9 = (this._originalColor & 0xFF);
 
-            const _local_10 = ((this._Str_11287 >> 16) & 0xFF);
-            const _local_11 = ((this._Str_11287 >> 8) & 0xFF);
-            const _local_12 = (this._Str_11287 & 0xFF);
-            const _local_13 = ((k - this._Str_9785) / this._Str_17191);
+            const _local_10 = ((this._targetColor >> 16) & 0xFF);
+            const _local_11 = ((this._targetColor >> 8) & 0xFF);
+            const _local_12 = (this._targetColor & 0xFF);
+            const _local_13 = ((k - this._colorChangedTime) / this._colorTransitionLength);
 
             _local_7 = (_local_7 + ((_local_10 - _local_7) * _local_13));
             _local_8 = (_local_8 + ((_local_11 - _local_8) * _local_13));
             _local_9 = (_local_9 + ((_local_12 - _local_9) * _local_13));
 
             color       = (((_local_7 << 16) + (_local_8 << 8)) + _local_9);
-            newColor    = (this._Str_17003 + ((this._Str_16460 - this._Str_17003) * _local_13));
+            newColor    = (this._originalLight + ((this._targetLight - this._originalLight) * _local_13));
 
             this._color     = color;
-            this._Str_3576  = newColor;
+            this._light  = newColor;
         }
 
         let _local_5 = ColorConverter.rgbToHSL(color);
@@ -320,12 +320,12 @@ export class RoomLogic extends RoomObjectLogicBase
     {
         if(!message || !model) return;
 
-        this._Str_14932 = this._color;
-        this._Str_17003 = this._Str_3576;
-        this._Str_11287 = message.color;
-        this._Str_16460 = message.light;
-        this._Str_9785  = this.time;
-        this._Str_17191 = 1500;
+        this._originalColor = this._color;
+        this._originalLight = this._light;
+        this._targetColor = message.color;
+        this._targetLight = message.light;
+        this._colorChangedTime  = this.time;
+        this._colorTransitionLength = 1500;
 
         model.setValue(RoomObjectVariable.ROOM_COLORIZE_BG_ONLY, message.backgroundOnly);
     }
