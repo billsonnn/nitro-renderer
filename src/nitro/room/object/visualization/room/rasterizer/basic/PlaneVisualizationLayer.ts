@@ -135,7 +135,7 @@ export class PlaneVisualizationLayer
         return bitmapData;
     }
 
-    public _Str_8547(): PlaneMaterial
+    public getMaterial(): PlaneMaterial
     {
         return this._material;
     }

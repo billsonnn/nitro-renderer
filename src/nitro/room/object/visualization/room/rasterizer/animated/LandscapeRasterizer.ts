@@ -71,7 +71,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
                 const totalAnimatedLayers   = ((animatedLayers && animatedLayers.length) || 0);
                 const totalLayers           = (totalBasicLayers + totalAnimatedLayers);
 
-                const planeVisualization = plane.createPlaneVisualization(size, (totalLayers || 0), this._Str_17204(size, horizontalAngle, verticalAngle));
+                const planeVisualization = plane.createPlaneVisualization(size, (totalLayers || 0), this.getGeometry(size, horizontalAngle, verticalAngle));
 
                 if(planeVisualization)
                 {
@@ -92,7 +92,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
                                 let color: number               = LandscapePlane._Str_2531;
                                 let offset: number              = PlaneVisualizationLayer.DEFAULT_OFFSET;
 
-                                if(layer.materialId) material = this._Str_8547(layer.materialId);
+                                if(layer.materialId) material = this.getMaterial(layer.materialId);
 
                                 if(layer.color) color = layer.color;
 
@@ -162,7 +162,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
                 }
             }
 
-            if(!this._Str_3453(id, plane)) plane.dispose();
+            if(!this.addPlane(id, plane)) plane.dispose();
         }
     }
 
@@ -199,9 +199,9 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
     public render(canvas: Graphics, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
     {
-        let plane = this._Str_3491(id) as LandscapePlane;
+        let plane = this.getPlane(id) as LandscapePlane;
 
-        if(!plane) plane = this._Str_3491(LandscapeRasterizer.DEFAULT) as LandscapePlane;
+        if(!plane) plane = this.getPlane(LandscapeRasterizer.DEFAULT) as LandscapePlane;
 
         if(!plane) return null;
 

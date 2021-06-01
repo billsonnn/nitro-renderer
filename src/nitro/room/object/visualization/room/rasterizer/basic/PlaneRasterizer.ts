@@ -69,14 +69,14 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
         if(this._materials)
         {
-            this._Str_21781();
+            this.resetMaterials();
 
             this._materials = null;
         }
 
         if(this._textures)
         {
-            this._Str_21447();
+            this.resetTextures();
 
             this._textures = null;
         }
@@ -119,14 +119,14 @@ export class PlaneRasterizer implements IPlaneRasterizer
         this._data = data;
     }
 
-    public _Str_24005(): void
+    public reinitialize(): void
     {
-        this._Str_21447();
-        this._Str_21781();
-        this._Str_22054();
+        this.resetTextures();
+        this.resetMaterials();
+        this.initializeAll();
     }
 
-    private _Str_21781(): void
+    private resetMaterials(): void
     {
         for(const material of this._materials.values())
         {
@@ -138,7 +138,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         this._materials.clear();
     }
 
-    private _Str_21447(): void
+    private resetTextures(): void
     {
         for(const texture of this._textures.values())
         {
@@ -155,17 +155,17 @@ export class PlaneRasterizer implements IPlaneRasterizer
         return this._textures.get(k);
     }
 
-    protected _Str_8547(k: string): PlaneMaterial
+    protected getMaterial(k: string): PlaneMaterial
     {
         return this._materials.get(k);
     }
 
-    protected _Str_3491(k: string): Plane
+    protected getPlane(k: string): Plane
     {
         return this._planes.get(k);
     }
 
-    protected _Str_3453(k: string, _arg_2: Plane): boolean
+    protected addPlane(k: string, _arg_2: Plane): boolean
     {
         if(!_arg_2) return false;
 
@@ -181,36 +181,36 @@ export class PlaneRasterizer implements IPlaneRasterizer
         return false;
     }
 
-    public _Str_6703(k: IGraphicAssetCollection): void
+    public initializeAssetCollection(k: IGraphicAssetCollection): void
     {
         if(!this._data) return;
 
         this._assetCollection = k;
 
-        this._Str_22054();
+        this.initializeAll();
     }
 
-    private _Str_22054(): void
+    private initializeAll(): void
     {
         if(!this._data) return;
 
-        this._Str_25281();
+        this.initializeTexturesAndMaterials();
 
         this.initializePlanes();
     }
 
-    private _Str_25281(): void
+    private initializeTexturesAndMaterials(): void
     {
-        if(this._data.textures && this._data.textures.length) this._Str_24250(this._data.textures, this.assetCollection);
+        if(this._data.textures && this._data.textures.length) this.parseTextures(this._data.textures, this.assetCollection);
 
-        if(this._data.materials && this._data.materials.length) this._Str_22388(this._data.materials);
+        if(this._data.materials && this._data.materials.length) this.parsePlaneMaterials(this._data.materials);
     }
 
     protected initializePlanes(): void
     {
     }
 
-    private _Str_24250(k: any, _arg_2: IGraphicAssetCollection): void
+    private parseTextures(k: any, _arg_2: IGraphicAssetCollection): void
     {
         if(!k || !_arg_2) return;
 
@@ -271,7 +271,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         }
     }
 
-    private _Str_22388(k: any): void
+    private parsePlaneMaterials(k: any): void
     {
         if(!k || !k.length) return;
 
@@ -340,7 +340,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
                         {
                             const column = matrix.columns[index];
 
-                            if(column) this._Str_24431(column, cellMatrix, index);
+                            if(column) this.parsePlaneMaterialCellColumn(column, cellMatrix, index);
 
                             index++;
                         }
@@ -352,7 +352,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         }
     }
 
-    private _Str_24431(k: { repeatMode: string, width: number }, _arg_2: PlaneMaterialCellMatrix, _arg_3: number): void
+    private parsePlaneMaterialCellColumn(k: { repeatMode: string, width: number }, _arg_2: PlaneMaterialCellMatrix, _arg_3: number): void
     {
         if(!k || !_arg_2) return;
 
@@ -360,7 +360,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
         const width = k.width;
 
-        const cells = this._Str_25217(k);
+        const cells = this.parsePlaneMaterialCells(k);
 
         switch(k.repeatMode)
         {
@@ -387,7 +387,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         _arg_2._Str_22372(_arg_3, width, cells, repeatMode);
     }
 
-    private _Str_25217(k: any): PlaneMaterialCell[]
+    private parsePlaneMaterialCells(k: any): PlaneMaterialCell[]
     {
         if(!k || !k.cells || !k.cells.length) return null;
 
@@ -421,8 +421,8 @@ export class PlaneRasterizer implements IPlaneRasterizer
                             const type          = types[0];
                             const offset        = offsets[0];
 
-                            assetNames      = this._Str_25465(type);
-                            offsetPoints    = this._Str_24448(offset);
+                            assetNames      = this.parseExtraItemTypes(type);
+                            offsetPoints    = this.parseExtraItemOffsets(offset);
                             limit           = offsetPoints.length;
 
                             if(extra.limitMax) limit = extra.limitMax;
@@ -460,7 +460,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         return cells;
     }
 
-    private _Str_25465(k: any): string[]
+    private parseExtraItemTypes(k: any): string[]
     {
         const assetNames: string[] = [];
 
@@ -483,7 +483,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         return assetNames;
     }
 
-    private _Str_24448(k: any): Point[]
+    private parseExtraItemOffsets(k: any): Point[]
     {
         const offsets: Point[] = [];
 
@@ -507,7 +507,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         return offsets;
     }
 
-    protected _Str_17204(k: number, _arg_2: number, _arg_3: number): IRoomGeometry
+    protected getGeometry(k: number, _arg_2: number, _arg_3: number): IRoomGeometry
     {
         _arg_2 = Math.abs(_arg_2);
         if(_arg_2 > 90) _arg_2 = 90;
@@ -528,7 +528,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         return geometry;
     }
 
-    protected _Str_9137(k: Plane, _arg_2: any): void
+    protected parseVisualizations(k: Plane, _arg_2: any): void
     {
         if(!k || !_arg_2) return;
 
@@ -548,7 +548,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
                 const layers = visualization.layers;
 
-                const planeVisualization = k.createPlaneVisualization(size, ((layers && layers.length) || 0), this._Str_17204(size, horizontalAngle, verticalAngle));
+                const planeVisualization = k.createPlaneVisualization(size, ((layers && layers.length) || 0), this.getGeometry(size, horizontalAngle, verticalAngle));
 
                 if(planeVisualization && (layers && layers.length))
                 {
@@ -565,7 +565,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
                             let color: number               = FloorPlane._Str_2531;
                             let offset: number              = PlaneVisualizationLayer.DEFAULT_OFFSET;
 
-                            if(layer.materialId) material = this._Str_8547(layer.materialId);
+                            if(layer.materialId) material = this.getMaterial(layer.materialId);
 
                             if(layer.color) color = layer.color;
 
@@ -600,9 +600,9 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
     public getLayers(k: string): PlaneVisualizationLayer[]
     {
-        let planes = this._Str_3491(k);
+        let planes = this.getPlane(k);
 
-        if(!planes) planes = this._Str_3491(PlaneRasterizer.DEFAULT);
+        if(!planes) planes = this.getPlane(PlaneRasterizer.DEFAULT);
 
         return planes.getLayers();
     }

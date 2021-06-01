@@ -88,10 +88,10 @@ export class RoomVisualizationData extends Disposable implements IObjectVisualiz
     {
         if(this._initialized) return;
 
-        this._wallRasterizer._Str_6703(collection);
-        this._floorRasterizer._Str_6703(collection);
-        this._landscapeRasterizer._Str_6703(collection);
-        this._maskManager._Str_6703(collection);
+        this._wallRasterizer.initializeAssetCollection(collection);
+        this._floorRasterizer.initializeAssetCollection(collection);
+        this._landscapeRasterizer.initializeAssetCollection(collection);
+        this._maskManager.initializeAssetCollection(collection);
 
         this._initialized = true;
     }

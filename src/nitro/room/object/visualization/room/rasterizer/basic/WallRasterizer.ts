@@ -29,17 +29,17 @@ export class WallRasterizer extends PlaneRasterizer
             const visualization = wall.visualizations;
             const plane         = new WallPlane();
 
-            this._Str_9137(plane, visualization);
+            this.parseVisualizations(plane, visualization);
 
-            if(!this._Str_3453(id, plane)) plane.dispose();
+            if(!this.addPlane(id, plane)) plane.dispose();
         }
     }
 
     public render(canvas: Graphics, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
     {
-        let plane = this._Str_3491(id) as WallPlane;
+        let plane = this.getPlane(id) as WallPlane;
 
-        if(!plane) plane = this._Str_3491(PlaneRasterizer.DEFAULT) as WallPlane;
+        if(!plane) plane = this.getPlane(PlaneRasterizer.DEFAULT) as WallPlane;
 
         if(!plane) return null;
 

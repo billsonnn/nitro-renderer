@@ -505,10 +505,10 @@ export class RoomPlane implements IRoomPlane
 
                 if(layer)
                 {
-                    if(this._hasTexture && layer._Str_8547())
+                    if(this._hasTexture && layer.getMaterial())
                     {
                         const normal    = geometry.getCoordinatePosition(this._normal);
-                        const cm        = layer._Str_8547()._Str_21968(normal);
+                        const cm        = layer.getMaterial()._Str_21968(normal);
                         //const data      = new PlaneDrawingData(maskData, blend(this._color, layer.getColor()), cm._Str_14945());
                         const data      = new PlaneDrawingData(maskData, this._color, cm._Str_14945());
 
