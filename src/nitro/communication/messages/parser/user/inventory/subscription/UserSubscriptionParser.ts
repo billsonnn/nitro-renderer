@@ -18,16 +18,16 @@ export class UserSubscriptionParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._name          = null;
-        this._days          = 0;
-        this._int1          = 0;
-        this._months        = 0;
-        this._years         = 0;
-        this._hasEverBeenMember         = false;
-        this._isVip         = false;
-        this._pastClubDays  = 0;
-        this._pastVIPDays          = 0;
-        this._totalSeconds  = 0;
+        this._name              = null;
+        this._days              = 0;
+        this._int1              = 0;
+        this._months            = 0;
+        this._years             = 0;
+        this._hasEverBeenMember = false;
+        this._isVip             = false;
+        this._pastClubDays      = 0;
+        this._pastVIPDays       = 0;
+        this._totalSeconds      = 0;
 
         return true;
     }
@@ -45,7 +45,8 @@ export class UserSubscriptionParser implements IMessageParser
         this._isVip         = wrapper.readBoolean();
         this._pastClubDays  = wrapper.readInt();
         this._pastVIPDays          = wrapper.readInt();
-        this._totalSeconds  = wrapper.readInt();
+
+        if(wrapper.bytesAvailable) this._totalSeconds = wrapper.readInt();
 
         return true;
     }

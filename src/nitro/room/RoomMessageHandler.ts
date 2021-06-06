@@ -3,6 +3,7 @@ import { IConnection } from '../../core/communication/connections/IConnection';
 import { IVector3D } from '../../room/utils/IVector3D';
 import { Vector3d } from '../../room/utils/Vector3d';
 import { PetType } from '../avatar/pets/PetType';
+import { ObjectsDataUpdateEvent } from '../communication';
 import { ObjectsRollingEvent } from '../communication/messages/incoming/room/engine/ObjectsRollingEvent';
 import { FurnitureFloorAddEvent } from '../communication/messages/incoming/room/furniture/floor/FurnitureFloorAddEvent';
 import { FurnitureFloorEvent } from '../communication/messages/incoming/room/furniture/floor/FurnitureFloorEvent';
@@ -113,6 +114,7 @@ export class RoomMessageHandler extends Disposable
         this._connection.addMessageEvent(new RoomThicknessEvent(this.onRoomThicknessEvent.bind(this)));
         this._connection.addMessageEvent(new RoomDoorEvent(this.onRoomDoorEvent.bind(this)));
         this._connection.addMessageEvent(new ObjectsRollingEvent(this.onRoomRollingEvent.bind(this)));
+        this._connection.addMessageEvent(new ObjectsDataUpdateEvent(this.onObjectsDataUpdateEvent.bind(this)));
         this._connection.addMessageEvent(new FurnitureAliasesEvent(this.onFurnitureAliasesEvent.bind(this)));
         this._connection.addMessageEvent(new FurnitureFloorAddEvent(this.onFurnitureFloorAddEvent.bind(this)));
         this._connection.addMessageEvent(new FurnitureFloorEvent(this.onFurnitureFloorEvent.bind(this)));
@@ -456,6 +458,20 @@ export class RoomMessageHandler extends Disposable
 
                 this._roomCreator.updateRoomObjectUserPosture(this._currentRoomId, unitRollData.id, posture);
             }
+        }
+    }
+
+    private onObjectsDataUpdateEvent(event: ObjectsDataUpdateEvent): void
+    {
+        if(!(event instanceof ObjectsDataUpdateEvent) || !event.connection || !this._roomCreator) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        for(const object of parser.objects)
+        {
+            this._roomCreator.updateRoomObjectFloor(this._currentRoomId, object.id, null, null, object.state, object.data);
         }
     }
 
