@@ -7,7 +7,7 @@ export class ImageData
     private _rect: Rectangle;
     private _regPoint: Point;
     private _flipH: boolean;
-    private _color: number;
+    private _colorTransform: number;
 
     constructor(texture: Texture, rectangle: Rectangle, _arg_3: Point, flipH: boolean, color: number, container: Container = null)
     {
@@ -16,7 +16,7 @@ export class ImageData
         this._rect      = rectangle;
         this._regPoint  = _arg_3;
         this._flipH     = flipH;
-        this._color     = color;
+        this._colorTransform     = color;
 
         if(flipH) this._regPoint.x = (-(this._regPoint.x) + rectangle.width);
     }
@@ -25,7 +25,7 @@ export class ImageData
     {
         this._texture    = null;
         this._regPoint  = null;
-        this._color     = null;
+        this._colorTransform     = null;
     }
 
     public get texture(): Texture
@@ -53,12 +53,12 @@ export class ImageData
         return this._flipH;
     }
 
-    public get color(): number
+    public get colorTransform(): number
     {
-        return this._color;
+        return this._colorTransform;
     }
 
-    public get _Str_1567(): Rectangle
+    public get offsetRect(): Rectangle
     {
         return new Rectangle(-(this._regPoint.x), -(this._regPoint.y), this._rect.width, this._rect.height);
     }

@@ -1,3 +1,5 @@
+import { AvatarImageActionCache } from 'nitro-renderer/src/nitro/avatar/cache/AvatarImageActionCache';
+import { AvatarImageBodyPartCache } from 'nitro-renderer/src/nitro/avatar/cache/AvatarImageBodyPartCache';
 import { Container, Matrix, Point, Rectangle, Sprite, Texture } from 'pixi.js';
 import { RoomObjectSpriteData } from '../../../room/data/RoomObjectSpriteData';
 import { Nitro } from '../../Nitro';
@@ -13,20 +15,18 @@ import { AvatarScaleType } from '../enum/AvatarScaleType';
 import { GeometryType } from '../enum/GeometryType';
 import { IAvatarImage } from '../IAvatarImage';
 import { AvatarCanvas } from '../structure/AvatarCanvas';
-import { AvatarImageActionCache } from './AvatarImageActionCache';
-import { AvatarImageBodyPartCache } from './AvatarImageBodyPartCache';
 import { AvatarImageDirectionCache } from './AvatarImageDirectionCache';
 import { ImageData } from './ImageData';
 
 export class AvatarImageCache
 {
-    private static _Str_2189: number = 60000;
+    private static DEFAULT_MAX_CACHE_STORAGE_TIME_MS: number = 60000;
 
     private _structure: AvatarStructure;
     private _avatar: IAvatarImage;
     private _assets: AssetAliasCollection;
     private _scale: string;
-    private _cache: Map<string, AvatarImageActionCache>;
+    private _cache: Map<string, AvatarImageBodyPartCache>;
     private _canvas: AvatarCanvas;
     private _disposed: boolean;
     private _geometryType: string;
@@ -83,7 +83,7 @@ export class AvatarImageCache
         }
     }
 
-    public _Str_1086(k: number = 60000): void
+    public disposeInactiveActions(k: number = 60000): void
     {
         const time = Nitro.instance.time;
 
@@ -93,12 +93,12 @@ export class AvatarImageCache
             {
                 if(!cache) continue;
 
-                cache._Str_2089(k, time);
+                cache.disposeActions(k, time);
             }
         }
     }
 
-    public _Str_741(k: IActiveActionData): void
+    public resetBodyPartCache(k: IActiveActionData): void
     {
         if(this._cache)
         {
@@ -106,7 +106,7 @@ export class AvatarImageCache
             {
                 if(!cache) continue;
 
-                cache._Str_1565(k, 0);
+                cache.setAction(k, 0);
             }
         }
     }
@@ -119,7 +119,7 @@ export class AvatarImageCache
         {
             for(const part of parts)
             {
-                const actionCache = this._Str_1050(part);
+                const actionCache = this.getBodyPartCache(part);
 
                 if(!actionCache) continue;
 
@@ -128,19 +128,19 @@ export class AvatarImageCache
         }
     }
 
-    public _Str_1565(k: IActiveActionData, _arg_2: number): void
+    public setAction(k: IActiveActionData, _arg_2: number): void
     {
         const _local_3 = this._structure.getActiveBodyPartIds(k, this._avatar);
 
         for(const _local_4 of _local_3)
         {
-            const _local_5 = this._Str_1050(_local_4);
+            const _local_5 = this.getBodyPartCache(_local_4);
 
-            if(_local_5) _local_5._Str_1565(k, _arg_2);
+            if(_local_5) _local_5.setAction(k, _arg_2);
         }
     }
 
-    public _Str_2014(k: string): void
+    public setGeometryType(k: string): void
     {
         if(this._geometryType === k) return;
 
@@ -152,19 +152,19 @@ export class AvatarImageCache
             return;
         }
 
-        this._Str_1086(0);
+        this.disposeInactiveActions(0);
 
         this._geometryType  = k;
         this._canvas        = null;
     }
 
-    public _Str_1629(k: string, frameNumber: number, _arg_3: boolean = false): AvatarImageBodyPartContainer
+    public getImageContainer(k: string, frameNumber: number, _arg_3: boolean = false): AvatarImageBodyPartContainer
     {
-        let _local_4 = this._Str_1050(k);
+        let _local_4 = this.getBodyPartCache(k);
 
         if(!_local_4)
         {
-            _local_4 = new AvatarImageActionCache();
+            _local_4 = new AvatarImageBodyPartCache();
 
             this._cache.set(k, _local_4);
         }
@@ -251,15 +251,15 @@ export class AvatarImageCache
             }
         }
 
-        let _local_12 = _local_4._Str_1961(_local_8);
+        let _local_12 = _local_4.getActionCache(_local_8);
 
         if(!_local_12 || _arg_3)
         {
-            _local_12 = new AvatarImageBodyPartCache();
-            _local_4._Str_1765(_local_8, _local_12);
+            _local_12 = new AvatarImageActionCache();
+            _local_4.updateActionCache(_local_8, _local_12);
         }
 
-        let _local_13 = _local_12._Str_2070(_local_5);
+        let _local_13 = _local_12.getDirectionCache(_local_5);
 
         if(!_local_13 || _arg_3)
         {
@@ -267,20 +267,20 @@ export class AvatarImageCache
 
             _local_13 = new AvatarImageDirectionCache(_local_19);
 
-            _local_12._Str_2168(_local_5, _local_13);
+            _local_12.updateDirectionCache(_local_5, _local_13);
         }
 
-        let _local_14 = _local_13._Str_1629(frameCount);
+        let _local_14 = _local_13.getImageContainer(frameCount);
 
         if(!_local_14 || _arg_3)
         {
-            const _local_20 = _local_13._Str_1699();
+            const _local_20 = _local_13.getPartList();
 
-            _local_14 = this._Str_1834(_local_5, _local_20, frameCount, _local_7, _arg_3);
+            _local_14 = this.renderBodyPart(_local_5, _local_20, frameCount, _local_7, _arg_3);
 
             if(_local_14 && !_arg_3)
             {
-                if(_local_14.isCacheable) _local_13._Str_1924(_local_14, frameCount);
+                if(_local_14.isCacheable) _local_13.updateImageContainer(_local_14, frameCount);
             }
             else
             {
@@ -298,20 +298,20 @@ export class AvatarImageCache
         return _local_14;
     }
 
-    public _Str_1009(): any[]
+    public getServerRenderData(): any[]
     {
         this._serverRenderData = [];
 
         return this._serverRenderData;
     }
 
-    public _Str_1050(k: string): AvatarImageActionCache
+    public getBodyPartCache(k: string): AvatarImageBodyPartCache
     {
         let existing = this._cache.get(k);
 
         if(!existing)
         {
-            existing = new AvatarImageActionCache();
+            existing = new AvatarImageBodyPartCache();
 
             this._cache.set(k, existing);
         }
@@ -319,7 +319,7 @@ export class AvatarImageCache
         return existing;
     }
 
-    private _Str_1834(direction: number, containers: AvatarImagePartContainer[], frameCount: number, _arg_4: IActiveActionData, renderServerData: boolean = false): AvatarImageBodyPartContainer
+    private renderBodyPart(direction: number, containers: AvatarImagePartContainer[], frameCount: number, _arg_4: IActiveActionData, renderServerData: boolean = false): AvatarImageBodyPartContainer
     {
         if(!containers || !containers.length) return null;
 
@@ -441,7 +441,7 @@ export class AvatarImageCache
 
         if(!this._unionImages.length) return null;
 
-        const imageData     = this._Str_1236(this._unionImages, isFlipped);
+        const imageData     = this.createUnionImage(this._unionImages, isFlipped);
         const canvasOffset  = ((this._scale === AvatarScaleType.LARGE) ? (this._canvas.height - 16) : (this._canvas.height - 8));
         const offset        = new Point(-(imageData.regPoint.x), (canvasOffset - imageData.regPoint.y));
 
@@ -461,7 +461,7 @@ export class AvatarImageCache
         return new AvatarImageBodyPartContainer(imageData.container, offset, isCacheable);
     }
 
-    private _Str_1652(k: number): string
+    private convertColorToHex(k: number): string
     {
         let _local_2: string = (k * 0xFF).toString(16);
         if(_local_2.length < 2)
@@ -471,11 +471,11 @@ export class AvatarImageCache
         return _local_2;
     }
 
-    private _Str_1236(k: ImageData[], isFlipped: boolean): ImageData
+    private createUnionImage(k: ImageData[], isFlipped: boolean): ImageData
     {
         const bounds = new Rectangle();
 
-        for(const data of k) data && bounds.enlarge(data._Str_1567);
+        for(const data of k) data && bounds.enlarge(data.offsetRect);
 
         const point     = new Point(-(bounds.x), -(bounds.y));
         const container = new Container();
@@ -492,7 +492,7 @@ export class AvatarImageCache
             if(!data) continue;
 
             const texture   = data.texture;
-            const color     = data.color;
+            const color     = data.colorTransform;
             const flipH     = (!(isFlipped && data.flipH) && (isFlipped || data.flipH));
             const regPoint  = point.clone();
 

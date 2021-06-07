@@ -1,96 +1,57 @@
-﻿import { IActiveActionData } from '../actions/IActiveActionData';
-import { AvatarImageBodyPartCache } from './AvatarImageBodyPartCache';
+﻿import { AvatarImageDirectionCache } from 'nitro-renderer/src/nitro/avatar/cache/AvatarImageDirectionCache';
+import { Nitro } from 'nitro-renderer/src/nitro/Nitro';
 
 export class AvatarImageActionCache
 {
-    private _Str_586: Map<string, AvatarImageBodyPartCache>;
-    private _Str_1233: IActiveActionData;
-    private _Str_1188: number;
-    private _disposed: boolean;
+    private _cache: Map<string, AvatarImageDirectionCache>;
+    private _lastAccessTime: number;
 
     constructor()
     {
-        this._Str_586 = new Map();
-    }
+        this._cache = new Map();
 
-    public _Str_1565(k: IActiveActionData, _arg_2: number): void
-    {
-        if(!this._Str_1233) this._Str_1233 = k;
-
-        const _local_3 = this._Str_1961(this._Str_1233);
-
-        if(_local_3) _local_3._Str_1108(_arg_2);
-
-        this._Str_1233 = k;
+        this.setLastAccessTime(Nitro.instance.time);
     }
 
     public dispose(): void
     {
-        if(!this._disposed)
+        this.debugInfo('[dispose]');
+
+        if(!this._cache) return;
+
+        for(const direction of this._cache.values())
         {
-            if(!this._Str_586) return;
-
-            this._Str_2089(0, 2147483647);
-
-            this._Str_586.clear();
-
-            this._Str_586   = null;
-            this._disposed  = true;
+            if(direction) direction.dispose();
         }
+
+        this._cache.clear();
     }
 
-    public _Str_2089(k: number, _arg_2: number): void
+    public getDirectionCache(k: number): AvatarImageDirectionCache
     {
-        if(!this._Str_586 || this._disposed) return;
+        const existing = this._cache.get(k.toString());
 
-        for(const [ key, cache ] of this._Str_586.entries())
-        {
-            if(!cache) continue;
+        if(!existing) return null;
 
-            const _local_3 = cache._Str_1815();
-
-            if((_arg_2 - _local_3) >= k)
-            {
-                cache.dispose();
-
-                this._Str_586.delete(key);
-            }
-        }
+        return existing;
     }
 
-    public getAction():IActiveActionData
+    public updateDirectionCache(k: number, _arg_2: AvatarImageDirectionCache): void
     {
-        return this._Str_1233;
+        this._cache.set(k.toString(), _arg_2);
     }
 
-    public setDirection(k: number): void
+    public setLastAccessTime(k: number): void
     {
-        this._Str_1188 = k;
+        this._lastAccessTime = k;
     }
 
-    public getDirection(): number
+    public getLastAccessTime(): number
     {
-        return this._Str_1188;
+        return this._lastAccessTime;
     }
 
-    public _Str_1961(k: IActiveActionData=null): AvatarImageBodyPartCache
-    {
-        if(!this._Str_1233) return null;
-
-        if(!k) k = this._Str_1233;
-
-        if(k.overridingAction) return this._Str_586.get(k.overridingAction);
-
-        return this._Str_586.get(k.id);
-    }
-
-    public _Str_1765(k: IActiveActionData, _arg_2: AvatarImageBodyPartCache): void
-    {
-        if(k.overridingAction) this._Str_586.set(k.overridingAction, _arg_2);
-        else this._Str_586.set(k.id, _arg_2);
-    }
-
-    private _Str_587(k: string): void
+    private debugInfo(k: string): void
     {
     }
 }

@@ -19,23 +19,23 @@ export class AvatarImageDirectionCache
         this._images = null;
     }
 
-    public _Str_1699(): AvatarImagePartContainer[]
+    public getPartList(): AvatarImagePartContainer[]
     {
         return this._partList;
     }
 
-    public _Str_1629(k: number): AvatarImageBodyPartContainer
+    public getImageContainer(k: number): AvatarImageBodyPartContainer
     {
-        const existing = this._images.get(this._Str_2219(k));
+        const existing = this._images.get(this.getCacheKey(k));
 
         if(!existing) return null;
 
         return existing;
     }
 
-    public _Str_1924(k: AvatarImageBodyPartContainer, _arg_2: number): void
+    public updateImageContainer(k: AvatarImageBodyPartContainer, _arg_2: number): void
     {
-        const name = this._Str_2219(_arg_2);
+        const name = this.getCacheKey(_arg_2);
 
         const existing = this._images.get(name);
 
@@ -44,7 +44,7 @@ export class AvatarImageDirectionCache
         this._images.set(name, k);
     }
 
-    private _Str_2219(k: number): string
+    private getCacheKey(k: number): string
     {
         let name = '';
 
@@ -53,7 +53,7 @@ export class AvatarImageDirectionCache
         return name;
     }
 
-    private _Str_587(k: string): void
+    private debugInfo(k: string): void
     {
     }
 }

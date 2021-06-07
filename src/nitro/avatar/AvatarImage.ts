@@ -109,7 +109,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
     {
         this.getAvatarPartsForCamera(AvatarSetType.FULL);
 
-        return this._cache._Str_1009();
+        return this._cache.getServerRenderData();
     }
 
     public dispose(): void
@@ -301,7 +301,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         while(_local_6 >= 0)
         {
             _local_4 = _local_3[_local_6];
-            const _local_5 = this._cache._Str_1629(_local_4, this._frameCounter, true);
+            const _local_5 = this._cache.getImageContainer(_local_4, this._frameCounter, true);
             _local_6--;
         }
     }
@@ -343,7 +343,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         while(partCount >= 0)
         {
             const set = _local_6[partCount];
-            const part = this._cache._Str_1629(set, this._frameCounter);
+            const part = this._cache.getImageContainer(set, this._frameCounter);
 
             if(part)
             {
@@ -462,7 +462,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         while(partCount >= 0)
         {
             const set   = setTypes[partCount];
-            const part  = this._cache._Str_1629(set, this._frameCounter);
+            const part  = this._cache.getImageContainer(set, this._frameCounter);
 
             if(part)
             {
@@ -527,7 +527,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         while(partCount >= 0)
         {
             const set   = setTypes[partCount];
-            const part  = this._cache._Str_1629(set, this._frameCounter);
+            const part  = this._cache.getImageContainer(set, this._frameCounter);
 
             if(part)
             {
@@ -858,7 +858,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                 this._effectIdInUse = -1;
             }
 
-            if(_local_2) this._cache._Str_1086(0);
+            if(_local_2) this._cache.disposeInactiveActions(0);
 
             if(this._lastActionsString != this._currentActionsString)
             {
@@ -948,9 +948,9 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         if(k.definition.isMain)
         {
             this._mainAction = k;
-            this._cache._Str_2014(k.definition.geometryType);
+            this._cache.setGeometryType(k.definition.geometryType);
         }
-        this._cache._Str_1565(k, _arg_2);
+        this._cache.setAction(k, _arg_2);
         this._changes = true;
     }
 
@@ -963,10 +963,10 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         if(k.definition.isMain)
         {
             this._mainAction = k;
-            this._cache._Str_2014(k.definition.geometryType);
+            this._cache.setGeometryType(k.definition.geometryType);
         }
 
-        this._cache._Str_741(k);
+        this._cache.resetBodyPartCache(k);
         this._changes = true;
     }
 
