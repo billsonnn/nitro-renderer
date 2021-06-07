@@ -65,7 +65,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
         this._visible           = true;
         this._tag               = '';
         this._posture           = null;
-        this._alphaTolerance    = AlphaTolerance._Str_9735;
+        this._alphaTolerance    = AlphaTolerance.MATCH_OPAQUE_PIXELS;
         this._filters           = [];
 
         this._updateCounter     = 0;

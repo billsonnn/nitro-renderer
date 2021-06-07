@@ -301,7 +301,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
                     sprite.offsetX          = (assetData.offsetX + this.getLayerXOffset(scale, this._direction, layerId));
                     sprite.offsetY          = (assetData.offsetY + this.getLayerYOffset(scale, this._direction, layerId));
                     sprite.blendMode        = this.getLayerInk(scale, this._direction, layerId);
-                    sprite.alphaTolerance   = (this.getLayerIgnoreMouse(scale, this._direction, layerId) ? AlphaTolerance._Str_9268 : AlphaTolerance._Str_9735);
+                    sprite.alphaTolerance   = (this.getLayerIgnoreMouse(scale, this._direction, layerId) ? AlphaTolerance.MATCH_NOTHING : AlphaTolerance.MATCH_OPAQUE_PIXELS);
 
                     relativeDepth = this.getLayerZOffset(scale, this._direction, layerId);
                     relativeDepth = (relativeDepth - (layerId * 0.001));
@@ -311,7 +311,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
                     sprite.offsetX          = assetData.offsetX;
                     sprite.offsetY          = (assetData.offsetY + this.getLayerYOffset(scale, this._direction, layerId));
                     sprite.alpha            = (48 * this._alphaMultiplier);
-                    sprite.alphaTolerance   = AlphaTolerance._Str_9268;
+                    sprite.alphaTolerance   = AlphaTolerance.MATCH_NOTHING;
 
                     relativeDepth = 1;
                 }

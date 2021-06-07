@@ -647,11 +647,11 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
             {
                 if((plane.type === RoomPlane.TYPE_WALL) && ((plane.leftSide.length < 1) || (plane.rightSide.length < 1)))
                 {
-                    sprite.alphaTolerance = AlphaTolerance._Str_9268;
+                    sprite.alphaTolerance = AlphaTolerance.MATCH_NOTHING;
                 }
                 else
                 {
-                    sprite.alphaTolerance = AlphaTolerance._Str_9735;
+                    sprite.alphaTolerance = AlphaTolerance.MATCH_OPAQUE_PIXELS;
                 }
 
                 if(plane.type === RoomPlane.TYPE_WALL)
