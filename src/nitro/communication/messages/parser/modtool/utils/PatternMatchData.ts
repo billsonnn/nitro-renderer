@@ -1,7 +1,7 @@
-import { IDisposable } from '../../../../../../core/common/disposable/IDisposable';
-import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
+import { IDisposable } from 'nitro-renderer/src/core/common/disposable/IDisposable';
+import { IMessageDataWrapper } from 'nitro-renderer/src/core/communication/messages/IMessageDataWrapper';
 
-export class _Str_8176 implements IDisposable
+export class PatternMatchData implements IDisposable
 {
     private _pattern:string;
     private _startIndex:number;
