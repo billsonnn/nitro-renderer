@@ -22,7 +22,7 @@ export class RoomUserData
     private _canRevive: boolean;
     private _hasBreedingPermission: boolean;
     private _botSkills: number[];
-    private _Str_9831: boolean;
+    private _isModerator: boolean;
 
     constructor(k: number)
     {
@@ -246,11 +246,11 @@ export class RoomUserData
 
     public get isModerator(): boolean
     {
-        return this._Str_9831;
+        return this._isModerator;
     }
 
     public set isModerator(k: boolean)
     {
-        this._Str_9831 = k;
+        this._isModerator = k;
     }
 }

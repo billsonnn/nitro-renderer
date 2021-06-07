@@ -50,7 +50,7 @@ export class PlaneMaterial
         this._isCached = false;
     }
 
-    public _Str_24503(k: number, _arg_2: number, _arg_3: number, _arg_4: number = -1, _arg_5: number = 1, _arg_6: number = -1, _arg_7: number = 1): PlaneMaterialCellMatrix
+    public addMaterialCellMatrix(k: number, _arg_2: number, _arg_3: number, _arg_4: number = -1, _arg_5: number = 1, _arg_6: number = -1, _arg_7: number = 1): PlaneMaterialCellMatrix
     {
         const cellMatrix = new PlaneMaterialCellMatrix(k, _arg_2, _arg_3, _arg_4, _arg_5, _arg_6, _arg_7);
 
@@ -59,7 +59,7 @@ export class PlaneMaterial
         return cellMatrix;
     }
 
-    public _Str_21968(k: IVector3D): PlaneMaterialCellMatrix
+    public getMaterialCellMatrix(k: IVector3D): PlaneMaterialCellMatrix
     {
         if(!k) return null;
 
@@ -82,7 +82,7 @@ export class PlaneMaterial
 
         if(_arg_3 < 1) _arg_3 = 1;
 
-        const cellMatrix = this._Str_21968(_arg_4);
+        const cellMatrix = this.getMaterialCellMatrix(_arg_4);
 
         if(!cellMatrix) return null;
 

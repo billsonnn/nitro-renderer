@@ -332,7 +332,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
                     if(matrix.columns && matrix.columns.length)
                     {
-                        const cellMatrix = newMaterial._Str_24503(matrix.columns.length, repeatMode, align, normalMinX, normalMaxX, normalMinY, normalMaxY);
+                        const cellMatrix = newMaterial.addMaterialCellMatrix(matrix.columns.length, repeatMode, align, normalMinX, normalMaxX, normalMinY, normalMaxY);
 
                         let index = 0;
 

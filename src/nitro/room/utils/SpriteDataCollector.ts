@@ -395,7 +395,7 @@ export class SpriteDataCollector
         if(visualization)
         {
             const _local_8  = _arg_2.geometry;
-            const _local_9  = this._Str_25623(visualization._Str_19113, _arg_2, _arg_3);
+            const _local_9  = this._Str_25623(visualization.planes, _arg_2, _arg_3);
             const _local_10 = Nitro.instance.stage;
 
             for(const _local_11 of _local_9)

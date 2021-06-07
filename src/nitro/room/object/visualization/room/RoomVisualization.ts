@@ -994,7 +994,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         return new Rectangle(this._boundingRectangle.x, this._boundingRectangle.y, this._boundingRectangle.width, this._boundingRectangle.height);
     }
 
-    public get _Str_19113(): IRoomPlane[]
+    public get planes(): IRoomPlane[]
     {
         const planes: IRoomPlane[] = [];
 

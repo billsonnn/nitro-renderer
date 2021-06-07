@@ -508,7 +508,7 @@ export class RoomPlane implements IRoomPlane
                     if(this._hasTexture && layer.getMaterial())
                     {
                         const normal    = geometry.getCoordinatePosition(this._normal);
-                        const cm        = layer.getMaterial()._Str_21968(normal);
+                        const cm        = layer.getMaterial().getMaterialCellMatrix(normal);
                         //const data      = new PlaneDrawingData(maskData, blend(this._color, layer.getColor()), cm.isBottomAligned());
                         const data      = new PlaneDrawingData(maskData, this._color, cm.isBottomAligned());
 

@@ -36,7 +36,7 @@ export class AnimationItem
         this._bitmapData = null;
     }
 
-    public _Str_6729(k: number, _arg_2: number, _arg_3: number, _arg_4: number, _arg_5: number): Point
+    public getPosition(k: number, _arg_2: number, _arg_3: number, _arg_4: number, _arg_5: number): Point
     {
         let _local_6 = this._x;
         let _local_7 = this._y;
