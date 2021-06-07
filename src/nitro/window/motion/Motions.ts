@@ -3,75 +3,75 @@ import { Motion } from './Motion';
 
 export class Motions
 {
-    private static _Str_5358: Motion[]                          = [];
-    private static _Str_3932: Motion[]                          = [];
-    private static _Str_10731: Motion[]                         = [];
-    private static _Str_5307: ReturnType<typeof setInterval>    = null;
-    private static _Str_7507: boolean                           = false;
+    private static _QUEUED_MOTIONS: Motion[]                          = [];
+    private static _RUNNING_MOTIONS: Motion[]                          = [];
+    private static _REMOVED_MOTIONS: Motion[]                         = [];
+    private static _TIMER: ReturnType<typeof setInterval>    = null;
+    private static _IS_UPDATING: boolean                           = false;
 
     public static get TIMER_TIME(): number
     {
         return (1000 / Nitro.instance.ticker.FPS);
     }
 
-    public static _Str_4598(k: Motion): Motion
+    public static runMotion(k: Motion): Motion
     {
-        if(((Motions._Str_3932.indexOf(k) === -1) && (Motions._Str_5358.indexOf(k) === -1)))
+        if(((Motions._RUNNING_MOTIONS.indexOf(k) === -1) && (Motions._QUEUED_MOTIONS.indexOf(k) === -1)))
         {
-            if(Motions._Str_7507)
+            if(Motions._IS_UPDATING)
             {
-                Motions._Str_5358.push(k);
+                Motions._QUEUED_MOTIONS.push(k);
             }
             else
             {
-                Motions._Str_3932.push(k);
+                Motions._RUNNING_MOTIONS.push(k);
 
                 k.start();
             }
 
-            Motions._Str_12757();
+            Motions.startTimer();
         }
 
         return k;
     }
 
-    public static _Str_15790(k:Motion): void
+    public static removeMotion(k:Motion): void
     {
-        let _local_2: number = Motions._Str_3932.indexOf(k);
+        let _local_2: number = Motions._RUNNING_MOTIONS.indexOf(k);
 
         if(_local_2 > -1)
         {
-            if(Motions._Str_7507)
+            if(Motions._IS_UPDATING)
             {
-                _local_2 = Motions._Str_10731.indexOf(k);
+                _local_2 = Motions._REMOVED_MOTIONS.indexOf(k);
 
-                if(_local_2 == -1) Motions._Str_10731.push(k);
+                if(_local_2 == -1) Motions._REMOVED_MOTIONS.push(k);
             }
             else
             {
-                Motions._Str_3932.splice(_local_2, 1);
+                Motions._RUNNING_MOTIONS.splice(_local_2, 1);
 
                 if(k.running) k.stop();
 
-                if(!Motions._Str_3932.length) Motions._Str_7465();
+                if(!Motions._RUNNING_MOTIONS.length) Motions.stopTimer();
             }
         }
         else
         {
-            _local_2 = Motions._Str_5358.indexOf(k);
+            _local_2 = Motions._QUEUED_MOTIONS.indexOf(k);
 
-            if(_local_2 > -1) Motions._Str_5358.splice(_local_2, 1);
+            if(_local_2 > -1) Motions._QUEUED_MOTIONS.splice(_local_2, 1);
         }
     }
 
-    public static _Str_19320(k: string):Motion
+    public static getMotionByTag(k: string):Motion
     {
-        for(const _local_2 of Motions._Str_3932)
+        for(const _local_2 of Motions._RUNNING_MOTIONS)
         {
             if(_local_2.tag == k) return _local_2;
         }
 
-        for(const _local_2 of Motions._Str_5358)
+        for(const _local_2 of Motions._QUEUED_MOTIONS)
         {
             if(_local_2.tag == k) return _local_2;
         }
@@ -79,14 +79,14 @@ export class Motions
         return null;
     }
 
-    public static _Str_9810(k: HTMLElement):Motion
+    public static getMotionByTarget(k: HTMLElement):Motion
     {
-        for(const _local_2 of Motions._Str_3932)
+        for(const _local_2 of Motions._RUNNING_MOTIONS)
         {
             if(_local_2.target == k) return _local_2;
         }
 
-        for(const _local_2 of Motions._Str_5358)
+        for(const _local_2 of Motions._QUEUED_MOTIONS)
         {
             if(_local_2.target == k) return _local_2;
         }
@@ -94,14 +94,14 @@ export class Motions
         return null;
     }
 
-    public static _Str_26365(k: string, _arg_2: HTMLElement):Motion
+    public static getMotionByTagAndTarget(k: string, _arg_2: HTMLElement):Motion
     {
-        for(const _local_3 of Motions._Str_3932)
+        for(const _local_3 of Motions._RUNNING_MOTIONS)
         {
             if(((_local_3.tag == k) && (_local_3.target == _arg_2))) return _local_3;
         }
 
-        for(const _local_3 of Motions._Str_5358)
+        for(const _local_3 of Motions._QUEUED_MOTIONS)
         {
             if(((_local_3.tag == k) && (_local_3.target == _arg_2))) return _local_3;
         }
@@ -109,36 +109,36 @@ export class Motions
         return null;
     }
 
-    public static get _Str_1349(): boolean
+    public static get isRunning(): boolean
     {
-        return !!Motions._Str_5307;
+        return !!Motions._TIMER;
     }
 
-    public static get _Str_26314(): boolean
+    public static get isUpdating(): boolean
     {
-        return Motions._Str_7507;
+        return Motions._IS_UPDATING;
     }
 
-    private static _Str_21055(): void
+    private static onTick(): void
     {
-        Motions._Str_7507 = true;
+        Motions._IS_UPDATING = true;
 
         const _local_2: number = Nitro.instance.time;
 
         let _local_3: Motion = null;
 
         // eslint-disable-next-line no-cond-assign
-        while(_local_3 = Motions._Str_5358.pop()) Motions._Str_3932.push(_local_3);
+        while(_local_3 = Motions._QUEUED_MOTIONS.pop()) Motions._RUNNING_MOTIONS.push(_local_3);
 
         // eslint-disable-next-line no-cond-assign
-        while(_local_3 = Motions._Str_10731.pop())
+        while(_local_3 = Motions._REMOVED_MOTIONS.pop())
         {
-            Motions._Str_3932.splice(Motions._Str_3932.indexOf(_local_3), 1);
+            Motions._RUNNING_MOTIONS.splice(Motions._RUNNING_MOTIONS.indexOf(_local_3), 1);
 
             if(_local_3.running) _local_3.stop();
         }
 
-        for(_local_3 of Motions._Str_3932)
+        for(_local_3 of Motions._RUNNING_MOTIONS)
         {
             if(_local_3.running)
             {
@@ -146,44 +146,44 @@ export class Motions
 
                 if(_local_3.complete)
                 {
-                    Motions._Str_15790(_local_3);
+                    Motions.removeMotion(_local_3);
                 }
             }
             else
             {
-                Motions._Str_15790(_local_3);
+                Motions.removeMotion(_local_3);
             }
         }
 
-        if(!Motions._Str_3932.length) Motions._Str_7465();
+        if(!Motions._RUNNING_MOTIONS.length) Motions.stopTimer();
 
-        Motions._Str_7507 = false;
+        Motions._IS_UPDATING = false;
     }
 
-    private static _Str_12757(): void
+    private static startTimer(): void
     {
-        if(!Motions._Str_5307)
+        if(!Motions._TIMER)
         {
-            Motions._Str_5307 = setInterval(Motions._Str_21055, Motions.TIMER_TIME);
+            Motions._TIMER = setInterval(Motions.onTick, Motions.TIMER_TIME);
         }
     }
 
-    private static _Str_7465(): void
+    private static stopTimer(): void
     {
-        if(Motions._Str_5307)
+        if(Motions._TIMER)
         {
-            clearInterval(Motions._Str_5307);
+            clearInterval(Motions._TIMER);
 
-            Motions._Str_5307 = null;
+            Motions._TIMER = null;
         }
     }
 
 
-    public _Str_25883(k: HTMLElement): number
+    public getNumRunningMotions(k: HTMLElement): number
     {
         let _local_2 = 0;
 
-        for(const _local_3 of Motions._Str_3932)
+        for(const _local_3 of Motions._RUNNING_MOTIONS)
         {
             if(_local_3.target === k) _local_2++;
         }
