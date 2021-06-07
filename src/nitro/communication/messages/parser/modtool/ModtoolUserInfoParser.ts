@@ -1,12 +1,10 @@
+import { ModeratorUserInfoData } from 'nitro-renderer/src/nitro/communication/messages/parser/modtool/utils/ModeratorUserInfoData';
 import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
-import { ModtoolUserChatlogParserVisit } from './utils/ModtoolUserChatlogParserVisit';
-import { ModtoolUserChatlogParserChatlog } from './utils/ModtoolUserChatlogParserChatlog';
-import { _Str_5467 } from './utils/_Str_5467';
 
 export class ModtoolUserInfoParser implements IMessageParser
 {
-    private _data: _Str_5467;
+    private _data: ModeratorUserInfoData;
 
     public flush(): boolean
     {
@@ -19,12 +17,12 @@ export class ModtoolUserInfoParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._data = new _Str_5467(wrapper);
+        this._data = new ModeratorUserInfoData(wrapper);
 
         return true;
     }
 
-    public get data(): _Str_5467
+    public get data(): ModeratorUserInfoData
     {
         return this._data;
     }

@@ -1,5 +1,6 @@
 export * from './CallForHelpCategoryData';
 export * from './IChatlog';
+export * from './ModeratorUserInfoData';
 export * from './ModtoolRoomChatlogLine';
 export * from './ModtoolRoomVisitedData';
 export * from './ModtoolUserChatlogParserChatlog';
@@ -8,5 +9,4 @@ export * from './ModtoolUserVisitedRoomsRoom';
 export * from './_Str_2484';
 export * from './_Str_5018';
 export * from './_Str_5460';
-export * from './_Str_5467';
 export * from './_Str_8176';

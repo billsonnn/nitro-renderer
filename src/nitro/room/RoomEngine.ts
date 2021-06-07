@@ -2454,7 +2454,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
             sprite.y = (y - (rectangle.height / 2));
         }
 
-        if(!this._Str_25871(canvas, x, y, type, altKey, ctrlKey, shiftKey))
+        if(!this.handleRoomDragging(canvas, x, y, type, altKey, ctrlKey, shiftKey))
         {
             if(!canvas.handleMouseEvent(x, y, type, altKey, ctrlKey, shiftKey, buttonDown))
             {
@@ -2487,7 +2487,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         this._activeRoomActiveCanvasMouseY        = y;
     }
 
-    private _Str_25871(canvas: IRoomRenderingCanvas, x: number, y: number, type: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean): boolean
+    private handleRoomDragging(canvas: IRoomRenderingCanvas, x: number, y: number, type: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean): boolean
     {
         let offsetX = (x - this._activeRoomActiveCanvasMouseX);
         let offsetY = (y - this._activeRoomActiveCanvasMouseY);

@@ -225,7 +225,7 @@ export class AvatarImageCache
                             _local_11.y = (_local_18.dy / 2);
                         }
 
-                        frameCount = _local_18._Str_891;
+                        frameCount = _local_18.animationFrame;
 
                         if(_local_18.action)
                         {

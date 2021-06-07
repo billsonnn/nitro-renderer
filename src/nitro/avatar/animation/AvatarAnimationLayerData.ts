@@ -36,7 +36,7 @@ export class AvatarAnimationLayerData implements IAnimationLayerData
 
         let _local_5 = '';
 
-        if(this._base !== '') _local_5 = this._Str_2108().toString();
+        if(this._base !== '') _local_5 = this.baseAsInt().toString();
 
         if(_arg_3)
         {
@@ -50,7 +50,7 @@ export class AvatarAnimationLayerData implements IAnimationLayerData
         return this._items;
     }
 
-    private _Str_2108(): number
+    private baseAsInt(): number
     {
         let k       = 0;
         let index   = 0;
@@ -70,7 +70,7 @@ export class AvatarAnimationLayerData implements IAnimationLayerData
         return this._id;
     }
 
-    public get _Str_891(): number
+    public get animationFrame(): number
     {
         return this._animationFrame;
     }

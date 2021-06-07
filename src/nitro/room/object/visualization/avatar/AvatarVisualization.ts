@@ -408,7 +408,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
                         if(layerData)
                         {
-                            frameNumber = layerData._Str_891;
+                            frameNumber = layerData.animationFrame;
                             offsetX    += layerData.dx;
                             offsetY    += layerData.dy;
                             dd         += layerData.dd;
