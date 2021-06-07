@@ -11,12 +11,12 @@
         this._z = _arg_3;
     }
 
-    public static _Str_2224(k: Vector3D, _arg_2: Vector3D): number
+    public static dot(k: Vector3D, _arg_2: Vector3D): number
     {
         return ((k.x * _arg_2.x) + (k.y * _arg_2.y)) + (k.z * _arg_2.z);
     }
 
-    public static _Str_1645(k: Vector3D, _arg_2: Vector3D): Vector3D
+    public static cross(k: Vector3D, _arg_2: Vector3D): Vector3D
     {
         const _local_3 = new Vector3D();
 
@@ -32,12 +32,12 @@
         return new Vector3D((k.x - _arg_2.x), (k.y - _arg_2.y), (k.z - _arg_2.z));
     }
 
-    public _Str_2224(k: Vector3D): number
+    public dot(k: Vector3D): number
     {
         return ((this._x * k.x) + (this._y * k.y)) + (this._z * k.z);
     }
 
-    public _Str_1645(k: Vector3D): Vector3D
+    public cross(k: Vector3D): Vector3D
     {
         const _local_2 = new Vector3D();
 

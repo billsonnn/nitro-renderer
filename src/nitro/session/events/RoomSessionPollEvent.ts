@@ -1,49 +1,100 @@
-import { IRoomSession } from '../IRoomSession';
-import { RoomSessionEvent } from './RoomSessionEvent';
+﻿import { RoomSessionEvent } from 'nitro-renderer/src/nitro/session/events/RoomSessionEvent';
+import { IRoomSession } from 'nitro-renderer/src/nitro/session/IRoomSession';
 
 export class RoomSessionPollEvent extends RoomSessionEvent
 {
-    public static VOTE_QUESTION: string = 'RSPE_VOTE_QUESTION';
-    public static VOTE_RESULT: string = 'RSPE_VOTE_RESULT';
+    public static OFFER: string = 'RSPE_POLL_OFFER';
+    public static ERROR: string = 'RSPE_POLL_ERROR';
+    public static CONTENT: string = 'RSPE_POLL_CONTENT';
 
-    private _question: string = '';
-    private _choices: string[];
-    private _SafeStr_7651: string[];
-    private _SafeStr_7654: number = 0;
+    private _id: number = -1;
+    private _headline: string;
+    private _summary: string;
+    private _numQuestions: number = 0;
+    private _startMessage: string = '';
+    private _endMessage: string = '';
+    private _questionArray: string[] = null;
+    private _npsPoll: boolean = false;
 
-    constructor(_arg_1: string, _arg_2: IRoomSession, _arg_3: string, _arg_4: string[], _arg_5: string[]=null, _arg_6: number=0)
+    constructor(k: string, _arg_2: IRoomSession, _arg_3: number)
     {
-        super(_arg_1, _arg_2);
+        super(k, _arg_2);
 
-        this._choices = [];
-        this._SafeStr_7651 = [];
-        this._question = _arg_3;
-        this._choices = _arg_4;
-        this._SafeStr_7651 = _arg_5;
-        if(this._SafeStr_7651 == null)
-        {
-            this._SafeStr_7651 = [];
-        }
-        this._SafeStr_7654 = _arg_6;
+        this._id = _arg_3;
     }
 
-    public get question(): string
+    public get id(): number
     {
-        return this._question;
+        return this._id;
     }
 
-    public get choices(): string[]
+    public get headline(): string
     {
-        return this._choices.slice();
+        return this._headline;
     }
 
-    public get _SafeStr_4173(): string[]
+    public set headline(k: string)
     {
-        return this._SafeStr_7651.slice();
+        this._headline = k;
     }
 
-    public get _SafeStr_4174(): number
+    public get summary(): string
     {
-        return this._SafeStr_7654;
+        return this._summary;
+    }
+
+    public set summary(k: string)
+    {
+        this._summary = k;
+    }
+
+    public get numQuestions(): number
+    {
+        return this._numQuestions;
+    }
+
+    public set numQuestions(k: number)
+    {
+        this._numQuestions = k;
+    }
+
+    public get startMessage(): string
+    {
+        return this._startMessage;
+    }
+
+    public set startMessage(k: string)
+    {
+        this._startMessage = k;
+    }
+
+    public get endMessage(): string
+    {
+        return this._endMessage;
+    }
+
+    public set endMessage(k: string)
+    {
+        this._endMessage = k;
+    }
+
+    public get questionArray(): string[]
+    {
+        return this._questionArray;
+    }
+
+    public set questionArray(k: string[])
+    {
+        this._questionArray = k;
+    }
+
+    public get npsPoll(): boolean
+    {
+        return this._npsPoll;
+    }
+
+    public set npsPoll(k: boolean)
+    {
+        this._npsPoll = k;
     }
 }

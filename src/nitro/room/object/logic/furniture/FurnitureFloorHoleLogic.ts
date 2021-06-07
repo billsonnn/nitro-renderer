@@ -7,7 +7,7 @@ import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
 {
-    private static _Str_9306: number = 0;
+    private static STATE_HOLE: number = 0;
 
     private _currentState: number;
     private _currentLocation: Vector3d;
@@ -29,7 +29,7 @@ export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
 
     public dispose(): void
     {
-        if(this._currentState === FurnitureFloorHoleLogic._Str_9306)
+        if(this._currentState === FurnitureFloorHoleLogic.STATE_HOLE)
         {
             this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.REMOVE_HOLE, this.object));
         }
@@ -41,7 +41,7 @@ export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
     {
         super.update(time);
 
-        this._Str_25016();
+        this.handleAutomaticStateUpdate();
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void
@@ -52,7 +52,7 @@ export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
 
         if(message instanceof ObjectDataUpdateMessage)
         {
-            this._Str_21445(this.object.getState(0));
+            this.handleStateUpdate(this.object.getState(0));
         }
 
         const location = this.object.getLocation();
@@ -65,7 +65,7 @@ export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
         {
             if((location.x !== this._currentLocation.x) || (location.y !== this._currentLocation.y))
             {
-                if(this._currentState === FurnitureFloorHoleLogic._Str_9306)
+                if(this._currentState === FurnitureFloorHoleLogic.STATE_HOLE)
                 {
                     if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.ADD_HOLE, this.object));
                 }
@@ -75,18 +75,18 @@ export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
         this._currentLocation.assign(location);
     }
 
-    private _Str_21445(state: number): void
+    private handleStateUpdate(state: number): void
     {
         if(state === this._currentState) return;
 
         if(this.eventDispatcher)
         {
-            if(state === FurnitureFloorHoleLogic._Str_9306)
+            if(state === FurnitureFloorHoleLogic.STATE_HOLE)
             {
                 this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.ADD_HOLE, this.object));
             }
 
-            else if(this._currentState === FurnitureFloorHoleLogic._Str_9306)
+            else if(this._currentState === FurnitureFloorHoleLogic.STATE_HOLE)
             {
                 this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.REMOVE_HOLE, this.object));
             }
@@ -95,7 +95,7 @@ export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
         this._currentState = state;
     }
 
-    private _Str_25016(): void
+    private handleAutomaticStateUpdate(): void
     {
         if(!this.object) return;
 
@@ -105,6 +105,6 @@ export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
 
         const stateIndex = model.getValue<number>(RoomObjectVariable.FURNITURE_AUTOMATIC_STATE_INDEX);
 
-        if(!isNaN(stateIndex)) this._Str_21445((stateIndex % 2));
+        if(!isNaN(stateIndex)) this.handleStateUpdate((stateIndex % 2));
     }
 }
