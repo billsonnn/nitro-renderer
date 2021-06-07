@@ -409,13 +409,13 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         const container = new FigureDataContainer();
 
-        container._Str_2153(k, _arg_2);
+        container.loadAvatarData(k, _arg_2);
 
         const partSets: IFigurePartSet[] = this.resolveFigureSets(_arg_3);
 
         for(const partSet of partSets)
         {
-            container._Str_2088(partSet.type, partSet.id, container.getColourIds(partSet.type));
+            container.savePartData(partSet.type, partSet.id, container.getColourIds(partSet.type));
         }
 
         return container.getFigureString();

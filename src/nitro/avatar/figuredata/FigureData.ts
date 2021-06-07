@@ -3,25 +3,25 @@ import { FigureDataView } from './FigureDataView';
 
 export class FigureData implements IAvatarImageListener
 {
-    public static M: string = 'M';
-    public static F: string = 'F';
-    public static U: string = 'U';
-    public static H: string = 'h';
+    public static MALE: string = 'M';
+    public static FEMALE: string = 'F';
+    public static UNISEX: string = 'U';
+    public static SCALE: string = 'h';
     public static STD: string = 'std';
-    public static _Str_2028: string = '0';
+    public static DEFAULT_FRAME: string = '0';
     public static FACE: string = 'hd';
-    public static HR: string = 'hr';
-    public static HA: string = 'ha';
-    public static HE: string = 'he';
-    public static EA: string = 'ea';
-    public static FA: string = 'fa';
-    public static CC: string = 'cc';
-    public static CH: string = 'ch';
+    public static HAIR: string = 'hr';
+    public static HAT: string = 'ha';
+    public static HEAD_ACCESSORIES: string = 'he';
+    public static EYE_ACCESSORIES: string = 'ea';
+    public static FACE_ACCESSORIES: string = 'fa';
+    public static JACKET: string = 'cc';
+    public static SHIRT: string = 'ch';
     public static CHEST_ACCESSORIES: string = 'ca';
     public static CHEST_PRINTS: string = 'cp';
-    public static LG: string = 'lg';
-    public static SH: string = 'sh';
-    public static WA: string = 'wa';
+    public static TROUSERS: string = 'lg';
+    public static SHOES: string = 'sh';
+    public static TROUSER_ACCESSORIES: string = 'wa';
 
     private _view: FigureDataView;
     private _data: Map<string, number>;
@@ -170,18 +170,18 @@ export class FigureData implements IAvatarImageListener
         switch(k)
         {
             case FigureData.FACE:
-            case FigureData.HR:
-            case FigureData.HA:
-            case FigureData.HE:
-            case FigureData.EA:
-            case FigureData.FA:
-            case FigureData.CH:
-            case FigureData.CC:
+            case FigureData.HAIR:
+            case FigureData.HAT:
+            case FigureData.HEAD_ACCESSORIES:
+            case FigureData.EYE_ACCESSORIES:
+            case FigureData.FACE_ACCESSORIES:
+            case FigureData.SHIRT:
+            case FigureData.JACKET:
             case FigureData.CHEST_ACCESSORIES:
             case FigureData.CHEST_PRINTS:
-            case FigureData.LG:
-            case FigureData.SH:
-            case FigureData.WA:
+            case FigureData.TROUSERS:
+            case FigureData.SHOES:
+            case FigureData.TROUSER_ACCESSORIES:
                 if(_arg_2 >= 0)
                 {
                     this._data.set(k, _arg_2);
@@ -201,18 +201,18 @@ export class FigureData implements IAvatarImageListener
         switch(k)
         {
             case FigureData.FACE:
-            case FigureData.HR:
-            case FigureData.HA:
-            case FigureData.HE:
-            case FigureData.EA:
-            case FigureData.FA:
-            case FigureData.CH:
-            case FigureData.CC:
+            case FigureData.HAIR:
+            case FigureData.HAT:
+            case FigureData.HEAD_ACCESSORIES:
+            case FigureData.EYE_ACCESSORIES:
+            case FigureData.FACE_ACCESSORIES:
+            case FigureData.SHIRT:
+            case FigureData.JACKET:
             case FigureData.CHEST_ACCESSORIES:
             case FigureData.CHEST_PRINTS:
-            case FigureData.LG:
-            case FigureData.SH:
-            case FigureData.WA:
+            case FigureData.TROUSERS:
+            case FigureData.SHOES:
+            case FigureData.TROUSER_ACCESSORIES:
                 this._colors.set(k, _arg_2);
                 break;
         }
