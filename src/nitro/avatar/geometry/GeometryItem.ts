@@ -20,7 +20,7 @@ export class GeometryItem extends Node3D
         this._isDynamic     = _arg_2;
     }
 
-    public  _Str_1522(k: Vector3D): number
+    public  getDistance(k: Vector3D): number
     {
         const _local_2 = Math.abs(((k.z - this.transformedLocation.z) - this._radius));
         const _local_3 = Math.abs(((k.z - this.transformedLocation.z) + this._radius));

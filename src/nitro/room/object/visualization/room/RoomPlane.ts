@@ -466,8 +466,8 @@ export class RoomPlane implements IRoomPlane
 
                         if(asset)
                         {
-                            const _local_3  = (this._maskBitmapData.width * (1 - (mask._Str_5120 / this._leftSide.length)));
-                            const _local_4  = (this._maskBitmapData.height * (1 - (mask._Str_4659 / this._rightSide.length)));
+                            const _local_3  = (this._maskBitmapData.width * (1 - (mask.leftSideLoc / this._leftSide.length)));
+                            const _local_4  = (this._maskBitmapData.height * (1 - (mask.rightSideLoc / this._rightSide.length)));
                             const _local_11 = new Point((_local_3 + asset.offsetX), (_local_4 + asset.offsetY));
 
                             _local_5.addMask(assetName, _local_11, asset.flipH, asset.flipV);
@@ -794,7 +794,7 @@ export class RoomPlane implements IRoomPlane
 
             if(mask)
             {
-                if((((mask.type === k) && (mask._Str_5120 === _arg_2)) && (mask._Str_4659 === _arg_3))) return false;
+                if((((mask.type === k) && (mask.leftSideLoc === _arg_2)) && (mask.rightSideLoc === _arg_3))) return false;
             }
 
             _local_5++;
@@ -824,7 +824,7 @@ export class RoomPlane implements IRoomPlane
             {
                 if(!mask) continue;
 
-                if((((mask._Str_5120 === k) && (mask._Str_4659 === _arg_2)) && (mask._Str_9124 === _arg_3)) && (mask._Str_12156 === _arg_4)) return false;
+                if((((mask.leftSideLoc === k) && (mask.rightSideLoc === _arg_2)) && (mask.leftSideLength === _arg_3)) && (mask.rightSideLength === _arg_4)) return false;
             }
 
             const _local_5 = new RoomPlaneRectangleMask(k, _arg_2, _arg_3, _arg_4);
@@ -857,7 +857,7 @@ export class RoomPlane implements IRoomPlane
                 {
                     if(!plane) continue;
 
-                    if(((plane.type === mask.type) && (plane._Str_5120 === mask._Str_5120)) && (plane._Str_4659 === mask._Str_4659))
+                    if(((plane.type === mask.type) && (plane.leftSideLoc === mask.leftSideLoc)) && (plane.rightSideLoc === mask.rightSideLoc))
                     {
                         _local_6 = true;
 
@@ -942,11 +942,11 @@ export class RoomPlane implements IRoomPlane
                 if(mask)
                 {
                     type = mask.type;
-                    posX = (this._maskBitmapData.width - ((this._maskBitmapData.width * mask._Str_5120) / this._leftSide.length));
-                    posY = (this._maskBitmapData.height - ((this._maskBitmapData.height * mask._Str_4659) / this._rightSide.length));
+                    posX = (this._maskBitmapData.width - ((this._maskBitmapData.width * mask.leftSideLoc) / this._leftSide.length));
+                    posY = (this._maskBitmapData.height - ((this._maskBitmapData.height * mask.rightSideLoc) / this._rightSide.length));
 
                     this._maskManager.updateMask(this._maskBitmapData, type, geometry.scale, normal, posX, posY);
-                    this._bitmapMasksOld.push(new RoomPlaneBitmapMask(type, mask._Str_5120, mask._Str_4659));
+                    this._bitmapMasksOld.push(new RoomPlaneBitmapMask(type, mask.leftSideLoc, mask.rightSideLoc));
                 }
 
                 i++;
@@ -960,18 +960,18 @@ export class RoomPlane implements IRoomPlane
 
                 if(rectMask)
                 {
-                    posX    = (this._maskBitmapData.width - ((this._maskBitmapData.width * rectMask._Str_5120) / this._leftSide.length));
-                    posY    = (this._maskBitmapData.height - ((this._maskBitmapData.height * rectMask._Str_4659) / this._rightSide.length));
+                    posX    = (this._maskBitmapData.width - ((this._maskBitmapData.width * rectMask.leftSideLoc) / this._leftSide.length));
+                    posY    = (this._maskBitmapData.height - ((this._maskBitmapData.height * rectMask.rightSideLoc) / this._rightSide.length));
 
-                    const wd  = ((this._maskBitmapData.width * rectMask._Str_9124) / this._leftSide.length);
-                    const ht  = ((this._maskBitmapData.height * rectMask._Str_12156) / this._rightSide.length);
+                    const wd  = ((this._maskBitmapData.width * rectMask.leftSideLength) / this._leftSide.length);
+                    const ht  = ((this._maskBitmapData.height * rectMask.rightSideLength) / this._rightSide.length);
 
                     this._maskBitmapData
                         .beginFill(0xFF0000)
                         .drawRect((posX - wd), (posY - ht), wd, ht)
                         .endFill();
 
-                    this._rectangleMasksOld.push(new RoomPlaneRectangleMask(rectMask._Str_9124, rectMask._Str_4659, rectMask._Str_9124, rectMask._Str_12156));
+                    this._rectangleMasksOld.push(new RoomPlaneRectangleMask(rectMask.leftSideLength, rectMask.rightSideLoc, rectMask.leftSideLength, rectMask.rightSideLength));
                 }
 
                 i++;

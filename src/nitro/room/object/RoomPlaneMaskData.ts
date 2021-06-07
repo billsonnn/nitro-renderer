@@ -13,22 +13,22 @@
         this._rightSideLength   = _arg_4;
     }
 
-    public get _Str_5120(): number
+    public get leftSideLoc(): number
     {
         return this._leftSideLoc;
     }
 
-    public get _Str_4659(): number
+    public get rightSideLoc(): number
     {
         return this._rightSideLoc;
     }
 
-    public get _Str_9124(): number
+    public get leftSideLength(): number
     {
         return this._leftSideLength;
     }
 
-    public get _Str_12156(): number
+    public get rightSideLength(): number
     {
         return this._rightSideLength;
     }

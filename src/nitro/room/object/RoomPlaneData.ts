@@ -165,7 +165,7 @@ export class RoomPlaneData
         const _local_2:RoomPlaneMaskData = this._Str_8361(k);
         if(_local_2 != null)
         {
-            return _local_2._Str_5120;
+            return _local_2.leftSideLoc;
         }
         return -1;
     }
@@ -175,7 +175,7 @@ export class RoomPlaneData
         const _local_2:RoomPlaneMaskData = this._Str_8361(k);
         if(_local_2 != null)
         {
-            return _local_2._Str_4659;
+            return _local_2.rightSideLoc;
         }
         return -1;
     }
@@ -185,7 +185,7 @@ export class RoomPlaneData
         const _local_2:RoomPlaneMaskData = this._Str_8361(k);
         if(_local_2 != null)
         {
-            return _local_2._Str_9124;
+            return _local_2.leftSideLength;
         }
         return -1;
     }
@@ -195,7 +195,7 @@ export class RoomPlaneData
         const _local_2:RoomPlaneMaskData = this._Str_8361(k);
         if(_local_2 != null)
         {
-            return _local_2._Str_12156;
+            return _local_2.rightSideLength;
         }
         return -1;
     }

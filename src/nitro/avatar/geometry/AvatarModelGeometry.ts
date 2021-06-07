@@ -76,7 +76,7 @@ export class AvatarModelGeometry
 
                         bodyParts.set(geometryBodyPart.id, geometryBodyPart);
 
-                        for(const part of geometryBodyPart._Str_1456(null))
+                        for(const part of geometryBodyPart.getPartIds(null))
                         {
                             itemIds.set(part, geometryBodyPart);
                         }
@@ -99,12 +99,12 @@ export class AvatarModelGeometry
             {
                 if(!part) continue;
 
-                part._Str_2004(k);
+                part.removeDynamicParts(k);
             }
         }
     }
 
-    public _Str_1307(k: string): string[]
+    public getBodyPartIdsInAvatarSet(k: string): string[]
     {
         const avatarSet = this._avatarSet._Str_1498(k);
 
@@ -131,7 +131,7 @@ export class AvatarModelGeometry
         return (canvas.get(_arg_2) || null);
     }
 
-    private _Str_1342(k: string): boolean
+    private typeExists(k: string): boolean
     {
         const existing = this._geometryTypes.get(k);
 
@@ -140,9 +140,9 @@ export class AvatarModelGeometry
         return false;
     }
 
-    private _Str_1332(k: string, _arg_2: string): boolean
+    private hasBodyPart(k: string, _arg_2: string): boolean
     {
-        if(this._Str_1342(k))
+        if(this.typeExists(k))
         {
             const existing = this._geometryTypes.get(k);
 
@@ -152,9 +152,9 @@ export class AvatarModelGeometry
         return false;
     }
 
-    private _Str_2072(k: string): string[]
+    private getBodyPartIDs(k: string): string[]
     {
-        const parts = this._Str_1280(k);
+        const parts = this.getBodyPartsOfType(k);
 
         const types = [];
 
@@ -171,19 +171,19 @@ export class AvatarModelGeometry
         return types;
     }
 
-    private _Str_1280(k: string): Map<string, GeometryBodyPart>
+    private getBodyPartsOfType(k: string): Map<string, GeometryBodyPart>
     {
-        if(this._Str_1342(k)) return this._geometryTypes.get(k);
+        if(this.typeExists(k)) return this._geometryTypes.get(k);
 
         return new Map();
     }
 
-    public _Str_1919(k: string, _arg_2: string): GeometryBodyPart
+    public getBodyPart(k: string, _arg_2: string): GeometryBodyPart
     {
-        return (this._Str_1280(k).get(_arg_2) || null);
+        return (this.getBodyPartsOfType(k).get(_arg_2) || null);
     }
 
-    public _Str_1701(k: string, _arg_2: string, _arg_3:IAvatarImage): GeometryBodyPart
+    public getBodyPartOfItem(k: string, _arg_2: string, _arg_3:IAvatarImage): GeometryBodyPart
     {
         const itemIds = this._itemIdToBodyPartMap.get(k);
 
@@ -193,7 +193,7 @@ export class AvatarModelGeometry
 
             if(part) return part;
 
-            const parts = this._Str_1280(k);
+            const parts = this.getBodyPartsOfType(k);
 
             if(parts)
             {
@@ -201,7 +201,7 @@ export class AvatarModelGeometry
                 {
                     if(!part) continue;
 
-                    if(part._Str_2030(_arg_2, _arg_3)) return part;
+                    if(part.hasPart(_arg_2, _arg_3)) return part;
                 }
             }
         }
@@ -209,9 +209,9 @@ export class AvatarModelGeometry
         return null;
     }
 
-    private _Str_1787(k: Map<string, GeometryBodyPart>, _arg_2: string): GeometryBodyPart[]
+    private getBodyPartsInAvatarSet(k: Map<string, GeometryBodyPart>, _arg_2: string): GeometryBodyPart[]
     {
-        const parts         = this._Str_1307(_arg_2);
+        const parts         = this.getBodyPartIdsInAvatarSet(_arg_2);
         const geometryParts = [];
 
         for(const part of parts)
@@ -229,12 +229,12 @@ export class AvatarModelGeometry
         return geometryParts;
     }
 
-    public _Str_2250(k: string, _arg_2: number, _arg_3: string): string[]
+    public getBodyPartsAtAngle(k: string, _arg_2: number, _arg_3: string): string[]
     {
         if(!_arg_3) return [];
 
-        const geometryParts                         = this._Str_1280(_arg_3);
-        const parts                                 = this._Str_1787(geometryParts, k);
+        const geometryParts                         = this.getBodyPartsOfType(_arg_3);
+        const parts                                 = this.getBodyPartsInAvatarSet(geometryParts, k);
         const sets: [ number, GeometryBodyPart ][]  = [];
         const ids: string[]                         = [];
 
@@ -246,7 +246,7 @@ export class AvatarModelGeometry
 
             part.applyTransform(this._transformation);
 
-            sets.push([ part._Str_1522(this._camera), part ]);
+            sets.push([ part.getDistance(this._camera), part ]);
         }
 
         sets.sort((a, b) =>
@@ -273,9 +273,9 @@ export class AvatarModelGeometry
 
     public getParts(k: string, _arg_2: string, _arg_3: number, _arg_4: any[], _arg_5:IAvatarImage): string[]
     {
-        if(this._Str_1332(k, _arg_2))
+        if(this.hasBodyPart(k, _arg_2))
         {
-            const part = this._Str_1280(k).get(_arg_2);
+            const part = this.getBodyPartsOfType(k).get(_arg_2);
 
             this._transformation = Matrix4x4.getYRotationMatrix(_arg_3);
 

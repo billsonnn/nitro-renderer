@@ -436,8 +436,8 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     {
         if(this._headSprites[layerId] === undefined)
         {
-            const isHead = (this._data.getLayerTag(this._scale, DirectionData._Str_9471, layerId) === PetVisualization.HEAD);
-            const isHair = (this._data.getLayerTag(this._scale, DirectionData._Str_9471, layerId) === PetVisualization.HAIR);
+            const isHead = (this._data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId) === PetVisualization.HEAD);
+            const isHair = (this._data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId) === PetVisualization.HAIR);
 
             if(isHead || isHair) this._headSprites[layerId] = true;
             else this._headSprites[layerId] = false;
@@ -452,7 +452,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         {
             if(layerId < (this.totalSprites - (1 + PetVisualization._Str_7490)))
             {
-                const tag = this._data.getLayerTag(this._scale, DirectionData._Str_9471, layerId);
+                const tag = this._data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId);
 
                 if(((tag && (tag.length > 0)) && (tag !== PetVisualization.HEAD)) && (tag !== PetVisualization.HAIR))
                 {
@@ -476,7 +476,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     {
         if(this._saddleSprites[layerId] === undefined)
         {
-            if(this._data.getLayerTag(this._scale, DirectionData._Str_9471, layerId) === PetVisualization.SADDLE)
+            if(this._data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId) === PetVisualization.SADDLE)
             {
                 this._saddleSprites[layerId] = true;
             }

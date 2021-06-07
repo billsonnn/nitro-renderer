@@ -33,7 +33,7 @@ export class GeometryBodyPart extends Node3D
         }
     }
 
-    public _Str_1883(k: IAvatarImage): GeometryItem[]
+    public getDynamicParts(k: IAvatarImage): GeometryItem[]
     {
         const existing              = this._dynamicParts.get(k);
         const parts: GeometryItem[] = [];
@@ -53,7 +53,7 @@ export class GeometryBodyPart extends Node3D
         return parts;
     }
 
-    public _Str_1456(k: IAvatarImage): string[]
+    public getPartIds(k: IAvatarImage): string[]
     {
         const ids: string[] = [];
 
@@ -84,16 +84,16 @@ export class GeometryBodyPart extends Node3D
         return ids;
     }
 
-    public _Str_2004(k: IAvatarImage): boolean
+    public removeDynamicParts(k: IAvatarImage): boolean
     {
         this._dynamicParts.delete(k);
 
         return true;
     }
 
-    public _Str_2020(k: any, _arg_2: IAvatarImage): boolean
+    public addPart(k: any, _arg_2: IAvatarImage): boolean
     {
-        if(this._Str_2030(k.id, _arg_2)) return false;
+        if(this.hasPart(k.id, _arg_2)) return false;
 
         let existing = this._dynamicParts.get(_arg_2);
 
@@ -109,7 +109,7 @@ export class GeometryBodyPart extends Node3D
         return true;
     }
 
-    public _Str_2030(k: string, _arg_2: IAvatarImage): boolean
+    public hasPart(k: string, _arg_2: IAvatarImage): boolean
     {
         let existingPart = (this._parts.get(k) || null);
 
@@ -131,7 +131,7 @@ export class GeometryBodyPart extends Node3D
 
             part.applyTransform(k);
 
-            parts.push([ part._Str_1522(_arg_2), part ]);
+            parts.push([ part.getDistance(_arg_2), part ]);
         }
 
         const existingDynamic = this._dynamicParts.get(_arg_4);
@@ -146,7 +146,7 @@ export class GeometryBodyPart extends Node3D
 
                 part.applyTransform(k);
 
-                parts.push([ part._Str_1522(_arg_2), part ]);
+                parts.push([ part.getDistance(_arg_2), part ]);
             }
         }
 
@@ -174,7 +174,7 @@ export class GeometryBodyPart extends Node3D
         return partIds;
     }
 
-    public _Str_1522(k: Vector3D): number
+    public getDistance(k: Vector3D): number
     {
         const _local_2 = Math.abs(((k.z - this.transformedLocation.z) - this._radius));
         const _local_3 = Math.abs(((k.z - this.transformedLocation.z) + this._radius));

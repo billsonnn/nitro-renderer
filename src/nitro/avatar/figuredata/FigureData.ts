@@ -33,7 +33,7 @@ export class FigureData implements IAvatarImageListener
 
     constructor()
     {
-        this._direction = FigureDataView._Str_9887;
+        this._direction = FigureDataView.PREVIEW_AVATAR_DIRECTION;
         this._view      = new FigureDataView(this);
     }
 

@@ -282,12 +282,12 @@ export class AvatarStructure extends EventDispatcher
 
                     for(const _local_13 of _local_8.addData)
                     {
-                        const _local_6 = this._geometry._Str_1919(_local_5, _local_13.align);
+                        const _local_6 = this._geometry.getBodyPart(_local_5, _local_13.align);
 
                         if(_local_6)
                         {
                             _local_11.id = _local_13.id;
-                            _local_6._Str_2020(_local_11, _arg_2);
+                            _local_6.addPart(_local_11, _arg_2);
 
                             _local_12.setType = _local_13.id;
 
@@ -304,7 +304,7 @@ export class AvatarStructure extends EventDispatcher
 
             for(const _local_9 of _local_3)
             {
-                const _local_6 = this._geometry._Str_1919(_local_5, _local_9);
+                const _local_6 = this._geometry.getBodyPart(_local_5, _local_9);
 
                 if(_local_6 && (_local_4.indexOf(_local_6.id) === -1)) _local_4.push(_local_6.id);
             }
@@ -315,7 +315,7 @@ export class AvatarStructure extends EventDispatcher
 
             for(const _local_14 of _local_3)
             {
-                const _local_6 = this._geometry._Str_1701(_local_5, _local_14, _arg_2);
+                const _local_6 = this._geometry.getBodyPartOfItem(_local_5, _local_14, _arg_2);
 
                 if(_local_6 && (_local_4.indexOf(_local_6.id) === -1)) _local_4.push(_local_6.id);
             }
@@ -326,14 +326,14 @@ export class AvatarStructure extends EventDispatcher
 
     public getBodyPartsUnordered(k: string): string[]
     {
-        return this._geometry._Str_1307(k);
+        return this._geometry.getBodyPartIdsInAvatarSet(k);
     }
 
     public getBodyParts(k: string, _arg_2: string, _arg_3: number): string[]
     {
         const _local_4 = AvatarDirectionAngle.DIRECTION_TO_ANGLE[_arg_3];
 
-        return this._geometry._Str_2250(k, _local_4, _arg_2);
+        return this._geometry.getBodyPartsAtAngle(k, _local_4, _arg_2);
     }
 
     public getFrameBodyPartOffset(k:IActiveActionData, _arg_2: number, _arg_3: number, _arg_4: string): Point
@@ -373,11 +373,11 @@ export class AvatarStructure extends EventDispatcher
                 {
                     if(_local_25 === k)
                     {
-                        const _local_26 = this._geometry._Str_1919(_arg_4, _local_25);
+                        const _local_26 = this._geometry.getBodyPart(_arg_4, _local_25);
 
                         if(_local_26)
                         {
-                            for(const _local_27 of _local_26._Str_1883(_arg_7))
+                            for(const _local_27 of _local_26.getDynamicParts(_arg_7))
                             {
                                 _local_9.push(_local_27.id);
                             }
@@ -530,7 +530,7 @@ export class AvatarStructure extends EventDispatcher
                 {
                     if(_local_9.indexOf(_local_12) > -1)
                     {
-                        const _local_44 = this._geometry._Str_1701(_arg_4, _local_12, _arg_7);
+                        const _local_44 = this._geometry.getBodyPartOfItem(_arg_4, _local_12, _arg_7);
 
                         if(k !== _local_44.id)
                         {

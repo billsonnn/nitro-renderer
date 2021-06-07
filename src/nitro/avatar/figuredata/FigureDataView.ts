@@ -3,7 +3,7 @@ import { FigureData } from './FigureData';
 
 export class FigureDataView implements IAvatarImageListener
 {
-    public static _Str_9887: number = 4;
+    public static PREVIEW_AVATAR_DIRECTION: number = 4;
 
     private _model: FigureData;
     private _figureString: string;
