@@ -72,7 +72,7 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
         this.init(0, 0, 0, this._direction, this._force, this._timeStep, this._fuseTime, true);
     }
 
-    public _Str_17988(k:FurnitureParticleSystemEmitter, _arg_2: number): void
+    public copyStateFrom(k:FurnitureParticleSystemEmitter, _arg_2: number): void
     {
         super.copy(k, _arg_2);
         this._force = k._force;
@@ -87,7 +87,7 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
         this._hasIgnited = k._hasIgnited;
     }
 
-    public _Str_24892(k: number, _arg_2: boolean, _arg_3: GraphicAsset[], _arg_4: boolean): void
+    public configureParticle(k: number, _arg_2: boolean, _arg_3: GraphicAsset[], _arg_4: boolean): void
     {
         const _local_5 = [];
         _local_5['lifeTime'] = k;
@@ -104,17 +104,17 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
         {
             if(this.age > 1)
             {
-                this._Str_19068(this, this.direction);
+                this.releaseParticles(this, this.direction);
             }
         }
     }
 
-    private _Str_19068(k:FurnitureParticleSystemParticle, _arg_2: Vector3D = null): void
+    private releaseParticles(k:FurnitureParticleSystemParticle, _arg_2: Vector3D = null): void
     {
         if(!_arg_2) _arg_2 = new Vector3D();
 
         const _local_3  = new Vector3D();
-        const _local_5  = this._Str_23904();
+        const _local_5  = this.getRandomParticleConfiguration();
 
         let _local_10 = 0;
 
@@ -123,19 +123,19 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
             switch(this._explosionShape)
             {
                 case FurnitureParticleSystemEmitter.CONE:
-                    _local_3.x = ((this._Str_7471(0.5)) ? Math.random() : -(Math.random()));
+                    _local_3.x = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
                     _local_3.y = -(Math.random() + 1);
-                    _local_3.z = ((this._Str_7471(0.5)) ? Math.random() : -(Math.random()));
+                    _local_3.z = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
                     break;
                 case FurnitureParticleSystemEmitter.PLANE:
-                    _local_3.x = ((this._Str_7471(0.5)) ? Math.random() : -(Math.random()));
+                    _local_3.x = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
                     _local_3.y = 0;
-                    _local_3.z = ((this._Str_7471(0.5)) ? Math.random() : -(Math.random()));
+                    _local_3.z = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
                     break;
                 case FurnitureParticleSystemEmitter.SPHERE:
-                    _local_3.x = ((this._Str_7471(0.5)) ? Math.random() : -(Math.random()));
-                    _local_3.y = ((this._Str_7471(0.5)) ? Math.random() : -(Math.random()));
-                    _local_3.z = ((this._Str_7471(0.5)) ? Math.random() : -(Math.random()));
+                    _local_3.x = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
+                    _local_3.y = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
+                    _local_3.z = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
                     break;
             }
 
@@ -171,7 +171,7 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
         }
     }
 
-    private _Str_23904()
+    private getRandomParticleConfiguration()
     {
         const k: number = Math.trunc(Math.floor((Math.random() * this._particleConfigurations.length)));
         return this._particleConfigurations[k];
@@ -180,35 +180,35 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
     public update(): void
     {
         super.update();
-        this._Str_25039();
-        this._Str_25400();
-        this._Str_23140();
-        if(((!(this._Str_16034)) && (this._emittedParticles < this._maxNumberOfParticles)))
+        this.accumulateForces();
+        this.verlet();
+        this.satisfyConstraints();
+        if(((!(this.isAlive)) && (this._emittedParticles < this._maxNumberOfParticles)))
         {
             if((this.age % this._burstPulse) == 0)
             {
-                this._Str_19068(this, this.direction);
+                this.releaseParticles(this, this.direction);
             }
         }
     }
 
-    public _Str_25400(): void
+    public verlet(): void
     {
         let _local_2:FurnitureParticleSystemParticle;
         let _local_3: number;
         let _local_4: number;
         let _local_5: number;
-        if(((this._Str_16034) || (this._emittedParticles < this._maxNumberOfParticles)))
+        if(((this.isAlive) || (this._emittedParticles < this._maxNumberOfParticles)))
         {
             _local_3 = this.x;
             _local_4 = this.y;
             _local_5 = this.z;
-            this.x = (((2 - this._airFriction) * this.x) - ((1 - this._airFriction) * this._Str_10744));
-            this.y = ((((2 - this._airFriction) * this.y) - ((1 - this._airFriction) * this._Str_12459)) + ((this._gravity * this._timeStep) * this._timeStep));
-            this.z = (((2 - this._airFriction) * this.z) - ((1 - this._airFriction) * this._Str_11680));
-            this._Str_10744 = _local_3;
-            this._Str_12459 = _local_4;
-            this._Str_11680 = _local_5;
+            this.x = (((2 - this._airFriction) * this.x) - ((1 - this._airFriction) * this.lastX));
+            this.y = ((((2 - this._airFriction) * this.y) - ((1 - this._airFriction) * this.lastY)) + ((this._gravity * this._timeStep) * this._timeStep));
+            this.z = (((2 - this._airFriction) * this.z) - ((1 - this._airFriction) * this.lastZ));
+            this.lastX = _local_3;
+            this.lastY = _local_4;
+            this.lastZ = _local_5;
         }
         const k: FurnitureParticleSystemParticle[] = [];
 
@@ -218,13 +218,13 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
             _local_3 = _local_2.x;
             _local_4 = _local_2.y;
             _local_5 = _local_2.z;
-            _local_2.x = (((2 - this._airFriction) * _local_2.x) - ((1 - this._airFriction) * _local_2._Str_10744));
-            _local_2.y = ((((2 - this._airFriction) * _local_2.y) - ((1 - this._airFriction) * _local_2._Str_12459)) + ((this._gravity * this._timeStep) * this._timeStep));
-            _local_2.z = (((2 - this._airFriction) * _local_2.z) - ((1 - this._airFriction) * _local_2._Str_11680));
-            _local_2._Str_10744 = _local_3;
-            _local_2._Str_12459 = _local_4;
-            _local_2._Str_11680 = _local_5;
-            if(((_local_2.y > 10) || (!(_local_2._Str_16034))))
+            _local_2.x = (((2 - this._airFriction) * _local_2.x) - ((1 - this._airFriction) * _local_2.lastX));
+            _local_2.y = ((((2 - this._airFriction) * _local_2.y) - ((1 - this._airFriction) * _local_2.lastY)) + ((this._gravity * this._timeStep) * this._timeStep));
+            _local_2.z = (((2 - this._airFriction) * _local_2.z) - ((1 - this._airFriction) * _local_2.lastZ));
+            _local_2.lastX = _local_3;
+            _local_2.lastY = _local_4;
+            _local_2.lastZ = _local_5;
+            if(((_local_2.y > 10) || (!(_local_2.isAlive))))
             {
                 k.push(_local_2);
             }
@@ -242,11 +242,11 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
         }
     }
 
-    private _Str_23140(): void
+    private satisfyConstraints(): void
     {
     }
 
-    private _Str_25039(): void
+    private accumulateForces(): void
     {
         for(const k of this._particles)
         {
@@ -259,17 +259,17 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
         return this._particles;
     }
 
-    public get _Str_22727(): boolean
+    public get hasIgnited(): boolean
     {
         return this._hasIgnited;
     }
 
-    private _Str_7471(k: number): boolean
+    private randomBoolean(k: number): boolean
     {
         return Math.random() < k;
     }
 
-    public get _Str_9107(): number
+    public get roomObjectSpriteId(): number
     {
         return this._roomObjectSpriteId;
     }

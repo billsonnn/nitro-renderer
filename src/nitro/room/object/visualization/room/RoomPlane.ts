@@ -512,7 +512,7 @@ export class RoomPlane implements IRoomPlane
                         //const data      = new PlaneDrawingData(maskData, blend(this._color, layer.getColor()), cm._Str_14945());
                         const data      = new PlaneDrawingData(maskData, this._color, cm._Str_14945());
 
-                        Randomizer._Str_17384(this._randomSeed);
+                        Randomizer.setSeed(this._randomSeed);
 
                         for(const column of cm._Str_23721(this.screenWidth(geometry)))
                         {
@@ -664,7 +664,7 @@ export class RoomPlane implements IRoomPlane
                 //this._bitmapData.fillRect(this._bitmapData.rect, 0xFFFFFF);
             }
 
-            Randomizer._Str_17384(this._randomSeed);
+            Randomizer.setSeed(this._randomSeed);
 
             const texture = this.getTexture(geometry, timeSinceStartMs);
 

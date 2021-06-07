@@ -16,7 +16,7 @@ export class LandscapePlane extends Plane
     {
         const _local_2 = this.getPlaneVisualization(k);
 
-        if(_local_2) return !(_local_2._Str_20530);
+        if(_local_2) return !(_local_2.hasAnimationLayers);
 
         return super.isStatic(k);
     }

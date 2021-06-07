@@ -62,7 +62,7 @@ export class PlaneMaterialCellMatrix
 
     private static _Str_12526(k: number): number
     {
-        return ((Randomizer._Str_1612(1, 0, (k * 17631))[0]) % k);
+        return ((Randomizer.getValues(1, 0, (k * 17631))[0]) % k);
     }
 
     public get normalMinX(): number

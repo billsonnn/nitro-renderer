@@ -578,7 +578,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
                                 else if(layer.align == 'top') align = PlaneVisualizationLayer.ALIGN_TOP;
                             }
 
-                            planeVisualization._Str_21464(layerId, material, color, align, offset);
+                            planeVisualization.setLayer(layerId, material, color, align, offset);
                         }
 
                         layerId++;

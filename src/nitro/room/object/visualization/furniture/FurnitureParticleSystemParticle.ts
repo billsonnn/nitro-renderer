@@ -102,7 +102,7 @@ export class FurnitureParticleSystemParticle
         return this._isEmitter;
     }
 
-    public get _Str_16034(): boolean
+    public get isAlive(): boolean
     {
         return this._age <= this._lifeTime;
     }
@@ -137,40 +137,40 @@ export class FurnitureParticleSystemParticle
         this._z = k;
     }
 
-    public get _Str_10744(): number
+    public get lastX(): number
     {
         return this._lastX;
     }
 
-    public set _Str_10744(k: number)
+    public set lastX(k: number)
     {
         this._hasMoved = true;
         this._lastX = k;
     }
 
-    public get _Str_12459(): number
+    public get lastY(): number
     {
         return this._lastY;
     }
 
-    public set _Str_12459(k: number)
+    public set lastY(k: number)
     {
         this._hasMoved = true;
         this._lastY = k;
     }
 
-    public get _Str_11680(): number
+    public get lastZ(): number
     {
         return this._lastZ;
     }
 
-    public set _Str_11680(k: number)
+    public set lastZ(k: number)
     {
         this._hasMoved = true;
         this._lastZ = k;
     }
 
-    public get _Str_22611(): boolean
+    public get hasMoved(): boolean
     {
         return this._hasMoved;
     }
@@ -188,7 +188,7 @@ export class FurnitureParticleSystemParticle
         this._lastX = (k._lastX * _arg_2);
         this._lastY = (k._lastY * _arg_2);
         this._lastZ = (k._lastZ * _arg_2);
-        this._hasMoved = k._Str_22611;
+        this._hasMoved = k.hasMoved;
         this._direction = k._direction;
         this._age = k._age;
         this._lifeTime = k._lifeTime;

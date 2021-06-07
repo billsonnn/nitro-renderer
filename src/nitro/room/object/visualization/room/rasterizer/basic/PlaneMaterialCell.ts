@@ -175,7 +175,7 @@ export class PlaneMaterialCell
 
             //     const limitMin      = Math.min(this._extraItemCount, this._extraItemOffsets.length);
             //     const limitMax      = Math.max(this._extraItemCount, this._extraItemOffsets.length);
-            //     const offsetIndexes = Randomizer._Str_23572(this._extraItemCount, limitMax);
+            //     const offsetIndexes = Randomizer.getArray(this._extraItemCount, limitMax);
 
             //     let i = 0;
 

@@ -44,7 +44,7 @@ export class PlaneVisualization
         return this._geometry;
     }
 
-    public get _Str_20530(): boolean
+    public get hasAnimationLayers(): boolean
     {
         return this._hasAnimationLayers;
     }
@@ -106,7 +106,7 @@ export class PlaneVisualization
         this._isCached = false;
     }
 
-    public _Str_21464(k: number, _arg_2: PlaneMaterial, _arg_3: number, _arg_4: number, _arg_5: number = 0): boolean
+    public setLayer(k: number, _arg_2: PlaneMaterial, _arg_3: number, _arg_4: number, _arg_5: number = 0): boolean
     {
         if((k < 0) || (k > this._layers.length)) return false;
 
@@ -121,7 +121,7 @@ export class PlaneVisualization
         return true;
     }
 
-    public _Str_23489(k: number, _arg_2: any, _arg_3: IGraphicAssetCollection): boolean
+    public setAnimationLayer(k: number, _arg_2: any, _arg_3: IGraphicAssetCollection): boolean
     {
         if((k < 0) || (k > this._layers.length)) return false;
 
@@ -154,7 +154,7 @@ export class PlaneVisualization
         {
             if(((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height)) && (Vector3d.isEqual(this._cachedBitmapNormal, normal)))
             {
-                if(!this._Str_20530)
+                if(!this.hasAnimationLayers)
                 {
                     if(canvas)
                     {

@@ -75,7 +75,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
                 if(planeVisualization)
                 {
-                    Randomizer._Str_17384(randomNumber);
+                    Randomizer.setSeed(randomNumber);
 
                     let layerId = 0;
 
@@ -108,7 +108,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
                                     else if(layer.align === 'top') align = PlaneVisualizationLayer.ALIGN_TOP;
                                 }
 
-                                planeVisualization._Str_21464(layerId, material, color, align, offset);
+                                planeVisualization.setLayer(layerId, material, color, align, offset);
                             }
 
                             layerId++;
@@ -157,7 +157,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
                             layerId++;
                         }
 
-                        planeVisualization._Str_23489(layerId, animationItems, this.assetCollection);
+                        planeVisualization.setAnimationLayer(layerId, animationItems, this.assetCollection);
                     }
                 }
             }
@@ -183,7 +183,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
         if((_arg_2.length > 0))
         {
             const _local_4  = 10000;
-            const _local_5  = Randomizer._Str_1612(1, 0, _local_4);
+            const _local_5  = Randomizer.getValues(1, 0, _local_4);
             const _local_6  = (_local_5[0] / _local_4);
 
             if(_arg_2.charAt((_arg_2.length - 1)) === '%')
