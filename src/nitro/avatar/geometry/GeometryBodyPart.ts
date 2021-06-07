@@ -129,7 +129,7 @@ export class GeometryBodyPart extends Node3D
         {
             if(!part) continue;
 
-            part._Str_1101(k);
+            part.applyTransform(k);
 
             parts.push([ part._Str_1522(_arg_2), part ]);
         }
@@ -144,7 +144,7 @@ export class GeometryBodyPart extends Node3D
 
                 if(!part) continue;
 
-                part._Str_1101(k);
+                part.applyTransform(k);
 
                 parts.push([ part._Str_1522(_arg_2), part ]);
             }
@@ -176,8 +176,8 @@ export class GeometryBodyPart extends Node3D
 
     public _Str_1522(k: Vector3D): number
     {
-        const _local_2 = Math.abs(((k.z - this._Str_1604.z) - this._radius));
-        const _local_3 = Math.abs(((k.z - this._Str_1604.z) + this._radius));
+        const _local_2 = Math.abs(((k.z - this.transformedLocation.z) - this._radius));
+        const _local_3 = Math.abs(((k.z - this.transformedLocation.z) + this._radius));
 
         return Math.min(_local_2, _local_3);
     }

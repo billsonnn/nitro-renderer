@@ -238,13 +238,13 @@ export class AvatarModelGeometry
         const sets: [ number, GeometryBodyPart ][]  = [];
         const ids: string[]                         = [];
 
-        this._transformation = Matrix4x4._Str_1560(_arg_2);
+        this._transformation = Matrix4x4.getYRotationMatrix(_arg_2);
 
         for(const part of parts.values())
         {
             if(!part) continue;
 
-            part._Str_1101(this._transformation);
+            part.applyTransform(this._transformation);
 
             sets.push([ part._Str_1522(this._camera), part ]);
         }
@@ -277,7 +277,7 @@ export class AvatarModelGeometry
         {
             const part = this._Str_1280(k).get(_arg_2);
 
-            this._transformation = Matrix4x4._Str_1560(_arg_3);
+            this._transformation = Matrix4x4.getYRotationMatrix(_arg_3);
 
             return part.getParts(this._transformation, this._camera, _arg_4, _arg_5);
         }

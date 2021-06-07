@@ -22,8 +22,8 @@ export class GeometryItem extends Node3D
 
     public  _Str_1522(k: Vector3D): number
     {
-        const _local_2 = Math.abs(((k.z - this._Str_1604.z) - this._radius));
-        const _local_3 = Math.abs(((k.z - this._Str_1604.z) + this._radius));
+        const _local_2 = Math.abs(((k.z - this.transformedLocation.z) - this._radius));
+        const _local_3 = Math.abs(((k.z - this.transformedLocation.z) + this._radius));
 
         return Math.min(_local_2, _local_3);
     }
@@ -45,7 +45,7 @@ export class GeometryItem extends Node3D
 
     public toString(): string
     {
-        return ((((this._id + ': ') + this.location) + ' - ') + this._Str_1604);
+        return ((((this._id + ': ') + this.location) + ' - ') + this.transformedLocation);
     }
 
     public get _Str_1457(): boolean
