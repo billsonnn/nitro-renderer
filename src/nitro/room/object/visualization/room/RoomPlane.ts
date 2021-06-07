@@ -462,7 +462,7 @@ export class RoomPlane implements IRoomPlane
                     if(assetName)
                     {
                         const position  = k.getCoordinatePosition(this._normal);
-                        const asset     = planeMask._Str_21021(k.scale, position);
+                        const asset     = planeMask.getGraphicAsset(k.scale, position);
 
                         if(asset)
                         {

@@ -6,9 +6,9 @@ export interface ISelectedRoomObjectData
     category: number;
     operation: string;
     typeId: number;
-    _Str_4766: string;
+    instanceData: string;
     stuffData: IObjectData;
     state: number;
-    _Str_15896: number;
+    animFrame: number;
     posture: string;
 }

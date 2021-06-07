@@ -48,7 +48,7 @@
         this._allBodyParts = bodyParts;
     }
 
-    public _Str_1498(k: string): AvatarSet
+    public findAvatarSet(k: string): AvatarSet
     {
         if(k === this._id) return this;
 
@@ -56,7 +56,7 @@
         {
             if(!avatarSet) continue;
 
-            if(!avatarSet._Str_1498(k)) continue;
+            if(!avatarSet.findAvatarSet(k)) continue;
 
             return avatarSet;
         }

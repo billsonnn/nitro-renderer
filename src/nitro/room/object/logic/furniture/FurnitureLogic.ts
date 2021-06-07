@@ -241,7 +241,7 @@ export class FurnitureLogic extends MovingObjectLogic
             case MouseEventType.MOUSE_MOVE:
                 if(this.eventDispatcher)
                 {
-                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_MOVE, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_MOVE, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
                     mouseEvent.localX           = event.localX;
                     mouseEvent.localY           = event.localY;
@@ -256,7 +256,7 @@ export class FurnitureLogic extends MovingObjectLogic
                 {
                     if(this.eventDispatcher)
                     {
-                        const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_ENTER, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                        const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_ENTER, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
                         mouseEvent.localX           = event.localX;
                         mouseEvent.localY           = event.localY;
@@ -274,7 +274,7 @@ export class FurnitureLogic extends MovingObjectLogic
                 {
                     if(this.eventDispatcher)
                     {
-                        const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_LEAVE, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                        const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_LEAVE, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
                         mouseEvent.localX           = event.localX;
                         mouseEvent.localY           = event.localY;
@@ -293,7 +293,7 @@ export class FurnitureLogic extends MovingObjectLogic
             case MouseEventType.MOUSE_CLICK:
                 if(this.eventDispatcher)
                 {
-                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.CLICK, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.CLICK, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
                     mouseEvent.localX           = event.localX;
                     mouseEvent.localY           = event.localY;
@@ -311,7 +311,7 @@ export class FurnitureLogic extends MovingObjectLogic
             case MouseEventType.MOUSE_DOWN:
                 if(this.eventDispatcher)
                 {
-                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_DOWN, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_DOWN, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
                     this.eventDispatcher.dispatchEvent(mouseEvent);
                 }

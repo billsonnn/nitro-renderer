@@ -106,7 +106,7 @@ export class AvatarModelGeometry
 
     public getBodyPartIdsInAvatarSet(k: string): string[]
     {
-        const avatarSet = this._avatarSet._Str_1498(k);
+        const avatarSet = this._avatarSet.findAvatarSet(k);
 
         if(!avatarSet) return [];
 
@@ -115,7 +115,7 @@ export class AvatarModelGeometry
 
     public isMainAvatarSet(k: string): boolean
     {
-        const avatarSet = this._avatarSet._Str_1498(k);
+        const avatarSet = this._avatarSet.findAvatarSet(k);
 
         if(!avatarSet) return false;
 

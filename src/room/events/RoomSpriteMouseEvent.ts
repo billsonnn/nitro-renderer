@@ -38,7 +38,7 @@ export class RoomSpriteMouseEvent
         return this._type;
     }
 
-    public get _Str_3463(): string
+    public get eventId(): string
     {
         return this._eventId;
     }

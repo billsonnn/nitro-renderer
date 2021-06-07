@@ -231,12 +231,12 @@ export class PetLogic extends MovingObjectLogic
 
                 if(petType == PetType.MONSTERPLANT)
                 {
-                    if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_DOWN, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown));
+                    if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_DOWN, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown));
                 }
                 break;
             }
         }
 
-        if(eventType && this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectMouseEvent(eventType, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown));
+        if(eventType && this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectMouseEvent(eventType, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown));
     }
 }

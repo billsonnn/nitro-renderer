@@ -64,7 +64,7 @@ export class SelectedRoomObjectData implements ISelectedRoomObjectData
         return this._typeId;
     }
 
-    public get _Str_4766(): string
+    public get instanceData(): string
     {
         return this._instanceData;
     }
@@ -79,7 +79,7 @@ export class SelectedRoomObjectData implements ISelectedRoomObjectData
         return this._state;
     }
 
-    public get _Str_15896(): number
+    public get animFrame(): number
     {
         return this._animFrame;
     }

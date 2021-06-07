@@ -67,7 +67,7 @@ export class RoomEngineObjectPlacedEvent extends RoomEngineObjectEvent
         return this._placedOnWall;
     }
 
-    public get _Str_4766(): string
+    public get instanceData(): string
     {
         return this._instanceData;
     }

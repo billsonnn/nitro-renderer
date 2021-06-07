@@ -38,7 +38,7 @@ export class GeometryItem extends Node3D
         return this._normal;
     }
 
-    public get _Str_2207(): boolean
+    public get isDoubleSided(): boolean
     {
         return this._isDoubleSided;
     }
@@ -48,7 +48,7 @@ export class GeometryItem extends Node3D
         return ((((this._id + ': ') + this.location) + ' - ') + this.transformedLocation);
     }
 
-    public get _Str_1457(): boolean
+    public get isDynamic(): boolean
     {
         return this._isDynamic;
     }

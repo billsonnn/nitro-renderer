@@ -430,7 +430,7 @@ export class RoomLogic extends RoomObjectLogicBase
 
                 if(_local_12 === RoomPlaneData.PLANE_FLOOR)
                 {
-                    newEvent = new RoomObjectTileMouseEvent(eventType, this.object, event._Str_3463, _local_19, _local_20, _local_21, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                    newEvent = new RoomObjectTileMouseEvent(eventType, this.object, event.eventId, _local_19, _local_20, _local_21, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
                 }
 
                 else if((_local_12 === RoomPlaneData.PLANE_WALL) || (_local_12 === RoomPlaneData.PLANE_LANDSCAPE))
@@ -447,7 +447,7 @@ export class RoomLogic extends RoomObjectLogicBase
                     const _local_27 = ((_local_9.length * _local_7.x) / _local_13);
                     const _local_28 = ((_local_10.length * _local_7.y) / _local_14);
 
-                    newEvent = new RoomObjectWallMouseEvent(eventType, this.object, event._Str_3463, _local_8, _local_9, _local_10, _local_27, _local_28, direction, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                    newEvent = new RoomObjectWallMouseEvent(eventType, this.object, event.eventId, _local_8, _local_9, _local_10, _local_27, _local_28, direction, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
                 }
 
                 if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(newEvent);

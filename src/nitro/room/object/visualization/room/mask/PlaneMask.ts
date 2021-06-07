@@ -37,7 +37,7 @@ export class PlaneMask
         this._sizes                 = null;
     }
 
-    public _Str_24540(size: number): PlaneMaskVisualization
+    public createMaskVisualization(size: number): PlaneMaskVisualization
     {
         const existing = this._maskVisualizations.get(size);
 
@@ -73,7 +73,7 @@ export class PlaneMask
         return sizeIndex;
     }
 
-    protected _Str_24650(k: number): PlaneMaskVisualization
+    protected getMaskVisualization(k: number): PlaneMaskVisualization
     {
         if(k === this._lastSize) return this._lastMaskVisualization;
 
@@ -93,9 +93,9 @@ export class PlaneMask
         return this._lastMaskVisualization;
     }
 
-    public _Str_21021(k: number, _arg_2: IVector3D): IGraphicAsset
+    public getGraphicAsset(k: number, _arg_2: IVector3D): IGraphicAsset
     {
-        const visualization = this._Str_24650(k);
+        const visualization = this.getMaskVisualization(k);
 
         if(!visualization) return null;
 
@@ -109,7 +109,7 @@ export class PlaneMask
         return this._assetNames.get(k) || null;
     }
 
-    public _Str_24425(k: number, _arg_2: string): void
+    public setAssetName(k: number, _arg_2: string): void
     {
         if(!this._assetNames) return;
 

@@ -86,13 +86,13 @@ export class PlaneMaskManager
                             if(visualization)
                             {
                                 const size              = visualization.size as number;
-                                const maskVisualization = newMask._Str_24540(size);
+                                const maskVisualization = newMask.createMaskVisualization(size);
 
                                 if(maskVisualization)
                                 {
                                     const assetName = this._Str_25815(visualization.bitmaps, maskVisualization, _arg_2);
 
-                                    newMask._Str_24425(size, assetName);
+                                    newMask.setAssetName(size, assetName);
                                 }
                             }
 
@@ -147,7 +147,7 @@ export class PlaneMaskManager
 
         if(!mask) return true;
 
-        const asset = mask._Str_21021(_arg_3, _arg_4);
+        const asset = mask.getGraphicAsset(_arg_3, _arg_4);
 
         if(!asset) return true;
 
