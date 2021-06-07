@@ -350,7 +350,7 @@ export class SpriteDataCollector
             _local_4.set(_local_6.uniqueId, _local_10);
         }
 
-        const sprites = _arg_2._Str_14588();
+        const sprites = _arg_2.getPlaneSortableSprites();
 
         sprites.sort((a, b) =>
         {

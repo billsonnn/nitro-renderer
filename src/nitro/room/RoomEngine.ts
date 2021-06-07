@@ -2456,7 +2456,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(!this._Str_25871(canvas, x, y, type, altKey, ctrlKey, shiftKey))
         {
-            if(!canvas._Str_21232(x, y, type, altKey, ctrlKey, shiftKey, buttonDown))
+            if(!canvas.handleMouseEvent(x, y, type, altKey, ctrlKey, shiftKey, buttonDown))
             {
                 let eventType: string = null;
 
@@ -3411,7 +3411,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(_arg_5)
         {
-            canvas._Str_20787();
+            canvas.skipSpriteVisibilityChecking();
         }
 
         let _local_8 = -1;
@@ -3426,7 +3426,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         const _local_11 = _local_9._Str_24177(this);
         const _local_12 = _local_9._Str_22985(k, canvas, this, _arg_2);
 
-        if(_arg_5) canvas._Str_22174();
+        if(_arg_5) canvas.resumeSpriteVisibilityChecking();
 
         if(_arg_3)
         {
