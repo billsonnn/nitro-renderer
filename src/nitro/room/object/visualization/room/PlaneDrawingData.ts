@@ -41,7 +41,7 @@ export class PlaneDrawingData implements IPlaneDrawingData
         this._maskAssetFlipVs.push(_arg_4);
     }
 
-    public _Str_22862(k: string[]): void
+    public addAssetColumn(k: string[]): void
     {
         this._assetNames.push(k);
     }
@@ -71,32 +71,32 @@ export class PlaneDrawingData implements IPlaneDrawingData
         return this._color;
     }
 
-    public get _Str_21807(): string[]
+    public get maskAssetNames(): string[]
     {
         return this._maskAssetNames;
     }
 
-    public get _Str_20731(): Point[]
+    public get maskAssetLocations(): Point[]
     {
         return this._maskAssetLocations;
     }
 
-    public get _Str_21810(): boolean[]
+    public get maskAssetFlipHs(): boolean[]
     {
         return this._maskAssetFlipHs;
     }
 
-    public get _Str_19044(): boolean[]
+    public get maskAssetFlipVs(): boolean[]
     {
         return this._maskAssetFlipVs;
     }
 
-    public _Str_14945(): boolean
+    public isBottomAligned(): boolean
     {
         return this._alignBottom;
     }
 
-    public get _Str_17636(): string[][]
+    public get assetNameColumns(): string[][]
     {
         return this._assetNames;
     }

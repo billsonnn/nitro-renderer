@@ -509,8 +509,8 @@ export class RoomPlane implements IRoomPlane
                     {
                         const normal    = geometry.getCoordinatePosition(this._normal);
                         const cm        = layer.getMaterial()._Str_21968(normal);
-                        //const data      = new PlaneDrawingData(maskData, blend(this._color, layer.getColor()), cm._Str_14945());
-                        const data      = new PlaneDrawingData(maskData, this._color, cm._Str_14945());
+                        //const data      = new PlaneDrawingData(maskData, blend(this._color, layer.getColor()), cm.isBottomAligned());
+                        const data      = new PlaneDrawingData(maskData, this._color, cm.isBottomAligned());
 
                         Randomizer.setSeed(this._randomSeed);
 
@@ -529,11 +529,11 @@ export class RoomPlane implements IRoomPlane
                             {
                                 if(!column._Str_24523()) assetNames.push('');
 
-                                data._Str_22862(assetNames);
+                                data.addAssetColumn(assetNames);
                             }
                         }
 
-                        if(data._Str_17636.length > 0) drawingDatas.push(data);
+                        if(data.assetNameColumns.length > 0) drawingDatas.push(data);
                     }
                     else
                     {

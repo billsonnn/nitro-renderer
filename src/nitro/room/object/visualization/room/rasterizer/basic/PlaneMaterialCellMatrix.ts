@@ -85,7 +85,7 @@ export class PlaneMaterialCellMatrix
         return this._normalMaxY;
     }
 
-    public _Str_14945(): boolean
+    public isBottomAligned(): boolean
     {
         return this._align === PlaneMaterialCellMatrix._Str_3606;
     }
