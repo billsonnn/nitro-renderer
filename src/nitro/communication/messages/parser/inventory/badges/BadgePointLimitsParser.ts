@@ -1,10 +1,10 @@
-﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
-import { _Str_7446 } from './_Str_7446';
+﻿import { IMessageDataWrapper } from 'nitro-renderer/src/core/communication/messages/IMessageDataWrapper';
+import { IMessageParser } from 'nitro-renderer/src/core/communication/messages/IMessageParser';
+import { BadgeAndPointLimit } from 'nitro-renderer/src/nitro/communication/messages/parser/inventory/badges/BadgeAndPointLimit';
 
-export class _Str_7305 implements IMessageParser
+export class BadgePointLimitsParser implements IMessageParser
 {
-    private _data: _Str_7446[];
+    private _data: BadgeAndPointLimit[];
 
     public flush(): boolean
     {
@@ -28,7 +28,7 @@ export class _Str_7305 implements IMessageParser
 
             while(_local_6 < _local_5)
             {
-                this._data.push(new _Str_7446(_local_4, wrapper));
+                this._data.push(new BadgeAndPointLimit(_local_4, wrapper));
 
                 _local_6++;
             }
@@ -39,7 +39,7 @@ export class _Str_7305 implements IMessageParser
         return true;
     }
 
-    public get data(): _Str_7446[]
+    public get data(): BadgeAndPointLimit[]
     {
         return this._data;
     }

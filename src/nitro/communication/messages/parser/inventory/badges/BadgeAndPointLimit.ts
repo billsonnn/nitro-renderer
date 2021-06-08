@@ -1,6 +1,6 @@
-﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
+﻿import { IMessageDataWrapper } from 'nitro-renderer/src/core/communication/messages/IMessageDataWrapper';
 
-export class _Str_7446
+export class BadgeAndPointLimit
 {
     private _badgeId: string;
     private _limit: number;

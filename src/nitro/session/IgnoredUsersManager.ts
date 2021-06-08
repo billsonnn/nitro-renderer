@@ -79,24 +79,24 @@ export class IgnoredUsersManager implements IDisposable
             case 0:
                 return;
             case 1:
-                this._Str_19721(name);
+                this.addUserToIgnoreList(name);
                 return;
             case 2:
-                this._Str_19721(name);
+                this.addUserToIgnoreList(name);
                 this._ignoredUsers.shift();
                 return;
             case 3:
-                this._Str_23631(name);
+                this.removeUserFromIgnoreList(name);
                 return;
         }
     }
 
-    private _Str_19721(name: string): void
+    private addUserToIgnoreList(name: string): void
     {
         if(this._ignoredUsers.indexOf(name) < 0) this._ignoredUsers.push(name);
     }
 
-    private _Str_23631(name: string): void
+    private removeUserFromIgnoreList(name: string): void
     {
         const index = this._ignoredUsers.indexOf(name);
 
