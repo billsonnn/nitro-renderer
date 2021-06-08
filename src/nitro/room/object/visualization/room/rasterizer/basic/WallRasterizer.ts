@@ -12,10 +12,10 @@ export class WallRasterizer extends PlaneRasterizer
 
         const walls = this.data.walls;
 
-        if(walls && walls.length) this._Str_24495(walls);
+        if(walls && walls.length) this.parseWalls(walls);
     }
 
-    private _Str_24495(k: any): void
+    private parseWalls(k: any): void
     {
         if(!k) return;
 

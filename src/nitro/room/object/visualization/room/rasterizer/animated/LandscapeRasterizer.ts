@@ -10,7 +10,7 @@ import { LandscapePlane } from './LandscapePlane';
 
 export class LandscapeRasterizer extends PlaneRasterizer
 {
-    private static _Str_3536: number = 500;
+    private static UPDATE_INTERVAL: number = 500;
 
     private _landscapeWidth: number = 0;
     private _landscapeHeight: number = 0;
@@ -33,10 +33,10 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
         const landscapes = this.data.landscapes;
 
-        if(landscapes && landscapes.length) this._Str_25478(landscapes);
+        if(landscapes && landscapes.length) this.parseLandscapes(landscapes);
     }
 
-    private _Str_25478(k: any): void
+    private parseLandscapes(k: any): void
     {
         if(!k) return;
 
@@ -137,8 +137,8 @@ export class LandscapeRasterizer extends PlaneRasterizer
                                         {
                                             const id        = item.id;
                                             const assetId   = item.assetId;
-                                            const x         = this._Str_21504(item.x || '', item.randomX || '');
-                                            const y         = this._Str_21504(item.y || '', item.randomY || '');
+                                            const x         = this.getCoordinateValue(item.x || '', item.randomX || '');
+                                            const y         = this.getCoordinateValue(item.y || '', item.randomY || '');
                                             const speedX    = item.speedX ? item.speedX / Nitro.instance.getConfiguration<number>('animation.fps') : 0;
                                             const speedY    = item.speedY ? item.speedY / Nitro.instance.getConfiguration<number>('animation.fps') : 0;
 
@@ -166,7 +166,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
         }
     }
 
-    private _Str_21504(k: string, _arg_2: string): number
+    private getCoordinateValue(k: string, _arg_2: string): number
     {
         let _local_3 = 0;
 
@@ -221,9 +221,9 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
         let planeBitmapData: PlaneBitmapData = null;
 
-        if(!plane.isStatic(scale) && (LandscapeRasterizer._Str_3536 > 0))
+        if(!plane.isStatic(scale) && (LandscapeRasterizer.UPDATE_INTERVAL > 0))
         {
-            planeBitmapData = new PlaneBitmapData(graphic, ((Math.round((timeSinceStartMs / LandscapeRasterizer._Str_3536)) * LandscapeRasterizer._Str_3536) + LandscapeRasterizer._Str_3536));
+            planeBitmapData = new PlaneBitmapData(graphic, ((Math.round((timeSinceStartMs / LandscapeRasterizer.UPDATE_INTERVAL)) * LandscapeRasterizer.UPDATE_INTERVAL) + LandscapeRasterizer.UPDATE_INTERVAL));
         }
         else
         {

@@ -12,10 +12,10 @@ export class FloorRasterizer extends PlaneRasterizer
 
         const floors = this.data.floors;
 
-        if(floors && floors.length) this._Str_24495(floors);
+        if(floors && floors.length) this.parseFloors(floors);
     }
 
-    private _Str_24495(k: any): void
+    private parseFloors(k: any): void
     {
         if(!k) return;
 

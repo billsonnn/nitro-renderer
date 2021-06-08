@@ -7,7 +7,7 @@ import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureVoteCounterLogic extends FurnitureMultiStateLogic
 {
-    private static _Str_3536: number = 33;
+    private static UPDATE_INTERVAL: number = 33;
     private static _Str_5967: number = 1000;
 
     private _total: number;
@@ -54,13 +54,13 @@ export class FurnitureVoteCounterLogic extends FurnitureMultiStateLogic
         {
             const difference = Math.abs((this._total - this._Str_8221));
 
-            if((difference * FurnitureVoteCounterLogic._Str_3536) > FurnitureVoteCounterLogic._Str_5967)
+            if((difference * FurnitureVoteCounterLogic.UPDATE_INTERVAL) > FurnitureVoteCounterLogic._Str_5967)
             {
                 this._interval = (FurnitureVoteCounterLogic._Str_5967 / difference);
             }
             else
             {
-                this._interval = FurnitureVoteCounterLogic._Str_3536;
+                this._interval = FurnitureVoteCounterLogic.UPDATE_INTERVAL;
             }
 
             this._lastUpdate = Nitro.instance.time;
