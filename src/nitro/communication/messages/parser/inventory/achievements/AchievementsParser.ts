@@ -1,10 +1,10 @@
-﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
+﻿import { AchievementData } from 'nitro-renderer/src/nitro/communication/messages/incoming/inventory/achievements/AchievementData';
+import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
-import { Achievement } from '../../../incoming/inventory/achievements/Achievement';
 
 export class AchievementsParser implements IMessageParser
 {
-    private _achievements: Achievement[];
+    private _achievements: AchievementData[];
     private _Str_19269: string;
 
     public flush(): boolean
@@ -25,7 +25,7 @@ export class AchievementsParser implements IMessageParser
 
         while(totalCount > 0)
         {
-            this._achievements.push(new Achievement(k));
+            this._achievements.push(new AchievementData(k));
 
             totalCount--;
         }
@@ -35,7 +35,7 @@ export class AchievementsParser implements IMessageParser
         return true;
     }
 
-    public get achievements(): Achievement[]
+    public get achievements(): AchievementData[]
     {
         return this._achievements;
     }

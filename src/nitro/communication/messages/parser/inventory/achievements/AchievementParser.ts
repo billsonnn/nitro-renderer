@@ -1,10 +1,10 @@
 ﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
-import { Achievement } from '../../../incoming/inventory/achievements/Achievement';
+import { AchievementData } from '../../../incoming/inventory/achievements/AchievementData';
 
 export class AchievementParser implements IMessageParser
 {
-    private _achievement: Achievement;
+    private _achievement: AchievementData;
 
     public flush(): boolean
     {
@@ -17,12 +17,12 @@ export class AchievementParser implements IMessageParser
     {
         if(!k) return false;
 
-        this._achievement = new Achievement(k);
+        this._achievement = new AchievementData(k);
 
         return true;
     }
 
-    public get achievement(): Achievement
+    public get achievement(): AchievementData
     {
         return this._achievement;
     }

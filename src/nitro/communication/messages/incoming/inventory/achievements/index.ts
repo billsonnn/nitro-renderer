@@ -1,4 +1,4 @@
-export * from './Achievement';
+export * from './AchievementData';
 export * from './AchievementEvent';
 export * from './AchievementResolution';
 export * from './AchievementsEvent';
