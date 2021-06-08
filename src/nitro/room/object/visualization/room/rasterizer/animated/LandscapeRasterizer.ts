@@ -59,8 +59,8 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
                 const size = visualization.size;
 
-                let horizontalAngle = LandscapePlane._Str_5433;
-                let verticalAngle   = LandscapePlane._Str_5509;
+                let horizontalAngle = LandscapePlane.HORIZONTAL_ANGLE_DEFAULT;
+                let verticalAngle   = LandscapePlane.VERTICAL_ANGLE_DEFAULT;
 
                 if(visualization.horizontalAngle) horizontalAngle   = visualization.horizontalAngle;
                 if(visualization.verticalAngle) verticalAngle       = visualization.verticalAngle;
@@ -89,7 +89,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
                             {
                                 let material: PlaneMaterial     = null;
                                 let align: number               = PlaneVisualizationLayer._Str_6914;
-                                let color: number               = LandscapePlane._Str_2531;
+                                let color: number               = LandscapePlane.DEFAULT_COLOR;
                                 let offset: number              = PlaneVisualizationLayer.DEFAULT_OFFSET;
 
                                 if(layer.materialId) material = this.getMaterial(layer.materialId);
