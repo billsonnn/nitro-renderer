@@ -1139,10 +1139,10 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(camera)
         {
-            camera._Str_10760   = objectId;
-            camera._Str_16562   = RoomObjectCategory.UNIT;
+            camera.targetId   = objectId;
+            camera.targetCategory   = RoomObjectCategory.UNIT;
 
-            camera._Str_19465(this._Str_19549);
+            camera.activateFollowing(this._Str_19549);
         }
     }
 
@@ -1162,7 +1162,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
             if(!camera) continue;
 
-            const object = this.getRoomObject(instanceData.roomId, camera._Str_10760, camera._Str_16562);
+            const object = this.getRoomObject(instanceData.roomId, camera.targetId, camera.targetCategory);
 
             if(!object) continue;
 
@@ -1214,9 +1214,9 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
             roomCamera.reset();
         }
 
-        if((roomCamera._Str_7609 !== width) || (roomCamera._Str_7902 !== height) || (roomCamera.scale !== roomGeometry.scale) || (roomCamera._Str_16377 !== roomGeometry.updateId) || !Vector3d.isEqual(objectLocation, roomCamera._Str_16185) || roomCamera._Str_12536)
+        if((roomCamera.screenWd !== width) || (roomCamera.screenHt !== height) || (roomCamera.scale !== roomGeometry.scale) || (roomCamera.geometryUpdateId !== roomGeometry.updateId) || !Vector3d.isEqual(objectLocation, roomCamera.targetObjectLoc) || roomCamera.isMoving)
         {
-            roomCamera._Str_16185 = objectLocation;
+            roomCamera.targetObjectLoc = objectLocation;
 
             const _local_15 = new Vector3d();
 
@@ -1349,11 +1349,11 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
             {
                 _local_41 = (150 / height);
             }
-            if((((roomCamera._Str_10235) && (roomCamera._Str_7609 == width)) && (roomCamera._Str_7902 == height)))
+            if((((roomCamera.limitedLocationX) && (roomCamera.screenWd == width)) && (roomCamera.screenHt == height)))
             {
                 _local_42 = 0;
             }
-            if((((roomCamera._Str_10446) && (roomCamera._Str_7609 == width)) && (roomCamera._Str_7902 == height)))
+            if((((roomCamera.limitedLocationY) && (roomCamera.screenWd == width)) && (roomCamera.screenHt == height)))
             {
                 _local_40 = 0;
                 _local_41 = 0;
@@ -1399,11 +1399,11 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                     roomGeometry.location = _local_15;
                     if(this._Str_11555)
                     {
-                        roomCamera._Str_20685(new Vector3d(0, 0, 0));
+                        roomCamera.initializeLocation(new Vector3d(0, 0, 0));
                     }
                     else
                     {
-                        roomCamera._Str_20685(_local_15);
+                        roomCamera.initializeLocation(_local_15);
                     }
                 }
                 const _local_45 = roomGeometry.getScreenPoint(_local_15);
@@ -1413,10 +1413,10 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                     _local_46.x = _local_45.x;
                     _local_46.y = _local_45.y;
                 }
-                if(((((((((_local_33.x < canvasRectangle.left) || (_local_33.x > canvasRectangle.right)) && (!(roomCamera._Str_8564))) || (((_local_33.y < canvasRectangle.top) || (_local_33.y > canvasRectangle.bottom)) && (!(roomCamera._Str_8690)))) || (((_local_36) && (!(roomCamera._Str_8564))) && (!(roomCamera._Str_7609 == width)))) || (((_local_37) && (!(roomCamera._Str_8690))) && (!(roomCamera._Str_7902 == height)))) || ((!(roomCamera._Str_18975 == bounds.width)) || (!(roomCamera._Str_15953 == bounds.height)))) || ((!(roomCamera._Str_7609 == width)) || (!(roomCamera._Str_7902 == height)))))
+                if(((((((((_local_33.x < canvasRectangle.left) || (_local_33.x > canvasRectangle.right)) && (!(roomCamera.centeredLocX))) || (((_local_33.y < canvasRectangle.top) || (_local_33.y > canvasRectangle.bottom)) && (!(roomCamera.centeredLocY)))) || (((_local_36) && (!(roomCamera.centeredLocX))) && (!(roomCamera.screenWd == width)))) || (((_local_37) && (!(roomCamera.centeredLocY))) && (!(roomCamera.screenHt == height)))) || ((!(roomCamera.roomWd == bounds.width)) || (!(roomCamera.roomHt == bounds.height)))) || ((!(roomCamera.screenWd == width)) || (!(roomCamera.screenHt == height)))))
                 {
-                    roomCamera._Str_10235 = _local_34;
-                    roomCamera._Str_10446 = _local_35;
+                    roomCamera.limitedLocationX = _local_34;
+                    roomCamera.limitedLocationY = _local_35;
                     if(this._Str_11555)
                     {
                         roomCamera.target = _local_46;
@@ -1428,20 +1428,20 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                 }
                 else
                 {
-                    if(!_local_34) roomCamera._Str_10235 = false;
+                    if(!_local_34) roomCamera.limitedLocationX = false;
 
-                    if(!_local_35) roomCamera._Str_10446 = false;
+                    if(!_local_35) roomCamera.limitedLocationY = false;
                 }
             }
 
-            roomCamera._Str_8564 = _local_36;
-            roomCamera._Str_8690 = _local_37;
-            roomCamera._Str_7609 = width;
-            roomCamera._Str_7902 = height;
+            roomCamera.centeredLocX = _local_36;
+            roomCamera.centeredLocY = _local_37;
+            roomCamera.screenWd = width;
+            roomCamera.screenHt = height;
             roomCamera.scale = roomGeometry.scale;
-            roomCamera._Str_16377 = roomGeometry.updateId;
-            roomCamera._Str_18975 = bounds.width;
-            roomCamera._Str_15953 = bounds.height;
+            roomCamera.geometryUpdateId = roomGeometry.updateId;
+            roomCamera.roomWd = bounds.width;
+            roomCamera.roomHt = bounds.height;
 
             if(!this._sessionDataManager.isCameraFollowDisabled)
             {
@@ -1467,10 +1467,10 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         }
         else
         {
-            roomCamera._Str_10235 = false;
-            roomCamera._Str_10446 = false;
-            roomCamera._Str_8564 = false;
-            roomCamera._Str_8690 = false;
+            roomCamera.limitedLocationX = false;
+            roomCamera.limitedLocationY = false;
+            roomCamera.centeredLocX = false;
+            roomCamera.centeredLocY = false;
         }
     }
 
@@ -2525,13 +2525,13 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                             {
                                 if(this._Str_11555)
                                 {
-                                    if(!camera._Str_12536)
+                                    if(!camera.isMoving)
                                     {
-                                        camera._Str_8564 = false;
-                                        camera._Str_8690 = false;
+                                        camera.centeredLocX = false;
+                                        camera.centeredLocY = false;
                                     }
 
-                                    camera._Str_25467(new Vector3d(-(canvas.screenOffsetX), -(canvas.screenOffsetY)));
+                                    camera.resetLocation(new Vector3d(-(canvas.screenOffsetX), -(canvas.screenOffsetY)));
                                 }
 
                                 if(this._roomDraggingAlwaysCenters) camera.reset();

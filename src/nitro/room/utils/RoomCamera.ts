@@ -36,92 +36,92 @@ export class RoomCamera
         return this._currentLoc;
     }
 
-    public get _Str_10760(): number
+    public get targetId(): number
     {
         return this._targetId;
     }
 
-    public set _Str_10760(k: number)
+    public set targetId(k: number)
     {
         this._targetId = k;
     }
 
-    public get _Str_16562(): number
+    public get targetCategory(): number
     {
         return this._targetCategory;
     }
 
-    public set _Str_16562(k: number)
+    public set targetCategory(k: number)
     {
         this._targetCategory = k;
     }
 
-    public get _Str_16185():IVector3D
+    public get targetObjectLoc():IVector3D
     {
         return this._targetObjectLoc;
     }
 
-    public set _Str_16185(k:IVector3D)
+    public set targetObjectLoc(k:IVector3D)
     {
         this._targetObjectLoc.assign(k);
     }
 
-    public get _Str_10235(): boolean
+    public get limitedLocationX(): boolean
     {
         return this._limitedLocX;
     }
 
-    public set _Str_10235(k: boolean)
+    public set limitedLocationX(k: boolean)
     {
         this._limitedLocX = k;
     }
 
-    public get _Str_10446(): boolean
+    public get limitedLocationY(): boolean
     {
         return this._limitedLocY;
     }
 
-    public set _Str_10446(k: boolean)
+    public set limitedLocationY(k: boolean)
     {
         this._limitedLocY = k;
     }
 
-    public get _Str_8564(): boolean
+    public get centeredLocX(): boolean
     {
         return this._centeredLocX;
     }
 
-    public set _Str_8564(k: boolean)
+    public set centeredLocX(k: boolean)
     {
         this._centeredLocX = k;
     }
 
-    public get _Str_8690(): boolean
+    public get centeredLocY(): boolean
     {
         return this._centeredLocY;
     }
 
-    public set _Str_8690(k: boolean)
+    public set centeredLocY(k: boolean)
     {
         this._centeredLocY = k;
     }
 
-    public get _Str_7609(): number
+    public get screenWd(): number
     {
         return this._screenWd;
     }
 
-    public set _Str_7609(k: number)
+    public set screenWd(k: number)
     {
         this._screenWd = k;
     }
 
-    public get _Str_7902(): number
+    public get screenHt(): number
     {
         return this._screenHt;
     }
 
-    public set _Str_7902(k: number)
+    public set screenHt(k: number)
     {
         this._screenHt = k;
     }
@@ -140,37 +140,37 @@ export class RoomCamera
         }
     }
 
-    public get _Str_18975(): number
+    public get roomWd(): number
     {
         return this._roomWd;
     }
 
-    public set _Str_18975(k: number)
+    public set roomWd(k: number)
     {
         this._roomWd = k;
     }
 
-    public get _Str_15953(): number
+    public get roomHt(): number
     {
         return this._roomHt;
     }
 
-    public set _Str_15953(k: number)
+    public set roomHt(k: number)
     {
         this._roomHt = k;
     }
 
-    public get _Str_16377(): number
+    public get geometryUpdateId(): number
     {
         return this._geometryUpdateId;
     }
 
-    public set _Str_16377(k: number)
+    public set geometryUpdateId(k: number)
     {
         this._geometryUpdateId = k;
     }
 
-    public get _Str_12536(): boolean
+    public get isMoving(): boolean
     {
         if(((!(this._targetLoc == null)) && (!(this._currentLoc == null))))
         {
@@ -201,7 +201,7 @@ export class RoomCamera
         this._currentLoc = null;
     }
 
-    public _Str_20685(k:IVector3D): void
+    public initializeLocation(k:IVector3D): void
     {
         if(this._currentLoc != null)
         {
@@ -211,7 +211,7 @@ export class RoomCamera
         this._currentLoc.assign(k);
     }
 
-    public _Str_25467(k:IVector3D): void
+    public resetLocation(k:IVector3D): void
     {
         if(this._currentLoc == null)
         {
@@ -281,7 +281,7 @@ export class RoomCamera
         this._geometryUpdateId = -1;
     }
 
-    public _Str_19465(k: number): void
+    public activateFollowing(k: number): void
     {
         this._followDuration = k;
     }
