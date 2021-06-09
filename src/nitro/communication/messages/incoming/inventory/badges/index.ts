@@ -1,4 +1,4 @@
+export * from './BadgePointLimitsEvent';
+export * from './BadgeReceivedEvent';
 export * from './BadgesEvent';
-export * from './_Str_8120';
-export * from './_Str_8179';
-export * from './_Str_8980';
+export * from './IsBadgeRequestFulfilledEvent';
