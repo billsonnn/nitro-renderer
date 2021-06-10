@@ -338,6 +338,9 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             case RoomObjectMouseEvent.MOUSE_DOWN:
                 this.handleRoomObjectMouseDownEvent(event, roomId);
                 return;
+            case RoomObjectMouseEvent.MOUSE_DOWN_LONG:
+                this.handleRoomObjectMouseDownLongEvent(event, roomId);
+                return;
             case RoomObjectMouseEvent.MOUSE_ENTER:
                 this.handleRoomObjectMouseEnterEvent(event, roomId);
                 return;
@@ -599,6 +602,32 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                     if((event.altKey && !event.ctrlKey && !event.shiftKey) || this._Str_25211(event))
                     {
                         if(this._roomEngine.events) this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.REQUEST_MOVE, roomId, event.objectId, category));
+                    }
+                }
+                return;
+        }
+    }
+
+    private handleRoomObjectMouseDownLongEvent(event: RoomObjectMouseEvent, roomId: number): void
+    {
+        if(!event) return;
+
+        let operation = RoomObjectOperationType.OBJECT_UNDEFINED;
+
+        const selectedData = this.getSelectedRoomObjectData(roomId);
+
+        if(selectedData) operation = selectedData.operation;
+
+        const category = this._roomEngine.getRoomObjectCategoryForType(event.objectType);
+
+        switch(operation)
+        {
+            case RoomObjectOperationType.OBJECT_UNDEFINED:
+                if((category === RoomObjectCategory.FLOOR) || (category === RoomObjectCategory.WALL) || (event.objectType === RoomObjectUserType.MONSTER_PLANT))
+                {
+                    if((!event.ctrlKey && !event.shiftKey) || this._Str_25211(event))
+                    {
+                        if(this._roomEngine.events) this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.REQUEST_MANIPULATION, roomId, event.objectId, category));
                     }
                 }
                 return;

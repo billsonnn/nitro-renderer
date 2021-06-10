@@ -62,7 +62,7 @@ export class FurnitureLogic extends MovingObjectLogic
 
     public getEventTypes(): string[]
     {
-        const types = [ RoomObjectStateChangedEvent.STATE_CHANGE, RoomObjectMouseEvent.CLICK, RoomObjectMouseEvent.MOUSE_DOWN ];
+        const types = [ RoomObjectStateChangedEvent.STATE_CHANGE, RoomObjectMouseEvent.CLICK, RoomObjectMouseEvent.MOUSE_DOWN, RoomObjectMouseEvent.MOUSE_DOWN_LONG ];
 
         if(this.widget) types.push(RoomObjectWidgetRequestEvent.OPEN_WIDGET, RoomObjectWidgetRequestEvent.CLOSE_WIDGET);
 
@@ -312,6 +312,14 @@ export class FurnitureLogic extends MovingObjectLogic
                 if(this.eventDispatcher)
                 {
                     const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_DOWN, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+
+                    this.eventDispatcher.dispatchEvent(mouseEvent);
+                }
+                return;
+            case MouseEventType.MOUSE_DOWN_LONG:
+                if(this.eventDispatcher)
+                {
+                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_DOWN_LONG, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
                     this.eventDispatcher.dispatchEvent(mouseEvent);
                 }

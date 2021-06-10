@@ -2476,6 +2476,8 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
                     else if(type === MouseEventType.MOUSE_DOWN) eventType = RoomObjectMouseEvent.MOUSE_DOWN;
 
+                    else if(type === MouseEventType.MOUSE_DOWN_LONG) eventType = RoomObjectMouseEvent.MOUSE_DOWN_LONG;
+
                     else if(type === MouseEventType.MOUSE_UP) eventType = RoomObjectMouseEvent.MOUSE_UP;
                 }
 
@@ -2483,9 +2485,9 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
             }
         }
 
-        this._activeRoomActiveCanvas  = canvasId;
-        this._activeRoomActiveCanvasMouseX        = x;
-        this._activeRoomActiveCanvasMouseY        = y;
+        this._activeRoomActiveCanvas        = canvasId;
+        this._activeRoomActiveCanvasMouseX  = x;
+        this._activeRoomActiveCanvasMouseY  = y;
     }
 
     private _Str_25871(canvas: IRoomRenderingCanvas, x: number, y: number, type: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean): boolean
