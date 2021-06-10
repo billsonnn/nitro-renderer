@@ -221,7 +221,7 @@ export class Nitro extends Application implements INitro
         const animationFPS  = this.getConfiguration<number>('animation.fps', 24);
         const limitsFPS     = this.getConfiguration<boolean>('limits.fps', true);
 
-        Nitro.instance.ticker.maxFPS = animationFPS;
+        if(limitsFPS) Nitro.instance.ticker.maxFPS = animationFPS;
     }
 
     private onRoomEngineReady(event: RoomEngineEvent): void
