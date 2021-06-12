@@ -26,7 +26,10 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     private _container: IRoomSpriteCanvasContainer;
 
     private _geometry: RoomGeometry;
+    private _animationFPS: number;
     private _renderTimestamp: number;
+    private _totalTimeRunning: number;
+    private _lastFrame: number;
 
     private _master: Sprite;
     private _display: Container;
@@ -71,7 +74,10 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         this._container                     = container;
 
         this._geometry                      = new RoomGeometry(scale, new Vector3d(-135, 30, 0), new Vector3d(11, 11, 5), new Vector3d(-135, 0.5, 0));
+        this._animationFPS                  = Nitro.instance.getConfiguration<number>('animation.fps', 24);
         this._renderTimestamp               = 0;
+        this._totalTimeRunning              = 0;
+        this._lastFrame                     = 0;
 
         this._master                        = null;
         this._display                       = null;
@@ -321,11 +327,13 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         this._canvasUpdated = false;
 
+        this._totalTimeRunning += Nitro.instance.ticker.deltaTime;
+
+        if(this._totalTimeRunning === this._renderTimestamp) return;
+
         if(time === -1) time = (this._renderTimestamp + 1);
 
         if(!this._container || !this._geometry) return;
-
-        if(time === this._renderTimestamp) return;
 
         if((this._width !== this._renderedWidth) || (this._height !== this._renderedHeight)) update = true;
 
@@ -344,46 +352,53 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             update = true;
         }
 
-        let spriteCount = 0;
+        const frame = Math.round(this._totalTimeRunning / (60 / this._animationFPS));
 
-        const objects = this._container.objects;
-
-        if(objects.size)
+        if(frame !== this._lastFrame)
         {
-            for(const object of objects.values())
+            this._lastFrame = frame;
+
+            let spriteCount = 0;
+
+            const objects = this._container.objects;
+
+            if(objects.size)
             {
-                if(!object) continue;
+                for(const object of objects.values())
+                {
+                    if(!object) continue;
 
-                spriteCount = (spriteCount + this.renderObject(object, object.instanceId.toString(), time, update, spriteCount));
+                    spriteCount = (spriteCount + this.renderObject(object, object.instanceId.toString(), time, update, spriteCount));
+                }
             }
+
+            this._sortableSprites.sort((a, b) =>
+            {
+                return b.z - a.z;
+            });
+
+            if(spriteCount < this._sortableSprites.length)
+            {
+                this._sortableSprites.splice(spriteCount);
+            }
+
+            let iterator = 0;
+
+            while(iterator < spriteCount)
+            {
+                const sprite = this._sortableSprites[iterator];
+
+                if(sprite && sprite.sprite) this.renderSprite(iterator, sprite);
+
+                iterator++;
+            }
+
+            this.cleanSprites(spriteCount);
         }
-
-        this._sortableSprites.sort((a, b) =>
-        {
-            return b.z - a.z;
-        });
-
-        if(spriteCount < this._sortableSprites.length)
-        {
-            this._sortableSprites.splice(spriteCount);
-        }
-
-        let iterator = 0;
-
-        while(iterator < spriteCount)
-        {
-            const sprite = this._sortableSprites[iterator];
-
-            if(sprite && sprite.sprite) this.renderSprite(iterator, sprite);
-
-            iterator++;
-        }
-
-        this.cleanSprites(spriteCount);
 
         if(update) this._canvasUpdated = true;
 
-        this._renderTimestamp   = time;
+        this._renderTimestamp   = this._totalTimeRunning;
         this._renderedWidth     = this._width;
         this._renderedHeight    = this._height;
     }

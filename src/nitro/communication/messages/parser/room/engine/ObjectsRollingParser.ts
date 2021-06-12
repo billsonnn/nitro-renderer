@@ -21,7 +21,7 @@ export class ObjectsRollingParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return;
+        if(!wrapper) return false;
 
         const x     = wrapper.readInt();
         const y     = wrapper.readInt();

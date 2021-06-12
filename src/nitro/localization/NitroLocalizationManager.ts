@@ -153,7 +153,48 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
         {
             for(let i = 0; i < parameters.length; i++)
             {
-                value = value.replace('%' + parameters[i] + '%', replacements[i]);
+                const parameter = parameters[i];
+                const replacement = replacements[i];
+
+                value = value.replace('%' + parameter + '%', replacement);
+
+                if(value.startsWith('%{'))
+                {
+                    const regex     = new RegExp('%{' + parameter.toUpperCase() + '\\|([^|]*)\\|([^|]*)\\|([^|]*)}');
+                    const result    = value.match(regex);
+
+                    if(!result) continue;
+
+                    const replacementAsNumber = parseInt(replacement);
+
+                    let indexKey    =  -1;
+                    let replace     = false;
+
+                    switch(replacementAsNumber)
+                    {
+                        case 0:
+                            indexKey = 1;
+                            break;
+                        case 1:
+                            indexKey = 2;
+                            break;
+                        case 2:
+                        default:
+                            indexKey = 3;
+                            replace = true;
+                            break;
+                    }
+
+
+                    if((indexKey === -1) || (typeof result[indexKey] === 'undefined')) continue;
+
+                    const valueFromResults = result[indexKey];
+
+                    if(valueFromResults)
+                    {
+                        value = valueFromResults.replace('%%', replacement);
+                    }
+                }
             }
         }
 
