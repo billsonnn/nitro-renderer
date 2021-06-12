@@ -32,14 +32,14 @@ export class FurnitureExternalImageVisualization extends FurnitureDynamicThumbna
 
         let url = (json.w || '');
 
-        url = this._Str_18056(url);
+        url = this.buildThumbnailUrl(url);
 
         this._url = url;
 
         return this._url;
     }
 
-    private _Str_18056(url: string): string
+    private buildThumbnailUrl(url: string): string
     {
         url = url.replace('.png', '_small.png');
 

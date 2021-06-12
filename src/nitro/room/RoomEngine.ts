@@ -902,7 +902,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         this._roomManager.update(time, update);
 
-        this._Str_22919(time);
+        this.updateRoomCameras(time);
 
         if(this._mouseCursorUpdate) this.setPointer();
 
@@ -915,7 +915,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         const instanceData = this.getRoomInstanceData(this._activeRoomId);
 
-        if(instanceData && instanceData._Str_22598())
+        if(instanceData && instanceData.hasButtonMouseCursorOwners())
         {
             document.body.style.cursor = 'pointer';
         }
@@ -1143,17 +1143,17 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
             camera.targetId   = objectId;
             camera.targetCategory   = RoomObjectCategory.UNIT;
 
-            camera.activateFollowing(this._Str_19549);
+            camera.activateFollowing(this.cameraFollowDuration);
         }
     }
 
-    private get _Str_19549(): number
+    private get cameraFollowDuration(): number
     {
         return 1000;
         //return (getBoolean("room.camera.follow_user")) ? 1000 : 0;
     }
 
-    private _Str_22919(time: number): void
+    private updateRoomCameras(time: number): void
     {
         for(const instanceData of this._roomInstanceDatas.values())
         {
@@ -1169,7 +1169,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
             if((instanceData.roomId !== this._activeRoomId) || !this._activeRoomIsDragged)
             {
-                this._Str_25242(instanceData.roomId, 1, object.getLocation(), time);
+                this.updateRoomCamera(instanceData.roomId, 1, object.getLocation(), time);
             }
         }
 
@@ -1188,7 +1188,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         }
     }
 
-    private _Str_25242(roomId: number, canvasId: number, objectLocation: IVector3D, time: number): void
+    private updateRoomCamera(roomId: number, canvasId: number, objectLocation: IVector3D, time: number): void
     {
         const renderingCanvas   = this.getRoomInstanceRenderingCanvas(roomId, canvasId);
         const instanceData      = this.getRoomInstanceData(roomId);
@@ -1201,7 +1201,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(!roomGeometry || !roomCamera || !roomInstance) return;
 
-        const canvasRectangle = this._Str_25261(roomId, canvasId);
+        const canvasRectangle = this.getRoomCanvasRectangle(roomId, canvasId);
 
         if(!canvasRectangle) return;
 
@@ -1475,7 +1475,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         }
     }
 
-    private _Str_25261(roomId: number, canvasId: number): Rectangle
+    private getRoomCanvasRectangle(roomId: number, canvasId: number): Rectangle
     {
         const canvas = this.getRoomInstanceRenderingCanvas(roomId, canvasId);
 
@@ -2615,7 +2615,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
             if(instanceData)
             {
-                if(instanceData._Str_16810((category + '_' + objectId))) this._mouseCursorUpdate = true;
+                if(instanceData.addButtonMouseCursorOwner((category + '_' + objectId))) this._mouseCursorUpdate = true;
             }
         }
     }
@@ -2628,7 +2628,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(instanceData)
         {
-            if(instanceData._Str_11959((category + '_' + objectId))) this._mouseCursorUpdate = true;
+            if(instanceData.removeButtonMouseCursorOwner((category + '_' + objectId))) this._mouseCursorUpdate = true;
         }
     }
 
