@@ -2724,7 +2724,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         this._roomObjectEventHandler._Str_8675(this._activeRoomId);
     }
 
-    private _Str_24651(k: Sprite, _arg_2: string, _arg_3: Texture, scale: number = 1): Sprite
+    private addOverlayIconSprite(k: Sprite, _arg_2: string, _arg_3: Texture, scale: number = 1): Sprite
     {
         if(!k || !_arg_3) return;
 
@@ -2769,7 +2769,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         }
     }
 
-    public _Str_16645(objectId: number, category: number, _arg_3: boolean, instanceData: string = null, stuffData: IObjectData = null, state: number = -1, frameNumber: number = -1, posture: string = null): void
+    public setObjectMoverIconSprite(objectId: number, category: number, _arg_3: boolean, instanceData: string = null, stuffData: IObjectData = null, state: number = -1, frameNumber: number = -1, posture: string = null): void
     {
         let type: string                = null;
         let colorIndex                  = 0;
@@ -2828,9 +2828,9 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         const overlay = this.getRenderingCanvasOverlay(canvas);
 
-        this._Str_21215(overlay, RoomEngine.OBJECT_ICON_SPRITE);
+        this.removeOverlayIconSprite(overlay, RoomEngine.OBJECT_ICON_SPRITE);
 
-        const _local_15 = this._Str_24651(overlay, RoomEngine.OBJECT_ICON_SPRITE, imageResult.data, scale);
+        const _local_15 = this.addOverlayIconSprite(overlay, RoomEngine.OBJECT_ICON_SPRITE, imageResult.data, scale);
 
         if(_local_15)
         {
@@ -3266,7 +3266,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         if(geometry) geometry.dispose();
     }
 
-    public _Str_7972(k: boolean): void
+    public setObjectMoverIconSpriteVisible(k: boolean): void
     {
         const canvas = this.getActiveRoomInstanceRenderingCanvas();
 
@@ -3281,7 +3281,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         }
     }
 
-    public _Str_17948(): void
+    public removeObjectMoverIconSprite(): void
     {
         const canvas = this.getActiveRoomInstanceRenderingCanvas();
 
@@ -3289,7 +3289,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         const sprite = this.getRenderingCanvasOverlay(canvas);
 
-        this._Str_21215(sprite, RoomEngine.OBJECT_ICON_SPRITE);
+        this.removeOverlayIconSprite(sprite, RoomEngine.OBJECT_ICON_SPRITE);
     }
 
     private getRenderingCanvasOverlay(k: IRoomRenderingCanvas): Sprite
@@ -3307,7 +3307,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return sprite;
     }
 
-    private _Str_21215(k: Sprite, _arg_2: string): boolean
+    private removeOverlayIconSprite(k: Sprite, _arg_2: string): boolean
     {
         if(!k) return false;
 
