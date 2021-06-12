@@ -319,7 +319,7 @@ export class FurnitureLogic extends MovingObjectLogic
             case MouseEventType.MOUSE_DOWN_LONG:
                 if(this.eventDispatcher)
                 {
-                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_DOWN_LONG, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_DOWN_LONG, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
                     this.eventDispatcher.dispatchEvent(mouseEvent);
                 }
