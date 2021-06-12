@@ -692,7 +692,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         switch(event.type)
         {
             case RoomObjectDimmerStateUpdateEvent.DIMMER_STATE:
-                this._roomEngine.events.dispatchEvent(new RoomEngineDimmerStateEvent(roomId, event.state, event._Str_14686, event._Str_6815, event.color, event._Str_5123));
+                this._roomEngine.events.dispatchEvent(new RoomEngineDimmerStateEvent(roomId, event.state, event.presetId, event.effectId, event.color, event.brightness));
                 return;
         }
     }

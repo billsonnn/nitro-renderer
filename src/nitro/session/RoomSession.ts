@@ -224,11 +224,11 @@ export class RoomSession extends Disposable implements IRoomSession
         this._connection.send(new RoomTakeRightsComposer(userId));
     }
 
-    public updateMoodlightData(id: number, _Str_24446: number, color: number, _Str_5123: number, apply: boolean): void
+    public updateMoodlightData(id: number, _Str_24446: number, color: number, brightness: number, apply: boolean): void
     {
         const local6 = '000000' + color.toString(16).toUpperCase();
         const local7 = '#' + local6.substring((local6.length - 6));
-        this.connection.send(new MoodlightSettingsSaveComposer(id, _Str_24446, local7, _Str_5123, apply));
+        this.connection.send(new MoodlightSettingsSaveComposer(id, _Str_24446, local7, brightness, apply));
     }
 
     public toggleMoodlightState(): void
