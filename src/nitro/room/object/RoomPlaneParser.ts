@@ -1407,7 +1407,7 @@ export class RoomPlaneParser
 
         if(!planeData) return null;
 
-        return planeData._Str_25207;
+        return planeData.normalDirection;
     }
 
     public getPlaneSecondaryNormals(k: number): IVector3D[]
@@ -1423,9 +1423,9 @@ export class RoomPlaneParser
         {
             _local_3 = [];
             _local_4 = 0;
-            while(_local_4 < _local_2._Str_20277)
+            while(_local_4 < _local_2.secondaryNormalCount)
             {
-                _local_3.push(_local_2._Str_22585(_local_4));
+                _local_3.push(_local_2.getSecondaryNormal(_local_4));
                 _local_4++;
             }
             return _local_3;
@@ -1452,7 +1452,7 @@ export class RoomPlaneParser
 
         if(!planeData) return 0;
 
-        return planeData._Str_6845;
+        return planeData.maskCount;
     }
 
     public getPlaneMaskLeftSideLoc(k: number, _arg_2: number): number
@@ -1463,7 +1463,7 @@ export class RoomPlaneParser
 
         if(!planeData) return -1;
 
-        return planeData._Str_25133(_arg_2);
+        return planeData.getMaskLeftSideLoc(_arg_2);
     }
 
     public getPlaneMaskRightSideLoc(k: number, _arg_2: number): number
@@ -1474,7 +1474,7 @@ export class RoomPlaneParser
 
         if(!planeData) return -1;
 
-        return planeData._Str_23609(_arg_2);
+        return planeData.getMaskRightSideLoc(_arg_2);
     }
 
     public getPlaneMaskLeftSideLength(k: number, _arg_2: number): number
@@ -1485,7 +1485,7 @@ export class RoomPlaneParser
 
         if(!planeData) return -1;
 
-        return planeData._Str_25097(_arg_2);
+        return planeData.getMaskLeftSideLength(_arg_2);
     }
 
     public getPlaneMaskRightSideLength(k: number, _arg_2: number): number
@@ -1496,7 +1496,7 @@ export class RoomPlaneParser
 
         if(!planeData) return -1;
 
-        return planeData._Str_25617(_arg_2);
+        return planeData.getMaskRightSideLength(_arg_2);
     }
 
     public addFloorHole(k: number, _arg_2: number, _arg_3: number, _arg_4: number, _arg_5: number): void

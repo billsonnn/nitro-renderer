@@ -895,9 +895,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         for(const mask of this._roomPlaneBitmapMaskParser.masks.values())
         {
-            const maskType      = this._roomPlaneBitmapMaskParser._Str_21678(mask);
-            const maskLocation  = this._roomPlaneBitmapMaskParser._Str_19038(mask);
-            const maskCategory  = this._roomPlaneBitmapMaskParser._Str_21644(mask);
+            const maskType      = this._roomPlaneBitmapMaskParser.getMaskType(mask);
+            const maskLocation  = this._roomPlaneBitmapMaskParser.getMaskLocation(mask);
+            const maskCategory  = this._roomPlaneBitmapMaskParser.getMaskCategory(mask);
 
             if(maskLocation)
             {

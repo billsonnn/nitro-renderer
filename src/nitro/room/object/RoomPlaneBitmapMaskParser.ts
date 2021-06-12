@@ -11,7 +11,7 @@ export class RoomPlaneBitmapMaskParser
         this._masks = new Map();
     }
 
-    public get _Str_6845(): number
+    public get maskCount(): number
     {
         return this._masks.size;
     }
@@ -69,7 +69,7 @@ export class RoomPlaneBitmapMaskParser
         this._masks.set(k, mask);
     }
 
-    public _Str_23574(k: string): boolean
+    public removeMask(k: string): boolean
     {
         const existing = this._masks.get(k);
 
@@ -85,7 +85,7 @@ export class RoomPlaneBitmapMaskParser
         return false;
     }
 
-    public _Str_5598(): RoomMapMaskData
+    public getXML(): RoomMapMaskData
     {
         const data = new RoomMapMaskData();
 
@@ -93,9 +93,9 @@ export class RoomPlaneBitmapMaskParser
         {
             if(!mask) continue;
 
-            const type      = this._Str_21678(mask);
-            const category  = this._Str_21644(mask);
-            const location  = this._Str_19038(mask);
+            const type      = this.getMaskType(mask);
+            const category  = this.getMaskCategory(mask);
+            const location  = this.getMaskLocation(mask);
 
             if(type && category && location)
             {
@@ -119,21 +119,21 @@ export class RoomPlaneBitmapMaskParser
         return data;
     }
 
-    public _Str_19038(mask: RoomPlaneBitmapMaskData): IVector3D
+    public getMaskLocation(mask: RoomPlaneBitmapMaskData): IVector3D
     {
         if(!mask) return null;
 
         return mask.loc;
     }
 
-    public _Str_21678(mask: RoomPlaneBitmapMaskData): string
+    public getMaskType(mask: RoomPlaneBitmapMaskData): string
     {
         if(!mask) return null;
 
         return mask.type;
     }
 
-    public _Str_21644(mask: RoomPlaneBitmapMaskData): string
+    public getMaskCategory(mask: RoomPlaneBitmapMaskData): string
     {
         if(!mask) return null;
 

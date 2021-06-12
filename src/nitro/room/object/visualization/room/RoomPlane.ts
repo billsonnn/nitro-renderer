@@ -453,7 +453,7 @@ export class RoomPlane implements IRoomPlane
 
             if(mask)
             {
-                const planeMask = this._maskManager._Str_8361(mask.type);
+                const planeMask = this._maskManager.getMask(mask.type);
 
                 if(planeMask)
                 {

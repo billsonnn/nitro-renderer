@@ -51,10 +51,10 @@ export class PlaneMaskManager
 
         this._assetCollection = k;
 
-        this._Str_22834(this.data, k);
+        this.parseMasks(this.data, k);
     }
 
-    private _Str_22834(k: any, _arg_2: IGraphicAssetCollection): void
+    private parseMasks(k: any, _arg_2: IGraphicAssetCollection): void
     {
         if(!k || !_arg_2) return;
 
@@ -90,7 +90,7 @@ export class PlaneMaskManager
 
                                 if(maskVisualization)
                                 {
-                                    const assetName = this._Str_25815(visualization.bitmaps, maskVisualization, _arg_2);
+                                    const assetName = this.parseMaskBitmaps(visualization.bitmaps, maskVisualization, _arg_2);
 
                                     newMask.setAssetName(size, assetName);
                                 }
@@ -108,7 +108,7 @@ export class PlaneMaskManager
         }
     }
 
-    private _Str_25815(k: any, _arg_2: PlaneMaskVisualization, _arg_3: IGraphicAssetCollection): string
+    private parseMaskBitmaps(k: any, _arg_2: PlaneMaskVisualization, _arg_3: IGraphicAssetCollection): string
     {
         if(!k || !k.length) return null;
 
@@ -187,7 +187,7 @@ export class PlaneMaskManager
         return true;
     }
 
-    public _Str_8361(k: string): PlaneMask
+    public getMask(k: string): PlaneMask
     {
         if(!this._masks || !this._masks.size) return null;
 

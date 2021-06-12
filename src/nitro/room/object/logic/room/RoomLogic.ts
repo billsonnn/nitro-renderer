@@ -260,12 +260,12 @@ export class RoomLogic extends RoomObjectLogicBase
                 update = true;
                 break;
             case ObjectRoomMaskUpdateMessage._Str_10260:
-                update = this._planeBitmapMaskParser._Str_23574(message.maskId);
+                update = this._planeBitmapMaskParser.removeMask(message.maskId);
                 break;
 
         }
 
-        if(update) _arg_2.setValue(RoomObjectVariable.ROOM_PLANE_MASK_XML, this._planeBitmapMaskParser._Str_5598());
+        if(update) _arg_2.setValue(RoomObjectVariable.ROOM_PLANE_MASK_XML, this._planeBitmapMaskParser.getXML());
     }
 
     private onObjectRoomPlaneVisibilityUpdateMessage(message: ObjectRoomPlaneVisibilityUpdateMessage, model: IRoomObjectModel): void
