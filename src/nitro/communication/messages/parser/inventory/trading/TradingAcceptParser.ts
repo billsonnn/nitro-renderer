@@ -24,12 +24,12 @@ export class TradingAcceptParser implements IMessageParser
         return true;
     }
 
-    public get _Str_4963(): number
+    public get userID(): number
     {
         return this._userID;
     }
 
-    public get _Str_15794(): boolean
+    public get userAccepts(): boolean
     {
         return this._userAccepts;
     }

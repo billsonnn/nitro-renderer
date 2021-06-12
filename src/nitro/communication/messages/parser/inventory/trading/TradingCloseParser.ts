@@ -3,7 +3,7 @@ import { IMessageParser } from '../../../../../../core/communication/messages/IM
 
 export class TradingCloseParser implements IMessageParser
 {
-    public static _Str_16410: number = 1;
+    public static ERROR_WHILE_COMMIT: number = 1;
 
     private _userId: number;
     private _reason: number;
@@ -23,7 +23,7 @@ export class TradingCloseParser implements IMessageParser
         return true;
     }
 
-    public get _Str_4963(): number
+    public get userID(): number
     {
         return this._userId;
     }

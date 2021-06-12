@@ -3,11 +3,11 @@ import { IMessageParser } from '../../../../../../core/communication/messages/IM
 
 export class TradingOpenFailedParser implements IMessageParser
 {
-    public static _Str_18150: number = 7;
-    public static _Str_18383: number = 8;
+    public static REASON_YOU_ARE_ALREADY_TRADING: number = 7;
+    public static REASON_OTHER_USER_ALREADY_TRADING: number = 8;
 
     private _reason: number;
-    private _Str_10068: string;
+    private _otherUserName: string;
 
     public flush(): boolean
     {
@@ -19,7 +19,7 @@ export class TradingOpenFailedParser implements IMessageParser
         if(!wrapper) return false;
 
         this._reason    = wrapper.readInt();
-        this._Str_10068 = wrapper.readString();
+        this._otherUserName = wrapper.readString();
 
         return true;
     }
@@ -29,8 +29,8 @@ export class TradingOpenFailedParser implements IMessageParser
         return this._reason;
     }
 
-    public get _Str_17035(): string
+    public get otherUserName(): string
     {
-        return this._Str_10068;
+        return this._otherUserName;
     }
 }

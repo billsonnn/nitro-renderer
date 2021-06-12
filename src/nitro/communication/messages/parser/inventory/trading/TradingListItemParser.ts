@@ -64,42 +64,42 @@ export class TradingListItemParser implements IMessageParser
         return true;
     }
 
-    public get _Str_15162(): number
+    public get firstUserID(): number
     {
         return this._firstUserID;
     }
 
-    public get _Str_17841(): ItemDataStructure[]
+    public get firstUserItemArray(): ItemDataStructure[]
     {
         return this._firstUserItemArray;
     }
 
-    public get _Str_14946(): number
+    public get firstUserNumItems(): number
     {
         return this._firstUserNumItems;
     }
 
-    public get _Str_15709(): number
+    public get firstUserNumCredits(): number
     {
         return this._firstUserNumCredits;
     }
 
-    public get _Str_18215(): number
+    public get secondUserID(): number
     {
         return this._secondUserID;
     }
 
-    public get _Str_17465(): ItemDataStructure[]
+    public get secondUserItemArray(): ItemDataStructure[]
     {
         return this._secondUserItemArray;
     }
 
-    public get _Str_13801(): number
+    public get secondUserNumItems(): number
     {
         return this._secondUserNumItems;
     }
 
-    public get _Str_9138(): number
+    public get secondUserNumCredits(): number
     {
         return this._secondUserNumCredits;
     }

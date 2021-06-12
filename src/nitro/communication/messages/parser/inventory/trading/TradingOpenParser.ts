@@ -30,22 +30,22 @@ export class TradingOpenParser implements IMessageParser
         return true;
     }
 
-    public get _Str_4963(): number
+    public get userID(): number
     {
         return this._userId;
     }
 
-    public get _Str_16764(): boolean
+    public get userCanTrade(): boolean
     {
         return this._userCanTrade;
     }
 
-    public get _Str_17613(): number
+    public get otherUserID(): number
     {
         return this._otherUserId;
     }
 
-    public get _Str_13374(): boolean
+    public get otherUserCanTrade(): boolean
     {
         return this._otherUserCanTrade;
     }
