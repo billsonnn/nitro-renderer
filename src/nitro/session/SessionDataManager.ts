@@ -4,7 +4,7 @@ import { IMessageComposer } from '../../core/communication/messages/IMessageComp
 import { NitroEvent } from '../../core/events/NitroEvent';
 import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { AvailabilityStatusMessageEvent } from '../communication/messages/incoming/availability/AvailabilityStatusMessageEvent';
-import { ChangeNameUpdateEvent } from '../communication/messages/incoming/avatar/ChangeNameUpdateEvent';
+import { ChangeUserNameResultMessageEvent } from '../communication/messages/incoming/avatar/ChangeUserNameResultMessageEvent';
 import { RoomModelNameEvent } from '../communication/messages/incoming/room/mapping/RoomModelNameEvent';
 import { UserPermissionsEvent } from '../communication/messages/incoming/user/access/UserPermissionsEvent';
 import { UserFigureEvent } from '../communication/messages/incoming/user/data/UserFigureEvent';
@@ -123,7 +123,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._communication.registerMessageEvent(new UserInfoEvent(this.onUserInfoEvent.bind(this)));
         this._communication.registerMessageEvent(new UserPermissionsEvent(this.onUserPermissionsEvent.bind(this)));
         this._communication.registerMessageEvent(new AvailabilityStatusMessageEvent(this.onAvailabilityStatusMessageEvent.bind(this)));
-        this._communication.registerMessageEvent(new ChangeNameUpdateEvent(this.onChangeNameUpdateEvent.bind(this)));
+        this._communication.registerMessageEvent(new ChangeUserNameResultMessageEvent(this.onChangeNameUpdateEvent.bind(this)));
         this._communication.registerMessageEvent(new UserNameChangeMessageEvent(this.onUserNameChangeMessageEvent.bind(this)));
         this._communication.registerMessageEvent(new RoomModelNameEvent(this.onRoomModelNameEvent.bind(this)));
         this._communication.registerMessageEvent(new InClientLinkEvent(this.onInClientLinkEvent.bind(this)));
@@ -291,7 +291,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._isAuthenticHabbo  = parser.isAuthenticUser;
     }
 
-    private onChangeNameUpdateEvent(event: ChangeNameUpdateEvent): void
+    private onChangeNameUpdateEvent(event: ChangeUserNameResultMessageEvent): void
     {
         if(!event || !event.connection) return;
 
@@ -299,7 +299,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
         if(!parser) return;
 
-        if(parser.resultCode !== ChangeNameUpdateEvent._Str_5797) return;
+        if(parser.resultCode !== ChangeUserNameResultMessageEvent.NAME_OK) return;
 
         this._canChangeName = false;
 

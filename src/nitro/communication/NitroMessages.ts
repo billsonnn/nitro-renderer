@@ -1,6 +1,6 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
-import { ChangeNameUpdateEvent } from './messages/incoming/avatar/ChangeNameUpdateEvent';
+import { ChangeUserNameResultMessageEvent } from 'nitro-renderer/src/nitro/communication/messages/incoming/avatar/ChangeUserNameResultMessageEvent';
 import { CatalogClubEvent } from './messages/incoming/catalog/CatalogClubEvent';
 import { CatalogClubGiftsEvent } from './messages/incoming/catalog/CatalogClubGiftsEvent';
 import { CatalogGiftConfigurationEvent } from './messages/incoming/catalog/CatalogGiftConfigurationEvent';
@@ -423,7 +423,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.GENERIC_ERROR, GenericErrorEvent);
 
         // AVATAR
-        this._events.set(IncomingHeader.USER_CHANGE_NAME, ChangeNameUpdateEvent);
+        this._events.set(IncomingHeader.USER_CHANGE_NAME, ChangeUserNameResultMessageEvent);
 
         // CATALOG
         this._events.set(IncomingHeader.CATALOG_CLUB, CatalogClubEvent);

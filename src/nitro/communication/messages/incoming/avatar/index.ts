@@ -1,1 +1,1 @@
-export * from './ChangeNameUpdateEvent';
+export * from './ChangeUserNameResultMessageEvent';
