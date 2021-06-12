@@ -1,5 +1,5 @@
-﻿import { IMessageDataWrapper } from 'nitro-renderer/src/core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from 'nitro-renderer/src/core/communication/messages/IMessageParser';
+﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
 
 export class IsBadgeRequestFulfilledParser implements IMessageParser
 {

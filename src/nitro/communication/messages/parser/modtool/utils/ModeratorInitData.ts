@@ -1,6 +1,6 @@
-import { IMessageDataWrapper } from 'nitro-renderer/src/core/communication/messages/IMessageDataWrapper';
-import { IssueInfoMessageParser } from 'nitro-renderer/src/nitro/communication/messages/parser/modtool/utils/IssueInfoMessageParser';
-import { IssueMessageData } from 'nitro-renderer/src/nitro/communication/messages/parser/modtool/utils/IssueMessageData';
+import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
+import { IssueInfoMessageParser } from './IssueInfoMessageParser';
+import { IssueMessageData } from './IssueMessageData';
 
 export class ModeratorInitData
 {

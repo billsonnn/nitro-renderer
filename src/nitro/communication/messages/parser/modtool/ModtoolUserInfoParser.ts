@@ -1,6 +1,6 @@
-import { ModeratorUserInfoData } from 'nitro-renderer/src/nitro/communication/messages/parser/modtool/utils/ModeratorUserInfoData';
 import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { ModeratorUserInfoData } from './utils/ModeratorUserInfoData';
 
 export class ModtoolUserInfoParser implements IMessageParser
 {

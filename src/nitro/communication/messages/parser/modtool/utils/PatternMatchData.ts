@@ -1,5 +1,5 @@
-import { IDisposable } from 'nitro-renderer/src/core/common/disposable/IDisposable';
-import { IMessageDataWrapper } from 'nitro-renderer/src/core/communication/messages/IMessageDataWrapper';
+import { IDisposable } from '../../../../../../core/common/disposable/IDisposable';
+import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 
 export class PatternMatchData implements IDisposable
 {

@@ -1,7 +1,7 @@
-import { IMessageDataWrapper } from 'nitro-renderer/src/core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from 'nitro-renderer/src/core/communication/messages/IMessageParser';
-import { IssueMessageData } from 'nitro-renderer/src/nitro/communication/messages/parser/modtool/utils/IssueMessageData';
-import { PatternMatchData } from 'nitro-renderer/src/nitro/communication/messages/parser/modtool/utils/PatternMatchData';
+import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
+import { IssueMessageData } from './IssueMessageData';
+import { PatternMatchData } from './PatternMatchData';
 
 export  class IssueInfoMessageParser implements IMessageParser
 {

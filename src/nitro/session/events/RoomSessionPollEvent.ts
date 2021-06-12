@@ -1,5 +1,6 @@
-﻿import { RoomSessionEvent } from 'nitro-renderer/src/nitro/session/events/RoomSessionEvent';
-import { IRoomSession } from 'nitro-renderer/src/nitro/session/IRoomSession';
+﻿import { IRoomSession } from '../IRoomSession';
+import { RoomSessionEvent } from './RoomSessionEvent';
+
 
 export class RoomSessionPollEvent extends RoomSessionEvent
 {

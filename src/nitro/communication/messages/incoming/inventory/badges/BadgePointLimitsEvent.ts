@@ -1,6 +1,6 @@
-﻿import { IMessageEvent } from 'nitro-renderer/src/core/communication/messages/IMessageEvent';
-import { MessageEvent } from 'nitro-renderer/src/core/communication/messages/MessageEvent';
-import { BadgePointLimitsParser } from 'nitro-renderer/src/nitro/communication/messages/parser/inventory/badges/BadgePointLimitsParser';
+﻿import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
+import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { BadgePointLimitsParser } from '../../../parser/inventory/badges/BadgePointLimitsParser';
 
 export class BadgePointLimitsEvent extends MessageEvent implements IMessageEvent
 {

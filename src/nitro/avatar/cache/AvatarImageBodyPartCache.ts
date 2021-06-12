@@ -1,5 +1,5 @@
-﻿import { IActiveActionData } from 'nitro-renderer/src/nitro/avatar/actions/IActiveActionData';
-import { AvatarImageActionCache } from 'nitro-renderer/src/nitro/avatar/cache/AvatarImageActionCache';
+﻿import { IActiveActionData } from '../actions/IActiveActionData';
+import { AvatarImageActionCache } from './AvatarImageActionCache';
 
 export class AvatarImageBodyPartCache
 {

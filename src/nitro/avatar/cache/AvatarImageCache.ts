@@ -1,5 +1,3 @@
-import { AvatarImageActionCache } from 'nitro-renderer/src/nitro/avatar/cache/AvatarImageActionCache';
-import { AvatarImageBodyPartCache } from 'nitro-renderer/src/nitro/avatar/cache/AvatarImageBodyPartCache';
 import { Container, Matrix, Point, Rectangle, Sprite, Texture } from 'pixi.js';
 import { RoomObjectSpriteData } from '../../../room/data/RoomObjectSpriteData';
 import { Nitro } from '../../Nitro';
@@ -15,6 +13,8 @@ import { AvatarScaleType } from '../enum/AvatarScaleType';
 import { GeometryType } from '../enum/GeometryType';
 import { IAvatarImage } from '../IAvatarImage';
 import { AvatarCanvas } from '../structure/AvatarCanvas';
+import { AvatarImageActionCache } from './AvatarImageActionCache';
+import { AvatarImageBodyPartCache } from './AvatarImageBodyPartCache';
 import { AvatarImageDirectionCache } from './AvatarImageDirectionCache';
 import { ImageData } from './ImageData';
 

@@ -1,6 +1,6 @@
-import { IMessageEvent } from 'nitro-renderer/src/core/communication/messages/IMessageEvent';
-import { MessageEvent } from 'nitro-renderer/src/core/communication/messages/MessageEvent';
-import { ChangeNameUpdateParser } from 'nitro-renderer/src/nitro/communication/messages/parser/avatar/ChangeNameUpdateParser';
+import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
+import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { ChangeNameUpdateParser } from '../../parser/avatar/ChangeNameUpdateParser';
 
 export class ChangeUserNameResultMessageEvent extends MessageEvent implements IMessageEvent
 {

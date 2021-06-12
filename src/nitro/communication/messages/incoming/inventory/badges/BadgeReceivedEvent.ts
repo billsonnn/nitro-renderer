@@ -1,6 +1,6 @@
-﻿import { IMessageEvent } from 'nitro-renderer/src/core/communication/messages/IMessageEvent';
-import { MessageEvent } from 'nitro-renderer/src/core/communication/messages/MessageEvent';
-import { BadgeReceivedParser } from 'nitro-renderer/src/nitro/communication/messages/parser/inventory/badges/BadgeReceivedParser';
+﻿import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
+import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { BadgeReceivedParser } from '../../../parser/inventory/badges/BadgeReceivedParser';
 
 export class BadgeReceivedEvent extends MessageEvent implements IMessageEvent
 {

@@ -1,6 +1,6 @@
-﻿import { IMessageDataWrapper } from 'nitro-renderer/src/core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from 'nitro-renderer/src/core/communication/messages/IMessageParser';
-import { BadgeAndPointLimit } from 'nitro-renderer/src/nitro/communication/messages/parser/inventory/badges/BadgeAndPointLimit';
+﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
+import { BadgeAndPointLimit } from './BadgeAndPointLimit';
 
 export class BadgePointLimitsParser implements IMessageParser
 {

@@ -1,6 +1,7 @@
-﻿import { AchievementData } from 'nitro-renderer/src/nitro/communication/messages/incoming/inventory/achievements/AchievementData';
+﻿
 import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
+import { AchievementData } from '../../../incoming/inventory/achievements/AchievementData';
 
 export class AchievementsParser implements IMessageParser
 {

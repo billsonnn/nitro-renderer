@@ -1,5 +1,5 @@
-﻿import { AvatarImageDirectionCache } from 'nitro-renderer/src/nitro/avatar/cache/AvatarImageDirectionCache';
-import { Nitro } from 'nitro-renderer/src/nitro/Nitro';
+﻿import { Nitro } from '../../Nitro';
+import { AvatarImageDirectionCache } from './AvatarImageDirectionCache';
 
 export class AvatarImageActionCache
 {

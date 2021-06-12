@@ -1,4 +1,4 @@
-import { PatternMatchData } from 'nitro-renderer/src/nitro/communication/messages/parser/modtool/utils/PatternMatchData';
+import { PatternMatchData } from './PatternMatchData';
 
 export class IssueMessageData
 {
