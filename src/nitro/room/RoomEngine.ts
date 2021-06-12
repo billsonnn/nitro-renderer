@@ -2717,11 +2717,11 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         this._roomObjectEventHandler._Str_17481(roomId, objectId, objectCategory);
     }
 
-    public _Str_8675(): void
+    public cancelRoomObjectInsert(): void
     {
         if(!this._roomObjectEventHandler) return;
 
-        this._roomObjectEventHandler._Str_8675(this._activeRoomId);
+        this._roomObjectEventHandler.cancelRoomObjectInsert(this._activeRoomId);
     }
 
     private addOverlayIconSprite(k: Sprite, _arg_2: string, _arg_3: Texture, scale: number = 1): Sprite
@@ -3391,7 +3391,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         if(tileObjectMap) tileObjectMap.populate(this._Str_21072(k, RoomObjectCategory.FLOOR));
     }
 
-    public _Str_9972(k: Rectangle, _arg_2: number, _arg_3: boolean = false, _arg_4: boolean = true, _arg_5: boolean = false, canvasId: number = -1): IMessageComposer<unknown[]>
+    public getRenderRoomMessage(k: Rectangle, _arg_2: number, _arg_3: boolean = false, _arg_4: boolean = true, _arg_5: boolean = false, canvasId: number = -1): IMessageComposer<unknown[]>
     {
         let canvas: IRoomRenderingCanvas = null;
 
@@ -3419,9 +3419,9 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         }
 
         const _local_9 = new SpriteDataCollector();
-        const _local_10 = _local_9._Str_4536(k, canvas, this, _local_8);
-        const _local_11 = _local_9._Str_24177(this);
-        const _local_12 = _local_9._Str_22985(k, canvas, this, _arg_2);
+        const _local_10 = _local_9.getFurniData(k, canvas, this, _local_8);
+        const _local_11 = _local_9.getRoomRenderingModifiers(this);
+        const _local_12 = _local_9.getRoomPlanes(k, canvas, this, _arg_2);
 
         if(_arg_5) canvas.resumeSpriteVisibilityChecking();
 

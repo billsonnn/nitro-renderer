@@ -194,7 +194,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         return true;
     }
 
-    public _Str_8675(k: number): boolean
+    public cancelRoomObjectInsert(k: number): boolean
     {
         this.resetSelectedObjectData(k);
 
