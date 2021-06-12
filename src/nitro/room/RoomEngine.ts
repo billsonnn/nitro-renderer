@@ -2508,84 +2508,78 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                 }
             }
         }
-        else
+
+        else if(type === MouseEventType.MOUSE_UP)
         {
-            if(type === MouseEventType.MOUSE_UP)
+            if(this._activeRoomIsDragged)
             {
-                if(this._activeRoomIsDragged)
+                this._activeRoomIsDragged = false;
+
+                if(this._activeRoomWasDragged)
                 {
-                    this._activeRoomIsDragged = false;
+                    const instanceData = this.getRoomInstanceData(this._activeRoomId);
 
-                    if(this._activeRoomWasDragged)
+                    if(instanceData)
                     {
-                        const instanceData = this.getRoomInstanceData(this._activeRoomId);
+                        const camera = instanceData.roomCamera;
 
-                        if(instanceData)
+                        if(camera)
                         {
-                            const camera = instanceData.roomCamera;
-
-                            if(camera)
+                            if(this._Str_11555)
                             {
-                                if(this._Str_11555)
+                                if(!camera._Str_12536)
                                 {
-                                    if(!camera._Str_12536)
-                                    {
-                                        camera._Str_8564 = false;
-                                        camera._Str_8690 = false;
-                                    }
-
-                                    camera._Str_25467(new Vector3d(-(canvas.screenOffsetX), -(canvas.screenOffsetY)));
+                                    camera._Str_8564 = false;
+                                    camera._Str_8690 = false;
                                 }
 
-                                if(this._roomDraggingAlwaysCenters) camera.reset();
+                                camera._Str_25467(new Vector3d(-(canvas.screenOffsetX), -(canvas.screenOffsetY)));
                             }
+
+                            if(this._roomDraggingAlwaysCenters) camera.reset();
                         }
                     }
                 }
             }
-            else
+        }
+
+        else if(type === MouseEventType.MOUSE_MOVE)
+        {
+            if(this._activeRoomIsDragged)
             {
-                if(type === MouseEventType.MOUSE_MOVE)
+                if(!this._activeRoomWasDragged)
                 {
-                    if(this._activeRoomIsDragged)
+                    offsetX = (x - this._activeRoomDragStartX);
+                    offsetY = (y - this._activeRoomDragStartY);
+
+                    if(((((offsetX <= -(RoomEngine.DRAG_THRESHOLD)) || (offsetX >= RoomEngine.DRAG_THRESHOLD)) || (offsetY <= -(RoomEngine.DRAG_THRESHOLD))) || (offsetY >= RoomEngine.DRAG_THRESHOLD)))
                     {
-                        if(!this._activeRoomWasDragged)
-                        {
-                            offsetX = (x - this._activeRoomDragStartX);
-                            offsetY = (y - this._activeRoomDragStartY);
-
-                            if(((((offsetX <= -(RoomEngine.DRAG_THRESHOLD)) || (offsetX >= RoomEngine.DRAG_THRESHOLD)) || (offsetY <= -(RoomEngine.DRAG_THRESHOLD))) || (offsetY >= RoomEngine.DRAG_THRESHOLD)))
-                            {
-                                this._activeRoomWasDragged = true;
-                            }
-
-                            offsetX = 0;
-                            offsetY = 0;
-                        }
-
-                        if(((!(offsetX == 0)) || (!(offsetY == 0))))
-                        {
-                            this._activeRoomDragX += offsetX;
-                            this._activeRoomDragY += offsetY;
-
-                            this._activeRoomWasDragged = true;
-                        }
+                        this._activeRoomWasDragged = true;
                     }
+
+                    offsetX = 0;
+                    offsetY = 0;
                 }
-                else
+
+                if(((!(offsetX == 0)) || (!(offsetY == 0))))
                 {
-                    if((type === MouseEventType.MOUSE_CLICK) || (type === MouseEventType.DOUBLE_CLICK))
-                    {
-                        this._activeRoomIsDragged = false;
+                    this._activeRoomDragX += offsetX;
+                    this._activeRoomDragY += offsetY;
 
-                        if(this._activeRoomWasDragged)
-                        {
-                            this._activeRoomWasDragged = false;
-
-                            return true;
-                        }
-                    }
+                    this._activeRoomWasDragged = true;
                 }
+            }
+        }
+
+        else if((type === MouseEventType.MOUSE_CLICK) || (type === MouseEventType.DOUBLE_CLICK))
+        {
+            this._activeRoomIsDragged = false;
+
+            if(this._activeRoomWasDragged)
+            {
+                this._activeRoomWasDragged = false;
+
+                return true;
             }
         }
 
