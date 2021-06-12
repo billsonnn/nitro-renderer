@@ -37,7 +37,7 @@ export interface IRoomEngine extends INitroManager
     updateRoomInstancePlaneVisibility(roomId: number, wallVisible: boolean, floorVisible?: boolean): boolean;
     updateRoomInstancePlaneThickness(roomId: number, wallThickness: number, floorThickness: number): boolean;
     updateRoomInstancePlaneType(roomId: number, floorType?: string, wallType?: string, landscapeType?: string, _arg_5?: boolean): boolean;
-    _Str_17804(k: number, _arg_2: number, _arg_3: number, _arg_4: boolean): boolean;
+    updateObjectRoomColor(k: number, _arg_2: number, _arg_3: number, _arg_4: boolean): boolean;
     getRoomInstanceGeometry(roomId: number, canvasId?: number): IRoomGeometry;
     getRoomInstanceVariable<T>(roomId: number, key: string): T;
     getTotalObjectsForManager(roomId: number, category: number): number;

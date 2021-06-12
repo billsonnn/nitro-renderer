@@ -789,7 +789,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return true;
     }
 
-    public _Str_17804(k: number, _arg_2: number, _arg_3: number, _arg_4: boolean): boolean
+    public updateObjectRoomColor(k: number, _arg_2: number, _arg_3: number, _arg_4: boolean): boolean
     {
         const roomObject = this.getRoomOwnObject(k);
 
