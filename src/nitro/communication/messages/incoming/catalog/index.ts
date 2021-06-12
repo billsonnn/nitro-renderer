@@ -1,3 +1,4 @@
+export * from './CatalogApproveNameResultEvent';
 export * from './CatalogClubEvent';
 export * from './CatalogClubGiftsEvent';
 export * from './CatalogGiftConfigurationEvent';
@@ -17,3 +18,4 @@ export * from './CatalogUpdatedEvent';
 export * from './marketplace';
 export * from './MarketplaceConfigEvent';
 export * from './MarketplaceItemStatsEvent';
+export * from './SellablePetPalettesEvent';

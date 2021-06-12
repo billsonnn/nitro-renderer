@@ -13,4 +13,5 @@ export * from './ICatalogPageParser';
 export * from './MarketplaceOfferData';
 export * from './MarketplaceOfferItem';
 export * from './MarketplaceOwnItem';
+export * from './SellablePetPaletteData';
 export * from './_Str_5178';

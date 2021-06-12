@@ -15,6 +15,7 @@ import { IGetImageListener } from './IGetImageListener';
 import { ImageResult } from './ImageResult';
 import { IObjectData } from './object/data/IObjectData';
 import { RoomMapData } from './object/RoomMapData';
+import { PetColorResult } from './PetColorResult';
 import { RoomContentLoader } from './RoomContentLoader';
 import { RoomObjectEventHandler } from './RoomObjectEventHandler';
 
@@ -73,6 +74,7 @@ export interface IRoomEngine extends INitroManager
     getRoomObjectPetImage(typeId: number, paletteId: number, color: number, direction: IVector3D, scale: number, listener: IGetImageListener, headOnly?: boolean, bgColor?: number, customParts?: PetCustomPart[], posture?: string): ImageResult;
     selectRoomObject(roomId: number, objectId: number, objectCategory: number): void;
     _Str_8675(): void;
+    getPetColorResult(petIndex: number, paletteIndex: number): PetColorResult;
     cancelRoomObjectPlacement(): void;
     getFurnitureFloorName(typeId: number): string;
     useRoomObject(objectId: number, category: number): boolean;

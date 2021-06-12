@@ -19,6 +19,7 @@ import { RoomObjectCategory } from './object/RoomObjectCategory';
 import { RoomObjectUserType } from './object/RoomObjectUserType';
 import { RoomObjectVariable } from './object/RoomObjectVariable';
 import { RoomObjectVisualizationType } from './object/RoomObjectVisualizationType';
+import { PetColorResult } from './PetColorResult';
 
 export class RoomContentLoader implements IFurnitureDataListener
 {
@@ -51,6 +52,7 @@ export class RoomContentLoader implements IFurnitureDataListener
     private _wallItemTypeIds: Map<string, number>;
     private _furniRevisions: Map<string, number>;
     private _pets: { [index: string]: number };
+    private _petColors: Map<number, Map<number, PetColorResult>>;
     private _objectAliases: Map<string, string>;
     private _objectOriginalNames: Map<string, string>;
 
@@ -77,6 +79,7 @@ export class RoomContentLoader implements IFurnitureDataListener
         this._wallItemTypeIds               = new Map();
         this._furniRevisions                = new Map();
         this._pets                          = {};
+        this._petColors                     = new Map();
         this._objectAliases                 = new Map();
         this._objectOriginalNames           = new Map();
 
@@ -250,6 +253,15 @@ export class RoomContentLoader implements IFurnitureDataListener
         return name.substr(0, index);
     }
 
+    public getPetColorResult(petIndex: number, paletteIndex: number): PetColorResult
+    {
+        const colorResults = this._petColors.get(petIndex);
+
+        if(!colorResults) return null;
+
+        return colorResults.get(paletteIndex);
+    }
+
     public getCollection(name: string): IGraphicAssetCollection
     {
         if(!name) return null;
@@ -304,6 +316,27 @@ export class RoomContentLoader implements IFurnitureDataListener
         const collection = new GraphicAssetCollection(data, spritesheet);
 
         this._collections.set(collection.name, collection);
+
+        const petIndex = this._pets[collection.name];
+
+        if(petIndex !== undefined)
+        {
+            const keys = collection.getPaletteNames();
+            const palettes: Map<number, PetColorResult> = new Map();
+
+            for(const key of keys)
+            {
+                const palette = collection.getPalette(key);
+
+                const breed = 0;
+                const primaryColor = palette.primaryColor;
+                const secondaryColor = palette.secondaryColor;
+
+                palettes.set(parseInt(key), new PetColorResult(primaryColor, secondaryColor, breed, -1, key, false, []));
+            }
+
+            this._petColors.set(petIndex, palettes);
+        }
     }
 
     public getPlaceholderName(type: string): string

@@ -4,6 +4,7 @@ export * from './CatalogPageComposer';
 export * from './CatalogPurchaseComposer';
 export * from './CatalogPurchaseGiftComposer';
 export * from './CatalogRequestGiftConfigurationComposer';
+export * from './CatalogRequestPetBreedsComposer';
 export * from './CatalogRequestVipGiftsComposer';
 export * from './CatalogRequestVipOffersComposer';
 export * from './CatalogSearchComposer';

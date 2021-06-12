@@ -10,16 +10,16 @@ export class PetColorResult
     private _isMaster: boolean;
     private _layerTags: string[];
 
-    constructor(k: number, _arg_2: number, _arg_3: number, _arg_4: number, _arg_5: string, _arg_6: boolean, _arg_7: string[])
+    constructor(primaryColor: number, secondaryColor: number, breed: number, tag: number, id: string, isMaster: boolean, layerTags: string[])
     {
         this._layerTags         = [];
-        this._primaryColor      = (k & 0xFFFFFF);
-        this._secondaryColor    = (_arg_2 & 0xFFFFFF);
-        this._breed             = _arg_3;
-        this._tag               = (((_arg_4 > -1) && (_arg_4 < PetColorResult.COLOR_TAGS.length)) ? PetColorResult.COLOR_TAGS[_arg_4] : '');
-        this._id                = _arg_5;
-        this._isMaster          = _arg_6;
-        this._layerTags         = _arg_7;
+        this._primaryColor      = (primaryColor & 0xFFFFFF);
+        this._secondaryColor    = (secondaryColor & 0xFFFFFF);
+        this._breed             = breed;
+        this._tag               = (((tag > -1) && (tag < PetColorResult.COLOR_TAGS.length)) ? PetColorResult.COLOR_TAGS[tag] : '');
+        this._id                = id;
+        this._isMaster          = isMaster;
+        this._layerTags         = layerTags;
     }
 
     public get primaryColor(): number
