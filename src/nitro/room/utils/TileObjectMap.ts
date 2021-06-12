@@ -41,7 +41,7 @@ export class TileObjectMap
     {
         this.clear();
 
-        for(const _local_2 of k) this._Str_21192(_local_2);
+        for(const _local_2 of k) this.addRoomObject(_local_2);
     }
 
     public dispose(): void
@@ -51,7 +51,7 @@ export class TileObjectMap
         this._height        = 0;
     }
 
-    public _Str_19056(k: number, _arg_2: number): IRoomObject
+    public getObjectIntTile(k: number, _arg_2: number): IRoomObject
     {
         if((((k >= 0) && (k < this._width)) && (_arg_2 >= 0)) && (_arg_2 < this._height))
         {
@@ -63,7 +63,7 @@ export class TileObjectMap
         return null;
     }
 
-    public _Str_23932(k: number, _arg_2: number, _arg_3:IRoomObject): void
+    public setObjectInTile(k: number, _arg_2: number, _arg_3:IRoomObject): void
     {
         if(!_arg_3.isReady)
         {
@@ -80,7 +80,7 @@ export class TileObjectMap
         }
     }
 
-    public _Str_21192(k: IRoomObject): void
+    public addRoomObject(k: IRoomObject): void
     {
         if(!k || !k.model || !k.isReady) return;
 
@@ -107,11 +107,11 @@ export class TileObjectMap
 
             while(x < (location.x + sizeX))
             {
-                const roomObject = this._Str_19056(x, y);
+                const roomObject = this.getObjectIntTile(x, y);
 
                 if((!(roomObject)) || ((!(roomObject === k)) && (roomObject.getLocation().z <= location.z)))
                 {
-                    this._Str_23932(x, y, k);
+                    this.setObjectInTile(x, y, k);
                 }
 
                 x++;

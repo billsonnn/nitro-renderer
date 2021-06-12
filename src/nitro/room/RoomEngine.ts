@@ -1068,7 +1068,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
             this.selectRoomObject(roomId, id, RoomObjectCategory.FLOOR);
         }
 
-        if(object.isReady && data.synchronized) this._Str_21543(roomId, object);
+        if(object.isReady && data.synchronized) this.addObjectToTileMap(roomId, object);
 
         return true;
     }
@@ -1398,7 +1398,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                 if(!roomCamera.location)
                 {
                     roomGeometry.location = _local_15;
-                    if(this._Str_11555)
+                    if(this.useOffsetScrolling)
                     {
                         roomCamera.initializeLocation(new Vector3d(0, 0, 0));
                     }
@@ -1418,7 +1418,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                 {
                     roomCamera.limitedLocationX = _local_34;
                     roomCamera.limitedLocationY = _local_35;
-                    if(this._Str_11555)
+                    if(this.useOffsetScrolling)
                     {
                         roomCamera.target = _local_46;
                     }
@@ -1446,7 +1446,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
             if(!this._sessionDataManager.isCameraFollowDisabled)
             {
-                if(this._Str_11555)
+                if(this.useOffsetScrolling)
                 {
                     roomCamera.update(time, 8);
                 }
@@ -1456,7 +1456,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                 }
             }
 
-            if(this._Str_11555)
+            if(this.useOffsetScrolling)
             {
                 renderingCanvas.screenOffsetX = -(roomCamera.location.x);
                 renderingCanvas.screenOffsetY = -(roomCamera.location.y);
@@ -1845,7 +1845,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         this.removeRoomObject(roomId, objectId, RoomObjectCategory.FLOOR);
         this.setMouseDefault(roomId, RoomObjectCategory.FLOOR, objectId);
 
-        if(_arg_4) this._Str_17722(roomId, 'RoomEngine.disposeObjectFurniture()');
+        if(_arg_4) this.refreshTileObjectMap(roomId, 'RoomEngine.disposeObjectFurniture()');
     }
 
     public getRoomObjectWall(roomId: number, objectId: number): IRoomObjectController
@@ -2142,7 +2142,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if((Math.abs((_local_5 - _local_6)) < 0.1) && (Math.abs((_local_6 - _local_7)) < 0.1))
         {
-            _local_5 = wallGeometry._Str_24141(location.x, location.y);
+            _local_5 = wallGeometry.getFloorAltitude(location.x, location.y);
         }
 
         return new Vector3d(location.x, location.y, _local_5);
@@ -2327,7 +2327,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
             this.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.CONTENT_UPDATED, id, objectId, category));
         }
 
-        if(roomId !== RoomEngine.TEMPORARY_ROOM) this._Str_21543(id, object);
+        if(roomId !== RoomEngine.TEMPORARY_ROOM) this.addObjectToTileMap(id, object);
     }
 
     public changeObjectModelData(roomId: number, objectId: number, category: number, numberKey: string, numberValue: number): boolean
@@ -2445,7 +2445,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         if(!canvas) return;
 
         const overlay   = this.getRenderingCanvasOverlay(canvas);
-        const sprite    = this._Str_16498(overlay, RoomEngine.OBJECT_ICON_SPRITE);
+        const sprite    = this.getOverlayIconSprite(overlay, RoomEngine.OBJECT_ICON_SPRITE);
 
         if(sprite)
         {
@@ -2525,7 +2525,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
                         if(camera)
                         {
-                            if(this._Str_11555)
+                            if(this.useOffsetScrolling)
                             {
                                 if(!camera.isMoving)
                                 {
@@ -2714,7 +2714,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
     {
         if(!this._roomObjectEventHandler) return;
 
-        this._roomObjectEventHandler._Str_17481(roomId, objectId, objectCategory);
+        this._roomObjectEventHandler.setSelectedObject(roomId, objectId, objectCategory);
     }
 
     public cancelRoomObjectInsert(): void
@@ -2728,7 +2728,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
     {
         if(!k || !_arg_3) return;
 
-        let sprite = this._Str_16498(k, _arg_2);
+        let sprite = this.getOverlayIconSprite(k, _arg_2);
 
         if(sprite) return null;
 
@@ -3273,7 +3273,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         if(!canvas) return;
 
         const overlay   = this.getRenderingCanvasOverlay(canvas);
-        const sprite    = this._Str_16498(overlay, RoomEngine.OBJECT_ICON_SPRITE);
+        const sprite    = this.getOverlayIconSprite(overlay, RoomEngine.OBJECT_ICON_SPRITE);
 
         if(sprite)
         {
@@ -3342,7 +3342,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return false;
     }
 
-    private _Str_16498(k: Sprite, _arg_2: string): Sprite
+    private getOverlayIconSprite(k: Sprite, _arg_2: string): Sprite
     {
         if(!k) return null;
 
@@ -3363,7 +3363,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return null;
     }
 
-    public _Str_21072(k: number, _arg_2: number): IRoomObject[]
+    public getRoomObjects(k: number, _arg_2: number): IRoomObject[]
     {
         if(this._ready)
         {
@@ -3377,18 +3377,18 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return [];
     }
 
-    protected _Str_21543(k: number, _arg_2: IRoomObject): void
+    protected addObjectToTileMap(k: number, _arg_2: IRoomObject): void
     {
         const tileObjectMap = this.getRoomInstanceData(k).tileObjectMap;
 
-        if(tileObjectMap) tileObjectMap._Str_21192(_arg_2);
+        if(tileObjectMap) tileObjectMap.addRoomObject(_arg_2);
     }
 
-    public _Str_17722(k: number, _arg_2: string): void
+    public refreshTileObjectMap(k: number, _arg_2: string): void
     {
         const tileObjectMap = this.getRoomInstanceData(k).tileObjectMap;
 
-        if(tileObjectMap) tileObjectMap.populate(this._Str_21072(k, RoomObjectCategory.FLOOR));
+        if(tileObjectMap) tileObjectMap.populate(this.getRoomObjects(k, RoomObjectCategory.FLOOR));
     }
 
     public getRenderRoomMessage(k: Rectangle, _arg_2: number, _arg_3: boolean = false, _arg_4: boolean = true, _arg_5: boolean = false, canvasId: number = -1): IMessageComposer<unknown[]>
@@ -3624,7 +3624,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return (session && session.isDecorating) || false;
     }
 
-    private get _Str_11555(): boolean
+    private get useOffsetScrolling(): boolean
     {
         return true;
     }

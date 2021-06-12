@@ -383,7 +383,7 @@ export class RoomMessageHandler extends Disposable
             heightMap.setIsRoomTile(parser.x, parser.y, parser.isRoomTile());
         }
 
-        this._roomCreator._Str_17722(this._currentRoomId, 'RoomMessageHandler.onRoomHeightMapUpdateEvent()');
+        this._roomCreator.refreshTileObjectMap(this._currentRoomId, 'RoomMessageHandler.onRoomHeightMapUpdateEvent()');
     }
 
     private onRoomThicknessEvent(event: RoomThicknessEvent): void
@@ -903,7 +903,7 @@ export class RoomMessageHandler extends Disposable
         }
         else
         {
-            //location = wallGeometry._Str_24084(data.y, data.z, data.direction);
+            //location = wallGeometry.getLocationOldFormat(data.y, data.z, data.direction);
         }
 
         const direction = new Vector3d(wallGeometry.getDirection(data.direction));

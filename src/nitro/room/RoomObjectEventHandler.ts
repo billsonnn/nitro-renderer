@@ -398,7 +398,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
                 didMove = true;
 
-                if(event.objectId !== -1) this._Str_17481(roomId, event.objectId, category);
+                if(event.objectId !== -1) this.setSelectedObject(roomId, event.objectId, category);
 
                 break;
             case RoomObjectOperationType.OBJECT_PLACE:
@@ -433,7 +433,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 }
                 else
                 {
-                    this._Str_17481(roomId, event.objectId, category);
+                    this.setSelectedObject(roomId, event.objectId, category);
 
                     didMove = false;
 
@@ -518,11 +518,11 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
             if((_local_15 !== event.eventId) && (_local_16 !== event.eventId) && !didMove)
             {
-                this._Str_16209(roomId);
+                this.deselectObject(roomId);
 
                 if(this._roomEngine.events) this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.DESELECTED, roomId, -1, RoomObjectCategory.MINIMUM));
 
-                this._Str_12227(roomId, 0, false);
+                this.setSelectedAvatar(roomId, 0, false);
             }
         }
     }
@@ -719,7 +719,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 return;
             }
             case RoomObjectMoveEvent.OBJECT_REMOVED:
-                this._Str_12227(roomId, 0, false);
+                this.setSelectedAvatar(roomId, 0, false);
                 return;
         }
     }
@@ -1447,7 +1447,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
                 if(_local_8)
                 {
-                    const _local_9  = _local_8._Str_19056(_local_4, _local_5);
+                    const _local_9  = _local_8.getObjectIntTile(_local_4, _local_5);
                     const _local_10 = this._roomEngine.getFurnitureStackingHeightMap(roomId);
 
                     if(_local_10)
@@ -1510,7 +1510,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
                     const wallGeometry = this._roomEngine.getLegacyWallGeometry(roomId);
 
-                    if(wallGeometry) wallLocation = wallGeometry._Str_21860(location, direction);
+                    if(wallGeometry) wallLocation = wallGeometry.getOldLocationString(location, direction);
                 }
 
                 direction = ((((direction / 45) % 8) + 8) % 8);
@@ -1704,7 +1704,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
                         if(wallGeometry)
                         {
-                            const location = wallGeometry._Str_21860(roomObject.getLocation(), angle);
+                            const location = wallGeometry.getOldLocationString(roomObject.getLocation(), angle);
 
                             if(location) this._roomEngine.connection.send(new FurnitureWallUpdateComposer(objectId, location));
                         }
@@ -1838,7 +1838,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         this._roomEngine.events.dispatchEvent(new RoomEngineObjectPlacedOnUserEvent(RoomEngineObjectEvent.PLACED_ON_USER, roomId, objectId, category, _local_4.id, _local_4.category));
     }
 
-    public _Str_17481(roomId: number, objectId: number, category: number): void
+    public setSelectedObject(roomId: number, objectId: number, category: number): void
     {
         if(!this._roomEngine) return;
 
@@ -1853,16 +1853,16 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             case RoomObjectCategory.WALL:
                 if(category === RoomObjectCategory.UNIT)
                 {
-                    this._Str_16209(roomId);
-                    this._Str_12227(roomId, objectId, true);
+                    this.deselectObject(roomId);
+                    this.setSelectedAvatar(roomId, objectId, true);
                 }
                 else
                 {
-                    this._Str_12227(roomId, 0, false);
+                    this.setSelectedAvatar(roomId, 0, false);
 
                     if(objectId !== this._selectedObjectId)
                     {
-                        this._Str_16209(roomId);
+                        this.deselectObject(roomId);
 
                         const _local_5 = this._roomEngine.getRoomObject(roomId, objectId, category);
 
@@ -1882,7 +1882,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         }
     }
 
-    private _Str_16209(k: number): void
+    private deselectObject(k: number): void
     {
         if(this._selectedObjectId === -1) return;
 
@@ -1897,7 +1897,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         }
     }
 
-    public _Str_12227(k: number, _arg_2: number, _arg_3: boolean): void
+    public setSelectedAvatar(k: number, _arg_2: number, _arg_3: boolean): void
     {
         if(!this._roomEngine) return;
 
@@ -2041,7 +2041,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
     private _Str_25586(roomObject: IRoomObjectController, x: number, y: number, wallGeometry: LegacyWallGeometry): boolean
     {
-        if(!wallGeometry._Str_10375(x, y)) return false;
+        if(!wallGeometry.isRoomTile(x, y)) return false;
 
         roomObject.setLocation(new Vector3d(x, y, wallGeometry.getHeight(x, y)));
 

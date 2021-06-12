@@ -138,7 +138,7 @@ export class SpriteDataCollector
         const _local_5: Object[] = [];
         let _local_6 = _arg_2.getSortableSpriteList();
 
-        const _local_7 = _arg_3._Str_21072(_arg_3.activeRoomId, RoomObjectCategory.UNIT);
+        const _local_7 = _arg_3.getRoomObjects(_arg_3.activeRoomId, RoomObjectCategory.UNIT);
 
         for(const _local_8 of _local_7)
         {

@@ -51,7 +51,7 @@ export interface IRoomCreator
     updateRoomObjectUserPosture(roomId: number, objectId: number, type: string, parameter?: string): boolean;
     updateRoomObjectUserOwn(roomId: number, objectId: number): void;
     getPetTypeId(figure: string): number;
-    _Str_17722(k: number, _arg_2: string): void;
+    refreshTileObjectMap(k: number, _arg_2: string): void;
     setRoomEngineGameMode(roomId: number, isPlaying: boolean): void;
     sessionDataManager: ISessionDataManager;
     roomSessionManager: IRoomSessionManager;
