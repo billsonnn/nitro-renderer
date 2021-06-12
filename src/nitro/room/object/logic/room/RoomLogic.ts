@@ -259,7 +259,7 @@ export class RoomLogic extends RoomObjectLogicBase
 
                 update = true;
                 break;
-            case ObjectRoomMaskUpdateMessage._Str_10260:
+            case ObjectRoomMaskUpdateMessage.REMOVE_MASK:
                 update = this._planeBitmapMaskParser.removeMask(message.maskId);
                 break;
 

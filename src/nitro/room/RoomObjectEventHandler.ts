@@ -904,7 +904,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
         if(!session || session.isSpectator) return;
 
-        this.sendWalkUpdate(event._Str_16836, event._Str_17676);
+        this.sendWalkUpdate(event.tileXAsInt, event.tileYAsInt);
     }
 
     private _Str_24048(event: RoomObjectMouseEvent, roomId: number): void
@@ -1429,16 +1429,16 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
     {
         if(this._whereYouClickIsWhereYouGo)
         {
-            return new ObjectTileCursorUpdateMessage(new Vector3d(k._Str_16836, k._Str_17676, k._Str_21459), 0, true, k.eventId);
+            return new ObjectTileCursorUpdateMessage(new Vector3d(k.tileXAsInt, k.tileYAsInt, k.tileZAsInt), 0, true, k.eventId);
         }
 
         const roomObject = this._roomEngine.getRoomObjectCursor(roomId);
 
         if(roomObject && roomObject.visualization)
         {
-            const _local_4 = k._Str_16836;
-            const _local_5 = k._Str_17676;
-            const _local_6 = k._Str_21459;
+            const _local_4 = k.tileXAsInt;
+            const _local_5 = k.tileYAsInt;
+            const _local_6 = k.tileZAsInt;
             const _local_7 = this._roomEngine.getRoomInstance(roomId);
 
             if(_local_7)

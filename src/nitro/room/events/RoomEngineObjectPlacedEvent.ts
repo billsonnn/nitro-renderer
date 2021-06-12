@@ -27,7 +27,7 @@ export class RoomEngineObjectPlacedEvent extends RoomEngineObjectEvent
         this._instanceData  = instanceData;
     }
 
-    public get _Str_7031(): string
+    public get wallLocation(): string
     {
         return this._wallLocation;
     }
@@ -52,17 +52,17 @@ export class RoomEngineObjectPlacedEvent extends RoomEngineObjectEvent
         return this._direction;
     }
 
-    public get _Str_4057(): boolean
+    public get placedInRoom(): boolean
     {
         return this._placedInRoom;
     }
 
-    public get _Str_23888(): boolean
+    public get placedOnFloor(): boolean
     {
         return this._placedOnFloor;
     }
 
-    public get _Str_23432(): boolean
+    public get placedOnWall(): boolean
     {
         return this._placedOnWall;
     }

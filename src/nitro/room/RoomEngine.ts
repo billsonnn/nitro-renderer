@@ -2043,12 +2043,12 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                 const location  = roomObject.getLocation();
 
                 if(_arg_3) maskUpdate = new ObjectRoomMaskUpdateMessage(ObjectRoomMaskUpdateMessage.ADD_MASK, maskName, maskType, location);
-                else maskUpdate = new ObjectRoomMaskUpdateMessage(ObjectRoomMaskUpdateMessage._Str_10260, maskName);
+                else maskUpdate = new ObjectRoomMaskUpdateMessage(ObjectRoomMaskUpdateMessage.REMOVE_MASK, maskName);
             }
         }
         else
         {
-            maskUpdate = new ObjectRoomMaskUpdateMessage(ObjectRoomMaskUpdateMessage._Str_10260, maskName);
+            maskUpdate = new ObjectRoomMaskUpdateMessage(ObjectRoomMaskUpdateMessage.REMOVE_MASK, maskName);
         }
 
         const roomOwnObject = this.getRoomOwnObject(roomId);

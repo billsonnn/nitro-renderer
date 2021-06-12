@@ -31,17 +31,17 @@ export class RoomObjectTileMouseEvent extends RoomObjectMouseEvent
         return this._tileZ;
     }
 
-    public get _Str_16836(): number
+    public get tileXAsInt(): number
     {
         return Math.trunc(this._tileX + 0.499);
     }
 
-    public get _Str_17676(): number
+    public get tileYAsInt(): number
     {
         return Math.trunc(this._tileY + 0.499);
     }
 
-    public get _Str_21459(): number
+    public get tileZAsInt(): number
     {
         return Math.trunc(this._tileZ + 0.499);
     }

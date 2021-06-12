@@ -60,7 +60,7 @@ export class FurnitureGiftOpenedParser implements IMessageParser
         return this._Str_3970;
     }
 
-    public get _Str_4057():boolean
+    public get placedInRoom():boolean
     {
         return this._Str_3224;
     }

@@ -1,8 +1,8 @@
 import { IConnection } from '../../../core/communication/connections/IConnection';
-import { IRoomHandlerListener } from '../IRoomHandlerListener';
-import { BaseHandler } from './BaseHandler';
 import { FurnitureGiftOpenedEvent } from '../../communication/messages/incoming/inventory/furni/gifts/FurnitureGiftOpenedEvent';
 import { RoomSessionPresentEvent } from '../events/RoomSessionPresentEvent';
+import { IRoomHandlerListener } from '../IRoomHandlerListener';
+import { BaseHandler } from './BaseHandler';
 
 export class RoomPresentHandler extends BaseHandler
 {
@@ -29,7 +29,7 @@ export class RoomPresentHandler extends BaseHandler
 
         if(this.listener && this.listener.events) this.listener.events.dispatchEvent(
             new RoomSessionPresentEvent(RoomSessionPresentEvent.RSPE_PRESENT_OPENED, session, parser.classId, parser._Str_2887,
-                parser.productCode, parser.placedItemId, parser.placedItemType, parser._Str_4057, parser.petFigureString));
+                parser.productCode, parser.placedItemId, parser.placedItemType, parser.placedInRoom, parser.petFigureString));
 
     }
 
