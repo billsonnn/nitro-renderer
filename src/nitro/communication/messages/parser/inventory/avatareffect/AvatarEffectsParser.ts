@@ -24,11 +24,11 @@ export class AvatarEffectsParser implements IMessageParser
             const effect = new AvatarEffect();
 
             effect.type         = wrapper.readInt();
-            effect._Str_3882    = wrapper.readInt();
+            effect.subType    = wrapper.readInt();
             effect.duration     = wrapper.readInt();
-            effect._Str_18572   = wrapper.readInt();
-            effect._Str_12185   = wrapper.readInt();
-            effect._Str_4010    = wrapper.readBoolean();
+            effect.inactiveEffectsInInventory   = wrapper.readInt();
+            effect.secondsLeftIfActive   = wrapper.readInt();
+            effect.isPermanent    = wrapper.readBoolean();
 
             this._effects.push(effect);
 

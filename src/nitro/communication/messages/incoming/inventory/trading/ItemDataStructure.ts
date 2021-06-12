@@ -4,9 +4,9 @@ import { IObjectData } from '../../../../../room/object/data/IObjectData';
 import { FurnitureDataParser } from '../../../parser/room/furniture/FurnitureDataParser';
 import { IFurnitureItemData } from '../furni/IFurnitureItemData';
 
-export class TradingListItem implements IFurnitureItemData
+export class ItemDataStructure implements IFurnitureItemData
 {
-    private _Str_5390: number;
+    private _expirationTimeStamp: number;
     private _isWallItem: boolean;
     private _itemId: number;
     private _furniType: string;
@@ -14,13 +14,13 @@ export class TradingListItem implements IFurnitureItemData
     private _spriteId: number;
     private _category: number;
     private _stuffData: IObjectData;
-    private _Str_3182: number;
+    private _extra: number;
     private _secondsToExpiration: number;
-    private _Str_9291: number;
-    private _Str_8744: number;
-    private _Str_9700: number;
+    private _creationDay: number;
+    private _creationMonth: number;
+    private _creationYear: number;
     private _isGroupable: boolean;
-    private _Str_2808: number;
+    private _songId: number;
     private _flatId: number;
     private _rentable: boolean;
     private _hasRentPeriodStarted: boolean;
@@ -35,12 +35,12 @@ export class TradingListItem implements IFurnitureItemData
         this._isGroupable           = wrapper.readBoolean();
         this._stuffData             = FurnitureDataParser.parseObjectData(wrapper);
         this._secondsToExpiration   = -1;
-        this._Str_5390              = Nitro.instance.time;
+        this._expirationTimeStamp              = Nitro.instance.time;
         this._hasRentPeriodStarted  = false;
-        this._Str_9291              = wrapper.readInt();
-        this._Str_8744              = wrapper.readInt();
-        this._Str_9700              = wrapper.readInt();
-        this._Str_3182              = ((this.furniType === 'S') ? wrapper.readInt() : -1);
+        this._creationDay              = wrapper.readInt();
+        this._creationMonth              = wrapper.readInt();
+        this._creationYear              = wrapper.readInt();
+        this._extra              = ((this.furniType === 'S') ? wrapper.readInt() : -1);
         this._flatId                = -1;
         this._rentable              = false;
         this._isWallItem            = (this._furniType === 'I');
@@ -76,9 +76,9 @@ export class TradingListItem implements IFurnitureItemData
         return this._stuffData;
     }
 
-    public get _Str_2794(): number
+    public get extra(): number
     {
-        return this._Str_3182;
+        return this._extra;
     }
 
     public get secondsToExpiration(): number
@@ -86,19 +86,19 @@ export class TradingListItem implements IFurnitureItemData
         return this._secondsToExpiration;
     }
 
-    public get _Str_8932(): number
+    public get creationDay(): number
     {
-        return this._Str_9291;
+        return this._creationDay;
     }
 
-    public get _Str_9050(): number
+    public get creationMonth(): number
     {
-        return this._Str_8744;
+        return this._creationMonth;
     }
 
-    public get _Str_9408(): number
+    public get creationYear(): number
     {
-        return this._Str_9700;
+        return this._creationYear;
     }
 
     public get isGroupable(): boolean
@@ -106,9 +106,9 @@ export class TradingListItem implements IFurnitureItemData
         return this._isGroupable;
     }
 
-    public get _Str_3951(): number
+    public get songId(): number
     {
-        return this._Str_3182;
+        return this._extra;
     }
 
     public get flatId(): number
@@ -131,9 +131,9 @@ export class TradingListItem implements IFurnitureItemData
         return this._hasRentPeriodStarted;
     }
 
-    public get _Str_10616(): number
+    public get expirationTimeStamp(): number
     {
-        return this._Str_5390;
+        return this._expirationTimeStamp;
     }
 
     public get isRecycleable(): boolean
@@ -156,7 +156,7 @@ export class TradingListItem implements IFurnitureItemData
         return null;
     }
 
-    public get _Str_19297(): boolean
+    public get isExternalImageFurni(): boolean
     {
         return (this._furniType.indexOf('external_image') !== -1);
     }

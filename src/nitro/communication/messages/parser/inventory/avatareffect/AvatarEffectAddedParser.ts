@@ -35,7 +35,7 @@ export class AvatarEffectAddedParser implements IMessageParser
         return this._type;
     }
 
-    public get _Str_3882(): number
+    public get subType(): number
     {
         return this._subType;
     }
@@ -45,7 +45,7 @@ export class AvatarEffectAddedParser implements IMessageParser
         return this._duration;
     }
 
-    public get _Str_4010(): boolean
+    public get isPermanent(): boolean
     {
         return this._permanent;
     }

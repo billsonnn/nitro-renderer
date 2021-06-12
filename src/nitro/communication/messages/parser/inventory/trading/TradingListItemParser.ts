@@ -1,15 +1,15 @@
 ﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
-import { TradingListItem } from '../../../incoming/inventory/trading/TradingListItem';
+import { ItemDataStructure } from '../../../incoming/inventory/trading/ItemDataStructure';
 
 export class TradingListItemParser implements IMessageParser
 {
     private _firstUserID: number;
-    private _firstUserItemArray: TradingListItem[];
+    private _firstUserItemArray: ItemDataStructure[];
     private _firstUserNumItems: number;
     private _firstUserNumCredits: number;
     private _secondUserID: number;
-    private _secondUserItemArray: TradingListItem[];
+    private _secondUserItemArray: ItemDataStructure[];
     private _secondUserNumItems: number;
     private _secondUserNumCredits: number;
 
@@ -50,13 +50,13 @@ export class TradingListItemParser implements IMessageParser
         return true;
     }
 
-    private parseItems(k: IMessageDataWrapper, itemArray: TradingListItem[]): boolean
+    private parseItems(k: IMessageDataWrapper, itemArray: ItemDataStructure[]): boolean
     {
         let count = k.readInt();
 
         while(count > 0)
         {
-            itemArray.push(new TradingListItem(k));
+            itemArray.push(new ItemDataStructure(k));
 
             count--;
         }
@@ -69,7 +69,7 @@ export class TradingListItemParser implements IMessageParser
         return this._firstUserID;
     }
 
-    public get _Str_17841(): TradingListItem[]
+    public get _Str_17841(): ItemDataStructure[]
     {
         return this._firstUserItemArray;
     }
@@ -89,7 +89,7 @@ export class TradingListItemParser implements IMessageParser
         return this._secondUserID;
     }
 
-    public get _Str_17465(): TradingListItem[]
+    public get _Str_17465(): ItemDataStructure[]
     {
         return this._secondUserItemArray;
     }

@@ -1,7 +1,7 @@
 ﻿import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
 import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
 import { TradingListItemParser } from '../../../parser/inventory/trading/TradingListItemParser';
-import { TradingListItem } from './TradingListItem';
+import { ItemDataStructure } from './ItemDataStructure';
 
 export class TradingListItemEvent extends MessageEvent implements IMessageEvent
 {
@@ -40,12 +40,12 @@ export class TradingListItemEvent extends MessageEvent implements IMessageEvent
         return this.getParser()._Str_9138;
     }
 
-    public get _Str_17841(): TradingListItem[]
+    public get _Str_17841(): ItemDataStructure[]
     {
         return this.getParser()._Str_17841;
     }
 
-    public get _Str_17465(): TradingListItem[]
+    public get _Str_17465(): ItemDataStructure[]
     {
         return this.getParser()._Str_17465;
     }
