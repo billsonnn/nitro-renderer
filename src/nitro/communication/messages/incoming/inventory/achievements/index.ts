@@ -1,5 +1,5 @@
 export * from './AchievementData';
 export * from './AchievementEvent';
-export * from './AchievementResolution';
+export * from './AchievementResolutionData';
 export * from './AchievementsEvent';
 export * from './AchievementsScoreEvent';

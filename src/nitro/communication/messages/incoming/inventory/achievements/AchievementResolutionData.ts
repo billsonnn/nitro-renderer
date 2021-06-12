@@ -1,13 +1,13 @@
-﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
+﻿import { IMessageDataWrapper } from 'nitro-renderer/src/core/communication/messages/IMessageDataWrapper';
 
-export class AchievementResolution
+export class AchievementResolutionData
 {
-    public static _Str_16945: number = 0;
+    public static STATE_SELECTABLE: number = 0;
 
     private _achievementId: number;
     private _level: number;
     private _badgeId: string;
-    private _Str_8741: number;
+    private _requiredLevel: number;
     private _state: number;
 
     constructor(wrapper: IMessageDataWrapper)
@@ -15,7 +15,7 @@ export class AchievementResolution
         this._achievementId = wrapper.readInt();
         this._level         = wrapper.readInt();
         this._badgeId       = wrapper.readString();
-        this._Str_8741      = wrapper.readInt();
+        this._requiredLevel      = wrapper.readInt();
         this._state         = wrapper.readInt();
     }
 
@@ -24,7 +24,7 @@ export class AchievementResolution
         this._achievementId = 0;
         this._level         = 0;
         this._badgeId       = '';
-        this._Str_8741      = 0;
+        this._requiredLevel      = 0;
     }
 
     public get achievementId(): number
@@ -42,14 +42,14 @@ export class AchievementResolution
         return this._badgeId;
     }
 
-    public get _Str_20240(): number
+    public get requiredLevel(): number
     {
-        return this._Str_8741;
+        return this._requiredLevel;
     }
 
     public get enabled(): boolean
     {
-        return (this._state === AchievementResolution._Str_16945);
+        return (this._state === AchievementResolutionData.STATE_SELECTABLE);
     }
 
     public get state(): number
