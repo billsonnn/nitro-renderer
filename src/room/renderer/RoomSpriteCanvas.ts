@@ -549,11 +549,11 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         if((index < 0) || (index >= this._spriteCount)) return null;
 
-        const sprite = this._display.getChildAt(index);
+        const sprite = (this._display.getChildAt(index) as ExtendedSprite);
 
         if(!sprite) return null;
 
-        return sprite as ExtendedSprite;
+        return sprite;
     }
 
     protected getExtendedSpriteIdentifier(sprite: ExtendedSprite): string
@@ -678,7 +678,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         extendedSprite.offsetX          = sprite.offsetX;
         extendedSprite.offsetY          = sprite.offsetY;
         extendedSprite.name             = sprite.name;
-        extendedSprite.varyingDepth        = sprite.varyingDepth;
+        extendedSprite.varyingDepth     = sprite.varyingDepth;
         extendedSprite.clickHandling    = sprite.clickHandling;
         extendedSprite.blendMode        = sprite.blendMode;
         extendedSprite.filters          = sprite.filters;
