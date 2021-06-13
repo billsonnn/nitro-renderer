@@ -405,7 +405,7 @@ export class RoomPreviewer
 
             if(!roomObject) return;
 
-            const direction = this._roomEngine.objectEventHandler._Str_17555(roomObject, true);
+            const direction = this._roomEngine.objectEventHandler.getValidRoomObjectDirection(roomObject, true);
 
             switch(this._currentPreviewObjectCategory)
             {
