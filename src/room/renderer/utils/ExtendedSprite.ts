@@ -1,4 +1,4 @@
-import { BaseTexture, BLEND_MODES, Point, Renderer, RenderTexture, Sprite, Texture } from 'pixi.js';
+import { BaseTexture, BLEND_MODES, Point, RenderTexture, Sprite, Texture } from 'pixi.js';
 import { Nitro } from '../../../nitro/Nitro';
 
 export class ExtendedSprite extends Sprite
@@ -38,20 +38,11 @@ export class ExtendedSprite extends Sprite
         return true;
     }
 
-    public render(renderer: Renderer): void
+    public calculateVertices(): void
     {
-        try
-        {
-            //@ts-ignore
-            if(!this._texture || !this._texture._uvs || !this._texture._uvs.uvsFloat32) return;
-        }
+        if(!this.texture.orig) return;
 
-        catch (err)
-        {
-            return;
-        }
-
-        super.render(renderer);
+        super.calculateVertices();
     }
 
     public setTexture(texture: Texture): void
