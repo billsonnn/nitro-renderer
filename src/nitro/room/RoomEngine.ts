@@ -6,6 +6,7 @@ import { NitroManager } from '../../core/common/NitroManager';
 import { IConnection } from '../../core/communication/connections/IConnection';
 import { IMessageComposer } from '../../core/communication/messages/IMessageComposer';
 import { NitroEvent } from '../../core/events/NitroEvent';
+import { TextureUtils } from '../../room';
 import { RoomObjectEvent } from '../../room/events/RoomObjectEvent';
 import { RoomObjectMouseEvent } from '../../room/events/RoomObjectMouseEvent';
 import { IRoomInstance } from '../../room/IRoomInstance';
@@ -3437,17 +3438,32 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return null;
     }
 
-    public createRoomScreenshot(roomId: number, canvasId: number): void
+    public createRoomScreenshot(roomId: number, canvasId: number = -1, bounds: Rectangle = null): void
     {
-        const canvas = this.getRoomInstanceRenderingCanvas(roomId, canvasId);
+        let canvas: IRoomRenderingCanvas = null;
 
-        if(!canvas) return;
+        if(canvasId > -1)
+        {
+            canvas = this.getRoomInstanceRenderingCanvas(this._activeRoomId, canvasId);
+        }
+        else
+        {
+            canvas = this.getActiveRoomInstanceRenderingCanvas();
+        }
 
-        const texture = canvas.getDisplayAsTexture();
+        let texture: RenderTexture = null;
 
-        const base64 = Nitro.instance.renderer.extract.base64(texture);
+        if(bounds)
+        {
+            texture = TextureUtils.generateTexture(canvas.master, bounds);
+        }
+        else
+        {
+            texture = canvas.getDisplayAsTexture();
+        }
 
-        const image = new Image();
+        const base64    = TextureUtils.generateImageUrl(texture);
+        const image     = new Image();
 
         image.src = base64;
 
