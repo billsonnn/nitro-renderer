@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, SellablePetPalettesEvent } from './messages';
+import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, RoomUnitGiveHandItemPetComposer, SellablePetPalettesEvent } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CatalogClubEvent } from './messages/incoming/catalog/CatalogClubEvent';
 import { CatalogClubGiftsEvent } from './messages/incoming/catalog/CatalogClubGiftsEvent';
@@ -918,6 +918,7 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.UNIT_DANCE, RoomUnitDanceComposer);
         this._composers.set(OutgoingHeader.UNIT_DROP_HAND_ITEM, RoomUnitDropHandItemComposer);
         this._composers.set(OutgoingHeader.UNIT_GIVE_HANDITEM, RoomUnitGiveHandItemComposer);
+        this._composers.set(OutgoingHeader.UNIT_GIVE_HANDITEM_PET, RoomUnitGiveHandItemPetComposer);
         this._composers.set(OutgoingHeader.UNIT_LOOK, RoomUnitLookComposer);
         this._composers.set(OutgoingHeader.UNIT_SIGN, RoomUnitSignComposer);
         this._composers.set(OutgoingHeader.UNIT_POSTURE, RoomUnitPostureComposer);
