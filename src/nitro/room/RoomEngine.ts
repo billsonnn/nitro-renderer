@@ -2636,7 +2636,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
     {
         if(!this._roomObjectEventHandler) return false;
 
-        this._roomObjectEventHandler.processRoomObjectOperation(this._activeRoomId, objectId, category, operation);
+        this._roomObjectEventHandler.modifyRoomObject(this._activeRoomId, objectId, category, operation);
     }
 
     public processRoomObjectWallOperation(objectId: number, category: number, operation: string, data: Map<string, string>): boolean
