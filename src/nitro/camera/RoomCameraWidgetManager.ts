@@ -72,7 +72,7 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
                 filter.matrix   = effect.colorMatrix;
                 filter.alpha    = selectedEffect.alpha;
 
-                if(!sprite.filters) sprite.filters = [ filter ];
+                if(!sprite.filters) sprite.filters = [];
 
                 sprite.filters.push(filter);
             }
