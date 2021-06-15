@@ -11,7 +11,6 @@ import { IVector3D } from '../../room/utils/IVector3D';
 import { PetCustomPart } from '../avatar/pets/PetCustomPart';
 import { IRoomSessionManager } from '../session/IRoomSessionManager';
 import { ISessionDataManager } from '../session/ISessionDataManager';
-import { RoomCameraWidgetManager } from './camera-widget/RoomCameraWidgetManager';
 import { IGetImageListener } from './IGetImageListener';
 import { ImageResult } from './ImageResult';
 import { IObjectData } from './object/data/IObjectData';
@@ -103,5 +102,4 @@ export interface IRoomEngine extends INitroManager
     disposed: boolean;
     selectedAvatarId: number;
     isDecorating: boolean;
-    roomCameraWidgetManager: RoomCameraWidgetManager;
 }
