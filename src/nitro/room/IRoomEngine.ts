@@ -11,6 +11,7 @@ import { IVector3D } from '../../room/utils/IVector3D';
 import { PetCustomPart } from '../avatar/pets/PetCustomPart';
 import { IRoomSessionManager } from '../session/IRoomSessionManager';
 import { ISessionDataManager } from '../session/ISessionDataManager';
+import { RoomCameraWidgetManager } from './camera-widget/RoomCameraWidgetManager';
 import { IGetImageListener } from './IGetImageListener';
 import { ImageResult } from './ImageResult';
 import { IObjectData } from './object/data/IObjectData';
@@ -86,7 +87,7 @@ export interface IRoomEngine extends INitroManager
     processRoomObjectOperation(objectId: number, category: number, operation: string): boolean;
     processRoomObjectPlacement(placementSource: string, id: number, category: number, typeId: number, legacyString?: string, stuffData?: IObjectData, state?: number, frameNumber?: number, posture?: string): boolean;
     dispatchMouseEvent(canvasId: number, x: number, y: number, type: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean, buttonDown: boolean): void;
-    createRoomScreenshot(roomId: number, canvasId?: number, bounds?: Rectangle): void;
+    createRoomScreenshot(roomId: number, canvasId?: number, bounds?: Rectangle): HTMLImageElement;
     modifyRoomObjectData(objectId: number, objectCategory: number, colorHex: string, text: string): boolean;
     deleteRoomObject(objectId: number, objectCategory: number): boolean;
     sessionDataManager: ISessionDataManager;
@@ -102,4 +103,5 @@ export interface IRoomEngine extends INitroManager
     disposed: boolean;
     selectedAvatarId: number;
     isDecorating: boolean;
+    roomCameraWidgetManager: RoomCameraWidgetManager;
 }
