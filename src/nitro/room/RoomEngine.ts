@@ -41,6 +41,7 @@ import { IRoomSessionManager } from '../session/IRoomSessionManager';
 import { ISessionDataManager } from '../session/ISessionDataManager';
 import { MouseEventType } from '../ui/MouseEventType';
 import { FurniId } from '../utils/FurniId';
+import { RoomCameraWidgetManager } from './camera-widget/RoomCameraWidgetManager';
 import { RoomBackgroundColorEvent } from './events/RoomBackgroundColorEvent';
 import { RoomEngineEvent } from './events/RoomEngineEvent';
 import { RoomEngineObjectEvent } from './events/RoomEngineObjectEvent';
@@ -162,6 +163,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
     private _mouseCursorUpdate: boolean;
     private _badgeListenerObjects: Map<string, RoomObjectBadgeImageAssetListener[]>;
     private _logicFactory: IRoomObjectLogicFactory;
+    private _roomCameraWidgetManager: RoomCameraWidgetManager;
 
     constructor(communication: INitroCommunicationManager)
     {
@@ -202,6 +204,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         this._roomDraggingAlwaysCenters         = false;
         this._roomAllowsDragging                = true;
         this._badgeListenerObjects              = new Map();
+        this._roomCameraWidgetManager           = new RoomCameraWidgetManager(this.events);
 
         this.runVisibilityUpdate            = this.runVisibilityUpdate.bind(this);
         this.processRoomObjectEvent         = this.processRoomObjectEvent.bind(this);
@@ -240,6 +243,8 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
             this._roomSessionManager.events.addEventListener(RoomSessionEvent.STARTED, this.onRoomSessionEvent);
             this._roomSessionManager.events.addEventListener(RoomSessionEvent.ENDED, this.onRoomSessionEvent);
         }
+
+        this._roomCameraWidgetManager.initialize();
 
         this.events.addEventListener(RoomContentLoader.LOADER_READY, this.onRoomContentLoaderReadyEvent);
 
@@ -3438,7 +3443,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return null;
     }
 
-    public createRoomScreenshot(roomId: number, canvasId: number = -1, bounds: Rectangle = null): void
+    public createRoomScreenshot(roomId: number, canvasId: number = -1, bounds: Rectangle = null): HTMLImageElement
     {
         let canvas: IRoomRenderingCanvas = null;
 
@@ -3467,8 +3472,10 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         image.src = base64;
 
-        const newWindow = window.open('');
-        newWindow.document.write(image.outerHTML);
+        /*const newWindow = window.open('');
+        newWindow.document.write(image.outerHTML);*/
+
+        return image;
     }
 
     public objectsInitialized(k: string): void
@@ -3657,5 +3664,10 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         if(this._roomManager == null) return 0;
 
         return this._roomManager.getRoomInstance(roomId.toString()).getRoomObjectsForCategory(categoryId).length;
+    }
+
+    public get roomCameraWidgetManager(): RoomCameraWidgetManager
+    {
+        return this._roomCameraWidgetManager;
     }
 }
