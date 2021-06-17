@@ -88,7 +88,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
                             if(layer)
                             {
                                 let material: PlaneMaterial     = null;
-                                let align: number               = PlaneVisualizationLayer._Str_6914;
+                                let align: number               = PlaneVisualizationLayer.ALIGN_DEFAULT;
                                 let color: number               = LandscapePlane.DEFAULT_COLOR;
                                 let offset: number              = PlaneVisualizationLayer.DEFAULT_OFFSET;
 
@@ -102,7 +102,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
                                 {
                                     if(layer.align === 'bottom')
                                     {
-                                        align = PlaneVisualizationLayer._Str_3606;
+                                        align = PlaneVisualizationLayer.ALIGN_BOTTOM;
                                     }
 
                                     else if(layer.align === 'top') align = PlaneVisualizationLayer.ALIGN_TOP;

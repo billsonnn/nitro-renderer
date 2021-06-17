@@ -8,8 +8,8 @@ export class PlaneVisualizationLayer
 {
     public static DEFAULT_OFFSET: number = 0;
     public static ALIGN_TOP: number = 1;
-    public static _Str_3606: number = 2;
-    public static _Str_6914: number = PlaneVisualizationLayer.ALIGN_TOP;
+    public static ALIGN_BOTTOM: number = 2;
+    public static ALIGN_DEFAULT: number = PlaneVisualizationLayer.ALIGN_TOP;
 
     private _material: PlaneMaterial;
     private _color: number;

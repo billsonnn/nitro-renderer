@@ -514,11 +514,11 @@ export class RoomPlane implements IRoomPlane
 
                         Randomizer.setSeed(this._randomSeed);
 
-                        for(const column of cm._Str_23721(this.screenWidth(geometry)))
+                        for(const column of cm.getColumns(this.screenWidth(geometry)))
                         {
                             const assetNames: string[] = [];
 
-                            for(const cell of column._Str_22299())
+                            for(const cell of column.getCells())
                             {
                                 const name = cell.getAssetName(normal);
 
@@ -527,7 +527,7 @@ export class RoomPlane implements IRoomPlane
 
                             if(assetNames.length > 0)
                             {
-                                if(!column._Str_24523()) assetNames.push('');
+                                if(!column.isRepeated()) assetNames.push('');
 
                                 data.addAssetColumn(assetNames);
                             }

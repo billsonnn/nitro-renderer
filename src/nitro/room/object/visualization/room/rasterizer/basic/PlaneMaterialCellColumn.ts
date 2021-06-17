@@ -1,16 +1,16 @@
-﻿import { Graphics } from 'pixi.js';
+import { Graphics } from 'pixi.js';
 import { IVector3D } from '../../../../../../../room/utils/IVector3D';
 import { Vector3d } from '../../../../../../../room/utils/Vector3d';
 import { PlaneMaterialCell } from './PlaneMaterialCell';
 
 export class PlaneMaterialCellColumn
 {
-    public static _Str_9685: number = 0;
-    public static _Str_7916: number = 1;
-    public static _Str_6087: number = 2;
-    public static _Str_6114: number = 3;
-    public static _Str_6187: number = 4;
-    public static _Str_6063: number = 5;
+    public static REPEAT_MODE_NONE: number = 0;
+    public static REPEAT_MODE_ALL: number = 1;
+    public static REPEAT_MODE_BORDERS: number = 2;
+    public static REPEAT_MODE_CENTER: number = 3;
+    public static REPEAT_MODE_FIRST: number = 4;
+    public static REPEAT_MODE_LAST: number = 5;
 
     private _cells: PlaneMaterialCell[];
     private _repeatMode: number;
@@ -59,9 +59,9 @@ export class PlaneMaterialCellColumn
         return this._isStatic;
     }
 
-    public _Str_24523(): boolean
+    public isRepeated(): boolean
     {
-        return !(this._repeatMode === PlaneMaterialCellColumn._Str_9685);
+        return !(this._repeatMode === PlaneMaterialCellColumn.REPEAT_MODE_NONE);
     }
 
     public get width(): number
@@ -128,9 +128,9 @@ export class PlaneMaterialCellColumn
     {
         let ht = 0;
 
-        if(this._repeatMode == PlaneMaterialCellColumn._Str_9685)
+        if(this._repeatMode == PlaneMaterialCellColumn.REPEAT_MODE_NONE)
         {
-            ht      = this._Str_19857(this._cells, normal);
+            ht      = this.getCellsHeight(this._cells, normal);
             height  = ht;
         }
 
@@ -188,34 +188,34 @@ export class PlaneMaterialCellColumn
 
         switch(this._repeatMode)
         {
-            case PlaneMaterialCellColumn._Str_9685:
-                this._Str_25839(normal);
+            case PlaneMaterialCellColumn.REPEAT_MODE_NONE:
+                this.renderRepeatNone(normal);
                 break;
-            case PlaneMaterialCellColumn._Str_6087:
+            case PlaneMaterialCellColumn.REPEAT_MODE_BORDERS:
                 console.log('tru2');
-                //     this._Str_18476(normal);
+                //     this.renderRepeatBorders(normal);
                 break;
-            case PlaneMaterialCellColumn._Str_6114:
+            case PlaneMaterialCellColumn.REPEAT_MODE_CENTER:
                 console.log('tru3');
-                //     this._Str_17295(normal);
+                //     this.renderRepeatCenter(normal);
                 break;
-            case PlaneMaterialCellColumn._Str_6187:
+            case PlaneMaterialCellColumn.REPEAT_MODE_FIRST:
                 console.log('tru4');
-                //     this._Str_18019(normal);
+                //     this.renderRepeatFirst(normal);
                 break;
-            case PlaneMaterialCellColumn._Str_6063:
+            case PlaneMaterialCellColumn.REPEAT_MODE_LAST:
                 console.log('tru5');
-                //     this._Str_16099(normal);
+                //     this.renderRepeatLast(normal);
                 break;
             default:
-                this._Str_18711(normal, offsetX, offsetY);
+                this.renderRepeatAll(normal, offsetX, offsetY);
                 break;
         }
 
         return this._cachedBitmapData;
     }
 
-    private _Str_19857(k: PlaneMaterialCell[], _arg_2: IVector3D): number
+    private getCellsHeight(k: PlaneMaterialCell[], _arg_2: IVector3D): number
     {
         if(!k || !k.length) return 0;
 
@@ -226,7 +226,7 @@ export class PlaneMaterialCellColumn
         {
             const cell = k[cellIterator];
 
-            if(cell) height += cell._Str_9599(_arg_2);
+            if(cell) height += cell.getHeight(_arg_2);
 
             cellIterator++;
         }
@@ -234,7 +234,7 @@ export class PlaneMaterialCellColumn
         return height;
     }
 
-    private _Str_4757(k: PlaneMaterialCell[], _arg_2: number, _arg_3: boolean, _arg_4: IVector3D, _arg_5: number = 0, _arg_6: number = 0): number
+    private renderCells(k: PlaneMaterialCell[], _arg_2: number, _arg_3: boolean, _arg_4: IVector3D, _arg_5: number = 0, _arg_6: number = 0): number
     {
         if(((!k || !k.length) || !this._cachedBitmapData)) return _arg_2;
 
@@ -277,14 +277,14 @@ export class PlaneMaterialCellColumn
         return _arg_2;
     }
 
-    private _Str_25839(k: IVector3D): void
+    private renderRepeatNone(k: IVector3D): void
     {
         if(!this._cells.length || !this._cachedBitmapData) return;
 
-        this._Str_4757(this._cells, 0, true, k);
+        this.renderCells(this._cells, 0, true, k);
     }
 
-    private _Str_18711(k: IVector3D, _arg_2: number, _arg_3: number): void
+    private renderRepeatAll(k: IVector3D, _arg_2: number, _arg_3: number): void
     {
         if(!this._cells.length || !this._cachedBitmapData) return;
 
@@ -292,13 +292,13 @@ export class PlaneMaterialCellColumn
 
         while(index < this._cachedBitmapData.height)
         {
-            index = this._Str_4757(this._cells, index, true, k, _arg_2, _arg_3);
+            index = this.renderCells(this._cells, index, true, k, _arg_2, _arg_3);
 
             if(!index) return;
         }
     }
 
-    // private _Str_18476(k:IVector3D): void
+    // private renderRepeatBorders(k:IVector3D): void
     // {
     //     if (((this._cells.length == 0) || (this._cachedBitmapData == null)))
     //     {
@@ -316,7 +316,7 @@ export class PlaneMaterialCellColumn
     //         _local_2 = (this._cells[_local_7] as PlaneMaterialCell);
     //         if (_local_2 != null)
     //         {
-    //             _local_6 = _local_2._Str_9599(k);
+    //             _local_6 = _local_2.getHeight(k);
     //             if (_local_6 > 0)
     //             {
     //                 _local_5 = (_local_5 + _local_6);
@@ -330,7 +330,7 @@ export class PlaneMaterialCellColumn
     //         _local_2 = (this._cells[0] as PlaneMaterialCell);
     //         if (_local_2 != null)
     //         {
-    //             _local_6 = _local_2._Str_9599(k);
+    //             _local_6 = _local_2.getHeight(k);
     //             if (_local_6 > 0)
     //             {
     //                 _local_5 = (_local_5 + _local_6);
@@ -339,14 +339,14 @@ export class PlaneMaterialCellColumn
     //         }
     //     }
     //     var _local_8:* = ((this._cachedBitmapData.height - _local_5) >> 1);
-    //     var _local_9: number = this._Str_4757(_local_4, _local_8, true, k);
+    //     var _local_9: number = this.renderCells(_local_4, _local_8, true, k);
     //     _local_2 = (this._cells[0] as PlaneMaterialCell);
     //     if (_local_2 != null)
     //     {
     //         _local_4 = [_local_2];
     //         while (_local_8 >= 0)
     //         {
-    //             _local_8 = this._Str_4757(_local_4, _local_8, false, k);
+    //             _local_8 = this.renderCells(_local_4, _local_8, false, k);
     //         }
     //     }
     //     _local_2 = (this._cells[(this._cells.length - 1)] as PlaneMaterialCell);
@@ -355,12 +355,12 @@ export class PlaneMaterialCellColumn
     //         _local_4 = [_local_2];
     //         while (_local_9 < this._cachedBitmapData.height)
     //         {
-    //             _local_9 = this._Str_4757(_local_4, _local_9, true, k);
+    //             _local_9 = this.renderCells(_local_4, _local_9, true, k);
     //         }
     //     }
     // }
 
-    // private _Str_17295(k:IVector3D): void
+    // private renderRepeatCenter(k:IVector3D): void
     // {
     //     var _local_13: number;
     //     var _local_14: number;
@@ -384,7 +384,7 @@ export class PlaneMaterialCellColumn
     //         _local_2 = (this._cells[_local_9] as PlaneMaterialCell);
     //         if (_local_2 != null)
     //         {
-    //             _local_8 = _local_2._Str_9599(k);
+    //             _local_8 = _local_2.getHeight(k);
     //             if (_local_8 > 0)
     //             {
     //                 _local_6 = (_local_6 + _local_8);
@@ -399,7 +399,7 @@ export class PlaneMaterialCellColumn
     //         _local_2 = (this._cells[_local_9] as PlaneMaterialCell);
     //         if (_local_2 != null)
     //         {
-    //             _local_8 = _local_2._Str_9599(k);
+    //             _local_8 = _local_2.getHeight(k);
     //             if (_local_8 > 0)
     //             {
     //                 _local_7 = (_local_7 + _local_8);
@@ -422,7 +422,7 @@ export class PlaneMaterialCellColumn
     //         _local_2 = (this._cells[(this._cells.length >> 1)] as PlaneMaterialCell);
     //         if (_local_2 != null)
     //         {
-    //             _local_8 = _local_2._Str_9599(k);
+    //             _local_8 = _local_2.getHeight(k);
     //             if (_local_8 > 0)
     //             {
     //                 _local_13 = (this._cachedBitmapData.height - (_local_6 + _local_7));
@@ -432,17 +432,17 @@ export class PlaneMaterialCellColumn
     //                 _local_16 = [_local_2];
     //                 while (_local_11 < _local_15)
     //                 {
-    //                     _local_11 = this._Str_4757(_local_16, _local_11, true, k);
+    //                     _local_11 = this.renderCells(_local_16, _local_11, true, k);
     //                 }
     //             }
     //         }
     //     }
     //     _local_11 = 0;
-    //     this._Str_4757(_local_4, _local_11, true, k);
-    //     this._Str_4757(_local_5, _local_12, false, k);
+    //     this.renderCells(_local_4, _local_11, true, k);
+    //     this.renderCells(_local_5, _local_12, false, k);
     // }
 
-    // private _Str_18019(k:IVector3D): void
+    // private renderRepeatFirst(k:IVector3D): void
     // {
     //     var _local_4:Array;
     //     if (((this._cells.length == 0) || (this._cachedBitmapData == null)))
@@ -451,19 +451,19 @@ export class PlaneMaterialCellColumn
     //     }
     //     var _local_2:PlaneMaterialCell;
     //     var _local_3: number = this._cachedBitmapData.height;
-    //     _local_3 = this._Str_4757(this._cells, _local_3, false, k);
+    //     _local_3 = this.renderCells(this._cells, _local_3, false, k);
     //     _local_2 = (this._cells[0] as PlaneMaterialCell);
     //     if (_local_2 != null)
     //     {
     //         _local_4 = [_local_2];
     //         while (_local_3 >= 0)
     //         {
-    //             _local_3 = this._Str_4757(_local_4, _local_3, false, k);
+    //             _local_3 = this.renderCells(_local_4, _local_3, false, k);
     //         }
     //     }
     // }
 
-    // private _Str_16099(k: IVector3D): void
+    // private renderRepeatLast(k: IVector3D): void
     // {
     //     if(!this._cells.length || !this._cachedBitmapData) return;
 
@@ -471,19 +471,19 @@ export class PlaneMaterialCellColumn
     //     var _local_4:Array;
     //     var _local_2:PlaneMaterialCell;
     //     var _local_3: number;
-    //     _local_3 = this._Str_4757(this._cells, _local_3, true, k);
+    //     _local_3 = this.renderCells(this._cells, _local_3, true, k);
     //     _local_2 = (this._cells[(this._cells.length - 1)] as PlaneMaterialCell);
     //     if (_local_2 != null)
     //     {
     //         _local_4 = [_local_2];
     //         while (_local_3 < this._cachedBitmapData.height)
     //         {
-    //             _local_3 = this._Str_4757(_local_4, _local_3, true, k);
+    //             _local_3 = this.renderCells(_local_4, _local_3, true, k);
     //         }
     //     }
     // }
 
-    public _Str_22299(): PlaneMaterialCell[]
+    public getCells(): PlaneMaterialCell[]
     {
         return this._cells;
     }

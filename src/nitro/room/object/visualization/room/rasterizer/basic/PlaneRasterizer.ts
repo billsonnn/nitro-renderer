@@ -298,22 +298,22 @@ export class PlaneRasterizer implements IPlaneRasterizer
                     switch(repeatMode)
                     {
                         case 'borders':
-                            repeatMode = PlaneMaterialCellMatrix._Str_6087;
+                            repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_BORDERS;
                             break;
                         case 'center':
-                            repeatMode = PlaneMaterialCellMatrix._Str_6114;
+                            repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_CENTER;
                             break;
                         case 'first':
-                            repeatMode = PlaneMaterialCellMatrix._Str_6187;
+                            repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_FIRST;
                             break;
                         case 'last':
-                            repeatMode = PlaneMaterialCellMatrix._Str_6063;
+                            repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_LAST;
                             break;
                         case 'random':
-                            repeatMode = PlaneMaterialCellMatrix._Str_9127;
+                            repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_RANDOM;
                             break;
                         default:
-                            repeatMode = PlaneMaterialCellMatrix._Str_18632;
+                            repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_DEFAULT;
                             break;
                     }
 
@@ -323,10 +323,10 @@ export class PlaneRasterizer implements IPlaneRasterizer
                             align = PlaneMaterialCellMatrix.ALIGN_TOP;
                             break;
                         case 'bottom':
-                            align = PlaneMaterialCellMatrix._Str_3606;
+                            align = PlaneMaterialCellMatrix.ALIGN_BOTTOM;
                             break;
                         default:
-                            align = PlaneMaterialCellMatrix._Str_6914;
+                            align = PlaneMaterialCellMatrix.ALIGN_DEFAULT;
                             break;
                     }
 
@@ -356,7 +356,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
     {
         if(!k || !_arg_2) return;
 
-        let repeatMode = PlaneMaterialCellColumn._Str_7916;
+        let repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_ALL;
 
         const width = k.width;
 
@@ -365,26 +365,26 @@ export class PlaneRasterizer implements IPlaneRasterizer
         switch(k.repeatMode)
         {
             case 'borders':
-                repeatMode = PlaneMaterialCellColumn._Str_6087;
+                repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_BORDERS;
                 break;
             case 'center':
-                repeatMode = PlaneMaterialCellColumn._Str_6114;
+                repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_CENTER;
                 break;
             case 'first':
-                repeatMode = PlaneMaterialCellColumn._Str_6187;
+                repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_FIRST;
                 break;
             case 'last':
-                repeatMode = PlaneMaterialCellColumn._Str_6063;
+                repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_LAST;
                 break;
             case 'none':
-                repeatMode = PlaneMaterialCellColumn._Str_9685;
+                repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_NONE;
                 break;
             default:
-                repeatMode = PlaneMaterialCellColumn._Str_7916;
+                repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_ALL;
                 break;
         }
 
-        _arg_2._Str_22372(_arg_3, width, cells, repeatMode);
+        _arg_2.createColumn(_arg_3, width, cells, repeatMode);
     }
 
     private parsePlaneMaterialCells(k: any): PlaneMaterialCell[]
@@ -561,7 +561,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
                         if(layer)
                         {
                             let material: PlaneMaterial     = null;
-                            let align: number               = PlaneVisualizationLayer._Str_6914;
+                            let align: number               = PlaneVisualizationLayer.ALIGN_DEFAULT;
                             let color: number               = FloorPlane.DEFAULT_COLOR;
                             let offset: number              = PlaneVisualizationLayer.DEFAULT_OFFSET;
 
@@ -573,7 +573,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
                             if(layer.align)
                             {
-                                if(layer.align === 'bottom') align = PlaneVisualizationLayer._Str_3606;
+                                if(layer.align === 'bottom') align = PlaneVisualizationLayer.ALIGN_BOTTOM;
 
                                 else if(layer.align == 'top') align = PlaneVisualizationLayer.ALIGN_TOP;
                             }

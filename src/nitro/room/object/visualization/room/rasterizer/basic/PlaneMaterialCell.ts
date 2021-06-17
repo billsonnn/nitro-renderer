@@ -89,7 +89,7 @@ export class PlaneMaterialCell
         }
     }
 
-    public _Str_9599(k: IVector3D): number
+    public getHeight(k: IVector3D): number
     {
         if(this._texture)
         {
