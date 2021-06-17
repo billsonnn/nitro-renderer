@@ -354,49 +354,53 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         const frame = Math.round(this._totalTimeRunning / (60 / this._animationFPS));
 
+        let updateVisuals = false;
+
         if(frame !== this._lastFrame)
         {
             this._lastFrame = frame;
 
-            let spriteCount = 0;
-
-            const objects = this._container.objects;
-
-            if(objects.size)
-            {
-                for(const object of objects.values())
-                {
-                    if(!object) continue;
-
-                    spriteCount = (spriteCount + this.renderObject(object, object.instanceId.toString(), time, update, spriteCount));
-                }
-            }
-
-            this._sortableSprites.sort((a, b) =>
-            {
-                return b.z - a.z;
-            });
-
-            if(spriteCount < this._sortableSprites.length)
-            {
-                this._sortableSprites.splice(spriteCount);
-            }
-
-            let iterator = 0;
-
-            while(iterator < spriteCount)
-            {
-                const sprite = this._sortableSprites[iterator];
-
-                if(sprite && sprite.sprite) this.renderSprite(iterator, sprite);
-
-                iterator++;
-            }
-
-            this.cleanSprites(spriteCount);
+            updateVisuals = true;
         }
 
-        if(update) this._canvasUpdated = true;
+        let spriteCount = 0;
+
+        const objects = this._container.objects;
+
+        if(objects.size)
+        {
+            for(const object of objects.values())
+            {
+                if(!object) continue;
+
+                spriteCount = (spriteCount + this.renderObject(object, object.instanceId.toString(), time, update, updateVisuals, spriteCount));
+            }
+        }
+
+        this._sortableSprites.sort((a, b) =>
+        {
+            return b.z - a.z;
+        });
+
+        if(spriteCount < this._sortableSprites.length)
+        {
+            this._sortableSprites.splice(spriteCount);
+        }
+
+        let iterator = 0;
+
+        while(iterator < spriteCount)
+        {
+            const sprite = this._sortableSprites[iterator];
+
+            if(sprite && sprite.sprite) this.renderSprite(iterator, sprite);
+
+            iterator++;
+        }
+
+        this.cleanSprites(spriteCount);
+
+        if(update || updateVisuals) this._canvasUpdated = true;
 
         this._renderTimestamp   = this._totalTimeRunning;
         this._renderedWidth     = this._width;
@@ -430,7 +434,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         this._objectCache.removeObjectCache(identifier);
     }
 
-    private renderObject(object: IRoomObject, identifier: string, time: number, update: boolean, count: number): number
+    private renderObject(object: IRoomObject, identifier: string, time: number, update: boolean, updateVisuals: boolean, count: number): number
     {
         if(!object) return 0;
 
@@ -458,7 +462,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             return 0;
         }
 
-        visualization.update(this._geometry, time, (!sortableCache.isEmpty || update), (this._skipObjectUpdate && this._runningSlow));
+        if(updateVisuals) visualization.update(this._geometry, time, (!sortableCache.isEmpty || update), (this._skipObjectUpdate && this._runningSlow));
 
         if(locationCache.locationChanged) update = true;
 

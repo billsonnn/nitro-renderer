@@ -12,6 +12,8 @@ import { IRoomManager } from '../room/IRoomManager';
 import { RoomManager } from '../room/RoomManager';
 import { AvatarRenderManager } from './avatar/AvatarRenderManager';
 import { IAvatarRenderManager } from './avatar/IAvatarRenderManager';
+import { IRoomCameraWidgetManager } from './camera/IRoomCameraWidgetManager';
+import { RoomCameraWidgetManager } from './camera/RoomCameraWidgetManager';
 import { INitroCommunicationManager } from './communication/INitroCommunicationManager';
 import { NitroCommunicationManager } from './communication/NitroCommunicationManager';
 import { LegacyExternalInterface } from './externalInterface/LegacyExternalInterface';
@@ -53,6 +55,7 @@ export class Nitro extends Application implements INitro
     private _sessionDataManager: ISessionDataManager;
     private _roomSessionManager: IRoomSessionManager;
     private _roomManager: IRoomManager;
+    private _cameraManager: IRoomCameraWidgetManager;
     private _linkTrackers: ILinkEventTracker[];
     private _workerTrackers: IWorkerEventTracker[];
 
@@ -93,6 +96,7 @@ export class Nitro extends Application implements INitro
         this._sessionDataManager        = new SessionDataManager(this._communication);
         this._roomSessionManager        = new RoomSessionManager(this._communication, this._roomEngine);
         this._roomManager               = new RoomManager(this._roomEngine, this._roomEngine.visualizationFactory, this._roomEngine.logicFactory);
+        this._cameraManager             = new RoomCameraWidgetManager();
         this._linkTrackers              = [];
         this._workerTrackers            = [];
 
@@ -389,6 +393,11 @@ export class Nitro extends Application implements INitro
     public get roomManager(): IRoomManager
     {
         return this._roomManager;
+    }
+
+    public get cameraManager(): IRoomCameraWidgetManager
+    {
+        return this._cameraManager;
     }
 
     public get width(): number

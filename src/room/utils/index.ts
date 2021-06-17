@@ -3,6 +3,7 @@ export * from './INitroPoint';
 export * from './IRoomGeometry';
 export * from './IVector3D';
 export * from './NitroPoint';
+export * from './NitroRectangle';
 export * from './NumberBank';
 export * from './PointMath';
 export * from './Rasterizer';
