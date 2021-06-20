@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, RoomUnitGiveHandItemPetComposer, SellablePetPalettesEvent } from './messages';
+import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, RoomUnitGiveHandItemPetComposer, RoomWidgetCameraPublishedEvent, RoomWidgetCameraPurchaseComposer, SellablePetPalettesEvent } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CatalogClubEvent } from './messages/incoming/catalog/CatalogClubEvent';
 import { CatalogClubGiftsEvent } from './messages/incoming/catalog/CatalogClubGiftsEvent';
@@ -120,6 +120,8 @@ import { RoomEnterErrorEvent } from './messages/incoming/room/access/RoomEnterEr
 import { RoomEnterEvent } from './messages/incoming/room/access/RoomEnterEvent';
 import { RoomForwardEvent } from './messages/incoming/room/access/RoomForwardEvent';
 import { BotCommandConfigurationEvent } from './messages/incoming/room/bots/BotCommandConfigurationEvent';
+import { RoomWidgetCameraConfigurationEvent } from './messages/incoming/room/camera/RoomWidgetCameraConfigurationEvent';
+import { RoomWidgetCameraPurchaseSuccessfulEvent } from './messages/incoming/room/camera/RoomWidgetCameraPurchaseSuccessfulEvent';
 import { RoomBannedUsersEvent } from './messages/incoming/room/data/RoomBannedUsersEvent';
 import { RoomChatSettingsEvent } from './messages/incoming/room/data/RoomChatSettingsEvent';
 import { RoomInfoEvent } from './messages/incoming/room/data/RoomInfoEvent';
@@ -319,6 +321,10 @@ import { RoomStaffPickComposer } from './messages/outgoing/room/action/RoomStaff
 import { RoomTakeRightsComposer } from './messages/outgoing/room/action/RoomTakeRightsComposer';
 import { RoomUnbanUserComposer } from './messages/outgoing/room/action/RoomUnbanUserComposer';
 import { RequestBotCommandConfigurationComposer } from './messages/outgoing/room/bots/RequestBotConfigurationComposer';
+import { RoomWidgetCameraConfigurationComposer } from './messages/outgoing/room/camera/RoomWidgetCameraConfigurationComposer';
+import { RoomWidgetCameraPublishComposer } from './messages/outgoing/room/camera/RoomWidgetCameraPublishComposer';
+import { RoomWidgetCameraRoomPictureComposer } from './messages/outgoing/room/camera/RoomWidgetCameraRoomPictureComposer';
+import { RoomWidgetCameraRoomThumbnailComposer } from './messages/outgoing/room/camera/RoomWidgetCameraRoomThumbnailComposer';
 import { RoomBannedUsersComposer } from './messages/outgoing/room/data/RoomBannedUsersComposer';
 import { RoomInfoComposer } from './messages/outgoing/room/data/RoomInfoComposer';
 import { RoomSettingsComposer } from './messages/outgoing/room/data/RoomSettingsComposer';
@@ -445,6 +451,11 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.REDEEM_VOUCHER_OK, CatalogRedeemVoucherOkEvent);
         this._events.set(IncomingHeader.CATALOG_RECEIVE_PET_BREEDS, SellablePetPalettesEvent);
         this._events.set(IncomingHeader.CATALOG_APPROVE_NAME_RESULT, CatalogApproveNameResultEvent);
+
+        // CAMERA
+        this._events.set(IncomingHeader.CAMERA_PRICE, RoomWidgetCameraConfigurationEvent);
+        this._events.set(IncomingHeader.CAMERA_PUBLISHED, RoomWidgetCameraPublishedEvent);
+        this._events.set(IncomingHeader.CAMERA_PURCHASE_SUCCESSFUL, RoomWidgetCameraPurchaseSuccessfulEvent);
 
         // CLIENT
         this._events.set(IncomingHeader.CLIENT_PING, ClientPingEvent);
@@ -743,6 +754,13 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.GIFT_CONFIG, CatalogRequestGiftConfigurationComposer);
         this._composers.set(OutgoingHeader.CATALOG_SELECT_VIP_GIFT, CatalogSelectClubGiftComposer);
         this._composers.set(OutgoingHeader.CATALOG_REQUESET_PET_BREEDS, CatalogRequestPetBreedsComposer);
+
+        // CAMERA
+        this._composers.set(OutgoingHeader.CAMERA_PRICE, RoomWidgetCameraConfigurationComposer);
+        this._composers.set(OutgoingHeader.CAMERA_PUBLISH, RoomWidgetCameraPublishComposer);
+        this._composers.set(OutgoingHeader.CAMERA_PURCHASE, RoomWidgetCameraPurchaseComposer);
+        this._composers.set(OutgoingHeader.CAMERA_SAVE, RoomWidgetCameraRoomPictureComposer);
+        this._composers.set(OutgoingHeader.CAMERA_THUMBNAIL, RoomWidgetCameraRoomThumbnailComposer);
 
         // CLIENT
         this._composers.set(OutgoingHeader.CLIENT_PONG, ClientPongComposer);
