@@ -6,17 +6,17 @@ export class RoomSessionChatEvent extends RoomSessionEvent
     public static CHAT_EVENT: string   = 'RSCE_CHAT_EVENT';
     public static FLOOD_EVENT: string  = 'RSCE_FLOOD_EVENT';
 
-    public static CHAT_NORMAL: number       = 0;
-    public static CHAT_WHISPER: number      = 1;
-    public static CHAT_SHOUT: number        = 2;
-    public static _Str_5821: number         = 3;
-    public static _Str_6081: number         = 4;
-    public static _Str_8971: number         = 5;
-    public static _Str_5958: number         = 6;
-    public static _Str_6065: number         = 7;
-    public static _Str_5998: number         = 8;
-    public static _Str_5904: number         = 9;
-    public static _Str_8909: number         = 10;
+    public static CHAT_TYPE_SPEAK: number       = 0;
+    public static CHAT_TYPE_WHISPER: number      = 1;
+    public static CHAT_TYPE_SHOUT: number        = 2;
+    public static CHAT_TYPE_RESPECT: number         = 3;
+    public static CHAT_TYPE_PETRESPECT: number         = 4;
+    public static CHAT_TYPE_HAND_ITEM_RECEIVED: number         = 5;
+    public static CHAT_TYPE_PETTREAT: number         = 6;
+    public static CHAT_TYPE_PETREVIVE: number         = 7;
+    public static CHAT_TYPE_PET_REBREED_FERTILIZE: number         = 8;
+    public static CHAT_TYPE_PET_SPEED_FERTILIZE: number         = 9;
+    public static CHAT_TYPE_MUTE_REMAINING: number         = 10;
 
     private _objectId: number;
     private _message: string;
