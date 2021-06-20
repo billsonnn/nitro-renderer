@@ -228,7 +228,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(this.updateHole(objectModel)) needsUpdate = true;
 
-        if(this._Str_25732())
+        if(this.initializeRoomPlanes())
         {
             if(existing && removeCount)
             {
@@ -255,9 +255,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(((time < (this._lastUpdateTime + this._updateIntervalTime)) && (!geometryUpdate)) && (!needsUpdate)) return;
 
-        if(this.updatePlanes(objectModel)) needsUpdate = true;
+        if(this.updatePlaneTexturesAndVisibilities(objectModel)) needsUpdate = true;
 
-        if(this._Str_16913(geometry, geometryUpdate, time)) needsUpdate = true;
+        if(this.updatePlanes(geometry, geometryUpdate, time)) needsUpdate = true;
 
         if(needsUpdate)
         {
@@ -372,7 +372,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(planeMask !== this._maskData)
         {
-            this._Str_15935(planeMask);
+            this.updatePlaneMasks(planeMask);
 
             this._maskData = planeMask;
 
@@ -403,7 +403,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         return didUpdate;
     }
 
-    private updatePlanes(model: IRoomObjectModel): boolean
+    private updatePlaneTexturesAndVisibilities(model: IRoomObjectModel): boolean
     {
         if(this.updateModelCounter === model.updateCounter) return false;
 
@@ -445,7 +445,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         this.reset();
     }
 
-    protected _Str_25732(): boolean
+    protected initializeRoomPlanes(): boolean
     {
         if(!this.object || this._isPlaneSet) return false;
 
@@ -627,12 +627,12 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         }
 
         this._isPlaneSet = true;
-        this._Str_18024();
+        this.defineSprites();
 
         return true;
     }
 
-    protected _Str_18024(): void
+    protected defineSprites(): void
     {
         this.createSprites(this._planes.length);
 
@@ -777,7 +777,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         this._visiblePlaneSpriteNumbers = [];
     }
 
-    protected _Str_16913(k: IRoomGeometry, _arg_2: boolean, _arg_3: number): boolean
+    protected updatePlanes(k: IRoomGeometry, _arg_2: boolean, _arg_3: number): boolean
     {
         if(!k || !this.object) return;
 
@@ -867,7 +867,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         return updated;
     }
 
-    protected _Str_15935(k: RoomMapMaskData): void
+    protected updatePlaneMasks(k: RoomMapMaskData): void
     {
         if(!k) return;
 
