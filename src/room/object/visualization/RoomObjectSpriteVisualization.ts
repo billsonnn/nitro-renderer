@@ -106,7 +106,7 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
         return sprite;
     }
 
-    protected setSpriteCount(count: number): void
+    protected createSprites(count: number): void
     {
         while(this._sprites.length > count)
         {

@@ -1,6 +1,6 @@
 ﻿export class RoomWidgetFurniInfoUsagePolicyEnum
 {
-    public static _Str_21805: number = 0;
-    public static _Str_18194: number = 1;
-    public static _Str_18353: number = 2;
+    public static NOBODY: number = 0;
+    public static CONTROLLER: number = 1;
+    public static EVERYBODY: number = 2;
 }

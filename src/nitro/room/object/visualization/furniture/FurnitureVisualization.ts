@@ -128,7 +128,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         this._spriteYOffsets        = [];
         this._spriteZOffsets        = [];
 
-        this.setSpriteCount(0);
+        this.createSprites(0);
     }
 
     protected resetLayers(scale: number, direction: number): void
@@ -244,7 +244,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
 
     protected updateSprites(scale: number, update: boolean, animation: number): void
     {
-        if(this._layerCount !== this.totalSprites) this.setSpriteCount(this._layerCount);
+        if(this._layerCount !== this.totalSprites) this.createSprites(this._layerCount);
 
         if(update)
         {

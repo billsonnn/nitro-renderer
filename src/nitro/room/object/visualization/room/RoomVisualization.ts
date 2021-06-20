@@ -26,17 +26,17 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
     public static RENDER_TEXTURE_CACHE: Map<RoomVisualization, AdvancedMap<any, RenderTexture>> = new Map();
 
-    public static _Str_18544: number    = 0xFFFFFF;
-    public static _Str_18640: number    = 0xDDDDDD;
-    public static _Str_16664: number    = 0xBBBBBB;
-    private static _Str_14503: number   = 0xFFFFFF;
-    private static _Str_15851: number   = 0xCCCCCC;
-    private static _Str_13715: number   = 0x999999;
-    private static _Str_14868: number   = 0x999999;
-    public static _Str_17403: number    = 0xFFFFFF;
-    public static _Str_16113: number    = 0xCCCCCC;
-    public static _Str_18370: number    = 0x999999;
-    private static _Str_8621: number    = 1000;
+    public static FLOOR_COLOR: number    = 0xFFFFFF;
+    public static FLOOR_COLOR_LEFT: number    = 0xDDDDDD;
+    public static FLOOR_COLOR_RIGHT: number    = 0xBBBBBB;
+    private static WALL_COLOR_TOP: number   = 0xFFFFFF;
+    private static WALL_COLOR_SIDE: number   = 0xCCCCCC;
+    private static WALL_COLOR_BOTTOM: number   = 0x999999;
+    private static WALL_COLOR_BORDER: number   = 0x999999;
+    public static LANDSCAPE_COLOR_TOP: number    = 0xFFFFFF;
+    public static LANDSCAPE_COLOR_SIDE: number    = 0xCCCCCC;
+    public static LANDSCAPE_COLOR_BOTTOM: number    = 0x999999;
+    private static ROOM_DEPTH_OFFSET: number    = 1000;
 
     protected _data: RoomVisualizationData;
 
@@ -51,9 +51,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
     private _floorThickness: number;
     private _wallThickness: number;
     private _holeUpdateTime: number;
-    private _Str_2540: RoomPlane[];
-    private _Str_4864: RoomPlane[];
-    private _Str_6648: number[];
+    private _planes: RoomPlane[];
+    private _visiblePlanes: RoomPlane[];
+    private _visiblePlaneSpriteNumbers: number[];
     private _roomScale: number;
     private _lastUpdateTime: number;
     private _updateIntervalTime: number;
@@ -66,7 +66,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
     private _greenColor: number;
     private _blueColor: number;
     private _typeVisibility: boolean[];
-    private _Str_5928: number;
+    private _assetUpdateCounter: number;
     private _maskData: RoomMapMaskData;
     private _isPlaneSet: boolean;
 
@@ -86,9 +86,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         this._floorThickness            = 1;
         this._wallThickness             = 1;
         this._holeUpdateTime            = NaN;
-        this._Str_2540                  = [];
-        this._Str_4864                  = [];
-        this._Str_6648                  = [];
+        this._planes                  = [];
+        this._visiblePlanes                  = [];
+        this._visiblePlaneSpriteNumbers                  = [];
         this._roomScale                 = 0;
         this._lastUpdateTime            = -1000;
         this._updateIntervalTime        = 250;
@@ -101,7 +101,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         this._greenColor                = 0xFF;
         this._blueColor                 = 0xFF;
         this._typeVisibility            = [];
-        this._Str_5928                  = 0;
+        this._assetUpdateCounter                  = 0;
         this._maskData                  = null;
         this._isPlaneSet                = false;
 
@@ -155,9 +155,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         this.clearPlanes();
 
-        this._Str_2540  = null;
-        this._Str_4864  = null;
-        this._Str_6648  = null;
+        this._planes  = null;
+        this._visiblePlanes  = null;
+        this._visiblePlaneSpriteNumbers  = null;
 
         if(this._roomPlaneParser)
         {
@@ -263,11 +263,11 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         {
             let index = 0;
 
-            while(index < this._Str_4864.length)
+            while(index < this._visiblePlanes.length)
             {
-                const spriteIndex   = this._Str_6648[index];
+                const spriteIndex   = this._visiblePlaneSpriteNumbers[index];
                 const sprite        = this.getSprite(spriteIndex);
-                const plane         = this._Str_4864[index];
+                const plane         = this._visiblePlanes[index];
 
                 if(sprite && plane && (plane.type !== RoomPlane.TYPE_LANDSCAPE))
                 {
@@ -424,23 +424,23 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
     private clearPlanes(): void
     {
-        if(this._Str_2540)
+        if(this._planes)
         {
-            while(this._Str_2540.length)
+            while(this._planes.length)
             {
-                const plane = this._Str_2540[0];
+                const plane = this._planes[0];
 
                 if(plane) plane.dispose();
 
-                this._Str_2540.pop();
+                this._planes.pop();
             }
 
-            this._Str_2540 = [];
-            this._Str_2540 = [];
+            this._planes = [];
+            this._planes = [];
         }
 
         this._isPlaneSet    = false;
-        this._Str_5928      = (this._Str_5928 + 1);
+        this._assetUpdateCounter      = (this._assetUpdateCounter + 1);
 
         this.reset();
     }
@@ -456,8 +456,8 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(!this._roomPlaneParser.initializeFromMapData(mapData)) return;
 
-        const _local_3 = this._Str_23949();
-        const _local_4 = this._Str_23063();
+        const _local_3 = this.getLandscapeWidth();
+        const _local_4 = this.getLandscapeHeight();
 
         let _local_5    = 0;
         let _local_6    = this.object.model.getValue<number>(RoomObjectVariable.ROOM_RANDOM_SEED);
@@ -491,11 +491,11 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                     if(_local_14.z !== 0)
                     {
-                        plane.color = RoomVisualization._Str_18544;
+                        plane.color = RoomVisualization.FLOOR_COLOR;
                     }
                     else
                     {
-                        plane.color = ((_local_14.x !== 0) ? RoomVisualization._Str_16664 : RoomVisualization._Str_18640);
+                        plane.color = ((_local_14.x !== 0) ? RoomVisualization.FLOOR_COLOR_RIGHT : RoomVisualization.FLOOR_COLOR_LEFT);
                     }
 
                     if(this._data) plane.rasterizer = this._data.floorRasterizer;
@@ -512,23 +512,23 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                     if((_local_14.x === 0) && (_local_14.y === 0))
                     {
-                        plane.color = RoomVisualization._Str_14868;
+                        plane.color = RoomVisualization.WALL_COLOR_BORDER;
                     }
                     else
                     {
                         if(_local_14.y > 0)
                         {
-                            plane.color = RoomVisualization._Str_14503;
+                            plane.color = RoomVisualization.WALL_COLOR_TOP;
                         }
                         else
                         {
                             if(_local_14.y === 0)
                             {
-                                plane.color = RoomVisualization._Str_15851;
+                                plane.color = RoomVisualization.WALL_COLOR_SIDE;
                             }
                             else
                             {
-                                plane.color = RoomVisualization._Str_13715;
+                                plane.color = RoomVisualization.WALL_COLOR_BOTTOM;
                             }
                         }
                     }
@@ -542,17 +542,17 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                     if(_local_14.y > 0)
                     {
-                        plane.color = RoomVisualization._Str_17403;
+                        plane.color = RoomVisualization.LANDSCAPE_COLOR_TOP;
                     }
                     else
                     {
                         if(_local_14.y == 0)
                         {
-                            plane.color = RoomVisualization._Str_16113;
+                            plane.color = RoomVisualization.LANDSCAPE_COLOR_SIDE;
                         }
                         else
                         {
-                            plane.color = RoomVisualization._Str_18370;
+                            plane.color = RoomVisualization.LANDSCAPE_COLOR_BOTTOM;
                         }
                     }
 
@@ -570,23 +570,23 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                     }
                     if(((_local_14.x == 0) && (_local_14.y == 0)))
                     {
-                        plane.color = RoomVisualization._Str_14868;
+                        plane.color = RoomVisualization.WALL_COLOR_BORDER;
                     }
                     else
                     {
                         if(_local_14.y > 0)
                         {
-                            plane.color = RoomVisualization._Str_14503;
+                            plane.color = RoomVisualization.WALL_COLOR_TOP;
                         }
                         else
                         {
                             if(_local_14.y == 0)
                             {
-                                plane.color = RoomVisualization._Str_15851;
+                                plane.color = RoomVisualization.WALL_COLOR_SIDE;
                             }
                             else
                             {
-                                plane.color = RoomVisualization._Str_13715;
+                                plane.color = RoomVisualization.WALL_COLOR_BOTTOM;
                             }
                         }
                     }
@@ -615,7 +615,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                         _local_19++;
                     }
 
-                    this._Str_2540.push(plane);
+                    this._planes.push(plane);
                 }
             }
             else
@@ -634,13 +634,13 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
     protected _Str_18024(): void
     {
-        this.setSpriteCount(this._Str_2540.length);
+        this.createSprites(this._planes.length);
 
         let planeIndex = 0;
 
-        while(planeIndex < this._Str_2540.length)
+        while(planeIndex < this._planes.length)
         {
-            const plane     = this._Str_2540[planeIndex];
+            const plane     = this._planes[planeIndex];
             const sprite    = this.getSprite(planeIndex);
 
             if(plane && sprite && plane.leftSide && plane.rightSide)
@@ -676,7 +676,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         }
     }
 
-    private _Str_23949(): number
+    private getLandscapeWidth(): number
     {
         let length  = 0;
         let index   = 0;
@@ -698,7 +698,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         return length;
     }
 
-    private _Str_23063(): number
+    private getLandscapeHeight(): number
     {
         let length  = 0;
         let index   = 0;
@@ -737,9 +737,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         let index = 0;
 
-        while(index < this._Str_2540.length)
+        while(index < this._planes.length)
         {
-            const plane = this._Str_2540[index];
+            const plane = this._planes[index];
 
             if(plane)
             {
@@ -773,27 +773,27 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         this._typeVisibility[RoomPlane.TYPE_WALL]       = _arg_2;
         this._typeVisibility[RoomPlane.TYPE_LANDSCAPE]  = _arg_3;
 
-        this._Str_4864 = [];
-        this._Str_6648 = [];
+        this._visiblePlanes = [];
+        this._visiblePlaneSpriteNumbers = [];
     }
 
     protected _Str_16913(k: IRoomGeometry, _arg_2: boolean, _arg_3: number): boolean
     {
         if(!k || !this.object) return;
 
-        this._Str_5928++;
+        this._assetUpdateCounter++;
 
         if(_arg_2)
         {
-            this._Str_4864 = [];
-            this._Str_6648 = [];
+            this._visiblePlanes = [];
+            this._visiblePlaneSpriteNumbers = [];
         }
 
-        const _local_8 = (this._Str_4864.length > 0);
+        const _local_8 = (this._visiblePlanes.length > 0);
 
-        let _local_6 = this._Str_4864;
+        let _local_6 = this._visiblePlanes;
 
-        if(!this._Str_4864.length) _local_6 = this._Str_2540;
+        if(!this._visiblePlanes.length) _local_6 = this._planes;
 
         let depth   = 0;
         let updated = false;
@@ -803,7 +803,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         {
             let _local_10 = index;
 
-            if(_local_8) _local_10 = this._Str_6648[index];
+            if(_local_8) _local_10 = this._visiblePlaneSpriteNumbers[index];
 
             const _local_11 = this.getSprite(_local_10);
 
@@ -819,21 +819,21 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                     {
                         if(_local_12.visible)
                         {
-                            depth = ((_local_12.relativeDepth + this._Str_24891) + (_local_10 / 1000));
+                            depth = ((_local_12.relativeDepth + this.floorRelativeDepth) + (_local_10 / 1000));
 
                             if(_local_12.type !== RoomPlane.TYPE_FLOOR)
                             {
-                                depth = ((_local_12.relativeDepth + this._Str_25403) + (_local_10 / 1000));
+                                depth = ((_local_12.relativeDepth + this.wallRelativeDepth) + (_local_10 / 1000));
 
                                 if((_local_12.leftSide.length < 1) || (_local_12.rightSide.length < 1))
                                 {
-                                    depth = (depth + (RoomVisualization._Str_8621 * 0.5));
+                                    depth = (depth + (RoomVisualization.ROOM_DEPTH_OFFSET * 0.5));
                                 }
                             }
 
                             const _local_14 = ((('plane ' + _local_10) + ' ') + k.scale);
 
-                            this._Str_7421(_local_11, _local_12, _local_14, depth);
+                            this.updateSprite(_local_11, _local_12, _local_14, depth);
                         }
                         updated = true;
                     }
@@ -846,8 +846,8 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                     {
                         if(!_local_8)
                         {
-                            this._Str_4864.push(_local_12);
-                            this._Str_6648.push(index);
+                            this._visiblePlanes.push(_local_12);
+                            this._visiblePlaneSpriteNumbers.push(index);
                         }
                     }
                 }
@@ -879,9 +879,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         let _local_6    = false;
         let index       = 0;
 
-        while(index < this._Str_2540.length)
+        while(index < this._planes.length)
         {
-            const plane = this._Str_2540[index];
+            const plane = this._planes[index];
 
             if(plane)
             {
@@ -903,9 +903,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
             {
                 let i = 0;
 
-                while(i < this._Str_2540.length)
+                while(i < this._planes.length)
                 {
-                    const plane = this._Str_2540[i];
+                    const plane = this._planes[i];
 
                     if((plane.type === RoomPlane.TYPE_WALL) || (plane.type === RoomPlane.TYPE_LANDSCAPE))
                     {
@@ -954,7 +954,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
             if(_local_5.indexOf(planeIndex) < 0)
             {
-                const plane = this._Str_2540[planeIndex];
+                const plane = this._planes[planeIndex];
 
                 plane.canBeVisible    = false;
                 _local_6            = true;
@@ -965,12 +965,12 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(_local_6)
         {
-            this._Str_4864 = [];
-            this._Str_6648 = [];
+            this._visiblePlanes = [];
+            this._visiblePlaneSpriteNumbers = [];
         }
     }
 
-    private _Str_7421(k: IRoomObjectSprite, _arg_2: RoomPlane, _arg_3: string, _arg_4: number): void
+    private updateSprite(k: IRoomObjectSprite, _arg_2: RoomPlane, _arg_3: string, _arg_4: number): void
     {
         const offset = _arg_2.offset;
 
@@ -978,11 +978,11 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         k.offsetY           = -(offset.y);
         k.relativeDepth     = _arg_4;
         k.color             = _arg_2.color;
-        k.texture           = this._Str_22446(_arg_2, _arg_3);
-        k.name              = ((_arg_3 + '_') + this._Str_5928);
+        k.texture           = this.getPlaneBitmap(_arg_2, _arg_3);
+        k.name              = ((_arg_3 + '_') + this._assetUpdateCounter);
     }
 
-    private _Str_22446(k: RoomPlane, _arg_2: string): Texture
+    private getPlaneBitmap(k: RoomPlane, _arg_2: string): Texture
     {
         return k.bitmapData;
     }
@@ -998,18 +998,18 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
     {
         const planes: IRoomPlane[] = [];
 
-        for(const plane of this._Str_4864) planes.push(plane);
+        for(const plane of this._visiblePlanes) planes.push(plane);
 
         return planes;
     }
 
-    public get _Str_24891(): number
+    public get floorRelativeDepth(): number
     {
-        return RoomVisualization._Str_8621 + 0.1;
+        return RoomVisualization.ROOM_DEPTH_OFFSET + 0.1;
     }
 
-    public get _Str_25403(): number
+    public get wallRelativeDepth(): number
     {
-        return RoomVisualization._Str_8621 + 0.5;
+        return RoomVisualization.ROOM_DEPTH_OFFSET + 0.5;
     }
 }
