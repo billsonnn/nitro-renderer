@@ -28,7 +28,7 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
         this._isLoaded = true;
 
         const imagesUrl = Nitro.instance.getConfiguration<string>('image.library.url') + 'Habbo-Stories/';
-        const effects   = Nitro.instance.getConfiguration<{ name: string, colorMatrix?: number[], minLevel: number, enabled: boolean }[]>('camera.available.effects');
+        const effects   = Nitro.instance.getConfiguration<{ name: string, colorMatrix?: number[], minLevel: number, blendMode?: number, enabled: boolean }[]>('camera.available.effects');
 
         for(const effect of effects)
         {
@@ -42,7 +42,8 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
             }
             else
             {
-                cameraEffect.texture = Texture.from(imagesUrl + effect.name + '.png');
+                cameraEffect.texture    = Texture.from(imagesUrl + effect.name + '.png');
+                cameraEffect.blendMode  = effect.blendMode;
             }
 
             this._effects.set(cameraEffect.name, cameraEffect);
@@ -51,7 +52,7 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
         this.events.dispatchEvent(new RoomCameraWidgetManagerEvent(RoomCameraWidgetManagerEvent.INITIALIZED));
     }
 
-    public applyEffects(image: HTMLImageElement, selectedEffects: IRoomCameraWidgetSelectedEffect[]): HTMLImageElement
+    public applyEffects(image: HTMLImageElement, selectedEffects: IRoomCameraWidgetSelectedEffect[], isZoomed: boolean): HTMLImageElement
     {
         const container = new Container();
         const texture   = Texture.from(image);
@@ -78,8 +79,9 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
             }
             else
             {
-                const effectSprite = new Sprite(effect.texture);
-                effectSprite.alpha = selectedEffect.alpha;
+                const effectSprite      = new Sprite(effect.texture);
+                effectSprite.alpha      = selectedEffect.alpha;
+                effectSprite.blendMode  = effect.blendMode;
 
                 container.addChild(effectSprite);
             }
