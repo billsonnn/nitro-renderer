@@ -5,7 +5,7 @@ export class ModtoolRoomInfoParser implements IMessageParser
 {
     private _id: number;
     private _playerAmount: number;
-    private _owner: boolean;
+    private _ownerInRoom: boolean;
     private _ownerId: number;
     private _ownerName: string;
     private _bool: boolean;
@@ -26,7 +26,7 @@ export class ModtoolRoomInfoParser implements IMessageParser
 
         this._id   = wrapper.readInt();
         this._playerAmount = wrapper.readInt();
-        this._owner = wrapper.readBoolean();
+        this._ownerInRoom = wrapper.readBoolean();
         this._ownerId = wrapper.readInt();
         this._ownerName = wrapper.readString();
         this._bool = wrapper.readBoolean();
@@ -47,9 +47,9 @@ export class ModtoolRoomInfoParser implements IMessageParser
         return this._playerAmount;
     }
 
-    public get owner(): boolean
+    public get ownerInRoom(): boolean
     {
-        return this._owner;
+        return this._ownerInRoom;
     }
 
     public get ownerId(): number
