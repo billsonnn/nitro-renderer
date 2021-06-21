@@ -49,6 +49,7 @@ import { GroupConfirmMemberRemoveEvent } from './messages/incoming/group/GroupCo
 import { GroupInformationEvent } from './messages/incoming/group/GroupInformationEvent';
 import { GroupMembersEvent } from './messages/incoming/group/GroupMembersEvent';
 import { GroupSettingsEvent } from './messages/incoming/group/GroupSettingsEvent';
+import { AuthenticationEvent } from './messages/incoming/handshake/AuthenticationEvent';
 import { CallForHelpResultMessageEvent } from './messages/incoming/help/CallForHelpResultMessageEvent';
 import { IncomingHeader } from './messages/incoming/IncomingHeader';
 import { AchievementEvent } from './messages/incoming/inventory/achievements/AchievementEvent';
@@ -263,6 +264,7 @@ import { GroupSaveColorsComposer } from './messages/outgoing/group/GroupSaveColo
 import { GroupSaveInformationComposer } from './messages/outgoing/group/GroupSaveInformationComposer';
 import { GroupSavePreferencesComposer } from './messages/outgoing/group/GroupSavePreferencesComposer';
 import { GroupSettingsComposer } from './messages/outgoing/group/GroupSettingsComposer';
+import { AuthenticationMessageComposer } from './messages/outgoing/handshake/AuthenticationMessageComposer';
 import { InfoRetrieveBaseMessageComposer } from './messages/outgoing/handshake/InfoRetrieveBaseMessageComposer';
 import { SecurityTicketComposer } from './messages/outgoing/handshake/SecurityTicketComposer';
 import { RequestBadgesComposer } from './messages/outgoing/inventory/badges/RequestBadgesComposer';
@@ -426,6 +428,9 @@ export class NitroMessages implements IMessageConfiguration
 
     private registerEvents(): void
     {
+        // AUTHENTICATION
+        this._events.set(IncomingHeader.AUTHENTICATION, AuthenticationEvent);
+
         // AVAILABILITY
         this._events.set(IncomingHeader.AVAILABILITY_STATUS, AvailabilityStatusMessageEvent);
         this._events.set(IncomingHeader.GENERIC_ERROR, GenericErrorEvent);
@@ -740,6 +745,9 @@ export class NitroMessages implements IMessageConfiguration
 
     private registerComposers(): void
     {
+        // AUTHENTICATION
+        this._composers.set(OutgoingHeader.AUTHENTICATION, AuthenticationMessageComposer);
+
         // CATALOG
         this._composers.set(OutgoingHeader.CATALOG_MODE, CatalogModeComposer);
         this._composers.set(OutgoingHeader.CATALOG_PAGE, CatalogPageComposer);

@@ -1,6 +1,7 @@
 export class OutgoingHeader
 {
     public static ACHIEVEMENT_LIST               = 219;
+    public static AUTHENTICATION                 = -1;
     public static BOT_CONFIGURATION              = 1986;
     public static BOT_PICKUP                     = 3323;
     public static BOT_PLACE                      = 1592;
