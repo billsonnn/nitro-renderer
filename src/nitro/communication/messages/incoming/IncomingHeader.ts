@@ -2,9 +2,12 @@ export class IncomingHeader
 {
     public static ACHIEVEMENT_LIST                 = 305;
     public static AUTHENTICATED                    = 2491;
+    public static AUTHENTICATION                   = -1;
     public static AVAILABILITY_STATUS              = 2033;
     public static BUILDERS_CLUB_EXPIRED            = 1452;
     public static CAMERA_PRICE                     = 3878;
+    public static CAMERA_PUBLISHED                 = 2057;
+    public static CAMERA_PURCHASE_SUCCESSFUL       = 2783;
     public static CAMERA_THUMBNAIL_SAVED           = 3595;
     public static CAMERA_URL                       = 3696;
     public static CATALOG_CLUB                     = 2405;

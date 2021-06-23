@@ -1,11 +1,14 @@
 export class OutgoingHeader
 {
     public static ACHIEVEMENT_LIST               = 219;
+    public static AUTHENTICATION                 = -1;
     public static BOT_CONFIGURATION              = 1986;
     public static BOT_PICKUP                     = 3323;
     public static BOT_PLACE                      = 1592;
     public static BOT_SKILL_SAVE                 = 2624;
     public static CAMERA_PRICE                   = 796;
+    public static CAMERA_PUBLISH                 = 2068;
+    public static CAMERA_PURCHASE                = 2408;
     public static CAMERA_SAVE                    = 3226;
     public static CAMERA_THUMBNAIL               = 1982;
     public static CATALOG_CLUB                   = 3285;

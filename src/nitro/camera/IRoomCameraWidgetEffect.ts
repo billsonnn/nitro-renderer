@@ -6,4 +6,5 @@ export interface IRoomCameraWidgetEffect
     minLevel: number;
     texture: Texture;
     colorMatrix: number[];
+    blendMode: number;
 }
