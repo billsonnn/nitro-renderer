@@ -4,7 +4,7 @@ export class FurnitureBottleVisualization extends FurnitureAnimatedVisualization
 {
     private static ANIMATION_ID_OFFSET_SLOW1: number    = 20;
     private static ANIMATION_ID_OFFSET_SLOW2: number    = 9;
-    private static _Str_4186: number                    = -1;
+    private static ANIMATION_ID_ROLL: number            = -1;
 
     private _stateQueue: number[];
     private _running: boolean;
@@ -26,7 +26,7 @@ export class FurnitureBottleVisualization extends FurnitureAnimatedVisualization
                 this._running       = true;
                 this._stateQueue    = [];
 
-                this._stateQueue.push(FurnitureBottleVisualization._Str_4186);
+                this._stateQueue.push(FurnitureBottleVisualization.ANIMATION_ID_ROLL);
 
                 return;
             }

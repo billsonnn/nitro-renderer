@@ -2,10 +2,10 @@ import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization
 
 export class FurnitureQueueTileVisualization extends FurnitureAnimatedVisualization
 {
-    private static _Str_4186: number    = 3;
-    private static _Str_18395: number   = 2;
-    private static _Str_15915: number   = 1;
-    private static _Str_16054: number   = 15;
+    private static ANIMATION_ID_ROLL: number    = 3;
+    private static ANIMATION_ID_ROLL_ONCE: number   = 2;
+    private static ANIMATION_ID_NORMAL: number   = 1;
+    private static ANIMATION_DURATION: number   = 15;
 
     private _stateQueue: number[];
     private _animationCounter: number;
@@ -20,12 +20,12 @@ export class FurnitureQueueTileVisualization extends FurnitureAnimatedVisualizat
 
     protected setAnimation(animationId: number): void
     {
-        if(animationId === FurnitureQueueTileVisualization._Str_18395)
+        if(animationId === FurnitureQueueTileVisualization.ANIMATION_ID_ROLL_ONCE)
         {
             this._stateQueue    = [];
-            this._stateQueue.push(FurnitureQueueTileVisualization._Str_15915);
+            this._stateQueue.push(FurnitureQueueTileVisualization.ANIMATION_ID_NORMAL);
 
-            this._animationCounter = FurnitureQueueTileVisualization._Str_16054;
+            this._animationCounter = FurnitureQueueTileVisualization.ANIMATION_DURATION;
         }
 
         return super.setAnimation(animationId);

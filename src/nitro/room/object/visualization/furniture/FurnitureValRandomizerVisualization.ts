@@ -5,7 +5,7 @@ export class FurnitureValRandomizerVisualization extends FurnitureAnimatedVisual
     private static ANIMATION_ID_OFFSET_SLOW1: number    = 20;
     private static ANIMATION_ID_OFFSET_SLOW2: number    = 10;
     private static _Str_7627: number                    = 31;
-    private static _Str_4186: number                    = 32;
+    private static ANIMATION_ID_ROLL: number                    = 32;
     private static _Str_11236: number                   = 30;
 
     private _stateQueue: number[];
@@ -31,7 +31,7 @@ export class FurnitureValRandomizerVisualization extends FurnitureAnimatedVisual
                 this._stateQueue    = [];
 
                 this._stateQueue.push(FurnitureValRandomizerVisualization._Str_7627);
-                this._stateQueue.push(FurnitureValRandomizerVisualization._Str_4186);
+                this._stateQueue.push(FurnitureValRandomizerVisualization.ANIMATION_ID_ROLL);
 
                 return;
             }

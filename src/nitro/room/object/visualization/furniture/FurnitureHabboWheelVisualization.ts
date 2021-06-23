@@ -5,7 +5,7 @@ export class FurnitureHabboWheelVisualization extends FurnitureAnimatedVisualiza
     private static ANIMATION_ID_OFFSET_SLOW1: number    = 10;
     private static ANIMATION_ID_OFFSET_SLOW2: number    = 20;
     private static _Str_7627: number                    = 31;
-    private static _Str_4186: number                    = 32;
+    private static ANIMATION_ID_ROLL: number                    = 32;
 
     private _stateQueue: number[];
     private _running: boolean;
@@ -28,7 +28,7 @@ export class FurnitureHabboWheelVisualization extends FurnitureAnimatedVisualiza
                 this._stateQueue    = [];
 
                 this._stateQueue.push(FurnitureHabboWheelVisualization._Str_7627);
-                this._stateQueue.push(FurnitureHabboWheelVisualization._Str_4186);
+                this._stateQueue.push(FurnitureHabboWheelVisualization.ANIMATION_ID_ROLL);
 
                 return;
             }

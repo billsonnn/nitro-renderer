@@ -7,61 +7,61 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
 {
     protected static THUMBNAIL: string = 'THUMBNAIL';
 
-    private _Str_22237: string;
-    private _Str_10040: Texture;
-    private _Str_21698: number;
-    private _Str_16232: boolean;
+    private _thumbnailAssetNameNormal: string;
+    private _thumbnailImageNormal: Texture;
+    private _thumbnailDirection: number;
+    private _thumbnailChanged: boolean;
 
     constructor()
     {
         super();
 
-        this._Str_22237 = null;
-        this._Str_10040 = null;
-        this._Str_21698 = -1;
-        this._Str_16232 = false;
+        this._thumbnailAssetNameNormal = null;
+        this._thumbnailImageNormal = null;
+        this._thumbnailDirection = -1;
+        this._thumbnailChanged = false;
     }
 
-    public get _Str_23660(): boolean
+    public get hasThumbnailImage(): boolean
     {
-        return !(this._Str_10040 == null);
+        return !(this._thumbnailImageNormal == null);
     }
 
-    public _Str_6645(k: Texture): void
+    public setThumbnailImages(k: Texture): void
     {
-        this._Str_10040 = k;
-        this._Str_16232 = true;
+        this._thumbnailImageNormal = k;
+        this._thumbnailChanged = true;
     }
 
     protected updateModel(scale: number): boolean
     {
         const flag = super.updateModel(scale);
 
-        if(!this._Str_16232 && (this._Str_21698 === this.direction)) return flag;
+        if(!this._thumbnailChanged && (this._thumbnailDirection === this.direction)) return flag;
 
-        this._Str_25236();
+        this.refreshThumbnail();
 
         return true;
     }
 
-    private _Str_25236(): void
+    private refreshThumbnail(): void
     {
         if(this.asset == null) return;
 
-        if(this._Str_10040)
+        if(this._thumbnailImageNormal)
         {
-            this._Str_20857(this._Str_10040, 64);
+            this.addThumbnailAsset(this._thumbnailImageNormal, 64);
         }
         else
         {
-            this.asset.disposeAsset(this._Str_15493(64));
+            this.asset.disposeAsset(this.getThumbnailAssetName(64));
         }
 
-        this._Str_16232 = false;
-        this._Str_21698 = this.direction;
+        this._thumbnailChanged = false;
+        this._thumbnailDirection = this.direction;
     }
 
-    private _Str_20857(k: Texture, scale: number): void
+    private addThumbnailAsset(k: Texture, scale: number): void
     {
         let layerId = 0;
 
@@ -74,8 +74,8 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
 
                 if(asset)
                 {
-                    const _local_6 = this._Str_25562(k, asset);
-                    const _local_7 = this._Str_15493(scale);
+                    const _local_6 = this.generateTransformedThumbnail(k, asset);
+                    const _local_7 = this.getThumbnailAssetName(scale);
 
                     this.asset.disposeAsset(_local_7);
                     this.asset.addAsset(_local_7, _local_6, true, asset.offsetX, asset.offsetY, false, false);
@@ -88,7 +88,7 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
         }
     }
 
-    private _Str_25562(texture: Texture, asset: IGraphicAsset): Texture
+    private generateTransformedThumbnail(texture: Texture, asset: IGraphicAsset): Texture
     {
         const _local_3  = 1.1;
         const matrix    = new Matrix();
@@ -131,19 +131,19 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
 
     protected getSpriteAssetName(scale: number, layerId: number): string
     {
-        if(this._Str_10040 && (this.getLayerTag(scale, this.direction, layerId) === FurnitureThumbnailVisualization.THUMBNAIL)) return this._Str_15493(scale);
+        if(this._thumbnailImageNormal && (this.getLayerTag(scale, this.direction, layerId) === FurnitureThumbnailVisualization.THUMBNAIL)) return this.getThumbnailAssetName(scale);
 
         return super.getSpriteAssetName(scale, layerId);
     }
 
-    protected _Str_15493(scale: number): string
+    protected getThumbnailAssetName(scale: number): string
     {
-        this._Str_22237 = this._Str_12961(this.object.id, 64);
+        this._thumbnailAssetNameNormal = this.getFullThumbnailAssetName(this.object.id, 64);
 
-        return this._Str_22237;
+        return this._thumbnailAssetNameNormal;
     }
 
-    protected _Str_12961(k: number, _arg_2: number): string
+    protected getFullThumbnailAssetName(k: number, _arg_2: number): string
     {
         return [this._type, k, 'thumb', _arg_2].join('_');
     }

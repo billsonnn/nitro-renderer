@@ -6,7 +6,7 @@ import { FurnitureLogic } from './FurnitureLogic';
 export class FurnitureScoreLogic extends FurnitureLogic
 {
     private static UPDATE_INTERVAL: number = 50;
-    private static _Str_5967: number = 3000;
+    private static MAX_UPDATE_TIME: number = 3000;
 
     private _score: number;
     private _scoreIncreaser: number;
@@ -40,7 +40,7 @@ export class FurnitureScoreLogic extends FurnitureLogic
 
             if(difference < 0) difference = -(difference);
 
-            if((difference * FurnitureScoreLogic.UPDATE_INTERVAL) > FurnitureScoreLogic._Str_5967) this._scoreIncreaser = (FurnitureScoreLogic._Str_5967 / difference);
+            if((difference * FurnitureScoreLogic.UPDATE_INTERVAL) > FurnitureScoreLogic.MAX_UPDATE_TIME) this._scoreIncreaser = (FurnitureScoreLogic.MAX_UPDATE_TIME / difference);
             else this._scoreIncreaser = FurnitureScoreLogic.UPDATE_INTERVAL;
 
             this._scoreTimer = Nitro.instance.time;
