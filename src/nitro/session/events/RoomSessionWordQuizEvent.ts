@@ -3,9 +3,9 @@ import { RoomSessionEvent } from './RoomSessionEvent';
 
 export class RoomSessionWordQuizEvent extends RoomSessionEvent
 {
-    public static RWPUW_NEW_QUESTION: string = 'RWPUW_NEW_QUESTION';
-    public static RWPUW_QUESION_FINSIHED: string = 'RWPUW_QUESION_FINSIHED';
-    public static RWPUW_QUESTION_ANSWERED: string = 'RWPUW_QUESTION_ANSWERED';
+    public static QUESTION: string = 'RWPUW_NEW_QUESTION';
+    public static FINISHED: string = 'RWPUW_QUESION_FINSIHED';
+    public static ANSWERED: string = 'RWPUW_QUESTION_ANSWERED';
 
     private _id: number = -1;
     private _pollType: string = null;
@@ -29,32 +29,32 @@ export class RoomSessionWordQuizEvent extends RoomSessionEvent
         return this._id;
     }
 
-    public get _Str_5302(): string
+    public get pollType(): string
     {
         return this._pollType;
     }
 
-    public set _Str_5302(k: string)
+    public set pollType(k: string)
     {
         this._pollType = k;
     }
 
-    public get _Str_5213(): number
+    public get pollId(): number
     {
         return this._pollId;
     }
 
-    public set _Str_5213(k: number)
+    public set pollId(k: number)
     {
         this._pollId = k;
     }
 
-    public get _Str_3218(): number
+    public get questionId(): number
     {
         return this._questionId;
     }
 
-    public set _Str_3218(k: number)
+    public set questionId(k: number)
     {
         this._questionId = k;
     }
@@ -99,12 +99,12 @@ export class RoomSessionWordQuizEvent extends RoomSessionEvent
         this._value = k;
     }
 
-    public get _Str_4036(): Map<string, number>
+    public get answerCounts(): Map<string, number>
     {
         return this._answerCounts;
     }
 
-    public set _Str_4036(k: Map<string, number>)
+    public set answerCounts(k: Map<string, number>)
     {
         this._answerCounts = k;
     }

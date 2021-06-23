@@ -26,7 +26,7 @@ export class PetInfoParser implements IMessageParser
     private _maximumTimeToLive: number;
     private _remainingTimeToLive: number;
     private _remainingGrowTime: number;
-    private _Str_4460: number[];
+    private _skillTresholds: number[];
     private _publiclyRideable: number;
     private _unknownRarity: number;
     private _publiclyBreedable: boolean;
@@ -34,7 +34,7 @@ export class PetInfoParser implements IMessageParser
     public flush(): boolean
     {
         this._id        = -1;
-        this._Str_4460  = [];
+        this._skillTresholds  = [];
 
         return true;
     }
@@ -65,12 +65,12 @@ export class PetInfoParser implements IMessageParser
 
         while(total > 0)
         {
-            this._Str_4460.push(wrapper.readInt());
+            this._skillTresholds.push(wrapper.readInt());
 
             total--;
         }
 
-        this._Str_4460.sort();
+        this._skillTresholds.sort();
         this._publiclyRideable    = wrapper.readInt();
         this._breedable           = wrapper.readBoolean();
         this._fullyGrown          = wrapper.readBoolean();
@@ -199,9 +199,9 @@ export class PetInfoParser implements IMessageParser
         return this._remainingGrowTime;
     }
 
-    public get _Str_3307(): number[]
+    public get skillTresholds(): number[]
     {
-        return this._Str_4460;
+        return this._skillTresholds;
     }
 
     public get publiclyRideable(): number

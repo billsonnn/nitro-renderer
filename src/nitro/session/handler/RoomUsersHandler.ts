@@ -237,7 +237,7 @@ export class RoomUsersHandler extends BaseHandler
         petData.fullyGrown          = parser.fullyGrown;
         petData.rarityLevel         = parser.rarityLevel;
         petData.dead                = parser.dead;
-        petData._Str_3307           = parser._Str_3307;
+        petData.skillTresholds           = parser.skillTresholds;
         petData.publiclyRideable    = parser.publiclyRideable;
         petData.maximumTimeToLive   = parser.maximumTimeToLive;
         petData.remainingTimeToLive = parser.remainingTimeToLive;
