@@ -1,6 +1,6 @@
-import { IObjectData } from '../../../../../room/object/data/IObjectData';
+import { IObjectData } from 'nitro-renderer/src/nitro/room/object/data/IObjectData';
 
-export class MarketplaceOfferItem
+export class MarketplaceOffer
 {
     private readonly _offerId:number;
     private readonly _furniId:number;
@@ -9,22 +9,22 @@ export class MarketplaceOfferItem
     private readonly _stuffData:IObjectData;
     private readonly _price:number;
     private readonly _status:number;
-    private readonly _Str_12399:number = -1;
-    private readonly _Str_5049:number;
-    private readonly _Str_4620:number;
+    private readonly _timeLeftMinutes:number = -1;
+    private readonly _averagePrice:number;
+    private readonly _offerCount:number;
 
-    constructor(offerId:number, furniId:number, _arg_3:number, extraData:string, stuffData:IObjectData, price:number, status:number, _arg_8:number, _arg_9:number, _arg_10:number=-1)
+    constructor(offerId:number, furniId:number, furniType:number, extraData:string, stuffData:IObjectData, price:number, status:number, timeLeftMinutes:number, averagePrice:number, offerCount:number=-1)
     {
         this._offerId = offerId;
         this._furniId = furniId;
-        this._furniType = _arg_3;
+        this._furniType = furniType;
         this._extraData = extraData;
         this._stuffData = stuffData;
         this._price = price;
         this._status = status;
-        this._Str_12399 = _arg_8;
-        this._Str_5049 = _arg_9;
-        this._Str_4620 = _arg_10;
+        this._timeLeftMinutes = timeLeftMinutes;
+        this._averagePrice = averagePrice;
+        this._offerCount = offerCount;
     }
 
     public get offerId():number
@@ -62,19 +62,19 @@ export class MarketplaceOfferItem
         return this._status;
     }
 
-    public get _Str_5853():number
+    public get timeLeftMinutes():number
     {
-        return this._Str_12399;
+        return this._timeLeftMinutes;
     }
 
-    public get _Str_3925():number
+    public get averagePrice():number
     {
-        return this._Str_5049;
+        return this._averagePrice;
     }
 
-    public get _Str_4121():number
+    public get offerCount():number
     {
-        return this._Str_4620;
+        return this._offerCount;
     }
 
     public get isUniqueLimitedItem():boolean

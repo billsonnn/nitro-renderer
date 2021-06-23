@@ -1,16 +1,16 @@
 import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
 import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
-import { CatalogClubGiftsParser } from '../../parser/catalog/CatalogClubGiftsParser';
+import { ClubGiftInfoParser } from '../../parser/catalog/ClubGiftInfoParser';
 
 export class CatalogClubGiftsEvent extends MessageEvent implements IMessageEvent
 {
     constructor(callBack: Function)
     {
-        super(callBack, CatalogClubGiftsParser);
+        super(callBack, ClubGiftInfoParser);
     }
 
-    public getParser(): CatalogClubGiftsParser
+    public getParser(): ClubGiftInfoParser
     {
-        return this.parser as CatalogClubGiftsParser;
+        return this.parser as ClubGiftInfoParser;
     }
 }

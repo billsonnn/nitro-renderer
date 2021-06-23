@@ -1,15 +1,14 @@
 import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
-import { CatalogClubOfferData } from './utils/CatalogClubOfferData';
 import { CatalogPageOfferData } from './utils/CatalogPageOfferData';
-import { _Str_5178 } from './utils/_Str_5178';
+import { ClubGiftData } from './utils/ClubGiftData';
 
-export class CatalogClubGiftsParser implements IMessageParser
+export class ClubGiftInfoParser implements IMessageParser
 {
-    private  _daysUntilNextGift:number;
-    private  _giftsAvailable:number;
+    private _daysUntilNextGift:number;
+    private _giftsAvailable:number;
     private _offers: CatalogPageOfferData[];
-    private  _Str_5759:Map<number, _Str_5178>;
+    private _giftData:Map<number, ClubGiftData>;
 
     public flush(): boolean
     {
@@ -22,28 +21,23 @@ export class CatalogClubGiftsParser implements IMessageParser
         if(!wrapper) return false;
 
         this._offers = [];
-        this._Str_5759 = new Map<number, _Str_5178>();
+        this._giftData = new Map<number, ClubGiftData>();
         this._daysUntilNextGift = wrapper.readInt();
         this._giftsAvailable = wrapper.readInt();
 
-        let local2 = wrapper.readInt();
+        const offerCount = wrapper.readInt();
 
-        let local3 = 0;
-
-        while(local3 < local2)
+        for(let i = 0; i < offerCount; i ++)
         {
             this._offers.push(new CatalogPageOfferData(wrapper));
-            local3++;
         }
 
-        local2 = wrapper.readInt();
-        local3 = 0;
+        const giftDataCount = wrapper.readInt();
 
-        while(local3 < local2)
+        for(let i = 0; i < giftDataCount; i++)
         {
-            const item = new _Str_5178(wrapper);
-            this._Str_5759.set(item.offerId, item);
-            local3++;
+            const item = new ClubGiftData(wrapper);
+            this._giftData.set(item.offerId, item);
         }
 
         return true;
@@ -69,16 +63,16 @@ export class CatalogClubGiftsParser implements IMessageParser
         this._giftsAvailable = gifts;
     }
 
-    public getOfferExtraData(offerId: number): _Str_5178
+    public getOfferExtraData(offerId: number): ClubGiftData
     {
         if(!offerId) return null;
 
-        return this._Str_5759.get(offerId);
+        return this._giftData.get(offerId);
     }
 
 
-    public  get _Str_24398():Map<number, _Str_5178>
+    public  get giftData():Map<number, ClubGiftData>
     {
-        return this._Str_5759;
+        return this._giftData;
     }
 }

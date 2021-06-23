@@ -57,13 +57,13 @@ export class PetVisualizationData extends FurnitureAnimatedVisualizationData
         return size.postureToAnimation(posture);
     }
 
-    public _Str_18284(scale: number, posture: string): boolean
+    public getGestureDisabled(scale: number, posture: string): boolean
     {
         const size = this.getSizeData(scale) as PetSizeData;
 
         if(!size) return false;
 
-        return size._Str_18284(posture);
+        return size.getGestureDisabled(posture);
     }
 
     public gestureToAnimation(scale: number, gesture: string): number
@@ -75,31 +75,31 @@ export class PetVisualizationData extends FurnitureAnimatedVisualizationData
         return size.gestureToAnimation(gesture);
     }
 
-    public _Str_14207(scale: number, index: number, useDefault: boolean): string
+    public animationToPosture(scale: number, index: number, useDefault: boolean): string
     {
         const size = this.getSizeData(scale) as PetSizeData;
 
         if(!size) return null;
 
-        return size._Str_14207(index, useDefault);
+        return size.animationToPosture(index, useDefault);
     }
 
-    public _Str_17844(scale: number, index: number): string
+    public animationToGesture(scale: number, index: number): string
     {
         const size = this.getSizeData(scale) as PetSizeData;
 
         if(!size) return null;
 
-        return size._Str_17844(index);
+        return size.animationToGesture(index);
     }
 
-    public _Str_17976(scale: number, _arg_2: number): string
+    public getGestureForAnimationId(scale: number, _arg_2: number): string
     {
         const size = this.getSizeData(scale) as PetSizeData;
 
         if(!size) return null;
 
-        return size._Str_17976(_arg_2);
+        return size.getGestureForAnimationId(_arg_2);
     }
 
     public totalPostures(scale: number): number

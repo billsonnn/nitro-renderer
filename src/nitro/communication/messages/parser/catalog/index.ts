@@ -1,5 +1,4 @@
 export * from './CatalogApproveNameResultParser';
-export * from './CatalogClubGiftsParser';
 export * from './CatalogClubParser';
 export * from './CatalogGiftConfigurationParser';
 export * from './CatalogGiftUsernameUnavailableParser';
@@ -16,6 +15,7 @@ export * from './CatalogRedeemVoucherOkParser';
 export * from './CatalogSearchParser';
 export * from './CatalogSoldOutParser';
 export * from './CatalogUpdatedParser';
+export * from './ClubGiftInfoParser';
 export * from './marketplace';
 export * from './MarketplaceConfigParser';
 export * from './MarketplaceItemStatsParser';

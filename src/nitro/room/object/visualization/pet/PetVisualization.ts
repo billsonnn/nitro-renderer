@@ -18,12 +18,12 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     private static HEAD: string                         = 'head';
     private static SADDLE: string                       = 'saddle';
     private static HAIR: string                         = 'hair';
-    private static _Str_7490: number                    = 1;
-    private static _Str_13277: number                   = 1000;
+    private static ADDITIONAL_SPRITE_COUNT: number      = 1;
+    private static EXPERIENCE_BUBBLE_VISIBLE_IN_MS: number = 1000;
     private static PET_EXPERIENCE_BUBBLE_PNG: string    = 'pet_experience_bubble_png';
-    private static _Str_16082: number                   = 0;
-    private static _Str_17658: number                   = 1;
-    private static _Str_16677: number                   = 2;
+    private static POSTURE_ANIMATION_INDEX: number      = 0;
+    private static GESTURE_ANIMATION_INDEX: number      = 1;
+    private static ANIMATION_INDEX_COUNT: number        = 2;
 
     protected _data: PetVisualizationData;
 
@@ -73,7 +73,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         this._previousAnimationDirection    = -1;
         this._animationStates               = [];
 
-        while(this._animationStates.length < PetVisualization._Str_16677) this._animationStates.push(new AnimationStateData());
+        while(this._animationStates.length < PetVisualization.ANIMATION_INDEX_COUNT) this._animationStates.push(new AnimationStateData());
     }
 
     public initialize(data: IObjectVisualizationData): boolean
@@ -130,7 +130,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         //     _local_16 = this._animationData._Str_17398(_Str_3289);
         //     if (_local_16 > 0)
         //     {
-        //         _local_4 = this._animationData._Str_14207(_Str_3289, (_local_6 % _local_16), true);
+        //         _local_4 = this._animationData.animationToPosture(_Str_3289, (_local_6 % _local_16), true);
         //         _local_5 = null;
         //     }
         // }
@@ -140,7 +140,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         //     _local_17 = this._animationData._Str_16869(_Str_3289);
         //     if (_local_17 > 0)
         //     {
-        //         _local_5 = this._animationData._Str_17844(_Str_3289, (_local_7 % _local_17));
+        //         _local_5 = this._animationData.animationToGesture(_Str_3289, (_local_7 % _local_17));
         //     }
         // }
         // this._Str_14314(_local_4, _local_5);
@@ -227,29 +227,29 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         {
             this._posture = posture;
 
-            this._Str_16058(PetVisualization._Str_16082, this._data.postureToAnimation(this._scale, posture));
+            this.setAnimationForIndex(PetVisualization.POSTURE_ANIMATION_INDEX, this._data.postureToAnimation(this._scale, posture));
         }
 
-        if(this._data._Str_18284(this._scale, posture)) gesture = null;
+        if(this._data.getGestureDisabled(this._scale, posture)) gesture = null;
 
         if(gesture !== this._gesture)
         {
             this._gesture = gesture;
 
-            this._Str_16058(PetVisualization._Str_17658, this._data.gestureToAnimation(this._scale, gesture));
+            this.setAnimationForIndex(PetVisualization.GESTURE_ANIMATION_INDEX, this._data.gestureToAnimation(this._scale, gesture));
         }
     }
 
-    private _Str_22634(k: number): AnimationStateData
+    private getAnimationStateData(k: number): AnimationStateData
     {
         if((k >= 0) && (k < this._animationStates.length)) return this._animationStates[k];
 
         return null;
     }
 
-    private _Str_16058(k: number, _arg_2: number): void
+    private setAnimationForIndex(k: number, _arg_2: number): void
     {
-        const animationStateData = this._Str_22634(k);
+        const animationStateData = this.getAnimationStateData(k);
 
         if(animationStateData)
         {
@@ -301,7 +301,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
                     {
                         if(AnimationData.isTransitionFromAnimation(stateData.animationId) || AnimationData.isTransitionToAnimation(stateData.animationId))
                         {
-                            this._Str_16058(index, stateData.animationAfterTransitionId);
+                            this.setAnimationForIndex(index, stateData.animationAfterTransitionId);
 
                             animationOver = false;
                         }
@@ -319,17 +319,17 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     protected getSpriteAssetName(scale: number, layerId: number): string
     {
-        if(this._headOnly && this._Str_24824(layerId)) return null;
+        if(this._headOnly && this.isNonHeadSprite(layerId)) return null;
 
         if(this._isRiding && this._parser3(layerId)) return null;
 
         const totalSprites = this.totalSprites;
 
-        if(layerId < (totalSprites - PetVisualization._Str_7490))
+        if(layerId < (totalSprites - PetVisualization.ADDITIONAL_SPRITE_COUNT))
         {
             const validScale = this.getValidSize(scale);
 
-            if(layerId < (totalSprites - (1 + PetVisualization._Str_7490)))
+            if(layerId < (totalSprites - (1 + PetVisualization.ADDITIONAL_SPRITE_COUNT)))
             {
                 if(layerId >= FurnitureVisualizationData.LAYER_LETTERS.length) return null;
 
@@ -348,7 +348,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     protected getLayerColor(scale: number, layerId: number, colorId: number): number
     {
-        if(layerId < (this.totalSprites - PetVisualization._Str_7490)) return this._color;
+        if(layerId < (this.totalSprites - PetVisualization.ADDITIONAL_SPRITE_COUNT)) return this._color;
 
         return 0xFFFFFF;
     }
@@ -406,7 +406,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     private getDirection(scale: number, layerId: number): number
     {
-        if(!this._Str_23973(layerId)) return this._direction;
+        if(!this.isHeadSprite(layerId)) return this._direction;
 
         return this._data.getValidDirection(scale, this._headDirection);
     }
@@ -432,7 +432,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         return super.getFrameNumber(scale, layerId);
     }
 
-    private _Str_23973(layerId: number): boolean
+    private isHeadSprite(layerId: number): boolean
     {
         if(this._headSprites[layerId] === undefined)
         {
@@ -446,11 +446,11 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         return this._headSprites[layerId];
     }
 
-    private _Str_24824(layerId: number): boolean
+    private isNonHeadSprite(layerId: number): boolean
     {
         if(this._nonHeadSprites[layerId] === undefined)
         {
-            if(layerId < (this.totalSprites - (1 + PetVisualization._Str_7490)))
+            if(layerId < (this.totalSprites - (1 + PetVisualization.ADDITIONAL_SPRITE_COUNT)))
             {
                 const tag = this._data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId);
 
@@ -515,7 +515,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     protected getAdditionalLayerCount(): number
     {
-        return super.getAdditionalLayerCount() + PetVisualization._Str_7490;
+        return super.getAdditionalLayerCount() + PetVisualization.ADDITIONAL_SPRITE_COUNT;
     }
 
     protected setLayerCount(count: number): void
@@ -551,9 +551,9 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
             part = part.split('@')[0];
 
-            posture = this._data._Str_14207(scale, (parseInt(part) / 100), false);
+            posture = this._data.animationToPosture(scale, (parseInt(part) / 100), false);
 
-            if(!posture) posture = this._data._Str_17976(scale, (parseInt(part) / 100));
+            if(!posture) posture = this._data.getGestureForAnimationId(scale, (parseInt(part) / 100));
         }
 
         return posture;

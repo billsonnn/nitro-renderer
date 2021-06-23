@@ -1,16 +1,16 @@
 import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
-import { ObjectDataFactory } from '../../../../../room/object/data/ObjectDataFactory';
 import { IObjectData } from '../../../../../room/object/data/IObjectData';
+import { ObjectDataFactory } from '../../../../../room/object/data/ObjectDataFactory';
 import { LegacyDataType } from '../../../../../room/object/data/type/LegacyDataType';
-import { MarketplaceOwnItem } from '../utils/MarketplaceOwnItem';
+import { MarketplaceOffer } from '../utils/MarketPlaceOffer';
 
 
 export class MarketplaceOwnItemsParser implements IMessageParser
 {
-    private static _Str_18070 = 500;
-    private _offers: MarketplaceOwnItem[];
-    private _Str_11581: number;
+    private static MAX_LIST_LENGTH = 500;
+    private _offers: MarketplaceOffer[];
+    private _creditsWaiting: number;
 
 
     public flush(): boolean
@@ -25,11 +25,10 @@ export class MarketplaceOwnItemsParser implements IMessageParser
         if(!wrapper) return false;
 
         this._offers = [];
-        this._Str_11581 = wrapper.readInt(); // SoldPriceTotal
+        this._creditsWaiting = wrapper.readInt(); // SoldPriceTotal
 
         const offerCount = wrapper.readInt();
-        let i = 0;
-        while(i < offerCount)
+        for(let i = 0; i < offerCount; i++)
         {
             const offerId = wrapper.readInt();
             const status = wrapper.readInt();
@@ -63,27 +62,25 @@ export class MarketplaceOwnItemsParser implements IMessageParser
             const price = wrapper.readInt();
             const local9 = wrapper.readInt();
             const local10 = wrapper.readInt();
-            const local13 = new MarketplaceOwnItem(offerId, furniId, furniType, extraData, stuffData, price, status, local9, local10);
+            const local13 = new MarketplaceOffer(offerId, furniId, furniType, extraData, stuffData, price, status, local9, local10);
 
-            if(i < MarketplaceOwnItemsParser._Str_18070)
+            if(i < MarketplaceOwnItemsParser.MAX_LIST_LENGTH)
             {
                 this._offers.push(local13);
             }
-            i++;
         }
-
 
         return true;
     }
 
-    public get offers():MarketplaceOwnItem[]
+    public get offers():MarketplaceOffer[]
     {
         return this._offers;
     }
 
     public get creditsWaiting():number
     {
-        return this._Str_11581;
+        return this._creditsWaiting;
     }
 
     private getStuffData(wrapper: IMessageDataWrapper): IObjectData

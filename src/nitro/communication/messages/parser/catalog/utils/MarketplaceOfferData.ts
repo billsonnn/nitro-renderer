@@ -31,8 +31,6 @@ export class MarketplaceOfferData
         this._offerCount = offerCount;
     }
 
-
-
     public get offerId():number
     {
         return this._offerId;
@@ -73,8 +71,7 @@ export class MarketplaceOfferData
         this._price = k;
     }
 
-
-    public get _Str_3925():number
+    public get averagePrice():number
     {
         return this._averagePrice;
     }
@@ -86,16 +83,15 @@ export class MarketplaceOfferData
 
     public set image(k:string)
     {
-
         this._image = k;
     }
 
-    public set _Str_4774(k:number)
+    public set imageCallback(k:number)
     {
         this._imageCallback = k;
     }
 
-    public get _Str_4774():number
+    public get imageCallback():number
     {
         return this._imageCallback;
     }
@@ -105,24 +101,22 @@ export class MarketplaceOfferData
         return this._status;
     }
 
-    public get _Str_5853():number
+    public get timeLeftMinutes():number
     {
         return this._timeLeftMinutes;
     }
 
-    public set _Str_5853(k:number)
+    public set timeLeftMinutes(k:number)
     {
         this._timeLeftMinutes = k;
     }
 
-
-
-    public get _Str_4121():number
+    public get offerCount():number
     {
         return this._offerCount;
     }
 
-    public set _Str_4121(k:number)
+    public set offerCount(k:number)
     {
         this._offerCount = k;
     }

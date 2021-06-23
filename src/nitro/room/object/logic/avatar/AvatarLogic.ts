@@ -36,11 +36,11 @@ export class AvatarLogic extends MovingObjectLogic
 {
     private static MAX_HAND_ID: number      = 999999999;
     private static MAX_HAND_USE_ID: number  = 999;
-    private static _Str_13364: number       = 28;
-    private static _Str_8860: number        = 500;
-    private static _Str_15351: number       = 29;
-    private static _Str_13733: number       = 184;
-    private static _Str_13094: number       = 185;
+    private static EFFECT_TYPE_SPLASH: number       = 28;
+    private static EFFECT_SPLASH_LENGTH: number        = 500;
+    private static EFFECT_TYPE_SWIM: number       = 29;
+    private static EFFECT_TYPE_SPLASH_DARK: number       = 184;
+    private static EFFECT_TYPE_SWIM_DARK: number       = 185;
 
     private _selected: boolean;
     private _reportedLocation: Vector3d;
@@ -434,32 +434,32 @@ export class AvatarLogic extends MovingObjectLogic
 
     private updateAvatarEffect(effect: number, delay: number, model: IRoomObjectModel): void
     {
-        if(effect === AvatarLogic._Str_13364)
+        if(effect === AvatarLogic.EFFECT_TYPE_SPLASH)
         {
-            this._effectChangeTimeStamp = (Nitro.instance.time + AvatarLogic._Str_8860);
-            this._newEffect             = AvatarLogic._Str_15351;
+            this._effectChangeTimeStamp = (Nitro.instance.time + AvatarLogic.EFFECT_SPLASH_LENGTH);
+            this._newEffect             = AvatarLogic.EFFECT_TYPE_SWIM;
         }
 
-        else if(effect === AvatarLogic._Str_13733)
+        else if(effect === AvatarLogic.EFFECT_TYPE_SPLASH_DARK)
         {
-            this._effectChangeTimeStamp = (Nitro.instance.time + AvatarLogic._Str_8860);
-            this._newEffect             = AvatarLogic._Str_13094;
+            this._effectChangeTimeStamp = (Nitro.instance.time + AvatarLogic.EFFECT_SPLASH_LENGTH);
+            this._newEffect             = AvatarLogic.EFFECT_TYPE_SWIM_DARK;
         }
 
-        else if(model.getValue<number>(RoomObjectVariable.FIGURE_EFFECT) === AvatarLogic._Str_15351)
+        else if(model.getValue<number>(RoomObjectVariable.FIGURE_EFFECT) === AvatarLogic.EFFECT_TYPE_SWIM)
         {
-            this._effectChangeTimeStamp = (Nitro.instance.time + AvatarLogic._Str_8860);
+            this._effectChangeTimeStamp = (Nitro.instance.time + AvatarLogic.EFFECT_SPLASH_LENGTH);
             this._newEffect             = effect;
 
-            effect = AvatarLogic._Str_13364;
+            effect = AvatarLogic.EFFECT_TYPE_SPLASH;
         }
 
-        else if(model.getValue<number>(RoomObjectVariable.FIGURE_EFFECT) === AvatarLogic._Str_13094)
+        else if(model.getValue<number>(RoomObjectVariable.FIGURE_EFFECT) === AvatarLogic.EFFECT_TYPE_SWIM_DARK)
         {
-            this._effectChangeTimeStamp = (Nitro.instance.time + AvatarLogic._Str_8860);
+            this._effectChangeTimeStamp = (Nitro.instance.time + AvatarLogic.EFFECT_SPLASH_LENGTH);
             this._newEffect             = effect;
 
-            effect = AvatarLogic._Str_13733;
+            effect = AvatarLogic.EFFECT_TYPE_SPLASH_DARK;
         }
 
         else if(delay === 0)
