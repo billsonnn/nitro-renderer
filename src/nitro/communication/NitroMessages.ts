@@ -69,7 +69,7 @@ import { FurnitureListEvent } from './messages/incoming/inventory/furni/Furnitur
 import { FurnitureListInvalidateEvent } from './messages/incoming/inventory/furni/FurnitureListInvalidateEvent';
 import { FurnitureListRemovedEvent } from './messages/incoming/inventory/furni/FurnitureListRemovedEvent';
 import { FurniturePostItPlacedEvent } from './messages/incoming/inventory/furni/FurniturePostItPlacedEvent';
-import { FurnitureGiftOpenedEvent } from './messages/incoming/inventory/furni/gifts/FurnitureGiftOpenedEvent';
+import { PresentOpenedMessageEvent } from './messages/incoming/inventory/furni/gifts/PresentOpenedMessageEvent';
 import { MarketplaceItemPostedEvent } from './messages/incoming/inventory/marketplace/MarketplaceItemPostedEvent';
 import { MarketplaceSellItemEvent } from './messages/incoming/inventory/marketplace/MarketplaceSellItemEvent';
 import { PetAddedToInventoryEvent } from './messages/incoming/inventory/pets/PetAddedToInventoryEvent';
@@ -696,7 +696,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.MESSENGER_RELATIONSHIPS, UserRelationshipsEvent);
 
         // GIFTS
-        this._events.set(IncomingHeader.GIFT_OPENED, FurnitureGiftOpenedEvent);
+        this._events.set(IncomingHeader.GIFT_OPENED, PresentOpenedMessageEvent);
 
         // INVENTORY
         this._events.set(IncomingHeader.GIFT_RECEIVER_NOT_FOUND, CatalogGiftUsernameUnavailableEvent);

@@ -1,1 +1,1 @@
-export * from './FurnitureGiftOpenedEvent';
+export * from './PresentOpenedMessageEvent';

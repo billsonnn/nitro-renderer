@@ -2,18 +2,18 @@
 
 export class SessionDataPreferencesEvent extends NitroEvent
 {
-    public static APUE_UPDATED: string = 'APUE_UPDATED';
+    public static UPDATED: string = 'APUE_UPDATED';
 
     private _uiFlags: number;
 
     constructor(k: number)
     {
-        super(SessionDataPreferencesEvent.APUE_UPDATED);
+        super(SessionDataPreferencesEvent.UPDATED);
 
         this._uiFlags = k;
     }
 
-    public get _Str_8444(): number
+    public get uiFlags(): number
     {
         return this._uiFlags;
     }

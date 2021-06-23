@@ -1,4 +1,4 @@
-import { IObjectData } from 'nitro-renderer/src/nitro/room/object/data/IObjectData';
+import { IObjectData } from '../../../../../room/object/data/IObjectData';
 
 export class MarketplaceOffer
 {
