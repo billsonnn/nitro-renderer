@@ -1,15 +1,15 @@
 ﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 
-export class _Str_5753
+export class RarityCategoryData
 {
-    private _Str_16211: number;
+    private _chance: number;
     private _breeds: number[];
 
     constructor(wrapper: IMessageDataWrapper)
     {
         if(!wrapper) throw new Error('invalid_wrapper');
 
-        this._Str_16211 = wrapper.readInt();
+        this._chance = wrapper.readInt();
         this._breeds    = [];
 
         let totalCount = wrapper.readInt();
@@ -24,13 +24,13 @@ export class _Str_5753
 
     public dispose():void
     {
-        this._Str_16211 = -1;
+        this._chance = -1;
         this._breeds    = [];
     }
 
-    public get _Str_12554(): number
+    public get chance(): number
     {
-        return this._Str_16211;
+        return this._chance;
     }
 
     public get breeds(): number[]

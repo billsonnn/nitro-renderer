@@ -1,9 +1,9 @@
 ﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
 
-export class _Str_7486 implements IMessageParser
+export class GoToBreedingNestFailureParser implements IMessageParser
 {
-    public static _Str_17785: number = 6;
+    public static PET_TOO_TIRED_TO_BREED: number = 6;
 
     private _reason: number;
 

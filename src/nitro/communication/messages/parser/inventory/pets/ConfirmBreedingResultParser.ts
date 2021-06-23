@@ -1,14 +1,14 @@
 ﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
 
-export class _Str_6256 implements IMessageParser
+export class ConfirmBreedingResultParser implements IMessageParser
 {
-    private _Str_6143: number;
+    private _breedingNestStuffId: number;
     private _result: number;
 
     public flush(): boolean
     {
-        this._Str_6143  = 0;
+        this._breedingNestStuffId  = 0;
         this._result    = 0;
 
         return true;
@@ -18,15 +18,15 @@ export class _Str_6256 implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._Str_6143  = wrapper.readInt();
+        this._breedingNestStuffId  = wrapper.readInt();
         this._result    = wrapper.readInt();
 
         return true;
     }
 
-    public get _Str_12769(): number
+    public get breedingNestStuffId(): number
     {
-        return this._Str_6143;
+        return this._breedingNestStuffId;
     }
 
     public get result(): number
