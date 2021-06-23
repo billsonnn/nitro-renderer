@@ -1,18 +1,18 @@
 import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 
-export class RoomChatParser
+export class RoomChatSettings
 {
-    public static _Str_19408: number = 0;
-    public static _Str_12787: number = 1;
-    public static _Str_16907: number = 0;
-    public static _Str_12581: number = 1;
-    public static _Str_16484: number = 2;
-    public static _Str_18404: number = 0;
-    public static _Str_17874: number = 1;
-    public static _Str_16469: number = 2;
-    public static _Str_21099: number = 0;
-    public static _Str_20763: number = 1;
-    public static _Str_22060: number = 2;
+    public static CHAT_MODE_FREE_FLOW: number = 0;
+    public static CHAT_MODE_LINE_BY_LINE: number = 1;
+    public static CHAT_BUBBLE_WIDTH_WIDE: number = 0;
+    public static CHAT_BUBBLE_WIDTH_NORMAL: number = 1;
+    public static CHAT_BUBBLE_WIDTH_THIN: number = 2;
+    public static CHAT_SCROLL_SPEED_FAST: number = 0;
+    public static CHAT_SCROLL_SPEED_NORMAL: number = 1;
+    public static CHAT_SCROLL_SPEED_SLOW: number = 2;
+    public static FLOOD_FILTER_STRICT: number = 0;
+    public static FLOOD_FILTER_NORMAL: number = 1;
+    public static FLOOD_FILTER_LOOSE: number = 2;
 
     private _mode: number;
     private _weight: number;

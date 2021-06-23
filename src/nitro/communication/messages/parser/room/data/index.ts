@@ -1,4 +1,4 @@
-export * from './RoomChatParser';
+export * from './RoomChatSettings';
 export * from './RoomChatSettingsParser';
 export * from './RoomDataParser';
 export * from './RoomInfoOwnerParser';

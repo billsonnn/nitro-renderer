@@ -3,7 +3,7 @@ import { RoomSessionEvent } from './RoomSessionEvent';
 
 export class RoomSessionUserFigureUpdateEvent extends RoomSessionEvent
 {
-    public static RSUBE_FIGURE: string = 'RSUBE_FIGURE';
+    public static USER_FIGURE: string = 'RSUBE_FIGURE';
 
     private _userId: number = 0;
     private _figure: string = '';
@@ -13,7 +13,7 @@ export class RoomSessionUserFigureUpdateEvent extends RoomSessionEvent
 
     constructor(k: IRoomSession, _arg_2: number, _arg_3: string, _arg_4: string, _arg_5: string, _arg_6: number)
     {
-        super(RoomSessionUserFigureUpdateEvent.RSUBE_FIGURE, k);
+        super(RoomSessionUserFigureUpdateEvent.USER_FIGURE, k);
         this._userId = _arg_2;
         this._figure = _arg_3;
         this._gender = _arg_4;
@@ -36,7 +36,7 @@ export class RoomSessionUserFigureUpdateEvent extends RoomSessionEvent
         return this._gender;
     }
 
-    public get _Str_9690(): string
+    public get customInfo(): string
     {
         return this._customInfo;
     }

@@ -4,9 +4,9 @@ export class FurnitureValRandomizerVisualization extends FurnitureAnimatedVisual
 {
     private static ANIMATION_ID_OFFSET_SLOW1: number    = 20;
     private static ANIMATION_ID_OFFSET_SLOW2: number    = 10;
-    private static _Str_7627: number                    = 31;
-    private static ANIMATION_ID_ROLL: number                    = 32;
-    private static _Str_11236: number                   = 30;
+    private static ANIMATION_ID_START_ROLL: number      = 31;
+    private static ANIMATION_ID_ROLL: number            = 32;
+    private static ANIMATION_ID_OFF: number             = 30;
 
     private _stateQueue: number[];
     private _running: boolean;
@@ -18,7 +18,7 @@ export class FurnitureValRandomizerVisualization extends FurnitureAnimatedVisual
         this._stateQueue    = [];
         this._running       = false;
 
-        super.setAnimation(FurnitureValRandomizerVisualization._Str_11236);
+        super.setAnimation(FurnitureValRandomizerVisualization.ANIMATION_ID_OFF);
     }
 
     protected setAnimation(animationId: number): void
@@ -30,7 +30,7 @@ export class FurnitureValRandomizerVisualization extends FurnitureAnimatedVisual
                 this._running       = true;
                 this._stateQueue    = [];
 
-                this._stateQueue.push(FurnitureValRandomizerVisualization._Str_7627);
+                this._stateQueue.push(FurnitureValRandomizerVisualization.ANIMATION_ID_START_ROLL);
                 this._stateQueue.push(FurnitureValRandomizerVisualization.ANIMATION_ID_ROLL);
 
                 return;
@@ -55,12 +55,12 @@ export class FurnitureValRandomizerVisualization extends FurnitureAnimatedVisual
                     this._stateQueue.push(FurnitureValRandomizerVisualization.ANIMATION_ID_OFFSET_SLOW2 + animationId);
                 }
 
-                this._stateQueue.push(FurnitureValRandomizerVisualization._Str_11236);
+                this._stateQueue.push(FurnitureValRandomizerVisualization.ANIMATION_ID_OFF);
 
                 return;
             }
 
-            super.setAnimation(FurnitureValRandomizerVisualization._Str_11236);
+            super.setAnimation(FurnitureValRandomizerVisualization.ANIMATION_ID_OFF);
         }
     }
 
