@@ -61,7 +61,7 @@ export class RoomSession extends Disposable implements IRoomSession
         this._roomId                = 0;
         this._password              = null;
         this._state                 = RoomSessionEvent.CREATED;
-        this._tradeMode             = RoomTradingLevelEnum._Str_12752;
+        this._tradeMode             = RoomTradingLevelEnum.NO_TRADING;
         this._doorMode              = 0;
         this._controllerLevel       = RoomControllerLevel.NONE;
         this._ownRoomIndex          = -1;

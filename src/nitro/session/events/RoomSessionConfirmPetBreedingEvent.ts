@@ -3,23 +3,23 @@ import { RoomSessionEvent } from './RoomSessionEvent';
 
 export class RoomSessionConfirmPetBreedingEvent extends RoomSessionEvent
 {
-    public static RSPFUE_CONFIRM_PET_BREEDING: string = 'RSPFUE_CONFIRM_PET_BREEDING';
+    public static CONFIRM_PET_BREEDING: string = 'RSPFUE_CONFIRM_PET_BREEDING';
 
     private _nestId: number;
     private _pet1: any;
     private _pet2: any;
     private _rarityCategories: any[];
-    private _Str_6321: number;
+    private _resultPetTypeId: number;
 
     constructor(k: IRoomSession, _arg_2: number, _arg_3: any, _arg_4: any, _arg_5: any[], _arg_6: number)
     {
-        super(RoomSessionConfirmPetBreedingEvent.RSPFUE_CONFIRM_PET_BREEDING, k);
+        super(RoomSessionConfirmPetBreedingEvent.CONFIRM_PET_BREEDING, k);
 
         this._nestId = _arg_2;
         this._pet1 = _arg_3;
         this._pet2 = _arg_4;
         this._rarityCategories = _arg_5;
-        this._Str_6321 = _arg_6;
+        this._resultPetTypeId = _arg_6;
     }
 
     public get rarityCategories(): any[]
@@ -42,8 +42,8 @@ export class RoomSessionConfirmPetBreedingEvent extends RoomSessionEvent
         return this._pet2;
     }
 
-    public get _Str_16867(): number
+    public get resultPetTypeId(): number
     {
-        return this._Str_6321;
+        return this._resultPetTypeId;
     }
 }
