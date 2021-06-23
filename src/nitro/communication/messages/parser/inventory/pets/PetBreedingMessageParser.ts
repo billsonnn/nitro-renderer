@@ -1,21 +1,21 @@
 ﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
 
-export class _Str_7523 implements IMessageParser
+export class PetBreedingMessageParser implements IMessageParser
 {
-    public static _Str_8664: number = 1;
-    public static _Str_9186: number = 2;
-    public static _Str_22195: number = 3;
+    public static STATE_CANCEL: number = 1;
+    public static STATE_ACCEPT: number = 2;
+    public static STATE_REQUEST: number = 3;
 
     private _state: number;
-    private _Str_6614: number;
-    private _Str_6649: number;
+    private _ownPetId: number;
+    private _otherPetId: number;
 
     public flush(): boolean
     {
         this._state     = 0;
-        this._Str_6614  = 0;
-        this._Str_6649  = 0;
+        this._ownPetId  = 0;
+        this._otherPetId  = 0;
 
         return true;
     }
@@ -25,8 +25,8 @@ export class _Str_7523 implements IMessageParser
         if(!wrapper) return false;
 
         this._state     = wrapper.readInt();
-        this._Str_6614  = wrapper.readInt();
-        this._Str_6649  = wrapper.readInt();
+        this._ownPetId  = wrapper.readInt();
+        this._otherPetId  = wrapper.readInt();
 
         return true;
     }
@@ -36,13 +36,13 @@ export class _Str_7523 implements IMessageParser
         return this._state;
     }
 
-    public get _Str_7440(): number
+    public get ownPetId(): number
     {
-        return this._Str_6614;
+        return this._ownPetId;
     }
 
-    public get _Str_7663(): number
+    public get otherPetId(): number
     {
-        return this._Str_6649;
+        return this._otherPetId;
     }
 }
