@@ -24,7 +24,7 @@ import { RoomUnitDanceComposer } from '../communication/messages/outgoing/room/u
 import { RoomUnitPostureComposer } from '../communication/messages/outgoing/room/unit/RoomUnitPostureComposer';
 import { RoomUnitSignComposer } from '../communication/messages/outgoing/room/unit/RoomUnitSignComposer';
 import { UserMottoComposer } from '../communication/messages/outgoing/user/data/UserMottoComposer';
-import { RoomModerationParser } from '../communication/messages/parser/room/data/RoomModerationParser';
+import { RoomModerationSettings } from '../communication/messages/parser/room/data/RoomModerationSettings';
 import { RoomControllerLevel } from './enum/RoomControllerLevel';
 import { RoomTradingLevelEnum } from './enum/RoomTradingLevelEnum';
 import { RoomSessionEvent } from './events/RoomSessionEvent';
@@ -49,7 +49,7 @@ export class RoomSession extends Disposable implements IRoomSession
     private _isDecorating: boolean;
     private _isSpectator: boolean;
 
-    private _moderationSettings: RoomModerationParser;
+    private _moderationSettings: RoomModerationSettings;
 
     constructor()
     {
@@ -377,12 +377,12 @@ export class RoomSession extends Disposable implements IRoomSession
         this._isSpectator = flag;
     }
 
-    public get moderationSettings(): RoomModerationParser
+    public get moderationSettings(): RoomModerationSettings
     {
         return this._moderationSettings;
     }
 
-    public set moderationSettings(parser: RoomModerationParser)
+    public set moderationSettings(parser: RoomModerationSettings)
     {
         this._moderationSettings = parser;
     }

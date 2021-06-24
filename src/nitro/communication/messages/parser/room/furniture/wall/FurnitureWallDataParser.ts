@@ -19,7 +19,7 @@ export class FurnitureWallDataParser
     private _y: number;
     private _z: number;
     private _direction: string;
-    private _Str_19875: boolean;
+    private _isOldFormat: boolean;
 
     constructor(wrapper: IMessageDataWrapper)
     {
@@ -48,7 +48,7 @@ export class FurnitureWallDataParser
         this._y                         = 0;
         this._z                         = 0;
         this._direction                 = null;
-        this._Str_19875                 = false;
+        this._isOldFormat                 = false;
 
         return true;
     }
@@ -72,7 +72,7 @@ export class FurnitureWallDataParser
 
         if(this._location.indexOf(':') === 0)
         {
-            this._Str_19875 = false;
+            this._isOldFormat = false;
 
             let parts = this._location.split(' ');
 
@@ -113,7 +113,7 @@ export class FurnitureWallDataParser
         }
         else
         {
-            this._Str_19875 = true;
+            this._isOldFormat = true;
 
             // _local_12 = _local_4.split(" ");
             // if (_local_12.length >= 2)
@@ -221,8 +221,8 @@ export class FurnitureWallDataParser
         return this._direction;
     }
 
-    public get _Str_22379(): boolean
+    public get isOldFormat(): boolean
     {
-        return this._Str_19875;
+        return this._isOldFormat;
     }
 }

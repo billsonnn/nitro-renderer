@@ -1,18 +1,18 @@
 import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 
-export class ModtoolUserVisitedRoomsRoom
+export class RoomVisitData
 {
     private _roomId:number;
     private _roomName:string;
-    private _Str_20266:number;
-    private _Str_20472:number;
+    private _enterHour:number;
+    private _enterMinute:number;
 
     constructor(k:IMessageDataWrapper)
     {
         this._roomId = k.readInt();
         this._roomName = k.readString();
-        this._Str_20266 = k.readInt();
-        this._Str_20472 = k.readInt();
+        this._enterHour = k.readInt();
+        this._enterMinute = k.readInt();
     }
 
     public get roomId():number
@@ -25,13 +25,13 @@ export class ModtoolUserVisitedRoomsRoom
         return this._roomName;
     }
 
-    public get _Str_22929():number
+    public get enterHour():number
     {
-        return this._Str_20266;
+        return this._enterHour;
     }
 
-    public get _Str_25550():number
+    public get enterMinute():number
     {
-        return this._Str_20472;
+        return this._enterMinute;
     }
 }

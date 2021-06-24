@@ -3,7 +3,10 @@ import { IMessageParser } from '../../../../../../../core/communication/messages
 
 export class UserSubscriptionParser implements IMessageParser
 {
-    public static _Str_14729: number = 3;
+    public static readonly RESPONSE_TYPE_LOGIN:number = 1;
+    public static readonly RESPONSE_TYPE_PURCHASE:number = 2;
+    public static readonly RESPONSE_TYPE_DISCOUNT_AVAILABLE:number = 3;
+    public static readonly RESPONSE_TYPE_CITIZENSHIP_DISCOUNT:number = 4;
 
     private _name: string;
     private _days: number;

@@ -1,6 +1,6 @@
 import { IDisposable } from '../../core/common/disposable/IDisposable';
 import { IConnection } from '../../core/communication/connections/IConnection';
-import { RoomModerationParser } from '../communication/messages/parser/room/data/RoomModerationParser';
+import { RoomModerationSettings } from '../communication/messages/parser/room/data/RoomModerationSettings';
 import { UserDataManager } from './UserDataManager';
 
 export interface IRoomSession extends IDisposable
@@ -47,5 +47,5 @@ export interface IRoomSession extends IDisposable
     isRoomOwner: boolean;
     isDecorating: boolean;
     isSpectator: boolean;
-    moderationSettings: RoomModerationParser;
+    moderationSettings: RoomModerationSettings;
 }

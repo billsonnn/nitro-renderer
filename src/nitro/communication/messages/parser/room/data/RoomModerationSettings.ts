@@ -1,10 +1,10 @@
 import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 
-export class RoomModerationParser
+export class RoomModerationSettings
 {
-    public static _Str_10707: number    = 0;
-    public static _Str_5047: number     = 1;
-    public static _Str_11537: number    = 2;
+    public static MODERATION_LEVEL_NONE: number    = 0;
+    public static MODERATION_LEVEL_USER_WITH_RIGHTS: number     = 1;
+    public static MODERATION_LEVEL_ALL: number    = 2;
 
     private _allowMute: number;
     private _allowKick: number;

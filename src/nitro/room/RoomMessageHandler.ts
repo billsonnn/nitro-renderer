@@ -897,7 +897,7 @@ export class RoomMessageHandler extends Disposable
 
         let location: IVector3D = null;
 
-        if(!data._Str_22379)
+        if(!data.isOldFormat)
         {
             location = wallGeometry.getLocation(data.width, data.height, data.localX, data.localY, data.direction);
         }
