@@ -1,14 +1,14 @@
 import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
 
-export class MarketplaceSellItemParser implements IMessageParser
+export class MarketplaceCanMakeOfferResultParser implements IMessageParser
 {
-    private _Str_19825: number = null;
+    private _tokenCount: number = null;
     private _result: number = null;
 
     public flush(): boolean
     {
-        this._Str_19825 = null;
+        this._tokenCount = null;
         this._result = null;
 
         return true;
@@ -19,20 +19,18 @@ export class MarketplaceSellItemParser implements IMessageParser
         if(!wrapper) return false;
 
         this._result = wrapper.readInt();
-        this._Str_19825 = wrapper.readInt();
+        this._tokenCount = wrapper.readInt();
 
         return true;
     }
 
-    public get _Str_24601(): number
+    public get tokenCount(): number
     {
-        return this._Str_19825;
+        return this._tokenCount;
     }
 
-    public get _Str_3278(): number
+    public get resultCode(): number
     {
         return this._result;
     }
-
-
 }

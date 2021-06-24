@@ -6,12 +6,12 @@ import { AchievementData } from '../../../incoming/inventory/achievements/Achiev
 export class AchievementsParser implements IMessageParser
 {
     private _achievements: AchievementData[];
-    private _Str_19269: string;
+    private _defaultCategory: string;
 
     public flush(): boolean
     {
         this._achievements  = [];
-        this._Str_19269     = null;
+        this._defaultCategory     = null;
 
         return true;
     }
@@ -31,7 +31,7 @@ export class AchievementsParser implements IMessageParser
             totalCount--;
         }
 
-        this._Str_19269 = k.readString();
+        this._defaultCategory = k.readString();
 
         return true;
     }
@@ -41,8 +41,8 @@ export class AchievementsParser implements IMessageParser
         return this._achievements;
     }
 
-    public get _Str_16300(): string
+    public get defaultCategory(): string
     {
-        return this._Str_19269;
+        return this._defaultCategory;
     }
 }

@@ -1,16 +1,16 @@
 import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
 import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
-import { RoomEnterErrorParser } from '../../../parser/room/access/RoomEnterErrorParser';
+import { CantConnectMessageParser } from '../../../parser/room/access/CantConnectMessageParser';
 
 export class RoomEnterErrorEvent extends MessageEvent implements IMessageEvent
 {
     constructor(callBack: Function)
     {
-        super(callBack, RoomEnterErrorParser);
+        super(callBack, CantConnectMessageParser);
     }
 
-    public getParser(): RoomEnterErrorParser
+    public getParser(): CantConnectMessageParser
     {
-        return this.parser as RoomEnterErrorParser;
+        return this.parser as CantConnectMessageParser;
     }
 }

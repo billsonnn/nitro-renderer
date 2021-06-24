@@ -17,7 +17,7 @@ import { CatalogRedeemVoucherOkEvent } from './messages/incoming/catalog/Catalog
 import { CatalogSearchEvent } from './messages/incoming/catalog/CatalogSearchEvent';
 import { CatalogSoldOutEvent } from './messages/incoming/catalog/CatalogSoldOutEvent';
 import { CatalogUpdatedEvent } from './messages/incoming/catalog/CatalogUpdatedEvent';
-import { MarketplaceAfterOrderStatusEvent } from './messages/incoming/catalog/marketplace/MarketplaceAfterOrderStatusEvent';
+import { MarketplaceBuyOfferResultEvent } from './messages/incoming/catalog/marketplace/MarketplaceBuyOfferResultEvent';
 import { MarketplaceCancelItemEvent } from './messages/incoming/catalog/marketplace/MarketplaceCancelItemEvent';
 import { MarketplaceOffersReceivedEvent } from './messages/incoming/catalog/marketplace/MarketplaceOffersReceivedEvent';
 import { MarketplaceOwnItemsEvent } from './messages/incoming/catalog/marketplace/MarketplaceOwnItemsEvent';
@@ -740,7 +740,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.MARKETPLACE_CANCEL_SALE, MarketplaceCancelItemEvent);
         this._events.set(IncomingHeader.MARKETPLACE_ITEM_POSTED, MarketplaceItemPostedEvent);
         this._events.set(IncomingHeader.MARKETPLACE_ITEMS_SEARCHED, MarketplaceOffersReceivedEvent);
-        this._events.set(IncomingHeader.MARKETPLACE_AFTER_ORDER_STATUS, MarketplaceAfterOrderStatusEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_AFTER_ORDER_STATUS, MarketplaceBuyOfferResultEvent);
     }
 
     private registerComposers(): void

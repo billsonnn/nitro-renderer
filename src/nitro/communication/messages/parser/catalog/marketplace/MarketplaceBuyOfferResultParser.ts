@@ -1,13 +1,12 @@
 import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
 
-export class MarketplaceAfterOrderParser implements IMessageParser
+export class MarketplaceBuyOfferResultParser implements IMessageParser
 {
-
     private _result: number;
-    private _offerId: number = -1;
-    private _Str_20780: number = -1;
-    private _Str_8508: number = -1;
+    private _newOfferId: number = -1;
+    private _newPrice: number = -1;
+    private _requestedOfferId: number = -1;
 
     public flush(): boolean
     {
@@ -19,9 +18,9 @@ export class MarketplaceAfterOrderParser implements IMessageParser
         if(!wrapper) return false;
 
         this._result = wrapper.readInt();
-        this._offerId = wrapper.readInt();
-        this._Str_20780 = wrapper.readInt();
-        this._Str_8508 = wrapper.readInt();
+        this._newOfferId = wrapper.readInt();
+        this._newPrice = wrapper.readInt();
+        this._requestedOfferId = wrapper.readInt();
 
         return true;
     }
@@ -33,16 +32,16 @@ export class MarketplaceAfterOrderParser implements IMessageParser
 
     public get offerId():number
     {
-        return this._offerId;
+        return this._newOfferId;
     }
 
-    public get _Str_24839():number
+    public get newPrice():number
     {
-        return this._Str_20780;
+        return this._newPrice;
     }
 
-    public get _Str_7501():number
+    public get requestedOfferId():number
     {
-        return this._Str_8508;
+        return this._requestedOfferId;
     }
 }

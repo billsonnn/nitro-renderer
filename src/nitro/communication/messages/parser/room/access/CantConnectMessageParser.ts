@@ -1,12 +1,12 @@
 import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
 
-export class RoomEnterErrorParser implements IMessageParser
+export class CantConnectMessageParser implements IMessageParser
 {
-    public static FULL_ERROR: number    = 1;
-    public static _Str_19431: number    = 2;
-    public static QUEUE_ERROR: number   = 3;
-    public static BANNED: number        = 4;
+    public static REASON_FULL: number    = 1;
+    public static REASON_CLOSED: number    = 2;
+    public static REASON_QUEUE_ERROR: number   = 3;
+    public static REASON_BANNED: number        = 4;
 
     private _reason: number;
     private _parameter: string;
