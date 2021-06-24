@@ -3,7 +3,7 @@ import { IMessageDataWrapper } from '../../../../../../core/communication/messag
 export class CallForHelpCategoryData
 {
     private _name: string;
-    private _topics: _Str_3509[];
+    private _topics: CallForHelpTopicData[];
 
     constructor(wrapper: IMessageDataWrapper)
     {
@@ -19,21 +19,26 @@ export class CallForHelpCategoryData
             this._topics.push({
                 name,
                 id,
-                _Str_18308: unknown
+                consequence: unknown
             });
             i++;
         }
 
     }
 
-    public get topics(): _Str_3509[]
+    public get topics(): CallForHelpTopicData[]
     {
         return this._topics;
     }
+
+    public get name(): string
+    {
+        return this._name;
+    }
 }
 
-interface _Str_3509 {
+interface CallForHelpTopicData {
     name: string;
     id: number;
-    _Str_18308: string;
+    consequence: string;
 }
