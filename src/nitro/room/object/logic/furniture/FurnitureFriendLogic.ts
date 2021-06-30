@@ -1,11 +1,10 @@
-import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
-import { RoomObjectBadgeAssetEvent } from '../../../events/RoomObjectBadgeAssetEvent';
-import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { IAssetData } from '../../../../../core/asset/interfaces';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
+import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
 import { StringDataType } from '../../data/type/StringDataType';
+import { RoomObjectVariable } from '../../RoomObjectVariable';
+import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureFriendLogic extends FurnitureMultiStateLogic
 {
@@ -23,25 +22,24 @@ export class FurnitureFriendLogic extends FurnitureMultiStateLogic
     public initialize(asset: IAssetData): void
     {
         super.initialize(asset);
+
         if(this.object) this.object.model.setValue(RoomObjectVariable.FURNITURE_FRIENDFURNI_ENGRAVING, this.engravingDialogType);
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void
     {
-        // chheck if not ObjectSelectedMessage
-        const dataMessage = <ObjectDataUpdateMessage>message;
         if(message instanceof ObjectDataUpdateMessage)
         {
-            const local4 = <StringDataType>dataMessage.data;
-            if(local4)
+            const data = (message.data as StringDataType);
+
+            if(data)
             {
-                this._state = local4.state;
+                this._state = data.state;
             }
             else
             {
-                this._state =dataMessage.state;
+                this._state = message.state;
             }
-
         }
 
         super.processUpdateMessage(message);
@@ -65,8 +63,5 @@ export class FurnitureFriendLogic extends FurnitureMultiStateLogic
         {
             super.useObject();
         }
-
     }
 }
-
-

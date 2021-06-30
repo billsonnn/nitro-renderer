@@ -34,6 +34,7 @@ LegacyExternalInterface.available;
 
 settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT = false;
 settings.SCALE_MODE = SCALE_MODES.NEAREST;
+settings.ROUND_PIXELS = true;
 
 export class Nitro extends Application implements INitro
 {

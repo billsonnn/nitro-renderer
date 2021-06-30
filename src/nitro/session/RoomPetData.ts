@@ -17,7 +17,7 @@
     private _saddle: boolean;
     private _rider: boolean;
     private _breedable: boolean;
-    private _skillTresholds: number[];
+    private _skillThresholds: number[];
     private _publiclyRideable: number;
     private _fullyGrown: boolean;
     private _dead: boolean;
@@ -190,12 +190,12 @@
 
     public get skillTresholds(): number[]
     {
-        return this._skillTresholds;
+        return this._skillThresholds;
     }
 
     public set skillTresholds(k: number[])
     {
-        this._skillTresholds = k;
+        this._skillThresholds = k;
     }
 
     public get publiclyRideable(): number
