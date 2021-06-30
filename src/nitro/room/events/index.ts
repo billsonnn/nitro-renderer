@@ -1,4 +1,5 @@
 export * from './RoomBackgroundColorEvent';
+export * from './RoomDragEvent';
 export * from './RoomEngineDimmerStateEvent';
 export * from './RoomEngineEvent';
 export * from './RoomEngineObjectEvent';

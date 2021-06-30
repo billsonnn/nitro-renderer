@@ -41,6 +41,7 @@ import { IRoomSessionManager } from '../session/IRoomSessionManager';
 import { ISessionDataManager } from '../session/ISessionDataManager';
 import { MouseEventType } from '../ui/MouseEventType';
 import { FurniId } from '../utils/FurniId';
+import { RoomDragEvent } from './events';
 import { RoomBackgroundColorEvent } from './events/RoomBackgroundColorEvent';
 import { RoomEngineEvent } from './events/RoomEngineEvent';
 import { RoomEngineObjectEvent } from './events/RoomEngineObjectEvent';
@@ -2566,6 +2567,8 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                 {
                     this._activeRoomDragX += offsetX;
                     this._activeRoomDragY += offsetY;
+
+                    this.events.dispatchEvent(new RoomDragEvent(this.activeRoomId, offsetX, offsetY));
 
                     this._activeRoomWasDragged = true;
                 }
