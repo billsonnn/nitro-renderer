@@ -662,6 +662,8 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(!renderingCanvas || !point) return false;
 
+        this.events.dispatchEvent(new RoomDragEvent(roomId, -(renderingCanvas.screenOffsetX - point.x), -(renderingCanvas.screenOffsetY - point.y)));
+
         renderingCanvas.screenOffsetX   = point.x;
         renderingCanvas.screenOffsetY   = point.y;
 
@@ -1175,18 +1177,14 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
             }
         }
 
-        const canvas = this.getRoomInstanceRenderingCanvas(this._activeRoomId, 1);
-
-        if(canvas)
+        if(this._activeRoomIsDragged)
         {
-            if(this._activeRoomIsDragged)
-            {
-                canvas.screenOffsetX = (canvas.screenOffsetX + this._activeRoomDragX);
-                canvas.screenOffsetY = (canvas.screenOffsetY + this._activeRoomDragY);
+            const renderingCanvas = this.getRoomInstanceRenderingCanvas(this._activeRoomId, 1);
 
-                this._activeRoomDragX = 0;
-                this._activeRoomDragY = 0;
-            }
+            if(renderingCanvas) this.setRoomInstanceRenderingCanvasOffset(this._activeRoomId, 1, new Point((renderingCanvas.screenOffsetX + this._activeRoomDragX), (renderingCanvas.screenOffsetY + this._activeRoomDragY)));
+
+            this._activeRoomDragX = 0;
+            this._activeRoomDragY = 0;
         }
     }
 
@@ -1460,8 +1458,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
             if(this.useOffsetScrolling)
             {
-                renderingCanvas.screenOffsetX = -(roomCamera.location.x);
-                renderingCanvas.screenOffsetY = -(roomCamera.location.y);
+                this.setRoomInstanceRenderingCanvasOffset(this.activeRoomId, 1, new Point(-(roomCamera.location.x), -(roomCamera.location.y)));
             }
             else
             {
@@ -2567,8 +2564,6 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                 {
                     this._activeRoomDragX += offsetX;
                     this._activeRoomDragY += offsetY;
-
-                    this.events.dispatchEvent(new RoomDragEvent(this.activeRoomId, offsetX, offsetY));
 
                     this._activeRoomWasDragged = true;
                 }
