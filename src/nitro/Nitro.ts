@@ -1,4 +1,5 @@
 import { Application, SCALE_MODES, settings } from 'pixi.js';
+import { INitroManager } from '..';
 import { ConfigurationEvent } from '../core/configuration/ConfigurationEvent';
 import { EventDispatcher } from '../core/events/EventDispatcher';
 import { IEventDispatcher } from '../core/events/IEventDispatcher';
@@ -28,6 +29,7 @@ import { IRoomSessionManager } from './session/IRoomSessionManager';
 import { ISessionDataManager } from './session/ISessionDataManager';
 import { RoomSessionManager } from './session/RoomSessionManager';
 import { SessionDataManager } from './session/SessionDataManager';
+import { SoundManager } from './sound/SoundManager';
 import { HabboWebTools } from './utils/HabboWebTools';
 
 LegacyExternalInterface.available;
@@ -57,6 +59,7 @@ export class Nitro extends Application implements INitro
     private _roomSessionManager: IRoomSessionManager;
     private _roomManager: IRoomManager;
     private _cameraManager: IRoomCameraWidgetManager;
+    private _soundManager: INitroManager;
     private _linkTrackers: ILinkEventTracker[];
     private _workerTrackers: IWorkerEventTracker[];
 
@@ -98,6 +101,7 @@ export class Nitro extends Application implements INitro
         this._roomSessionManager        = new RoomSessionManager(this._communication, this._roomEngine);
         this._roomManager               = new RoomManager(this._roomEngine, this._roomEngine.visualizationFactory, this._roomEngine.logicFactory);
         this._cameraManager             = new RoomCameraWidgetManager();
+        this._soundManager              = new SoundManager();
         this._linkTrackers              = [];
         this._workerTrackers            = [];
 
@@ -146,6 +150,8 @@ export class Nitro extends Application implements INitro
         if(this._isReady || this._isDisposed) return;
 
         if(this._avatar) this._avatar.init();
+
+        if(this._soundManager) this._soundManager.init();
 
         if(this._roomEngine)
         {
@@ -206,6 +212,13 @@ export class Nitro extends Application implements INitro
             this._avatar.dispose();
 
             this._avatar = null;
+        }
+
+        if(this._soundManager)
+        {
+            this._soundManager.dispose();
+
+            this._soundManager = null;
         }
 
         if(this._communication)
