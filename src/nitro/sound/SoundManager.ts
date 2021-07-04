@@ -111,7 +111,7 @@ export class SoundManager extends NitroManager
 
         if(!sample)
         {
-            const sampleUrl = Nitro.instance.core.configuration.interpolate(Nitro.instance.getConfiguration<string>('sounds.url'));
+            const sampleUrl = Nitro.instance.getConfiguration<string>('sounds.url');
 
             sample = new Audio(sampleUrl.replace('%sample%', code));
             this._internalSamples.add(code, sample);
@@ -126,7 +126,7 @@ export class SoundManager extends NitroManager
 
         if(!sample)
         {
-            const sampleUrl = Nitro.instance.core.configuration.interpolate(Nitro.instance.getConfiguration<string>('external.samples.url'));
+            const sampleUrl = Nitro.instance.getConfiguration<string>('external.samples.url');
 
             sample = new Audio(sampleUrl.replace('%sample%', code.toString()));
             this._furniSamples.add(code, sample);
