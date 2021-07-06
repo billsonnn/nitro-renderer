@@ -1167,13 +1167,17 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
             if(!camera) continue;
 
+            let location: IVector3D = null;
+
             const object = this.getRoomObject(instanceData.roomId, camera.targetId, camera.targetCategory);
 
-            if(!object) continue;
+            if(object) location = object.getLocation();
+
+            if(!location) continue;
 
             if((instanceData.roomId !== this._activeRoomId) || !this._activeRoomIsDragged)
             {
-                this.updateRoomCamera(instanceData.roomId, 1, object.getLocation(), time);
+                this.updateRoomCamera(instanceData.roomId, 1, location, time);
             }
         }
 
