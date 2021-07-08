@@ -11,6 +11,7 @@ import { IRoomGeometry } from '../../room/utils/IRoomGeometry';
 import { IVector3D } from '../../room/utils/IVector3D';
 import { RoomEnterEffect } from '../../room/utils/RoomEnterEffect';
 import { Vector3d } from '../../room/utils/Vector3d';
+import { FurnitureGuildInfoComposer } from '../communication';
 import { BotPlaceComposer } from '../communication/messages/outgoing/room/engine/BotPlaceComposer';
 import { GetItemDataComposer } from '../communication/messages/outgoing/room/engine/GetItemDataComposer';
 import { ModifyWallItemDataComposer } from '../communication/messages/outgoing/room/engine/ModifyWallItemDataComposer';
@@ -34,6 +35,7 @@ import { RoomUnitWalkComposer } from '../communication/messages/outgoing/room/un
 import { Nitro } from '../Nitro';
 import { MouseEventType } from '../ui/MouseEventType';
 import { RoomObjectPlacementSource } from './enums/RoomObjectPlacementSource';
+import { RoomEngineUseProductEvent } from './events';
 import { RoomEngineDimmerStateEvent } from './events/RoomEngineDimmerStateEvent';
 import { RoomEngineObjectEvent } from './events/RoomEngineObjectEvent';
 import { RoomEngineObjectPlacedEvent } from './events/RoomEngineObjectPlacedEvent';
@@ -743,17 +745,90 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             case RoomObjectWidgetRequestEvent.CLOSE_WIDGET:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.CLOSE_WIDGET, roomId, objectId, objectCategory, ((event.object as IRoomObjectController).logic.widget)));
                 return;
-            case RoomObjectWidgetRequestEvent.TROPHY:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_TROPHY, roomId, objectId, objectCategory));
+            case RoomObjectWidgetRequestEvent.OPEN_FURNI_CONTEXT_MENU:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.OPEN_FURNI_CONTEXT_MENU, roomId, objectId, objectCategory, ((event.object as IRoomObjectController).logic.contextMenu)));
+                return;
+            case RoomObjectWidgetRequestEvent.CLOSE_FURNI_CONTEXT_MENU:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.OPEN_FURNI_CONTEXT_MENU, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.PLACEHOLDER:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PLACEHOLDER, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.CREDITFURNI:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_CREDITFURNI, roomId, objectId, objectCategory));
                 return;
-            case RoomObjectWidgetRequestEvent.INERNAL_LINK:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_INTERNAL_LINK, roomId, objectId, objectCategory));
+            case RoomObjectWidgetRequestEvent.STICKIE:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_STICKIE, roomId, objectId, objectCategory));
                 return;
-            case RoomObjectWidgetRequestEvent.ROOM_LINK:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ROOM_LINK, roomId, objectId, objectCategory));
+            case RoomObjectWidgetRequestEvent.PRESENT:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PRESENT, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.TROPHY:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_TROPHY, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.TEASER:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_TEASER, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.ECOTRONBOX:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ECOTRONBOX, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.DIMMER:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_DIMMER, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.WIDGET_REMOVE_DIMMER:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_DIMMER, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.CLOTHING_CHANGE:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_CLOTHING_CHANGE, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.JUKEBOX_PLAYLIST_EDITOR:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PLAYLIST_EDITOR, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.MANNEQUIN:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MANNEQUIN, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.PET_PRODUCT_MENU:
+                eventDispatcher.dispatchEvent(new RoomEngineUseProductEvent(RoomEngineUseProductEvent.USE_PRODUCT_FROM_ROOM, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.GUILD_FURNI_CONTEXT_MENU:
+                this._roomEngine.connection.send(new FurnitureGuildInfoComposer(event.objectId, event.object.model.getValue<number>(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_GUILD_ID)));
+                return;
+            case RoomObjectWidgetRequestEvent.MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.PURCHASABLE_CLOTHING_CONFIRMATION_DIALOG:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PURCHASABLE_CLOTHING_CONFIRMATION_DIALOG, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.BACKGROUND_COLOR:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_BACKGROUND_COLOR, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.MYSTERYBOX_OPEN_DIALOG:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MYSTERYBOX_OPEN_DIALOG, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.EFFECTBOX_OPEN_DIALOG:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_EFFECTBOX_OPEN_DIALOG, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.MYSTERYTROPHY_OPEN_DIALOG:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MYSTERYTROPHY_OPEN_DIALOG, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_OPEN:
+                //this._roomEngine.connection.send();
+                // new _Str_4406(k._Str_1577, 0)
+                return;
+            case RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_ENGRAVING:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ACHIEVEMENT_RESOLUTION_ENGRAVING, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_FAILED:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ACHIEVEMENT_RESOLUTION_FAILED, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.FRIEND_FURNITURE_CONFIRM:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_FRIEND_FURNITURE_CONFIRM, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.FRIEND_FURNITURE_ENGRAVING:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_FRIEND_FURNITURE_ENGRAVING, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.BADGE_DISPLAY_ENGRAVING:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_BADGE_DISPLAY_ENGRAVING, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.HIGH_SCORE_DISPLAY:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_HIGH_SCORE_DISPLAY, roomId, objectId, objectCategory));
@@ -761,42 +836,12 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             case RoomObjectWidgetRequestEvent.HIDE_HIGH_SCORE_DISPLAY:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_HIDE_HIGH_SCORE_DISPLAY, roomId, objectId, objectCategory));
                 return;
-            case RoomObjectWidgetRequestEvent.STICKIE:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_STICKIE, roomId, objectId, objectCategory));
+            case RoomObjectWidgetRequestEvent.INERNAL_LINK:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_INTERNAL_LINK, roomId, objectId, objectCategory));
                 return;
-            case RoomObjectWidgetRequestEvent.DIMMER:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_DIMMER, roomId, objectId, objectCategory));
+            case RoomObjectWidgetRequestEvent.ROOM_LINK:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ROOM_LINK, roomId, objectId, objectCategory));
                 return;
-            case RoomObjectWidgetRequestEvent.PURCHASABLE_CLOTHING_CONFIRMATION_DIALOG:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PURCHASABLE_CLOTHING_CONFIRMATION_DIALOG, roomId, objectId, objectCategory));
-                break;
-            case RoomObjectWidgetRequestEvent.MYSTERYBOX_OPEN_DIALOG:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MYSTERYBOX_OPEN_DIALOG, roomId, objectId, objectCategory));
-                break;
-            case RoomObjectWidgetRequestEvent.MYSTERYTROPHY_OPEN_DIALOG:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MYSTERYTROPHY_OPEN_DIALOG, roomId, objectId, objectCategory));
-                break;
-            case RoomObjectWidgetRequestEvent.EFFECTBOX_OPEN_DIALOG:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_EFFECTBOX_OPEN_DIALOG, roomId, objectId, objectCategory));
-                break;
-            case RoomObjectWidgetRequestEvent.MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG, roomId, objectId, objectCategory));
-                break;
-            case RoomObjectWidgetRequestEvent.MANNEQUIN:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MANNEQUIN, roomId, objectId, objectCategory));
-                break;
-
-            case RoomObjectWidgetRequestEvent.BACKGROUND_COLOR:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_BACKGROUND_COLOR, roomId, objectId, objectCategory));
-                break;
-            case RoomObjectWidgetRequestEvent.FRIEND_FURNITURE_ENGRAVING:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_FRIEND_FURNITURE_ENGRAVING, roomId, objectId, objectCategory));
-                break;
-            case RoomObjectWidgetRequestEvent.PRESENT:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PRESENT, roomId, objectId, objectCategory));
-                break;
-
-
         }
     }
 

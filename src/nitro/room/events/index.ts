@@ -7,6 +7,7 @@ export * from './RoomEngineObjectPlacedEvent';
 export * from './RoomEngineObjectPlacedOnUserEvent';
 export * from './RoomEngineSamplePlaybackEvent';
 export * from './RoomEngineTriggerWidgetEvent';
+export * from './RoomEngineUseProductEvent';
 export * from './RoomObjectBadgeAssetEvent';
 export * from './RoomObjectDataRequestEvent';
 export * from './RoomObjectDimmerStateUpdateEvent';

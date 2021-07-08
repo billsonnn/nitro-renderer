@@ -38,8 +38,8 @@ export class RoomObjectWidgetRequestEvent extends RoomObjectEvent
     public static INERNAL_LINK: string                                = 'ROWRE_INTERNAL_LINK';
     public static ROOM_LINK: string                                   = 'ROWRE_ROOM_LINK';
 
-    constructor(k: string, _arg_2: IRoomObject)
+    constructor(type: string, roomObject: IRoomObject)
     {
-        super(k, _arg_2);
+        super(type, roomObject);
     }
 }

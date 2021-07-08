@@ -236,4 +236,8 @@ export class OutgoingHeader
     public static CATALOG_REQUESET_PET_BREEDS    = 1756;
     public static APPROVE_NAME                   = 2109;
     public static UNIT_GIVE_HANDITEM_PET         = 2768;
+    public static PET_MOUNT                      = 1036;
+    public static PET_SUPPLEMENT                 = 749;
+    public static FURNITURE_GUILD_INFO           = 2651;
+    public static ACHIEVEMENT_RESOLUTION_OPEN    = 359;
 }

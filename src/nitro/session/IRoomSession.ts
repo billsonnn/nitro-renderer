@@ -33,6 +33,8 @@ export interface IRoomSession extends IDisposable
     pickupPet(id: number): void;
     pickupBot(id: number): void;
     requestMoodlightSettings(): void;
+    mountPet(id: number): void;
+    dismountPet(id: number): void;
     connection: IConnection;
     userDataManager: UserDataManager;
     roomId: number;

@@ -1,5 +1,6 @@
 import { Disposable } from '../../core/common/disposable/Disposable';
 import { IConnection } from '../../core/communication/connections/IConnection';
+import { PetMountComposer } from '../communication';
 import { RoomDoorbellAccessComposer } from '../communication/messages/outgoing/room/access/RoomDoorbellAccessComposer';
 import { RoomEnterComposer } from '../communication/messages/outgoing/room/access/RoomEnterComposer';
 import { RoomAmbassadorAlertComposer } from '../communication/messages/outgoing/room/action/RoomAmbassadorAlertComposer';
@@ -260,6 +261,16 @@ export class RoomSession extends Disposable implements IRoomSession
     public openGift(objectId: number): void
     {
         this._connection.send(new OpenPresentComposer(objectId));
+    }
+
+    public mountPet(id: number): void
+    {
+        this._connection.send(new PetMountComposer(id, true));
+    }
+
+    public dismountPet(id: number): void
+    {
+        this._connection.send(new PetMountComposer(id, false));
     }
 
     public get connection(): IConnection

@@ -1,6 +1,6 @@
 import { RoomEngineObjectEvent } from './RoomEngineObjectEvent';
 
-export class RoomEngineSamplePlaybackEvent  extends RoomEngineObjectEvent
+export class RoomEngineSamplePlaybackEvent extends RoomEngineObjectEvent
 {
     public static ROOM_OBJECT_INITIALIZED: string   = 'ROPSPE_ROOM_OBJECT_INITIALIZED';
     public static ROOM_OBJECT_DISPOSED: string      = 'ROPSPE_ROOM_OBJECT_DISPOSED';

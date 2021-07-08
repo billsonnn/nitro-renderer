@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, RoomUnitGiveHandItemPetComposer, RoomWidgetCameraPublishedEvent, RoomWidgetCameraPurchaseComposer, SellablePetPalettesEvent } from './messages';
+import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, FurnitureGuildInfoComposer, PetMountComposer, PetSupplementComposer, RoomUnitGiveHandItemPetComposer, RoomWidgetCameraPublishedEvent, RoomWidgetCameraPurchaseComposer, SellablePetPalettesEvent } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CatalogClubEvent } from './messages/incoming/catalog/CatalogClubEvent';
 import { CatalogClubGiftsEvent } from './messages/incoming/catalog/CatalogClubGiftsEvent';
@@ -856,7 +856,9 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.ACHIEVEMENT_LIST, RequestAchievementsMessageComposer);
 
         // PET
+        this._composers.set(OutgoingHeader.PET_MOUNT, PetMountComposer);
         this._composers.set(OutgoingHeader.PET_RESPECT, PetRespectComposer);
+        this._composers.set(OutgoingHeader.PET_SUPPLEMENT, PetSupplementComposer);
         this._composers.set(OutgoingHeader.PET_INFO, RequestPetInfoComposer);
 
         // ROOM
@@ -902,6 +904,7 @@ export class NitroMessages implements IMessageConfiguration
 
         // FURNITURE
         this._composers.set(OutgoingHeader.FURNITURE_ALIASES, FurnitureAliasesComposer);
+        this._composers.set(OutgoingHeader.FURNITURE_GUILD_INFO, FurnitureGuildInfoComposer);
         this._composers.set(OutgoingHeader.FURNITURE_PICKUP, FurniturePickupComposer);
         this._composers.set(OutgoingHeader.FURNITURE_PLACE, FurniturePlaceComposer);
         this._composers.set(OutgoingHeader.ITEM_PAINT, FurniturePlacePaintComposer);

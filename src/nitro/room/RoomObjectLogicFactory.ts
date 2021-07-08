@@ -4,11 +4,13 @@ import { IEventDispatcher } from '../../core/events/IEventDispatcher';
 import { IRoomObjectEventHandler } from '../../room/object/logic/IRoomObjectEventHandler';
 import { IRoomObjectLogicFactory } from '../../room/object/logic/IRoomObjectLogicFactory';
 import { RoomObjectLogicBase } from '../../room/object/logic/RoomObjectLogicBase';
+import { FurnitureEffectBoxLogic, FurnitureLoveLockLogic, FurnitureMonsterplantSeedLogic, FurnitureMysteryTrophyLogic, FurnitureRandomTeleportLogic, FurnitureRentableSpaceLogic } from './object';
 import { AvatarLogic } from './object/logic/avatar/AvatarLogic';
 import { FurnitureBadgeDisplayLogic } from './object/logic/furniture/FurnitureBadgeDisplayLogic';
 import { FurnitureChangeStateWhenStepOnLogic } from './object/logic/furniture/FurnitureChangeStateWhenStepOnLogic';
 import { FurnitureCounterClockLogic } from './object/logic/furniture/FurnitureCounterClockLogic';
 import { FurnitureCrackableLogic } from './object/logic/furniture/FurnitureCrackableLogic';
+import { FurnitureCraftingGizmoLogic } from './object/logic/furniture/FurnitureCraftingGizmoLogic';
 import { FurnitureCreditLogic } from './object/logic/furniture/FurnitureCreditLogic';
 import { FurnitureCustomStackHeightLogic } from './object/logic/furniture/FurnitureCustomStackHeightLogic';
 import { FurnitureDiceLogic } from './object/logic/furniture/FurnitureDiceLogic';
@@ -17,7 +19,6 @@ import { FurnitureEditableRoomLinkLogic } from './object/logic/furniture/Furnitu
 import { FurnitureExternalImageLogic } from './object/logic/furniture/FurnitureExternalImageLogic';
 import { FurnitureFireworksLogic } from './object/logic/furniture/FurnitureFireworksLogic';
 import { FurnitureFloorHoleLogic } from './object/logic/furniture/FurnitureFloorHoleLogic';
-import { FurnitureFriendLogic } from './object/logic/furniture/FurnitureFriendLogic';
 import { FurnitureGuildCustomizedLogic } from './object/logic/furniture/FurnitureGuildCustomizedLogic';
 import { FurnitureHighScoreLogic } from './object/logic/furniture/FurnitureHighScoreLogic';
 import { FurnitureHockeyScoreLogic } from './object/logic/furniture/FurnitureHockeyScoreLogic';
@@ -277,10 +278,28 @@ export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
                 logic = FurnitureWindowLogic;
                 break;
             case RoomObjectLogicType.FURNITURE_LOVELOCK:
-                logic = FurnitureFriendLogic;
+                logic = FurnitureLoveLockLogic;
                 break;
             case RoomObjectLogicType.FURNITURE_YOUTUBE:
                 logic = FurnitureYoutubeLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_CRAFTING_GIZMO:
+                logic = FurnitureCraftingGizmoLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_RENTABLE_SPACE:
+                logic = FurnitureRentableSpaceLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_EFFECTBOX:
+                logic = FurnitureEffectBoxLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_MONSTERPLANT_SEED:
+                logic = FurnitureMonsterplantSeedLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_MYSTERYTROPHY:
+                logic = FurnitureMysteryTrophyLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_RANDOM_TELEPORT:
+                logic = FurnitureRandomTeleportLogic;
                 break;
             default:
                 logic = FurnitureLogic;
