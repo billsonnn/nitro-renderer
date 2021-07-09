@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, FurnitureGuildInfoComposer, PetMountComposer, PetSupplementComposer, RoomUnitGiveHandItemPetComposer, RoomWidgetCameraPublishedEvent, RoomWidgetCameraPurchaseComposer, SellablePetPalettesEvent } from './messages';
+import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, FurnitureGuildInfoComposer, PetMountComposer, PetSupplementComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, RoomWidgetCameraPublishedEvent, RoomWidgetCameraPurchaseComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CatalogClubEvent } from './messages/incoming/catalog/CatalogClubEvent';
 import { CatalogClubGiftsEvent } from './messages/incoming/catalog/CatalogClubGiftsEvent';
@@ -859,7 +859,11 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.PET_MOUNT, PetMountComposer);
         this._composers.set(OutgoingHeader.PET_RESPECT, PetRespectComposer);
         this._composers.set(OutgoingHeader.PET_SUPPLEMENT, PetSupplementComposer);
+        this._composers.set(OutgoingHeader.REMOVE_PET_SADDLE, RemovePetSaddleComposer);
         this._composers.set(OutgoingHeader.PET_INFO, RequestPetInfoComposer);
+        this._composers.set(OutgoingHeader.TOGGLE_PET_BREEDING, TogglePetBreedingComposer);
+        this._composers.set(OutgoingHeader.TOGGLE_PET_RIDING, TogglePetRidingComposer);
+        this._composers.set(OutgoingHeader.USE_PET_PRODUCT, UsePetProductComposer);
 
         // ROOM
         this._composers.set(OutgoingHeader.ROOM_CREATE, RoomCreateComposer);

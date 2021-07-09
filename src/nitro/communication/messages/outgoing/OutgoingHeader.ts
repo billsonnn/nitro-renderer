@@ -240,4 +240,8 @@ export class OutgoingHeader
     public static PET_SUPPLEMENT                 = 749;
     public static FURNITURE_GUILD_INFO           = 2651;
     public static ACHIEVEMENT_RESOLUTION_OPEN    = 359;
+    public static USE_PET_PRODUCT                = 1328;
+    public static REMOVE_PET_SADDLE              = 186;
+    public static TOGGLE_PET_RIDING              = 1472;
+    public static TOGGLE_PET_BREEDING            = 3379;
 }

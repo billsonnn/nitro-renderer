@@ -3366,15 +3366,15 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return null;
     }
 
-    public getRoomObjects(k: number, _arg_2: number): IRoomObject[]
+    public getRoomObjects(roomId: number, category: number): IRoomObject[]
     {
         if(this._ready)
         {
-            const _local_3 = this.getRoomId(k);
+            const _local_3 = this.getRoomId(roomId);
             const _local_4 = this._roomManager.getRoomInstance(_local_3);
 
 
-            if(_local_4) return _local_4.getRoomObjectsForCategory(_arg_2);
+            if(_local_4) return _local_4.getRoomObjectsForCategory(category);
         }
 
         return [];

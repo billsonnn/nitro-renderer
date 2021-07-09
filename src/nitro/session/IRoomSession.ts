@@ -35,6 +35,10 @@ export interface IRoomSession extends IDisposable
     requestMoodlightSettings(): void;
     mountPet(id: number): void;
     dismountPet(id: number): void;
+    usePetProduct(itemId: number, petId: number): void;
+    removePetSaddle(id: number): void;
+    togglePetBreeding(id: number): void;
+    togglePetRiding(id: number): void;
     connection: IConnection;
     userDataManager: UserDataManager;
     roomId: number;

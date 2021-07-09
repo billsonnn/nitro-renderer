@@ -1,4 +1,5 @@
 import { IConnection } from '../../../core/communication/connections/IConnection';
+import { PetFigureUpdateEvent } from '../../communication';
 import { NewFriendRequestEvent } from '../../communication/messages/incoming/friendlist/NewFriendRequestEvent';
 import { BotErrorEvent } from '../../communication/messages/incoming/notifications/BotErrorEvent';
 import { PetPlacingErrorEvent } from '../../communication/messages/incoming/notifications/PetPlacingErrorEvent';
@@ -10,6 +11,7 @@ import { RoomUnitInfoEvent } from '../../communication/messages/incoming/room/un
 import { RoomUnitRemoveEvent } from '../../communication/messages/incoming/room/unit/RoomUnitRemoveEvent';
 import { UserCurrentBadgesEvent } from '../../communication/messages/incoming/user/data/UserCurrentBadgesEvent';
 import { UserNameChangeMessageEvent } from '../../communication/messages/incoming/user/data/UserNameChangeMessageEvent';
+import { RoomSessionPetFigureUpdateEvent } from '../events';
 import { RoomSessionDanceEvent } from '../events/RoomSessionDanceEvent';
 import { RoomSessionDoorbellEvent } from '../events/RoomSessionDoorbellEvent';
 import { RoomSessionErrorMessageEvent } from '../events/RoomSessionErrorMessageEvent';
@@ -37,6 +39,7 @@ export class RoomUsersHandler extends BaseHandler
         connection.addMessageEvent(new UserNameChangeMessageEvent(this.onUserNameChangeMessageEvent.bind(this)));
         connection.addMessageEvent(new NewFriendRequestEvent(this.onNewFriendRequestEvent.bind(this)));
         connection.addMessageEvent(new PetInfoEvent(this.onPetInfoEvent.bind(this)));
+        connection.addMessageEvent(new PetFigureUpdateEvent(this.onPetFigureUpdateEvent.bind(this)));
         connection.addMessageEvent(new PetPlacingErrorEvent(this.onPetPlacingError.bind(this)));
         connection.addMessageEvent(new BotErrorEvent(this.onBotError.bind(this)));
     }
@@ -245,6 +248,25 @@ export class RoomUsersHandler extends BaseHandler
         petData.publiclyBreedable   = parser.publiclyBreedable;
 
         this.listener.events.dispatchEvent(new RoomSessionPetInfoUpdateEvent(session, petData));
+    }
+
+    private onPetFigureUpdateEvent(event: PetFigureUpdateEvent): void
+    {
+        if(!this.listener) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        const session = this.listener.getSession(this.roomId);
+
+        if(!session) return;
+
+        const figure = parser.figureData.figuredata;
+
+        session.userDataManager.updateFigure(parser.roomIndex, figure, '', parser.hasSaddle, parser.isRiding);
+
+        this.listener.events.dispatchEvent(new RoomSessionPetFigureUpdateEvent(session, parser.petId, figure));
     }
 
     private onPetPlacingError(event: PetPlacingErrorEvent): void

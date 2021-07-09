@@ -1,5 +1,6 @@
 import { DisplayObject, Point, Rectangle } from 'pixi.js';
 import { INitroManager } from '../../core/common/INitroManager';
+import { IRoomObject } from '../../room';
 import { IRoomManager } from '../../room/IRoomManager';
 import { IRoomObjectController } from '../../room/object/IRoomObjectController';
 import { IRoomObjectLogicFactory } from '../../room/object/logic/IRoomObjectLogicFactory';
@@ -46,6 +47,7 @@ export interface IRoomEngine extends INitroManager
     removeRoomObjectFloor(roomId: number, objectId: number, userId?: number, _arg_4?: boolean): void;
     removeRoomObjectWall(roomId: number, objectId: number, userId?: number): void;
     removeRoomObjectUser(roomId: number, objectId: number): void;
+    getRoomObjects(roomId: number, category: number): IRoomObject[];
     getRoomObjectCount(roomId: number, categoryId: number): number;
     getRoomObjectBoundingRectangle(roomId: number, objectId: number, category: number, canvasId: number): Rectangle;
     getRoomObjectScreenLocation(roomId: number, objectId: number, objectType: number, canvasId?: number): Point;

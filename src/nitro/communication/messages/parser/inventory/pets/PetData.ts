@@ -58,7 +58,7 @@ export class PetData
         return this._figureData.figuredata;
     }
 
-    public get figureData():PetFigureDataParser
+    public get figureData(): PetFigureDataParser
     {
         return this._figureData;
     }
