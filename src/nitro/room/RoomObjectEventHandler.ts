@@ -749,7 +749,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.OPEN_FURNI_CONTEXT_MENU, roomId, objectId, objectCategory, ((event.object as IRoomObjectController).logic.contextMenu)));
                 return;
             case RoomObjectWidgetRequestEvent.CLOSE_FURNI_CONTEXT_MENU:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.OPEN_FURNI_CONTEXT_MENU, roomId, objectId, objectCategory));
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.CLOSE_FURNI_CONTEXT_MENU, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.PLACEHOLDER:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PLACEHOLDER, roomId, objectId, objectCategory));
@@ -776,7 +776,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_DIMMER, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.WIDGET_REMOVE_DIMMER:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_DIMMER, roomId, objectId, objectCategory));
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REMOVE_DIMMER, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.CLOTHING_CHANGE:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_CLOTHING_CHANGE, roomId, objectId, objectCategory));
@@ -1909,11 +1909,11 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                     {
                         this.deselectObject(roomId);
 
-                        const _local_5 = this._roomEngine.getRoomObject(roomId, objectId, category);
+                        const roomObject = this._roomEngine.getRoomObject(roomId, objectId, category);
 
-                        if(_local_5 && _local_5.logic)
+                        if(roomObject && roomObject.logic)
                         {
-                            _local_5.logic.processUpdateMessage(new ObjectSelectedMessage(true));
+                            roomObject.logic.processUpdateMessage(new ObjectSelectedMessage(true));
 
                             this._selectedObjectId          = objectId;
                             this._selectedObjectCategory    = category;
@@ -1927,11 +1927,11 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         }
     }
 
-    private deselectObject(k: number): void
+    private deselectObject(roomId: number): void
     {
         if(this._selectedObjectId === -1) return;
 
-        const object = this._roomEngine.getRoomObject(k, this._selectedObjectId, this._selectedObjectCategory);
+        const object = this._roomEngine.getRoomObject(roomId, this._selectedObjectId, this._selectedObjectCategory);
 
         if(object && object.logic)
         {
