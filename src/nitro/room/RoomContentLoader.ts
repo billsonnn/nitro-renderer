@@ -262,6 +262,22 @@ export class RoomContentLoader implements IFurnitureDataListener
         return colorResults.get(paletteIndex);
     }
 
+    public getPetColorResultsForTag(petIndex: number, tagName: string): PetColorResult[]
+    {
+        const colorResults              = this._petColors.get(petIndex);
+        const results: PetColorResult[] = [];
+
+        if(colorResults)
+        {
+            for(const result of colorResults.values())
+            {
+                if(result.tag === tagName) results.push(result);
+            }
+        }
+
+        return results;
+    }
+
     public getCollection(name: string): IGraphicAssetCollection
     {
         if(!name) return null;
@@ -327,12 +343,16 @@ export class RoomContentLoader implements IFurnitureDataListener
             for(const key of keys)
             {
                 const palette = collection.getPalette(key);
+                const paletteData = data.palettes[key];
 
-                const breed = 0;
                 const primaryColor = palette.primaryColor;
                 const secondaryColor = palette.secondaryColor;
+                const breed = ((paletteData.breed !== undefined) ? paletteData.breed : 0);
+                const tag = ((paletteData.colorTag !== undefined) ? paletteData.colorTag : -1);
+                const master = ((paletteData.master !== undefined) ? paletteData.master : false);
+                const layerTags = ((paletteData.tags !== undefined) ? paletteData.tags : []);
 
-                palettes.set(parseInt(key), new PetColorResult(primaryColor, secondaryColor, breed, -1, key, false, []));
+                palettes.set(parseInt(key), new PetColorResult(primaryColor, secondaryColor, breed, tag, key, master, layerTags));
             }
 
             this._petColors.set(petIndex, palettes);

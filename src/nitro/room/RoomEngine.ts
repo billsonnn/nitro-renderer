@@ -3551,6 +3551,13 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return this._roomContentLoader.getPetColorResult(petIndex, paletteIndex);
     }
 
+    public getPetColorResultsForTag(petIndex: number, tagName: string): PetColorResult[]
+    {
+        if(!this._roomContentLoader) return null;
+
+        return this._roomContentLoader.getPetColorResultsForTag(petIndex, tagName);
+    }
+
     public modifyRoomObjectData(objectId: number, objectCategory: number, colorHex: string, text: string): boolean
     {
         if(!this._roomObjectEventHandler || (objectCategory !== RoomObjectCategory.WALL)) return false;
