@@ -70,6 +70,17 @@ export class MapDataType extends ObjectDataBase
         return this._data[key];
     }
 
+    public get rarityLevel(): number
+    {
+        if(!this._data || !this._data.length) return -1;
+
+        const state = this._data[MapDataType.RARITY];
+
+        if(state === undefined || state === null) return -1;
+
+        return parseInt(state);
+    }
+
     // TODO: How to get the keys?
     public get data()
     {
