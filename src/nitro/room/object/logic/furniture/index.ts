@@ -24,6 +24,7 @@ export * from './FurnitureMannequinLogic';
 export * from './FurnitureMonsterplantSeedLogic';
 export * from './FurnitureMultiHeightLogic';
 export * from './FurnitureMultiStateLogic';
+export * from './FurnitureMysteryBoxLogic';
 export * from './FurnitureMysteryTrophyLogic';
 export * from './FurnitureOneWayDoorLogic';
 export * from './FurniturePetCustomizationLogic';

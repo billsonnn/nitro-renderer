@@ -4,7 +4,7 @@ import { IEventDispatcher } from '../../core/events/IEventDispatcher';
 import { IRoomObjectEventHandler } from '../../room/object/logic/IRoomObjectEventHandler';
 import { IRoomObjectLogicFactory } from '../../room/object/logic/IRoomObjectLogicFactory';
 import { RoomObjectLogicBase } from '../../room/object/logic/RoomObjectLogicBase';
-import { FurnitureEffectBoxLogic, FurnitureLoveLockLogic, FurnitureMonsterplantSeedLogic, FurnitureMysteryTrophyLogic, FurnitureRandomTeleportLogic, FurnitureRentableSpaceLogic } from './object';
+import { FurnitureEffectBoxLogic, FurnitureLoveLockLogic, FurnitureMonsterplantSeedLogic, FurnitureMysteryBoxLogic, FurnitureMysteryTrophyLogic, FurnitureRandomTeleportLogic, FurnitureRentableSpaceLogic } from './object';
 import { AvatarLogic } from './object/logic/avatar/AvatarLogic';
 import { FurnitureBadgeDisplayLogic } from './object/logic/furniture/FurnitureBadgeDisplayLogic';
 import { FurnitureChangeStateWhenStepOnLogic } from './object/logic/furniture/FurnitureChangeStateWhenStepOnLogic';
@@ -294,6 +294,9 @@ export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
                 break;
             case RoomObjectLogicType.FURNITURE_MONSTERPLANT_SEED:
                 logic = FurnitureMonsterplantSeedLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_MYSTERYBOX:
+                logic = FurnitureMysteryBoxLogic;
                 break;
             case RoomObjectLogicType.FURNITURE_MYSTERYTROPHY:
                 logic = FurnitureMysteryTrophyLogic;
