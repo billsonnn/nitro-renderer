@@ -302,11 +302,6 @@ export class FurnitureLogic extends MovingObjectLogic
 
                     this.eventDispatcher.dispatchEvent(mouseEvent);
                 }
-
-                if(this.eventDispatcher && this.object && this.contextMenu)
-                {
-                    this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.OPEN_FURNI_CONTEXT_MENU, this.object));
-                }
                 return;
             case MouseEventType.MOUSE_DOWN:
                 if(this.eventDispatcher)
@@ -372,9 +367,11 @@ export class FurnitureLogic extends MovingObjectLogic
 
     public tearDown(): void
     {
-        if(this.widget && (this.object.model.getValue(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) === 1))
+        if(this.object.model.getValue(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) === 1)
         {
-            this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CLOSE_WIDGET, this.object));
+            if(this.widget) this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CLOSE_WIDGET, this.object));
+
+            if(this.contextMenu) this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CLOSE_FURNI_CONTEXT_MENU, this.object));
         }
 
         super.tearDown();
