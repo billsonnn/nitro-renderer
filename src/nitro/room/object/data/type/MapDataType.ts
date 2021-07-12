@@ -51,7 +51,7 @@ export class MapDataType extends ObjectDataBase
 
     public getLegacyString(): string
     {
-        if(!this._data || !this._data.length) return '';
+        if(!this._data) return '';
 
         const state = this._data[MapDataType.STATE];
 
@@ -72,7 +72,7 @@ export class MapDataType extends ObjectDataBase
 
     public get rarityLevel(): number
     {
-        if(!this._data || !this._data.length) return -1;
+        if(!this._data) return -1;
 
         const state = this._data[MapDataType.RARITY];
 
