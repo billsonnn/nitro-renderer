@@ -11,6 +11,7 @@ export * from './help';
 export * from './inventory';
 export * from './moderation';
 export * from './modtool';
+export * from './mysterybox';
 export * from './navigator';
 export * from './notifications';
 export * from './room';

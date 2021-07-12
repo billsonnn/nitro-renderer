@@ -24,6 +24,7 @@ export * from './inventory/pets';
 export * from './inventory/trading';
 export * from './moderation';
 export * from './modtool';
+export * from './mysterybox';
 export * from './navigator';
 export * from './notifications';
 export * from './room';

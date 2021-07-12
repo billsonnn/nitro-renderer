@@ -141,7 +141,7 @@ export class IncomingHeader
     public static ROOM_THICKNESS                   = 3547;
     public static SECURITY_DEBUG                   = 3284;
     public static SECURITY_MACHINE                 = 1488;
-    public static SECURITY_UNKNOWN2                = 2833;
+    public static MYSTERY_BOX_KEYS                 = 2833;
     public static TRADE_ACCEPTED                   = 2568;
     public static TRADE_CLOSED                     = 1373;
     public static TRADE_COMPLETED                  = 1001;
