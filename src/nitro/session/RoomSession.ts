@@ -1,6 +1,6 @@
 import { Disposable } from '../../core/common/disposable/Disposable';
 import { IConnection } from '../../core/communication/connections/IConnection';
-import { PetMountComposer, RemovePetSaddleComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from '../communication';
+import { FurnitureMultiStateComposer, PetMountComposer, RemovePetSaddleComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from '../communication';
 import { RoomDoorbellAccessComposer } from '../communication/messages/outgoing/room/access/RoomDoorbellAccessComposer';
 import { RoomEnterComposer } from '../communication/messages/outgoing/room/access/RoomEnterComposer';
 import { RoomAmbassadorAlertComposer } from '../communication/messages/outgoing/room/action/RoomAmbassadorAlertComposer';
@@ -291,6 +291,11 @@ export class RoomSession extends Disposable implements IRoomSession
     public togglePetRiding(id: number): void
     {
         this._connection.send(new TogglePetRidingComposer(id));
+    }
+
+    public useMultistateItem(id: number): void
+    {
+        this._connection.send(new FurnitureMultiStateComposer(id));
     }
 
     public get connection(): IConnection
