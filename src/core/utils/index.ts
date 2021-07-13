@@ -6,4 +6,5 @@ export * from './NitroFilter';
 export * from './NitroPoint';
 export * from './NitroRectangle';
 export * from './NitroSprite';
+export * from './NitroTexture';
 export * from './NitroTimer';
