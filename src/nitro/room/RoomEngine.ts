@@ -1829,7 +1829,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
                         if(icon)
                         {
-                            const image = Nitro.instance.renderer.extract.image(icon);
+                            const image = TextureUtils.generateImage(icon);
 
                             if(this.events)
                             {
@@ -1874,7 +1874,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
                     if(icon)
                     {
-                        const image = Nitro.instance.renderer.extract.image(icon);
+                        const image = TextureUtils.generateImage(icon);
 
                         if(this.events)
                         {

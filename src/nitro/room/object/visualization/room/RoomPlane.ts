@@ -4,7 +4,6 @@ import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
 import { IVector3D } from '../../../../../room/utils/IVector3D';
 import { TextureUtils } from '../../../../../room/utils/TextureUtils';
 import { Vector3d } from '../../../../../room/utils/Vector3d';
-import { Nitro } from '../../../../Nitro';
 import { PlaneMaskManager } from './mask/PlaneMaskManager';
 import { PlaneDrawingData } from './PlaneDrawingData';
 import { PlaneVisualizationLayer } from './rasterizer/basic/PlaneVisualizationLayer';
@@ -987,8 +986,8 @@ export class RoomPlane implements IRoomPlane
     {
         if(!texture || !mask) return;
 
-        const maskCanvas    = Nitro.instance.renderer.extract.canvas(mask);
-        const textureCanvas = Nitro.instance.renderer.extract.canvas(texture);
+        const maskCanvas    = TextureUtils.generateCanvas(mask);
+        const textureCanvas = TextureUtils.generateCanvas(texture);
         const textureCtx    = textureCanvas.getContext('2d');
 
         textureCtx.drawImage(maskCanvas, 0, 0);

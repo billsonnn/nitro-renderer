@@ -1,4 +1,4 @@
-import { Application, SCALE_MODES, settings } from 'pixi.js';
+import { Application, IApplicationOptions, SCALE_MODES, settings } from 'pixi.js';
 import { INitroManager } from '..';
 import { ConfigurationEvent } from '../core/configuration/ConfigurationEvent';
 import { EventDispatcher } from '../core/events/EventDispatcher';
@@ -34,7 +34,6 @@ import { HabboWebTools } from './utils/HabboWebTools';
 
 LegacyExternalInterface.available;
 
-settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT = false;
 settings.SCALE_MODE = SCALE_MODES.NEAREST;
 settings.ROUND_PIXELS = true;
 
@@ -42,10 +41,10 @@ export class Nitro extends Application implements INitro
 {
     public static WEBGL_CONTEXT_LOST: string    = 'NE_WEBGL_CONTEXT_LOST';
     public static WEBGL_UNAVAILABLE: string     = 'NE_WEBGL_UNAVAILABLE';
-    public static RELEASE_VERSION: string       = 'NITRO-0-4-0';
+    public static RELEASE_VERSION: string       = 'NITRO-2-0-0';
     public static READY: string                 = 'NE_READY';
 
-    private static INSTANCE: INitro         = null;
+    private static INSTANCE: INitro = null;
 
     private _nitroTimer: NitroTimer;
     private _worker: Worker;
@@ -66,24 +65,7 @@ export class Nitro extends Application implements INitro
     private _isReady: boolean;
     private _isDisposed: boolean;
 
-    constructor(core: INitroCore, options?: {
-        autoStart?: boolean;
-        width?: number;
-        height?: number;
-        view?: HTMLCanvasElement;
-        transparent?: boolean;
-        autoDensity?: boolean;
-        antialias?: boolean;
-        preserveDrawingBuffer?: boolean;
-        resolution?: number;
-        forceCanvas?: boolean;
-        backgroundColor?: number;
-        clearBeforeRender?: boolean;
-        powerPreference?: string;
-        sharedTicker?: boolean;
-        sharedLoader?: boolean;
-        resizeTo?: Window | HTMLElement;
-    })
+    constructor(core: INitroCore, options?: IApplicationOptions)
     {
         super(options);
 
@@ -129,7 +111,6 @@ export class Nitro extends Application implements INitro
         canvas.className    = 'client-canvas';
 
         const instance = new this(new NitroCore(), {
-            transparent: true,
             autoDensity: true,
             resolution: window.devicePixelRatio,
             width: window.innerWidth,

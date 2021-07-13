@@ -1,3 +1,4 @@
+import { ColorMatrix } from '@pixi/filter-color-matrix';
 import { Container, filters, Sprite, Texture } from 'pixi.js';
 import { EventDispatcher, IEventDispatcher } from '../../core';
 import { TextureUtils } from '../../room';
@@ -28,7 +29,7 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
         this._isLoaded = true;
 
         const imagesUrl = Nitro.instance.getConfiguration<string>('image.library.url') + 'Habbo-Stories/';
-        const effects   = Nitro.instance.getConfiguration<{ name: string, colorMatrix?: number[], minLevel: number, blendMode?: number, enabled: boolean }[]>('camera.available.effects');
+        const effects   = Nitro.instance.getConfiguration<{ name: string, colorMatrix?: ColorMatrix, minLevel: number, blendMode?: number, enabled: boolean }[]>('camera.available.effects');
 
         for(const effect of effects)
         {

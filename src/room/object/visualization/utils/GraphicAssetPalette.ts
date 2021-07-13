@@ -1,5 +1,5 @@
 import { Sprite, Texture } from 'pixi.js';
-import { Nitro } from '../../../../nitro/Nitro';
+import { TextureUtils } from '../../../utils';
 
 export class GraphicAssetPalette
 {
@@ -25,7 +25,7 @@ export class GraphicAssetPalette
     public applyPalette(texture: Texture): Texture
     {
         const sprite            = Sprite.from(texture);
-        const textureCanvas     = Nitro.instance.renderer.extract.canvas(sprite);
+        const textureCanvas     = TextureUtils.generateCanvas(sprite);
         const textureCtx        = textureCanvas.getContext('2d');
         const textureImageData  = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
         const data              = textureImageData.data;

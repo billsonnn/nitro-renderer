@@ -1,4 +1,4 @@
-import { Container, DRAW_MODES, groupD8, Matrix, Renderer, Texture } from 'pixi.js';
+import { Bounds, Container, DRAW_MODES, groupD8, Matrix, Rectangle, Renderer, Texture } from 'pixi.js';
 import { Constant } from './Constant';
 import { RectTileGeom } from './RectTileShader';
 import { TileRenderer } from './TileRenderer';
@@ -30,9 +30,9 @@ export class RectTileLayer extends Container
         this.initialize(zIndex, texture);
     }
 
-    zIndex = 0;
+    //zIndex = 0;
     modificationMarker = 0;
-    _$_localBounds = new PIXI.Bounds();
+    _$_localBounds = new Bounds();
     shadowColor = new Float32Array([0.0, 0.0, 0.0, 0.5]);
     _globalMat: Matrix = null;
 
@@ -472,7 +472,7 @@ export class RectTileLayer extends Container
         this._bounds.addFrame(this.transform, minX, minY, maxX, maxY);
     }
 
-    public getLocalBounds(rect?: PIXI.Rectangle): PIXI.Rectangle
+    public getLocalBounds(rect?: Rectangle): Rectangle
     {
         // we can do a fast local bounds if the sprite has no children!
         if(this.children.length === 0)

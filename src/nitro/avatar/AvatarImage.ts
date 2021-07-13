@@ -395,7 +395,10 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(this._reusableTexture)
         {
-            Nitro.instance.renderer.render(container, this._reusableTexture, true);
+            Nitro.instance.renderer.render(container, {
+                renderTexture: this._reusableTexture,
+                clear: true
+            });
         }
         else
         {
@@ -568,7 +571,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             partCount--;
         }
 
-        const image = Nitro.instance.renderer.extract.image(container);
+        const image = TextureUtils.generateImage(container);
 
         if(!image) return null;
 

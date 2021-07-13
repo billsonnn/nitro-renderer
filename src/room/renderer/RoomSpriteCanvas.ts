@@ -1014,7 +1014,11 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             height: this._display.height
         });
 
-        Nitro.instance.renderer.render(this._display, renderTexture, true, new Matrix(1, 0, 0, 1, -(bounds.x), -(bounds.y)));
+        Nitro.instance.renderer.render(this._display, {
+            renderTexture,
+            clear: true,
+            transform: new Matrix(1, 0, 0, 1, -(bounds.x), -(bounds.y))
+        });
 
         this._noSpriteVisibilityChecking = false;
         this.setScale(k, null, null, true);

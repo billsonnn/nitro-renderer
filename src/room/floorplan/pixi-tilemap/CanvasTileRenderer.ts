@@ -1,21 +1,22 @@
-import * as PIXI from 'pixi.js';
-window.PIXI = PIXI;
+import { CanvasRenderer } from '@pixi/canvas-renderer';
+import { IRendererPlugin } from '@pixi/core';
 
-export class CanvasTileRenderer
+export class CanvasTileRenderer implements IRendererPlugin
 {
-    renderer: PIXI.Renderer;
+    renderer: CanvasRenderer;
     tileAnim = [0, 0];
     dontUseTransform = false;
 
-    constructor(renderer: PIXI.Renderer)
+    constructor(renderer: CanvasRenderer, options: any = null)
     {
         this.renderer = renderer;
         this.tileAnim = [0, 0];
     }
+
+    public destroy(): void
+    {
+
+    }
 }
-const cr = (window.PIXI as any).CanvasRenderer;
-if(cr)
-{
-    console.warn('REGISTER');
-    cr.registerPlugin('tilemap', CanvasTileRenderer);
-}
+
+CanvasRenderer.registerPlugin('tilemap', CanvasTileRenderer);

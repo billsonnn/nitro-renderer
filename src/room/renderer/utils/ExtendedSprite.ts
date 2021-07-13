@@ -1,5 +1,5 @@
 import { BaseTexture, BLEND_MODES, Point, RenderTexture, Sprite, Texture } from 'pixi.js';
-import { Nitro } from '../../../nitro/Nitro';
+import { TextureUtils } from '../../utils';
 
 export class ExtendedSprite extends Sprite
 {
@@ -95,13 +95,13 @@ export class ExtendedSprite extends Sprite
                 {
                     const tempSprite = Sprite.from(texture);
 
-                    canvas = Nitro.instance.renderer.extract.canvas(tempSprite);
+                    canvas = TextureUtils.generateCanvas(tempSprite);
 
                     tempSprite.destroy();
                 }
                 else
                 {
-                    canvas = Nitro.instance.renderer.extract.canvas(texture as RenderTexture);
+                    canvas = TextureUtils.generateCanvas(texture as RenderTexture);
                 }
             }
 

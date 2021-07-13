@@ -1,4 +1,4 @@
-import { BaseTexture, ILoaderOptions, Loader, LoaderResource, Spritesheet, Texture } from 'pixi.js';
+import { BaseTexture, ILoaderResource, Loader, LoaderResource, Spritesheet, Texture } from 'pixi.js';
 import { IAssetData } from '../../core/asset/interfaces';
 import { NitroBundle } from '../../core/asset/NitroBundle';
 import { INitroLogger } from '../../core/common/logger/INitroLogger';
@@ -483,7 +483,7 @@ export class RoomContentLoader implements IFurnitureDataListener
         const totalToDownload = assetUrls.length;
         let totalDownloaded = 0;
 
-        const onDownloaded = (loader: Loader, resource: LoaderResource, flag: boolean) =>
+        const onDownloaded = (loader: Loader, resource: ILoaderResource, flag: boolean) =>
         {
             if(loader) loader.destroy();
 
@@ -514,21 +514,25 @@ export class RoomContentLoader implements IFurnitureDataListener
 
             const loader = new Loader();
 
-            const options: ILoaderOptions = {
-                crossOrigin: false,
-                xhrType: url.endsWith('.nitro') ? 'arraybuffer' : 'json'
-            };
-
             loader
-                .use((resource: LoaderResource, next: Function) => this.assetLoader(loader, resource, next, onDownloaded))
-                .add(url, options)
+                .add({
+                    url,
+                    crossOrigin: 'anonymous',
+                    xhrType: url.endsWith('.nitro') ? LoaderResource.XHR_RESPONSE_TYPE.BUFFER : LoaderResource.XHR_RESPONSE_TYPE.JSON
+                })
+                .use((resource: ILoaderResource, next: Function) =>
+                {
+                    this.assetLoader(loader, resource, onDownloaded);
+
+                    next();
+                })
                 .load();
         }
 
         return true;
     }
 
-    private assetLoader(loader: Loader, resource: LoaderResource, next: Function, onDownloaded: Function): void
+    private assetLoader(loader: Loader, resource: ILoaderResource, onDownloaded: Function): void
     {
         if(!resource || resource.error)
         {
@@ -566,7 +570,7 @@ export class RoomContentLoader implements IFurnitureDataListener
                 {
                     const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
 
-                    spritesheet.parse(textures =>
+                    spritesheet.parse(() =>
                     {
                         this.createCollection(assetData, spritesheet);
 
@@ -581,7 +585,7 @@ export class RoomContentLoader implements IFurnitureDataListener
 
                         const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
 
-                        spritesheet.parse(textures =>
+                        spritesheet.parse(() =>
                         {
                             this.createCollection(assetData, spritesheet);
 
@@ -634,7 +638,7 @@ export class RoomContentLoader implements IFurnitureDataListener
                 {
                     const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
 
-                    spritesheet.parse(textures =>
+                    spritesheet.parse(() =>
                     {
                         this.createCollection(assetData, spritesheet);
 
@@ -649,7 +653,7 @@ export class RoomContentLoader implements IFurnitureDataListener
 
                         const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
 
-                        spritesheet.parse(textures =>
+                        spritesheet.parse(() =>
                         {
                             this.createCollection(assetData, spritesheet);
 

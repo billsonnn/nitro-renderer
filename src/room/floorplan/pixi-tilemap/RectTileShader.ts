@@ -1,4 +1,4 @@
-import { Buffer, Geometry, Matrix, Shader } from 'pixi.js';
+import { Buffer, Geometry, Matrix, Program, Shader } from 'pixi.js';
 import * as shaderGenerator from './shaderGenerator';
 
 const rectShaderFrag = `
@@ -58,7 +58,7 @@ export abstract class TilemapShader extends Shader
     constructor(maxTextures: number, shaderVert: string, shaderFrag: string)
     {
         super(
-            new PIXI.Program(
+            new Program(
                 shaderVert,
                 shaderFrag),
             {
@@ -92,6 +92,7 @@ export class RectTileGeom extends Geometry
     vertPerQuad = 4;
     stride = this.vertSize * 4;
     lastTimeAccess = 0;
+    buf: Buffer;
 
     constructor()
     {
@@ -105,6 +106,4 @@ export class RectTileGeom extends Geometry
             .addAttribute('aTextureId', buf, 0, false, 0, this.stride, 10 * 4)
             .addAttribute('aAlpha', buf, 0, false, 0, this.stride, 11 * 4);
     }
-
-    buf: PIXI.Buffer;
 }

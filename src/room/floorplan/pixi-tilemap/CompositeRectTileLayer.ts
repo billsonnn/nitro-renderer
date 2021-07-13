@@ -12,7 +12,6 @@ export class CompositeRectTileLayer extends Container
     }
 
     z: number;
-    zIndex: number;
     modificationMarker = 0;
     shadowColor = new Float32Array([0.0, 0.0, 0.0, 0.5]);
     _globalMat: Matrix = null;

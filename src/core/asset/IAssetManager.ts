@@ -1,6 +1,5 @@
 
 import { Spritesheet, Texture } from 'pixi.js';
-import { GraphicAssetCollection } from '../../room/object/visualization/utils/GraphicAssetCollection';
 import { IGraphicAsset } from '../../room/object/visualization/utils/IGraphicAsset';
 import { IGraphicAssetCollection } from '../../room/object/visualization/utils/IGraphicAssetCollection';
 import { IAssetData } from './interfaces';
@@ -15,5 +14,5 @@ export interface IAssetManager
     createCollection(data: IAssetData, spritesheet: Spritesheet): IGraphicAssetCollection;
     downloadAssets(urls: string[], cb: Function): void;
     downloadAsset(url: string, cb: Function): void;
-    collections: Map<string, GraphicAssetCollection>;
+    collections: Map<string, IGraphicAssetCollection>;
 }

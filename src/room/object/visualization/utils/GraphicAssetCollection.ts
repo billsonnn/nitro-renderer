@@ -1,4 +1,5 @@
-import { Spritesheet, Texture } from 'pixi.js';
+import { Dict } from '@pixi/utils';
+import { Resource, Spritesheet, Texture } from 'pixi.js';
 import { AssetManager } from '../../../../core/asset/AssetManager';
 import { IAsset, IAssetData, IAssetPalette } from '../../../../core/asset/interfaces';
 import { Nitro } from '../../../../nitro/Nitro';
@@ -313,7 +314,7 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
         return texture;
     }
 
-    private addLibraryAsset(textures: Texture[]): void
+    private addLibraryAsset(textures: Dict<Texture<Resource>>): void
     {
         if(!textures) return;
 

@@ -1,3 +1,2 @@
-export * from './ISpritesheetData';
-export * from './ISpritesheetFrame';
+export * from './ISpritesheet';
 export * from './ISpritesheetMeta';

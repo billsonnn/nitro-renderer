@@ -1,3 +1,4 @@
+import { createIndicesForQuads } from '@pixi/utils';
 import { BaseTexture, Buffer, ObjectRenderer, Renderer, Texture, WRAP_MODES } from 'pixi.js';
 import { Constant } from './Constant';
 import { MultiTextureResource } from './MultiTextureResource';
@@ -12,7 +13,7 @@ export class TileRenderer extends ObjectRenderer
     renderer: Renderer;
     gl: WebGLRenderingContext;
     sn: number = -1;
-    indexBuffer: PIXI.Buffer = null;
+    indexBuffer: Buffer = null;
     ibLen: number = 0;
     tileAnim = [0, 0];
     texLoc: Array<number> = [];
@@ -127,8 +128,7 @@ export class TileRenderer extends ObjectRenderer
         }
 
         this.ibLen = totalIndices;
-        this.indexBuffer.update((PIXI as any).utils.createIndicesForQuads(size,
-            Constant.use32bitIndex ? new Uint32Array(size * 6) : undefined));
+        this.indexBuffer.update(createIndicesForQuads(size, Constant.use32bitIndex ? new Uint32Array(size * 6) : undefined));
 
         // 	TODO: create new index buffer instead?
         // if (vb) {

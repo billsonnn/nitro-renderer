@@ -3,7 +3,7 @@ import { IAsset } from './IAsset';
 import { IAssetAlias } from './IAssetAlias';
 import { IAssetDimension } from './IAssetDimension';
 import { IAssetPalette } from './IAssetPalette';
-import { ISpritesheetData } from './spritesheet';
+import { ISpritesheet } from './spritesheet';
 import { IAssetVisualizationData } from './visualization';
 
 export interface IAssetData {
@@ -15,7 +15,7 @@ export interface IAssetData {
     credits?: string;
     soundSample?: number;
     action?: { link?: string, startState?: number };
-    spritesheet?: ISpritesheetData;
+    spritesheet?: ISpritesheet;
     dimensions?: IAssetDimension;
     directions?: number[];
     assets?: { [index: string]: IAsset };
