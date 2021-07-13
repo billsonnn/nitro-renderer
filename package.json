@@ -19,7 +19,7 @@
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
     "create-ts-index": "^1.13.6",
-    "eslint": "^7.19.0",
+    "eslint": "^7.29.0",
     "typescript": "~4.2.3"
   }
 }
