@@ -1,6 +1,8 @@
+import { Resource, Texture } from '@pixi/core';
 import { IObjectVisualizationData } from '../../../../../room/object/visualization/IRoomObjectVisualizationData';
 import { IGraphicAsset } from '../../../../../room/object/visualization/utils/IGraphicAsset';
 import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
+import { Nitro } from '../../../../Nitro';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { RoomObjectVisualizationType } from '../../RoomObjectVisualizationType';
 import { AnimationData } from '../data/AnimationData';
@@ -9,21 +11,22 @@ import { DirectionData } from '../data/DirectionData';
 import { LayerData } from '../data/LayerData';
 import { FurnitureAnimatedVisualization } from '../furniture/FurnitureAnimatedVisualization';
 import { FurnitureVisualizationData } from '../furniture/FurnitureVisualizationData';
+import { ExperienceData } from './ExperienceData';
 import { PetVisualizationData } from './PetVisualizationData';
 
 export class PetVisualization extends FurnitureAnimatedVisualization
 {
     public static TYPE: string = RoomObjectVisualizationType.PET_ANIMATED;
 
-    private static HEAD: string                         = 'head';
-    private static SADDLE: string                       = 'saddle';
-    private static HAIR: string                         = 'hair';
-    private static ADDITIONAL_SPRITE_COUNT: number      = 1;
-    private static EXPERIENCE_BUBBLE_VISIBLE_IN_MS: number = 1000;
-    private static PET_EXPERIENCE_BUBBLE_PNG: string    = 'pet_experience_bubble_png';
-    private static POSTURE_ANIMATION_INDEX: number      = 0;
-    private static GESTURE_ANIMATION_INDEX: number      = 1;
-    private static ANIMATION_INDEX_COUNT: number        = 2;
+    private static HEAD: string                             = 'head';
+    private static SADDLE: string                           = 'saddle';
+    private static HAIR: string                             = 'hair';
+    private static ADDITIONAL_SPRITE_COUNT: number          = 1;
+    private static EXPERIENCE_BUBBLE_VISIBLE_IN_MS: number  = 1000;
+    private static PET_EXPERIENCE_BUBBLE: string            = 'pet_experience_bubble';
+    private static POSTURE_ANIMATION_INDEX: number          = 0;
+    private static GESTURE_ANIMATION_INDEX: number          = 1;
+    private static ANIMATION_INDEX_COUNT: number            = 2;
 
     protected _data: PetVisualizationData;
 
@@ -43,6 +46,9 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     private _customPaletteIds: number[];
     private _isRiding: boolean;
     private _color: number;
+    private _experience: number;
+    private _experienceTimestamp: number;
+    private _experienceData: ExperienceData;
 
     private _previousAnimationDirection: number;
     private _animationStates: AnimationStateData[];
@@ -69,6 +75,9 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         this._customPaletteIds              = [];
         this._isRiding                      = false;
         this._color                         = 0xFFFFFF;
+        this._experience                    = 0;
+        this._experienceTimestamp           = 0;
+        this._experienceData                = null;
 
         this._previousAnimationDirection    = -1;
         this._animationStates               = [];
@@ -79,6 +88,13 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     public initialize(data: IObjectVisualizationData): boolean
     {
         if(!(data instanceof PetVisualizationData)) return false;
+
+        const texture = this.getPetAdditionAsset(PetVisualization.PET_EXPERIENCE_BUBBLE);
+
+        if(texture)
+        {
+            this._experienceData = new ExperienceData(texture);
+        }
 
         return super.initialize(data);
     }
@@ -111,7 +127,53 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     {
         super.update(geometry, time, update, skipUpdate);
 
-        // update experience
+        this.updateExperienceBubble(time);
+    }
+
+    protected updateExperienceBubble(time: number): void
+    {
+        if(!this._experienceData) return;
+
+        this._experienceData.alpha = 0;
+
+        if(this._experienceTimestamp)
+        {
+            const difference = (time - this._experienceTimestamp);
+
+            if(difference < PetVisualization.EXPERIENCE_BUBBLE_VISIBLE_IN_MS)
+            {
+                this._experienceData.alpha = (Math.sin(((difference / PetVisualization.EXPERIENCE_BUBBLE_VISIBLE_IN_MS) * Math.PI)) * 0xFF);
+            }
+            else
+            {
+                this._experienceTimestamp = 0;
+            }
+
+            const sprite = this.getSprite((this.totalSprites - 1));
+
+            if(sprite)
+            {
+                if(this._experienceData.alpha > 0)
+                {
+                    const texture = this._experienceData.renderBubble(this._experience);
+
+                    if(texture)
+                    {
+                        sprite.texture  = texture;
+                        sprite.offsetX  = -20;
+                        sprite.offsetY  = -80;
+                        sprite.alpha    = this._experienceData.alpha;
+                        sprite.visible  = true;
+                        sprite.relativeDepth = -0.2;
+
+                        return;
+                    }
+                }
+
+                sprite.texture = null;
+                sprite.visible = false;
+            }
+        }
     }
 
     protected updateModel(scale: number): boolean
@@ -175,6 +237,9 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         {
             this._headDirection = this.object.getDirection().x;
         }
+
+        this._experience = (model.getValue<number>(RoomObjectVariable.FIGURE_GAINED_EXPERIENCE));
+        this._experienceTimestamp = (model.getValue<number>(RoomObjectVariable.FIGURE_EXPERIENCE_TIMESTAMP));
 
         const customPaletteIndex    = model.getValue<number>(RoomObjectVariable.PET_PALETTE_INDEX);
         const customLayerIds        = model.getValue<number[]>(RoomObjectVariable.PET_CUSTOM_LAYER_IDS);
@@ -556,5 +621,12 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         }
 
         return posture;
+    }
+
+    public getPetAdditionAsset(name: string): Texture<Resource>
+    {
+        const url = (Nitro.instance.getConfiguration<string>('images.url') + '/additions/' + name + '.png');
+
+        return Nitro.instance.core.asset.getTexture(url);
     }
 }
