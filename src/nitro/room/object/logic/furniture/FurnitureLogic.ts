@@ -353,16 +353,13 @@ export class FurnitureLogic extends MovingObjectLogic
 
     public useObject(): void
     {
-        if(!this.object) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         const adUrl = this.getAdClickUrl(this.object.model);
 
-        if(this.eventDispatcher)
-        {
-            if(this.widget) this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.OPEN_WIDGET, this.object));
+        if(this.widget) this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.OPEN_WIDGET, this.object));
 
-            this.eventDispatcher.dispatchEvent(new RoomObjectStateChangedEvent(RoomObjectStateChangedEvent.STATE_CHANGE, this.object));
-        }
+        this.eventDispatcher.dispatchEvent(new RoomObjectStateChangedEvent(RoomObjectStateChangedEvent.STATE_CHANGE, this.object));
     }
 
     public tearDown(): void

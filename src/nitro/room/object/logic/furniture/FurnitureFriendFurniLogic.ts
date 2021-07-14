@@ -50,7 +50,7 @@ export class FurnitureFriendFurniLogic extends FurnitureMultiStateLogic
 
     public useObject(): void
     {
-        if(!this.eventDispatcher || !this.object) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         if(this._state === FurnitureFriendFurniLogic.STATE_LOCKED)
         {

@@ -1,8 +1,5 @@
-import { RoomSpriteMouseEvent } from '../../../../../room/events/RoomSpriteMouseEvent';
 import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
-import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
 import { Nitro } from '../../../../Nitro';
-import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectBadgeAssetEvent } from '../../../events/RoomObjectBadgeAssetEvent';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
@@ -49,24 +46,11 @@ export class FurnitureBadgeDisplayLogic extends FurnitureLogic
         }
     }
 
-    public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
-    {
-        if(!event || !geometry || !this.object) return;
-
-        switch(event.type)
-        {
-            case MouseEventType.DOUBLE_CLICK:
-                this.useObject();
-                return;
-            default:
-                super.mouseEvent(event, geometry);
-                return;
-        }
-    }
-
     public useObject(): void
     {
-        (this.object && this.eventDispatcher && this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.BADGE_DISPLAY_ENGRAVING, this.object)));
+        if(!this.object || !this.eventDispatcher) return;
+
+        this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.BADGE_DISPLAY_ENGRAVING, this.object));
     }
 
     protected updateBadge(badgeId: string): void

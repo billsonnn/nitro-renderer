@@ -365,44 +365,44 @@ export class RoomLogic extends RoomObjectLogicBase
 
         planeId--;
 
-        let _local_7: Point = null;
+        let planePosition: Point = null;
 
-        const _local_8  = this._planeParser.getPlaneLocation(planeId);
-        const _local_9  = this._planeParser.getPlaneLeftSide(planeId);
-        const _local_10 = this._planeParser.getPlaneRightSide(planeId);
-        const _local_11 = this._planeParser.getPlaneNormalDirection(planeId);
-        const _local_12 = this._planeParser.getPlaneType(planeId);
+        const planeLocation         = this._planeParser.getPlaneLocation(planeId);
+        const planeLeftSide         = this._planeParser.getPlaneLeftSide(planeId);
+        const planeRightSide        = this._planeParser.getPlaneRightSide(planeId);
+        const planeNormalDirection  = this._planeParser.getPlaneNormalDirection(planeId);
+        const planeType             = this._planeParser.getPlaneType(planeId);
 
-        if(((((_local_8 == null) || (_local_9 == null)) || (_local_10 == null)) || (_local_11 == null))) return;
+        if(((((planeLocation == null) || (planeLeftSide == null)) || (planeRightSide == null)) || (planeNormalDirection == null))) return;
 
-        const _local_13 = _local_9.length;
-        const _local_14 = _local_10.length;
+        const leftSideLength = planeLeftSide.length;
+        const rightSideLength = planeRightSide.length;
 
-        if(((_local_13 == 0) || (_local_14 == 0))) return;
+        if(((leftSideLength == 0) || (rightSideLength == 0))) return;
 
-        const _local_15 = event.screenX;
-        const _local_16 = event.screenY;
-        const _local_17 = new Point(_local_15, _local_16);
+        const screenX       = event.screenX;
+        const screenY       = event.screenY;
+        const screenPoint   = new Point(screenX, screenY);
 
-        _local_7 = geometry.getPlanePosition(_local_17, _local_8, _local_9, _local_10);
+        planePosition = geometry.getPlanePosition(screenPoint, planeLocation, planeLeftSide, planeRightSide);
 
-        if(!_local_7)
+        if(!planePosition)
         {
             this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_PLANE, 0);
 
             return;
         }
 
-        const _local_18 = Vector3d.product(_local_9, (_local_7.x / _local_13));
+        const _local_18 = Vector3d.product(planeLeftSide, (planePosition.x / leftSideLength));
 
-        _local_18.add(Vector3d.product(_local_10, (_local_7.y / _local_14)));
-        _local_18.add(_local_8);
+        _local_18.add(Vector3d.product(planeRightSide, (planePosition.y / rightSideLength)));
+        _local_18.add(planeLocation);
 
         const _local_19 = _local_18.x;
         const _local_20 = _local_18.y;
         const _local_21 = _local_18.z;
 
-        if(((((_local_7.x >= 0) && (_local_7.x < _local_13)) && (_local_7.y >= 0)) && (_local_7.y < _local_14)))
+        if(((((planePosition.x >= 0) && (planePosition.x < leftSideLength)) && (planePosition.y >= 0)) && (planePosition.y < rightSideLength)))
         {
             this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_X, _local_19);
             this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_Y, _local_20);
@@ -428,26 +428,26 @@ export class RoomLogic extends RoomObjectLogicBase
             case MouseEventType.MOUSE_CLICK: {
                 let newEvent: RoomObjectEvent = null;
 
-                if(_local_12 === RoomPlaneData.PLANE_FLOOR)
+                if(planeType === RoomPlaneData.PLANE_FLOOR)
                 {
                     newEvent = new RoomObjectTileMouseEvent(eventType, this.object, event.eventId, _local_19, _local_20, _local_21, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
                 }
 
-                else if((_local_12 === RoomPlaneData.PLANE_WALL) || (_local_12 === RoomPlaneData.PLANE_LANDSCAPE))
+                else if((planeType === RoomPlaneData.PLANE_WALL) || (planeType === RoomPlaneData.PLANE_LANDSCAPE))
                 {
                     let direction = 90;
 
-                    if(_local_11)
+                    if(planeNormalDirection)
                     {
-                        direction = (_local_11.x + 90);
+                        direction = (planeNormalDirection.x + 90);
 
                         if(direction > 360) direction -= 360;
                     }
 
-                    const _local_27 = ((_local_9.length * _local_7.x) / _local_13);
-                    const _local_28 = ((_local_10.length * _local_7.y) / _local_14);
+                    const _local_27 = ((planeLeftSide.length * planePosition.x) / leftSideLength);
+                    const _local_28 = ((planeRightSide.length * planePosition.y) / rightSideLength);
 
-                    newEvent = new RoomObjectWallMouseEvent(eventType, this.object, event.eventId, _local_8, _local_9, _local_10, _local_27, _local_28, direction, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                    newEvent = new RoomObjectWallMouseEvent(eventType, this.object, event.eventId, planeLocation, planeLeftSide, planeRightSide, _local_27, _local_28, direction, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
                 }
 
                 if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(newEvent);

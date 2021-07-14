@@ -13,7 +13,7 @@ export class FurnitureMysteryTrophyLogic extends FurnitureMultiStateLogic
 
     public useObject(): void
     {
-        if(!this.eventDispatcher || !this.object) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.MYSTERYTROPHY_OPEN_DIALOG, this.object));
     }

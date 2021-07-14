@@ -229,7 +229,7 @@ export class PetLogic extends MovingObjectLogic
             case MouseEventType.MOUSE_DOWN: {
                 const petType = this.object.model.getValue<number>(RoomObjectVariable.PET_TYPE);
 
-                if(petType == PetType.MONSTERPLANT)
+                if(petType === PetType.MONSTERPLANT)
                 {
                     if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_DOWN, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown));
                 }

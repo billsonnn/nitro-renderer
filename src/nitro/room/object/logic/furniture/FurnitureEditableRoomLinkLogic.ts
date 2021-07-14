@@ -67,7 +67,7 @@ export class FurnitureEditableRoomLinkLogic extends FurnitureLogic
             this._timer = null;
         }, 2500);
 
-        if(!this.eventDispatcher || !this.object) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.ROOM_LINK, this.object));
     }

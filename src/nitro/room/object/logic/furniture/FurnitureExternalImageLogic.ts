@@ -1,7 +1,4 @@
 import { IAssetData } from '../../../../../core/asset/interfaces';
-import { RoomSpriteMouseEvent } from '../../../../../room/events/RoomSpriteMouseEvent';
-import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
-import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomWidgetEnum } from '../../../../ui/widget/enums/RoomWidgetEnum';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
@@ -23,20 +20,6 @@ export class FurnitureExternalImageLogic extends FurnitureMultiStateLogic
             this.object.model.setValue(RoomObjectVariable.FURNITURE_USES_PLANE_MASK, 0);
             this.object.model.setValue(RoomObjectVariable.FURNITURE_PLANE_MASK_TYPE, maskType);
         }
-    }
-
-    public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
-    {
-        if(!event || !geometry || !this.object) return;
-
-        switch(event.type)
-        {
-            case MouseEventType.DOUBLE_CLICK:
-                this.useObject();
-                break;
-        }
-
-        super.mouseEvent(event, geometry);
     }
 
     public get widget(): string

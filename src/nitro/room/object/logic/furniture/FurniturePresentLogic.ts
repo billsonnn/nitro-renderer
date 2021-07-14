@@ -99,16 +99,15 @@ export class FurniturePresentLogic extends FurnitureLogic
             case MouseEventType.ROLL_OUT:
                 this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.MOUSE_ARROW, this.object));
                 break;
-            case MouseEventType.DOUBLE_CLICK:
-                this.useObject();
-                return;
-            default:
-                super.mouseEvent(event, geometry);
         }
+
+        super.mouseEvent(event, geometry);
     }
 
     public useObject(): void
     {
-        (this.object && this.eventDispatcher && this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.PRESENT, this.object)));
+        if(!this.object || !this.eventDispatcher) return;
+
+        this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.PRESENT, this.object));
     }
 }
