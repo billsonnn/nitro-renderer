@@ -8,8 +8,8 @@ export class RoomObjectWidgetRequestEvent extends RoomObjectEvent
     public static OPEN_FURNI_CONTEXT_MENU: string                     = 'ROWRE_OPEN_FURNI_CONTEXT_MENU';
     public static CLOSE_FURNI_CONTEXT_MENU: string                    = 'ROWRE_CLOSE_FURNI_CONTEXT_MENU';
     public static PLACEHOLDER: string                                 = 'ROWRE_PLACEHOLDER';
-    public static CREDITFURNI: string                                 = 'ROWRE__CREDITFURNI';
-    public static STICKIE: string                                     = 'ROWRE__STICKIE';
+    public static CREDITFURNI: string                                 = 'ROWRE_CREDITFURNI';
+    public static STICKIE: string                                     = 'ROWRE_STICKIE';
     public static PRESENT: string                                     = 'ROWRE_PRESENT';
     public static TROPHY: string                                      = 'ROWRE_TROPHY';
     public static TEASER: string                                      = 'ROWRE_TEASER';

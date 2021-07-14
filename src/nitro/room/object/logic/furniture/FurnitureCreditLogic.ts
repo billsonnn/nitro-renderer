@@ -45,5 +45,7 @@ export class FurnitureCreditLogic extends FurnitureLogic
     public useObject(): void
     {
         (this.object && this.eventDispatcher && this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CREDITFURNI, this.object)));
+
+        super.useObject();
     }
 }

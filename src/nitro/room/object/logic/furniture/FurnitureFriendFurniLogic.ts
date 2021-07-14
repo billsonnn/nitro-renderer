@@ -52,7 +52,7 @@ export class FurnitureFriendFurniLogic extends FurnitureMultiStateLogic
     {
         if(!this.eventDispatcher || !this.object) return;
 
-        if(this._state == FurnitureFriendFurniLogic.STATE_LOCKED)
+        if(this._state === FurnitureFriendFurniLogic.STATE_LOCKED)
         {
             this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.FRIEND_FURNITURE_ENGRAVING, this.object));
         }
