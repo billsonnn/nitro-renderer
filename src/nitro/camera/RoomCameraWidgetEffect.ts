@@ -1,16 +1,16 @@
 import { ColorMatrix } from '@pixi/filter-color-matrix';
-import { Texture } from 'pixi.js';
+import { Resource, Texture } from 'pixi.js';
 import { IRoomCameraWidgetEffect } from './IRoomCameraWidgetEffect';
 
 export class RoomCameraWidgetEffect implements IRoomCameraWidgetEffect
 {
     private _name: string;
     private _minLevel: number = -1;
-    private _texture: Texture = null;
+    private _texture: Texture<Resource> = null;
     private _colorMatrix: ColorMatrix = null;
     private _blendMode: number = null;
 
-    constructor(name: string, minLevel: number = -1, texture: Texture = null, colorMatrix: ColorMatrix = null, blendMode: number = null)
+    constructor(name: string, minLevel: number = -1, texture: Texture<Resource> = null, colorMatrix: ColorMatrix = null, blendMode: number = null)
     {
         this._name          = name;
         this._minLevel      = minLevel;
@@ -24,12 +24,12 @@ export class RoomCameraWidgetEffect implements IRoomCameraWidgetEffect
         return this._name;
     }
 
-    public get texture(): Texture
+    public get texture(): Texture<Resource>
     {
         return this._texture;
     }
 
-    public set texture(texture: Texture)
+    public set texture(texture: Texture<Resource>)
     {
         this._texture = texture;
     }

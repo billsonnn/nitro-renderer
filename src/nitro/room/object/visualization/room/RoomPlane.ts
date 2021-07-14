@@ -1,4 +1,4 @@
-import { Graphics, Matrix, Point, Rectangle, RenderTexture, Texture } from 'pixi.js';
+import { Graphics, Matrix, Point, Rectangle, RenderTexture, Resource, Texture } from 'pixi.js';
 import { IRoomPlane } from '../../../../../room/object/visualization/IRoomPlane';
 import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
 import { IVector3D } from '../../../../../room/utils/IVector3D';
@@ -149,7 +149,7 @@ export class RoomPlane implements IRoomPlane
         return this._canBeVisible;
     }
 
-    public get bitmapData(): Texture
+    public get bitmapData(): Texture<Resource>
     {
         if(!this.visible || !this._bitmapData) return null;
 
@@ -295,7 +295,7 @@ export class RoomPlane implements IRoomPlane
         this._disposed = true;
     }
 
-    public copyBitmapData(k: Texture): Texture
+    public copyBitmapData(k: Texture<Resource>): Texture<Resource>
     {
         if(!this.visible || !this._bitmapData || !k) return null;
 

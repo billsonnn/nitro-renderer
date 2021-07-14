@@ -1,4 +1,4 @@
-import { Rectangle, RenderTexture, Texture } from 'pixi.js';
+import { Rectangle, RenderTexture, Resource, Texture } from 'pixi.js';
 import { AdvancedMap } from '../../../../../core/utils/AdvancedMap';
 import { AlphaTolerance } from '../../../../../room/object/enum/AlphaTolerance';
 import { RoomObjectSpriteType } from '../../../../../room/object/enum/RoomObjectSpriteType';
@@ -982,7 +982,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         k.name              = ((_arg_3 + '_') + this._assetUpdateCounter);
     }
 
-    private getPlaneBitmap(k: RoomPlane, _arg_2: string): Texture
+    private getPlaneBitmap(k: RoomPlane, _arg_2: string): Texture<Resource>
     {
         return k.bitmapData;
     }

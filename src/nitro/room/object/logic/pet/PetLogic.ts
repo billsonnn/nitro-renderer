@@ -9,6 +9,7 @@ import { PetFigureData } from '../../../../avatar/pets/PetFigureData';
 import { PetType } from '../../../../avatar/pets/PetType';
 import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectMoveEvent } from '../../../events/RoomObjectMoveEvent';
+import { ObjectAvatarExperienceUpdateMessage } from '../../../messages';
 import { ObjectAvatarChatUpdateMessage } from '../../../messages/ObjectAvatarChatUpdateMessage';
 import { ObjectAvatarFigureUpdateMessage } from '../../../messages/ObjectAvatarFigureUpdateMessage';
 import { ObjectAvatarPetGestureUpdateMessage } from '../../../messages/ObjectAvatarPetGestureUpdateMessage';
@@ -210,6 +211,14 @@ export class PetLogic extends MovingObjectLogic
         {
             this._selected          = message.selected;
             this._reportedLocation  = null;
+
+            return;
+        }
+
+        if(message instanceof ObjectAvatarExperienceUpdateMessage)
+        {
+            model.setValue(RoomObjectVariable.FIGURE_EXPERIENCE_TIMESTAMP, this.time);
+            model.setValue(RoomObjectVariable.FIGURE_GAINED_EXPERIENCE, message.gainedExperience);
 
             return;
         }

@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, FurnitureGuildInfoComposer, MysteryBoxKeysEvent, PetMountComposer, PetSupplementComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, RoomWidgetCameraPublishedEvent, RoomWidgetCameraPurchaseComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from './messages';
+import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, FurnitureGuildInfoComposer, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, RoomWidgetCameraPublishedEvent, RoomWidgetCameraPurchaseComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CatalogClubEvent } from './messages/incoming/catalog/CatalogClubEvent';
 import { CatalogClubGiftsEvent } from './messages/incoming/catalog/CatalogClubGiftsEvent';
@@ -639,6 +639,7 @@ export class NitroMessages implements IMessageConfiguration
         // PET
         this._events.set(IncomingHeader.PET_FIGURE_UPDATE, PetFigureUpdateEvent);
         this._events.set(IncomingHeader.PET_INFO, PetInfoEvent);
+        this._events.set(IncomingHeader.PET_EXPERIENCE, PetExperienceEvent);
 
         // SESSION
         this._events.set(IncomingHeader.PLAYING_GAME, YouArePlayingGameEvent);

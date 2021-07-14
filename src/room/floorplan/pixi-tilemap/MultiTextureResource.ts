@@ -45,7 +45,7 @@ export class MultiTextureResource extends Resource
     boundSprites: Array<Sprite> = [];
     dirties: Array<number> = [];
 
-    setTexture(ind: number, texture: Texture)
+    setTexture(ind: number, texture: Texture<Resource>)
     {
         const spr = this.boundSprites[ind];
         if(spr.texture.baseTexture === texture.baseTexture)

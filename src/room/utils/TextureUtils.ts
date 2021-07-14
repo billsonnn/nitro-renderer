@@ -1,5 +1,5 @@
 import { Extract } from '@pixi/extract';
-import { AbstractRenderer, DisplayObject, Rectangle, Renderer, RenderTexture, SCALE_MODES, Texture } from 'pixi.js';
+import { AbstractRenderer, DisplayObject, Rectangle, Renderer, RenderTexture, Resource, SCALE_MODES, Texture } from 'pixi.js';
 import { Nitro } from '../../nitro/Nitro';
 
 export class TextureUtils
@@ -13,7 +13,7 @@ export class TextureUtils
         return TextureUtils.getRenderer().generateTexture(displayObject, scaleMode, resolution, region);
     }
 
-    public static generateTextureFromImage(image: HTMLImageElement): Texture
+    public static generateTextureFromImage(image: HTMLImageElement): Texture<Resource>
     {
         if(!image) return null;
 

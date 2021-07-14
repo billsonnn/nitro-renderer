@@ -1,4 +1,4 @@
-import { BaseTexture, BLEND_MODES, Point, RenderTexture, Sprite, Texture } from 'pixi.js';
+import { BaseTexture, BLEND_MODES, Point, RenderTexture, Resource, Sprite, Texture } from 'pixi.js';
 import { TextureUtils } from '../../utils';
 
 export class ExtendedSprite extends Sprite
@@ -13,7 +13,7 @@ export class ExtendedSprite extends Sprite
     private _pairedSpriteId: number;
     private _pairedSpriteUpdateCounter: number;
 
-    constructor(texture: Texture = null)
+    constructor(texture: Texture<Resource> = null)
     {
         super(texture);
 
@@ -45,7 +45,7 @@ export class ExtendedSprite extends Sprite
         super.calculateVertices();
     }
 
-    public setTexture(texture: Texture): void
+    public setTexture(texture: Texture<Resource>): void
     {
         if(!texture) texture = Texture.EMPTY;
 

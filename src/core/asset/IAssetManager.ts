@@ -1,5 +1,5 @@
 
-import { Spritesheet, Texture } from 'pixi.js';
+import { Resource, Spritesheet, Texture } from 'pixi.js';
 import { IGraphicAsset } from '../../room/object/visualization/utils/IGraphicAsset';
 import { IGraphicAssetCollection } from '../../room/object/visualization/utils/IGraphicAssetCollection';
 import { IAssetData } from './interfaces';
@@ -7,8 +7,8 @@ import { IAssetData } from './interfaces';
 export interface IAssetManager
 {
     dispose(): void;
-    getTexture(name: string): Texture;
-    setTexture(name: string, texture: Texture): void;
+    getTexture(name: string): Texture<Resource>;
+    setTexture(name: string, texture: Texture<Resource>): void;
     getAsset(name: string): IGraphicAsset;
     getCollection(name: string): IGraphicAssetCollection;
     createCollection(data: IAssetData, spritesheet: Spritesheet): IGraphicAssetCollection;

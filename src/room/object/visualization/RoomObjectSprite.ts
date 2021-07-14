@@ -1,4 +1,4 @@
-import { BLEND_MODES, Container, Filter, Texture } from 'pixi.js';
+import { BLEND_MODES, Container, Filter, Resource, Texture } from 'pixi.js';
 import { AlphaTolerance } from '../enum/AlphaTolerance';
 import { RoomObjectSpriteType } from '../enum/RoomObjectSpriteType';
 import { IRoomObjectSprite } from './IRoomObjectSprite';
@@ -11,7 +11,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
     private _name: string;
     private _type: string;
     private _spriteType: number;
-    private _texture: Texture;
+    private _texture: Texture<Resource>;
     private _container: Container;
 
     private _width: number;
@@ -123,12 +123,12 @@ export class RoomObjectSprite implements IRoomObjectSprite
         this._spriteType = type;
     }
 
-    public get texture(): Texture
+    public get texture(): Texture<Resource>
     {
         return this._texture;
     }
 
-    public set texture(texture: Texture)
+    public set texture(texture: Texture<Resource>)
     {
         if(this._texture === texture) return;
 

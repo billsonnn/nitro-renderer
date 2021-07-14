@@ -1,4 +1,4 @@
-import { Bounds, Container, DRAW_MODES, groupD8, Matrix, Rectangle, Renderer, Texture } from 'pixi.js';
+import { Bounds, Container, DRAW_MODES, groupD8, Matrix, Rectangle, Renderer, Resource, Texture } from 'pixi.js';
 import { Constant } from './Constant';
 import { RectTileGeom } from './RectTileShader';
 import { TileRenderer } from './TileRenderer';
@@ -24,7 +24,7 @@ export const POINT_STRUCT_SIZE_TWO = (Object.keys(PointStruct).length / 2);
 //export const POINT_STRUCT_SIZE = 12;
 export class RectTileLayer extends Container
 {
-    constructor(zIndex: number, texture: Texture | Array<Texture>)
+    constructor(zIndex: number, texture: Texture<Resource> | Array<Texture>)
     {
         super();
         this.initialize(zIndex, texture);
@@ -44,7 +44,7 @@ export class RectTileLayer extends Container
     offsetY = 0;
     compositeParent = false;
 
-    initialize(zIndex: number, textures: Texture | Array<Texture>)
+    initialize(zIndex: number, textures: Texture<Resource> | Array<Texture>)
     {
         if(!textures)
         {
@@ -67,9 +67,9 @@ export class RectTileLayer extends Container
         this.hasAnim = false;
     }
 
-    addFrame(texture_: Texture | string | number, x: number, y: number, animX: number, animY: number)
+    addFrame(texture_: Texture<Resource> | string | number, x: number, y: number, animX: number, animY: number)
     {
-        let texture: Texture;
+        let texture: Texture<Resource>;
         let textureIndex = 0;
 
         if(typeof texture_ === 'number')

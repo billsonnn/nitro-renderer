@@ -1,4 +1,4 @@
-import { BLEND_MODES, Texture } from 'pixi.js';
+import { BLEND_MODES, Resource, Texture } from 'pixi.js';
 import { AdvancedMap } from '../../../../../core/utils/AdvancedMap';
 import { AlphaTolerance } from '../../../../../room/object/enum/AlphaTolerance';
 import { RoomObjectSpriteType } from '../../../../../room/object/enum/RoomObjectSpriteType';
@@ -1090,7 +1090,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
         }
     }
 
-    public getAvatarRenderAsset(name: string): Texture
+    public getAvatarRenderAsset(name: string): Texture<Resource>
     {
         const url = (Nitro.instance.getConfiguration<string>('images.url') + '/additions/' + name + '.png');
 

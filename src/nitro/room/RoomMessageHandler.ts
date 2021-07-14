@@ -3,7 +3,7 @@ import { IConnection } from '../../core/communication/connections/IConnection';
 import { IVector3D } from '../../room/utils/IVector3D';
 import { Vector3d } from '../../room/utils/Vector3d';
 import { PetType } from '../avatar/pets/PetType';
-import { ObjectsDataUpdateEvent } from '../communication';
+import { ObjectsDataUpdateEvent, PetExperienceEvent } from '../communication';
 import { ObjectsRollingEvent } from '../communication/messages/incoming/room/engine/ObjectsRollingEvent';
 import { FurnitureFloorAddEvent } from '../communication/messages/incoming/room/furniture/floor/FurnitureFloorAddEvent';
 import { FurnitureFloorEvent } from '../communication/messages/incoming/room/furniture/floor/FurnitureFloorEvent';
@@ -142,6 +142,7 @@ export class RoomMessageHandler extends Disposable
         this._connection.addMessageEvent(new RoomUnitChatWhisperEvent(this.onRoomUnitChatEvent.bind(this)));
         this._connection.addMessageEvent(new RoomUnitTypingEvent(this.onRoomUnitTypingEvent.bind(this)));
         this._connection.addMessageEvent(new PetFigureUpdateEvent(this.onPetFigureUpdateEvent.bind(this)));
+        this._connection.addMessageEvent(new PetExperienceEvent(this.onPetExperienceEvent.bind(this)));
         this._connection.addMessageEvent(new YouArePlayingGameEvent(this.onYouArePlayingGameEvent.bind(this)));
         this._connection.addMessageEvent(new FurnitureState2Event(this.onFurnitureState2Event.bind(this)));
         this._connection.addMessageEvent(new IgnoreResultEvent(this.onIgnoreResultEvent.bind(this)));
@@ -857,6 +858,15 @@ export class RoomMessageHandler extends Disposable
         if(!parser) return;
 
         this._roomCreator.updateRoomObjectUserFigure(this._currentRoomId, parser.roomIndex, parser.figureData.figuredata, '' , '', parser.isRiding);
+    }
+
+    private onPetExperienceEvent(event: PetExperienceEvent): void
+    {
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        this._roomCreator.updateRoomObjectUserAction(this._currentRoomId, parser.roomIndex, RoomObjectVariable.FIGURE_GAINED_EXPERIENCE, parser.gainedExperience);
     }
 
     private onYouArePlayingGameEvent(event: YouArePlayingGameEvent): void

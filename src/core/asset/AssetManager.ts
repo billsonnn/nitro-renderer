@@ -1,6 +1,6 @@
-import { BaseTexture, ILoaderResource, Loader, LoaderResource, Spritesheet, Texture } from 'pixi.js';
+import { BaseTexture, ILoaderResource, Loader, LoaderResource, Resource, Spritesheet, Texture } from 'pixi.js';
+import { IGraphicAsset } from '../../room';
 import { GraphicAssetCollection } from '../../room/object/visualization/utils/GraphicAssetCollection';
-import { IGraphicAsset } from '../../room/object/visualization/utils/IGraphicAsset';
 import { IGraphicAssetCollection } from '../../room/object/visualization/utils/IGraphicAssetCollection';
 import { Disposable } from '../common/disposable/Disposable';
 import { INitroLogger } from '../common/logger/INitroLogger';
@@ -12,7 +12,7 @@ import { NitroBundle } from './NitroBundle';
 export class AssetManager extends Disposable implements IAssetManager
 {
     private _logger: INitroLogger;
-    private _textures: Map<string, Texture>;
+    private _textures: Map<string, Texture<Resource>>;
     private _collections: Map<string, IGraphicAssetCollection>;
 
     constructor()
@@ -29,7 +29,7 @@ export class AssetManager extends Disposable implements IAssetManager
         return (name.substring(0, name.lastIndexOf('.')) || name);
     }
 
-    public getTexture(name: string): Texture
+    public getTexture(name: string): Texture<Resource>
     {
         if(!name) return null;
 
@@ -40,7 +40,7 @@ export class AssetManager extends Disposable implements IAssetManager
         return existing;
     }
 
-    public setTexture(name: string, texture: Texture): void
+    public setTexture(name: string, texture: Texture<Resource>): void
     {
         if(!name || !texture) return;
 

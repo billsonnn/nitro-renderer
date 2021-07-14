@@ -1,4 +1,4 @@
-import { Texture } from 'pixi.js';
+import { Resource, Texture } from 'pixi.js';
 import { NitroManager } from '../../core/common/NitroManager';
 import { IMessageComposer } from '../../core/communication/messages/IMessageComposer';
 import { NitroEvent } from '../../core/events/NitroEvent';
@@ -472,12 +472,12 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         return this._badgeImageManager.getBadgeUrl(name, BadgeImageManager.GROUP_BADGE);
     }
 
-    public getBadgeImage(name: string): Texture
+    public getBadgeImage(name: string): Texture<Resource>
     {
         return this._badgeImageManager.getBadgeImage(name);
     }
 
-    public getGroupBadgeImage(name: string): Texture
+    public getGroupBadgeImage(name: string): Texture<Resource>
     {
         return this._badgeImageManager.getBadgeImage(name, BadgeImageManager.GROUP_BADGE);
     }

@@ -1,4 +1,4 @@
-import { Container, DisplayObject, Matrix, Point, Rectangle, RenderTexture, Sprite, Texture } from 'pixi.js';
+import { Container, DisplayObject, Matrix, Point, Rectangle, RenderTexture, Resource, Sprite, Texture } from 'pixi.js';
 import { IDisposable } from '../../core/common/disposable/IDisposable';
 import { IUpdateReceiver } from '../../core/common/IUpdateReceiver';
 import { NitroLogger } from '../../core/common/logger/NitroLogger';
@@ -2727,7 +2727,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         this._roomObjectEventHandler.cancelRoomObjectInsert(this._activeRoomId);
     }
 
-    private addOverlayIconSprite(k: Sprite, _arg_2: string, _arg_3: Texture, scale: number = 1): Sprite
+    private addOverlayIconSprite(k: Sprite, _arg_2: string, _arg_3: Texture<Resource>, scale: number = 1): Sprite
     {
         if(!k || !_arg_3) return;
 

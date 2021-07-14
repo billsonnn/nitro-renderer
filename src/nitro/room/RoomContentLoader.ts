@@ -1,4 +1,4 @@
-import { BaseTexture, ILoaderResource, Loader, LoaderResource, Spritesheet, Texture } from 'pixi.js';
+import { BaseTexture, ILoaderResource, Loader, LoaderResource, Resource, Spritesheet, Texture } from 'pixi.js';
 import { IAssetData } from '../../core/asset/interfaces';
 import { NitroBundle } from '../../core/asset/NitroBundle';
 import { INitroLogger } from '../../core/common/logger/INitroLogger';
@@ -316,7 +316,7 @@ export class RoomContentLoader implements IFurnitureDataListener
         return image;
     }
 
-    public addAssetToCollection(collectionName: string, assetName: string, texture: Texture): boolean
+    public addAssetToCollection(collectionName: string, assetName: string, texture: Texture<Resource>): boolean
     {
         const collection = this.getCollection(collectionName);
 

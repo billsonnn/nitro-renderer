@@ -1,4 +1,4 @@
-﻿import { Graphics, Point, Texture } from 'pixi.js';
+﻿import { Graphics, Point, Resource, Texture } from 'pixi.js';
 import { IGraphicAsset } from '../../../../../../../room/object/visualization/utils/IGraphicAsset';
 import { IGraphicAssetCollection } from '../../../../../../../room/object/visualization/utils/IGraphicAssetCollection';
 import { IRoomGeometry } from '../../../../../../../room/utils/IRoomGeometry';
@@ -252,7 +252,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
                                 if(texture)
                                 {
-                                    let newTexture: Texture = texture;
+                                    let newTexture: Texture<Resource> = texture;
 
                                     if(asset.flipH)
                                     {

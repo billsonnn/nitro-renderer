@@ -1,4 +1,4 @@
-import { Matrix, Rectangle, Sprite, Texture } from 'pixi.js';
+import { Matrix, Rectangle, Resource, Sprite, Texture } from 'pixi.js';
 import { IGraphicAsset } from '../../../../../room/object/visualization/utils/IGraphicAsset';
 import { TextureUtils } from '../../../../../room/utils/TextureUtils';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
@@ -8,7 +8,7 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
     protected static THUMBNAIL: string = 'THUMBNAIL';
 
     private _thumbnailAssetNameNormal: string;
-    private _thumbnailImageNormal: Texture;
+    private _thumbnailImageNormal: Texture<Resource>;
     private _thumbnailDirection: number;
     private _thumbnailChanged: boolean;
 
@@ -27,7 +27,7 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
         return !(this._thumbnailImageNormal == null);
     }
 
-    public setThumbnailImages(k: Texture): void
+    public setThumbnailImages(k: Texture<Resource>): void
     {
         this._thumbnailImageNormal = k;
         this._thumbnailChanged = true;
@@ -61,7 +61,7 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
         this._thumbnailDirection = this.direction;
     }
 
-    private addThumbnailAsset(k: Texture, scale: number): void
+    private addThumbnailAsset(k: Texture<Resource>, scale: number): void
     {
         let layerId = 0;
 
@@ -88,7 +88,7 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
         }
     }
 
-    private generateTransformedThumbnail(texture: Texture, asset: IGraphicAsset): Texture
+    private generateTransformedThumbnail(texture: Texture<Resource>, asset: IGraphicAsset): Texture<Resource>
     {
         const _local_3  = 1.1;
         const matrix    = new Matrix();

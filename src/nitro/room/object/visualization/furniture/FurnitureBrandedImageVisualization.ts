@@ -1,4 +1,4 @@
-import { Texture } from 'pixi.js';
+import { Resource, Texture } from 'pixi.js';
 import { Nitro } from '../../../../Nitro';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureVisualization } from './FurnitureVisualization';
@@ -80,7 +80,7 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
         return flag;
     }
 
-    protected imageReady(texture: Texture, imageUrl: string): void
+    protected imageReady(texture: Texture<Resource>, imageUrl: string): void
     {
         if(!texture)
         {

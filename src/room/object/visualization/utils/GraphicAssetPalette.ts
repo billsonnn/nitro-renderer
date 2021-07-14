@@ -1,4 +1,4 @@
-import { Sprite, Texture } from 'pixi.js';
+import { Resource, Sprite, Texture } from 'pixi.js';
 import { TextureUtils } from '../../../utils';
 
 export class GraphicAssetPalette
@@ -22,7 +22,7 @@ export class GraphicAssetPalette
 
     }
 
-    public applyPalette(texture: Texture): Texture
+    public applyPalette(texture: Texture<Resource>): Texture<Resource>
     {
         const sprite            = Sprite.from(texture);
         const textureCanvas     = TextureUtils.generateCanvas(sprite);
