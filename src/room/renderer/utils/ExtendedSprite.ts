@@ -73,15 +73,28 @@ export class ExtendedSprite extends Sprite
 
         if((sprite.texture === Texture.EMPTY) || (sprite.blendMode !== BLEND_MODES.NORMAL)) return;
 
-        const texture       = sprite.texture;
-        const baseTexture   = texture.baseTexture;
+        const texture = sprite.texture;
+        const baseTexture = texture.baseTexture;
 
         if(!texture || !baseTexture || !baseTexture.valid) return false;
 
+        const resolution = baseTexture.resolution;
         const x = (point.x * sprite.scale.x);
         const y = (point.y * sprite.scale.y);
 
-        if(!sprite.getLocalBounds().contains(x, y)) return false;
+        let dx = (x + texture.frame.x);
+        let dy = (y + texture.frame.y);
+
+        if(texture.trim)
+        {
+            dx -= texture.trim.x;
+            dy -= texture.trim.y;
+        }
+
+        dx = Math.round(dx) * resolution;
+        dy = Math.round(dy) * resolution;
+
+        if(((dx < 0) || (dx > texture.width)) || ((dy < 0) || (dy > texture.height))) return false;
 
         //@ts-ignore
         if(!baseTexture.hitMap)
@@ -109,15 +122,13 @@ export class ExtendedSprite extends Sprite
         }
 
         //@ts-ignore
-        const hitMap        = baseTexture.hitMap;
-        //@ts-ignore
-        const width         = baseTexture.hitMapWidth;
-        const resolution    = baseTexture.resolution;
-        const dx            = Math.round((x + texture.frame.x) * resolution);
-        const dy            = Math.round((y + texture.frame.y) * resolution);
-        const index         = (((dy * width) + dx) * 4);
+        const hitMap = (baseTexture.hitMap as Uint32Array);
 
-        return ((hitMap[index + 3] !== undefined) && (hitMap[index + 3] > sprite.alphaTolerance));
+        const ind = (dx + dy * baseTexture.realWidth);
+        const ind1 = ind % 32;
+        const ind2 = ind / 32 | 0;
+
+        return (hitMap[ind2] & (1 << ind1)) !== 0;
     }
 
     private static generateHitMap(baseTexture: BaseTexture, tempCanvas: HTMLCanvasElement = null): boolean
@@ -162,10 +173,22 @@ export class ExtendedSprite extends Sprite
         const height    = canvas.height;
         const imageData = context.getImageData(0, 0, width, height);
 
+        const hitmap = new Uint32Array(Math.ceil(width * height / 32));
+        const threshold = 128;
+
+        for(let i = 0; i < width * height; i++)
+        {
+            const ind1 = i % 32;
+            const ind2 = i / 32 | 0;
+
+            if(imageData.data[i * 4 + 3] >= threshold)
+            {
+                hitmap[ind2] = hitmap[ind2] | (1 << ind1);
+            }
+        }
+
         //@ts-ignore
-        baseTexture.hitMap      = imageData.data;
-        //@ts-ignore
-        baseTexture.hitMapWidth = width;
+        baseTexture.hitMap = hitmap;
 
         return true;
     }

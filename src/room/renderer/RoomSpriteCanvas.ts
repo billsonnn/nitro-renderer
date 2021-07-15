@@ -604,7 +604,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             extendedSprite.tag              = objectSprite.tag;
             extendedSprite.alphaTolerance   = objectSprite.alphaTolerance;
             extendedSprite.name             = sprite.name;
-            extendedSprite.varyingDepth        = objectSprite.varyingDepth;
+            extendedSprite.varyingDepth     = objectSprite.varyingDepth;
             extendedSprite.clickHandling    = objectSprite.clickHandling;
             extendedSprite.filters          = objectSprite.filters;
 
