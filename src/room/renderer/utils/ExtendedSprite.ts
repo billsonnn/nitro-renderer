@@ -78,23 +78,10 @@ export class ExtendedSprite extends Sprite
 
         if(!texture || !baseTexture || !baseTexture.valid) return false;
 
-        const resolution = baseTexture.resolution;
         const x = (point.x * sprite.scale.x);
         const y = (point.y * sprite.scale.y);
 
-        let dx = (x + texture.frame.x);
-        let dy = (y + texture.frame.y);
-
-        if(texture.trim)
-        {
-            dx -= texture.trim.x;
-            dy -= texture.trim.y;
-        }
-
-        dx = Math.round(dx) * resolution;
-        dy = Math.round(dy) * resolution;
-
-        if(((dx < 0) || (dx > texture.width)) || ((dy < 0) || (dy > texture.height))) return false;
+        if(!sprite.getLocalBounds().contains(x, y)) return false;
 
         //@ts-ignore
         if(!baseTexture.hitMap)
@@ -123,6 +110,18 @@ export class ExtendedSprite extends Sprite
 
         //@ts-ignore
         const hitMap = (baseTexture.hitMap as Uint32Array);
+
+        let dx = (x + texture.frame.x);
+        let dy = (y + texture.frame.y);
+
+        if(texture.trim)
+        {
+            dx -= texture.trim.x;
+            dy -= texture.trim.y;
+        }
+
+        dx = (Math.round(dx) * baseTexture.resolution);
+        dy = (Math.round(dy) * baseTexture.resolution);
 
         const ind = (dx + dy * baseTexture.realWidth);
         const ind1 = ind % 32;
