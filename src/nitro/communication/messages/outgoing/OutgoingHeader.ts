@@ -244,4 +244,6 @@ export class OutgoingHeader
     public static REMOVE_PET_SADDLE              = 186;
     public static TOGGLE_PET_RIDING              = 1472;
     public static TOGGLE_PET_BREEDING            = 3379;
+    public static UNSEEN_RESET_CATEGORY          = 3493;
+    public static UNSEEN_RESET_ITEMS             = 2343;
 }

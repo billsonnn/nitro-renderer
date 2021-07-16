@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, FurnitureGuildInfoComposer, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, RoomWidgetCameraPublishedEvent, RoomWidgetCameraPurchaseComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from './messages';
+import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, FurnitureGuildInfoComposer, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, RoomWidgetCameraPublishedEvent, RoomWidgetCameraPurchaseComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CatalogClubEvent } from './messages/incoming/catalog/CatalogClubEvent';
 import { CatalogClubGiftsEvent } from './messages/incoming/catalog/CatalogClubGiftsEvent';
@@ -835,17 +835,25 @@ export class NitroMessages implements IMessageConfiguration
 
         // INVENTORY
 
-        // MARKETPLACE
-        this._composers.set(OutgoingHeader.REQUEST_SELL_ITEM, RequestSellItemComposer);
-        this._composers.set(OutgoingHeader.REQUEST_MARKETPLACE_ITEM_STATS, MarketplaceRequesstItemStatsComposer);
-        this._composers.set(OutgoingHeader.MARKETPLACE_REDEEM_CREDITS, MarketplaceRedeemCreditsComposer);
+        //// BADGES
+        this._composers.set(OutgoingHeader.USER_BADGES, RequestBadgesComposer);
+        this._composers.set(OutgoingHeader.USER_BADGES_CURRENT_UPDATE, SetActivatedBadgesComposer);
 
-        // FURNI
+        //// BOTS
+        this._composers.set(OutgoingHeader.USER_BOTS, GetBotInventoryComposer);
+
+        //// FURNI
         this._composers.set(OutgoingHeader.USER_FURNITURE, FurnitureListComposer);
         this._composers.set(OutgoingHeader.USER_FURNITURE2, FurnitureList2Composer);
-        this._composers.set(OutgoingHeader.ITEM_SAVE_BACKGROUND, RoomAdsUpdateComposer);
 
-        // TRADING
+        //// MARKETPLACE
+        this._composers.set(OutgoingHeader.REQUEST_SELL_ITEM, RequestSellItemComposer);
+        this._composers.set(OutgoingHeader.REQUEST_MARKETPLACE_ITEM_STATS, MarketplaceRequesstItemStatsComposer);
+
+        //// PETS
+        this._composers.set(OutgoingHeader.USER_PETS, RequestPetsComposer);
+
+        //// TRADING
         this._composers.set(OutgoingHeader.TRADE_ACCEPT, TradingAcceptComposer);
         this._composers.set(OutgoingHeader.TRADE_CANCEL, TradingCancelComposer);
         this._composers.set(OutgoingHeader.TRADE_CLOSE, TradingCloseComposer);
@@ -855,6 +863,10 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.TRADE_ITEM_REMOVE, TradingListItemRemoveComposer);
         this._composers.set(OutgoingHeader.TRADE, TradingOpenComposer);
         this._composers.set(OutgoingHeader.TRADE_UNACCEPT, TradingUnacceptComposer);
+
+        //// UNSEEN
+        this._composers.set(OutgoingHeader.UNSEEN_RESET_CATEGORY, UnseenResetCategoryComposer);
+        this._composers.set(OutgoingHeader.UNSEEN_RESET_ITEMS, UnseenResetItemsComposer);
 
         // ACHIVEMENTS
         this._composers.set(OutgoingHeader.ACHIEVEMENT_LIST, RequestAchievementsMessageComposer);
@@ -943,6 +955,7 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.ONE_WAY_DOOR_CLICK, FurnitureOneWayDoorComposer);
         this._composers.set(OutgoingHeader.ITEM_EXCHANGE_REDEEM, FurnitureExchangeComposer);
         this._composers.set(OutgoingHeader.ITEM_CLOTHING_REDEEM, RedeemItemClothingComposer);
+        this._composers.set(OutgoingHeader.ITEM_SAVE_BACKGROUND, RoomAdsUpdateComposer);
 
         // MAPPING
         this._composers.set(OutgoingHeader.ROOM_MODEL, RoomModelComposer);
@@ -1009,13 +1022,10 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.MARKETPLACE_TAKE_BACK_ITEM, MarketplaceTakeItemBackComposer);
         this._composers.set(OutgoingHeader.MARKETPLACE_REQUEST_OFFERS, MarketplaceRequestOffersComposer);
         this._composers.set(OutgoingHeader.MARKETPLACE_BUY_OFFER, MarketplaceBuyOfferComposer);
+        this._composers.set(OutgoingHeader.MARKETPLACE_REDEEM_CREDITS, MarketplaceRedeemCreditsComposer);
 
         // BOTS
         this._composers.set(OutgoingHeader.USER_BOTS, GetBotInventoryComposer);
-
-        // BADGES
-        this._composers.set(OutgoingHeader.USER_BADGES, RequestBadgesComposer);
-        this._composers.set(OutgoingHeader.USER_BADGES_CURRENT_UPDATE, SetActivatedBadgesComposer);
 
         // PETS
         this._composers.set(OutgoingHeader.USER_PETS, RequestPetsComposer);
