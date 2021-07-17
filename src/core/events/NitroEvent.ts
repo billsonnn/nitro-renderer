@@ -1,4 +1,14 @@
-export class NitroEvent extends Event
+export class NitroEvent
 {
-    public static COMPLETE: string  = 'NITRO_COMPLETE';
+    private _type: string;
+
+    constructor(type: string)
+    {
+        this._type = type;
+    }
+
+    public get type(): string
+    {
+        return this._type;
+    }
 }

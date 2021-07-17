@@ -4,6 +4,7 @@ import { IDisposable } from '../common/disposable/IDisposable';
 import { INitroLogger } from '../common/logger/INitroLogger';
 import { NitroLogger } from '../common/logger/NitroLogger';
 import { IEventDispatcher } from './IEventDispatcher';
+import { NitroEvent } from './NitroEvent';
 
 export class EventDispatcher extends Disposable implements IEventDispatcher, IDisposable
 {
@@ -61,7 +62,7 @@ export class EventDispatcher extends Disposable implements IEventDispatcher, IDi
         }
     }
 
-    public dispatchEvent(event: Event): boolean
+    public dispatchEvent(event: NitroEvent): boolean
     {
         if(!event) return false;
 
@@ -72,7 +73,7 @@ export class EventDispatcher extends Disposable implements IEventDispatcher, IDi
         return true;
     }
 
-    private processEvent(event: Event): void
+    private processEvent(event: NitroEvent): void
     {
         const existing = this._listeners.get(event.type);
 
