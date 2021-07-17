@@ -20,7 +20,7 @@ import { MovingObjectLogic } from '../MovingObjectLogic';
 
 export class FurnitureLogic extends MovingObjectLogic
 {
-    private static BOUNCING_STEPS: number   = 8;
+    private static BOUNCING_STEPS: number   = 20;
     private static BOUNCING_Z: number       = 0.0625;
 
     private _sizeX: number;
