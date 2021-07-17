@@ -75,6 +75,7 @@ export interface IRoomEngine extends INitroManager
     getRoomObjectImage(roomId: number, objectId: number, category: number, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor?: number): ImageResult;
     getRoomObjectPetImage(typeId: number, paletteId: number, color: number, direction: IVector3D, scale: number, listener: IGetImageListener, headOnly?: boolean, bgColor?: number, customParts?: PetCustomPart[], posture?: string): ImageResult;
     selectRoomObject(roomId: number, objectId: number, objectCategory: number): void;
+    setSelectedAvatar(roomId: number, objectId: number): void;
     cancelRoomObjectInsert(): void;
     getPetColorResult(petIndex: number, paletteIndex: number): PetColorResult;
     getPetColorResultsForTag(petIndex: number, tagName: string): PetColorResult[];

@@ -2720,6 +2720,13 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         this._roomObjectEventHandler.setSelectedObject(roomId, objectId, objectCategory);
     }
 
+    public setSelectedAvatar(roomId: number, objectId: number): void
+    {
+        if(this._roomObjectEventHandler) return;
+
+        this._roomObjectEventHandler.setSelectedAvatar(roomId, objectId, true);
+    }
+
     public cancelRoomObjectInsert(): void
     {
         if(!this._roomObjectEventHandler) return;
