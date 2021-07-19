@@ -818,7 +818,7 @@ export class RoomPreviewer
     {
         if(this.isRoomEngineReady)
         {
-            const roomObject = this._roomEngine.getRoomObject(this._previewRoomId, RoomPreviewer.PREVIEW_OBJECT_ID, RoomObjectCategory.UNIT);
+            const roomObject = this._roomEngine.getRoomObject(this._previewRoomId, RoomPreviewer.PREVIEW_OBJECT_ID, this._currentPreviewObjectCategory);
 
             if(roomObject && roomObject.visualization) return roomObject.visualization.getImage(0xFFFFFF, -1);
         }
