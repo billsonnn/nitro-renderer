@@ -4,7 +4,7 @@ export class UserWardrobePageComposer implements IMessageComposer<ConstructorPar
 {
     private _data: ConstructorParameters<typeof UserWardrobePageComposer>;
 
-    constructor(pageId: number)
+    constructor(pageId: number = 0)
     {
         this._data = [ pageId ];
     }
