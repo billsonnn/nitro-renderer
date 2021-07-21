@@ -254,4 +254,15 @@ export class IncomingHeader
     public static PET_EXPERIENCE                   = 2156;
     public static COMMUNITY_GOAL_VOTE_EVENT        = 1435;
     public static PROMO_ARTICLES                   = 286;
+    public static COMMUNITY_GOAL_EARNED_PRIZES     = 3319;
+    public static COMMUNITY_GOAL_PROGRESS          = 2525;
+    public static CONCURRENT_USERS_GOAL_PROGRESS   = 2737;
+    public static QUEST_DAILY                      = 1878;
+    public static QUEST_CANCELLED                  = 3027;
+    public static QUEST_COMPLETED                  = 949;
+    public static COMMUNITY_GOAL_HALL_OF_FAME      = 3005;
+    public static EPIC_POPUP                       = 3945;
+    public static SEASONAL_QUESTS                  = 1122;
+    public static QUESTS                           = 3625;
+    public static QUEST                            = 230;
 }

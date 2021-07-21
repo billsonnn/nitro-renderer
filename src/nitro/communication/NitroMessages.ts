@@ -113,6 +113,17 @@ import { NotificationDialogMessageEvent } from './messages/incoming/notification
 import { PetPlacingErrorEvent } from './messages/incoming/notifications/PetPlacingErrorEvent';
 import { RespectReceivedEvent } from './messages/incoming/notifications/RespectReceivedEvent';
 import { UnseenItemsEvent } from './messages/incoming/notifications/UnseenItemsEvent';
+import { CommunityGoalEarnedPrizesMessageEvent } from './messages/incoming/quest/CommunityGoalEarnedPrizesMessageEvent';
+import { CommunityGoalHallOfFameMessageEvent } from './messages/incoming/quest/CommunityGoalHallOfFameMessageEvent';
+import { CommunityGoalProgressMessageEvent } from './messages/incoming/quest/CommunityGoalProgressMessageEvent';
+import { ConcurrentUsersGoalProgressMessageEvent } from './messages/incoming/quest/ConcurrentUsersGoalProgressMessageEvent';
+import { EpicPopupMessageEvent } from './messages/incoming/quest/EpicPopupMessageEvent';
+import { QuestCancelledMessageEvent } from './messages/incoming/quest/QuestCancelledMessageEvent';
+import { QuestCompletedMessageEvent } from './messages/incoming/quest/QuestCompletedMessageEvent';
+import { QuestDailyMessageEvent } from './messages/incoming/quest/QuestDailyMessageEvent';
+import { QuestMessageEvent } from './messages/incoming/quest/QuestMessageEvent';
+import { QuestsMessageEvent } from './messages/incoming/quest/QuestsMessageEvent';
+import { SeasonalQuestsMessageEvent } from './messages/incoming/quest/SeasonalQuestsMessageEvent';
 import { RoomDoorbellAcceptedEvent } from './messages/incoming/room/access/doorbell/RoomDoorbellAcceptedEvent';
 import { RoomDoorbellEvent } from './messages/incoming/room/access/doorbell/RoomDoorbellEvent';
 import { RoomDoorbellRejectedEvent } from './messages/incoming/room/access/doorbell/RoomDoorbellRejectedEvent';
@@ -753,6 +764,19 @@ export class NitroMessages implements IMessageConfiguration
         // LANDING VIEW
         this._events.set(IncomingHeader.COMMUNITY_GOAL_VOTE_EVENT, CommunityGoalVoteMessageEvent);
         this._events.set(IncomingHeader.PROMO_ARTICLES, PromoArticlesMessageEvent);
+
+        // QUESTS
+        this._events.set(IncomingHeader.COMMUNITY_GOAL_EARNED_PRIZES, CommunityGoalEarnedPrizesMessageEvent);
+        this._events.set(IncomingHeader.COMMUNITY_GOAL_PROGRESS, CommunityGoalProgressMessageEvent);
+        this._events.set(IncomingHeader.CONCURRENT_USERS_GOAL_PROGRESS, ConcurrentUsersGoalProgressMessageEvent);
+        this._events.set(IncomingHeader.QUEST_DAILY, QuestDailyMessageEvent);
+        this._events.set(IncomingHeader.QUEST_CANCELLED, QuestCancelledMessageEvent);
+        this._events.set(IncomingHeader.QUEST_COMPLETED, QuestCompletedMessageEvent);
+        this._events.set(IncomingHeader.COMMUNITY_GOAL_HALL_OF_FAME, CommunityGoalHallOfFameMessageEvent);
+        this._events.set(IncomingHeader.EPIC_POPUP, EpicPopupMessageEvent);
+        this._events.set(IncomingHeader.SEASONAL_QUESTS, SeasonalQuestsMessageEvent);
+        this._events.set(IncomingHeader.QUESTS, QuestsMessageEvent);
+        this._events.set(IncomingHeader.QUEST, QuestMessageEvent);
     }
 
     private registerComposers(): void
