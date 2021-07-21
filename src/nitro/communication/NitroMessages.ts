@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, FurnitureGuildInfoComposer, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, RoomWidgetCameraPublishedEvent, RoomWidgetCameraPurchaseComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer } from './messages';
+import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, FurnitureGuildInfoComposer, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, RoomWidgetCameraPublishedEvent, RoomWidgetCameraPurchaseComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CatalogClubEvent } from './messages/incoming/catalog/CatalogClubEvent';
 import { CatalogClubGiftsEvent } from './messages/incoming/catalog/CatalogClubGiftsEvent';
@@ -1071,8 +1071,4 @@ export class NitroMessages implements IMessageConfiguration
     {
         return this._composers;
     }
-}
-function ChangeUserNameResultMessageEvent(USER_CHANGE_NAME: number, ChangeUserNameResultMessageEvent: any)
-{
-    throw new Error('Function not implemented.');
 }
