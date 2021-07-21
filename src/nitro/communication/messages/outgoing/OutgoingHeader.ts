@@ -246,4 +246,6 @@ export class OutgoingHeader
     public static TOGGLE_PET_BREEDING            = 3379;
     public static UNSEEN_RESET_CATEGORY          = 3493;
     public static UNSEEN_RESET_ITEMS             = 2343;
+    public static COMMUNITY_GOAL_VOTE_COMPOSER   = 3536;
+    public static GET_PROMO_ARTICLES             = 1827;
 }

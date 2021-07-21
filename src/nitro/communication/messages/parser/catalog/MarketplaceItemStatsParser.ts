@@ -70,13 +70,13 @@ export class MarketplaceItemStatsParser implements IMessageParser
         this._averagePrices = [];
         this._soldAmounts = [];
 
-        for(let i = 0; i < count; i++) 
+        for(let i = 0; i < count; i++)
         {
             this._dayOffsets.push(wrapper.readInt());
             this._averagePrices.push(wrapper.readInt());
             this._soldAmounts.push(wrapper.readInt());
         }
-        
+
         this._furniCategoryId = wrapper.readInt();
         this._furniTypeId = wrapper.readInt();
         return true;

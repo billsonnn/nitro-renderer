@@ -1,4 +1,4 @@
-export class PetBreedingResultData 
+export class PetBreedingResultData
 {
     private _stuffId: number;
     private _classId: number;

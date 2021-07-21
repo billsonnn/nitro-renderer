@@ -23,7 +23,7 @@ export class RoomWidgetCameraPublishedParser implements IMessageParser
         this._wasSuccessful     = wrapper.readBoolean();
         this._cooldownSeconds   = wrapper.readInt();
         this._extraDataId       = wrapper.readInt();
-        
+
         return true;
     }
 

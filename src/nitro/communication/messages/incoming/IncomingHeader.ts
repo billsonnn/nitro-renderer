@@ -252,4 +252,6 @@ export class IncomingHeader
     public static CATALOG_APPROVE_NAME_RESULT      = 1503;
     public static OBJECTS_DATA_UPDATE              = 1453;
     public static PET_EXPERIENCE                   = 2156;
+    public static COMMUNITY_GOAL_VOTE_EVENT        = 1435;
+    public static PROMO_ARTICLES                   = 286;
 }

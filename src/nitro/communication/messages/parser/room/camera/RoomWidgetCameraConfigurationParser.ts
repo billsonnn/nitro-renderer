@@ -23,7 +23,7 @@ export class RoomWidgetCameraConfigurationParser implements IMessageParser
         this._credits       = wrapper.readInt();
         this._points        = wrapper.readInt();
         this._pointsType    = wrapper.readInt();
-        
+
         return true;
     }
 
