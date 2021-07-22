@@ -248,4 +248,20 @@ export class OutgoingHeader
     public static UNSEEN_RESET_ITEMS             = 2343;
     public static COMMUNITY_GOAL_VOTE_COMPOSER   = 3536;
     public static GET_PROMO_ARTICLES             = 1827;
+    public static ACCEPT_QUEST                   = 3604;
+    public static ACTIVATE_QUEST                 = 793;
+    public static CANCEL_QUEST                   = 3133;
+    public static FRIEND_REQUEST_QUEST_COMPLETE  = 1148;
+    public static GET_COMMUNITY_GOAL_EARNED_PRIZES = 2688;
+    public static GET_COMMUNITY_GOAL_HALL_OF_FAME = 2167;
+    public static GET_COMMUNITY_GOAL_PROGRESS     = 1145;
+    public static GET_CONCURRENT_USERS_GOAL_PROGRESS = 1343;
+    public static GET_CONCURRENT_USERS_REWARD      = 3872;
+    public static GET_DAILY_QUEST                  = 2486;
+    public static GET_QUESTS                       = 3333;
+    public static GET_SEASONAL_QUESTS_ONLY         = 1190;
+    public static OPEN_QUEST_TRACKER               = 2750;
+    public static REDEEM_COMMUNITY_GOAL_PRIZE      = 90;
+    public static REJECT_QUEST                     = 2397;
+    public static START_CAMPAIGN                   = 1697;
 }
