@@ -325,6 +325,22 @@ import { NavigatorSettingsSaveComposer } from './messages/outgoing/navigator/Nav
 import { OutgoingHeader } from './messages/outgoing/OutgoingHeader';
 import { PetRespectComposer } from './messages/outgoing/pet/PetRespectComposer';
 import { RequestPetInfoComposer } from './messages/outgoing/pet/RequestPetInfoComposer';
+import { AcceptQuestMessageComposer } from './messages/outgoing/quest/AcceptQuestMessageComposer';
+import { ActivateQuestMessageComposer } from './messages/outgoing/quest/ActivateQuestMessageComposer';
+import { CancelQuestMessageComposer } from './messages/outgoing/quest/CancelQuestMessageComposer';
+import { FriendRequestQuestCompleteMessageComposer } from './messages/outgoing/quest/FriendRequestQuestCompleteMessageComposer';
+import { GetCommunityGoalEarnedPrizesMessageComposer } from './messages/outgoing/quest/GetCommunityGoalEarnedPrizesMessageComposer';
+import { GetCommunityGoalHallOfFameMessageComposer } from './messages/outgoing/quest/GetCommunityGoalHallOfFameMessageComposer';
+import { GetCommunityGoalProgressMessageComposer } from './messages/outgoing/quest/GetCommunityGoalProgressMessageComposer';
+import { GetConcurrentUsersGoalProgressMessageComposer } from './messages/outgoing/quest/GetConcurrentUsersGoalProgressMessageComposer';
+import { GetConcurrentUsersRewardMessageComposer } from './messages/outgoing/quest/GetConcurrentUsersRewardMessageComposer';
+import { GetDailyQuestMessageComposer } from './messages/outgoing/quest/GetDailyQuestMessageComposer';
+import { GetQuestsMessageComposer } from './messages/outgoing/quest/GetQuestsMessageComposer';
+import { GetSeasonalQuestsOnlyMessageComposer } from './messages/outgoing/quest/GetSeasonalQuestsOnlyMessageComposer';
+import { OpenQuestTrackerMessageComposer } from './messages/outgoing/quest/OpenQuestTrackerMessageComposer';
+import { RedeemCommunityGoalPrizeMessageComposer } from './messages/outgoing/quest/RedeemCommunityGoalPrizeMessageComposer';
+import { RejectQuestMessageComposer } from './messages/outgoing/quest/RejectQuestMessageComposer';
+import { StartCampaignMessageComposer } from './messages/outgoing/quest/StartCampaignMessageComposer';
 import { RoomDoorbellAccessComposer } from './messages/outgoing/room/access/RoomDoorbellAccessComposer';
 import { RoomEnterComposer } from './messages/outgoing/room/access/RoomEnterComposer';
 import { RoomAmbassadorAlertComposer } from './messages/outgoing/room/action/RoomAmbassadorAlertComposer';
@@ -1096,6 +1112,23 @@ export class NitroMessages implements IMessageConfiguration
         // LANDING VIEW
         this._composers.set(OutgoingHeader.COMMUNITY_GOAL_VOTE_COMPOSER, CommunityGoalVoteMessageComposer);
         this._composers.set(OutgoingHeader.GET_PROMO_ARTICLES, GetPromoArticlesComposer);
+
+        this._composers.set(OutgoingHeader.ACCEPT_QUEST, AcceptQuestMessageComposer);
+        this._composers.set(OutgoingHeader.ACTIVATE_QUEST, ActivateQuestMessageComposer);
+        this._composers.set(OutgoingHeader.CANCEL_QUEST, CancelQuestMessageComposer);
+        this._composers.set(OutgoingHeader.FRIEND_REQUEST_QUEST_COMPLETE, FriendRequestQuestCompleteMessageComposer);
+        this._composers.set(OutgoingHeader.GET_COMMUNITY_GOAL_EARNED_PRIZES, GetCommunityGoalEarnedPrizesMessageComposer);
+        this._composers.set(OutgoingHeader.GET_COMMUNITY_GOAL_HALL_OF_FAME, GetCommunityGoalHallOfFameMessageComposer);
+        this._composers.set(OutgoingHeader.GET_COMMUNITY_GOAL_PROGRESS, GetCommunityGoalProgressMessageComposer);
+        this._composers.set(OutgoingHeader.GET_CONCURRENT_USERS_GOAL_PROGRESS, GetConcurrentUsersGoalProgressMessageComposer);
+        this._composers.set(OutgoingHeader.GET_CONCURRENT_USERS_REWARD, GetConcurrentUsersRewardMessageComposer);
+        this._composers.set(OutgoingHeader.GET_DAILY_QUEST, GetDailyQuestMessageComposer);
+        this._composers.set(OutgoingHeader.GET_QUESTS, GetQuestsMessageComposer);
+        this._composers.set(OutgoingHeader.GET_SEASONAL_QUESTS_ONLY, GetSeasonalQuestsOnlyMessageComposer);
+        this._composers.set(OutgoingHeader.OPEN_QUEST_TRACKER, OpenQuestTrackerMessageComposer);
+        this._composers.set(OutgoingHeader.REDEEM_COMMUNITY_GOAL_PRIZE, RedeemCommunityGoalPrizeMessageComposer);
+        this._composers.set(OutgoingHeader.REJECT_QUEST, RejectQuestMessageComposer);
+        this._composers.set(OutgoingHeader.START_CAMPAIGN, StartCampaignMessageComposer);
     }
 
     public get events(): Map<number, Function>
