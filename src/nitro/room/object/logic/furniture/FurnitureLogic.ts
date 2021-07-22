@@ -8,6 +8,7 @@ import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
 import { IVector3D } from '../../../../../room/utils/IVector3D';
 import { Vector3d } from '../../../../../room/utils/Vector3d';
 import { MouseEventType } from '../../../../ui/MouseEventType';
+import { RoomObjectRoomAdEvent } from '../../../events';
 import { RoomObjectStateChangedEvent } from '../../../events/RoomObjectStateChangedEvent';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
@@ -133,6 +134,13 @@ export class FurnitureLogic extends MovingObjectLogic
         return model.getValue<string>(RoomObjectVariable.FURNITURE_AD_URL);
     }
 
+    protected handleAdClick():void
+    {
+        if(!this.eventDispatcher) return;
+
+        this.eventDispatcher.dispatchEvent(new RoomObjectRoomAdEvent(RoomObjectRoomAdEvent.ROOM_AD_FURNI_CLICK, this.object));
+    }
+
     public update(time: number): void
     {
         super.update(time);
@@ -256,6 +264,11 @@ export class FurnitureLogic extends MovingObjectLogic
                 {
                     if(this.eventDispatcher)
                     {
+                        if(adUrl && (adUrl.indexOf('http') === 0))
+                        {
+                            this.eventDispatcher.dispatchEvent(new RoomObjectRoomAdEvent(RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_SHOW, this.object));
+                        }
+
                         const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_ENTER, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
                         mouseEvent.localX           = event.localX;
@@ -274,6 +287,11 @@ export class FurnitureLogic extends MovingObjectLogic
                 {
                     if(this.eventDispatcher)
                     {
+                        if(adUrl && (adUrl.indexOf('http') === 0))
+                        {
+                            this.eventDispatcher.dispatchEvent(new RoomObjectRoomAdEvent(RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_HIDE, this.object));
+                        }
+
                         const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_LEAVE, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
                         mouseEvent.localX           = event.localX;
@@ -301,6 +319,13 @@ export class FurnitureLogic extends MovingObjectLogic
                     mouseEvent.spriteOffsetY    = event.spriteOffsetY;
 
                     this.eventDispatcher.dispatchEvent(mouseEvent);
+
+                    if(adUrl && (adUrl.indexOf('http') === 0))
+                    {
+                        this.eventDispatcher.dispatchEvent(new RoomObjectRoomAdEvent(RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_HIDE, this.object));
+                    }
+
+                    if(adUrl && adUrl.length) this.handleAdClick();
                 }
                 return;
             case MouseEventType.MOUSE_DOWN:
@@ -356,6 +381,8 @@ export class FurnitureLogic extends MovingObjectLogic
         if(!this.object || !this.eventDispatcher) return;
 
         const adUrl = this.getAdClickUrl(this.object.model);
+
+
 
         if(this.widget) this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.OPEN_WIDGET, this.object));
 

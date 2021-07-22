@@ -16,6 +16,7 @@ export * from './RoomObjectFurnitureActionEvent';
 export * from './RoomObjectHSLColorEnabledEvent';
 export * from './RoomObjectHSLColorEnableEvent';
 export * from './RoomObjectMoveEvent';
+export * from './RoomObjectRoomAdEvent';
 export * from './RoomObjectSamplePlaybackEvent';
 export * from './RoomObjectStateChangedEvent';
 export * from './RoomObjectTileMouseEvent';
