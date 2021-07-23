@@ -43,6 +43,11 @@ export class HabboWebTools
         }
     }
 
+    public static openWebPage(pageUrl: string): void
+    {
+        window.open(pageUrl);
+    }
+
     public static sendHeartBeat(): void
     {
         try

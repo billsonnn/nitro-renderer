@@ -3,7 +3,7 @@ import { IMessageParser } from '../../../../../../core/communication/messages/IM
 
 export class UserWardrobePageParser implements IMessageParser
 {
-    private _looks: Map<number, string[]>;
+    private _looks: Map<number, [ string, string ]>;
 
     public flush(): boolean
     {
@@ -26,7 +26,7 @@ export class UserWardrobePageParser implements IMessageParser
             const look      = wrapper.readString();
             const gender    = wrapper.readString();
 
-            this._looks.set(slotId, [look, gender]);
+            this._looks.set(slotId, [ look, gender ]);
 
             totalLooks--;
         }

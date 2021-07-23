@@ -35,7 +35,7 @@ import { RoomUnitWalkComposer } from '../communication/messages/outgoing/room/un
 import { Nitro } from '../Nitro';
 import { MouseEventType } from '../ui/MouseEventType';
 import { RoomObjectPlacementSource } from './enums/RoomObjectPlacementSource';
-import { RoomEngineUseProductEvent } from './events';
+import { RoomEngineRoomAdEvent, RoomEngineUseProductEvent, RoomObjectRoomAdEvent } from './events';
 import { RoomEngineDimmerStateEvent } from './events/RoomEngineDimmerStateEvent';
 import { RoomEngineObjectEvent } from './events/RoomEngineObjectEvent';
 import { RoomEngineObjectPlacedEvent } from './events/RoomEngineObjectPlacedEvent';
@@ -298,6 +298,13 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             case RoomObjectFloorHoleEvent.ADD_HOLE:
             case RoomObjectFloorHoleEvent.REMOVE_HOLE:
                 this.onRoomObjectFloorHoleEvent(event as RoomObjectFloorHoleEvent, roomId);
+                return;
+            case RoomObjectRoomAdEvent.ROOM_AD_FURNI_CLICK:
+            case RoomObjectRoomAdEvent.ROOM_AD_FURNI_DOUBLE_CLICK:
+            case RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_SHOW:
+            case RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_HIDE:
+            case RoomObjectRoomAdEvent.ROOM_AD_LOAD_IMAGE:
+                this.onRoomObjectRoomAdEvent(event as RoomObjectRoomAdEvent, roomId);
                 return;
             case RoomObjectBadgeAssetEvent.LOAD_BADGE:
                 this.onRoomObjectBadgeAssetEvent(event as RoomObjectBadgeAssetEvent, roomId);
@@ -865,6 +872,48 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 this._roomEngine.removeRoomInstanceFloorHole(roomId, event.objectId);
                 return;
         }
+    }
+
+    private onRoomObjectRoomAdEvent(event: RoomObjectRoomAdEvent, roomId: number): void
+    {
+        if(!event) return;
+
+        let eventType: string = null;
+
+        switch(event.type)
+        {
+            case RoomObjectRoomAdEvent.ROOM_AD_FURNI_CLICK:
+                this._roomEngine.events.dispatchEvent(event);
+
+                if(event.clickUrl && (event.clickUrl.length > 0))
+                {
+                    Nitro.instance.createLinkEvent(event.clickUrl);
+                }
+
+                eventType = RoomEngineRoomAdEvent.FURNI_CLICK;
+                break;
+            case RoomObjectRoomAdEvent.ROOM_AD_FURNI_DOUBLE_CLICK:
+                if(event.clickUrl && (event.clickUrl.length > 0))
+                {
+                    const catalogPage = 'CATALOG_PAGE';
+
+                    if(event.clickUrl.indexOf(catalogPage) === 0)
+                    {
+                        Nitro.instance.createLinkEvent(event.clickUrl.substr(catalogPage.length));
+                    }
+                }
+
+                eventType = RoomEngineRoomAdEvent.FURNI_DOUBLE_CLICK;
+                break;
+            case RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_SHOW:
+                eventType = RoomEngineRoomAdEvent.TOOLTIP_SHOW;
+                break;
+            case RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_HIDE:
+                eventType = RoomEngineRoomAdEvent.TOOLTIP_HIDE;
+                break;
+        }
+
+        if(eventType) this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(eventType, roomId, event.objectId, this._roomEngine.getRoomObjectCategoryForType(event.objectType)));
     }
 
     private onRoomObjectBadgeAssetEvent(event: RoomObjectBadgeAssetEvent, roomId: number): void

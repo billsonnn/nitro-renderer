@@ -6,6 +6,10 @@ import { FurnitureVisualization } from './FurnitureVisualization';
 export class FurnitureBrandedImageVisualization extends FurnitureVisualization
 {
     private static BRANDED_IMAGE: string = 'branded_image';
+    private static STATE_0: number = 0;
+    private static STATE_1: number = 1;
+    private static STATE_2: number = 2;
+    private static STATE_3: number = 3;
 
     protected _imageUrl: string;
     protected _shortUrl: string;
@@ -139,7 +143,42 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
 
         if(!texture) return;
 
-        this.asset.addAsset(this._imageUrl, texture, true, 0, 0, false, false);
+        const state = this.object.getState(0);
+
+        let x = 0;
+        let y = 0;
+        let flipH = false;
+        let flipV = false;
+
+        switch(state)
+        {
+            case FurnitureBrandedImageVisualization.STATE_0:
+                x = 0;
+                y = 0;
+                flipH = false;
+                flipV = false;
+                break;
+            case FurnitureBrandedImageVisualization.STATE_1:
+                x = -(texture.width);
+                y = 0;
+                flipH = true;
+                flipV = false;
+                break;
+            case FurnitureBrandedImageVisualization.STATE_2:
+                x = -(texture.width);
+                y = -(texture.height);
+                flipH = true;
+                flipV = true;
+                break;
+            case FurnitureBrandedImageVisualization.STATE_3:
+                x = 0;
+                y = -(texture.height);
+                flipH = false;
+                flipV = true;
+                break;
+        }
+
+        this.asset.addAsset(this._imageUrl, texture, true, x, y, flipH, flipV);
     }
 
     protected getSpriteAssetName(scale: number, layerId: number): string
@@ -149,14 +188,5 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
         if((tag === FurnitureBrandedImageVisualization.BRANDED_IMAGE) && this._imageUrl) return this._imageUrl;
 
         return super.getSpriteAssetName(scale, layerId);
-    }
-
-    protected getLayerIgnoreMouse(scale: number, direction: number, layerId: number): boolean
-    {
-        const tag = this.getLayerTag(scale, direction, layerId);
-
-        if(tag !== FurnitureBrandedImageVisualization.BRANDED_IMAGE) return super.getLayerIgnoreMouse(scale, direction, layerId);
-
-        return true;
     }
 }

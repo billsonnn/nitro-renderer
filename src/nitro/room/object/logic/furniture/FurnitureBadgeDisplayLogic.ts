@@ -57,6 +57,11 @@ export class FurnitureBadgeDisplayLogic extends FurnitureLogic
     {
         if(badgeId === '') return;
 
-        if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectBadgeAssetEvent(RoomObjectBadgeAssetEvent.LOAD_BADGE, this.object, badgeId, false));
+        if(this.eventDispatcher)
+        {
+            this.object.model.setValue(RoomObjectVariable.FURNITURE_BADGE_IMAGE_STATUS, -1);
+
+            this.eventDispatcher.dispatchEvent(new RoomObjectBadgeAssetEvent(RoomObjectBadgeAssetEvent.LOAD_BADGE, this.object, badgeId, false));
+        }
     }
 }

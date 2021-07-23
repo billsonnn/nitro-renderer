@@ -26,7 +26,7 @@ export class BadgeImageManager
         this._assets = null;
     }
 
-    public getBadgeImage(badgeName: string, type: string = 'normal_badge', load: boolean = true): Texture<Resource>
+    public getBadgeImage(badgeName: string, type: string = BadgeImageManager.NORMAL_BADGE, load: boolean = true): Texture<Resource>
     {
         let badge = this.getBadgeTexture(badgeName, type);
 
@@ -42,24 +42,24 @@ export class BadgeImageManager
         return (badge) ? new BadgeInfo(badge, false) : new BadgeInfo(this.getBadgePlaceholder(), true);
     }
 
-    public loadBadgeImage(badgeName: string, type: string = 'normal_badge'): string
+    public loadBadgeImage(badgeName: string, type: string = BadgeImageManager.NORMAL_BADGE): string
     {
-        if(this._assets.getTexture(badgeName)) return badgeName;
+        if(this._assets.getTexture(this.getBadgeUrl(badgeName, type))) return badgeName;
 
         this.getBadgeTexture(badgeName, type);
 
         return null;
     }
 
-    private getBadgeTexture(badgeName: string, type: string = 'normal_badge'): Texture<Resource>
+    private getBadgeTexture(badgeName: string, type: string = BadgeImageManager.NORMAL_BADGE): Texture<Resource>
     {
-        const existing = this._assets.getTexture(badgeName);
+        const url = this.getBadgeUrl(badgeName, type);
+
+        const existing = this._assets.getTexture(url);
 
         if(existing) return existing.clone();
 
         if(this._requestedBadges.get(badgeName)) return null;
-
-        const url = this.getBadgeUrl(badgeName, type);
 
         if(url)
         {
@@ -69,7 +69,7 @@ export class BadgeImageManager
             {
                 if(flag)
                 {
-                    const texture = this._assets.getTexture(badgeName);
+                    const texture = this._assets.getTexture(url);
 
                     if(texture && this._events) this._events.dispatchEvent(new BadgeImageReadyEvent(badgeName, texture.clone()));
                 }
@@ -81,14 +81,15 @@ export class BadgeImageManager
 
     private getBadgePlaceholder(): Texture<Resource>
     {
-        const existing = this._assets.getTexture('loading_icon');
+        const url = (Nitro.instance.getConfiguration<string>('images.url') + '/loading_icon.png');
+        const existing = this._assets.getTexture(url);
 
         if(!existing) return null;
 
         return existing.clone();
     }
 
-    public getBadgeUrl(badge: string, type: string = 'normal_badge'): string
+    public getBadgeUrl(badge: string, type: string = BadgeImageManager.NORMAL_BADGE): string
     {
         let url = null;
 
