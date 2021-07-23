@@ -265,4 +265,5 @@ export class IncomingHeader
     public static SEASONAL_QUESTS                  = 1122;
     public static QUESTS                           = 3625;
     public static QUEST                            = 230;
+    public static BONUS_RARE_INFO                  = 1533;
 }

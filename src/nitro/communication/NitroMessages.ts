@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, FurnitureGuildInfoComposer, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, RoomWidgetCameraPublishedEvent, RoomWidgetCameraPurchaseComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer } from './messages';
+import { ApproveNameMessageComposer, BonusRareInfoMessageEvent, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, RoomWidgetCameraPublishedEvent, RoomWidgetCameraPurchaseComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CatalogClubEvent } from './messages/incoming/catalog/CatalogClubEvent';
 import { CatalogClubGiftsEvent } from './messages/incoming/catalog/CatalogClubGiftsEvent';
@@ -487,6 +487,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.REDEEM_VOUCHER_OK, CatalogRedeemVoucherOkEvent);
         this._events.set(IncomingHeader.CATALOG_RECEIVE_PET_BREEDS, SellablePetPalettesEvent);
         this._events.set(IncomingHeader.CATALOG_APPROVE_NAME_RESULT, CatalogApproveNameResultEvent);
+        this._events.set(IncomingHeader.BONUS_RARE_INFO, BonusRareInfoMessageEvent);
 
         // CAMERA
         this._events.set(IncomingHeader.CAMERA_PRICE, RoomWidgetCameraConfigurationEvent);
@@ -814,6 +815,7 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.GIFT_CONFIG, CatalogRequestGiftConfigurationComposer);
         this._composers.set(OutgoingHeader.CATALOG_SELECT_VIP_GIFT, CatalogSelectClubGiftComposer);
         this._composers.set(OutgoingHeader.CATALOG_REQUESET_PET_BREEDS, CatalogRequestPetBreedsComposer);
+        this._composers.set(OutgoingHeader.GET_BONUS_RARE_INFO, GetBonusRareInfoMessageComposer);
 
         // CAMERA
         this._composers.set(OutgoingHeader.CAMERA_PRICE, RoomWidgetCameraConfigurationComposer);
@@ -1113,6 +1115,7 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.COMMUNITY_GOAL_VOTE_COMPOSER, CommunityGoalVoteMessageComposer);
         this._composers.set(OutgoingHeader.GET_PROMO_ARTICLES, GetPromoArticlesComposer);
 
+        // QUEST
         this._composers.set(OutgoingHeader.ACCEPT_QUEST, AcceptQuestMessageComposer);
         this._composers.set(OutgoingHeader.ACTIVATE_QUEST, ActivateQuestMessageComposer);
         this._composers.set(OutgoingHeader.CANCEL_QUEST, CancelQuestMessageComposer);
