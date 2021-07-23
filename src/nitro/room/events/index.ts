@@ -5,6 +5,7 @@ export * from './RoomEngineEvent';
 export * from './RoomEngineObjectEvent';
 export * from './RoomEngineObjectPlacedEvent';
 export * from './RoomEngineObjectPlacedOnUserEvent';
+export * from './RoomEngineRoomAdEvent';
 export * from './RoomEngineSamplePlaybackEvent';
 export * from './RoomEngineTriggerWidgetEvent';
 export * from './RoomEngineUseProductEvent';

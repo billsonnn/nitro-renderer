@@ -387,6 +387,11 @@ export class RoomPreviewer
         if(this.isRoomEngineReady) this._roomEngine.updateRoomObjectUserAction(this._previewRoomId, RoomPreviewer.PREVIEW_OBJECT_ID, action, value, parameter);
     }
 
+    public updateObjectStuffData(stuffData: IObjectData): void
+    {
+        if(this.isRoomEngineReady) this._roomEngine.updateRoomObjectFloor(this._previewRoomId, RoomPreviewer.PREVIEW_OBJECT_ID, null, null, stuffData.state, stuffData);
+    }
+
     public changeRoomObjectState(): void
     {
         if(this.isRoomEngineReady)

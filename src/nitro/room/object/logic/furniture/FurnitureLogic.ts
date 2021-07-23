@@ -63,7 +63,15 @@ export class FurnitureLogic extends MovingObjectLogic
 
     public getEventTypes(): string[]
     {
-        const types = [ RoomObjectStateChangedEvent.STATE_CHANGE, RoomObjectMouseEvent.CLICK, RoomObjectMouseEvent.MOUSE_DOWN, RoomObjectMouseEvent.MOUSE_DOWN_LONG ];
+        const types = [
+            RoomObjectStateChangedEvent.STATE_CHANGE,
+            RoomObjectMouseEvent.CLICK,
+            RoomObjectMouseEvent.MOUSE_DOWN,
+            RoomObjectMouseEvent.MOUSE_DOWN_LONG,
+            RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_SHOW,
+            RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_HIDE,
+            RoomObjectRoomAdEvent.ROOM_AD_FURNI_DOUBLE_CLICK,
+            RoomObjectRoomAdEvent.ROOM_AD_FURNI_CLICK ];
 
         if(this.widget) types.push(RoomObjectWidgetRequestEvent.OPEN_WIDGET, RoomObjectWidgetRequestEvent.CLOSE_WIDGET);
 
@@ -134,7 +142,7 @@ export class FurnitureLogic extends MovingObjectLogic
         return model.getValue<string>(RoomObjectVariable.FURNITURE_AD_URL);
     }
 
-    protected handleAdClick():void
+    protected handleAdClick(objectId: number, objectType: string, clickUrl: string):void
     {
         if(!this.eventDispatcher) return;
 
@@ -325,7 +333,7 @@ export class FurnitureLogic extends MovingObjectLogic
                         this.eventDispatcher.dispatchEvent(new RoomObjectRoomAdEvent(RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_HIDE, this.object));
                     }
 
-                    if(adUrl && adUrl.length) this.handleAdClick();
+                    if(adUrl && adUrl.length) this.handleAdClick(this.object.id, this.object.type, adUrl);
                 }
                 return;
             case MouseEventType.MOUSE_DOWN:
@@ -380,9 +388,12 @@ export class FurnitureLogic extends MovingObjectLogic
     {
         if(!this.object || !this.eventDispatcher) return;
 
-        const adUrl = this.getAdClickUrl(this.object.model);
+        const clickUrl = this.getAdClickUrl(this.object.model);
 
-
+        if(clickUrl && clickUrl.length)
+        {
+            this.eventDispatcher.dispatchEvent(new RoomObjectRoomAdEvent(RoomObjectRoomAdEvent.ROOM_AD_FURNI_DOUBLE_CLICK, this.object, null, clickUrl));
+        }
 
         if(this.widget) this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.OPEN_WIDGET, this.object));
 

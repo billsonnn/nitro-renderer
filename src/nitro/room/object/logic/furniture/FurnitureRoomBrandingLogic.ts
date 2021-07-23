@@ -1,6 +1,10 @@
+import { IAssetData } from '../../../../../core';
+import { IRoomGeometry, RoomSpriteMouseEvent } from '../../../../../room';
 import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
 import { Nitro } from '../../../../Nitro';
+import { MouseEventType } from '../../../../ui';
 import { RoomWidgetEnumItemExtradataParameter } from '../../../../ui/widget/enums/RoomWidgetEnumItemExtradataParameter';
+import { RoomObjectRoomAdEvent } from '../../../events';
 import { ObjectAdUpdateMessage } from '../../../messages/ObjectAdUpdateMessage';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
 import { MapDataType } from '../../data/type/MapDataType';
@@ -16,13 +20,32 @@ export class FurnitureRoomBrandingLogic extends FurnitureLogic
     public static OFFSETY_KEY: string   = 'offsetY';
     public static OFFSETZ_KEY: string   = 'offsetZ';
 
+    protected _disableFurnitureSelection: boolean;
     protected _hasClickUrl: boolean;
 
     constructor()
     {
         super();
 
+        this._disableFurnitureSelection = true;
         this._hasClickUrl = false;
+    }
+
+    public getEventTypes(): string[]
+    {
+        const types = [ RoomObjectRoomAdEvent.ROOM_AD_LOAD_IMAGE ];
+
+        return this.mergeTypes(super.getEventTypes(), types);
+    }
+
+    public initialize(asset: IAssetData): void
+    {
+        super.initialize(asset);
+
+        if(this._disableFurnitureSelection)
+        {
+            this.object.model.setValue(RoomObjectVariable.FURNITURE_SELECTION_DISABLED, 1);
+        }
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void
@@ -104,6 +127,15 @@ export class FurnitureRoomBrandingLogic extends FurnitureLogic
                 this.object.model.setValue(RoomObjectVariable.FURNITURE_BRANDING_IMAGE_STATUS, -1);
                 break;
         }
+    }
+
+    public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
+    {
+        if(!event || !geometry) return;
+
+        if((event.type === MouseEventType.MOUSE_MOVE) || (event.type === MouseEventType.DOUBLE_CLICK)) return;
+
+        super.mouseEvent(event, geometry);
     }
 
     private downloadBackground(): void

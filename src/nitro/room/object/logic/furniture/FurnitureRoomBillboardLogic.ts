@@ -1,5 +1,6 @@
 import { IRoomObjectModel } from '../../../../../room/object/IRoomObjectModel';
 import { HabboWebTools } from '../../../../utils';
+import { RoomObjectRoomAdEvent } from '../../../events';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureRoomBrandingLogic } from './FurnitureRoomBrandingLogic';
 
@@ -17,17 +18,15 @@ export class FurnitureRoomBillboardLogic extends FurnitureRoomBrandingLogic
         return model.getValue<string>(RoomObjectVariable.FURNITURE_BRANDING_URL);
     }
 
-    protected handleAdClick():void
+    protected handleAdClick(objectId: number, objectType: string, clickUrl: string):void
     {
-        const adUrl = this.getAdClickUrl(this.object.model);
-
-        if(adUrl.indexOf('http') === 0)
+        if(clickUrl.indexOf('http') === 0)
         {
-            HabboWebTools.openWebPage(adUrl);
+            HabboWebTools.openWebPage(clickUrl);
 
             return;
         }
 
-        super.handleAdClick();
+        if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectRoomAdEvent(RoomObjectRoomAdEvent.ROOM_AD_FURNI_CLICK, this.object, '', clickUrl));
     }
 }

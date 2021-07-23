@@ -22,22 +22,25 @@ export class FurnitureBadgeDisplayVisualization extends FurnitureAnimatedVisuali
     {
         let updateModel = super.updateModel(scale);
 
-        if(!isNaN(this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BADGE_IMAGE_STATUS)))
+        const badgeStatus = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BADGE_IMAGE_STATUS);
+
+        if(badgeStatus === -1)
         {
-            const status = (this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BADGE_IMAGE_STATUS) !== 0);
+            this._badgeAssetNameNormalScale = '';
+            this._badgeAssetNameSmallScale = '';
+        }
 
-            if(status && this._badgeAssetNameNormalScale === '')
-            {
-                this._badgeAssetNameNormalScale = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_BADGE_ASSET_NAME);
+        else if(badgeStatus === 1 && (this._badgeAssetNameNormalScale === ''))
+        {
+            this._badgeAssetNameNormalScale = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_BADGE_ASSET_NAME);
 
-                if(this._badgeAssetNameSmallScale === '') this._badgeAssetNameSmallScale = this._badgeAssetNameNormalScale + '_32';
+            if(this._badgeAssetNameSmallScale === '') this._badgeAssetNameSmallScale = this._badgeAssetNameNormalScale + '_32';
 
-                const visibleInState = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BADGE_VISIBLE_IN_STATE);
+            const visibleInState = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BADGE_VISIBLE_IN_STATE);
 
-                if(!isNaN) this._badgeVisibleInState = visibleInState;
+            if(!isNaN(visibleInState)) this._badgeVisibleInState = visibleInState;
 
-                updateModel = true;
-            }
+            updateModel = true;
         }
 
         return updateModel;
