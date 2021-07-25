@@ -2438,7 +2438,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         const badgeName     = (groupBadge) ? this._sessionDataManager.loadGroupBadgeImage(badgeId) : this._sessionDataManager.loadBadgeImage(badgeId);
         const badgeImage    = (groupBadge) ? this._sessionDataManager.getGroupBadgeImage(badgeId) : this._sessionDataManager.getBadgeImage(badgeId);
 
-        if(badgeImage) this._roomContentLoader.addAssetToCollection(object.type, badgeName, badgeImage);
+        if(badgeImage) this._roomContentLoader.addAssetToCollection(object.type, badgeName, badgeImage, false);
     }
 
     public dispatchMouseEvent(canvasId: number, x: number, y: number, type: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean, buttonDown: boolean): void

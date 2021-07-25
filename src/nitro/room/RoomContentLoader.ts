@@ -316,13 +316,13 @@ export class RoomContentLoader implements IFurnitureDataListener
         return image;
     }
 
-    public addAssetToCollection(collectionName: string, assetName: string, texture: Texture<Resource>): boolean
+    public addAssetToCollection(collectionName: string, assetName: string, texture: Texture<Resource>, override: boolean = true): boolean
     {
         const collection = this.getCollection(collectionName);
 
         if(!collection) return false;
 
-        return collection.addAsset(assetName, texture, true, 0, 0, false, false);
+        return collection.addAsset(assetName, texture, override, 0, 0, false, false);
     }
 
     private createCollection(data: IAssetData, spritesheet: Spritesheet): GraphicAssetCollection

@@ -5,6 +5,7 @@ export class FurnitureBadgeDisplayVisualization extends FurnitureAnimatedVisuali
 {
     private static BADGE: string = 'BADGE';
 
+    private _badgeId: string;
     private _badgeAssetNameNormalScale: string;
     private _badgeAssetNameSmallScale: string;
     private _badgeVisibleInState: number;
@@ -13,6 +14,7 @@ export class FurnitureBadgeDisplayVisualization extends FurnitureAnimatedVisuali
     {
         super();
 
+        this._badgeId                   = '';
         this._badgeAssetNameNormalScale = '';
         this._badgeAssetNameSmallScale  = '';
         this._badgeVisibleInState       = -1;
@@ -22,7 +24,8 @@ export class FurnitureBadgeDisplayVisualization extends FurnitureAnimatedVisuali
     {
         let updateModel = super.updateModel(scale);
 
-        const badgeStatus = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BADGE_IMAGE_STATUS);
+        const badgeStatus   = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BADGE_IMAGE_STATUS);
+        const badgeId       = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_BADGE_ASSET_NAME);
 
         if(badgeStatus === -1)
         {
@@ -30,9 +33,10 @@ export class FurnitureBadgeDisplayVisualization extends FurnitureAnimatedVisuali
             this._badgeAssetNameSmallScale = '';
         }
 
-        else if(badgeStatus === 1 && (this._badgeAssetNameNormalScale === ''))
+        else if((badgeStatus === 1) && (badgeId !== this._badgeId))
         {
-            this._badgeAssetNameNormalScale = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_BADGE_ASSET_NAME);
+            this._badgeId                   = badgeId;
+            this._badgeAssetNameNormalScale = this._badgeId;
 
             if(this._badgeAssetNameSmallScale === '') this._badgeAssetNameSmallScale = this._badgeAssetNameNormalScale + '_32';
 
