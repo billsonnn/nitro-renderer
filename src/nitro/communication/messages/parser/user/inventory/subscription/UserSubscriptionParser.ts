@@ -3,34 +3,36 @@ import { IMessageParser } from '../../../../../../../core/communication/messages
 
 export class UserSubscriptionParser implements IMessageParser
 {
-    public static readonly RESPONSE_TYPE_LOGIN:number = 1;
-    public static readonly RESPONSE_TYPE_PURCHASE:number = 2;
-    public static readonly RESPONSE_TYPE_DISCOUNT_AVAILABLE:number = 3;
-    public static readonly RESPONSE_TYPE_CITIZENSHIP_DISCOUNT:number = 4;
+    public static readonly RESPONSE_TYPE_LOGIN: number = 1;
+    public static readonly RESPONSE_TYPE_PURCHASE: number = 2;
+    public static readonly RESPONSE_TYPE_DISCOUNT_AVAILABLE: number = 3;
+    public static readonly RESPONSE_TYPE_CITIZENSHIP_DISCOUNT: number = 4;
 
-    private _name: string;
-    private _days: number;
-    private _int1: number;
-    private _months: number;
-    private _years: number;
+    private _productName: string;
+    private _daysToPeriodEnd: number;
+    private _memberPeriods: number;
+    private _periodsSubscribedAhead: number;
+    private _responseType: number;
     private _hasEverBeenMember: boolean;
     private _isVip: boolean;
     private _pastClubDays: number;
-    private _pastVIPDays: number;
-    private _totalSeconds: number;
+    private _pastVipDays: number;
+    private _minutesUntilExpiration: number;
+    private _minutesSinceLastModified: number;
 
     public flush(): boolean
     {
-        this._name              = null;
-        this._days              = 0;
-        this._int1              = 0;
-        this._months            = 0;
-        this._years             = 0;
-        this._hasEverBeenMember = false;
-        this._isVip             = false;
-        this._pastClubDays      = 0;
-        this._pastVIPDays       = 0;
-        this._totalSeconds      = 0;
+        this._productName               = null;
+        this._daysToPeriodEnd           = 0;
+        this._memberPeriods             = 0;
+        this._periodsSubscribedAhead    = 0;
+        this._responseType              = 0;
+        this._hasEverBeenMember         = false;
+        this._isVip                     = false;
+        this._pastClubDays              = 0;
+        this._pastVipDays               = 0;
+        this._minutesUntilExpiration    = 0;
+        this._minutesSinceLastModified  = 0;
 
         return true;
     }
@@ -39,44 +41,45 @@ export class UserSubscriptionParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._name          = wrapper.readString();
-        this._days          = wrapper.readInt();
-        this._int1          = wrapper.readInt();
-        this._months        = wrapper.readInt();
-        this._years         = wrapper.readInt();
+        this._productName               = wrapper.readString();
+        this._daysToPeriodEnd           = wrapper.readInt();
+        this._memberPeriods             = wrapper.readInt();
+        this._periodsSubscribedAhead    = wrapper.readInt();
+        this._responseType              = wrapper.readInt();
         this._hasEverBeenMember         = wrapper.readBoolean();
-        this._isVip         = wrapper.readBoolean();
-        this._pastClubDays  = wrapper.readInt();
-        this._pastVIPDays          = wrapper.readInt();
+        this._isVip                     = wrapper.readBoolean();
+        this._pastClubDays              = wrapper.readInt();
+        this._pastVipDays               = wrapper.readInt();
+        this._minutesUntilExpiration    = wrapper.readInt();
 
-        if(wrapper.bytesAvailable) this._totalSeconds = wrapper.readInt();
+        if(wrapper.bytesAvailable) this._minutesSinceLastModified = wrapper.readInt();
 
         return true;
     }
 
-    public get name(): string
+    public get productName(): string
     {
-        return this._name;
+        return this._productName;
     }
 
-    public get days(): number
+    public get daysToPeriodEnd(): number
     {
-        return this._days;
+        return this._daysToPeriodEnd;
     }
 
-    public get int1(): number
+    public get memberPeriods(): number
     {
-        return this._int1;
+        return this._memberPeriods;
     }
 
-    public get months(): number
+    public get periodsSubscribedAhead(): number
     {
-        return this._months;
+        return this._periodsSubscribedAhead;
     }
 
-    public get years(): number
+    public get responseType(): number
     {
-        return this._years;
+        return this._responseType;
     }
 
     public get hasEverBeenMember(): boolean
@@ -94,13 +97,18 @@ export class UserSubscriptionParser implements IMessageParser
         return this._pastClubDays;
     }
 
-    public get pastVIPDays(): number
+    public get pastVipDays(): number
     {
-        return this._pastVIPDays;
+        return this._pastVipDays;
     }
 
-    public get totalSeconds(): number
+    public get minutesUntilExpiration(): number
     {
-        return this._totalSeconds;
+        return this._minutesUntilExpiration;
+    }
+
+    public get minutesSinceLastModified(): number
+    {
+        return this._minutesSinceLastModified;
     }
 }
