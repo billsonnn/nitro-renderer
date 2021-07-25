@@ -264,4 +264,5 @@ export class OutgoingHeader
     public static REDEEM_COMMUNITY_GOAL_PRIZE      = 90;
     public static REJECT_QUEST                     = 2397;
     public static START_CAMPAIGN                   = 1697;
+    public static GET_BONUS_RARE_INFO = 957;
 }

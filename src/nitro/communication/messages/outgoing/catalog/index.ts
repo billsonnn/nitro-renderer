@@ -9,6 +9,7 @@ export * from './CatalogRequestVipGiftsComposer';
 export * from './CatalogRequestVipOffersComposer';
 export * from './CatalogSearchComposer';
 export * from './CatalogSelectClubGiftComposer';
+export * from './GetBonusRareInfoMessageComposer';
 export * from './marketplace';
 export * from './RedeemItemClothingComposer';
 export * from './RedeemVoucherComposer';

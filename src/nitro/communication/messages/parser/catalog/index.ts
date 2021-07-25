@@ -1,3 +1,4 @@
+export * from './BonusRareInfoMessageParser';
 export * from './CatalogApproveNameResultParser';
 export * from './CatalogClubParser';
 export * from './CatalogGiftConfigurationParser';
