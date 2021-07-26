@@ -1,5 +1,4 @@
-import { resources } from '@pixi/core';
-import { BaseTexture, Sprite, Texture } from 'pixi.js';
+import { BaseTexture, GLTexture, IAutoDetectOptions, Renderer, Resource, Sprite, Texture } from 'pixi.js';
 
 export interface IMultiTextureOptions {
     boundCountPerBuffer: number;
@@ -8,7 +7,7 @@ export interface IMultiTextureOptions {
     DO_CLEAR?: boolean;
 }
 
-export class MultiTextureResource extends resources.Resource
+export class MultiTextureResource extends Resource
 {
     constructor(options: IMultiTextureOptions)
     {
@@ -46,7 +45,7 @@ export class MultiTextureResource extends resources.Resource
     boundSprites: Array<Sprite> = [];
     dirties: Array<number> = [];
 
-    setTexture(ind: number, texture: Texture)
+    setTexture(ind: number, texture: Texture<Resource>)
     {
         const spr = this.boundSprites[ind];
         if(spr.texture.baseTexture === texture.baseTexture)
@@ -56,6 +55,12 @@ export class MultiTextureResource extends resources.Resource
         spr.texture = texture;
         this.baseTex.update();
         this.dirties[ind] = (this.baseTex as any).dirtyId;
+    }
+
+    // required ???
+    public upload(renderer: Renderer, baseTexture: BaseTexture<Resource, IAutoDetectOptions>, glTexture: GLTexture): boolean
+    {
+        return false;
     }
 
 }

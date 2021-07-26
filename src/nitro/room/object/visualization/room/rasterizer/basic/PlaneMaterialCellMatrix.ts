@@ -9,18 +9,18 @@ import { PlaneMaterialCellColumn } from './PlaneMaterialCellColumn';
 
 export class PlaneMaterialCellMatrix
 {
-    public static _Str_7916: number     = 1;
-    public static _Str_6087: number     = 2;
-    public static _Str_6114: number     = 3;
-    public static _Str_6187: number     = 4;
-    public static _Str_6063: number     = 5;
-    public static _Str_9127: number     = 6;
-    public static _Str_18632: number    = PlaneMaterialCellMatrix._Str_7916;//1
-    public static _Str_3268: number     = -1;
-    public static _Str_3271: number     = 1;
+    public static REPEAT_MODE_ALL: number     = 1;
+    public static REPEAT_MODE_BORDERS: number     = 2;
+    public static REPEAT_MODE_CENTER: number     = 3;
+    public static REPEAT_MODE_FIRST: number     = 4;
+    public static REPEAT_MODE_LAST: number     = 5;
+    public static REPEAT_MODE_RANDOM: number     = 6;
+    public static REPEAT_MODE_DEFAULT: number    = PlaneMaterialCellMatrix.REPEAT_MODE_ALL;//1
+    public static MIN_NORMAL_COORDINATE_VALUE: number     = -1;
+    public static MAX_NORMAL_COORDINATE_VALUE: number     = 1;
     public static ALIGN_TOP: number     = 1;
-    public static _Str_3606: number     = 2;
-    public static _Str_6914: number     = PlaneMaterialCellMatrix.ALIGN_TOP;//1
+    public static ALIGN_BOTTOM: number     = 2;
+    public static ALIGN_DEFAULT: number     = PlaneMaterialCellMatrix.ALIGN_TOP;//1
 
     private _columns: PlaneMaterialCellColumn[];
     private _repeatMode: number = 1;
@@ -54,15 +54,15 @@ export class PlaneMaterialCellMatrix
         this._normalMaxX = _arg_5;
         this._normalMinY = _arg_6;
         this._normalMaxY = _arg_7;
-        if(this._repeatMode == PlaneMaterialCellMatrix._Str_9127)
+        if(this._repeatMode == PlaneMaterialCellMatrix.REPEAT_MODE_RANDOM)
         {
             this._isStatic = false;
         }
     }
 
-    private static _Str_12526(k: number): number
+    private static nextRandomColumnIndex(k: number): number
     {
-        return ((Randomizer._Str_1612(1, 0, (k * 17631))[0]) % k);
+        return ((Randomizer.getValues(1, 0, (k * 17631))[0]) % k);
     }
 
     public get normalMinX(): number
@@ -85,9 +85,9 @@ export class PlaneMaterialCellMatrix
         return this._normalMaxY;
     }
 
-    public _Str_14945(): boolean
+    public isBottomAligned(): boolean
     {
-        return this._align === PlaneMaterialCellMatrix._Str_3606;
+        return this._align === PlaneMaterialCellMatrix.ALIGN_BOTTOM;
     }
 
     public get isStatic(): boolean
@@ -107,7 +107,7 @@ export class PlaneMaterialCellMatrix
         if(this._cachedBitmapNormal) this._cachedBitmapNormal = null;
     }
 
-    public _Str_3355(): void
+    public clearCache(): void
     {
         if(!this._isCached) return;
 
@@ -131,14 +131,14 @@ export class PlaneMaterialCellMatrix
             {
                 if(!column) continue;
 
-                column._Str_3355();
+                column.clearCache();
             }
         }
 
         this._isCached = false;
     }
 
-    public _Str_22372(k: number, _arg_2: number, _arg_3: PlaneMaterialCell[], _arg_4: number=1): boolean
+    public createColumn(k: number, _arg_2: number, _arg_3: PlaneMaterialCell[], _arg_4: number=1): boolean
     {
         if((k < 0) || (k >= this._columns.length)) return false;
 
@@ -172,7 +172,7 @@ export class PlaneMaterialCellMatrix
                 {
                     if(canvas)
                     {
-                        this._Str_17578(canvas, this._cachedBitmapHeight, offsetY, topAlign);
+                        this.copyCachedBitmapOnCanvas(canvas, this._cachedBitmapHeight, offsetY, topAlign);
 
                         return canvas;
                     }
@@ -231,7 +231,7 @@ export class PlaneMaterialCellMatrix
 
             if(canvas)
             {
-                this._Str_17578(canvas, height, offsetY, topAlign);
+                this.copyCachedBitmapOnCanvas(canvas, height, offsetY, topAlign);
 
                 return canvas;
             }
@@ -280,23 +280,23 @@ export class PlaneMaterialCellMatrix
 
         switch(this._repeatMode)
         {
-            case PlaneMaterialCellMatrix._Str_6087:
-            //     maxColumnHeight = this._Str_18476(this._cachedBitmapData, columns);
+            case PlaneMaterialCellMatrix.REPEAT_MODE_BORDERS:
+            //     maxColumnHeight = this.renderRepeatBorders(this._cachedBitmapData, columns);
                 break;
-            case PlaneMaterialCellMatrix._Str_6114:
-            //     maxColumnHeight = this._Str_17295(this._cachedBitmapData, columns);
+            case PlaneMaterialCellMatrix.REPEAT_MODE_CENTER:
+            //     maxColumnHeight = this.renderRepeatCenter(this._cachedBitmapData, columns);
                 break;
-            case PlaneMaterialCellMatrix._Str_6187:
-            //     maxColumnHeight = this._Str_18019(this._cachedBitmapData, columns);
+            case PlaneMaterialCellMatrix.REPEAT_MODE_FIRST:
+            //     maxColumnHeight = this.renderRepeatFirst(this._cachedBitmapData, columns);
                 break;
-            case PlaneMaterialCellMatrix._Str_6063:
-            //     maxColumnHeight = this._Str_16099(this._cachedBitmapData, columns);
+            case PlaneMaterialCellMatrix.REPEAT_MODE_LAST:
+            //     maxColumnHeight = this.renderRepeatLast(this._cachedBitmapData, columns);
                 break;
-            case PlaneMaterialCellMatrix._Str_9127:
-            //     maxColumnHeight = this._Str_25678(this._cachedBitmapData, columns);
+            case PlaneMaterialCellMatrix.REPEAT_MODE_RANDOM:
+            //     maxColumnHeight = this.renderRepeatRandom(this._cachedBitmapData, columns);
                 break;
             default:
-                maxColumnHeight = this._Str_18711(this._cachedBitmapData, columns);
+                maxColumnHeight = this.renderRepeatAll(this._cachedBitmapData, columns);
                 break;
         }
 
@@ -304,7 +304,7 @@ export class PlaneMaterialCellMatrix
 
         if(canvas)
         {
-            this._Str_17578(canvas, maxColumnHeight, offsetY, topAlign);
+            this.copyCachedBitmapOnCanvas(canvas, maxColumnHeight, offsetY, topAlign);
 
             return canvas;
         }
@@ -312,7 +312,7 @@ export class PlaneMaterialCellMatrix
         return this._cachedBitmapData;
     }
 
-    private _Str_17578(k: Graphics, _arg_2: number, _arg_3: number, _arg_4: boolean): void
+    private copyCachedBitmapOnCanvas(k: Graphics, _arg_2: number, _arg_3: number, _arg_4: boolean): void
     {
         if(!k || !this._cachedBitmapData || (k === this._cachedBitmapData)) return;
 
@@ -340,7 +340,7 @@ export class PlaneMaterialCellMatrix
         }
     }
 
-    private _Str_25859(k: Graphics[]): number
+    private getColumnsWidth(k: Graphics[]): number
     {
         if(!k || !k.length) return 0;
 
@@ -356,7 +356,7 @@ export class PlaneMaterialCellMatrix
         return width;
     }
 
-    private _Str_4606(k: Graphics, _arg_2: Graphics[], _arg_3: number, _arg_4: boolean): Point
+    private renderColumns(k: Graphics, _arg_2: Graphics[], _arg_3: number, _arg_4: boolean): Point
     {
         if(!k || !_arg_2 || !_arg_2.length) return new Point(_arg_3, 0);
 
@@ -381,7 +381,7 @@ export class PlaneMaterialCellMatrix
                     _arg_3 = (_arg_3 - _local_6.width);
                 }
                 let _local_8 = 0;
-                if(this._align == PlaneMaterialCellMatrix._Str_3606)
+                if(this._align == PlaneMaterialCellMatrix.ALIGN_BOTTOM)
                 {
                     _local_8 = (k.height - _local_6.height);
                 }
@@ -417,18 +417,18 @@ export class PlaneMaterialCellMatrix
         return new Point(_arg_3, height);
     }
 
-    private _Str_18711(k: Graphics, _arg_2: Graphics[]): number
+    private renderRepeatAll(k: Graphics, _arg_2: Graphics[]): number
     {
         if(!k || !_arg_2 || !_arg_2.length) return 0;
 
-        const totalWidth: number = this._Str_25859(_arg_2);
+        const totalWidth: number = this.getColumnsWidth(_arg_2);
 
         let x       = 0;
         let y       = 0;
 
         while(x < k.width)
         {
-            const point = this._Str_4606(k, _arg_2, x, true);
+            const point = this.renderColumns(k, _arg_2, x, true);
 
             x = point.x;
 
@@ -440,7 +440,7 @@ export class PlaneMaterialCellMatrix
         return y;
     }
 
-    // private _Str_18476(k:BitmapData, _arg_2:Array): number
+    // private renderRepeatBorders(k:BitmapData, _arg_2:Array): number
     // {
     //     if ((((_arg_2 == null) || (_arg_2.length == 0)) || (k == null)))
     //     {
@@ -473,7 +473,7 @@ export class PlaneMaterialCellMatrix
     //     }
     //     var _local_8:* = ((k.width - _local_6) >> 1);
     //     var _local_9:Point;
-    //     _local_9 = this._Str_4606(k, _local_5, _local_8, true);
+    //     _local_9 = this.renderColumns(k, _local_5, _local_8, true);
     //     var _local_10: number = _local_9.x;
     //     if (_local_9.y > _local_3)
     //     {
@@ -485,7 +485,7 @@ export class PlaneMaterialCellMatrix
     //         _local_5 = [_local_4];
     //         while (_local_8 >= 0)
     //         {
-    //             _local_9 = this._Str_4606(k, _local_5, _local_8, false);
+    //             _local_9 = this.renderColumns(k, _local_5, _local_8, false);
     //             _local_8 = _local_9.x;
     //             if (_local_9.y > _local_3)
     //             {
@@ -499,7 +499,7 @@ export class PlaneMaterialCellMatrix
     //         _local_5 = [_local_4];
     //         while (_local_10 < k.height)
     //         {
-    //             _local_9 = this._Str_4606(k, _local_5, _local_10, true);
+    //             _local_9 = this.renderColumns(k, _local_5, _local_10, true);
     //             _local_10 = _local_9.x;
     //             if (_local_9.y > _local_3)
     //             {
@@ -510,7 +510,7 @@ export class PlaneMaterialCellMatrix
     //     return _local_3;
     // }
 
-    // private _Str_17295(k:BitmapData, _arg_2:Array): number
+    // private renderRepeatCenter(k:BitmapData, _arg_2:Array): number
     // {
     //     var _local_14: number;
     //     var _local_15: number;
@@ -573,7 +573,7 @@ export class PlaneMaterialCellMatrix
     //             _local_18 = [_local_4];
     //             while (_local_12 < _local_17)
     //             {
-    //                 _local_10 = this._Str_4606(k, _local_18, _local_12, true);
+    //                 _local_10 = this.renderColumns(k, _local_18, _local_12, true);
     //                 _local_12 = _local_10.x;
     //                 if (_local_10.y > _local_3)
     //                 {
@@ -583,12 +583,12 @@ export class PlaneMaterialCellMatrix
     //         }
     //     }
     //     _local_12 = 0;
-    //     _local_10 = this._Str_4606(k, _local_5, _local_12, true);
+    //     _local_10 = this.renderColumns(k, _local_5, _local_12, true);
     //     if (_local_10.y > _local_3)
     //     {
     //         _local_3 = _local_10.y;
     //     }
-    //     _local_10 = this._Str_4606(k, _local_6, _local_13, false);
+    //     _local_10 = this.renderColumns(k, _local_6, _local_13, false);
     //     if (_local_10.y > _local_3)
     //     {
     //         _local_3 = _local_10.y;
@@ -596,7 +596,7 @@ export class PlaneMaterialCellMatrix
     //     return _local_3;
     // }
 
-    // private _Str_18019(k:BitmapData, _arg_2:Array): number
+    // private renderRepeatFirst(k:BitmapData, _arg_2:Array): number
     // {
     //     var _local_7:Array;
     //     if ((((_arg_2 == null) || (_arg_2.length == 0)) || (k == null)))
@@ -606,7 +606,7 @@ export class PlaneMaterialCellMatrix
     //     var _local_3: number;
     //     var _local_4:BitmapData;
     //     var _local_5: number = k.width;
-    //     var _local_6:Point = this._Str_4606(k, _arg_2, _local_5, false);
+    //     var _local_6:Point = this.renderColumns(k, _arg_2, _local_5, false);
     //     _local_5 = _local_6.x;
     //     if (_local_6.y > _local_3)
     //     {
@@ -618,7 +618,7 @@ export class PlaneMaterialCellMatrix
     //         _local_7 = [_local_4];
     //         while (_local_5 >= 0)
     //         {
-    //             _local_6 = this._Str_4606(k, _local_7, _local_5, false);
+    //             _local_6 = this.renderColumns(k, _local_7, _local_5, false);
     //             _local_5 = _local_6.x;
     //             if (_local_6.y > _local_3)
     //             {
@@ -629,7 +629,7 @@ export class PlaneMaterialCellMatrix
     //     return _local_3;
     // }
 
-    // private _Str_16099(k:BitmapData, _arg_2:Array): number
+    // private renderRepeatLast(k:BitmapData, _arg_2:Array): number
     // {
     //     var _local_7:Array;
     //     if ((((_arg_2 == null) || (_arg_2.length == 0)) || (k == null)))
@@ -639,7 +639,7 @@ export class PlaneMaterialCellMatrix
     //     var _local_3: number;
     //     var _local_4:BitmapData;
     //     var _local_5: number;
-    //     var _local_6:Point = this._Str_4606(k, _arg_2, _local_5, true);
+    //     var _local_6:Point = this.renderColumns(k, _arg_2, _local_5, true);
     //     _local_5 = _local_6.x;
     //     if (_local_6.y > _local_3)
     //     {
@@ -651,7 +651,7 @@ export class PlaneMaterialCellMatrix
     //         _local_7 = [_local_4];
     //         while (_local_5 < k.width)
     //         {
-    //             _local_6 = this._Str_4606(k, _local_7, _local_5, true);
+    //             _local_6 = this.renderColumns(k, _local_7, _local_5, true);
     //             _local_5 = _local_6.x;
     //             if (_local_6.y > _local_3)
     //             {
@@ -662,7 +662,7 @@ export class PlaneMaterialCellMatrix
     //     return _local_3;
     // }
 
-    // private _Str_25678(k:BitmapData, _arg_2:Array): number
+    // private renderRepeatRandom(k:BitmapData, _arg_2:Array): number
     // {
     //     var _local_6:Array;
     //     var _local_7:Point;
@@ -675,11 +675,11 @@ export class PlaneMaterialCellMatrix
     //     var _local_5: number;
     //     while (_local_5 < k.width)
     //     {
-    //         _local_4 = (_arg_2[_Str_12526(_arg_2.length)] as BitmapData);
+    //         _local_4 = (_arg_2[nextRandomColumnIndex(_arg_2.length)] as BitmapData);
     //         if (_local_4 != null)
     //         {
     //             _local_6 = [_local_4];
-    //             _local_7 = this._Str_4606(k, _local_6, _local_5, true);
+    //             _local_7 = this.renderColumns(k, _local_6, _local_5, true);
     //             _local_5 = _local_7.x;
     //             if (_local_7.y > _local_3)
     //             {
@@ -694,9 +694,9 @@ export class PlaneMaterialCellMatrix
     //     return _local_3;
     // }
 
-    public _Str_23721(k: number): PlaneMaterialCellColumn[]
+    public getColumns(k: number): PlaneMaterialCellColumn[]
     {
-        if(this._repeatMode === PlaneMaterialCellMatrix._Str_9127)
+        if(this._repeatMode === PlaneMaterialCellMatrix.REPEAT_MODE_RANDOM)
         {
             const columns: PlaneMaterialCellColumn[] = [];
 
@@ -704,7 +704,7 @@ export class PlaneMaterialCellMatrix
 
             while(columnIndex < k)
             {
-                const column = this._columns[PlaneMaterialCellMatrix._Str_12526(this._columns.length)];
+                const column = this._columns[PlaneMaterialCellMatrix.nextRandomColumnIndex(this._columns.length)];
 
                 if(column)
                 {

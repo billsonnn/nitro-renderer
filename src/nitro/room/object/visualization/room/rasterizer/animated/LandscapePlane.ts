@@ -5,18 +5,18 @@ import { Plane } from '../basic/Plane';
 
 export class LandscapePlane extends Plane
 {
-    public static _Str_2531: number = 0xFFFFFF;
-    public static _Str_5433: number = 45;
-    public static _Str_5509: number = 30;
+    public static DEFAULT_COLOR: number = 0xFFFFFF;
+    public static HORIZONTAL_ANGLE_DEFAULT: number = 45;
+    public static VERTICAL_ANGLE_DEFAULT: number = 30;
 
     private _width: number = 0;
     private _height: number = 0;
 
     public isStatic(k: number): boolean
     {
-        const _local_2 = this._Str_6009(k);
+        const _local_2 = this.getPlaneVisualization(k);
 
-        if(_local_2) return !(_local_2._Str_20530);
+        if(_local_2) return !(_local_2.hasAnimationLayers);
 
         return super.isStatic(k);
     }
@@ -36,7 +36,7 @@ export class LandscapePlane extends Plane
 
     public render(k: Graphics, _arg_2: number, _arg_3: number, _arg_4: number, _arg_5: IVector3D, _arg_6: boolean, _arg_7: number, _arg_8: number, _arg_9: number, _arg_10: number, _arg_11: number): Graphics
     {
-        const visualization = this._Str_6009(_arg_4);
+        const visualization = this.getPlaneVisualization(_arg_4);
 
         if(!visualization || !visualization.geometry) return null;
 

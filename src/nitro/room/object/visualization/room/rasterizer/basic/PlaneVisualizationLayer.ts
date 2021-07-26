@@ -6,10 +6,10 @@ import { PlaneMaterial } from './PlaneMaterial';
 
 export class PlaneVisualizationLayer
 {
-    public static _Str_1934: number = 0;
+    public static DEFAULT_OFFSET: number = 0;
     public static ALIGN_TOP: number = 1;
-    public static _Str_3606: number = 2;
-    public static _Str_6914: number = PlaneVisualizationLayer.ALIGN_TOP;
+    public static ALIGN_BOTTOM: number = 2;
+    public static ALIGN_DEFAULT: number = PlaneVisualizationLayer.ALIGN_TOP;
 
     private _material: PlaneMaterial;
     private _color: number;
@@ -48,10 +48,10 @@ export class PlaneVisualizationLayer
         this._isDisposed    = true;
         this._material      = null;
 
-        this._Str_3355();
+        this.clearCache();
     }
 
-    public _Str_3355(): void
+    public clearCache(): void
     {
         if(this._bitmapData)
         {
@@ -135,12 +135,12 @@ export class PlaneVisualizationLayer
         return bitmapData;
     }
 
-    public _Str_8547(): PlaneMaterial
+    public getMaterial(): PlaneMaterial
     {
         return this._material;
     }
 
-    public _Str_751(): number
+    public getColor(): number
     {
         return this._color;
     }

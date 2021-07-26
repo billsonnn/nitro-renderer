@@ -2,6 +2,7 @@ export * from './ads';
 export * from './dimmer';
 export * from './floor';
 export * from './FurnitureAliasesComposer';
+export * from './FurnitureGuildInfoComposer';
 export * from './FurniturePickupComposer';
 export * from './FurniturePlaceComposer';
 export * from './FurniturePlacePaintComposer';

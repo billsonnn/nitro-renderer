@@ -17,7 +17,7 @@
         this._index = 0;
     }
 
-    public _Str_22775(k: number): void
+    public addValue(k: number): void
     {
         if(this._data.length < this._maxSize)
         {
@@ -31,7 +31,7 @@
         this._index = ((this._index + 1) % this._maxSize);
     }
 
-    public _Str_25797(): number
+    public getMax(): number
     {
         let k = Number.MIN_VALUE;
 
@@ -47,7 +47,7 @@
         return k;
     }
 
-    public _Str_26219(): number
+    public getMin(): number
     {
         let k = Number.MAX_VALUE;
 

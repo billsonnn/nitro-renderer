@@ -12,7 +12,7 @@ export class Matrix4x4
         this._data = [k, _arg_2, _arg_3, _arg_4, _arg_5, _arg_6, _arg_7, _arg_8, _arg_9];
     }
 
-    public static _Str_1869(k: number): Matrix4x4
+    public static getXRotationMatrix(k: number): Matrix4x4
     {
         const _local_2 = ((k * Math.PI) / 180);
         const _local_3 = Math.cos(_local_2);
@@ -21,7 +21,7 @@ export class Matrix4x4
         return new Matrix4x4(1, 0, 0, 0, _local_3, -(_local_4), 0, _local_4, _local_3);
     }
 
-    public static _Str_1560(k: number): Matrix4x4
+    public static getYRotationMatrix(k: number): Matrix4x4
     {
         const _local_2 = ((k * Math.PI) / 180);
         const _local_3 = Math.cos(_local_2);
@@ -30,7 +30,7 @@ export class Matrix4x4
         return new Matrix4x4(_local_3, 0, _local_4, 0, 1, 0, -(_local_4), 0, _local_3);
     }
 
-    public static _Str_1368(k: number): Matrix4x4
+    public static getZRotationMatrix(k: number): Matrix4x4
     {
         const _local_2 = ((k * Math.PI) / 180);
         const _local_3 = Math.cos(_local_2);
@@ -46,7 +46,7 @@ export class Matrix4x4
         return this;
     }
 
-    public _Str_2186(k: Vector3D): Vector3D
+    public vectorMultiplication(k: Vector3D): Vector3D
     {
         const _local_2 = (((k.x * this._data[0]) + (k.y * this._data[3])) + (k.z * this._data[6]));
         const _local_3 = (((k.x * this._data[1]) + (k.y * this._data[4])) + (k.z * this._data[7]));
@@ -55,7 +55,7 @@ export class Matrix4x4
         return new Vector3D(_local_2, _local_3, _local_4);
     }
 
-    public _Str_1186(k:Matrix4x4): Matrix4x4
+    public multiply(k:Matrix4x4): Matrix4x4
     {
         const _local_2  = (((this._data[0] * k.data[0]) + (this._data[1] * k.data[3])) + (this._data[2] * k.data[6]));
         const _local_3  = (((this._data[0] * k.data[1]) + (this._data[1] * k.data[4])) + (this._data[2] * k.data[7]));
@@ -70,7 +70,7 @@ export class Matrix4x4
         return new Matrix4x4(_local_2, _local_3, _local_4, _local_5, _local_6, _local_7, _local_8, _local_9, _local_10);
     }
 
-    public _Str_1157(k: number): void
+    public scalarMultiply(k: number): void
     {
         let index = 0;
 
@@ -82,46 +82,46 @@ export class Matrix4x4
         }
     }
 
-    public _Str_1089(k: number): Matrix4x4
+    public rotateX(k: number): Matrix4x4
     {
         const _local_2 = ((k * Math.PI) / 180);
         const _local_3 = Math.cos(_local_2);
         const _local_4 = Math.sin(_local_2);
         const _local_5 = new Matrix4x4(1, 0, 0, 0, _local_3, -(_local_4), 0, _local_4, _local_3);
 
-        return _local_5._Str_1186(this);
+        return _local_5.multiply(this);
     }
 
-    public _Str_2123(k: number): Matrix4x4
+    public rotateY(k: number): Matrix4x4
     {
         const _local_2 = ((k * Math.PI) / 180);
         const _local_3 = Math.cos(_local_2);
         const _local_4 = Math.sin(_local_2);
         const _local_5 = new Matrix4x4(_local_3, 0, _local_4, 0, 1, 0, -(_local_4), 0, _local_3);
 
-        return _local_5._Str_1186(this);
+        return _local_5.multiply(this);
     }
 
-    public _Str_2232(k: number): Matrix4x4
+    public rotateZ(k: number): Matrix4x4
     {
         const _local_2 = ((k * Math.PI) / 180);
         const _local_3 = Math.cos(_local_2);
         const _local_4 = Math.sin(_local_2);
         const _local_5 = new Matrix4x4(_local_3, -(_local_4), 0, _local_4, _local_3, 0, 0, 0, 1);
 
-        return _local_5._Str_1186(this);
+        return _local_5.multiply(this);
     }
 
     public skew(): void
     {
     }
 
-    public _Str_1779(): Matrix4x4
+    public transpose(): Matrix4x4
     {
         return new Matrix4x4(this._data[0], this._data[3], this._data[6], this._data[1], this._data[4], this._data[7], this._data[2], this._data[5], this._data[8]);
     }
 
-    public _Str_1451(k: Matrix4x4): boolean
+    public equals(k: Matrix4x4): boolean
     {
         return false;
     }

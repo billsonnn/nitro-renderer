@@ -11,12 +11,12 @@ export class AvatarFigureContainer implements IAvatarFigureContainer
         this.parseFigure(figure);
     }
 
-    public _Str_1016(): IterableIterator<string>
+    public getPartTypeIds(): IterableIterator<string>
     {
         return this.partSets().keys();
     }
 
-    public _Str_744(k: string): boolean
+    public hasPartType(k: string): boolean
     {
         return this.partSets().get(k) !== null;
     }
@@ -30,7 +30,7 @@ export class AvatarFigureContainer implements IAvatarFigureContainer
         return existing.get('setid');
     }
 
-    public _Str_815(k: string): number[]
+    public getPartColorIds(k: string): number[]
     {
         const existing = this.partSets().get(k);
 
@@ -39,7 +39,7 @@ export class AvatarFigureContainer implements IAvatarFigureContainer
         return existing.get('colorids');
     }
 
-    public _Str_830(k: string, _arg_2: number, _arg_3: number[]): void
+    public updatePart(k: string, _arg_2: number, _arg_3: number[]): void
     {
         const set: Map<string, any> = new Map();
 
@@ -53,12 +53,12 @@ export class AvatarFigureContainer implements IAvatarFigureContainer
         existingSets.set(k, set);
     }
 
-    public _Str_923(k: string): void
+    public removePart(k: string): void
     {
         this.partSets().delete(k);
     }
 
-    public _Str_1008(): string
+    public getFigureString(): string
     {
         const parts: string[] = [];
 
@@ -71,7 +71,7 @@ export class AvatarFigureContainer implements IAvatarFigureContainer
             setParts.push(key);
             setParts.push(this.getPartSetId(key));
 
-            setParts = setParts.concat(this._Str_815(key));
+            setParts = setParts.concat(this.getPartColorIds(key));
 
             parts.push(setParts.join('-'));
         }
@@ -109,7 +109,7 @@ export class AvatarFigureContainer implements IAvatarFigureContainer
                     index++;
                 }
 
-                this._Str_830(type, setId, colors);
+                this.updatePart(type, setId, colors);
             }
         }
     }

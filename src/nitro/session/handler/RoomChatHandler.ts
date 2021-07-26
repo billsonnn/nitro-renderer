@@ -38,10 +38,10 @@ export class RoomChatHandler extends BaseHandler
 
         if(!parser) return;
 
-        let chatType: number = RoomSessionChatEvent.CHAT_NORMAL;
+        let chatType: number = RoomSessionChatEvent.CHAT_TYPE_SPEAK;
 
-        if(event instanceof RoomUnitChatShoutEvent) chatType = RoomSessionChatEvent.CHAT_SHOUT;
-        else if(event instanceof RoomUnitChatWhisperEvent) chatType = RoomSessionChatEvent.CHAT_WHISPER;
+        if(event instanceof RoomUnitChatShoutEvent) chatType = RoomSessionChatEvent.CHAT_TYPE_SHOUT;
+        else if(event instanceof RoomUnitChatWhisperEvent) chatType = RoomSessionChatEvent.CHAT_TYPE_WHISPER;
 
         const chatEvent = new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, parser.roomIndex, parser.message, chatType, parser.bubble);
 
@@ -60,7 +60,7 @@ export class RoomChatHandler extends BaseHandler
 
         if(!parser) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, parser.giverUserId, '', RoomSessionChatEvent._Str_8971, SystemChatStyleEnum.GENERIC, null, parser.handItemType));
+        this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, parser.giverUserId, '', RoomSessionChatEvent.CHAT_TYPE_HAND_ITEM_RECEIVED, SystemChatStyleEnum.GENERIC, null, parser.handItemType));
     }
 
     private onRespectReceivedEvent(event: RespectReceivedEvent): void
@@ -79,7 +79,7 @@ export class RoomChatHandler extends BaseHandler
 
         if(!userData) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, userData.roomIndex, '', RoomSessionChatEvent._Str_5821, SystemChatStyleEnum.GENERIC));
+        this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, userData.roomIndex, '', RoomSessionChatEvent.CHAT_TYPE_RESPECT, SystemChatStyleEnum.GENERIC));
     }
 
     private onFloodControlEvent(event: FloodControlEvent): void
@@ -111,6 +111,6 @@ export class RoomChatHandler extends BaseHandler
 
         if(!parser) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, session.ownRoomIndex, '', RoomSessionChatEvent._Str_8909, SystemChatStyleEnum.GENERIC, null, parser.seconds));
+        this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, session.ownRoomIndex, '', RoomSessionChatEvent.CHAT_TYPE_MUTE_REMAINING, SystemChatStyleEnum.GENERIC, null, parser.seconds));
     }
 }

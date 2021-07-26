@@ -191,7 +191,7 @@ export class LegacyWallGeometry
         return _local_11;
     }
 
-    public _Str_24084(k: number, _arg_2: number, _arg_3: string):IVector3D
+    public getLocationOldFormat(k: number, _arg_2: number, _arg_3: string):IVector3D
     {
         let _local_4: number;
         let _local_5: number;
@@ -244,7 +244,7 @@ export class LegacyWallGeometry
         return this.getLocation(_local_8, _local_9, _local_10, _local_11, _arg_3);
     }
 
-    public _Str_22875(k:IVector3D, _arg_2: number): [ number, number, number, number, string ]
+    public getOldLocation(k:IVector3D, _arg_2: number): [ number, number, number, number, string ]
     {
         if(k == null)
         {
@@ -284,9 +284,9 @@ export class LegacyWallGeometry
         return [_local_3, _local_4, _local_5, _local_6, _local_7];
     }
 
-    public _Str_21860(k:IVector3D, _arg_2: number): string
+    public getOldLocationString(k:IVector3D, _arg_2: number): string
     {
-        const _local_3 = this._Str_22875(k, _arg_2);
+        const _local_3 = this.getOldLocation(k, _arg_2);
         if(_local_3 == null)
         {
             return null;
@@ -309,7 +309,7 @@ export class LegacyWallGeometry
         return 90;
     }
 
-    public _Str_24141(k: number, _arg_2: number): number
+    public getFloorAltitude(k: number, _arg_2: number): number
     {
         const _local_3 = this.getHeight(k, _arg_2);
         const _local_4 = (_local_3 + 1);
@@ -317,7 +317,7 @@ export class LegacyWallGeometry
         return _local_3 + (((((((((Math.trunc(this.getHeight((k - 1), (_arg_2 - 1))) == _local_4) || (Math.trunc(this.getHeight(k, (_arg_2 - 1))) == _local_4)) || (Math.trunc(this.getHeight((k + 1), (_arg_2 - 1))) == _local_4)) || (Math.trunc(this.getHeight((k - 1), _arg_2)) == _local_4)) || (Math.trunc(this.getHeight((k + 1), _arg_2)) == _local_4)) || (Math.trunc(this.getHeight((k - 1), (_arg_2 + 1))) == _local_4)) || (Math.trunc(this.getHeight(k, (_arg_2 + 1))) == _local_4)) || (Math.trunc(this.getHeight((k + 1), (_arg_2 + 1))) == _local_4)) ? 0.5 : 0);
     }
 
-    public _Str_10375(k: number, _arg_2: number): boolean
+    public isRoomTile(k: number, _arg_2: number): boolean
     {
         return ((((k >= 0) && (k < this._width)) && (_arg_2 >= 0)) && (_arg_2 < this._height)) && (this._heightMap[_arg_2][k] >= 0);
     }

@@ -26,12 +26,12 @@ export class RoomEngineDimmerStateEvent extends RoomEngineEvent
         return this._state;
     }
 
-    public get _Str_14686(): number
+    public get presetId(): number
     {
         return this._presetId;
     }
 
-    public get _Str_6815(): number
+    public get effectId(): number
     {
         return this._effectId;
     }
@@ -41,7 +41,7 @@ export class RoomEngineDimmerStateEvent extends RoomEngineEvent
         return this._color;
     }
 
-    public get _Str_5123(): number
+    public get brightness(): number
     {
         return this._brightness;
     }

@@ -1,4 +1,4 @@
-import { Container, Filter, Texture } from 'pixi.js';
+import { Container, Filter, Resource, Texture } from 'pixi.js';
 
 export interface IRoomObjectSprite
 {
@@ -6,7 +6,7 @@ export interface IRoomObjectSprite
     name: string;
     type: string;
     spriteType: number;
-    texture: Texture;
+    texture: Texture<Resource>;
     container: Container;
     width: number;
     height: number;
@@ -19,8 +19,8 @@ export interface IRoomObjectSprite
     blendMode: number;
     color: number;
     relativeDepth: number;
-    _Str_4593: boolean;
-    _Str_3582: string;
+    varyingDepth: boolean;
+    libraryAssetName: string;
     clickHandling: boolean;
     visible: boolean;
     tag: string;

@@ -387,6 +387,11 @@ export class RoomPreviewer
         if(this.isRoomEngineReady) this._roomEngine.updateRoomObjectUserAction(this._previewRoomId, RoomPreviewer.PREVIEW_OBJECT_ID, action, value, parameter);
     }
 
+    public updateObjectStuffData(stuffData: IObjectData): void
+    {
+        if(this.isRoomEngineReady) this._roomEngine.updateRoomObjectFloor(this._previewRoomId, RoomPreviewer.PREVIEW_OBJECT_ID, null, null, stuffData.state, stuffData);
+    }
+
     public changeRoomObjectState(): void
     {
         if(this.isRoomEngineReady)
@@ -405,7 +410,7 @@ export class RoomPreviewer
 
             if(!roomObject) return;
 
-            const direction = this._roomEngine.objectEventHandler._Str_17555(roomObject, true);
+            const direction = this._roomEngine.objectEventHandler.getValidRoomObjectDirection(roomObject, true);
 
             switch(this._currentPreviewObjectCategory)
             {
@@ -818,7 +823,7 @@ export class RoomPreviewer
     {
         if(this.isRoomEngineReady)
         {
-            const roomObject = this._roomEngine.getRoomObject(this._previewRoomId, RoomPreviewer.PREVIEW_OBJECT_ID, RoomObjectCategory.UNIT);
+            const roomObject = this._roomEngine.getRoomObject(this._previewRoomId, RoomPreviewer.PREVIEW_OBJECT_ID, this._currentPreviewObjectCategory);
 
             if(roomObject && roomObject.visualization) return roomObject.visualization.getImage(0xFFFFFF, -1);
         }

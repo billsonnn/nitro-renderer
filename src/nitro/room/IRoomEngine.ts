@@ -1,5 +1,6 @@
 import { DisplayObject, Point, Rectangle } from 'pixi.js';
 import { INitroManager } from '../../core/common/INitroManager';
+import { IRoomObject } from '../../room';
 import { IRoomManager } from '../../room/IRoomManager';
 import { IRoomObjectController } from '../../room/object/IRoomObjectController';
 import { IRoomObjectLogicFactory } from '../../room/object/logic/IRoomObjectLogicFactory';
@@ -37,7 +38,7 @@ export interface IRoomEngine extends INitroManager
     updateRoomInstancePlaneVisibility(roomId: number, wallVisible: boolean, floorVisible?: boolean): boolean;
     updateRoomInstancePlaneThickness(roomId: number, wallThickness: number, floorThickness: number): boolean;
     updateRoomInstancePlaneType(roomId: number, floorType?: string, wallType?: string, landscapeType?: string, _arg_5?: boolean): boolean;
-    _Str_17804(k: number, _arg_2: number, _arg_3: number, _arg_4: boolean): boolean;
+    updateObjectRoomColor(k: number, _arg_2: number, _arg_3: number, _arg_4: boolean): boolean;
     getRoomInstanceGeometry(roomId: number, canvasId?: number): IRoomGeometry;
     getRoomInstanceVariable<T>(roomId: number, key: string): T;
     getTotalObjectsForManager(roomId: number, category: number): number;
@@ -46,6 +47,7 @@ export interface IRoomEngine extends INitroManager
     removeRoomObjectFloor(roomId: number, objectId: number, userId?: number, _arg_4?: boolean): void;
     removeRoomObjectWall(roomId: number, objectId: number, userId?: number): void;
     removeRoomObjectUser(roomId: number, objectId: number): void;
+    getRoomObjects(roomId: number, category: number): IRoomObject[];
     getRoomObjectCount(roomId: number, categoryId: number): number;
     getRoomObjectBoundingRectangle(roomId: number, objectId: number, category: number, canvasId: number): Rectangle;
     getRoomObjectScreenLocation(roomId: number, objectId: number, objectType: number, canvasId?: number): Point;
@@ -73,8 +75,10 @@ export interface IRoomEngine extends INitroManager
     getRoomObjectImage(roomId: number, objectId: number, category: number, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor?: number): ImageResult;
     getRoomObjectPetImage(typeId: number, paletteId: number, color: number, direction: IVector3D, scale: number, listener: IGetImageListener, headOnly?: boolean, bgColor?: number, customParts?: PetCustomPart[], posture?: string): ImageResult;
     selectRoomObject(roomId: number, objectId: number, objectCategory: number): void;
-    _Str_8675(): void;
+    setSelectedAvatar(roomId: number, objectId: number): void;
+    cancelRoomObjectInsert(): void;
     getPetColorResult(petIndex: number, paletteIndex: number): PetColorResult;
+    getPetColorResultsForTag(petIndex: number, tagName: string): PetColorResult[];
     cancelRoomObjectPlacement(): void;
     getFurnitureFloorName(typeId: number): string;
     useRoomObject(objectId: number, category: number): boolean;
@@ -86,7 +90,7 @@ export interface IRoomEngine extends INitroManager
     processRoomObjectOperation(objectId: number, category: number, operation: string): boolean;
     processRoomObjectPlacement(placementSource: string, id: number, category: number, typeId: number, legacyString?: string, stuffData?: IObjectData, state?: number, frameNumber?: number, posture?: string): boolean;
     dispatchMouseEvent(canvasId: number, x: number, y: number, type: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean, buttonDown: boolean): void;
-    createRoomScreenshot(roomId: number, canvasId: number): void;
+    createRoomScreenshot(roomId: number, canvasId?: number, bounds?: Rectangle): HTMLImageElement;
     modifyRoomObjectData(objectId: number, objectCategory: number, colorHex: string, text: string): boolean;
     deleteRoomObject(objectId: number, objectCategory: number): boolean;
     sessionDataManager: ISessionDataManager;

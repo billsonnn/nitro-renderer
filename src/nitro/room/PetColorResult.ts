@@ -1,6 +1,6 @@
 export class PetColorResult
 {
-    private static _Str_12950: string[] = ['Null', 'Black', 'White', 'Grey', 'Red', 'Orange', 'Pink', 'Green', 'Lime', 'Blue', 'Light-Blue', 'Dark-Blue', 'Yellow', 'Brown', 'Dark-Brown', 'Beige', 'Cyan', 'Purple', 'Gold'];
+    private static COLOR_TAGS: string[] = ['Null', 'Black', 'White', 'Grey', 'Red', 'Orange', 'Pink', 'Green', 'Lime', 'Blue', 'Light-Blue', 'Dark-Blue', 'Yellow', 'Brown', 'Dark-Brown', 'Beige', 'Cyan', 'Purple', 'Gold'];
 
     private _breed: number;
     private _tag: string;
@@ -16,18 +16,18 @@ export class PetColorResult
         this._primaryColor      = (primaryColor & 0xFFFFFF);
         this._secondaryColor    = (secondaryColor & 0xFFFFFF);
         this._breed             = breed;
-        this._tag               = (((tag > -1) && (tag < PetColorResult._Str_12950.length)) ? PetColorResult._Str_12950[tag] : '');
+        this._tag               = (((tag > -1) && (tag < PetColorResult.COLOR_TAGS.length)) ? PetColorResult.COLOR_TAGS[tag] : '');
         this._id                = id;
         this._isMaster          = isMaster;
         this._layerTags         = layerTags;
     }
 
-    public get _Str_5845(): number
+    public get primaryColor(): number
     {
         return this._primaryColor;
     }
 
-    public get _Str_6659(): number
+    public get secondaryColor(): number
     {
         return this._secondaryColor;
     }
@@ -47,12 +47,12 @@ export class PetColorResult
         return this._id;
     }
 
-    public get _Str_11964(): boolean
+    public get isMaster(): boolean
     {
         return this._isMaster;
     }
 
-    public get _Str_24801(): string[]
+    public get layerTags(): string[]
     {
         return this._layerTags;
     }

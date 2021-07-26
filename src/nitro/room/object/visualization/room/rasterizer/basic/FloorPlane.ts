@@ -5,13 +5,13 @@ import { Plane } from './Plane';
 
 export class FloorPlane extends Plane
 {
-    public static _Str_2531: number = 0xFFFFFF;
-    public static _Str_5433: number = 45;
-    public static _Str_5509: number = 30;
+    public static DEFAULT_COLOR: number = 0xFFFFFF;
+    public static HORIZONTAL_ANGLE_DEFAULT: number = 45;
+    public static VERTICAL_ANGLE_DEFAULT: number = 30;
 
     public render(k: Graphics, _arg_2: number, _arg_3: number, size: number, _arg_5: IVector3D, _arg_6: boolean, _arg_7: number, _arg_8: number): Graphics
     {
-        const visualization = this._Str_6009(size);
+        const visualization = this.getPlaneVisualization(size);
 
         if(!visualization || !visualization.geometry) return null;
 

@@ -3,6 +3,7 @@ import { IConnection } from '../../core/communication/connections/IConnection';
 import { IVector3D } from '../../room/utils/IVector3D';
 import { Vector3d } from '../../room/utils/Vector3d';
 import { PetType } from '../avatar/pets/PetType';
+import { ObjectsDataUpdateEvent, PetExperienceEvent } from '../communication';
 import { ObjectsRollingEvent } from '../communication/messages/incoming/room/engine/ObjectsRollingEvent';
 import { FurnitureFloorAddEvent } from '../communication/messages/incoming/room/furniture/floor/FurnitureFloorAddEvent';
 import { FurnitureFloorEvent } from '../communication/messages/incoming/room/furniture/floor/FurnitureFloorEvent';
@@ -113,6 +114,7 @@ export class RoomMessageHandler extends Disposable
         this._connection.addMessageEvent(new RoomThicknessEvent(this.onRoomThicknessEvent.bind(this)));
         this._connection.addMessageEvent(new RoomDoorEvent(this.onRoomDoorEvent.bind(this)));
         this._connection.addMessageEvent(new ObjectsRollingEvent(this.onRoomRollingEvent.bind(this)));
+        this._connection.addMessageEvent(new ObjectsDataUpdateEvent(this.onObjectsDataUpdateEvent.bind(this)));
         this._connection.addMessageEvent(new FurnitureAliasesEvent(this.onFurnitureAliasesEvent.bind(this)));
         this._connection.addMessageEvent(new FurnitureFloorAddEvent(this.onFurnitureFloorAddEvent.bind(this)));
         this._connection.addMessageEvent(new FurnitureFloorEvent(this.onFurnitureFloorEvent.bind(this)));
@@ -140,6 +142,7 @@ export class RoomMessageHandler extends Disposable
         this._connection.addMessageEvent(new RoomUnitChatWhisperEvent(this.onRoomUnitChatEvent.bind(this)));
         this._connection.addMessageEvent(new RoomUnitTypingEvent(this.onRoomUnitTypingEvent.bind(this)));
         this._connection.addMessageEvent(new PetFigureUpdateEvent(this.onPetFigureUpdateEvent.bind(this)));
+        this._connection.addMessageEvent(new PetExperienceEvent(this.onPetExperienceEvent.bind(this)));
         this._connection.addMessageEvent(new YouArePlayingGameEvent(this.onYouArePlayingGameEvent.bind(this)));
         this._connection.addMessageEvent(new FurnitureState2Event(this.onFurnitureState2Event.bind(this)));
         this._connection.addMessageEvent(new IgnoreResultEvent(this.onIgnoreResultEvent.bind(this)));
@@ -381,7 +384,7 @@ export class RoomMessageHandler extends Disposable
             heightMap.setIsRoomTile(parser.x, parser.y, parser.isRoomTile());
         }
 
-        this._roomCreator._Str_17722(this._currentRoomId, 'RoomMessageHandler.onRoomHeightMapUpdateEvent()');
+        this._roomCreator.refreshTileObjectMap(this._currentRoomId, 'RoomMessageHandler.onRoomHeightMapUpdateEvent()');
     }
 
     private onRoomThicknessEvent(event: RoomThicknessEvent): void
@@ -456,6 +459,20 @@ export class RoomMessageHandler extends Disposable
 
                 this._roomCreator.updateRoomObjectUserPosture(this._currentRoomId, unitRollData.id, posture);
             }
+        }
+    }
+
+    private onObjectsDataUpdateEvent(event: ObjectsDataUpdateEvent): void
+    {
+        if(!(event instanceof ObjectsDataUpdateEvent) || !event.connection || !this._roomCreator) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        for(const object of parser.objects)
+        {
+            this._roomCreator.updateRoomObjectFloor(this._currentRoomId, object.id, null, null, object.state, object.data);
         }
     }
 
@@ -843,6 +860,15 @@ export class RoomMessageHandler extends Disposable
         this._roomCreator.updateRoomObjectUserFigure(this._currentRoomId, parser.roomIndex, parser.figureData.figuredata, '' , '', parser.isRiding);
     }
 
+    private onPetExperienceEvent(event: PetExperienceEvent): void
+    {
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        this._roomCreator.updateRoomObjectUserAction(this._currentRoomId, parser.roomIndex, RoomObjectVariable.FIGURE_GAINED_EXPERIENCE, parser.gainedExperience);
+    }
+
     private onYouArePlayingGameEvent(event: YouArePlayingGameEvent): void
     {
         if(!event) return;
@@ -881,13 +907,13 @@ export class RoomMessageHandler extends Disposable
 
         let location: IVector3D = null;
 
-        if(!data._Str_22379)
+        if(!data.isOldFormat)
         {
             location = wallGeometry.getLocation(data.width, data.height, data.localX, data.localY, data.direction);
         }
         else
         {
-            //location = wallGeometry._Str_24084(data.y, data.z, data.direction);
+            //location = wallGeometry.getLocationOldFormat(data.y, data.z, data.direction);
         }
 
         const direction = new Vector3d(wallGeometry.getDirection(data.direction));

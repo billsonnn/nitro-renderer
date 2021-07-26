@@ -43,22 +43,22 @@ export class PetData
         return this._figureData.color;
     }
 
-    public get _Str_3343(): number
+    public get breedId(): number
     {
         return this._figureData.breedId;
     }
 
-    public get _Str_13619(): number
+    public get customPartCount(): number
     {
         return this._figureData.custompartCount;
     }
 
-    public get _Str_4217(): string
+    public get figureString(): string
     {
         return this._figureData.figuredata;
     }
 
-    public get figureData():PetFigureDataParser
+    public get figureData(): PetFigureDataParser
     {
         return this._figureData;
     }

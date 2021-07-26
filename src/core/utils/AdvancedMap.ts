@@ -7,12 +7,14 @@ export class AdvancedMap<T, U> implements IDisposable
     private _array: U[];
     private _keys: T[];
 
-    constructor()
+    constructor(map: Map<T, U> = null)
     {
         this._length        = 0;
         this._dictionary    = new Map();
         this._array         = [];
         this._keys          = [];
+
+        if(map) for(const [ key, value ] of map.entries()) this.add(key, value);
     }
 
     public get length(): number

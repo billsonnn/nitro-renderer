@@ -240,19 +240,19 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
         if(!figureData) return pendingLibraries;
 
-        const setKeys = container._Str_1016();
+        const setKeys = container.getPartTypeIds();
 
         for(const key of setKeys)
         {
-            const set = figureData._Str_740(key);
+            const set = figureData.getSetType(key);
 
             if(!set) continue;
 
-            const figurePartSet = set._Str_1020(container.getPartSetId(key));
+            const figurePartSet = set.getPartSet(container.getPartSetId(key));
 
             if(!figurePartSet) continue;
 
-            for(const part of figurePartSet._Str_806)
+            for(const part of figurePartSet.parts)
             {
                 if(!part) continue;
 
@@ -284,7 +284,7 @@ export class AvatarAssetDownloadManager extends EventDispatcher
             return;
         }
 
-        const figure            = container._Str_1008();
+        const figure            = container.getFigureString();
         const pendingLibraries  = this.getAvatarFigurePendingLibraries(container);
 
         if(pendingLibraries && pendingLibraries.length)

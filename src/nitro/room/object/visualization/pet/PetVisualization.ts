@@ -1,6 +1,8 @@
+import { Resource, Texture } from '@pixi/core';
 import { IObjectVisualizationData } from '../../../../../room/object/visualization/IRoomObjectVisualizationData';
 import { IGraphicAsset } from '../../../../../room/object/visualization/utils/IGraphicAsset';
 import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
+import { Nitro } from '../../../../Nitro';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { RoomObjectVisualizationType } from '../../RoomObjectVisualizationType';
 import { AnimationData } from '../data/AnimationData';
@@ -9,21 +11,22 @@ import { DirectionData } from '../data/DirectionData';
 import { LayerData } from '../data/LayerData';
 import { FurnitureAnimatedVisualization } from '../furniture/FurnitureAnimatedVisualization';
 import { FurnitureVisualizationData } from '../furniture/FurnitureVisualizationData';
+import { ExperienceData } from './ExperienceData';
 import { PetVisualizationData } from './PetVisualizationData';
 
 export class PetVisualization extends FurnitureAnimatedVisualization
 {
     public static TYPE: string = RoomObjectVisualizationType.PET_ANIMATED;
 
-    private static HEAD: string                         = 'head';
-    private static SADDLE: string                       = 'saddle';
-    private static HAIR: string                         = 'hair';
-    private static _Str_7490: number                    = 1;
-    private static _Str_13277: number                   = 1000;
-    private static PET_EXPERIENCE_BUBBLE_PNG: string    = 'pet_experience_bubble_png';
-    private static _Str_16082: number                   = 0;
-    private static _Str_17658: number                   = 1;
-    private static _Str_16677: number                   = 2;
+    private static HEAD: string                             = 'head';
+    private static SADDLE: string                           = 'saddle';
+    private static HAIR: string                             = 'hair';
+    private static ADDITIONAL_SPRITE_COUNT: number          = 1;
+    private static EXPERIENCE_BUBBLE_VISIBLE_IN_MS: number  = 1000;
+    private static PET_EXPERIENCE_BUBBLE: string            = 'pet_experience_bubble';
+    private static POSTURE_ANIMATION_INDEX: number          = 0;
+    private static GESTURE_ANIMATION_INDEX: number          = 1;
+    private static ANIMATION_INDEX_COUNT: number            = 2;
 
     protected _data: PetVisualizationData;
 
@@ -43,6 +46,9 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     private _customPaletteIds: number[];
     private _isRiding: boolean;
     private _color: number;
+    private _experience: number;
+    private _experienceTimestamp: number;
+    private _experienceData: ExperienceData;
 
     private _previousAnimationDirection: number;
     private _animationStates: AnimationStateData[];
@@ -69,16 +75,26 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         this._customPaletteIds              = [];
         this._isRiding                      = false;
         this._color                         = 0xFFFFFF;
+        this._experience                    = 0;
+        this._experienceTimestamp           = 0;
+        this._experienceData                = null;
 
         this._previousAnimationDirection    = -1;
         this._animationStates               = [];
 
-        while(this._animationStates.length < PetVisualization._Str_16677) this._animationStates.push(new AnimationStateData());
+        while(this._animationStates.length < PetVisualization.ANIMATION_INDEX_COUNT) this._animationStates.push(new AnimationStateData());
     }
 
     public initialize(data: IObjectVisualizationData): boolean
     {
         if(!(data instanceof PetVisualizationData)) return false;
+
+        const texture = this.getPetAdditionAsset(PetVisualization.PET_EXPERIENCE_BUBBLE);
+
+        if(texture)
+        {
+            this._experienceData = new ExperienceData(texture);
+        }
 
         return super.initialize(data);
     }
@@ -111,7 +127,53 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     {
         super.update(geometry, time, update, skipUpdate);
 
-        // update experience
+        this.updateExperienceBubble(time);
+    }
+
+    protected updateExperienceBubble(time: number): void
+    {
+        if(!this._experienceData) return;
+
+        this._experienceData.alpha = 0;
+
+        if(this._experienceTimestamp)
+        {
+            const difference = (time - this._experienceTimestamp);
+
+            if(difference < PetVisualization.EXPERIENCE_BUBBLE_VISIBLE_IN_MS)
+            {
+                this._experienceData.alpha = (Math.sin(((difference / PetVisualization.EXPERIENCE_BUBBLE_VISIBLE_IN_MS) * Math.PI)) * 0xFF);
+            }
+            else
+            {
+                this._experienceTimestamp = 0;
+            }
+
+            const sprite = this.getSprite((this.totalSprites - 1));
+
+            if(sprite)
+            {
+                if(this._experienceData.alpha > 0)
+                {
+                    const texture = this._experienceData.renderBubble(this._experience);
+
+                    if(texture)
+                    {
+                        sprite.texture  = texture;
+                        sprite.offsetX  = -20;
+                        sprite.offsetY  = -80;
+                        sprite.alpha    = this._experienceData.alpha;
+                        sprite.visible  = true;
+                        sprite.relativeDepth = -0.2;
+
+                        return;
+                    }
+                }
+
+                sprite.texture = null;
+                sprite.visible = false;
+            }
+        }
     }
 
     protected updateModel(scale: number): boolean
@@ -122,34 +184,33 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
         if(this.updateModelCounter === model.updateCounter) return false;
 
-        // _local_4 = _local_3.getString(RoomObjectVariableEnum.FIGURE_POSTURE);
-        // _local_5 = _local_3.getString(RoomObjectVariableEnum.FIGURE_GESTURE);
-        // _local_6 = _local_3.getNumber(RoomObjectVariableEnum.FIGURE_POSTURE);
-        // if (!isNaN(_local_6))
-        // {
-        //     _local_16 = this._animationData._Str_17398(_Str_3289);
-        //     if (_local_16 > 0)
-        //     {
-        //         _local_4 = this._animationData._Str_14207(_Str_3289, (_local_6 % _local_16), true);
-        //         _local_5 = null;
-        //     }
-        // }
-        // _local_7 = _local_3.getNumber(RoomObjectVariableEnum.FIGURE_GESTURE);
-        // if (!isNaN(_local_7))
-        // {
-        //     _local_17 = this._animationData._Str_16869(_Str_3289);
-        //     if (_local_17 > 0)
-        //     {
-        //         _local_5 = this._animationData._Str_17844(_Str_3289, (_local_7 % _local_17));
-        //     }
-        // }
-        // this._Str_14314(_local_4, _local_5);
+        let posture = model.getValue<string>(RoomObjectVariable.FIGURE_POSTURE);
+        let gesture = model.getValue<string>(RoomObjectVariable.FIGURE_GESTURE);
 
+        const tempPosture = model.getValue<number>(RoomObjectVariable.FIGURE_POSTURE);
 
+        if(!isNaN(tempPosture))
+        {
+            const totalPostures = this._data.totalPostures(this._scale);
 
-        const posture     = model.getValue<string>(RoomObjectVariable.FIGURE_POSTURE);
-        const gesture     = model.getValue<string>(RoomObjectVariable.FIGURE_GESTURE);
-        const tempPosture = model.getValue<string>(RoomObjectVariable.FIGURE_POSTURE);
+            if(totalPostures > 0)
+            {
+                posture = this._data.animationToPosture(this._scale, (tempPosture % totalPostures), true);
+                gesture = null;
+            }
+        }
+
+        const tempGesture = model.getValue<number>(RoomObjectVariable.FIGURE_GESTURE);
+
+        if(!isNaN(tempGesture))
+        {
+            const totalGestures = this._data.totalGestures(this._scale);
+
+            if(totalGestures > 0)
+            {
+                gesture = this._data.animationToGesture(this._scale, (tempGesture % totalGestures));
+            }
+        }
 
         this.setPostureAndGesture(posture, gesture);
 
@@ -176,6 +237,9 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         {
             this._headDirection = this.object.getDirection().x;
         }
+
+        this._experience = (model.getValue<number>(RoomObjectVariable.FIGURE_GAINED_EXPERIENCE));
+        this._experienceTimestamp = (model.getValue<number>(RoomObjectVariable.FIGURE_EXPERIENCE_TIMESTAMP));
 
         const customPaletteIndex    = model.getValue<number>(RoomObjectVariable.PET_PALETTE_INDEX);
         const customLayerIds        = model.getValue<number[]>(RoomObjectVariable.PET_CUSTOM_LAYER_IDS);
@@ -227,29 +291,29 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         {
             this._posture = posture;
 
-            this._Str_16058(PetVisualization._Str_16082, this._data.postureToAnimation(this._scale, posture));
+            this.setAnimationForIndex(PetVisualization.POSTURE_ANIMATION_INDEX, this._data.postureToAnimation(this._scale, posture));
         }
 
-        if(this._data._Str_18284(this._scale, posture)) gesture = null;
+        if(this._data.getGestureDisabled(this._scale, posture)) gesture = null;
 
         if(gesture !== this._gesture)
         {
             this._gesture = gesture;
 
-            this._Str_16058(PetVisualization._Str_17658, this._data.gestureToAnimation(this._scale, gesture));
+            this.setAnimationForIndex(PetVisualization.GESTURE_ANIMATION_INDEX, this._data.gestureToAnimation(this._scale, gesture));
         }
     }
 
-    private _Str_22634(k: number): AnimationStateData
+    private getAnimationStateData(k: number): AnimationStateData
     {
         if((k >= 0) && (k < this._animationStates.length)) return this._animationStates[k];
 
         return null;
     }
 
-    private _Str_16058(k: number, _arg_2: number): void
+    private setAnimationForIndex(k: number, _arg_2: number): void
     {
-        const animationStateData = this._Str_22634(k);
+        const animationStateData = this.getAnimationStateData(k);
 
         if(animationStateData)
         {
@@ -301,7 +365,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
                     {
                         if(AnimationData.isTransitionFromAnimation(stateData.animationId) || AnimationData.isTransitionToAnimation(stateData.animationId))
                         {
-                            this._Str_16058(index, stateData.animationAfterTransitionId);
+                            this.setAnimationForIndex(index, stateData.animationAfterTransitionId);
 
                             animationOver = false;
                         }
@@ -319,17 +383,17 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     protected getSpriteAssetName(scale: number, layerId: number): string
     {
-        if(this._headOnly && this._Str_24824(layerId)) return null;
+        if(this._headOnly && this.isNonHeadSprite(layerId)) return null;
 
         if(this._isRiding && this._parser3(layerId)) return null;
 
         const totalSprites = this.totalSprites;
 
-        if(layerId < (totalSprites - PetVisualization._Str_7490))
+        if(layerId < (totalSprites - PetVisualization.ADDITIONAL_SPRITE_COUNT))
         {
             const validScale = this.getValidSize(scale);
 
-            if(layerId < (totalSprites - (1 + PetVisualization._Str_7490)))
+            if(layerId < (totalSprites - (1 + PetVisualization.ADDITIONAL_SPRITE_COUNT)))
             {
                 if(layerId >= FurnitureVisualizationData.LAYER_LETTERS.length) return null;
 
@@ -348,7 +412,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     protected getLayerColor(scale: number, layerId: number, colorId: number): number
     {
-        if(layerId < (this.totalSprites - PetVisualization._Str_7490)) return this._color;
+        if(layerId < (this.totalSprites - PetVisualization.ADDITIONAL_SPRITE_COUNT)) return this._color;
 
         return 0xFFFFFF;
     }
@@ -406,7 +470,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     private getDirection(scale: number, layerId: number): number
     {
-        if(!this._Str_23973(layerId)) return this._direction;
+        if(!this.isHeadSprite(layerId)) return this._direction;
 
         return this._data.getValidDirection(scale, this._headDirection);
     }
@@ -432,12 +496,12 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         return super.getFrameNumber(scale, layerId);
     }
 
-    private _Str_23973(layerId: number): boolean
+    private isHeadSprite(layerId: number): boolean
     {
         if(this._headSprites[layerId] === undefined)
         {
-            const isHead = (this._data.getLayerTag(this._scale, DirectionData._Str_9471, layerId) === PetVisualization.HEAD);
-            const isHair = (this._data.getLayerTag(this._scale, DirectionData._Str_9471, layerId) === PetVisualization.HAIR);
+            const isHead = (this._data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId) === PetVisualization.HEAD);
+            const isHair = (this._data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId) === PetVisualization.HAIR);
 
             if(isHead || isHair) this._headSprites[layerId] = true;
             else this._headSprites[layerId] = false;
@@ -446,13 +510,13 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         return this._headSprites[layerId];
     }
 
-    private _Str_24824(layerId: number): boolean
+    private isNonHeadSprite(layerId: number): boolean
     {
         if(this._nonHeadSprites[layerId] === undefined)
         {
-            if(layerId < (this.totalSprites - (1 + PetVisualization._Str_7490)))
+            if(layerId < (this.totalSprites - (1 + PetVisualization.ADDITIONAL_SPRITE_COUNT)))
             {
-                const tag = this._data.getLayerTag(this._scale, DirectionData._Str_9471, layerId);
+                const tag = this._data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId);
 
                 if(((tag && (tag.length > 0)) && (tag !== PetVisualization.HEAD)) && (tag !== PetVisualization.HAIR))
                 {
@@ -476,7 +540,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     {
         if(this._saddleSprites[layerId] === undefined)
         {
-            if(this._data.getLayerTag(this._scale, DirectionData._Str_9471, layerId) === PetVisualization.SADDLE)
+            if(this._data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId) === PetVisualization.SADDLE)
             {
                 this._saddleSprites[layerId] = true;
             }
@@ -515,7 +579,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     protected getAdditionalLayerCount(): number
     {
-        return super.getAdditionalLayerCount() + PetVisualization._Str_7490;
+        return super.getAdditionalLayerCount() + PetVisualization.ADDITIONAL_SPRITE_COUNT;
     }
 
     protected setLayerCount(count: number): void
@@ -551,11 +615,18 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
             part = part.split('@')[0];
 
-            posture = this._data._Str_14207(scale, (parseInt(part) / 100), false);
+            posture = this._data.animationToPosture(scale, (parseInt(part) / 100), false);
 
-            if(!posture) posture = this._data._Str_17976(scale, (parseInt(part) / 100));
+            if(!posture) posture = this._data.getGestureForAnimationId(scale, (parseInt(part) / 100));
         }
 
         return posture;
+    }
+
+    public getPetAdditionAsset(name: string): Texture<Resource>
+    {
+        const url = (Nitro.instance.getConfiguration<string>('images.url') + '/additions/' + name + '.png');
+
+        return Nitro.instance.core.asset.getTexture(url);
     }
 }

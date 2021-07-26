@@ -29,7 +29,7 @@ export * from './RoomSessionUserBadgesEvent';
 export * from './RoomSessionUserDataUpdateEvent';
 export * from './RoomSessionUserFigureUpdateEvent';
 export * from './RoomSessionUserTagsEvent';
+export * from './RoomSessionVoteEvent';
 export * from './RoomSessionWordQuizEvent';
 export * from './SessionDataPreferencesEvent';
 export * from './UserNameUpdateEvent';
-export * from './_Str_3051';

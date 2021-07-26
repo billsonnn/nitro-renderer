@@ -45,16 +45,16 @@ export class PlaneMaskManager
         this._data = k;
     }
 
-    public _Str_6703(k: IGraphicAssetCollection): void
+    public initializeAssetCollection(k: IGraphicAssetCollection): void
     {
         if(!this.data) return;
 
         this._assetCollection = k;
 
-        this._Str_22834(this.data, k);
+        this.parseMasks(this.data, k);
     }
 
-    private _Str_22834(k: any, _arg_2: IGraphicAssetCollection): void
+    private parseMasks(k: any, _arg_2: IGraphicAssetCollection): void
     {
         if(!k || !_arg_2) return;
 
@@ -86,13 +86,13 @@ export class PlaneMaskManager
                             if(visualization)
                             {
                                 const size              = visualization.size as number;
-                                const maskVisualization = newMask._Str_24540(size);
+                                const maskVisualization = newMask.createMaskVisualization(size);
 
                                 if(maskVisualization)
                                 {
-                                    const assetName = this._Str_25815(visualization.bitmaps, maskVisualization, _arg_2);
+                                    const assetName = this.parseMaskBitmaps(visualization.bitmaps, maskVisualization, _arg_2);
 
-                                    newMask._Str_24425(size, assetName);
+                                    newMask.setAssetName(size, assetName);
                                 }
                             }
 
@@ -108,7 +108,7 @@ export class PlaneMaskManager
         }
     }
 
-    private _Str_25815(k: any, _arg_2: PlaneMaskVisualization, _arg_3: IGraphicAssetCollection): string
+    private parseMaskBitmaps(k: any, _arg_2: PlaneMaskVisualization, _arg_3: IGraphicAssetCollection): string
     {
         if(!k || !k.length) return null;
 
@@ -123,10 +123,10 @@ export class PlaneMaskManager
 
             if(!asset) continue;
 
-            let normalMinX  = PlaneMaskVisualization._Str_3268;
-            let normalMaxX  = PlaneMaskVisualization._Str_3271;
-            let normalMinY  = PlaneMaskVisualization._Str_3268;
-            let normalMaxY  = PlaneMaskVisualization._Str_3271;
+            let normalMinX  = PlaneMaskVisualization.MIN_NORMAL_COORDINATE_VALUE;
+            let normalMaxX  = PlaneMaskVisualization.MAX_NORMAL_COORDINATE_VALUE;
+            let normalMinY  = PlaneMaskVisualization.MIN_NORMAL_COORDINATE_VALUE;
+            let normalMaxY  = PlaneMaskVisualization.MAX_NORMAL_COORDINATE_VALUE;
 
             if(bitmap.normalMinX !== undefined) normalMinX = bitmap.normalMinX;
             if(bitmap.normalMaxX !== undefined) normalMaxX = bitmap.normalMaxX;
@@ -135,19 +135,19 @@ export class PlaneMaskManager
 
             if(!asset.flipH) graphicName = assetName;
 
-            _arg_2._Str_16790(asset, normalMinX, normalMaxX, normalMinY, normalMaxY);
+            _arg_2.addBitmap(asset, normalMinX, normalMaxX, normalMinY, normalMaxY);
         }
 
         return graphicName;
     }
 
-    public _Str_17859(k: Graphics, _arg_2: string, _arg_3: number, _arg_4: IVector3D, _arg_5: number, _arg_6: number): boolean
+    public updateMask(k: Graphics, _arg_2: string, _arg_3: number, _arg_4: IVector3D, _arg_5: number, _arg_6: number): boolean
     {
         const mask = this._masks.get(_arg_2);
 
         if(!mask) return true;
 
-        const asset = mask._Str_21021(_arg_3, _arg_4);
+        const asset = mask.getGraphicAsset(_arg_3, _arg_4);
 
         if(!asset) return true;
 
@@ -187,7 +187,7 @@ export class PlaneMaskManager
         return true;
     }
 
-    public _Str_8361(k: string): PlaneMask
+    public getMask(k: string): PlaneMask
     {
         if(!this._masks || !this._masks.size) return null;
 

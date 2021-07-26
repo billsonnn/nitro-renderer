@@ -28,7 +28,7 @@ export class ObjectTileCursorUpdateMessage extends RoomObjectUpdateMessage
         return this._visible;
     }
 
-    public get _Str_20637(): string
+    public get sourceEventId(): string
     {
         return this._sourceEventId;
     }

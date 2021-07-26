@@ -37,17 +37,17 @@ export class Plane
         this._lastSize                  = -1;
     }
 
-    public _Str_3355(): void
+    public clearCache(): void
     {
         for(const visualization of this._planeVisualizations.values())
         {
             if(!visualization) continue;
 
-            visualization._Str_3355();
+            visualization.clearCache();
         }
     }
 
-    public _Str_20305(k: number, _arg_2: number, _arg_3: IRoomGeometry): PlaneVisualization
+    public createPlaneVisualization(k: number, _arg_2: number, _arg_3: IRoomGeometry): PlaneVisualization
     {
         const existing = this._planeVisualizations.get(k.toString());
 
@@ -63,7 +63,7 @@ export class Plane
         return plane;
     }
 
-    private _Str_8560(k: number): number
+    private getSizeIndex(k: number): number
     {
         let size = 0;
         let index = 1;
@@ -85,11 +85,11 @@ export class Plane
         return size;
     }
 
-    protected _Str_6009(k: number): PlaneVisualization
+    protected getPlaneVisualization(k: number): PlaneVisualization
     {
         if(k === this._lastSize) return this._lastPlaneVisualization;
 
-        const sizeIndex = this._Str_8560(k);
+        const sizeIndex = this.getSizeIndex(k);
 
         if(sizeIndex < this._sizes.length)
         {
@@ -105,8 +105,8 @@ export class Plane
         return this._lastPlaneVisualization;
     }
 
-    public _Str_8988(): PlaneVisualizationLayer[]
+    public getLayers(): PlaneVisualizationLayer[]
     {
-        return this._Str_6009(this._lastSize)._Str_8988();
+        return this.getPlaneVisualization(this._lastSize).getLayers();
     }
 }

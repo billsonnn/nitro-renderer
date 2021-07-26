@@ -28,7 +28,7 @@ export class AvatarAnimationData implements IFigureSetData
         return true;
     }
 
-    public _Str_1017(k: any): boolean
+    public appendXML(k: any): boolean
     {
         for(const _local_2 of k.action)
         {
@@ -38,7 +38,7 @@ export class AvatarAnimationData implements IFigureSetData
         return true;
     }
 
-    public _Str_2244(action: IActionDefinition): AnimationAction
+    public getAction(action: IActionDefinition): AnimationAction
     {
         const existing = this._actions.get(action.id);
 
@@ -47,12 +47,12 @@ export class AvatarAnimationData implements IFigureSetData
         return existing;
     }
 
-    public _Str_1408(k: IActionDefinition): number
+    public getFrameCount(k: IActionDefinition): number
     {
-        const animationAction = this._Str_2244(k);
+        const animationAction = this.getAction(k);
 
         if(!animationAction) return 0;
 
-        return animationAction._Str_2185;
+        return animationAction.frameCount;
     }
 }

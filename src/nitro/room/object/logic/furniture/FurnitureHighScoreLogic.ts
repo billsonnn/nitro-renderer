@@ -1,7 +1,4 @@
-import { RoomSpriteMouseEvent } from '../../../../../room/events/RoomSpriteMouseEvent';
 import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
-import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
-import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
@@ -46,20 +43,6 @@ export class FurnitureHighScoreLogic extends FurnitureLogic
             }
 
             this._state = message.state;
-        }
-    }
-
-    public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
-    {
-        if(!event || !geometry || !this.object) return;
-
-        switch(event.type)
-        {
-            case MouseEventType.DOUBLE_CLICK:
-                this.useObject();
-                return;
-            default:
-                super.mouseEvent(event, geometry);
         }
     }
 }

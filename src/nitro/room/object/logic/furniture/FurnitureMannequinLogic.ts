@@ -1,7 +1,4 @@
-import { RoomSpriteMouseEvent } from '../../../../../room/events/RoomSpriteMouseEvent';
 import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
-import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
-import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
 import { MapDataType } from '../../data/type/MapDataType';
@@ -46,23 +43,9 @@ export class FurnitureMannequinLogic extends FurnitureLogic
         this.object.model.setValue(RoomObjectVariable.FURNITURE_MANNEQUIN_NAME, data.getValue(FurnitureMannequinLogic.OUTFIT_NAME));
     }
 
-    public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
-    {
-        if(!event || !geometry || !this.object) return;
-
-        switch(event.type)
-        {
-            case MouseEventType.DOUBLE_CLICK:
-                this.useObject();
-                return;
-        }
-
-        super.mouseEvent(event, geometry);
-    }
-
     public useObject(): void
     {
-        if(!this.eventDispatcher || !this.object) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.MANNEQUIN, this.object));
     }

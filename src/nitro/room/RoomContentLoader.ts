@@ -1,4 +1,4 @@
-import { BaseTexture, ILoaderOptions, Loader, LoaderResource, Spritesheet, Texture } from 'pixi.js';
+import { BaseTexture, ILoaderResource, Loader, LoaderResource, Resource, Spritesheet, Texture } from 'pixi.js';
 import { IAssetData } from '../../core/asset/interfaces';
 import { NitroBundle } from '../../core/asset/NitroBundle';
 import { INitroLogger } from '../../core/common/logger/INitroLogger';
@@ -262,6 +262,22 @@ export class RoomContentLoader implements IFurnitureDataListener
         return colorResults.get(paletteIndex);
     }
 
+    public getPetColorResultsForTag(petIndex: number, tagName: string): PetColorResult[]
+    {
+        const colorResults              = this._petColors.get(petIndex);
+        const results: PetColorResult[] = [];
+
+        if(colorResults)
+        {
+            for(const result of colorResults.values())
+            {
+                if(result.tag === tagName) results.push(result);
+            }
+        }
+
+        return results;
+    }
+
     public getCollection(name: string): IGraphicAssetCollection
     {
         if(!name) return null;
@@ -300,13 +316,13 @@ export class RoomContentLoader implements IFurnitureDataListener
         return image;
     }
 
-    public addAssetToCollection(collectionName: string, assetName: string, texture: Texture): boolean
+    public addAssetToCollection(collectionName: string, assetName: string, texture: Texture<Resource>, override: boolean = true): boolean
     {
         const collection = this.getCollection(collectionName);
 
         if(!collection) return false;
 
-        return collection.addAsset(assetName, texture, true, 0, 0, false, false);
+        return collection.addAsset(assetName, texture, override, 0, 0, false, false);
     }
 
     private createCollection(data: IAssetData, spritesheet: Spritesheet): GraphicAssetCollection
@@ -327,12 +343,16 @@ export class RoomContentLoader implements IFurnitureDataListener
             for(const key of keys)
             {
                 const palette = collection.getPalette(key);
+                const paletteData = data.palettes[key];
 
-                const breed = 0;
                 const primaryColor = palette.primaryColor;
                 const secondaryColor = palette.secondaryColor;
+                const breed = ((paletteData.breed !== undefined) ? paletteData.breed : 0);
+                const tag = ((paletteData.colorTag !== undefined) ? paletteData.colorTag : -1);
+                const master = ((paletteData.master !== undefined) ? paletteData.master : false);
+                const layerTags = ((paletteData.tags !== undefined) ? paletteData.tags : []);
 
-                palettes.set(parseInt(key), new PetColorResult(primaryColor, secondaryColor, breed, -1, key, false, []));
+                palettes.set(parseInt(key), new PetColorResult(primaryColor, secondaryColor, breed, tag, key, master, layerTags));
             }
 
             this._petColors.set(petIndex, palettes);
@@ -463,7 +483,7 @@ export class RoomContentLoader implements IFurnitureDataListener
         const totalToDownload = assetUrls.length;
         let totalDownloaded = 0;
 
-        const onDownloaded = (loader: Loader, resource: LoaderResource, flag: boolean) =>
+        const onDownloaded = (loader: Loader, resource: ILoaderResource, flag: boolean) =>
         {
             if(loader) loader.destroy();
 
@@ -494,21 +514,25 @@ export class RoomContentLoader implements IFurnitureDataListener
 
             const loader = new Loader();
 
-            const options: ILoaderOptions = {
-                crossOrigin: false,
-                xhrType: url.endsWith('.nitro') ? 'arraybuffer' : 'json'
-            };
-
             loader
-                .use((resource: LoaderResource, next: Function) => this.assetLoader(loader, resource, next, onDownloaded))
-                .add(url, options)
+                .add({
+                    url,
+                    crossOrigin: 'anonymous',
+                    xhrType: url.endsWith('.nitro') ? LoaderResource.XHR_RESPONSE_TYPE.BUFFER : LoaderResource.XHR_RESPONSE_TYPE.JSON
+                })
+                .use((resource: ILoaderResource, next: Function) =>
+                {
+                    this.assetLoader(loader, resource, onDownloaded);
+
+                    next();
+                })
                 .load();
         }
 
         return true;
     }
 
-    private assetLoader(loader: Loader, resource: LoaderResource, next: Function, onDownloaded: Function): void
+    private assetLoader(loader: Loader, resource: ILoaderResource, onDownloaded: Function): void
     {
         if(!resource || resource.error)
         {
@@ -546,7 +570,7 @@ export class RoomContentLoader implements IFurnitureDataListener
                 {
                     const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
 
-                    spritesheet.parse(textures =>
+                    spritesheet.parse(() =>
                     {
                         this.createCollection(assetData, spritesheet);
 
@@ -561,7 +585,7 @@ export class RoomContentLoader implements IFurnitureDataListener
 
                         const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
 
-                        spritesheet.parse(textures =>
+                        spritesheet.parse(() =>
                         {
                             this.createCollection(assetData, spritesheet);
 
@@ -614,7 +638,7 @@ export class RoomContentLoader implements IFurnitureDataListener
                 {
                     const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
 
-                    spritesheet.parse(textures =>
+                    spritesheet.parse(() =>
                     {
                         this.createCollection(assetData, spritesheet);
 
@@ -629,7 +653,7 @@ export class RoomContentLoader implements IFurnitureDataListener
 
                         const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
 
-                        spritesheet.parse(textures =>
+                        spritesheet.parse(() =>
                         {
                             this.createCollection(assetData, spritesheet);
 

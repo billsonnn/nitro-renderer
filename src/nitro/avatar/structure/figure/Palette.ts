@@ -14,10 +14,10 @@ export class Palette implements IPalette
         this._id        = parseInt(data['$'].id);
         this._colors    = new Map();
 
-        this._Str_2015(data);
+        this.append(data);
     }
 
-    public _Str_2015(data: any): void
+    public append(data: any): void
     {
         for(const color of data.color)
         {
@@ -27,7 +27,7 @@ export class Palette implements IPalette
         }
     }
 
-    public _Str_751(id: number): IPartColor
+    public getColor(id: number): IPartColor
     {
         if((id === undefined) || id < 0) return null;
 

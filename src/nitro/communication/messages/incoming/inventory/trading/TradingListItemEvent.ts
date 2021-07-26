@@ -1,7 +1,7 @@
 ﻿import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
 import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
 import { TradingListItemParser } from '../../../parser/inventory/trading/TradingListItemParser';
-import { TradingListItem } from './TradingListItem';
+import { ItemDataStructure } from './ItemDataStructure';
 
 export class TradingListItemEvent extends MessageEvent implements IMessageEvent
 {
@@ -10,44 +10,44 @@ export class TradingListItemEvent extends MessageEvent implements IMessageEvent
         super(callBack, TradingListItemParser);
     }
 
-    public get _Str_15162(): number
+    public get firstUserID(): number
     {
-        return this.getParser()._Str_15162;
+        return this.getParser().firstUserID;
     }
 
-    public get _Str_18215(): number
+    public get secondUserID(): number
     {
-        return this.getParser()._Str_18215;
+        return this.getParser().secondUserID;
     }
 
-    public get _Str_14946(): number
+    public get firstUserNumItems(): number
     {
-        return this.getParser()._Str_14946;
+        return this.getParser().firstUserNumItems;
     }
 
-    public get _Str_13801(): number
+    public get secondUserNumItems(): number
     {
-        return this.getParser()._Str_13801;
+        return this.getParser().secondUserNumItems;
     }
 
-    public get _Str_15709(): number
+    public get firstUserNumCredits(): number
     {
-        return this.getParser()._Str_15709;
+        return this.getParser().firstUserNumCredits;
     }
 
-    public get _Str_9138(): number
+    public get secondUserNumCredits(): number
     {
-        return this.getParser()._Str_9138;
+        return this.getParser().secondUserNumCredits;
     }
 
-    public get _Str_17841(): TradingListItem[]
+    public get firstUserItemArray(): ItemDataStructure[]
     {
-        return this.getParser()._Str_17841;
+        return this.getParser().firstUserItemArray;
     }
 
-    public get _Str_17465(): TradingListItem[]
+    public get secondUserItemArray(): ItemDataStructure[]
     {
-        return this.getParser()._Str_17465;
+        return this.getParser().secondUserItemArray;
     }
 
     public getParser(): TradingListItemParser

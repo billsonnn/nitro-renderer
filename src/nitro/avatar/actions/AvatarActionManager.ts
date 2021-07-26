@@ -14,10 +14,10 @@ export class AvatarActionManager
         this._actions       = new Map();
         this._defaultAction = null;
 
-        this._Str_1620(data);
+        this.updateActions(data);
     }
 
-    public _Str_1620(data: any): void
+    public updateActions(data: any): void
     {
         if(!data) return;
 
@@ -30,10 +30,10 @@ export class AvatarActionManager
             this._actions.set(definition.state, definition);
         }
 
-        if(data.actionOffsets) this._Str_1767(data.actionOffsets);
+        if(data.actionOffsets) this.parseActionOffsets(data.actionOffsets);
     }
 
-    private _Str_1767(offsets: any): void
+    private parseActionOffsets(offsets: any): void
     {
         if(!offsets || !offsets.length) return;
 
@@ -54,12 +54,12 @@ export class AvatarActionManager
                 const y = (canvasOffset.y || 0);
                 const z = (canvasOffset.z || 0);
 
-                action._Str_772(size, direction, [ x, y, z ]);
+                action.setOffsets(size, direction, [ x, y, z ]);
             }
         }
     }
 
-    public _Str_1675(id: string): ActionDefinition
+    public getActionDefinition(id: string): ActionDefinition
     {
         if(!id) return null;
 
@@ -73,7 +73,7 @@ export class AvatarActionManager
         return null;
     }
 
-    public _Str_2018(state: string): ActionDefinition
+    public getActionDefinitionWithState(state: string): ActionDefinition
     {
         const existing = this._actions.get(state);
 
@@ -82,13 +82,13 @@ export class AvatarActionManager
         return existing;
     }
 
-    public _Str_1027(): ActionDefinition
+    public getDefaultAction(): ActionDefinition
     {
         if(this._defaultAction) return this._defaultAction;
 
         for(const action of this._actions.values())
         {
-            if(!action || !action._Str_804) continue;
+            if(!action || !action.isDefault) continue;
 
             this._defaultAction = action;
 
@@ -98,7 +98,7 @@ export class AvatarActionManager
         return null;
     }
 
-    public _Str_781(k: IActiveActionData[], _arg_2: string, _arg_3: number): number[]
+    public getCanvasOffsets(k: IActiveActionData[], _arg_2: string, _arg_3: number): number[]
     {
         let canvasOffsets: number[] = [];
 
@@ -106,8 +106,8 @@ export class AvatarActionManager
         {
             if(!activeAction) continue;
 
-            const action    = this._actions.get(activeAction._Str_695);
-            const offsets   = action && action._Str_805(_arg_2, _arg_3);
+            const action    = this._actions.get(activeAction.actionType);
+            const offsets   = action && action.getOffsets(_arg_2, _arg_3);
 
             if(offsets) canvasOffsets = offsets;
         }
@@ -115,11 +115,11 @@ export class AvatarActionManager
         return canvasOffsets;
     }
 
-    public _Str_711(actions: IActiveActionData[]): IActiveActionData[]
+    public sortActions(actions: IActiveActionData[]): IActiveActionData[]
     {
         if(!actions) return null;
 
-        actions = this._Str_1247(actions);
+        actions = this.filterActions(actions);
 
         const validatedActions: IActiveActionData[] = [];
 
@@ -127,11 +127,11 @@ export class AvatarActionManager
         {
             if(!action) continue;
 
-            const definition = this._actions.get(action._Str_695);
+            const definition = this._actions.get(action.actionType);
 
             if(!definition) continue;
 
-            action._Str_742 = definition;
+            action.definition = definition;
 
             validatedActions.push(action);
         }
@@ -141,7 +141,7 @@ export class AvatarActionManager
         return validatedActions;
     }
 
-    private _Str_1247(actions: IActiveActionData[]): IActiveActionData[]
+    private filterActions(actions: IActiveActionData[]): IActiveActionData[]
     {
         let preventions: string[]               = [];
         const activeActions: IActiveActionData[]  = [];
@@ -150,18 +150,18 @@ export class AvatarActionManager
         {
             if(!action) continue;
 
-            const localAction = this._actions.get(action._Str_695);
+            const localAction = this._actions.get(action.actionType);
 
-            if(localAction) preventions = preventions.concat(localAction._Str_733(action._Str_727));
+            if(localAction) preventions = preventions.concat(localAction.getPrevents(action.actionParameter));
         }
 
         for(const action of actions)
         {
             if(!action) continue;
 
-            let actionType = action._Str_695;
+            let actionType = action.actionType;
 
-            if(action._Str_695 === 'fx') actionType = (actionType + ('.' + action._Str_727));
+            if(action.actionType === 'fx') actionType = (actionType + ('.' + action.actionParameter));
 
             if(preventions.indexOf(actionType) >= 0) continue;
 
@@ -175,8 +175,8 @@ export class AvatarActionManager
     {
         if(!actionOne || !actionTwo) return 0;
 
-        const precedenceOne = actionOne._Str_742.precedence;
-        const precedenceTwo = actionTwo._Str_742.precedence;
+        const precedenceOne = actionOne.definition.precedence;
+        const precedenceTwo = actionTwo.definition.precedence;
 
         if(precedenceOne < precedenceTwo) return 1;
 

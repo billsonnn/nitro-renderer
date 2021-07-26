@@ -5,16 +5,16 @@ export class RoomBackgroundColorEvent extends RoomEngineEvent
     public static ROOM_COLOR: string = 'REE_ROOM_COLOR';
 
     private _color: number;
-    private _Str_21672: number;
-    private _Str_6930: boolean;
+    private _brightness: number;
+    private _bgOnly: boolean;
 
     constructor(roomId: number, color: number, _arg_3: number, _arg_4: boolean)
     {
         super(RoomBackgroundColorEvent.ROOM_COLOR, roomId);
 
         this._color     = color;
-        this._Str_21672 = _arg_3;
-        this._Str_6930  = _arg_4;
+        this._brightness = _arg_3;
+        this._bgOnly  = _arg_4;
     }
 
     public get color(): number
@@ -22,13 +22,13 @@ export class RoomBackgroundColorEvent extends RoomEngineEvent
         return this._color;
     }
 
-    public get _Str_5123(): number
+    public get brightness(): number
     {
-        return this._Str_21672;
+        return this._brightness;
     }
 
-    public get _Str_11464(): boolean
+    public get bgOnly(): boolean
     {
-        return this._Str_6930;
+        return this._bgOnly;
     }
 }

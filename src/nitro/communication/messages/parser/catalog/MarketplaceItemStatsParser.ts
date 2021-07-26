@@ -3,53 +3,53 @@ import { IMessageParser } from '../../../../../core/communication/messages/IMess
 
 export class MarketplaceItemStatsParser implements IMessageParser
 {
-    private _Str_5049:number;
-    private _Str_10039:number;
-    private _Str_10803:number;
-    private _Str_8270:number[];
-    private _Str_9670:number[];
-    private _Str_8961:number[];
-    private _Str_10894:number;
-    private _Str_10644:number;
+    private _averagePrice:number;
+    private _currentOfferCount:number;
+    private _historyLength:number;
+    private _dayOffsets:number[];
+    private _averagePrices:number[];
+    private _soldAmounts:number[];
+    private _furniTypeId:number;
+    private _furniCategoryId:number;
 
-    public get _Str_3925():number
+    public get averagePrice():number
     {
-        return this._Str_5049;
+        return this._averagePrice;
     }
 
-    public get _Str_4121():number
+    public get offerCount():number
     {
-        return this._Str_10039;
+        return this._currentOfferCount;
     }
 
-    public get _Str_10461():number
+    public get historyLength():number
     {
-        return this._Str_10803;
+        return this._historyLength;
     }
 
-    public get _Str_9174():any[]
+    public get dayOffsets():any[]
     {
-        return this._Str_8270;
+        return this._dayOffsets;
     }
 
-    public get _Str_11365():any[]
+    public get averagePrices():any[]
     {
-        return this._Str_9670;
+        return this._averagePrices;
     }
 
-    public get _Str_11956():any[]
+    public get soldAmounts():any[]
     {
-        return this._Str_8961;
+        return this._soldAmounts;
     }
 
-    public get _Str_8798():number
+    public get furniTypeId():number
     {
-        return this._Str_10894;
+        return this._furniTypeId;
     }
 
-    public get _Str_9431():number
+    public get furniCategoryId():number
     {
-        return this._Str_10644;
+        return this._furniCategoryId;
     }
 
     public flush(): boolean
@@ -61,23 +61,24 @@ export class MarketplaceItemStatsParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._Str_5049 = wrapper.readInt();
-        this._Str_10039 = wrapper.readInt();
-        this._Str_10803 = wrapper.readInt();
-        const _local_2:number = wrapper.readInt();
-        this._Str_8270 = [];
-        this._Str_9670 = [];
-        this._Str_8961 = [];
-        let _local_3 = 0;
-        while(_local_3 < _local_2)
+        this._averagePrice = wrapper.readInt();
+        this._currentOfferCount = wrapper.readInt();
+        this._historyLength = wrapper.readInt();
+
+        const count = wrapper.readInt();
+        this._dayOffsets = [];
+        this._averagePrices = [];
+        this._soldAmounts = [];
+
+        for(let i = 0; i < count; i++)
         {
-            this._Str_8270.push(wrapper.readInt());
-            this._Str_9670.push(wrapper.readInt());
-            this._Str_8961.push(wrapper.readInt());
-            _local_3++;
+            this._dayOffsets.push(wrapper.readInt());
+            this._averagePrices.push(wrapper.readInt());
+            this._soldAmounts.push(wrapper.readInt());
         }
-        this._Str_10644 = wrapper.readInt();
-        this._Str_10894 = wrapper.readInt();
+
+        this._furniCategoryId = wrapper.readInt();
+        this._furniTypeId = wrapper.readInt();
         return true;
     }
 

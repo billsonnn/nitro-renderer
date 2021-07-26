@@ -15,7 +15,7 @@ export class RoomSessionPetInfoUpdateEvent extends RoomSessionEvent
         this._petInfo = _arg_2;
     }
 
-    public get _Str_24727():RoomPetData
+    public get petInfo():RoomPetData
     {
         return this._petInfo;
     }

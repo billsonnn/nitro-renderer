@@ -1,4 +1,4 @@
-import { BLEND_MODES, Texture } from 'pixi.js';
+import { BLEND_MODES, Resource, Texture } from 'pixi.js';
 import { AdvancedMap } from '../../../../../core/utils/AdvancedMap';
 import { AlphaTolerance } from '../../../../../room/object/enum/AlphaTolerance';
 import { RoomObjectSpriteType } from '../../../../../room/object/enum/RoomObjectSpriteType';
@@ -33,19 +33,18 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
     private static MUTED_BUBBLE_ID: number          = 6;
     private static OWN_USER_ID: number              = 4;
     private static UPDATE_TIME_INCREASER: number    = 41;
-    private static OFFSET_MULTIPLIER: number        = 1000;
     private static AVATAR_LAYER_ID: number          = 0;
     private static SHADOW_LAYER_ID: number          = 1;
-    private static _Str_17502: number               = 97;
-    private static _Str_11587: number               = 2;
-    private static _Str_14491: number               = 2;
-    private static _Str_18338: number[]             = [0, 0, 0];
+    private static SNOWBOARDING_EFFECT: number      = 97;
+    private static INITIAL_RESERVED_SPRITES: number = 2;
+    private static ANIMATION_FRAME_UPDATE_INTERVAL: number = 2;
+    private static DEFAULT_CANVAS_OFFSETS: number[] = [0, 0, 0];
     private static MAX_EFFECT_CACHE: number         = 2;
-    private static _Str_9540: number                = 0;
-    private static _Str_12370: number               = 1000;
-    private static _Str_11358: number               = -0.01;
-    private static _Str_17708: number               = 0.001;
-    private static _Str_9235: number                = -0.409;
+    private static SPRITE_INDEX_AVATAR: number      = 0;
+    private static BASE_Y_SCALE: number             = 1000;
+    private static AVATAR_SPRITE_DEFAULT_DEPTH: number = -0.01;
+    private static AVATAR_OWN_DEPTH_ADJUST: number     = 0.001;
+    private static AVATAR_SPRITE_LAYING_DEPTH: number  = -0.409;
 
     protected _data: AvatarVisualizationData;
 
@@ -81,12 +80,12 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
     private _useObject: number;
     private _ownUser: boolean;
 
-    private _Str_8935: boolean;
-    private _Str_17860: boolean;
-    private _Str_1222: boolean;
-    private _Str_16697: number;
-    private _Str_12697: number;
-    private _Str_14276: number;
+    private _isLaying: boolean;
+    private _layInside: boolean;
+    private _isAnimating: boolean;
+    private _extraSpritesStartIndex: number;
+    private _forcedAnimFrames: number;
+    private _updatesUntilFrameUpdate: number;
 
     private _isAvatarReady: boolean;
     private _needsUpdate: boolean;
@@ -105,7 +104,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
         this._cachedAvatarEffects   = new AdvancedMap();
         this._shadow                = null;
         this._lastUpdate            = -1000;
-        this._disposed            = false;
+        this._disposed              = false;
 
         this._figure                = null;
         this._gender                = null;
@@ -132,12 +131,12 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
         this._useObject             = 0;
         this._ownUser               = false;
 
-        this._Str_8935              = false;
-        this._Str_17860             = false;
-        this._Str_1222              = false;
-        this._Str_16697             = 2;
-        this._Str_12697             = 0;
-        this._Str_14276             = 0;
+        this._isLaying              = false;
+        this._layInside             = false;
+        this._isAnimating           = false;
+        this._extraSpritesStartIndex = 2;
+        this._forcedAnimFrames       = 0;
+        this._updatesUntilFrameUpdate = 0;
 
         this._isAvatarReady         = false;
         this._needsUpdate           = false;
@@ -152,7 +151,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         this._data  = data;
 
-        this.setSpriteCount(AvatarVisualization._Str_11587);
+        this.createSprites(AvatarVisualization.INITIAL_RESERVED_SPRITES);
 
         super.initialize(data);
 
@@ -236,7 +235,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
             if(this._additions)
             {
-                let index = this._Str_16697;
+                let index = this._extraSpritesStartIndex;
 
                 for(const addition of this._additions.values())
                 {
@@ -253,7 +252,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         if(this._additions)
         {
-            let index = this._Str_16697;
+            let index = this._extraSpritesStartIndex;
 
             for(const addition of this._additions.values())
             {
@@ -262,22 +261,22 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
         }
 
         const update1 = (objectUpdate || updateModel || didScaleUpdate);
-        const update2 = ((this._Str_1222 || (this._Str_12697 > 0)) && update);
+        const update2 = ((this._isAnimating || (this._forcedAnimFrames > 0)) && update);
 
-        if(update1) this._Str_12697 = AvatarVisualization._Str_14491;
+        if(update1) this._forcedAnimFrames = AvatarVisualization.ANIMATION_FRAME_UPDATE_INTERVAL;
 
         if(update1 || update2)
         {
             this.updateSpriteCounter++;
 
-            this._Str_12697--;
-            this._Str_14276--;
+            this._forcedAnimFrames--;
+            this._updatesUntilFrameUpdate--;
 
-            if((((this._Str_14276 <= 0) || didScaleUpdate) || updateModel) || otherUpdate)
+            if((((this._updatesUntilFrameUpdate <= 0) || didScaleUpdate) || updateModel) || otherUpdate)
             {
                 this._avatarImage.updateAnimationByFrames(1);
 
-                this._Str_14276 = AvatarVisualization._Str_14491;
+                this._updatesUntilFrameUpdate = AvatarVisualization.ANIMATION_FRAME_UPDATE_INTERVAL;
             }
             else
             {
@@ -286,9 +285,9 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
             let _local_20 = this._avatarImage.getCanvasOffsets();
 
-            if(!_local_20 || (_local_20.length < 3)) _local_20 = AvatarVisualization._Str_18338;
+            if(!_local_20 || (_local_20.length < 3)) _local_20 = AvatarVisualization.DEFAULT_CANVAS_OFFSETS;
 
-            const sprite = this.getSprite(AvatarVisualization._Str_9540);
+            const sprite = this.getSprite(AvatarVisualization.SPRITE_INDEX_AVATAR);
 
             if(sprite)
             {
@@ -321,24 +320,24 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                     sprite.offsetY = (((-(sprite.texture.height) + (scale / 4)) + _local_20[1]) + this._postureOffset);
                 }
 
-                if(this._Str_8935)
+                if(this._isLaying)
                 {
-                    if(this._Str_17860) sprite.relativeDepth = -0.5;
-                    else sprite.relativeDepth = (AvatarVisualization._Str_9235 + _local_20[2]);
+                    if(this._layInside) sprite.relativeDepth = -0.5;
+                    else sprite.relativeDepth = (AvatarVisualization.AVATAR_SPRITE_LAYING_DEPTH + _local_20[2]);
                 }
                 else
                 {
-                    sprite.relativeDepth = (AvatarVisualization._Str_11358 + _local_20[2]);
+                    sprite.relativeDepth = (AvatarVisualization.AVATAR_SPRITE_DEFAULT_DEPTH + _local_20[2]);
                 }
 
                 if(this._ownUser)
                 {
-                    sprite.relativeDepth -= AvatarVisualization._Str_17708;
-                    sprite.spriteType = RoomObjectSpriteType._Str_10494;
+                    sprite.relativeDepth -= AvatarVisualization.AVATAR_OWN_DEPTH_ADJUST;
+                    sprite.spriteType = RoomObjectSpriteType.AVATAR_OWN;
                 }
                 else
                 {
-                    sprite.spriteType = RoomObjectSpriteType._Str_11629;
+                    sprite.spriteType = RoomObjectSpriteType.AVATAR;
                 }
             }
 
@@ -346,27 +345,27 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
             if(typingBubble)
             {
-                if(!this._Str_8935) typingBubble.relativeDepth = ((AvatarVisualization._Str_11358 - 0.01) + _local_20[2]);
-                else typingBubble.relativeDepth = ((AvatarVisualization._Str_9235 - 0.01) + _local_20[2]);
+                if(!this._isLaying) typingBubble.relativeDepth = ((AvatarVisualization.AVATAR_SPRITE_DEFAULT_DEPTH - 0.01) + _local_20[2]);
+                else typingBubble.relativeDepth = ((AvatarVisualization.AVATAR_SPRITE_LAYING_DEPTH - 0.01) + _local_20[2]);
             }
 
-            this._Str_1222 = this._avatarImage.isAnimating();
+            this._isAnimating = this._avatarImage.isAnimating();
 
-            let _local_21   = AvatarVisualization._Str_11587;
+            let _local_21   = AvatarVisualization.INITIAL_RESERVED_SPRITES;
             const direction   = this._avatarImage.getDirection();
 
             for(const spriteData of this._avatarImage.getSprites())
             {
                 if(spriteData.id === AvatarVisualization.AVATAR)
                 {
-                    const sprite = this.getSprite(AvatarVisualization._Str_9540);
+                    const sprite = this.getSprite(AvatarVisualization.SPRITE_INDEX_AVATAR);
 
                     if(sprite)
                     {
                         const layerData = this._avatarImage.getLayerData(spriteData);
 
-                        let offsetX = spriteData._Str_809(direction);
-                        let offsetY = spriteData._Str_739(direction);
+                        let offsetX = spriteData.getDirectionOffsetX(direction);
+                        let offsetY = spriteData.getDirectionOffsetY(direction);
 
                         if(layerData)
                         {
@@ -393,22 +392,22 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
                     if(sprite)
                     {
-                        sprite.alphaTolerance   = AlphaTolerance._Str_9268;
+                        sprite.alphaTolerance   = AlphaTolerance.MATCH_NOTHING;
                         sprite.visible          = true;
 
                         const layerData = this._avatarImage.getLayerData(spriteData);
 
                         let frameNumber = 0;
-                        let offsetX     = spriteData._Str_809(direction);
-                        let offsetY     = spriteData._Str_739(direction);
-                        const offsetZ     = spriteData._Str_839(direction);
+                        let offsetX     = spriteData.getDirectionOffsetX(direction);
+                        let offsetY     = spriteData.getDirectionOffsetY(direction);
+                        const offsetZ     = spriteData.getDirectionOffsetZ(direction);
                         let dd          = 0;
 
-                        if(spriteData._Str_949) dd = direction;
+                        if(spriteData.hasDirections) dd = direction;
 
                         if(layerData)
                         {
-                            frameNumber = layerData._Str_891;
+                            frameNumber = layerData.animationFrame;
                             offsetX    += layerData.dx;
                             offsetY    += layerData.dy;
                             dd         += layerData.dd;
@@ -437,22 +436,22 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                         sprite.offsetY  = (asset.offsetY + offsetY);
                         sprite.flipH    = asset.flipH;
 
-                        if(spriteData._Str_767)
+                        if(spriteData.hasStaticY)
                         {
-                            sprite.offsetY += ((this._verticalOffset * scale) / (2 * AvatarVisualization._Str_12370));
+                            sprite.offsetY += ((this._verticalOffset * scale) / (2 * AvatarVisualization.BASE_Y_SCALE));
                         }
                         else
                         {
                             sprite.offsetY += this._postureOffset;
                         }
 
-                        if(this._Str_8935)
+                        if(this._isLaying)
                         {
-                            sprite.relativeDepth = (AvatarVisualization._Str_9235 - ((0.001 * this.totalSprites) * offsetZ));
+                            sprite.relativeDepth = (AvatarVisualization.AVATAR_SPRITE_LAYING_DEPTH - ((0.001 * this.totalSprites) * offsetZ));
                         }
                         else
                         {
-                            sprite.relativeDepth = (AvatarVisualization._Str_11358 - ((0.001 * this.totalSprites) * offsetZ));
+                            sprite.relativeDepth = (AvatarVisualization.AVATAR_SPRITE_DEFAULT_DEPTH - ((0.001 * this.totalSprites) * offsetZ));
                         }
 
                         if(spriteData.ink === 33) sprite.blendMode = BLEND_MODES.ADD;
@@ -641,7 +640,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
             needsUpdate = true;
         }
 
-        const verticalOffset = (model.getValue<number>(RoomObjectVariable.FIGURE_VERTICAL_OFFSET) * AvatarVisualization.OFFSET_MULTIPLIER);
+        const verticalOffset = (model.getValue<number>(RoomObjectVariable.FIGURE_VERTICAL_OFFSET) * AvatarVisualization.BASE_Y_SCALE);
 
         if(verticalOffset !== this._verticalOffset)
         {
@@ -879,16 +878,16 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
             this._postureOffset = 0;
         }
 
-        this._Str_17860 = false;
-        this._Str_8935  = false;
+        this._layInside = false;
+        this._isLaying  = false;
 
         if(this._posture === 'lay')
         {
-            this._Str_8935 = true;
+            this._isLaying = true;
 
             const _local_2 = parseInt(this._postureParameter);
 
-            if(_local_2 < 0) this._Str_17860 = true;
+            if(_local_2 < 0) this._layInside = true;
         }
     }
 
@@ -936,18 +935,18 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         avatar.endActionAppends();
 
-        this._Str_1222 = avatar.isAnimating();
+        this._isAnimating = avatar.isAnimating();
 
-        let spriteCount = AvatarVisualization._Str_11587;
+        let spriteCount = AvatarVisualization.INITIAL_RESERVED_SPRITES;
 
         for(const sprite of this._avatarImage.getSprites())
         {
             if(sprite.id !== AvatarVisualization.AVATAR) spriteCount++;
         }
 
-        if(spriteCount !== this.totalSprites) this.setSpriteCount(spriteCount);
+        if(spriteCount !== this.totalSprites) this.createSprites(spriteCount);
 
-        this._Str_16697 = spriteCount;
+        this._extraSpritesStartIndex = spriteCount;
 
         if(this._additions)
         {
@@ -1039,7 +1038,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         let hasShadow = (((this._posture === 'mv') || (this._posture === 'std')) || ((this._posture === 'sit') && this._canStandUp));
 
-        if(this._effect === AvatarVisualization._Str_17502) hasShadow = false;
+        if(this._effect === AvatarVisualization.SNOWBOARDING_EFFECT) hasShadow = false;
 
         if(hasShadow)
         {
@@ -1052,18 +1051,18 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
                 if(scale < 48)
                 {
-                    sprite._Str_3582 = 'sh_std_sd_1_0_0';
+                    sprite.libraryAssetName = 'sh_std_sd_1_0_0';
 
-                    this._shadow = this._avatarImage.getAsset(sprite._Str_3582);
+                    this._shadow = this._avatarImage.getAsset(sprite.libraryAssetName);
 
                     offsetX = -8;
                     offsetY = ((this._canStandUp) ? 6 : -3);
                 }
                 else
                 {
-                    sprite._Str_3582 = 'h_std_sd_1_0_0';
+                    sprite.libraryAssetName = 'h_std_sd_1_0_0';
 
-                    this._shadow = this._avatarImage.getAsset(sprite._Str_3582);
+                    this._shadow = this._avatarImage.getAsset(sprite.libraryAssetName);
 
                     offsetX = -17;
                     offsetY = ((this._canStandUp) ? 10 : -7);
@@ -1091,7 +1090,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
         }
     }
 
-    public getAvatarRenderAsset(name: string): Texture
+    public getAvatarRenderAsset(name: string): Texture<Resource>
     {
         const url = (Nitro.instance.getConfiguration<string>('images.url') + '/additions/' + name + '.png');
 

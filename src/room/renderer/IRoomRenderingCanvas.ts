@@ -13,10 +13,10 @@ export interface IRoomRenderingCanvas
     render(time: number, update?: boolean): void;
     update(): void;
     setMouseListener(listener: IRoomCanvasMouseListener): void;
-    _Str_20787(): void;
-    _Str_22174(): void;
-    _Str_14588(): SortableSprite[];
-    _Str_21232(k: number, _arg_2: number, _arg_3: string, _arg_4: boolean, _arg_5: boolean, _arg_6: boolean, _arg_7: boolean): boolean;
+    skipSpriteVisibilityChecking(): void;
+    resumeSpriteVisibilityChecking(): void;
+    getPlaneSortableSprites(): SortableSprite[];
+    handleMouseEvent(k: number, _arg_2: number, _arg_3: string, _arg_4: boolean, _arg_5: boolean, _arg_6: boolean, _arg_7: boolean): boolean;
     getSortableSpriteList(): RoomObjectSpriteData[];
     getDisplayAsTexture(): RenderTexture;
     id: number;

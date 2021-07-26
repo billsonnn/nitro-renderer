@@ -1,8 +1,8 @@
 import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
-import { RoomChatParser } from './RoomChatParser';
+import { RoomChatSettings } from './RoomChatSettings';
 import { RoomDataParser } from './RoomDataParser';
-import { RoomModerationParser } from './RoomModerationParser';
+import { RoomModerationSettings } from './RoomModerationSettings';
 
 export class RoomInfoParser implements IMessageParser
 {
@@ -11,8 +11,8 @@ export class RoomInfoParser implements IMessageParser
     private _staffPick: boolean;
     private _data: RoomDataParser;
     private _isGroupMember: boolean;
-    private _moderation: RoomModerationParser;
-    private _chat: RoomChatParser;
+    private _moderation: RoomModerationSettings;
+    private _chat: RoomChatSettings;
 
     public flush(): boolean
     {
@@ -37,9 +37,9 @@ export class RoomInfoParser implements IMessageParser
         this.data.roomPicker = wrapper.readBoolean();
         this._isGroupMember  = wrapper.readBoolean();
         this.data.allInRoomMuted          = wrapper.readBoolean();
-        this._moderation     = new RoomModerationParser(wrapper);
+        this._moderation     = new RoomModerationSettings(wrapper);
         this.data.canMute   = wrapper.readBoolean();
-        this._chat           = new RoomChatParser(wrapper);
+        this._chat           = new RoomChatSettings(wrapper);
 
         return true;
     }
@@ -64,12 +64,12 @@ export class RoomInfoParser implements IMessageParser
         return this._isGroupMember;
     }
 
-    public get moderation(): RoomModerationParser
+    public get moderation(): RoomModerationSettings
     {
         return this._moderation;
     }
 
-    public get chat(): RoomChatParser
+    public get chat(): RoomChatSettings
     {
         return this._chat;
     }

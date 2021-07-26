@@ -48,17 +48,17 @@ export class Triggerable
         return (this._intParams[index] === 1);
     }
 
-    public get _Str_21824(): boolean
+    public get stuffTypeSelectionEnabled(): boolean
     {
         return this._stuffTypeSelectionEnabled;
     }
 
-    public get _Str_6040(): number
+    public get stuffTypeSelectionCode(): number
     {
         return this._stuffTypeSelectionCode;
     }
 
-    public set _Str_6040(k: number)
+    public set stuffTypeSelectionCode(k: number)
     {
         this._stuffTypeSelectionCode = k;
     }

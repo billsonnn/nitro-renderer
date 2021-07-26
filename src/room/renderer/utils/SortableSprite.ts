@@ -3,7 +3,7 @@ import { ISortableSprite } from '../../object/visualization/ISortableSprite';
 
 export class SortableSprite implements ISortableSprite
 {
-    public static _Str_17154: number = 100000000;
+    public static Z_INFINITY: number = 100000000;
 
     private _name: string;
     private _sprite: IRoomObjectSprite;
@@ -24,7 +24,7 @@ export class SortableSprite implements ISortableSprite
 
     public dispose(): void
     {
-        this._z         = -(SortableSprite._Str_17154);
+        this._z         = -(SortableSprite.Z_INFINITY);
         this._sprite    = null;
     }
 

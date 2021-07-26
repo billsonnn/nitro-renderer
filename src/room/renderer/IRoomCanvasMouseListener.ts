@@ -4,5 +4,5 @@ import { IRoomGeometry } from '../utils/IRoomGeometry';
 
 export interface IRoomCanvasMouseListener
 {
-    _Str_20330(event: RoomSpriteMouseEvent, object: IRoomObject, geometry: IRoomGeometry): void
+    processRoomCanvasMouseEvent(event: RoomSpriteMouseEvent, object: IRoomObject, geometry: IRoomGeometry): void
 }

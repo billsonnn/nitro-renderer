@@ -1,6 +1,6 @@
-import { BaseTexture, ILoaderOptions, Loader, LoaderResource, Spritesheet, Texture } from 'pixi.js';
+import { BaseTexture, ILoaderResource, Loader, LoaderResource, Resource, Spritesheet, Texture } from 'pixi.js';
+import { IGraphicAsset } from '../../room';
 import { GraphicAssetCollection } from '../../room/object/visualization/utils/GraphicAssetCollection';
-import { IGraphicAsset } from '../../room/object/visualization/utils/IGraphicAsset';
 import { IGraphicAssetCollection } from '../../room/object/visualization/utils/IGraphicAssetCollection';
 import { Disposable } from '../common/disposable/Disposable';
 import { INitroLogger } from '../common/logger/INitroLogger';
@@ -12,9 +12,8 @@ import { NitroBundle } from './NitroBundle';
 export class AssetManager extends Disposable implements IAssetManager
 {
     private _logger: INitroLogger;
-    private _textures: Map<string, Texture>;
-    private _collections: Map<string, GraphicAssetCollection>;
-    private _pendingUrls: Map<string, Function[]>;
+    private _textures: Map<string, Texture<Resource>>;
+    private _collections: Map<string, IGraphicAssetCollection>;
 
     constructor()
     {
@@ -23,7 +22,6 @@ export class AssetManager extends Disposable implements IAssetManager
         this._logger        = new NitroLogger(this.constructor.name);
         this._textures      = new Map();
         this._collections   = new Map();
-        this._pendingUrls   = new Map();
     }
 
     public static removeFileExtension(name: string): string
@@ -31,7 +29,7 @@ export class AssetManager extends Disposable implements IAssetManager
         return (name.substring(0, name.lastIndexOf('.')) || name);
     }
 
-    public getTexture(name: string): Texture
+    public getTexture(name: string): Texture<Resource>
     {
         if(!name) return null;
 
@@ -42,7 +40,7 @@ export class AssetManager extends Disposable implements IAssetManager
         return existing;
     }
 
-    public setTexture(name: string, texture: Texture): void
+    public setTexture(name: string, texture: Texture<Resource>): void
     {
         if(!name || !texture) return;
 
@@ -90,6 +88,8 @@ export class AssetManager extends Disposable implements IAssetManager
 
             this._collections.set(collection.name, collection);
         }
+
+        return collection;
     }
 
     public downloadAsset(assetUrl: string, cb: Function): boolean
@@ -110,7 +110,7 @@ export class AssetManager extends Disposable implements IAssetManager
 
         let totalDownloaded = 0;
 
-        const onDownloaded = (loader: Loader, resource: LoaderResource, flag: boolean) =>
+        const onDownloaded = (loader: Loader, resource: ILoaderResource, flag: boolean) =>
         {
             if(loader) loader.destroy();
 
@@ -134,21 +134,25 @@ export class AssetManager extends Disposable implements IAssetManager
 
             const loader = new Loader();
 
-            const options: ILoaderOptions = {
-                crossOrigin: false,
-                xhrType: url.endsWith('.nitro') ? 'arraybuffer' : 'json'
-            };
-
             loader
-                .use((resource: LoaderResource, next: Function) => this.assetLoader(loader, resource, next, onDownloaded))
-                .add(url, options)
+                .add({
+                    url,
+                    crossOrigin: 'anonymous',
+                    xhrType: url.endsWith('.nitro') ? LoaderResource.XHR_RESPONSE_TYPE.BUFFER : LoaderResource.XHR_RESPONSE_TYPE.JSON
+                })
+                .use((resource: ILoaderResource, next: Function) =>
+                {
+                    this.assetLoader(loader, resource, onDownloaded);
+
+                    next();
+                })
                 .load();
         }
 
         return true;
     }
 
-    private assetLoader(loader: Loader, resource: LoaderResource, next: Function, onDownloaded: Function): void
+    private assetLoader(loader: Loader, resource: ILoaderResource, onDownloaded: Function): void
     {
         if(!resource || resource.error)
         {
@@ -186,7 +190,7 @@ export class AssetManager extends Disposable implements IAssetManager
                 {
                     const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
 
-                    spritesheet.parse(textures =>
+                    spritesheet.parse(() =>
                     {
                         this.createCollection(assetData, spritesheet);
 
@@ -201,7 +205,7 @@ export class AssetManager extends Disposable implements IAssetManager
 
                         const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
 
-                        spritesheet.parse(textures =>
+                        spritesheet.parse(() =>
                         {
                             this.createCollection(assetData, spritesheet);
 
@@ -254,7 +258,7 @@ export class AssetManager extends Disposable implements IAssetManager
                 {
                     const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
 
-                    spritesheet.parse(textures =>
+                    spritesheet.parse(() =>
                     {
                         this.createCollection(assetData, spritesheet);
 
@@ -269,7 +273,7 @@ export class AssetManager extends Disposable implements IAssetManager
 
                         const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
 
-                        spritesheet.parse(textures =>
+                        spritesheet.parse(() =>
                         {
                             this.createCollection(assetData, spritesheet);
 
@@ -312,7 +316,7 @@ export class AssetManager extends Disposable implements IAssetManager
         }
     }
 
-    public get collections(): Map<string, GraphicAssetCollection>
+    public get collections(): Map<string, IGraphicAssetCollection>
     {
         return this._collections;
     }

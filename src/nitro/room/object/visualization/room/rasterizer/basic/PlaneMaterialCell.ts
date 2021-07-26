@@ -79,7 +79,7 @@ export class PlaneMaterialCell
         this._extraItemCount    = 0;
     }
 
-    public _Str_3355(): void
+    public clearCache(): void
     {
         if(this._cachedBitmapData)
         {
@@ -89,11 +89,11 @@ export class PlaneMaterialCell
         }
     }
 
-    public _Str_9599(k: IVector3D): number
+    public getHeight(k: IVector3D): number
     {
         if(this._texture)
         {
-            const texture = this._texture._Str_4913(k);
+            const texture = this._texture.getBitmap(k);
 
             if(texture) return texture.height;
         }
@@ -105,7 +105,7 @@ export class PlaneMaterialCell
     {
         if(!this._texture) return null;
 
-        const texture = this._texture._Str_4913(normal);
+        const texture = this._texture.getBitmap(normal);
 
         if(!texture) return null;
 
@@ -175,7 +175,7 @@ export class PlaneMaterialCell
 
             //     const limitMin      = Math.min(this._extraItemCount, this._extraItemOffsets.length);
             //     const limitMax      = Math.max(this._extraItemCount, this._extraItemOffsets.length);
-            //     const offsetIndexes = Randomizer._Str_23572(this._extraItemCount, limitMax);
+            //     const offsetIndexes = Randomizer.getArray(this._extraItemCount, limitMax);
 
             //     let i = 0;
 
@@ -235,8 +235,8 @@ export class PlaneMaterialCell
         return null;
     }
 
-    public _Str_2125(k:IVector3D): string
+    public getAssetName(k:IVector3D): string
     {
-        return (this._texture == null) ? null : this._texture._Str_2125(k);
+        return (this._texture == null) ? null : this._texture.getAssetName(k);
     }
 }

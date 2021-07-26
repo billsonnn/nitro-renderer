@@ -23,17 +23,12 @@ export class TriggerDefinition extends Triggerable
         }
     }
 
-    public get type(): number
-    {
-        return this._triggerConf;
-    }
-
     public get code(): number
     {
         return this._triggerConf;
     }
 
-    public get _Str_21837(): number[]
+    public get conflictingActions(): number[]
     {
         return this._conflictingActions;
     }

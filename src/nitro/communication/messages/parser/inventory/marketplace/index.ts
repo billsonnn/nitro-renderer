@@ -1,2 +1,2 @@
+export * from './MarketplaceCanMakeOfferResultParser';
 export * from './MarketplaceItemPostedParser';
-export * from './MarketplaceSellItemParser';

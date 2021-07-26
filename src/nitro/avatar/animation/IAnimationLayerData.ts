@@ -4,7 +4,7 @@ export interface IAnimationLayerData
 {
     id: string;
     action: IActiveActionData;
-    _Str_891: number;
+    animationFrame: number;
     dx: number;
     dy: number;
     dz: number;

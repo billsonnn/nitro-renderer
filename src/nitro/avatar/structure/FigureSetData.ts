@@ -47,7 +47,7 @@ export class FigureSetData implements IFigureSetData, IStructureData
         return true;
     }
 
-    public _Str_1133(k: any): void
+    public injectXML(k: any): void
     {
         for(const _local_2 of k.sets[0].settype)
         {
@@ -55,7 +55,7 @@ export class FigureSetData implements IFigureSetData, IStructureData
 
             if(setType)
             {
-                setType._Str_1874(_local_2);
+                setType.cleanUp(_local_2);
             }
             else
             {
@@ -63,10 +63,10 @@ export class FigureSetData implements IFigureSetData, IStructureData
             }
         }
 
-        this._Str_1017(k);
+        this.appendXML(k);
     }
 
-    public _Str_1017(k: any): boolean
+    public appendXML(k: any): boolean
     {
         if(!k) return false;
 
@@ -81,7 +81,7 @@ export class FigureSetData implements IFigureSetData, IStructureData
             }
             else
             {
-                _local_4._Str_2015(_local_2);
+                _local_4.append(_local_2);
             }
         }
 
@@ -96,20 +96,20 @@ export class FigureSetData implements IFigureSetData, IStructureData
             }
             else
             {
-                _local_5._Str_2015(_local_3);
+                _local_5.append(_local_3);
             }
         }
 
         return false;
     }
 
-    public _Str_1733(k: string, _arg_2: number): string[]
+    public getMandatorySetTypeIds(k: string, _arg_2: number): string[]
     {
         const types: string[] = [];
 
         for(const set of this._setTypes.values())
         {
-            if(!set || !set._Str_895(k, _arg_2)) continue;
+            if(!set || !set.isMandatory(k, _arg_2)) continue;
 
             types.push(set.type);
         }
@@ -117,30 +117,30 @@ export class FigureSetData implements IFigureSetData, IStructureData
         return types;
     }
 
-    public _Str_2264(k: string, _arg_2: string): IFigurePartSet
+    public getDefaultPartSet(k: string, _arg_2: string): IFigurePartSet
     {
         const setType = this._setTypes.get(k);
 
         if(!setType) return null;
 
-        return setType._Str_2264(_arg_2);
+        return setType.getDefaultPartSet(_arg_2);
     }
 
-    public _Str_740(k: string): ISetType
+    public getSetType(k: string): ISetType
     {
         return (this._setTypes.get(k) || null);
     }
 
-    public _Str_783(k: number): IPalette
+    public getPalette(k: number): IPalette
     {
         return (this._palettes.get(k.toString()) || null);
     }
 
-    public _Str_938(k: number): IFigurePartSet
+    public getFigurePartSet(k: number): IFigurePartSet
     {
         for(const set of this._setTypes.values())
         {
-            const partSet = set._Str_1020(k);
+            const partSet = set.getPartSet(k);
 
             if(!partSet) continue;
 

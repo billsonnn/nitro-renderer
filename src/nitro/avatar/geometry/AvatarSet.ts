@@ -42,13 +42,13 @@
         {
             if(!avatarSet) continue;
 
-            bodyParts = bodyParts.concat(avatarSet._Str_755());
+            bodyParts = bodyParts.concat(avatarSet.getBodyParts());
         }
 
         this._allBodyParts = bodyParts;
     }
 
-    public _Str_1498(k: string): AvatarSet
+    public findAvatarSet(k: string): AvatarSet
     {
         if(k === this._id) return this;
 
@@ -56,7 +56,7 @@
         {
             if(!avatarSet) continue;
 
-            if(!avatarSet._Str_1498(k)) continue;
+            if(!avatarSet.findAvatarSet(k)) continue;
 
             return avatarSet;
         }
@@ -64,7 +64,7 @@
         return null;
     }
 
-    public _Str_755(): string[]
+    public getBodyParts(): string[]
     {
         return this._allBodyParts.concat();
     }
@@ -74,7 +74,7 @@
         return this._id;
     }
 
-    public get _Str_779(): boolean
+    public get isMain(): boolean
     {
         if(this._isMain) return true;
 
@@ -82,7 +82,7 @@
         {
             if(!avatarSet) continue;
 
-            if(!avatarSet._Str_779) continue;
+            if(!avatarSet.isMain) continue;
 
             return true;
         }

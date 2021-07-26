@@ -72,6 +72,11 @@ export class ObjectDataBase implements IObjectData
         return this._uniqueSeries;
     }
 
+    public get rarityLevel(): number
+    {
+        return -1;
+    }
+
     public get flags(): number
     {
         return this._flags;

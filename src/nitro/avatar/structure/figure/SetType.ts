@@ -21,7 +21,7 @@ export class SetType implements ISetType
         this._isMandatory['M']  = [ (parseInt(data['$'].mand_m_0) === 1), (parseInt(data['$'].mand_m_1) === 1) ];
         this._partSets          = new AdvancedMap();
 
-        this._Str_2015(data);
+        this.append(data);
     }
 
     public dispose(): void
@@ -36,7 +36,7 @@ export class SetType implements ISetType
         this._partSets = null;
     }
 
-    public _Str_1874(k: any): void
+    public cleanUp(k: any): void
     {
         for(const _local_2 of k)
         {
@@ -52,14 +52,14 @@ export class SetType implements ISetType
         }
     }
 
-    public _Str_2015(k: any): void
+    public append(k: any): void
     {
         if(!k || !k.set) return;
 
         for(const set of k.set) this._partSets.add(set['$'].id, new FigurePartSet(this._type, set));
     }
 
-    public _Str_2264(k: string): IFigurePartSet
+    public getDefaultPartSet(k: string): IFigurePartSet
     {
         for(const set of this._partSets.getValues())
         {
@@ -71,7 +71,7 @@ export class SetType implements ISetType
         return null;
     }
 
-    public _Str_1020(k: number): IFigurePartSet
+    public getPartSet(k: number): IFigurePartSet
     {
         return this._partSets.getValue(k.toString());
     }
@@ -81,24 +81,24 @@ export class SetType implements ISetType
         return this._type;
     }
 
-    public get _Str_734(): number
+    public get paletteID(): number
     {
         return this._paletteId;
     }
 
-    public _Str_895(k: string, _arg_2: number): boolean
+    public isMandatory(k: string, _arg_2: number): boolean
     {
         return this._isMandatory[k.toUpperCase()][Math.min(_arg_2, 1)];
     }
 
-    public _Str_1002(k: string): number
+    public optionalFromClubLevel(k: string): number
     {
         const _local_2 = this._isMandatory[k.toUpperCase()];
 
         return _local_2.indexOf(false);
     }
 
-    public get _Str_710(): AdvancedMap<string, IFigurePartSet>
+    public get partSets(): AdvancedMap<string, IFigurePartSet>
     {
         return this._partSets;
     }

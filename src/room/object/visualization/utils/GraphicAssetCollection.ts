@@ -1,4 +1,5 @@
-import { Spritesheet, Texture } from 'pixi.js';
+import { Dict } from '@pixi/utils';
+import { Resource, Spritesheet, Texture } from 'pixi.js';
 import { AssetManager } from '../../../../core/asset/AssetManager';
 import { IAsset, IAssetData, IAssetPalette } from '../../../../core/asset/interfaces';
 import { Nitro } from '../../../../nitro/Nitro';
@@ -160,7 +161,7 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
         }
     }
 
-    private createAsset(name: string, source: string, texture: Texture, flipH: boolean, flipV: boolean, x: number, y: number, usesPalette: boolean): boolean
+    private createAsset(name: string, source: string, texture: Texture<Resource>, flipH: boolean, flipV: boolean, x: number, y: number, usesPalette: boolean): boolean
     {
         if(this._assets.get(name)) return false;
 
@@ -171,7 +172,7 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
         return true;
     }
 
-    private replaceAsset(name: string, source: string, texture: Texture, flipH: boolean, flipV: boolean, x: number, y: number, usesPalette: boolean): boolean
+    private replaceAsset(name: string, source: string, texture: Texture<Resource>, flipH: boolean, flipV: boolean, x: number, y: number, usesPalette: boolean): boolean
     {
         const existing = this._assets.get(name);
 
@@ -253,7 +254,7 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
         return existing;
     }
 
-    public addAsset(name: string, texture: Texture, override: boolean, x: number = 0, y: number = 0, flipH: boolean = false, flipV: boolean = false): boolean
+    public addAsset(name: string, texture: Texture<Resource>, override: boolean, x: number = 0, y: number = 0, flipH: boolean = false, flipV: boolean = false): boolean
     {
         if(!name || !texture) return false;
 
@@ -300,7 +301,7 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
         existing.recycle();
     }
 
-    public getLibraryAsset(name: string): Texture
+    public getLibraryAsset(name: string): Texture<Resource>
     {
         if(!name) return null;
 
@@ -313,7 +314,7 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
         return texture;
     }
 
-    private addLibraryAsset(textures: Texture[]): void
+    private addLibraryAsset(textures: Dict<Texture<Resource>>): void
     {
         if(!textures) return;
 

@@ -4,5 +4,5 @@ export interface IPartColor
     index: number;
     clubLevel: number;
     isSelectable: boolean;
-    _Str_915: number;
+    rgb: number;
 }

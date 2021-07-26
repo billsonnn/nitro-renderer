@@ -50,7 +50,7 @@ export class AssetAliasCollection
         }
     }
 
-    public _Str_1044(k: string): boolean
+    public hasAlias(k: string): boolean
     {
         const alias = this._aliases.get(k);
 
@@ -59,12 +59,12 @@ export class AssetAliasCollection
         return false;
     }
 
-    public _Str_2125(k: string): string
+    public getAssetName(k: string): string
     {
         let _local_2 = k;
         let _local_3 = 5;
 
-        while(this._Str_1044(_local_2) && (_local_3 >= 0))
+        while(this.hasAlias(_local_2) && (_local_3 >= 0))
         {
             const _local_4 = this._aliases.get(_local_2);
 
@@ -79,7 +79,7 @@ export class AssetAliasCollection
     {
         if(!this._assets) return null;
 
-        name = this._Str_2125(name);
+        name = this.getAssetName(name);
 
         const asset = this._assets.getAsset(name);
 

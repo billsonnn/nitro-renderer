@@ -1,16 +1,16 @@
 import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
 import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
-import { MarketplaceSellItemParser } from '../../../parser/inventory/marketplace/MarketplaceSellItemParser';
+import { MarketplaceCanMakeOfferResultParser } from '../../../parser/inventory/marketplace/MarketplaceCanMakeOfferResultParser';
 
 export class MarketplaceSellItemEvent extends MessageEvent implements IMessageEvent
 {
     constructor(callBack: Function)
     {
-        super(callBack, MarketplaceSellItemParser);
+        super(callBack, MarketplaceCanMakeOfferResultParser);
     }
 
-    public getParser(): MarketplaceSellItemParser
+    public getParser(): MarketplaceCanMakeOfferResultParser
     {
-        return this.parser as MarketplaceSellItemParser;
+        return this.parser as MarketplaceCanMakeOfferResultParser;
     }
 }

@@ -5,17 +5,23 @@ export class ModtoolRoomInfoParser implements IMessageParser
 {
     private _id: number;
     private _playerAmount: number;
-    private _owner: boolean;
+    private _ownerInRoom: boolean;
     private _ownerId: number;
     private _ownerName: string;
-    private _bool: boolean;
     private _name: string;
     private _description: string;
-    private _tagsTotal: number;
+    private _tags: string[];
 
     public flush(): boolean
     {
         this._id   = null;
+        this._playerAmount = 0;
+        this._ownerInRoom = false;
+        this._ownerId = 0;
+        this._ownerName = null;
+        this._name = null;
+        this._description = null;
+        this._tags = [];
 
         return true;
     }
@@ -24,15 +30,22 @@ export class ModtoolRoomInfoParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._id   = wrapper.readInt();
+        this._id = wrapper.readInt();
         this._playerAmount = wrapper.readInt();
-        this._owner = wrapper.readBoolean();
+        this._ownerInRoom = wrapper.readBoolean();
         this._ownerId = wrapper.readInt();
         this._ownerName = wrapper.readString();
-        this._bool = wrapper.readBoolean();
+        wrapper.readBoolean();
         this._name = wrapper.readString();
         this._description = wrapper.readString();
-        this._tagsTotal = wrapper.readInt();
+        const tagsTotal = wrapper.readInt();
+
+        this._tags = [];
+
+        for(let i = 0; i < tagsTotal; i++)
+        {
+            this._tags.push(wrapper.readString());
+        }
 
         return true;
     }
@@ -47,9 +60,9 @@ export class ModtoolRoomInfoParser implements IMessageParser
         return this._playerAmount;
     }
 
-    public get owner(): boolean
+    public get ownerInRoom(): boolean
     {
-        return this._owner;
+        return this._ownerInRoom;
     }
 
     public get ownerId(): number
@@ -70,5 +83,10 @@ export class ModtoolRoomInfoParser implements IMessageParser
     public get description(): string
     {
         return this._description;
+    }
+
+    public get tags(): string[]
+    {
+        return this._tags;
     }
 }

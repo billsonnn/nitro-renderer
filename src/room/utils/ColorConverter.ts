@@ -42,7 +42,7 @@ export class ColorConverter
         return 'rgba(' + [r, g, b, 1].join(',') + ')';
     }
 
-    public static _Str_22130(k: number): number
+    public static rgbToHSL(k: number): number
     {
         const _local_2: number = (((k >> 16) & 0xFF) / 0xFF);
         const _local_3: number = (((k >> 8) & 0xFF) / 0xFF);
@@ -108,7 +108,7 @@ export class ColorConverter
         return _local_14;
     }
 
-    public static _Str_13949(k: number): number
+    public static hslToRGB(k: number): number
     {
         let _local_12: number;
         let _local_13: number;
@@ -285,7 +285,7 @@ export class ColorConverter
         return new Vector3d((((_local_2 * 0.4124) + (_local_3 * 0.3576)) + (_local_4 * 0.1805)), (((_local_2 * 0.2126) + (_local_3 * 0.7152)) + (_local_4 * 0.0722)), (((_local_2 * 0.0193) + (_local_3 * 0.1192)) + (_local_4 * 0.9505)));
     }
 
-    public static _Str_22784(k:IVector3D):IVector3D
+    public static xyz2CieLab(k:IVector3D):IVector3D
     {
         let _local_2: number = (k.x / 95.047);
         let _local_3: number = (k.y / 100);
@@ -319,6 +319,6 @@ export class ColorConverter
 
     public static rgb2CieLab(k: number):IVector3D
     {
-        return ColorConverter._Str_22784(ColorConverter.rgb2xyz(k));
+        return ColorConverter.xyz2CieLab(ColorConverter.rgb2xyz(k));
     }
 }

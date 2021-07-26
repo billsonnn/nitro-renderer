@@ -126,7 +126,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         if(!this._structure) return;
 
-        this._structure._Str_1825(HabboAvatarGeometry.geometry);
+        this._structure.initGeometry(HabboAvatarGeometry.geometry);
 
         this._geometryReady = true;
 
@@ -137,7 +137,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         if(!this._structure) return;
 
-        this._structure._Str_1296(HabboAvatarPartSets.partSets);
+        this._structure.initPartSets(HabboAvatarPartSets.partSets);
 
         this._partSetsReady = true;
 
@@ -148,7 +148,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         const defaultActions = Nitro.instance.getConfiguration<string>('avatar.default.actions');
 
-        if(defaultActions) this._structure._Str_1060(Nitro.instance.core.asset, defaultActions);
+        if(defaultActions) this._structure.initActions(Nitro.instance.core.asset, defaultActions);
 
         const request = new XMLHttpRequest();
 
@@ -162,7 +162,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
             {
                 if(!this._structure) return;
 
-                this._structure._Str_1620(JSON.parse(request.responseText));
+                this._structure.updateActions(JSON.parse(request.responseText));
 
                 this._actionsReady = true;
 
@@ -185,7 +185,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         if(!this._structure) return;
 
-        this._structure._Str_2229(HabboAvatarAnimations.animations);
+        this._structure.initAnimation(HabboAvatarAnimations.animations);
 
         this._animationsReady = true;
 
@@ -204,7 +204,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
             {
                 if(err || !results || !results.figuredata) throw new Error('invalid_default_figure_data');
 
-                if(this._structure) this._structure._Str_1569(results.figuredata);
+                if(this._structure) this._structure.initFigureData(results.figuredata);
             });
         }
 
@@ -308,7 +308,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         let isValid = false;
 
-        const typeIds = this._structure._Str_1733(gender, 2);
+        const typeIds = this._structure.getMandatorySetTypeIds(gender, 2);
 
         if(typeIds)
         {
@@ -316,32 +316,32 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
             for(const id of typeIds)
             {
-                if(!container._Str_744(id))
+                if(!container.hasPartType(id))
                 {
-                    const figurePartSet = this._structure._Str_2264(id, gender);
+                    const figurePartSet = this._structure.getDefaultPartSet(id, gender);
 
                     if(figurePartSet)
                     {
-                        container._Str_830(id, figurePartSet.id, [0]);
+                        container.updatePart(id, figurePartSet.id, [0]);
 
                         isValid = true;
                     }
                 }
                 else
                 {
-                    const setType = figureData._Str_740(id);
+                    const setType = figureData.getSetType(id);
 
                     if(setType)
                     {
-                        const figurePartSet = setType._Str_1020(container.getPartSetId(id));
+                        const figurePartSet = setType.getPartSet(container.getPartSetId(id));
 
                         if(!figurePartSet)
                         {
-                            const partSet = this._structure._Str_2264(id, gender);
+                            const partSet = this._structure.getDefaultPartSet(id, gender);
 
                             if(partSet)
                             {
-                                container._Str_830(id, partSet.id, [0]);
+                                container.updatePart(id, partSet.id, [0]);
 
                                 isValid = true;
                             }
@@ -359,39 +359,39 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         if(!this._structure) return 0;
 
         const figureData    = this._structure.figureData;
-        const parts         = Array.from(container._Str_1016());
+        const parts         = Array.from(container.getPartTypeIds());
 
         let clubLevel = 0;
 
         for(const part of parts)
         {
-            const set       = figureData._Str_740(part);
+            const set       = figureData.getSetType(part);
             const setId     = container.getPartSetId(part);
-            const partSet   = set._Str_1020(setId);
+            const partSet   = set.getPartSet(setId);
 
             if(partSet)
             {
                 clubLevel = Math.max(partSet.clubLevel, clubLevel);
 
-                const palette   = figureData._Str_783(set._Str_734);
-                const colors   = container._Str_815(part);
+                const palette   = figureData.getPalette(set.paletteID);
+                const colors   = container.getPartColorIds(part);
 
                 for(const colorId of colors)
                 {
-                    const color = palette._Str_751(colorId);
+                    const color = palette.getColor(colorId);
 
                     clubLevel = Math.max(color.clubLevel, clubLevel);
                 }
             }
         }
 
-        if(!searchParts) searchParts = this._structure._Str_1695(AvatarSetType.FULL);
+        if(!searchParts) searchParts = this._structure.getBodyPartsUnordered(AvatarSetType.FULL);
 
         for(const part of searchParts)
         {
-            const set = figureData._Str_740(part);
+            const set = figureData.getSetType(part);
 
-            if(parts.indexOf(part) === -1) clubLevel = Math.max(set._Str_1002(gender), clubLevel);
+            if(parts.indexOf(part) === -1) clubLevel = Math.max(set.optionalFromClubLevel(gender), clubLevel);
         }
 
         return clubLevel;
@@ -400,7 +400,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     public isValidFigureSetForGender(setId: number, gender: string): boolean
     {
         const structure = this.structureData;
-        const partSet   = structure._Str_938(setId);
+        const partSet   = structure.getFigurePartSet(setId);
 
         return !!(partSet && ((partSet.gender.toUpperCase() === 'U') || (partSet.gender.toUpperCase() === gender.toUpperCase())));
     }
@@ -409,26 +409,26 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         const container = new FigureDataContainer();
 
-        container._Str_2153(k, _arg_2);
+        container.loadAvatarData(k, _arg_2);
 
-        const partSets: IFigurePartSet[] = this._Str_1667(_arg_3);
+        const partSets: IFigurePartSet[] = this.resolveFigureSets(_arg_3);
 
         for(const partSet of partSets)
         {
-            container._Str_2088(partSet.type, partSet.id, container.getColourIds(partSet.type));
+            container.savePartData(partSet.type, partSet.id, container.getColourIds(partSet.type));
         }
 
-        return container._Str_1008();
+        return container.getFigureString();
     }
 
-    private _Str_1667(k: number[]): IFigurePartSet[]
+    private resolveFigureSets(k: number[]): IFigurePartSet[]
     {
         const structure                     = this.structureData;
         const partSets: IFigurePartSet[]   = [];
 
         for(const _local_4 of k)
         {
-            const partSet = structure._Str_938(_local_4);
+            const partSet = structure.getFigurePartSet(_local_4);
 
             if(partSet) partSets.push(partSet);
         }
@@ -436,11 +436,11 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         return partSets;
     }
 
-    public _Str_838(k: string, _arg_2: number): string[]
+    public getMandatoryAvatarPartSetIds(k: string, _arg_2: number): string[]
     {
         if(!this._structure) return null;
 
-        return this._structure._Str_1733(k, _arg_2);
+        return this._structure.getMandatorySetTypeIds(k, _arg_2);
     }
 
     public getAssetByName(name: string): IGraphicAsset

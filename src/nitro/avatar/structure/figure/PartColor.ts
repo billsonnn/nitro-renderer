@@ -39,7 +39,7 @@ export class PartColor implements IPartColor
         return this._isSelectable;
     }
 
-    public get _Str_915(): number
+    public get rgb(): number
     {
         return this._rgb;
     }

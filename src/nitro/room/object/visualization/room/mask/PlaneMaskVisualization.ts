@@ -1,11 +1,11 @@
-﻿import { IGraphicAsset } from '../../../../../../room/object/visualization/utils/IGraphicAsset';
+import { IGraphicAsset } from '../../../../../../room/object/visualization/utils/IGraphicAsset';
 import { IVector3D } from '../../../../../../room/utils/IVector3D';
 import { PlaneMaskBitmap } from './PlaneMaskBitmap';
 
 export class PlaneMaskVisualization
 {
-    public static _Str_3268: number = -1;
-    public static _Str_3271: number = 1;
+    public static MIN_NORMAL_COORDINATE_VALUE: number = -1;
+    public static MAX_NORMAL_COORDINATE_VALUE: number = 1;
 
     private _bitmaps: PlaneMaskBitmap[];
 
@@ -26,7 +26,7 @@ export class PlaneMaskVisualization
         this._bitmaps = null;
     }
 
-    public _Str_16790(k: IGraphicAsset, _arg_2: number = -1, _arg_3: number = 1, _arg_4: number = -1, _arg_5: number = 1): void
+    public addBitmap(k: IGraphicAsset, _arg_2: number = -1, _arg_3: number = 1, _arg_4: number = -1, _arg_5: number = 1): void
     {
         this._bitmaps.push(new PlaneMaskBitmap(k, _arg_2, _arg_3, _arg_4, _arg_5));
     }

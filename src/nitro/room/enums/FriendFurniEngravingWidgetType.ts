@@ -1,8 +1,8 @@
 ﻿export class FriendFurniEngravingWidgetType
 {
-    public static readonly _Str_13451:number = 0;
-    public static readonly _Str_17498:number = 1;
-    public static readonly _Str_18746:number = 2;
-    public static readonly _Str_15230:number = 3;
-    public static readonly _Str_15778:number = 4;
+    public static readonly LOVE_LOCK:number = 0;
+    public static readonly CARVE_A_TREE:number = 1;
+    public static readonly FRIENDS_PORTRAIT:number = 2;
+    public static readonly WILD_WEST_WANTED:number = 3;
+    public static readonly HABBOWEEN:number = 4;
 }

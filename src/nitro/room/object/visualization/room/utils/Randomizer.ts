@@ -1,60 +1,60 @@
 ﻿export class Randomizer
 {
-    public static _Str_21045: number    = 1;
-    public static _Str_20078: number    = 16777216;
+    public static DEFAULT_SEED: number    = 1;
+    public static DEFAULT_MODULUS: number    = 16777216;
 
-    private static _Str_3699:Randomizer = null;
+    private static _randomizer:Randomizer = null;
 
-    private _Str_16737: number = 1;
-    private _Str_16979: number = 16777216;
-    private _Str_25697: number = 69069;
-    private _Str_23320: number = 5;
+    private _seed: number = 1;
+    private _modulus: number = 16777216;
+    private _multiplier: number = 69069;
+    private _increment: number = 5;
 
-    public static _Str_17384(k: number = 1): void
+    public static setSeed(k: number = 1): void
     {
-        if(!Randomizer._Str_3699) Randomizer._Str_3699 = new Randomizer();
+        if(!Randomizer._randomizer) Randomizer._randomizer = new Randomizer();
 
-        Randomizer._Str_3699._Str_15634 = k;
+        Randomizer._randomizer.seed = k;
     }
 
-    public static _Str_26085(k: number = 16777216): void
+    public static setModulus(k: number = 16777216): void
     {
-        if(!Randomizer._Str_3699) Randomizer._Str_3699 = new Randomizer();
+        if(!Randomizer._randomizer) Randomizer._randomizer = new Randomizer();
 
-        Randomizer._Str_3699._Str_25321 = k;
+        Randomizer._randomizer.modulus = k;
     }
 
-    public static _Str_1612(k: number, _arg_2: number, _arg_3: number): number[]
+    public static getValues(k: number, _arg_2: number, _arg_3: number): number[]
     {
-        if(!Randomizer._Str_3699) Randomizer._Str_3699 = new Randomizer();
+        if(!Randomizer._randomizer) Randomizer._randomizer = new Randomizer();
 
-        return Randomizer._Str_3699._Str_24535(k, _arg_2, _arg_3);
+        return Randomizer._randomizer.getRandomValues(k, _arg_2, _arg_3);
     }
 
-    public static _Str_23572(k: number, _arg_2: number): number[]
+    public static getArray(k: number, _arg_2: number): number[]
     {
-        if(!Randomizer._Str_3699) Randomizer._Str_3699 = new Randomizer();
+        if(!Randomizer._randomizer) Randomizer._randomizer = new Randomizer();
 
-        return Randomizer._Str_3699._Str_24231(k, _arg_2);
+        return Randomizer._randomizer.getRandomArray(k, _arg_2);
     }
 
-    public set _Str_15634(k: number)
+    public set seed(k: number)
     {
-        this._Str_16737 = k;
+        this._seed = k;
     }
 
-    public set _Str_25321(k: number)
+    public set modulus(k: number)
     {
         if(k < 1) k = 1;
 
-        this._Str_16979 = k;
+        this._modulus = k;
     }
 
     public dispose(): void
     {
     }
 
-    public _Str_24535(k: number, _arg_2: number, _arg_3: number): number[]
+    public getRandomValues(k: number, _arg_2: number, _arg_3: number): number[]
     {
         const _local_4: number[] = [];
 
@@ -62,14 +62,14 @@
 
         while(_local_5 < k)
         {
-            _local_4.push(this._Str_19361(_arg_2, (_arg_3 - _arg_2)));
+            _local_4.push(this.iterateScaled(_arg_2, (_arg_3 - _arg_2)));
             _local_5++;
         }
 
         return _local_4;
     }
 
-    public _Str_24231(k: number, _arg_2: number): number[]
+    public getRandomArray(k: number, _arg_2: number): number[]
     {
         if(((k > _arg_2) || (_arg_2 > 1000))) return null;
 
@@ -89,7 +89,7 @@
 
         while(_local_6 < k)
         {
-            const _local_7 = this._Str_19361(0, (_local_3.length - 1));
+            const _local_7 = this.iterateScaled(0, (_local_3.length - 1));
 
             _local_5.push(_local_3[_local_7]);
             _local_3.splice(_local_7, 1);
@@ -100,26 +100,26 @@
         return _local_5;
     }
 
-    private _Str_24980(): number
+    private iterate(): number
     {
-        let k: number = ((this._Str_25697 * this._Str_16737) + this._Str_23320);
+        let k: number = ((this._multiplier * this._seed) + this._increment);
 
         if(k < 0) k = -(k);
 
-        k = (k % this._Str_16979);
+        k = (k % this._modulus);
 
-        this._Str_16737 = k;
+        this._seed = k;
 
         return k;
     }
 
-    private _Str_19361(k: number, _arg_2: number): number
+    private iterateScaled(k: number, _arg_2: number): number
     {
-        let _local_3: number = this._Str_24980();
+        let _local_3: number = this.iterate();
 
         if(_arg_2 < 1) return k;
 
-        _local_3 = (k + ((_local_3 / this._Str_16979) * _arg_2));
+        _local_3 = (k + ((_local_3 / this._modulus) * _arg_2));
 
         return _local_3;
     }

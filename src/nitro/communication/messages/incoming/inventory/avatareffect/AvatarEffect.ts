@@ -17,12 +17,12 @@
         this._type = k;
     }
 
-    public get _Str_3882(): number
+    public get subType(): number
     {
         return this._subType;
     }
 
-    public set _Str_3882(k: number)
+    public set subType(k: number)
     {
         this._subType = k;
     }
@@ -37,32 +37,32 @@
         this._duration = k;
     }
 
-    public get _Str_18572(): number
+    public get inactiveEffectsInInventory(): number
     {
         return this._inactiveEffectsInInventory;
     }
 
-    public set _Str_18572(k: number)
+    public set inactiveEffectsInInventory(k: number)
     {
         this._inactiveEffectsInInventory = k;
     }
 
-    public get _Str_12185(): number
+    public get secondsLeftIfActive(): number
     {
         return this._secondsLeftIfActive;
     }
 
-    public set _Str_12185(k: number)
+    public set secondsLeftIfActive(k: number)
     {
         this._secondsLeftIfActive = k;
     }
 
-    public get _Str_4010(): boolean
+    public get isPermanent(): boolean
     {
         return this._permanent;
     }
 
-    public set _Str_4010(k: boolean)
+    public set isPermanent(k: boolean)
     {
         this._permanent = k;
     }

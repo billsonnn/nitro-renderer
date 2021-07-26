@@ -1,22 +1,22 @@
-﻿import { Container, Point, Rectangle, Texture } from 'pixi.js';
+﻿import { Container, Point, Rectangle, Resource, Texture } from 'pixi.js';
 
 export class ImageData
 {
-    private _texture: Texture;
+    private _texture: Texture<Resource>;
     private _container: Container;
     private _rect: Rectangle;
     private _regPoint: Point;
     private _flipH: boolean;
-    private _color: number;
+    private _colorTransform: number;
 
-    constructor(texture: Texture, rectangle: Rectangle, _arg_3: Point, flipH: boolean, color: number, container: Container = null)
+    constructor(texture: Texture<Resource>, rectangle: Rectangle, _arg_3: Point, flipH: boolean, color: number, container: Container = null)
     {
         this._texture   = texture;
         this._container = container;
         this._rect      = rectangle;
         this._regPoint  = _arg_3;
         this._flipH     = flipH;
-        this._color     = color;
+        this._colorTransform     = color;
 
         if(flipH) this._regPoint.x = (-(this._regPoint.x) + rectangle.width);
     }
@@ -25,10 +25,10 @@ export class ImageData
     {
         this._texture    = null;
         this._regPoint  = null;
-        this._color     = null;
+        this._colorTransform     = null;
     }
 
-    public get texture(): Texture
+    public get texture(): Texture<Resource>
     {
         return this._texture;
     }
@@ -43,7 +43,7 @@ export class ImageData
         return this._rect;
     }
 
-    public get _Str_1076(): Point
+    public get regPoint(): Point
     {
         return this._regPoint;
     }
@@ -53,12 +53,12 @@ export class ImageData
         return this._flipH;
     }
 
-    public get color(): number
+    public get colorTransform(): number
     {
-        return this._color;
+        return this._colorTransform;
     }
 
-    public get _Str_1567(): Rectangle
+    public get offsetRect(): Rectangle
     {
         return new Rectangle(-(this._regPoint.x), -(this._regPoint.y), this._rect.width, this._rect.height);
     }

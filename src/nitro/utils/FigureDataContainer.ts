@@ -1,25 +1,25 @@
 ﻿export class FigureDataContainer
 {
-    private static M: string            = 'M';
-    private static F: string            = 'F';
-    private static U: string            = 'U';
-    private static H: string            = 'h';
+    private static MALE: string            = 'M';
+    private static FEMALE: string            = 'F';
+    private static UNISEX: string            = 'U';
+    private static SCALE: string            = 'h';
     private static STD: string          = 'std';
-    private static _Str_2028: string    = '0';
+    private static DEFAULT_FRAME: string    = '0';
     private static HD: string           = 'hd';
-    private static HR: string           = 'hr';
-    private static HA: string           = 'ha';
-    private static HE: string           = 'he';
-    private static EA: string           = 'ea';
-    private static FA: string           = 'fa';
-    private static CC: string           = 'cc';
-    private static CH: string           = 'ch';
-    private static CA: string           = 'ca';
-    private static CP: string           = 'cp';
-    private static LG: string           = 'lg';
-    private static SH: string           = 'sh';
-    private static WA: string           = 'wa';
-    private static _Str_1329: number[]  = [28, 29, 30, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 68];
+    private static HAIR: string           = 'hr';
+    private static HAT: string           = 'ha';
+    private static HEAD_ACCESSORIES: string           = 'he';
+    private static EYE_ACCESSORIES: string           = 'ea';
+    private static FACE_ACCESSORIES: string           = 'fa';
+    private static JACKET: string           = 'cc';
+    private static SHIRT: string           = 'ch';
+    private static CHEST_ACCESSORIES: string           = 'ca';
+    private static CHEST_PRINTS: string           = 'cp';
+    private static TROUSERS: string           = 'lg';
+    private static SHOES: string           = 'sh';
+    private static TROUSER_ACCESSORIES: string           = 'wa';
+    private static BLOCKED_FX_TYPES: number[]  = [28, 29, 30, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 68];
 
     private _data: Map<string, number>;
     private _colors: Map<string, number[]>;
@@ -27,13 +27,13 @@
     private _isDisposed: boolean;
     private _avatarEffectType: number = -1;
 
-    public _Str_2153(k: string, _arg_2: string): void
+    public loadAvatarData(k: string, _arg_2: string): void
     {
         this._data      = new Map();
         this._colors    = new Map();
         this._gender    = _arg_2;
 
-        this._Str_958(k);
+        this.parseFigureString(k);
     }
 
     public dispose(): void
@@ -48,7 +48,7 @@
         return this._isDisposed;
     }
 
-    private _Str_958(k: string): void
+    private parseFigureString(k: string): void
     {
         if(!k) return;
 
@@ -73,20 +73,20 @@
 
                 if(!colors.length) colors.push(0);
 
-                this._Str_1876(part, setId, false);
+                this.savePartSetId(part, setId, false);
                 this.savePartSetColourId(part, colors, false);
             }
         }
     }
 
-    public _Str_2131(k: string): boolean
+    public hasSetType(k: string): boolean
     {
         return !!this._data.get(k);
     }
 
     public getPartSetId(k: string): number
     {
-        if(this._Str_2131(k)) return this._data.get(k);
+        if(this.hasSetType(k)) return this._data.get(k);
 
         return -1;
     }
@@ -98,7 +98,7 @@
         return [];
     }
 
-    public _Str_1008(): string
+    public getFigureString(): string
     {
         let figure = '';
 
@@ -129,29 +129,29 @@
         return figure;
     }
 
-    public _Str_2088(k: string, _arg_2: number, _arg_3: number[], _arg_4: boolean = false): void
+    public savePartData(k: string, _arg_2: number, _arg_3: number[], _arg_4: boolean = false): void
     {
-        this._Str_1876(k, _arg_2, _arg_4);
+        this.savePartSetId(k, _arg_2, _arg_4);
         this.savePartSetColourId(k, _arg_3, _arg_4);
     }
 
-    private _Str_1876(k: string, _arg_2: number, _arg_3: boolean = true): void
+    private savePartSetId(k: string, _arg_2: number, _arg_3: boolean = true): void
     {
         switch(k)
         {
             case FigureDataContainer.HD:
-            case FigureDataContainer.HR:
-            case FigureDataContainer.HA:
-            case FigureDataContainer.HE:
-            case FigureDataContainer.EA:
-            case FigureDataContainer.FA:
-            case FigureDataContainer.CH:
-            case FigureDataContainer.CC:
-            case FigureDataContainer.CA:
-            case FigureDataContainer.CP:
-            case FigureDataContainer.LG:
-            case FigureDataContainer.SH:
-            case FigureDataContainer.WA:
+            case FigureDataContainer.HAIR:
+            case FigureDataContainer.HAT:
+            case FigureDataContainer.HEAD_ACCESSORIES:
+            case FigureDataContainer.EYE_ACCESSORIES:
+            case FigureDataContainer.FACE_ACCESSORIES:
+            case FigureDataContainer.SHIRT:
+            case FigureDataContainer.JACKET:
+            case FigureDataContainer.CHEST_ACCESSORIES:
+            case FigureDataContainer.CHEST_PRINTS:
+            case FigureDataContainer.TROUSERS:
+            case FigureDataContainer.SHOES:
+            case FigureDataContainer.TROUSER_ACCESSORIES:
                 if(_arg_2 >= 0)
                 {
                     this._data.set(k, _arg_2);
@@ -168,18 +168,18 @@
         switch(k)
         {
             case FigureDataContainer.HD:
-            case FigureDataContainer.HR:
-            case FigureDataContainer.HA:
-            case FigureDataContainer.HE:
-            case FigureDataContainer.EA:
-            case FigureDataContainer.FA:
-            case FigureDataContainer.CH:
-            case FigureDataContainer.CC:
-            case FigureDataContainer.CA:
-            case FigureDataContainer.CP:
-            case FigureDataContainer.LG:
-            case FigureDataContainer.SH:
-            case FigureDataContainer.WA:
+            case FigureDataContainer.HAIR:
+            case FigureDataContainer.HAT:
+            case FigureDataContainer.HEAD_ACCESSORIES:
+            case FigureDataContainer.EYE_ACCESSORIES:
+            case FigureDataContainer.FACE_ACCESSORIES:
+            case FigureDataContainer.SHIRT:
+            case FigureDataContainer.JACKET:
+            case FigureDataContainer.CHEST_ACCESSORIES:
+            case FigureDataContainer.CHEST_PRINTS:
+            case FigureDataContainer.TROUSERS:
+            case FigureDataContainer.SHOES:
+            case FigureDataContainer.TROUSER_ACCESSORIES:
                 this._colors.set(k, _arg_2);
                 return;
         }

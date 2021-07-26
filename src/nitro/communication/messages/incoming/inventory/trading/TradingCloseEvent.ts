@@ -9,9 +9,9 @@ export class TradingCloseEvent extends MessageEvent implements IMessageEvent
         super(callBack, TradingCloseParser);
     }
 
-    public get _Str_4963(): number
+    public get userID(): number
     {
-        return this.getParser()._Str_4963;
+        return this.getParser().userID;
     }
 
     public getParser(): TradingCloseParser

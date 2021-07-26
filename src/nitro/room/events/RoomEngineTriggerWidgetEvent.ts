@@ -47,4 +47,9 @@ export class RoomEngineTriggerWidgetEvent extends RoomEngineObjectEvent
     {
         return this._widget;
     }
+
+    public get contextMenu(): string
+    {
+        return this._widget;
+    }
 }

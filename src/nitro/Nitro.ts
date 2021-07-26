@@ -1,4 +1,5 @@
-import { Application, SCALE_MODES, settings } from 'pixi.js';
+import { Application, IApplicationOptions, SCALE_MODES, settings } from 'pixi.js';
+import { INitroManager } from '..';
 import { ConfigurationEvent } from '../core/configuration/ConfigurationEvent';
 import { EventDispatcher } from '../core/events/EventDispatcher';
 import { IEventDispatcher } from '../core/events/IEventDispatcher';
@@ -12,6 +13,8 @@ import { IRoomManager } from '../room/IRoomManager';
 import { RoomManager } from '../room/RoomManager';
 import { AvatarRenderManager } from './avatar/AvatarRenderManager';
 import { IAvatarRenderManager } from './avatar/IAvatarRenderManager';
+import { IRoomCameraWidgetManager } from './camera/IRoomCameraWidgetManager';
+import { RoomCameraWidgetManager } from './camera/RoomCameraWidgetManager';
 import { INitroCommunicationManager } from './communication/INitroCommunicationManager';
 import { NitroCommunicationManager } from './communication/NitroCommunicationManager';
 import { LegacyExternalInterface } from './externalInterface/LegacyExternalInterface';
@@ -26,21 +29,22 @@ import { IRoomSessionManager } from './session/IRoomSessionManager';
 import { ISessionDataManager } from './session/ISessionDataManager';
 import { RoomSessionManager } from './session/RoomSessionManager';
 import { SessionDataManager } from './session/SessionDataManager';
+import { SoundManager } from './sound/SoundManager';
 import { HabboWebTools } from './utils/HabboWebTools';
 
 LegacyExternalInterface.available;
 
-settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT = false;
 settings.SCALE_MODE = SCALE_MODES.NEAREST;
+settings.ROUND_PIXELS = true;
 
 export class Nitro extends Application implements INitro
 {
     public static WEBGL_CONTEXT_LOST: string    = 'NE_WEBGL_CONTEXT_LOST';
     public static WEBGL_UNAVAILABLE: string     = 'NE_WEBGL_UNAVAILABLE';
-    public static RELEASE_VERSION: string       = 'NITRO-0-4-0';
+    public static RELEASE_VERSION: string       = 'NITRO-2-0-0';
     public static READY: string                 = 'NE_READY';
 
-    private static INSTANCE: INitro         = null;
+    private static INSTANCE: INitro = null;
 
     private _nitroTimer: NitroTimer;
     private _worker: Worker;
@@ -53,30 +57,15 @@ export class Nitro extends Application implements INitro
     private _sessionDataManager: ISessionDataManager;
     private _roomSessionManager: IRoomSessionManager;
     private _roomManager: IRoomManager;
+    private _cameraManager: IRoomCameraWidgetManager;
+    private _soundManager: INitroManager;
     private _linkTrackers: ILinkEventTracker[];
     private _workerTrackers: IWorkerEventTracker[];
 
     private _isReady: boolean;
     private _isDisposed: boolean;
 
-    constructor(core: INitroCore, options?: {
-        autoStart?: boolean;
-        width?: number;
-        height?: number;
-        view?: HTMLCanvasElement;
-        transparent?: boolean;
-        autoDensity?: boolean;
-        antialias?: boolean;
-        preserveDrawingBuffer?: boolean;
-        resolution?: number;
-        forceCanvas?: boolean;
-        backgroundColor?: number;
-        clearBeforeRender?: boolean;
-        powerPreference?: string;
-        sharedTicker?: boolean;
-        sharedLoader?: boolean;
-        resizeTo?: Window | HTMLElement;
-    })
+    constructor(core: INitroCore, options?: IApplicationOptions)
     {
         super(options);
 
@@ -93,6 +82,8 @@ export class Nitro extends Application implements INitro
         this._sessionDataManager        = new SessionDataManager(this._communication);
         this._roomSessionManager        = new RoomSessionManager(this._communication, this._roomEngine);
         this._roomManager               = new RoomManager(this._roomEngine, this._roomEngine.visualizationFactory, this._roomEngine.logicFactory);
+        this._cameraManager             = new RoomCameraWidgetManager();
+        this._soundManager              = new SoundManager();
         this._linkTrackers              = [];
         this._workerTrackers            = [];
 
@@ -120,7 +111,6 @@ export class Nitro extends Application implements INitro
         canvas.className    = 'client-canvas';
 
         const instance = new this(new NitroCore(), {
-            transparent: true,
             autoDensity: true,
             resolution: window.devicePixelRatio,
             width: window.innerWidth,
@@ -141,6 +131,8 @@ export class Nitro extends Application implements INitro
         if(this._isReady || this._isDisposed) return;
 
         if(this._avatar) this._avatar.init();
+
+        if(this._soundManager) this._soundManager.init();
 
         if(this._roomEngine)
         {
@@ -203,6 +195,13 @@ export class Nitro extends Application implements INitro
             this._avatar = null;
         }
 
+        if(this._soundManager)
+        {
+            this._soundManager.dispose();
+
+            this._soundManager = null;
+        }
+
         if(this._communication)
         {
             this._communication.dispose();
@@ -221,7 +220,7 @@ export class Nitro extends Application implements INitro
         const animationFPS  = this.getConfiguration<number>('animation.fps', 24);
         const limitsFPS     = this.getConfiguration<boolean>('limits.fps', true);
 
-        Nitro.instance.ticker.maxFPS = animationFPS;
+        if(limitsFPS) Nitro.instance.ticker.maxFPS = animationFPS;
     }
 
     private onRoomEngineReady(event: RoomEngineEvent): void
@@ -389,6 +388,11 @@ export class Nitro extends Application implements INitro
     public get roomManager(): IRoomManager
     {
         return this._roomManager;
+    }
+
+    public get cameraManager(): IRoomCameraWidgetManager
+    {
+        return this._cameraManager;
     }
 
     public get width(): number

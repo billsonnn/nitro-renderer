@@ -28,7 +28,7 @@
         return this._color;
     }
 
-    public get _Str_4272(): number
+    public get light(): number
     {
         return this._light;
     }

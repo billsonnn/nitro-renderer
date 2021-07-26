@@ -7,6 +7,7 @@ export interface IObjectData
     isUnique: boolean;
     uniqueNumber: number;
     uniqueSeries: number;
+    rarityLevel: number;
     flags: number;
     parseWrapper(wrapper: IMessageDataWrapper): void;
     initializeFromRoomObjectModel(model: IRoomObjectModel): void;

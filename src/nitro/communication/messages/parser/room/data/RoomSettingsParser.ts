@@ -1,7 +1,7 @@
 import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
-import { RoomChatParser } from './RoomChatParser';
-import { RoomModerationParser } from './RoomModerationParser';
+import { RoomChatSettings } from './RoomChatSettings';
+import { RoomModerationSettings } from './RoomModerationSettings';
 
 export class RoomSettingsParser implements IMessageParser
 {
@@ -20,8 +20,8 @@ export class RoomSettingsParser implements IMessageParser
     private _hideWalls: number;
     private _thicknessWall: number;
     private _thicknessFloor: number;
-    private _chat: RoomChatParser;
-    private _moderation: RoomModerationParser;
+    private _chat: RoomChatSettings;
+    private _moderation: RoomModerationSettings;
 
     public flush(): boolean
     {
@@ -51,9 +51,9 @@ export class RoomSettingsParser implements IMessageParser
         this._hideWalls         = wrapper.readInt();
         this._thicknessWall     = wrapper.readInt();
         this._thicknessFloor    = wrapper.readInt();
-        this._chat              = new RoomChatParser(wrapper);
+        this._chat              = new RoomChatSettings(wrapper);
         wrapper.readBoolean();
-        this._moderation        = new RoomModerationParser(wrapper);
+        this._moderation        = new RoomModerationSettings(wrapper);
 
         return true;
     }
@@ -151,12 +151,12 @@ export class RoomSettingsParser implements IMessageParser
         return this._thicknessFloor;
     }
 
-    public get chatSettings(): RoomChatParser
+    public get chatSettings(): RoomChatSettings
     {
         return this._chat;
     }
 
-    public get moderationSettings(): RoomModerationParser
+    public get moderationSettings(): RoomModerationSettings
     {
         return this._moderation;
     }

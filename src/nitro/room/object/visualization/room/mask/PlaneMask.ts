@@ -37,7 +37,7 @@ export class PlaneMask
         this._sizes                 = null;
     }
 
-    public _Str_24540(size: number): PlaneMaskVisualization
+    public createMaskVisualization(size: number): PlaneMaskVisualization
     {
         const existing = this._maskVisualizations.get(size);
 
@@ -53,7 +53,7 @@ export class PlaneMask
         return visualization;
     }
 
-    private _Str_8560(k: number): number
+    private getSizeIndex(k: number): number
     {
         let sizeIndex   = 0;
         const index       = 1;
@@ -73,11 +73,11 @@ export class PlaneMask
         return sizeIndex;
     }
 
-    protected _Str_24650(k: number): PlaneMaskVisualization
+    protected getMaskVisualization(k: number): PlaneMaskVisualization
     {
         if(k === this._lastSize) return this._lastMaskVisualization;
 
-        const sizeIndex = this._Str_8560(k);
+        const sizeIndex = this.getSizeIndex(k);
 
         if(sizeIndex < this._sizes.length)
         {
@@ -93,23 +93,23 @@ export class PlaneMask
         return this._lastMaskVisualization;
     }
 
-    public _Str_21021(k: number, _arg_2: IVector3D): IGraphicAsset
+    public getGraphicAsset(k: number, _arg_2: IVector3D): IGraphicAsset
     {
-        const visualization = this._Str_24650(k);
+        const visualization = this.getMaskVisualization(k);
 
         if(!visualization) return null;
 
         return visualization.getAsset(_arg_2);
     }
 
-    public _Str_2125(k: number): string
+    public getAssetName(k: number): string
     {
         if(!this._assetNames) return null;
 
         return this._assetNames.get(k) || null;
     }
 
-    public _Str_24425(k: number, _arg_2: string): void
+    public setAssetName(k: number, _arg_2: string): void
     {
         if(!this._assetNames) return;
 

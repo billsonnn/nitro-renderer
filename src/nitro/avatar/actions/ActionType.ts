@@ -32,12 +32,12 @@ export class ActionType
         return this._prevents;
     }
 
-    public get _Str_1891(): boolean
+    public get preventHeadTurn(): boolean
     {
         return this._preventHeadTurn;
     }
 
-    public get _Str_801(): boolean
+    public get isAnimated(): boolean
     {
         return this._isAnimated;
     }

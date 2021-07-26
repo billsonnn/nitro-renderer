@@ -1,10 +1,10 @@
 import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
-import { RoomChatParser } from './RoomChatParser';
+import { RoomChatSettings } from './RoomChatSettings';
 
 export class RoomChatSettingsParser implements IMessageParser
 {
-    private _chat: RoomChatParser;
+    private _chat: RoomChatSettings;
 
     public flush(): boolean
     {
@@ -17,12 +17,12 @@ export class RoomChatSettingsParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._chat = new RoomChatParser(wrapper);
+        this._chat = new RoomChatSettings(wrapper);
 
         return true;
     }
 
-    public get chat(): RoomChatParser
+    public get chat(): RoomChatSettings
     {
         return this._chat;
     }

@@ -1,4 +1,5 @@
-import { DisplayObject, Rectangle, Renderer, RenderTexture, SCALE_MODES, Texture } from 'pixi.js';
+import { Extract } from '@pixi/extract';
+import { AbstractRenderer, DisplayObject, Rectangle, Renderer, RenderTexture, Resource, SCALE_MODES, Texture } from 'pixi.js';
 import { Nitro } from '../../nitro/Nitro';
 
 export class TextureUtils
@@ -12,7 +13,7 @@ export class TextureUtils
         return TextureUtils.getRenderer().generateTexture(displayObject, scaleMode, resolution, region);
     }
 
-    public static generateTextureFromImage(image: HTMLImageElement): Texture
+    public static generateTextureFromImage(image: HTMLImageElement): Texture<Resource>
     {
         if(!image) return null;
 
@@ -23,17 +24,30 @@ export class TextureUtils
     {
         if(!target) return null;
 
-        return TextureUtils.getRenderer().extract.image(target);
+        const extract = (TextureUtils.getRenderer().plugins.extract as Extract);
+
+        return extract.image(target);
     }
 
     public static generateImageUrl(target: DisplayObject | RenderTexture): string
     {
         if(!target) return null;
 
-        return TextureUtils.getRenderer().extract.base64(target);
+        const extract = (TextureUtils.getRenderer().plugins.extract as Extract);
+
+        return extract.base64(target);
     }
 
-    public static getRenderer(): Renderer
+    public static generateCanvas(target: DisplayObject | RenderTexture): HTMLCanvasElement
+    {
+        if(!target) return null;
+
+        const extract = (TextureUtils.getRenderer().plugins.extract as Extract);
+
+        return extract.canvas(target);
+    }
+
+    public static getRenderer(): Renderer | AbstractRenderer
     {
         if(!TextureUtils._renderer) return Nitro.instance.renderer;
 

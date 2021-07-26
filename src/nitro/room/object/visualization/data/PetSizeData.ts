@@ -65,7 +65,7 @@ export class PetSizeData extends AnimationSizeData
         return this._posturesToAnimations.get(posture);
     }
 
-    public _Str_18284(k: string): boolean
+    public getGestureDisabled(k: string): boolean
     {
         if(k === 'ded') return true;
 
@@ -79,7 +79,7 @@ export class PetSizeData extends AnimationSizeData
         return this._gesturesToAnimations.get(gesture);
     }
 
-    public _Str_14207(k: number, _arg_2: boolean): string
+    public animationToPosture(k: number, _arg_2: boolean): string
     {
         if((k >= 0) && (k < this._posturesToAnimations.size))
         {
@@ -100,7 +100,7 @@ export class PetSizeData extends AnimationSizeData
         return (_arg_2) ? this._defaultPosture : null;
     }
 
-    public _Str_17844(index: number): string
+    public animationToGesture(index: number): string
     {
         if((index >= 0) && (index < this._gesturesToAnimations.size))
         {
@@ -121,7 +121,7 @@ export class PetSizeData extends AnimationSizeData
         return null;
     }
 
-    public _Str_17976(k: number): string
+    public getGestureForAnimationId(k: number): string
     {
         for(const _local_2 of this._gesturesToAnimations.keys())
         {

@@ -71,36 +71,36 @@ export class AvatarStructure extends EventDispatcher
         this._mandatorySetTypeIds   = null;
     }
 
-    public _Str_1825(k: any): void
+    public initGeometry(k: any): void
     {
         if(!k) return;
 
         this._geometry = new AvatarModelGeometry(k);
     }
 
-    public _Str_1060(k: IAssetManager, _arg_2: any): void
+    public initActions(k: IAssetManager, _arg_2: any): void
     {
         if(!_arg_2) return;
 
         this._actionManager = new AvatarActionManager(k, _arg_2);
-        this._defaultAction = this._actionManager._Str_1027();
+        this._defaultAction = this._actionManager.getDefaultAction();
     }
 
-    public _Str_1620(data: any): void
+    public updateActions(data: any): void
     {
-        this._actionManager._Str_1620(data);
+        this._actionManager.updateActions(data);
 
-        this._defaultAction = this._actionManager._Str_1027();
+        this._defaultAction = this._actionManager.getDefaultAction();
     }
 
-    public _Str_1296(k: any): boolean
+    public initPartSets(k: any): boolean
     {
         if(!k) return false;
 
         if(this._partSetsData.parse(k))
         {
-            this._partSetsData._Str_1102('ri')._Str_1583 = true;
-            this._partSetsData._Str_1102('li')._Str_1583 = true;
+            this._partSetsData.getPartDefinition('ri').appendToFigure = true;
+            this._partSetsData.getPartDefinition('li').appendToFigure = true;
 
             return true;
         }
@@ -108,26 +108,26 @@ export class AvatarStructure extends EventDispatcher
         return false;
     }
 
-    public _Str_2229(k: any): boolean
+    public initAnimation(k: any): boolean
     {
         if(!k) return false;
 
         return this._animationData.parse(k);
     }
 
-    public _Str_1569(k: any): boolean
+    public initFigureData(k: any): boolean
     {
         if(!k) return false;
 
         return this._figureData.parse(k);
     }
 
-    public _Str_882(data: any): void
+    public injectFigureData(data: any): void
     {
-        this._figureData._Str_1133(data);
+        this._figureData.injectXML(data);
     }
 
-    public _Str_1849(k: IAssetManager, _arg_2: string = 'fx', _arg_3: number = 200): void
+    public registerAnimations(k: IAssetManager, _arg_2: string = 'fx', _arg_3: number = 200): void
     {
         let index = 0;
 
@@ -139,77 +139,77 @@ export class AvatarStructure extends EventDispatcher
             {
                 const animationData = collection.data;
 
-                this._animationManager._Str_2061(this, animationData.animations);
+                this._animationManager.registerAnimation(this, animationData.animations);
             }
 
             index++;
         }
     }
 
-    public _Str_2061(data: { [index: string]: IAssetAnimation }): void
+    public registerAnimation(data: { [index: string]: IAssetAnimation }): void
     {
-        this._animationManager._Str_2061(this, data);
+        this._animationManager.registerAnimation(this, data);
     }
 
-    public _Str_867(k: IAvatarFigureContainer, _arg_2: string, _arg_3: number = 0): IPartColor
+    public getPartColor(k: IAvatarFigureContainer, _arg_2: string, _arg_3: number = 0): IPartColor
     {
-        const _local_4 = k._Str_815(_arg_2);
+        const _local_4 = k.getPartColorIds(_arg_2);
 
         if((!(_local_4)) || (_local_4.length < _arg_3)) return null;
 
-        const _local_5 = this._figureData._Str_740(_arg_2);
+        const _local_5 = this._figureData.getSetType(_arg_2);
 
         if(_local_5 == null) return null;
 
-        const _local_6 = this._figureData._Str_783(_local_5._Str_734);
+        const _local_6 = this._figureData.getPalette(_local_5.paletteID);
 
         if(!_local_6) return null;
 
-        return _local_6._Str_751(_local_4[_arg_3]);
+        return _local_6.getColor(_local_4[_arg_3]);
     }
 
-    public _Str_1881(animation: string, frameCount: number, spriteId: string): AvatarAnimationLayerData
+    public getBodyPartData(animation: string, frameCount: number, spriteId: string): AvatarAnimationLayerData
     {
-        return this._animationManager._Str_607(animation, frameCount, spriteId) as AvatarAnimationLayerData;
+        return this._animationManager.getLayerData(animation, frameCount, spriteId) as AvatarAnimationLayerData;
     }
 
-    public _Str_720(k: string): Animation
+    public getAnimation(k: string): Animation
     {
-        return this._animationManager._Str_720(k) as Animation;
+        return this._animationManager.getAnimation(k) as Animation;
     }
 
-    public _Str_1675(k: string): ActionDefinition
+    public getActionDefinition(k: string): ActionDefinition
     {
-        return this._actionManager._Str_1675(k);
+        return this._actionManager.getActionDefinition(k);
     }
 
-    public _Str_2018(k: string): ActionDefinition
+    public getActionDefinitionWithState(k: string): ActionDefinition
     {
-        return this._actionManager._Str_2018(k);
+        return this._actionManager.getActionDefinitionWithState(k);
     }
 
-    public _Str_1939(k: string): boolean
+    public isMainAvatarSet(k: string): boolean
     {
-        return this._geometry._Str_1939(k);
+        return this._geometry.isMainAvatarSet(k);
     }
 
-    public _Str_711(k: IActiveActionData[]): IActiveActionData[]
+    public sortActions(k: IActiveActionData[]): IActiveActionData[]
     {
-        return this._actionManager._Str_711(k);
+        return this._actionManager.sortActions(k);
     }
 
-    public _Str_1936(k: IActiveActionData[]): number
+    public maxFrames(k: IActiveActionData[]): number
     {
         let _local_2 = 0;
 
         for(const _local_3 of k)
         {
-            _local_2 = Math.max(_local_2, this._animationData._Str_1408(_local_3._Str_742));
+            _local_2 = Math.max(_local_2, this._animationData.getFrameCount(_local_3.definition));
         }
         return _local_2;
     }
 
-    public _Str_1733(k: string, _arg_2: number): string[]
+    public getMandatorySetTypeIds(k: string, _arg_2: number): string[]
     {
         if(!this._mandatorySetTypeIds[k])
         {
@@ -221,48 +221,48 @@ export class AvatarStructure extends EventDispatcher
             return this._mandatorySetTypeIds[k][_arg_2];
         }
 
-        this._mandatorySetTypeIds[k][_arg_2] = this._figureData._Str_1733(k, _arg_2);
+        this._mandatorySetTypeIds[k][_arg_2] = this._figureData.getMandatorySetTypeIds(k, _arg_2);
 
         return this._mandatorySetTypeIds[k][_arg_2];
     }
 
-    public _Str_2264(k: string, _arg_2: string): IFigurePartSet
+    public getDefaultPartSet(k: string, _arg_2: string): IFigurePartSet
     {
-        return this._figureData._Str_2264(k, _arg_2);
+        return this._figureData.getDefaultPartSet(k, _arg_2);
     }
 
-    public _Str_781(k: IActiveActionData[], _arg_2: string, _arg_3: number): number[]
+    public getCanvasOffsets(k: IActiveActionData[], _arg_2: string, _arg_3: number): number[]
     {
-        return this._actionManager._Str_781(k, _arg_2, _arg_3);
+        return this._actionManager.getCanvasOffsets(k, _arg_2, _arg_3);
     }
 
-    public _Str_1664(k: string, _arg_2: string): AvatarCanvas
+    public getCanvas(k: string, _arg_2: string): AvatarCanvas
     {
-        return this._geometry._Str_1664(k, _arg_2);
+        return this._geometry.getCanvas(k, _arg_2);
     }
 
-    public _Str_2101(k: IAvatarImage): void
+    public removeDynamicItems(k: IAvatarImage): void
     {
-        this._geometry._Str_2101(k);
+        this._geometry.removeDynamicItems(k);
     }
 
-    public _Str_2021(k: IActiveActionData, _arg_2: IAvatarImage): string[]
+    public getActiveBodyPartIds(k: IActiveActionData, _arg_2: IAvatarImage): string[]
     {
         let _local_3: string[] = [];
 
         const _local_4: string[]    = [];
-        const _local_5              = k._Str_742._Str_868;
+        const _local_5              = k.definition.geometryType;
 
-        if(k._Str_742._Str_861)
+        if(k.definition.isAnimation)
         {
-            const _local_7 = ((k._Str_742.state + '.') + k._Str_727);
-            const _local_8 = this._animationManager._Str_720(_local_7);
+            const _local_7 = ((k.definition.state + '.') + k.actionParameter);
+            const _local_8 = this._animationManager.getAnimation(_local_7);
 
             if(_local_8)
             {
-                _local_3 = _local_8._Str_1065(0, k._Str_707);
+                _local_3 = _local_8.getAnimatedBodyPartIds(0, k.overridingAction);
 
-                if(_local_8._Str_706())
+                if(_local_8.hasAddData())
                 {
                     const _local_11 = {
                         id: '',
@@ -280,21 +280,21 @@ export class AvatarStructure extends EventDispatcher
                         setType: ''
                     };
 
-                    for(const _local_13 of _local_8._Str_687)
+                    for(const _local_13 of _local_8.addData)
                     {
-                        const _local_6 = this._geometry._Str_1919(_local_5, _local_13.align);
+                        const _local_6 = this._geometry.getBodyPart(_local_5, _local_13.align);
 
                         if(_local_6)
                         {
                             _local_11.id = _local_13.id;
-                            _local_6._Str_2020(_local_11, _arg_2);
+                            _local_6.addPart(_local_11, _arg_2);
 
                             _local_12.setType = _local_13.id;
 
-                            const _local_10 = this._partSetsData._Str_1520(_local_12);
-                            _local_10._Str_1583 = true;
+                            const _local_10 = this._partSetsData.addPartDefinition(_local_12);
+                            _local_10.appendToFigure = true;
 
-                            if(_local_13.base === '') _local_10._Str_1734 = 1;
+                            if(_local_13.base === '') _local_10.staticId = 1;
 
                             if(_local_4.indexOf(_local_6.id) === -1) _local_4.push(_local_6.id);
                         }
@@ -304,18 +304,18 @@ export class AvatarStructure extends EventDispatcher
 
             for(const _local_9 of _local_3)
             {
-                const _local_6 = this._geometry._Str_1919(_local_5, _local_9);
+                const _local_6 = this._geometry.getBodyPart(_local_5, _local_9);
 
                 if(_local_6 && (_local_4.indexOf(_local_6.id) === -1)) _local_4.push(_local_6.id);
             }
         }
         else
         {
-            _local_3 = this._partSetsData._Str_1795(k._Str_742);
+            _local_3 = this._partSetsData.getActiveParts(k.definition);
 
             for(const _local_14 of _local_3)
             {
-                const _local_6 = this._geometry._Str_1701(_local_5, _local_14, _arg_2);
+                const _local_6 = this._geometry.getBodyPartOfItem(_local_5, _local_14, _arg_2);
 
                 if(_local_6 && (_local_4.indexOf(_local_6.id) === -1)) _local_4.push(_local_6.id);
             }
@@ -324,28 +324,28 @@ export class AvatarStructure extends EventDispatcher
         return _local_4;
     }
 
-    public _Str_1695(k: string): string[]
+    public getBodyPartsUnordered(k: string): string[]
     {
-        return this._geometry._Str_1307(k);
+        return this._geometry.getBodyPartIdsInAvatarSet(k);
     }
 
-    public _Str_755(k: string, _arg_2: string, _arg_3: number): string[]
+    public getBodyParts(k: string, _arg_2: string, _arg_3: number): string[]
     {
         const _local_4 = AvatarDirectionAngle.DIRECTION_TO_ANGLE[_arg_3];
 
-        return this._geometry._Str_2250(k, _local_4, _arg_2);
+        return this._geometry.getBodyPartsAtAngle(k, _local_4, _arg_2);
     }
 
-    public _Str_1888(k:IActiveActionData, _arg_2: number, _arg_3: number, _arg_4: string): Point
+    public getFrameBodyPartOffset(k:IActiveActionData, _arg_2: number, _arg_3: number, _arg_4: string): Point
     {
-        const _local_5 = this._animationData._Str_2244(k._Str_742);
+        const _local_5 = this._animationData.getAction(k.definition);
 
-        if(_local_5) return _local_5._Str_1888(_arg_2, _arg_3, _arg_4);
+        if(_local_5) return _local_5.getFrameBodyPartOffset(_arg_2, _arg_3, _arg_4);
 
-        return AnimationAction._Str_1934;
+        return AnimationAction.DEFAULT_OFFSET;
     }
 
-    public _Str_713(k: string, _arg_2:IAvatarFigureContainer, _arg_3:IActiveActionData, _arg_4: string, _arg_5: number, removes: string[], _arg_7: IAvatarImage, _arg_8: Map<string, string> = null): AvatarImagePartContainer[]
+    public getParts(k: string, _arg_2:IAvatarFigureContainer, _arg_3:IActiveActionData, _arg_4: string, _arg_5: number, removes: string[], _arg_7: IAvatarImage, _arg_8: Map<string, string> = null): AvatarImagePartContainer[]
     {
         const _local_10: Animation = null;
         let _local_34: IActionDefinition = null;
@@ -355,29 +355,29 @@ export class AvatarStructure extends EventDispatcher
 
         if(!_arg_3 == null) return [];
 
-        const _local_9                                = this._partSetsData._Str_1795(_arg_3._Str_742);
+        const _local_9                                = this._partSetsData.getActiveParts(_arg_3.definition);
         const _local_11: AvatarImagePartContainer[]   = [];
         let _local_14: any[]                     = [ 0 ];
-        const _local_15                               = this._animationData._Str_2244(_arg_3._Str_742);
+        const _local_15                               = this._animationData.getAction(_arg_3.definition);
 
-        if(_arg_3._Str_742._Str_861)
+        if(_arg_3.definition.isAnimation)
         {
-            const _local_24 = ((_arg_3._Str_742.state + '.') + _arg_3._Str_727);
-            const _local_10 = this._animationManager._Str_720(_local_24);
+            const _local_24 = ((_arg_3.definition.state + '.') + _arg_3.actionParameter);
+            const _local_10 = this._animationManager.getAnimation(_local_24);
 
             if(_local_10)
             {
-                _local_14 = this._Str_1768(_local_10._Str_2185(_arg_3._Str_707));
+                _local_14 = this.getPopulatedArray(_local_10.frameCount(_arg_3.overridingAction));
 
-                for(const _local_25 of _local_10._Str_1065(0, _arg_3._Str_707))
+                for(const _local_25 of _local_10.getAnimatedBodyPartIds(0, _arg_3.overridingAction))
                 {
                     if(_local_25 === k)
                     {
-                        const _local_26 = this._geometry._Str_1919(_arg_4, _local_25);
+                        const _local_26 = this._geometry.getBodyPart(_arg_4, _local_25);
 
                         if(_local_26)
                         {
-                            for(const _local_27 of _local_26._Str_1883(_arg_7))
+                            for(const _local_27 of _local_26.getDynamicParts(_arg_7))
                             {
                                 _local_9.push(_local_27.id);
                             }
@@ -387,8 +387,8 @@ export class AvatarStructure extends EventDispatcher
             }
         }
 
-        const _local_16     = this._geometry._Str_713(_arg_4, k, _arg_5, _local_9, _arg_7);
-        const  _local_21    = _arg_2._Str_1016();
+        const _local_16     = this._geometry.getParts(_arg_4, k, _arg_5, _local_9, _arg_7);
+        const  _local_21    = _arg_2.getPartTypeIds();
 
         for(const _local_17 of _local_21)
         {
@@ -398,30 +398,30 @@ export class AvatarStructure extends EventDispatcher
             }
 
             const _local_28 = _arg_2.getPartSetId(_local_17);
-            const _local_29 = _arg_2._Str_815(_local_17);
-            const _local_30 = this._figureData._Str_740(_local_17);
+            const _local_29 = _arg_2.getPartColorIds(_local_17);
+            const _local_30 = this._figureData.getSetType(_local_17);
 
 
 
             if(_local_30)
             {
-                const _local_31 = this._figureData._Str_783(_local_30._Str_734);
+                const _local_31 = this._figureData.getPalette(_local_30.paletteID);
 
                 if(_local_31)
                 {
-                    const _local_32 = _local_30._Str_1020(_local_28);
+                    const _local_32 = _local_30.getPartSet(_local_28);
 
                     if(_local_32)
                     {
-                        removes = removes.concat(_local_32._Str_790);
+                        removes = removes.concat(_local_32.hiddenLayers);
 
-                        for(const _local_33 of _local_32._Str_806)
+                        for(const _local_33 of _local_32.parts)
                         {
                             if(_local_16.indexOf(_local_33.type) > -1)
                             {
                                 if(_local_15)
                                 {
-                                    const _local_19 = _local_15._Str_989(_local_33.type);
+                                    const _local_19 = _local_15.getPart(_local_33.type);
 
                                     if(_local_19)
                                     {
@@ -437,22 +437,22 @@ export class AvatarStructure extends EventDispatcher
                                     _local_20 = _local_14;
                                 }
 
-                                _local_34 = _arg_3._Str_742;
+                                _local_34 = _arg_3.definition;
 
                                 if(_local_9.indexOf(_local_33.type) === -1) _local_34 = this._defaultAction;
 
-                                const _local_13 = this._partSetsData._Str_1102(_local_33.type);
+                                const _local_13 = this._partSetsData.getPartDefinition(_local_33.type);
 
-                                let _local_35 = (!_local_13) ? _local_33.type : _local_13._Str_1693;
+                                let _local_35 = (!_local_13) ? _local_33.type : _local_13.flippedSetType;
 
                                 if(!_local_35 || (_local_35 === '')) _local_35 = _local_33.type;
 
-                                if(_local_29 && (_local_29.length > (_local_33._Str_827 - 1)))
+                                if(_local_29 && (_local_29.length > (_local_33.colorLayerIndex - 1)))
                                 {
-                                    _local_36 = _local_31._Str_751(_local_29[(_local_33._Str_827 - 1)]);
+                                    _local_36 = _local_31.getColor(_local_29[(_local_33.colorLayerIndex - 1)]);
                                 }
 
-                                const _local_37 = (_local_33._Str_827 > 0);
+                                const _local_37 = (_local_33.colorLayerIndex > 0);
                                 const _local_18 = new AvatarImagePartContainer(k, _local_33.type, _local_33.id.toString(), _local_36, _local_20, _local_34, _local_37, _local_33.paletteMap, _local_35);
 
                                 _local_11.push(_local_18);
@@ -474,7 +474,7 @@ export class AvatarStructure extends EventDispatcher
 
             for(const _local_23 of _local_11)
             {
-                if(_local_23._Str_1669 === _local_12)
+                if(_local_23.partType === _local_12)
                 {
                     if(_local_40)
                     {
@@ -506,7 +506,7 @@ export class AvatarStructure extends EventDispatcher
 
                     if(_local_15)
                     {
-                        const _local_19 = _local_15._Str_989(_local_12);
+                        const _local_19 = _local_15.getPart(_local_12);
 
                         if(_local_19)
                         {
@@ -522,7 +522,7 @@ export class AvatarStructure extends EventDispatcher
                         _local_20 = _local_14;
                     }
 
-                    const _local_18 = new AvatarImagePartContainer(k, _local_12, _local_41, _local_39, _local_20, _arg_3._Str_742, (!(_local_39 == null)), -1, _local_12, false, 1);
+                    const _local_18 = new AvatarImagePartContainer(k, _local_12, _local_41, _local_39, _local_20, _arg_3.definition, (!(_local_39 == null)), -1, _local_12, false, 1);
 
                     _local_22.push(_local_18);
                 }
@@ -530,7 +530,7 @@ export class AvatarStructure extends EventDispatcher
                 {
                     if(_local_9.indexOf(_local_12) > -1)
                     {
-                        const _local_44 = this._geometry._Str_1701(_arg_4, _local_12, _arg_7);
+                        const _local_44 = this._geometry.getBodyPartOfItem(_arg_4, _local_12, _arg_7);
 
                         if(k !== _local_44.id)
                         {
@@ -538,39 +538,39 @@ export class AvatarStructure extends EventDispatcher
                         }
                         else
                         {
-                            const _local_13 = this._partSetsData._Str_1102(_local_12);
+                            const _local_13 = this._partSetsData.getPartDefinition(_local_12);
 
                             let _local_45 = false;
                             let _local_46 = 1;
 
-                            if(_local_13._Str_1583)
+                            if(_local_13.appendToFigure)
                             {
                                 let _local_47 = '1';
 
-                                if(_arg_3._Str_727 !== '')
+                                if(_arg_3.actionParameter !== '')
                                 {
-                                    _local_47 = _arg_3._Str_727;
+                                    _local_47 = _arg_3.actionParameter;
                                 }
 
-                                if(_local_13._Str_2234())
+                                if(_local_13.hasStaticId())
                                 {
-                                    _local_47 = _local_13._Str_1734.toString();
+                                    _local_47 = _local_13.staticId.toString();
                                 }
 
                                 if(_local_10 != null)
                                 {
-                                    const _local_48 = _local_10._Str_1550(_local_12);
+                                    const _local_48 = _local_10.getAddData(_local_12);
 
                                     if(_local_48)
                                     {
-                                        _local_45 = _local_48._Str_1096;
+                                        _local_45 = _local_48.isBlended;
                                         _local_46 = _local_48.blend;
                                     }
                                 }
 
                                 if(_local_15)
                                 {
-                                    const _local_19 = _local_15._Str_989(_local_12);
+                                    const _local_19 = _local_15.getPart(_local_12);
 
                                     if(_local_19)
                                     {
@@ -586,7 +586,7 @@ export class AvatarStructure extends EventDispatcher
                                     _local_20 = _local_14;
                                 }
 
-                                const _local_18 = new AvatarImagePartContainer(k, _local_12, _local_47, null, _local_20, _arg_3._Str_742, false, -1, _local_12, _local_45, _local_46);
+                                const _local_18 = new AvatarImagePartContainer(k, _local_12, _local_47, null, _local_20, _arg_3.definition, false, -1, _local_12, _local_45, _local_46);
 
                                 _local_22.push(_local_18);
                             }
@@ -599,7 +599,7 @@ export class AvatarStructure extends EventDispatcher
         return _local_22;
     }
 
-    private _Str_1768(k: number): number[]
+    private getPopulatedArray(k: number): number[]
     {
         const _local_2: number[] = [];
 
@@ -615,11 +615,11 @@ export class AvatarStructure extends EventDispatcher
         return _local_2;
     }
 
-    public _Str_672(): string[]
+    public getItemIds(): string[]
     {
         if(this._actionManager)
         {
-            const k = this._actionManager._Str_1675('CarryItem').params;
+            const k = this._actionManager.getActionDefinition('CarryItem').params;
 
             const _local_2 = [];
 

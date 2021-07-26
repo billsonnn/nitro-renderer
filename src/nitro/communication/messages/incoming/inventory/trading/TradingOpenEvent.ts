@@ -9,24 +9,24 @@ export class TradingOpenEvent extends MessageEvent implements IMessageEvent
         super(callBack, TradingOpenParser);
     }
 
-    public get _Str_4963(): number
+    public get userID(): number
     {
-        return this.getParser()._Str_4963;
+        return this.getParser().userID;
     }
 
-    public get _Str_16764(): boolean
+    public get userCanTrade(): boolean
     {
-        return this.getParser()._Str_16764;
+        return this.getParser().userCanTrade;
     }
 
-    public get _Str_17613(): number
+    public get otherUserID(): number
     {
-        return this.getParser()._Str_17613;
+        return this.getParser().otherUserID;
     }
 
-    public get _Str_13374(): boolean
+    public get otherUserCanTrade(): boolean
     {
-        return this.getParser()._Str_13374;
+        return this.getParser().otherUserCanTrade;
     }
 
     public getParser(): TradingOpenParser

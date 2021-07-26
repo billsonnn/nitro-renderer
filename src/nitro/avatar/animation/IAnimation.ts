@@ -1,11 +1,11 @@
 ﻿export interface IAnimation
 {
-    _Str_872(): boolean;
-    _Str_776(): boolean;
-    _Str_706(): boolean;
+    hasAvatarData(): boolean;
+    hasDirectionData(): boolean;
+    hasAddData(): boolean;
     id: string;
-    _Str_786: any;
-    _Str_652: any;
-    _Str_687: any;
+    spriteData: any;
+    removeData: any;
+    addData: any;
     resetOnToggle: boolean;
 }

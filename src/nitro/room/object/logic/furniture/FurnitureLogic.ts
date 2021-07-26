@@ -8,6 +8,7 @@ import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
 import { IVector3D } from '../../../../../room/utils/IVector3D';
 import { Vector3d } from '../../../../../room/utils/Vector3d';
 import { MouseEventType } from '../../../../ui/MouseEventType';
+import { RoomObjectRoomAdEvent } from '../../../events';
 import { RoomObjectStateChangedEvent } from '../../../events/RoomObjectStateChangedEvent';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
@@ -20,7 +21,7 @@ import { MovingObjectLogic } from '../MovingObjectLogic';
 
 export class FurnitureLogic extends MovingObjectLogic
 {
-    private static BOUNCING_STEPS: number   = 8;
+    private static BOUNCING_STEPS: number   = 20;
     private static BOUNCING_Z: number       = 0.0625;
 
     private _sizeX: number;
@@ -62,7 +63,15 @@ export class FurnitureLogic extends MovingObjectLogic
 
     public getEventTypes(): string[]
     {
-        const types = [ RoomObjectStateChangedEvent.STATE_CHANGE, RoomObjectMouseEvent.CLICK, RoomObjectMouseEvent.MOUSE_DOWN ];
+        const types = [
+            RoomObjectStateChangedEvent.STATE_CHANGE,
+            RoomObjectMouseEvent.CLICK,
+            RoomObjectMouseEvent.MOUSE_DOWN,
+            RoomObjectMouseEvent.MOUSE_DOWN_LONG,
+            RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_SHOW,
+            RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_HIDE,
+            RoomObjectRoomAdEvent.ROOM_AD_FURNI_DOUBLE_CLICK,
+            RoomObjectRoomAdEvent.ROOM_AD_FURNI_CLICK ];
 
         if(this.widget) types.push(RoomObjectWidgetRequestEvent.OPEN_WIDGET, RoomObjectWidgetRequestEvent.CLOSE_WIDGET);
 
@@ -131,6 +140,13 @@ export class FurnitureLogic extends MovingObjectLogic
     protected getAdClickUrl(model: IRoomObjectModel): string
     {
         return model.getValue<string>(RoomObjectVariable.FURNITURE_AD_URL);
+    }
+
+    protected handleAdClick(objectId: number, objectType: string, clickUrl: string):void
+    {
+        if(!this.eventDispatcher) return;
+
+        this.eventDispatcher.dispatchEvent(new RoomObjectRoomAdEvent(RoomObjectRoomAdEvent.ROOM_AD_FURNI_CLICK, this.object));
     }
 
     public update(time: number): void
@@ -241,7 +257,7 @@ export class FurnitureLogic extends MovingObjectLogic
             case MouseEventType.MOUSE_MOVE:
                 if(this.eventDispatcher)
                 {
-                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_MOVE, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_MOVE, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
                     mouseEvent.localX           = event.localX;
                     mouseEvent.localY           = event.localY;
@@ -256,7 +272,12 @@ export class FurnitureLogic extends MovingObjectLogic
                 {
                     if(this.eventDispatcher)
                     {
-                        const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_ENTER, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                        if(adUrl && (adUrl.indexOf('http') === 0))
+                        {
+                            this.eventDispatcher.dispatchEvent(new RoomObjectRoomAdEvent(RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_SHOW, this.object));
+                        }
+
+                        const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_ENTER, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
                         mouseEvent.localX           = event.localX;
                         mouseEvent.localY           = event.localY;
@@ -274,7 +295,12 @@ export class FurnitureLogic extends MovingObjectLogic
                 {
                     if(this.eventDispatcher)
                     {
-                        const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_LEAVE, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                        if(adUrl && (adUrl.indexOf('http') === 0))
+                        {
+                            this.eventDispatcher.dispatchEvent(new RoomObjectRoomAdEvent(RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_HIDE, this.object));
+                        }
+
+                        const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_LEAVE, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
                         mouseEvent.localX           = event.localX;
                         mouseEvent.localY           = event.localY;
@@ -293,7 +319,7 @@ export class FurnitureLogic extends MovingObjectLogic
             case MouseEventType.MOUSE_CLICK:
                 if(this.eventDispatcher)
                 {
-                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.CLICK, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.CLICK, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
                     mouseEvent.localX           = event.localX;
                     mouseEvent.localY           = event.localY;
@@ -301,17 +327,27 @@ export class FurnitureLogic extends MovingObjectLogic
                     mouseEvent.spriteOffsetY    = event.spriteOffsetY;
 
                     this.eventDispatcher.dispatchEvent(mouseEvent);
-                }
 
-                if(this.eventDispatcher && this.object && this.contextMenu)
-                {
-                    this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.OPEN_FURNI_CONTEXT_MENU, this.object));
+                    if(adUrl && (adUrl.indexOf('http') === 0))
+                    {
+                        this.eventDispatcher.dispatchEvent(new RoomObjectRoomAdEvent(RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_HIDE, this.object));
+                    }
+
+                    if(adUrl && adUrl.length) this.handleAdClick(this.object.id, this.object.type, adUrl);
                 }
                 return;
             case MouseEventType.MOUSE_DOWN:
                 if(this.eventDispatcher)
                 {
-                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_DOWN, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_DOWN, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+
+                    this.eventDispatcher.dispatchEvent(mouseEvent);
+                }
+                return;
+            case MouseEventType.MOUSE_DOWN_LONG:
+                if(this.eventDispatcher)
+                {
+                    const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_DOWN_LONG, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
                     this.eventDispatcher.dispatchEvent(mouseEvent);
                 }
@@ -350,23 +386,27 @@ export class FurnitureLogic extends MovingObjectLogic
 
     public useObject(): void
     {
-        if(!this.object) return;
+        if(!this.object || !this.eventDispatcher) return;
 
-        const adUrl = this.getAdClickUrl(this.object.model);
+        const clickUrl = this.getAdClickUrl(this.object.model);
 
-        if(this.eventDispatcher)
+        if(clickUrl && clickUrl.length)
         {
-            if(this.widget) this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.OPEN_WIDGET, this.object));
-
-            this.eventDispatcher.dispatchEvent(new RoomObjectStateChangedEvent(RoomObjectStateChangedEvent.STATE_CHANGE, this.object));
+            this.eventDispatcher.dispatchEvent(new RoomObjectRoomAdEvent(RoomObjectRoomAdEvent.ROOM_AD_FURNI_DOUBLE_CLICK, this.object, null, clickUrl));
         }
+
+        if(this.widget) this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.OPEN_WIDGET, this.object));
+
+        this.eventDispatcher.dispatchEvent(new RoomObjectStateChangedEvent(RoomObjectStateChangedEvent.STATE_CHANGE, this.object));
     }
 
     public tearDown(): void
     {
-        if(this.widget && (this.object.model.getValue(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) === 1))
+        if(this.object.model.getValue(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) === 1)
         {
-            this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CLOSE_WIDGET, this.object));
+            if(this.widget) this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CLOSE_WIDGET, this.object));
+
+            if(this.contextMenu) this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CLOSE_FURNI_CONTEXT_MENU, this.object));
         }
 
         super.tearDown();

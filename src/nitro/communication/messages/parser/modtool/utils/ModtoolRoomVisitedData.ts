@@ -1,12 +1,12 @@
 import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
-import { ModtoolUserVisitedRoomsRoom } from './ModtoolUserVisitedRoomsRoom';
+import { RoomVisitData } from './RoomVisitData';
 
 
 export class ModtoolRoomVisitedData
 {
     private _userId:number;
     private _userName:string;
-    private _rooms:ModtoolUserVisitedRoomsRoom[];
+    private _rooms:RoomVisitData[];
 
     constructor(k:IMessageDataWrapper)
     {
@@ -17,7 +17,7 @@ export class ModtoolRoomVisitedData
         let _local_3 = 0;
         while(_local_3 < _local_2)
         {
-            this._rooms.push(new ModtoolUserVisitedRoomsRoom(k));
+            this._rooms.push(new RoomVisitData(k));
             _local_3++;
         }
     }
@@ -32,7 +32,7 @@ export class ModtoolRoomVisitedData
         return this._userName;
     }
 
-    public get rooms():ModtoolUserVisitedRoomsRoom[]
+    public get rooms():RoomVisitData[]
     {
         return this._rooms;
     }

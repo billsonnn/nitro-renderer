@@ -12,19 +12,19 @@ export class RoomDimmerPresetsMessageParser implements IMessageParser
         this._presets = [];
     }
 
-    public get _Str_10888(): number
+    public get presetCount(): number
     {
         return this._presets.length;
     }
 
-    public get _Str_6226(): number
+    public get selectedPresetId(): number
     {
         return this._selectedPresetId;
     }
 
-    public _Str_14989(k: number): MoodlightFromServer
+    public getPreset(k: number): MoodlightFromServer
     {
-        if((k < 0) || (k >= this._Str_10888)) return null;
+        if((k < 0) || (k >= this.presetCount)) return null;
 
         return this._presets[k];
     }

@@ -21,13 +21,13 @@ export class Node3D
         return this._location;
     }
 
-    public get _Str_1604(): Vector3D
+    public get transformedLocation(): Vector3D
     {
         return this._transformedLocation;
     }
 
-    public _Str_1101(k: Matrix4x4): void
+    public applyTransform(k: Matrix4x4): void
     {
-        if(this._needsTransformation) this._transformedLocation = k._Str_2186(this._location);
+        if(this._needsTransformation) this._transformedLocation = k.vectorMultiplication(this._location);
     }
 }

@@ -1,10 +1,11 @@
-import { Texture } from 'pixi.js';
+import { Resource, Texture } from 'pixi.js';
 import { NitroManager } from '../../core/common/NitroManager';
 import { IMessageComposer } from '../../core/communication/messages/IMessageComposer';
 import { NitroEvent } from '../../core/events/NitroEvent';
+import { MysteryBoxKeysEvent } from '../communication';
 import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { AvailabilityStatusMessageEvent } from '../communication/messages/incoming/availability/AvailabilityStatusMessageEvent';
-import { ChangeNameUpdateEvent } from '../communication/messages/incoming/avatar/ChangeNameUpdateEvent';
+import { ChangeUserNameResultMessageEvent } from '../communication/messages/incoming/avatar/ChangeUserNameResultMessageEvent';
 import { RoomModelNameEvent } from '../communication/messages/incoming/room/mapping/RoomModelNameEvent';
 import { UserPermissionsEvent } from '../communication/messages/incoming/user/access/UserPermissionsEvent';
 import { UserFigureEvent } from '../communication/messages/incoming/user/data/UserFigureEvent';
@@ -20,6 +21,7 @@ import { Nitro } from '../Nitro';
 import { HabboWebTools } from '../utils/HabboWebTools';
 import { BadgeImageManager } from './BadgeImageManager';
 import { SecurityLevel } from './enum/SecurityLevel';
+import { MysteryBoxKeysUpdateEvent } from './events';
 import { SessionDataPreferencesEvent } from './events/SessionDataPreferencesEvent';
 import { UserNameUpdateEvent } from './events/UserNameUpdateEvent';
 import { FurnitureDataLoader } from './furniture/FurnitureDataLoader';
@@ -123,10 +125,11 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._communication.registerMessageEvent(new UserInfoEvent(this.onUserInfoEvent.bind(this)));
         this._communication.registerMessageEvent(new UserPermissionsEvent(this.onUserPermissionsEvent.bind(this)));
         this._communication.registerMessageEvent(new AvailabilityStatusMessageEvent(this.onAvailabilityStatusMessageEvent.bind(this)));
-        this._communication.registerMessageEvent(new ChangeNameUpdateEvent(this.onChangeNameUpdateEvent.bind(this)));
+        this._communication.registerMessageEvent(new ChangeUserNameResultMessageEvent(this.onChangeNameUpdateEvent.bind(this)));
         this._communication.registerMessageEvent(new UserNameChangeMessageEvent(this.onUserNameChangeMessageEvent.bind(this)));
         this._communication.registerMessageEvent(new RoomModelNameEvent(this.onRoomModelNameEvent.bind(this)));
         this._communication.registerMessageEvent(new InClientLinkEvent(this.onInClientLinkEvent.bind(this)));
+        this._communication.registerMessageEvent(new MysteryBoxKeysEvent(this.onMysteryBoxKeysEvent.bind(this)));
 
         Nitro.instance.events.addEventListener(NitroSettingsEvent.SETTINGS_UPDATED, this.onNitroSettingsEvent);
     }
@@ -289,7 +292,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._isAuthenticHabbo  = parser.isAuthenticUser;
     }
 
-    private onChangeNameUpdateEvent(event: ChangeNameUpdateEvent): void
+    private onChangeNameUpdateEvent(event: ChangeUserNameResultMessageEvent): void
     {
         if(!event || !event.connection) return;
 
@@ -297,7 +300,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
         if(!parser) return;
 
-        if(parser.resultCode !== ChangeNameUpdateEvent._Str_5797) return;
+        if(parser.resultCode !== ChangeUserNameResultMessageEvent.NAME_OK) return;
 
         this._canChangeName = false;
 
@@ -370,6 +373,17 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         if(!parser) return;
 
         Nitro.instance.createLinkEvent(parser.link);
+    }
+
+    private onMysteryBoxKeysEvent(event: MysteryBoxKeysEvent): void
+    {
+        if(!event) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        this.events.dispatchEvent(new MysteryBoxKeysUpdateEvent(parser.boxColor, parser.keyColor));
     }
 
     private onNitroSettingsEvent(event: NitroSettingsEvent): void
@@ -458,12 +472,12 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         return this._badgeImageManager.getBadgeUrl(name, BadgeImageManager.GROUP_BADGE);
     }
 
-    public getBadgeImage(name: string): Texture
+    public getBadgeImage(name: string): Texture<Resource>
     {
         return this._badgeImageManager.getBadgeImage(name);
     }
 
-    public getGroupBadgeImage(name: string): Texture
+    public getGroupBadgeImage(name: string): Texture<Resource>
     {
         return this._badgeImageManager.getBadgeImage(name, BadgeImageManager.GROUP_BADGE);
     }

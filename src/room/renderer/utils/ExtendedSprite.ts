@@ -1,5 +1,5 @@
-import { BaseTexture, BLEND_MODES, Point, Renderer, RenderTexture, Sprite, Texture } from 'pixi.js';
-import { Nitro } from '../../../nitro/Nitro';
+import { BaseTexture, BLEND_MODES, Point, RenderTexture, Resource, Sprite, Texture } from 'pixi.js';
+import { TextureUtils } from '../../utils';
 
 export class ExtendedSprite extends Sprite
 {
@@ -7,13 +7,13 @@ export class ExtendedSprite extends Sprite
     private _offsetY: number;
     private _tag: string;
     private _alphaTolerance: number;
-    private _Str_8253: boolean;
+    private _varyingDepth: boolean;
     private _clickHandling: boolean;
 
     private _pairedSpriteId: number;
     private _pairedSpriteUpdateCounter: number;
 
-    constructor(texture: Texture = null)
+    constructor(texture: Texture<Resource> = null)
     {
         super(texture);
 
@@ -21,7 +21,7 @@ export class ExtendedSprite extends Sprite
         this._offsetY                   = 0;
         this._tag                       = '';
         this._alphaTolerance            = 128;
-        this._Str_8253                  = false;
+        this._varyingDepth              = false;
         this._clickHandling             = false;
 
         this._pairedSpriteId            = -1;
@@ -38,23 +38,14 @@ export class ExtendedSprite extends Sprite
         return true;
     }
 
-    public render(renderer: Renderer): void
+    public calculateVertices(): void
     {
-        try
-        {
-            //@ts-ignore
-            if(!this._texture || !this._texture._uvs || !this._texture._uvs.uvsFloat32) return;
-        }
+        if(!this.texture.orig) return;
 
-        catch (err)
-        {
-            return;
-        }
-
-        super.render(renderer);
+        super.calculateVertices();
     }
 
-    public setTexture(texture: Texture): void
+    public setTexture(texture: Texture<Resource>): void
     {
         if(!texture) texture = Texture.EMPTY;
 
@@ -82,8 +73,8 @@ export class ExtendedSprite extends Sprite
 
         if((sprite.texture === Texture.EMPTY) || (sprite.blendMode !== BLEND_MODES.NORMAL)) return;
 
-        const texture       = sprite.texture;
-        const baseTexture   = texture.baseTexture;
+        const texture = sprite.texture;
+        const baseTexture = texture.baseTexture;
 
         if(!texture || !baseTexture || !baseTexture.valid) return false;
 
@@ -104,13 +95,13 @@ export class ExtendedSprite extends Sprite
                 {
                     const tempSprite = Sprite.from(texture);
 
-                    canvas = Nitro.instance.renderer.extract.canvas(tempSprite);
+                    canvas = TextureUtils.generateCanvas(tempSprite);
 
                     tempSprite.destroy();
                 }
                 else
                 {
-                    canvas = Nitro.instance.renderer.extract.canvas(texture as RenderTexture);
+                    canvas = TextureUtils.generateCanvas(texture as RenderTexture);
                 }
             }
 
@@ -118,15 +109,25 @@ export class ExtendedSprite extends Sprite
         }
 
         //@ts-ignore
-        const hitMap        = baseTexture.hitMap;
-        //@ts-ignore
-        const width         = baseTexture.hitMapWidth;
-        const resolution    = baseTexture.resolution;
-        const dx            = Math.round((x + texture.frame.x) * resolution);
-        const dy            = Math.round((y + texture.frame.y) * resolution);
-        const index         = (((dy * width) + dx) * 4);
+        const hitMap = (baseTexture.hitMap as Uint32Array);
 
-        return ((hitMap[index + 3] !== undefined) && (hitMap[index + 3] > sprite.alphaTolerance));
+        let dx = (x + texture.frame.x);
+        let dy = (y + texture.frame.y);
+
+        if(texture.trim)
+        {
+            dx -= texture.trim.x;
+            dy -= texture.trim.y;
+        }
+
+        dx = (Math.round(dx) * baseTexture.resolution);
+        dy = (Math.round(dy) * baseTexture.resolution);
+
+        const ind = (dx + dy * baseTexture.realWidth);
+        const ind1 = ind % 32;
+        const ind2 = ind / 32 | 0;
+
+        return (hitMap[ind2] & (1 << ind1)) !== 0;
     }
 
     private static generateHitMap(baseTexture: BaseTexture, tempCanvas: HTMLCanvasElement = null): boolean
@@ -171,10 +172,22 @@ export class ExtendedSprite extends Sprite
         const height    = canvas.height;
         const imageData = context.getImageData(0, 0, width, height);
 
+        const hitmap = new Uint32Array(Math.ceil(width * height / 32));
+        const threshold = 128;
+
+        for(let i = 0; i < width * height; i++)
+        {
+            const ind1 = i % 32;
+            const ind2 = i / 32 | 0;
+
+            if(imageData.data[i * 4 + 3] >= threshold)
+            {
+                hitmap[ind2] = hitmap[ind2] | (1 << ind1);
+            }
+        }
+
         //@ts-ignore
-        baseTexture.hitMap      = imageData.data;
-        //@ts-ignore
-        baseTexture.hitMapWidth = width;
+        baseTexture.hitMap = hitmap;
 
         return true;
     }
@@ -219,14 +232,14 @@ export class ExtendedSprite extends Sprite
         this._alphaTolerance = tolerance;
     }
 
-    public get _Str_4593(): boolean
+    public get varyingDepth(): boolean
     {
-        return this._Str_8253;
+        return this._varyingDepth;
     }
 
-    public set _Str_4593(flag: boolean)
+    public set varyingDepth(flag: boolean)
     {
-        this._Str_8253 = flag;
+        this._varyingDepth = flag;
     }
 
     public get clickHandling(): boolean

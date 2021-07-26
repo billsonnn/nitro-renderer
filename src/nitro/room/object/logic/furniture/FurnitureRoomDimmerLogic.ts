@@ -113,6 +113,8 @@ export class FurnitureRoomDimmerLogic extends FurnitureLogic
 
     public useObject(): void
     {
+        if(!this.object || !this.eventDispatcher) return;
+
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.DIMMER, this.object));
     }
 

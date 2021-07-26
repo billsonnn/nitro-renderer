@@ -1,4 +1,4 @@
-import { Container, Matrix, Renderer, Texture } from 'pixi.js';
+import { Container, Matrix, Renderer, Resource, Texture } from 'pixi.js';
 import { Constant } from './Constant';
 import { RectTileLayer } from './RectTileLayer';
 
@@ -12,7 +12,6 @@ export class CompositeRectTileLayer extends Container
     }
 
     z: number;
-    zIndex: number;
     modificationMarker = 0;
     shadowColor = new Float32Array([0.0, 0.0, 0.0, 0.5]);
     _globalMat: Matrix = null;
@@ -119,9 +118,9 @@ export class CompositeRectTileLayer extends Container
         return this;
     }
 
-    addFrame(texture_: Texture | string | number, x: number, y: number, animX?: number, animY?: number, animWidth?: number, animHeight?: number, alpha?: number, yaxis?: number, xaxis?: number): this
+    addFrame(texture_: Texture<Resource> | string | number, x: number, y: number, animX?: number, animY?: number, animWidth?: number, animHeight?: number, alpha?: number, yaxis?: number, xaxis?: number): this
     {
-        let texture: Texture;
+        let texture: Texture<Resource>;
         let layer: RectTileLayer = null;
         let ind = 0;
         const children = this.children;

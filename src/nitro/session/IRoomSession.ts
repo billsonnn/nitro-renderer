@@ -1,11 +1,11 @@
 import { IDisposable } from '../../core/common/disposable/IDisposable';
 import { IConnection } from '../../core/communication/connections/IConnection';
-import { RoomModerationParser } from '../communication/messages/parser/room/data/RoomModerationParser';
+import { RoomModerationSettings } from '../communication/messages/parser/room/data/RoomModerationSettings';
 import { UserDataManager } from './UserDataManager';
 
 export interface IRoomSession extends IDisposable
 {
-    openGift(_Str_1577: number): void;
+    openGift(objectId: number): void;
     setConnection(connection: IConnection): void;
     setControllerLevel(level: number): void;
     setOwnRoomIndex(roomIndex: number): void;
@@ -28,11 +28,18 @@ export interface IRoomSession extends IDisposable
     sendBanMessage(userId: number, type: string): void;
     sendGiveRightsMessage(userId: number): void;
     sendTakeRightsMessage(userId: number): void;
-    updateMoodlightData(_Str_25037: number, _Str_24446: number, color: number, _Str_5123: number, apply: boolean): void;
+    updateMoodlightData(_Str_25037: number, _Str_24446: number, color: number, brightness: number, apply: boolean): void;
     toggleMoodlightState(): void;
     pickupPet(id: number): void;
     pickupBot(id: number): void;
     requestMoodlightSettings(): void;
+    mountPet(id: number): void;
+    dismountPet(id: number): void;
+    usePetProduct(itemId: number, petId: number): void;
+    removePetSaddle(id: number): void;
+    togglePetBreeding(id: number): void;
+    togglePetRiding(id: number): void;
+    useMultistateItem(id: number): void;
     connection: IConnection;
     userDataManager: UserDataManager;
     roomId: number;
@@ -47,5 +54,5 @@ export interface IRoomSession extends IDisposable
     isRoomOwner: boolean;
     isDecorating: boolean;
     isSpectator: boolean;
-    moderationSettings: RoomModerationParser;
+    moderationSettings: RoomModerationSettings;
 }

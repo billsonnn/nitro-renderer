@@ -35,12 +35,12 @@ export class FurnitureDynamicThumbnailVisualization extends FurnitureThumbnailVi
 
                         texture.baseTexture.scaleMode = SCALE_MODES.LINEAR;
 
-                        this._Str_6645(texture);
+                        this.setThumbnailImages(texture);
                     };
                 }
                 else
                 {
-                    this._Str_6645(null);
+                    this.setThumbnailImages(null);
                 }
             }
         }

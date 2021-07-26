@@ -40,7 +40,7 @@ export class PartSetsData implements IFigureSetData
         return true;
     }
 
-    public _Str_1017(data: any): boolean
+    public appendXML(data: any): boolean
     {
         if(data.partSet && (data.partSet.length > 0))
         {
@@ -65,16 +65,16 @@ export class PartSetsData implements IFigureSetData
         return false;
     }
 
-    public _Str_1795(k:IActionDefinition): string[]
+    public getActiveParts(k:IActionDefinition): string[]
     {
         const activePartSet = this._activePartSets.get(k.activePartSet);
 
         if(!activePartSet) return [];
 
-        return activePartSet._Str_806;
+        return activePartSet.parts;
     }
 
-    public _Str_1102(part: string): PartDefinition
+    public getPartDefinition(part: string): PartDefinition
     {
         const existing = this._parts.get(part);
 
@@ -83,7 +83,7 @@ export class PartSetsData implements IFigureSetData
         return existing;
     }
 
-    public _Str_1520(k: any): PartDefinition
+    public addPartDefinition(k: any): PartDefinition
     {
         const _local_2 = k.setType as string;
 
@@ -99,7 +99,7 @@ export class PartSetsData implements IFigureSetData
         return existing;
     }
 
-    public _Str_1113(k: ActionDefinition): ActivePartSet
+    public getActivePartSet(k: ActionDefinition): ActivePartSet
     {
         const existing = this._activePartSets.get(k.activePartSet);
 
@@ -108,12 +108,12 @@ export class PartSetsData implements IFigureSetData
         return existing;
     }
 
-    public get _Str_806(): Map<string, PartDefinition>
+    public get parts(): Map<string, PartDefinition>
     {
         return this._parts;
     }
 
-    public get _Str_1979(): Map<string, ActivePartSet>
+    public get activePartSets(): Map<string, ActivePartSet>
     {
         return this._activePartSets;
     }

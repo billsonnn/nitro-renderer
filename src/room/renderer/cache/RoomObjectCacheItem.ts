@@ -40,12 +40,12 @@ export class RoomObjectCacheItem
         }
     }
 
-    public get _Str_1577(): number
+    public get objectId(): number
     {
         return this._objectId;
     }
 
-    public set _Str_1577(k:number)
+    public set objectId(k:number)
     {
         this._objectId = k;
     }

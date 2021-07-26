@@ -43,21 +43,21 @@ export class SpriteDataContainer implements ISpriteDataContainer
         }
     }
 
-    public _Str_809(k: number): number
+    public getDirectionOffsetX(k: number): number
     {
         if(k < this._dx.length) return this._dx[k];
 
         return 0;
     }
 
-    public _Str_739(k: number): number
+    public getDirectionOffsetY(k: number): number
     {
         if(k < this._dy.length) return this._dy[k];
 
         return 0;
     }
 
-    public _Str_839(k: number): number
+    public getDirectionOffsetZ(k: number): number
     {
         if(k < this._dz.length) return this._dz[k];
 
@@ -84,12 +84,12 @@ export class SpriteDataContainer implements ISpriteDataContainer
         return this._member;
     }
 
-    public get _Str_949(): boolean
+    public get hasDirections(): boolean
     {
         return this._hasDirections;
     }
 
-    public get _Str_767(): boolean
+    public get hasStaticY(): boolean
     {
         return this._hasStaticY;
     }

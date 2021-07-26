@@ -80,7 +80,7 @@ export class FigurePartSet implements IFigurePartSet
         return -1;
     }
 
-    public _Str_989(k: string, _arg_2: number): IFigurePart
+    public getPart(k: string, _arg_2: number): IFigurePart
     {
         for(const part of this._parts)
         {
@@ -117,27 +117,27 @@ export class FigurePartSet implements IFigurePartSet
         return this._isColorable;
     }
 
-    public get _Str_608(): boolean
+    public get isSelectable(): boolean
     {
         return this._isSelectable;
     }
 
-    public get _Str_806(): IFigurePart[]
+    public get parts(): IFigurePart[]
     {
         return this._parts;
     }
 
-    public get _Str_790(): string[]
+    public get hiddenLayers(): string[]
     {
         return this._hiddenLayers;
     }
 
-    public get _Str_653(): boolean
+    public get isPreSelectable(): boolean
     {
         return this._isPreSelectable;
     }
 
-    public get _Str_651(): boolean
+    public get isSellable(): boolean
     {
         return this._isSellable;
     }

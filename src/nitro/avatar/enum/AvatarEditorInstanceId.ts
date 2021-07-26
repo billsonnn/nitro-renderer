@@ -1,7 +1,7 @@
 ﻿export class AvatarEditorInstanceId
 {
-    public static _Str_3350: number     = 0;
-    public static _Str_7195: number     = 1;
-    public static _Str_17909: number    = 2;
-    public static _Str_16370: number    = 3;
+    public static OWN_AVATAR_EDITOR: number     = 0;
+    public static FURNITURE_AVATAR_EDITOR: number     = 1;
+    public static BOT_EDITOR: number    = 2;
+    public static DEV_TOOL_EDITOR: number    = 3;
 }

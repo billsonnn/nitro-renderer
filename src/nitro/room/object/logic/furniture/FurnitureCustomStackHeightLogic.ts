@@ -1,5 +1,5 @@
 import { IAssetData } from '../../../../../core/asset/interfaces';
-import { RoomWidgetEnum } from '../../../../ui/widget/enums/RoomWidgetEnum';
+import { RoomWidgetEnum } from '../../../../ui';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 

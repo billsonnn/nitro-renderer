@@ -2,9 +2,12 @@ export class IncomingHeader
 {
     public static ACHIEVEMENT_LIST                 = 305;
     public static AUTHENTICATED                    = 2491;
+    public static AUTHENTICATION                   = -1;
     public static AVAILABILITY_STATUS              = 2033;
     public static BUILDERS_CLUB_EXPIRED            = 1452;
     public static CAMERA_PRICE                     = 3878;
+    public static CAMERA_PUBLISHED                 = 2057;
+    public static CAMERA_PURCHASE_SUCCESSFUL       = 2783;
     public static CAMERA_THUMBNAIL_SAVED           = 3595;
     public static CAMERA_URL                       = 3696;
     public static CATALOG_CLUB                     = 2405;
@@ -138,7 +141,7 @@ export class IncomingHeader
     public static ROOM_THICKNESS                   = 3547;
     public static SECURITY_DEBUG                   = 3284;
     public static SECURITY_MACHINE                 = 1488;
-    public static SECURITY_UNKNOWN2                = 2833;
+    public static MYSTERY_BOX_KEYS                 = 2833;
     public static TRADE_ACCEPTED                   = 2568;
     public static TRADE_CLOSED                     = 1373;
     public static TRADE_COMPLETED                  = 1001;
@@ -247,4 +250,24 @@ export class IncomingHeader
     public static MARKETPLACE_AFTER_ORDER_STATUS   = 2032;
     public static CATALOG_RECEIVE_PET_BREEDS       = 3331;
     public static CATALOG_APPROVE_NAME_RESULT      = 1503;
+    public static OBJECTS_DATA_UPDATE              = 1453;
+    public static PET_EXPERIENCE                   = 2156;
+    public static COMMUNITY_GOAL_VOTE_EVENT        = 1435;
+    public static PROMO_ARTICLES                   = 286;
+    public static COMMUNITY_GOAL_EARNED_PRIZES     = 3319;
+    public static COMMUNITY_GOAL_PROGRESS          = 2525;
+    public static CONCURRENT_USERS_GOAL_PROGRESS   = 2737;
+    public static QUEST_DAILY                      = 1878;
+    public static QUEST_CANCELLED                  = 3027;
+    public static QUEST_COMPLETED                  = 949;
+    public static COMMUNITY_GOAL_HALL_OF_FAME      = 3005;
+    public static EPIC_POPUP                       = 3945;
+    public static SEASONAL_QUESTS                  = 1122;
+    public static QUESTS                           = 3625;
+    public static QUEST                            = 230;
+    public static BONUS_RARE_INFO                  = 1533;
+    public static CRAFTABLE_PRODUCTS               = 1000;
+    public static CRAFTING_RECIPE                  = 2774;
+    public static CRAFTING_RECIPES_AVAILABLE       = 2124;
+    public static CRAFTING_RESULT                  = 618;
 }

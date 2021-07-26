@@ -6,8 +6,8 @@ export class FurnitureVoteMajorityVisualization extends FurnitureAnimatedVisuali
     private static ONES_SPRITE: string      = 'ones_sprite';
     private static TENS_SPRITE: string      = 'tens_sprite';
     private static HUNDREDS_SPRITE: string  = 'hundreds_sprite';
-    private static _Str_16109: number[]     = [-1, 1];
-    private static _Str_17618: number       = -1;
+    private static HIDE_RESULTS_STATES: number[]     = [-1, 1];
+    private static HIDE_RESULTS_VALUE: number       = -1;
 
     protected getFrameNumber(scale: number, layerId: number): number
     {
@@ -27,7 +27,7 @@ export class FurnitureVoteMajorityVisualization extends FurnitureAnimatedVisuali
     {
         const result = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_VOTE_MAJORITY_RESULT);
 
-        if(((!(FurnitureVoteMajorityVisualization._Str_16109.indexOf(this.object.getState(0)) === -1)) || (result === FurnitureVoteMajorityVisualization._Str_17618)))
+        if(((!(FurnitureVoteMajorityVisualization.HIDE_RESULTS_STATES.indexOf(this.object.getState(0)) === -1)) || (result === FurnitureVoteMajorityVisualization.HIDE_RESULTS_VALUE)))
         {
             const tag = this.getLayerTag(scale, direction, layerId);
 

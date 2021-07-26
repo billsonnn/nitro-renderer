@@ -15,7 +15,7 @@ export class RoomObjectSortableSpriteCacheItem
         this._isEmpty   = false;
     }
 
-    public get _Str_3008(): number
+    public get spriteCount(): number
     {
         return this._sprites.length;
     }
@@ -27,25 +27,25 @@ export class RoomObjectSortableSpriteCacheItem
 
     public dispose(): void
     {
-        this._Str_20276(0);
+        this.setSpriteCount(0);
     }
 
-    public _Str_12937(sprite: SortableSprite): void
+    public addSprite(sprite: SortableSprite): void
     {
         this._sprites.push(sprite);
     }
 
-    public _Str_2505(k: number): SortableSprite
+    public getSprite(k: number): SortableSprite
     {
         return this._sprites[k];
     }
 
-    public get _Str_9272(): SortableSprite[]
+    public get sprites(): SortableSprite[]
     {
         return this._sprites;
     }
 
-    public _Str_17574(k: number, _arg_2: number): boolean
+    public needsUpdate(k: number, _arg_2: number): boolean
     {
         if((k === this._updateId1) && (_arg_2 === this._updateId2)) return false;
 
@@ -55,7 +55,7 @@ export class RoomObjectSortableSpriteCacheItem
         return true;
     }
 
-    public _Str_20276(k: number): void
+    public setSpriteCount(k: number): void
     {
         if(k < this._sprites.length)
         {

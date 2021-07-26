@@ -15,7 +15,7 @@ export class AvatarImageBodyPartContainer
         this._regPoint      = _arg_2;
         this._isCacheable   = _arg_3;
 
-        this._Str_1225();
+        this.cleanPoints();
     }
 
     public dispose(): void
@@ -32,7 +32,7 @@ export class AvatarImageBodyPartContainer
         this._offset    = null;
     }
 
-    private _Str_1225(): void
+    private cleanPoints(): void
     {
         // this._regPoint.x    = this._regPoint.x;
         // this._regPoint.y    = this._regPoint.y;
@@ -40,11 +40,11 @@ export class AvatarImageBodyPartContainer
         // this._offset.y      = this._offset.y;
     }
 
-    public _Str_1387(k: Point): void
+    public setRegPoint(k: Point): void
     {
         this._regPoint = k;
 
-        this._Str_1225();
+        this.cleanPoints();
     }
 
     public get image(): Container
@@ -64,7 +64,7 @@ export class AvatarImageBodyPartContainer
         this._image = k;
     }
 
-    public get _Str_1076(): Point
+    public get regPoint(): Point
     {
         const clone = this._regPoint.clone();
 
@@ -78,10 +78,10 @@ export class AvatarImageBodyPartContainer
     {
         this._offset = k;
 
-        this._Str_1225();
+        this.cleanPoints();
     }
 
-    public get _Str_1807(): boolean
+    public get isCacheable(): boolean
     {
         return this._isCacheable;
     }

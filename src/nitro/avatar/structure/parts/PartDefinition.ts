@@ -17,47 +17,47 @@ export class PartDefinition
         this._staticId          = -1;
     }
 
-    public _Str_2234(): boolean
+    public hasStaticId(): boolean
     {
         return this._staticId >= 0;
     }
 
-    public get _Str_1734(): number
+    public get staticId(): number
     {
         return this._staticId;
     }
 
-    public set _Str_1734(k: number)
+    public set staticId(k: number)
     {
         this._staticId = k;
     }
 
-    public get _Str_2174(): string
+    public get setType(): string
     {
         return this._setType;
     }
 
-    public get _Str_1693(): string
+    public get flippedSetType(): string
     {
         return this._flippedSetType;
     }
 
-    public set _Str_1693(type: string)
+    public set flippedSetType(type: string)
     {
         this._flippedSetType = type;
     }
 
-    public get _Str_1209(): string
+    public get removeSetType(): string
     {
         return this._removeSetType;
     }
 
-    public get _Str_1583(): boolean
+    public get appendToFigure(): boolean
     {
         return this._appendToFigure;
     }
 
-    public set _Str_1583(flag: boolean)
+    public set appendToFigure(flag: boolean)
     {
         this._appendToFigure = flag;
     }

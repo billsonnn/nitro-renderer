@@ -14,7 +14,6 @@ export * from './EffectAssetDownloadLibrary';
 export * from './EffectAssetDownloadManager';
 export * from './enum';
 export * from './events';
-export * from './figuredata';
 export * from './geometry';
 export * from './IAvatarEffectListener';
 export * from './IAvatarFigureContainer';

@@ -1,3 +1,4 @@
+export * from './BonusRareInfoMessageEvent';
 export * from './CatalogApproveNameResultEvent';
 export * from './CatalogClubEvent';
 export * from './CatalogClubGiftsEvent';

@@ -30,13 +30,13 @@ export class RoomLogic extends RoomObjectLogicBase
     private _planeParser: RoomPlaneParser;
     private _planeBitmapMaskParser: RoomPlaneBitmapMaskParser;
     private _color: number;
-    private _Str_3576: number;
-    private _Str_14932: number;
-    private _Str_17003: number;
-    private _Str_11287: number;
-    private _Str_16460: number;
-    private _Str_9785: number;
-    private _Str_17191: number;
+    private _light: number;
+    private _originalColor: number;
+    private _originalLight: number;
+    private _targetColor: number;
+    private _targetLight: number;
+    private _colorChangedTime: number;
+    private _colorTransitionLength: number;
     private _lastHoleUpdate: number;
     private _needsMapUpdate: boolean;
 
@@ -47,13 +47,13 @@ export class RoomLogic extends RoomObjectLogicBase
         this._planeParser           = new RoomPlaneParser();
         this._planeBitmapMaskParser = new RoomPlaneBitmapMaskParser();
         this._color                 = 0xFFFFFF;
-        this._Str_3576              = 0xFF;
-        this._Str_14932             = 0xFFFFFF;
-        this._Str_17003             = 0xFF;
-        this._Str_11287             = 0xFFFFFF;
-        this._Str_16460             = 0xFF;
-        this._Str_9785              = 0;
-        this._Str_17191             = 1500;
+        this._light                 = 0xFF;
+        this._originalColor         = 0xFFFFFF;
+        this._originalLight         = 0xFF;
+        this._targetColor           = 0xFFFFFF;
+        this._targetLight           = 0xFF;
+        this._colorChangedTime      = 0;
+        this._colorTransitionLength = 1500;
         this._lastHoleUpdate        = 0;
         this._needsMapUpdate        = false;
     }
@@ -103,7 +103,7 @@ export class RoomLogic extends RoomObjectLogicBase
     {
         super.update(time);
 
-        this._Str_24703(time);
+        this.updateBackgroundColor(time);
 
         if(this._needsMapUpdate)
         {
@@ -127,46 +127,46 @@ export class RoomLogic extends RoomObjectLogicBase
 
     }
 
-    private _Str_24703(k: number): void
+    private updateBackgroundColor(k: number): void
     {
-        if(!this.object || !this._Str_9785) return;
+        if(!this.object || !this._colorChangedTime) return;
 
         let color       = this._color;
-        let newColor    = this._Str_3576;
+        let newColor    = this._light;
 
-        if((k - this._Str_9785) >= this._Str_17191)
+        if((k - this._colorChangedTime) >= this._colorTransitionLength)
         {
-            color       = this._Str_11287;
-            newColor    = this._Str_16460;
+            color       = this._targetColor;
+            newColor    = this._targetLight;
 
-            this._Str_9785 = 0;
+            this._colorChangedTime = 0;
         }
         else
         {
-            let _local_7 = ((this._Str_14932 >> 16) & 0xFF);
-            let _local_8 = ((this._Str_14932 >> 8) & 0xFF);
-            let _local_9 = (this._Str_14932 & 0xFF);
+            let _local_7 = ((this._originalColor >> 16) & 0xFF);
+            let _local_8 = ((this._originalColor >> 8) & 0xFF);
+            let _local_9 = (this._originalColor & 0xFF);
 
-            const _local_10 = ((this._Str_11287 >> 16) & 0xFF);
-            const _local_11 = ((this._Str_11287 >> 8) & 0xFF);
-            const _local_12 = (this._Str_11287 & 0xFF);
-            const _local_13 = ((k - this._Str_9785) / this._Str_17191);
+            const _local_10 = ((this._targetColor >> 16) & 0xFF);
+            const _local_11 = ((this._targetColor >> 8) & 0xFF);
+            const _local_12 = (this._targetColor & 0xFF);
+            const _local_13 = ((k - this._colorChangedTime) / this._colorTransitionLength);
 
             _local_7 = (_local_7 + ((_local_10 - _local_7) * _local_13));
             _local_8 = (_local_8 + ((_local_11 - _local_8) * _local_13));
             _local_9 = (_local_9 + ((_local_12 - _local_9) * _local_13));
 
             color       = (((_local_7 << 16) + (_local_8 << 8)) + _local_9);
-            newColor    = (this._Str_17003 + ((this._Str_16460 - this._Str_17003) * _local_13));
+            newColor    = (this._originalLight + ((this._targetLight - this._originalLight) * _local_13));
 
             this._color     = color;
-            this._Str_3576  = newColor;
+            this._light  = newColor;
         }
 
-        let _local_5 = ColorConverter._Str_22130(color);
+        let _local_5 = ColorConverter.rgbToHSL(color);
 
         _local_5    = ((_local_5 & 0xFFFF00) + newColor);
-        color       = ColorConverter._Str_13949(_local_5);
+        color       = ColorConverter.hslToRGB(_local_5);
 
         if(this.object.model) this.object.model.setValue(RoomObjectVariable.ROOM_BACKGROUND_COLOR, color);
     }
@@ -259,13 +259,13 @@ export class RoomLogic extends RoomObjectLogicBase
 
                 update = true;
                 break;
-            case ObjectRoomMaskUpdateMessage._Str_10260:
-                update = this._planeBitmapMaskParser._Str_23574(message.maskId);
+            case ObjectRoomMaskUpdateMessage.REMOVE_MASK:
+                update = this._planeBitmapMaskParser.removeMask(message.maskId);
                 break;
 
         }
 
-        if(update) _arg_2.setValue(RoomObjectVariable.ROOM_PLANE_MASK_XML, this._planeBitmapMaskParser._Str_5598());
+        if(update) _arg_2.setValue(RoomObjectVariable.ROOM_PLANE_MASK_XML, this._planeBitmapMaskParser.getXML());
     }
 
     private onObjectRoomPlaneVisibilityUpdateMessage(message: ObjectRoomPlaneVisibilityUpdateMessage, model: IRoomObjectModel): void
@@ -320,12 +320,12 @@ export class RoomLogic extends RoomObjectLogicBase
     {
         if(!message || !model) return;
 
-        this._Str_14932 = this._color;
-        this._Str_17003 = this._Str_3576;
-        this._Str_11287 = message.color;
-        this._Str_16460 = message.light;
-        this._Str_9785  = this.time;
-        this._Str_17191 = 1500;
+        this._originalColor = this._color;
+        this._originalLight = this._light;
+        this._targetColor = message.color;
+        this._targetLight = message.light;
+        this._colorChangedTime  = this.time;
+        this._colorTransitionLength = 1500;
 
         model.setValue(RoomObjectVariable.ROOM_COLORIZE_BG_ONLY, message.backgroundOnly);
     }
@@ -365,44 +365,44 @@ export class RoomLogic extends RoomObjectLogicBase
 
         planeId--;
 
-        let _local_7: Point = null;
+        let planePosition: Point = null;
 
-        const _local_8  = this._planeParser.getPlaneLocation(planeId);
-        const _local_9  = this._planeParser.getPlaneLeftSide(planeId);
-        const _local_10 = this._planeParser.getPlaneRightSide(planeId);
-        const _local_11 = this._planeParser.getPlaneNormalDirection(planeId);
-        const _local_12 = this._planeParser.getPlaneType(planeId);
+        const planeLocation         = this._planeParser.getPlaneLocation(planeId);
+        const planeLeftSide         = this._planeParser.getPlaneLeftSide(planeId);
+        const planeRightSide        = this._planeParser.getPlaneRightSide(planeId);
+        const planeNormalDirection  = this._planeParser.getPlaneNormalDirection(planeId);
+        const planeType             = this._planeParser.getPlaneType(planeId);
 
-        if(((((_local_8 == null) || (_local_9 == null)) || (_local_10 == null)) || (_local_11 == null))) return;
+        if(((((planeLocation == null) || (planeLeftSide == null)) || (planeRightSide == null)) || (planeNormalDirection == null))) return;
 
-        const _local_13 = _local_9.length;
-        const _local_14 = _local_10.length;
+        const leftSideLength = planeLeftSide.length;
+        const rightSideLength = planeRightSide.length;
 
-        if(((_local_13 == 0) || (_local_14 == 0))) return;
+        if(((leftSideLength == 0) || (rightSideLength == 0))) return;
 
-        const _local_15 = event.screenX;
-        const _local_16 = event.screenY;
-        const _local_17 = new Point(_local_15, _local_16);
+        const screenX       = event.screenX;
+        const screenY       = event.screenY;
+        const screenPoint   = new Point(screenX, screenY);
 
-        _local_7 = geometry.getPlanePosition(_local_17, _local_8, _local_9, _local_10);
+        planePosition = geometry.getPlanePosition(screenPoint, planeLocation, planeLeftSide, planeRightSide);
 
-        if(!_local_7)
+        if(!planePosition)
         {
             this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_PLANE, 0);
 
             return;
         }
 
-        const _local_18 = Vector3d.product(_local_9, (_local_7.x / _local_13));
+        const _local_18 = Vector3d.product(planeLeftSide, (planePosition.x / leftSideLength));
 
-        _local_18.add(Vector3d.product(_local_10, (_local_7.y / _local_14)));
-        _local_18.add(_local_8);
+        _local_18.add(Vector3d.product(planeRightSide, (planePosition.y / rightSideLength)));
+        _local_18.add(planeLocation);
 
         const _local_19 = _local_18.x;
         const _local_20 = _local_18.y;
         const _local_21 = _local_18.z;
 
-        if(((((_local_7.x >= 0) && (_local_7.x < _local_13)) && (_local_7.y >= 0)) && (_local_7.y < _local_14)))
+        if(((((planePosition.x >= 0) && (planePosition.x < leftSideLength)) && (planePosition.y >= 0)) && (planePosition.y < rightSideLength)))
         {
             this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_X, _local_19);
             this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_Y, _local_20);
@@ -428,26 +428,26 @@ export class RoomLogic extends RoomObjectLogicBase
             case MouseEventType.MOUSE_CLICK: {
                 let newEvent: RoomObjectEvent = null;
 
-                if(_local_12 === RoomPlaneData.PLANE_FLOOR)
+                if(planeType === RoomPlaneData.PLANE_FLOOR)
                 {
-                    newEvent = new RoomObjectTileMouseEvent(eventType, this.object, event._Str_3463, _local_19, _local_20, _local_21, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                    newEvent = new RoomObjectTileMouseEvent(eventType, this.object, event.eventId, _local_19, _local_20, _local_21, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
                 }
 
-                else if((_local_12 === RoomPlaneData.PLANE_WALL) || (_local_12 === RoomPlaneData.PLANE_LANDSCAPE))
+                else if((planeType === RoomPlaneData.PLANE_WALL) || (planeType === RoomPlaneData.PLANE_LANDSCAPE))
                 {
                     let direction = 90;
 
-                    if(_local_11)
+                    if(planeNormalDirection)
                     {
-                        direction = (_local_11.x + 90);
+                        direction = (planeNormalDirection.x + 90);
 
                         if(direction > 360) direction -= 360;
                     }
 
-                    const _local_27 = ((_local_9.length * _local_7.x) / _local_13);
-                    const _local_28 = ((_local_10.length * _local_7.y) / _local_14);
+                    const _local_27 = ((planeLeftSide.length * planePosition.x) / leftSideLength);
+                    const _local_28 = ((planeRightSide.length * planePosition.y) / rightSideLength);
 
-                    newEvent = new RoomObjectWallMouseEvent(eventType, this.object, event._Str_3463, _local_8, _local_9, _local_10, _local_27, _local_28, direction, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                    newEvent = new RoomObjectWallMouseEvent(eventType, this.object, event.eventId, planeLocation, planeLeftSide, planeRightSide, _local_27, _local_28, direction, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
                 }
 
                 if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(newEvent);

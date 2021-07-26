@@ -9,14 +9,14 @@ export class TradingAcceptEvent extends MessageEvent implements IMessageEvent
         super(callBack, TradingAcceptParser);
     }
 
-    public get _Str_4963(): number
+    public get userID(): number
     {
-        return this.getParser()._Str_4963;
+        return this.getParser().userID;
     }
 
-    public get _Str_15794(): boolean
+    public get userAccepts(): boolean
     {
-        return this.getParser()._Str_15794;
+        return this.getParser().userAccepts;
     }
 
     public getParser(): TradingAcceptParser

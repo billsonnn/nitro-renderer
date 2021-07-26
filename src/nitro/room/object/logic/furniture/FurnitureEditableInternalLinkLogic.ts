@@ -76,7 +76,7 @@ export class FurnitureEditableInternalLinkLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if(!this.eventDispatcher || !this.object) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.INERNAL_LINK, this.object));
     }

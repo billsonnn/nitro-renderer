@@ -16,12 +16,12 @@ import { RoomObjectManager } from './RoomObjectManager';
 
 export class RoomManager extends NitroManager implements IRoomManager, IRoomInstanceContainer
 {
-    public static _Str_9994: number     = -1;
-    public static _Str_16337: number    = 0;
-    public static _Str_16443: number    = 1;
-    public static _Str_13904: number    = 2;
-    public static _Str_9846: number     = 3;
-    private static _Str_18280: number   = 40;
+    public static ROOM_MANAGER_ERROR: number     = -1;
+    public static ROOM_MANAGER_LOADING: number    = 0;
+    public static ROOM_MANAGER_LOADED: number    = 1;
+    public static ROOM_MANAGER_INITIALIZING: number    = 2;
+    public static ROOM_MANAGER_INITIALIZED: number     = 3;
+    private static CONTENT_PROCESSING_TIME_LIMIT_MILLISECONDS: number   = 40;
 
     private _state: number;
     private _rooms: Map<string, IRoomInstance>;
@@ -42,7 +42,7 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
     {
         super();
 
-        this._state                 = RoomManager._Str_16443;
+        this._state                 = RoomManager.ROOM_MANAGER_LOADED;
         this._rooms                 = new Map();
         this._contentLoader         = null;
         this._updateCategories      = [];
@@ -66,7 +66,7 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
 
     public onInit(): void
     {
-        if(this._state >= RoomManager._Str_13904 || !this._contentLoader) return;
+        if(this._state >= RoomManager.ROOM_MANAGER_INITIALIZING || !this._contentLoader) return;
 
         const mandatoryLibraries = RoomContentLoader.MANDATORY_LIBRARIES;
 
@@ -82,7 +82,7 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
             }
         }
 
-        this._state = RoomManager._Str_13904;
+        this._state = RoomManager.ROOM_MANAGER_INITIALIZING;
     }
 
     public getRoomInstance(roomId: string): IRoomInstance
@@ -347,9 +347,9 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
 
     private removeFromInitialLoad(type: string): void
     {
-        if(!type || this._state === RoomManager._Str_9994) return;
+        if(!type || this._state === RoomManager.ROOM_MANAGER_ERROR) return;
 
-        if(!this._contentLoader) this._state = RoomManager._Str_9994;
+        if(!this._contentLoader) this._state = RoomManager.ROOM_MANAGER_ERROR;
 
         if(this._contentLoader.getCollection(type))
         {
@@ -359,7 +359,7 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
 
             if(!this._initialLoadList.length)
             {
-                this._state = RoomManager._Str_9846;
+                this._state = RoomManager.ROOM_MANAGER_INITIALIZED;
 
                 if(this._listener)
                 {
@@ -369,7 +369,7 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
         }
         else
         {
-            this._state = RoomManager._Str_9994;
+            this._state = RoomManager.ROOM_MANAGER_ERROR;
 
             if(this._listener) this._listener.onRoomEngineInitalized(false);
         }

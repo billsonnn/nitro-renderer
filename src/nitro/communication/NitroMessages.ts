@@ -1,7 +1,6 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { ApproveNameMessageComposer, CatalogApproveNameResultEvent, SellablePetPalettesEvent } from './messages';
+import { ApproveNameMessageComposer, BadgeReceivedEvent, BonusRareInfoMessageEvent, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, RoomWidgetCameraPublishedEvent, RoomWidgetCameraPurchaseComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
-import { ChangeNameUpdateEvent } from './messages/incoming/avatar/ChangeNameUpdateEvent';
 import { CatalogClubEvent } from './messages/incoming/catalog/CatalogClubEvent';
 import { CatalogClubGiftsEvent } from './messages/incoming/catalog/CatalogClubGiftsEvent';
 import { CatalogGiftConfigurationEvent } from './messages/incoming/catalog/CatalogGiftConfigurationEvent';
@@ -18,13 +17,17 @@ import { CatalogRedeemVoucherOkEvent } from './messages/incoming/catalog/Catalog
 import { CatalogSearchEvent } from './messages/incoming/catalog/CatalogSearchEvent';
 import { CatalogSoldOutEvent } from './messages/incoming/catalog/CatalogSoldOutEvent';
 import { CatalogUpdatedEvent } from './messages/incoming/catalog/CatalogUpdatedEvent';
-import { MarketplaceAfterOrderStatusEvent } from './messages/incoming/catalog/marketplace/MarketplaceAfterOrderStatusEvent';
+import { MarketplaceBuyOfferResultEvent } from './messages/incoming/catalog/marketplace/MarketplaceBuyOfferResultEvent';
 import { MarketplaceCancelItemEvent } from './messages/incoming/catalog/marketplace/MarketplaceCancelItemEvent';
 import { MarketplaceOffersReceivedEvent } from './messages/incoming/catalog/marketplace/MarketplaceOffersReceivedEvent';
 import { MarketplaceOwnItemsEvent } from './messages/incoming/catalog/marketplace/MarketplaceOwnItemsEvent';
 import { MarketplaceConfigEvent } from './messages/incoming/catalog/MarketplaceConfigEvent';
 import { MarketplaceItemStatsEvent } from './messages/incoming/catalog/MarketplaceItemStatsEvent';
 import { ClientPingEvent } from './messages/incoming/client/ClientPingEvent';
+import { CraftableProductsEvent } from './messages/incoming/crafting/CraftableProductsEvent';
+import { CraftingRecipeEvent } from './messages/incoming/crafting/CraftingRecipeEvent';
+import { CraftingRecipesAvailableEvent } from './messages/incoming/crafting/CraftingRecipesAvailableEvent';
+import { CraftingResultEvent } from './messages/incoming/crafting/CraftingResultEvent';
 import { DesktopViewEvent } from './messages/incoming/desktop/DesktopViewEvent';
 import { AcceptFriendResultEvent } from './messages/incoming/friendlist/AcceptFriendResultEvent';
 import { FindFriendsProcessResultEvent } from './messages/incoming/friendlist/FindFriendsProcessResultEvent';
@@ -50,6 +53,7 @@ import { GroupConfirmMemberRemoveEvent } from './messages/incoming/group/GroupCo
 import { GroupInformationEvent } from './messages/incoming/group/GroupInformationEvent';
 import { GroupMembersEvent } from './messages/incoming/group/GroupMembersEvent';
 import { GroupSettingsEvent } from './messages/incoming/group/GroupSettingsEvent';
+import { AuthenticationEvent } from './messages/incoming/handshake/AuthenticationEvent';
 import { CallForHelpResultMessageEvent } from './messages/incoming/help/CallForHelpResultMessageEvent';
 import { IncomingHeader } from './messages/incoming/IncomingHeader';
 import { AchievementEvent } from './messages/incoming/inventory/achievements/AchievementEvent';
@@ -69,7 +73,7 @@ import { FurnitureListEvent } from './messages/incoming/inventory/furni/Furnitur
 import { FurnitureListInvalidateEvent } from './messages/incoming/inventory/furni/FurnitureListInvalidateEvent';
 import { FurnitureListRemovedEvent } from './messages/incoming/inventory/furni/FurnitureListRemovedEvent';
 import { FurniturePostItPlacedEvent } from './messages/incoming/inventory/furni/FurniturePostItPlacedEvent';
-import { FurnitureGiftOpenedEvent } from './messages/incoming/inventory/furni/gifts/FurnitureGiftOpenedEvent';
+import { PresentOpenedMessageEvent } from './messages/incoming/inventory/furni/gifts/PresentOpenedMessageEvent';
 import { MarketplaceItemPostedEvent } from './messages/incoming/inventory/marketplace/MarketplaceItemPostedEvent';
 import { MarketplaceSellItemEvent } from './messages/incoming/inventory/marketplace/MarketplaceSellItemEvent';
 import { PetAddedToInventoryEvent } from './messages/incoming/inventory/pets/PetAddedToInventoryEvent';
@@ -85,6 +89,8 @@ import { TradingOpenEvent } from './messages/incoming/inventory/trading/TradingO
 import { TradingOpenFailedEvent } from './messages/incoming/inventory/trading/TradingOpenFailedEvent';
 import { TradingOtherNotAllowedEvent } from './messages/incoming/inventory/trading/TradingOtherNotAllowedEvent';
 import { TradingYouAreNotAllowedEvent } from './messages/incoming/inventory/trading/TradingYouAreNotAllowedEvent';
+import { PromoArticlesMessageEvent } from './messages/incoming/landingview/PromoArticlesMessageEvent';
+import { CommunityGoalVoteMessageEvent } from './messages/incoming/landingview/votes/CommunityGoalVoteMessageEvent';
 import { ModeratorMessageEvent } from './messages/incoming/moderation/ModeratorMessageEvent';
 import { ModtoolCallForHelpTopicsEvent } from './messages/incoming/modtool/ModtoolCallForHelpTopicsEvent';
 import { ModtoolMainEvent } from './messages/incoming/modtool/ModtoolMainEvent';
@@ -111,6 +117,17 @@ import { NotificationDialogMessageEvent } from './messages/incoming/notification
 import { PetPlacingErrorEvent } from './messages/incoming/notifications/PetPlacingErrorEvent';
 import { RespectReceivedEvent } from './messages/incoming/notifications/RespectReceivedEvent';
 import { UnseenItemsEvent } from './messages/incoming/notifications/UnseenItemsEvent';
+import { CommunityGoalEarnedPrizesMessageEvent } from './messages/incoming/quest/CommunityGoalEarnedPrizesMessageEvent';
+import { CommunityGoalHallOfFameMessageEvent } from './messages/incoming/quest/CommunityGoalHallOfFameMessageEvent';
+import { CommunityGoalProgressMessageEvent } from './messages/incoming/quest/CommunityGoalProgressMessageEvent';
+import { ConcurrentUsersGoalProgressMessageEvent } from './messages/incoming/quest/ConcurrentUsersGoalProgressMessageEvent';
+import { EpicPopupMessageEvent } from './messages/incoming/quest/EpicPopupMessageEvent';
+import { QuestCancelledMessageEvent } from './messages/incoming/quest/QuestCancelledMessageEvent';
+import { QuestCompletedMessageEvent } from './messages/incoming/quest/QuestCompletedMessageEvent';
+import { QuestDailyMessageEvent } from './messages/incoming/quest/QuestDailyMessageEvent';
+import { QuestMessageEvent } from './messages/incoming/quest/QuestMessageEvent';
+import { QuestsMessageEvent } from './messages/incoming/quest/QuestsMessageEvent';
+import { SeasonalQuestsMessageEvent } from './messages/incoming/quest/SeasonalQuestsMessageEvent';
 import { RoomDoorbellAcceptedEvent } from './messages/incoming/room/access/doorbell/RoomDoorbellAcceptedEvent';
 import { RoomDoorbellEvent } from './messages/incoming/room/access/doorbell/RoomDoorbellEvent';
 import { RoomDoorbellRejectedEvent } from './messages/incoming/room/access/doorbell/RoomDoorbellRejectedEvent';
@@ -121,6 +138,8 @@ import { RoomEnterErrorEvent } from './messages/incoming/room/access/RoomEnterEr
 import { RoomEnterEvent } from './messages/incoming/room/access/RoomEnterEvent';
 import { RoomForwardEvent } from './messages/incoming/room/access/RoomForwardEvent';
 import { BotCommandConfigurationEvent } from './messages/incoming/room/bots/BotCommandConfigurationEvent';
+import { RoomWidgetCameraConfigurationEvent } from './messages/incoming/room/camera/RoomWidgetCameraConfigurationEvent';
+import { RoomWidgetCameraPurchaseSuccessfulEvent } from './messages/incoming/room/camera/RoomWidgetCameraPurchaseSuccessfulEvent';
 import { RoomBannedUsersEvent } from './messages/incoming/room/data/RoomBannedUsersEvent';
 import { RoomChatSettingsEvent } from './messages/incoming/room/data/RoomChatSettingsEvent';
 import { RoomInfoEvent } from './messages/incoming/room/data/RoomInfoEvent';
@@ -131,6 +150,7 @@ import { RoomSettingsEvent } from './messages/incoming/room/data/RoomSettingsEve
 import { RoomSettingsSavedEvent } from './messages/incoming/room/data/RoomSettingsSavedEvent';
 import { RoomSettingsUpdatedEvent } from './messages/incoming/room/data/RoomSettingsUpdatedEvent';
 import { RoomUsersWithRightsEvent } from './messages/incoming/room/data/RoomUsersWithRightsEvent';
+import { ObjectsDataUpdateEvent } from './messages/incoming/room/engine/ObjectsDataUpdateEvent';
 import { ObjectsRollingEvent } from './messages/incoming/room/engine/ObjectsRollingEvent';
 import { RoomCreatedEvent } from './messages/incoming/room/engine/RoomCreatedEvent';
 import { FurnitureFloorAddEvent } from './messages/incoming/room/furniture/floor/FurnitureFloorAddEvent';
@@ -228,6 +248,11 @@ import { RedeemItemClothingComposer } from './messages/outgoing/catalog/RedeemIt
 import { CatalogRedeemVoucherComposer } from './messages/outgoing/catalog/RedeemVoucherComposer';
 import { ClientPongComposer } from './messages/outgoing/client/ClientPongComposer';
 import { ClientReleaseVersionComposer } from './messages/outgoing/client/ClientReleaseVersionComposer';
+import { CraftComposer } from './messages/outgoing/crafting/CraftComposer';
+import { CraftSecretComposer } from './messages/outgoing/crafting/CraftSecretComposer';
+import { GetCraftableProductsComposer } from './messages/outgoing/crafting/GetCraftableProductsComposer';
+import { GetCraftingRecipeComposer } from './messages/outgoing/crafting/GetCraftingRecipeComposer';
+import { GetCraftingRecipesAvailableComposer } from './messages/outgoing/crafting/GetCraftingRecipesAvailableComposer';
 import { DesktopViewComposer } from './messages/outgoing/desktop/DesktopViewComposer';
 import { AcceptFriendComposer } from './messages/outgoing/friendlist/AcceptFriendComposer';
 import { DeclineFriendComposer } from './messages/outgoing/friendlist/DeclineFriendComposer';
@@ -261,6 +286,7 @@ import { GroupSaveColorsComposer } from './messages/outgoing/group/GroupSaveColo
 import { GroupSaveInformationComposer } from './messages/outgoing/group/GroupSaveInformationComposer';
 import { GroupSavePreferencesComposer } from './messages/outgoing/group/GroupSavePreferencesComposer';
 import { GroupSettingsComposer } from './messages/outgoing/group/GroupSettingsComposer';
+import { AuthenticationMessageComposer } from './messages/outgoing/handshake/AuthenticationMessageComposer';
 import { InfoRetrieveBaseMessageComposer } from './messages/outgoing/handshake/InfoRetrieveBaseMessageComposer';
 import { SecurityTicketComposer } from './messages/outgoing/handshake/SecurityTicketComposer';
 import { RequestBadgesComposer } from './messages/outgoing/inventory/badges/RequestBadgesComposer';
@@ -280,6 +306,8 @@ import { TradingListAddItemsComposer } from './messages/outgoing/inventory/tradi
 import { TradingListItemRemoveComposer } from './messages/outgoing/inventory/trading/TradingListRemoveItemComposer';
 import { TradingOpenComposer } from './messages/outgoing/inventory/trading/TradingOpenComposer';
 import { TradingUnacceptComposer } from './messages/outgoing/inventory/trading/TradingUnacceptComposer';
+import { GetPromoArticlesComposer } from './messages/outgoing/landingview/GetPromoArticlesComposer';
+import { CommunityGoalVoteMessageComposer } from './messages/outgoing/landingview/votes/CommunityGoalVoteMessageComposer';
 import { ModtoolChangeRoomSettingsComposer } from './messages/outgoing/modtool/ModtoolChangeRoomSettingsComposer';
 import { ModtoolEventAlertComposer } from './messages/outgoing/modtool/ModtoolEventAlertComposer';
 import { ModtoolRequestRoomChatlogComposer } from './messages/outgoing/modtool/ModtoolRequestRoomChatlogComposer';
@@ -306,6 +334,22 @@ import { NavigatorSettingsSaveComposer } from './messages/outgoing/navigator/Nav
 import { OutgoingHeader } from './messages/outgoing/OutgoingHeader';
 import { PetRespectComposer } from './messages/outgoing/pet/PetRespectComposer';
 import { RequestPetInfoComposer } from './messages/outgoing/pet/RequestPetInfoComposer';
+import { AcceptQuestMessageComposer } from './messages/outgoing/quest/AcceptQuestMessageComposer';
+import { ActivateQuestMessageComposer } from './messages/outgoing/quest/ActivateQuestMessageComposer';
+import { CancelQuestMessageComposer } from './messages/outgoing/quest/CancelQuestMessageComposer';
+import { FriendRequestQuestCompleteMessageComposer } from './messages/outgoing/quest/FriendRequestQuestCompleteMessageComposer';
+import { GetCommunityGoalEarnedPrizesMessageComposer } from './messages/outgoing/quest/GetCommunityGoalEarnedPrizesMessageComposer';
+import { GetCommunityGoalHallOfFameMessageComposer } from './messages/outgoing/quest/GetCommunityGoalHallOfFameMessageComposer';
+import { GetCommunityGoalProgressMessageComposer } from './messages/outgoing/quest/GetCommunityGoalProgressMessageComposer';
+import { GetConcurrentUsersGoalProgressMessageComposer } from './messages/outgoing/quest/GetConcurrentUsersGoalProgressMessageComposer';
+import { GetConcurrentUsersRewardMessageComposer } from './messages/outgoing/quest/GetConcurrentUsersRewardMessageComposer';
+import { GetDailyQuestMessageComposer } from './messages/outgoing/quest/GetDailyQuestMessageComposer';
+import { GetQuestsMessageComposer } from './messages/outgoing/quest/GetQuestsMessageComposer';
+import { GetSeasonalQuestsOnlyMessageComposer } from './messages/outgoing/quest/GetSeasonalQuestsOnlyMessageComposer';
+import { OpenQuestTrackerMessageComposer } from './messages/outgoing/quest/OpenQuestTrackerMessageComposer';
+import { RedeemCommunityGoalPrizeMessageComposer } from './messages/outgoing/quest/RedeemCommunityGoalPrizeMessageComposer';
+import { RejectQuestMessageComposer } from './messages/outgoing/quest/RejectQuestMessageComposer';
+import { StartCampaignMessageComposer } from './messages/outgoing/quest/StartCampaignMessageComposer';
 import { RoomDoorbellAccessComposer } from './messages/outgoing/room/access/RoomDoorbellAccessComposer';
 import { RoomEnterComposer } from './messages/outgoing/room/access/RoomEnterComposer';
 import { RoomAmbassadorAlertComposer } from './messages/outgoing/room/action/RoomAmbassadorAlertComposer';
@@ -319,6 +363,10 @@ import { RoomStaffPickComposer } from './messages/outgoing/room/action/RoomStaff
 import { RoomTakeRightsComposer } from './messages/outgoing/room/action/RoomTakeRightsComposer';
 import { RoomUnbanUserComposer } from './messages/outgoing/room/action/RoomUnbanUserComposer';
 import { RequestBotCommandConfigurationComposer } from './messages/outgoing/room/bots/RequestBotConfigurationComposer';
+import { RoomWidgetCameraConfigurationComposer } from './messages/outgoing/room/camera/RoomWidgetCameraConfigurationComposer';
+import { RoomWidgetCameraPublishComposer } from './messages/outgoing/room/camera/RoomWidgetCameraPublishComposer';
+import { RoomWidgetCameraRoomPictureComposer } from './messages/outgoing/room/camera/RoomWidgetCameraRoomPictureComposer';
+import { RoomWidgetCameraRoomThumbnailComposer } from './messages/outgoing/room/camera/RoomWidgetCameraRoomThumbnailComposer';
 import { RoomBannedUsersComposer } from './messages/outgoing/room/data/RoomBannedUsersComposer';
 import { RoomInfoComposer } from './messages/outgoing/room/data/RoomInfoComposer';
 import { RoomSettingsComposer } from './messages/outgoing/room/data/RoomSettingsComposer';
@@ -420,12 +468,15 @@ export class NitroMessages implements IMessageConfiguration
 
     private registerEvents(): void
     {
+        // AUTHENTICATION
+        this._events.set(IncomingHeader.AUTHENTICATION, AuthenticationEvent);
+
         // AVAILABILITY
         this._events.set(IncomingHeader.AVAILABILITY_STATUS, AvailabilityStatusMessageEvent);
         this._events.set(IncomingHeader.GENERIC_ERROR, GenericErrorEvent);
 
         // AVATAR
-        this._events.set(IncomingHeader.USER_CHANGE_NAME, ChangeNameUpdateEvent);
+        this._events.set(IncomingHeader.USER_CHANGE_NAME, ChangeUserNameResultMessageEvent);
 
         // CATALOG
         this._events.set(IncomingHeader.CATALOG_CLUB, CatalogClubEvent);
@@ -445,6 +496,12 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.REDEEM_VOUCHER_OK, CatalogRedeemVoucherOkEvent);
         this._events.set(IncomingHeader.CATALOG_RECEIVE_PET_BREEDS, SellablePetPalettesEvent);
         this._events.set(IncomingHeader.CATALOG_APPROVE_NAME_RESULT, CatalogApproveNameResultEvent);
+        this._events.set(IncomingHeader.BONUS_RARE_INFO, BonusRareInfoMessageEvent);
+
+        // CAMERA
+        this._events.set(IncomingHeader.CAMERA_PRICE, RoomWidgetCameraConfigurationEvent);
+        this._events.set(IncomingHeader.CAMERA_PUBLISHED, RoomWidgetCameraPublishedEvent);
+        this._events.set(IncomingHeader.CAMERA_PURCHASE_SUCCESSFUL, RoomWidgetCameraPurchaseSuccessfulEvent);
 
         // CLIENT
         this._events.set(IncomingHeader.CLIENT_PING, ClientPingEvent);
@@ -525,6 +582,9 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.MODTOOL_USER_CHATLOG, ModtoolUserChatlogEvent);
         this._events.set(IncomingHeader.MODTOOL_ROOM_CHATLOG, ModtoolRoomChatlogEvent);
 
+        // MYSTERY BOX
+        this._events.set(IncomingHeader.MYSTERY_BOX_KEYS, MysteryBoxKeysEvent);
+
         // NAVIGATOR
         this._events.set(IncomingHeader.NAVIGATOR_CATEGORIES, NavigatorCategoriesEvent);
         this._events.set(IncomingHeader.NAVIGATOR_COLLAPSED, NavigatorCollapsedEvent);
@@ -593,6 +653,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.LOVELOCK_FURNI_FINISHED, LoveLockFurniFinishedEvent);
         this._events.set(IncomingHeader.LOVELOCK_FURNI_FRIEND_COMFIRMED, LoveLockFurniFriendConfirmedEvent);
         this._events.set(IncomingHeader.LOVELOCK_FURNI_START, LoveLockFurniStartEvent);
+        this._events.set(IncomingHeader.OBJECTS_DATA_UPDATE, ObjectsDataUpdateEvent);
 
         // FLOOR
         this._events.set(IncomingHeader.FURNITURE_FLOOR_ADD, FurnitureFloorAddEvent);
@@ -619,6 +680,7 @@ export class NitroMessages implements IMessageConfiguration
         // PET
         this._events.set(IncomingHeader.PET_FIGURE_UPDATE, PetFigureUpdateEvent);
         this._events.set(IncomingHeader.PET_INFO, PetInfoEvent);
+        this._events.set(IncomingHeader.PET_EXPERIENCE, PetExperienceEvent);
 
         // SESSION
         this._events.set(IncomingHeader.PLAYING_GAME, YouArePlayingGameEvent);
@@ -664,6 +726,7 @@ export class NitroMessages implements IMessageConfiguration
 
         // BADGES
         this._events.set(IncomingHeader.USER_BADGES, BadgesEvent);
+        this._events.set(IncomingHeader.USER_BADGES_ADD, BadgeReceivedEvent);
 
         // ACCESS
         this._events.set(IncomingHeader.USER_PERKS, UserPerksEvent);
@@ -679,7 +742,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.MESSENGER_RELATIONSHIPS, UserRelationshipsEvent);
 
         // GIFTS
-        this._events.set(IncomingHeader.GIFT_OPENED, FurnitureGiftOpenedEvent);
+        this._events.set(IncomingHeader.GIFT_OPENED, PresentOpenedMessageEvent);
 
         // INVENTORY
         this._events.set(IncomingHeader.GIFT_RECEIVER_NOT_FOUND, CatalogGiftUsernameUnavailableEvent);
@@ -723,11 +786,37 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.MARKETPLACE_CANCEL_SALE, MarketplaceCancelItemEvent);
         this._events.set(IncomingHeader.MARKETPLACE_ITEM_POSTED, MarketplaceItemPostedEvent);
         this._events.set(IncomingHeader.MARKETPLACE_ITEMS_SEARCHED, MarketplaceOffersReceivedEvent);
-        this._events.set(IncomingHeader.MARKETPLACE_AFTER_ORDER_STATUS, MarketplaceAfterOrderStatusEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_AFTER_ORDER_STATUS, MarketplaceBuyOfferResultEvent);
+
+        // LANDING VIEW
+        this._events.set(IncomingHeader.COMMUNITY_GOAL_VOTE_EVENT, CommunityGoalVoteMessageEvent);
+        this._events.set(IncomingHeader.PROMO_ARTICLES, PromoArticlesMessageEvent);
+
+        // QUESTS
+        this._events.set(IncomingHeader.COMMUNITY_GOAL_EARNED_PRIZES, CommunityGoalEarnedPrizesMessageEvent);
+        this._events.set(IncomingHeader.COMMUNITY_GOAL_PROGRESS, CommunityGoalProgressMessageEvent);
+        this._events.set(IncomingHeader.CONCURRENT_USERS_GOAL_PROGRESS, ConcurrentUsersGoalProgressMessageEvent);
+        this._events.set(IncomingHeader.QUEST_DAILY, QuestDailyMessageEvent);
+        this._events.set(IncomingHeader.QUEST_CANCELLED, QuestCancelledMessageEvent);
+        this._events.set(IncomingHeader.QUEST_COMPLETED, QuestCompletedMessageEvent);
+        this._events.set(IncomingHeader.COMMUNITY_GOAL_HALL_OF_FAME, CommunityGoalHallOfFameMessageEvent);
+        this._events.set(IncomingHeader.EPIC_POPUP, EpicPopupMessageEvent);
+        this._events.set(IncomingHeader.SEASONAL_QUESTS, SeasonalQuestsMessageEvent);
+        this._events.set(IncomingHeader.QUESTS, QuestsMessageEvent);
+        this._events.set(IncomingHeader.QUEST, QuestMessageEvent);
+
+        // CRAFTING
+        this._events.set(IncomingHeader.CRAFTABLE_PRODUCTS, CraftableProductsEvent);
+        this._events.set(IncomingHeader.CRAFTING_RECIPE, CraftingRecipeEvent);
+        this._events.set(IncomingHeader.CRAFTING_RECIPES_AVAILABLE, CraftingRecipesAvailableEvent);
+        this._events.set(IncomingHeader.CRAFTING_RESULT, CraftingResultEvent);
     }
 
     private registerComposers(): void
     {
+        // AUTHENTICATION
+        this._composers.set(OutgoingHeader.AUTHENTICATION, AuthenticationMessageComposer);
+
         // CATALOG
         this._composers.set(OutgoingHeader.CATALOG_MODE, CatalogModeComposer);
         this._composers.set(OutgoingHeader.CATALOG_PAGE, CatalogPageComposer);
@@ -742,6 +831,14 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.GIFT_CONFIG, CatalogRequestGiftConfigurationComposer);
         this._composers.set(OutgoingHeader.CATALOG_SELECT_VIP_GIFT, CatalogSelectClubGiftComposer);
         this._composers.set(OutgoingHeader.CATALOG_REQUESET_PET_BREEDS, CatalogRequestPetBreedsComposer);
+        this._composers.set(OutgoingHeader.GET_BONUS_RARE_INFO, GetBonusRareInfoMessageComposer);
+
+        // CAMERA
+        this._composers.set(OutgoingHeader.CAMERA_PRICE, RoomWidgetCameraConfigurationComposer);
+        this._composers.set(OutgoingHeader.CAMERA_PUBLISH, RoomWidgetCameraPublishComposer);
+        this._composers.set(OutgoingHeader.CAMERA_PURCHASE, RoomWidgetCameraPurchaseComposer);
+        this._composers.set(OutgoingHeader.CAMERA_SAVE, RoomWidgetCameraRoomPictureComposer);
+        this._composers.set(OutgoingHeader.CAMERA_THUMBNAIL, RoomWidgetCameraRoomThumbnailComposer);
 
         // CLIENT
         this._composers.set(OutgoingHeader.CLIENT_PONG, ClientPongComposer);
@@ -804,17 +901,25 @@ export class NitroMessages implements IMessageConfiguration
 
         // INVENTORY
 
-        // MARKETPLACE
-        this._composers.set(OutgoingHeader.REQUEST_SELL_ITEM, RequestSellItemComposer);
-        this._composers.set(OutgoingHeader.REQUEST_MARKETPLACE_ITEM_STATS, MarketplaceRequesstItemStatsComposer);
-        this._composers.set(OutgoingHeader.MARKETPLACE_REDEEM_CREDITS, MarketplaceRedeemCreditsComposer);
+        //// BADGES
+        this._composers.set(OutgoingHeader.USER_BADGES, RequestBadgesComposer);
+        this._composers.set(OutgoingHeader.USER_BADGES_CURRENT_UPDATE, SetActivatedBadgesComposer);
 
-        // FURNI
+        //// BOTS
+        this._composers.set(OutgoingHeader.USER_BOTS, GetBotInventoryComposer);
+
+        //// FURNI
         this._composers.set(OutgoingHeader.USER_FURNITURE, FurnitureListComposer);
         this._composers.set(OutgoingHeader.USER_FURNITURE2, FurnitureList2Composer);
-        this._composers.set(OutgoingHeader.ITEM_SAVE_BACKGROUND, RoomAdsUpdateComposer);
 
-        // TRADING
+        //// MARKETPLACE
+        this._composers.set(OutgoingHeader.REQUEST_SELL_ITEM, RequestSellItemComposer);
+        this._composers.set(OutgoingHeader.REQUEST_MARKETPLACE_ITEM_STATS, MarketplaceRequesstItemStatsComposer);
+
+        //// PETS
+        this._composers.set(OutgoingHeader.USER_PETS, RequestPetsComposer);
+
+        //// TRADING
         this._composers.set(OutgoingHeader.TRADE_ACCEPT, TradingAcceptComposer);
         this._composers.set(OutgoingHeader.TRADE_CANCEL, TradingCancelComposer);
         this._composers.set(OutgoingHeader.TRADE_CLOSE, TradingCloseComposer);
@@ -825,12 +930,22 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.TRADE, TradingOpenComposer);
         this._composers.set(OutgoingHeader.TRADE_UNACCEPT, TradingUnacceptComposer);
 
+        //// UNSEEN
+        this._composers.set(OutgoingHeader.UNSEEN_RESET_CATEGORY, UnseenResetCategoryComposer);
+        this._composers.set(OutgoingHeader.UNSEEN_RESET_ITEMS, UnseenResetItemsComposer);
+
         // ACHIVEMENTS
         this._composers.set(OutgoingHeader.ACHIEVEMENT_LIST, RequestAchievementsMessageComposer);
 
         // PET
+        this._composers.set(OutgoingHeader.PET_MOUNT, PetMountComposer);
         this._composers.set(OutgoingHeader.PET_RESPECT, PetRespectComposer);
+        this._composers.set(OutgoingHeader.PET_SUPPLEMENT, PetSupplementComposer);
+        this._composers.set(OutgoingHeader.REMOVE_PET_SADDLE, RemovePetSaddleComposer);
         this._composers.set(OutgoingHeader.PET_INFO, RequestPetInfoComposer);
+        this._composers.set(OutgoingHeader.TOGGLE_PET_BREEDING, TogglePetBreedingComposer);
+        this._composers.set(OutgoingHeader.TOGGLE_PET_RIDING, TogglePetRidingComposer);
+        this._composers.set(OutgoingHeader.USE_PET_PRODUCT, UsePetProductComposer);
 
         // ROOM
         this._composers.set(OutgoingHeader.ROOM_CREATE, RoomCreateComposer);
@@ -875,6 +990,7 @@ export class NitroMessages implements IMessageConfiguration
 
         // FURNITURE
         this._composers.set(OutgoingHeader.FURNITURE_ALIASES, FurnitureAliasesComposer);
+        this._composers.set(OutgoingHeader.FURNITURE_GUILD_INFO, FurnitureGuildInfoComposer);
         this._composers.set(OutgoingHeader.FURNITURE_PICKUP, FurniturePickupComposer);
         this._composers.set(OutgoingHeader.FURNITURE_PLACE, FurniturePlaceComposer);
         this._composers.set(OutgoingHeader.ITEM_PAINT, FurniturePlacePaintComposer);
@@ -905,6 +1021,7 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.ONE_WAY_DOOR_CLICK, FurnitureOneWayDoorComposer);
         this._composers.set(OutgoingHeader.ITEM_EXCHANGE_REDEEM, FurnitureExchangeComposer);
         this._composers.set(OutgoingHeader.ITEM_CLOTHING_REDEEM, RedeemItemClothingComposer);
+        this._composers.set(OutgoingHeader.ITEM_SAVE_BACKGROUND, RoomAdsUpdateComposer);
 
         // MAPPING
         this._composers.set(OutgoingHeader.ROOM_MODEL, RoomModelComposer);
@@ -917,6 +1034,7 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.UNIT_DANCE, RoomUnitDanceComposer);
         this._composers.set(OutgoingHeader.UNIT_DROP_HAND_ITEM, RoomUnitDropHandItemComposer);
         this._composers.set(OutgoingHeader.UNIT_GIVE_HANDITEM, RoomUnitGiveHandItemComposer);
+        this._composers.set(OutgoingHeader.UNIT_GIVE_HANDITEM_PET, RoomUnitGiveHandItemPetComposer);
         this._composers.set(OutgoingHeader.UNIT_LOOK, RoomUnitLookComposer);
         this._composers.set(OutgoingHeader.UNIT_SIGN, RoomUnitSignComposer);
         this._composers.set(OutgoingHeader.UNIT_POSTURE, RoomUnitPostureComposer);
@@ -970,13 +1088,10 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.MARKETPLACE_TAKE_BACK_ITEM, MarketplaceTakeItemBackComposer);
         this._composers.set(OutgoingHeader.MARKETPLACE_REQUEST_OFFERS, MarketplaceRequestOffersComposer);
         this._composers.set(OutgoingHeader.MARKETPLACE_BUY_OFFER, MarketplaceBuyOfferComposer);
+        this._composers.set(OutgoingHeader.MARKETPLACE_REDEEM_CREDITS, MarketplaceRedeemCreditsComposer);
 
         // BOTS
         this._composers.set(OutgoingHeader.USER_BOTS, GetBotInventoryComposer);
-
-        // BADGES
-        this._composers.set(OutgoingHeader.USER_BADGES, RequestBadgesComposer);
-        this._composers.set(OutgoingHeader.USER_BADGES_CURRENT_UPDATE, SetActivatedBadgesComposer);
 
         // PETS
         this._composers.set(OutgoingHeader.USER_PETS, RequestPetsComposer);
@@ -1011,6 +1126,35 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.USER_SETTINGS_OLD_CHAT, UserSettingsOldChatComposer);
         this._composers.set(OutgoingHeader.USER_SETTINGS_INVITES, UserSettingsRoomInvitesComposer);
         this._composers.set(OutgoingHeader.USER_SETTINGS_VOLUME, UserSettingsSoundComposer);
+
+        // LANDING VIEW
+        this._composers.set(OutgoingHeader.COMMUNITY_GOAL_VOTE_COMPOSER, CommunityGoalVoteMessageComposer);
+        this._composers.set(OutgoingHeader.GET_PROMO_ARTICLES, GetPromoArticlesComposer);
+
+        // QUEST
+        this._composers.set(OutgoingHeader.ACCEPT_QUEST, AcceptQuestMessageComposer);
+        this._composers.set(OutgoingHeader.ACTIVATE_QUEST, ActivateQuestMessageComposer);
+        this._composers.set(OutgoingHeader.CANCEL_QUEST, CancelQuestMessageComposer);
+        this._composers.set(OutgoingHeader.FRIEND_REQUEST_QUEST_COMPLETE, FriendRequestQuestCompleteMessageComposer);
+        this._composers.set(OutgoingHeader.GET_COMMUNITY_GOAL_EARNED_PRIZES, GetCommunityGoalEarnedPrizesMessageComposer);
+        this._composers.set(OutgoingHeader.GET_COMMUNITY_GOAL_HALL_OF_FAME, GetCommunityGoalHallOfFameMessageComposer);
+        this._composers.set(OutgoingHeader.GET_COMMUNITY_GOAL_PROGRESS, GetCommunityGoalProgressMessageComposer);
+        this._composers.set(OutgoingHeader.GET_CONCURRENT_USERS_GOAL_PROGRESS, GetConcurrentUsersGoalProgressMessageComposer);
+        this._composers.set(OutgoingHeader.GET_CONCURRENT_USERS_REWARD, GetConcurrentUsersRewardMessageComposer);
+        this._composers.set(OutgoingHeader.GET_DAILY_QUEST, GetDailyQuestMessageComposer);
+        this._composers.set(OutgoingHeader.GET_QUESTS, GetQuestsMessageComposer);
+        this._composers.set(OutgoingHeader.GET_SEASONAL_QUESTS_ONLY, GetSeasonalQuestsOnlyMessageComposer);
+        this._composers.set(OutgoingHeader.OPEN_QUEST_TRACKER, OpenQuestTrackerMessageComposer);
+        this._composers.set(OutgoingHeader.REDEEM_COMMUNITY_GOAL_PRIZE, RedeemCommunityGoalPrizeMessageComposer);
+        this._composers.set(OutgoingHeader.REJECT_QUEST, RejectQuestMessageComposer);
+        this._composers.set(OutgoingHeader.START_CAMPAIGN, StartCampaignMessageComposer);
+
+        // CRAFTING
+        this._composers.set(OutgoingHeader.CRAFT, CraftComposer);
+        this._composers.set(OutgoingHeader.CRAFT_SECRET, CraftSecretComposer);
+        this._composers.set(OutgoingHeader.GET_CRAFTABLE_PRODUCTS, GetCraftableProductsComposer);
+        this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPE, GetCraftingRecipeComposer);
+        this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPES_AVAILABLE, GetCraftingRecipesAvailableComposer);
     }
 
     public get events(): Map<number, Function>

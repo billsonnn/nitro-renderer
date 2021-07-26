@@ -20,10 +20,10 @@ export class GeometryItem extends Node3D
         this._isDynamic     = _arg_2;
     }
 
-    public  _Str_1522(k: Vector3D): number
+    public  getDistance(k: Vector3D): number
     {
-        const _local_2 = Math.abs(((k.z - this._Str_1604.z) - this._radius));
-        const _local_3 = Math.abs(((k.z - this._Str_1604.z) + this._radius));
+        const _local_2 = Math.abs(((k.z - this.transformedLocation.z) - this._radius));
+        const _local_3 = Math.abs(((k.z - this.transformedLocation.z) + this._radius));
 
         return Math.min(_local_2, _local_3);
     }
@@ -38,17 +38,17 @@ export class GeometryItem extends Node3D
         return this._normal;
     }
 
-    public get _Str_2207(): boolean
+    public get isDoubleSided(): boolean
     {
         return this._isDoubleSided;
     }
 
     public toString(): string
     {
-        return ((((this._id + ': ') + this.location) + ' - ') + this._Str_1604);
+        return ((((this._id + ': ') + this.location) + ' - ') + this.transformedLocation);
     }
 
-    public get _Str_1457(): boolean
+    public get isDynamic(): boolean
     {
         return this._isDynamic;
     }

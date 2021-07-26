@@ -128,7 +128,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         this._spriteYOffsets        = [];
         this._spriteZOffsets        = [];
 
-        this.setSpriteCount(0);
+        this.createSprites(0);
     }
 
     protected resetLayers(scale: number, direction: number): void
@@ -244,7 +244,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
 
     protected updateSprites(scale: number, update: boolean, animation: number): void
     {
-        if(this._layerCount !== this.totalSprites) this.setSpriteCount(this._layerCount);
+        if(this._layerCount !== this.totalSprites) this.createSprites(this._layerCount);
 
         if(update)
         {
@@ -301,7 +301,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
                     sprite.offsetX          = (assetData.offsetX + this.getLayerXOffset(scale, this._direction, layerId));
                     sprite.offsetY          = (assetData.offsetY + this.getLayerYOffset(scale, this._direction, layerId));
                     sprite.blendMode        = this.getLayerInk(scale, this._direction, layerId);
-                    sprite.alphaTolerance   = (this.getLayerIgnoreMouse(scale, this._direction, layerId) ? AlphaTolerance._Str_9268 : AlphaTolerance._Str_9735);
+                    sprite.alphaTolerance   = (this.getLayerIgnoreMouse(scale, this._direction, layerId) ? AlphaTolerance.MATCH_NOTHING : AlphaTolerance.MATCH_OPAQUE_PIXELS);
 
                     relativeDepth = this.getLayerZOffset(scale, this._direction, layerId);
                     relativeDepth = (relativeDepth - (layerId * 0.001));
@@ -311,14 +311,14 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
                     sprite.offsetX          = assetData.offsetX;
                     sprite.offsetY          = (assetData.offsetY + this.getLayerYOffset(scale, this._direction, layerId));
                     sprite.alpha            = (48 * this._alphaMultiplier);
-                    sprite.alphaTolerance   = AlphaTolerance._Str_9268;
+                    sprite.alphaTolerance   = AlphaTolerance.MATCH_NOTHING;
 
                     relativeDepth = 1;
                 }
 
                 sprite.relativeDepth    = (relativeDepth * FurnitureVisualization.DEPTH_MULTIPLIER);
                 sprite.name             = assetName;
-                sprite._Str_3582        = this.getLibraryAssetNameForSprite(assetData, sprite);
+                sprite.libraryAssetName        = this.getLibraryAssetNameForSprite(assetData, sprite);
                 sprite.posture          = this.getPostureForAsset(scale, assetData.source);
                 sprite.clickHandling    = false;
             }

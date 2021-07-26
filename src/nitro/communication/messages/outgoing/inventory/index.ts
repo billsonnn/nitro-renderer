@@ -4,3 +4,4 @@ export * from './furni';
 export * from './marketplace';
 export * from './pets';
 export * from './trading';
+export * from './unseen';

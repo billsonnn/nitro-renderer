@@ -9,6 +9,7 @@ import { PetFigureData } from '../../../../avatar/pets/PetFigureData';
 import { PetType } from '../../../../avatar/pets/PetType';
 import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectMoveEvent } from '../../../events/RoomObjectMoveEvent';
+import { ObjectAvatarExperienceUpdateMessage } from '../../../messages';
 import { ObjectAvatarChatUpdateMessage } from '../../../messages/ObjectAvatarChatUpdateMessage';
 import { ObjectAvatarFigureUpdateMessage } from '../../../messages/ObjectAvatarFigureUpdateMessage';
 import { ObjectAvatarPetGestureUpdateMessage } from '../../../messages/ObjectAvatarPetGestureUpdateMessage';
@@ -213,6 +214,14 @@ export class PetLogic extends MovingObjectLogic
 
             return;
         }
+
+        if(message instanceof ObjectAvatarExperienceUpdateMessage)
+        {
+            model.setValue(RoomObjectVariable.FIGURE_EXPERIENCE_TIMESTAMP, this.time);
+            model.setValue(RoomObjectVariable.FIGURE_GAINED_EXPERIENCE, message.gainedExperience);
+
+            return;
+        }
     }
 
     public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
@@ -229,14 +238,14 @@ export class PetLogic extends MovingObjectLogic
             case MouseEventType.MOUSE_DOWN: {
                 const petType = this.object.model.getValue<number>(RoomObjectVariable.PET_TYPE);
 
-                if(petType == PetType.MONSTERPLANT)
+                if(petType === PetType.MONSTERPLANT)
                 {
-                    if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_DOWN, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown));
+                    if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_DOWN, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown));
                 }
                 break;
             }
         }
 
-        if(eventType && this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectMouseEvent(eventType, this.object, event._Str_3463, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown));
+        if(eventType && this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectMouseEvent(eventType, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown));
     }
 }

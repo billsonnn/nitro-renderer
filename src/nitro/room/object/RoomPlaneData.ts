@@ -104,12 +104,12 @@ export class RoomPlaneData
         return this._loc;
     }
 
-    public get _Str_5424(): IVector3D
+    public get leftSide(): IVector3D
     {
         return this._leftSide;
     }
 
-    public get _Str_4968(): IVector3D
+    public get rightSide(): IVector3D
     {
         return this._rightSide;
     }
@@ -119,24 +119,24 @@ export class RoomPlaneData
         return this._normal;
     }
 
-    public get _Str_25207(): IVector3D
+    public get normalDirection(): IVector3D
     {
         return this._normalDirection;
     }
 
-    public get _Str_20277(): number
+    public get secondaryNormalCount(): number
     {
         return this._secondaryNormals.length;
     }
 
-    public get _Str_6845(): number
+    public get maskCount(): number
     {
         return this._masks.length;
     }
 
-    public _Str_22585(k: number): IVector3D
+    public getSecondaryNormal(k: number): IVector3D
     {
-        if(((k < 0) || (k >= this._Str_20277)))
+        if(((k < 0) || (k >= this.secondaryNormalCount)))
         {
             return null;
         }
@@ -151,51 +151,51 @@ export class RoomPlaneData
         this._masks.push(_local_5);
     }
 
-    private _Str_8361(k: number):RoomPlaneMaskData
+    private getMask(k: number):RoomPlaneMaskData
     {
-        if(((k < 0) || (k >= this._Str_6845)))
+        if(((k < 0) || (k >= this.maskCount)))
         {
             return null;
         }
         return this._masks[k];
     }
 
-    public _Str_25133(k: number): number
+    public getMaskLeftSideLoc(k: number): number
     {
-        const _local_2:RoomPlaneMaskData = this._Str_8361(k);
+        const _local_2:RoomPlaneMaskData = this.getMask(k);
         if(_local_2 != null)
         {
-            return _local_2._Str_5120;
+            return _local_2.leftSideLoc;
         }
         return -1;
     }
 
-    public _Str_23609(k: number): number
+    public getMaskRightSideLoc(k: number): number
     {
-        const _local_2:RoomPlaneMaskData = this._Str_8361(k);
+        const _local_2:RoomPlaneMaskData = this.getMask(k);
         if(_local_2 != null)
         {
-            return _local_2._Str_4659;
+            return _local_2.rightSideLoc;
         }
         return -1;
     }
 
-    public _Str_25097(k: number): number
+    public getMaskLeftSideLength(k: number): number
     {
-        const _local_2:RoomPlaneMaskData = this._Str_8361(k);
+        const _local_2:RoomPlaneMaskData = this.getMask(k);
         if(_local_2 != null)
         {
-            return _local_2._Str_9124;
+            return _local_2.leftSideLength;
         }
         return -1;
     }
 
-    public _Str_25617(k: number): number
+    public getMaskRightSideLength(k: number): number
     {
-        const _local_2:RoomPlaneMaskData = this._Str_8361(k);
+        const _local_2:RoomPlaneMaskData = this.getMask(k);
         if(_local_2 != null)
         {
-            return _local_2._Str_12156;
+            return _local_2.rightSideLength;
         }
         return -1;
     }

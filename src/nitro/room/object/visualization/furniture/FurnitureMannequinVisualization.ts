@@ -112,9 +112,9 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
 
                 if(this._dynamicAssetName) this.asset.disposeAsset(this._dynamicAssetName);
 
-                this.asset.addAsset(this._Str_10185(), avatarImage.getImage(AvatarSetType.FULL, false, 1, false), true);
+                this.asset.addAsset(this.getAvatarAssetName(), avatarImage.getImage(AvatarSetType.FULL, false, 1, false), true);
 
-                this._dynamicAssetName  = this._Str_10185();
+                this._dynamicAssetName  = this.getAvatarAssetName();
                 this._needsUpdate       = true;
 
                 avatarImage.dispose();
@@ -124,10 +124,10 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
 
     private avatarExists(): boolean
     {
-        return (this._figure && (this.getAsset(this._Str_10185()) !== null));
+        return (this._figure && (this.getAsset(this.getAvatarAssetName()) !== null));
     }
 
-    private _Str_10185(): string
+    private getAvatarAssetName(): string
     {
         return (((((('mannequin_' + this._figure) + '_') + this._mannequinScale) + '_') + this.direction) + '_') + this.object.id;
     }
@@ -143,7 +143,7 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
 
         if(this._figure && (tag === FurnitureMannequinVisualization.AVATAR_IMAGE_SPRITE_TAG) && this.avatarExists())
         {
-            return this._Str_10185();
+            return this.getAvatarAssetName();
         }
 
         return super.getSpriteAssetName(scale, layerId);

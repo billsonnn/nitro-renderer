@@ -16,12 +16,12 @@
         return this._type;
     }
 
-    public get _Str_5120(): number
+    public get leftSideLoc(): number
     {
         return this._leftSideLoc;
     }
 
-    public get _Str_4659(): number
+    public get rightSideLoc(): number
     {
         return this._rightSideLoc;
     }

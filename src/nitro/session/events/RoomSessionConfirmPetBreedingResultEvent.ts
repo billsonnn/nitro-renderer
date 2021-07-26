@@ -16,7 +16,7 @@ export class RoomSessionConfirmPetBreedingResultEvent extends RoomSessionEvent
         this._result = _arg_3;
     }
 
-    public get _Str_12769(): number
+    public get breedingNestStuffId(): number
     {
         return this._breedingNestStuffId;
     }

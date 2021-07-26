@@ -17,7 +17,7 @@
     private _saddle: boolean;
     private _rider: boolean;
     private _breedable: boolean;
-    private _Str_4460: number[];
+    private _skillThresholds: number[];
     private _publiclyRideable: number;
     private _fullyGrown: boolean;
     private _dead: boolean;
@@ -26,7 +26,7 @@
     private _remainingGrowTime: number;
     private _rarityLevel: number;
     private _publiclyBreedable: boolean;
-    private _Str_24910: number = 7;
+    private _adultLevel: number = 7;
 
     public get id(): number
     {
@@ -188,14 +188,14 @@
         this._rider = k;
     }
 
-    public get _Str_3307(): number[]
+    public get skillTresholds(): number[]
     {
-        return this._Str_4460;
+        return this._skillThresholds;
     }
 
-    public set _Str_3307(k: number[])
+    public set skillTresholds(k: number[])
     {
-        this._Str_4460 = k;
+        this._skillThresholds = k;
     }
 
     public get publiclyRideable(): number
@@ -288,8 +288,8 @@
         this._publiclyBreedable = k;
     }
 
-    public get _Str_20651(): number
+    public get adultLevel(): number
     {
-        return this._Str_24910;
+        return this._adultLevel;
     }
 }

@@ -1,4 +1,4 @@
-import { Texture } from 'pixi.js';
+import { Resource, Texture } from 'pixi.js';
 import { INitroManager } from '../../core/common/INitroManager';
 import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { IFurnitureData } from './furniture/IFurnitureData';
@@ -17,9 +17,9 @@ export interface ISessionDataManager extends INitroManager
     getProductData(type: string): IProductData;
     getBadgeUrl(name: string): string;
     getGroupBadgeUrl(name: string): string;
-    getBadgeImage(name: string): Texture;
+    getBadgeImage(name: string): Texture<Resource>;
     loadBadgeImage(name: string): string;
-    getGroupBadgeImage(name: string): Texture;
+    getGroupBadgeImage(name: string): Texture<Resource>;
     loadGroupBadgeImage(name: string): string;
     hasSecurity(level: number): boolean;
     giveRespect(userId: number): void;

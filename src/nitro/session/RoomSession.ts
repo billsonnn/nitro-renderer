@@ -1,5 +1,6 @@
 import { Disposable } from '../../core/common/disposable/Disposable';
 import { IConnection } from '../../core/communication/connections/IConnection';
+import { FurnitureMultiStateComposer, PetMountComposer, RemovePetSaddleComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from '../communication';
 import { RoomDoorbellAccessComposer } from '../communication/messages/outgoing/room/access/RoomDoorbellAccessComposer';
 import { RoomEnterComposer } from '../communication/messages/outgoing/room/access/RoomEnterComposer';
 import { RoomAmbassadorAlertComposer } from '../communication/messages/outgoing/room/action/RoomAmbassadorAlertComposer';
@@ -24,7 +25,7 @@ import { RoomUnitDanceComposer } from '../communication/messages/outgoing/room/u
 import { RoomUnitPostureComposer } from '../communication/messages/outgoing/room/unit/RoomUnitPostureComposer';
 import { RoomUnitSignComposer } from '../communication/messages/outgoing/room/unit/RoomUnitSignComposer';
 import { UserMottoComposer } from '../communication/messages/outgoing/user/data/UserMottoComposer';
-import { RoomModerationParser } from '../communication/messages/parser/room/data/RoomModerationParser';
+import { RoomModerationSettings } from '../communication/messages/parser/room/data/RoomModerationSettings';
 import { RoomControllerLevel } from './enum/RoomControllerLevel';
 import { RoomTradingLevelEnum } from './enum/RoomTradingLevelEnum';
 import { RoomSessionEvent } from './events/RoomSessionEvent';
@@ -49,7 +50,7 @@ export class RoomSession extends Disposable implements IRoomSession
     private _isDecorating: boolean;
     private _isSpectator: boolean;
 
-    private _moderationSettings: RoomModerationParser;
+    private _moderationSettings: RoomModerationSettings;
 
     constructor()
     {
@@ -61,7 +62,7 @@ export class RoomSession extends Disposable implements IRoomSession
         this._roomId                = 0;
         this._password              = null;
         this._state                 = RoomSessionEvent.CREATED;
-        this._tradeMode             = RoomTradingLevelEnum._Str_12752;
+        this._tradeMode             = RoomTradingLevelEnum.NO_TRADING;
         this._doorMode              = 0;
         this._controllerLevel       = RoomControllerLevel.NONE;
         this._ownRoomIndex          = -1;
@@ -224,11 +225,11 @@ export class RoomSession extends Disposable implements IRoomSession
         this._connection.send(new RoomTakeRightsComposer(userId));
     }
 
-    public updateMoodlightData(id: number, _Str_24446: number, color: number, _Str_5123: number, apply: boolean): void
+    public updateMoodlightData(id: number, _Str_24446: number, color: number, brightness: number, apply: boolean): void
     {
         const local6 = '000000' + color.toString(16).toUpperCase();
         const local7 = '#' + local6.substring((local6.length - 6));
-        this.connection.send(new MoodlightSettingsSaveComposer(id, _Str_24446, local7, _Str_5123, apply));
+        this.connection.send(new MoodlightSettingsSaveComposer(id, _Str_24446, local7, brightness, apply));
     }
 
     public toggleMoodlightState(): void
@@ -257,9 +258,44 @@ export class RoomSession extends Disposable implements IRoomSession
         this._connection.send(new MoodlightSettingsComposer());
     }
 
-    public openGift(_Str_1577: number): void
+    public openGift(objectId: number): void
     {
-        this._connection.send(new OpenPresentComposer(_Str_1577));
+        this._connection.send(new OpenPresentComposer(objectId));
+    }
+
+    public mountPet(id: number): void
+    {
+        this._connection.send(new PetMountComposer(id, true));
+    }
+
+    public dismountPet(id: number): void
+    {
+        this._connection.send(new PetMountComposer(id, false));
+    }
+
+    public usePetProduct(itemId: number, petId: number): void
+    {
+        this._connection.send(new UsePetProductComposer(itemId, petId));
+    }
+
+    public removePetSaddle(id: number): void
+    {
+        this._connection.send(new RemovePetSaddleComposer(id));
+    }
+
+    public togglePetBreeding(id: number): void
+    {
+        this._connection.send(new TogglePetBreedingComposer(id));
+    }
+
+    public togglePetRiding(id: number): void
+    {
+        this._connection.send(new TogglePetRidingComposer(id));
+    }
+
+    public useMultistateItem(id: number): void
+    {
+        this._connection.send(new FurnitureMultiStateComposer(id));
     }
 
     public get connection(): IConnection
@@ -377,12 +413,12 @@ export class RoomSession extends Disposable implements IRoomSession
         this._isSpectator = flag;
     }
 
-    public get moderationSettings(): RoomModerationParser
+    public get moderationSettings(): RoomModerationSettings
     {
         return this._moderationSettings;
     }
 
-    public set moderationSettings(parser: RoomModerationParser)
+    public set moderationSettings(parser: RoomModerationSettings)
     {
         this._moderationSettings = parser;
     }

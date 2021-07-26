@@ -13,16 +13,16 @@ import { RoomEngine } from '../RoomEngine';
 
 export class SpriteDataCollector
 {
-    private static _Str_16967: number   = 1;
-    private static _Str_18197: number   = -16;
-    private static _Str_18565: number   = -52;
-    private static _Str_17558: number   = 30;
+    private static MANNEQUIN_MAGIC_X_OFFSET: number   = 1;
+    private static MANNEQUIN_MAGIC_Y_OFFSET: number   = -16;
+    private static AVATAR_WATER_EFFECT_MAGIC_Y_OFFSET: number   = -52;
+    private static MAX_EXTERNAL_IMAGE_COUNT: number   = 30;
 
-    private _Str_6409: number;
-    private _Str_3008: number = 0;
-    private _Str_18433: number = 0;
+    private maxZ: number;
+    private spriteCount: number = 0;
+    private externalImageCount: number = 0;
 
-    private static _Str_22230(k: RoomObjectSpriteData[], _arg_2: RoomEngine): RoomObjectSpriteData[]
+    private static addMannequinSprites(k: RoomObjectSpriteData[], _arg_2: RoomEngine): RoomObjectSpriteData[]
     {
         const datas: RoomObjectSpriteData[] = [];
 
@@ -42,8 +42,8 @@ export class SpriteDataCollector
                     {
                         for(const sprite of spriteList)
                         {
-                            sprite.x = (sprite.x + ((data.x + (data.width / 2)) + SpriteDataCollector._Str_16967));
-                            sprite.y = (sprite.y + ((data.y + data.height) + SpriteDataCollector._Str_18197));
+                            sprite.x = (sprite.x + ((data.x + (data.width / 2)) + SpriteDataCollector.MANNEQUIN_MAGIC_X_OFFSET));
+                            sprite.y = (sprite.y + ((data.y + data.height) + SpriteDataCollector.MANNEQUIN_MAGIC_Y_OFFSET));
                             sprite.z = (sprite.z + data.z);
                             datas.push(sprite);
                         }
@@ -59,7 +59,7 @@ export class SpriteDataCollector
         return datas;
     }
 
-    private static _Str_22564(k: RoomObjectSpriteData, _arg_2: RoomObjectSpriteData): number
+    private static sortSpriteDataObjects(k: RoomObjectSpriteData, _arg_2: RoomObjectSpriteData): number
     {
         if(k.z < _arg_2.z) return 1;
 
@@ -68,7 +68,7 @@ export class SpriteDataCollector
         return -1;
     }
 
-    private static _Str_20789(k:RoomObjectSpriteData, _arg_2: Rectangle, _arg_3: IRoomRenderingCanvas): boolean
+    private static isSpriteInViewPort(k:RoomObjectSpriteData, _arg_2: Rectangle, _arg_3: IRoomRenderingCanvas): boolean
     {
         return true;
         // var _local_4 = new Rectangle((k.x + _arg_3.screenOffsetX), (k.y + _arg_3.screenOffsetY), k.width, k.height);
@@ -76,7 +76,7 @@ export class SpriteDataCollector
         // return _local_4.contains(_arg_2.x, _arg_2.y);
     }
 
-    private static _Str_14110(k: Point, _arg_2: Point, _arg_3: Point, _arg_4: Point): Point[]
+    private static sortQuadPoints(k: Point, _arg_2: Point, _arg_3: Point, _arg_4: Point): Point[]
     {
         const points: Point[] = [];
 
@@ -133,12 +133,12 @@ export class SpriteDataCollector
     }
 
 
-    public _Str_4536(k: Rectangle, _arg_2:IRoomRenderingCanvas, _arg_3:RoomEngine, _arg_4: number): string
+    public getFurniData(k: Rectangle, _arg_2:IRoomRenderingCanvas, _arg_3:RoomEngine, _arg_4: number): string
     {
         const _local_5: Object[] = [];
         let _local_6 = _arg_2.getSortableSpriteList();
 
-        const _local_7 = _arg_3._Str_21072(_arg_3.activeRoomId, RoomObjectCategory.UNIT);
+        const _local_7 = _arg_3.getRoomObjects(_arg_3.activeRoomId, RoomObjectCategory.UNIT);
 
         for(const _local_8 of _local_7)
         {
@@ -176,7 +176,7 @@ export class SpriteDataCollector
 
                             if(((_local_16.name.indexOf('h_std_fx29_') === 0) || (_local_16.name.indexOf('h_std_fx185_') === 0)))
                             {
-                                _local_16.y = (_local_16.y + SpriteDataCollector._Str_18565);
+                                _local_16.y = (_local_16.y + SpriteDataCollector.AVATAR_WATER_EFFECT_MAGIC_Y_OFFSET);
                             }
 
                             _local_6.push(_local_16);
@@ -186,30 +186,30 @@ export class SpriteDataCollector
             }
         }
 
-        _local_6 = SpriteDataCollector._Str_22230(_local_6, _arg_3);
-        _local_6.sort(SpriteDataCollector._Str_22564);
+        _local_6 = SpriteDataCollector.addMannequinSprites(_local_6, _arg_3);
+        _local_6.sort(SpriteDataCollector.sortSpriteDataObjects);
 
         for(const _local_9 of _local_6)
         {
-            if((((((!(_local_9.name === null)) && (_local_9.name.length > 0)) && (!(_local_9.name.indexOf('tile_cursor_') === 0))) && (SpriteDataCollector._Str_20789(_local_9, k, _arg_2))) && ((_arg_4 < 0) || (!(_local_9.objectId == _arg_4)))))
+            if((((((!(_local_9.name === null)) && (_local_9.name.length > 0)) && (!(_local_9.name.indexOf('tile_cursor_') === 0))) && (SpriteDataCollector.isSpriteInViewPort(_local_9, k, _arg_2))) && ((_arg_4 < 0) || (!(_local_9.objectId == _arg_4)))))
             {
-                _local_5.push(this._Str_25132(_local_9, k, _arg_2, _arg_3));
+                _local_5.push(this.getSpriteDataObject(_local_9, k, _arg_2, _arg_3));
 
-                if(!this._Str_6409) this._Str_6409 = _local_9.z;
+                if(!this.maxZ) this.maxZ = _local_9.z;
 
-                this._Str_3008++;
+                this.spriteCount++;
             }
         }
 
         return JSON.stringify(_local_5);
     }
 
-    public _Str_24177(k: RoomEngine): string
+    public getRoomRenderingModifiers(k: RoomEngine): string
     {
         return JSON.stringify(new Object());
     }
 
-    private _Str_25132(k: RoomObjectSpriteData, _arg_2: Rectangle, _arg_3: IRoomRenderingCanvas, _arg_4: RoomEngine): Object
+    private getSpriteDataObject(k: RoomObjectSpriteData, _arg_2: Rectangle, _arg_3: IRoomRenderingCanvas, _arg_4: RoomEngine): Object
     {
         let _local_7: string = null;
         let _local_9: string[] = [];
@@ -288,9 +288,9 @@ export class SpriteDataCollector
             _local_5.width  = k.width;
             _local_5.height = k.height;
 
-            this._Str_18433++;
+            this.externalImageCount++;
 
-            if(this._Str_18433 > SpriteDataCollector._Str_17558) _local_5.name = 'box';
+            if(this.externalImageCount > SpriteDataCollector.MAX_EXTERNAL_IMAGE_COUNT) _local_5.name = 'box';
         }
 
         if(k.posture) _local_5.posture = k.posture;
@@ -298,13 +298,13 @@ export class SpriteDataCollector
         return _local_5;
     }
 
-    private _Str_25196(k: Rectangle, _arg_2: number, _arg_3: IPlaneDrawingData[]): PlaneDrawingData
+    private makeBackgroundPlane(k: Rectangle, _arg_2: number, _arg_3: IPlaneDrawingData[]): PlaneDrawingData
     {
         const _local_4 = new Point(0, 0);
         const _local_5 = new Point(k.width, 0);
         const _local_6 = new Point(0, k.height);
         const _local_7 = new Point(k.width, k.height);
-        const _local_8 = SpriteDataCollector._Str_14110(_local_4, _local_5, _local_6, _local_7);
+        const _local_8 = SpriteDataCollector.sortQuadPoints(_local_4, _local_5, _local_6, _local_7);
 
         let _local_9 = 0;
 
@@ -312,14 +312,14 @@ export class SpriteDataCollector
         {
             _local_9 = _arg_3[0].z;
 
-            if(this._Str_6409) _local_9 = Math.max(this._Str_6409, _local_9);
+            if(this.maxZ) _local_9 = Math.max(this.maxZ, _local_9);
         }
         else
         {
-            _local_9 = ((this._Str_6409) ? this._Str_6409 : 0);
+            _local_9 = ((this.maxZ) ? this.maxZ : 0);
         }
 
-        _local_9 = (_local_9 + ((this._Str_3008 * 1.776104) + (_arg_3.length * 2.31743)));
+        _local_9 = (_local_9 + ((this.spriteCount * 1.776104) + (_arg_3.length * 2.31743)));
 
         const _local_10 = new PlaneDrawingData(null, _arg_2);
 
@@ -329,15 +329,15 @@ export class SpriteDataCollector
         return _local_10;
     }
 
-    private _Str_25623(k: IRoomPlane[], _arg_2: IRoomRenderingCanvas, _arg_3: RoomEngine): { plane: IRoomPlane, z: number }[]
+    private sortRoomPlanes(k: IRoomPlane[], _arg_2: IRoomRenderingCanvas, _arg_3: RoomEngine): { plane: IRoomPlane, z: number }[]
     {
         const _local_4: Map<number, { plane: IRoomPlane, z: number }> = new Map();
 
         let _local_5 = 1;
 
-        if(this._Str_6409)
+        if(this.maxZ)
         {
-            _local_5 = (_local_5 + this._Str_6409);
+            _local_5 = (_local_5 + this.maxZ);
         }
 
         for(const _local_6 of k)
@@ -350,7 +350,7 @@ export class SpriteDataCollector
             _local_4.set(_local_6.uniqueId, _local_10);
         }
 
-        const sprites = _arg_2._Str_14588();
+        const sprites = _arg_2.getPlaneSortableSprites();
 
         sprites.sort((a, b) =>
         {
@@ -385,7 +385,7 @@ export class SpriteDataCollector
         return _local_8;
     }
 
-    public _Str_22985(k: Rectangle, _arg_2: IRoomRenderingCanvas, _arg_3: RoomEngine, _arg_4: number): PlaneDrawingData[]
+    public getRoomPlanes(k: Rectangle, _arg_2: IRoomRenderingCanvas, _arg_3: RoomEngine, _arg_4: number): PlaneDrawingData[]
     {
         const _local_5: PlaneDrawingData[] = [];
 
@@ -395,7 +395,7 @@ export class SpriteDataCollector
         if(visualization)
         {
             const _local_8  = _arg_2.geometry;
-            const _local_9  = this._Str_25623(visualization._Str_19113, _arg_2, _arg_3);
+            const _local_9  = this.sortRoomPlanes(visualization.planes, _arg_2, _arg_3);
             const _local_10 = Nitro.instance.stage;
 
             for(const _local_11 of _local_9)
@@ -403,11 +403,11 @@ export class SpriteDataCollector
                 const _local_12 = _local_11.plane;
                 const _local_13: Point[] = [];
 
-                const _local_14 = Vector3d.sum(_local_12.location, _local_12._Str_5424);
+                const _local_14 = Vector3d.sum(_local_12.location, _local_12.leftSide);
                 const _local_15 = _local_8.getScreenPoint(_local_12.location);
                 const _local_16 = _local_8.getScreenPoint(_local_14);
-                const _local_17 = _local_8.getScreenPoint(Vector3d.sum(_local_12.location, _local_12._Str_4968));
-                const _local_18 = _local_8.getScreenPoint(Vector3d.sum(_local_14, _local_12._Str_4968));
+                const _local_17 = _local_8.getScreenPoint(Vector3d.sum(_local_12.location, _local_12.rightSide));
+                const _local_18 = _local_8.getScreenPoint(Vector3d.sum(_local_14, _local_12.rightSide));
 
                 _local_13.push(_local_15, _local_16, _local_17, _local_18);
 
@@ -440,9 +440,9 @@ export class SpriteDataCollector
                 }
                 else
                 {
-                    const _local_22 = SpriteDataCollector._Str_14110(_local_15, _local_16, _local_17, _local_18);
+                    const _local_22 = SpriteDataCollector.sortQuadPoints(_local_15, _local_16, _local_17, _local_18);
 
-                    for(const _local_23 of _local_12._Str_22136(_local_8))
+                    for(const _local_23 of _local_12.getDrawingDatas(_local_8))
                     {
                         _local_23.cornerPoints  = _local_22;
                         _local_23.z             = _local_11.z;
@@ -452,7 +452,7 @@ export class SpriteDataCollector
                 }
             }
 
-            _local_5.unshift(this._Str_25196(k, _arg_4, _local_5));
+            _local_5.unshift(this.makeBackgroundPlane(k, _arg_4, _local_5));
         }
 
         return _local_5;

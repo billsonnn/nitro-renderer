@@ -21,13 +21,13 @@ export class FurnitureListItemParser implements IFurnitureItemData
     private _tradable: boolean;
     private _sellable: boolean;
     private _secondsToExpiration: number;
-    private _Str_3182: number;
+    private _extra: number;
     private _flatId: number;
     private _isWallItem: boolean;
     private _hasRentPeriodStarted: boolean;
-    private _Str_5390: number;
+    private _expirationTimeStamp: number;
     private _slotId: string;
-    private _Str_2808: number;
+    private _songId: number;
 
     constructor(wrapper: IMessageDataWrapper)
     {
@@ -51,13 +51,13 @@ export class FurnitureListItemParser implements IFurnitureItemData
         this._tradable              = false;
         this._sellable              = false;
         this._secondsToExpiration   = 0;
-        this._Str_3182              = 0;
+        this._extra              = 0;
         this._flatId                = 0;
         this._isWallItem            = false;
         this._hasRentPeriodStarted  = false;
-        this._Str_5390              = 0;
+        this._expirationTimeStamp              = 0;
         this._slotId                = '';
-        this._Str_2808              = -1;
+        this._songId              = -1;
 
         return true;
     }
@@ -77,7 +77,7 @@ export class FurnitureListItemParser implements IFurnitureItemData
         this._isGroupable           = wrapper.readBoolean();
         this._sellable              = wrapper.readBoolean();
         this._secondsToExpiration   = wrapper.readInt();
-        this._Str_5390              = Nitro.instance.time;
+        this._expirationTimeStamp              = Nitro.instance.time;
 
         if(this.secondsToExpiration > -1)
         {
@@ -96,7 +96,7 @@ export class FurnitureListItemParser implements IFurnitureItemData
         if(this._furniType === FurnitureListItemParser.FLOOR_ITEM)
         {
             this._slotId    = wrapper.readString();
-            this._Str_3182  = wrapper.readInt();
+            this._extra  = wrapper.readInt();
         }
 
         return true;
@@ -167,14 +167,14 @@ export class FurnitureListItemParser implements IFurnitureItemData
         return this._slotId;
     }
 
-    public get _Str_3951(): number
+    public get songId(): number
     {
-        return this._Str_2808;
+        return this._songId;
     }
 
-    public get _Str_2794(): number
+    public get extra(): number
     {
-        return this._Str_3182;
+        return this._extra;
     }
 
     public get rentable(): boolean
@@ -192,27 +192,27 @@ export class FurnitureListItemParser implements IFurnitureItemData
         return this._hasRentPeriodStarted;
     }
 
-    public get _Str_10616(): number
+    public get expirationTimeStamp(): number
     {
-        return this._Str_5390;
+        return this._expirationTimeStamp;
     }
 
-    public get _Str_8932(): number
-    {
-        return 0;
-    }
-
-    public get _Str_9050(): number
+    public get creationDay(): number
     {
         return 0;
     }
 
-    public get _Str_9408(): number
+    public get creationMonth(): number
     {
         return 0;
     }
 
-    public get _Str_19297(): boolean
+    public get creationYear(): number
+    {
+        return 0;
+    }
+
+    public get isExternalImageFurni(): boolean
     {
         return !(this._furniType.indexOf('external_image') === -1);
     }

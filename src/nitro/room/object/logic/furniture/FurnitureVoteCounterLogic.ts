@@ -7,8 +7,8 @@ import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureVoteCounterLogic extends FurnitureMultiStateLogic
 {
-    private static _Str_3536: number = 33;
-    private static _Str_5967: number = 1000;
+    private static UPDATE_INTERVAL: number = 33;
+    private static MAX_UPDATE_TIME: number = 1000;
 
     private _total: number;
     private _lastUpdate: number;
@@ -33,11 +33,11 @@ export class FurnitureVoteCounterLogic extends FurnitureMultiStateLogic
 
             if(!stuffData) return;
 
-            this._Str_24990(stuffData.result);
+            this.updateTotal(stuffData.result);
         }
     }
 
-    private _Str_24990(k: number): void
+    private updateTotal(k: number): void
     {
         this._total = k;
 
@@ -50,17 +50,17 @@ export class FurnitureVoteCounterLogic extends FurnitureMultiStateLogic
             return;
         }
 
-        if(this._total !== this._Str_8221)
+        if(this._total !== this.currentTotal)
         {
-            const difference = Math.abs((this._total - this._Str_8221));
+            const difference = Math.abs((this._total - this.currentTotal));
 
-            if((difference * FurnitureVoteCounterLogic._Str_3536) > FurnitureVoteCounterLogic._Str_5967)
+            if((difference * FurnitureVoteCounterLogic.UPDATE_INTERVAL) > FurnitureVoteCounterLogic.MAX_UPDATE_TIME)
             {
-                this._interval = (FurnitureVoteCounterLogic._Str_5967 / difference);
+                this._interval = (FurnitureVoteCounterLogic.MAX_UPDATE_TIME / difference);
             }
             else
             {
-                this._interval = FurnitureVoteCounterLogic._Str_3536;
+                this._interval = FurnitureVoteCounterLogic.UPDATE_INTERVAL;
             }
 
             this._lastUpdate = Nitro.instance.time;
@@ -73,24 +73,24 @@ export class FurnitureVoteCounterLogic extends FurnitureMultiStateLogic
 
         if(this.object)
         {
-            if((this._Str_8221 !== this._total) && (time >= (this._lastUpdate + this._interval)))
+            if((this.currentTotal !== this._total) && (time >= (this._lastUpdate + this._interval)))
             {
                 const _local_2 = (time - this._lastUpdate);
                 let _local_3 = (_local_2 / this._interval);
                 let _local_4 = 1;
 
-                if(this._total < this._Str_8221) _local_4 = -1;
+                if(this._total < this.currentTotal) _local_4 = -1;
 
-                if(_local_3 > (_local_4 * (this._total - this._Str_8221))) _local_3 = (_local_4 * (this._total - this._Str_8221));
+                if(_local_3 > (_local_4 * (this._total - this.currentTotal))) _local_3 = (_local_4 * (this._total - this.currentTotal));
 
-                this.object.model.setValue(RoomObjectVariable.FURNITURE_VOTE_COUNTER_COUNT, (this._Str_8221 + (_local_4 * _local_3)));
+                this.object.model.setValue(RoomObjectVariable.FURNITURE_VOTE_COUNTER_COUNT, (this.currentTotal + (_local_4 * _local_3)));
 
                 this._lastUpdate = (time - (_local_2 - (_local_3 * this._interval)));
             }
         }
     }
 
-    private get _Str_8221(): number
+    private get currentTotal(): number
     {
         return this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_VOTE_COUNTER_COUNT);
     }

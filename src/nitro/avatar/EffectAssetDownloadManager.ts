@@ -179,7 +179,7 @@ export class EffectAssetDownloadManager extends EventDispatcher
 
         const loadedEffects: string[] = [];
 
-        this._structure._Str_2061(event.library.animation);
+        this._structure.registerAnimation(event.library.animation);
 
         for(const [ id, libraries ] of this._incompleteEffects.entries())
         {

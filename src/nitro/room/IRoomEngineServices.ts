@@ -38,10 +38,10 @@ export interface IRoomEngineServices
     removeRoomObjectUser(roomId: number, objectId: number): void;
     loadRoomObjectBadgeImage(roomId: number, objectId: number, objectCategory: number, badgeId: string, groupBadge?: boolean): void;
     updateRoomObjectMask(roomId: number, objectId: number, _arg_?: boolean): void;
-    _Str_16645(objectId: number, category: number, _arg_3: boolean, instanceData?: string, stuffData?: IObjectData, state?: number, frameNumber?: number, posture?: string): void;
-    _Str_7972(k: boolean): void;
+    setObjectMoverIconSprite(objectId: number, category: number, _arg_3: boolean, instanceData?: string, stuffData?: IObjectData, state?: number, frameNumber?: number, posture?: string): void;
+    setObjectMoverIconSpriteVisible(k: boolean): void;
     updateMousePointer(type: string, objectId: number, objectType: string): void;
-    _Str_17948(): void;
+    removeObjectMoverIconSprite(): void;
     getRoomTileObjectMap(k: number): TileObjectMap;
     isPlayingGame(): boolean;
     connection: IConnection;

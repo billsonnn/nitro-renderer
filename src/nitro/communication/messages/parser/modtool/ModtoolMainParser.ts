@@ -1,11 +1,10 @@
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
 import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { CallForHelpCategoryData } from './utils/CallForHelpCategoryData';
-import { _Str_5018 } from './utils/_Str_5018';
+import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { ModeratorInitData } from './utils/ModeratorInitData';
 
 export class ModtoolMainParser  implements IMessageParser
 {
-    private _data: _Str_5018 = null;
+    private _data: ModeratorInitData = null;
     public flush(): boolean
     {
         this._data = null;
@@ -14,11 +13,11 @@ export class ModtoolMainParser  implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        this._data = new _Str_5018(wrapper);
+        this._data = new ModeratorInitData(wrapper);
         return true;
     }
 
-    public get data(): _Str_5018
+    public get data(): ModeratorInitData
     {
         return this._data;
     }

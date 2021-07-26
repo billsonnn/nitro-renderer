@@ -6,7 +6,7 @@ export class FurnitureVoteCounterVisualization extends FurnitureAnimatedVisualiz
     private static ONES_SPRITE: string      = 'ones_sprite';
     private static TENS_SPRITE: string      = 'tens_sprite';
     private static HUNDREDS_SPRITE: string  = 'hundreds_sprite';
-    private static _Str_17839: number       = -1;
+    private static HIDE_COUNTER_SCORE: number       = -1;
 
     protected updateObject(scale: number, direction: number): boolean
     {
@@ -33,7 +33,7 @@ export class FurnitureVoteCounterVisualization extends FurnitureAnimatedVisualiz
     {
         const result = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_VOTE_COUNTER_COUNT);
 
-        if(result === FurnitureVoteCounterVisualization._Str_17839)
+        if(result === FurnitureVoteCounterVisualization.HIDE_COUNTER_SCORE)
         {
             const tag = this.getLayerTag(scale, direction, layerId);
 

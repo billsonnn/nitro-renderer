@@ -26,7 +26,10 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     private _container: IRoomSpriteCanvasContainer;
 
     private _geometry: RoomGeometry;
+    private _animationFPS: number;
     private _renderTimestamp: number;
+    private _totalTimeRunning: number;
+    private _lastFrame: number;
 
     private _master: Sprite;
     private _display: Container;
@@ -71,7 +74,10 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         this._container                     = container;
 
         this._geometry                      = new RoomGeometry(scale, new Vector3d(-135, 30, 0), new Vector3d(11, 11, 5), new Vector3d(-135, 0.5, 0));
+        this._animationFPS                  = Nitro.instance.getConfiguration<number>('animation.fps', 24);
         this._renderTimestamp               = 0;
+        this._totalTimeRunning              = 0;
+        this._lastFrame                     = 0;
 
         this._master                        = null;
         this._display                       = null;
@@ -137,7 +143,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
     public dispose(): void
     {
-        this._Str_20677(0, true);
+        this.cleanSprites(0, true);
 
         if(this._geometry)
         {
@@ -185,7 +191,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         {
             for(const sprite of this._spritePool)
             {
-                this._Str_21974(sprite, true);
+                this.cleanSprite(sprite, true);
             }
 
             this._spritePool = [];
@@ -321,11 +327,13 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         this._canvasUpdated = false;
 
+        this._totalTimeRunning += Nitro.instance.ticker.deltaTime;
+
+        if(this._totalTimeRunning === this._renderTimestamp) return;
+
         if(time === -1) time = (this._renderTimestamp + 1);
 
         if(!this._container || !this._geometry) return;
-
-        if(time === this._renderTimestamp) return;
 
         if((this._width !== this._renderedWidth) || (this._height !== this._renderedHeight)) update = true;
 
@@ -344,6 +352,17 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             update = true;
         }
 
+        const frame = Math.round(this._totalTimeRunning / (60 / this._animationFPS));
+
+        let updateVisuals = false;
+
+        if(frame !== this._lastFrame)
+        {
+            this._lastFrame = frame;
+
+            updateVisuals = true;
+        }
+
         let spriteCount = 0;
 
         const objects = this._container.objects;
@@ -354,7 +373,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             {
                 if(!object) continue;
 
-                spriteCount = (spriteCount + this.renderObject(object, object.instanceId.toString(), time, update, spriteCount));
+                spriteCount = (spriteCount + this.renderObject(object, object.instanceId.toString(), time, update, updateVisuals, spriteCount));
             }
         }
 
@@ -379,23 +398,23 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             iterator++;
         }
 
-        this._Str_20677(spriteCount);
+        this.cleanSprites(spriteCount);
 
-        if(update) this._canvasUpdated = true;
+        if(update || updateVisuals) this._canvasUpdated = true;
 
-        this._renderTimestamp   = time;
+        this._renderTimestamp   = this._totalTimeRunning;
         this._renderedWidth     = this._width;
         this._renderedHeight    = this._height;
     }
 
-    public _Str_20787(): void
+    public skipSpriteVisibilityChecking(): void
     {
         this._noSpriteVisibilityChecking = true;
 
         this.render(-1, true);
     }
 
-    public _Str_22174(): void
+    public resumeSpriteVisibilityChecking(): void
     {
         this._noSpriteVisibilityChecking = false;
     }
@@ -405,7 +424,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         return this._objectCache.getSortableSpriteList();
     }
 
-    public _Str_14588(): SortableSprite[]
+    public getPlaneSortableSprites(): SortableSprite[]
     {
         return this._objectCache.getPlaneSortableSprites();
     }
@@ -415,7 +434,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         this._objectCache.removeObjectCache(identifier);
     }
 
-    private renderObject(object: IRoomObject, identifier: string, time: number, update: boolean, count: number): number
+    private renderObject(object: IRoomObject, identifier: string, time: number, update: boolean, updateVisuals: boolean, count: number): number
     {
         if(!object) return 0;
 
@@ -429,7 +448,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         }
 
         const cache = this.getCacheItem(identifier);
-        cache._Str_1577 = object.instanceId;
+        cache.objectId = object.instanceId;
 
         const locationCache = cache.location;
         const sortableCache = cache.sprites;
@@ -443,13 +462,13 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             return 0;
         }
 
-        visualization.update(this._geometry, time, (!sortableCache.isEmpty || update), (this._skipObjectUpdate && this._runningSlow));
+        if(updateVisuals) visualization.update(this._geometry, time, (!sortableCache.isEmpty || update), (this._skipObjectUpdate && this._runningSlow));
 
         if(locationCache.locationChanged) update = true;
 
-        if(!sortableCache._Str_17574(visualization.instanceId, visualization.updateSpriteCounter) && !update)
+        if(!sortableCache.needsUpdate(visualization.instanceId, visualization.updateSpriteCounter) && !update)
         {
-            return sortableCache._Str_3008;
+            return sortableCache.spriteCount;
         }
 
         let x   = vector.x;
@@ -495,13 +514,13 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
                 if(!this.isSpriteVisible(spriteX, spriteY, texture.width, texture.height)) continue;
             }
 
-            let sortableSprite = sortableCache._Str_2505(spriteCount);
+            let sortableSprite = sortableCache.getSprite(spriteCount);
 
             if(!sortableSprite)
             {
                 sortableSprite = new SortableSprite();
 
-                sortableCache._Str_12937(sortableSprite);
+                sortableCache.addSprite(sortableSprite);
 
                 this._sortableSprites.push(sortableSprite);
 
@@ -510,9 +529,9 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
             sortableSprite.sprite = sprite;
 
-            if((sprite.spriteType === RoomObjectSpriteType._Str_11629) || (sprite.spriteType === RoomObjectSpriteType._Str_10494))
+            if((sprite.spriteType === RoomObjectSpriteType.AVATAR) || (sprite.spriteType === RoomObjectSpriteType.AVATAR_OWN))
             {
-                sortableSprite.sprite._Str_3582 = 'avatar_' + object.id;
+                sortableSprite.sprite.libraryAssetName = 'avatar_' + object.id;
             }
 
             sortableSprite.x    = (spriteX - this._screenOffsetX);
@@ -523,7 +542,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             count++;
         }
 
-        sortableCache._Str_20276(spriteCount);
+        sortableCache.setSpriteCount(spriteCount);
 
         this._canvasUpdated = true;
 
@@ -534,11 +553,11 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         if((index < 0) || (index >= this._spriteCount)) return null;
 
-        const sprite = this._display.getChildAt(index);
+        const sprite = (this._display.getChildAt(index) as ExtendedSprite);
 
         if(!sprite) return null;
 
-        return sprite as ExtendedSprite;
+        return sprite;
     }
 
     protected getExtendedSpriteIdentifier(sprite: ExtendedSprite): string
@@ -564,9 +583,9 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if(!objectSprite || !extendedSprite) return false;
 
-        if(extendedSprite._Str_4593 !== objectSprite._Str_4593)
+        if(extendedSprite.varyingDepth !== objectSprite.varyingDepth)
         {
-            if(extendedSprite._Str_4593 && !objectSprite._Str_4593)
+            if(extendedSprite.varyingDepth && !objectSprite.varyingDepth)
             {
                 this._display.removeChildAt(index);
 
@@ -585,7 +604,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             extendedSprite.tag              = objectSprite.tag;
             extendedSprite.alphaTolerance   = objectSprite.alphaTolerance;
             extendedSprite.name             = sprite.name;
-            extendedSprite._Str_4593        = objectSprite._Str_4593;
+            extendedSprite.varyingDepth     = objectSprite.varyingDepth;
             extendedSprite.clickHandling    = objectSprite.clickHandling;
             extendedSprite.filters          = objectSprite.filters;
 
@@ -628,7 +647,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
                 if(extendedSprite.scale.y !== 1) extendedSprite.scale.y = 1;
             }
 
-            this._Str_21914(extendedSprite, objectSprite);
+            this.updateEnterRoomEffect(extendedSprite, objectSprite);
         }
 
         if(extendedSprite.x !== sprite.x) extendedSprite.x = sprite.x;
@@ -663,7 +682,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         extendedSprite.offsetX          = sprite.offsetX;
         extendedSprite.offsetY          = sprite.offsetY;
         extendedSprite.name             = sprite.name;
-        extendedSprite._Str_4593        = sprite._Str_4593;
+        extendedSprite.varyingDepth     = sprite.varyingDepth;
         extendedSprite.clickHandling    = sprite.clickHandling;
         extendedSprite.blendMode        = sprite.blendMode;
         extendedSprite.filters          = sprite.filters;
@@ -681,7 +700,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if(sprite.flipV) extendedSprite.scale.y = -1;
 
-        this._Str_21914(extendedSprite, sprite);
+        this.updateEnterRoomEffect(extendedSprite, sprite);
 
         if((index < 0) || (index >= this._spriteCount))
         {
@@ -697,7 +716,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         this._activeSpriteCount++;
     }
 
-    private _Str_20677(spriteCount: number, _arg_2: boolean = false): void
+    private cleanSprites(spriteCount: number, _arg_2: boolean = false): void
     {
         if(!this._display) return;
 
@@ -709,7 +728,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
             while(iterator >= spriteCount)
             {
-                this._Str_21974(this.getExtendedSprite(iterator), _arg_2);
+                this.cleanSprite(this.getExtendedSprite(iterator), _arg_2);
 
                 iterator--;
             }
@@ -718,18 +737,18 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         this._activeSpriteCount = spriteCount;
     }
 
-    private _Str_21914(sprite: ExtendedSprite, _arg_2: IRoomObjectSprite): void
+    private updateEnterRoomEffect(sprite: ExtendedSprite, _arg_2: IRoomObjectSprite): void
     {
         if(!RoomEnterEffect.isVisualizationOn() || !_arg_2) return;
 
         switch(_arg_2.spriteType)
         {
-            case RoomObjectSpriteType._Str_10494:
+            case RoomObjectSpriteType.AVATAR_OWN:
                 return;
-            case RoomObjectSpriteType._Str_8616:
+            case RoomObjectSpriteType.ROOM_PLANE:
                 sprite.alpha = RoomEnterEffect.getDelta(0.9);
                 return;
-            case RoomObjectSpriteType._Str_11629:
+            case RoomObjectSpriteType.AVATAR:
                 sprite.alpha = RoomEnterEffect.getDelta(0.5);
                 return;
             default:
@@ -737,7 +756,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         }
     }
 
-    private _Str_21974(sprite: ExtendedSprite, _arg_2: boolean): void
+    private cleanSprite(sprite: ExtendedSprite, _arg_2: boolean): void
     {
         if(!sprite) return;
 
@@ -759,7 +778,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         if(!this._mouseCheckCount)
         {
-            //this._Str_19207(this._mouseLocation.x, this._mouseLocation.y, MouseEventType.MOUSE_MOVE);
+            //this.checkMouseHits(this._mouseLocation.x, this._mouseLocation.y, MouseEventType.MOUSE_MOVE);
         }
 
         this._mouseCheckCount = 0;
@@ -794,7 +813,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         return false;
     }
 
-    public _Str_21232(x: number, y: number, type: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean, buttonDown: boolean): boolean
+    public handleMouseEvent(x: number, y: number, type: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean, buttonDown: boolean): boolean
     {
         x = (x - this._screenOffsetX);
         y = (y - this._screenOffsetY);
@@ -804,14 +823,14 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if((this._mouseCheckCount > 0) && (type == MouseEventType.MOUSE_MOVE)) return this._mouseSpriteWasHit;
 
-        this._mouseSpriteWasHit = this._Str_19207(Math.trunc(x / this._scale), Math.trunc(y / this._scale), type, altKey, ctrlKey, shiftKey, buttonDown);
+        this._mouseSpriteWasHit = this.checkMouseHits(Math.trunc(x / this._scale), Math.trunc(y / this._scale), type, altKey, ctrlKey, shiftKey, buttonDown);
 
         this._mouseCheckCount++;
 
         return this._mouseSpriteWasHit;
     }
 
-    private _Str_19207(x: number, y: number, type: string, altKey: boolean = false, ctrlKey: boolean = false, shiftKey: boolean = false, buttonDown: boolean = false): boolean
+    private checkMouseHits(x: number, y: number, type: string, altKey: boolean = false, ctrlKey: boolean = false, shiftKey: boolean = false, buttonDown: boolean = false): boolean
     {
         const checkedSprites: string[] = [];
 
@@ -843,19 +862,19 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
                         {
                             if(mouseData.spriteTag !== tag)
                             {
-                                mouseEvent = this._Str_11609(0, 0, 0, 0, MouseEventType.ROLL_OUT, mouseData.spriteTag, altKey, ctrlKey, shiftKey, buttonDown);
+                                mouseEvent = this.createMouseEvent(0, 0, 0, 0, MouseEventType.ROLL_OUT, mouseData.spriteTag, altKey, ctrlKey, shiftKey, buttonDown);
 
-                                this._Str_14715(mouseEvent, identifier);
+                                this.bufferMouseEvent(mouseEvent, identifier);
                             }
                         }
 
                         if((type === MouseEventType.MOUSE_MOVE) && (!mouseData || (mouseData.spriteTag !== tag)))
                         {
-                            mouseEvent = this._Str_11609(x, y, (x - extendedSprite.x), (y - extendedSprite.y), MouseEventType.ROLL_OVER, tag, altKey, ctrlKey, shiftKey, buttonDown);
+                            mouseEvent = this.createMouseEvent(x, y, (x - extendedSprite.x), (y - extendedSprite.y), MouseEventType.ROLL_OVER, tag, altKey, ctrlKey, shiftKey, buttonDown);
                         }
                         else
                         {
-                            mouseEvent = this._Str_11609(x, y, (x - extendedSprite.x), (y - extendedSprite.y), type, tag, altKey, ctrlKey, shiftKey, buttonDown);
+                            mouseEvent = this.createMouseEvent(x, y, (x - extendedSprite.x), (y - extendedSprite.y), type, tag, altKey, ctrlKey, shiftKey, buttonDown);
 
                             mouseEvent.spriteOffsetX = extendedSprite.offsetX;
                             mouseEvent.spriteOffsetY = extendedSprite.offsetY;
@@ -873,7 +892,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
                         if(((type !== MouseEventType.MOUSE_MOVE) || (x !== this._mouseOldX)) || (y !== this._mouseOldY))
                         {
-                            this._Str_14715(mouseEvent, identifier);
+                            this.bufferMouseEvent(mouseEvent, identifier);
                         }
 
                         checkedSprites.push(identifier);
@@ -913,22 +932,22 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
                 if(existing) this._mouseActiveObjects.delete(key);
 
-                const mouseEvent = this._Str_11609(0, 0, 0, 0, MouseEventType.ROLL_OUT, existing.spriteTag, altKey, ctrlKey, shiftKey, buttonDown);
+                const mouseEvent = this.createMouseEvent(0, 0, 0, 0, MouseEventType.ROLL_OUT, existing.spriteTag, altKey, ctrlKey, shiftKey, buttonDown);
 
-                this._Str_14715(mouseEvent, key);
+                this.bufferMouseEvent(mouseEvent, key);
             }
 
             index++;
         }
 
-        this._Str_20604();
+        this.processMouseEvents();
         this._mouseOldX = x;
         this._mouseOldY = y;
 
         return didHitSprite;
     }
 
-    protected _Str_11609(x: number, y: number, _arg_3: number, _arg_4: number, type: string, _arg_6: string, _arg_7: boolean, _arg_8: boolean, _arg_9: boolean, _arg_10: boolean): RoomSpriteMouseEvent
+    protected createMouseEvent(x: number, y: number, _arg_3: number, _arg_4: number, type: string, _arg_6: string, _arg_7: boolean, _arg_8: boolean, _arg_9: boolean, _arg_10: boolean): RoomSpriteMouseEvent
     {
         const screenX: number       = (x - (this._width / 2));
         const screenY: number       = (y - (this._height / 2));
@@ -937,7 +956,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         return new RoomSpriteMouseEvent(type, ((canvasName + '_') + this._eventId), canvasName, _arg_6, screenX, screenY, _arg_3, _arg_4, _arg_8, _arg_7, _arg_9, _arg_10);
     }
 
-    protected _Str_14715(k: RoomSpriteMouseEvent, _arg_2: string): void
+    protected bufferMouseEvent(k: RoomSpriteMouseEvent, _arg_2: string): void
     {
         if(!k || !this._eventCache) return;
 
@@ -945,7 +964,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         this._eventCache.set(_arg_2, k);
     }
 
-    protected _Str_20604(): void
+    protected processMouseEvents(): void
     {
         if(!this._container || !this._eventCache) return;
 
@@ -961,7 +980,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
             if(this._mouseListener)
             {
-                this._mouseListener._Str_20330(event, roomObject, this._geometry);
+                this._mouseListener.processRoomCanvasMouseEvent(event, roomObject, this._geometry);
             }
             else
             {
@@ -995,7 +1014,11 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             height: this._display.height
         });
 
-        Nitro.instance.renderer.render(this._display, renderTexture, true, new Matrix(1, 0, 0, 1, -(bounds.x), -(bounds.y)));
+        Nitro.instance.renderer.render(this._display, {
+            renderTexture,
+            clear: true,
+            transform: new Matrix(1, 0, 0, 1, -(bounds.x), -(bounds.y))
+        });
 
         this._noSpriteVisibilityChecking = false;
         this.setScale(k, null, null, true);

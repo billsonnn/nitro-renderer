@@ -1,8 +1,8 @@
 import { IConnection } from '../../../core/communication/connections/IConnection';
+import { PresentOpenedMessageEvent } from '../../communication/messages/incoming/inventory/furni/gifts/PresentOpenedMessageEvent';
+import { RoomSessionPresentEvent } from '../events/RoomSessionPresentEvent';
 import { IRoomHandlerListener } from '../IRoomHandlerListener';
 import { BaseHandler } from './BaseHandler';
-import { FurnitureGiftOpenedEvent } from '../../communication/messages/incoming/inventory/furni/gifts/FurnitureGiftOpenedEvent';
-import { RoomSessionPresentEvent } from '../events/RoomSessionPresentEvent';
 
 export class RoomPresentHandler extends BaseHandler
 {
@@ -12,10 +12,10 @@ export class RoomPresentHandler extends BaseHandler
 
         if(!connection) return;
 
-        connection.addMessageEvent(new FurnitureGiftOpenedEvent(this.onFurnitureGiftOpenedEvent.bind(this)));
+        connection.addMessageEvent(new PresentOpenedMessageEvent(this.onFurnitureGiftOpenedEvent.bind(this)));
     }
 
-    private onFurnitureGiftOpenedEvent(event: FurnitureGiftOpenedEvent): void
+    private onFurnitureGiftOpenedEvent(event: PresentOpenedMessageEvent): void
     {
         if(!event) return;
 
@@ -28,8 +28,8 @@ export class RoomPresentHandler extends BaseHandler
         if(!session) return;
 
         if(this.listener && this.listener.events) this.listener.events.dispatchEvent(
-            new RoomSessionPresentEvent(RoomSessionPresentEvent.RSPE_PRESENT_OPENED, session, parser.classId, parser._Str_2887,
-                parser.productCode, parser.placedItemId, parser.placedItemType, parser._Str_4057, parser.petFigureString));
+            new RoomSessionPresentEvent(RoomSessionPresentEvent.RSPE_PRESENT_OPENED, session, parser.classId, parser.itemType,
+                parser.productCode, parser.placedItemId, parser.placedItemType, parser.placedInRoom, parser.petFigureString));
 
     }
 

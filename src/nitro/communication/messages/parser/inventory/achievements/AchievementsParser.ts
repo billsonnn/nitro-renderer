@@ -1,16 +1,17 @@
-﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
+﻿
+import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
-import { Achievement } from '../../../incoming/inventory/achievements/Achievement';
+import { AchievementData } from '../../../incoming/inventory/achievements/AchievementData';
 
 export class AchievementsParser implements IMessageParser
 {
-    private _achievements: Achievement[];
-    private _Str_19269: string;
+    private _achievements: AchievementData[];
+    private _defaultCategory: string;
 
     public flush(): boolean
     {
         this._achievements  = [];
-        this._Str_19269     = null;
+        this._defaultCategory     = null;
 
         return true;
     }
@@ -25,23 +26,23 @@ export class AchievementsParser implements IMessageParser
 
         while(totalCount > 0)
         {
-            this._achievements.push(new Achievement(k));
+            this._achievements.push(new AchievementData(k));
 
             totalCount--;
         }
 
-        this._Str_19269 = k.readString();
+        this._defaultCategory = k.readString();
 
         return true;
     }
 
-    public get achievements(): Achievement[]
+    public get achievements(): AchievementData[]
     {
         return this._achievements;
     }
 
-    public get _Str_16300(): string
+    public get defaultCategory(): string
     {
-        return this._Str_19269;
+        return this._defaultCategory;
     }
 }

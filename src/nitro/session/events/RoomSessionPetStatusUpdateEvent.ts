@@ -3,7 +3,7 @@ import { RoomSessionEvent } from './RoomSessionEvent';
 
 export class RoomSessionPetStatusUpdateEvent extends RoomSessionEvent
 {
-    public static RSPFUE_PET_STATUS_UPDATE: string = 'RSPFUE_PET_STATUS_UPDATE';
+    public static PET_STATUS_UPDATE: string = 'RSPFUE_PET_STATUS_UPDATE';
 
     private _petId: number;
     private _canBreed: boolean;
@@ -13,7 +13,7 @@ export class RoomSessionPetStatusUpdateEvent extends RoomSessionEvent
 
     constructor(k: IRoomSession, _arg_2: number, _arg_3: boolean, _arg_4: boolean, _arg_5: boolean, _arg_6: boolean)
     {
-        super(RoomSessionPetStatusUpdateEvent.RSPFUE_PET_STATUS_UPDATE, k);
+        super(RoomSessionPetStatusUpdateEvent.PET_STATUS_UPDATE, k);
 
         this._petId = _arg_2;
         this._canBreed = _arg_3;
@@ -22,27 +22,27 @@ export class RoomSessionPetStatusUpdateEvent extends RoomSessionEvent
         this._hasBreedingPermission = _arg_6;
     }
 
-    public get _Str_2508(): number
+    public get petId(): number
     {
         return this._petId;
     }
 
-    public get _Str_2934(): boolean
+    public get canBreed(): boolean
     {
         return this._canBreed;
     }
 
-    public get _Str_3068(): boolean
+    public get canHarvest(): boolean
     {
         return this._canHarvest;
     }
 
-    public get _Str_2898(): boolean
+    public get canRevive(): boolean
     {
         return this._canRevive;
     }
 
-    public get _Str_2921(): boolean
+    public get hasBreedingPermission(): boolean
     {
         return this._hasBreedingPermission;
     }

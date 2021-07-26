@@ -1,4 +1,4 @@
-import { Texture } from 'pixi.js';
+import { Resource, Texture } from 'pixi.js';
 import { IRoomObjectSprite } from '../../../../../../room/object/visualization/IRoomObjectSprite';
 import { AvatarVisualization } from '../AvatarVisualization';
 import { IAvatarAddition } from './IAvatarAddition';
@@ -7,7 +7,7 @@ export class MutedBubbleAddition implements IAvatarAddition
 {
     private _id: number;
     private _visualization: AvatarVisualization;
-    private _asset: Texture;
+    private _asset: Texture<Resource>;
 
     constructor(id: number, visualization: AvatarVisualization)
     {
