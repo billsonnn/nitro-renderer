@@ -266,4 +266,8 @@ export class IncomingHeader
     public static QUESTS                           = 3625;
     public static QUEST                            = 230;
     public static BONUS_RARE_INFO                  = 1533;
+    public static CRAFTABLE_PRODUCTS               = 1000;
+    public static CRAFTING_RECIPE                  = 2774;
+    public static CRAFTING_RECIPES_AVAILABLE       = 2124;
+    public static CRAFTING_RESULT                  = 618;
 }

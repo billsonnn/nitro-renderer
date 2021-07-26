@@ -264,5 +264,10 @@ export class OutgoingHeader
     public static REDEEM_COMMUNITY_GOAL_PRIZE      = 90;
     public static REJECT_QUEST                     = 2397;
     public static START_CAMPAIGN                   = 1697;
-    public static GET_BONUS_RARE_INFO = 957;
+    public static GET_BONUS_RARE_INFO              = 957;
+    public static CRAFT                            = 3591;
+    public static CRAFT_SECRET                     = 1251;
+    public static GET_CRAFTABLE_PRODUCTS           = 633;
+    public static GET_CRAFTING_RECIPE              = 1173;
+    public static GET_CRAFTING_RECIPES_AVAILABLE   = 3086;
 }

@@ -24,6 +24,10 @@ import { MarketplaceOwnItemsEvent } from './messages/incoming/catalog/marketplac
 import { MarketplaceConfigEvent } from './messages/incoming/catalog/MarketplaceConfigEvent';
 import { MarketplaceItemStatsEvent } from './messages/incoming/catalog/MarketplaceItemStatsEvent';
 import { ClientPingEvent } from './messages/incoming/client/ClientPingEvent';
+import { CraftableProductsEvent } from './messages/incoming/crafting/CraftableProductsEvent';
+import { CraftingRecipeEvent } from './messages/incoming/crafting/CraftingRecipeEvent';
+import { CraftingRecipesAvailableEvent } from './messages/incoming/crafting/CraftingRecipesAvailableEvent';
+import { CraftingResultEvent } from './messages/incoming/crafting/CraftingResultEvent';
 import { DesktopViewEvent } from './messages/incoming/desktop/DesktopViewEvent';
 import { AcceptFriendResultEvent } from './messages/incoming/friendlist/AcceptFriendResultEvent';
 import { FindFriendsProcessResultEvent } from './messages/incoming/friendlist/FindFriendsProcessResultEvent';
@@ -244,6 +248,11 @@ import { RedeemItemClothingComposer } from './messages/outgoing/catalog/RedeemIt
 import { CatalogRedeemVoucherComposer } from './messages/outgoing/catalog/RedeemVoucherComposer';
 import { ClientPongComposer } from './messages/outgoing/client/ClientPongComposer';
 import { ClientReleaseVersionComposer } from './messages/outgoing/client/ClientReleaseVersionComposer';
+import { CraftComposer } from './messages/outgoing/crafting/CraftComposer';
+import { CraftSecretComposer } from './messages/outgoing/crafting/CraftSecretComposer';
+import { GetCraftableProductsComposer } from './messages/outgoing/crafting/GetCraftableProductsComposer';
+import { GetCraftingRecipeComposer } from './messages/outgoing/crafting/GetCraftingRecipeComposer';
+import { GetCraftingRecipesAvailableComposer } from './messages/outgoing/crafting/GetCraftingRecipesAvailableComposer';
 import { DesktopViewComposer } from './messages/outgoing/desktop/DesktopViewComposer';
 import { AcceptFriendComposer } from './messages/outgoing/friendlist/AcceptFriendComposer';
 import { DeclineFriendComposer } from './messages/outgoing/friendlist/DeclineFriendComposer';
@@ -795,6 +804,12 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.SEASONAL_QUESTS, SeasonalQuestsMessageEvent);
         this._events.set(IncomingHeader.QUESTS, QuestsMessageEvent);
         this._events.set(IncomingHeader.QUEST, QuestMessageEvent);
+
+        // CRAFTING
+        this._events.set(IncomingHeader.CRAFTABLE_PRODUCTS, CraftableProductsEvent);
+        this._events.set(IncomingHeader.CRAFTING_RECIPE, CraftingRecipeEvent);
+        this._events.set(IncomingHeader.CRAFTING_RECIPES_AVAILABLE, CraftingRecipesAvailableEvent);
+        this._events.set(IncomingHeader.CRAFTING_RESULT, CraftingResultEvent);
     }
 
     private registerComposers(): void
@@ -1133,6 +1148,13 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.REDEEM_COMMUNITY_GOAL_PRIZE, RedeemCommunityGoalPrizeMessageComposer);
         this._composers.set(OutgoingHeader.REJECT_QUEST, RejectQuestMessageComposer);
         this._composers.set(OutgoingHeader.START_CAMPAIGN, StartCampaignMessageComposer);
+
+        // CRAFTING
+        this._composers.set(OutgoingHeader.CRAFT, CraftComposer);
+        this._composers.set(OutgoingHeader.CRAFT_SECRET, CraftSecretComposer);
+        this._composers.set(OutgoingHeader.GET_CRAFTABLE_PRODUCTS, GetCraftableProductsComposer);
+        this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPE, GetCraftingRecipeComposer);
+        this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPES_AVAILABLE, GetCraftingRecipesAvailableComposer);
     }
 
     public get events(): Map<number, Function>
