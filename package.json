@@ -1,9 +1,6 @@
 {
   "name": "nitro-renderer",
   "version": "1.0.0",
-  "scripts": {
-    "eslint": "eslint ./src --fix"
-  },
   "private": true,
   "dependencies": {
     "@pixi/filter-adjustment": "^4.1.3",
