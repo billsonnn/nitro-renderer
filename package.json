@@ -1,6 +1,10 @@
 {
   "name": "nitro-renderer",
   "version": "1.0.0",
+  "scripts": {
+    "compile": "tsc --project ./tsconfig.json",
+    "eslint": "eslint ./src --fix"
+  },
   "private": true,
   "dependencies": {
     "@pixi/filter-adjustment": "^4.1.3",

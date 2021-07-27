@@ -2,7 +2,7 @@ image: node:15.6
 
 stages:
   - test
-  - build
+  - compile
 
 
 ESLinter:
@@ -15,16 +15,12 @@ ESLinter:
         paths:
             - node_modules
 
-# Build Nitro:
-#   stage: build
-#   script:
-#     - npm i
-#     - npm run build-prod
-#   cache:
-#     key: ${CI_COMMIT_BRANCH}
-#     paths:
-#       - node_modules
-#   artifacts:
-#     expire_in: 2 weeks
-#     paths:
-#       - dist/*
+Compile:
+   stage: compile
+   script:
+       - npm i
+       - npm run compile
+   cache:
+       key: ${CI_COMMIT_BRANCH}
+       paths:
+         - node_modules
