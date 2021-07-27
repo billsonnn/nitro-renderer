@@ -9,18 +9,27 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "importHelpers": true,
+    "isolatedModules": true,
     "resolveJsonModule": true,
+    "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2015",
-    "module": "es6",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "target": "es5",
     "lib": [
-      "es2018",
-      "dom"
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
+    "module": "esnext",
     "paths": {
       "mini-signals": [
-        "node_modules/resource-loader/typings/mini-signals.d.ts"
+        "node_modules/mini-signals/index.js"
       ]
     },
-  }
+  },
+  "include": [
+    "src"
+  ]
 }
