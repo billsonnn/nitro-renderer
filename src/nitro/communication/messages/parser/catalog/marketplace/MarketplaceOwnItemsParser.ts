@@ -3,7 +3,7 @@ import { IMessageParser } from '../../../../../../core/communication/messages/IM
 import { IObjectData } from '../../../../../room/object/data/IObjectData';
 import { ObjectDataFactory } from '../../../../../room/object/data/ObjectDataFactory';
 import { LegacyDataType } from '../../../../../room/object/data/type/LegacyDataType';
-import { MarketplaceOffer } from '../utils/MarketPlaceOffer';
+import { MarketplaceOffer } from './MarketplaceOffer';
 
 
 export class MarketplaceOwnItemsParser implements IMessageParser

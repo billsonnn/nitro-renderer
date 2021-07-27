@@ -11,6 +11,4 @@ export * from './ClubGiftData';
 export * from './ICatalogLocalizationData';
 export * from './ICatalogPageData';
 export * from './ICatalogPageParser';
-export * from './MarketPlaceOffer';
-export * from './MarketplaceOfferData';
 export * from './SellablePetPaletteData';
