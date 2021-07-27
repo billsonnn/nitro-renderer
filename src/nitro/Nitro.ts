@@ -146,12 +146,12 @@ export class Nitro extends Application implements INitro
             this._roomEngine.init();
         }
 
-        new GameMessageHandler(this._communication.connection);
-
         if(!this._communication.connection)
         {
             throw new Error('No connection found');
         }
+
+        new GameMessageHandler(this._communication.connection);
 
         this._isReady = true;
     }
