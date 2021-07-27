@@ -13,7 +13,7 @@ export interface IAssetData {
     logicType?: string;
     maskType?: string;
     credits?: string;
-    soundSample?: number;
+    soundSample?: { id?: number, noPitch?: boolean };
     action?: { link?: string, startState?: number };
     spritesheet?: ISpritesheet;
     dimensions?: IAssetDimension;

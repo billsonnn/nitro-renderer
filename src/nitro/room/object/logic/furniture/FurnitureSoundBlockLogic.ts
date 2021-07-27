@@ -44,7 +44,9 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
 
         if(!asset.soundSample) return;
 
-        this._sampleId = asset.soundSample;
+        this._sampleId = asset.soundSample.id;
+        this._noPitch = asset.soundSample.noPitch;
+
         this.updateModel();
     }
 
