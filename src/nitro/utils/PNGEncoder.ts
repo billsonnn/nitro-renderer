@@ -56,6 +56,8 @@ export class PNGEncoder
 
         PNGEncoder.writeChunk(writer1, 1229209940, writer3);
         PNGEncoder.writeChunk(writer1, 1229278788, null);
+
+        return writer1.getBuffer();
     }
 
     private static getPixel(imageData: ImageData, x: number, y: number): number
