@@ -1,10 +1,12 @@
 export class BinaryWriter
 {
     private _buffer: Uint8Array;
+    private _position: number;
 
     constructor()
     {
         this._buffer = new Uint8Array();
+        this._position = 0;
     }
 
     public writeByte(byte: number): BinaryWriter
@@ -74,17 +76,28 @@ export class BinaryWriter
     {
         if(!array) return;
 
-        const mergedArray = new Uint8Array(this._buffer.length + array.length);
+        const mergedArray = new Uint8Array( ((this.position + array.length) > this._buffer.length) ?  (this.position + array.length) : this._buffer.length);
 
         mergedArray.set(this._buffer);
-        mergedArray.set(array, this._buffer.length);
+        mergedArray.set(array, this.position);
 
         this._buffer = mergedArray;
+        this.position += array.length;
     }
 
     public getBuffer(): ArrayBuffer
     {
         return this._buffer.buffer;
+    }
+
+    public get position(): number
+    {
+        return this._position;
+    }
+
+    public set position(pos: number)
+    {
+        this._position = pos;
     }
 
     public toString(encoding?: string): string
