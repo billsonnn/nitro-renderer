@@ -90,7 +90,7 @@ export interface IRoomEngine extends INitroManager
     processRoomObjectOperation(objectId: number, category: number, operation: string): boolean;
     processRoomObjectPlacement(placementSource: string, id: number, category: number, typeId: number, legacyString?: string, stuffData?: IObjectData, state?: number, frameNumber?: number, posture?: string): boolean;
     dispatchMouseEvent(canvasId: number, x: number, y: number, type: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean, buttonDown: boolean): void;
-    createRoomScreenshot(roomId: number, canvasId?: number, bounds?: Rectangle): HTMLImageElement;
+    createRoomScreenshot(roomId: number, canvasId?: number, bounds?: Rectangle, sendToServer?: boolean): HTMLImageElement;
     modifyRoomObjectData(objectId: number, objectCategory: number, colorHex: string, text: string): boolean;
     deleteRoomObject(objectId: number, objectCategory: number): boolean;
     sessionDataManager: ISessionDataManager;

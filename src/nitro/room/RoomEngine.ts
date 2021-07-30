@@ -30,6 +30,7 @@ import { RoomGeometry } from '../../room/utils/RoomGeometry';
 import { Vector3d } from '../../room/utils/Vector3d';
 import { PetCustomPart } from '../avatar/pets/PetCustomPart';
 import { PetFigureData } from '../avatar/pets/PetFigureData';
+import { RenderRoomMessageComposer } from '../communication';
 import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { ToolbarIconEnum } from '../enums/ToolbarIconEnum';
 import { NitroToolbarAnimateIconEvent } from '../events/NitroToolbarAnimateIconEvent';
@@ -3447,7 +3448,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return null;
     }
 
-    public createRoomScreenshot(roomId: number, canvasId: number = -1, bounds: Rectangle = null): HTMLImageElement
+    public createRoomScreenshot(roomId: number, canvasId: number = -1, bounds: Rectangle = null, sendToServer: boolean = false): HTMLImageElement
     {
         let canvas: IRoomRenderingCanvas = null;
 
@@ -3469,6 +3470,15 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         else
         {
             texture = canvas.getDisplayAsTexture();
+        }
+
+        if(sendToServer)
+        {
+            const composer = new RenderRoomMessageComposer();
+
+            composer.assignBitmap(texture);
+
+            this._communication.connection.send(composer);
         }
 
         const base64    = TextureUtils.generateImageUrl(texture);
