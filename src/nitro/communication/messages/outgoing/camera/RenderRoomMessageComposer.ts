@@ -28,10 +28,12 @@ export class RenderRoomMessageComposer implements IMessageComposer<ConstructorPa
 
         if(!url) return;
 
-        const data = url.split(',')[1];
+        const base64Data = url.split(',')[1];
+        const binaryData = atob(base64Data);
+
         const codes: Byte[] = [];
 
-        for(let i = 0; i < data.length; i++) codes.push(new Byte(data.charCodeAt(i)));
+        for(let i = 0; i < binaryData.length; i++) codes.push(new Byte(binaryData.charCodeAt(i)));
 
         this._data.push(codes.length, ...codes);
     }
