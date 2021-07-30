@@ -84,7 +84,7 @@ export class NitroCommunicationDemo extends NitroManager
 
         this.dispatchCommunicationDemoEvent(NitroCommunicationDemoEvent.CONNECTION_ESTABLISHED, connection);
 
-        if(Nitro.instance.getConfiguration<boolean>('communication.pong.manually', false)) this.startPonging();
+        if(Nitro.instance.getConfiguration<boolean>('system.pong.manually', false)) this.startPonging();
 
         this.startHandshake(connection);
 
@@ -177,7 +177,7 @@ export class NitroCommunicationDemo extends NitroManager
     {
         this.stopPonging();
 
-        this._pongInterval = setInterval(this.sendPong, Nitro.instance.getConfiguration<number>('communication.pong.interval.ms', 20000));
+        this._pongInterval = setInterval(this.sendPong, Nitro.instance.getConfiguration<number>('system.pong.interval.ms', 20000));
     }
 
     private stopPonging(): void

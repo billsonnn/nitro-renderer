@@ -74,7 +74,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         this._container                     = container;
 
         this._geometry                      = new RoomGeometry(scale, new Vector3d(-135, 30, 0), new Vector3d(11, 11, 5), new Vector3d(-135, 0.5, 0));
-        this._animationFPS                  = Nitro.instance.getConfiguration<number>('animation.fps', 24);
+        this._animationFPS                  = Nitro.instance.getConfiguration<number>('system.animation.fps', 24);
         this._renderTimestamp               = 0;
         this._totalTimeRunning              = 0;
         this._lastFrame                     = 0;

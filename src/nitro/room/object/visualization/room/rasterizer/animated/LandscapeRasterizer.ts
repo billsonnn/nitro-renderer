@@ -139,8 +139,8 @@ export class LandscapeRasterizer extends PlaneRasterizer
                                             const assetId   = item.assetId;
                                             const x         = this.getCoordinateValue(item.x || '', item.randomX || '');
                                             const y         = this.getCoordinateValue(item.y || '', item.randomY || '');
-                                            const speedX    = item.speedX ? item.speedX / Nitro.instance.getConfiguration<number>('animation.fps') : 0;
-                                            const speedY    = item.speedY ? item.speedY / Nitro.instance.getConfiguration<number>('animation.fps') : 0;
+                                            const speedX    = item.speedX ? item.speedX / Nitro.instance.getConfiguration<number>('system.animation.fps') : 0;
+                                            const speedY    = item.speedY ? item.speedY / Nitro.instance.getConfiguration<number>('system.animation.fps') : 0;
 
                                             animationItems.push({
                                                 asset: assetId,
