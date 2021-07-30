@@ -226,6 +226,12 @@ import { UserCurrencyUpdateEvent } from './messages/incoming/user/inventory/curr
 import { UserSubscriptionEvent } from './messages/incoming/user/inventory/subscription/UserSubscriptionEvent';
 import { UserWardrobePageEvent } from './messages/incoming/user/wardrobe/UserWardrobePageEvent';
 import { RequestAchievementsMessageComposer } from './messages/outgoing/achievements/RequestAchievementsMessageComposer';
+import { PhotoCompetitionMessageComposer } from './messages/outgoing/camera/PhotoCompetitionMessageComposer';
+import { PublishPhotoMessageComposer } from './messages/outgoing/camera/PublishPhotoMessageComposer';
+import { PurchasePhotoMessageComposer } from './messages/outgoing/camera/PurchasePhotoMessageComposer';
+import { RenderRoomMessageComposer } from './messages/outgoing/camera/RenderRoomMessageComposer';
+import { RenderRoomThumbnailMessageComposer } from './messages/outgoing/camera/RenderRoomThumbnailMessageComposer';
+import { RequestCameraConfigurationComposer } from './messages/outgoing/camera/RequestCameraConfigurationComposer';
 import { CatalogGroupsComposer } from './messages/outgoing/catalog/CatalogGroupsComposer';
 import { CatalogModeComposer } from './messages/outgoing/catalog/CatalogModeComposer';
 import { CatalogPageComposer } from './messages/outgoing/catalog/CatalogPageComposer';
@@ -1155,6 +1161,14 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.GET_CRAFTABLE_PRODUCTS, GetCraftableProductsComposer);
         this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPE, GetCraftingRecipeComposer);
         this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPES_AVAILABLE, GetCraftingRecipesAvailableComposer);
+
+        // CAMERA
+        this._composers.set(OutgoingHeader.REQUEST_CAMERA_CONFIGURATION, RequestCameraConfigurationComposer);
+        this._composers.set(OutgoingHeader.RENDER_ROOM, RenderRoomMessageComposer);
+        this._composers.set(OutgoingHeader.RENDER_ROOM_THUMBNAIL, RenderRoomThumbnailMessageComposer);
+        this._composers.set(OutgoingHeader.PURCHASE_PHOTO, PurchasePhotoMessageComposer);
+        this._composers.set(OutgoingHeader.PUBLISH_PHOTO, PublishPhotoMessageComposer);
+        this._composers.set(OutgoingHeader.PHOTO_COMPETITION, PhotoCompetitionMessageComposer);
     }
 
     public get events(): Map<number, Function>

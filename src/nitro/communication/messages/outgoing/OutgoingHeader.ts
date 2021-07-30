@@ -270,4 +270,10 @@ export class OutgoingHeader
     public static GET_CRAFTABLE_PRODUCTS           = 633;
     public static GET_CRAFTING_RECIPE              = 1173;
     public static GET_CRAFTING_RECIPES_AVAILABLE   = 3086;
+    public static PHOTO_COMPETITION                = 3959;
+    public static PUBLISH_PHOTO                    = 2068;
+    public static PURCHASE_PHOTO                   = 2408;
+    public static RENDER_ROOM                      = 3226;
+    public static RENDER_ROOM_THUMBNAIL            = 1982;
+    public static REQUEST_CAMERA_CONFIGURATION     = 796;
 }

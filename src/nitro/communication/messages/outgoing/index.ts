@@ -1,4 +1,5 @@
 export * from './achievements';
+export * from './camera';
 export * from './catalog';
 export * from './client';
 export * from './desktop';
