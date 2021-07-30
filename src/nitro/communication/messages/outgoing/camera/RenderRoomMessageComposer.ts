@@ -1,5 +1,4 @@
 import { RenderTexture } from 'pixi.js';
-import { Byte } from '../../../../../core/communication/codec/Byte';
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 import { PNGEncoder } from '../../../../utils/PNGEncoder';
 
@@ -26,9 +25,6 @@ export class RenderRoomMessageComposer implements IMessageComposer<ConstructorPa
     {
         const bitmapEncoded = PNGEncoder.encode(texture);
 
-        for(let i = 0; i < bitmapEncoded.byteLength; i++)
-        {
-            this._data[i] = new Byte(bitmapEncoded[i]);
-        }
+        this._data.push(bitmapEncoded);
     }
 }

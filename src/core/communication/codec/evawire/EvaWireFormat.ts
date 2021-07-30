@@ -24,6 +24,7 @@ export class EvaWireFormat implements ICodec
                 if(value === null)              type = 'null';
                 else if(value instanceof Byte)  type = 'byte';
                 else if(value instanceof Short) type = 'short';
+                else if(value instanceof ArrayBuffer) type = 'arraybuffer';
             }
 
             switch(type)
@@ -49,6 +50,9 @@ export class EvaWireFormat implements ICodec
                     {
                         writer.writeString(value, true);
                     }
+                    break;
+                case 'arraybuffer':
+                    writer.writeBytes(value);
                     break;
             }
         }
