@@ -30,7 +30,7 @@ import { RoomGeometry } from '../../room/utils/RoomGeometry';
 import { Vector3d } from '../../room/utils/Vector3d';
 import { PetCustomPart } from '../avatar/pets/PetCustomPart';
 import { PetFigureData } from '../avatar/pets/PetFigureData';
-import { RenderRoomMessageComposer } from '../communication';
+import { RenderRoomMessageComposer, RenderRoomThumbnailMessageComposer } from '../communication';
 import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { ToolbarIconEnum } from '../enums/ToolbarIconEnum';
 import { NitroToolbarAnimateIconEvent } from '../events/NitroToolbarAnimateIconEvent';
@@ -3448,7 +3448,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return null;
     }
 
-    public createRoomScreenshot(roomId: number, canvasId: number = -1, bounds: Rectangle = null, sendToServer: boolean = false): HTMLImageElement
+    public createRoomScreenshot(roomId: number, canvasId: number = -1, bounds: Rectangle = null, sendToServer: boolean = false, asThumbnail: boolean = false): HTMLImageElement
     {
         let canvas: IRoomRenderingCanvas = null;
 
@@ -3474,7 +3474,10 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(sendToServer)
         {
-            const composer = new RenderRoomMessageComposer();
+            let composer: RenderRoomMessageComposer = null;
+
+            if(asThumbnail) composer = new RenderRoomThumbnailMessageComposer();
+            else composer = new RenderRoomMessageComposer();
 
             composer.assignBitmap(texture);
 
