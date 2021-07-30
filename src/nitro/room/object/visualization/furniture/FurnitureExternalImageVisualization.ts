@@ -25,8 +25,9 @@ export class FurnitureExternalImageVisualization extends FurnitureDynamicThumbna
         if(!jsonString || jsonString === '') return null;
 
         if(this.object.type.indexOf('') >= 0)
-
+        {
             this._typePrefix = (this.object.type.indexOf('') >= 0) ? '' : 'postcards/selfie/';
+        }
 
         const json = JSON.parse(jsonString);
 
