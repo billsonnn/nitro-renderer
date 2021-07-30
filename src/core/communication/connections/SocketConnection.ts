@@ -194,12 +194,12 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
             if(!encoded)
             {
-                if(Nitro.instance.getConfiguration<boolean>('communication.packet.log')) console.log(`Encoding Failed: ${ composer.constructor.name }`);
+                if(Nitro.instance.getConfiguration<boolean>('system.packet.log')) console.log(`Encoding Failed: ${ composer.constructor.name }`);
 
                 continue;
             }
 
-            if(Nitro.instance.getConfiguration<boolean>('communication.packet.log')) console.log(`OutgoingComposer: [${ header }] ${ composer.constructor.name }`, message);
+            if(Nitro.instance.getConfiguration<boolean>('system.packet.log')) console.log(`OutgoingComposer: [${ header }] ${ composer.constructor.name }`, message);
 
             this.write(encoded.getBuffer());
         }
@@ -257,7 +257,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
             if(!messages || !messages.length) continue;
 
-            if(Nitro.instance.getConfiguration<boolean>('communication.packet.log'))
+            if(Nitro.instance.getConfiguration<boolean>('system.packet.log'))
             {
                 console.log(`IncomingMessage: [${ wrapper.header }] ${ messages[0].constructor.name }`, messages[0].parser);
             }
@@ -291,7 +291,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
         if(!events || !events.length)
         {
-            if(Nitro.instance.getConfiguration<boolean>('communication.packet.log'))
+            if(Nitro.instance.getConfiguration<boolean>('system.packet.log'))
             {
                 console.log(`IncomingMessage: [${ wrapper.header }] UNREGISTERED`, wrapper);
             }

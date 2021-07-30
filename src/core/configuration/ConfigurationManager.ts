@@ -6,12 +6,14 @@ import { IConfigurationManager } from './IConfigurationManager';
 export class ConfigurationManager extends NitroManager implements IConfigurationManager
 {
     private _definitions: AdvancedMap<string, unknown>;
+    private _pendingUrls: string[];
 
     constructor()
     {
         super();
 
         this._definitions = new AdvancedMap();
+        this._pendingUrls = [];
 
         this.onConfigurationLoaded = this.onConfigurationLoaded.bind(this);
     }
@@ -19,7 +21,38 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
     protected onInit(): void
     {
         //@ts-ignore
-        this.loadConfigurationFromUrl(NitroConfig.configurationUrl);
+        let urls: string[] = NitroConfig.configurationUrls;
+
+        if(!urls || !urls.length)
+        {
+            //@ts-ignore
+            const url: string = NitroConfig.configurationUrl;
+
+            if(url && url.length) urls = [ url ];
+        }
+
+        if(!urls || !urls.length)
+        {
+            this.dispatchConfigurationEvent(ConfigurationEvent.FAILED);
+
+            return;
+        }
+
+        this._pendingUrls = urls;
+
+        this.loadNextConfiguration();
+    }
+
+    private loadNextConfiguration(): void
+    {
+        if(!this._pendingUrls.length)
+        {
+            this.dispatchConfigurationEvent(ConfigurationEvent.LOADED);
+
+            return;
+        }
+
+        this.loadConfigurationFromUrl(this._pendingUrls[0]);
     }
 
     public loadConfigurationFromUrl(url: string): void
@@ -33,17 +66,21 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
         fetch(url)
             .then(response => response.json())
-            .then(data => this.onConfigurationLoaded(data))
+            .then(data => this.onConfigurationLoaded(data, url))
             .catch(err => this.onConfigurationFailed(err));
     }
 
-    private onConfigurationLoaded(data: { [index: string]: any }): void
+    private onConfigurationLoaded(data: { [index: string]: any }, url: string): void
     {
         if(!data) return;
 
         if(this.parseConfiguration(data))
         {
-            this.dispatchConfigurationEvent(ConfigurationEvent.LOADED);
+            const index = this._pendingUrls.indexOf(url);
+
+            if(index >= 0) this._pendingUrls.splice(index, 1);
+
+            this.loadNextConfiguration();
 
             return;
         }

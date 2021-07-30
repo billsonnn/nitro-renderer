@@ -217,8 +217,8 @@ export class Nitro extends Application implements INitro
 
     private onConfigurationLoadedEvent(event: ConfigurationEvent): void
     {
-        const animationFPS  = this.getConfiguration<number>('animation.fps', 24);
-        const limitsFPS     = this.getConfiguration<boolean>('limits.fps', true);
+        const animationFPS  = this.getConfiguration<number>('system.animation.fps', 24);
+        const limitsFPS     = this.getConfiguration<boolean>('system.limits.fps', true);
 
         if(limitsFPS) Nitro.instance.ticker.maxFPS = animationFPS;
     }
