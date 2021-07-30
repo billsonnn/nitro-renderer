@@ -1,4 +1,5 @@
 import { RenderTexture } from '@pixi/core';
+import { deflate, DeflateFunctionOptions } from 'pako';
 import { BinaryWriter } from '../../core/communication/codec/BinaryWriter';
 import { TextureUtils } from '../../room';
 
@@ -59,7 +60,12 @@ export class PNGEncoder
 
         writer3.writeBytes(imagePixelData);
 
-        PNGEncoder.writeChunk(writer1, 1229209940, writer3);
+        const writer4 = new BinaryWriter();
+        const defaultZlibOptions: DeflateFunctionOptions = {
+            level: 3,
+        };
+        writer4.writeBytes(deflate(new Uint8Array(writer3.getBuffer()), defaultZlibOptions));
+        PNGEncoder.writeChunk(writer1, 1229209940, writer4);
         PNGEncoder.writeChunk(writer1, 1229278788, null);
 
         return writer1.getBuffer();
