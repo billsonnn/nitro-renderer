@@ -35,7 +35,9 @@ export class PNGEncoder
         const writer3 = new BinaryWriter();
 
         let _local_5 = 0;
+        let index = 0;
 
+        const imagePixelData: number[] = new Array(texture.width * texture.height);
         while(_local_5 < texture.height)
         {
             writer3.writeByte(0);
@@ -44,15 +46,18 @@ export class PNGEncoder
 
             while(_local_7 < texture.width)
             {
-                const _local_6 = PNGEncoder.getPixel(imageData, _local_7, _local_5);
-
-                writer3.writeInt((((_local_6 & 0xFFFFFF) << 8) | 0xFF));
+                const _local_6 = PNGEncoder.getPixel(imageData.data, imageData.width, _local_7, _local_5);
+                imagePixelData[index] = (((_local_6 & 0xFFFFFF) << 8) | 0xFF);
+                //writer3.writeInt((((_local_6 & 0xFFFFFF) << 8) | 0xFF));
 
                 _local_7++;
+                index++;
             }
 
             _local_5++;
         }
+
+        writer3.writeBytes(imagePixelData);
 
         PNGEncoder.writeChunk(writer1, 1229209940, writer3);
         PNGEncoder.writeChunk(writer1, 1229278788, null);
@@ -60,12 +65,12 @@ export class PNGEncoder
         return writer1.getBuffer();
     }
 
-    private static getPixel(imageData: ImageData, x: number, y: number): number
+    private static getPixel(imageData: Uint8ClampedArray, width: number, x: number, y: number): number
     {
-        const r = imageData.data[ ((y*(imageData.width*4)) + (x*4)) + 0 ];
-        const g = imageData.data[ ((y*(imageData.width*4)) + (x*4)) + 1 ];
-        const b = imageData.data[ ((y*(imageData.width*4)) + (x*4)) + 2 ];
-        const a = imageData.data[ ((y*(imageData.width*4)) + (x*4)) + 3 ];
+        const r = imageData[ ((y*(width*4)) + (x*4)) + 0 ];
+        const g = imageData[ ((y*(width*4)) + (x*4)) + 1 ];
+        const b = imageData[ ((y*(width*4)) + (x*4)) + 2 ];
+        const a = imageData[ ((y*(width*4)) + (x*4)) + 3 ];
 
         return (r << 16 | g << 8 | b | a << 24);
     }

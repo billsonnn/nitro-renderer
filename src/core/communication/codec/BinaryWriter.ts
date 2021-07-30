@@ -20,7 +20,7 @@ export class BinaryWriter
         return this;
     }
 
-    public writeBytes(bytes: ArrayBuffer): BinaryWriter
+    public writeBytes(bytes: ArrayBuffer | number[]): BinaryWriter
     {
         const array = new Uint8Array(bytes);
 
