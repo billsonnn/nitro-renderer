@@ -1,6 +1,7 @@
 import { RenderTexture } from 'pixi.js';
+import { Byte } from '../../../../../core';
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
-import { PNGEncoder } from '../../../../utils/PNGEncoder';
+import { TextureUtils } from '../../../../../room';
 
 export class RenderRoomMessageComposer implements IMessageComposer<ConstructorParameters<typeof RenderRoomMessageComposer>>
 {
@@ -23,8 +24,15 @@ export class RenderRoomMessageComposer implements IMessageComposer<ConstructorPa
 
     public assignBitmap(texture: RenderTexture):void
     {
-        const bitmapEncoded = PNGEncoder.encode(texture);
+        const url = TextureUtils.generateImageUrl(texture);
 
-        this._data.push(bitmapEncoded);
+        if(!url) return;
+
+        const data = url.split(',')[1];
+        const codes: Byte[] = [];
+
+        for(let i = 0; i < data.length; i++) codes.push(new Byte(data.charCodeAt(i)));
+
+        this._data.push(codes.length, ...codes);
     }
 }

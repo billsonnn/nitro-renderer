@@ -1,5 +1,4 @@
 import { RenderTexture } from '@pixi/core';
-import { deflate, DeflateFunctionOptions } from 'pako';
 import { BinaryWriter } from '../../core/communication/codec/BinaryWriter';
 import { TextureUtils } from '../../room';
 
@@ -33,40 +32,37 @@ export class PNGEncoder
 
         PNGEncoder.writeChunk(writer1, 1229472850, writer2);
 
-        const writer3 = new BinaryWriter();
-
         let _local_5 = 0;
-        let index = 0;
 
-        const imagePixelData: number[] = new Array(texture.width * texture.height);
+        const imagePixelData: number[] = [];
+
         while(_local_5 < texture.height)
         {
-            writer3.writeByte(0);
+            imagePixelData.push(0);
 
             let _local_7 = 0;
 
             while(_local_7 < texture.width)
             {
                 const _local_6 = PNGEncoder.getPixel(imageData.data, imageData.width, _local_7, _local_5);
-                imagePixelData[index] = (((_local_6 & 0xFFFFFF) << 8) | 0xFF);
+                imagePixelData.push(Math.abs(((_local_6 & 0xFFFFFF) << 8) | 0xFF));
                 //writer3.writeInt((((_local_6 & 0xFFFFFF) << 8) | 0xFF));
 
                 _local_7++;
-                index++;
             }
 
             _local_5++;
         }
 
-        writer3.writeBytes(imagePixelData);
+        // console.log(imagePixelData);
 
-        const writer4 = new BinaryWriter();
-        const defaultZlibOptions: DeflateFunctionOptions = {
-            level: 3,
-        };
-        writer4.writeBytes(deflate(new Uint8Array(writer3.getBuffer()), defaultZlibOptions));
-        PNGEncoder.writeChunk(writer1, 1229209940, writer4);
-        PNGEncoder.writeChunk(writer1, 1229278788, null);
+        // const writer4 = new BinaryWriter();
+        // const defaultZlibOptions: DeflateFunctionOptions = {
+        //     level: 3,
+        // };
+        // writer4.writeBytes(deflate(new Uint8Array(imagePixelData), defaultZlibOptions));
+        // PNGEncoder.writeChunk(writer1, 1229209940, writer4);
+        // PNGEncoder.writeChunk(writer1, 1229278788, null);
 
         return writer1.getBuffer();
     }
@@ -134,9 +130,11 @@ export class PNGEncoder
 
         let _local_7 = 0;
 
+        const int8View = new Uint8Array(writer1.getBuffer());
+
         while(_local_7 < (_local_6 - _local_5))
         {
-            _local_8 = (PNGEncoder.crcTable[((_local_8 ^ writer1.getBuffer()[--writer1.position]) & 0xFF)] ^ (_local_8 >>> 8));
+            _local_8 = (PNGEncoder.crcTable[((_local_8 ^ int8View[--writer1.position]) & 0xFF)] ^ (_local_8 >>> 8));
             _local_7++;
         }
 
