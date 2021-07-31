@@ -3,42 +3,43 @@ import { IMessageParser } from './../../../../../core/communication/messages/IMe
 
 export class CameraPublishStatusMessageParser implements IMessageParser
 {
-  private _ok: boolean = false;
-  private _secondsToWait: number = 0;
-  private _extraDataId: string;
+    private _ok: boolean = false;
+    private _secondsToWait: number = 0;
+    private _extraDataId: string;
 
+    public flush(): boolean
+    {
+        this._ok = false;
+        this._secondsToWait = 0;
+        this._extraDataId = null;
 
-  public isOk(): boolean
-  {
-      return this._ok;
-  }
+        return true;
+    }
 
-  public getSecondsToWait(): number
-  {
-      return this._secondsToWait;
-  }
+    public parse(wrapper: IMessageDataWrapper): boolean
+    {
+        if(!wrapper) return false;
 
-  public getExtraDataId(): string
-  {
-      return this._extraDataId;
-  }
+        this._ok = wrapper.readBoolean();
+        this._secondsToWait = wrapper.readInt();
 
-  public flush(): boolean
-  {
-      this._ok = false;
-      this._secondsToWait = 0;
-      this._extraDataId = null;
-      return true;
-  }
+        if(this._ok && wrapper.bytesAvailable) this._extraDataId = wrapper.readString();
 
-  public parse(k: IMessageDataWrapper): boolean
-  {
-      this._ok = k.readBoolean();
-      this._secondsToWait = k.readInt();
-      if(((this._ok) && (k.bytesAvailable)))
-      {
-          this._extraDataId = k.readString();
-      }
-      return true;
-  }
+        return true;
+    }
+
+    public get ok(): boolean
+    {
+        return this._ok;
+    }
+
+    public get secondsToWait(): number
+    {
+        return this._secondsToWait;
+    }
+
+    public get extraDataId(): string
+    {
+        return this._extraDataId;
+    }
 }

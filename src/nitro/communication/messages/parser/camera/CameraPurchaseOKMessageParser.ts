@@ -3,13 +3,15 @@ import { IMessageParser } from './../../../../../core/communication/messages/IMe
 
 export class CameraPurchaseOKMessageParser implements IMessageParser
 {
-    public flush():boolean
+    public flush(): boolean
     {
         return true;
     }
 
-    public parse(k:IMessageDataWrapper):boolean
+    public parse(wrapper: IMessageDataWrapper): boolean
     {
+        if(!wrapper) return false;
+
         return true;
     }
 }

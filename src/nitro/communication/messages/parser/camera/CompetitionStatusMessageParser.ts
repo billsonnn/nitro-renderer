@@ -3,31 +3,34 @@ import { IMessageParser } from './../../../../../core/communication/messages/IMe
 
 export class CompetitionStatusMessageParser implements IMessageParser
 {
-  private _ok:boolean = false;
-  private _errorReason:string = null;
+    private _ok: boolean = false;
+    private _errorReason: string = null;
 
+    public flush(): boolean
+    {
+        this._ok = false;
+        this._errorReason = null;
 
-  public isOk():boolean
-  {
-      return this._ok;
-  }
+        return true;
+    }
 
-  public getErrorReason():string
-  {
-      return this._errorReason;
-  }
+    public parse(wrapper: IMessageDataWrapper): boolean
+    {
+        if(!wrapper) return false;
 
-  public flush():boolean
-  {
-      this._ok = false;
-      this._errorReason = null;
-      return true;
-  }
+        this._ok = wrapper.readBoolean();
+        this._errorReason = wrapper.readString();
 
-  public parse(k:IMessageDataWrapper):boolean
-  {
-      this._ok = k.readBoolean();
-      this._errorReason = k.readString();
-      return true;
-  }
+        return true;
+    }
+
+    public get ok(): boolean
+    {
+        return this._ok;
+    }
+
+    public get errorReason(): string
+    {
+        return this._errorReason;
+    }
 }

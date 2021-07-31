@@ -3,42 +3,43 @@ import { IMessageParser } from './../../../../../core/communication/messages/IMe
 
 export class InitCameraMessageParser implements IMessageParser
 {
-  private _creditPrice:number = 0;
-  private _ducketPrice:number = 0;
-  private _publishDucketPrice:number = 0;
+    private _creditPrice: number = 0;
+    private _ducketPrice: number = 0;
+    private _publishDucketPrice: number = 0;
 
+    public flush(): boolean
+    {
+        this._creditPrice = 0;
+        this._ducketPrice = 0;
+        this._publishDucketPrice = 0;
 
-  public getCreditPrice():number
-  {
-      return this._creditPrice;
-  }
+        return true;
+    }
 
-  public getDucketPrice():number
-  {
-      return this._ducketPrice;
-  }
+    public parse(wrapper: IMessageDataWrapper): boolean
+    {
+        if(!wrapper) return false;
 
-  public getPublishDucketPrice():number
-  {
-      return this._publishDucketPrice;
-  }
+        this._creditPrice = wrapper.readInt();
+        this._ducketPrice = wrapper.readInt();
 
-  public flush():boolean
-  {
-      this._creditPrice = 0;
-      this._ducketPrice = 0;
-      this._publishDucketPrice = 0;
-      return true;
-  }
+        if(wrapper.bytesAvailable) this._publishDucketPrice = wrapper.readInt();
 
-  public parse(k:IMessageDataWrapper):boolean
-  {
-      this._creditPrice = k.readInt();
-      this._ducketPrice = k.readInt();
-      if(k.bytesAvailable)
-      {
-          this._publishDucketPrice = k.readInt();
-      }
-      return true;
-  }
+        return true;
+    }
+
+    public get creditPrice(): number
+    {
+        return this._creditPrice;
+    }
+
+    public get ducketPrice(): number
+    {
+        return this._ducketPrice;
+    }
+
+    public get publishDucketPrice(): number
+    {
+        return this._publishDucketPrice;
+    }
 }

@@ -3,34 +3,36 @@ import { IMessageParser } from './../../../../../core/communication/messages/IMe
 
 export class ThumbnailStatusMessageParser implements IMessageParser
 {
-  private _ok:boolean = true;
-  private _renderLimitHit:boolean = false;
+    private _ok: boolean = true;
+    private _renderLimitHit: boolean = false;
 
+    public flush(): boolean
+    {
+        this._ok = true;
+        this._renderLimitHit = false;
+        return true;
+    }
 
-  public isOk():boolean
-  {
-      return this._ok;
-  }
+    public parse(wrapper: IMessageDataWrapper): boolean
+    {
+        if(!wrapper) return false;
 
-  public isRenderLimitHit():boolean
-  {
-      return this._renderLimitHit;
-  }
+        if(wrapper.bytesAvailable)
+        {
+            this._ok = wrapper.readBoolean();
+            this._renderLimitHit = wrapper.readBoolean();
+        }
 
-  public flush():boolean
-  {
-      this._ok = true;
-      this._renderLimitHit = false;
-      return true;
-  }
+        return true;
+    }
 
-  public parse(k:IMessageDataWrapper):boolean
-  {
-      if(k.bytesAvailable)
-      {
-          this._ok = k.readBoolean();
-          this._renderLimitHit = k.readBoolean();
-      }
-      return true;
-  }
+    public get ok(): boolean
+    {
+        return this._ok;
+    }
+
+    public get isRenderLimitHit(): boolean
+    {
+        return this._renderLimitHit;
+    }
 }
