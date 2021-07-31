@@ -1,5 +1,4 @@
 import { RenderTexture } from 'pixi.js';
-import { Byte } from '../../../../../core';
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 import { TextureUtils } from '../../../../../room';
 
@@ -29,12 +28,8 @@ export class RenderRoomMessageComposer implements IMessageComposer<ConstructorPa
         if(!url) return;
 
         const base64Data = url.split(',')[1];
-        const binaryData = atob(base64Data);
+        const binaryData = Uint8Array.from(atob(base64Data), c => c.charCodeAt(0));
 
-        const codes: Byte[] = [];
-
-        for(let i = 0; i < binaryData.length; i++) codes.push(new Byte(binaryData.charCodeAt(i)));
-
-        this._data.push(codes.length, ...codes);
+        this._data.push(binaryData.byteLength, binaryData.buffer);
     }
 }
