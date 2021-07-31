@@ -1,5 +1,6 @@
 export * from './availability';
 export * from './avatar';
+export * from './camera';
 export * from './catalog';
 export * from './catalog/marketplace';
 export * from './client';
@@ -34,7 +35,6 @@ export * from './room/access';
 export * from './room/access/doorbell';
 export * from './room/access/rights';
 export * from './room/bots';
-export * from './room/camera';
 export * from './room/data';
 export * from './room/engine';
 export * from './room/furniture';

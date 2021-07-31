@@ -1,5 +1,6 @@
 export * from './availability';
 export * from './avatar';
+export * from './camera';
 export * from './catalog';
 export * from './client';
 export * from './desktop';

@@ -1,6 +1,5 @@
 export * from './access';
 export * from './bots';
-export * from './camera';
 export * from './data';
 export * from './engine';
 export * from './furniture';

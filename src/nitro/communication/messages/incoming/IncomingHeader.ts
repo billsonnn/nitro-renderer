@@ -5,11 +5,6 @@ export class IncomingHeader
     public static AUTHENTICATION                   = -1;
     public static AVAILABILITY_STATUS              = 2033;
     public static BUILDERS_CLUB_EXPIRED            = 1452;
-    public static CAMERA_PRICE                     = 3878;
-    public static CAMERA_PUBLISHED                 = 2057;
-    public static CAMERA_PURCHASE_SUCCESSFUL       = 2783;
-    public static CAMERA_THUMBNAIL_SAVED           = 3595;
-    public static CAMERA_URL                       = 3696;
     public static CATALOG_CLUB                     = 2405;
     public static CATALOG_MODE                     = 3828;
     public static CATALOG_PAGE                     = 804;
@@ -270,4 +265,10 @@ export class IncomingHeader
     public static CRAFTING_RECIPE                  = 2774;
     public static CRAFTING_RECIPES_AVAILABLE       = 2124;
     public static CRAFTING_RESULT                  = 618;
+    public static CAMERA_PUBLISH_STATUS            = 2057;
+    public static CAMERA_PURCHASE_OK               = 2783;
+    public static CAMERA_STORAGE_URL               = 3696;
+    public static COMPETITION_STATUS               = 133;
+    public static INIT_CAMERA                      = 3878;
+    public static THUMBNAIL_STATUS                 = 3595;
 }
