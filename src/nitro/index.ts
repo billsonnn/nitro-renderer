@@ -1,4 +1,5 @@
 export * from './avatar';
+export * from './camera';
 export * from './communication';
 export * from './enums';
 export * from './events';
