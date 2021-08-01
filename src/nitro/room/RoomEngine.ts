@@ -1049,6 +1049,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         {
             model.setValue(RoomObjectVariable.FURNITURE_COLOR, this.getFurnitureFloorColorIndex(data.typeId));
             model.setValue(RoomObjectVariable.FURNITURE_TYPE_ID, data.typeId);
+            model.setValue(RoomObjectVariable.FURNITURE_AD_URL, this.getRoomObjectAdUrl(data.type));
             model.setValue(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT, (data.realRoomObject ? 1 : 0));
             model.setValue(RoomObjectVariable.FURNITURE_EXPIRY_TIME, data.expiryTime);
             model.setValue(RoomObjectVariable.FURNITURE_EXPIRTY_TIMESTAMP, Nitro.instance.time);
@@ -1107,6 +1108,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         {
             model.setValue(RoomObjectVariable.FURNITURE_COLOR, this.getFurnitureWallColorIndex(data.typeId));
             model.setValue(RoomObjectVariable.FURNITURE_TYPE_ID, data.typeId);
+            model.setValue(RoomObjectVariable.FURNITURE_AD_URL, this.getRoomObjectAdUrl(data.type));
             model.setValue(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT, (data.realRoomObject ? 1 : 0));
             model.setValue(RoomObjectVariable.OBJECT_ACCURATE_Z_VALUE, 1);
             model.setValue(RoomObjectVariable.FURNITURE_EXPIRY_TIME, data.expiryTime);
@@ -3448,7 +3450,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return null;
     }
 
-    public createRoomScreenshot(roomId: number, canvasId: number = -1, bounds: Rectangle = null, sendToServer: boolean = false, asThumbnail: boolean = false): HTMLImageElement
+    public createTextureFromRoom(roomId: number, canvasId: number = -1, bounds: Rectangle = null): RenderTexture
     {
         let canvas: IRoomRenderingCanvas = null;
 
@@ -3472,27 +3474,19 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
             texture = canvas.getDisplayAsTexture();
         }
 
-        if(sendToServer)
-        {
-            let composer: RenderRoomMessageComposer = null;
+        return texture;
+    }
 
-            if(asThumbnail) composer = new RenderRoomThumbnailMessageComposer();
-            else composer = new RenderRoomMessageComposer();
+    public saveTextureAsScreenshot(texture: RenderTexture, saveAsThumbnail: boolean = false): void
+    {
+        let composer: RenderRoomMessageComposer = null;
 
-            composer.assignBitmap(texture);
+        if(saveAsThumbnail) composer = new RenderRoomThumbnailMessageComposer();
+        else composer = new RenderRoomMessageComposer();
 
-            this._communication.connection.send(composer);
-        }
+        composer.assignBitmap(texture);
 
-        const base64    = TextureUtils.generateImageUrl(texture);
-        const image     = new Image();
-
-        image.src = base64;
-
-        /*const newWindow = window.open('');
-        newWindow.document.write(image.outerHTML);*/
-
-        return image;
+        this._communication.connection.send(composer);
     }
 
     public objectsInitialized(k: string): void
@@ -3523,6 +3517,11 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         if(!object || !object.model) return null;
 
         return (object.model.getValue<string>(RoomObjectVariable.OBJECT_ROOM_ID));
+    }
+
+    private getRoomObjectAdUrl(type: string): string
+    {
+        return this._roomContentLoader.getRoomObjectAdUrl(type);
     }
 
     public getPetTypeId(figure: string): number

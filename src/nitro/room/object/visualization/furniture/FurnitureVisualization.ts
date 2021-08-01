@@ -26,6 +26,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
     protected _alphaMultiplier: number;
     protected _alphaChanged: boolean;
     protected _clickUrl: string;
+    protected _clickHandling: boolean;
 
     protected _cacheDirection: number;
     protected _cacheScale: number;
@@ -60,6 +61,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         this._alphaMultiplier       = 1;
         this._alphaChanged          = false;
         this._clickUrl              = null;
+        this._clickHandling         = false;
 
         this._cacheDirection        = -1;
         this._cacheScale            = 0;
@@ -224,6 +226,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
 
         this._selectedColor = model.getValue<number>(RoomObjectVariable.FURNITURE_COLOR);
         this._clickUrl      = model.getValue<string>(RoomObjectVariable.FURNITURE_AD_URL);
+        this._clickHandling = ((this._clickUrl && (this._clickUrl !== '') && (this._clickUrl.indexOf('http') === 0)) || false);
         this._furnitureLift = (model.getValue<number>(RoomObjectVariable.FURNITURE_LIFT_AMOUNT) || 0);
 
         let alphaMultiplier = model.getValue<number>(RoomObjectVariable.FURNITURE_ALPHA_MULTIPLIER);
@@ -318,9 +321,9 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
 
                 sprite.relativeDepth    = (relativeDepth * FurnitureVisualization.DEPTH_MULTIPLIER);
                 sprite.name             = assetName;
-                sprite.libraryAssetName        = this.getLibraryAssetNameForSprite(assetData, sprite);
+                sprite.libraryAssetName = this.getLibraryAssetNameForSprite(assetData, sprite);
                 sprite.posture          = this.getPostureForAsset(scale, assetData.source);
-                sprite.clickHandling    = false;
+                sprite.clickHandling    = this._clickHandling;
             }
             else
             {
@@ -348,11 +351,15 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         if(!sprite) return;
 
         sprite.texture          = null;
+        sprite.libraryAssetName = '';
+        sprite.posture          = '';
+        sprite.tag              = '';
         sprite.offsetX          = 0;
         sprite.offsetY          = 0;
         sprite.flipH            = false;
         sprite.flipV            = false;
         sprite.relativeDepth    = 0;
+        sprite.clickHandling    = false;
     }
 
     protected getSpriteAssetName(scale: number, layerId: number): string

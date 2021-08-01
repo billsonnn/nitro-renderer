@@ -253,6 +253,15 @@ export class RoomContentLoader implements IFurnitureDataListener
         return name.substr(0, index);
     }
 
+    public getRoomObjectAdUrl(type: string): string
+    {
+        const value = this._objectTypeAdUrls.get(type);
+
+        if(!value) return '';
+
+        return value;
+    }
+
     public getPetColorResult(petIndex: number, paletteIndex: number): PetColorResult
     {
         const colorResults = this._petColors.get(petIndex);
