@@ -56,4 +56,9 @@ export class FurnitureRoomBackgroundVisualization extends FurnitureBrandedImageV
     {
         return super.getLayerZOffset(scale, direction, layerId) + (-(this._offsetZ));
     }
+
+    protected getLayerIgnoreMouse(scale: number, direction: number, layerId: number): boolean
+    {
+        return true;
+    }
 }
