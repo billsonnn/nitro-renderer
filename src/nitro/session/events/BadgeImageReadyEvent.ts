@@ -1,4 +1,4 @@
-import { Resource, Texture } from 'pixi.js';
+import { Resource, Texture } from '@pixi/core';
 import { NitroEvent } from '../../../core/events/NitroEvent';
 
 export class BadgeImageReadyEvent extends NitroEvent

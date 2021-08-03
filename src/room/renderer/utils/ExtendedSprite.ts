@@ -1,4 +1,8 @@
-import { BaseTexture, BLEND_MODES, Point, RenderTexture, Resource, Sprite, Texture } from 'pixi.js';
+import { BLEND_MODES } from '@pixi/constants';
+import { BaseTexture, RenderTexture, Resource, Texture } from '@pixi/core';
+import { Point } from '@pixi/math';
+import { Sprite } from '@pixi/sprite';
+import { NitroSprite } from '../../../core';
 import { TextureUtils } from '../../utils';
 
 export class ExtendedSprite extends Sprite
@@ -12,6 +16,8 @@ export class ExtendedSprite extends Sprite
 
     private _pairedSpriteId: number;
     private _pairedSpriteUpdateCounter: number;
+
+    public name: string;
 
     constructor(texture: Texture<Resource> = null)
     {
@@ -93,7 +99,7 @@ export class ExtendedSprite extends Sprite
                 //@ts-ignore
                 if(!texture.getLocalBounds)
                 {
-                    const tempSprite = Sprite.from(texture);
+                    const tempSprite = new NitroSprite(texture);
 
                     canvas = TextureUtils.generateCanvas(tempSprite);
 

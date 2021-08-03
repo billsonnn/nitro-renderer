@@ -1,5 +1,6 @@
+import { WRAP_MODES } from '@pixi/constants';
+import { Buffer, ObjectRenderer, Renderer, Resource, Texture } from '@pixi/core';
 import { createIndicesForQuads } from '@pixi/utils';
-import { BaseTexture, Buffer, ObjectRenderer, Renderer, Texture, WRAP_MODES } from 'pixi.js';
 import { Constant } from './Constant';
 import { MultiTextureResource } from './MultiTextureResource';
 import type { TilemapShader } from './RectTileShader';
@@ -49,7 +50,7 @@ export class TileRenderer extends ObjectRenderer
         }
     }
 
-    bindTexturesWithoutRT(renderer: Renderer, shader: TilemapShader, textures: Array<Texture>)
+    bindTexturesWithoutRT(renderer: Renderer, shader: TilemapShader, textures: Texture<Resource>[])
     {
         const samplerSize: Array<number> = (shader as any).uniforms.uSamplerSize;
         this.texLoc.length = 0;

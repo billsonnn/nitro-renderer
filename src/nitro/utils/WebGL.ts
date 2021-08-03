@@ -1,9 +1,8 @@
-import { utils } from 'pixi.js';
-
+import { isWebGLSupported } from '@pixi/utils';
 export class WebGL
 {
     public static isWebGLAvailable(): boolean
     {
-        return utils.isWebGLSupported();
+        return isWebGLSupported();
     }
 }

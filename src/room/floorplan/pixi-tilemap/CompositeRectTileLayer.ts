@@ -1,10 +1,12 @@
-import { Container, Matrix, Renderer, Resource, Texture } from 'pixi.js';
+import { Renderer, Resource, Texture } from '@pixi/core';
+import { Container } from '@pixi/display';
+import { Matrix } from '@pixi/math';
 import { Constant } from './Constant';
 import { RectTileLayer } from './RectTileLayer';
 
 export class CompositeRectTileLayer extends Container
 {
-    constructor(zIndex?: number, bitmaps?: Array<Texture>, texPerChild?: number, alpha?: number)
+    constructor(zIndex?: number, bitmaps?: Texture<Resource>[], texPerChild?: number, alpha?: number)
     {
         super();
         // eslint-disable-next-line prefer-spread,prefer-rest-params

@@ -1,4 +1,6 @@
-import { DisplayObject, Point, RenderTexture } from 'pixi.js';
+import { RenderTexture } from '@pixi/core';
+import { DisplayObject } from '@pixi/display';
+import { Point } from '@pixi/math';
 import { RoomObjectSpriteData } from '../data/RoomObjectSpriteData';
 import { IRoomGeometry } from '../utils/IRoomGeometry';
 import { IRoomCanvasMouseListener } from './IRoomCanvasMouseListener';

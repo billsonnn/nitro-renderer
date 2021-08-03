@@ -1,4 +1,6 @@
-import { BaseTexture, GLTexture, IAutoDetectOptions, Renderer, Resource, Sprite, Texture } from 'pixi.js';
+import { BaseTexture, GLTexture, IAutoDetectOptions, Renderer, Resource, Texture } from '@pixi/core';
+import { Sprite } from '@pixi/sprite';
+import { NitroSprite } from '../../../core';
 
 export interface IMultiTextureOptions {
     boundCountPerBuffer: number;
@@ -18,7 +20,7 @@ export class MultiTextureResource extends Resource
         this.boundSize = options.boundSize;
         for(let j = 0; j < options.boundCountPerBuffer; j++)
         {
-            const spr = new Sprite();
+            const spr = new NitroSprite();
             spr.position.x = options.boundSize * (j & 1);
             spr.position.y = options.boundSize * (j >> 1);
             bounds.push(spr);

@@ -1,4 +1,9 @@
-import { Container, DisplayObject, Graphics, Matrix, Point, Rectangle, RenderTexture, Sprite } from 'pixi.js';
+import { RenderTexture } from '@pixi/core';
+import { Container, DisplayObject } from '@pixi/display';
+import { Graphics } from '@pixi/graphics';
+import { Matrix, Point, Rectangle } from '@pixi/math';
+import { Sprite } from '@pixi/sprite';
+import { NitroContainer, NitroSprite } from '../../core';
 import { Nitro } from '../../nitro/Nitro';
 import { MouseEventType } from '../../nitro/ui/MouseEventType';
 import { RoomObjectSpriteData } from '../data/RoomObjectSpriteData';
@@ -124,16 +129,14 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         if(!this._master)
         {
-            this._master = new Sprite();
+            this._master = new NitroSprite();
 
             this._master.interactiveChildren = false;
         }
 
         if(!this._display)
         {
-            const display = new Container();
-
-            display.name = 'canvas';
+            const display = new NitroContainer();
 
             this._master.addChild(display);
 
@@ -220,8 +223,6 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
                     .beginFill(0xFF0000)
                     .drawRect(0, 0, width, height)
                     .endFill();
-
-                this._mask.name = 'mask';
 
                 if(this._master)
                 {

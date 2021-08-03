@@ -1,5 +1,6 @@
+import { Resource, Texture } from '@pixi/core';
+import { Spritesheet } from '@pixi/spritesheet';
 import { Dict } from '@pixi/utils';
-import { Resource, Spritesheet, Texture } from 'pixi.js';
 import { AssetManager } from '../../../../core/asset/AssetManager';
 import { IAsset, IAssetData, IAssetPalette } from '../../../../core/asset/interfaces';
 import { Nitro } from '../../../../nitro/Nitro';
@@ -17,7 +18,7 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
 
     private _name: string;
     private _data: IAssetData;
-    private _textures: Map<string, Texture>;
+    private _textures: Map<string, Texture<Resource>>;
     private _assets: Map<string, GraphicAsset>;
     private _palettes: Map<string, GraphicAssetPalette>;
     private _paletteAssetNames: string[];

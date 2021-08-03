@@ -1,4 +1,4 @@
-﻿import { Point, Rectangle } from 'pixi.js';
+﻿import { Point, Rectangle } from '@pixi/math';
 import { RoomObjectSpriteData } from '../../../room/data/RoomObjectSpriteData';
 import { IPlaneDrawingData } from '../../../room/object/visualization/IPlaneDrawingData';
 import { IPlaneVisualization } from '../../../room/object/visualization/IPlaneVisualization';

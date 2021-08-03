@@ -1,4 +1,4 @@
-import { Resource, Texture } from 'pixi.js';
+import { Resource, Texture } from '@pixi/core';
 import { IAssetData } from '../../../../core/asset/interfaces';
 import { GraphicAssetPalette } from './GraphicAssetPalette';
 import { IGraphicAsset } from './IGraphicAsset';

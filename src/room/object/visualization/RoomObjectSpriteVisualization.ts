@@ -1,4 +1,6 @@
-import { Container, Point, Rectangle, RenderTexture, Sprite } from 'pixi.js';
+import { RenderTexture } from '@pixi/core';
+import { Point, Rectangle } from '@pixi/math';
+import { NitroContainer, NitroSprite } from '../../../core';
 import { RoomObjectSpriteData } from '../../data/RoomObjectSpriteData';
 import { IRoomGeometry } from '../../utils/IRoomGeometry';
 import { TextureUtils } from '../../utils/TextureUtils';
@@ -153,7 +155,7 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
             return b.relativeDepth - a.relativeDepth;
         });
 
-        const container = new Container();
+        const container = new NitroContainer();
 
         index = 0;
 
@@ -164,7 +166,7 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
 
             if(texture)
             {
-                const sprite = Sprite.from(texture);
+                const sprite = new NitroSprite(texture);
 
                 sprite.alpha            = (objectSprite.alpha / 255);
                 sprite.tint             = objectSprite.color;

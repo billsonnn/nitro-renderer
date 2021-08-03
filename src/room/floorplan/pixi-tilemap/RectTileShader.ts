@@ -1,4 +1,5 @@
-import { Buffer, Geometry, Matrix, Program, Shader } from 'pixi.js';
+import { Buffer, Geometry, Program, Shader } from '@pixi/core';
+import { Matrix } from '@pixi/math';
 import * as shaderGenerator from './shaderGenerator';
 
 const rectShaderFrag = `
@@ -22,6 +23,7 @@ void main(void){
   gl_FragColor = (color * vAlpha) + (gl_FragColor * (1.0 - vAlpha));
 }
 `;
+
 const rectShaderVert = `
 attribute vec2 aVertexPosition;
 attribute vec2 aTextureCoord;

@@ -1,4 +1,4 @@
-import { Point } from 'pixi.js';
+import { Point } from '@pixi/math';
 import { IRoomGeometry } from './IRoomGeometry';
 import { IVector3D } from './IVector3D';
 import { Vector3d } from './Vector3d';

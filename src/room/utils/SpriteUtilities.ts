@@ -1,4 +1,4 @@
-import { BLEND_MODES } from 'pixi.js';
+import { BLEND_MODES } from '@pixi/constants';
 
 export class SpriteUtilities
 {

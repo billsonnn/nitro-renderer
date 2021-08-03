@@ -1,4 +1,5 @@
-import { Container, Filter, Resource, Texture } from 'pixi.js';
+import { Filter, Resource, Texture } from '@pixi/core';
+import { Container } from '@pixi/display';
 
 export interface IRoomObjectSprite
 {

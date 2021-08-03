@@ -1,4 +1,6 @@
-import { BLEND_MODES, Container, Filter, Resource, Texture } from 'pixi.js';
+import { BLEND_MODES } from '@pixi/constants';
+import { Filter, Resource, Texture } from '@pixi/core';
+import { Container } from '@pixi/display';
 import { AlphaTolerance } from '../enum/AlphaTolerance';
 import { RoomObjectSpriteType } from '../enum/RoomObjectSpriteType';
 import { IRoomObjectSprite } from './IRoomObjectSprite';

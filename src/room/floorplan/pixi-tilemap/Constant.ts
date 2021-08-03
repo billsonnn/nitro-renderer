@@ -1,4 +1,4 @@
-import { SCALE_MODES } from 'pixi.js';
+import { SCALE_MODES } from '@pixi/constants';
 
 export const Constant = {
     maxTextures: 16,

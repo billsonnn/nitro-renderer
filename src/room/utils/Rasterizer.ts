@@ -1,4 +1,6 @@
-﻿import { Graphics, Matrix, Resource, Texture } from 'pixi.js';
+﻿import { Resource, Texture } from '@pixi/core';
+import { Graphics } from '@pixi/graphics';
+import { Matrix } from '@pixi/math';
 import { TextureUtils } from './TextureUtils';
 
 export class Rasterizer

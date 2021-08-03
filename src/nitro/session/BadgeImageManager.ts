@@ -1,4 +1,4 @@
-﻿import { Resource, Texture } from 'pixi.js';
+﻿import { Resource, Texture } from '@pixi/core';
 import { IAssetManager } from '../../core/asset/IAssetManager';
 import { IEventDispatcher } from '../../core/events/IEventDispatcher';
 import { Nitro } from '../Nitro';

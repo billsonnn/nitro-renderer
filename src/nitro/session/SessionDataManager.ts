@@ -1,4 +1,4 @@
-import { Resource, Texture } from 'pixi.js';
+import { Resource, Texture } from '@pixi/core';
 import { NitroManager } from '../../core/common/NitroManager';
 import { IMessageComposer } from '../../core/communication/messages/IMessageComposer';
 import { NitroEvent } from '../../core/events/NitroEvent';

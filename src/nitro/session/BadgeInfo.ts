@@ -1,4 +1,4 @@
-import { Resource, Texture } from 'pixi.js';
+import { Resource, Texture } from '@pixi/core';
 
 export class BadgeInfo
 {

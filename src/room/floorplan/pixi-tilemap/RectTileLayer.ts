@@ -1,4 +1,7 @@
-import { Bounds, Container, DRAW_MODES, groupD8, Matrix, Rectangle, Renderer, Resource, Texture } from 'pixi.js';
+import { DRAW_MODES } from '@pixi/constants';
+import { Renderer, Resource, Texture } from '@pixi/core';
+import { Bounds, Container } from '@pixi/display';
+import { groupD8, Matrix, Rectangle } from '@pixi/math';
 import { Constant } from './Constant';
 import { RectTileGeom } from './RectTileShader';
 import { TileRenderer } from './TileRenderer';
@@ -24,7 +27,7 @@ export const POINT_STRUCT_SIZE_TWO = (Object.keys(PointStruct).length / 2);
 //export const POINT_STRUCT_SIZE = 12;
 export class RectTileLayer extends Container
 {
-    constructor(zIndex: number, texture: Texture<Resource> | Array<Texture>)
+    constructor(zIndex: number, texture: Texture<Resource> | Texture<Resource>[])
     {
         super();
         this.initialize(zIndex, texture);

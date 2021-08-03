@@ -1,4 +1,5 @@
-import { Resource, Sprite, Texture } from 'pixi.js';
+import { Resource, Texture } from '@pixi/core';
+import { NitroSprite } from '../../../../core';
 import { TextureUtils } from '../../../utils';
 
 export class GraphicAssetPalette
@@ -24,7 +25,7 @@ export class GraphicAssetPalette
 
     public applyPalette(texture: Texture<Resource>): Texture<Resource>
     {
-        const sprite            = Sprite.from(texture);
+        const sprite            = new NitroSprite(texture);
         const textureCanvas     = TextureUtils.generateCanvas(sprite);
         const textureCtx        = textureCanvas.getContext('2d');
         const textureImageData  = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);

@@ -1,4 +1,8 @@
-import { Container, DisplayObject, Point, Rectangle, RenderTexture, Sprite, Texture } from 'pixi.js';
+import { RenderTexture, Texture } from '@pixi/core';
+import { Container, DisplayObject } from '@pixi/display';
+import { Point, Rectangle } from '@pixi/math';
+import { Sprite } from '@pixi/sprite';
+import { NitroSprite } from '../../../core';
 import { IRoomObjectController } from '../../../room/object/IRoomObjectController';
 import { IRoomRenderingCanvas } from '../../../room/renderer/IRoomRenderingCanvas';
 import { IVector3D } from '../../../room/utils/IVector3D';
@@ -455,7 +459,7 @@ export class RoomPreviewer
 
                 if(!backgroundSprite)
                 {
-                    backgroundSprite = new Sprite(Texture.WHITE);
+                    backgroundSprite = new NitroSprite(Texture.WHITE);
 
                     displayObject.addChildAt(backgroundSprite, 0);
                 }
