@@ -1,4 +1,4 @@
-﻿import { RenderTexture } from 'pixi.js';
+﻿import { RenderTexture } from '@pixi/core';
 
 export interface IGetImageListener
 {

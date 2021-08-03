@@ -1,6 +1,6 @@
-import { ColorMatrix } from '@pixi/filter-color-matrix';
-import { Container, filters, Sprite, Texture } from 'pixi.js';
-import { EventDispatcher, IEventDispatcher } from '../../core';
+import { Texture } from '@pixi/core';
+import { ColorMatrix, ColorMatrixFilter } from '@pixi/filter-color-matrix';
+import { EventDispatcher, IEventDispatcher, NitroContainer, NitroSprite } from '../../core';
 import { TextureUtils } from '../../room';
 import { Nitro } from '../Nitro';
 import { RoomCameraWidgetManagerEvent } from './events/RoomCameraWidgetManagerEvent';
@@ -55,9 +55,9 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
 
     public applyEffects(image: HTMLImageElement, selectedEffects: IRoomCameraWidgetSelectedEffect[], isZoomed: boolean): HTMLImageElement
     {
-        const container = new Container();
+        const container = new NitroContainer();
         const texture   = Texture.from(image);
-        const sprite    = new Sprite(texture);
+        const sprite    = new NitroSprite(texture);
 
         container.addChild(sprite);
 
@@ -69,7 +69,7 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
 
             if(effect.colorMatrix)
             {
-                const filter = new filters.ColorMatrixFilter();
+                const filter = new ColorMatrixFilter();
 
                 filter.matrix   = effect.colorMatrix;
                 filter.alpha    = selectedEffect.alpha;
@@ -80,7 +80,7 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
             }
             else
             {
-                const effectSprite      = new Sprite(effect.texture);
+                const effectSprite      = new NitroSprite(effect.texture);
                 effectSprite.alpha      = selectedEffect.alpha;
                 effectSprite.blendMode  = effect.blendMode;
 

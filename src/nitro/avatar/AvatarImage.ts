@@ -1,4 +1,9 @@
-import { Container, filters, Rectangle, RenderTexture, Sprite, Texture } from 'pixi.js';
+import { RenderTexture, Texture } from '@pixi/core';
+import { Container } from '@pixi/display';
+import { ColorMatrixFilter } from '@pixi/filter-color-matrix';
+import { Rectangle } from '@pixi/math';
+import { Sprite } from '@pixi/sprite';
+import { NitroContainer, NitroSprite } from '../../core';
 import { AdvancedMap } from '../../core/utils/AdvancedMap';
 import { IGraphicAsset } from '../../room/object/visualization/utils/IGraphicAsset';
 import { TextureUtils } from '../../room/utils/TextureUtils';
@@ -335,7 +340,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         this._image = null;
 
-        const container = new Container();
+        const container = new NitroContainer();
 
         let isCachable  = true;
         let partCount   = (_local_6.length - 1);
@@ -370,7 +375,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                     point.x += avatarCanvas.regPoint.x;
                     point.y += avatarCanvas.regPoint.y;
 
-                    const partContainer = new Container();
+                    const partContainer = new NitroContainer();
 
                     partContainer.addChild(partCacheContainer);
 
@@ -452,8 +457,8 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         if(!avatarCanvas) return null;
 
         const setTypes  = this.getBodyParts(setType, this._mainAction.definition.geometryType, this._mainDirection);
-        const container = new Sprite();
-        const sprite    = new Sprite(Texture.EMPTY);
+        const container = new NitroSprite();
+        const sprite    = new NitroSprite(Texture.EMPTY);
 
         sprite.width    = avatarCanvas.width;
         sprite.height   = avatarCanvas.height;
@@ -490,7 +495,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                     point.x += avatarCanvas.regPoint.x;
                     point.y += avatarCanvas.regPoint.y;
 
-                    const partContainer = new Container();
+                    const partContainer = new NitroContainer();
 
                     partContainer.addChild(partCacheContainer);
 
@@ -517,8 +522,8 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         if(!avatarCanvas) return null;
 
         const setTypes  = this.getBodyParts(setType, this._mainAction.definition.geometryType, this._mainDirection);
-        const container = new Container();
-        const sprite    = new Sprite(Texture.EMPTY);
+        const container = new NitroContainer();
+        const sprite    = new NitroSprite(Texture.EMPTY);
 
         sprite.width    = avatarCanvas.width;
         sprite.height   = avatarCanvas.height;
@@ -555,7 +560,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                     point.x += avatarCanvas.regPoint.x;
                     point.y += avatarCanvas.regPoint.y;
 
-                    const partContainer = new Container();
+                    const partContainer = new NitroContainer();
 
                     partContainer.addChild(partCacheContainer);
 
@@ -1014,7 +1019,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                 break;
         }
 
-        const colorFilter = new filters.ColorMatrixFilter();
+        const colorFilter = new ColorMatrixFilter();
 
         colorFilter.matrix = [_local_3, _local_4, _local_5, 0, 0, _local_3, _local_4, _local_5, 0, 0, _local_3, _local_4, _local_5, 0, 0, 0, 0, 0, 1, 0];
 

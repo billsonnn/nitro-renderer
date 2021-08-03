@@ -1,4 +1,7 @@
-import { Container, DisplayObject, Matrix, Point, Rectangle, RenderTexture, Resource, Sprite, Texture } from 'pixi.js';
+import { RenderTexture, Resource, Texture } from '@pixi/core';
+import { Container, DisplayObject } from '@pixi/display';
+import { Matrix, Point, Rectangle } from '@pixi/math';
+import { NitroSprite } from '../../core';
 import { IDisposable } from '../../core/common/disposable/IDisposable';
 import { IUpdateReceiver } from '../../core/common/IUpdateReceiver';
 import { NitroLogger } from '../../core/common/logger/NitroLogger';
@@ -589,7 +592,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
             if(displayObject)
             {
-                const overlay = Sprite.from(Texture.EMPTY);
+                const overlay = new NitroSprite(Texture.EMPTY);
 
                 overlay.name        = RoomEngine.OVERLAY;
                 overlay.interactive = false;
@@ -2737,7 +2740,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         this._roomObjectEventHandler.cancelRoomObjectInsert(this._activeRoomId);
     }
 
-    private addOverlayIconSprite(k: Sprite, _arg_2: string, _arg_3: Texture<Resource>, scale: number = 1): Sprite
+    private addOverlayIconSprite(k: NitroSprite, _arg_2: string, _arg_3: Texture<Resource>, scale: number = 1): NitroSprite
     {
         if(!k || !_arg_3) return;
 
@@ -2745,7 +2748,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(sprite) return null;
 
-        sprite = Sprite.from(_arg_3);
+        sprite = new NitroSprite(_arg_3);
 
         sprite.name = _arg_2;
 
@@ -3305,22 +3308,32 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         this.removeOverlayIconSprite(sprite, RoomEngine.OBJECT_ICON_SPRITE);
     }
 
-    private getRenderingCanvasOverlay(k: IRoomRenderingCanvas): Sprite
+    private getRenderingCanvasOverlay(k: IRoomRenderingCanvas): NitroSprite
     {
         if(!k) return null;
 
-        const displayObject = k.master as Container;
+        const displayObject = (k.master as Container);
 
         if(!displayObject) return null;
 
-        const sprite = displayObject.getChildByName(RoomEngine.OVERLAY) as Sprite;
+        let index = (displayObject.children.length - 1);
 
-        if(!sprite) return null;
+        while(index >= 0)
+        {
+            const child = (displayObject.getChildAt(index) as NitroSprite);
 
-        return sprite;
+            if(child)
+            {
+                if(child.name === RoomEngine.OVERLAY) return child;
+            }
+
+            index--;
+        }
+
+        return null;
     }
 
-    private removeOverlayIconSprite(k: Sprite, _arg_2: string): boolean
+    private removeOverlayIconSprite(k: NitroSprite, _arg_2: string): boolean
     {
         if(!k) return false;
 
@@ -3328,7 +3341,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         while(index >= 0)
         {
-            const child = k.getChildAt(index) as Sprite;
+            const child = (k.getChildAt(index) as NitroSprite);
 
             if(child)
             {
@@ -3338,7 +3351,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
                     if(child.children.length)
                     {
-                        const firstChild = child.getChildAt(0) as Sprite;
+                        const firstChild = (child.getChildAt(0) as NitroSprite);
 
                         firstChild.parent.removeChild(firstChild);
 
@@ -3355,7 +3368,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return false;
     }
 
-    private getOverlayIconSprite(k: Sprite, _arg_2: string): Sprite
+    private getOverlayIconSprite(k: NitroSprite, _arg_2: string): NitroSprite
     {
         if(!k) return null;
 
@@ -3363,7 +3376,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         while(index >= 0)
         {
-            const child = k.getChildAt(index) as Sprite;
+            const child = (k.getChildAt(index) as NitroSprite);
 
             if(child)
             {

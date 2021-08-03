@@ -1,5 +1,5 @@
+import { Resource, Texture } from '@pixi/core';
 import { ColorMatrix } from '@pixi/filter-color-matrix';
-import { Resource, Texture } from 'pixi.js';
 
 export interface IRoomCameraWidgetEffect
 {

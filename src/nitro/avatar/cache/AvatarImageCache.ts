@@ -1,4 +1,6 @@
-import { Container, Matrix, Point, Rectangle, Sprite, Texture } from 'pixi.js';
+import { Texture } from '@pixi/core';
+import { Matrix, Point, Rectangle } from '@pixi/math';
+import { NitroContainer, NitroSprite } from '../../../core';
 import { RoomObjectSpriteData } from '../../../room/data/RoomObjectSpriteData';
 import { Nitro } from '../../Nitro';
 import { IActiveActionData } from '../actions/IActiveActionData';
@@ -478,9 +480,9 @@ export class AvatarImageCache
         for(const data of k) data && bounds.enlarge(data.offsetRect);
 
         const point     = new Point(-(bounds.x), -(bounds.y));
-        const container = new Container();
+        const container = new NitroContainer();
 
-        const sprite = new Sprite(Texture.EMPTY);
+        const sprite = new NitroSprite(Texture.EMPTY);
 
         sprite.width    = bounds.width;
         sprite.height   = bounds.height;
@@ -514,7 +516,7 @@ export class AvatarImageCache
                 this._matrix.ty = (regPoint.y - data.rect.y);
             }
 
-            const sprite = new Sprite(texture);
+            const sprite = new NitroSprite(texture);
 
             sprite.tint = color;
             sprite.transform.setFromMatrix(this._matrix);

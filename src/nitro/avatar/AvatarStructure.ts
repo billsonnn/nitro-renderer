@@ -1,4 +1,4 @@
-import { Point } from 'pixi.js';
+import { Point } from '@pixi/math';
 import { IAssetManager } from '../../core/asset/IAssetManager';
 import { IAssetAnimation } from '../../core/asset/interfaces';
 import { EventDispatcher } from '../../core/events/EventDispatcher';

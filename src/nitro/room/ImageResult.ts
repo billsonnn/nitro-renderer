@@ -1,4 +1,4 @@
-﻿import { RenderTexture } from 'pixi.js';
+﻿import { RenderTexture } from '@pixi/core';
 import { TextureUtils } from '../../room/utils/TextureUtils';
 
 export class ImageResult
