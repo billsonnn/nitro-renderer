@@ -1,3 +1,4 @@
+import { IFigureDataPalette } from '../../interfaces';
 import { IPalette } from './IPalette';
 import { IPartColor } from './IPartColor';
 import { PartColor } from './PartColor';
@@ -7,23 +8,23 @@ export class Palette implements IPalette
     private _id: number;
     private _colors: Map<string, IPartColor>;
 
-    constructor(data: any)
+    constructor(data: IFigureDataPalette)
     {
         if(!data) throw new Error('invalid_data');
 
-        this._id        = parseInt(data['$'].id);
+        this._id        = data.id;
         this._colors    = new Map();
 
         this.append(data);
     }
 
-    public append(data: any): void
+    public append(data: IFigureDataPalette): void
     {
-        for(const color of data.color)
+        for(const color of data.colors)
         {
             const newColor = new PartColor(color);
 
-            this._colors.set(color['$'].id.toString(), newColor);
+            this._colors.set(color.id.toString(), newColor);
         }
     }
 

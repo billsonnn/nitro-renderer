@@ -1,4 +1,3 @@
-import { Parser } from 'xml2js';
 import { IAssetManager } from '../../core/asset/IAssetManager';
 import { NitroManager } from '../../core/common/NitroManager';
 import { NitroEvent } from '../../core/events/NitroEvent';
@@ -21,6 +20,7 @@ import { IAvatarFigureContainer } from './IAvatarFigureContainer';
 import { IAvatarImage } from './IAvatarImage';
 import { IAvatarImageListener } from './IAvatarImageListener';
 import { IAvatarRenderManager } from './IAvatarRenderManager';
+import { IFigureData } from './interfaces';
 import { PlaceHolderAvatarImage } from './PlaceHolderAvatarImage';
 import { AvatarStructureDownload } from './structure/AvatarStructureDownload';
 import { IFigurePartSet } from './structure/figure/IFigurePartSet';
@@ -194,18 +194,13 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     private loadFigureData(): void
     {
-        const defaultFigureData = Nitro.instance.getConfiguration<string>('avatar.default.figuredata');
+        const defaultFigureData = (Nitro.instance.getConfiguration<string>('avatar.default.figuredata') as IFigureData);
 
         if(defaultFigureData)
         {
-            const parser = new Parser();
+            if(!defaultFigureData) throw new Error('invalid_default_figure_data');
 
-            parser.parseString(defaultFigureData, (err: Error, results: any) =>
-            {
-                if(err || !results || !results.figuredata) throw new Error('invalid_default_figure_data');
-
-                if(this._structure) this._structure.initFigureData(results.figuredata);
-            });
+            if(this._structure) this._structure.initFigureData(defaultFigureData);
         }
 
         const structureDownloader = new AvatarStructureDownload(Nitro.instance.getConfiguration<string>('avatar.figuredata.url'), (this._structure.figureData as IFigureSetData));

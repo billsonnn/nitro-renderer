@@ -1,4 +1,5 @@
 import { AdvancedMap } from '../../../../core/utils/AdvancedMap';
+import { IFigureDataSetType } from '../../interfaces';
 import { FigurePartSet } from './FigurePartSet';
 import { IFigurePartSet } from './IFigurePartSet';
 import { ISetType } from './ISetType';
@@ -10,15 +11,15 @@ export class SetType implements ISetType
     private _isMandatory: { [index: string]: boolean[] };
     private _partSets: AdvancedMap<string, IFigurePartSet>;
 
-    constructor(data: any)
+    constructor(data: IFigureDataSetType)
     {
         if(!data) throw new Error('invalid_data');
 
-        this._type              = data['$'].type;
-        this._paletteId         = parseInt(data['$'].paletteid);
+        this._type              = data.type;
+        this._paletteId         = data.paletteId;
         this._isMandatory       = {};
-        this._isMandatory['F']  = [ parseInt(data['$'].mand_f_0) === 1, parseInt(data['$'].mand_f_1) === 1 ];
-        this._isMandatory['M']  = [ (parseInt(data['$'].mand_m_0) === 1), (parseInt(data['$'].mand_m_1) === 1) ];
+        this._isMandatory['F']  = [ data.mandatory_f_0, data.mandatory_f_1 ];
+        this._isMandatory['M']  = [ data.mandatory_m_0, data.mandatory_m_1 ];
         this._partSets          = new AdvancedMap();
 
         this.append(data);
@@ -36,27 +37,27 @@ export class SetType implements ISetType
         this._partSets = null;
     }
 
-    public cleanUp(k: any): void
+    public cleanUp(data: IFigureDataSetType): void
     {
-        for(const _local_2 of k)
+        for(const set of data.sets)
         {
-            const _local_3 = (_local_2.id as string);
-            const _local_4 = (this._partSets.getValue(_local_3) as FigurePartSet);
+            const setId = set.id.toString();
+            const partSet = (this._partSets.getValue(setId) as FigurePartSet);
 
-            if(_local_4)
+            if(partSet)
             {
-                _local_4.dispose();
+                partSet.dispose();
 
-                this._partSets.remove(_local_3);
+                this._partSets.remove(setId);
             }
         }
     }
 
-    public append(k: any): void
+    public append(setType: IFigureDataSetType): void
     {
-        if(!k || !k.set) return;
+        if(!setType || !setType.sets) return;
 
-        for(const set of k.set) this._partSets.add(set['$'].id, new FigurePartSet(this._type, set));
+        for(const set of setType.sets) this._partSets.add(set.id.toString(), new FigurePartSet(this._type, set));
     }
 
     public getDefaultPartSet(k: string): IFigurePartSet

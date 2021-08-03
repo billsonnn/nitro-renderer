@@ -16,6 +16,7 @@ import { AvatarModelGeometry } from './geometry/AvatarModelGeometry';
 import { IAvatarFigureContainer } from './IAvatarFigureContainer';
 import { IAvatarImage } from './IAvatarImage';
 import { IAvatarRenderManager } from './IAvatarRenderManager';
+import { IFigureData } from './interfaces';
 import { AnimationAction } from './structure/animation/AnimationAction';
 import { AvatarAnimationFrame } from './structure/animation/AvatarAnimationFrame';
 import { AvatarAnimationData } from './structure/AvatarAnimationData';
@@ -115,16 +116,16 @@ export class AvatarStructure extends EventDispatcher
         return this._animationData.parse(k);
     }
 
-    public initFigureData(k: any): boolean
+    public initFigureData(k: IFigureData): boolean
     {
         if(!k) return false;
 
         return this._figureData.parse(k);
     }
 
-    public injectFigureData(data: any): void
+    public injectFigureData(data: IFigureData): void
     {
-        this._figureData.injectXML(data);
+        this._figureData.injectJSON(data);
     }
 
     public registerAnimations(k: IAssetManager, _arg_2: string = 'fx', _arg_3: number = 200): void

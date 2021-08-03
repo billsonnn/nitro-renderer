@@ -1,3 +1,4 @@
+import { IFigureDataSet } from '../../interfaces';
 import { FigurePart } from './FigurePart';
 import { IFigurePart } from './IFigurePart';
 import { IFigurePartSet } from './IFigurePartSet';
@@ -15,22 +16,22 @@ export class FigurePartSet implements IFigurePartSet
     private _isPreSelectable: boolean;
     private _isSellable: boolean;
 
-    constructor(type: string, data: any)
+    constructor(type: string, data: IFigureDataSet)
     {
         if(!type || !data) throw new Error('invalid_data');
 
-        this._id                = parseInt(data['$'].id);
+        this._id                = data.id;
         this._type              = type;
-        this._gender            = data['$'].gender;
-        this._clubLevel         = parseInt(data['$'].club);
-        this._isColorable       = parseInt(data['$'].colorable) === 1;
-        this._isSelectable      = parseInt(data['$'].selectable) === 1;
+        this._gender            = data.gender;
+        this._clubLevel         = data.club;
+        this._isColorable       = data.colorable;
+        this._isSelectable      = data.selectable;
         this._parts             = [];
         this._hiddenLayers      = [];
-        this._isPreSelectable   = parseInt(data['$'].preselectable) === 1;
-        this._isSellable        = parseInt(data['$'].sellable) === 1;
+        this._isPreSelectable   = data.preselectable;
+        this._isSellable        = data.sellable;
 
-        for(const part of data.part)
+        for(const part of data.parts)
         {
             const newPart   = new FigurePart(part);
             const partIndex = this.getPartIndex(newPart);
@@ -39,11 +40,9 @@ export class FigurePartSet implements IFigurePartSet
             else this._parts.push(newPart);
         }
 
-        if(data.hiddenlayers)
+        if(data.hiddenLayers)
         {
-            const hiddenLayers = data.hiddenlayers[0];
-
-            for(const layer of hiddenLayers.layer) this._hiddenLayers.push(layer['$'].parttype);
+            for(const hiddenLayer of data.hiddenLayers) this._hiddenLayers.push(hiddenLayer.partType);
         }
     }
 

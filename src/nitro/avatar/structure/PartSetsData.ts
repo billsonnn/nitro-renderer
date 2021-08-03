@@ -40,7 +40,7 @@ export class PartSetsData implements IFigureSetData
         return true;
     }
 
-    public appendXML(data: any): boolean
+    public appendJSON(data: any): boolean
     {
         if(data.partSet && (data.partSet.length > 0))
         {

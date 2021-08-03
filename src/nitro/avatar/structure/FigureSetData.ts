@@ -1,3 +1,4 @@
+import { IFigureData } from '../interfaces';
 import { IFigurePartSet } from './figure/IFigurePartSet';
 import { IPalette } from './figure/IPalette';
 import { ISetType } from './figure/ISetType';
@@ -22,11 +23,11 @@ export class FigureSetData implements IFigureSetData, IStructureData
 
     }
 
-    public parse(data: any): boolean
+    public parse(data: IFigureData): boolean
     {
         if(!data) return false;
 
-        for(const palette of data.colors[0].palette)
+        for(const palette of data.palettes)
         {
             const newPalette = new Palette(palette);
 
@@ -35,7 +36,7 @@ export class FigureSetData implements IFigureSetData, IStructureData
             this._palettes.set(newPalette.id.toString(), newPalette);
         }
 
-        for(const set of data.sets[0].settype)
+        for(const set of data.setTypes)
         {
             const newSet = new SetType(set);
 
@@ -47,57 +48,39 @@ export class FigureSetData implements IFigureSetData, IStructureData
         return true;
     }
 
-    public injectXML(k: any): void
+    public injectJSON(data: IFigureData): void
     {
-        for(const _local_2 of k.sets[0].settype)
+        for(const setType of data.setTypes)
         {
-            const setType = this._setTypes.get(_local_2['$'].type);
+            const existingSetType = this._setTypes.get(setType.type);
 
-            if(setType)
-            {
-                setType.cleanUp(_local_2);
-            }
-            else
-            {
-                this._setTypes.set(_local_2['$'].type, new SetType(_local_2));
-            }
+            if(existingSetType) existingSetType.cleanUp(setType);
+            else this._setTypes.set(setType.type, new SetType(setType));
         }
 
-        this.appendXML(k);
+        this.appendJSON(data);
     }
 
-    public appendXML(k: any): boolean
+    public appendJSON(data: IFigureData): boolean
     {
-        if(!k) return false;
+        if(!data) return false;
 
-        for(const _local_2 of k.colors[0].palette)
+        for(const palette of data.palettes)
         {
-            const id        = _local_2['$'].id.toString();
-            const _local_4  = this._palettes.get(id);
+            const id = palette.id.toString();
+            const existingPalette = this._palettes.get(id);
 
-            if(!_local_4)
-            {
-                this._palettes.set(id, new Palette(_local_2));
-            }
-            else
-            {
-                _local_4.append(_local_2);
-            }
+            if(!existingPalette) this._palettes.set(id, new Palette(palette));
+            else existingPalette.append(palette);
         }
 
-        for(const _local_3 of k.sets[0].settype)
+        for(const setType of data.setTypes)
         {
-            const type      = _local_3['$'].type;
-            const _local_5  = this._setTypes.get(type);
+            const type = setType.type;
+            const existingSetType = this._setTypes.get(type);
 
-            if(!_local_5)
-            {
-                this._setTypes.set(type, new SetType(_local_3));
-            }
-            else
-            {
-                _local_5.append(_local_3);
-            }
+            if(!existingSetType) this._setTypes.set(type, new SetType(setType));
+            else existingSetType.append(setType);
         }
 
         return false;

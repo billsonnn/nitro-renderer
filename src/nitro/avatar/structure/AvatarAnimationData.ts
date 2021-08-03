@@ -28,7 +28,7 @@ export class AvatarAnimationData implements IFigureSetData
         return true;
     }
 
-    public appendXML(k: any): boolean
+    public appendJSON(k: any): boolean
     {
         for(const _local_2 of k.action)
         {

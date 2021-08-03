@@ -1,3 +1,4 @@
+import { IFigureDataPart } from '../../interfaces';
 import { IFigurePart } from './IFigurePart';
 
 export class FigurePart implements IFigurePart
@@ -9,24 +10,16 @@ export class FigurePart implements IFigurePart
     private _colorLayerIndex: number;
     private _paletteMapId: number;
 
-    constructor(data: any)
+    constructor(data: IFigureDataPart)
     {
         if(!data) throw new Error('invalid_data');
 
-        this._id                = parseInt(data['$'].id);
-        this._type              = data['$'].type;
-        this._index             = parseInt(data['$'].index);
-        this._colorLayerIndex   = parseInt(data['$'].colorindex);
-
-        const paletteMapId  = data['$'].palettemapid;
-
-        if(!isNaN(paletteMapId)) this._paletteMapId = parseInt(paletteMapId);
-        else this._paletteMapId = -1;
-
-        const breed  = data['$'].palettemapid;
-
-        if(!isNaN(breed)) this._breed = parseInt(breed);
-        else this._breed = -1;
+        this._id                = data.id;
+        this._type              = data.type;
+        this._index             = data.index;
+        this._colorLayerIndex   = data.colorindex;
+        this._paletteMapId      = -1;
+        this._breed             = -1;
     }
 
     public dispose(): void

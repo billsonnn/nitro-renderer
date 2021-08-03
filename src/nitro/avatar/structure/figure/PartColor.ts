@@ -1,3 +1,4 @@
+import { IFigureDataColor } from '../../interfaces';
 import { IPartColor } from './IPartColor';
 
 export class PartColor implements IPartColor
@@ -8,15 +9,15 @@ export class PartColor implements IPartColor
     private _isSelectable: boolean;
     private _rgb: number;
 
-    constructor(data: any)
+    constructor(data: IFigureDataColor)
     {
         if(!data) throw new Error('invalid_data');
 
-        this._id                = parseInt(data['$'].id);
-        this._index             = parseInt(data['$'].index);
-        this._clubLevel         = parseInt(data['$'].club);
-        this._isSelectable      = parseInt(data['$'].selectable) === 1;
-        this._rgb               = parseInt('0x' + data['_'], 16);
+        this._id                = data.id;
+        this._index             = data.index;
+        this._clubLevel         = data.club;
+        this._isSelectable      = data.selectable;
+        this._rgb               = parseInt('0x' + data.hexCode, 16);
     }
 
     public get id(): number

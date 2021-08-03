@@ -1,4 +1,3 @@
-import { Parser } from 'xml2js';
 import { NitroLogger } from '../../../core/common/logger/NitroLogger';
 import { EventDispatcher } from '../../../core/events/EventDispatcher';
 import { NitroEvent } from '../../../core/events/NitroEvent';
@@ -31,16 +30,13 @@ export class AvatarStructureDownload extends EventDispatcher
 
             request.onloadend = e =>
             {
-                const parser = new Parser();
+                const response = request.responseText;
 
-                parser.parseString(request.responseText, (err: Error, results: any) =>
-                {
-                    if(err || !results || !results.figuredata) throw new Error('invalid_figure_data');
+                if(!response || !response.length) throw new Error('invalid_figure_data');
 
-                    if(this._dataReceiver) this._dataReceiver.appendXML(results.figuredata);
+                if(this._dataReceiver) this._dataReceiver.appendJSON(JSON.parse(response));
 
-                    this.dispatchEvent(new NitroEvent(AvatarStructureDownload.AVATAR_STRUCTURE_DONE));
-                });
+                this.dispatchEvent(new NitroEvent(AvatarStructureDownload.AVATAR_STRUCTURE_DONE));
             };
 
             request.onerror = e =>

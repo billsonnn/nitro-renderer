@@ -1,5 +1,7 @@
-﻿export interface IFigureSetData
+﻿import { IFigureData } from '../interfaces';
+
+export interface IFigureSetData
 {
     parse(data: any): boolean;
-    appendXML(data: any): boolean;
+    appendJSON(data: IFigureData): boolean;
 }
