@@ -166,23 +166,23 @@ export class RectTileLayer extends Container
         pb[pb.length - (POINT_STRUCT_SIZE_TWO - PointStruct.Alpha)] = alpha;
     }
 
-    renderCanvas(renderer: any)
-    {
-        const plugin = renderer.plugins.tilemap;
-        if(!plugin.dontUseTransform)
-        {
-            const wt = this.worldTransform;
-            renderer.context.setTransform(
-                wt.a,
-                wt.b,
-                wt.c,
-                wt.d,
-                wt.tx * renderer.resolution,
-                wt.ty * renderer.resolution
-            );
-        }
-        this.renderCanvasCore(renderer);
-    }
+    // renderCanvas(renderer: any)
+    // {
+    //     const plugin = renderer.plugins.tilemap;
+    //     if(!plugin.dontUseTransform)
+    //     {
+    //         const wt = this.worldTransform;
+    //         renderer.context.setTransform(
+    //             wt.a,
+    //             wt.b,
+    //             wt.c,
+    //             wt.d,
+    //             wt.tx * renderer.resolution,
+    //             wt.ty * renderer.resolution
+    //         );
+    //     }
+    //     this.renderCanvasCore(renderer);
+    // }
 
     renderCanvasCore(renderer: any)
     {

@@ -137,7 +137,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
     {
         if(!event) return;
 
-        this.dispatchConnectionEvent(SocketConnectionEvent.CONNECTION_MESSAGE, event);
+        //this.dispatchConnectionEvent(SocketConnectionEvent.CONNECTION_MESSAGE, event);
 
         const reader = new FileReader();
 

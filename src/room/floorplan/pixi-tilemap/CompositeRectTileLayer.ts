@@ -208,31 +208,31 @@ export class CompositeRectTileLayer extends Container
         return this;
     }
 
-    renderCanvas(renderer: any)
-    {
-        if(!this.visible || this.worldAlpha <= 0 || !this.renderable)
-        {
-            return;
-        }
-        const plugin = renderer.plugins.tilemap;
-        if(!plugin.dontUseTransform)
-        {
-            const wt = this.worldTransform;
-            renderer.context.setTransform(
-                wt.a,
-                wt.b,
-                wt.c,
-                wt.d,
-                wt.tx * renderer.resolution,
-                wt.ty * renderer.resolution
-            );
-        }
-        const layers = this.children;
-        for(let i = 0; i < layers.length; i++)
-        {
-            (layers[i] as RectTileLayer).renderCanvasCore(renderer);
-        }
-    }
+    // renderCanvas(renderer: CanvasRenderer)
+    // {
+    //     if(!this.visible || this.worldAlpha <= 0 || !this.renderable)
+    //     {
+    //         return;
+    //     }
+    //     const plugin = renderer.plugins.tilemap;
+    //     if(!plugin.dontUseTransform)
+    //     {
+    //         const wt = this.worldTransform;
+    //         renderer.context.setTransform(
+    //             wt.a,
+    //             wt.b,
+    //             wt.c,
+    //             wt.d,
+    //             wt.tx * renderer.resolution,
+    //             wt.ty * renderer.resolution
+    //         );
+    //     }
+    //     const layers = this.children;
+    //     for(let i = 0; i < layers.length; i++)
+    //     {
+    //         (layers[i] as RectTileLayer).renderCanvasCore(renderer);
+    //     }
+    // }
 
     render(renderer: Renderer)
     {

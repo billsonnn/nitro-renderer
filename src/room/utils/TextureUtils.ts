@@ -10,7 +10,11 @@ export class TextureUtils
     {
         if(!displayObject) return null;
 
-        return TextureUtils.getRenderer().generateTexture(displayObject, scaleMode, resolution, region);
+        return TextureUtils.getRenderer().generateTexture(displayObject, {
+            scaleMode,
+            resolution,
+            region
+        });
     }
 
     public static generateTextureFromImage(image: HTMLImageElement): Texture<Resource>
