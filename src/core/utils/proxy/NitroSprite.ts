@@ -1,4 +1,6 @@
-import { Sprite } from 'pixi.js';
+import { Sprite as SpriteBase } from '@pixi/sprite';
 
-export class NitroSprite extends Sprite
-{}
+export class NitroSprite extends SpriteBase
+{
+    public name: string;
+}

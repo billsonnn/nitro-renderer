@@ -1,4 +1,6 @@
-import { BaseTexture, ILoaderResource, Loader, LoaderResource, Resource, Spritesheet, Texture } from 'pixi.js';
+import { BaseTexture, Resource, Texture } from '@pixi/core';
+import { Loader, LoaderResource } from '@pixi/loaders';
+import { Spritesheet } from '@pixi/spritesheet';
 import { IGraphicAsset } from '../../room';
 import { GraphicAssetCollection } from '../../room/object/visualization/utils/GraphicAssetCollection';
 import { IGraphicAssetCollection } from '../../room/object/visualization/utils/IGraphicAssetCollection';
@@ -110,7 +112,7 @@ export class AssetManager extends Disposable implements IAssetManager
 
         let totalDownloaded = 0;
 
-        const onDownloaded = (loader: Loader, resource: ILoaderResource, flag: boolean) =>
+        const onDownloaded = (loader: Loader, resource: LoaderResource, flag: boolean) =>
         {
             if(loader) loader.destroy();
 
@@ -140,7 +142,7 @@ export class AssetManager extends Disposable implements IAssetManager
                     crossOrigin: 'anonymous',
                     xhrType: url.endsWith('.nitro') ? LoaderResource.XHR_RESPONSE_TYPE.BUFFER : LoaderResource.XHR_RESPONSE_TYPE.JSON
                 })
-                .use((resource: ILoaderResource, next: Function) =>
+                .use((resource: LoaderResource, next: Function) =>
                 {
                     this.assetLoader(loader, resource, onDownloaded);
 
@@ -152,7 +154,7 @@ export class AssetManager extends Disposable implements IAssetManager
         return true;
     }
 
-    private assetLoader(loader: Loader, resource: ILoaderResource, onDownloaded: Function): void
+    private assetLoader(loader: Loader, resource: LoaderResource, onDownloaded: Function): void
     {
         if(!resource || resource.error)
         {

@@ -1,5 +1,8 @@
-import { Application, IApplicationOptions, SCALE_MODES, settings } from 'pixi.js';
-import { INitroManager } from '..';
+import { Application, IApplicationOptions } from '@pixi/app';
+import { SCALE_MODES } from '@pixi/constants';
+import { settings } from '@pixi/settings';
+import { Ticker } from '@pixi/ticker';
+import { INitroManager } from '../core';
 import { ConfigurationEvent } from '../core/configuration/ConfigurationEvent';
 import { EventDispatcher } from '../core/events/EventDispatcher';
 import { IEventDispatcher } from '../core/events/IEventDispatcher';
@@ -403,6 +406,11 @@ export class Nitro extends Application implements INitro
     public get height(): number
     {
         return (this.renderer.height / this.renderer.resolution);
+    }
+
+    public get ticker(): Ticker
+    {
+        return Ticker.shared;
     }
 
     public get time(): number

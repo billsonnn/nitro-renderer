@@ -1,4 +1,4 @@
-import { Rectangle } from 'pixi.js';
+import { Rectangle } from '@pixi/math';
 
 export class NitroRectangle extends Rectangle
 {}

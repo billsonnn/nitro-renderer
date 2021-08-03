@@ -1,5 +1,6 @@
 
-import { Resource, Spritesheet, Texture } from 'pixi.js';
+import { Resource, Texture } from '@pixi/core';
+import { Spritesheet } from '@pixi/spritesheet';
 import { IGraphicAsset } from '../../room/object/visualization/utils/IGraphicAsset';
 import { IGraphicAssetCollection } from '../../room/object/visualization/utils/IGraphicAssetCollection';
 import { IAssetData } from './interfaces';

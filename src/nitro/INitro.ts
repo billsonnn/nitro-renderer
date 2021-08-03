@@ -1,4 +1,5 @@
-import { Application } from 'pixi.js';
+import { Application } from '@pixi/app';
+import { Ticker } from '@pixi/ticker';
 import { IEventDispatcher } from '../core/events/IEventDispatcher';
 import { ILinkEventTracker } from '../core/events/ILinkEventTracker';
 import { IWorkerEventTracker } from '../core/events/IWorkerEventTracker';
@@ -42,6 +43,7 @@ export interface INitro extends Application
     cameraManager: IRoomCameraWidgetManager;
     width: number;
     height: number;
+    ticker: Ticker;
     time: number;
     isReady: boolean;
     isDisposed: boolean;

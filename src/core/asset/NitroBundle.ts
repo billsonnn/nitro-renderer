@@ -1,5 +1,5 @@
+import { BaseTexture } from '@pixi/core';
 import { Data, inflate } from 'pako';
-import { BaseTexture } from 'pixi.js';
 import { BinaryReader } from '../communication/codec/BinaryReader';
 
 export class NitroBundle

@@ -1,4 +1,4 @@
-import { Texture } from 'pixi.js';
+import { Texture } from '@pixi/core';
 
 export class NitroTexture extends Texture
 {}
