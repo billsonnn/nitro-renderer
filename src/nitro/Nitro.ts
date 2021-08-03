@@ -25,6 +25,7 @@ import { GameMessageHandler } from './game/GameMessageHandler';
 import { INitro } from './INitro';
 import { INitroLocalizationManager } from './localization/INitroLocalizationManager';
 import { NitroLocalizationManager } from './localization/NitroLocalizationManager';
+import './Plugins';
 import { RoomEngineEvent } from './room/events/RoomEngineEvent';
 import { IRoomEngine } from './room/IRoomEngine';
 import { RoomEngine } from './room/RoomEngine';
@@ -45,7 +46,7 @@ export class Nitro extends Application implements INitro
     public static WEBGL_CONTEXT_LOST: string    = 'NE_WEBGL_CONTEXT_LOST';
     public static WEBGL_UNAVAILABLE: string     = 'NE_WEBGL_UNAVAILABLE';
     public static RELEASE_VERSION: string       = 'NITRO-2-0-0';
-    public static READY: string                 = 'NE_READY';
+    public static READY: string                 = 'NE_READY!';
 
     private static INSTANCE: INitro = null;
 

@@ -1,16 +1,17 @@
+import { SCALE_MODES } from '@pixi/constants';
+import { AbstractRenderer, Renderer, RenderTexture, Resource, Texture } from '@pixi/core';
+import { DisplayObject } from '@pixi/display';
 import { Extract } from '@pixi/extract';
-import { AbstractRenderer, DisplayObject, Rectangle, Renderer, RenderTexture, Resource, SCALE_MODES, Texture } from 'pixi.js';
+import { Rectangle } from '@pixi/math';
 import { Nitro } from '../../nitro/Nitro';
 
 export class TextureUtils
 {
-    private static _renderer: Renderer = null;
-
     public static generateTexture(displayObject: DisplayObject, region: Rectangle = null, scaleMode: number = SCALE_MODES.NEAREST, resolution: number = 1): RenderTexture
     {
         if(!displayObject) return null;
 
-        return TextureUtils.getRenderer().generateTexture(displayObject, {
+        return this.getRenderer().generateTexture(displayObject, {
             scaleMode,
             resolution,
             region
@@ -28,38 +29,30 @@ export class TextureUtils
     {
         if(!target) return null;
 
-        const extract = (TextureUtils.getRenderer().plugins.extract as Extract);
-
-        return extract.image(target);
+        return this.getExtractor().image(target);
     }
 
     public static generateImageUrl(target: DisplayObject | RenderTexture): string
     {
         if(!target) return null;
 
-        const extract = (TextureUtils.getRenderer().plugins.extract as Extract);
-
-        return extract.base64(target);
+        return this.getExtractor().base64(target);
     }
 
     public static generateCanvas(target: DisplayObject | RenderTexture): HTMLCanvasElement
     {
         if(!target) return null;
 
-        const extract = (TextureUtils.getRenderer().plugins.extract as Extract);
-
-        return extract.canvas(target);
+        return this.getExtractor().canvas(target);
     }
 
     public static getRenderer(): Renderer | AbstractRenderer
     {
-        if(!TextureUtils._renderer) return Nitro.instance.renderer;
-
-        return TextureUtils._renderer;
+        return Nitro.instance.renderer;
     }
 
-    public static setRenderer(renderer: Renderer): void
+    public static getExtractor(): Extract
     {
-        TextureUtils._renderer = renderer;
+        return (this.getRenderer().plugins.extract as Extract);
     }
 }
