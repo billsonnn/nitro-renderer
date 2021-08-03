@@ -1,7 +1,7 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
-import { Container } from '@pixi/display';
 import { Sprite } from '@pixi/sprite';
 import { Text } from '@pixi/text';
+import { NitroContainer, NitroSprite } from '../../../../../core';
 import { TextureUtils } from '../../../../../room';
 import { Nitro } from '../../../../Nitro';
 
@@ -14,7 +14,7 @@ export class ExperienceData
 
     constructor(texture: Texture<Resource>)
     {
-        this._sprite    = new Sprite(texture);
+        this._sprite    = new NitroSprite(texture);
         this._texture   = null;
         this._amount    = -1;
         this._alpha     = 0;
@@ -24,7 +24,7 @@ export class ExperienceData
     {
         if(!this._sprite || (this._amount === amount)) return null;
 
-        const container = new Container();
+        const container = new NitroContainer();
 
         container.addChild(this._sprite);
 

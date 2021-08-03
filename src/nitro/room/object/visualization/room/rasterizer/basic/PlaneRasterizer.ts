@@ -1,4 +1,6 @@
-﻿import { Graphics, Point, Resource, Texture } from 'pixi.js';
+﻿import { Resource, Texture } from '@pixi/core';
+import { Graphics } from '@pixi/graphics';
+import { Point } from '@pixi/math';
 import { IGraphicAsset } from '../../../../../../../room/object/visualization/utils/IGraphicAsset';
 import { IGraphicAssetCollection } from '../../../../../../../room/object/visualization/utils/IGraphicAssetCollection';
 import { IRoomGeometry } from '../../../../../../../room/utils/IRoomGeometry';

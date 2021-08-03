@@ -1,4 +1,5 @@
-import { SCALE_MODES, Texture } from 'pixi.js';
+import { SCALE_MODES } from '@pixi/constants';
+import { Texture } from '@pixi/core';
 import { FurnitureThumbnailVisualization } from './FurnitureThumbnailVisualization';
 
 export class FurnitureDynamicThumbnailVisualization extends FurnitureThumbnailVisualization

@@ -1,4 +1,4 @@
-﻿import { Point } from 'pixi.js';
+﻿import { Point } from '@pixi/math';
 import { IPlaneDrawingData } from '../../../../../room/object/visualization/IPlaneDrawingData';
 
 export class PlaneDrawingData implements IPlaneDrawingData

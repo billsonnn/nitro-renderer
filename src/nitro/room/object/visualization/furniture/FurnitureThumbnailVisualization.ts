@@ -1,4 +1,6 @@
-import { Matrix, Rectangle, Resource, Sprite, Texture } from 'pixi.js';
+import { Resource, Texture } from '@pixi/core';
+import { Matrix, Rectangle } from '@pixi/math';
+import { NitroSprite } from '../../../../../core';
 import { IGraphicAsset } from '../../../../../room/object/visualization/utils/IGraphicAsset';
 import { TextureUtils } from '../../../../../room/utils/TextureUtils';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
@@ -122,7 +124,7 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
                 matrix.ty = 0;
         }
 
-        const sprite = Sprite.from(texture);
+        const sprite = new NitroSprite(texture);
 
         sprite.transform.setFromMatrix(matrix);
 

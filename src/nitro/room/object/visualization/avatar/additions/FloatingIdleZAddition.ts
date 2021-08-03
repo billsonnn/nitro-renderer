@@ -1,4 +1,4 @@
-import { Resource, Texture } from 'pixi.js';
+import { Resource, Texture } from '@pixi/core';
 import { IRoomObjectSprite } from '../../../../../../room/object/visualization/IRoomObjectSprite';
 import { Nitro } from '../../../../../Nitro';
 import { AvatarVisualization } from '../AvatarVisualization';

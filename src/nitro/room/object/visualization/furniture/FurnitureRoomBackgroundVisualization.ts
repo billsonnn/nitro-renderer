@@ -1,4 +1,4 @@
-import { Resource, Texture } from 'pixi.js';
+import { Resource, Texture } from '@pixi/core';
 import { DirectionalOffsetData } from '../data/DirectionalOffsetData';
 import { FurnitureBrandedImageVisualization } from './FurnitureBrandedImageVisualization';
 

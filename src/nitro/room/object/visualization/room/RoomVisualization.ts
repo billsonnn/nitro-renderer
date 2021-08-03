@@ -1,4 +1,5 @@
-import { Rectangle, RenderTexture, Resource, Texture } from 'pixi.js';
+import { RenderTexture, Resource, Texture } from '@pixi/core';
+import { Rectangle } from '@pixi/math';
 import { AdvancedMap } from '../../../../../core/utils/AdvancedMap';
 import { AlphaTolerance } from '../../../../../room/object/enum/AlphaTolerance';
 import { RoomObjectSpriteType } from '../../../../../room/object/enum/RoomObjectSpriteType';

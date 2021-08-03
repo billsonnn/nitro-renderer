@@ -1,4 +1,5 @@
-﻿import { Graphics, Rectangle } from 'pixi.js';
+﻿import { Graphics } from '@pixi/graphics';
+import { Rectangle } from '@pixi/math';
 import { IVector3D } from '../../../../../../../room/utils/IVector3D';
 import { TextureUtils } from '../../../../../../../room/utils/TextureUtils';
 import { RoomVisualization } from '../../RoomVisualization';

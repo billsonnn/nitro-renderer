@@ -1,4 +1,6 @@
-import { Graphics, Matrix, Point, Rectangle, RenderTexture, Resource, Texture } from 'pixi.js';
+import { RenderTexture, Resource, Texture } from '@pixi/core';
+import { Graphics } from '@pixi/graphics';
+import { Matrix, Point, Rectangle } from '@pixi/math';
 import { IRoomPlane } from '../../../../../room/object/visualization/IRoomPlane';
 import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
 import { IVector3D } from '../../../../../room/utils/IVector3D';

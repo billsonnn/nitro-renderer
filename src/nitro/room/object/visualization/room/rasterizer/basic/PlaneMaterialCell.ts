@@ -1,4 +1,8 @@
-﻿import { Graphics, Point, Sprite, TilingSprite } from 'pixi.js';
+﻿import { Graphics } from '@pixi/graphics';
+import { Point } from '@pixi/math';
+import { Sprite } from '@pixi/sprite';
+import { TilingSprite } from '@pixi/sprite-tiling';
+import { NitroSprite } from '../../../../../../../core';
 import { IGraphicAsset } from '../../../../../../../room/object/visualization/utils/IGraphicAsset';
 import { IVector3D } from '../../../../../../../room/utils/IVector3D';
 import { PlaneTexture } from './PlaneTexture';
@@ -140,7 +144,7 @@ export class PlaneMaterialCell
         }
         else
         {
-            bitmap = new Sprite(texture);
+            bitmap = new NitroSprite(texture);
         }
 
         if(bitmap)

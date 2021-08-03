@@ -1,4 +1,4 @@
-﻿import { Point } from 'pixi.js';
+﻿import { Point } from '@pixi/math';
 import { IVector3D } from '../../../room/utils/IVector3D';
 import { Vector3d } from '../../../room/utils/Vector3d';
 

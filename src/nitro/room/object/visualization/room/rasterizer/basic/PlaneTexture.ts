@@ -1,4 +1,4 @@
-﻿import { Resource, Texture } from 'pixi.js';
+﻿import { Resource, Texture } from '@pixi/core';
 import { IVector3D } from '../../../../../../../room/utils/IVector3D';
 import { PlaneTextureBitmap } from './PlaneTextureBitmap';
 

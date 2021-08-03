@@ -1,4 +1,5 @@
-import { BLEND_MODES, Resource, Texture } from 'pixi.js';
+import { BLEND_MODES } from '@pixi/constants';
+import { Resource, Texture } from '@pixi/core';
 import { AdvancedMap } from '../../../../../core/utils/AdvancedMap';
 import { AlphaTolerance } from '../../../../../room/object/enum/AlphaTolerance';
 import { RoomObjectSpriteType } from '../../../../../room/object/enum/RoomObjectSpriteType';

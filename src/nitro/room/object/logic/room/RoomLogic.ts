@@ -1,4 +1,4 @@
-import { Point } from 'pixi.js';
+import { Point } from '@pixi/math';
 import { RoomObjectEvent } from '../../../../../room/events/RoomObjectEvent';
 import { RoomObjectMouseEvent } from '../../../../../room/events/RoomObjectMouseEvent';
 import { RoomSpriteMouseEvent } from '../../../../../room/events/RoomSpriteMouseEvent';

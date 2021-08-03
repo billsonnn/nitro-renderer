@@ -1,4 +1,5 @@
-﻿import { Graphics, Rectangle } from 'pixi.js';
+﻿import { Graphics } from '@pixi/graphics';
+import { Rectangle } from '@pixi/math';
 import { IDisposable } from '../../../../../../../core/common/disposable/IDisposable';
 import { IGraphicAssetCollection } from '../../../../../../../room/object/visualization/utils/IGraphicAssetCollection';
 import { IRoomGeometry } from '../../../../../../../room/utils/IRoomGeometry';

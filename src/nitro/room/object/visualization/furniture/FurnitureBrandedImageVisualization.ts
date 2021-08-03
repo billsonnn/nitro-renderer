@@ -1,4 +1,4 @@
-import { Resource, Texture } from 'pixi.js';
+import { Resource, Texture } from '@pixi/core';
 import { Nitro } from '../../../../Nitro';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureVisualization } from './FurnitureVisualization';

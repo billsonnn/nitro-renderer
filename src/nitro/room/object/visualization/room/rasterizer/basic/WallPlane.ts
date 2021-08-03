@@ -1,4 +1,4 @@
-﻿import { Graphics } from 'pixi.js';
+﻿import { Graphics } from '@pixi/graphics';
 import { IVector3D } from '../../../../../../../room/utils/IVector3D';
 import { Vector3d } from '../../../../../../../room/utils/Vector3d';
 import { Plane } from './Plane';
