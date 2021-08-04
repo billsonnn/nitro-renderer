@@ -18,7 +18,7 @@ export class AvatarFigureContainer implements IAvatarFigureContainer
 
     public hasPartType(k: string): boolean
     {
-        return this.partSets().get(k) !== null;
+        return !!this.partSets().get(k);
     }
 
     public getPartSetId(k: string): number
@@ -39,18 +39,18 @@ export class AvatarFigureContainer implements IAvatarFigureContainer
         return existing.get('colorids');
     }
 
-    public updatePart(k: string, _arg_2: number, _arg_3: number[]): void
+    public updatePart(setType: string, partSetId: number, colorIds: number[]): void
     {
         const set: Map<string, any> = new Map();
 
-        set.set('type', k);
-        set.set('setid', _arg_2);
-        set.set('colorids', _arg_3);
+        set.set('type', setType);
+        set.set('setid', partSetId);
+        set.set('colorids', colorIds);
 
         const existingSets = this.partSets();
 
-        existingSets.delete(k);
-        existingSets.set(k, set);
+        existingSets.delete(setType);
+        existingSets.set(setType, set);
     }
 
     public removePart(k: string): void

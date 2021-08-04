@@ -60,13 +60,13 @@ export class SetType implements ISetType
         for(const set of setType.sets) this._partSets.add(set.id.toString(), new FigurePartSet(this._type, set));
     }
 
-    public getDefaultPartSet(k: string): IFigurePartSet
+    public getDefaultPartSet(gender: string): IFigurePartSet
     {
         for(const set of this._partSets.getValues())
         {
             if(!set) continue;
 
-            if((set.clubLevel === 0) && ((set.gender === k) || (set.gender === 'U'))) return set;
+            if((set.clubLevel === 0) && ((set.gender === gender) || (set.gender === 'U'))) return set;
         }
 
         return null;

@@ -1,3 +1,4 @@
+import { AdvancedMap } from '../../../../core';
 import { IFigureDataPalette } from '../../interfaces';
 import { IPalette } from './IPalette';
 import { IPartColor } from './IPartColor';
@@ -6,14 +7,14 @@ import { PartColor } from './PartColor';
 export class Palette implements IPalette
 {
     private _id: number;
-    private _colors: Map<string, IPartColor>;
+    private _colors: AdvancedMap<string, IPartColor>;
 
     constructor(data: IFigureDataPalette)
     {
         if(!data) throw new Error('invalid_data');
 
         this._id        = data.id;
-        this._colors    = new Map();
+        this._colors    = new AdvancedMap();
 
         this.append(data);
     }
@@ -24,7 +25,7 @@ export class Palette implements IPalette
         {
             const newColor = new PartColor(color);
 
-            this._colors.set(color.id.toString(), newColor);
+            this._colors.add(color.id.toString(), newColor);
         }
     }
 
@@ -32,7 +33,7 @@ export class Palette implements IPalette
     {
         if((id === undefined) || id < 0) return null;
 
-        return (this._colors.get(id.toString()) || null);
+        return (this._colors.getValue(id.toString()) || null);
     }
 
     public get id(): number
@@ -40,7 +41,7 @@ export class Palette implements IPalette
         return this._id;
     }
 
-    public get colors(): Map<string, IPartColor>
+    public get colors(): AdvancedMap<string, IPartColor>
     {
         return this._colors;
     }
