@@ -1008,6 +1008,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         this._screenOffsetY = 0;
         this.render(-1, true);
 
+        this._display.mask = null;
+
         const bounds = this._display.getBounds();
 
         const renderTexture = RenderTexture.create({
@@ -1020,6 +1022,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             clear: true,
             transform: new Matrix(1, 0, 0, 1, -(bounds.x), -(bounds.y))
         });
+
+        this._display.mask = this._mask;
 
         this._noSpriteVisibilityChecking = false;
         this.setScale(k, null, null, true);
