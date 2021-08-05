@@ -59,7 +59,6 @@ import { GroupConfirmMemberRemoveEvent } from './messages/incoming/group/GroupCo
 import { GroupInformationEvent } from './messages/incoming/group/GroupInformationEvent';
 import { GroupMembersEvent } from './messages/incoming/group/GroupMembersEvent';
 import { GroupSettingsEvent } from './messages/incoming/group/GroupSettingsEvent';
-import { AuthenticationEvent } from './messages/incoming/handshake/AuthenticationEvent';
 import { CallForHelpResultMessageEvent } from './messages/incoming/help/CallForHelpResultMessageEvent';
 import { IncomingHeader } from './messages/incoming/IncomingHeader';
 import { AchievementEvent } from './messages/incoming/inventory/achievements/AchievementEvent';
@@ -474,9 +473,6 @@ export class NitroMessages implements IMessageConfiguration
 
     private registerEvents(): void
     {
-        // AUTHENTICATION
-        this._events.set(IncomingHeader.AUTHENTICATION, AuthenticationEvent);
-
         // AVAILABILITY
         this._events.set(IncomingHeader.AVAILABILITY_STATUS, AvailabilityStatusMessageEvent);
         this._events.set(IncomingHeader.GENERIC_ERROR, GenericErrorEvent);
