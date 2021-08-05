@@ -1,6 +1,10 @@
 {
-  "name": "nitro-renderer",
+  "name": "@nitrots/nitro-renderer",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://git.krews.org/nitro/nitro-renderer"
+  },
   "scripts": {
     "compile": "tsc --project ./tsconfig.json",
     "eslint": "eslint ./src --fix"
