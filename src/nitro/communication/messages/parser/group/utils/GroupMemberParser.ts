@@ -9,7 +9,7 @@ export class GroupRank
     public static readonly DELETED: number     = 4;
 }
 
-export default class GroupMemberParser
+export class GroupMemberParser
 {
     private _rank: number;
     private _id: number;
