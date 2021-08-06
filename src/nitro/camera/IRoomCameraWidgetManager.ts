@@ -1,3 +1,4 @@
+import { Resource, Texture } from '@pixi/core';
 import { IEventDispatcher } from '../../core';
 import { IRoomCameraWidgetEffect } from './IRoomCameraWidgetEffect';
 import { IRoomCameraWidgetSelectedEffect } from './IRoomCameraWidgetSelectedEffect';
@@ -5,7 +6,7 @@ import { IRoomCameraWidgetSelectedEffect } from './IRoomCameraWidgetSelectedEffe
 export interface IRoomCameraWidgetManager
 {
     init(): void;
-    applyEffects(image: HTMLImageElement, selectedEffects: IRoomCameraWidgetSelectedEffect[], isZoomed: boolean): HTMLImageElement;
+    applyEffects(texture: Texture<Resource>, selectedEffects: IRoomCameraWidgetSelectedEffect[], isZoomed: boolean): HTMLImageElement;
     events: IEventDispatcher;
     effects: Map<string, IRoomCameraWidgetEffect>;
     isLoaded: boolean;

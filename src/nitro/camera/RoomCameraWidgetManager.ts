@@ -53,10 +53,9 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
         this.events.dispatchEvent(new RoomCameraWidgetManagerEvent(RoomCameraWidgetManagerEvent.INITIALIZED));
     }
 
-    public applyEffects(image: HTMLImageElement, selectedEffects: IRoomCameraWidgetSelectedEffect[], isZoomed: boolean): HTMLImageElement
+    public applyEffects(texture: Texture, selectedEffects: IRoomCameraWidgetSelectedEffect[], isZoomed: boolean): HTMLImageElement
     {
         const container = new NitroContainer();
-        const texture   = Texture.from(image);
         const sprite    = new NitroSprite(texture);
 
         container.addChild(sprite);

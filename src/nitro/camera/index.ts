@@ -1,4 +1,4 @@
-export * from './events/RoomCameraWidgetManagerEvent';
+export * from './events';
 export * from './IRoomCameraWidgetEffect';
 export * from './IRoomCameraWidgetManager';
 export * from './IRoomCameraWidgetSelectedEffect';
