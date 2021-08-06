@@ -1,6 +1,6 @@
 import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
-import GroupMemberParser from './utils/GroupMemberParser';
+import { GroupMemberParser } from './utils';
 
 export class GroupMembersParser implements IMessageParser
 {
