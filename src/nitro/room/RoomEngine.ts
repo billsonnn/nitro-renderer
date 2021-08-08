@@ -3316,21 +3316,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(!displayObject) return null;
 
-        let index = (displayObject.children.length - 1);
-
-        while(index >= 0)
-        {
-            const child = (displayObject.getChildAt(index) as NitroSprite);
-
-            if(child)
-            {
-                if(child.name === RoomEngine.OVERLAY) return child;
-            }
-
-            index--;
-        }
-
-        return null;
+        return ((displayObject.getChildByName(RoomEngine.OVERLAY) as NitroSprite) || null);
     }
 
     private removeOverlayIconSprite(k: NitroSprite, _arg_2: string): boolean
@@ -3498,6 +3484,18 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         else composer = new RenderRoomMessageComposer();
 
         composer.assignBitmap(texture);
+
+        this._communication.connection.send(composer);
+    }
+
+    public saveBase64AsScreenshot(base64: string, saveAsThumbnail: boolean = false): void
+    {
+        let composer: RenderRoomMessageComposer = null;
+
+        if(saveAsThumbnail) composer = new RenderRoomThumbnailMessageComposer();
+        else composer = new RenderRoomMessageComposer();
+
+        composer.assignBase64(base64);
 
         this._communication.connection.send(composer);
     }

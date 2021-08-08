@@ -5,6 +5,7 @@ import { BatchRenderer, Renderer } from '@pixi/core';
 import { Extract } from '@pixi/extract';
 import { InteractionManager } from '@pixi/interaction';
 import { AppLoaderPlugin, Loader } from '@pixi/loaders';
+import '@pixi/mixin-get-child-by-name';
 import { ParticleRenderer } from '@pixi/particle-container';
 import { Prepare } from '@pixi/prepare';
 import { TilingSpriteRenderer } from '@pixi/sprite-tiling';
