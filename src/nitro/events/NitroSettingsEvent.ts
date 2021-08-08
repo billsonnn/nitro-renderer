@@ -13,9 +13,25 @@ export class NitroSettingsEvent extends NitroEvent
     private _flags: number;
     private _chatType: number;
 
-    constructor(type: string)
+    constructor()
     {
-        super(type);
+        super(NitroSettingsEvent.SETTINGS_UPDATED);
+    }
+
+    public clone(): NitroSettingsEvent
+    {
+        const clone = new NitroSettingsEvent();
+
+        clone._volumeSystem = this._volumeSystem;
+        clone._volumeFurni = this._volumeFurni;
+        clone._volumeTrax = this._volumeTrax;
+        clone._oldChat = this._oldChat;
+        clone._roomInvites = this._roomInvites;
+        clone._cameraFollow = this._cameraFollow;
+        clone._flags = this._flags;
+        clone._chatType = this._chatType;
+
+        return clone;
     }
 
     public get volumeSystem(): number
