@@ -133,12 +133,12 @@ export class FurnitureLogic extends MovingObjectLogic
         model.setValue(RoomObjectVariable.FURNITURE_ALPHA_MULTIPLIER, 1);
     }
 
-    public dispose(): void
+    protected onDispose(): void
     {
-        super.dispose();
-
         this._storedRotateMessage   = null;
         this._directions            = null;
+
+        super.onDispose();
     }
 
     public setObject(object: IRoomObjectController): void
@@ -413,7 +413,7 @@ export class FurnitureLogic extends MovingObjectLogic
 
     public tearDown(): void
     {
-        if(this.object.model.getValue(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) === 1)
+        if(this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) === 1)
         {
             if(this.widget) this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CLOSE_WIDGET, this.object));
 

@@ -31,11 +31,11 @@ export class MovingObjectLogic extends RoomObjectLogicBase
         this._updateInterval    = 500;
     }
 
-    public dispose(): void
+    protected onDispose(): void
     {
         this._liftAmount = 0;
 
-        super.dispose();
+        super.onDispose();
     }
 
     public update(time: number): void

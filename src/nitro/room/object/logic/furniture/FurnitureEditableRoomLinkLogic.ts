@@ -27,16 +27,16 @@ export class FurnitureEditableRoomLinkLogic extends FurnitureLogic
         }
     }
 
-    public dispose(): void
+    protected onDispose(): void
     {
-        super.dispose();
-
         if(this._timer)
         {
             clearTimeout(this._timer);
 
             this._timer = null;
         }
+
+        super.onDispose();
     }
 
     private setAutomaticStateIndex(state: number): void

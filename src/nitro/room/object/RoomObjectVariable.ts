@@ -99,6 +99,9 @@ export class RoomObjectVariable
     public static FURNITURE_HIGHSCORE_DATA_ENTRY_BASE_USERS_: string    = 'furniture_highscore_data_entry_base_users_';
     public static FURNITURE_HIGHSCORE_DATA_ENTRY_BASE_SCORE_: string    = 'furniture_highscore_data_entry_base_score_';
     public static FURNITURE_INTERNAL_LINK: string                       = 'furniture_internal_link';
+    public static FURNITURE_CLOTHING_BOY: string                        = 'furniture_clothing_boy';
+    public static FURNITURE_CLOTHING_GIRL: string                       = 'furniture_clothing_girl';
+    public static FURNITURE_PLANETSYSTEM_DATA: string                   = 'furniture_planetsystem_data';
     public static PET_PALETTE_INDEX: string                             = 'pet_palette_index';
     public static PET_COLOR: string                                     = 'pet_color';
     public static PET_HEAD_ONLY: string                                 = 'pet_head_only';

@@ -27,14 +27,14 @@ export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
         return this.mergeTypes(super.getEventTypes(), types);
     }
 
-    public dispose(): void
+    protected onDispose(): void
     {
         if(this._currentState === FurnitureFloorHoleLogic.STATE_HOLE)
         {
             this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.REMOVE_HOLE, this.object));
         }
 
-        super.dispose();
+        super.onDispose();
     }
 
     public update(time: number): void

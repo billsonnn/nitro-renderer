@@ -28,7 +28,7 @@ export class FurnitureGuildCustomizedLogic extends FurnitureMultiStateLogic
         }
     }
 
-    private updateGroupId(id: string): void
+    protected updateGroupId(id: string): void
     {
         this.object.model.setValue(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_GUILD_ID, parseInt(id));
     }

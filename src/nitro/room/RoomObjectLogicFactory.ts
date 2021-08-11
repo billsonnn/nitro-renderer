@@ -4,14 +4,16 @@ import { IEventDispatcher } from '../../core/events/IEventDispatcher';
 import { IRoomObjectEventHandler } from '../../room/object/logic/IRoomObjectEventHandler';
 import { IRoomObjectLogicFactory } from '../../room/object/logic/IRoomObjectLogicFactory';
 import { RoomObjectLogicBase } from '../../room/object/logic/RoomObjectLogicBase';
-import { FurnitureEffectBoxLogic, FurnitureLoveLockLogic, FurnitureMonsterplantSeedLogic, FurnitureMysteryBoxLogic, FurnitureMysteryTrophyLogic, FurnitureRandomTeleportLogic, FurnitureRentableSpaceLogic } from './object';
+import { FurnitureEcotronBoxLogic, FurnitureEffectBoxLogic, FurnitureGroupForumTerminalLogic, FurnitureHweenLovelockLogic, FurnitureInternalLinkLogic, FurnitureJukeboxLogic, FurnitureLoveLockLogic, FurnitureMonsterplantSeedLogic, FurnitureMysteryBoxLogic, FurnitureMysteryTrophyLogic, FurniturePlaceholderLogic, FurniturePlanetSystemLogic, FurnitureRandomStateLogic, FurnitureRandomTeleportLogic, FurnitureRentableSpaceLogic, FurnitureSongDiskLogic, FurnitureSoundMachineLogic, FurnitureWelcomeGiftLogic } from './object';
 import { AvatarLogic } from './object/logic/avatar/AvatarLogic';
 import { FurnitureBadgeDisplayLogic } from './object/logic/furniture/FurnitureBadgeDisplayLogic';
 import { FurnitureChangeStateWhenStepOnLogic } from './object/logic/furniture/FurnitureChangeStateWhenStepOnLogic';
+import { FurnitureClothingChangeLogic } from './object/logic/furniture/FurnitureClothingChangeLogic';
 import { FurnitureCounterClockLogic } from './object/logic/furniture/FurnitureCounterClockLogic';
 import { FurnitureCrackableLogic } from './object/logic/furniture/FurnitureCrackableLogic';
 import { FurnitureCraftingGizmoLogic } from './object/logic/furniture/FurnitureCraftingGizmoLogic';
 import { FurnitureCreditLogic } from './object/logic/furniture/FurnitureCreditLogic';
+import { FurnitureCuckooClockLogic } from './object/logic/furniture/FurnitureCuckooClockLogic';
 import { FurnitureCustomStackHeightLogic } from './object/logic/furniture/FurnitureCustomStackHeightLogic';
 import { FurnitureDiceLogic } from './object/logic/furniture/FurnitureDiceLogic';
 import { FurnitureEditableInternalLinkLogic } from './object/logic/furniture/FurnitureEditableInternalLinkLogic';
@@ -303,6 +305,45 @@ export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
                 break;
             case RoomObjectLogicType.FURNITURE_RANDOM_TELEPORT:
                 logic = FurnitureRandomTeleportLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_CLOTHING_CHANGE:
+                logic = FurnitureClothingChangeLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_CUCKOO_CLOCK:
+                logic = FurnitureCuckooClockLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_ECOTRON_BOX:
+                logic = FurnitureEcotronBoxLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_GROUP_FORUM_TERMINAL:
+                logic = FurnitureGroupForumTerminalLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_HWEEN_LOVELOCK:
+                logic = FurnitureHweenLovelockLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_INTERNAL_LINK:
+                logic = FurnitureInternalLinkLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_JUKEBOX:
+                logic = FurnitureJukeboxLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_PLACEHOLDER:
+                logic = FurniturePlaceholderLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_PLANET_SYSTEM:
+                logic = FurniturePlanetSystemLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_RANDOMSTATE:
+                logic = FurnitureRandomStateLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_SONG_DISK:
+                logic = FurnitureSongDiskLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_SOUND_MACHINE:
+                logic = FurnitureSoundMachineLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_WELCOME_GIFT:
+                logic = FurnitureWelcomeGiftLogic;
                 break;
             default:
                 logic = FurnitureLogic;

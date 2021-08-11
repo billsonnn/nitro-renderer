@@ -11,20 +11,10 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
     private static LOWEST_SEMITONE: number = -12;
     private static STATE_UNINITIALIZED: number = -1;
 
-    private _state: number;
-    private _sampleId: number;
-    private _noPitch: boolean;
-    private _lastLocZ: number;
-
-    constructor()
-    {
-        super();
-
-        this._state     = -1;
-        this._sampleId  = -1;
-        this._noPitch   = false;
-        this._lastLocZ  = 0;
-    }
+    private _state: number = -1;
+    private _sampleId: number = -1;
+    private _noPitch: boolean = false;
+    private _lastLocZ: number = 0;
 
     public getEventTypes(): string[]
     {
@@ -47,17 +37,17 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
         this._sampleId = asset.soundSample.id;
         this._noPitch = asset.soundSample.noPitch;
 
-        this.updateModel();
+        this.object.model.setValue(RoomObjectVariable.FURNITURE_SOUNDBLOCK_RELATIVE_ANIMATION_SPEED, 1);
     }
 
-    public dispose(): void
+    protected onDispose(): void
     {
-        super.dispose();
-
         if(this._state !== FurnitureSoundBlockLogic.STATE_UNINITIALIZED)
         {
             this.eventDispatcher.dispatchEvent(new RoomObjectSamplePlaybackEvent(RoomObjectSamplePlaybackEvent.ROOM_OBJECT_DISPOSED, this.object, this._sampleId));
         }
+
+        super.onDispose();
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void
@@ -100,34 +90,26 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
         this._state = message.state;
     }
 
-    protected updateModel(): boolean
+    private playSoundAt(height: number): void
     {
-        const model = this.object && this.object.model;
+        if(!this.object) return;
 
-        if(!model) return false;
+        const pitch: number = this.getPitchForHeight(height);
 
-        model.setValue(RoomObjectVariable.FURNITURE_SOUNDBLOCK_RELATIVE_ANIMATION_SPEED, 1);
+        this.object.model.setValue(RoomObjectVariable.FURNITURE_SOUNDBLOCK_RELATIVE_ANIMATION_SPEED, pitch);
+
+        this.eventDispatcher.dispatchEvent(new RoomObjectSamplePlaybackEvent(RoomObjectSamplePlaybackEvent.PLAY_SAMPLE, this.object, this._sampleId, pitch));
     }
 
-    private playSoundAt(k: number): void
+    private getPitchForHeight(height: number): number
     {
-        const model = this.object && this.object.model;
+        let heightScaled: number = (height * 2);
 
-        if(!model) return;
-
-        const _local_2: number = this.getPitchForHeight(k);
-
-        model.setValue(RoomObjectVariable.FURNITURE_SOUNDBLOCK_RELATIVE_ANIMATION_SPEED, _local_2);
-        this.eventDispatcher.dispatchEvent(new RoomObjectSamplePlaybackEvent(RoomObjectSamplePlaybackEvent.PLAY_SAMPLE, this.object, this._sampleId, _local_2));
-    }
-
-    private getPitchForHeight(k: number): number
-    {
-        let _local_2: number = (k * 2);
-        if(_local_2 > FurnitureSoundBlockLogic.HIGHEST_SEMITONE)
+        if(heightScaled > FurnitureSoundBlockLogic.HIGHEST_SEMITONE)
         {
-            _local_2 = Math.min(0, (FurnitureSoundBlockLogic.LOWEST_SEMITONE + ((_local_2 - FurnitureSoundBlockLogic.HIGHEST_SEMITONE) - 1)));
+            heightScaled = Math.min(0, (FurnitureSoundBlockLogic.LOWEST_SEMITONE + ((heightScaled - FurnitureSoundBlockLogic.HIGHEST_SEMITONE) - 1)));
         }
-        return (this._noPitch) ? 1 : Math.pow(2, (_local_2 / 12));
+
+        return (this._noPitch) ? 1 : Math.pow(2, (heightScaled / 12));
     }
 }

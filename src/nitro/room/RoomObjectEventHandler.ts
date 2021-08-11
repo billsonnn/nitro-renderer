@@ -35,7 +35,7 @@ import { RoomUnitWalkComposer } from '../communication/messages/outgoing/room/un
 import { Nitro } from '../Nitro';
 import { MouseEventType } from '../ui/MouseEventType';
 import { RoomObjectPlacementSource } from './enums/RoomObjectPlacementSource';
-import { RoomEngineRoomAdEvent, RoomEngineUseProductEvent, RoomObjectRoomAdEvent } from './events';
+import { RoomEngineObjectPlaySoundEvent, RoomEngineRoomAdEvent, RoomEngineUseProductEvent, RoomObjectPlaySoundIdEvent, RoomObjectRoomAdEvent, RoomObjectSoundMachineEvent } from './events';
 import { RoomEngineDimmerStateEvent } from './events/RoomEngineDimmerStateEvent';
 import { RoomEngineObjectEvent } from './events/RoomEngineObjectEvent';
 import { RoomEngineObjectPlacedEvent } from './events/RoomEngineObjectPlacedEvent';
@@ -243,14 +243,14 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         {
             case RoomObjectStateChangedEvent.STATE_CHANGE:
             case RoomObjectStateChangedEvent.STATE_RANDOM:
-                this.onRoomObjectStateChangedEvent(event as RoomObjectStateChangedEvent, roomId);
+                this.onRoomObjectStateChangedEvent((event as RoomObjectStateChangedEvent), roomId);
                 return;
             case RoomObjectDimmerStateUpdateEvent.DIMMER_STATE:
-                this.onRoomObjectDimmerStateUpdateEvent(event as RoomObjectDimmerStateUpdateEvent, roomId);
+                this.onRoomObjectDimmerStateUpdateEvent((event as RoomObjectDimmerStateUpdateEvent), roomId);
                 return;
             case RoomObjectMoveEvent.POSITION_CHANGED:
             case RoomObjectMoveEvent.OBJECT_REMOVED:
-                this.onRoomObjectMoveEvent(event as RoomObjectMoveEvent, roomId);
+                this.handleSelectedObjectRemove((event as RoomObjectMoveEvent), roomId);
                 return;
             case RoomObjectWidgetRequestEvent.OPEN_WIDGET:
             case RoomObjectWidgetRequestEvent.CLOSE_WIDGET:
@@ -286,45 +286,61 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             case RoomObjectWidgetRequestEvent.HIDE_HIGH_SCORE_DISPLAY:
             case RoomObjectWidgetRequestEvent.INERNAL_LINK:
             case RoomObjectWidgetRequestEvent.ROOM_LINK:
-                this.onRoomObjectWidgetRequestEvent(event as RoomObjectWidgetRequestEvent, roomId);
+                this.onRoomObjectWidgetRequestEvent((event as RoomObjectWidgetRequestEvent), roomId);
                 return;
             case RoomObjectFurnitureActionEvent.DICE_ACTIVATE:
             case RoomObjectFurnitureActionEvent.DICE_OFF:
             case RoomObjectFurnitureActionEvent.USE_HABBOWHEEL:
             case RoomObjectFurnitureActionEvent.STICKIE:
             case RoomObjectFurnitureActionEvent.ENTER_ONEWAYDOOR:
-                this.onRoomObjectFurnitureActionEvent(event as RoomObjectFurnitureActionEvent, roomId);
+                this.onRoomObjectFurnitureActionEvent((event as RoomObjectFurnitureActionEvent), roomId);
+                return;
+            case RoomObjectFurnitureActionEvent.SOUND_MACHINE_INIT:
+            case RoomObjectFurnitureActionEvent.SOUND_MACHINE_START:
+            case RoomObjectFurnitureActionEvent.SOUND_MACHINE_STOP:
+            case RoomObjectFurnitureActionEvent.SOUND_MACHINE_DISPOSE:
+                this.handleObjectSoundMachineEvent(event, roomId);
+                return;
+            case RoomObjectFurnitureActionEvent.JUKEBOX_INIT:
+            case RoomObjectFurnitureActionEvent.JUKEBOX_START:
+            case RoomObjectFurnitureActionEvent.JUKEBOX_MACHINE_STOP:
+            case RoomObjectFurnitureActionEvent.JUKEBOX_DISPOSE:
+                this.handleObjectJukeboxEvent(event, roomId);
                 return;
             case RoomObjectFloorHoleEvent.ADD_HOLE:
             case RoomObjectFloorHoleEvent.REMOVE_HOLE:
-                this.onRoomObjectFloorHoleEvent(event as RoomObjectFloorHoleEvent, roomId);
+                this.onRoomObjectFloorHoleEvent((event as RoomObjectFloorHoleEvent), roomId);
                 return;
             case RoomObjectRoomAdEvent.ROOM_AD_FURNI_CLICK:
             case RoomObjectRoomAdEvent.ROOM_AD_FURNI_DOUBLE_CLICK:
             case RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_SHOW:
             case RoomObjectRoomAdEvent.ROOM_AD_TOOLTIP_HIDE:
             case RoomObjectRoomAdEvent.ROOM_AD_LOAD_IMAGE:
-                this.onRoomObjectRoomAdEvent(event as RoomObjectRoomAdEvent, roomId);
+                this.onRoomObjectRoomAdEvent((event as RoomObjectRoomAdEvent), roomId);
                 return;
             case RoomObjectBadgeAssetEvent.LOAD_BADGE:
-                this.onRoomObjectBadgeAssetEvent(event as RoomObjectBadgeAssetEvent, roomId);
+                this.onRoomObjectBadgeAssetEvent((event as RoomObjectBadgeAssetEvent), roomId);
                 return;
             case RoomObjectFurnitureActionEvent.MOUSE_ARROW:
             case RoomObjectFurnitureActionEvent.MOUSE_BUTTON:
-                this.handleMousePointer(event as RoomObjectFurnitureActionEvent, roomId);
+                this.handleMousePointer((event as RoomObjectFurnitureActionEvent), roomId);
+                return;
+            case RoomObjectPlaySoundIdEvent.PLAY_SOUND:
+            case RoomObjectPlaySoundIdEvent.PLAY_SOUND_AT_PITCH:
+                this.handleRoomObjectPlaySoundEvent((event as RoomObjectPlaySoundIdEvent), roomId);
                 return;
             case RoomObjectSamplePlaybackEvent.ROOM_OBJECT_INITIALIZED:
             case RoomObjectSamplePlaybackEvent.ROOM_OBJECT_DISPOSED:
             case RoomObjectSamplePlaybackEvent.PLAY_SAMPLE:
             case RoomObjectSamplePlaybackEvent.CHANGE_PITCH:
-                this.handleRoomObjectSamplePlaybackEvent(event as RoomObjectSamplePlaybackEvent, roomId);
+                this.handleRoomObjectSamplePlaybackEvent((event as RoomObjectSamplePlaybackEvent), roomId);
                 return;
             case RoomObjectHSLColorEnableEvent.ROOM_BACKGROUND_COLOR:
-                this.onHSLColorEnableEvent(event as RoomObjectHSLColorEnableEvent, roomId);
+                this.onHSLColorEnableEvent((event as RoomObjectHSLColorEnableEvent), roomId);
                 return;
             case RoomObjectDataRequestEvent.RODRE_CURRENT_USER_ID:
             case RoomObjectDataRequestEvent.RODRE_URL_PREFIX:
-                this.onRoomObjectDataRequestEvent(event as RoomObjectDataRequestEvent, roomId);
+                this.onRoomObjectDataRequestEvent((event as RoomObjectDataRequestEvent), roomId);
                 return;
             default:
                 NitroLogger.log(`Unhandled Event: ${ event.constructor.name }`, `Object ID: ${ event.object.id }`);
@@ -686,10 +702,10 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         switch(event.type)
         {
             case RoomObjectStateChangedEvent.STATE_CHANGE:
-                this.updateRoomObjectState(roomId, event.object.id, event.object.type, event.state, false);
+                this.changeObjectState(roomId, event.object.id, event.object.type, event.state, false);
                 return;
             case RoomObjectStateChangedEvent.STATE_RANDOM:
-                this.updateRoomObjectState(roomId, event.object.id, event.object.type, event.state, true);
+                this.changeObjectState(roomId, event.object.id, event.object.type, event.state, true);
                 return;
         }
     }
@@ -706,7 +722,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         }
     }
 
-    private onRoomObjectMoveEvent(event: RoomObjectMoveEvent, roomId: number): void
+    private handleSelectedObjectRemove(event: RoomObjectMoveEvent, roomId: number): void
     {
         if(!event || !this._roomEngine) return;
 
@@ -859,6 +875,70 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         this.useObject(roomId, event.object.id, event.object.type, event.type);
     }
 
+    private handleObjectSoundMachineEvent(event: RoomObjectEvent, roomId: number): void
+    {
+        if(!event) return;
+
+        const objectCategory = this._roomEngine.getRoomObjectCategoryForType(event.objectType);
+        const selectedData = this.getSelectedRoomObjectData(roomId);
+
+        if(!selectedData)
+        {
+            if((selectedData.category === objectCategory) && (selectedData.id === event.objectId))
+            {
+                if(selectedData.operation === RoomObjectOperationType.OBJECT_PLACE) return;
+            }
+        }
+
+        switch(event.type)
+        {
+            case RoomObjectFurnitureActionEvent.SOUND_MACHINE_INIT:
+                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.SOUND_MACHINE_INIT, roomId, event.objectId, objectCategory));
+                return;
+            case RoomObjectFurnitureActionEvent.SOUND_MACHINE_START:
+                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.SOUND_MACHINE_SWITCHED_ON, roomId, event.objectId, objectCategory));
+                return;
+            case RoomObjectFurnitureActionEvent.SOUND_MACHINE_STOP:
+                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.SOUND_MACHINE_SWITCHED_OFF, roomId, event.objectId, objectCategory));
+                return;
+            case RoomObjectFurnitureActionEvent.SOUND_MACHINE_DISPOSE:
+                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.SOUND_MACHINE_DISPOSE, roomId, event.objectId, objectCategory));
+                return;
+        }
+    }
+
+    private handleObjectJukeboxEvent(event: RoomObjectEvent, roomId: number): void
+    {
+        if(!event) return;
+
+        const objectCategory = this._roomEngine.getRoomObjectCategoryForType(event.objectType);
+        const selectedData = this.getSelectedRoomObjectData(roomId);
+
+        if(!selectedData)
+        {
+            if((selectedData.category === objectCategory) && (selectedData.id === event.objectId))
+            {
+                if(selectedData.operation === RoomObjectOperationType.OBJECT_PLACE) return;
+            }
+        }
+
+        switch(event.type)
+        {
+            case RoomObjectFurnitureActionEvent.JUKEBOX_INIT:
+                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.JUKEBOX_INIT, roomId, event.objectId, objectCategory));
+                return;
+            case RoomObjectFurnitureActionEvent.JUKEBOX_START:
+                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.JUKEBOX_SWITCHED_ON, roomId, event.objectId, objectCategory));
+                return;
+            case RoomObjectFurnitureActionEvent.JUKEBOX_MACHINE_STOP:
+                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.JUKEBOX_SWITCHED_OFF, roomId, event.objectId, objectCategory));
+                return;
+            case RoomObjectFurnitureActionEvent.JUKEBOX_DISPOSE:
+                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.JUKEBOX_DISPOSE, roomId, event.objectId, objectCategory));
+                return;
+        }
+    }
+
     private onRoomObjectFloorHoleEvent(event: RoomObjectFloorHoleEvent, roomId: number): void
     {
         if(!event) return;
@@ -940,6 +1020,21 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         this._roomEngine.updateMousePointer(event.type, event.objectId, event.objectType);
     }
 
+    private handleRoomObjectPlaySoundEvent(event: RoomObjectPlaySoundIdEvent, roomId: number): void
+    {
+        const objectCategory = this._roomEngine.getRoomObjectCategoryForType(event.objectType);
+
+        switch(event.type)
+        {
+            case RoomObjectPlaySoundIdEvent.PLAY_SOUND:
+                this._roomEngine.events.dispatchEvent(new RoomEngineObjectPlaySoundEvent(RoomEngineObjectPlaySoundEvent.PLAY_SOUND, roomId, event.objectId, objectCategory, event.soundId, event.pitch));
+                return;
+            case RoomObjectPlaySoundIdEvent.PLAY_SOUND_AT_PITCH:
+                this._roomEngine.events.dispatchEvent(new RoomEngineObjectPlaySoundEvent(RoomEngineObjectPlaySoundEvent.PLAY_SOUND_AT_PITCH, roomId, event.objectId, objectCategory, event.soundId, event.pitch));
+                return;
+        }
+    }
+
     private handleRoomObjectSamplePlaybackEvent(event: RoomObjectSamplePlaybackEvent, roomId: number): void
     {
         if(!event) return;
@@ -985,7 +1080,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 event.object.model.setValue(RoomObjectVariable.SESSION_CURRENT_USER_ID, this._roomEngine.sessionDataManager.userId);
                 return;
             case RoomObjectDataRequestEvent.RODRE_URL_PREFIX:
-                event.object.model.setValue(RoomObjectVariable.SESSION_CURRENT_USER_ID, Nitro.instance.getConfiguration('url.prefix'));
+                event.object.model.setValue(RoomObjectVariable.SESSION_URL_PREFIX, Nitro.instance.getConfiguration('url.prefix'));
                 return;
         }
     }
@@ -1369,11 +1464,11 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         return _local_11;
     }
 
-    private updateRoomObjectState(roomId: number, objectId: number, type: string, state: number, isRandom: boolean): void
+    private changeObjectState(roomId: number, objectId: number, type: string, state: number, isRandom: boolean): void
     {
         const category = this._roomEngine.getRoomObjectCategoryForType(type);
 
-        this.sendStateUpdate(roomId, objectId, category, state, isRandom);
+        this.changeRoomObjectState(roomId, objectId, category, state, isRandom);
     }
 
     private useObject(roomId: number, objectId: number, type: string, action: string): void
@@ -1399,7 +1494,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         }
     }
 
-    private sendStateUpdate(roomId: number, objectId: number, category: number, state: number, isRandom: boolean): boolean
+    private changeRoomObjectState(roomId: number, objectId: number, category: number, state: number, isRandom: boolean): boolean
     {
         if(!this._roomEngine || !this._roomEngine.connection) return true;
 
