@@ -45,7 +45,6 @@ export class Nitro extends Application implements INitro
 {
     public static WEBGL_CONTEXT_LOST: string    = 'NE_WEBGL_CONTEXT_LOST';
     public static WEBGL_UNAVAILABLE: string     = 'NE_WEBGL_UNAVAILABLE';
-    public static RELEASE_VERSION: string       = 'NITRO-2-0-0';
     public static READY: string                 = 'NE_READY!';
 
     private static INSTANCE: INitro = null;

@@ -5,4 +5,5 @@ export * from './configuration';
 export * from './events';
 export * from './INitroCore';
 export * from './NitroCore';
+export * from './NitroVersion';
 export * from './utils';
