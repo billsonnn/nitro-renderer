@@ -1,4 +1,5 @@
 import { IAssetData } from '../../../../../core/asset/interfaces';
+import { IParticleSystem } from '../../../../../core/asset/interfaces/particlesystem';
 import { RoomSpriteMouseEvent } from '../../../../../room/events/RoomSpriteMouseEvent';
 import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
 import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
@@ -32,7 +33,10 @@ export class FurniturePresentLogic extends FurnitureLogic
     {
         super.initialize(asset);
 
-        // particle system etc
+        if(asset.particleSystems && asset.particleSystems.length)
+        {
+            this.object.model.setValue<IParticleSystem[]>(RoomObjectVariable.FURNITURE_FIREWORKS_DATA, asset.particleSystems);
+        }
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void

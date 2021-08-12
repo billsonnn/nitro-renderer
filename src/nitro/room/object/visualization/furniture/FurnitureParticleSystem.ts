@@ -119,9 +119,9 @@ export class FurnitureParticleSystem
 
             if(!this._emptySprite)
             {
-                this._emptySprite = new NitroSprite(Texture.WHITE);
+                this._emptySprite = new NitroSprite(Texture.EMPTY);
 
-                this._emptySprite.tint = this._bgColor;
+                this._emptySprite.alpha = 0;
             }
 
             this._centerX = -(this._roomSprite.offsetX);
@@ -183,25 +183,10 @@ export class FurnitureParticleSystem
 
             if(!this._canvasTexture) this.updateCanvas();
 
-            if(this._blackOverlayAlphaTransform.alpha === 1)
-            {
-                this._emptySprite.filters = null;
-
-                Nitro.instance.renderer.render(this._emptySprite, {
-                    renderTexture: this._canvasTexture,
-                    clear: true
-                });
-            }
-            else
-            {
-                this._emptySprite.filters = [ this._blackOverlayAlphaTransform ];
-
-                Nitro.instance.renderer.render(this._emptySprite, {
-                    renderTexture: this._canvasTexture,
-                    transform: this._identityMatrix,
-                    clear: true
-                });
-            }
+            Nitro.instance.renderer.render(this._emptySprite, {
+                renderTexture: this._canvasTexture,
+                clear: true
+            });
 
             for(const particle of this._currentEmitter.particles)
             {
@@ -209,16 +194,14 @@ export class FurnitureParticleSystem
                 const ty = ((this._centerY - offsetY) + ((((particle.y + ((particle.x + particle.z) / 2)) * k) / 10) * this._scaleMultiplier));
                 const asset = particle.getAsset();
 
-                if(asset)
+                if(asset && asset.texture)
                 {
-                    const texture = asset.texture;
-
                     if(particle.fade && (particle.alphaMultiplier < 1))
                     {
                         this._translationMatrix.identity();
                         this._translationMatrix.translate((tx + asset.offsetX), (ty + asset.offsetY));
 
-                        const sprite = new NitroSprite(texture);
+                        const sprite = new NitroSprite(asset.texture);
 
                         this._particleColorTransform.alpha = particle.alphaMultiplier;
 
@@ -233,8 +216,7 @@ export class FurnitureParticleSystem
                     else
                     {
                         const point = new NitroPoint((tx + asset.offsetX), (ty + asset.offsetY));
-
-                        const sprite = new NitroSprite(texture);
+                        const sprite = new NitroSprite(asset.texture);
 
                         sprite.x = point.x;
                         sprite.y = point.y;
