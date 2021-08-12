@@ -1,5 +1,6 @@
-﻿import { GraphicAsset } from '../../../../../room/object/visualization/utils/GraphicAsset';
+﻿import { IGraphicAsset } from '../../../../../room';
 import { Vector3D } from '../../../../avatar/geometry/Vector3D';
+import { ParticleSystemParticle } from '../data';
 import { FurnitureParticleSystemParticle } from './FurnitureParticleSystemParticle';
 
 export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParticle
@@ -15,7 +16,7 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
     private _gravity: number;
     private _airFriction: number;
     private _explosionShape: string;
-    private _particleConfigurations: { [index: string]: any }[];
+    private _particleConfigurations: ParticleSystemParticle[];
     private _particles: FurnitureParticleSystemParticle[];
     private _maxNumberOfParticles: number;
     private _particlesPerFrame: number;
@@ -24,14 +25,15 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
     private _energy: number = 1;
     private _hasIgnited: boolean = false;
     private _burstPulse: number = 1;
+    private _emitterDirection: Vector3D;
 
-    constructor(k: string='', _arg_2: number=-1)
+    constructor(name: string = '', spriteId: number = -1)
     {
         super();
 
         this._particles = [];
-        this._name = k;
-        this._roomObjectSpriteId = _arg_2;
+        this._name = name;
+        this._roomObjectSpriteId = spriteId;
         this._particleConfigurations = [];
     }
 
@@ -40,205 +42,204 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
         for(const k of this._particles) k.dispose();
 
         this._particles                 = null;
-        this._direction                 = null;
         this._particleConfigurations    = null;
 
         super.dispose();
     }
 
-    public setup(k: number, _arg_2: number, _arg_3: number, _arg_4: Vector3D, _arg_5: number, _arg_6: number, _arg_7: string, _arg_8: number, _arg_9: number, _arg_10: number): void
+    public setup(maxNumOfParticles: number, particlesPerFrame: number, force: number, direction: Vector3D, gravity: number, airFriction: number, explosionShape: string, energy: number, fuseTime: number, burstPulse: number): void
     {
-        this._maxNumberOfParticles = k;
-        this._particlesPerFrame = _arg_2;
-        this._force = _arg_3;
-        this._direction = _arg_4;
-        this._direction.normalize();
-        this._gravity = _arg_5;
-        this._airFriction = _arg_6;
-        this._explosionShape = _arg_7;
-        this._fuseTime = _arg_9;
-        this._energy = _arg_8;
-        this._burstPulse = _arg_10;
+        this._maxNumberOfParticles = maxNumOfParticles;
+        this._particlesPerFrame = particlesPerFrame;
+        this._force = force;
+        this._emitterDirection = direction;
+        this._emitterDirection.normalize();
+        this._gravity = gravity;
+        this._airFriction = airFriction;
+        this._explosionShape = explosionShape;
+        this._fuseTime = fuseTime;
+        this._energy = energy;
+        this._burstPulse = burstPulse;
         this.reset();
     }
 
     public reset(): void
     {
-        let k:FurnitureParticleSystemParticle;
-        for(const k of this._particles) k.dispose();
+        for(const particle of this._particles) particle.dispose();
+
         this._particles = [];
         this._emittedParticles = 0;
         this._hasIgnited = false;
-        this.init(0, 0, 0, this._direction, this._force, this._timeStep, this._fuseTime, true);
+
+        this.init(0, 0, 0, this._emitterDirection, this._force, this._timeStep, this._fuseTime, true);
     }
 
-    public copyStateFrom(k:FurnitureParticleSystemEmitter, _arg_2: number): void
+    public copyStateFrom(emitter: FurnitureParticleSystemEmitter, scale: number): void
     {
-        super.copy(k, _arg_2);
-        this._force = k._force;
-        this._direction = k._direction;
-        this._gravity = k._gravity;
-        this._airFriction = k._airFriction;
-        this._explosionShape = k._explosionShape;
-        this._fuseTime = k._fuseTime;
-        this._energy = k._energy;
-        this._burstPulse = k._burstPulse;
-        this._timeStep = k._timeStep;
-        this._hasIgnited = k._hasIgnited;
+        super.copy(emitter, scale);
+
+        this._force = emitter._force;
+        this._emitterDirection = emitter._emitterDirection;
+        this._gravity = emitter._gravity;
+        this._airFriction = emitter._airFriction;
+        this._explosionShape = emitter._explosionShape;
+        this._fuseTime = emitter._fuseTime;
+        this._energy = emitter._energy;
+        this._burstPulse = emitter._burstPulse;
+        this._timeStep = emitter._timeStep;
+        this._hasIgnited = emitter._hasIgnited;
     }
 
-    public configureParticle(k: number, _arg_2: boolean, _arg_3: GraphicAsset[], _arg_4: boolean): void
+    public configureParticle(lifeTIme: number, isEmitter: boolean, frames: IGraphicAsset[], fade: boolean): void
     {
-        const _local_5 = [];
-        _local_5['lifeTime'] = k;
-        _local_5['isEmitter'] = _arg_2;
-        _local_5['frames'] = _arg_3;
-        _local_5['fade'] = _arg_4;
-        this._particleConfigurations.push(_local_5);
+        const particle: ParticleSystemParticle = {};
+
+        particle.lifeTime = lifeTIme;
+        particle.isEmitter = isEmitter;
+        particle.frames = frames;
+        particle.fade = fade;
+
+        this._particleConfigurations.push(particle);
     }
 
     protected ignite(): void
     {
         this._hasIgnited = true;
-        if((this._emittedParticles < this._maxNumberOfParticles))
+
+        if(this._emittedParticles < this._maxNumberOfParticles)
         {
-            if(this.age > 1)
-            {
-                this.releaseParticles(this, this.direction);
-            }
+            if(this.age > 1) this.releaseParticles(this, this.direction);
         }
     }
 
-    private releaseParticles(k:FurnitureParticleSystemParticle, _arg_2: Vector3D = null): void
+    private releaseParticles(particle: FurnitureParticleSystemParticle, direction: Vector3D = null): void
     {
-        if(!_arg_2) _arg_2 = new Vector3D();
+        if(!direction) direction = new Vector3D();
 
-        const _local_3  = new Vector3D();
-        const _local_5  = this.getRandomParticleConfiguration();
+        const newDirection = new Vector3D();
+        const randomParticle = this.getRandomParticleConfiguration();
 
-        let _local_10 = 0;
+        let i = 0;
 
-        while(_local_10 < this._particlesPerFrame)
+        while(i < this._particlesPerFrame)
         {
             switch(this._explosionShape)
             {
                 case FurnitureParticleSystemEmitter.CONE:
-                    _local_3.x = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
-                    _local_3.y = -(Math.random() + 1);
-                    _local_3.z = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
+                    newDirection.x = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
+                    newDirection.y = -(Math.random() + 1);
+                    newDirection.z = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
                     break;
                 case FurnitureParticleSystemEmitter.PLANE:
-                    _local_3.x = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
-                    _local_3.y = 0;
-                    _local_3.z = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
+                    newDirection.x = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
+                    newDirection.y = 0;
+                    newDirection.z = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
                     break;
                 case FurnitureParticleSystemEmitter.SPHERE:
-                    _local_3.x = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
-                    _local_3.y = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
-                    _local_3.z = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
+                    newDirection.x = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
+                    newDirection.y = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
+                    newDirection.z = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
                     break;
             }
 
-            _local_3.normalize();
+            newDirection.normalize();
 
-            const _local_4 = new FurnitureParticleSystemParticle();
+            const newParticle = new FurnitureParticleSystemParticle();
 
-            let _local_6 = 0;
-            let _local_7 = false;
-            let _local_8 = false;
-            let _local_9: GraphicAsset[] = [];
+            let lifeTime = 0;
+            let isEmitter = false;
+            let fade = false;
+            let frames: IGraphicAsset[] = [];
 
-            if(_local_5)
+            if(randomParticle)
             {
-                _local_6 = Math.floor(((Math.random() * _local_5['lifeTime']) + 10));
-                _local_7 = _local_5['isEmitter'];
-                _local_9 = _local_5['frames'];
-                _local_8 = _local_5['fade'];
+                lifeTime = Math.floor(((Math.random() * randomParticle.lifeTime) + 10));
+                isEmitter = randomParticle.isEmitter;
+                frames = randomParticle.frames;
+                fade = randomParticle.fade;
             }
             else
             {
-                _local_6 = Math.trunc(Math.floor(((Math.random() * 20) + 10)));
-                _local_7 = false;
-                _local_9 = [];
+                lifeTime = Math.trunc(Math.floor(((Math.random() * 20) + 10)));
+                isEmitter = false;
+                frames = [];
             }
 
-            _local_4.init(k.x, k.y, k.z, _local_3, this._energy, this._timeStep, _local_6, _local_7, _local_9, _local_8);
+            newParticle.init(particle.x, particle.y, particle.z, newDirection, this._energy, this._timeStep, lifeTime, isEmitter, frames, fade);
 
-            this._particles.push(_local_4);
+            this._particles.push(newParticle);
             this._emittedParticles++;
 
-            _local_10++;
+            i++;
         }
     }
 
-    private getRandomParticleConfiguration()
+    private getRandomParticleConfiguration(): ParticleSystemParticle
     {
-        const k: number = Math.trunc(Math.floor((Math.random() * this._particleConfigurations.length)));
-        return this._particleConfigurations[k];
+        const index: number = Math.trunc(Math.floor((Math.random() * this._particleConfigurations.length)));
+
+        return this._particleConfigurations[index];
     }
 
     public update(): void
     {
         super.update();
+
         this.accumulateForces();
         this.verlet();
         this.satisfyConstraints();
-        if(((!(this.isAlive)) && (this._emittedParticles < this._maxNumberOfParticles)))
+
+        if(!this.isAlive && (this._emittedParticles < this._maxNumberOfParticles))
         {
-            if((this.age % this._burstPulse) == 0)
-            {
-                this.releaseParticles(this, this.direction);
-            }
+            if((this.age % this._burstPulse) === 0) this.releaseParticles(this, this.direction);
         }
     }
 
     public verlet(): void
     {
-        let _local_2:FurnitureParticleSystemParticle;
-        let _local_3: number;
-        let _local_4: number;
-        let _local_5: number;
-        if(((this.isAlive) || (this._emittedParticles < this._maxNumberOfParticles)))
+        if(this.isAlive || (this._emittedParticles < this._maxNumberOfParticles))
         {
-            _local_3 = this.x;
-            _local_4 = this.y;
-            _local_5 = this.z;
+            const x = this.x;
+            const y = this.y;
+            const z = this.z;
+
             this.x = (((2 - this._airFriction) * this.x) - ((1 - this._airFriction) * this.lastX));
             this.y = ((((2 - this._airFriction) * this.y) - ((1 - this._airFriction) * this.lastY)) + ((this._gravity * this._timeStep) * this._timeStep));
             this.z = (((2 - this._airFriction) * this.z) - ((1 - this._airFriction) * this.lastZ));
-            this.lastX = _local_3;
-            this.lastY = _local_4;
-            this.lastZ = _local_5;
+            this.lastX = x;
+            this.lastY = y;
+            this.lastZ = z;
         }
-        const k: FurnitureParticleSystemParticle[] = [];
 
-        for(const _local_2 of this._particles)
+        const particles: FurnitureParticleSystemParticle[] = [];
+
+        for(const particle of this._particles)
         {
-            _local_2.update();
-            _local_3 = _local_2.x;
-            _local_4 = _local_2.y;
-            _local_5 = _local_2.z;
-            _local_2.x = (((2 - this._airFriction) * _local_2.x) - ((1 - this._airFriction) * _local_2.lastX));
-            _local_2.y = ((((2 - this._airFriction) * _local_2.y) - ((1 - this._airFriction) * _local_2.lastY)) + ((this._gravity * this._timeStep) * this._timeStep));
-            _local_2.z = (((2 - this._airFriction) * _local_2.z) - ((1 - this._airFriction) * _local_2.lastZ));
-            _local_2.lastX = _local_3;
-            _local_2.lastY = _local_4;
-            _local_2.lastZ = _local_5;
-            if(((_local_2.y > 10) || (!(_local_2.isAlive))))
-            {
-                k.push(_local_2);
-            }
+            particle.update();
+
+            const x = particle.x;
+            const y = particle.y;
+            const z = particle.z;
+            particle.x = (((2 - this._airFriction) * particle.x) - ((1 - this._airFriction) * particle.lastX));
+            particle.y = ((((2 - this._airFriction) * particle.y) - ((1 - this._airFriction) * particle.lastY)) + ((this._gravity * this._timeStep) * this._timeStep));
+            particle.z = (((2 - this._airFriction) * particle.z) - ((1 - this._airFriction) * particle.lastZ));
+            particle.lastX = x;
+            particle.lastY = y;
+            particle.lastZ = z;
+
+            if((particle.y > 10) || !particle.isAlive) particles.push(particle);
         }
-        for(const _local_2 of k)
+
+        for(const particle of particles)
         {
-            if(_local_2.isEmitter)
+            if(particle.isEmitter)
             {
                 //
             }
 
-            this._particles.splice(this._particles.indexOf(_local_2), 1);
+            this._particles.splice(this._particles.indexOf(particle), 1);
 
-            _local_2.dispose();
+            particle.dispose();
         }
     }
 

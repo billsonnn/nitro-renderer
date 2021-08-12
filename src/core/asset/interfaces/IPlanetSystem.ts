@@ -1,6 +1,11 @@
-import { IPlanetSystemObject } from './IPlanetSystemObject';
-
 export interface IPlanetSystem
 {
-    objects?: IPlanetSystemObject[];
+    id?: number;
+    name?: string;
+    parent?: string;
+    radius?: number;
+    arcSpeed?: number;
+    arcOffset?: number;
+    blend?: number;
+    height?: number;
 }

@@ -17,6 +17,7 @@ export * from './FurnitureGuildIsometricBadgeVisualization';
 export * from './FurnitureHabboWheelVisualization';
 export * from './FurnitureMannequinVisualization';
 export * from './FurnitureMannequinVisualizationData';
+export * from './FurnitureParticleSystem';
 export * from './FurnitureParticleSystemEmitter';
 export * from './FurnitureParticleSystemParticle';
 export * from './FurniturePartyBeamerVisualization';

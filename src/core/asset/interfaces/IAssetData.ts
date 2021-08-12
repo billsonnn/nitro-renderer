@@ -4,6 +4,7 @@ import { IAssetAlias } from './IAssetAlias';
 import { IAssetDimension } from './IAssetDimension';
 import { IAssetPalette } from './IAssetPalette';
 import { IPlanetSystem } from './IPlanetSystem';
+import { IParticleSystem } from './particlesystem';
 import { ISpritesheet } from './spritesheet';
 import { IAssetVisualizationData } from './visualization';
 
@@ -16,7 +17,8 @@ export interface IAssetData {
     credits?: string;
     soundSample?: { id?: number, noPitch?: boolean };
     action?: { link?: string, startState?: number };
-    planetSystem?: IPlanetSystem;
+    planetSystems?: IPlanetSystem[];
+    particleSystems?: IParticleSystem[];
     spritesheet?: ISpritesheet;
     dimensions?: IAssetDimension;
     directions?: number[];

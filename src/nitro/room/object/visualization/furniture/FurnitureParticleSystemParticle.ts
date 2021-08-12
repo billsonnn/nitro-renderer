@@ -1,4 +1,4 @@
-﻿import { GraphicAsset } from '../../../../../room/object/visualization/utils/GraphicAsset';
+﻿import { IGraphicAsset } from '../../../../../room';
 import { Vector3D } from '../../../../avatar/geometry/Vector3D';
 
 export class FurnitureParticleSystemParticle
@@ -10,51 +10,47 @@ export class FurnitureParticleSystemParticle
     private _lastY: number;
     private _lastZ: number;
     private _hasMoved: boolean = false;
-    protected _direction: Vector3D;
+    private _particleDirection: Vector3D;
     private _age: number = 0;
     private _lifeTime: number;
     private _isEmitter: boolean = false;
     private _fade: boolean = false;
     private _fadeTime: number;
     private _alphaMultiplier: number = 1;
-    private _frames: GraphicAsset[];
+    private _frames: IGraphicAsset[];
 
-    public init(k: number, _arg_2: number, _arg_3: number, _arg_4: Vector3D, _arg_5: number, _arg_6: number, _arg_7: number, _arg_8: boolean = false, _arg_9: GraphicAsset[] = null, _arg_10: boolean = false): void
+    public init(x: number, y: number, z: number, direction: Vector3D, energy: number, timeStep: number, lifeTime: number, isEmitter: boolean = false, frames: IGraphicAsset[] = null, fade: boolean = false): void
     {
-        this._x = k;
-        this._y = _arg_2;
-        this._z = _arg_3;
-        this._direction = new Vector3D(_arg_4.x, _arg_4.y, _arg_4.z);
+        this._x = x;
+        this._y = y;
+        this._z = z;
+        this._particleDirection = new Vector3D(direction.x, direction.y, direction.z);
+        this._particleDirection.scaleBy(energy);
 
-        this._direction.x *= _arg_5;
-        this._direction.y *= _arg_5;
-        this._direction.z *= _arg_5;
-
-        this._lastX = (this._x - (this._direction.x * _arg_6));
-        this._lastY = (this._y - (this._direction.y * _arg_6));
-        this._lastZ = (this._z - (this._direction.z * _arg_6));
+        this._lastX = (this._x - (this._particleDirection.x * timeStep));
+        this._lastY = (this._y - (this._particleDirection.y * timeStep));
+        this._lastZ = (this._z - (this._particleDirection.z * timeStep));
         this._age = 0;
         this._hasMoved = false;
-        this._lifeTime = _arg_7;
-        this._isEmitter = _arg_8;
-        this._frames = _arg_9;
-        this._fade = _arg_10;
+        this._lifeTime = lifeTime;
+        this._isEmitter = isEmitter;
+        this._frames = frames;
+        this._fade = fade;
         this._alphaMultiplier = 1;
         this._fadeTime = (0.5 + (Math.random() * 0.5));
     }
 
     public dispose(): void
     {
-        this._direction = null;
+        this._particleDirection = null;
     }
 
     public update(): void
     {
         this._age++;
-        if(this._age == this._lifeTime)
-        {
-            this.ignite();
-        }
+
+        if(this._age === this._lifeTime) this.ignite();
+
         if(this._fade)
         {
             if((this._age / this._lifeTime) > this._fadeTime)
@@ -64,7 +60,7 @@ export class FurnitureParticleSystemParticle
         }
     }
 
-    public getAsset(): GraphicAsset
+    public getAsset(): IGraphicAsset
     {
         if(((this._frames) && (this._frames.length > 0)))
         {
@@ -89,7 +85,7 @@ export class FurnitureParticleSystemParticle
 
     public get direction(): Vector3D
     {
-        return this._direction;
+        return this._particleDirection;
     }
 
     public get age(): number
@@ -112,9 +108,9 @@ export class FurnitureParticleSystemParticle
         return this._x;
     }
 
-    public set x(k: number)
+    public set x(x: number)
     {
-        this._x = k;
+        this._x = x;
     }
 
     public get y(): number
@@ -122,9 +118,9 @@ export class FurnitureParticleSystemParticle
         return this._y;
     }
 
-    public set y(k: number)
+    public set y(y: number)
     {
-        this._y = k;
+        this._y = y;
     }
 
     public get z(): number
@@ -132,9 +128,9 @@ export class FurnitureParticleSystemParticle
         return this._z;
     }
 
-    public set z(k: number)
+    public set z(z: number)
     {
-        this._z = k;
+        this._z = z;
     }
 
     public get lastX(): number
@@ -142,10 +138,10 @@ export class FurnitureParticleSystemParticle
         return this._lastX;
     }
 
-    public set lastX(k: number)
+    public set lastX(y: number)
     {
         this._hasMoved = true;
-        this._lastX = k;
+        this._lastX = y;
     }
 
     public get lastY(): number
@@ -164,10 +160,10 @@ export class FurnitureParticleSystemParticle
         return this._lastZ;
     }
 
-    public set lastZ(k: number)
+    public set lastZ(z: number)
     {
         this._hasMoved = true;
-        this._lastZ = k;
+        this._lastZ = z;
     }
 
     public get hasMoved(): boolean
@@ -180,21 +176,21 @@ export class FurnitureParticleSystemParticle
         return [ this._x, this._y, this._z ].toString();
     }
 
-    public copy(k:FurnitureParticleSystemParticle, _arg_2: number): void
+    public copy(particle: FurnitureParticleSystemParticle, scale: number): void
     {
-        this._x = (k._x * _arg_2);
-        this._y = (k._y * _arg_2);
-        this._z = (k._z * _arg_2);
-        this._lastX = (k._lastX * _arg_2);
-        this._lastY = (k._lastY * _arg_2);
-        this._lastZ = (k._lastZ * _arg_2);
-        this._hasMoved = k.hasMoved;
-        this._direction = k._direction;
-        this._age = k._age;
-        this._lifeTime = k._lifeTime;
-        this._isEmitter = k._isEmitter;
-        this._fade = k._fade;
-        this._fadeTime = k._fadeTime;
-        this._alphaMultiplier = k._alphaMultiplier;
+        this._x = (particle._x * scale);
+        this._y = (particle._y * scale);
+        this._z = (particle._z * scale);
+        this._lastX = (particle._lastX * scale);
+        this._lastY = (particle._lastY * scale);
+        this._lastZ = (particle._lastZ * scale);
+        this._hasMoved = particle.hasMoved;
+        this._particleDirection = particle._particleDirection;
+        this._age = particle._age;
+        this._lifeTime = particle._lifeTime;
+        this._isEmitter = particle._isEmitter;
+        this._fade = particle._fade;
+        this._fadeTime = particle._fadeTime;
+        this._alphaMultiplier = particle._alphaMultiplier;
     }
 }

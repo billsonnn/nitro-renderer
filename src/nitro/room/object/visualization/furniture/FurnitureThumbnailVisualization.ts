@@ -1,6 +1,6 @@
 import { Resource, Texture } from '@pixi/core';
-import { Matrix, Rectangle } from '@pixi/math';
-import { NitroSprite } from '../../../../../core';
+import { Matrix } from '@pixi/math';
+import { NitroRectangle, NitroSprite } from '../../../../../core';
 import { IGraphicAsset } from '../../../../../room/object/visualization/utils/IGraphicAsset';
 import { TextureUtils } from '../../../../../room/utils/TextureUtils';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
@@ -13,6 +13,7 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
     private _thumbnailImageNormal: Texture<Resource>;
     private _thumbnailDirection: number;
     private _thumbnailChanged: boolean;
+    protected _hasOutline: boolean;
 
     constructor()
     {
@@ -22,6 +23,7 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
         this._thumbnailImageNormal = null;
         this._thumbnailDirection = -1;
         this._thumbnailChanged = false;
+        this._hasOutline = false;
     }
 
     public get hasThumbnailImage(): boolean
@@ -92,7 +94,7 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
 
     private generateTransformedThumbnail(texture: Texture<Resource>, asset: IGraphicAsset): Texture<Resource>
     {
-        const _local_3  = 1.1;
+        const scale  = 1.1;
         const matrix    = new Matrix();
         const _local_5  = (asset.width / texture.width);
 
@@ -102,7 +104,7 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
                 matrix.a = _local_5;
                 matrix.b = (-0.5 * _local_5);
                 matrix.c = 0;
-                matrix.d = (_local_5 * _local_3);
+                matrix.d = (_local_5 * scale);
                 matrix.tx = 0;
                 matrix.ty = ((0.5 * _local_5) * texture.width);
                 break;
@@ -111,7 +113,7 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
                 matrix.a = _local_5;
                 matrix.b = (0.5 * _local_5);
                 matrix.c = 0;
-                matrix.d = (_local_5 * _local_3);
+                matrix.d = (_local_5 * scale);
                 matrix.tx = 0;
                 matrix.ty = 0;
                 break;
@@ -126,9 +128,14 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
 
         const sprite = new NitroSprite(texture);
 
+        if(this._hasOutline)
+        {
+            //
+        }
+
         sprite.transform.setFromMatrix(matrix);
 
-        return TextureUtils.generateTexture(sprite, new Rectangle(0, 0, asset.width, asset.height));
+        return TextureUtils.generateTexture(sprite, new NitroRectangle(0, 0, (asset.width + 2), (asset.height + 2)));
     }
 
     protected getSpriteAssetName(scale: number, layerId: number): string

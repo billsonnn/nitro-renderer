@@ -102,6 +102,7 @@ export class RoomObjectVariable
     public static FURNITURE_CLOTHING_BOY: string                        = 'furniture_clothing_boy';
     public static FURNITURE_CLOTHING_GIRL: string                       = 'furniture_clothing_girl';
     public static FURNITURE_PLANETSYSTEM_DATA: string                   = 'furniture_planetsystem_data';
+    public static FURNITURE_FIREWORKS_DATA: string                      = 'furniture_fireworks_data';
     public static PET_PALETTE_INDEX: string                             = 'pet_palette_index';
     public static PET_COLOR: string                                     = 'pet_color';
     public static PET_HEAD_ONLY: string                                 = 'pet_head_only';

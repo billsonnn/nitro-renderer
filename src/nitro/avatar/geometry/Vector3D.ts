@@ -71,6 +71,13 @@
         this._z = (this._z * k);
     }
 
+    public scaleBy(value: number): void
+    {
+        this._x *= value;
+        this._y *= value;
+        this._z *= value;
+    }
+
     public length(): number
     {
         return Math.sqrt((((this._x * this._x) + (this._y * this._y)) + (this._z * this._z)));

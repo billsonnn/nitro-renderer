@@ -11,6 +11,7 @@ export class FurnitureDynamicThumbnailVisualization extends FurnitureThumbnailVi
         super();
 
         this._cachedUrl = null;
+        this._hasOutline = true;
     }
 
     protected updateModel(scale: number): boolean

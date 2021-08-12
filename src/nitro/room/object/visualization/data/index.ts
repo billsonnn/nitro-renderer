@@ -10,5 +10,6 @@ export * from './ColorData';
 export * from './DirectionalOffsetData';
 export * from './DirectionData';
 export * from './LayerData';
+export * from './ParticleSystemParticle';
 export * from './PetSizeData';
 export * from './SizeData';
