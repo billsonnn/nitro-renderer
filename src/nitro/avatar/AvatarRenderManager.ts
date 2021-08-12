@@ -1,3 +1,4 @@
+import { NitroLogger } from '../../core';
 import { IAssetManager } from '../../core/asset/IAssetManager';
 import { NitroManager } from '../../core/common/NitroManager';
 import { NitroEvent } from '../../core/events/NitroEvent';
@@ -194,14 +195,16 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     private loadFigureData(): void
     {
-        const defaultFigureData = (Nitro.instance.getConfiguration<string>('avatar.default.figuredata') as IFigureData);
+        const defaultFigureData = Nitro.instance.getConfiguration<IFigureData>('avatar.default.figuredata');
 
-        if(defaultFigureData)
+        if(!defaultFigureData || (typeof defaultFigureData === 'string'))
         {
-            if(!defaultFigureData) throw new Error('invalid_default_figure_data');
+            NitroLogger.log('XML figuredata is no longer supported.');
 
-            if(this._structure) this._structure.initFigureData(defaultFigureData);
+            return;
         }
+
+        if(this._structure) this._structure.initFigureData(defaultFigureData);
 
         const structureDownloader = new AvatarStructureDownload(Nitro.instance.getConfiguration<string>('avatar.figuredata.url'), (this._structure.figureData as IFigureSetData));
 
