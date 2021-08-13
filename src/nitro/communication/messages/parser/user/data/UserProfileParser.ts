@@ -15,7 +15,8 @@ export class UserProfileParser implements IMessageParser
     private _requestSent: boolean;
     private _isOnline: boolean;
     private _groups: GroupDataParser[];
-    private _lastVisit: number;
+    private _secondsSinceLastVisit: number;
+    private _openProfileWindow: boolean;
 
     public flush(): boolean
     {
@@ -30,7 +31,8 @@ export class UserProfileParser implements IMessageParser
         this._requestSent       = false;
         this._isOnline          = false;
         this._groups            = [];
-        this._lastVisit         = 0;
+        this._secondsSinceLastVisit = 0;
+        this._openProfileWindow = false;
 
         return true;
     }
@@ -49,16 +51,15 @@ export class UserProfileParser implements IMessageParser
         this._isMyFriend        = wrapper.readBoolean();
         this._requestSent       = wrapper.readBoolean();
         this._isOnline          = wrapper.readBoolean();
-        let groupsCount         = wrapper.readInt();
+        const groupsCount         = wrapper.readInt();
 
-        while(groupsCount > 0)
+        for(let i = 0; i < groupsCount; i++)
         {
             this._groups.push(new GroupDataParser(wrapper));
-
-            groupsCount--;
         }
 
-        this._lastVisit         = wrapper.readInt();
+        this._secondsSinceLastVisit = wrapper.readInt();
+        this._openProfileWindow = wrapper.readBoolean();
 
         return true;
     }
@@ -118,8 +119,13 @@ export class UserProfileParser implements IMessageParser
         return this._groups;
     }
 
-    public get lastVisit(): number
+    public get secondsSinceLastVisit(): number
     {
-        return this._lastVisit;
+        return this._secondsSinceLastVisit;
+    }
+
+    public get openProfileWindow(): boolean
+    {
+        return this._openProfileWindow;
     }
 }

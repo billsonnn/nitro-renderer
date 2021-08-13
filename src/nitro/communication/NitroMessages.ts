@@ -213,12 +213,12 @@ import { WiredValidationErrorEvent } from './messages/incoming/roomevents/WiredV
 import { AuthenticatedEvent } from './messages/incoming/security/AuthenticatedEvent';
 import { UserPerksEvent } from './messages/incoming/user/access/UserPerksEvent';
 import { UserPermissionsEvent } from './messages/incoming/user/access/UserPermissionsEvent';
+import { RelationshipStatusInfoEvent } from './messages/incoming/user/data/RelationshipStatusInfoEvent';
 import { UserCurrentBadgesEvent } from './messages/incoming/user/data/UserCurrentBadgesEvent';
 import { UserFigureEvent } from './messages/incoming/user/data/UserFigureEvent';
 import { UserInfoEvent } from './messages/incoming/user/data/UserInfoEvent';
 import { UserNameChangeMessageEvent } from './messages/incoming/user/data/UserNameChangeMessageEvent';
 import { UserProfileEvent } from './messages/incoming/user/data/UserProfileEvent';
-import { UserRelationshipsEvent } from './messages/incoming/user/data/UserRelationshipsEvent';
 import { UserSettingsEvent } from './messages/incoming/user/data/UserSettingsEvent';
 import { IgnoredUsersEvent } from './messages/incoming/user/IgnoredUsersEvent';
 import { IgnoreResultEvent } from './messages/incoming/user/IgnoreResultEvent';
@@ -736,7 +736,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.UNIT_CHANGE_NAME, UserNameChangeMessageEvent);
         this._events.set(IncomingHeader.USER_SETTINGS, UserSettingsEvent);
         this._events.set(IncomingHeader.USER_PROFILE, UserProfileEvent);
-        this._events.set(IncomingHeader.MESSENGER_RELATIONSHIPS, UserRelationshipsEvent);
+        this._events.set(IncomingHeader.MESSENGER_RELATIONSHIPS, RelationshipStatusInfoEvent);
 
         // GIFTS
         this._events.set(IncomingHeader.GIFT_OPENED, PresentOpenedMessageEvent);
