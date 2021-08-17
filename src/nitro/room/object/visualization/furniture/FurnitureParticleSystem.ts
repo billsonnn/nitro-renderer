@@ -109,20 +109,7 @@ export class FurnitureParticleSystem
 
             if(this._canvasTexture && ((this._canvasTexture.width !== this._roomSprite.width) || (this._canvasTexture.height !== this._roomSprite.height))) this._canvasTexture = null;
 
-            if(!this._canvasTexture)
-            {
-                this._canvasTexture = RenderTexture.create({
-                    width: this._roomSprite.width,
-                    height: this._roomSprite.height
-                });
-            }
-
-            if(!this._emptySprite)
-            {
-                this._emptySprite = new NitroSprite(Texture.EMPTY);
-
-                this._emptySprite.alpha = 0;
-            }
+            this.clearCanvas();
 
             this._centerX = -(this._roomSprite.offsetX);
             this._centerY = -(this._roomSprite.offsetY);
@@ -183,10 +170,7 @@ export class FurnitureParticleSystem
 
             if(!this._canvasTexture) this.updateCanvas();
 
-            Nitro.instance.renderer.render(this._emptySprite, {
-                renderTexture: this._canvasTexture,
-                clear: true
-            });
+            this.clearCanvas();
 
             for(const particle of this._currentEmitter.particles)
             {
@@ -322,5 +306,30 @@ export class FurnitureParticleSystem
         if(this._currentEmitter) this._currentEmitter.copyStateFrom(particleSystem._currentEmitter, (particleSystem._size / this._size));
 
         this._canvasTexture = null;
+    }
+
+    private clearCanvas(): void
+    {
+        if(!this._emptySprite)
+        {
+            this._emptySprite = new NitroSprite(Texture.EMPTY);
+
+            this._emptySprite.alpha = 0;
+        }
+
+        if(!this._canvasTexture)
+        {
+            this._canvasTexture = RenderTexture.create({
+                width: this._roomSprite.width,
+                height: this._roomSprite.height
+            });
+        }
+        else
+        {
+            Nitro.instance.renderer.render(this._emptySprite, {
+                renderTexture: this._canvasTexture,
+                clear: true
+            });
+        }
     }
 }
