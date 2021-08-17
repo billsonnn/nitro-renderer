@@ -9,14 +9,13 @@ import { FurnitureVisualization } from './FurnitureVisualization';
 
 export class FurnitureAnimatedVisualization extends FurnitureVisualization
 {
-    private static FRAME_INCREASE_AMOUNT: number = 1;
-
     public static TYPE: string                  = RoomObjectVisualizationType.FURNITURE_ANIMATED;
     public static DEFAULT_ANIMATION_ID: number  = 0;
 
     protected _data: FurnitureAnimatedVisualizationData;
 
     protected _state: number;
+    protected _frameIncrease: number;
     private _animationData: AnimationStateData;
     private _animationScale: number;
     private _animationChangeTime: number;
@@ -28,6 +27,7 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
         super();
 
         this._state                 = -1;
+        this._frameIncrease         = 1;
         this._animationData         = new AnimationStateData();
         this._animationScale        = 0;
         this._animationChangeTime   = 0;
@@ -290,7 +290,7 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
 
         if(!frameCount) frameCount = this._data.getStartFrame(scale, animationId, this._direction);
 
-        frameCount                  += FurnitureAnimatedVisualization.FRAME_INCREASE_AMOUNT;
+        frameCount                  += this.frameIncrease;
         animationData.frameCounter  = frameCount;
         animationData.animationOver = true;
 
@@ -312,13 +312,13 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
 
                 if(frame)
                 {
-                    if(frame.isLastFrame && (frame.remainingFrameRepeats <= FurnitureAnimatedVisualization.FRAME_INCREASE_AMOUNT))
+                    if(frame.isLastFrame && (frame.remainingFrameRepeats <= this.frameIncrease))
                     {
                         lastFramePlayed = true;
                     }
                 }
 
-                if((this._directionChanged || !frame) || ((frame.remainingFrameRepeats >= 0) && ((frame.remainingFrameRepeats = (frame.remainingFrameRepeats - FurnitureAnimatedVisualization.FRAME_INCREASE_AMOUNT)) <= 0)))
+                if((this._directionChanged || !frame) || ((frame.remainingFrameRepeats >= 0) && ((frame.remainingFrameRepeats = (frame.remainingFrameRepeats - this.frameIncrease)) <= 0)))
                 {
                     sequenceId = AnimationFrame.SEQUENCE_NOT_DEFINED;
 
@@ -403,5 +403,10 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
         super.setDirection(direction);
 
         this._directionChanged  = true;
+    }
+
+    protected get frameIncrease(): number
+    {
+        return this._frameIncrease;
     }
 }

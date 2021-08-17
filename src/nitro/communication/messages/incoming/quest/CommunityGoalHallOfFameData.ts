@@ -4,38 +4,39 @@ import { HallOfFameEntryData } from './HallOfFameEntryData';
 
 export class CommunityGoalHallOfFameData implements IDisposable
 {
-  private _goalCode: string;
-  private _hof: HallOfFameEntryData[];
+    private _goalCode: string;
+    private _hof: HallOfFameEntryData[];
 
-  constructor(wrapper: IMessageDataWrapper)
-  {
-      this._hof = [];
-      this._goalCode = wrapper.readString();
+    constructor(wrapper: IMessageDataWrapper)
+    {
+        this._hof = [];
+        this._goalCode = wrapper.readString();
 
-      const count = wrapper.readInt();
-      for(let i = 0; i < count; i++)
-      {
-          this._hof.push(new HallOfFameEntryData(wrapper));
-      }
-  }
+        const count = wrapper.readInt();
 
-  public dispose(): void
-  {
-      this._hof = null;
-  }
+        for(let i = 0; i < count; i++)
+        {
+            this._hof.push(new HallOfFameEntryData(wrapper));
+        }
+    }
 
-  public get disposed(): boolean
-  {
-      return this._hof == null;
-  }
+    public dispose(): void
+    {
+        this._hof = null;
+    }
 
-  public get hof(): HallOfFameEntryData[]
-  {
-      return this._hof;
-  }
+    public get disposed(): boolean
+    {
+        return this._hof == null;
+    }
 
-  public get goalCode(): string
-  {
-      return this._goalCode;
-  }
+    public get hof(): HallOfFameEntryData[]
+    {
+        return this._hof;
+    }
+
+    public get goalCode(): string
+    {
+        return this._goalCode;
+    }
 }

@@ -1,3 +1,4 @@
+import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureDynamicThumbnailVisualization } from './FurnitureDynamicThumbnailVisualization';
 
 export class FurnitureYoutubeVisualization extends FurnitureDynamicThumbnailVisualization
@@ -8,13 +9,8 @@ export class FurnitureYoutubeVisualization extends FurnitureDynamicThumbnailVisu
     {
         if(!this.object) return null;
 
-        return null;
+        const url = this.object.model.getValue<string>(RoomObjectVariable.SESSION_URL_PREFIX);
 
-        // const data = this.object.model.getValue<any>(RoomObjectVariable.FURNITURE_DATA);
-        // const url   = this.object.model.getValue<string>(RoomObjectVariable.SESSION_URL_PREFIX);
-
-        // if(!data || !url) return null;
-
-        // return (url + FurnitureYoutubeVisualization.THUMBNAIL);
+        return (url + FurnitureYoutubeVisualization.THUMBNAIL);
     }
 }

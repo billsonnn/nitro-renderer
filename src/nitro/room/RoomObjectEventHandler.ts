@@ -882,7 +882,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         const objectCategory = this._roomEngine.getRoomObjectCategoryForType(event.objectType);
         const selectedData = this.getSelectedRoomObjectData(roomId);
 
-        if(!selectedData)
+        if(selectedData)
         {
             if((selectedData.category === objectCategory) && (selectedData.id === event.objectId))
             {
