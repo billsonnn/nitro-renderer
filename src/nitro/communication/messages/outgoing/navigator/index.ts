@@ -8,3 +8,4 @@ export * from './NavigatorSearchOpenComposer';
 export * from './NavigatorSearchSaveComposer';
 export * from './NavigatorSettingsComposer';
 export * from './NavigatorSettingsSaveComposer';
+export * from './RemoveOwnRoomRightsRoomMessageComposer';
