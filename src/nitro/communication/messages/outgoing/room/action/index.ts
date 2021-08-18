@@ -1,3 +1,4 @@
+export * from './RemoveAllRightsMessageComposer';
 export * from './RoomAmbassadorAlertComposer';
 export * from './RoomBanUserComposer';
 export * from './RoomDeleteComposer';
