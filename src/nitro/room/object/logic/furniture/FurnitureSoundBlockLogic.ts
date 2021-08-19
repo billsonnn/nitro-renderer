@@ -32,10 +32,14 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
     {
         super.initialize(asset);
 
-        if(!asset.soundSample) return;
-
-        this._sampleId = asset.soundSample.id;
-        this._noPitch = asset.soundSample.noPitch;
+        if(asset.logic)
+        {
+            if(asset.logic.soundSample)
+            {
+                this._sampleId = asset.logic.soundSample.id;
+                this._noPitch = asset.logic.soundSample.noPitch;
+            }
+        }
 
         this.object.model.setValue(RoomObjectVariable.FURNITURE_SOUNDBLOCK_RELATIVE_ANIMATION_SPEED, 1);
     }

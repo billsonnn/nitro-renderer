@@ -82,6 +82,8 @@ export class AssetManager extends Disposable implements IAssetManager
     {
         if(!data) return null;
 
+        console.log(data);
+
         const collection = new GraphicAssetCollection(data, spritesheet);
 
         if(collection)

@@ -14,6 +14,7 @@ export interface IAssetVisualizationData
     colors?: { [index: string]: IAssetColor };
     directions?: { [index: string]: IAssetVisualizationDirection };
     animations?: { [index: string]: IAssetVisualAnimation };
-    postures?: { [index: string]: IAssetPosture };
-    gestures?: { [index: string]: IAssetGesture };
+    defaultPosture?: string;
+    postures?: { defaultPosture?: string, postures?: IAssetPosture[] };
+    gestures?: IAssetGesture[];
 }

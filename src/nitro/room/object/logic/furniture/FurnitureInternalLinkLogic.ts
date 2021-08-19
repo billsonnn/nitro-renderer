@@ -24,11 +24,14 @@ export class FurnitureInternalLinkLogic extends FurnitureLogic
     {
         super.initialize(asset);
 
-        if(asset.action)
+        if(asset.logic)
         {
-            this.object.model.setValue<string>(RoomObjectVariable.FURNITURE_INTERNAL_LINK, asset.action.link);
+            if(asset.logic.action)
+            {
+                this.object.model.setValue<string>(RoomObjectVariable.FURNITURE_INTERNAL_LINK, asset.logic.action.link);
 
-            if(asset.action.startState === 1) this._showStateOnceRendered = true;
+                if(asset.logic.action.startState === 1) this._showStateOnceRendered = true;
+            }
         }
     }
 

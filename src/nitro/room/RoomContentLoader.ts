@@ -342,6 +342,8 @@ export class RoomContentLoader implements IFurnitureDataListener
 
         const collection = new GraphicAssetCollection(data, spritesheet);
 
+        console.log(data);
+
         this._collections.set(collection.name, collection);
 
         const petIndex = this._pets[collection.name];
@@ -409,7 +411,7 @@ export class RoomContentLoader implements IFurnitureDataListener
 
         if(type === RoomObjectUserType.RENTABLE_BOT) return RoomObjectCategory.UNIT;
 
-        if(type === 'tile_cursor' || type === 'selection_arrow') return RoomObjectCategory.CURSOR;
+        if((type === RoomContentLoader.TILE_CURSOR) || (type === RoomContentLoader.SELECTION_ARROW)) return RoomObjectCategory.CURSOR;
 
         return RoomObjectCategory.MINIMUM;
     }
@@ -722,17 +724,17 @@ export class RoomContentLoader implements IFurnitureDataListener
         switch(type)
         {
             case RoomContentLoader.PLACE_HOLDER:
-                return [ this.getAssetUrlWithRoomBase('place_holder') ];
+                return [ this.getAssetUrlWithGenericBase(RoomContentLoader.PLACE_HOLDER) ];
             case RoomContentLoader.PLACE_HOLDER_WALL:
-                return [ this.getAssetUrlWithRoomBase('place_holder_wall') ];
+                return [ this.getAssetUrlWithGenericBase(RoomContentLoader.PLACE_HOLDER_WALL) ];
             case RoomContentLoader.PLACE_HOLDER_PET:
-                return [ this.getAssetUrlWithRoomBase('place_holder_pet') ];
+                return [ this.getAssetUrlWithGenericBase(RoomContentLoader.PLACE_HOLDER_PET) ];
             case RoomContentLoader.ROOM:
-                return [ this.getAssetUrlWithRoomBase('room') ];
+                return [ this.getAssetUrlWithGenericBase('room') ];
             case RoomContentLoader.TILE_CURSOR:
-                return [ this.getAssetUrlWithRoomBase('tile_cursor') ];
+                return [ this.getAssetUrlWithGenericBase(RoomContentLoader.TILE_CURSOR) ];
             case RoomContentLoader.SELECTION_ARROW:
-                return [ this.getAssetUrlWithRoomBase('selection_arrow') ];
+                return [ this.getAssetUrlWithGenericBase(RoomContentLoader.SELECTION_ARROW) ];
             default: {
                 const category = this.getCategoryForType(type);
 
@@ -788,9 +790,9 @@ export class RoomContentLoader implements IFurnitureDataListener
         return null;
     }
 
-    private getAssetUrlWithRoomBase(assetName: string): string
+    private getAssetUrlWithGenericBase(assetName: string): string
     {
-        return (Nitro.instance.getConfiguration<string>('room.asset.url').replace(/%libname%/gi, assetName));
+        return (Nitro.instance.getConfiguration<string>('generic.asset.url').replace(/%libname%/gi, assetName));
     }
 
     public getAssetUrlWithFurniBase(assetName: string): string

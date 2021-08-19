@@ -34,6 +34,7 @@ export class RoomObjectVariable
     public static FIGURE_GUIDE_STATUS: string                           = 'figure_guide_status';
     public static FIGURE_EXPRESSION: string                             = 'figure_expression';
     public static HEAD_DIRECTION: string                                = 'head_direction';
+    public static FURNITURE_CUSTOM_VARIABLES: string                    = 'furniture_custom_variables';
     public static FURNITURE_AUTOMATIC_STATE_INDEX: string               = 'furniture_automatic_state_index';
     public static FURNITURE_ALWAYS_STACKABLE: string                    = 'furniture_always_stackable';
     public static FURNITURE_DISABLE_PICKING_ANIMATION: string           = 'furniture_disable_picking_animation';

@@ -1,4 +1,4 @@
-export interface IPlanetSystem
+export interface IAssetLogicPlanetSystem
 {
     id?: number;
     name?: string;

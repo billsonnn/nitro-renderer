@@ -30,9 +30,12 @@ export class FurnitureEditableInternalLinkLogic extends FurnitureLogic
     {
         super.initialize(asset);
 
-        if(asset.action)
+        if(asset.logic)
         {
-            if(asset.action.startState === 1) this._showStateOnceRendered = true;
+            if(asset.logic.action)
+            {
+                if(asset.logic.action.startState === 1) this._showStateOnceRendered = true;
+            }
         }
     }
 
