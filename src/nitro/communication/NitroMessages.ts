@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { ApproveNameMessageComposer, BadgeReceivedEvent, BonusRareInfoMessageEvent, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemoveAllRightsMessageComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer } from './messages';
+import { ApproveNameMessageComposer, BadgeReceivedEvent, BonusRareInfoMessageEvent, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, GetExtendedProfileByNameMessageComposer, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemoveAllRightsMessageComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CameraPublishStatusMessageEvent } from './messages/incoming/camera/CameraPublishStatusMessageEvent';
 import { CameraPurchaseOKMessageEvent } from './messages/incoming/camera/CameraPurchaseOKMessageEvent';
@@ -1070,6 +1070,7 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.USER_HOME_ROOM, UserHomeRoomComposer);
         this._composers.set(OutgoingHeader.USER_MOTTO, UserMottoComposer);
         this._composers.set(OutgoingHeader.USER_PROFILE, UserProfileComposer);
+        this._composers.set(OutgoingHeader.USER_PROFILE_BY_NAME, GetExtendedProfileByNameMessageComposer);
         this._composers.set(OutgoingHeader.MESSENGER_RELATIONSHIPS, UserRelationshipsComposer);
 
         // MANNEQUIN
