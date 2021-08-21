@@ -24,14 +24,14 @@ export class PetSizeData extends AnimationSizeData
 
         if(postures.defaultPosture && postures.defaultPosture.length) this._defaultPosture = postures.defaultPosture;
 
-        // for(const posture of postures.postures)
-        // {
-        //     if(this._posturesToAnimations.get(posture.id)) continue;
+        for(const posture of postures.postures)
+        {
+            if(this._posturesToAnimations.get(posture.id)) continue;
 
-        //     if(this._defaultPosture === null) this._defaultPosture = posture.id;
+            if(this._defaultPosture === null) this._defaultPosture = posture.id;
 
-        //     this._posturesToAnimations.set(posture.id, posture.animationId);
-        // }
+            this._posturesToAnimations.set(posture.id, posture.animationId);
+        }
 
         if(this._posturesToAnimations.get(this._defaultPosture) === undefined) return false;
 

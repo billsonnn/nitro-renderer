@@ -184,33 +184,8 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
         if(this.updateModelCounter === model.updateCounter) return false;
 
-        let posture = model.getValue<string>(RoomObjectVariable.FIGURE_POSTURE);
-        let gesture = model.getValue<string>(RoomObjectVariable.FIGURE_GESTURE);
-
-        const tempPosture = model.getValue<number>(RoomObjectVariable.FIGURE_POSTURE);
-
-        if(!isNaN(tempPosture))
-        {
-            const totalPostures = this._data.totalPostures(this._scale);
-
-            if(totalPostures > 0)
-            {
-                posture = this._data.animationToPosture(this._scale, (tempPosture % totalPostures), true);
-                gesture = null;
-            }
-        }
-
-        const tempGesture = model.getValue<number>(RoomObjectVariable.FIGURE_GESTURE);
-
-        if(!isNaN(tempGesture))
-        {
-            const totalGestures = this._data.totalGestures(this._scale);
-
-            if(totalGestures > 0)
-            {
-                gesture = this._data.animationToGesture(this._scale, (tempGesture % totalGestures));
-            }
-        }
+        const posture = model.getValue<string>(RoomObjectVariable.FIGURE_POSTURE);
+        const gesture = model.getValue<string>(RoomObjectVariable.FIGURE_GESTURE);
 
         this.setPostureAndGesture(posture, gesture);
 
