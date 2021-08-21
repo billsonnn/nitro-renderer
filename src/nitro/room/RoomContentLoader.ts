@@ -342,8 +342,6 @@ export class RoomContentLoader implements IFurnitureDataListener
 
         const collection = new GraphicAssetCollection(data, spritesheet);
 
-        console.log(data);
-
         this._collections.set(collection.name, collection);
 
         const petIndex = this._pets[collection.name];

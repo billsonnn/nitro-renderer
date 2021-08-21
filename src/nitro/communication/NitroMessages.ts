@@ -381,12 +381,12 @@ import { BotPlaceComposer } from './messages/outgoing/room/engine/BotPlaceCompos
 import { BotRemoveComposer } from './messages/outgoing/room/engine/BotRemoveComposer';
 import { BotSkillSaveComposer } from './messages/outgoing/room/engine/BotSkillSaveComposer';
 import { GetItemDataComposer } from './messages/outgoing/room/engine/GetItemDataComposer';
-import { ModifyWallItemDataComposer } from './messages/outgoing/room/engine/ModifyWallItemDataComposer';
 import { PetMoveComposer } from './messages/outgoing/room/engine/PetMoveComposer';
 import { PetPlaceComposer } from './messages/outgoing/room/engine/PetPlaceComposer';
 import { PetRemoveComposer } from './messages/outgoing/room/engine/PetRemoveComposer';
 import { RemoveWallItemComposer } from './messages/outgoing/room/engine/RemoveWallItemComposer';
-import { RoomAdsUpdateComposer } from './messages/outgoing/room/furniture/ads/RoomAdsUpdateComposer';
+import { SetItemDataMessageComposer } from './messages/outgoing/room/engine/SetItemDataMessageComposer';
+import { SetObjectDataMessageComposer } from './messages/outgoing/room/engine/SetObjectDataMessageComposer';
 import { MoodlightSettingsComposer } from './messages/outgoing/room/furniture/dimmer/MoodlightSettingsComposer';
 import { MoodlightSettingsSaveComposer } from './messages/outgoing/room/furniture/dimmer/MoodlightSettingsSaveComposer';
 import { MoodlightTogggleStateComposer } from './messages/outgoing/room/furniture/dimmer/MoodlightTogggleStateComposer';
@@ -980,13 +980,14 @@ export class NitroMessages implements IMessageConfiguration
         // ENGINE
         this._composers.set(OutgoingHeader.GET_ITEM_DATA, GetItemDataComposer);
         this._composers.set(OutgoingHeader.REMOVE_WALL_ITEM, RemoveWallItemComposer);
-        this._composers.set(OutgoingHeader.MODIFY_WALL_ITEM_DATA, ModifyWallItemDataComposer);
         this._composers.set(OutgoingHeader.BOT_PLACE, BotPlaceComposer);
         this._composers.set(OutgoingHeader.BOT_PICKUP, BotRemoveComposer);
         this._composers.set(OutgoingHeader.BOT_SKILL_SAVE, BotSkillSaveComposer);
         this._composers.set(OutgoingHeader.PET_PLACE, PetPlaceComposer);
         this._composers.set(OutgoingHeader.PET_MOVE, PetMoveComposer);
         this._composers.set(OutgoingHeader.PET_PICKUP, PetRemoveComposer);
+        this._composers.set(OutgoingHeader.SET_ITEM_DATA, SetItemDataMessageComposer);
+        this._composers.set(OutgoingHeader.SET_OBJECT_DATA, SetObjectDataMessageComposer);
 
         // FURNITURE
         this._composers.set(OutgoingHeader.FURNITURE_ALIASES, FurnitureAliasesComposer);
@@ -1021,7 +1022,6 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.ONE_WAY_DOOR_CLICK, FurnitureOneWayDoorComposer);
         this._composers.set(OutgoingHeader.ITEM_EXCHANGE_REDEEM, FurnitureExchangeComposer);
         this._composers.set(OutgoingHeader.ITEM_CLOTHING_REDEEM, RedeemItemClothingComposer);
-        this._composers.set(OutgoingHeader.ITEM_SAVE_BACKGROUND, RoomAdsUpdateComposer);
 
         // MAPPING
         this._composers.set(OutgoingHeader.ROOM_MODEL, RoomModelComposer);

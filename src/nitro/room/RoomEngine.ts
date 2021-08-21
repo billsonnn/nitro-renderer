@@ -2648,22 +2648,22 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         this._roomObjectEventHandler.modifyRoomObject(this._activeRoomId, objectId, category, operation);
     }
 
-    public processRoomObjectWallOperation(objectId: number, category: number, operation: string, data: Map<string, string>): boolean
-    {
-        if(!this._roomObjectEventHandler) return false;
-
-        if(category !== RoomObjectCategory.WALL) return;
-
-        this._roomObjectEventHandler.processRoomObjectWallOperation(this._activeRoomId, objectId, category, operation, data);
-    }
-
-    public processRoomObjectFloorOperation(objectId: number, category: number, operation: string, data: string): boolean
+    public modifyRoomObjectDataWithMap(objectId: number, category: number, operation: string, data: Map<string, string>): boolean
     {
         if(!this._roomObjectEventHandler) return false;
 
         if(category !== RoomObjectCategory.FLOOR) return;
 
-        this._roomObjectEventHandler.processRoomObjectFloorOperation(this._activeRoomId, objectId, operation, data);
+        this._roomObjectEventHandler.modifyRoomObjectDataWithMap(this._activeRoomId, objectId, category, operation, data);
+    }
+
+    public modifyRoomObjectData(objectId: number, category: number, colorHex: string, data: string): boolean
+    {
+        if(!this._roomObjectEventHandler) return false;
+
+        if(category !== RoomObjectCategory.WALL) return;
+
+        this._roomObjectEventHandler.modifyWallItemData(this._activeRoomId, objectId, colorHex, data);
     }
 
     private processRoomObjectEvent(event: RoomObjectEvent): void
@@ -3586,13 +3586,6 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         if(!this._roomContentLoader) return null;
 
         return this._roomContentLoader.getPetColorResultsForTag(petIndex, tagName);
-    }
-
-    public modifyRoomObjectData(objectId: number, objectCategory: number, colorHex: string, text: string): boolean
-    {
-        if(!this._roomObjectEventHandler || (objectCategory !== RoomObjectCategory.WALL)) return false;
-
-        return (this._roomObjectEventHandler.modifyWallItemData(this._activeRoomId, objectId, colorHex, text));
     }
 
     public deleteRoomObject(objectId: number, objectCategory: number): boolean

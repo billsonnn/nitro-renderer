@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
 
-export class ModifyWallItemDataComposer implements IMessageComposer<ConstructorParameters<typeof ModifyWallItemDataComposer>>
+export class SetItemDataMessageComposer implements IMessageComposer<ConstructorParameters<typeof SetItemDataMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof ModifyWallItemDataComposer>;
+    private _data: ConstructorParameters<typeof SetItemDataMessageComposer>;
 
     constructor(itemId: number, colorHex: string, text: string)
     {

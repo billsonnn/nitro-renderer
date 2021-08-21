@@ -69,7 +69,7 @@ export class OutgoingHeader
     public static ITEM_DIMMER_TOGGLE             = 2296;
     public static ITEM_EXCHANGE_REDEEM           = 3115;
     public static ITEM_PAINT                     = 711;
-    public static ITEM_SAVE_BACKGROUND           = 3608;
+    public static SET_OBJECT_DATA                = 3608;
     public static ITEM_STACK_HELPER              = 3839;
     public static ITEM_WALL_CLICK                = 210;
     public static ITEM_WALL_UPDATE               = 168;
@@ -196,7 +196,7 @@ export class OutgoingHeader
     public static GET_ITEM_DATA                  = 3964;
     public static ONE_WAY_DOOR_CLICK             = 2765;
     public static REMOVE_WALL_ITEM               = 3336;
-    public static MODIFY_WALL_ITEM_DATA          = 3666;
+    public static SET_ITEM_DATA                  = 3666;
     public static CATALOG_REDEEM_VOUCHER         = 339;
     public static ROOM_TONER_APPLY               = 2880;
     public static LOVELOCK_START_CONFIRM         = 3775;

@@ -1,4 +1,3 @@
-export * from './ads';
 export * from './dimmer';
 export * from './floor';
 export * from './FurnitureAliasesComposer';
