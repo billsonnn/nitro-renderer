@@ -15,4 +15,5 @@ export * from './pet';
 export * from './quest';
 export * from './room';
 export * from './roomevents';
+export * from './sound';
 export * from './user';
