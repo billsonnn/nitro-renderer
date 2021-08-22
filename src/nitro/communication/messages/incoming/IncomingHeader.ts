@@ -271,4 +271,5 @@ export class IncomingHeader
     public static COMPETITION_STATUS               = 133;
     public static INIT_CAMERA                      = 3878;
     public static THUMBNAIL_STATUS                 = 3595;
+    public static ACHIEVEMENT_NOTIFICATION         = 806;
 }

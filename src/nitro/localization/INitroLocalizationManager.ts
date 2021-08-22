@@ -3,6 +3,7 @@ export interface INitroLocalizationManager extends INitroManager
 {
     getRomanNumeral(number: number): string;
     getBadgeBaseAndLevel(badgeName: string): string;
+    hasValue(key: string): boolean;
     getValue(key: string, doParams?: boolean): string;
     getValueWithParameter(key: string, parameter: string, replacement: string): string;
     getValueWithParameters(key: string, parameters: string[], replacements: string[]): string;

@@ -1,3 +1,4 @@
+export * from './AchievementNotificationMessageParser';
 export * from './BotErrorEventParser';
 export * from './HabboBroadcastMessageParser';
 export * from './HotelWillShutdownParser';

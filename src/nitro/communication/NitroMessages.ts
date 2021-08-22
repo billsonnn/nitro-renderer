@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { ApproveNameMessageComposer, BadgeReceivedEvent, BonusRareInfoMessageEvent, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemoveAllRightsMessageComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer } from './messages';
+import { AchievementNotificationMessageEvent, ApproveNameMessageComposer, BadgeReceivedEvent, BonusRareInfoMessageEvent, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemoveAllRightsMessageComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CameraPublishStatusMessageEvent } from './messages/incoming/camera/CameraPublishStatusMessageEvent';
 import { CameraPurchaseOKMessageEvent } from './messages/incoming/camera/CameraPurchaseOKMessageEvent';
@@ -601,6 +601,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.USER_RESPECT, RespectReceivedEvent);
         this._events.set(IncomingHeader.UNSEEN_ITEMS, UnseenItemsEvent);
         this._events.set(IncomingHeader.HOTEL_WILL_SHUTDOWN, HotelWillShutdownEvent);
+        this._events.set(IncomingHeader.ACHIEVEMENT_NOTIFICATION, AchievementNotificationMessageEvent);
 
         // ROOM
 

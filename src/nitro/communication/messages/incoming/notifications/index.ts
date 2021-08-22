@@ -1,3 +1,5 @@
+export * from './AchievementLevelUpData';
+export * from './AchievementNotificationMessageEvent';
 export * from './BotErrorEvent';
 export * from './HabboBroadcastMessageEvent';
 export * from './HotelWillShutdownEvent';

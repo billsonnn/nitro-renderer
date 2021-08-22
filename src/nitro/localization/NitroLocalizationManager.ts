@@ -67,6 +67,11 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
         return badge.getBadgeId;
     }
 
+    public hasValue(key: string): boolean
+    {
+        return this._definitions.has(key);
+    }
+
     public getValue(key: string, doParams: boolean = true): string
     {
         if(key.startsWith('${')) key = key.substr(2, (key.length - 3));
