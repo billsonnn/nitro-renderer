@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { AchievementNotificationMessageEvent, AddJukeboxDiskComposer, ApproveNameMessageComposer, BadgeReceivedEvent, BonusRareInfoMessageEvent, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, GetJukeboxPlayListMessageComposer, GetNowPlayingMessageComposer, GetOfficialSongIdMessageComposer, GetSongInfoMessageComposer, GetSoundMachinePlayListMessageComposer, GetUserSongDisksMessageComposer, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemoveAllRightsMessageComposer, RemoveJukeboxDiskComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer } from './messages';
+import { AchievementNotificationMessageEvent, AddJukeboxDiskComposer, ApproveNameMessageComposer, BadgeReceivedEvent, BonusRareInfoMessageEvent, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, GetJukeboxPlayListMessageComposer, GetNowPlayingMessageComposer, GetOfficialSongIdMessageComposer, GetSongInfoMessageComposer, GetSoundMachinePlayListMessageComposer, GetUserSongDisksMessageComposer, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, MysteryBoxKeysEvent, NowPlayingMessageEvent, OfficialSongIdMessageEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, PlayListMessageEvent, PlayListSongAddedMessageEvent, RemoveAllRightsMessageComposer, RemoveJukeboxDiskComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, TraxSongInfoMessageEvent, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer, UserSongDisksInventoryMessageEvent } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CameraPublishStatusMessageEvent } from './messages/incoming/camera/CameraPublishStatusMessageEvent';
 import { CameraPurchaseOKMessageEvent } from './messages/incoming/camera/CameraPurchaseOKMessageEvent';
@@ -817,6 +817,16 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.COMPETITION_STATUS, CompetitionStatusMessageEvent);
         this._events.set(IncomingHeader.INIT_CAMERA, InitCameraMessageEvent);
         this._events.set(IncomingHeader.THUMBNAIL_STATUS, ThumbnailStatusMessageEvent);
+
+        // SOUNDS
+        this._events.set(IncomingHeader.JUKEBOX_PLAYLIST_FULL, JukeboxPlayListFullMessageEvent);
+        this._events.set(IncomingHeader.JUKEBOX_SONG_DISKS, JukeboxSongDisksMessageEvent);
+        this._events.set(IncomingHeader.NOW_PLAYING, NowPlayingMessageEvent);
+        this._events.set(IncomingHeader.OFFICIAL_SONG_ID, OfficialSongIdMessageEvent);
+        this._events.set(IncomingHeader.PLAYLIST, PlayListMessageEvent);
+        this._events.set(IncomingHeader.PLAYLIST_SONG_ADDED, PlayListSongAddedMessageEvent);
+        this._events.set(IncomingHeader.TRAX_SONG_INFO, TraxSongInfoMessageEvent);
+        this._events.set(IncomingHeader.USER_SONG_DISKS_INVENTORY, UserSongDisksInventoryMessageEvent);
     }
 
     private registerComposers(): void

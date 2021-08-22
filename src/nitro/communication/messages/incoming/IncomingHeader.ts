@@ -272,4 +272,12 @@ export class IncomingHeader
     public static INIT_CAMERA                      = 3878;
     public static THUMBNAIL_STATUS                 = 3595;
     public static ACHIEVEMENT_NOTIFICATION         = 806;
+    public static JUKEBOX_PLAYLIST_FULL            = 105;
+    public static JUKEBOX_SONG_DISKS               = 34;
+    public static NOW_PLAYING                      = 469;
+    public static OFFICIAL_SONG_ID                 = 1381;
+    public static PLAYLIST                         = 1748;
+    public static PLAYLIST_SONG_ADDED              = 1140;
+    public static TRAX_SONG_INFO                   = 3365;
+    public static USER_SONG_DISKS_INVENTORY        = 2602;
 }
