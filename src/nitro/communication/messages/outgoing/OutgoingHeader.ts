@@ -177,7 +177,7 @@ export class OutgoingHeader
     public static USER_PETS                      = 3095;
     public static USER_PROFILE                   = 3265;
     public static USER_RESPECT                   = 2694;
-    public static USER_SETTINGS                  = 2388;
+    public static GET_SOUND_SETTINGS             = 2388;
     public static USER_SETTINGS_CAMERA           = 1461;
     public static USER_SETTINGS_CHAT_STYLE       = 1030;
     public static USER_SETTINGS_INVITES          = 1086;
@@ -271,4 +271,12 @@ export class OutgoingHeader
     public static RENDER_ROOM                      = 3226;
     public static RENDER_ROOM_THUMBNAIL            = 1982;
     public static REQUEST_CAMERA_CONFIGURATION     = 796;
+    public static ADD_JUKEBOX_DISK                 = 753;
+    public static GET_JUKEBOX_PLAYLIST             = 1435;
+    public static GET_NOW_PLAYING                  = 1325;
+    public static GET_OFFICIAL_SONG_ID             = 3189;
+    public static GET_SONG_INFO                    = 3082;
+    public static GET_SOUND_MACHINE_PLAYLIST       = 3498;
+    public static GET_USER_SONG_DISKS              = 2304;
+    public static REMOVE_JUKEBOX_DISK              = 3050;
 }

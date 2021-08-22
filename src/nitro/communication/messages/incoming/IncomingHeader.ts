@@ -280,4 +280,12 @@ export class IncomingHeader
     public static HOTEL_CLOSES_AND_OPENS_AT        = 2771;
     public static HOTEL_WILL_CLOSE_MINUTES         = 1050;
     public static HOTEL_MAINTENANCE                = 1350;
+    public static JUKEBOX_PLAYLIST_FULL            = 105;
+    public static JUKEBOX_SONG_DISKS               = 34;
+    public static NOW_PLAYING                      = 469;
+    public static OFFICIAL_SONG_ID                 = 1381;
+    public static PLAYLIST                         = 1748;
+    public static PLAYLIST_SONG_ADDED              = 1140;
+    public static TRAX_SONG_INFO                   = 3365;
+    public static USER_SONG_DISKS_INVENTORY        = 2602;
 }
