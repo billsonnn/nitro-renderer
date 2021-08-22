@@ -1,7 +1,7 @@
-import { IMessageDataWrapper } from '../../../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
 
-export class UserCurrencyUpdateParser implements IMessageParser
+export class ActivityPointNotificationParser implements IMessageParser
 {
     private _amount: number;
     private _amountChanged: number;

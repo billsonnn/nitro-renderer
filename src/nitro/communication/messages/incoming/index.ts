@@ -1,3 +1,4 @@
+export * from './advertisement';
 export * from './availability';
 export * from './avatar';
 export * from './camera';
@@ -23,7 +24,6 @@ export * from './inventory/marketplace';
 export * from './inventory/pets';
 export * from './inventory/trading';
 export * from './landingview';
-export * from './moderation';
 export * from './modtool';
 export * from './mysterybox';
 export * from './navigator';

@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { AchievementNotificationMessageEvent, ApproveNameMessageComposer, BadgeReceivedEvent, BonusRareInfoMessageEvent, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemoveAllRightsMessageComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomUnitGiveHandItemPetComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer } from './messages';
+import { AchievementNotificationMessageEvent, ActivityPointNotificationMessageEvent, ApproveNameMessageComposer, AvailabilityTimeMessageEvent, BadgeReceivedEvent, BonusRareInfoMessageEvent, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, ClubGiftNotificationEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, HotelClosedAndOpensEvent, HotelClosesAndWillOpenAtEvent, HotelWillCloseInMinutesEvent, InfoFeedEnableMessageEvent, InterstitialMessageEvent, MaintenanceStatusMessageEvent, MysteryBoxKeysEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, RemoveAllRightsMessageComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomAdErrorEvent, RoomUnitGiveHandItemPetComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CameraPublishStatusMessageEvent } from './messages/incoming/camera/CameraPublishStatusMessageEvent';
 import { CameraPurchaseOKMessageEvent } from './messages/incoming/camera/CameraPurchaseOKMessageEvent';
@@ -96,7 +96,6 @@ import { TradingOtherNotAllowedEvent } from './messages/incoming/inventory/tradi
 import { TradingYouAreNotAllowedEvent } from './messages/incoming/inventory/trading/TradingYouAreNotAllowedEvent';
 import { PromoArticlesMessageEvent } from './messages/incoming/landingview/PromoArticlesMessageEvent';
 import { CommunityGoalVoteMessageEvent } from './messages/incoming/landingview/votes/CommunityGoalVoteMessageEvent';
-import { ModeratorMessageEvent } from './messages/incoming/moderation/ModeratorMessageEvent';
 import { ModtoolCallForHelpTopicsEvent } from './messages/incoming/modtool/ModtoolCallForHelpTopicsEvent';
 import { ModtoolMainEvent } from './messages/incoming/modtool/ModtoolMainEvent';
 import { ModtoolReceivedRoomsUserEvent } from './messages/incoming/modtool/ModtoolReceivedRoomsUserEvent';
@@ -117,10 +116,10 @@ import { NavigatorSettingsEvent } from './messages/incoming/navigator/NavigatorS
 import { BotErrorEvent } from './messages/incoming/notifications/BotErrorEvent';
 import { HabboBroadcastMessageEvent } from './messages/incoming/notifications/HabboBroadcastMessageEvent';
 import { HotelWillShutdownEvent } from './messages/incoming/notifications/HotelWillShutdownEvent';
+import { ModeratorMessageEvent } from './messages/incoming/notifications/ModeratorMessageEvent';
 import { MOTDNotificationEvent } from './messages/incoming/notifications/MOTDNotificationEvent';
 import { NotificationDialogMessageEvent } from './messages/incoming/notifications/NotificationDialogMessageEvent';
 import { PetPlacingErrorEvent } from './messages/incoming/notifications/PetPlacingErrorEvent';
-import { RespectReceivedEvent } from './messages/incoming/notifications/RespectReceivedEvent';
 import { UnseenItemsEvent } from './messages/incoming/notifications/UnseenItemsEvent';
 import { CommunityGoalEarnedPrizesMessageEvent } from './messages/incoming/quest/CommunityGoalEarnedPrizesMessageEvent';
 import { CommunityGoalHallOfFameMessageEvent } from './messages/incoming/quest/CommunityGoalHallOfFameMessageEvent';
@@ -225,8 +224,8 @@ import { IgnoreResultEvent } from './messages/incoming/user/IgnoreResultEvent';
 import { InClientLinkEvent } from './messages/incoming/user/InClientLinkEvent';
 import { UserCreditsEvent } from './messages/incoming/user/inventory/currency/UserCreditsEvent';
 import { UserCurrencyEvent } from './messages/incoming/user/inventory/currency/UserCurrencyEvent';
-import { UserCurrencyUpdateEvent } from './messages/incoming/user/inventory/currency/UserCurrencyUpdateEvent';
 import { UserSubscriptionEvent } from './messages/incoming/user/inventory/subscription/UserSubscriptionEvent';
+import { RespectReceivedEvent } from './messages/incoming/user/RespectReceivedEvent';
 import { UserWardrobePageEvent } from './messages/incoming/user/wardrobe/UserWardrobePageEvent';
 import { RequestAchievementsMessageComposer } from './messages/outgoing/achievements/RequestAchievementsMessageComposer';
 import { PhotoCompetitionMessageComposer } from './messages/outgoing/camera/PhotoCompetitionMessageComposer';
@@ -473,8 +472,19 @@ export class NitroMessages implements IMessageConfiguration
 
     private registerEvents(): void
     {
+        // ADVERTISEMENT
+        this._events.set(IncomingHeader.INTERSTITIAL_MESSAGE, InterstitialMessageEvent);
+        this._events.set(IncomingHeader.ROOM_AD_ERROR, RoomAdErrorEvent);
+
         // AVAILABILITY
         this._events.set(IncomingHeader.AVAILABILITY_STATUS, AvailabilityStatusMessageEvent);
+        this._events.set(IncomingHeader.AVAILABILITY_TIME, AvailabilityTimeMessageEvent);
+        this._events.set(IncomingHeader.HOTEL_CLOSED_AND_OPENS, HotelClosedAndOpensEvent);
+        this._events.set(IncomingHeader.HOTEL_CLOSES_AND_OPENS_AT, HotelClosesAndWillOpenAtEvent);
+        this._events.set(IncomingHeader.HOTEL_WILL_CLOSE_MINUTES, HotelWillCloseInMinutesEvent);
+        this._events.set(IncomingHeader.HOTEL_MAINTENANCE, MaintenanceStatusMessageEvent);
+
+
         this._events.set(IncomingHeader.GENERIC_ERROR, GenericErrorEvent);
 
         // AVATAR
@@ -571,9 +581,6 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.TRADE_OTHER_NOT_ALLOWED, TradingOtherNotAllowedEvent);
         this._events.set(IncomingHeader.TRADE_YOU_NOT_ALLOWED, TradingYouAreNotAllowedEvent);
 
-        // MODERATION
-        this._events.set(IncomingHeader.GENERIC_ALERT_LINK, ModeratorMessageEvent);
-
         // MODTOOL
         this._events.set(IncomingHeader.MODTOOL_ROOM_INFO, ModtoolRoomInfoEvent);
         this._events.set(IncomingHeader.MODTOOL_USER_CHATLOG, ModtoolUserChatlogEvent);
@@ -598,10 +605,13 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.GENERIC_ALERT, HabboBroadcastMessageEvent);
         this._events.set(IncomingHeader.MOTD_MESSAGES, MOTDNotificationEvent);
         this._events.set(IncomingHeader.NOTIFICATION_LIST, NotificationDialogMessageEvent);
-        this._events.set(IncomingHeader.USER_RESPECT, RespectReceivedEvent);
         this._events.set(IncomingHeader.UNSEEN_ITEMS, UnseenItemsEvent);
         this._events.set(IncomingHeader.HOTEL_WILL_SHUTDOWN, HotelWillShutdownEvent);
         this._events.set(IncomingHeader.ACHIEVEMENT_NOTIFICATION, AchievementNotificationMessageEvent);
+        this._events.set(IncomingHeader.INFO_FEED_ENABLE, InfoFeedEnableMessageEvent);
+        this._events.set(IncomingHeader.CLUB_GIFT_NOTIFICATION, ClubGiftNotificationEvent);
+        this._events.set(IncomingHeader.MODERATOR_MESSAGE, ModeratorMessageEvent);
+        this._events.set(IncomingHeader.ACTIVITY_POINT_NOTIFICATION, ActivityPointNotificationMessageEvent);
 
         // ROOM
 
@@ -721,6 +731,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.IN_CLIENT_LINK, InClientLinkEvent);
         this._events.set(IncomingHeader.USER_IGNORED, IgnoredUsersEvent);
         this._events.set(IncomingHeader.USER_IGNORED_RESULT, IgnoreResultEvent);
+        this._events.set(IncomingHeader.USER_RESPECT, RespectReceivedEvent);
 
         // BADGES
         this._events.set(IncomingHeader.USER_BADGES, BadgesEvent);
@@ -753,7 +764,6 @@ export class NitroMessages implements IMessageConfiguration
         // CURRENCY
         this._events.set(IncomingHeader.USER_CREDITS, UserCreditsEvent);
         this._events.set(IncomingHeader.USER_CURRENCY, UserCurrencyEvent);
-        this._events.set(IncomingHeader.USER_CURRENCY_UPDATE, UserCurrencyUpdateEvent);
 
         // SUBSCRIPTION
         this._events.set(IncomingHeader.USER_SUBSCRIPTION, UserSubscriptionEvent);

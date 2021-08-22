@@ -35,7 +35,7 @@ export class IncomingHeader
     public static GAME_CENTER_GAME_LIST            = 222;
     public static GAME_CENTER_STATUS               = 2893;
     public static GENERIC_ALERT                    = 3801;
-    public static GENERIC_ALERT_LINK               = 2030;
+    public static MODERATOR_MESSAGE                = 2030;
     public static GENERIC_ERROR                    = 1600;
     public static GIFT_CONFIG                      = 2234;
     public static GROUP_BADGES                     = 2402;
@@ -134,7 +134,7 @@ export class IncomingHeader
     public static ROOM_SETTINGS_UPDATED            = 3297;
     public static ROOM_SPECTATOR                   = 1033;
     public static ROOM_THICKNESS                   = 3547;
-    public static SECURITY_DEBUG                   = 3284;
+    public static INFO_FEED_ENABLE                 = 3284;
     public static SECURITY_MACHINE                 = 1488;
     public static MYSTERY_BOX_KEYS                 = 2833;
     public static TRADE_ACCEPTED                   = 2568;
@@ -174,7 +174,7 @@ export class IncomingHeader
     public static USER_CLOTHING                    = 1450;
     public static USER_CREDITS                     = 3475;
     public static USER_CURRENCY                    = 2018;
-    public static USER_CURRENCY_UPDATE             = 2275;
+    public static ACTIVITY_POINT_NOTIFICATION      = 2275;
     public static USER_EFFECTS                     = 340;
     public static USER_FAVORITE_ROOM               = 2524;
     public static USER_FAVORITE_ROOM_COUNT         = 151;
@@ -272,4 +272,12 @@ export class IncomingHeader
     public static INIT_CAMERA                      = 3878;
     public static THUMBNAIL_STATUS                 = 3595;
     public static ACHIEVEMENT_NOTIFICATION         = 806;
+    public static CLUB_GIFT_NOTIFICATION           = 2188;
+    public static INTERSTITIAL_MESSAGE             = 1808;
+    public static ROOM_AD_ERROR                    = 1759;
+    public static AVAILABILITY_TIME                = 600;
+    public static HOTEL_CLOSED_AND_OPENS           = 3728;
+    public static HOTEL_CLOSES_AND_OPENS_AT        = 2771;
+    public static HOTEL_WILL_CLOSE_MINUTES         = 1050;
+    public static HOTEL_MAINTENANCE                = 1350;
 }
