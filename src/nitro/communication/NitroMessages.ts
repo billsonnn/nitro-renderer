@@ -1,6 +1,7 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
 import { AchievementNotificationMessageEvent, ActivityPointNotificationMessageEvent, AddJukeboxDiskComposer, ApproveNameMessageComposer, AvailabilityTimeMessageEvent, BadgeReceivedEvent, BonusRareInfoMessageEvent, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, CheckUserNameResultMessageEvent, ClubGiftNotificationEvent, FigureUpdateEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, GetJukeboxPlayListMessageComposer, GetNowPlayingMessageComposer, GetOfficialSongIdMessageComposer, GetSongInfoMessageComposer, GetSoundMachinePlayListMessageComposer, GetUserSongDisksMessageComposer, HotelClosedAndOpensEvent, HotelClosesAndWillOpenAtEvent, HotelWillCloseInMinutesEvent, InfoFeedEnableMessageEvent, InterstitialMessageEvent, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, MaintenanceStatusMessageEvent, MysteryBoxKeysEvent, NowPlayingMessageEvent, OfficialSongIdMessageEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, PlayListMessageEvent, PlayListSongAddedMessageEvent, RemoveAllRightsMessageComposer, RemoveJukeboxDiskComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomAdErrorEvent, RoomUnitGiveHandItemPetComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, TraxSongInfoMessageEvent, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer, UserSongDisksInventoryMessageEvent, WardrobeMessageEvent } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
+import { CfhSanctionMessageEvent, CfhTopicsInitEvent, SanctionStatusEvent } from './messages/incoming/callforhelp';
 import { CameraPublishStatusMessageEvent } from './messages/incoming/camera/CameraPublishStatusMessageEvent';
 import { CameraPurchaseOKMessageEvent } from './messages/incoming/camera/CameraPurchaseOKMessageEvent';
 import { CameraStorageUrlMessageEvent } from './messages/incoming/camera/CameraStorageUrlMessageEvent';
@@ -492,6 +493,11 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.CHECK_USER_NAME, CheckUserNameResultMessageEvent);
         this._events.set(IncomingHeader.USER_FIGURE, FigureUpdateEvent);
         this._events.set(IncomingHeader.USER_OUTFITS, WardrobeMessageEvent);
+
+        // CALL FOR HELP
+        this._events.set(IncomingHeader.CFH_SANCTION, CfhSanctionMessageEvent);
+        this._events.set(IncomingHeader.CFH_TOPICS, CfhTopicsInitEvent);
+        this._events.set(IncomingHeader.CFH_SANCTION_STATUS, SanctionStatusEvent);
 
         // CATALOG
         this._events.set(IncomingHeader.CATALOG_CLUB, CatalogClubEvent);

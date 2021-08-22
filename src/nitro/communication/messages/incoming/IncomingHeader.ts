@@ -289,4 +289,7 @@ export class IncomingHeader
     public static TRAX_SONG_INFO                   = 3365;
     public static USER_SONG_DISKS_INVENTORY        = 2602;
     public static CHECK_USER_NAME                  = 563;
+    public static CFH_SANCTION                     = 2782;
+    public static CFH_TOPICS                       = 325;
+    public static CFH_SANCTION_STATUS              = 2221;
 }
