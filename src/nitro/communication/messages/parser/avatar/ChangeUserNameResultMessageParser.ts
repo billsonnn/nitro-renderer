@@ -1,11 +1,11 @@
 import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
 import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
 
-export class ChangeNameUpdateParser implements IMessageParser
+export class ChangeUserNameResultMessageParser implements IMessageParser
 {
     private _resultCode: number;
     private _name: string;
-    private _nameSuggestions;
+    private _nameSuggestions: string[];
 
     public flush(): boolean
     {

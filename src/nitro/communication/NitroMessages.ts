@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { AchievementNotificationMessageEvent, ActivityPointNotificationMessageEvent, AddJukeboxDiskComposer, ApproveNameMessageComposer, AvailabilityTimeMessageEvent, BadgeReceivedEvent, BonusRareInfoMessageEvent, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, ClubGiftNotificationEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, GetJukeboxPlayListMessageComposer, GetNowPlayingMessageComposer, GetOfficialSongIdMessageComposer, GetSongInfoMessageComposer, GetSoundMachinePlayListMessageComposer, GetUserSongDisksMessageComposer, HotelClosedAndOpensEvent, HotelClosesAndWillOpenAtEvent, HotelWillCloseInMinutesEvent, InfoFeedEnableMessageEvent, InterstitialMessageEvent, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, MaintenanceStatusMessageEvent, MysteryBoxKeysEvent, NowPlayingMessageEvent, OfficialSongIdMessageEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, PlayListMessageEvent, PlayListSongAddedMessageEvent, RemoveAllRightsMessageComposer, RemoveJukeboxDiskComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomAdErrorEvent, RoomUnitGiveHandItemPetComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, TraxSongInfoMessageEvent, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer, UserSongDisksInventoryMessageEvent } from './messages';
+import { AchievementNotificationMessageEvent, ActivityPointNotificationMessageEvent, AddJukeboxDiskComposer, ApproveNameMessageComposer, AvailabilityTimeMessageEvent, BadgeReceivedEvent, BonusRareInfoMessageEvent, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, CheckUserNameResultMessageEvent, ClubGiftNotificationEvent, FigureUpdateEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, GetJukeboxPlayListMessageComposer, GetNowPlayingMessageComposer, GetOfficialSongIdMessageComposer, GetSongInfoMessageComposer, GetSoundMachinePlayListMessageComposer, GetUserSongDisksMessageComposer, HotelClosedAndOpensEvent, HotelClosesAndWillOpenAtEvent, HotelWillCloseInMinutesEvent, InfoFeedEnableMessageEvent, InterstitialMessageEvent, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, MaintenanceStatusMessageEvent, MysteryBoxKeysEvent, NowPlayingMessageEvent, OfficialSongIdMessageEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, PlayListMessageEvent, PlayListSongAddedMessageEvent, RemoveAllRightsMessageComposer, RemoveJukeboxDiskComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomAdErrorEvent, RoomUnitGiveHandItemPetComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, TraxSongInfoMessageEvent, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer, UserSongDisksInventoryMessageEvent, WardrobeMessageEvent } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CameraPublishStatusMessageEvent } from './messages/incoming/camera/CameraPublishStatusMessageEvent';
 import { CameraPurchaseOKMessageEvent } from './messages/incoming/camera/CameraPurchaseOKMessageEvent';
@@ -214,7 +214,6 @@ import { UserPerksEvent } from './messages/incoming/user/access/UserPerksEvent';
 import { UserPermissionsEvent } from './messages/incoming/user/access/UserPermissionsEvent';
 import { RelationshipStatusInfoEvent } from './messages/incoming/user/data/RelationshipStatusInfoEvent';
 import { UserCurrentBadgesEvent } from './messages/incoming/user/data/UserCurrentBadgesEvent';
-import { UserFigureEvent } from './messages/incoming/user/data/UserFigureEvent';
 import { UserInfoEvent } from './messages/incoming/user/data/UserInfoEvent';
 import { UserNameChangeMessageEvent } from './messages/incoming/user/data/UserNameChangeMessageEvent';
 import { UserProfileEvent } from './messages/incoming/user/data/UserProfileEvent';
@@ -490,6 +489,9 @@ export class NitroMessages implements IMessageConfiguration
 
         // AVATAR
         this._events.set(IncomingHeader.USER_CHANGE_NAME, ChangeUserNameResultMessageEvent);
+        this._events.set(IncomingHeader.CHECK_USER_NAME, CheckUserNameResultMessageEvent);
+        this._events.set(IncomingHeader.USER_FIGURE, FigureUpdateEvent);
+        this._events.set(IncomingHeader.USER_OUTFITS, WardrobeMessageEvent);
 
         // CATALOG
         this._events.set(IncomingHeader.CATALOG_CLUB, CatalogClubEvent);
@@ -744,7 +746,6 @@ export class NitroMessages implements IMessageConfiguration
 
         // DATA
         this._events.set(IncomingHeader.USER_BADGES_CURRENT, UserCurrentBadgesEvent);
-        this._events.set(IncomingHeader.USER_FIGURE, UserFigureEvent);
         this._events.set(IncomingHeader.USER_INFO, UserInfoEvent);
         this._events.set(IncomingHeader.UNIT_CHANGE_NAME, UserNameChangeMessageEvent);
         this._events.set(IncomingHeader.USER_SETTINGS, UserSettingsEvent);

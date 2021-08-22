@@ -288,4 +288,5 @@ export class IncomingHeader
     public static PLAYLIST_SONG_ADDED              = 1140;
     public static TRAX_SONG_INFO                   = 3365;
     public static USER_SONG_DISKS_INVENTORY        = 2602;
+    public static CHECK_USER_NAME                  = 563;
 }
