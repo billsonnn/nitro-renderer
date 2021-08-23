@@ -8,6 +8,7 @@ import { CameraStorageUrlMessageEvent } from './messages/incoming/camera/CameraS
 import { CompetitionStatusMessageEvent } from './messages/incoming/camera/CompetitionStatusMessageEvent';
 import { InitCameraMessageEvent } from './messages/incoming/camera/InitCameraMessageEvent';
 import { ThumbnailStatusMessageEvent } from './messages/incoming/camera/ThumbnailStatusMessageEvent';
+import { CampaignCalendarDataMessageEvent, CampaignCalendarDoorOpenedMessageEvent } from './messages/incoming/campaign';
 import { CatalogClubEvent } from './messages/incoming/catalog/CatalogClubEvent';
 import { CatalogClubGiftsEvent } from './messages/incoming/catalog/CatalogClubGiftsEvent';
 import { CatalogGiftConfigurationEvent } from './messages/incoming/catalog/CatalogGiftConfigurationEvent';
@@ -498,6 +499,10 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.CFH_SANCTION, CfhSanctionMessageEvent);
         this._events.set(IncomingHeader.CFH_TOPICS, CfhTopicsInitEvent);
         this._events.set(IncomingHeader.CFH_SANCTION_STATUS, SanctionStatusEvent);
+
+        // CAMPAIGN
+        this._events.set(IncomingHeader.CAMPAIGN_CALENDAR_DATA, CampaignCalendarDataMessageEvent);
+        this._events.set(IncomingHeader.CAMPAIGN_CALENDAR_DOOR_OPENED, CampaignCalendarDoorOpenedMessageEvent);
 
         // CATALOG
         this._events.set(IncomingHeader.CATALOG_CLUB, CatalogClubEvent);

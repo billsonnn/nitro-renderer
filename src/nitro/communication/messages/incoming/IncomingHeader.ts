@@ -292,4 +292,6 @@ export class IncomingHeader
     public static CFH_SANCTION                     = 2782;
     public static CFH_TOPICS                       = 325;
     public static CFH_SANCTION_STATUS              = 2221;
+    public static CAMPAIGN_CALENDAR_DATA           = 2531;
+    public static CAMPAIGN_CALENDAR_DOOR_OPENED    = 2551;
 }
