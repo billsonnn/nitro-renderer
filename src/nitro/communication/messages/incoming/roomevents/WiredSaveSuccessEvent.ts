@@ -1,5 +1,4 @@
-import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { IMessageEvent, MessageEvent } from '../../../../../core';
 import { WiredSaveSuccessParser } from '../../parser/roomevents/WiredSaveSuccessParser';
 
 export class WiredSaveSuccessEvent extends MessageEvent implements IMessageEvent

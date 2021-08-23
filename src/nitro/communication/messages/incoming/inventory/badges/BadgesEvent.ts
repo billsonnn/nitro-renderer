@@ -1,5 +1,4 @@
-﻿import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+﻿import { IMessageEvent, MessageEvent } from '../../../../../../core';
 import { BadgesParser } from '../../../parser/inventory/badges/BadgesParser';
 
 export class BadgesEvent extends MessageEvent implements IMessageEvent

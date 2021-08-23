@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 import { RoomPlaneParser } from '../../../../../room/object/RoomPlaneParser';
 
 export class RoomModelParser implements IMessageParser

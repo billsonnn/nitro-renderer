@@ -1,5 +1,4 @@
-import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { IMessageEvent, MessageEvent } from '../../../../../core';
 import { ConcurrentUsersGoalProgressMessageParser } from '../../parser/quest/ConcurrentUsersGoalProgressMessageParser';
 
 export class ConcurrentUsersGoalProgressMessageEvent extends MessageEvent implements IMessageEvent

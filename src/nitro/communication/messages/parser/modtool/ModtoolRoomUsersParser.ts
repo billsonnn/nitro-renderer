@@ -1,6 +1,4 @@
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { CallForHelpCategoryData } from './utils/CallForHelpCategoryData';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 import { ModtoolRoomVisitedData } from './utils/ModtoolRoomVisitedData';
 
 export class ModtoolRoomUsersParser  implements IMessageParser

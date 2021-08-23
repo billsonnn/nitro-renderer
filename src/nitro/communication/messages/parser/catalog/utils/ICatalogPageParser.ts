@@ -1,6 +1,5 @@
-import { CatalogLocalizationData } from './CatalogLocalizationData';
-import { CatalogPageOfferData } from './CatalogPageOfferData';
-import { CatalogFrontPageItem } from './CatalogFrontPageItem';
+import { CatalogPageMessageOfferData } from '../../../incoming/catalog/CatalogPageMessageOfferData';
+import { FrontPageItem } from '../../../incoming/catalog/FrontPageItem';
 import { ICatalogLocalizationData } from './ICatalogLocalizationData';
 
 export interface ICatalogPageParser
@@ -9,9 +8,9 @@ export interface ICatalogPageParser
     readonly catalogType: string;
     readonly layoutCode: string;
     readonly localization: ICatalogLocalizationData;
-    readonly offers: CatalogPageOfferData[];
+    readonly offers: CatalogPageMessageOfferData[];
     readonly offerId: number;
     readonly acceptSeasonCurrencyAsCredits: boolean;
-    readonly frontPageItems: CatalogFrontPageItem[];
+    readonly frontPageItems: FrontPageItem[];
 
 }

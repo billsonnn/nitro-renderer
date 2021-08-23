@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageDataWrapper } from '../../../../../../../core';
 import { Nitro } from '../../../../../../Nitro';
 import { IObjectData } from '../../../../../../room/object/data/IObjectData';
 import { IFurnitureItemData } from '../../../../incoming/inventory/furni/IFurnitureItemData';

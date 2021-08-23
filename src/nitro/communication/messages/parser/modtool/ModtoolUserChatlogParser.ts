@@ -1,7 +1,6 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
-import { ModtoolUserChatlogParserVisit } from './utils/ModtoolUserChatlogParserVisit';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 import { ModtoolUserChatlogParserChatlog } from './utils/ModtoolUserChatlogParserChatlog';
+import { ModtoolUserChatlogParserVisit } from './utils/ModtoolUserChatlogParserVisit';
 
 export class ModtoolUserChatlogParser implements IMessageParser
 {

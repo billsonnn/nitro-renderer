@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { AchievementNotificationMessageEvent, ActivityPointNotificationMessageEvent, AddJukeboxDiskComposer, ApproveNameMessageComposer, AvailabilityTimeMessageEvent, BadgeReceivedEvent, BonusRareInfoMessageEvent, CatalogApproveNameResultEvent, ChangeUserNameResultMessageEvent, CheckUserNameResultMessageEvent, ClubGiftNotificationEvent, FigureUpdateEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, GetJukeboxPlayListMessageComposer, GetNowPlayingMessageComposer, GetOfficialSongIdMessageComposer, GetSongInfoMessageComposer, GetSoundMachinePlayListMessageComposer, GetUserSongDisksMessageComposer, HotelClosedAndOpensEvent, HotelClosesAndWillOpenAtEvent, HotelWillCloseInMinutesEvent, InfoFeedEnableMessageEvent, InterstitialMessageEvent, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, MaintenanceStatusMessageEvent, MysteryBoxKeysEvent, NowPlayingMessageEvent, OfficialSongIdMessageEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, PlayListMessageEvent, PlayListSongAddedMessageEvent, RemoveAllRightsMessageComposer, RemoveJukeboxDiskComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomAdErrorEvent, RoomUnitGiveHandItemPetComposer, SellablePetPalettesEvent, TogglePetBreedingComposer, TogglePetRidingComposer, TraxSongInfoMessageEvent, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer, UserSongDisksInventoryMessageEvent, WardrobeMessageEvent } from './messages';
+import { AchievementNotificationMessageEvent, ActivityPointNotificationMessageEvent, AddJukeboxDiskComposer, ApproveNameMessageComposer, ApproveNameMessageEvent, AvailabilityTimeMessageEvent, BadgeReceivedEvent, BonusRareInfoMessageEvent, BuildersClubFurniCountMessageEvent, BuildersClubSubscriptionStatusMessageEvent, BundleDiscountRulesetMessageEvent, ChangeUserNameResultMessageEvent, CheckUserNameResultMessageEvent, ClubGiftNotificationEvent, DirectSMSClubBuyAvailableMessageEvent, FigureUpdateEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, GetJukeboxPlayListMessageComposer, GetNowPlayingMessageComposer, GetOfficialSongIdMessageComposer, GetSongInfoMessageComposer, GetSoundMachinePlayListMessageComposer, GetUserSongDisksMessageComposer, HabboClubExtendOfferMessageEvent, HotelClosedAndOpensEvent, HotelClosesAndWillOpenAtEvent, HotelWillCloseInMinutesEvent, InfoFeedEnableMessageEvent, InterstitialMessageEvent, IsOfferGiftableMessageEvent, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, LimitedOfferAppearingNextMessageEvent, MaintenanceStatusMessageEvent, MysteryBoxKeysEvent, NotEnoughBalanceMessageEvent, NowPlayingMessageEvent, OfficialSongIdMessageEvent, PetExperienceEvent, PetMountComposer, PetSupplementComposer, PlayListMessageEvent, PlayListSongAddedMessageEvent, RemoveAllRightsMessageComposer, RemoveJukeboxDiskComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomAdErrorEvent, RoomAdPurchaseInfoEvent, RoomUnitGiveHandItemPetComposer, SeasonalCalendarDailyOfferMessageEvent, SellablePetPalettesMessageEvent, TargetedOfferEvent, TargetedOfferNotFoundEvent, TogglePetBreedingComposer, TogglePetRidingComposer, TraxSongInfoMessageEvent, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer, UserSongDisksInventoryMessageEvent, WardrobeMessageEvent } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CfhSanctionMessageEvent, CfhTopicsInitEvent, SanctionStatusEvent } from './messages/incoming/callforhelp';
 import { CameraPublishStatusMessageEvent } from './messages/incoming/camera/CameraPublishStatusMessageEvent';
@@ -9,28 +9,13 @@ import { CompetitionStatusMessageEvent } from './messages/incoming/camera/Compet
 import { InitCameraMessageEvent } from './messages/incoming/camera/InitCameraMessageEvent';
 import { ThumbnailStatusMessageEvent } from './messages/incoming/camera/ThumbnailStatusMessageEvent';
 import { CampaignCalendarDataMessageEvent, CampaignCalendarDoorOpenedMessageEvent } from './messages/incoming/campaign';
-import { CatalogClubEvent } from './messages/incoming/catalog/CatalogClubEvent';
-import { CatalogClubGiftsEvent } from './messages/incoming/catalog/CatalogClubGiftsEvent';
-import { CatalogGiftConfigurationEvent } from './messages/incoming/catalog/CatalogGiftConfigurationEvent';
-import { CatalogGiftUsernameUnavailableEvent } from './messages/incoming/catalog/CatalogGiftUsernameUnavailableEvent';
-import { CatalogGroupsEvent } from './messages/incoming/catalog/CatalogGroupsEvent';
-import { CatalogModeEvent } from './messages/incoming/catalog/CatalogModeEvent';
-import { CatalogPageEvent } from './messages/incoming/catalog/CatalogPageEvent';
-import { CatalogPagesEvent } from './messages/incoming/catalog/CatalogPagesEvent';
-import { CatalogPurchaseEvent } from './messages/incoming/catalog/CatalogPurchaseEvent';
-import { CatalogPurchaseFailedEvent } from './messages/incoming/catalog/CatalogPurchaseFailedEvent';
-import { CatalogPurchaseUnavailableEvent } from './messages/incoming/catalog/CatalogPurchaseUnavailableEvent';
-import { CatalogRedeemVoucherErrorEvent } from './messages/incoming/catalog/CatalogRedeemVoucherErrorEvent';
-import { CatalogRedeemVoucherOkEvent } from './messages/incoming/catalog/CatalogRedeemVoucherOkEvent';
-import { CatalogSearchEvent } from './messages/incoming/catalog/CatalogSearchEvent';
-import { CatalogSoldOutEvent } from './messages/incoming/catalog/CatalogSoldOutEvent';
-import { CatalogUpdatedEvent } from './messages/incoming/catalog/CatalogUpdatedEvent';
+import { CatalogPageExpirationEvent, CatalogPageMessageEvent, CatalogPagesListEvent, CatalogPageWithEarliestExpiryMessageEvent, CatalogPublishedMessageEvent, ClubGiftInfoEvent, ClubGiftSelectedEvent, GiftReceiverNotFoundEvent, GiftWrappingConfigurationEvent, HabboClubOffersMessageEvent, LimitedEditionSoldOutEvent, ProductOfferEvent, PurchaseErrorMessageEvent, PurchaseNotAllowedMessageEvent, PurchaseOKMessageEvent, VoucherRedeemErrorMessageEvent, VoucherRedeemOkMessageEvent } from './messages/incoming/catalog';
 import { MarketplaceBuyOfferResultEvent } from './messages/incoming/catalog/marketplace/MarketplaceBuyOfferResultEvent';
 import { MarketplaceCancelItemEvent } from './messages/incoming/catalog/marketplace/MarketplaceCancelItemEvent';
+import { MarketplaceConfigEvent } from './messages/incoming/catalog/marketplace/MarketplaceConfigEvent';
+import { MarketplaceItemStatsEvent } from './messages/incoming/catalog/marketplace/MarketplaceItemStatsEvent';
 import { MarketplaceOffersReceivedEvent } from './messages/incoming/catalog/marketplace/MarketplaceOffersReceivedEvent';
 import { MarketplaceOwnItemsEvent } from './messages/incoming/catalog/marketplace/MarketplaceOwnItemsEvent';
-import { MarketplaceConfigEvent } from './messages/incoming/catalog/MarketplaceConfigEvent';
-import { MarketplaceItemStatsEvent } from './messages/incoming/catalog/MarketplaceItemStatsEvent';
 import { ClientPingEvent } from './messages/incoming/client/ClientPingEvent';
 import { CraftableProductsEvent } from './messages/incoming/crafting/CraftableProductsEvent';
 import { CraftingRecipeEvent } from './messages/incoming/crafting/CraftingRecipeEvent';
@@ -220,6 +205,7 @@ import { UserInfoEvent } from './messages/incoming/user/data/UserInfoEvent';
 import { UserNameChangeMessageEvent } from './messages/incoming/user/data/UserNameChangeMessageEvent';
 import { UserProfileEvent } from './messages/incoming/user/data/UserProfileEvent';
 import { UserSettingsEvent } from './messages/incoming/user/data/UserSettingsEvent';
+import { GuildMembershipsMessageEvent } from './messages/incoming/user/GuildMembershipsMessageEvent';
 import { IgnoredUsersEvent } from './messages/incoming/user/IgnoredUsersEvent';
 import { IgnoreResultEvent } from './messages/incoming/user/IgnoreResultEvent';
 import { InClientLinkEvent } from './messages/incoming/user/InClientLinkEvent';
@@ -505,24 +491,41 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.CAMPAIGN_CALENDAR_DOOR_OPENED, CampaignCalendarDoorOpenedMessageEvent);
 
         // CATALOG
-        this._events.set(IncomingHeader.CATALOG_CLUB, CatalogClubEvent);
-        this._events.set(IncomingHeader.CATALOG_MODE, CatalogModeEvent);
-        this._events.set(IncomingHeader.CATALOG_PAGE, CatalogPageEvent);
-        this._events.set(IncomingHeader.CATALOG_PAGES, CatalogPagesEvent);
-        this._events.set(IncomingHeader.CATALOG_PURCHASE, CatalogPurchaseEvent);
-        this._events.set(IncomingHeader.CATALOG_PURCHASE_FAILED, CatalogPurchaseFailedEvent);
-        this._events.set(IncomingHeader.CATALOG_PURCHASE_UNAVAILABLE, CatalogPurchaseUnavailableEvent);
-        this._events.set(IncomingHeader.CATALOG_SEARCH, CatalogSearchEvent);
-        this._events.set(IncomingHeader.CATALOG_SOLD_OUT, CatalogSoldOutEvent);
-        this._events.set(IncomingHeader.CATALOG_UPDATED, CatalogUpdatedEvent);
-        this._events.set(IncomingHeader.CATALOG_CLUB_GIFTS, CatalogClubGiftsEvent);
-        this._events.set(IncomingHeader.GROUP_LIST, CatalogGroupsEvent);
-        this._events.set(IncomingHeader.GIFT_CONFIG, CatalogGiftConfigurationEvent);
-        this._events.set(IncomingHeader.REDEEM_VOUCHER_ERROR, CatalogRedeemVoucherErrorEvent);
-        this._events.set(IncomingHeader.REDEEM_VOUCHER_OK, CatalogRedeemVoucherOkEvent);
-        this._events.set(IncomingHeader.CATALOG_RECEIVE_PET_BREEDS, SellablePetPalettesEvent);
-        this._events.set(IncomingHeader.CATALOG_APPROVE_NAME_RESULT, CatalogApproveNameResultEvent);
         this._events.set(IncomingHeader.BONUS_RARE_INFO, BonusRareInfoMessageEvent);
+        this._events.set(IncomingHeader.BUILDERS_CLUB_FURNI_COUNT, BuildersClubFurniCountMessageEvent);
+        this._events.set(IncomingHeader.BUILDERS_CLUB_SUBSCRIPTION, BuildersClubSubscriptionStatusMessageEvent);
+        this._events.set(IncomingHeader.BUNDLE_DISCOUNT_RULESET, BundleDiscountRulesetMessageEvent);
+        this._events.set(IncomingHeader.CATALOG_PAGE_EXPIRATION, CatalogPageExpirationEvent);
+        this._events.set(IncomingHeader.CATALOG_PAGE, CatalogPageMessageEvent);
+        this._events.set(IncomingHeader.CATALOG_PAGE_LIST, CatalogPagesListEvent);
+        this._events.set(IncomingHeader.CATALOG_EARLIEST_EXPIRY, CatalogPageWithEarliestExpiryMessageEvent);
+        this._events.set(IncomingHeader.CATALOG_PUBLISHED, CatalogPublishedMessageEvent);
+        this._events.set(IncomingHeader.CLUB_GIFT_INFO, ClubGiftInfoEvent);
+        this._events.set(IncomingHeader.CLUB_GIFT_SELECTED, ClubGiftSelectedEvent);
+        this._events.set(IncomingHeader.DIRECT_SMS_CLUB_BUY, DirectSMSClubBuyAvailableMessageEvent);
+        this._events.set(IncomingHeader.GIFT_RECEIVER_NOT_FOUND, GiftReceiverNotFoundEvent);
+        this._events.set(IncomingHeader.GIFT_WRAPPER_CONFIG, GiftWrappingConfigurationEvent);
+        this._events.set(IncomingHeader.CLUB_EXTENDED_OFFER, HabboClubExtendOfferMessageEvent);
+        this._events.set(IncomingHeader.CLUB_OFFERS, HabboClubOffersMessageEvent);
+        this._events.set(IncomingHeader.IS_OFFER_GIFTABLE, IsOfferGiftableMessageEvent);
+        this._events.set(IncomingHeader.LIMITED_SOLD_OUT, LimitedEditionSoldOutEvent);
+        this._events.set(IncomingHeader.LIMITED_OFFER_APPEARING_NEXT, LimitedOfferAppearingNextMessageEvent);
+        this._events.set(IncomingHeader.NOT_ENOUGH_BALANCE, NotEnoughBalanceMessageEvent);
+        this._events.set(IncomingHeader.PRODUCT_OFFER, ProductOfferEvent);
+        this._events.set(IncomingHeader.CATALOG_PURCHASE_ERROR, PurchaseErrorMessageEvent);
+        this._events.set(IncomingHeader.CATALOG_PURCHASE_NOT_ALLOWED, PurchaseNotAllowedMessageEvent);
+        this._events.set(IncomingHeader.CATALOG_PURCHASE_OK, PurchaseOKMessageEvent);
+        this._events.set(IncomingHeader.ROOM_AD_PURCHASE, RoomAdPurchaseInfoEvent);
+        this._events.set(IncomingHeader.SEASONAL_CALENDAR_OFFER, SeasonalCalendarDailyOfferMessageEvent);
+        this._events.set(IncomingHeader.CATALOG_RECEIVE_PET_BREEDS, SellablePetPalettesMessageEvent);
+        this._events.set(IncomingHeader.TARGET_OFFER, TargetedOfferEvent);
+        this._events.set(IncomingHeader.TARGET_OFFER_NOT_FOUND, TargetedOfferNotFoundEvent);
+        this._events.set(IncomingHeader.REDEEM_VOUCHER_ERROR, VoucherRedeemErrorMessageEvent);
+        this._events.set(IncomingHeader.REDEEM_VOUCHER_OK, VoucherRedeemOkMessageEvent);
+
+
+        this._events.set(IncomingHeader.GROUP_LIST, GuildMembershipsMessageEvent);
+        this._events.set(IncomingHeader.CATALOG_APPROVE_NAME_RESULT, ApproveNameMessageEvent);
 
         // CLIENT
         this._events.set(IncomingHeader.CLIENT_PING, ClientPingEvent);
@@ -767,7 +770,6 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.GIFT_OPENED, PresentOpenedMessageEvent);
 
         // INVENTORY
-        this._events.set(IncomingHeader.GIFT_RECEIVER_NOT_FOUND, CatalogGiftUsernameUnavailableEvent);
 
         // BOTS
         this._events.set(IncomingHeader.USER_BOTS, BotInventoryMessageEvent);

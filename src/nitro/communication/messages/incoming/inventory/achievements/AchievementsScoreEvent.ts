@@ -1,5 +1,4 @@
-﻿import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+﻿import { IMessageEvent, MessageEvent } from '../../../../../../core';
 import { AchievementsScoreParser } from '../../../parser/inventory/achievements/AchievementsScoreParser';
 
 export class AchievementsScoreEvent extends MessageEvent implements IMessageEvent

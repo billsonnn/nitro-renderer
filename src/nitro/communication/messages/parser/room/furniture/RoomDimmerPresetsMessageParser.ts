@@ -1,5 +1,4 @@
-﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 import { MoodlightFromServer } from '../../../incoming/room/furniture/moodlightFromServer';
 
 export class RoomDimmerPresetsMessageParser implements IMessageParser

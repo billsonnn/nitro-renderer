@@ -1,5 +1,4 @@
-import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { IMessageEvent, MessageEvent } from '../../../../../../core';
 import { RoomBlockedTilesParser } from '../../../parser/room/mapping/RoomBlockedTilesParser';
 
 export class RoomBlockedTilesEvent extends MessageEvent implements IMessageEvent

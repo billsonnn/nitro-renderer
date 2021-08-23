@@ -1,5 +1,4 @@
-import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { IMessageEvent, MessageEvent } from '../../../../../core';
 import { GroupBuyDataParser } from '../../parser/group/GroupBuyDataParser';
 
 export class GroupBuyDataEvent extends MessageEvent implements IMessageEvent

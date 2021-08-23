@@ -1,5 +1,4 @@
-import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { IMessageEvent, MessageEvent } from '../../../../../core';
 import { FindFriendsProcessResultParser } from '../../parser/friendlist/FindFriendsProcessResultParser';
 
 export class FindFriendsProcessResultEvent extends MessageEvent implements IMessageEvent

@@ -1,5 +1,4 @@
-import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { IMessageEvent, MessageEvent } from '../../../../../../core';
 import { RoomSettingsUsersListParser } from '../../../parser/room/data/RoomSettingsUsersListParser';
 
 export class RoomBannedUsersEvent extends MessageEvent implements IMessageEvent

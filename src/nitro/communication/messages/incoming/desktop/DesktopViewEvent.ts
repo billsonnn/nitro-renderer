@@ -1,5 +1,4 @@
-import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { IMessageEvent, MessageEvent } from '../../../../../core';
 import { DesktopViewParser } from '../../parser/desktop/DesktopViewParser';
 
 export class DesktopViewEvent extends MessageEvent implements IMessageEvent

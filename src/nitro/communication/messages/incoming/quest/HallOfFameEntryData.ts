@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageDataWrapper } from '../../../../../core';
 import { ILandingPageUserEntry } from './ILandingPageUserEntry';
 
 export class HallOfFameEntryData implements ILandingPageUserEntry

@@ -1,4 +1,5 @@
 export * from './access';
+export * from './ApproveNameMessageEvent';
 export * from './data';
 export * from './IgnoredUsersEvent';
 export * from './IgnoreResultEvent';
