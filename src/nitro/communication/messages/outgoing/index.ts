@@ -2,6 +2,7 @@ export * from './achievements';
 export * from './advertisement';
 export * from './avatar';
 export * from './camera';
+export * from './campaign';
 export * from './catalog';
 export * from './client';
 export * from './desktop';

@@ -281,4 +281,6 @@ export class OutgoingHeader
     public static GET_INTERSTITIAL                 = 2519;
     public static CHANGE_USERNAME                  = 2977;
     public static CHECK_USERNAME                   = 3950;
+    public static OPEN_CAMPAIGN_CALENDAR_DOOR_STAFF= 3889;
+    public static OPEN_CAMPAIGN_CALENDAR_DOOR      = 2257;
 }
