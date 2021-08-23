@@ -172,8 +172,6 @@ export class OutgoingHeader
     public static USER_INFO                      = 357;
     public static USER_MOTTO                     = 2228;
     public static USER_IGNORED                   = 3878;
-    public static USER_OUTFIT_SAVE               = 800;
-    public static USER_OUTFITS                   = 2742;
     public static USER_PETS                      = 3095;
     public static USER_PROFILE                   = 3265;
     public static USER_RESPECT                   = 2694;
@@ -184,8 +182,8 @@ export class OutgoingHeader
     public static USER_SETTINGS_OLD_CHAT         = 1262;
     public static USER_SETTINGS_VOLUME           = 1367;
     public static USER_SUBSCRIPTION              = 3166;
-    public static USER_WARDROBE_PAGE             = 2742;
-    public static USER_WARDROBE_SAVE             = 800;
+    public static GET_WARDROBE                   = 2742;
+    public static SAVE_WARDROBE_OUTFIT           = 800;
     public static USER_TAGS                      = 17;
     public static USER_VISIT                     = 2970;
     public static WIRED_ACTION_SAVE              = 2281;
@@ -279,4 +277,8 @@ export class OutgoingHeader
     public static GET_SOUND_MACHINE_PLAYLIST       = 3498;
     public static GET_USER_SONG_DISKS              = 2304;
     public static REMOVE_JUKEBOX_DISK              = 3050;
+    public static INTERSTITIAL_SHOWN               = 1109;
+    public static GET_INTERSTITIAL                 = 2519;
+    public static CHANGE_USERNAME                  = 2977;
+    public static CHECK_USERNAME                   = 3950;
 }
