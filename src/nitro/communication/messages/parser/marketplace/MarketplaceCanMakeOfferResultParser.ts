@@ -1,14 +1,14 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
 export class MarketplaceCanMakeOfferResultParser implements IMessageParser
 {
-    private _tokenCount: number = null;
-    private _result: number = null;
+    private _tokenCount: number;
+    private _result: number;
 
     public flush(): boolean
     {
-        this._tokenCount = null;
-        this._result = null;
+        this._tokenCount = 0;
+        this._result = 0;
 
         return true;
     }

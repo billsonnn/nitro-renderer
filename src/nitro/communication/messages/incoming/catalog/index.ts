@@ -1,3 +1,4 @@
+export * from '../marketplace';
 export * from './BonusRareInfoMessageEvent';
 export * from './BuildersClubFurniCountMessageEvent';
 export * from './BuildersClubSubscriptionStatusMessageEvent';
@@ -25,7 +26,6 @@ export * from './HabboClubOffersMessageEvent';
 export * from './IsOfferGiftableMessageEvent';
 export * from './LimitedEditionSoldOutEvent';
 export * from './LimitedOfferAppearingNextMessageEvent';
-export * from './marketplace';
 export * from './NodeData';
 export * from './NotEnoughBalanceMessageEvent';
 export * from './ProductOfferEvent';

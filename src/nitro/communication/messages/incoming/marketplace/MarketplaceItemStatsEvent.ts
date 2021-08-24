@@ -1,6 +1,5 @@
-import { IMessageEvent, MessageEvent } from '../../../../../../core';
-import { MarketplaceItemStatsParser } from '../../../parser';
-
+import { IMessageEvent, MessageEvent } from '../../../../../core';
+import { MarketplaceItemStatsParser } from '../../parser';
 
 export class MarketplaceItemStatsEvent extends MessageEvent implements IMessageEvent
 {

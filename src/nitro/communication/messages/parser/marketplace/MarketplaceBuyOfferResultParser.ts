@@ -1,14 +1,18 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
 export class MarketplaceBuyOfferResultParser implements IMessageParser
 {
     private _result: number;
-    private _newOfferId: number = -1;
-    private _newPrice: number = -1;
-    private _requestedOfferId: number = -1;
+    private _newOfferId: number;
+    private _newPrice: number;
+    private _requestedOfferId: number;
 
     public flush(): boolean
     {
+        this._newOfferId = -1;
+        this._newPrice = 0;
+        this._requestedOfferId = -1;
+
         return true;
     }
 
@@ -24,22 +28,22 @@ export class MarketplaceBuyOfferResultParser implements IMessageParser
         return true;
     }
 
-    public get result():number
+    public get result(): number
     {
         return this._result;
     }
 
-    public get offerId():number
+    public get offerId(): number
     {
         return this._newOfferId;
     }
 
-    public get newPrice():number
+    public get newPrice(): number
     {
         return this._newPrice;
     }
 
-    public get requestedOfferId():number
+    public get requestedOfferId(): number
     {
         return this._requestedOfferId;
     }

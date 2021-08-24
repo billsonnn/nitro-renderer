@@ -1,12 +1,12 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
-export class MarketplaceItemPostedParser implements IMessageParser
+export class MarketplaceMakeOfferResultParser implements IMessageParser
 {
     private _result: number;
 
     public flush(): boolean
     {
-        this._result = null;
+        this._result = 0;
 
         return true;
     }

@@ -17,7 +17,6 @@ export * from './HabboClubOffersMessageParser';
 export * from './IsOfferGiftableMessageParser';
 export * from './LimitedEditionSoldOutParser';
 export * from './LimitedOfferAppearingNextMessageParser';
-export * from './marketplace';
 export * from './NotEnoughBalanceMessageParser';
 export * from './ProductOfferMessageParser';
 export * from './PurchaseErrorMessageParser';
