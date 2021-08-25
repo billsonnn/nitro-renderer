@@ -1,4 +1,5 @@
-import { IMessageEvent, MessageEvent } from '../../../../../../core';
+import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
+import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
 import { CantConnectMessageParser } from '../../../parser/room/access/CantConnectMessageParser';
 
 export class RoomEnterErrorEvent extends MessageEvent implements IMessageEvent

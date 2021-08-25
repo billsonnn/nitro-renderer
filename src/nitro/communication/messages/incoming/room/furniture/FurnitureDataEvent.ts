@@ -1,4 +1,5 @@
-import { IMessageEvent, MessageEvent } from '../../../../../../core';
+import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
+import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
 import { FurnitureDataParser } from '../../../parser/room/furniture/FurnitureDataParser';
 
 export class FurnitureDataEvent extends MessageEvent implements IMessageEvent

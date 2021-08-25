@@ -2,13 +2,12 @@ import { Resource, Texture } from '@pixi/core';
 import { NitroManager } from '../../core/common/NitroManager';
 import { IMessageComposer } from '../../core/communication/messages/IMessageComposer';
 import { NitroEvent } from '../../core/events/NitroEvent';
-import { MysteryBoxKeysEvent } from '../communication';
+import { FigureUpdateEvent, MysteryBoxKeysEvent } from '../communication';
 import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { AvailabilityStatusMessageEvent } from '../communication/messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { ChangeUserNameResultMessageEvent } from '../communication/messages/incoming/avatar/ChangeUserNameResultMessageEvent';
 import { RoomModelNameEvent } from '../communication/messages/incoming/room/mapping/RoomModelNameEvent';
 import { UserPermissionsEvent } from '../communication/messages/incoming/user/access/UserPermissionsEvent';
-import { UserFigureEvent } from '../communication/messages/incoming/user/data/UserFigureEvent';
 import { UserInfoEvent } from '../communication/messages/incoming/user/data/UserInfoEvent';
 import { UserNameChangeMessageEvent } from '../communication/messages/incoming/user/data/UserNameChangeMessageEvent';
 import { InClientLinkEvent } from '../communication/messages/incoming/user/InClientLinkEvent';
@@ -121,7 +120,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
         (this._ignoredUsersManager && this._ignoredUsersManager.init());
 
-        this._communication.registerMessageEvent(new UserFigureEvent(this.onUserFigureEvent.bind(this)));
+        this._communication.registerMessageEvent(new FigureUpdateEvent(this.onUserFigureEvent.bind(this)));
         this._communication.registerMessageEvent(new UserInfoEvent(this.onUserInfoEvent.bind(this)));
         this._communication.registerMessageEvent(new UserPermissionsEvent(this.onUserPermissionsEvent.bind(this)));
         this._communication.registerMessageEvent(new AvailabilityStatusMessageEvent(this.onAvailabilityStatusMessageEvent.bind(this)));
@@ -237,7 +236,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._pendingFurnitureListeners.splice(index, 1);
     }
 
-    private onUserFigureEvent(event: UserFigureEvent): void
+    private onUserFigureEvent(event: FigureUpdateEvent): void
     {
         if(!event || !event.connection) return;
 

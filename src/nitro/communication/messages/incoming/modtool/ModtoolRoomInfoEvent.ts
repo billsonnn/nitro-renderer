@@ -1,4 +1,5 @@
-import { IMessageEvent, MessageEvent } from '../../../../../core';
+import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
+import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
 import { ModtoolRoomInfoParser } from '../../parser/modtool/ModtoolRoomInfoParser';
 
 export class ModtoolRoomInfoEvent extends MessageEvent implements IMessageEvent

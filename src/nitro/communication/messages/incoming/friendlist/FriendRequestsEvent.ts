@@ -1,4 +1,5 @@
-import { IMessageEvent, MessageEvent } from '../../../../../core';
+import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
+import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
 import { FriendRequestsParser } from '../../parser/friendlist/FriendRequestsParser';
 
 export class FriendRequestsEvent extends MessageEvent implements IMessageEvent

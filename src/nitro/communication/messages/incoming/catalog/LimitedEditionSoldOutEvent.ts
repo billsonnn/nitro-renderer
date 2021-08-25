@@ -1,4 +1,5 @@
-import { IMessageEvent, MessageEvent } from '../../../../../core';
+import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
+import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
 import { LimitedEditionSoldOutParser } from '../../parser';
 
 export class LimitedEditionSoldOutEvent extends MessageEvent implements IMessageEvent

@@ -1,4 +1,5 @@
-import { IMessageEvent, MessageEvent } from '../../../../../../core';
+import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
+import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
 import { UserPermissionsParser } from '../../../parser/user/access/UserPermissionsParser';
 
 export class UserPermissionsEvent extends MessageEvent implements IMessageEvent

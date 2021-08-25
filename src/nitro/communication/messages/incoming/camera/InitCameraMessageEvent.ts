@@ -1,4 +1,5 @@
-import { IMessageEvent, MessageEvent } from '../../../../../core';
+import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
+import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
 import { InitCameraMessageParser } from '../../parser/camera/InitCameraMessageParser';
 
 export class InitCameraMessageEvent extends MessageEvent implements IMessageEvent

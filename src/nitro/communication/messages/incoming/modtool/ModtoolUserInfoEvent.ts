@@ -1,4 +1,5 @@
-import { IMessageEvent, MessageEvent } from '../../../../../core';
+import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
+import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
 import { ModtoolUserInfoParser } from '../../parser/modtool/ModtoolUserInfoParser';
 
 export class ModtoolUserInfoEvent extends MessageEvent implements IMessageEvent
