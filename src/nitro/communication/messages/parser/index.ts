@@ -12,6 +12,7 @@ export * from './group';
 export * from './help';
 export * from './inventory';
 export * from './landingview';
+export * from './marketplace';
 export * from './modtool';
 export * from './mysterybox';
 export * from './navigator';

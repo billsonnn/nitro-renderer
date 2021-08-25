@@ -1,14 +1,15 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
-export class MarketplaceCancelItemParser implements IMessageParser
+export class MarketplaceCancelOfferResultParser implements IMessageParser
 {
-
     private _offerId: number;
     private _success: boolean;
 
-
     public flush(): boolean
     {
+        this._offerId = 0;
+        this._success = false;
+
         return true;
     }
 

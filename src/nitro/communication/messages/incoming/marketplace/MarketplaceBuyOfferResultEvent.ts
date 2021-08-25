@@ -1,6 +1,7 @@
-import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
-import { MarketplaceBuyOfferResultParser } from '../../../parser/catalog/marketplace/MarketplaceBuyOfferResultParser';
+import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
+import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MarketplaceBuyOfferResultParser } from '../../parser/marketplace/MarketplaceBuyOfferResultParser';
+
 
 export class MarketplaceBuyOfferResultEvent extends MessageEvent implements IMessageEvent
 {

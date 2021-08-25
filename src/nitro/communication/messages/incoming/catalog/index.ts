@@ -25,7 +25,6 @@ export * from './HabboClubOffersMessageEvent';
 export * from './IsOfferGiftableMessageEvent';
 export * from './LimitedEditionSoldOutEvent';
 export * from './LimitedOfferAppearingNextMessageEvent';
-export * from './marketplace';
 export * from './NodeData';
 export * from './NotEnoughBalanceMessageEvent';
 export * from './ProductOfferEvent';

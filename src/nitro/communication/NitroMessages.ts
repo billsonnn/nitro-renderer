@@ -10,12 +10,6 @@ import { InitCameraMessageEvent } from './messages/incoming/camera/InitCameraMes
 import { ThumbnailStatusMessageEvent } from './messages/incoming/camera/ThumbnailStatusMessageEvent';
 import { CampaignCalendarDataMessageEvent, CampaignCalendarDoorOpenedMessageEvent } from './messages/incoming/campaign';
 import { CatalogPageExpirationEvent, CatalogPageMessageEvent, CatalogPagesListEvent, CatalogPageWithEarliestExpiryMessageEvent, CatalogPublishedMessageEvent, ClubGiftInfoEvent, ClubGiftSelectedEvent, GiftReceiverNotFoundEvent, GiftWrappingConfigurationEvent, HabboClubOffersMessageEvent, LimitedEditionSoldOutEvent, ProductOfferEvent, PurchaseErrorMessageEvent, PurchaseNotAllowedMessageEvent, PurchaseOKMessageEvent, VoucherRedeemErrorMessageEvent, VoucherRedeemOkMessageEvent } from './messages/incoming/catalog';
-import { MarketplaceBuyOfferResultEvent } from './messages/incoming/catalog/marketplace/MarketplaceBuyOfferResultEvent';
-import { MarketplaceCancelItemEvent } from './messages/incoming/catalog/marketplace/MarketplaceCancelItemEvent';
-import { MarketplaceConfigEvent } from './messages/incoming/catalog/marketplace/MarketplaceConfigEvent';
-import { MarketplaceItemStatsEvent } from './messages/incoming/catalog/marketplace/MarketplaceItemStatsEvent';
-import { MarketplaceOffersReceivedEvent } from './messages/incoming/catalog/marketplace/MarketplaceOffersReceivedEvent';
-import { MarketplaceOwnItemsEvent } from './messages/incoming/catalog/marketplace/MarketplaceOwnItemsEvent';
 import { ClientPingEvent } from './messages/incoming/client/ClientPingEvent';
 import { CraftableProductsEvent } from './messages/incoming/crafting/CraftableProductsEvent';
 import { CraftingRecipeEvent } from './messages/incoming/crafting/CraftingRecipeEvent';
@@ -66,8 +60,6 @@ import { FurnitureListInvalidateEvent } from './messages/incoming/inventory/furn
 import { FurnitureListRemovedEvent } from './messages/incoming/inventory/furni/FurnitureListRemovedEvent';
 import { FurniturePostItPlacedEvent } from './messages/incoming/inventory/furni/FurniturePostItPlacedEvent';
 import { PresentOpenedMessageEvent } from './messages/incoming/inventory/furni/gifts/PresentOpenedMessageEvent';
-import { MarketplaceItemPostedEvent } from './messages/incoming/inventory/marketplace/MarketplaceItemPostedEvent';
-import { MarketplaceSellItemEvent } from './messages/incoming/inventory/marketplace/MarketplaceSellItemEvent';
 import { PetAddedToInventoryEvent } from './messages/incoming/inventory/pets/PetAddedToInventoryEvent';
 import { PetInventoryEvent } from './messages/incoming/inventory/pets/PetInventoryEvent';
 import { PetRemovedFromInventory } from './messages/incoming/inventory/pets/PetRemovedFromInventoryEvent';
@@ -83,6 +75,14 @@ import { TradingOtherNotAllowedEvent } from './messages/incoming/inventory/tradi
 import { TradingYouAreNotAllowedEvent } from './messages/incoming/inventory/trading/TradingYouAreNotAllowedEvent';
 import { PromoArticlesMessageEvent } from './messages/incoming/landingview/PromoArticlesMessageEvent';
 import { CommunityGoalVoteMessageEvent } from './messages/incoming/landingview/votes/CommunityGoalVoteMessageEvent';
+import { MarketplaceBuyOfferResultEvent } from './messages/incoming/marketplace/MarketplaceBuyOfferResultEvent';
+import { MarketplaceCancelOfferResultEvent } from './messages/incoming/marketplace/MarketplaceCancelOfferResultEvent';
+import { MarketplaceCanMakeOfferResult } from './messages/incoming/marketplace/MarketplaceCanMakeOfferResult';
+import { MarketplaceConfigurationEvent } from './messages/incoming/marketplace/MarketplaceConfigurationEvent';
+import { MarketplaceItemStatsEvent } from './messages/incoming/marketplace/MarketplaceItemStatsEvent';
+import { MarketplaceMakeOfferResult } from './messages/incoming/marketplace/MarketplaceMakeOfferResult';
+import { MarketPlaceOffersEvent } from './messages/incoming/marketplace/MarketplaceOffersEvent';
+import { MarketplaceOwnOffersEvent } from './messages/incoming/marketplace/MarketplaceOwnOffersEvent';
 import { ModtoolCallForHelpTopicsEvent } from './messages/incoming/modtool/ModtoolCallForHelpTopicsEvent';
 import { ModtoolMainEvent } from './messages/incoming/modtool/ModtoolMainEvent';
 import { ModtoolReceivedRoomsUserEvent } from './messages/incoming/modtool/ModtoolReceivedRoomsUserEvent';
@@ -802,14 +802,14 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.MODTOOL_VISITED_ROOMS_USER, ModtoolReceivedRoomsUserEvent);
 
         // MARKETPLACE
-        this._events.set(IncomingHeader.MARKETPLACE_SELL_ITEM, MarketplaceSellItemEvent);
-        this._events.set(IncomingHeader.MARKETPLACE_CONFIG, MarketplaceConfigEvent);
-        this._events.set(IncomingHeader.MARKETPLACE_ITEM_STATS, MarketplaceItemStatsEvent);
-        this._events.set(IncomingHeader.MARKETPLACE_OWN_ITEMS, MarketplaceOwnItemsEvent);
-        this._events.set(IncomingHeader.MARKETPLACE_CANCEL_SALE, MarketplaceCancelItemEvent);
-        this._events.set(IncomingHeader.MARKETPLACE_ITEM_POSTED, MarketplaceItemPostedEvent);
-        this._events.set(IncomingHeader.MARKETPLACE_ITEMS_SEARCHED, MarketplaceOffersReceivedEvent);
         this._events.set(IncomingHeader.MARKETPLACE_AFTER_ORDER_STATUS, MarketplaceBuyOfferResultEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_CANCEL_SALE, MarketplaceCancelOfferResultEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_SELL_ITEM, MarketplaceCanMakeOfferResult);
+        this._events.set(IncomingHeader.MARKETPLACE_CONFIG, MarketplaceConfigurationEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_ITEM_STATS, MarketplaceItemStatsEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_ITEM_POSTED, MarketplaceMakeOfferResult);
+        this._events.set(IncomingHeader.MARKETPLACE_ITEMS_SEARCHED, MarketPlaceOffersEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_OWN_ITEMS, MarketplaceOwnOffersEvent);
 
         // LANDING VIEW
         this._events.set(IncomingHeader.COMMUNITY_GOAL_VOTE_EVENT, CommunityGoalVoteMessageEvent);

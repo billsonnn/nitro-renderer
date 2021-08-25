@@ -1,11 +1,10 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
-import { IObjectData } from '../../../../../room/object/data/IObjectData';
-import { ObjectDataFactory } from '../../../../../room/object/data/ObjectDataFactory';
-import { LegacyDataType } from '../../../../../room/object/data/type/LegacyDataType';
-import { MarketplaceOffer } from './MarketplaceOffer';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IObjectData } from '../../../../room/object/data/IObjectData';
+import { ObjectDataFactory } from '../../../../room/object/data/ObjectDataFactory';
+import { LegacyDataType } from '../../../../room/object/data/type/LegacyDataType';
+import { MarketplaceOffer } from '../../incoming/marketplace/MarketplaceOffer';
 
-
-export class MarketplaceOwnItemsParser implements IMessageParser
+export class MarketplaceOwnOffersParser implements IMessageParser
 {
     private static MAX_LIST_LENGTH = 500;
     private _offers: MarketplaceOffer[];
@@ -63,7 +62,7 @@ export class MarketplaceOwnItemsParser implements IMessageParser
             const local10 = wrapper.readInt();
             const local13 = new MarketplaceOffer(offerId, furniId, furniType, extraData, stuffData, price, status, local9, local10);
 
-            if(i < MarketplaceOwnItemsParser.MAX_LIST_LENGTH)
+            if(i < MarketplaceOwnOffersParser.MAX_LIST_LENGTH)
             {
                 this._offers.push(local13);
             }
