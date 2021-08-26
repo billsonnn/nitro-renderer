@@ -307,4 +307,10 @@ export class IncomingHeader
     public static IS_OFFER_GIFTABLE                = 761;
     public static CLUB_EXTENDED_OFFER              = 3964;
     public static SEASONAL_CALENDAR_OFFER          = 1889;
+    public static COMPETITION_ENTRY_SUBMIT         = 1177;
+    public static COMPETITION_VOTING_INFO          = 3506;
+    public static COMPETITION_TIMING_CODE          = 1745;
+    public static COMPETITION_USER_PART_OF         = 3841;
+    public static COMPETITION_NO_OWNED_ROOMS       = 2064;
+    public static COMPETITION_SECONDS_UNTIL        = 3926;
 }

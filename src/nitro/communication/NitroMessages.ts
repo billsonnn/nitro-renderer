@@ -11,6 +11,12 @@ import { ThumbnailStatusMessageEvent } from './messages/incoming/camera/Thumbnai
 import { CampaignCalendarDataMessageEvent, CampaignCalendarDoorOpenedMessageEvent } from './messages/incoming/campaign';
 import { CatalogPageExpirationEvent, CatalogPageMessageEvent, CatalogPagesListEvent, CatalogPageWithEarliestExpiryMessageEvent, CatalogPublishedMessageEvent, ClubGiftInfoEvent, ClubGiftSelectedEvent, GiftReceiverNotFoundEvent, GiftWrappingConfigurationEvent, HabboClubOffersMessageEvent, LimitedEditionSoldOutEvent, ProductOfferEvent, PurchaseErrorMessageEvent, PurchaseNotAllowedMessageEvent, PurchaseOKMessageEvent, VoucherRedeemErrorMessageEvent, VoucherRedeemOkMessageEvent } from './messages/incoming/catalog';
 import { ClientPingEvent } from './messages/incoming/client/ClientPingEvent';
+import { CompetitionEntrySubmitResultEvent } from './messages/incoming/competition/CompetitionEntrySubmitResultEvent';
+import { CompetitionVotingInfoMessageEvent } from './messages/incoming/competition/CompetitionVotingInfoMessageEvent';
+import { CurrentTimingCodeMessageEvent } from './messages/incoming/competition/CurrentTimingCodeMessageEvent';
+import { IsUserPartOfCompetitionMessageEvent } from './messages/incoming/competition/IsUserPartOfCompetitionMessageEvent';
+import { NoOwnedRoomsAlertMessageEvent } from './messages/incoming/competition/NoOwnedRoomsAlertMessageEvent';
+import { SecondsUntilMessageEvent } from './messages/incoming/competition/SecondsUntilMessageEvent';
 import { CraftableProductsEvent } from './messages/incoming/crafting/CraftableProductsEvent';
 import { CraftingRecipeEvent } from './messages/incoming/crafting/CraftingRecipeEvent';
 import { CraftingRecipesAvailableEvent } from './messages/incoming/crafting/CraftingRecipesAvailableEvent';
@@ -486,6 +492,14 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.CFH_TOPICS, CfhTopicsInitEvent);
         this._events.set(IncomingHeader.CFH_SANCTION_STATUS, SanctionStatusEvent);
 
+        // CAMERA
+        this._events.set(IncomingHeader.CAMERA_PUBLISH_STATUS, CameraPublishStatusMessageEvent);
+        this._events.set(IncomingHeader.CAMERA_PURCHASE_OK, CameraPurchaseOKMessageEvent);
+        this._events.set(IncomingHeader.CAMERA_STORAGE_URL, CameraStorageUrlMessageEvent);
+        this._events.set(IncomingHeader.COMPETITION_STATUS, CompetitionStatusMessageEvent);
+        this._events.set(IncomingHeader.INIT_CAMERA, InitCameraMessageEvent);
+        this._events.set(IncomingHeader.THUMBNAIL_STATUS, ThumbnailStatusMessageEvent);
+
         // CAMPAIGN
         this._events.set(IncomingHeader.CAMPAIGN_CALENDAR_DATA, CampaignCalendarDataMessageEvent);
         this._events.set(IncomingHeader.CAMPAIGN_CALENDAR_DOOR_OPENED, CampaignCalendarDoorOpenedMessageEvent);
@@ -526,6 +540,14 @@ export class NitroMessages implements IMessageConfiguration
 
         this._events.set(IncomingHeader.GROUP_LIST, GuildMembershipsMessageEvent);
         this._events.set(IncomingHeader.CATALOG_APPROVE_NAME_RESULT, ApproveNameMessageEvent);
+
+        // COMPETITION
+        this._events.set(IncomingHeader.COMPETITION_ENTRY_SUBMIT, CompetitionEntrySubmitResultEvent);
+        this._events.set(IncomingHeader.COMPETITION_VOTING_INFO, CompetitionVotingInfoMessageEvent);
+        this._events.set(IncomingHeader.COMPETITION_TIMING_CODE, CurrentTimingCodeMessageEvent);
+        this._events.set(IncomingHeader.COMPETITION_USER_PART_OF, IsUserPartOfCompetitionMessageEvent);
+        this._events.set(IncomingHeader.COMPETITION_NO_OWNED_ROOMS, NoOwnedRoomsAlertMessageEvent);
+        this._events.set(IncomingHeader.COMPETITION_SECONDS_UNTIL, SecondsUntilMessageEvent);
 
         // CLIENT
         this._events.set(IncomingHeader.CLIENT_PING, ClientPingEvent);
@@ -833,14 +855,6 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.CRAFTING_RECIPE, CraftingRecipeEvent);
         this._events.set(IncomingHeader.CRAFTING_RECIPES_AVAILABLE, CraftingRecipesAvailableEvent);
         this._events.set(IncomingHeader.CRAFTING_RESULT, CraftingResultEvent);
-
-        // CAMERA
-        this._events.set(IncomingHeader.CAMERA_PUBLISH_STATUS, CameraPublishStatusMessageEvent);
-        this._events.set(IncomingHeader.CAMERA_PURCHASE_OK, CameraPurchaseOKMessageEvent);
-        this._events.set(IncomingHeader.CAMERA_STORAGE_URL, CameraStorageUrlMessageEvent);
-        this._events.set(IncomingHeader.COMPETITION_STATUS, CompetitionStatusMessageEvent);
-        this._events.set(IncomingHeader.INIT_CAMERA, InitCameraMessageEvent);
-        this._events.set(IncomingHeader.THUMBNAIL_STATUS, ThumbnailStatusMessageEvent);
 
         // SOUNDS
         this._events.set(IncomingHeader.JUKEBOX_PLAYLIST_FULL, JukeboxPlayListFullMessageEvent);
