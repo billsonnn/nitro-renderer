@@ -19,7 +19,7 @@ export class EpicPopupMessageParser implements IMessageParser
       return true;
   }
 
-  public get imageUri():string
+  public get imageUri(): string
   {
       return this._imageUri;
   }

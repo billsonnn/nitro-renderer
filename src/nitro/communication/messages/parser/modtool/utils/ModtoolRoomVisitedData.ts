@@ -4,8 +4,8 @@ import { RoomVisitData } from './RoomVisitData';
 
 export class ModtoolRoomVisitedData
 {
-    private _userId:number;
-    private _userName:string;
+    private _userId: number;
+    private _userName: string;
     private _rooms:RoomVisitData[];
 
     constructor(k:IMessageDataWrapper)
@@ -22,12 +22,12 @@ export class ModtoolRoomVisitedData
         }
     }
 
-    public get userId():number
+    public get userId(): number
     {
         return this._userId;
     }
 
-    public get userName():string
+    public get userName(): string
     {
         return this._userName;
     }

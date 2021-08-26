@@ -2,7 +2,7 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
 export class VoucherRedeemErrorMessageParser implements IMessageParser
 {
-    private _errorCode:string = '';
+    private _errorCode: string = '';
 
     public flush(): boolean
     {
@@ -19,7 +19,7 @@ export class VoucherRedeemErrorMessageParser implements IMessageParser
         return true;
     }
 
-    public get errorCode():string
+    public get errorCode(): string
     {
         return this._errorCode;
     }

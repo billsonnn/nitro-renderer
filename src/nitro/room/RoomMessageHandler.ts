@@ -951,7 +951,7 @@ export class RoomMessageHandler extends Disposable
 
     // public _SafeStr_10580(event:_SafeStr_2242): void
     // {
-    //     var arrayIndex:int;
+    //     var arrayIndex: number;
     //     var discoColours:Array;
     //     var discoTimer:Timer;
     //     var eventParser:_SafeStr_4576 = (event.parser as _SafeStr_4576);

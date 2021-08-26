@@ -2,11 +2,11 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
 export class NowPlayingMessageParser implements IMessageParser
 {
-    private _currentSongId:number;
-    private _currentPosition:number;
-    private _nextSongId:number;
-    private _nextPosition:number;
-    private _syncCount:number;
+    private _currentSongId: number;
+    private _currentPosition: number;
+    private _nextSongId: number;
+    private _nextPosition: number;
+    private _syncCount: number;
 
     flush(): boolean
     {
@@ -28,27 +28,27 @@ export class NowPlayingMessageParser implements IMessageParser
         return true;
     }
 
-    public get currentSongId():number
+    public get currentSongId(): number
     {
         return this._currentSongId;
     }
 
-    public get currentPosition():number
+    public get currentPosition(): number
     {
         return this._currentPosition;
     }
 
-    public get nextSongId():number
+    public get nextSongId(): number
     {
         return this._nextSongId;
     }
 
-    public get nextPosition():number
+    public get nextPosition(): number
     {
         return this._nextPosition;
     }
 
-    public get syncCount():number
+    public get syncCount(): number
     {
         return this._syncCount;
     }

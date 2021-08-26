@@ -2,8 +2,8 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
 export class OfficialSongIdMessageParser implements IMessageParser
 {
-    private _songId:number;
-    private _officialSongId:string;
+    private _songId: number;
+    private _officialSongId: string;
 
     flush(): boolean
     {
@@ -19,12 +19,12 @@ export class OfficialSongIdMessageParser implements IMessageParser
         return true;
     }
 
-    public get songId():number
+    public get songId(): number
     {
         return this._songId;
     }
 
-    public get officialSongId():string
+    public get officialSongId(): string
     {
         return this._officialSongId;
     }

@@ -76,7 +76,7 @@ export class MarketplaceOwnOffersParser implements IMessageParser
         return this._offers;
     }
 
-    public get creditsWaiting():number
+    public get creditsWaiting(): number
     {
         return this._creditsWaiting;
     }

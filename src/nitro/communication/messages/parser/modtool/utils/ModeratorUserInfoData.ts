@@ -2,25 +2,25 @@ import { IMessageDataWrapper } from '../../../../../../core';
 
 export class ModeratorUserInfoData
 {
-    private _userId:number;
-    private _userName:string;
-    private _registrationAgeInMinutes:number;
-    private _minutesSinceLastLogin:number;
-    private _online:boolean;
-    private _cfhCount:number;
-    private _abusiveCfhCount:number;
-    private _cautionCount:number;
-    private _banCount:number;
-    private _tradingLockCount:number;
-    private _tradingExpiryDate:string;
-    private _lastPurchaseDate:string;
-    private _identityId:number;
-    private _identityRelatedBanCount:number;
-    private _primaryEmailAddress:string;
-    private _figure:string;
-    private _userClassification:string;
-    private _lastSanctionTime:string = '';
-    private  _sanctionAgeHours:number = 0;
+    private _userId: number;
+    private _userName: string;
+    private _registrationAgeInMinutes: number;
+    private _minutesSinceLastLogin: number;
+    private _online: boolean;
+    private _cfhCount: number;
+    private _abusiveCfhCount: number;
+    private _cautionCount: number;
+    private _banCount: number;
+    private _tradingLockCount: number;
+    private _tradingExpiryDate: string;
+    private _lastPurchaseDate: string;
+    private _identityId: number;
+    private _identityRelatedBanCount: number;
+    private _primaryEmailAddress: string;
+    private _figure: string;
+    private _userClassification: string;
+    private _lastSanctionTime: string = '';
+    private  _sanctionAgeHours: number = 0;
 
     constructor(wrapper: IMessageDataWrapper)
     {
@@ -48,97 +48,97 @@ export class ModeratorUserInfoData
         }
     }
 
-    public get userId():number
+    public get userId(): number
     {
         return this._userId;
     }
 
-    public get userName():string
+    public get userName(): string
     {
         return this._userName;
     }
 
-    public get figure():string
+    public get figure(): string
     {
         return this._figure;
     }
 
-    public get registrationAgeInMinutes():number
+    public get registrationAgeInMinutes(): number
     {
         return this._registrationAgeInMinutes;
     }
 
-    public get minutesSinceLastLogin():number
+    public get minutesSinceLastLogin(): number
     {
         return this._minutesSinceLastLogin;
     }
 
-    public get online():boolean
+    public get online(): boolean
     {
         return this._online;
     }
 
-    public get cfhCount():number
+    public get cfhCount(): number
     {
         return this._cfhCount;
     }
 
-    public get abusiveCfhCount():number
+    public get abusiveCfhCount(): number
     {
         return this._abusiveCfhCount;
     }
 
-    public get cautionCount():number
+    public get cautionCount(): number
     {
         return this._cautionCount;
     }
 
-    public get banCount():number
+    public get banCount(): number
     {
         return this._banCount;
     }
 
-    public get tradingLockCount():number
+    public get tradingLockCount(): number
     {
         return this._tradingLockCount;
     }
 
-    public get tradingExpiryDate():string
+    public get tradingExpiryDate(): string
     {
         return this._tradingExpiryDate;
     }
 
-    public get lastPurchaseDate():string
+    public get lastPurchaseDate(): string
     {
         return this._lastPurchaseDate;
     }
 
-    public get identityId():number
+    public get identityId(): number
     {
         return this._identityId;
     }
 
-    public get identityRelatedBanCount():number
+    public get identityRelatedBanCount(): number
     {
         return this._identityRelatedBanCount;
     }
 
-    public get primaryEmailAddress():string
+    public get primaryEmailAddress(): string
     {
         return this._primaryEmailAddress;
     }
 
-    public get userClassification():string
+    public get userClassification(): string
     {
         return this._userClassification;
     }
 
-    public get lastSanctionTime():string
+    public get lastSanctionTime(): string
     {
         return this._lastSanctionTime;
     }
 
-    public get sanctionAgeHours():number
+    public get sanctionAgeHours(): number
     {
         return this._sanctionAgeHours;
     }

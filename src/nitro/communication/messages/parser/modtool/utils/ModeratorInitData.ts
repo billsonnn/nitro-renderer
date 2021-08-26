@@ -4,16 +4,16 @@ import { IssueMessageData } from './IssueMessageData';
 
 export class ModeratorInitData
 {
-    private _messageTemplates:string[];
-    private _roomMessageTemplates:string[];
+    private _messageTemplates: string[];
+    private _roomMessageTemplates: string[];
     private _issues:IssueMessageData[];
-    private _cfhPermission:boolean;
-    private _chatlogsPermission:boolean;
-    private _alertPermission:boolean;
-    private _kickPermission:boolean;
-    private _banPermission:boolean;
-    private _roomAlertPermission:boolean;
-    private _roomKickPermission:boolean;
+    private _cfhPermission: boolean;
+    private _chatlogsPermission: boolean;
+    private _alertPermission: boolean;
+    private _kickPermission: boolean;
+    private _banPermission: boolean;
+    private _roomAlertPermission: boolean;
+    private _roomKickPermission: boolean;
 
     private _disposed: boolean = false;
 
@@ -80,17 +80,17 @@ export class ModeratorInitData
         this._issues = null;
     }
 
-    public get disposed():boolean
+    public get disposed(): boolean
     {
         return this._disposed;
     }
 
-    public get messageTemplates():string[]
+    public get messageTemplates(): string[]
     {
         return this._messageTemplates;
     }
 
-    public get roomMessageTemplates():string[]
+    public get roomMessageTemplates(): string[]
     {
         return this._roomMessageTemplates;
     }
@@ -100,37 +100,37 @@ export class ModeratorInitData
         return this._issues;
     }
 
-    public get cfhPermission():boolean
+    public get cfhPermission(): boolean
     {
         return this._cfhPermission;
     }
 
-    public get chatlogsPermission():boolean
+    public get chatlogsPermission(): boolean
     {
         return this._chatlogsPermission;
     }
 
-    public get alertPermission():boolean
+    public get alertPermission(): boolean
     {
         return this._alertPermission;
     }
 
-    public get kickPermission():boolean
+    public get kickPermission(): boolean
     {
         return this._kickPermission;
     }
 
-    public get banPermission():boolean
+    public get banPermission(): boolean
     {
         return this._banPermission;
     }
 
-    public get roomAlertPermission():boolean
+    public get roomAlertPermission(): boolean
     {
         return this._roomAlertPermission;
     }
 
-    public get roomKickPermission():boolean
+    public get roomKickPermission(): boolean
     {
         return this._roomKickPermission;
     }

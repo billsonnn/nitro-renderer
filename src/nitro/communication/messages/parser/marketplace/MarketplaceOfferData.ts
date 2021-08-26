@@ -121,7 +121,7 @@ export class MarketplaceOfferData
         this._offerCount = count;
     }
 
-    public get isUniqueLimitedItem():boolean
+    public get isUniqueLimitedItem(): boolean
     {
         return (this.stuffData && (this.stuffData.uniqueSeries > 0));
     }

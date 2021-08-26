@@ -4,7 +4,7 @@ export class SetTargetedOfferStateComposer implements IMessageComposer<Construct
 {
     private _data: ConstructorParameters<typeof SetTargetedOfferStateComposer>;
 
-    constructor(k:number, _arg_2:number)
+    constructor(k: number, _arg_2: number)
     {
         this._data = [ k, _arg_2 ];
     }

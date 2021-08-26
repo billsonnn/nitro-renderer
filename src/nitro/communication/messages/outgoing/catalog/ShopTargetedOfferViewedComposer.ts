@@ -4,7 +4,7 @@ export class ShopTargetedOfferViewedComposer implements IMessageComposer<Constru
 {
     private _data: ConstructorParameters<typeof ShopTargetedOfferViewedComposer>;
 
-    constructor(k:number, _arg_2:number)
+    constructor(k: number, _arg_2: number)
     {
         this._data = [ k, _arg_2 ];
     }

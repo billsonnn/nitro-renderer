@@ -4,7 +4,7 @@ export class RoomDoorbellAccessComposer implements IMessageComposer<ConstructorP
 {
     private _data: ConstructorParameters<typeof RoomDoorbellAccessComposer>;
 
-    constructor(user:string, allowedEntry: boolean)
+    constructor(user: string, allowedEntry: boolean)
     {
         this._data = [ user, allowedEntry ];
     }

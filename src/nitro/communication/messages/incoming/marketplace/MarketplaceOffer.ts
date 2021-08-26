@@ -2,18 +2,18 @@ import { IObjectData } from '../../../../room/object/data/IObjectData';
 
 export class MarketplaceOffer
 {
-    private readonly _offerId:number;
-    private readonly _furniId:number;
-    private readonly _furniType:number;
-    private readonly _extraData:string;
+    private readonly _offerId: number;
+    private readonly _furniId: number;
+    private readonly _furniType: number;
+    private readonly _extraData: string;
     private readonly _stuffData:IObjectData;
-    private readonly _price:number;
-    private readonly _status:number;
-    private readonly _timeLeftMinutes:number = -1;
-    private readonly _averagePrice:number;
-    private readonly _offerCount:number;
+    private readonly _price: number;
+    private readonly _status: number;
+    private readonly _timeLeftMinutes: number = -1;
+    private readonly _averagePrice: number;
+    private readonly _offerCount: number;
 
-    constructor(offerId:number, furniId:number, furniType:number, extraData:string, stuffData:IObjectData, price:number, status:number, timeLeftMinutes:number, averagePrice:number, offerCount:number=-1)
+    constructor(offerId: number, furniId: number, furniType: number, extraData: string, stuffData:IObjectData, price: number, status: number, timeLeftMinutes: number, averagePrice: number, offerCount: number=-1)
     {
         this._offerId = offerId;
         this._furniId = furniId;
@@ -27,22 +27,22 @@ export class MarketplaceOffer
         this._offerCount = offerCount;
     }
 
-    public get offerId():number
+    public get offerId(): number
     {
         return this._offerId;
     }
 
-    public get furniId():number
+    public get furniId(): number
     {
         return this._furniId;
     }
 
-    public get furniType():number
+    public get furniType(): number
     {
         return this._furniType;
     }
 
-    public get extraData():string
+    public get extraData(): string
     {
         return this._extraData;
     }
@@ -52,32 +52,32 @@ export class MarketplaceOffer
         return this._stuffData;
     }
 
-    public get price():number
+    public get price(): number
     {
         return this._price;
     }
 
-    public get status():number
+    public get status(): number
     {
         return this._status;
     }
 
-    public get timeLeftMinutes():number
+    public get timeLeftMinutes(): number
     {
         return this._timeLeftMinutes;
     }
 
-    public get averagePrice():number
+    public get averagePrice(): number
     {
         return this._averagePrice;
     }
 
-    public get offerCount():number
+    public get offerCount(): number
     {
         return this._offerCount;
     }
 
-    public get isUniqueLimitedItem():boolean
+    public get isUniqueLimitedItem(): boolean
     {
         return (!(this.stuffData == null)) && (this.stuffData.uniqueSeries > 0);
     }

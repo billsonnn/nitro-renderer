@@ -3,7 +3,7 @@ import { PlayListEntry } from '../../incoming/sound';
 
 export class PlayListMessageParser implements IMessageParser
 {
-    private _synchronizationCount:number;
+    private _synchronizationCount: number;
     private _playlist:PlayListEntry[];
 
     flush(): boolean
@@ -27,7 +27,7 @@ export class PlayListMessageParser implements IMessageParser
         return true;
     }
 
-    public get synchronizationCount():number
+    public get synchronizationCount(): number
     {
         return this._synchronizationCount;
     }

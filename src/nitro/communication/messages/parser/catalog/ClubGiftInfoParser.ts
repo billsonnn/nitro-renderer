@@ -4,8 +4,8 @@ import { ClubGiftData } from '../../incoming/catalog/ClubGiftData';
 
 export class ClubGiftInfoParser implements IMessageParser
 {
-    private _daysUntilNextGift:number;
-    private _giftsAvailable:number;
+    private _daysUntilNextGift: number;
+    private _giftsAvailable: number;
     private _offers: CatalogPageMessageOfferData[];
     private _giftData:Map<number, ClubGiftData>;
 
@@ -47,12 +47,12 @@ export class ClubGiftInfoParser implements IMessageParser
         return this._offers;
     }
 
-    public  get daysUntilNextGift():number
+    public  get daysUntilNextGift(): number
     {
         return this._daysUntilNextGift;
     }
 
-    public get giftsAvailable():number
+    public get giftsAvailable(): number
     {
         return this._giftsAvailable;
     }

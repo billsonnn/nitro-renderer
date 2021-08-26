@@ -2,8 +2,8 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
 export class VoucherRedeemOkMessageParser implements IMessageParser
 {
-    private _productName:string = '';
-    private _productDescription:string = '';
+    private _productName: string = '';
+    private _productDescription: string = '';
 
     public flush(): boolean
     {
@@ -22,12 +22,12 @@ export class VoucherRedeemOkMessageParser implements IMessageParser
         return true;
     }
 
-    public get productName():string
+    public get productName(): string
     {
         return this._productName;
     }
 
-    public get productDescription():string
+    public get productDescription(): string
     {
         return this._productDescription;
     }

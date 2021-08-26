@@ -254,7 +254,7 @@ export class SpriteDataCollector
         //     }
         // }
 
-        // var _local_8:String = _arg_4.configuration.getProperty('image.library.url');
+        // var _local_8: string = _arg_4.configuration.getProperty('image.library.url');
         // _local_6 = _local_6.replace('%image.library.url%', _local_8);
         // if (_local_6.indexOf('%group.badge.url%') != -1)
         // {

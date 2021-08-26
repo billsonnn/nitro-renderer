@@ -4,7 +4,7 @@ export class ModtoolSanctionBanComposer implements IMessageComposer<any>
 {
     private _data: any[] = [];
 
-    constructor(k: number, arg2: string, arg3: number, arg4:number, arg5: boolean, arg6: number = -1)
+    constructor(k: number, arg2: string, arg3: number, arg4: number, arg5: boolean, arg6: number = -1)
     {
         this._data.push(k);
         this._data.push(arg2);

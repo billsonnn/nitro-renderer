@@ -2,10 +2,10 @@ import { IMessageDataWrapper } from '../../../../../../core';
 
 export class RoomVisitData
 {
-    private _roomId:number;
-    private _roomName:string;
-    private _enterHour:number;
-    private _enterMinute:number;
+    private _roomId: number;
+    private _roomName: string;
+    private _enterHour: number;
+    private _enterMinute: number;
 
     constructor(k:IMessageDataWrapper)
     {
@@ -15,22 +15,22 @@ export class RoomVisitData
         this._enterMinute = k.readInt();
     }
 
-    public get roomId():number
+    public get roomId(): number
     {
         return this._roomId;
     }
 
-    public get roomName():string
+    public get roomName(): string
     {
         return this._roomName;
     }
 
-    public get enterHour():number
+    public get enterHour(): number
     {
         return this._enterHour;
     }
 
-    public get enterMinute():number
+    public get enterMinute(): number
     {
         return this._enterMinute;
     }

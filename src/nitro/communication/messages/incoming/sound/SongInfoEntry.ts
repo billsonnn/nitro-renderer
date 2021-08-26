@@ -2,15 +2,15 @@ import { PlayListEntry } from '.';
 
 export class SongInfoEntry extends PlayListEntry
 {
-    private _data:string = '';
+    private _data: string = '';
 
-    constructor(id:number, length:number, name:string, creator:string, data:string)
+    constructor(id: number, length: number, name: string, creator: string, data: string)
     {
         super(id, length, name, creator);
         this._data = data;
     }
 
-    public get data():string
+    public get data(): string
     {
         return this._data;
     }

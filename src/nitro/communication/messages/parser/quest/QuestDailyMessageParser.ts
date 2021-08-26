@@ -5,8 +5,8 @@ import { IMessageParser } from './../../../../../core';
 export class QuestDailyMessageParser implements IMessageParser
 {
   private _quest:QuestMessageData;
-  private _easyQuestCount:number;
-  private _hardQuestCount:number;
+  private _easyQuestCount: number;
+  private _hardQuestCount: number;
 
   public flush(): boolean
   {
