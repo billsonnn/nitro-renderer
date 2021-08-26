@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class CatalogRedeemVoucherComposer implements IMessageComposer<ConstructorParameters<typeof CatalogRedeemVoucherComposer>>
+export class RedeemVoucherMessageComposer implements IMessageComposer<ConstructorParameters<typeof RedeemVoucherMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof CatalogRedeemVoucherComposer>;
+    private _data: ConstructorParameters<typeof RedeemVoucherMessageComposer>;
 
     constructor(voucherCode: string)
     {

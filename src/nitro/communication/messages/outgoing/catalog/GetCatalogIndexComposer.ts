@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class CatalogModeComposer implements IMessageComposer<ConstructorParameters<typeof CatalogModeComposer>>
+export class GetCatalogIndexComposer implements IMessageComposer<ConstructorParameters<typeof GetCatalogIndexComposer>>
 {
-    private _data: ConstructorParameters<typeof CatalogModeComposer>;
+    private _data: ConstructorParameters<typeof GetCatalogIndexComposer>;
 
     constructor(mode: string)
     {

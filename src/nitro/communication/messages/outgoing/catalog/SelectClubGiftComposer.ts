@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class CatalogSelectClubGiftComposer implements IMessageComposer<ConstructorParameters<typeof CatalogSelectClubGiftComposer>>
+export class SelectClubGiftComposer implements IMessageComposer<ConstructorParameters<typeof SelectClubGiftComposer>>
 {
-    private _data: ConstructorParameters<typeof CatalogSelectClubGiftComposer>;
+    private _data: ConstructorParameters<typeof SelectClubGiftComposer>;
 
     constructor(itemName: string)
     {
