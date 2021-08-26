@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class CatalogRequestPetBreedsComposer implements IMessageComposer<ConstructorParameters<typeof CatalogRequestPetBreedsComposer>>
+export class GetSellablePetPalettesComposer implements IMessageComposer<ConstructorParameters<typeof GetSellablePetPalettesComposer>>
 {
-    private _data: ConstructorParameters<typeof CatalogRequestPetBreedsComposer>;
+    private _data: ConstructorParameters<typeof GetSellablePetPalettesComposer>;
 
     constructor(name: string)
     {

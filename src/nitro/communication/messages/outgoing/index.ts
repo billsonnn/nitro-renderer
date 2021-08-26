@@ -11,6 +11,7 @@ export * from './group';
 export * from './handshake';
 export * from './inventory';
 export * from './landingview';
+export * from './marketplace';
 export * from './modtool';
 export * from './navigator';
 export * from './OutgoingHeader';

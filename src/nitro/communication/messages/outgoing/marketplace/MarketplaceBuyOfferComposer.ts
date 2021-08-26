@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
 export class MarketplaceBuyOfferComposer implements IMessageComposer<ConstructorParameters<typeof MarketplaceBuyOfferComposer>>
 {

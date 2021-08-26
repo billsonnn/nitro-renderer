@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class CatalogPurchaseComposer implements IMessageComposer<ConstructorParameters<typeof CatalogPurchaseComposer>>
+export class PurchaseFromCatalogComposer implements IMessageComposer<ConstructorParameters<typeof PurchaseFromCatalogComposer>>
 {
-    private _data: ConstructorParameters<typeof CatalogPurchaseComposer>;
+    private _data: ConstructorParameters<typeof PurchaseFromCatalogComposer>;
 
     constructor(pageId: number, offerId: number, extraData: string, amount: number)
     {

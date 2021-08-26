@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { AchievementNotificationMessageEvent, ActivityPointNotificationMessageEvent, AddJukeboxDiskComposer, ApproveNameMessageComposer, ApproveNameMessageEvent, AvailabilityTimeMessageEvent, BadgeReceivedEvent, BonusRareInfoMessageEvent, BuildersClubFurniCountMessageEvent, BuildersClubSubscriptionStatusMessageEvent, BundleDiscountRulesetMessageEvent, ChangeUserNameMessageComposer, ChangeUserNameResultMessageEvent, CheckUserNameMessageComposer, CheckUserNameResultMessageEvent, ClubGiftNotificationEvent, DirectSMSClubBuyAvailableMessageEvent, FigureUpdateEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, GetInterstitialMessageComposer, GetJukeboxPlayListMessageComposer, GetNowPlayingMessageComposer, GetOfficialSongIdMessageComposer, GetSongInfoMessageComposer, GetSoundMachinePlayListMessageComposer, GetUserSongDisksMessageComposer, HabboClubExtendOfferMessageEvent, HotelClosedAndOpensEvent, HotelClosesAndWillOpenAtEvent, HotelWillCloseInMinutesEvent, InfoFeedEnableMessageEvent, InterstitialMessageEvent, InterstitialShownMessageComposer, IsOfferGiftableMessageEvent, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, LimitedOfferAppearingNextMessageEvent, MaintenanceStatusMessageEvent, MysteryBoxKeysEvent, NotEnoughBalanceMessageEvent, NowPlayingMessageEvent, OfficialSongIdMessageEvent, OpenCampaignCalendarDoorAsStaffComposer, OpenCampaignCalendarDoorComposer, PetExperienceEvent, PetMountComposer, PetSupplementComposer, PlayListMessageEvent, PlayListSongAddedMessageEvent, RemoveAllRightsMessageComposer, RemoveJukeboxDiskComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomAdErrorEvent, RoomAdPurchaseInfoEvent, RoomUnitGiveHandItemPetComposer, SeasonalCalendarDailyOfferMessageEvent, SellablePetPalettesMessageEvent, TargetedOfferEvent, TargetedOfferNotFoundEvent, TogglePetBreedingComposer, TogglePetRidingComposer, TraxSongInfoMessageEvent, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer, UserSongDisksInventoryMessageEvent, WardrobeMessageEvent } from './messages';
+import { AchievementNotificationMessageEvent, ActivityPointNotificationMessageEvent, AddJukeboxDiskComposer, ApproveNameMessageComposer, ApproveNameMessageEvent, AvailabilityTimeMessageEvent, BadgeReceivedEvent, BonusRareInfoMessageEvent, BuildersClubFurniCountMessageEvent, BuildersClubSubscriptionStatusMessageEvent, BundleDiscountRulesetMessageEvent, ChangeUserNameMessageComposer, ChangeUserNameResultMessageEvent, CheckUserNameMessageComposer, CheckUserNameResultMessageEvent, ClubGiftNotificationEvent, DirectSMSClubBuyAvailableMessageEvent, FigureUpdateEvent, FurnitureGuildInfoComposer, GetBonusRareInfoMessageComposer, GetCatalogPageExpirationComposer, GetCatalogPageWithEarliestExpiryComposer, GetDirectClubBuyAvailableComposer, GetHabboBasicMembershipExtendOfferComposer, GetHabboClubExtendOfferMessageComposer, GetInterstitialMessageComposer, GetJukeboxPlayListMessageComposer, GetLimitedOfferAppearingNextComposer, GetNextTargetedOfferComposer, GetNowPlayingMessageComposer, GetOfficialSongIdMessageComposer, GetRoomAdPurchaseInfoComposer, GetSeasonalCalendarDailyOfferComposer, GetSongInfoMessageComposer, GetSoundMachinePlayListMessageComposer, GetUserSongDisksMessageComposer, HabboClubExtendOfferMessageEvent, HotelClosedAndOpensEvent, HotelClosesAndWillOpenAtEvent, HotelWillCloseInMinutesEvent, InfoFeedEnableMessageEvent, InterstitialMessageEvent, InterstitialShownMessageComposer, IsOfferGiftableMessageEvent, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, LimitedOfferAppearingNextMessageEvent, MaintenanceStatusMessageEvent, MarkCatalogNewAdditionsPageOpenedComposer, MarketplaceBuyOfferComposer, MarketplaceRedeemCreditsComposer, MarketplaceRequesstItemStatsComposer, MarketplaceRequestComposer, MarketplaceRequestOffersComposer, MarketplaceRequestOwnItemsComposer, MarketplaceTakeItemBackComposer, MysteryBoxKeysEvent, NotEnoughBalanceMessageEvent, NowPlayingMessageEvent, OfficialSongIdMessageEvent, OpenCampaignCalendarDoorAsStaffComposer, OpenCampaignCalendarDoorComposer, PetExperienceEvent, PetMountComposer, PetSupplementComposer, PlayListMessageEvent, PlayListSongAddedMessageEvent, PurchaseBasicMembershipExtensionComposer, PurchaseRoomAdMessageComposer, PurchaseTargetedOfferComposer, PurchaseVipMembershipExtensionComposer, RemoveAllRightsMessageComposer, RemoveJukeboxDiskComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomAdErrorEvent, RoomAdPurchaseInfoEvent, RoomUnitGiveHandItemPetComposer, SeasonalCalendarDailyOfferMessageEvent, SellablePetPalettesMessageEvent, SetTargetedOfferStateComposer, ShopTargetedOfferViewedComposer, TargetedOfferEvent, TargetedOfferNotFoundEvent, TogglePetBreedingComposer, TogglePetRidingComposer, TraxSongInfoMessageEvent, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer, UserSongDisksInventoryMessageEvent, WardrobeMessageEvent } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { CfhSanctionMessageEvent, CfhTopicsInitEvent, SanctionStatusEvent } from './messages/incoming/callforhelp';
 import { CameraPublishStatusMessageEvent } from './messages/incoming/camera/CameraPublishStatusMessageEvent';
@@ -223,26 +223,24 @@ import { PurchasePhotoMessageComposer } from './messages/outgoing/camera/Purchas
 import { RenderRoomMessageComposer } from './messages/outgoing/camera/RenderRoomMessageComposer';
 import { RenderRoomThumbnailMessageComposer } from './messages/outgoing/camera/RenderRoomThumbnailMessageComposer';
 import { RequestCameraConfigurationComposer } from './messages/outgoing/camera/RequestCameraConfigurationComposer';
-import { CatalogGroupsComposer } from './messages/outgoing/catalog/CatalogGroupsComposer';
-import { CatalogModeComposer } from './messages/outgoing/catalog/CatalogModeComposer';
-import { CatalogPageComposer } from './messages/outgoing/catalog/CatalogPageComposer';
-import { CatalogPurchaseComposer } from './messages/outgoing/catalog/CatalogPurchaseComposer';
-import { CatalogPurchaseGiftComposer } from './messages/outgoing/catalog/CatalogPurchaseGiftComposer';
-import { CatalogRequestGiftConfigurationComposer } from './messages/outgoing/catalog/CatalogRequestGiftConfigurationComposer';
-import { CatalogRequestPetBreedsComposer } from './messages/outgoing/catalog/CatalogRequestPetBreedsComposer';
-import { CatalogRequestVipGiftsComposer } from './messages/outgoing/catalog/CatalogRequestVipGiftsComposer';
-import { CatalogRequestVipOffersComposer } from './messages/outgoing/catalog/CatalogRequestVipOffersComposer';
-import { CatalogSearchComposer } from './messages/outgoing/catalog/CatalogSearchComposer';
-import { CatalogSelectClubGiftComposer } from './messages/outgoing/catalog/CatalogSelectClubGiftComposer';
-import { MarketplaceBuyOfferComposer } from './messages/outgoing/catalog/marketplace/MarketplaceBuyOfferComposer';
-import { MarketplaceRedeemCreditsComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRedeemCreditsComposer';
-import { MarketplaceRequesstItemStatsComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequesstItemStatsComposer';
-import { MarketplaceRequestComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequestComposer';
-import { MarketplaceRequestOffersComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequestOffersComposer';
-import { MarketplaceRequestOwnItemsComposer } from './messages/outgoing/catalog/marketplace/MarketplaceRequestOwnItemsComposer';
-import { MarketplaceTakeItemBackComposer } from './messages/outgoing/catalog/marketplace/MarketplaceTakeItemBackComposer';
-import { RedeemItemClothingComposer } from './messages/outgoing/catalog/RedeemItemClothingComposer';
-import { CatalogRedeemVoucherComposer } from './messages/outgoing/catalog/RedeemVoucherComposer';
+import { BuildersClubPlaceRoomItemMessageComposer } from './messages/outgoing/catalog/BuildersClubPlaceRoomItemMessageComposer';
+import { BuildersClubPlaceWallItemMessageComposer } from './messages/outgoing/catalog/BuildersClubPlaceWallItemMessageComposer';
+import { BuildersClubQueryFurniCountMessageComposer } from './messages/outgoing/catalog/BuildersClubQueryFurniCountMessageComposer';
+import { GetBundleDiscountRulesetComposer } from './messages/outgoing/catalog/GetBundleDiscountRulesetComposer';
+import { GetCatalogIndexComposer } from './messages/outgoing/catalog/GetCatalogIndexComposer';
+import { GetCatalogPageComposer } from './messages/outgoing/catalog/GetCatalogPageComposer';
+import { GetClubGiftInfo } from './messages/outgoing/catalog/GetClubGiftInfo';
+import { GetClubOffersMessageComposer } from './messages/outgoing/catalog/GetClubOffersMessageComposer';
+import { GetGiftWrappingConfigurationComposer } from './messages/outgoing/catalog/GetGiftWrappingConfigurationComposer';
+import { GetIsOfferGiftableComposer } from './messages/outgoing/catalog/GetIsOfferGiftableComposer';
+import { GetProductOfferComposer } from './messages/outgoing/catalog/GetProductOfferComposer';
+import { GetSellablePetPalettesComposer } from './messages/outgoing/catalog/GetSellablePetPalettesComposer';
+import { GetTargetedOfferComposer } from './messages/outgoing/catalog/GetTargetedOfferComposer';
+import { PurchaseFromCatalogAsGiftComposer } from './messages/outgoing/catalog/PurchaseFromCatalogAsGiftComposer';
+import { PurchaseFromCatalogComposer } from './messages/outgoing/catalog/PurchaseFromCatalogComposer';
+import { RedeemVoucherMessageComposer } from './messages/outgoing/catalog/RedeemVoucherMessageComposer';
+import { RoomAdPurchaseInitiatedComposer } from './messages/outgoing/catalog/RoomAdPurchaseInitiatedComposer';
+import { SelectClubGiftComposer } from './messages/outgoing/catalog/SelectClubGiftComposer';
 import { ClientPongComposer } from './messages/outgoing/client/ClientPongComposer';
 import { ClientReleaseVersionComposer } from './messages/outgoing/client/ClientReleaseVersionComposer';
 import { CraftComposer } from './messages/outgoing/crafting/CraftComposer';
@@ -403,6 +401,7 @@ import { RoomBlockedTilesComposer } from './messages/outgoing/room/mapping/RoomB
 import { RoomDoorSettingsComposer } from './messages/outgoing/room/mapping/RoomDoorSettingsComposer';
 import { RoomModelComposer } from './messages/outgoing/room/mapping/RoomModelComposer';
 import { RoomModelSaveComposer } from './messages/outgoing/room/mapping/RoomModelSaveComposer';
+import { RedeemItemClothingComposer } from './messages/outgoing/room/RedeemItemClothingComposer';
 import { RoomCreateComposer } from './messages/outgoing/room/RoomCreateComposer';
 import { RoomUnitChatComposer } from './messages/outgoing/room/unit/chat/RoomUnitChatComposer';
 import { RoomUnitChatShoutComposer } from './messages/outgoing/room/unit/chat/RoomUnitChatShoutComposer';
@@ -425,6 +424,7 @@ import { UpdateActionMessageComposer } from './messages/outgoing/roomevents/Upda
 import { UpdateConditionMessageComposer } from './messages/outgoing/roomevents/UpdateConditionMessageComposer';
 import { UpdateTriggerMessageComposer } from './messages/outgoing/roomevents/UpdateTriggerMessageComposer';
 import { GetSoundSettingsComposer } from './messages/outgoing/sound/GetSoundSettingsComposer';
+import { CatalogGroupsComposer } from './messages/outgoing/user/CatalogGroupsComposer';
 import { GetIgnoredUsersComposer } from './messages/outgoing/user/data/GetIgnoredUsersComposer';
 import { IgnoreUserComposer } from './messages/outgoing/user/data/IgnoreUserComposer';
 import { IgnoreUserIdComposer } from './messages/outgoing/user/data/IgnoreUserIdComposer';
@@ -855,6 +855,9 @@ export class NitroMessages implements IMessageConfiguration
 
     private registerComposers(): void
     {
+        // AUTHENTICATION
+        this._composers.set(OutgoingHeader.AUTHENTICATION, AuthenticationMessageComposer);
+
         // ADVERTISEMENT
         this._composers.set(OutgoingHeader.INTERSTITIAL_SHOWN, InterstitialShownMessageComposer);
         this._composers.set(OutgoingHeader.GET_INTERSTITIAL, GetInterstitialMessageComposer);
@@ -869,24 +872,44 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.OPEN_CAMPAIGN_CALENDAR_DOOR, OpenCampaignCalendarDoorComposer);
         this._composers.set(OutgoingHeader.OPEN_CAMPAIGN_CALENDAR_DOOR_STAFF, OpenCampaignCalendarDoorAsStaffComposer);
 
-        // AUTHENTICATION
-        this._composers.set(OutgoingHeader.AUTHENTICATION, AuthenticationMessageComposer);
-
         // CATALOG
-        this._composers.set(OutgoingHeader.CATALOG_MODE, CatalogModeComposer);
-        this._composers.set(OutgoingHeader.CATALOG_PAGE, CatalogPageComposer);
-        this._composers.set(OutgoingHeader.CATALOG_PURCHASE, CatalogPurchaseComposer);
-        this._composers.set(OutgoingHeader.CATALOG_PURCHASE_GIFT, CatalogPurchaseGiftComposer);
-        this._composers.set(OutgoingHeader.CATALOG_SEARCH, CatalogSearchComposer);
-        this._composers.set(OutgoingHeader.CATALOG_CLUB, CatalogRequestVipOffersComposer);
-        this._composers.set(OutgoingHeader.CATALOG_CLUB_GIFTS, CatalogRequestVipGiftsComposer);
-        this._composers.set(OutgoingHeader.CATALOG_REDEEM_VOUCHER, CatalogRedeemVoucherComposer);
+        this._composers.set(OutgoingHeader.BUILDERS_CLUB_PLACE_ROOM_ITEM, BuildersClubPlaceRoomItemMessageComposer);
+        this._composers.set(OutgoingHeader.BUILDERS_CLUB_PLACE_WALL_ITEM, BuildersClubPlaceWallItemMessageComposer);
+        this._composers.set(OutgoingHeader.BUILDERS_CLUB_QUERY_FURNI_COUNT, BuildersClubQueryFurniCountMessageComposer);
+        this._composers.set(OutgoingHeader.GET_CATALOG_INDEX, GetCatalogIndexComposer);
+        this._composers.set(OutgoingHeader.GET_CATALOG_PAGE, GetCatalogPageComposer);
+        this._composers.set(OutgoingHeader.CATALOG_PURCHASE, PurchaseFromCatalogComposer);
+        this._composers.set(OutgoingHeader.CATALOG_PURCHASE_GIFT, PurchaseFromCatalogAsGiftComposer);
+        this._composers.set(OutgoingHeader.GET_PRODUCT_OFFER, GetProductOfferComposer);
+        this._composers.set(OutgoingHeader.GET_CLUB_OFFERS, GetClubOffersMessageComposer);
+        this._composers.set(OutgoingHeader.GET_CLUB_GIFT_INFO, GetClubGiftInfo);
+        this._composers.set(OutgoingHeader.CATALOG_REDEEM_VOUCHER, RedeemVoucherMessageComposer);
         this._composers.set(OutgoingHeader.LOVELOCK_START_CONFIRM, LoveLockStartConfirmComposer);
         this._composers.set(OutgoingHeader.GROUP_MEMBERSHIPS, CatalogGroupsComposer);
-        this._composers.set(OutgoingHeader.GIFT_CONFIG, CatalogRequestGiftConfigurationComposer);
-        this._composers.set(OutgoingHeader.CATALOG_SELECT_VIP_GIFT, CatalogSelectClubGiftComposer);
-        this._composers.set(OutgoingHeader.CATALOG_REQUESET_PET_BREEDS, CatalogRequestPetBreedsComposer);
+        this._composers.set(OutgoingHeader.GET_GIFT_WRAPPING_CONFIG, GetGiftWrappingConfigurationComposer);
+        this._composers.set(OutgoingHeader.CATALOG_SELECT_VIP_GIFT, SelectClubGiftComposer);
+        this._composers.set(OutgoingHeader.CATALOG_REQUESET_PET_BREEDS, GetSellablePetPalettesComposer);
         this._composers.set(OutgoingHeader.GET_BONUS_RARE_INFO, GetBonusRareInfoMessageComposer);
+        this._composers.set(OutgoingHeader.GET_BUNDLE_DISCOUNT_RULESET, GetBundleDiscountRulesetComposer);
+        this._composers.set(OutgoingHeader.GET_CATALOG_PAGE_EXPIRATION, GetCatalogPageExpirationComposer);
+        this._composers.set(OutgoingHeader.GET_CATALOG_PAGE_WITH_EARLIEST_EXP, GetCatalogPageWithEarliestExpiryComposer);
+        this._composers.set(OutgoingHeader.GET_DIRECT_CLUB_BUY_AVAILABLE, GetDirectClubBuyAvailableComposer);
+        this._composers.set(OutgoingHeader.GET_HABBO_BASIC_MEMBERSHIP_EXTEND_OFFER, GetHabboBasicMembershipExtendOfferComposer);
+        this._composers.set(OutgoingHeader.GET_HABBO_CLUB_EXTEND_OFFER, GetHabboClubExtendOfferMessageComposer);
+        this._composers.set(OutgoingHeader.GET_IS_OFFER_GIFTABLE, GetIsOfferGiftableComposer);
+        this._composers.set(OutgoingHeader.GET_LIMITED_OFFER_APPEARING_NEXT, GetLimitedOfferAppearingNextComposer);
+        this._composers.set(OutgoingHeader.GET_NEXT_TARGETED_OFFER, GetNextTargetedOfferComposer);
+        this._composers.set(OutgoingHeader.GET_ROOM_AD_PURCHASE_INFO, GetRoomAdPurchaseInfoComposer);
+        this._composers.set(OutgoingHeader.GET_SEASONAL_CALENDAR_DAILY_OFFER, GetSeasonalCalendarDailyOfferComposer);
+        this._composers.set(OutgoingHeader.GET_TARGETED_OFFER, GetTargetedOfferComposer);
+        this._composers.set(OutgoingHeader.MARK_CATALOG_NEW_ADDITIONS_PAGE_OPENED, MarkCatalogNewAdditionsPageOpenedComposer);
+        this._composers.set(OutgoingHeader.PURCHASE_BASIC_MEMBERSHIP_EXTENSION, PurchaseBasicMembershipExtensionComposer);
+        this._composers.set(OutgoingHeader.PURCHASE_ROOM_AD, PurchaseRoomAdMessageComposer);
+        this._composers.set(OutgoingHeader.PURCHASE_TARGETED_OFFER, PurchaseTargetedOfferComposer);
+        this._composers.set(OutgoingHeader.PURCHASE_VIP_MEMBERSHIP_EXTENSION, PurchaseVipMembershipExtensionComposer);
+        this._composers.set(OutgoingHeader.ROOM_AD_PURCHASE_INITIATED, RoomAdPurchaseInitiatedComposer);
+        this._composers.set(OutgoingHeader.SET_TARGETTED_OFFER_STATE, SetTargetedOfferStateComposer);
+        this._composers.set(OutgoingHeader.SHOP_TARGETED_OFFER_VIEWED, ShopTargetedOfferViewedComposer);
 
         // CLIENT
         this._composers.set(OutgoingHeader.CLIENT_PONG, ClientPongComposer);

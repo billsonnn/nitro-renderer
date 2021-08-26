@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class CatalogRequestVipOffersComposer implements IMessageComposer<ConstructorParameters<typeof CatalogRequestVipOffersComposer>>
+export class GetProductOfferComposer implements IMessageComposer<ConstructorParameters<typeof GetProductOfferComposer>>
 {
-    private _data: ConstructorParameters<typeof CatalogRequestVipOffersComposer>;
+    private _data: ConstructorParameters<typeof GetProductOfferComposer>;
 
     constructor(offerId: number)
     {
@@ -16,6 +16,6 @@ export class CatalogRequestVipOffersComposer implements IMessageComposer<Constru
 
     public dispose(): void
     {
-        this._data = null;
+        return;
     }
 }

@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class CatalogPurchaseGiftComposer implements IMessageComposer<ConstructorParameters<typeof CatalogPurchaseGiftComposer>>
+export class PurchaseFromCatalogAsGiftComposer implements IMessageComposer<ConstructorParameters<typeof PurchaseFromCatalogAsGiftComposer>>
 {
-    private _data: ConstructorParameters<typeof CatalogPurchaseGiftComposer>;
+    private _data: ConstructorParameters<typeof PurchaseFromCatalogAsGiftComposer>;
 
     constructor(pageId: number, itemId: number, extraData: string, receivingName: string, giftMessage: string, spriteId: number, color: number, ribbonId: number, anonymousGift: boolean)
     {
