@@ -1,7 +1,6 @@
 import { IMessageDataWrapper } from '../../../../../core';
-import { ICatalogLocalizationData } from '../../parser/catalog/utils/ICatalogLocalizationData';
 
-export class CatalogLocalizationData implements ICatalogLocalizationData
+export class CatalogLocalizationData
 {
     private _images: string[];
     private _texts: string[];

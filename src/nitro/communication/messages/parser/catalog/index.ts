@@ -28,6 +28,5 @@ export * from './SellablePetPaletteData';
 export * from './SellablePetPalettesParser';
 export * from './TargetedOfferNotFoundParser';
 export * from './TargetedOfferParser';
-export * from './utils';
 export * from './VoucherRedeemErrorMessageParser';
 export * from './VoucherRedeemOkMessageParser';

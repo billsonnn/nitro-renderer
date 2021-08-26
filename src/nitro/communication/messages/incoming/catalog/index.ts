@@ -22,6 +22,7 @@ export * from './GiftReceiverNotFoundEvent';
 export * from './GiftWrappingConfigurationEvent';
 export * from './HabboClubExtendOfferMessageEvent';
 export * from './HabboClubOffersMessageEvent';
+export * from './INodeData';
 export * from './IsOfferGiftableMessageEvent';
 export * from './LimitedEditionSoldOutEvent';
 export * from './LimitedOfferAppearingNextMessageEvent';

@@ -1,9 +1,9 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
-import { CatalogGroupData } from '../catalog/utils/CatalogGroupData';
+import { HabboGroupEntryData } from './HabboGroupEntryData';
 
 export class GuildMembershipsMessageParser implements IMessageParser
 {
-    private _groups: CatalogGroupData[];
+    private _groups: HabboGroupEntryData[];
 
     public flush(): boolean
     {
@@ -20,7 +20,7 @@ export class GuildMembershipsMessageParser implements IMessageParser
 
         while(totalOffers > 0)
         {
-            this._groups.push(new CatalogGroupData(wrapper));
+            this._groups.push(new HabboGroupEntryData(wrapper));
 
             totalOffers--;
         }
@@ -28,7 +28,7 @@ export class GuildMembershipsMessageParser implements IMessageParser
         return true;
     }
 
-    public get groups(): CatalogGroupData[]
+    public get groups(): HabboGroupEntryData[]
     {
         return this._groups;
     }

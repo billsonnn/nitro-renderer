@@ -2,9 +2,8 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 import { CatalogLocalizationData } from '../../incoming/catalog/CatalogLocalizationData';
 import { CatalogPageMessageOfferData } from '../../incoming/catalog/CatalogPageMessageOfferData';
 import { FrontPageItem } from '../../incoming/catalog/FrontPageItem';
-import { ICatalogPageParser } from './utils/ICatalogPageParser';
 
-export class CatalogPageMessageParser implements IMessageParser, ICatalogPageParser
+export class CatalogPageMessageParser implements IMessageParser
 {
     private _pageId: number;
     private _catalogType: string;
