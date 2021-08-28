@@ -523,7 +523,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         }
 
         instance.createRoomObjectAndInitalize(RoomEngine.CURSOR_OBJECT_ID, RoomEngine.CURSOR_OBJECT_TYPE, RoomObjectCategory.CURSOR);
-        instance.createRoomObjectAndInitalize(RoomEngine.ARROW_OBJECT_ID, RoomEngine.ARROW_OBJECT_TYPE, RoomObjectCategory.CURSOR);
+        if(Nitro.instance.getConfiguration('enable.avatar.arrow', false)) instance.createRoomObjectAndInitalize(RoomEngine.ARROW_OBJECT_ID, RoomEngine.ARROW_OBJECT_TYPE, RoomObjectCategory.CURSOR);
 
         return instance;
     }
