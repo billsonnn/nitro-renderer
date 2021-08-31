@@ -391,7 +391,10 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             partCount--;
         }
 
-        if(this._avatarSpriteData && this._avatarSpriteData.paletteIsGrayscale) this.convertToGrayscale(container);
+        if(this._avatarSpriteData && this._avatarSpriteData.paletteIsGrayscale)
+        {
+            this.convertToGrayscale(container);
+        }
 
         if(!cache)
         {
@@ -414,7 +417,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(this._avatarSpriteData && this._avatarSpriteData.paletteIsGrayscale)
         {
-            //this._reusableTexture = this.applyPalette(this._reusableTexture, this._avatarSpriteData.reds);
+            this._reusableTexture = this.applyPalette(this._reusableTexture, this._avatarSpriteData.reds);
         }
 
         this._image     = this._reusableTexture;
@@ -423,28 +426,34 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         return this._image;
     }
 
-    // public applyPalette(texture: RenderTexture, reds: number[] = [], greens: number[] = [], blues: number[] = []): RenderTexture
-    // {
-    //     const textureCanvas     = Nitro.instance.renderer.extract.canvas(texture);
-    //     const textureCtx        = textureCanvas.getContext('2d');
-    //     const textureImageData  = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
-    //     const data              = textureImageData.data;
+    public applyPalette(texture: RenderTexture, reds: number[] = [], greens: number[] = [], blues: number[] = []): RenderTexture
+    {
+        console.log(reds);
+        const textureCanvas     = TextureUtils.generateCanvas(texture);
+        const textureCtx        = textureCanvas.getContext('2d');
+        const textureImageData  = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
+        const data              = textureImageData.data;
 
-    //     for(const i = 0; i < data.length; i += 4)
-    //     {
-    //         let paletteColor = this._palette[data[ i + 1 ]];
+        for(let i = 0; i < data.length; i += 4)
+        {
+            let paletteColor = reds[data[ i ]];
 
-    //         if(paletteColor === undefined) paletteColor = [ 0, 0, 0 ];
+            if(paletteColor === undefined) paletteColor = 0;
 
-    //         data[ i ]       = paletteColor[0];
-    //         data[ i + 1 ]   = paletteColor[1];
-    //         data[ i + 2 ]   = paletteColor[2];
-    //     }
+            data[ i ] = paletteColor[0];
+        }
 
-    //     textureCtx.putImageData(textureImageData, 0, 0);
+        textureCtx.putImageData(textureImageData, 0, 0);
 
-    //     return Texture.from(textureCanvas);
-    // }
+        const newTexture = new Sprite(Texture.from(textureCanvas));
+
+        Nitro.instance.renderer.render(newTexture, {
+            renderTexture: texture,
+            clear: true
+        });
+
+        return texture;
+    }
 
     public getImageAsSprite(setType: string, scale: number = 1): Sprite
     {
