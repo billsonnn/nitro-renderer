@@ -415,9 +415,12 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(!this._reusableTexture) return null;
 
-        if(this._avatarSpriteData && this._avatarSpriteData.paletteIsGrayscale)
+        if(this._avatarSpriteData)
         {
-            this._reusableTexture = this.applyPalette(this._reusableTexture, this._avatarSpriteData.reds);
+            if(this._avatarSpriteData.paletteIsGrayscale)
+            {
+                this._reusableTexture = this.applyPalette(this._reusableTexture, this._avatarSpriteData.reds);
+            }
         }
 
         this._image     = this._reusableTexture;
@@ -436,11 +439,10 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         for(let i = 0; i < data.length; i += 4)
         {
-            let paletteColor = reds[data[ i ]];
-
+            let paletteColor = (reds[ data[i] ]);
             if(paletteColor === undefined) paletteColor = 0;
 
-            data[ i ] = paletteColor[0];
+            data[ i ] = ((paletteColor >> 16));
         }
 
         textureCtx.putImageData(textureImageData, 0, 0);

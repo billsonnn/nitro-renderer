@@ -121,7 +121,7 @@ export class AvatarDataContainer implements IAvatarDataContainer
             _local_22 = (_local_22 + _local_13);
             _local_23 = (_local_23 + _local_14);
             _local_19.push((_local_20 << 24));
-            _local_16.push(~~(((((_local_20 << 24) | (_local_21 << 16)) | (_local_22 << 8)) | _local_23) / 255));
+            _local_16.push((((((_local_20 << 24) | (_local_21 << 16)) | (_local_22 << 8)) | _local_23)));
             _local_17.push(((((_local_20 << 24) | (_local_21 << 16)) | (_local_22 << 8)) | _local_23));
             _local_18.push(((((_local_20 << 24) | (_local_21 << 16)) | (_local_22 << 8)) | _local_23));
             _local_24++;
