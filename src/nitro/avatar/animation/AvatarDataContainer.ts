@@ -86,45 +86,44 @@ export class AvatarDataContainer implements IAvatarDataContainer
         return this._paletteIsGrayscale;
     }
 
-    private generatePaletteMapForGrayscale(k: number, _arg_2: number): Map<string, number[]>
+    private generatePaletteMapForGrayscale(background: number, foreground: number): Map<string, number[]>
     {
-        const _local_3 = ((k >> 24) & 0xFF);
-        const _local_4 = ((k >> 16) & 0xFF);
-        const _local_5 = ((k >> 8) & 0xFF);
-        const _local_6 = ((k >> 0) & 0xFF);
-        const _local_7 = ((_arg_2 >> 24) & 0xFF);
-        const _local_8 = ((_arg_2 >> 16) & 0xFF);
-        const _local_9 = ((_arg_2 >> 8) & 0xFF);
-        const _local_10 = ((_arg_2 >> 0) & 0xFF);
-        const _local_11 = ((_local_7 - _local_3) / 0xFF);
-        const _local_12 = ((_local_8 - _local_4) / 0xFF);
-        const _local_13 = ((_local_9 - _local_5) / 0xFF);
-        const _local_14 = ((_local_10 - _local_6) / 0xFF);
+        const alphaBackground = ((background >> 24) & 0xFF);
+        const redBackground = ((background >> 16) & 0xFF);
+        const greenBackground = ((background >> 8) & 0xFF);
+        const blueBackground = ((background >> 0) & 0xFF);
+        const alphaForeground = ((foreground >> 24) & 0xFF);
+        const redForeground = ((foreground >> 16) & 0xFF);
+        const greenForeground = ((foreground >> 8) & 0xFF);
+        const blueForeground = ((foreground >> 0) & 0xFF);
+        const alphaDifference = ((alphaForeground - alphaBackground) / 0xFF);
+        const redDifference = ((redForeground - redBackground) / 0xFF);
+        const greenDifference = ((greenForeground - greenBackground) / 0xFF);
+        const blueDifference = ((blueForeground - blueBackground) / 0xFF);
         const _local_15: Map<string, number[]> = new Map();
         const _local_16: number[] = [];
         const _local_17: number[] = [];
         const _local_18: number[] = [];
         const _local_19: number[] = [];
-        let _local_20 = _local_3;
-        let _local_21 = _local_4;
-        let _local_22 = _local_5;
-        let _local_23 = _local_6;
-        let _local_24 = 0;
-        while(_local_24 < 0x0100)
+        let _local_20 = alphaBackground;
+        let _local_21 = redBackground;
+        let _local_22 = greenBackground;
+        let _local_23 = blueBackground;
+
+        for(let i = 0; i < 256; i++)
         {
-            if((((_local_21 == _local_4) && (_local_22 == _local_5)) && (_local_23 == _local_6)))
+            if((((_local_21 == redBackground) && (_local_22 == greenBackground)) && (_local_23 == blueBackground)))
             {
                 _local_20 = 0;
             }
-            _local_20 = (_local_20 + _local_11);
-            _local_21 = (_local_21 + _local_12);
-            _local_22 = (_local_22 + _local_13);
-            _local_23 = (_local_23 + _local_14);
+            _local_20 = (_local_20 + alphaDifference);
+            _local_21 = (_local_21 + redDifference);
+            _local_22 = (_local_22 + greenDifference);
+            _local_23 = (_local_23 + blueDifference);
             _local_19.push((_local_20 << 24));
-            _local_16.push((((((_local_20 << 24) | (_local_21 << 16)) | (_local_22 << 8)) | _local_23)));
+            _local_16.push(((((_local_20 << 24) | (_local_21 << 16)) | (_local_22 << 8)) | _local_23));
             _local_17.push(((((_local_20 << 24) | (_local_21 << 16)) | (_local_22 << 8)) | _local_23));
             _local_18.push(((((_local_20 << 24) | (_local_21 << 16)) | (_local_22 << 8)) | _local_23));
-            _local_24++;
         }
 
         _local_15.set('alphas', _local_16);

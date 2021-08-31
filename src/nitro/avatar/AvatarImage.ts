@@ -419,7 +419,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         {
             if(this._avatarSpriteData.paletteIsGrayscale)
             {
-                this._reusableTexture = this.applyPalette(this._reusableTexture, this._avatarSpriteData.reds);
+                this._reusableTexture = this.applyPalette(this._reusableTexture, this._avatarSpriteData.reds, [], []);
             }
         }
 
@@ -431,7 +431,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
     public applyPalette(texture: RenderTexture, reds: number[] = [], greens: number[] = [], blues: number[] = []): RenderTexture
     {
-        console.log(reds);
+
         const textureCanvas     = TextureUtils.generateCanvas(texture);
         const textureCtx        = textureCanvas.getContext('2d');
         const textureImageData  = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
@@ -439,10 +439,35 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         for(let i = 0; i < data.length; i += 4)
         {
-            let paletteColor = (reds[ data[i] ]);
-            if(paletteColor === undefined) paletteColor = 0;
+            if(reds.length == 256)
+            {
+                let paletteColor = reds[ data[i] ];
+                if(paletteColor === undefined) paletteColor = 0;
 
-            data[ i ] = ((paletteColor >> 16));
+                data[ i ] = ((paletteColor >> 16) & 0xFF);
+                data[ i + 1] = ((paletteColor >> 8) & 0xFF);
+                data[ i + 2] = (paletteColor & 0xFF);
+            }
+
+            if(greens.length == 256)
+            {
+                let paletteColor = greens[ data[i + 1] ];
+                if(paletteColor === undefined) paletteColor = 0;
+
+                data[ i ] = ((paletteColor >> 16) & 0xFF);
+                data[ i + 1] = ((paletteColor >> 8) & 0xFF);
+                data[ i + 2] = (paletteColor & 0xFF);
+            }
+            if(blues.length == 256)
+            {
+                let paletteColor = greens[ data[i + 2] ];
+                if(paletteColor === undefined) paletteColor = 0;
+
+                data[ i ] = ((paletteColor >> 16) & 0xFF);
+                data[ i + 1] = ((paletteColor >> 8) & 0xFF);
+                data[ i + 2] = (paletteColor & 0xFF);
+            }
+
         }
 
         textureCtx.putImageData(textureImageData, 0, 0);
