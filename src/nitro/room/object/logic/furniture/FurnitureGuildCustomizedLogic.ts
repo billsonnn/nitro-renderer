@@ -1,4 +1,5 @@
 import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
+import { ContextMenuEnum } from '../../../../ui/widget/enums/ContextMenuEnum';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
 import { StringDataType } from '../../data/type/StringDataType';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
@@ -42,5 +43,10 @@ export class FurnitureGuildCustomizedLogic extends FurnitureMultiStateLogic
     {
         this.object.model.setValue(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_COLOR_1, parseInt(color1, 16));
         this.object.model.setValue(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_COLOR_2, parseInt(color2, 16));
+    }
+
+    public get contextMenu(): string
+    {
+        return ContextMenuEnum.GROUP_FURNITURE;
     }
 }

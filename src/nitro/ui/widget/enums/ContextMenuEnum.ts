@@ -8,5 +8,6 @@ export class ContextMenuEnum
     public static MYSTERY_TROPHY: string        = 'MYSTERY_TROPHY';
     public static RANDOM_TELEPORT: string       = 'RANDOM_TELEPORT';
     public static PURCHASABLE_CLOTHING: string  = 'PURCHASABLE_CLOTHING';
+    public static GROUP_FURNITURE: string       = 'GROUP_FURNITURE';
     public static GENERIC_USABLE: string        = 'GENERIC_USABLE';
 }

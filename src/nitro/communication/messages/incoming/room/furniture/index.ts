@@ -5,6 +5,7 @@ export * from './FurnitureItemDataEvent';
 export * from './FurnitureStackHeightEvent';
 export * from './FurnitureState2Event';
 export * from './FurnitureStateEvent';
+export * from './GroupFurniContextMenuInfoMessageEvent';
 export * from './LoveLockFurniFinishedEvent';
 export * from './LoveLockFurniFriendConfirmedEvent';
 export * from './LoveLockFurniStartEvent';
