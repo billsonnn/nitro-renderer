@@ -352,7 +352,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         return !(isValid);
     }
 
-    public getFigureClubLevel(container: IAvatarFigureContainer, gender: string, searchParts: string[]): number
+    public getFigureClubLevel(container: IAvatarFigureContainer, gender: string, searchParts: string[] = null): number
     {
         if(!this._structure) return 0;
 
@@ -363,7 +363,10 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
         for(const part of parts)
         {
-            const set       = figureData.getSetType(part);
+            const set = figureData.getSetType(part);
+
+            if(!set) continue;
+
             const setId     = container.getPartSetId(part);
             const partSet   = set.getPartSet(setId);
 
@@ -378,6 +381,8 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
                 {
                     const color = palette.getColor(colorId);
 
+                    if(!color) continue;
+
                     clubLevel = Math.max(color.clubLevel, clubLevel);
                 }
             }
@@ -388,6 +393,8 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         for(const part of searchParts)
         {
             const set = figureData.getSetType(part);
+
+            if(!set) continue;
 
             if(parts.indexOf(part) === -1) clubLevel = Math.max(set.optionalFromClubLevel(gender), clubLevel);
         }
