@@ -30,6 +30,7 @@ export class IncomingHeader
     public static FURNITURE_FLOOR_UPDATE           = 3776;
     public static FURNITURE_ITEMDATA               = 2202;
     public static FURNITURE_STATE                  = 2376;
+    public static FURNITURE_GROUP_CONTEXT_MENU_INFO= 3293;
     public static GAME_CENTER_ACHIEVEMENTS         = 2265;
     public static GAME_CENTER_GAME_LIST            = 222;
     public static GAME_CENTER_STATUS               = 2893;

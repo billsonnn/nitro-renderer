@@ -231,7 +231,7 @@ export class OutgoingHeader
     public static UNIT_GIVE_HANDITEM_PET         = 2768;
     public static PET_MOUNT                      = 1036;
     public static PET_SUPPLEMENT                 = 749;
-    public static FURNITURE_GUILD_INFO           = 2651;
+    public static FURNITURE_GROUP_INFO           = 2651;
     public static ACHIEVEMENT_RESOLUTION_OPEN    = 359;
     public static USE_PET_PRODUCT                = 1328;
     public static REMOVE_PET_SADDLE              = 186;

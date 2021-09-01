@@ -13,11 +13,11 @@ export class PartColor implements IPartColor
     {
         if(!data) throw new Error('invalid_data');
 
-        this._id                = data.id;
-        this._index             = data.index;
-        this._clubLevel         = data.club;
-        this._isSelectable      = data.selectable;
-        this._rgb               = parseInt('0x' + data.hexCode, 16);
+        this._id = data.id;
+        this._index = data.index;
+        this._clubLevel = (data.club || 0);
+        this._isSelectable = data.selectable;
+        this._rgb = parseInt('0x' + data.hexCode, 16);
     }
 
     public get id(): number

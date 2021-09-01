@@ -11,7 +11,7 @@ import { IRoomGeometry } from '../../room/utils/IRoomGeometry';
 import { IVector3D } from '../../room/utils/IVector3D';
 import { RoomEnterEffect } from '../../room/utils/RoomEnterEffect';
 import { Vector3d } from '../../room/utils/Vector3d';
-import { FurnitureGuildInfoComposer, SetObjectDataMessageComposer } from '../communication';
+import { FurnitureGroupInfoComposer, SetObjectDataMessageComposer } from '../communication';
 import { BotPlaceComposer } from '../communication/messages/outgoing/room/engine/BotPlaceComposer';
 import { GetItemDataComposer } from '../communication/messages/outgoing/room/engine/GetItemDataComposer';
 import { PetMoveComposer } from '../communication/messages/outgoing/room/engine/PetMoveComposer';
@@ -814,7 +814,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 eventDispatcher.dispatchEvent(new RoomEngineUseProductEvent(RoomEngineUseProductEvent.USE_PRODUCT_FROM_ROOM, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.GUILD_FURNI_CONTEXT_MENU:
-                this._roomEngine.connection.send(new FurnitureGuildInfoComposer(event.objectId, event.object.model.getValue<number>(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_GUILD_ID)));
+                this._roomEngine.connection.send(new FurnitureGroupInfoComposer(event.objectId, event.object.model.getValue<number>(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_GUILD_ID)));
                 return;
             case RoomObjectWidgetRequestEvent.MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG, roomId, objectId, objectCategory));

@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
 
-export class FurnitureGuildInfoComposer implements IMessageComposer<ConstructorParameters<typeof FurnitureGuildInfoComposer>>
+export class FurnitureGroupInfoComposer implements IMessageComposer<ConstructorParameters<typeof FurnitureGroupInfoComposer>>
 {
-    private _data: ConstructorParameters<typeof FurnitureGuildInfoComposer>;
+    private _data: ConstructorParameters<typeof FurnitureGroupInfoComposer>;
 
     constructor(objectId: number, guildId: number)
     {

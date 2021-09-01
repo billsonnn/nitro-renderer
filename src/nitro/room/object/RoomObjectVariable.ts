@@ -50,7 +50,7 @@ export class RoomObjectVariable
     public static FURNITURE_COLOR: string                               = 'furniture_color';
     public static FURNITURE_LIFT_AMOUNT: string                         = 'furniure_lift_amount';
     public static FURNITURE_GUILD_CUSTOMIZED_GUILD_ID: string           = 'furniture_guild_customized_guild_id';
-    public static FURNITURE_GUILD_CUSTOMIZED_BADGE: string              = 'furniture_guild_customized_badge';
+    public static FURNITURE_GUILD_CUSTOMIZED_ASSET_NAME: string         = 'furniture_guild_customized_asset_name';
     public static FURNITURE_GUILD_CUSTOMIZED_COLOR_1: string            = 'furniture_guild_customized_color_1';
     public static FURNITURE_GUILD_CUSTOMIZED_COLOR_2: string            = 'furniture_guild_customized_color_2';
     public static FURNITURE_STATE_UPDATE_TIME: string                   = 'furniture_state_update_time';

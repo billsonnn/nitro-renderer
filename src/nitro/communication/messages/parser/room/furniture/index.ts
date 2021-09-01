@@ -5,6 +5,7 @@ export * from './FurnitureItemDataParser';
 export * from './FurnitureStackHeightParser';
 export * from './FurnitureState2Parser';
 export * from './FurnitureStateParser';
+export * from './GroupFurniContextMenuInfoMessageParser';
 export * from './LoveLockFurniFinishedParser';
 export * from './LoveLockFurniFriendConfirmedParser';
 export * from './LoveLockFurniStartParser';

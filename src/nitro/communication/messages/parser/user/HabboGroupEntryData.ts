@@ -5,22 +5,22 @@ export class HabboGroupEntryData
     private _groupId: number;
     private _groupName: string;
     private _badgeCode: string;
-    private _Str_6751: string;
-    private _Str_6979: string;
+    private _colorA: string;
+    private _colorB: string;
     private _favourite: boolean;
     private _ownerId: number;
-    private _Str_19808: boolean;
+    private _hasForum: boolean;
 
     constructor(wrapper: IMessageDataWrapper)
     {
         this._groupId = wrapper.readInt();
         this._groupName = wrapper.readString();
         this._badgeCode = wrapper.readString();
-        this._Str_6751 = wrapper.readString();
-        this._Str_6979 = wrapper.readString();
+        this._colorA = wrapper.readString();
+        this._colorB = wrapper.readString();
         this._favourite = wrapper.readBoolean();
         this._ownerId = wrapper.readInt();
-        this._Str_19808 = wrapper.readBoolean();
+        this._hasForum = wrapper.readBoolean();
     }
 
     public get groupId(): number
@@ -38,14 +38,14 @@ export class HabboGroupEntryData
         return this._badgeCode;
     }
 
-    public get _Str_5845(): string
+    public get colorA(): string
     {
-        return this._Str_6751;
+        return this._colorA;
     }
 
-    public get _Str_6659(): string
+    public get colorB(): string
     {
-        return this._Str_6979;
+        return this._colorB;
     }
 
     public get favourite(): boolean
@@ -58,8 +58,8 @@ export class HabboGroupEntryData
         return this._ownerId;
     }
 
-    public get _Str_21674(): boolean
+    public get hasForum(): boolean
     {
-        return this._Str_19808;
+        return this._hasForum;
     }
 }

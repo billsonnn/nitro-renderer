@@ -1,5 +1,6 @@
 export * from './INitroPoint';
 export * from './NitroAdjustmentFilter';
+export * from './NitroAlphaFilter';
 export * from './NitroContainer';
 export * from './NitroFilter';
 export * from './NitroPoint';
