@@ -1,4 +1,4 @@
-import { NitroBasetexture, NitroFilter } from './proxy';
+import { NitroBaseTexture, NitroFilter } from './proxy';
 
 const vertex = `
 attribute vec2 aVertexPosition;
@@ -45,7 +45,7 @@ export class PaletteMapFilter extends NitroFilter
     public static readonly CHANNEL_BLUE = 2;
     public static readonly CHANNEL_ALPHA = 3;
 
-    private _lut: NitroBasetexture;
+    private _lut: NitroBaseTexture;
     private _channel: number;
 
     constructor(reds: number[], greens: number[], blues: number[], alphas: number[])
@@ -70,7 +70,7 @@ export class PaletteMapFilter extends NitroFilter
                 break;
         }
 
-        this._lut = NitroBasetexture.fromBuffer(Uint8Array.from(lut), lut.length / 4, 1, { mipmap: 0, scaleMode: 0 });
+        this._lut = NitroBaseTexture.fromBuffer(Uint8Array.from(lut), lut.length / 4, 1, { mipmap: 0, scaleMode: 0 });
 
         this.uniforms.lut = this._lut;
         this.uniforms.channel = this._channel;
@@ -103,7 +103,7 @@ export class PaletteMapFilter extends NitroFilter
         if(alphas.length === 256) return PaletteMapFilter.CHANNEL_ALPHA;
     }
 
-    public get lut(): NitroBasetexture
+    public get lut(): NitroBaseTexture
     {
         return this._lut;
     }
