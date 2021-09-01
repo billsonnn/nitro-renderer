@@ -1,6 +1,7 @@
 export * from './access';
 export * from './ApproveNameResultParser';
 export * from './data';
+export * from './HabboGroupEntryData';
 export * from './IgnoredUsersParser';
 export * from './IgnoreResultParser';
 export * from './InClientLinkParser';
