@@ -19,25 +19,27 @@ uniform int channel;
 
 void main(void) {
     vec4 currentColor = texture2D(uSampler, vTextureCoord);
-    if(channel == 0)
+    vec4 adjusted = currentColor;
+
+    if(currentColor.a > 0.0)
     {
-        vec2 index = vec2(int(currentColor.r * 255.0), 0.5);
-        vec4 newColor = texture2D(lut, index);
-        gl_FragColor = vec4(newColor.r, newColor.g, newColor.b, currentColor.a);
-    } else if(channel == 1) {
-        vec2 index = vec2(int(currentColor.g * 255.0), 0.5);
-        vec4 newColor = texture2D(lut, index);
-        gl_FragColor = vec4(newColor.r, newColor.g, newColor.b, currentColor.a);
-    } else if(channel == 2) {
-        vec2 index = vec2(int(currentColor.b * 255.0), 0.5);
-        vec4 newColor = texture2D(lut, index);
-        gl_FragColor = vec4(newColor.r, newColor.g, newColor.b, currentColor.a);
-    } else if(channel == 3) {
-        vec2 index = vec2(int(currentColor.a * 255.0), 0.5);
-        vec4 newColor = texture2D(lut, index);
-        gl_FragColor = vec4(newColor.r, newColor.g, newColor.b, currentColor.a);
+        if(channel == 0)
+        {
+            vec2 index = vec2(int(currentColor.r), 0.5);
+            adjusted = texture2D(lut, index);
+        } else if(channel == 1) {
+            vec2 index = vec2(int(currentColor.g), 0.5);
+            adjusted = texture2D(lut, index);
+        } else if(channel == 2) {
+            vec2 index = vec2(int(currentColor.b), 0.5);
+            adjusted = texture2D(lut, index);
+        } else if(channel == 3) {
+            vec2 index = vec2(int(currentColor.a), 0.5);
+            adjusted = texture2D(lut, index);
+        }
     }
-    
+
+    gl_FragColor = vec4(adjusted.r, adjusted.g, adjusted.b, currentColor.a);
 }`;
 
 export class PaletteMapFilter extends NitroFilter
@@ -50,15 +52,19 @@ export class PaletteMapFilter extends NitroFilter
         super(vertex, fragment);
         this._channel = this.getChannelForPalette(reds, greens, blues, alphas);
         const lut = this.getLutForPalette(reds);
-        this._lut = NitroTexture.fromBuffer(Uint8Array.from(lut), lut.length / 4, 1);
+        this._lut = NitroTexture.fromBuffer(Float32Array.from(lut), lut.length / 4, 1);
+
+        // this._lut.baseTexture.mipmap = MIPMAP_MODES.ON;
+        // this._lut.baseTexture.wrapMode = WRAP_MODES.CLAMP;
+
         this.uniforms.lut = this._lut;
         this.uniforms.channel = this._channel;
-        this.uniforms.lut.baseTexture.mipmap = false;
     }
 
     private getLutForPalette(data: number[]): number[]
     {
         const lut = [];
+
         for(let i = 0; i < data.length; i++)
         {
             // R
@@ -70,7 +76,7 @@ export class PaletteMapFilter extends NitroFilter
             // A
             lut[(i * 4) + 3] = ((data[i] >> 24) & 0xFF) / 0xff;
         }
-        console.log(lut);
+
         return lut;
     }
 
