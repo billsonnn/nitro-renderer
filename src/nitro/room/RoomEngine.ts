@@ -2377,7 +2377,18 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
     {
         if(!this._sessionDataManager) return;
 
-        const roomObject = this.getRoomObjectFloor(roomId, objectId);
+        let roomObject: IRoomObjectController = null;
+
+        if(roomId === 0)
+        {
+            const room = this._roomManager.getRoomInstance(RoomEngine.TEMPORARY_ROOM);
+
+            if(room) roomObject = (room.getRoomObject(objectId, objectCategory) as IRoomObjectController);
+        }
+        else
+        {
+            roomObject = this.getRoomObjectFloor(roomId, objectId);
+        }
 
         if(!roomObject || !roomObject.logic) return;
 
@@ -3520,7 +3531,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(split.length <= 0) return -1;
 
-        return parseInt(split[0]);
+        return (parseInt(split[0]) || 0);
     }
 
     private getRoomObjectRoomId(object: IRoomObject): string
