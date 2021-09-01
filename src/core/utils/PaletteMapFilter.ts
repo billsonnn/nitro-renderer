@@ -1,4 +1,4 @@
-import { NitroFilter, NitroTexture } from './proxy';
+import { NitroBasetexture, NitroFilter } from './proxy';
 
 const vertex = `
 attribute vec2 aVertexPosition;
@@ -25,16 +25,16 @@ void main(void) {
     {
         if(channel == 0)
         {
-            vec2 index = vec2(int(currentColor.r), 0.5);
+            vec2 index = vec2(currentColor.r, 0.5);
             adjusted = texture2D(lut, index);
         } else if(channel == 1) {
-            vec2 index = vec2(int(currentColor.g), 0.5);
+            vec2 index = vec2(currentColor.g, 0.5);
             adjusted = texture2D(lut, index);
         } else if(channel == 2) {
-            vec2 index = vec2(int(currentColor.b), 0.5);
+            vec2 index = vec2(currentColor.b, 0.5);
             adjusted = texture2D(lut, index);
         } else if(channel == 3) {
-            vec2 index = vec2(int(currentColor.a), 0.5);
+            vec2 index = vec2(currentColor.a, 0.5);
             adjusted = texture2D(lut, index);
         }
     }
@@ -44,7 +44,7 @@ void main(void) {
 
 export class PaletteMapFilter extends NitroFilter
 {
-    private _lut: NitroTexture;
+    private _lut: NitroBasetexture;
     private _channel: number;
 
     constructor(reds: number[], greens: number[], blues: number[], alphas: number[])
@@ -52,10 +52,7 @@ export class PaletteMapFilter extends NitroFilter
         super(vertex, fragment);
         this._channel = this.getChannelForPalette(reds, greens, blues, alphas);
         const lut = this.getLutForPalette(reds);
-        this._lut = NitroTexture.fromBuffer(Float32Array.from(lut), lut.length / 4, 1);
-
-        // this._lut.baseTexture.mipmap = MIPMAP_MODES.ON;
-        // this._lut.baseTexture.wrapMode = WRAP_MODES.CLAMP;
+        this._lut = NitroBasetexture.fromBuffer(Uint8Array.from(lut), lut.length / 4, 1);
 
         this.uniforms.lut = this._lut;
         this.uniforms.channel = this._channel;
@@ -68,13 +65,13 @@ export class PaletteMapFilter extends NitroFilter
         for(let i = 0; i < data.length; i++)
         {
             // R
-            lut[(i * 4)] = ((data[i] >> 16) & 0xFF) / 0xff;
+            lut[(i * 4)] = ((data[i] >> 16) & 0xFF);
             // G
-            lut[(i * 4) + 1] = ((data[i] >> 8) & 0xFF) / 0xff;
+            lut[(i * 4) + 1] = ((data[i] >> 8) & 0xFF);
             // B
-            lut[(i * 4) + 2] = (data[i] & 0xFF) / 0xff;
+            lut[(i * 4) + 2] = (data[i] & 0xFF);
             // A
-            lut[(i * 4) + 3] = ((data[i] >> 24) & 0xFF) / 0xff;
+            lut[(i * 4) + 3] = ((data[i] >> 24) & 0xFF);
         }
 
         return lut;
@@ -88,7 +85,7 @@ export class PaletteMapFilter extends NitroFilter
         if(alphas.length === 256) return 3;
     }
 
-    public get lut(): NitroTexture
+    public get lut(): NitroBasetexture
     {
         return this._lut;
     }

@@ -5,6 +5,7 @@ import { Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
 import { NitroContainer, NitroSprite } from '../../core';
 import { AdvancedMap } from '../../core/utils/AdvancedMap';
+import { PaletteMapFilter } from '../../core/utils/PaletteMapFilter';
 import { IGraphicAsset } from '../../room/object/visualization/utils/IGraphicAsset';
 import { TextureUtils } from '../../room/utils/TextureUtils';
 import { Nitro } from '../Nitro';
@@ -395,7 +396,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         {
             this.convertToGrayscale(container);
 
-            //container.filters.push(new PaletteMapFilter(this._avatarSpriteData.reds, [], [], []));
+            container.filters.push(new PaletteMapFilter(this._avatarSpriteData.reds, [], [], []));
         }
 
         if(!cache)
@@ -417,6 +418,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(!this._reusableTexture) return null;
 
+        /*
         if(this._avatarSpriteData)
         {
             if(this._avatarSpriteData.paletteIsGrayscale)
@@ -424,6 +426,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                 this._reusableTexture = this.applyPalette(this._reusableTexture, this._avatarSpriteData.reds, [], []);
             }
         }
+        */
 
         this._image     = this._reusableTexture;
         this._changes   = false;
