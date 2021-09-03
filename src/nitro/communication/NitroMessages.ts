@@ -45,6 +45,7 @@ import { GroupBuyDataEvent } from './messages/incoming/group/GroupBuyDataEvent';
 import { GroupConfirmMemberRemoveEvent } from './messages/incoming/group/GroupConfirmMemberRemoveEvent';
 import { GroupInformationEvent } from './messages/incoming/group/GroupInformationEvent';
 import { GroupMembersEvent } from './messages/incoming/group/GroupMembersEvent';
+import { GroupPurchasedEvent } from './messages/incoming/group/GroupPurchasedEvent';
 import { GroupSettingsEvent } from './messages/incoming/group/GroupSettingsEvent';
 import { CallForHelpResultMessageEvent } from './messages/incoming/help/CallForHelpResultMessageEvent';
 import { IncomingHeader } from './messages/incoming/IncomingHeader';
@@ -582,6 +583,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.GROUP_CREATE_OPTIONS, GroupBuyDataEvent);
         this._events.set(IncomingHeader.GROUP_BADGE_PARTS, GroupBadgePartsEvent);
         this._events.set(IncomingHeader.GROUP_SETTINGS, GroupSettingsEvent);
+        this._events.set(IncomingHeader.GROUP_PURCHASED, GroupPurchasedEvent);
 
         // HELP
         this._events.set(IncomingHeader.CFH_RESULT_MESSAGE, CallForHelpResultMessageEvent);
