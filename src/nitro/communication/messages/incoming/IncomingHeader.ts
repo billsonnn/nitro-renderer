@@ -37,7 +37,7 @@ export class IncomingHeader
     public static GENERIC_ALERT                    = 3801;
     public static MODERATOR_MESSAGE                = 2030;
     public static GENERIC_ERROR                    = 1600;
-    public static GIFT_WRAPPER_CONFIG                      = 2234;
+    public static GIFT_WRAPPER_CONFIG              = 2234;
     public static GROUP_BADGES                     = 2402;
     public static GROUP_CREATE_OPTIONS             = 2159;
     public static GROUP_FORUM_INFO                 = 3011;

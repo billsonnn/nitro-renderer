@@ -40,6 +40,7 @@ export class OutgoingHeader
     public static GROUP_ADMIN_ADD                = 2894;
     public static GROUP_ADMIN_REMOVE             = 722;
     public static GROUP_CREATE_OPTIONS           = 798;
+    public static GROUP_FAVORITE                 = 3549;
     public static GROUP_FORUM_INFO               = 3149;
     public static GROUP_FORUM_LIST               = 873;
     public static GROUP_FORUM_THREADS            = 436;
@@ -59,6 +60,7 @@ export class OutgoingHeader
     public static GROUP_SAVE_BADGE               = 1991;
     public static GROUP_SAVE_COLORS              = 1764;
     public static GROUP_SAVE_PREFERENCES         = 3435;
+    public static GROUP_BADGES                   = 21;
     public static INVENTORY_UNKNOWN              = 1371;
     public static ITEM_CLOTHING_REDEEM           = 3374;
     public static ITEM_COLOR_WHEEL_CLICK         = 2144;

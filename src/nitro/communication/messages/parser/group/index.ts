@@ -1,4 +1,5 @@
 export * from './GroupBadgePartsParser';
+export * from './GroupBadgesParser';
 export * from './GroupBuyDataParser';
 export * from './GroupConfirmMemberRemoveParser';
 export * from './GroupInformationParser';

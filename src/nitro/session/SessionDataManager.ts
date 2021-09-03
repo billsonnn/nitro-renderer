@@ -26,6 +26,7 @@ import { UserNameUpdateEvent } from './events/UserNameUpdateEvent';
 import { FurnitureDataLoader } from './furniture/FurnitureDataLoader';
 import { IFurnitureData } from './furniture/IFurnitureData';
 import { IFurnitureDataListener } from './furniture/IFurnitureDataListener';
+import { GroupInformationManager } from './GroupInformationManager';
 import { IgnoredUsersManager } from './IgnoredUsersManager';
 import { ISessionDataManager } from './ISessionDataManager';
 import { IProductData } from './product/IProductData';
@@ -47,6 +48,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     private _canChangeName: boolean;
 
     private _ignoredUsersManager: IgnoredUsersManager;
+    private _groupInformationManager: GroupInformationManager;
 
     private _clubLevel: number;
     private _securityLevel: number;
@@ -82,6 +84,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this.resetUserInfo();
 
         this._ignoredUsersManager           = new IgnoredUsersManager(this);
+        this._groupInformationManager       = new GroupInformationManager(this);
 
         this._clubLevel                     = 0;
         this._securityLevel                 = 0;
@@ -111,6 +114,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this.onProductDataReadyEvent    = this.onProductDataReadyEvent.bind(this);
         this.onNitroSettingsEvent       = this.onNitroSettingsEvent.bind(this);
     }
+    groupInformationManager: GroupInformationManager;
 
     protected onInit(): void
     {
@@ -119,6 +123,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this.loadBadgeImageManager();
 
         (this._ignoredUsersManager && this._ignoredUsersManager.init());
+        (this._groupInformationManager && this._groupInformationManager.init());
 
         this._communication.registerMessageEvent(new FigureUpdateEvent(this.onUserFigureEvent.bind(this)));
         this._communication.registerMessageEvent(new UserInfoEvent(this.onUserInfoEvent.bind(this)));
@@ -142,6 +147,13 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
             this._ignoredUsersManager.dispose();
 
             this._ignoredUsersManager = null;
+        }
+
+        if(this._groupInformationManager)
+        {
+            this._groupInformationManager.dispose();
+
+            this._groupInformationManager = null;
         }
 
         Nitro.instance.events.removeEventListener(NitroSettingsEvent.SETTINGS_UPDATED, this.onNitroSettingsEvent);
@@ -539,6 +551,11 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     public isUserIgnored(name: string): boolean
     {
         return (this._ignoredUsersManager && this._ignoredUsersManager.isIgnored(name));
+    }
+
+    public getGroupBadge(groupId: number): string
+    {
+        return (this._groupInformationManager && this._groupInformationManager.getGroupBadge(groupId));
     }
 
     public send(composer: IMessageComposer<unknown[]>): void
