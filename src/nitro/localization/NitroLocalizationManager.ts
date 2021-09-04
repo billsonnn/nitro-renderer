@@ -9,6 +9,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
     private _definitions: Map<string, string>;
     private _parameters: Map<string, Map<string, string>>;
     private _romanNumerals: string[];
+    private _pendingUrls: string[];
 
     constructor()
     {
@@ -17,28 +18,55 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
         this._definitions   = new Map();
         this._parameters    = new Map();
         this._romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXII', 'XXIII', 'XXIV', 'XXV', 'XXVI', 'XXVII', 'XXVIII', 'XXIX', 'XXX'];
+        this._pendingUrls   = [];
     }
 
     protected onInit(): void
     {
-        this.loadLocalizationFromURL(Nitro.instance.getConfiguration<string>('external.texts.url'));
+        //@ts-ignore
+        let urls: string[] = Nitro.instance.getConfiguration<string[]>('external.texts.url');
+
+        if(!Array.isArray(urls))
+        {
+            urls = [ Nitro.instance.getConfiguration<string>('external.texts.url') ];
+        }
+
+        this._pendingUrls = urls;
+
+        this.loadNextLocalization();
+    }
+
+    private loadNextLocalization(): void
+    {
+        if(!this._pendingUrls.length)
+        {
+            this.events && this.events.dispatchEvent(new NitroLocalizationEvent(NitroLocalizationEvent.LOADED));
+
+            return;
+        }
+
+        this.loadLocalizationFromURL(this._pendingUrls[0]);
     }
 
     public loadLocalizationFromURL(url: string): void
     {
         fetch(url)
             .then(response => response.json())
-            .then(data => this.onLocalizationLoaded(data))
+            .then(data => this.onLocalizationLoaded(data, url))
             .catch(err => this.onLocalizationFailed(err));
     }
 
-    private onLocalizationLoaded(data: { [index: string]: any }): void
+    private onLocalizationLoaded(data: { [index: string]: any }, url: string): void
     {
         if(!data) return;
 
-        this.parseLocalization(data);
+        if(!this.parseLocalization(data)) return;
 
-        this.events && this.events.dispatchEvent(new NitroLocalizationEvent(NitroLocalizationEvent.LOADED));
+        const index = this._pendingUrls.indexOf(url);
+
+        if(index >= 0) this._pendingUrls.splice(index, 1);
+
+        this.loadNextLocalization();
     }
 
     private onLocalizationFailed(error: Error): void
@@ -46,11 +74,13 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
         this.events && this.events.dispatchEvent(new NitroLocalizationEvent(NitroLocalizationEvent.FAILED));
     }
 
-    private parseLocalization(data: { [index: string]: any }): void
+    private parseLocalization(data: { [index: string]: any }): boolean
     {
-        if(!data) return;
+        if(!data) return false;
 
         for(const key in data) this._definitions.set(key, data[key]);
+
+        return true;
     }
 
     public getRomanNumeral(number: number): string
