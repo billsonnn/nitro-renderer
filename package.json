@@ -5,6 +5,7 @@
     "type": "git",
     "url": "https://git.krews.org/nitro/nitro-renderer"
   },
+  "main": "./index.ts",
   "scripts": {
     "compile": "tsc --project ./tsconfig.json",
     "eslint": "eslint ./src --fix"

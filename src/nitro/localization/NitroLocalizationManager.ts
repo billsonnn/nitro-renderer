@@ -23,7 +23,6 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
     protected onInit(): void
     {
-        //@ts-ignore
         let urls: string[] = Nitro.instance.getConfiguration<string[]>('external.texts.url');
 
         if(!Array.isArray(urls))
