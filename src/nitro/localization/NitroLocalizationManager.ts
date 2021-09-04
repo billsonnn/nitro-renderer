@@ -31,6 +31,8 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
             urls = [ Nitro.instance.getConfiguration<string>('external.texts.url') ];
         }
 
+        for(let i = 0; i < urls.length; i++) urls[i] = Nitro.instance.core.configuration.interpolate(urls[i]);
+
         this._pendingUrls = urls;
 
         this.loadNextLocalization();
