@@ -1,4 +1,4 @@
-export class GroupBadgePart
+export class GroupDataBadgePart
 {
     public isBase: boolean;
     public key: number;

@@ -18,7 +18,7 @@ import { UserRespectComposer } from '../communication/messages/outgoing/user/Use
 import { NitroSettingsEvent } from '../events/NitroSettingsEvent';
 import { Nitro } from '../Nitro';
 import { HabboWebTools } from '../utils/HabboWebTools';
-import { BadgeImageManager } from './BadgeImageManager';
+import { BadgeImageManager } from './badge/BadgeImageManager';
 import { SecurityLevel } from './enum/SecurityLevel';
 import { MysteryBoxKeysUpdateEvent } from './events';
 import { SessionDataPreferencesEvent } from './events/SessionDataPreferencesEvent';
@@ -197,7 +197,8 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     {
         if(this._badgeImageManager) return;
 
-        this._badgeImageManager = new BadgeImageManager(Nitro.instance.core.asset, this.events);
+        this._badgeImageManager = new BadgeImageManager(Nitro.instance.core.asset, this);
+        this._badgeImageManager.init();
     }
 
     public hasProductData(listener: IProductDataListener): boolean

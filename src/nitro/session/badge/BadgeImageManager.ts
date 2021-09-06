@@ -1,21 +1,22 @@
 ﻿import { Resource, Texture } from '@pixi/core';
-import { BadgeTypeEnum, GroupBadge } from '.';
 import { IAssetManager } from '../../../core/asset/IAssetManager';
 import { IMessageEvent } from '../../../core/communication/messages/IMessageEvent';
 import { NitroSprite } from '../../../core/utils/proxy/NitroSprite';
 import { GroupBadgePartsEvent } from '../../communication/messages/incoming/group/GroupBadgePartsEvent';
-import { GroupBadgePartsComposer } from '../../communication/messages/outgoing/group/GroupBadgePartsComposer';
 import { Nitro } from '../../Nitro';
 import { BadgeImageReadyEvent } from '../events/BadgeImageReadyEvent';
-import { ISessionDataManager } from '../ISessionDataManager';
+import { IDisposable } from './../../../core/common/disposable/IDisposable';
 import { TextureUtils } from './../../../room/utils/TextureUtils';
 import { SessionDataManager } from './../SessionDataManager';
 import { BadgeInfo } from './BadgeInfo';
+import { GroupBadge } from './GroupBadge';
 import { GroupBadgePart } from './GroupBadgePart';
-import { IBadgeImageManager } from './IBadgeImageManager';
 
-export class BadgeImageManager implements IBadgeImageManager
+export class BadgeImageManager implements IDisposable
 {
+    public static GROUP_BADGE: string   = 'group_badge';
+    public static NORMAL_BADGE: string  = 'normal_badge';
+
     private _assets: IAssetManager;
     private _sessionDataManager: SessionDataManager;
     private _messages: IMessageEvent[];
@@ -29,7 +30,7 @@ export class BadgeImageManager implements IBadgeImageManager
 
     private _readyToGenerateGroupBadges: boolean;
 
-    constructor(assetManager: IAssetManager, sessionDataManager: ISessionDataManager)
+    constructor(assetManager: IAssetManager, sessionDataManager: SessionDataManager)
     {
         this._assets                = assetManager;
         this._sessionDataManager    = sessionDataManager;
@@ -38,7 +39,8 @@ export class BadgeImageManager implements IBadgeImageManager
         this._groupSymbols          = new Map();
         this._groupPartColors       = new Map();
 
-        this._requestedBadges = new Map();
+        this._requestedBadges       = new Map();
+        this._groupBadgesQueue      = new Map();
 
         this._readyToGenerateGroupBadges = false;
     }
@@ -53,7 +55,7 @@ export class BadgeImageManager implements IBadgeImageManager
 
             for(const message of this._messages) this._sessionDataManager.communication.registerMessageEvent(message);
 
-            this._sessionDataManager.send(new GroupBadgePartsComposer());
+            //this._sessionDataManager.send(new GroupBadgePartsComposer());
         }
     }
 
@@ -69,7 +71,7 @@ export class BadgeImageManager implements IBadgeImageManager
         this._sessionDataManager = null;
     }
 
-    public getBadgeImage(badgeName: string, type: string = BadgeTypeEnum.NORMAL_BADGE, load: boolean = true): Texture<Resource>
+    public getBadgeImage(badgeName: string, type: string = BadgeImageManager.NORMAL_BADGE, load: boolean = true): Texture<Resource>
     {
         let badge = this.getBadgeTexture(badgeName, type);
 
@@ -85,7 +87,7 @@ export class BadgeImageManager implements IBadgeImageManager
         return (badge) ? new BadgeInfo(badge, false) : new BadgeInfo(this.getBadgePlaceholder(), true);
     }
 
-    public loadBadgeImage(badgeName: string, type: string = BadgeTypeEnum.NORMAL_BADGE): string
+    public loadBadgeImage(badgeName: string, type: string = BadgeImageManager.NORMAL_BADGE): string
     {
         if(this._assets.getTexture(this.getBadgeUrl(badgeName, type))) return badgeName;
 
@@ -94,7 +96,7 @@ export class BadgeImageManager implements IBadgeImageManager
         return null;
     }
 
-    private getBadgeTexture(badgeName: string, type: string = BadgeTypeEnum.NORMAL_BADGE): Texture<Resource>
+    private getBadgeTexture(badgeName: string, type: string = BadgeImageManager.NORMAL_BADGE): Texture<Resource>
     {
         const url = this.getBadgeUrl(badgeName, type);
 
@@ -108,7 +110,7 @@ export class BadgeImageManager implements IBadgeImageManager
         {
             this._requestedBadges.set(badgeName, true);
 
-            if(type === BadgeTypeEnum.NORMAL_BADGE)
+            if(type === BadgeImageManager.NORMAL_BADGE)
             {
                 this._assets.downloadAsset(url, (flag: boolean) =>
                 {
@@ -126,7 +128,7 @@ export class BadgeImageManager implements IBadgeImageManager
             {
                 if(!this._readyToGenerateGroupBadges)
                 {
-                    if(this._groupBadgesQueue.get(badgeName)) this._groupBadgesQueue.set(badgeName, true);
+                    if(!this._groupBadgesQueue.get(badgeName)) this._groupBadgesQueue.set(badgeName, true);
                 }
                 else
                 {
@@ -148,16 +150,16 @@ export class BadgeImageManager implements IBadgeImageManager
         return existing.clone();
     }
 
-    public getBadgeUrl(badge: string, type: string = BadgeTypeEnum.NORMAL_BADGE): string
+    public getBadgeUrl(badge: string, type: string = BadgeImageManager.NORMAL_BADGE): string
     {
         let url = null;
 
         switch(type)
         {
-            case BadgeTypeEnum.NORMAL_BADGE:
+            case BadgeImageManager.NORMAL_BADGE:
                 url = (Nitro.instance.getConfiguration<string>('badge.asset.url')).replace('%badgename%', badge);
                 break;
-            case BadgeTypeEnum.GROUP_BADGE:
+            case BadgeImageManager.GROUP_BADGE:
                 //url = (Nitro.instance.getConfiguration<string>('badge.asset.group.url')).replace('%badgedata%', badge);
                 url = badge;
                 break;
@@ -190,6 +192,8 @@ export class BadgeImageManager implements IBadgeImageManager
 
             const requiredAssets = isBase ? this._groupBases.get(partId) : this._groupSymbols.get(partId);
 
+            if(!requiredAssets) continue;
+
             for(const requiredAsset of requiredAssets)
             {
                 if(requiredAsset.length > 0)
@@ -214,6 +218,7 @@ export class BadgeImageManager implements IBadgeImageManager
     {
         for(const part of groupBadge.parts)
         {
+            let isFirst = true;
             for(const partUrl of part.urls)
             {
                 const texture = this._assets.getTexture(partUrl);
@@ -225,7 +230,10 @@ export class BadgeImageManager implements IBadgeImageManager
                 const sprite = new NitroSprite(texture);
                 sprite.x = pos.x;
                 sprite.y = pos.y;
-                sprite.tint = parseInt(this._groupPartColors.get(part.color), 16);
+
+                if(isFirst) sprite.tint = parseInt(this._groupPartColors.get(part.color), 16);
+
+                isFirst = false;
 
                 groupBadge.container.addChild(sprite);
             }
@@ -235,7 +243,6 @@ export class BadgeImageManager implements IBadgeImageManager
         this._groupBadgesQueue.delete(groupBadge.code);
 
         const texture = TextureUtils.generateTexture(groupBadge.container);
-
         this._assets.setTexture(groupBadge.code, texture);
 
         if(this._sessionDataManager) this._sessionDataManager.events.dispatchEvent(new BadgeImageReadyEvent(groupBadge.code, texture));
