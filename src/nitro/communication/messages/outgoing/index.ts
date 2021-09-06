@@ -9,6 +9,7 @@ export * from './desktop';
 export * from './friendlist';
 export * from './group';
 export * from './handshake';
+export * from './helper';
 export * from './inventory';
 export * from './landingview';
 export * from './marketplace';

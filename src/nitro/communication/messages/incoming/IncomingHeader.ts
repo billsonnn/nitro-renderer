@@ -317,4 +317,5 @@ export class IncomingHeader
     public static COMPETITION_SECONDS_UNTIL        = 3926;
     public static BADGE_POINT_LIMITS               = 2501;
     public static BADGE_REQUEST_FULFILLED          = 2998;
+    public static HELPER_TALENT_TRACK              = 3406;
 }

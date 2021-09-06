@@ -307,4 +307,5 @@ export class OutgoingHeader
     public static ROOM_AD_PURCHASE_INITIATED       = 2283;
     public static SET_TARGETTED_OFFER_STATE        = 2041;
     public static SHOP_TARGETED_OFFER_VIEWED       = 3483;
+    public static HELPER_TALENT_TRACK               = 196;
 }
