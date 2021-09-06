@@ -8,6 +8,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 {
     private _definitions: Map<string, string>;
     private _parameters: Map<string, Map<string, string>>;
+    private _badgePointLimits: Map<string, number>;
     private _romanNumerals: string[];
     private _pendingUrls: string[];
 
@@ -17,6 +18,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
         this._definitions   = new Map();
         this._parameters    = new Map();
+        this._badgePointLimits = new Map();
         this._romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXII', 'XXIII', 'XXIV', 'XXV', 'XXVI', 'XXVII', 'XXVIII', 'XXIX', 'XXX'];
         this._pendingUrls   = [];
     }
@@ -82,6 +84,16 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
         for(const key in data) this._definitions.set(key, data[key]);
 
         return true;
+    }
+
+    public getBadgePointLimit(badge: string): number
+    {
+        return (this._badgePointLimits.get(badge) || -1);
+    }
+
+    public setBadgePointLimit(badge: string, point: number): void
+    {
+        this._badgePointLimits.set(badge, point);
     }
 
     public getRomanNumeral(number: number): string
@@ -263,7 +275,11 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
         const badge = new BadgeBaseAndLevel(key);
         const keys  = [ 'badge_name_' + key, 'badge_name_' + badge.base ];
 
-        return this._Str_2103(this.getExistingKey(keys)).replace('%roman%', this.getRomanNumeral(badge.level));
+        let name = this._Str_2103(this.getExistingKey(keys));
+
+        name = name.replace('%roman%', this.getRomanNumeral(badge.level));
+
+        return name;
     }
 
     public getBadgeDesc(key: string): string
@@ -271,7 +287,15 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
         const badge = new BadgeBaseAndLevel(key);
         const keys  = [ 'badge_desc_' + key, 'badge_desc_' + badge.base ];
 
-        return this._Str_2103(this.getExistingKey(keys)).replace('%roman%', this.getRomanNumeral(badge.level));
+        let desc = this._Str_2103(this.getExistingKey(keys));
+
+        const limit = this.getBadgePointLimit(key);
+
+        if(limit > -1) desc = desc.replace('%limit%', limit.toString());
+
+        desc = desc.replace('%roman%', this.getRomanNumeral(badge.level));
+
+        return desc;
     }
 
     private getExistingKey(keys: string[]): string

@@ -315,4 +315,6 @@ export class IncomingHeader
     public static COMPETITION_USER_PART_OF         = 3841;
     public static COMPETITION_NO_OWNED_ROOMS       = 2064;
     public static COMPETITION_SECONDS_UNTIL        = 3926;
+    public static BADGE_POINT_LIMITS               = 2501;
+    public static BADGE_REQUEST_FULFILLED          = 2998;
 }
