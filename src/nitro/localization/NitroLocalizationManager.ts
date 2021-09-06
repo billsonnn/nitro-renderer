@@ -88,7 +88,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
     public getBadgePointLimit(badge: string): number
     {
-        return this._badgePointLimits.get(badge);
+        return (this._badgePointLimits.get(badge) || -1);
     }
 
     public setBadgePointLimit(badge: string, point: number): void
@@ -289,7 +289,10 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
         let desc = this._Str_2103(this.getExistingKey(keys));
 
-        desc = desc.replace('%limit$', this.getBadgePointLimit(key).toString());
+        const limit = this.getBadgePointLimit(key);
+
+        if(limit > -1) desc = desc.replace('%limit%', limit.toString());
+
         desc = desc.replace('%roman%', this.getRomanNumeral(badge.level));
 
         return desc;

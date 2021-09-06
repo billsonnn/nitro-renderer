@@ -11,5 +11,6 @@ export interface INitroLocalizationManager extends INitroManager
     registerParameter(key: string, parameter: string, value: string): void;
     getBadgeName(key: string): string;
     getBadgeDesc(key: string): string;
+    getBadgePointLimit(badge: string): number;
     setBadgePointLimit(badge: string, point: number): void;
 }
