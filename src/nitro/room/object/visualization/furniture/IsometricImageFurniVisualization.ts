@@ -5,7 +5,7 @@ import { IGraphicAsset } from '../../../../../room/object/visualization/utils/IG
 import { TextureUtils } from '../../../../../room/utils/TextureUtils';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
 
-export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualization
+export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualization
 {
     protected static THUMBNAIL: string = 'THUMBNAIL';
 
@@ -71,7 +71,7 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
 
         while(layerId < this.totalSprites)
         {
-            if(this.getLayerTag(scale, this.direction, layerId) === FurnitureThumbnailVisualization.THUMBNAIL)
+            if(this.getLayerTag(scale, this.direction, layerId) === IsometricImageFurniVisualization.THUMBNAIL)
             {
                 const assetName = (this.cacheSpriteAssetName(scale, layerId, false) + this.getFrameNumber(scale, layerId));
                 const asset     = this.getAsset(assetName, layerId);
@@ -140,7 +140,7 @@ export class FurnitureThumbnailVisualization extends FurnitureAnimatedVisualizat
 
     protected getSpriteAssetName(scale: number, layerId: number): string
     {
-        if(this._thumbnailImageNormal && (this.getLayerTag(scale, this.direction, layerId) === FurnitureThumbnailVisualization.THUMBNAIL)) return this.getThumbnailAssetName(scale);
+        if(this._thumbnailImageNormal && (this.getLayerTag(scale, this.direction, layerId) === IsometricImageFurniVisualization.THUMBNAIL)) return this.getThumbnailAssetName(scale);
 
         return super.getSpriteAssetName(scale, layerId);
     }

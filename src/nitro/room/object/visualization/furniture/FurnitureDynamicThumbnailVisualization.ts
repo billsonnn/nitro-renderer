@@ -1,8 +1,8 @@
 import { SCALE_MODES } from '@pixi/constants';
 import { Texture } from '@pixi/core';
-import { FurnitureThumbnailVisualization } from './FurnitureThumbnailVisualization';
+import { IsometricImageFurniVisualization } from './IsometricImageFurniVisualization';
 
-export class FurnitureDynamicThumbnailVisualization extends FurnitureThumbnailVisualization
+export class FurnitureDynamicThumbnailVisualization extends IsometricImageFurniVisualization
 {
     private _cachedUrl: string;
 
