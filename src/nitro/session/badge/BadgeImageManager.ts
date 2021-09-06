@@ -175,15 +175,17 @@ export class BadgeImageManager implements IDisposable
 
         const urlsToLoad: string[] = [];
 
-        for(let i = 0; i < badgeCode.length; i += 6)
+        const partMatches = [...badgeCode.matchAll(/[b|s][0-9]{5,6}/g)];
+
+        for(const partMatch of partMatches)
         {
-            const partType = badgeCode.slice(i, i + 1);
+            const partCode = partMatch[0];
+            const shortMethod = (partCode.length === 6);
 
-            let partId = parseInt(badgeCode.slice(i + 1, i + 3));
-            const partColor = parseInt(badgeCode.slice(i + 3, i + 5));
-            const partPosition = parseInt(badgeCode.slice(i + 5, i + 6));
-
-            if(partType === 't') partId += 100;
+            const partType = partCode[0];
+            const partId = parseInt(partCode.slice(1, shortMethod ? 3 : 4));
+            const partColor = parseInt(partCode.slice(shortMethod ? 3 : 4, shortMethod ? 5 : 6));
+            const partPosition = parseInt(partCode.slice(shortMethod ? 5 : 6, shortMethod ? 6 : 7));
 
             const part = new GroupBadgePart(partType, partId, partColor, partPosition);
             groupBadge.parts.push(part);
