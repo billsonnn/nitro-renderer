@@ -19,20 +19,20 @@ export class PlaneVisualization
     private _isCached: boolean;
     private _hasAnimationLayers: boolean;
 
-    constructor(k: number, _arg_2: number, _arg_3: IRoomGeometry)
+    constructor(size: number, totalLayers: number, geometry: IRoomGeometry)
     {
         this._layers                = [];
-        this._geometry              = _arg_3;
+        this._geometry              = geometry;
         this._cachedBitmapData      = null;
         this._cachedBitmapNormal    = new Vector3d();
         this._isCached              = false;
         this._hasAnimationLayers    = false;
 
-        if(_arg_2 < 0) _arg_2 = 0;
+        if(totalLayers < 0) totalLayers = 0;
 
         let index = 0;
 
-        while(index < _arg_2)
+        while(index < totalLayers)
         {
             this._layers.push(null);
 
@@ -107,32 +107,32 @@ export class PlaneVisualization
         this._isCached = false;
     }
 
-    public setLayer(k: number, _arg_2: PlaneMaterial, _arg_3: number, _arg_4: number, _arg_5: number = 0): boolean
+    public setLayer(layerId: number, material: PlaneMaterial, color: number, align: number, offset: number = 0): boolean
     {
-        if((k < 0) || (k > this._layers.length)) return false;
+        if((layerId < 0) || (layerId > this._layers.length)) return false;
 
-        let layer = this._layers[k];
+        let layer = this._layers[layerId];
 
         if(layer) layer.dispose();
 
-        layer = new PlaneVisualizationLayer(_arg_2, _arg_3, _arg_4, _arg_5);
+        layer = new PlaneVisualizationLayer(material, color, align, offset);
 
-        this._layers[k] = layer;
+        this._layers[layerId] = layer;
 
         return true;
     }
 
-    public setAnimationLayer(k: number, _arg_2: any, _arg_3: IGraphicAssetCollection): boolean
+    public setAnimationLayer(layerId: number, animationItems: any, collection: IGraphicAssetCollection): boolean
     {
-        if((k < 0) || (k > this._layers.length)) return false;
+        if((layerId < 0) || (layerId > this._layers.length)) return false;
 
-        let layer = this._layers[k] as IDisposable;
+        let layer = this._layers[layerId] as IDisposable;
 
         if(layer) layer.dispose();
 
-        layer = new PlaneVisualizationAnimationLayer(_arg_2, _arg_3);
+        layer = new PlaneVisualizationAnimationLayer(animationItems, collection);
 
-        this._layers[k]             = layer;
+        this._layers[layerId]             = layer;
         this._hasAnimationLayers    = true;
 
         return true;

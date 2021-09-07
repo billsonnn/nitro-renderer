@@ -17,7 +17,7 @@ export class Plane
         this._lastSize                  = -1;
     }
 
-    public isStatic(k: number): boolean
+    public isStatic(size: number): boolean
     {
         return true;
     }
@@ -47,49 +47,49 @@ export class Plane
         }
     }
 
-    public createPlaneVisualization(k: number, _arg_2: number, _arg_3: IRoomGeometry): PlaneVisualization
+    public createPlaneVisualization(size: number, totalLayers: number, geometry: IRoomGeometry): PlaneVisualization
     {
-        const existing = this._planeVisualizations.get(k.toString());
+        const existing = this._planeVisualizations.get(size.toString());
 
         if(existing) return null;
 
-        const plane = new PlaneVisualization(k, _arg_2, _arg_3);
+        const plane = new PlaneVisualization(size, totalLayers, geometry);
 
-        this._planeVisualizations.set(k.toString(), plane);
+        this._planeVisualizations.set(size.toString(), plane);
 
-        this._sizes.push(k);
+        this._sizes.push(size);
         this._sizes.sort();
 
         return plane;
     }
 
-    private getSizeIndex(k: number): number
+    private getSizeIndex(size: number): number
     {
-        let size = 0;
-        let index = 1;
+        let sizeIndex = 0;
+        let i = 1;
 
-        while(index < this._sizes.length)
+        while(i < this._sizes.length)
         {
-            if(this._sizes[index] > k)
+            if(this._sizes[i] > size)
             {
-                if((this._sizes[index] - k) < (k - this._sizes[(index - 1)])) size = index;
+                if((this._sizes[i] - size) < (size - this._sizes[(i - 1)])) sizeIndex = i;
 
                 break;
             }
 
-            size = index;
+            sizeIndex = i;
 
-            index++;
+            i++;
         }
 
-        return size;
+        return sizeIndex;
     }
 
-    protected getPlaneVisualization(k: number): PlaneVisualization
+    protected getPlaneVisualization(size: number): PlaneVisualization
     {
-        if(k === this._lastSize) return this._lastPlaneVisualization;
+        if(size === this._lastSize) return this._lastPlaneVisualization;
 
-        const sizeIndex = this.getSizeIndex(k);
+        const sizeIndex = this.getSizeIndex(size);
 
         if(sizeIndex < this._sizes.length)
         {
@@ -100,7 +100,7 @@ export class Plane
             this._lastPlaneVisualization = null;
         }
 
-        this._lastSize = k;
+        this._lastSize = size;
 
         return this._lastPlaneVisualization;
     }

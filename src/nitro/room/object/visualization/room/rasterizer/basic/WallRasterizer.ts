@@ -64,13 +64,13 @@ export class WallRasterizer extends PlaneRasterizer
         return new PlaneBitmapData(graphic, -1);
     }
 
-    public getTextureIdentifier(k: number, _arg_2: IVector3D): string
+    public getTextureIdentifier(k: number, normal: IVector3D): string
     {
-        if(_arg_2)
+        if(normal)
         {
-            return `${ k }_${ _arg_2.x }_${ _arg_2.y }_${ _arg_2.z }`;
+            return `${ k }_${ normal.x }_${ normal.y }_${ normal.z }`;
         }
 
-        return super.getTextureIdentifier(k, _arg_2);
+        return super.getTextureIdentifier(k, normal);
     }
 }

@@ -1,6 +1,7 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Graphics } from '@pixi/graphics';
 import { Matrix, Point, Rectangle } from '@pixi/math';
+import { NitroRenderTexture } from '../../../../../core';
 import { IRoomPlane } from '../../../../../room/object/visualization/IRoomPlane';
 import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
 import { IVector3D } from '../../../../../room/utils/IVector3D';
@@ -36,6 +37,7 @@ export class RoomPlane implements IRoomPlane
     private _geometryUpdateId: number;
     private _type: number;
     private _isVisible: boolean;
+    private _bitmapTexture: NitroRenderTexture;
     private _bitmapData: Graphics;
     private _hasTexture: boolean;
     private _offset: Point;

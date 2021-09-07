@@ -36,34 +36,34 @@ export class PlaneMaterialCellMatrix
     private _normalMinY: number = -1;
     private _normalMaxY: number = 1;
 
-    constructor(k: number, _arg_2: number=1, _arg_3: number=1, _arg_4: number=-1, _arg_5: number=1, _arg_6: number=-1, _arg_7: number=1)
+    constructor(totalColumns: number, repeatMode: number=1, align: number=1, normalMinX: number=-1, normalMaxX: number=1, normalMinY: number=-1, normalMaxY: number=1)
     {
         this._columns = [];
-        if(k < 1)
+        if(totalColumns < 1)
         {
-            k = 1;
+            totalColumns = 1;
         }
         let _local_8 = 0;
-        while(_local_8 < k)
+        while(_local_8 < totalColumns)
         {
             this._columns.push(null);
             _local_8++;
         }
-        this._repeatMode = _arg_2;
-        this._align = _arg_3;
-        this._normalMinX = _arg_4;
-        this._normalMaxX = _arg_5;
-        this._normalMinY = _arg_6;
-        this._normalMaxY = _arg_7;
+        this._repeatMode = repeatMode;
+        this._align = align;
+        this._normalMinX = normalMinX;
+        this._normalMaxX = normalMaxX;
+        this._normalMinY = normalMinY;
+        this._normalMaxY = normalMaxY;
         if(this._repeatMode == PlaneMaterialCellMatrix.REPEAT_MODE_RANDOM)
         {
             this._isStatic = false;
         }
     }
 
-    private static nextRandomColumnIndex(k: number): number
+    private static nextRandomColumnIndex(totalColumns: number): number
     {
-        return ((Randomizer.getValues(1, 0, (k * 17631))[0]) % k);
+        return ((Randomizer.getValues(1, 0, (totalColumns * 17631))[0]) % totalColumns);
     }
 
     public get normalMinX(): number
@@ -139,16 +139,16 @@ export class PlaneMaterialCellMatrix
         this._isCached = false;
     }
 
-    public createColumn(k: number, _arg_2: number, _arg_3: PlaneMaterialCell[], _arg_4: number=1): boolean
+    public createColumn(index: number, width: number, cells: PlaneMaterialCell[], repeatMode: number=1): boolean
     {
-        if((k < 0) || (k >= this._columns.length)) return false;
+        if((index < 0) || (index >= this._columns.length)) return false;
 
-        const newColumn = new PlaneMaterialCellColumn(_arg_2, _arg_3, _arg_4);
-        const oldColumn = this._columns[k];
+        const newColumn = new PlaneMaterialCellColumn(width, cells, repeatMode);
+        const oldColumn = this._columns[index];
 
         if(oldColumn) oldColumn.dispose();
 
-        this._columns[k] = newColumn;
+        this._columns[index] = newColumn;
 
         if(newColumn && !newColumn.isStatic) this._isStatic = false;
 
@@ -313,11 +313,11 @@ export class PlaneMaterialCellMatrix
         return this._cachedBitmapData;
     }
 
-    private copyCachedBitmapOnCanvas(k: Graphics, _arg_2: number, _arg_3: number, _arg_4: boolean): void
+    private copyCachedBitmapOnCanvas(canvas: Graphics, height: number, offsetY: number, topAlign: boolean): void
     {
-        if(!k || !this._cachedBitmapData || (k === this._cachedBitmapData)) return;
+        if(!canvas || !this._cachedBitmapData || (canvas === this._cachedBitmapData)) return;
 
-        if(!_arg_4) _arg_3 = ((k.height - _arg_2) - _arg_3);
+        if(!topAlign) offsetY = ((canvas.height - height) - offsetY);
 
         let _local_5: Rectangle;
 
@@ -334,20 +334,20 @@ export class PlaneMaterialCellMatrix
 
         if(texture)
         {
-            k
+            canvas
                 .beginTextureFill({ texture })
-                .drawRect(0, _arg_3, _local_5.width, _local_5.height)
+                .drawRect(0, offsetY, _local_5.width, _local_5.height)
                 .endFill();
         }
     }
 
-    private getColumnsWidth(k: Graphics[]): number
+    private getColumnsWidth(columns: Graphics[]): number
     {
-        if(!k || !k.length) return 0;
+        if(!columns || !columns.length) return 0;
 
         let width = 0;
 
-        for(const graphic of k)
+        for(const graphic of columns)
         {
             if(!graphic) continue;
 
@@ -357,34 +357,34 @@ export class PlaneMaterialCellMatrix
         return width;
     }
 
-    private renderColumns(k: Graphics, _arg_2: Graphics[], _arg_3: number, _arg_4: boolean): Point
+    private renderColumns(canvas: Graphics, columns: Graphics[], x: number, flag: boolean): Point
     {
-        if(!k || !_arg_2 || !_arg_2.length) return new Point(_arg_3, 0);
+        if(!canvas || !columns || !columns.length) return new Point(x, 0);
 
         let height = 0;
         let _local_6: Graphics = null;
         let _local_7 = 0;
 
-        while(_local_7 < _arg_2.length)
+        while(_local_7 < columns.length)
         {
-            if(_arg_4)
+            if(flag)
             {
-                _local_6 = _arg_2[_local_7];
+                _local_6 = columns[_local_7];
             }
             else
             {
-                _local_6 = _arg_2[((_arg_2.length - 1) - _local_7)];
+                _local_6 = columns[((columns.length - 1) - _local_7)];
             }
             if(_local_6 != null)
             {
-                if(!_arg_4)
+                if(!flag)
                 {
-                    _arg_3 = (_arg_3 - _local_6.width);
+                    x = (x - _local_6.width);
                 }
                 let _local_8 = 0;
                 if(this._align == PlaneMaterialCellMatrix.ALIGN_BOTTOM)
                 {
-                    _local_8 = (k.height - _local_6.height);
+                    _local_8 = (canvas.height - _local_6.height);
                 }
 
                 let texture = RoomVisualization.getTextureCache(_local_6);
@@ -396,40 +396,40 @@ export class PlaneMaterialCellMatrix
                     RoomVisualization.addTextureCache(_local_6, texture);
                 }
 
-                k.beginTextureFill({ texture });
-                k.drawRect(_arg_3, _local_8, texture.width, texture.height);
-                k.endFill();
+                canvas.beginTextureFill({ texture });
+                canvas.drawRect(x, _local_8, texture.width, texture.height);
+                canvas.endFill();
 
                 if(_local_6.height > height)
                 {
                     height = _local_6.height;
                 }
-                if(_arg_4)
+                if(flag)
                 {
-                    _arg_3 = (_arg_3 + _local_6.width);
+                    x = (x + _local_6.width);
                 }
-                if((((_arg_4) && (_arg_3 >= k.width)) || ((!(_arg_4)) && (_arg_3 <= 0))))
+                if((((flag) && (x >= canvas.width)) || ((!(flag)) && (x <= 0))))
                 {
-                    return new Point(_arg_3, height);
+                    return new Point(x, height);
                 }
             }
             _local_7++;
         }
-        return new Point(_arg_3, height);
+        return new Point(x, height);
     }
 
-    private renderRepeatAll(k: Graphics, _arg_2: Graphics[]): number
+    private renderRepeatAll(canvas: Graphics, columns: Graphics[]): number
     {
-        if(!k || !_arg_2 || !_arg_2.length) return 0;
+        if(!canvas || !columns || !columns.length) return 0;
 
-        const totalWidth: number = this.getColumnsWidth(_arg_2);
+        const totalWidth: number = this.getColumnsWidth(columns);
 
         let x       = 0;
         let y       = 0;
 
-        while(x < k.width)
+        while(x < canvas.width)
         {
-            const point = this.renderColumns(k, _arg_2, x, true);
+            const point = this.renderColumns(canvas, columns, x, true);
 
             x = point.x;
 
@@ -695,7 +695,7 @@ export class PlaneMaterialCellMatrix
     //     return _local_3;
     // }
 
-    public getColumns(k: number): PlaneMaterialCellColumn[]
+    public getColumns(width: number): PlaneMaterialCellColumn[]
     {
         if(this._repeatMode === PlaneMaterialCellMatrix.REPEAT_MODE_RANDOM)
         {
@@ -703,7 +703,7 @@ export class PlaneMaterialCellMatrix
 
             let columnIndex = 0;
 
-            while(columnIndex < k)
+            while(columnIndex < width)
             {
                 const column = this._columns[PlaneMaterialCellMatrix.nextRandomColumnIndex(this._columns.length)];
 

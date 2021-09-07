@@ -29,9 +29,9 @@ export class PlaneTexture
         }
     }
 
-    public addBitmap(k: Texture<Resource>, _arg_2: number = -1, _arg_3: number = 1, _arg_4: number = -1, _arg_5: number = 1, _arg_6: string = null): void
+    public addBitmap(texture: Texture<Resource>, normalMinX: number = -1, normalMaxX: number = 1, normalMinY: number = -1, normalMaxY: number = 1, assetName: string = null): void
     {
-        this._bitmaps.push(new PlaneTextureBitmap(k, _arg_2, _arg_3, _arg_4, _arg_5, _arg_6));
+        this._bitmaps.push(new PlaneTextureBitmap(texture, normalMinX, normalMaxX, normalMinY, normalMaxY, assetName));
     }
 
     public getBitmap(k: IVector3D): Texture<Resource>

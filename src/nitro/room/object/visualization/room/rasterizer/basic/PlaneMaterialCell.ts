@@ -15,21 +15,21 @@ export class PlaneMaterialCell
     private _extraItemAssets: IGraphicAsset[];
     private _extraItemCount: number = 0;
 
-    constructor(k: PlaneTexture, _arg_2: IGraphicAsset[] = null, _arg_3: Point[] = null, _arg_4: number = 0)
+    constructor(texture: PlaneTexture, assets: IGraphicAsset[] = null, offsetPoints: Point[] = null, limit: number = 0)
     {
         this._cachedBitmapData  = null;
-        this._texture           = k;
+        this._texture           = texture;
         this._extraItemOffsets  = [];
         this._extraItemAssets   = [];
         this._extraItemCount    = 0;
 
-        if(_arg_2 && _arg_2.length && (_arg_4 > 0))
+        if(assets && assets.length && (limit > 0))
         {
             let assetIndex = 0;
 
-            while(assetIndex < _arg_2.length)
+            while(assetIndex < assets.length)
             {
-                const graphic = _arg_2[assetIndex];
+                const graphic = assets[assetIndex];
 
                 if(graphic) this._extraItemAssets.push(graphic);
 
@@ -38,13 +38,13 @@ export class PlaneMaterialCell
 
             if(this._extraItemAssets.length)
             {
-                if(_arg_3)
+                if(offsetPoints)
                 {
                     let pointIndex = 0;
 
-                    while(pointIndex < _arg_3.length)
+                    while(pointIndex < offsetPoints.length)
                     {
-                        const point = _arg_3[pointIndex];
+                        const point = offsetPoints[pointIndex];
 
                         if(point) this._extraItemOffsets.push(new Point(point.x, point.y));
 
@@ -52,7 +52,7 @@ export class PlaneMaterialCell
                     }
                 }
 
-                this._extraItemCount = _arg_4;
+                this._extraItemCount = limit;
             }
         }
     }
@@ -93,11 +93,11 @@ export class PlaneMaterialCell
         }
     }
 
-    public getHeight(k: IVector3D): number
+    public getHeight(normal: IVector3D): number
     {
         if(this._texture)
         {
-            const texture = this._texture.getBitmap(k);
+            const texture = this._texture.getBitmap(normal);
 
             if(texture) return texture.height;
         }
@@ -239,8 +239,8 @@ export class PlaneMaterialCell
         return null;
     }
 
-    public getAssetName(k:IVector3D): string
+    public getAssetName(normal:IVector3D): string
     {
-        return (this._texture == null) ? null : this._texture.getAssetName(k);
+        return (this._texture == null) ? null : this._texture.getAssetName(normal);
     }
 }
