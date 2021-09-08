@@ -1,10 +1,8 @@
 ﻿import { Graphics } from '@pixi/graphics';
-import { Rectangle } from '@pixi/math';
 import { IDisposable } from '../../../../../../../core/common/disposable/IDisposable';
 import { IGraphicAssetCollection } from '../../../../../../../room/object/visualization/utils/IGraphicAssetCollection';
 import { IRoomGeometry } from '../../../../../../../room/utils/IRoomGeometry';
 import { IVector3D } from '../../../../../../../room/utils/IVector3D';
-import { TextureUtils } from '../../../../../../../room/utils/TextureUtils';
 import { Vector3d } from '../../../../../../../room/utils/Vector3d';
 import { PlaneVisualizationAnimationLayer } from '../animated/PlaneVisualizationAnimationLayer';
 import { PlaneMaterial } from './PlaneMaterial';
@@ -159,17 +157,20 @@ export class PlaneVisualization
                 {
                     if(canvas)
                     {
-                        const texture = TextureUtils.generateTexture(this._cachedBitmapData, new Rectangle(0, 0, width, height));
+                        canvas.addChild(this._cachedBitmapData);
 
-                        if(texture)
-                        {
-                            canvas
-                                .beginTextureFill({ texture })
-                                .drawRect(0, 0, texture.width, texture.height)
-                                .endFill();
+                        return canvas;
+                        // const texture = TextureUtils.generateTexture(this._cachedBitmapData, new Rectangle(0, 0, width, height));
 
-                            return canvas;
-                        }
+                        // if(texture)
+                        // {
+                        //     canvas
+                        //         .beginTextureFill({ texture })
+                        //         .drawRect(0, 0, texture.width, texture.height)
+                        //         .endFill();
+
+                        //     return canvas;
+                        // }
                     }
 
                     return this._cachedBitmapData;
@@ -187,12 +188,10 @@ export class PlaneVisualization
 
         if(!this._cachedBitmapData)
         {
-            const graphic = new Graphics()
+            this._cachedBitmapData = new Graphics()
                 .beginFill(0xFFFFFF)
                 .drawRect(0, 0, width, height)
                 .endFill();
-
-            this._cachedBitmapData = graphic;
         }
         else
         {
@@ -226,12 +225,13 @@ export class PlaneVisualization
 
         if(canvas && (canvas !== this._cachedBitmapData))
         {
-            const texture = TextureUtils.generateTexture(canvas, new Rectangle(0, 0, canvas.width, canvas.height));
+            this._cachedBitmapData.addChild(canvas.clone());
+            // const texture = TextureUtils.generateTexture(canvas, new Rectangle(0, 0, canvas.width, canvas.height));
 
-            this._cachedBitmapData
-                .beginTextureFill({ texture })
-                .drawRect(0, 0, canvas.width, canvas.height)
-                .endFill();
+            // this._cachedBitmapData
+            //     .beginTextureFill({ texture })
+            //     .drawRect(0, 0, canvas.width, canvas.height)
+            //     .endFill();
 
             return canvas;
         }

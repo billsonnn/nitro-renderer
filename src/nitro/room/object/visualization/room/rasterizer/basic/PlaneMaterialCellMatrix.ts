@@ -362,59 +362,43 @@ export class PlaneMaterialCellMatrix
         if(!canvas || !columns || !columns.length) return new Point(x, 0);
 
         let height = 0;
-        let _local_6: Graphics = null;
-        let _local_7 = 0;
+        let i = 0;
 
-        while(_local_7 < columns.length)
+        while(i < columns.length)
         {
-            if(flag)
-            {
-                _local_6 = columns[_local_7];
-            }
-            else
-            {
-                _local_6 = columns[((columns.length - 1) - _local_7)];
-            }
-            if(_local_6 != null)
-            {
-                if(!flag)
-                {
-                    x = (x - _local_6.width);
-                }
-                let _local_8 = 0;
-                if(this._align == PlaneMaterialCellMatrix.ALIGN_BOTTOM)
-                {
-                    _local_8 = (canvas.height - _local_6.height);
-                }
+            const column = flag ? columns[i] : columns[((columns.length - 1) - i)];
 
-                let texture = RoomVisualization.getTextureCache(_local_6);
+            if(column)
+            {
+                if(!flag) x = (x - column.width);
+
+                let y = 0;
+
+                if(this._align == PlaneMaterialCellMatrix.ALIGN_BOTTOM) y = (canvas.height - column.height);
+
+                let texture = RoomVisualization.getTextureCache(column);
 
                 if(!texture)
                 {
-                    texture = TextureUtils.generateTexture(_local_6, new Rectangle(0, 0, _local_6.width, _local_6.height));
+                    texture = TextureUtils.generateTexture(column, new Rectangle(0, 0, column.width, column.height));
 
-                    RoomVisualization.addTextureCache(_local_6, texture);
+                    RoomVisualization.addTextureCache(column, texture);
                 }
 
                 canvas.beginTextureFill({ texture });
-                canvas.drawRect(x, _local_8, texture.width, texture.height);
+                canvas.drawRect(x, y, texture.width, texture.height);
                 canvas.endFill();
 
-                if(_local_6.height > height)
-                {
-                    height = _local_6.height;
-                }
-                if(flag)
-                {
-                    x = (x + _local_6.width);
-                }
-                if((((flag) && (x >= canvas.width)) || ((!(flag)) && (x <= 0))))
-                {
-                    return new Point(x, height);
-                }
+                if(column.height > height) height = column.height;
+
+                if(flag) x = (x + column.width);
+
+                if((flag && (x >= canvas.width)) || (!flag && (x <= 0))) return new Point(x, height);
             }
-            _local_7++;
+
+            i++;
         }
+
         return new Point(x, height);
     }
 

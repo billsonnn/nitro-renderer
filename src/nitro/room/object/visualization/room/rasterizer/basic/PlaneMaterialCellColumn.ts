@@ -1,4 +1,5 @@
 import { Graphics } from '@pixi/graphics';
+import { NitroRenderTexture } from '../../../../../../../core';
 import { IVector3D } from '../../../../../../../room/utils/IVector3D';
 import { Vector3d } from '../../../../../../../room/utils/Vector3d';
 import { PlaneMaterialCell } from './PlaneMaterialCell';
@@ -15,6 +16,7 @@ export class PlaneMaterialCellColumn
     private _cells: PlaneMaterialCell[];
     private _repeatMode: number;
     private _width: number;
+    private _cachedTexture: NitroRenderTexture;
     private _cachedBitmapData: Graphics;
     private _cachedBitmapNormal: Vector3d;
     private _cachedBitmapDataOffsetX: number;
@@ -192,19 +194,19 @@ export class PlaneMaterialCellColumn
                 this.renderRepeatNone(normal);
                 break;
             case PlaneMaterialCellColumn.REPEAT_MODE_BORDERS:
-                console.log('tru2');
+                console.log('REPEAT_MODE_BORDERS');
                 //     this.renderRepeatBorders(normal);
                 break;
             case PlaneMaterialCellColumn.REPEAT_MODE_CENTER:
-                console.log('tru3');
+                console.log('REPEAT_MODE_CENTER');
                 //     this.renderRepeatCenter(normal);
                 break;
             case PlaneMaterialCellColumn.REPEAT_MODE_FIRST:
-                console.log('tru4');
+                console.log('REPEAT_MODE_FIRST');
                 //     this.renderRepeatFirst(normal);
                 break;
             case PlaneMaterialCellColumn.REPEAT_MODE_LAST:
-                console.log('tru5');
+                console.log('REPEAT_MODE_LAST');
                 //     this.renderRepeatLast(normal);
                 break;
             default:

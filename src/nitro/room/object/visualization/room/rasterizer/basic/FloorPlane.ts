@@ -19,8 +19,8 @@ export class FloorPlane extends Plane
         const _local_11 = visualization.geometry.getScreenPoint(new Vector3d(0, (height / visualization.geometry.scale), 0));
         const _local_12 = visualization.geometry.getScreenPoint(new Vector3d((width / visualization.geometry.scale), 0, 0));
 
-        let _local_13   = 0;
-        let _local_14   = 0;
+        let x   = 0;
+        let y   = 0;
 
         if(_local_10 && _local_11 && _local_12)
         {
@@ -29,10 +29,10 @@ export class FloorPlane extends Plane
 
             const _local_15 = (_local_10.x - visualization.geometry.getScreenPoint(new Vector3d(1, 0, 0)).x);
 
-            _local_13 = (offsetX * Math.trunc(Math.abs(_local_15)));
-            _local_14 = (offsetY * Math.trunc(Math.abs(_local_15)));
+            x = (offsetX * Math.trunc(Math.abs(_local_15)));
+            y = (offsetY * Math.trunc(Math.abs(_local_15)));
         }
 
-        return visualization.render(canvas, width, height, normal, useTexture, _local_13, _local_14);
+        return visualization.render(canvas, width, height, normal, useTexture, x, y);
     }
 }

@@ -1,15 +1,13 @@
-﻿import { Graphics } from '@pixi/graphics';
-import { Point } from '@pixi/math';
-import { Sprite } from '@pixi/sprite';
-import { TilingSprite } from '@pixi/sprite-tiling';
+﻿import { Matrix, Point } from '@pixi/math';
 import { NitroSprite } from '../../../../../../../core';
 import { IGraphicAsset } from '../../../../../../../room/object/visualization/utils/IGraphicAsset';
 import { IVector3D } from '../../../../../../../room/utils/IVector3D';
+import { Randomizer } from '../../utils';
 import { PlaneTexture } from './PlaneTexture';
 
 export class PlaneMaterialCell
 {
-    private _cachedBitmapData: Graphics;
+    private _cachedSprite: NitroSprite;
     private _texture: PlaneTexture;
     private _extraItemOffsets: Point[];
     private _extraItemAssets: IGraphicAsset[];
@@ -17,7 +15,7 @@ export class PlaneMaterialCell
 
     constructor(texture: PlaneTexture, assets: IGraphicAsset[] = null, offsetPoints: Point[] = null, limit: number = 0)
     {
-        this._cachedBitmapData  = null;
+        this._cachedSprite      = null;
         this._texture           = texture;
         this._extraItemOffsets  = [];
         this._extraItemAssets   = [];
@@ -71,11 +69,11 @@ export class PlaneMaterialCell
             this._texture = null;
         }
 
-        if(this._cachedBitmapData)
+        if(this._cachedSprite)
         {
-            this._cachedBitmapData.destroy();
+            this._cachedSprite.destroy();
 
-            this._cachedBitmapData = null;
+            this._cachedSprite = null;
         }
 
         this._extraItemAssets   = null;
@@ -85,11 +83,11 @@ export class PlaneMaterialCell
 
     public clearCache(): void
     {
-        if(this._cachedBitmapData)
+        if(this._cachedSprite)
         {
-            this._cachedBitmapData.destroy();
+            this._cachedSprite.destroy();
 
-            this._cachedBitmapData = null;
+            this._cachedSprite = null;
         }
     }
 
@@ -105,7 +103,7 @@ export class PlaneMaterialCell
         return 0;
     }
 
-    public render(normal: IVector3D, textureOffsetX: number, textureOffsetY: number): Sprite
+    public render(normal: IVector3D, textureOffsetX: number, textureOffsetY: number): NitroSprite
     {
         if(!this._texture) return null;
 
@@ -113,7 +111,7 @@ export class PlaneMaterialCell
 
         if(!texture) return null;
 
-        let bitmap: Sprite = null;
+        const bitmap = new NitroSprite(texture);
 
         if((textureOffsetX !== 0) || (textureOffsetY !== 0))
         {
@@ -121,117 +119,100 @@ export class PlaneMaterialCell
 
             while(textureOffsetY < 0) textureOffsetY += texture.height;
 
-            const tiling = new TilingSprite(texture, texture.width, texture.height);
-
-            tiling.tilePosition.x = (textureOffsetX % texture.width);
-            tiling.tilePosition.y = (textureOffsetY % texture.height);
-
-            tiling.uvRespectAnchor = true;
+            bitmap.x = (textureOffsetX % texture.width);
+            bitmap.y = (textureOffsetY % texture.height);
 
             if(textureOffsetX)
             {
-                tiling.anchor.x = 1;
-                tiling.scale.x  = -1;
+                bitmap.anchor.x = 1;
+                bitmap.scale.x  = -1;
             }
 
             if(textureOffsetY)
             {
-                tiling.anchor.y = 1;
-                tiling.scale.y  = -1;
+                bitmap.anchor.y = 1;
+                bitmap.scale.y  = -1;
             }
-
-            bitmap = tiling;
-        }
-        else
-        {
-            bitmap = new NitroSprite(texture);
         }
 
         if(bitmap)
         {
-            // if(!this.isStatic)
-            // {
-            //     if(this._cachedBitmapData)
-            //     {
-            //         if((this._cachedBitmapData.width !== bitmap.width) || (this._cachedBitmapData.height !== bitmap.height))
-            //         {
-            //             this._cachedBitmapData.destroy();
+            if(!this.isStatic)
+            {
+                if(this._cachedSprite)
+                {
+                    if((this._cachedSprite.width !== bitmap.width) || (this._cachedSprite.height !== bitmap.height))
+                    {
+                        this._cachedSprite.destroy();
 
-            //             this._cachedBitmapData = null;
-            //         }
-            //         else
-            //         {
-            //             const bitmapTexture = TextureUtils.generateTexture(bitmap, new Rectangle(0, 0, bitmap.width, bitmap.height));
+                        this._cachedSprite = null;
+                    }
+                }
 
-            //             RoomVisualization.RENDER_TEXTURES.push(bitmapTexture);
+                if(!this._cachedSprite)
+                {
+                    this._cachedSprite = new NitroSprite(texture);
+                }
 
-            //             if(bitmapTexture)
-            //             {
-            //                 this._cachedBitmapData
-            //                     .beginTextureFill({ texture: bitmapTexture })
-            //                     .drawRect(0, 0, bitmapTexture.width, bitmapTexture.height)
-            //                     .endFill();
-            //             }
-            //         }
-            //     }
+                const limitMin      = Math.min(this._extraItemCount, this._extraItemOffsets.length);
+                const limitMax      = Math.max(this._extraItemCount, this._extraItemOffsets.length);
+                const offsetIndexes = Randomizer.getArray(this._extraItemCount, limitMax);
 
-            //     if(!this._cachedBitmapData) this._cachedBitmapData = bitmap.clone();
+                let i = 0;
 
-            //     const limitMin      = Math.min(this._extraItemCount, this._extraItemOffsets.length);
-            //     const limitMax      = Math.max(this._extraItemCount, this._extraItemOffsets.length);
-            //     const offsetIndexes = Randomizer.getArray(this._extraItemCount, limitMax);
+                while(i < limitMin)
+                {
+                    const offset    = this._extraItemOffsets[offsetIndexes[i]];
+                    const item      = this._extraItemAssets[(i % this._extraItemAssets.length)];
 
-            //     let i = 0;
+                    if(offset && item)
+                    {
+                        const assetTexture = item.texture;
 
-            //     while (i < limitMin)
-            //     {
-            //         const offset    = this._extraItemOffsets[offsetIndexes[i]];
-            //         const item      = this._extraItemAssets[(i % this._extraItemAssets.length)];
+                        if(assetTexture)
+                        {
+                            const offsetFinal   = new Point((offset.x + item.offsetX), (offset.y + item.offsetY));
+                            const flipMatrix    = new Matrix();
 
-            //         if(offset && item)
-            //         {
-            //             const assetTexture = item.texture;
+                            let x           = 1;
+                            let y           = 1;
+                            let translateX  = 0;
+                            let translateY  = 0;
 
-            //             if(assetTexture)
-            //             {
-            //                 const offsetFinal   = new Point((offset.x + item.offsetX), (offset.y + item.offsetY));
-            //                 const flipMatrix    = new Matrix();
+                            if(item.flipH)
+                            {
+                                x           = -1;
+                                translateX  = assetTexture.width;
+                            }
 
-            //                 let x           = 1;
-            //                 let y           = 1;
-            //                 let translateX  = 0;
-            //                 let translateY  = 0;
+                            if(item.flipV)
+                            {
+                                y           = -1;
+                                translateY  = assetTexture.height;
+                            }
 
-            //                 if(item.flipH)
-            //                 {
-            //                     x           = -1;
-            //                     translateX  = assetTexture.width;
-            //                 }
+                            let offsetX = (offsetFinal.x + translateX);
+                            offsetX = ((offsetX >> 1) << 1);
 
-            //                 if(item.flipV)
-            //                 {
-            //                     y           = -1;
-            //                     translateY  = assetTexture.height;
-            //                 }
+                            flipMatrix.scale(x, y);
+                            flipMatrix.translate(offsetX, (offsetFinal.y + translateY));
 
-            //                 let offsetX = (offsetFinal.x + translateX);
-            //                 offsetX = ((offsetX >> 1) << 1);
+                            const sprite = new NitroSprite(assetTexture);
 
-            //                 flipMatrix.scale(x, y);
-            //                 flipMatrix.translate(offsetX, (offsetFinal.y + translateY));
+                            sprite.transform.setFromMatrix(flipMatrix);
 
-            //                 this._cachedBitmapData
-            //                     .beginTextureFill({ texture: assetTexture, matrix: flipMatrix })
-            //                     .drawRect(flipMatrix.tx, flipMatrix.ty, assetTexture.width, assetTexture.height)
-            //                     .endFill();
-            //             }
-            //         }
+                            sprite.x = flipMatrix.tx;
+                            sprite.y = flipMatrix.ty;
 
-            //         i++;
-            //     }
+                            this._cachedSprite.addChild(sprite);
+                        }
+                    }
 
-            //     return this._cachedBitmapData;
-            // }
+                    i++;
+                }
+
+                return this._cachedSprite;
+            }
 
             return bitmap;
         }

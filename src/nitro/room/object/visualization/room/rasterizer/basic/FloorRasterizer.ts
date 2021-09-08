@@ -43,13 +43,7 @@ export class FloorRasterizer extends PlaneRasterizer
 
         if(!plane) return null;
 
-        if(canvas)
-        {
-            canvas
-                .beginFill(0xFFFFFF)
-                .drawRect(0, 0, canvas.width, canvas.height)
-                .endFill();
-        }
+        if(canvas) canvas.clear();
 
         let graphic = plane.render(canvas, width, height, scale, normal, useTexture, offsetX, offsetY);
 
