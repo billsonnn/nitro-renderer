@@ -222,7 +222,7 @@ import { UserCurrencyEvent } from './messages/incoming/user/inventory/currency/U
 import { UserSubscriptionEvent } from './messages/incoming/user/inventory/subscription/UserSubscriptionEvent';
 import { RespectReceivedEvent } from './messages/incoming/user/RespectReceivedEvent';
 import { UserWardrobePageEvent } from './messages/incoming/user/wardrobe/UserWardrobePageEvent';
-import { RequestAchievementsMessageComposer } from './messages/outgoing/achievements/RequestAchievementsMessageComposer';
+import { RequestAchievementsMessageComposer } from './messages/outgoing/advertisement/RequestAchievementsMessageComposer';
 import { GetWardrobeMessageComposer } from './messages/outgoing/avatar/GetWardrobeMessageComposer';
 import { SaveWardrobeOutfitMessageComposer } from './messages/outgoing/avatar/SaveWardrobeOutfitMessageComposer';
 import { PhotoCompetitionMessageComposer } from './messages/outgoing/camera/PhotoCompetitionMessageComposer';
