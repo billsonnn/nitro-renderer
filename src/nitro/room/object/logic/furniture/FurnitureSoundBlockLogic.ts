@@ -107,6 +107,8 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
 
     private getPitchForHeight(height: number): number
     {
+        if(this._noPitch) return 1;
+
         let heightScaled: number = (height * 2);
 
         if(heightScaled > FurnitureSoundBlockLogic.HIGHEST_SEMITONE)
@@ -114,6 +116,6 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
             heightScaled = Math.min(0, (FurnitureSoundBlockLogic.LOWEST_SEMITONE + ((heightScaled - FurnitureSoundBlockLogic.HIGHEST_SEMITONE) - 1)));
         }
 
-        return (this._noPitch) ? 1 : Math.pow(2, (heightScaled / 12));
+        return Math.pow(2, (heightScaled / 12));
     }
 }
