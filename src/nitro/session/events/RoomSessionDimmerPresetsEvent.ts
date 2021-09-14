@@ -31,10 +31,10 @@ export class RoomSessionDimmerPresetsEvent extends RoomSessionEvent
         this._selectedPresetId = k;
     }
 
-    public storePreset(k: number, _arg_2: number, _arg_3: number, _arg_4: number): void
+    public storePreset(id: number, bgOnly: boolean, color: string, brightness: number): void
     {
-        const _local_5:RoomSessionDimmerPresetsEventPresetItem = new RoomSessionDimmerPresetsEventPresetItem(k, _arg_2, _arg_3, _arg_4);
-        this._presets[(k - 1)] = _local_5;
+        const _local_5:RoomSessionDimmerPresetsEventPresetItem = new RoomSessionDimmerPresetsEventPresetItem(id, bgOnly, color, brightness);
+        this._presets[(id - 1)] = _local_5;
     }
 
     public getPreset(k: number):RoomSessionDimmerPresetsEventPresetItem

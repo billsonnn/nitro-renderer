@@ -29,18 +29,11 @@ export class RoomDimmerPresetsHandler extends BaseHandler
 
         event.selectedPresetId = parser.selectedPresetId;
 
-        let i = 0;
-
-        while(i < parser.presetCount)
+        for(let i = 0; i < parser.presetCount; i++)
         {
             const preset = parser.getPreset(i);
 
-            if(preset)
-            {
-                event.storePreset(preset.id, preset.type, preset.color, preset.intensity);
-            }
-
-            i++;
+            if(preset)  event.storePreset(preset.id, preset.bgOnly, preset.color, preset.brightness);
         }
 
         this.listener && this.listener.events.dispatchEvent(event);
