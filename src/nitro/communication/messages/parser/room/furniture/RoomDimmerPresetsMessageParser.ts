@@ -1,31 +1,15 @@
 ﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
-import { MoodlightFromServer } from '../../../incoming/room/furniture/moodlightFromServer';
+import { RoomDimmerPresetsMessageData } from '../../../incoming/room/furniture/RoomDimmerPresetsMessageData';
 
 export class RoomDimmerPresetsMessageParser implements IMessageParser
 {
-    private _selectedPresetId: number = 0;
-    private _presets: MoodlightFromServer[];
+    private _selectedPresetId: number;
+    private _presets: RoomDimmerPresetsMessageData[];
 
     constructor()
     {
+        this._selectedPresetId = 0;
         this._presets = [];
-    }
-
-    public get presetCount(): number
-    {
-        return this._presets.length;
-    }
-
-    public get selectedPresetId(): number
-    {
-        return this._selectedPresetId;
-    }
-
-    public getPreset(k: number): MoodlightFromServer
-    {
-        if((k < 0) || (k >= this.presetCount)) return null;
-
-        return this._presets[k];
     }
 
     public flush(): boolean
@@ -44,13 +28,30 @@ export class RoomDimmerPresetsMessageParser implements IMessageParser
         for(let i = 0; i < totalPresets; i++)
         {
             const presetId = wrapper.readInt();
-            const bgOnly = wrapper.readInt() === 2;
+            const bgOnly = (wrapper.readInt() === 2);
             const color = wrapper.readString();
             const brightness = wrapper.readInt();
 
-            this._presets.push(new MoodlightFromServer(presetId, bgOnly, color, brightness));
+            this._presets.push(new RoomDimmerPresetsMessageData(presetId, bgOnly, color, brightness));
         }
 
         return true;
+    }
+
+    public getPreset(id: number): RoomDimmerPresetsMessageData
+    {
+        if((id < 0) || (id >= this.presetCount)) return null;
+
+        return this._presets[id];
+    }
+
+    public get presetCount(): number
+    {
+        return this._presets.length;
+    }
+
+    public get selectedPresetId(): number
+    {
+        return this._selectedPresetId;
     }
 }

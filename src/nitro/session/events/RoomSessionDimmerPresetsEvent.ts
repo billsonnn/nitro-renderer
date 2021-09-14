@@ -9,9 +9,9 @@ export class RoomSessionDimmerPresetsEvent extends RoomSessionEvent
     private _selectedPresetId: number = 0;
     private _presets: RoomSessionDimmerPresetsEventPresetItem[];
 
-    constructor(k: string, _arg_2: IRoomSession)
+    constructor(type: string, session: IRoomSession)
     {
-        super(k, _arg_2);
+        super(type, session);
 
         this._presets = [];
     }
@@ -26,23 +26,20 @@ export class RoomSessionDimmerPresetsEvent extends RoomSessionEvent
         return this._selectedPresetId;
     }
 
-    public set selectedPresetId(k: number)
+    public set selectedPresetId(id: number)
     {
-        this._selectedPresetId = k;
+        this._selectedPresetId = id;
     }
 
     public storePreset(id: number, bgOnly: boolean, color: string, brightness: number): void
     {
-        const _local_5:RoomSessionDimmerPresetsEventPresetItem = new RoomSessionDimmerPresetsEventPresetItem(id, bgOnly, color, brightness);
-        this._presets[(id - 1)] = _local_5;
+        this._presets[(id - 1)] = new RoomSessionDimmerPresetsEventPresetItem(id, bgOnly, color, brightness);
     }
 
-    public getPreset(k: number):RoomSessionDimmerPresetsEventPresetItem
+    public getPreset(id: number): RoomSessionDimmerPresetsEventPresetItem
     {
-        if(((k < 0) || (k >= this._presets.length)))
-        {
-            return null;
-        }
-        return this._presets[k];
+        if((id < 0) || (id >= this._presets.length)) return null;
+
+        return this._presets[id];
     }
 }

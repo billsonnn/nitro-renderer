@@ -9,6 +9,6 @@ export * from './GroupFurniContextMenuInfoMessageEvent';
 export * from './LoveLockFurniFinishedEvent';
 export * from './LoveLockFurniFriendConfirmedEvent';
 export * from './LoveLockFurniStartEvent';
-export * from './moodlightFromServer';
+export * from './RoomDimmerPresetsMessageData';
 export * from './RoomDimmerPresetsMessageEvent';
 export * from './wall';

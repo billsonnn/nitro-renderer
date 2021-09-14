@@ -13,11 +13,11 @@ export class RoomDimmerPresetsHandler extends BaseHandler
         connection.addMessageEvent(new RoomDimmerPresetsEvent(this.onRoomDimmerPresets.bind(this)));
     }
 
-    private onRoomDimmerPresets(k: RoomDimmerPresetsEvent): void
+    private onRoomDimmerPresets(event: RoomDimmerPresetsEvent): void
     {
-        if(!k) return;
+        if(!event) return;
 
-        const parser = k.getParser();
+        const parser = event.getParser();
 
         if(!parser) return;
 
@@ -25,17 +25,17 @@ export class RoomDimmerPresetsHandler extends BaseHandler
 
         if(!session) return;
 
-        const event = new RoomSessionDimmerPresetsEvent(RoomSessionDimmerPresetsEvent.ROOM_DIMMER_PRESETS, session);
+        const presetEvent = new RoomSessionDimmerPresetsEvent(RoomSessionDimmerPresetsEvent.ROOM_DIMMER_PRESETS, session);
 
-        event.selectedPresetId = parser.selectedPresetId;
+        presetEvent.selectedPresetId = parser.selectedPresetId;
 
         for(let i = 0; i < parser.presetCount; i++)
         {
             const preset = parser.getPreset(i);
 
-            if(preset)  event.storePreset(preset.id, preset.bgOnly, preset.color, preset.brightness);
+            if(preset) presetEvent.storePreset(preset.id, preset.bgOnly, preset.color, preset.brightness);
         }
 
-        this.listener && this.listener.events.dispatchEvent(event);
+        this.listener && this.listener.events.dispatchEvent(presetEvent);
     }
 }

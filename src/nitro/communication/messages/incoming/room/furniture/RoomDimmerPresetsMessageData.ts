@@ -1,6 +1,7 @@
-﻿export class MoodlightFromServer
+﻿export class RoomDimmerPresetsMessageData
 {
-    constructor(public id: number,
+    constructor(
+        public id: number,
         public bgOnly: boolean,
         public color: string,
         public brightness: number)
