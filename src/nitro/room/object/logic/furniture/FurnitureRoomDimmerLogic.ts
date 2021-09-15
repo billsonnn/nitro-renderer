@@ -84,8 +84,6 @@ export class FurnitureRoomDimmerLogic extends FurnitureLogic
     {
         if(!data) return;
 
-        console.log(data);
-
         const parts = data.split(',');
 
         if(parts.length >= 5)
