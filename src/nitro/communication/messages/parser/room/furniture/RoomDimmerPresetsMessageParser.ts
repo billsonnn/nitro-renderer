@@ -28,11 +28,11 @@ export class RoomDimmerPresetsMessageParser implements IMessageParser
         for(let i = 0; i < totalPresets; i++)
         {
             const presetId = wrapper.readInt();
-            const bgOnly = (wrapper.readInt() === 2);
-            const color = wrapper.readString();
+            const type = wrapper.readInt();
+            const color = parseInt(wrapper.readString().substr(1), 16);
             const brightness = wrapper.readInt();
 
-            this._presets.push(new RoomDimmerPresetsMessageData(presetId, bgOnly, color, brightness));
+            this._presets.push(new RoomDimmerPresetsMessageData(presetId, type, color, brightness));
         }
 
         return true;

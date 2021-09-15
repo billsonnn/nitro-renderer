@@ -2,8 +2,8 @@
 {
     constructor(
         public id: number,
-        public bgOnly: boolean,
-        public color: string,
+        public type: number,
+        public color: number,
         public brightness: number)
     {}
 }

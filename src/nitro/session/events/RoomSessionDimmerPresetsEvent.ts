@@ -16,6 +16,18 @@ export class RoomSessionDimmerPresetsEvent extends RoomSessionEvent
         this._presets = [];
     }
 
+    public storePreset(id: number, type: number, color: number, brightness: number): void
+    {
+        this._presets[(id - 1)] = new RoomSessionDimmerPresetsEventPresetItem(id, type, color, brightness);
+    }
+
+    public getPreset(id: number): RoomSessionDimmerPresetsEventPresetItem
+    {
+        if((id < 0) || (id >= this._presets.length)) return null;
+
+        return this._presets[id];
+    }
+
     public get presetCount(): number
     {
         return this._presets.length;
@@ -29,17 +41,5 @@ export class RoomSessionDimmerPresetsEvent extends RoomSessionEvent
     public set selectedPresetId(id: number)
     {
         this._selectedPresetId = id;
-    }
-
-    public storePreset(id: number, bgOnly: boolean, color: string, brightness: number): void
-    {
-        this._presets[(id - 1)] = new RoomSessionDimmerPresetsEventPresetItem(id, bgOnly, color, brightness);
-    }
-
-    public getPreset(id: number): RoomSessionDimmerPresetsEventPresetItem
-    {
-        if((id < 0) || (id >= this._presets.length)) return null;
-
-        return this._presets[id];
     }
 }
