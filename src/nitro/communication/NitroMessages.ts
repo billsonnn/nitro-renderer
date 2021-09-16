@@ -950,6 +950,13 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.SUBMIT_ROOM_TO_COMPETITION, SubmitRoomToCompetitionMessageComposer);
         this._composers.set(OutgoingHeader.VOTE_FOR_ROOM, VoteForRoomMessageComposer);
 
+        // CRAFTING
+        this._composers.set(OutgoingHeader.CRAFT, CraftComposer);
+        this._composers.set(OutgoingHeader.CRAFT_SECRET, CraftSecretComposer);
+        this._composers.set(OutgoingHeader.GET_CRAFTABLE_PRODUCTS, GetCraftableProductsComposer);
+        this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPE, GetCraftingRecipeComposer);
+        this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPES_AVAILABLE, GetCraftingRecipesAvailableComposer);
+
         // CLIENT
         this._composers.set(OutgoingHeader.CLIENT_PONG, ClientPongComposer);
         this._composers.set(OutgoingHeader.RELEASE_VERSION, ClientReleaseVersionComposer);
@@ -1258,13 +1265,6 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.REDEEM_COMMUNITY_GOAL_PRIZE, RedeemCommunityGoalPrizeMessageComposer);
         this._composers.set(OutgoingHeader.REJECT_QUEST, RejectQuestMessageComposer);
         this._composers.set(OutgoingHeader.START_CAMPAIGN, StartCampaignMessageComposer);
-
-        // CRAFTING
-        this._composers.set(OutgoingHeader.CRAFT, CraftComposer);
-        this._composers.set(OutgoingHeader.CRAFT_SECRET, CraftSecretComposer);
-        this._composers.set(OutgoingHeader.GET_CRAFTABLE_PRODUCTS, GetCraftableProductsComposer);
-        this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPE, GetCraftingRecipeComposer);
-        this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPES_AVAILABLE, GetCraftingRecipesAvailableComposer);
 
         // CAMERA
         this._composers.set(OutgoingHeader.REQUEST_CAMERA_CONFIGURATION, RequestCameraConfigurationComposer);
