@@ -6,22 +6,23 @@ import { Constant } from './Constant';
 import { RectTileGeom } from './RectTileShader';
 import { TileRenderer } from './TileRenderer';
 
-enum PointStruct {
-    U = 0,
-    V,
-    X,
-    Y,
-    TileWidth,
-    TileHeight,
-    Rotate,
-    AnimX,
-    AnimY,
-    TextureIndex,
-    AnimCountX,
-    AnimCountY,
-    Alpha,
-    YAxis,
-    XAxis
+class PointStruct
+{
+    public static U = 0;
+    public static V = 1;
+    public static X = 2;
+    public static Y = 3;
+    public static TileWidth = 4;
+    public static TileHeight = 5;
+    public static Rotate = 6;
+    public static AnimX = 7;
+    public static AnimY = 8;
+    public static TextureIndex = 9;
+    public static AnimCountX = 10;
+    public static AnimCountY = 11;
+    public static Alpha = 12;
+    public static YAxis = 13;
+    public static XAxis = 14;
 }
 export const POINT_STRUCT_SIZE_TWO = (Object.keys(PointStruct).length / 2);
 //export const POINT_STRUCT_SIZE = 12;
