@@ -260,10 +260,10 @@ import { GetCraftingRecipeComposer } from './messages/outgoing/crafting/GetCraft
 import { GetCraftingRecipesAvailableComposer } from './messages/outgoing/crafting/GetCraftingRecipesAvailableComposer';
 import { DesktopViewComposer } from './messages/outgoing/desktop/DesktopViewComposer';
 import { FriendFurniConfirmLockMessageComposer } from './messages/outgoing/friendfurni/FriendFurniConfirmLockMessageComposer';
-import { AcceptFriendComposer } from './messages/outgoing/friendlist/AcceptFriendComposer';
-import { DeclineFriendComposer } from './messages/outgoing/friendlist/DeclineFriendComposer';
-import { FindNewFriendsComposer } from './messages/outgoing/friendlist/FindNewFriendsComposer';
-import { FollowFriendComposer } from './messages/outgoing/friendlist/FollowFriendComposer';
+import { AcceptFriendMessageComposer } from './messages/outgoing/friendlist/AcceptFriendMessageComposer';
+import { DeclineFriendMessageComposer } from './messages/outgoing/friendlist/DeclineFriendMessageComposer';
+import { FindNewFriendsMessageComposer } from './messages/outgoing/friendlist/FindNewFriendsMessageComposer';
+import { FollowFriendMessageComposer } from './messages/outgoing/friendlist/FollowFriendMessageComposer';
 import { FriendListUpdateComposer } from './messages/outgoing/friendlist/FriendListUpdateComposer';
 import { GetFriendRequestsComposer } from './messages/outgoing/friendlist/GetFriendRequestsComposer';
 import { HabboSearchComposer } from './messages/outgoing/friendlist/HabboSearchComposer';
@@ -959,28 +959,28 @@ export class NitroMessages implements IMessageConfiguration
         // FRIENDFURNI
         this._composers.set(OutgoingHeader.FRIEND_FURNI_CONFIRM_LOCK, FriendFurniConfirmLockMessageComposer);
 
+        // FRIENDLIST
+        this._composers.set(OutgoingHeader.ACCEPT_FRIEND, AcceptFriendMessageComposer);
+        this._composers.set(OutgoingHeader.DECLINE_FRIEND, DeclineFriendMessageComposer);
+        this._composers.set(OutgoingHeader.FIND_NEW_FRIENDS, FindNewFriendsMessageComposer);
+        this._composers.set(OutgoingHeader.FOLLOW_FRIEND, FollowFriendMessageComposer);
+        this._composers.set(OutgoingHeader.FRIEND_LIST_UPDATE, FriendListUpdateComposer);
+        this._composers.set(OutgoingHeader.GET_FRIEND_REQUESTS, GetFriendRequestsComposer);
+        this._composers.set(OutgoingHeader.HABBO_SEARCH, HabboSearchComposer);
+        this._composers.set(OutgoingHeader.MESSENGER_INIT, MessengerInitComposer);
+        this._composers.set(OutgoingHeader.REMOVE_FRIEND, RemoveFriendComposer);
+        this._composers.set(OutgoingHeader.REQUEST_FRIEND, RequestFriendComposer);
+        this._composers.set(OutgoingHeader.MESSENGER_CHAT, SendMessageComposer);
+        this._composers.set(OutgoingHeader.SEND_ROOM_INVITE, SendRoomInviteComposer);
+        this._composers.set(OutgoingHeader.SET_RELATIONSHIP_STATUS, SetRelationshipStatusComposer);
+        this._composers.set(OutgoingHeader.VISIT_USER, VisitUserComposer);
+
         // CLIENT
         this._composers.set(OutgoingHeader.CLIENT_PONG, ClientPongComposer);
         this._composers.set(OutgoingHeader.RELEASE_VERSION, ClientReleaseVersionComposer);
 
         // DESKTOP
         this._composers.set(OutgoingHeader.DESKTOP_VIEW, DesktopViewComposer);
-
-        // FRIENDLIST
-        this._composers.set(OutgoingHeader.MESSENGER_ACCEPT, AcceptFriendComposer);
-        this._composers.set(OutgoingHeader.MESSENGER_DECLINE, DeclineFriendComposer);
-        this._composers.set(OutgoingHeader.FIND_FRIENDS, FindNewFriendsComposer);
-        this._composers.set(OutgoingHeader.MESSENGER_FOLLOW, FollowFriendComposer);
-        this._composers.set(OutgoingHeader.MESSENGER_UPDATES, FriendListUpdateComposer);
-        this._composers.set(OutgoingHeader.MESSENGER_REQUESTS, GetFriendRequestsComposer);
-        this._composers.set(OutgoingHeader.MESSENGER_SEARCH, HabboSearchComposer);
-        this._composers.set(OutgoingHeader.MESSENGER_INIT, MessengerInitComposer);
-        this._composers.set(OutgoingHeader.MESSENGER_REMOVE, RemoveFriendComposer);
-        this._composers.set(OutgoingHeader.MESSENGER_REQUEST, RequestFriendComposer);
-        this._composers.set(OutgoingHeader.MESSENGER_CHAT, SendMessageComposer);
-        this._composers.set(OutgoingHeader.MESSENGER_ROOM_INVITE, SendRoomInviteComposer);
-        this._composers.set(OutgoingHeader.MESSENGER_RELATIONSHIPS_UPDATE, SetRelationshipStatusComposer);
-        this._composers.set(OutgoingHeader.USER_VISIT, VisitUserComposer);
 
         // GROUP
         this._composers.set(OutgoingHeader.GROUP_INFO, GroupInformationComposer);

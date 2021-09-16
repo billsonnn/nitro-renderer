@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class DeclineFriendComposer implements IMessageComposer<ConstructorParameters<typeof DeclineFriendComposer>>
+export class DeclineFriendMessageComposer implements IMessageComposer<ConstructorParameters<typeof DeclineFriendMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof DeclineFriendComposer>;
+    private _data: ConstructorParameters<typeof DeclineFriendMessageComposer>;
 
     constructor(removeAll: boolean, ...userIds: number[])
     {

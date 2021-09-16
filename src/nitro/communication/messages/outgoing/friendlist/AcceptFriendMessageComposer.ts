@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class AcceptFriendComposer implements IMessageComposer<ConstructorParameters<typeof AcceptFriendComposer>>
+export class AcceptFriendMessageComposer implements IMessageComposer<ConstructorParameters<typeof AcceptFriendMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof AcceptFriendComposer>;
+    private _data: ConstructorParameters<typeof AcceptFriendMessageComposer>;
 
     constructor(...userIds: number[])
     {

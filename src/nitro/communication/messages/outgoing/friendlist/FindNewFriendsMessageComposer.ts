@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class FindNewFriendsComposer implements IMessageComposer<ConstructorParameters<typeof FindNewFriendsComposer>>
+export class FindNewFriendsMessageComposer implements IMessageComposer<ConstructorParameters<typeof FindNewFriendsMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof FindNewFriendsComposer>;
+    private _data: ConstructorParameters<typeof FindNewFriendsMessageComposer>;
 
     constructor()
     {
