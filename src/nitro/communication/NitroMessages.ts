@@ -259,6 +259,7 @@ import { GetCraftableProductsComposer } from './messages/outgoing/crafting/GetCr
 import { GetCraftingRecipeComposer } from './messages/outgoing/crafting/GetCraftingRecipeComposer';
 import { GetCraftingRecipesAvailableComposer } from './messages/outgoing/crafting/GetCraftingRecipesAvailableComposer';
 import { DesktopViewComposer } from './messages/outgoing/desktop/DesktopViewComposer';
+import { FriendFurniConfirmLockMessageComposer } from './messages/outgoing/friendfurni/FriendFurniConfirmLockMessageComposer';
 import { AcceptFriendComposer } from './messages/outgoing/friendlist/AcceptFriendComposer';
 import { DeclineFriendComposer } from './messages/outgoing/friendlist/DeclineFriendComposer';
 import { FindNewFriendsComposer } from './messages/outgoing/friendlist/FindNewFriendsComposer';
@@ -403,7 +404,6 @@ import { FurnitureOneWayDoorComposer } from './messages/outgoing/room/furniture/
 import { FurnitureRandomStateComposer } from './messages/outgoing/room/furniture/logic/FurnitureRandomStateComposer';
 import { FurnitureStackHeightComposer } from './messages/outgoing/room/furniture/logic/FurnitureStackHeightComposer';
 import { FurnitureWallMultiStateComposer } from './messages/outgoing/room/furniture/logic/FurnitureWallMultiStateComposer';
-import { LoveLockStartConfirmComposer } from './messages/outgoing/room/furniture/logic/LoveLockStartConfirmComposer';
 import { FurnitureMannequinSaveLookComposer } from './messages/outgoing/room/furniture/mannequin/FurnitureMannequinSaveLookComposer';
 import { FurnitureMannequinSaveNameComposer } from './messages/outgoing/room/furniture/mannequin/FurnitureMannequinSaveNameComposer';
 import { OpenPresentComposer } from './messages/outgoing/room/furniture/presents/OpenPresentComposer';
@@ -912,7 +912,6 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.GET_CLUB_OFFERS, GetClubOffersMessageComposer);
         this._composers.set(OutgoingHeader.GET_CLUB_GIFT_INFO, GetClubGiftInfo);
         this._composers.set(OutgoingHeader.CATALOG_REDEEM_VOUCHER, RedeemVoucherMessageComposer);
-        this._composers.set(OutgoingHeader.LOVELOCK_START_CONFIRM, LoveLockStartConfirmComposer);
         this._composers.set(OutgoingHeader.GROUP_MEMBERSHIPS, CatalogGroupsComposer);
         this._composers.set(OutgoingHeader.GET_GIFT_WRAPPING_CONFIG, GetGiftWrappingConfigurationComposer);
         this._composers.set(OutgoingHeader.CATALOG_SELECT_VIP_GIFT, SelectClubGiftComposer);
@@ -956,6 +955,9 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.GET_CRAFTABLE_PRODUCTS, GetCraftableProductsComposer);
         this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPE, GetCraftingRecipeComposer);
         this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPES_AVAILABLE, GetCraftingRecipesAvailableComposer);
+
+        // FRIENDFURNI
+        this._composers.set(OutgoingHeader.FRIEND_FURNI_CONFIRM_LOCK, FriendFurniConfirmLockMessageComposer);
 
         // CLIENT
         this._composers.set(OutgoingHeader.CLIENT_PONG, ClientPongComposer);

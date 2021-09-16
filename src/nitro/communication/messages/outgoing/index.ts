@@ -6,6 +6,7 @@ export * from './catalog';
 export * from './client';
 export * from './competition';
 export * from './desktop';
+export * from './friendfurni';
 export * from './friendlist';
 export * from './group';
 export * from './handshake';
