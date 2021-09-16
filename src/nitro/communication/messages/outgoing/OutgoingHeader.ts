@@ -19,7 +19,7 @@ export class OutgoingHeader
     public static CLIENT_PONG                    = 2596;
     public static CLIENT_TOOLBAR_TOGGLE          = 2313;
     public static CLIENT_VARIABLES               = 1053;
-    public static DESKTOP_CAMPAIGNS              = 2912;
+    public static GET_CURRENT_TIMING_CODE        = 2912;
     public static DESKTOP_NEWS                   = 1827;
     public static DESKTOP_VIEW                   = 105;
     public static GET_BUNDLE_DISCOUNT_RULESET    = 223;
@@ -307,5 +307,13 @@ export class OutgoingHeader
     public static ROOM_AD_PURCHASE_INITIATED       = 2283;
     public static SET_TARGETTED_OFFER_STATE        = 2041;
     public static SHOP_TARGETED_OFFER_VIEWED       = 3483;
-    public static HELPER_TALENT_TRACK               = 196;
+    public static HELPER_TALENT_TRACK              = 196;
+    public static FORWARD_TO_A_COMPETITION_ROOM    = 172;
+    public static FORWARD_TO_A_SUBMITTABLE_ROOM    = 1450;
+    public static FORWARD_TO_RANDOM_COMPETITION_ROOM = 865;
+    public static GET_IS_USER_PART_OF_COMPETITION  = 2077;
+    public static GET_SECONDS_UNTIL                = 271;
+    public static ROOM_COMPETITION_INIT            = 1334;
+    public static SUBMIT_ROOM_TO_COMPETITION       = 2595;
+    public static VOTE_FOR_ROOM                    = 143;
 }
