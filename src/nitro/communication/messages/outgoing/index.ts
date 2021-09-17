@@ -8,6 +8,7 @@ export * from './competition';
 export * from './desktop';
 export * from './friendfurni';
 export * from './friendlist';
+export * from './gifts';
 export * from './group';
 export * from './handshake';
 export * from './helper';

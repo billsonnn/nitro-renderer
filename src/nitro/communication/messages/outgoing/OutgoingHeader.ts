@@ -316,4 +316,9 @@ export class OutgoingHeader
     public static ROOM_COMPETITION_INIT            = 1334;
     public static SUBMIT_ROOM_TO_COMPETITION       = 2595;
     public static VOTE_FOR_ROOM                    = 143;
+    public static GET_GIFT                         = 2436;
+    public static RESET_PHONE_NUMBER_STATE         = 2741;
+    public static SET_PHONE_NUMBER_VERIFICATION_STATUS = 1379;
+    public static TRY_PHONE_NUMBER                 = 790;
+    public static VERIFY_CODE                      = 2721;
 }
