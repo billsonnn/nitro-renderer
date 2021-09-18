@@ -330,4 +330,7 @@ export class OutgoingHeader
     public static SET_PHONE_NUMBER_VERIFICATION_STATUS = 1379;
     public static TRY_PHONE_NUMBER                 = 790;
     public static VERIFY_CODE                      = 2721;
+    public static CONTROL_YOUTUBE_DISPLAY_PLAYBACK = 3005;
+    public static GET_YOUTUBE_DISPLAY_STATUS       = 336;
+    public static SET_YOUTUBE_DISPLAY_PLAYLIST     = 2069;
 }

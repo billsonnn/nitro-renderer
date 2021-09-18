@@ -11,3 +11,4 @@ export * from './mannequin';
 export * from './presents';
 export * from './toner';
 export * from './wall';
+export * from './youtube';
