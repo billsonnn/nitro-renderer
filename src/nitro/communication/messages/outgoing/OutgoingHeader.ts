@@ -42,9 +42,18 @@ export class OutgoingHeader
     public static GROUP_ADMIN_REMOVE             = 722;
     public static GROUP_CREATE_OPTIONS           = 798;
     public static GROUP_FAVORITE                 = 3549;
-    public static GROUP_FORUM_INFO               = 3149;
-    public static GROUP_FORUM_LIST               = 873;
-    public static GROUP_FORUM_THREADS            = 436;
+    public static GET_FORUM_STATS                = 3149;
+    public static GET_FORUM_THREADS              = 873;
+    public static GET_FORUMS_LIST                = 436;
+    public static GET_FORUM_MESSAGES             = 232;
+    public static GET_FORUM_THREAD               = 3900;
+    public static GET_UNREAD_FORUMS_COUNT        = 2908;
+    public static FORUM_MODERATE_MESSAGE         = 286;
+    public static FORUM_MODERATE_THREAD          = 1397;
+    public static FORUM_POST_MESSAGE             = 3529;
+    public static UPDATE_FORUM_READ_MARKER       = 1855;
+    public static UPDATE_FORUM_SETTINGS          = 2214;
+    public static FORUM_UPDATE_THREAD            = 3045;
     public static GROUP_INFO                     = 2991;
     public static GROUP_DELETE                   = 1134;
     public static GROUP_MEMBER_REMOVE_CONFIRM    = 3593;
@@ -317,4 +326,12 @@ export class OutgoingHeader
     public static ROOM_COMPETITION_INIT            = 1334;
     public static SUBMIT_ROOM_TO_COMPETITION       = 2595;
     public static VOTE_FOR_ROOM                    = 143;
+    public static GET_GIFT                         = 2436;
+    public static RESET_PHONE_NUMBER_STATE         = 2741;
+    public static SET_PHONE_NUMBER_VERIFICATION_STATUS = 1379;
+    public static TRY_PHONE_NUMBER                 = 790;
+    public static VERIFY_CODE                      = 2721;
+    public static CONTROL_YOUTUBE_DISPLAY_PLAYBACK = 3005;
+    public static GET_YOUTUBE_DISPLAY_STATUS       = 336;
+    public static SET_YOUTUBE_DISPLAY_PLAYLIST     = 2069;
 }

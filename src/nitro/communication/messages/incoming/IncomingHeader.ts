@@ -319,4 +319,7 @@ export class IncomingHeader
     public static BADGE_POINT_LIMITS               = 2501;
     public static BADGE_REQUEST_FULFILLED          = 2998;
     public static HELPER_TALENT_TRACK              = 3406;
+    public static YOUTUBE_CONTROL_VIDEO            = 1554;
+    public static YOUTUBE_DISPLAY_PLAYLISTS        = 1112;
+    public static YOUTUBE_DISPLAY_VIDEO            = 1411;
 }
