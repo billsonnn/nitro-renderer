@@ -31,6 +31,7 @@ export class OutgoingHeader
     public static FURNITURE_PICKUP               = 3456;
     public static FURNITURE_PLACE                = 1258;
     public static FURNITURE_POSTIT_PLACE         = 2248;
+    public static FURNITURE_POSTIT_SAVE_STICKY_POLE = 3283;
     public static FURNITURE_RANDOMSTATE          = 3617;
     public static FURNITURE_WALL_MULTISTATE      = 210;
     public static FURNITURE_WALL_UPDATE          = 168;

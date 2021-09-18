@@ -156,6 +156,7 @@ import { FurnitureFloorUpdateEvent } from './messages/incoming/room/furniture/fl
 import { FurnitureAliasesEvent } from './messages/incoming/room/furniture/FurnitureAliasesEvent';
 import { FurnitureDataEvent } from './messages/incoming/room/furniture/FurnitureDataEvent';
 import { FurnitureItemDataEvent } from './messages/incoming/room/furniture/FurnitureItemDataEvent';
+import { FurniturePostItStickyPoleOpenEvent } from './messages/incoming/room/furniture/FurniturePostItStickyPoleOpenEvent';
 import { FurnitureStackHeightEvent } from './messages/incoming/room/furniture/FurnitureStackHeightEvent';
 import { FurnitureState2Event } from './messages/incoming/room/furniture/FurnitureState2Event';
 import { FurnitureStateEvent } from './messages/incoming/room/furniture/FurnitureStateEvent';
@@ -395,6 +396,7 @@ import { FurniturePickupComposer } from './messages/outgoing/room/furniture/Furn
 import { FurniturePlaceComposer } from './messages/outgoing/room/furniture/FurniturePlaceComposer';
 import { FurniturePlacePaintComposer } from './messages/outgoing/room/furniture/FurniturePlacePaintComposer';
 import { FurniturePostItPlaceComposer } from './messages/outgoing/room/furniture/FurniturePostItPlaceComposer';
+import { FurniturePostItSaveStickyPoleComposer } from './messages/outgoing/room/furniture/FurniturePostItSaveStickyPoleComposer';
 import { FurnitureColorWheelComposer } from './messages/outgoing/room/furniture/logic/FurnitureColorWheelComposer';
 import { FurnitureDiceActivateComposer } from './messages/outgoing/room/furniture/logic/FurnitureDiceActivateComposer';
 import { FurnitureDiceDeactivateComposer } from './messages/outgoing/room/furniture/logic/FurnitureDiceDeactivateComposer';
@@ -710,6 +712,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.LOVELOCK_FURNI_START, LoveLockFurniStartEvent);
         this._events.set(IncomingHeader.OBJECTS_DATA_UPDATE, ObjectsDataUpdateEvent);
         this._events.set(IncomingHeader.FURNITURE_GROUP_CONTEXT_MENU_INFO, GroupFurniContextMenuInfoMessageEvent);
+        this._events.set(IncomingHeader.FURNITURE_POSTIT_STICKY_POLE_OPEN, FurniturePostItStickyPoleOpenEvent);
 
         // FLOOR
         this._events.set(IncomingHeader.FURNITURE_FLOOR_ADD, FurnitureFloorAddEvent);
@@ -1119,6 +1122,7 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.FURNITURE_PLACE, FurniturePlaceComposer);
         this._composers.set(OutgoingHeader.ITEM_PAINT, FurniturePlacePaintComposer);
         this._composers.set(OutgoingHeader.FURNITURE_POSTIT_PLACE, FurniturePostItPlaceComposer);
+        this._composers.set(OutgoingHeader.FURNITURE_POSTIT_SAVE_STICKY_POLE, FurniturePostItSaveStickyPoleComposer);
 
         // FLOOR
         this._composers.set(OutgoingHeader.FURNITURE_FLOOR_UPDATE, FurnitureFloorUpdateComposer);

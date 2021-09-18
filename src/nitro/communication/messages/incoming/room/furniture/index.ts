@@ -2,6 +2,7 @@ export * from './floor';
 export * from './FurnitureAliasesEvent';
 export * from './FurnitureDataEvent';
 export * from './FurnitureItemDataEvent';
+export * from './FurniturePostItStickyPoleOpenEvent';
 export * from './FurnitureStackHeightEvent';
 export * from './FurnitureState2Event';
 export * from './FurnitureStateEvent';
