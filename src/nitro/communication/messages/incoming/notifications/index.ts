@@ -9,5 +9,6 @@ export * from './InfoFeedEnableMessageEvent';
 export * from './ModeratorMessageEvent';
 export * from './MOTDNotificationEvent';
 export * from './NotificationDialogMessageEvent';
+export * from './PetLevelNotificationEvent';
 export * from './PetPlacingErrorEvent';
 export * from './UnseenItemsEvent';

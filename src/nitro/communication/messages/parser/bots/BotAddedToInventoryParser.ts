@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 import { BotData } from './BotData';
 
 export class BotAddedToInventoryParser implements IMessageParser

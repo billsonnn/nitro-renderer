@@ -1,6 +1,7 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
 import { AchievementNotificationMessageEvent, ActivityPointNotificationMessageEvent, AddJukeboxDiskComposer, ApproveNameMessageComposer, ApproveNameMessageEvent, AvailabilityTimeMessageEvent, BadgePointLimitsEvent, BadgeReceivedEvent, BonusRareInfoMessageEvent, BuildersClubFurniCountMessageEvent, BuildersClubSubscriptionStatusMessageEvent, BundleDiscountRulesetMessageEvent, ChangeUserNameMessageComposer, ChangeUserNameResultMessageEvent, CheckUserNameMessageComposer, CheckUserNameResultMessageEvent, ClubGiftNotificationEvent, DirectSMSClubBuyAvailableMessageEvent, FigureUpdateEvent, ForwardToASubmittableRoomMessageComposer, ForwardToRandomCompetitionRoomMessageComposer, FurnitureGroupInfoComposer, GetBonusRareInfoMessageComposer, GetCatalogPageExpirationComposer, GetCatalogPageWithEarliestExpiryComposer, GetCurrentTimingCodeMessageComposer, GetDirectClubBuyAvailableComposer, GetHabboBasicMembershipExtendOfferComposer, GetHabboClubExtendOfferMessageComposer, GetInterstitialMessageComposer, GetJukeboxPlayListMessageComposer, GetLimitedOfferAppearingNextComposer, GetNextTargetedOfferComposer, GetNowPlayingMessageComposer, GetOfficialSongIdMessageComposer, GetRoomAdPurchaseInfoComposer, GetSeasonalCalendarDailyOfferComposer, GetSecondsUntilMessageComposer, GetSongInfoMessageComposer, GetSoundMachinePlayListMessageComposer, GetUserSongDisksMessageComposer, GroupBadgesComposer, GroupBadgesEvent, HabboClubExtendOfferMessageEvent, HotelClosedAndOpensEvent, HotelClosesAndWillOpenAtEvent, HotelWillCloseInMinutesEvent, InfoFeedEnableMessageEvent, InterstitialMessageEvent, InterstitialShownMessageComposer, IsBadgeRequestFulfilledEvent, IsOfferGiftableMessageEvent, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, LimitedOfferAppearingNextMessageEvent, MaintenanceStatusMessageEvent, MarkCatalogNewAdditionsPageOpenedComposer, MarketplaceBuyOfferComposer, MarketplaceRedeemCreditsComposer, MarketplaceRequesstItemStatsComposer, MarketplaceRequestComposer, MarketplaceRequestOffersComposer, MarketplaceRequestOwnItemsComposer, MarketplaceTakeItemBackComposer, MysteryBoxKeysEvent, NotEnoughBalanceMessageEvent, NowPlayingMessageEvent, OfficialSongIdMessageEvent, OpenCampaignCalendarDoorAsStaffComposer, OpenCampaignCalendarDoorComposer, PetExperienceEvent, PetMountComposer, PetSupplementComposer, PlayListMessageEvent, PlayListSongAddedMessageEvent, PurchaseBasicMembershipExtensionComposer, PurchaseRoomAdMessageComposer, PurchaseTargetedOfferComposer, PurchaseVipMembershipExtensionComposer, RemoveAllRightsMessageComposer, RemoveJukeboxDiskComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomAdErrorEvent, RoomAdPurchaseInfoEvent, RoomCompetitionInitMessageComposer, RoomUnitGiveHandItemPetComposer, SeasonalCalendarDailyOfferMessageEvent, SellablePetPalettesMessageEvent, SetTargetedOfferStateComposer, ShopTargetedOfferViewedComposer, SubmitRoomToCompetitionMessageComposer, TalentTrackEvent, TargetedOfferEvent, TargetedOfferNotFoundEvent, TogglePetBreedingComposer, TogglePetRidingComposer, TraxSongInfoMessageEvent, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer, UserSongDisksInventoryMessageEvent, VoteForRoomMessageComposer, WardrobeMessageEvent } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
+import { BotAddedToInventoryEvent, BotInventoryMessageEvent, BotReceivedMessageEvent, BotRemovedFromInventoryEvent } from './messages/incoming/bots';
 import { CfhSanctionMessageEvent, CfhTopicsInitEvent, SanctionStatusEvent } from './messages/incoming/callforhelp';
 import { CameraPublishStatusMessageEvent } from './messages/incoming/camera/CameraPublishStatusMessageEvent';
 import { CameraPurchaseOKMessageEvent } from './messages/incoming/camera/CameraPurchaseOKMessageEvent';
@@ -34,6 +35,7 @@ import { InstantMessageErrorEvent } from './messages/incoming/friendlist/Instant
 import { MessageErrorEvent } from './messages/incoming/friendlist/MessageErrorEvent';
 import { MessengerInitEvent } from './messages/incoming/friendlist/MessengerInitEvent';
 import { MiniMailNewMessageEvent } from './messages/incoming/friendlist/MiniMailNewMessageEvent';
+import { MiniMailUnreadCountEvent } from './messages/incoming/friendlist/MiniMailUnreadCountEvent';
 import { NewConsoleMessageEvent } from './messages/incoming/friendlist/NewConsoleMessageEvent';
 import { NewFriendRequestEvent } from './messages/incoming/friendlist/NewFriendRequestEvent';
 import { RoomInviteErrorEvent } from './messages/incoming/friendlist/RoomInviteErrorEvent';
@@ -57,9 +59,6 @@ import { AvatarEffectAddedEvent } from './messages/incoming/inventory/avatareffe
 import { AvatarEffectExpiredEvent } from './messages/incoming/inventory/avatareffect/AvatarEffectExpiredEvent';
 import { AvatarEffectsEvent } from './messages/incoming/inventory/avatareffect/AvatarEffectsEvent';
 import { BadgesEvent } from './messages/incoming/inventory/badges/BadgesEvent';
-import { BotAddedToInventoryEvent } from './messages/incoming/inventory/bots/BotAddedToInventoryEvent';
-import { BotInventoryMessageEvent } from './messages/incoming/inventory/bots/BotInventoryMessageEvent';
-import { BotRemovedFromInventoryEvent } from './messages/incoming/inventory/bots/BotRemovedFromInventoryEvent';
 import { FigureSetIdsMessageEvent } from './messages/incoming/inventory/clothes/FigureSetIdsMessageEvent';
 import { FurnitureListAddOrUpdateEvent } from './messages/incoming/inventory/furni/FurnitureListAddOrUpdateEvent';
 import { FurnitureListEvent } from './messages/incoming/inventory/furni/FurnitureListEvent';
@@ -69,6 +68,7 @@ import { FurniturePostItPlacedEvent } from './messages/incoming/inventory/furni/
 import { PresentOpenedMessageEvent } from './messages/incoming/inventory/furni/gifts/PresentOpenedMessageEvent';
 import { PetAddedToInventoryEvent } from './messages/incoming/inventory/pets/PetAddedToInventoryEvent';
 import { PetInventoryEvent } from './messages/incoming/inventory/pets/PetInventoryEvent';
+import { PetReceivedMessageEvent } from './messages/incoming/inventory/pets/PetReceivedMessageEvent';
 import { PetRemovedFromInventory } from './messages/incoming/inventory/pets/PetRemovedFromInventoryEvent';
 import { TradingAcceptEvent } from './messages/incoming/inventory/trading/TradingAcceptEvent';
 import { TradingCloseEvent } from './messages/incoming/inventory/trading/TradingCloseEvent';
@@ -90,6 +90,8 @@ import { MarketplaceItemStatsEvent } from './messages/incoming/marketplace/Marke
 import { MarketplaceMakeOfferResult } from './messages/incoming/marketplace/MarketplaceMakeOfferResult';
 import { MarketPlaceOffersEvent } from './messages/incoming/marketplace/MarketplaceOffersEvent';
 import { MarketplaceOwnOffersEvent } from './messages/incoming/marketplace/MarketplaceOwnOffersEvent';
+import { UserBannedMessageEvent } from './messages/incoming/moderation';
+import { ModeratorCautionEvent } from './messages/incoming/moderation/ModeratorCautionEvent';
 import { ModtoolCallForHelpTopicsEvent } from './messages/incoming/modtool/ModtoolCallForHelpTopicsEvent';
 import { ModtoolMainEvent } from './messages/incoming/modtool/ModtoolMainEvent';
 import { ModtoolReceivedRoomsUserEvent } from './messages/incoming/modtool/ModtoolReceivedRoomsUserEvent';
@@ -109,10 +111,10 @@ import { NavigatorSearchEvent } from './messages/incoming/navigator/NavigatorSea
 import { NavigatorSettingsEvent } from './messages/incoming/navigator/NavigatorSettingsEvent';
 import { BotErrorEvent } from './messages/incoming/notifications/BotErrorEvent';
 import { HabboBroadcastMessageEvent } from './messages/incoming/notifications/HabboBroadcastMessageEvent';
-import { HotelWillShutdownEvent } from './messages/incoming/notifications/HotelWillShutdownEvent';
 import { ModeratorMessageEvent } from './messages/incoming/notifications/ModeratorMessageEvent';
 import { MOTDNotificationEvent } from './messages/incoming/notifications/MOTDNotificationEvent';
 import { NotificationDialogMessageEvent } from './messages/incoming/notifications/NotificationDialogMessageEvent';
+import { PetLevelNotificationEvent } from './messages/incoming/notifications/PetLevelNotificationEvent';
 import { PetPlacingErrorEvent } from './messages/incoming/notifications/PetPlacingErrorEvent';
 import { UnseenItemsEvent } from './messages/incoming/notifications/UnseenItemsEvent';
 import { CommunityGoalEarnedPrizesMessageEvent } from './messages/incoming/quest/CommunityGoalEarnedPrizesMessageEvent';
@@ -454,7 +456,6 @@ import { UserSettingsOldChatComposer } from './messages/outgoing/user/settings/U
 import { UserSettingsRoomInvitesComposer } from './messages/outgoing/user/settings/UserSettingsRoomInvitesComposer';
 import { UserSettingsSoundComposer } from './messages/outgoing/user/settings/UserSettingsSoundComposer';
 import { UserRespectComposer } from './messages/outgoing/user/UserRespectComposer';
-import { MiniMailUnreadCountParser } from './messages/parser/friendlist/MiniMailUnreadCountParser';
 
 export class NitroMessages implements IMessageConfiguration
 {
@@ -484,14 +485,17 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.HOTEL_WILL_CLOSE_MINUTES, HotelWillCloseInMinutesEvent);
         this._events.set(IncomingHeader.HOTEL_MAINTENANCE, MaintenanceStatusMessageEvent);
 
-
-        this._events.set(IncomingHeader.GENERIC_ERROR, GenericErrorEvent);
-
         // AVATAR
         this._events.set(IncomingHeader.USER_CHANGE_NAME, ChangeUserNameResultMessageEvent);
         this._events.set(IncomingHeader.CHECK_USER_NAME, CheckUserNameResultMessageEvent);
         this._events.set(IncomingHeader.USER_FIGURE, FigureUpdateEvent);
         this._events.set(IncomingHeader.USER_OUTFITS, WardrobeMessageEvent);
+
+        // BOTS
+        this._events.set(IncomingHeader.ADD_BOT_TO_INVENTORY, BotAddedToInventoryEvent);
+        this._events.set(IncomingHeader.USER_BOTS, BotInventoryMessageEvent);
+        this._events.set(IncomingHeader.BOT_RECEIVED, BotReceivedMessageEvent);
+        this._events.set(IncomingHeader.REMOVE_BOT_FROM_INVENTORY, BotRemovedFromInventoryEvent);
 
         // CALL FOR HELP
         this._events.set(IncomingHeader.CFH_SANCTION, CfhSanctionMessageEvent);
@@ -543,9 +547,8 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.REDEEM_VOUCHER_ERROR, VoucherRedeemErrorMessageEvent);
         this._events.set(IncomingHeader.REDEEM_VOUCHER_OK, VoucherRedeemOkMessageEvent);
 
-
-        this._events.set(IncomingHeader.GROUP_LIST, GuildMembershipsMessageEvent);
-        this._events.set(IncomingHeader.CATALOG_APPROVE_NAME_RESULT, ApproveNameMessageEvent);
+        // CLIENT
+        this._events.set(IncomingHeader.CLIENT_PING, ClientPingEvent);
 
         // COMPETITION
         this._events.set(IncomingHeader.COMPETITION_ENTRY_SUBMIT, CompetitionEntrySubmitResultEvent);
@@ -555,8 +558,11 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.COMPETITION_NO_OWNED_ROOMS, NoOwnedRoomsAlertMessageEvent);
         this._events.set(IncomingHeader.COMPETITION_SECONDS_UNTIL, SecondsUntilMessageEvent);
 
-        // CLIENT
-        this._events.set(IncomingHeader.CLIENT_PING, ClientPingEvent);
+        // CRAFTING
+        this._events.set(IncomingHeader.CRAFTABLE_PRODUCTS, CraftableProductsEvent);
+        this._events.set(IncomingHeader.CRAFTING_RECIPE, CraftingRecipeEvent);
+        this._events.set(IncomingHeader.CRAFTING_RECIPES_AVAILABLE, CraftingRecipesAvailableEvent);
+        this._events.set(IncomingHeader.CRAFTING_RESULT, CraftingResultEvent);
 
         // DESKTOP
         this._events.set(IncomingHeader.DESKTOP_VIEW, DesktopViewEvent);
@@ -574,11 +580,14 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.MESSENGER_MESSAGE_ERROR, MessageErrorEvent);
         this._events.set(IncomingHeader.MESSENGER_INIT, MessengerInitEvent);
         this._events.set(IncomingHeader.MESSENGER_MINIMAIL_NEW, MiniMailNewMessageEvent);
-        this._events.set(IncomingHeader.MESSENGER_MINIMAIL_COUNT, MiniMailUnreadCountParser);
+        this._events.set(IncomingHeader.MESSENGER_MINIMAIL_COUNT, MiniMailUnreadCountEvent);
         this._events.set(IncomingHeader.MESSENGER_CHAT, NewConsoleMessageEvent);
         this._events.set(IncomingHeader.MESSENGER_REQUEST, NewFriendRequestEvent);
         this._events.set(IncomingHeader.MESSENGER_INVITE_ERROR, RoomInviteErrorEvent);
         this._events.set(IncomingHeader.MESSENGER_INVITE, RoomInviteEvent);
+
+        // GAMES
+        this._events.set(IncomingHeader.LOAD_GAME_URL, LoadGameUrlEvent);
 
         // GROUP
         this._events.set(IncomingHeader.GROUP_INFO, GroupInformationEvent);
@@ -592,31 +601,31 @@ export class NitroMessages implements IMessageConfiguration
 
         // HELP
         this._events.set(IncomingHeader.CFH_RESULT_MESSAGE, CallForHelpResultMessageEvent);
+        this._events.set(IncomingHeader.HELPER_TALENT_TRACK, TalentTrackEvent);
 
         // INVENTORY
-
-        // ACHIEVEMENTS
         this._events.set(IncomingHeader.ACHIEVEMENT_PROGRESSED, AchievementEvent);
         this._events.set(IncomingHeader.ACHIEVEMENT_LIST, AchievementsEvent);
         this._events.set(IncomingHeader.USER_ACHIEVEMENT_SCORE,AchievementsScoreEvent);
-
-        // EFFECTS
         this._events.set(IncomingHeader.USER_EFFECT_ACTIVATE, AvatarEffectActivatedEvent);
         this._events.set(IncomingHeader.USER_EFFECT_LIST_ADD, AvatarEffectAddedEvent);
         this._events.set(IncomingHeader.USER_EFFECT_LIST_REMOVE, AvatarEffectExpiredEvent);
         this._events.set(IncomingHeader.USER_EFFECT_LIST, AvatarEffectsEvent);
-
-        // CLOTHES
+        this._events.set(IncomingHeader.USER_BADGES, BadgesEvent);
+        this._events.set(IncomingHeader.USER_BADGES_ADD, BadgeReceivedEvent);
+        this._events.set(IncomingHeader.BADGE_POINT_LIMITS, BadgePointLimitsEvent);
+        this._events.set(IncomingHeader.BADGE_REQUEST_FULFILLED, IsBadgeRequestFulfilledEvent);
         this._events.set(IncomingHeader.USER_CLOTHING, FigureSetIdsMessageEvent);
-
-        // FURNITURE
         this._events.set(IncomingHeader.USER_FURNITURE_ADD, FurnitureListAddOrUpdateEvent);
         this._events.set(IncomingHeader.USER_FURNITURE, FurnitureListEvent);
         this._events.set(IncomingHeader.USER_FURNITURE_REFRESH, FurnitureListInvalidateEvent);
         this._events.set(IncomingHeader.USER_FURNITURE_REMOVE, FurnitureListRemovedEvent);
         this._events.set(IncomingHeader.USER_FURNITURE_POSTIT_PLACED, FurniturePostItPlacedEvent);
-
-        // TRADING
+        this._events.set(IncomingHeader.USER_PETS, PetInventoryEvent);
+        this._events.set(IncomingHeader.USER_PET_REMOVE, PetRemovedFromInventory);
+        this._events.set(IncomingHeader.USER_PET_ADD, PetAddedToInventoryEvent);
+        this._events.set(IncomingHeader.PET_RECEIVED, PetReceivedMessageEvent);
+        this._events.set(IncomingHeader.PET_PLACING_ERROR, PetPlacingErrorEvent);
         this._events.set(IncomingHeader.TRADE_ACCEPTED, TradingAcceptEvent);
         this._events.set(IncomingHeader.TRADE_CLOSED, TradingCloseEvent);
         this._events.set(IncomingHeader.TRADE_COMPLETED, TradingCompletedEvent);
@@ -628,10 +637,32 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.TRADE_OTHER_NOT_ALLOWED, TradingOtherNotAllowedEvent);
         this._events.set(IncomingHeader.TRADE_YOU_NOT_ALLOWED, TradingYouAreNotAllowedEvent);
 
+        // LANDING VIEW
+        this._events.set(IncomingHeader.COMMUNITY_GOAL_VOTE_EVENT, CommunityGoalVoteMessageEvent);
+        this._events.set(IncomingHeader.PROMO_ARTICLES, PromoArticlesMessageEvent);
+
+        // MARKETPLACE
+        this._events.set(IncomingHeader.MARKETPLACE_AFTER_ORDER_STATUS, MarketplaceBuyOfferResultEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_CANCEL_SALE, MarketplaceCancelOfferResultEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_SELL_ITEM, MarketplaceCanMakeOfferResult);
+        this._events.set(IncomingHeader.MARKETPLACE_CONFIG, MarketplaceConfigurationEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_ITEM_STATS, MarketplaceItemStatsEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_ITEM_POSTED, MarketplaceMakeOfferResult);
+        this._events.set(IncomingHeader.MARKETPLACE_ITEMS_SEARCHED, MarketPlaceOffersEvent);
+        this._events.set(IncomingHeader.MARKETPLACE_OWN_ITEMS, MarketplaceOwnOffersEvent);
+
+        // MODERATION
+        this._events.set(IncomingHeader.MARKETPLACE_OWN_ITEMS, UserBannedMessageEvent);
+        this._events.set(IncomingHeader.MODERATION_CAUTION, ModeratorCautionEvent);
+
         // MODTOOL
         this._events.set(IncomingHeader.MODTOOL_ROOM_INFO, ModtoolRoomInfoEvent);
         this._events.set(IncomingHeader.MODTOOL_USER_CHATLOG, ModtoolUserChatlogEvent);
         this._events.set(IncomingHeader.MODTOOL_ROOM_CHATLOG, ModtoolRoomChatlogEvent);
+        this._events.set(IncomingHeader.MODERATION_USER_INFO, ModtoolUserInfoEvent);
+        this._events.set(IncomingHeader.MODERATION_TOPICS, ModtoolCallForHelpTopicsEvent);
+        this._events.set(IncomingHeader.MODERATION_TOOL, ModtoolMainEvent);
+        this._events.set(IncomingHeader.MODTOOL_VISITED_ROOMS_USER, ModtoolReceivedRoomsUserEvent);
 
         // MYSTERY BOX
         this._events.set(IncomingHeader.MYSTERY_BOX_KEYS, MysteryBoxKeysEvent);
@@ -653,31 +684,38 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.MOTD_MESSAGES, MOTDNotificationEvent);
         this._events.set(IncomingHeader.NOTIFICATION_LIST, NotificationDialogMessageEvent);
         this._events.set(IncomingHeader.UNSEEN_ITEMS, UnseenItemsEvent);
-        this._events.set(IncomingHeader.HOTEL_WILL_SHUTDOWN, HotelWillShutdownEvent);
         this._events.set(IncomingHeader.ACHIEVEMENT_NOTIFICATION, AchievementNotificationMessageEvent);
         this._events.set(IncomingHeader.INFO_FEED_ENABLE, InfoFeedEnableMessageEvent);
         this._events.set(IncomingHeader.CLUB_GIFT_NOTIFICATION, ClubGiftNotificationEvent);
         this._events.set(IncomingHeader.MODERATOR_MESSAGE, ModeratorMessageEvent);
         this._events.set(IncomingHeader.ACTIVITY_POINT_NOTIFICATION, ActivityPointNotificationMessageEvent);
+        this._events.set(IncomingHeader.BOT_ERROR, BotErrorEvent);
+        this._events.set(IncomingHeader.PET_LEVEL_NOTIFICATION, PetLevelNotificationEvent);
+
+        // QUEST
+        this._events.set(IncomingHeader.COMMUNITY_GOAL_EARNED_PRIZES, CommunityGoalEarnedPrizesMessageEvent);
+        this._events.set(IncomingHeader.COMMUNITY_GOAL_PROGRESS, CommunityGoalProgressMessageEvent);
+        this._events.set(IncomingHeader.CONCURRENT_USERS_GOAL_PROGRESS, ConcurrentUsersGoalProgressMessageEvent);
+        this._events.set(IncomingHeader.QUEST_DAILY, QuestDailyMessageEvent);
+        this._events.set(IncomingHeader.QUEST_CANCELLED, QuestCancelledMessageEvent);
+        this._events.set(IncomingHeader.QUEST_COMPLETED, QuestCompletedMessageEvent);
+        this._events.set(IncomingHeader.COMMUNITY_GOAL_HALL_OF_FAME, CommunityGoalHallOfFameMessageEvent);
+        this._events.set(IncomingHeader.EPIC_POPUP, EpicPopupMessageEvent);
+        this._events.set(IncomingHeader.SEASONAL_QUESTS, SeasonalQuestsMessageEvent);
+        this._events.set(IncomingHeader.QUESTS, QuestsMessageEvent);
+        this._events.set(IncomingHeader.QUEST, QuestMessageEvent);
 
         // ROOM
-
-        // ACCESS
         this._events.set(IncomingHeader.ROOM_ENTER_ERROR, RoomEnterErrorEvent);
         this._events.set(IncomingHeader.ROOM_ENTER, RoomEnterEvent);
         this._events.set(IncomingHeader.ROOM_FORWARD, RoomForwardEvent);
-
-        // DOORBELL
         this._events.set(IncomingHeader.ROOM_DOORBELL, RoomDoorbellEvent);
         this._events.set(IncomingHeader.ROOM_DOORBELL_ACCEPTED, RoomDoorbellAcceptedEvent);
         this._events.set(IncomingHeader.ROOM_DOORBELL_REJECTED, RoomDoorbellRejectedEvent);
-
-        // RIGHTS
         this._events.set(IncomingHeader.ROOM_RIGHTS_CLEAR, RoomRightsClearEvent);
         this._events.set(IncomingHeader.ROOM_RIGHTS_OWNER, RoomRightsOwnerEvent);
         this._events.set(IncomingHeader.ROOM_RIGHTS, RoomRightsEvent);
-
-        // DATA
+        this._events.set(IncomingHeader.BOT_COMMAND_CONFIGURATION, BotCommandConfigurationEvent);
         this._events.set(IncomingHeader.ROOM_SETTINGS_CHAT, RoomChatSettingsEvent);
         this._events.set(IncomingHeader.ROOM_INFO, RoomInfoEvent);
         this._events.set(IncomingHeader.ROOM_INFO_OWNER, RoomInfoOwnerEvent);
@@ -688,16 +726,16 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.ROOM_SETTINGS_UPDATED, RoomSettingsUpdatedEvent);
         this._events.set(IncomingHeader.ROOM_RIGHTS_LIST, RoomUsersWithRightsEvent);
         this._events.set(IncomingHeader.ROOM_BAN_LIST, RoomBannedUsersEvent);
-
-        // ENGINE
         this._events.set(IncomingHeader.ROOM_ROLLING, ObjectsRollingEvent);
         this._events.set(IncomingHeader.ROOM_CREATED, RoomCreatedEvent);
-
-        // BOTS
-        this._events.set(IncomingHeader.BOT_COMMAND_CONFIGURATION, BotCommandConfigurationEvent);
-        this._events.set(IncomingHeader.BOT_ERROR, BotErrorEvent);
-
-        // FURNITURE
+        this._events.set(IncomingHeader.FURNITURE_FLOOR_ADD, FurnitureFloorAddEvent);
+        this._events.set(IncomingHeader.FURNITURE_FLOOR, FurnitureFloorEvent);
+        this._events.set(IncomingHeader.FURNITURE_FLOOR_REMOVE, FurnitureFloorRemoveEvent);
+        this._events.set(IncomingHeader.FURNITURE_FLOOR_UPDATE, FurnitureFloorUpdateEvent);
+        this._events.set(IncomingHeader.ITEM_WALL_ADD, FurnitureWallAddEvent);
+        this._events.set(IncomingHeader.ITEM_WALL, FurnitureWallEvent);
+        this._events.set(IncomingHeader.ITEM_WALL_REMOVE, FurnitureWallRemoveEvent);
+        this._events.set(IncomingHeader.ITEM_WALL_UPDATE, FurnitureWallUpdateEvent);
         this._events.set(IncomingHeader.FURNITURE_ALIASES, FurnitureAliasesEvent);
         this._events.set(IncomingHeader.FURNITURE_DATA, FurnitureDataEvent);
         this._events.set(IncomingHeader.FURNITURE_ITEMDATA, FurnitureItemDataEvent);
@@ -710,20 +748,6 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.LOVELOCK_FURNI_START, LoveLockFurniStartEvent);
         this._events.set(IncomingHeader.OBJECTS_DATA_UPDATE, ObjectsDataUpdateEvent);
         this._events.set(IncomingHeader.FURNITURE_GROUP_CONTEXT_MENU_INFO, GroupFurniContextMenuInfoMessageEvent);
-
-        // FLOOR
-        this._events.set(IncomingHeader.FURNITURE_FLOOR_ADD, FurnitureFloorAddEvent);
-        this._events.set(IncomingHeader.FURNITURE_FLOOR, FurnitureFloorEvent);
-        this._events.set(IncomingHeader.FURNITURE_FLOOR_REMOVE, FurnitureFloorRemoveEvent);
-        this._events.set(IncomingHeader.FURNITURE_FLOOR_UPDATE, FurnitureFloorUpdateEvent);
-
-        // WALL
-        this._events.set(IncomingHeader.ITEM_WALL_ADD, FurnitureWallAddEvent);
-        this._events.set(IncomingHeader.ITEM_WALL, FurnitureWallEvent);
-        this._events.set(IncomingHeader.ITEM_WALL_REMOVE, FurnitureWallRemoveEvent);
-        this._events.set(IncomingHeader.ITEM_WALL_UPDATE, FurnitureWallUpdateEvent);
-
-        // MAPPING
         this._events.set(IncomingHeader.ROOM_MODEL_DOOR, RoomDoorEvent);
         this._events.set(IncomingHeader.ROOM_HEIGHT_MAP, RoomHeightMapEvent);
         this._events.set(IncomingHeader.ROOM_HEIGHT_MAP_UPDATE, RoomHeightMapUpdateEvent);
@@ -732,16 +756,10 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.ROOM_PAINT, RoomPaintEvent);
         this._events.set(IncomingHeader.ROOM_THICKNESS, RoomThicknessEvent);
         this._events.set(IncomingHeader.ROOM_MODEL_BLOCKED_TILES, RoomBlockedTilesEvent);
-
-        // PET
         this._events.set(IncomingHeader.PET_FIGURE_UPDATE, PetFigureUpdateEvent);
         this._events.set(IncomingHeader.PET_INFO, PetInfoEvent);
         this._events.set(IncomingHeader.PET_EXPERIENCE, PetExperienceEvent);
-
-        // SESSION
         this._events.set(IncomingHeader.PLAYING_GAME, YouArePlayingGameEvent);
-
-        // UNIT
         this._events.set(IncomingHeader.UNIT_DANCE, RoomUnitDanceEvent);
         this._events.set(IncomingHeader.UNIT_EFFECT, RoomUnitEffectEvent);
         this._events.set(IncomingHeader.UNIT, RoomUnitEvent);
@@ -753,8 +771,6 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.UNIT_REMOVE, RoomUnitRemoveEvent);
         this._events.set(IncomingHeader.UNIT_STATUS, RoomUnitStatusEvent);
         this._events.set(IncomingHeader.HAND_ITEM_RECEIVED, RoomUnitHandItemReceivedEvent);
-
-        // CHAT
         this._events.set(IncomingHeader.FLOOD_CONTROL, FloodControlEvent);
         this._events.set(IncomingHeader.REMAINING_MUTE, RemainingMuteEvent);
         this._events.set(IncomingHeader.UNIT_CHAT, RoomUnitChatEvent);
@@ -775,98 +791,6 @@ export class NitroMessages implements IMessageConfiguration
         // SECURITY
         this._events.set(IncomingHeader.AUTHENTICATED, AuthenticatedEvent);
 
-        // USER
-        this._events.set(IncomingHeader.IN_CLIENT_LINK, InClientLinkEvent);
-        this._events.set(IncomingHeader.USER_IGNORED, IgnoredUsersEvent);
-        this._events.set(IncomingHeader.USER_IGNORED_RESULT, IgnoreResultEvent);
-        this._events.set(IncomingHeader.USER_RESPECT, RespectReceivedEvent);
-
-        // BADGES
-        this._events.set(IncomingHeader.USER_BADGES, BadgesEvent);
-        this._events.set(IncomingHeader.USER_BADGES_ADD, BadgeReceivedEvent);
-        this._events.set(IncomingHeader.BADGE_POINT_LIMITS, BadgePointLimitsEvent);
-        this._events.set(IncomingHeader.BADGE_REQUEST_FULFILLED, IsBadgeRequestFulfilledEvent);
-
-        // ACCESS
-        this._events.set(IncomingHeader.USER_PERKS, UserPerksEvent);
-        this._events.set(IncomingHeader.USER_PERMISSIONS, UserPermissionsEvent);
-
-        // DATA
-        this._events.set(IncomingHeader.USER_BADGES_CURRENT, UserCurrentBadgesEvent);
-        this._events.set(IncomingHeader.USER_INFO, UserInfoEvent);
-        this._events.set(IncomingHeader.UNIT_CHANGE_NAME, UserNameChangeMessageEvent);
-        this._events.set(IncomingHeader.USER_SETTINGS, UserSettingsEvent);
-        this._events.set(IncomingHeader.USER_PROFILE, UserProfileEvent);
-        this._events.set(IncomingHeader.MESSENGER_RELATIONSHIPS, RelationshipStatusInfoEvent);
-
-        // GIFTS
-        this._events.set(IncomingHeader.GIFT_OPENED, PresentOpenedMessageEvent);
-
-        // INVENTORY
-
-        // BOTS
-        this._events.set(IncomingHeader.USER_BOTS, BotInventoryMessageEvent);
-        this._events.set(IncomingHeader.REMOVE_BOT_FROM_INVENTORY, BotRemovedFromInventoryEvent);
-        this._events.set(IncomingHeader.ADD_BOT_TO_INVENTORY, BotAddedToInventoryEvent);
-
-        // CURRENCY
-        this._events.set(IncomingHeader.USER_CREDITS, UserCreditsEvent);
-        this._events.set(IncomingHeader.USER_CURRENCY, UserCurrencyEvent);
-
-        // SUBSCRIPTION
-        this._events.set(IncomingHeader.USER_SUBSCRIPTION, UserSubscriptionEvent);
-
-        // GAMES
-        this._events.set(IncomingHeader.LOAD_GAME_URL, LoadGameUrlEvent);
-
-        // WARDROBE
-        this._events.set(IncomingHeader.USER_WARDROBE_PAGE, UserWardrobePageEvent);
-
-        // PETS
-        this._events.set(IncomingHeader.USER_PETS, PetInventoryEvent);
-        this._events.set(IncomingHeader.USER_PET_REMOVE, PetRemovedFromInventory);
-        this._events.set(IncomingHeader.USER_PET_ADD, PetAddedToInventoryEvent);
-        this._events.set(IncomingHeader.PET_PLACING_ERROR, PetPlacingErrorEvent);
-
-        // MOD TOOL
-        this._events.set(IncomingHeader.MODERATION_USER_INFO, ModtoolUserInfoEvent);
-        this._events.set(IncomingHeader.MODERATION_TOPICS, ModtoolCallForHelpTopicsEvent);
-        this._events.set(IncomingHeader.MODERATION_TOOL, ModtoolMainEvent);
-        this._events.set(IncomingHeader.MODTOOL_VISITED_ROOMS_USER, ModtoolReceivedRoomsUserEvent);
-
-        // MARKETPLACE
-        this._events.set(IncomingHeader.MARKETPLACE_AFTER_ORDER_STATUS, MarketplaceBuyOfferResultEvent);
-        this._events.set(IncomingHeader.MARKETPLACE_CANCEL_SALE, MarketplaceCancelOfferResultEvent);
-        this._events.set(IncomingHeader.MARKETPLACE_SELL_ITEM, MarketplaceCanMakeOfferResult);
-        this._events.set(IncomingHeader.MARKETPLACE_CONFIG, MarketplaceConfigurationEvent);
-        this._events.set(IncomingHeader.MARKETPLACE_ITEM_STATS, MarketplaceItemStatsEvent);
-        this._events.set(IncomingHeader.MARKETPLACE_ITEM_POSTED, MarketplaceMakeOfferResult);
-        this._events.set(IncomingHeader.MARKETPLACE_ITEMS_SEARCHED, MarketPlaceOffersEvent);
-        this._events.set(IncomingHeader.MARKETPLACE_OWN_ITEMS, MarketplaceOwnOffersEvent);
-
-        // LANDING VIEW
-        this._events.set(IncomingHeader.COMMUNITY_GOAL_VOTE_EVENT, CommunityGoalVoteMessageEvent);
-        this._events.set(IncomingHeader.PROMO_ARTICLES, PromoArticlesMessageEvent);
-
-        // QUESTS
-        this._events.set(IncomingHeader.COMMUNITY_GOAL_EARNED_PRIZES, CommunityGoalEarnedPrizesMessageEvent);
-        this._events.set(IncomingHeader.COMMUNITY_GOAL_PROGRESS, CommunityGoalProgressMessageEvent);
-        this._events.set(IncomingHeader.CONCURRENT_USERS_GOAL_PROGRESS, ConcurrentUsersGoalProgressMessageEvent);
-        this._events.set(IncomingHeader.QUEST_DAILY, QuestDailyMessageEvent);
-        this._events.set(IncomingHeader.QUEST_CANCELLED, QuestCancelledMessageEvent);
-        this._events.set(IncomingHeader.QUEST_COMPLETED, QuestCompletedMessageEvent);
-        this._events.set(IncomingHeader.COMMUNITY_GOAL_HALL_OF_FAME, CommunityGoalHallOfFameMessageEvent);
-        this._events.set(IncomingHeader.EPIC_POPUP, EpicPopupMessageEvent);
-        this._events.set(IncomingHeader.SEASONAL_QUESTS, SeasonalQuestsMessageEvent);
-        this._events.set(IncomingHeader.QUESTS, QuestsMessageEvent);
-        this._events.set(IncomingHeader.QUEST, QuestMessageEvent);
-
-        // CRAFTING
-        this._events.set(IncomingHeader.CRAFTABLE_PRODUCTS, CraftableProductsEvent);
-        this._events.set(IncomingHeader.CRAFTING_RECIPE, CraftingRecipeEvent);
-        this._events.set(IncomingHeader.CRAFTING_RECIPES_AVAILABLE, CraftingRecipesAvailableEvent);
-        this._events.set(IncomingHeader.CRAFTING_RESULT, CraftingResultEvent);
-
         // SOUNDS
         this._events.set(IncomingHeader.JUKEBOX_PLAYLIST_FULL, JukeboxPlayListFullMessageEvent);
         this._events.set(IncomingHeader.JUKEBOX_SONG_DISKS, JukeboxSongDisksMessageEvent);
@@ -877,8 +801,28 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.TRAX_SONG_INFO, TraxSongInfoMessageEvent);
         this._events.set(IncomingHeader.USER_SONG_DISKS_INVENTORY, UserSongDisksInventoryMessageEvent);
 
-        // HELPER
-        this._events.set(IncomingHeader.HELPER_TALENT_TRACK, TalentTrackEvent);
+        // USER
+        this._events.set(IncomingHeader.IN_CLIENT_LINK, InClientLinkEvent);
+        this._events.set(IncomingHeader.USER_IGNORED, IgnoredUsersEvent);
+        this._events.set(IncomingHeader.USER_IGNORED_RESULT, IgnoreResultEvent);
+        this._events.set(IncomingHeader.USER_RESPECT, RespectReceivedEvent);
+        this._events.set(IncomingHeader.USER_PERKS, UserPerksEvent);
+        this._events.set(IncomingHeader.USER_PERMISSIONS, UserPermissionsEvent);
+        this._events.set(IncomingHeader.USER_BADGES_CURRENT, UserCurrentBadgesEvent);
+        this._events.set(IncomingHeader.USER_INFO, UserInfoEvent);
+        this._events.set(IncomingHeader.UNIT_CHANGE_NAME, UserNameChangeMessageEvent);
+        this._events.set(IncomingHeader.USER_SETTINGS, UserSettingsEvent);
+        this._events.set(IncomingHeader.USER_PROFILE, UserProfileEvent);
+        this._events.set(IncomingHeader.MESSENGER_RELATIONSHIPS, RelationshipStatusInfoEvent);
+        this._events.set(IncomingHeader.GIFT_OPENED, PresentOpenedMessageEvent);
+        this._events.set(IncomingHeader.USER_CREDITS, UserCreditsEvent);
+        this._events.set(IncomingHeader.USER_CURRENCY, UserCurrencyEvent);
+        this._events.set(IncomingHeader.USER_SUBSCRIPTION, UserSubscriptionEvent);
+        this._events.set(IncomingHeader.USER_WARDROBE_PAGE, UserWardrobePageEvent);
+
+        this._events.set(IncomingHeader.GENERIC_ERROR, GenericErrorEvent);
+        this._events.set(IncomingHeader.GROUP_LIST, GuildMembershipsMessageEvent);
+        this._events.set(IncomingHeader.CATALOG_APPROVE_NAME_RESULT, ApproveNameMessageEvent);
     }
 
     private registerComposers(): void

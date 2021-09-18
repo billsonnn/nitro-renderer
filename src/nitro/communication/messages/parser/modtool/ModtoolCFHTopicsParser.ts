@@ -4,6 +4,7 @@ import { CallForHelpCategoryData } from './utils/CallForHelpCategoryData';
 export class ModtoolCFHTopicsParser  implements IMessageParser
 {
     private _callForHelpCategories: CallForHelpCategoryData[];
+
     public flush(): boolean
     {
         return true;

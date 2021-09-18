@@ -8,5 +8,6 @@ export * from './InfoFeedEnableMessageParser';
 export * from './ModeratorMessageParser';
 export * from './MOTDNotificationParser';
 export * from './NotificationDialogMessageParser';
+export * from './PetLevelNotificationParser';
 export * from './PetPlacingErrorEventParser';
 export * from './UnseenItemsParser';

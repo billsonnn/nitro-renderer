@@ -160,7 +160,8 @@ export class RoomPreviewer
         parser.flush();
         parser.parseModel(model, wallHeight, scale);
 
-        const wallGeometry = (<unknown> this._roomEngine as IRoomCreator).getLegacyWallGeometry(this._previewRoomId);
+        //@ts-ignore
+        const wallGeometry = (this._roomEngine as IRoomCreator).getLegacyWallGeometry(this._previewRoomId);
 
         if(!wallGeometry) return;
 

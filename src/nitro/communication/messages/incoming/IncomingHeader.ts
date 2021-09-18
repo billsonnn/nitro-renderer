@@ -168,7 +168,6 @@ export class IncomingHeader
     public static USER_BADGES                      = 717;
     public static USER_BADGES_ADD                  = 2493;
     public static USER_BADGES_CURRENT              = 1087;
-    public static USER_BOT_ADD                     = 1352;
     public static USER_BOT_REMOVE                  = 233;
     public static USER_BOTS                        = 3086;
     public static USER_CHANGE_NAME                 = 118;
@@ -221,7 +220,6 @@ export class IncomingHeader
     public static LOVELOCK_FURNI_FINISHED          = 770;
     public static GIFT_RECEIVER_NOT_FOUND          = 1517;
     public static GIFT_OPENED                      = 56;
-    public static HOTEL_WILL_SHUTDOWN              = 1050;
     public static FLOOD_CONTROL                    = 566;
     public static REMAINING_MUTE                   = 826;
     public static USER_EFFECT_LIST                 = 340;
@@ -318,4 +316,9 @@ export class IncomingHeader
     public static BADGE_POINT_LIMITS               = 2501;
     public static BADGE_REQUEST_FULFILLED          = 2998;
     public static HELPER_TALENT_TRACK              = 3406;
+    public static USER_BANNED                      = 1683;
+    public static BOT_RECEIVED                     = 3684;
+    public static PET_LEVEL_NOTIFICATION           = 859;
+    public static PET_RECEIVED                     = 1111;
+    public static MODERATION_CAUTION               = 1890;
 }
