@@ -11,3 +11,4 @@ export * from './LoveLockFurniFriendConfirmedParser';
 export * from './LoveLockFurniStartParser';
 export * from './RoomDimmerPresetsMessageParser';
 export * from './wall';
+export * from './youtube';

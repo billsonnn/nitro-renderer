@@ -12,3 +12,4 @@ export * from './LoveLockFurniStartEvent';
 export * from './RoomDimmerPresetsMessageData';
 export * from './RoomDimmerPresetsMessageEvent';
 export * from './wall';
+export * from './youtube';
