@@ -30,7 +30,8 @@ export class IncomingHeader
     public static FURNITURE_FLOOR_UPDATE           = 3776;
     public static FURNITURE_ITEMDATA               = 2202;
     public static FURNITURE_STATE                  = 2376;
-    public static FURNITURE_GROUP_CONTEXT_MENU_INFO= 3293;
+    public static FURNITURE_GROUP_CONTEXT_MENU_INFO = 3293;
+    public static FURNITURE_POSTIT_STICKY_POLE_OPEN = 2366;
     public static GAME_CENTER_ACHIEVEMENTS         = 2265;
     public static GAME_CENTER_GAME_LIST            = 222;
     public static GAME_CENTER_STATUS               = 2893;
@@ -321,4 +322,7 @@ export class IncomingHeader
     public static PET_LEVEL_NOTIFICATION           = 859;
     public static PET_RECEIVED                     = 1111;
     public static MODERATION_CAUTION               = 1890;
+    public static YOUTUBE_CONTROL_VIDEO            = 1554;
+    public static YOUTUBE_DISPLAY_PLAYLISTS        = 1112;
+    public static YOUTUBE_DISPLAY_VIDEO            = 1411;
 }

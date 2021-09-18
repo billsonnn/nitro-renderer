@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { AchievementNotificationMessageEvent, ActivityPointNotificationMessageEvent, AddJukeboxDiskComposer, ApproveNameMessageComposer, ApproveNameMessageEvent, AvailabilityTimeMessageEvent, BadgePointLimitsEvent, BadgeReceivedEvent, BonusRareInfoMessageEvent, BuildersClubFurniCountMessageEvent, BuildersClubSubscriptionStatusMessageEvent, BundleDiscountRulesetMessageEvent, ChangeUserNameMessageComposer, ChangeUserNameResultMessageEvent, CheckUserNameMessageComposer, CheckUserNameResultMessageEvent, ClubGiftNotificationEvent, DirectSMSClubBuyAvailableMessageEvent, FigureUpdateEvent, ForwardToASubmittableRoomMessageComposer, ForwardToRandomCompetitionRoomMessageComposer, FurnitureGroupInfoComposer, GetBonusRareInfoMessageComposer, GetCatalogPageExpirationComposer, GetCatalogPageWithEarliestExpiryComposer, GetCurrentTimingCodeMessageComposer, GetDirectClubBuyAvailableComposer, GetHabboBasicMembershipExtendOfferComposer, GetHabboClubExtendOfferMessageComposer, GetInterstitialMessageComposer, GetJukeboxPlayListMessageComposer, GetLimitedOfferAppearingNextComposer, GetNextTargetedOfferComposer, GetNowPlayingMessageComposer, GetOfficialSongIdMessageComposer, GetRoomAdPurchaseInfoComposer, GetSeasonalCalendarDailyOfferComposer, GetSecondsUntilMessageComposer, GetSongInfoMessageComposer, GetSoundMachinePlayListMessageComposer, GetUserSongDisksMessageComposer, GroupBadgesComposer, GroupBadgesEvent, HabboClubExtendOfferMessageEvent, HotelClosedAndOpensEvent, HotelClosesAndWillOpenAtEvent, HotelWillCloseInMinutesEvent, InfoFeedEnableMessageEvent, InterstitialMessageEvent, InterstitialShownMessageComposer, IsBadgeRequestFulfilledEvent, IsOfferGiftableMessageEvent, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, LimitedOfferAppearingNextMessageEvent, MaintenanceStatusMessageEvent, MarkCatalogNewAdditionsPageOpenedComposer, MarketplaceBuyOfferComposer, MarketplaceRedeemCreditsComposer, MarketplaceRequesstItemStatsComposer, MarketplaceRequestComposer, MarketplaceRequestOffersComposer, MarketplaceRequestOwnItemsComposer, MarketplaceTakeItemBackComposer, MysteryBoxKeysEvent, NotEnoughBalanceMessageEvent, NowPlayingMessageEvent, OfficialSongIdMessageEvent, OpenCampaignCalendarDoorAsStaffComposer, OpenCampaignCalendarDoorComposer, PetExperienceEvent, PetMountComposer, PetSupplementComposer, PlayListMessageEvent, PlayListSongAddedMessageEvent, PurchaseBasicMembershipExtensionComposer, PurchaseRoomAdMessageComposer, PurchaseTargetedOfferComposer, PurchaseVipMembershipExtensionComposer, RemoveAllRightsMessageComposer, RemoveJukeboxDiskComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, RoomAdErrorEvent, RoomAdPurchaseInfoEvent, RoomCompetitionInitMessageComposer, RoomUnitGiveHandItemPetComposer, SeasonalCalendarDailyOfferMessageEvent, SellablePetPalettesMessageEvent, SetTargetedOfferStateComposer, ShopTargetedOfferViewedComposer, SubmitRoomToCompetitionMessageComposer, TalentTrackEvent, TargetedOfferEvent, TargetedOfferNotFoundEvent, TogglePetBreedingComposer, TogglePetRidingComposer, TraxSongInfoMessageEvent, UnseenResetCategoryComposer, UnseenResetItemsComposer, UsePetProductComposer, UserSongDisksInventoryMessageEvent, VoteForRoomMessageComposer, WardrobeMessageEvent } from './messages';
+import { AchievementNotificationMessageEvent, ActivityPointNotificationMessageEvent, AddJukeboxDiskComposer, ApproveNameMessageComposer, ApproveNameMessageEvent, AvailabilityTimeMessageEvent, BadgePointLimitsEvent, BadgeReceivedEvent, BonusRareInfoMessageEvent, BuildersClubFurniCountMessageEvent, BuildersClubSubscriptionStatusMessageEvent, BundleDiscountRulesetMessageEvent, ChangeUserNameMessageComposer, ChangeUserNameResultMessageEvent, CheckUserNameMessageComposer, CheckUserNameResultMessageEvent, ClubGiftNotificationEvent, ControlYoutubeDisplayPlaybackMessageComposer, DirectSMSClubBuyAvailableMessageEvent, FigureUpdateEvent, ForwardToASubmittableRoomMessageComposer, ForwardToRandomCompetitionRoomMessageComposer, FurnitureGroupInfoComposer, GetBonusRareInfoMessageComposer, GetCatalogPageExpirationComposer, GetCatalogPageWithEarliestExpiryComposer, GetCurrentTimingCodeMessageComposer, GetDirectClubBuyAvailableComposer, GetForumsListMessageComposer, GetForumStatsMessageComposer, GetGiftMessageComposer, GetHabboBasicMembershipExtendOfferComposer, GetHabboClubExtendOfferMessageComposer, GetInterstitialMessageComposer, GetJukeboxPlayListMessageComposer, GetLimitedOfferAppearingNextComposer, GetMessagesMessageComposer, GetNextTargetedOfferComposer, GetNowPlayingMessageComposer, GetOfficialSongIdMessageComposer, GetRoomAdPurchaseInfoComposer, GetSeasonalCalendarDailyOfferComposer, GetSecondsUntilMessageComposer, GetSongInfoMessageComposer, GetSoundMachinePlayListMessageComposer, GetThreadMessageComposer, GetThreadsMessageComposer, GetUnreadForumsCountMessageComposer, GetUserSongDisksMessageComposer, GetYoutubeDisplayStatusMessageComposer, GroupBadgesComposer, GroupBadgesEvent, HabboClubExtendOfferMessageEvent, HotelClosedAndOpensEvent, HotelClosesAndWillOpenAtEvent, HotelWillCloseInMinutesEvent, InfoFeedEnableMessageEvent, InterstitialMessageEvent, InterstitialShownMessageComposer, IsBadgeRequestFulfilledEvent, IsOfferGiftableMessageEvent, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, LimitedOfferAppearingNextMessageEvent, MaintenanceStatusMessageEvent, MarkCatalogNewAdditionsPageOpenedComposer, MarketplaceBuyOfferComposer, MarketplaceRedeemCreditsComposer, MarketplaceRequesstItemStatsComposer, MarketplaceRequestComposer, MarketplaceRequestOffersComposer, MarketplaceRequestOwnItemsComposer, MarketplaceTakeItemBackComposer, ModerateMessageMessageComposer, ModerateThreadMessageComposer, MysteryBoxKeysEvent, NotEnoughBalanceMessageEvent, NowPlayingMessageEvent, OfficialSongIdMessageEvent, OpenCampaignCalendarDoorAsStaffComposer, OpenCampaignCalendarDoorComposer, PetExperienceEvent, PetMountComposer, PetSupplementComposer, PlayListMessageEvent, PlayListSongAddedMessageEvent, PostMessageMessageComposer, PurchaseBasicMembershipExtensionComposer, PurchaseRoomAdMessageComposer, PurchaseTargetedOfferComposer, PurchaseVipMembershipExtensionComposer, RemoveAllRightsMessageComposer, RemoveJukeboxDiskComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, ResetPhoneNumberStateMessageComposer, RoomAdErrorEvent, RoomAdPurchaseInfoEvent, RoomCompetitionInitMessageComposer, RoomUnitGiveHandItemPetComposer, SeasonalCalendarDailyOfferMessageEvent, SellablePetPalettesMessageEvent, SetPhoneNumberVerificationStatusMessageComposer, SetTargetedOfferStateComposer, SetYoutubeDisplayPlaylistMessageComposer, ShopTargetedOfferViewedComposer, SubmitRoomToCompetitionMessageComposer, TalentTrackEvent, TargetedOfferEvent, TargetedOfferNotFoundEvent, TogglePetBreedingComposer, TogglePetRidingComposer, TraxSongInfoMessageEvent, TryPhoneNumberMessageComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UpdateForumReadMarkerMessageComposer, UpdateForumSettingsMessageComposer, UpdateThreadMessageComposer, UsePetProductComposer, UserSongDisksInventoryMessageEvent, VerifyCodeMessageComposer, VoteForRoomMessageComposer, WardrobeMessageEvent } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { BotAddedToInventoryEvent, BotInventoryMessageEvent, BotReceivedMessageEvent, BotRemovedFromInventoryEvent } from './messages/incoming/bots';
 import { CfhSanctionMessageEvent, CfhTopicsInitEvent, SanctionStatusEvent } from './messages/incoming/callforhelp';
@@ -158,6 +158,7 @@ import { FurnitureFloorUpdateEvent } from './messages/incoming/room/furniture/fl
 import { FurnitureAliasesEvent } from './messages/incoming/room/furniture/FurnitureAliasesEvent';
 import { FurnitureDataEvent } from './messages/incoming/room/furniture/FurnitureDataEvent';
 import { FurnitureItemDataEvent } from './messages/incoming/room/furniture/FurnitureItemDataEvent';
+import { FurniturePostItStickyPoleOpenEvent } from './messages/incoming/room/furniture/FurniturePostItStickyPoleOpenEvent';
 import { FurnitureStackHeightEvent } from './messages/incoming/room/furniture/FurnitureStackHeightEvent';
 import { FurnitureState2Event } from './messages/incoming/room/furniture/FurnitureState2Event';
 import { FurnitureStateEvent } from './messages/incoming/room/furniture/FurnitureStateEvent';
@@ -170,6 +171,9 @@ import { FurnitureWallAddEvent } from './messages/incoming/room/furniture/wall/F
 import { FurnitureWallEvent } from './messages/incoming/room/furniture/wall/FurnitureWallEvent';
 import { FurnitureWallRemoveEvent } from './messages/incoming/room/furniture/wall/FurnitureWallRemoveEvent';
 import { FurnitureWallUpdateEvent } from './messages/incoming/room/furniture/wall/FurnitureWallUpdateEvent';
+import { YoutubeControlVideoMessageEvent } from './messages/incoming/room/furniture/youtube/YoutubeControlVideoMessageEvent';
+import { YoutubeDisplayPlaylistsEvent } from './messages/incoming/room/furniture/youtube/YoutubeDisplayPlaylistsEvent';
+import { YoutubeDisplayVideoMessageEvent } from './messages/incoming/room/furniture/youtube/YoutubeDisplayVideoMessageEvent';
 import { RoomBlockedTilesEvent } from './messages/incoming/room/mapping/RoomBlockedTilesEvent';
 import { RoomDoorEvent } from './messages/incoming/room/mapping/RoomDoorEvent';
 import { RoomHeightMapEvent } from './messages/incoming/room/mapping/RoomHeightMapEvent';
@@ -397,6 +401,7 @@ import { FurniturePickupComposer } from './messages/outgoing/room/furniture/Furn
 import { FurniturePlaceComposer } from './messages/outgoing/room/furniture/FurniturePlaceComposer';
 import { FurniturePlacePaintComposer } from './messages/outgoing/room/furniture/FurniturePlacePaintComposer';
 import { FurniturePostItPlaceComposer } from './messages/outgoing/room/furniture/FurniturePostItPlaceComposer';
+import { FurniturePostItSaveStickyPoleComposer } from './messages/outgoing/room/furniture/FurniturePostItSaveStickyPoleComposer';
 import { FurnitureColorWheelComposer } from './messages/outgoing/room/furniture/logic/FurnitureColorWheelComposer';
 import { FurnitureDiceActivateComposer } from './messages/outgoing/room/furniture/logic/FurnitureDiceActivateComposer';
 import { FurnitureDiceDeactivateComposer } from './messages/outgoing/room/furniture/logic/FurnitureDiceDeactivateComposer';
@@ -626,6 +631,11 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.USER_PET_ADD, PetAddedToInventoryEvent);
         this._events.set(IncomingHeader.PET_RECEIVED, PetReceivedMessageEvent);
         this._events.set(IncomingHeader.PET_PLACING_ERROR, PetPlacingErrorEvent);
+        this._events.set(IncomingHeader.YOUTUBE_CONTROL_VIDEO, YoutubeControlVideoMessageEvent);
+        this._events.set(IncomingHeader.YOUTUBE_DISPLAY_PLAYLISTS, YoutubeDisplayPlaylistsEvent);
+        this._events.set(IncomingHeader.YOUTUBE_DISPLAY_VIDEO, YoutubeDisplayVideoMessageEvent);
+
+        // TRADING
         this._events.set(IncomingHeader.TRADE_ACCEPTED, TradingAcceptEvent);
         this._events.set(IncomingHeader.TRADE_CLOSED, TradingCloseEvent);
         this._events.set(IncomingHeader.TRADE_COMPLETED, TradingCompletedEvent);
@@ -748,6 +758,9 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.LOVELOCK_FURNI_START, LoveLockFurniStartEvent);
         this._events.set(IncomingHeader.OBJECTS_DATA_UPDATE, ObjectsDataUpdateEvent);
         this._events.set(IncomingHeader.FURNITURE_GROUP_CONTEXT_MENU_INFO, GroupFurniContextMenuInfoMessageEvent);
+        this._events.set(IncomingHeader.FURNITURE_POSTIT_STICKY_POLE_OPEN, FurniturePostItStickyPoleOpenEvent);
+
+        // MAPPING
         this._events.set(IncomingHeader.ROOM_MODEL_DOOR, RoomDoorEvent);
         this._events.set(IncomingHeader.ROOM_HEIGHT_MAP, RoomHeightMapEvent);
         this._events.set(IncomingHeader.ROOM_HEIGHT_MAP_UPDATE, RoomHeightMapUpdateEvent);
@@ -840,6 +853,14 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.CHANGE_USERNAME, ChangeUserNameMessageComposer);
         this._composers.set(OutgoingHeader.CHECK_USERNAME, CheckUserNameMessageComposer);
 
+        // CAMERA
+        this._composers.set(OutgoingHeader.REQUEST_CAMERA_CONFIGURATION, RequestCameraConfigurationComposer);
+        this._composers.set(OutgoingHeader.RENDER_ROOM, RenderRoomMessageComposer);
+        this._composers.set(OutgoingHeader.RENDER_ROOM_THUMBNAIL, RenderRoomThumbnailMessageComposer);
+        this._composers.set(OutgoingHeader.PURCHASE_PHOTO, PurchasePhotoMessageComposer);
+        this._composers.set(OutgoingHeader.PUBLISH_PHOTO, PublishPhotoMessageComposer);
+        this._composers.set(OutgoingHeader.PHOTO_COMPETITION, PhotoCompetitionMessageComposer);
+
         // CAMPAIGN
         this._composers.set(OutgoingHeader.OPEN_CAMPAIGN_CALENDAR_DOOR, OpenCampaignCalendarDoorComposer);
         this._composers.set(OutgoingHeader.OPEN_CAMPAIGN_CALENDAR_DOOR_STAFF, OpenCampaignCalendarDoorAsStaffComposer);
@@ -918,6 +939,29 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.SEND_ROOM_INVITE, SendRoomInviteComposer);
         this._composers.set(OutgoingHeader.SET_RELATIONSHIP_STATUS, SetRelationshipStatusComposer);
         this._composers.set(OutgoingHeader.VISIT_USER, VisitUserComposer);
+
+        // todo: game
+
+        // GIFTS
+        this._composers.set(OutgoingHeader.GET_GIFT, GetGiftMessageComposer);
+        this._composers.set(OutgoingHeader.RESET_PHONE_NUMBER_STATE, ResetPhoneNumberStateMessageComposer);
+        this._composers.set(OutgoingHeader.SET_PHONE_NUMBER_VERIFICATION_STATUS, SetPhoneNumberVerificationStatusMessageComposer);
+        this._composers.set(OutgoingHeader.TRY_PHONE_NUMBER, TryPhoneNumberMessageComposer);
+        this._composers.set(OutgoingHeader.VERIFY_CODE, VerifyCodeMessageComposer);
+
+        // GROUPFORUMS
+        this._composers.set(OutgoingHeader.GET_FORUM_STATS, GetForumStatsMessageComposer);
+        this._composers.set(OutgoingHeader.GET_FORUMS_LIST, GetForumsListMessageComposer);
+        this._composers.set(OutgoingHeader.GET_FORUM_MESSAGES, GetMessagesMessageComposer);
+        this._composers.set(OutgoingHeader.GET_FORUM_THREAD, GetThreadMessageComposer);
+        this._composers.set(OutgoingHeader.GET_FORUM_THREADS, GetThreadsMessageComposer);
+        this._composers.set(OutgoingHeader.GET_UNREAD_FORUMS_COUNT, GetUnreadForumsCountMessageComposer);
+        this._composers.set(OutgoingHeader.FORUM_MODERATE_MESSAGE, ModerateMessageMessageComposer);
+        this._composers.set(OutgoingHeader.FORUM_MODERATE_THREAD, ModerateThreadMessageComposer);
+        this._composers.set(OutgoingHeader.FORUM_POST_MESSAGE, PostMessageMessageComposer);
+        this._composers.set(OutgoingHeader.UPDATE_FORUM_READ_MARKER, UpdateForumReadMarkerMessageComposer);
+        this._composers.set(OutgoingHeader.UPDATE_FORUM_SETTINGS, UpdateForumSettingsMessageComposer);
+        this._composers.set(OutgoingHeader.FORUM_UPDATE_THREAD, UpdateThreadMessageComposer);
 
         // CLIENT
         this._composers.set(OutgoingHeader.CLIENT_PONG, ClientPongComposer);
@@ -1063,6 +1107,10 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.FURNITURE_PLACE, FurniturePlaceComposer);
         this._composers.set(OutgoingHeader.ITEM_PAINT, FurniturePlacePaintComposer);
         this._composers.set(OutgoingHeader.FURNITURE_POSTIT_PLACE, FurniturePostItPlaceComposer);
+        this._composers.set(OutgoingHeader.FURNITURE_POSTIT_SAVE_STICKY_POLE, FurniturePostItSaveStickyPoleComposer);
+        this._composers.set(OutgoingHeader.CONTROL_YOUTUBE_DISPLAY_PLAYBACK, ControlYoutubeDisplayPlaybackMessageComposer);
+        this._composers.set(OutgoingHeader.GET_YOUTUBE_DISPLAY_STATUS, GetYoutubeDisplayStatusMessageComposer);
+        this._composers.set(OutgoingHeader.SET_YOUTUBE_DISPLAY_PLAYLIST, SetYoutubeDisplayPlaylistMessageComposer);
 
         // FLOOR
         this._composers.set(OutgoingHeader.FURNITURE_FLOOR_UPDATE, FurnitureFloorUpdateComposer);
@@ -1211,14 +1259,6 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.REDEEM_COMMUNITY_GOAL_PRIZE, RedeemCommunityGoalPrizeMessageComposer);
         this._composers.set(OutgoingHeader.REJECT_QUEST, RejectQuestMessageComposer);
         this._composers.set(OutgoingHeader.START_CAMPAIGN, StartCampaignMessageComposer);
-
-        // CAMERA
-        this._composers.set(OutgoingHeader.REQUEST_CAMERA_CONFIGURATION, RequestCameraConfigurationComposer);
-        this._composers.set(OutgoingHeader.RENDER_ROOM, RenderRoomMessageComposer);
-        this._composers.set(OutgoingHeader.RENDER_ROOM_THUMBNAIL, RenderRoomThumbnailMessageComposer);
-        this._composers.set(OutgoingHeader.PURCHASE_PHOTO, PurchasePhotoMessageComposer);
-        this._composers.set(OutgoingHeader.PUBLISH_PHOTO, PublishPhotoMessageComposer);
-        this._composers.set(OutgoingHeader.PHOTO_COMPETITION, PhotoCompetitionMessageComposer);
 
         // SOUNDS
         this._composers.set(OutgoingHeader.GET_SOUND_SETTINGS, GetSoundSettingsComposer);
