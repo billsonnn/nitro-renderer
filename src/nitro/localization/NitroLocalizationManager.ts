@@ -101,7 +101,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
         return this._romanNumerals[Math.max(0, (number - 1))];
     }
 
-    public getBadgeBaseAndLevel(badgeName: string): string
+    public getPreviousLevelBadgeId(badgeName: string): string
     {
         const badge = new BadgeBaseAndLevel(badgeName);
 
