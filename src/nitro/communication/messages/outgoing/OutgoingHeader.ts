@@ -334,4 +334,5 @@ export class OutgoingHeader
     public static CONTROL_YOUTUBE_DISPLAY_PLAYBACK = 3005;
     public static GET_YOUTUBE_DISPLAY_STATUS       = 336;
     public static SET_YOUTUBE_DISPLAY_PLAYLIST     = 2069;
+    public static GO_TO_FLAT                       = 685;
 }

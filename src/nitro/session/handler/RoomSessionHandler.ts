@@ -4,6 +4,7 @@ import { RoomDoorbellAcceptedEvent } from '../../communication/messages/incoming
 import { RoomDoorbellRejectedEvent } from '../../communication/messages/incoming/room/access/doorbell/RoomDoorbellRejectedEvent';
 import { RoomEnterEvent } from '../../communication/messages/incoming/room/access/RoomEnterEvent';
 import { RoomModelNameEvent } from '../../communication/messages/incoming/room/mapping/RoomModelNameEvent';
+import { GoToFlatMessageComposer } from '../../communication/messages/outgoing/room/session/GoToFlatMessageComposer';
 import { RoomSessionDoorbellEvent } from '../events/RoomSessionDoorbellEvent';
 import { IRoomHandlerListener } from '../IRoomHandlerListener';
 import { BaseHandler } from './BaseHandler';
@@ -65,7 +66,7 @@ export class RoomSessionHandler extends BaseHandler
 
         if(!username || !username.length)
         {
-            //this.connection.send();
+            this.connection.send(new GoToFlatMessageComposer(this.roomId));
         }
         else
         {

@@ -7,4 +7,5 @@ export * from './furniture';
 export * from './mapping';
 export * from './RedeemItemClothingComposer';
 export * from './RoomCreateComposer';
+export * from './session';
 export * from './unit';
