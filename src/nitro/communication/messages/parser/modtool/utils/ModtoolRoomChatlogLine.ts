@@ -6,15 +6,15 @@ export class ModtoolRoomChatlogLine implements IChatlog
     private readonly _habboId: number;
     private readonly _username: string;
     private readonly _message: string;
-    private _boolean: boolean;
+    private readonly _hasHighlighting: boolean;
 
-    constructor(timestamp: string, habboId: number, username: string, message: string, boolean: boolean)
+    constructor(timestamp: string, habboId: number, username: string, message: string, hasHighlighting: boolean)
     {
         this._timestamp = timestamp;
         this._habboId = habboId;
         this._username = username;
         this._message = message;
-        this._boolean = boolean;
+        this._hasHighlighting = hasHighlighting;
     }
 
     public get timestamp(): string
@@ -35,5 +35,10 @@ export class ModtoolRoomChatlogLine implements IChatlog
     public get message(): string
     {
         return this._message;
+    }
+
+    public get hasHighlighting(): boolean
+    {
+        return this._hasHighlighting;
     }
 }

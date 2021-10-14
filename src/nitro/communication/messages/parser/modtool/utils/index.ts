@@ -1,4 +1,5 @@
 export * from './CallForHelpCategoryData';
+export * from './ChatRecordData';
 export * from './IChatlog';
 export * from './IssueInfoMessageParser';
 export * from './IssueMessageData';

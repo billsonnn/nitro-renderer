@@ -1,19 +1,13 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
-import { ModtoolRoomChatlogLine } from './utils/ModtoolRoomChatlogLine';
+import { ChatRecordData } from './utils/ChatRecordData';
 
 export class ModtoolRoomChatlogParser implements IMessageParser
 {
-    private _id: number;
-    private _name: string;
-    private _chatlogCount: number;
-    private _chatlogs: ModtoolRoomChatlogLine[] = [];
+    private _data: ChatRecordData;
 
     public flush(): boolean
     {
-        this._id   = null;
-        this._name = null;
-        this._chatlogCount = 0;
-        this._chatlogs = [];
+        this._data = null;
         return true;
     }
 
@@ -21,43 +15,13 @@ export class ModtoolRoomChatlogParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        wrapper.readByte();
-        wrapper.readShort();
-        wrapper.readString();
-        wrapper.readByte();
-        this._name = wrapper.readString();
-        wrapper.readString();
-        wrapper.readByte();
-        this._id   = wrapper.readInt();
-        this._chatlogCount = wrapper.readShort();
-
-        for(let i = 0; i < this._chatlogCount; i++)
-        {
-            const timestamp = wrapper.readString();
-            const habboId = wrapper.readInt();
-            const username = wrapper.readString();
-            const message = wrapper.readString();
-            const boolean = wrapper.readBoolean();
-
-            this._chatlogs.push(new ModtoolRoomChatlogLine(timestamp, habboId, username, message, boolean));
-        }
+        this._data = new ChatRecordData(wrapper);
 
         return true;
     }
 
-    public get id(): number
+    public get data(): ChatRecordData
     {
-        return this._id;
+        return this._data;
     }
-
-    public get name(): string
-    {
-        return this._name;
-    }
-
-    public get chatlogs(): ModtoolRoomChatlogLine[]
-    {
-        return this._chatlogs;
-    }
-
 }
