@@ -68,34 +68,34 @@ export class RoomPlane implements IRoomPlane
     private _height: number = 0;
     private _canBeVisible: boolean;
 
-    constructor(k: IVector3D, _arg_2: IVector3D, _arg_3: IVector3D, _arg_4: IVector3D, _arg_5: number, _arg_6: boolean, _arg_7: IVector3D[], _arg_8: number, _arg_9: number=0, _arg_10: number=0, _arg_11: number=0, _arg_12: number=0)
+    constructor(origin: IVector3D, location: IVector3D, leftSide: IVector3D, rightSide: IVector3D, type: number, usesMask: boolean, secondaryNormals: IVector3D[], randomSeed: number, textureOffsetX: number=0, textureOffsetY: number=0, textureMaxX: number=0, textureMaxY: number=0)
     {
         this._secondaryNormals = [];
         this._bitmapMasks = [];
         this._rectangleMasks = [];
         this._bitmapMasksOld = [];
         this._rectangleMasksOld = [];
-        this._randomSeed = _arg_8;
+        this._randomSeed = randomSeed;
         this._bitmapData  = null;
         this._maskBitmapData  = null;
         this._maskChanged  = false;
         this._activeTexture  = null;
         this._origin = new Vector3d();
-        this._origin.assign(k);
+        this._origin.assign(origin);
         this._location = new Vector3d();
-        this._location.assign(_arg_2);
+        this._location.assign(location);
         this._leftSide = new Vector3d();
-        this._leftSide.assign(_arg_3);
+        this._leftSide.assign(leftSide);
         this._rightSide = new Vector3d();
-        this._rightSide.assign(_arg_4);
+        this._rightSide.assign(rightSide);
         this._normal = Vector3d.crossProduct(this._leftSide, this._rightSide);
         if(this._normal.length > 0)
         {
             this._normal.multiply((1 / this._normal.length));
         }
-        if(_arg_7 != null)
+        if(secondaryNormals != null)
         {
-            for(const entry of _arg_7)
+            for(const entry of secondaryNormals)
             {
                 if(!entry) continue;
 
@@ -113,7 +113,7 @@ export class RoomPlane implements IRoomPlane
         this._geometryUpdateId  = -1;
         this._offset = new Point();
         this._relativeDepth = 0;
-        this._type = _arg_5;
+        this._type = type;
         this._color     = 0;
         this._rasterizer    = null;
         this._canBeVisible  = true;
@@ -124,11 +124,11 @@ export class RoomPlane implements IRoomPlane
         this._cornerD = new Vector3d();
         this._width  = 0;
         this._height    = 0;
-        this._textureOffsetX = _arg_9;
-        this._textureOffsetY = _arg_10;
-        this._textureMaxX = _arg_11;
-        this._textureMaxY = _arg_12;
-        this._useMask = _arg_6;
+        this._textureOffsetX = textureOffsetX;
+        this._textureOffsetY = textureOffsetY;
+        this._textureMaxX = textureMaxX;
+        this._textureMaxY = textureMaxY;
+        this._useMask = usesMask;
         this._uniqueId = ++RoomPlane._uniqueIdCounter;
     }
 
