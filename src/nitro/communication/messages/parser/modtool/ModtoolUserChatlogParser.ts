@@ -1,19 +1,16 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
-import { ModtoolUserChatlogParserChatlog } from './utils/ModtoolUserChatlogParserChatlog';
-import { ModtoolUserChatlogParserVisit } from './utils/ModtoolUserChatlogParserVisit';
+import { ChatRecordData } from './utils/ChatRecordData';
 
 export class ModtoolUserChatlogParser implements IMessageParser
 {
-    private _id: number;
+    private _userId: number;
     private _username: string;
-    private _size: number;
-    private _roomVisits: ModtoolUserChatlogParserVisit[] = [];
+    private _roomVisits: ChatRecordData[] = [];
 
     public flush(): boolean
     {
-        this._id   = null;
+        this._userId   = null;
         this._username = null;
-        this._size = null;
         this._roomVisits = [];
 
         return true;
@@ -23,43 +20,20 @@ export class ModtoolUserChatlogParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._id   = wrapper.readInt();
+        this._userId   = wrapper.readInt();
         this._username = wrapper.readString();
-        this._size = wrapper.readInt();
-        for(let i = 0; i < this._size; i++)
+        const size = wrapper.readInt();
+        for(let i = 0; i < size; i++)
         {
-            wrapper.readByte();
-            wrapper.readShort();
-            wrapper.readString();
-            wrapper.readByte();
-            const roomName = wrapper.readString();
-            wrapper.readString();
-            wrapper.readByte();
-            const roomId = wrapper.readInt();
-
-            const chatlogs = [];
-
-            const chatlogSize = wrapper.readShort();
-
-            for(let i = 0; i < chatlogSize; i++)
-            {
-                const timestamp = wrapper.readString();
-                const userId = wrapper.readInt();
-                const userName = wrapper.readString();
-                const message = wrapper.readString();
-                const bool = wrapper.readBoolean();
-                chatlogs.push(new ModtoolUserChatlogParserChatlog(timestamp, userId, userName, message, bool));
-            }
-
-            this._roomVisits.push(new ModtoolUserChatlogParserVisit(roomName, roomId, chatlogs));
+            this._roomVisits.push(new ChatRecordData(wrapper));
         }
 
         return true;
     }
 
-    public get id(): number
+    public get userId(): number
     {
-        return this._id;
+        return this._userId;
     }
 
     public get username(): string
@@ -67,7 +41,7 @@ export class ModtoolUserChatlogParser implements IMessageParser
         return this._username;
     }
 
-    public get roomVisits(): ModtoolUserChatlogParserVisit[]
+    public get roomVisits(): ChatRecordData[]
     {
         return this._roomVisits;
     }
