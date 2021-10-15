@@ -8,6 +8,7 @@ import { RoomObjectVariable } from '../RoomObjectVariable';
 
 export class MovingObjectLogic extends RoomObjectLogicBase
 {
+    public static UPDATE_INTERVAL: number = 500;
     private static TEMP_VECTOR: Vector3d = new Vector3d();
 
     private _liftAmount: number;
@@ -28,7 +29,7 @@ export class MovingObjectLogic extends RoomObjectLogicBase
         this._locationDelta     = new Vector3d();
         this._lastUpdateTime    = 0;
         this._changeTime        = 0;
-        this._updateInterval    = 500;
+        this._updateInterval    = MovingObjectLogic.UPDATE_INTERVAL;
     }
 
     protected onDispose(): void
