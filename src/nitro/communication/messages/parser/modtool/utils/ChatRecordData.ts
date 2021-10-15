@@ -80,7 +80,7 @@ export class ChatRecordData
 
     public get roomName():string
     {
-        return this._context['roomName'] as string;
+        return this._context.get('roomName') as string;
     }
 
     public get groupId():number
