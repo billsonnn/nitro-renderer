@@ -666,10 +666,15 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(!renderingCanvas || !point) return false;
 
-        this.events.dispatchEvent(new RoomDragEvent(roomId, -(renderingCanvas.screenOffsetX - point.x), -(renderingCanvas.screenOffsetY - point.y)));
+        const x = ~~(point.x);
+        const y = ~~(point.y);
 
-        renderingCanvas.screenOffsetX   = point.x;
-        renderingCanvas.screenOffsetY   = point.y;
+        if((renderingCanvas.screenOffsetX === x) && (renderingCanvas.screenOffsetY === y)) return;
+
+        this.events.dispatchEvent(new RoomDragEvent(roomId, -(renderingCanvas.screenOffsetX - x), -(renderingCanvas.screenOffsetY - y)));
+
+        renderingCanvas.screenOffsetX   = x;
+        renderingCanvas.screenOffsetY   = y;
 
         return true;
     }
@@ -1187,7 +1192,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
             }
         }
 
-        if(this._activeRoomIsDragged)
+        if(this._activeRoomWasDragged)
         {
             const renderingCanvas = this.getRoomInstanceRenderingCanvas(this._activeRoomId, 1);
 
