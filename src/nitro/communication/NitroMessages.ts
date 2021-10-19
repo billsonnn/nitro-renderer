@@ -322,6 +322,7 @@ import { TradingOpenComposer } from './messages/outgoing/inventory/trading/Tradi
 import { TradingUnacceptComposer } from './messages/outgoing/inventory/trading/TradingUnacceptComposer';
 import { GetPromoArticlesComposer } from './messages/outgoing/landingview/GetPromoArticlesComposer';
 import { CommunityGoalVoteMessageComposer } from './messages/outgoing/landingview/votes/CommunityGoalVoteMessageComposer';
+import { ModeratorActionMessageComposer } from './messages/outgoing/modtool/ModeratorActionMessageComposer';
 import { ModtoolChangeRoomSettingsComposer } from './messages/outgoing/modtool/ModtoolChangeRoomSettingsComposer';
 import { ModtoolEventAlertComposer } from './messages/outgoing/modtool/ModtoolEventAlertComposer';
 import { ModtoolRequestRoomChatlogComposer } from './messages/outgoing/modtool/ModtoolRequestRoomChatlogComposer';
@@ -329,7 +330,6 @@ import { ModtoolRequestRoomInfoComposer } from './messages/outgoing/modtool/Modt
 import { ModtoolRequestUserChatlogComposer } from './messages/outgoing/modtool/ModtoolRequestUserChatlogComposer';
 import { ModtoolRequestUserInfoComposer } from './messages/outgoing/modtool/ModtoolRequestUserInfoComposer';
 import { ModtoolRequestUserRoomsComposer } from './messages/outgoing/modtool/ModtoolRequestUserRoomsComposer';
-import { ModtoolRoomAlertComposer } from './messages/outgoing/modtool/ModtoolRoomAlertComposer';
 import { ModtoolSanctionAlertComposer } from './messages/outgoing/modtool/ModtoolSanctionAlertComposer';
 import { ModtoolSanctionBanComposer } from './messages/outgoing/modtool/ModtoolSanctionBanComposer';
 import { ModtoolSanctionKickComposer } from './messages/outgoing/modtool/ModtoolSanctionKickComposer';
@@ -1231,7 +1231,7 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.MODTOOL_ALERTEVENT, ModtoolEventAlertComposer);
         this._composers.set(OutgoingHeader.MODTOOL_SANCTION_MUTE, ModtoolSanctionMuteComposer);
         this._composers.set(OutgoingHeader.MODTOOL_REQUEST_USER_ROOMS, ModtoolRequestUserRoomsComposer);
-        this._composers.set(OutgoingHeader.MODTOOL_ROOM_ALERT, ModtoolRoomAlertComposer);
+        this._composers.set(OutgoingHeader.MODTOOL_ROOM_ALERT, ModeratorActionMessageComposer);
 
         // SETTINGS
         this._composers.set(OutgoingHeader.USER_SETTINGS_CAMERA, UserSettingsCameraFollowComposer);
