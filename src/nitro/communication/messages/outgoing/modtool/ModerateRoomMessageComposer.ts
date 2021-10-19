@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class ModtoolChangeRoomSettingsComposer implements IMessageComposer<ConstructorParameters<typeof ModtoolChangeRoomSettingsComposer>>
+export class ModerateRoomMessageComposer implements IMessageComposer<ConstructorParameters<typeof ModerateRoomMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof ModtoolChangeRoomSettingsComposer>;
+    private _data: ConstructorParameters<typeof ModerateRoomMessageComposer>;
 
     constructor(roomId: number, lockDoor: number, changeTitle: number, kickUsers: number)
     {
