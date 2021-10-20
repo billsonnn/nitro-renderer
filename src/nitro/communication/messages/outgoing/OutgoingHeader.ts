@@ -229,6 +229,14 @@ export class OutgoingHeader
     public static MODTOOL_SANCTION_MUTE          = 1945;
     public static MODTOOL_REQUEST_USER_ROOMS     = 3526;
     public static MODTOOL_ROOM_ALERT             = 3842;
+    public static MODTOOL_PREFERENCES            = 31;
+    public static CLOSE_ISSUE_DEFAULT_ACTION     = 2717;
+    public static CLOSE_ISSUES                   = 2067;
+    public static DEFAULT_SANCTION               = 1681;
+    public static GET_CFH_CHATLOG                = 211;
+    public static MODTOOL_SANCTION               = 1392;
+    public static PICK_ISSUES                    = 15;
+    public static RELEASE_ISSUES                 = 1572;
     public static CONVERT_GLOBAL_ROOM_ID         = 314;
     public static REQUEST_SELL_ITEM              = 848;
     public static REQUEST_MARKETPLACE_ITEM_STATS = 3288;

@@ -1,15 +1,14 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { ModBanMessageComposer } from './ModBanMessageComposer';
 
-export class ModtoolSanctionAlertComposer implements IMessageComposer<any>
+export class ModAlertMessageComposer implements IMessageComposer<ConstructorParameters<typeof ModAlertMessageComposer>>
 {
-    private _data: any[] = [];
+    private _data: ConstructorParameters<typeof ModAlertMessageComposer>;
 
     constructor(k: number, arg2: string, arg3: number, arg4: number = -1)
     {
-        this._data.push(k);
-        this._data.push(arg2);
-        this._data.push(arg3);
-        if(arg4 != -1)
+        this._data = [k, arg2, arg3];
+        if(arg4 != ModBanMessageComposer.NO_ISSUE_ID)
         {
             this._data.push(arg4);
         }

@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class ModtoolRequestUserChatlogComposer implements IMessageComposer<ConstructorParameters<typeof ModtoolRequestUserChatlogComposer>>
+export class GetUserChatlogMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetUserChatlogMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof ModtoolRequestUserChatlogComposer>;
+    private _data: ConstructorParameters<typeof GetUserChatlogMessageComposer>;
 
     constructor(userId: number)
     {

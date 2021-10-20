@@ -1,3 +1,4 @@
+import { Nitro } from '../../../../../Nitro';
 import { PatternMatchData } from './PatternMatchData';
 
 export class IssueMessageData
@@ -43,7 +44,7 @@ export class IssueMessageData
         this._message = _arg_14;
         this._chatRecordId = _arg_15;
         this._patterns = _arg_16;
-        this._creationTimeInMilliseconds = 0; //getTimer();
+        this._creationTimeInMilliseconds = Nitro.instance.time; //getTimer()
     }
 
     public get issueId(): number
