@@ -1,7 +1,7 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 import { ModeratorInitData } from './utils/ModeratorInitData';
 
-export class ModtoolMainParser  implements IMessageParser
+export class ModeratorInitMessageParser  implements IMessageParser
 {
     private _data: ModeratorInitData = null;
     public flush(): boolean
