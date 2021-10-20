@@ -1,6 +1,6 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class ModtoolEventAlertComposer implements IMessageComposer<any>
+export class ModMessageMessageComposer implements IMessageComposer<any>
 {
     private _data: any[] = [];
 
@@ -8,6 +8,8 @@ export class ModtoolEventAlertComposer implements IMessageComposer<any>
     {
         this._data.push(k);
         this._data.push(arg2);
+        this._data.push('');
+        this._data.push('');
         this._data.push(arg3);
         if(arg4 != -1)
         {

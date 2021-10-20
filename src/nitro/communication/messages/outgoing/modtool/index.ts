@@ -1,6 +1,6 @@
 export * from './ModerateRoomMessageComposer';
 export * from './ModeratorActionMessageComposer';
-export * from './ModtoolEventAlertComposer';
+export * from './ModMessageMessageComposer';
 export * from './ModtoolRequestRoomChatlogComposer';
 export * from './ModtoolRequestRoomInfoComposer';
 export * from './ModtoolRequestUserChatlogComposer';

@@ -92,8 +92,8 @@ import { MarketPlaceOffersEvent } from './messages/incoming/marketplace/Marketpl
 import { MarketplaceOwnOffersEvent } from './messages/incoming/marketplace/MarketplaceOwnOffersEvent';
 import { UserBannedMessageEvent } from './messages/incoming/moderation';
 import { ModeratorCautionEvent } from './messages/incoming/moderation/ModeratorCautionEvent';
+import { ModeratorInitMessageEvent } from './messages/incoming/modtool/ModeratorInitMessageEvent';
 import { ModtoolCallForHelpTopicsEvent } from './messages/incoming/modtool/ModtoolCallForHelpTopicsEvent';
-import { ModtoolMainEvent } from './messages/incoming/modtool/ModtoolMainEvent';
 import { ModtoolReceivedRoomsUserEvent } from './messages/incoming/modtool/ModtoolReceivedRoomsUserEvent';
 import { ModtoolRoomChatlogEvent } from './messages/incoming/modtool/ModtoolRoomChatlogEvent';
 import { ModtoolRoomInfoEvent } from './messages/incoming/modtool/ModtoolRoomInfoEvent';
@@ -324,7 +324,7 @@ import { GetPromoArticlesComposer } from './messages/outgoing/landingview/GetPro
 import { CommunityGoalVoteMessageComposer } from './messages/outgoing/landingview/votes/CommunityGoalVoteMessageComposer';
 import { ModerateRoomMessageComposer } from './messages/outgoing/modtool/ModerateRoomMessageComposer';
 import { ModeratorActionMessageComposer } from './messages/outgoing/modtool/ModeratorActionMessageComposer';
-import { ModtoolEventAlertComposer } from './messages/outgoing/modtool/ModtoolEventAlertComposer';
+import { ModMessageMessageComposer } from './messages/outgoing/modtool/ModMessageMessageComposer';
 import { ModtoolRequestRoomChatlogComposer } from './messages/outgoing/modtool/ModtoolRequestRoomChatlogComposer';
 import { ModtoolRequestRoomInfoComposer } from './messages/outgoing/modtool/ModtoolRequestRoomInfoComposer';
 import { ModtoolRequestUserChatlogComposer } from './messages/outgoing/modtool/ModtoolRequestUserChatlogComposer';
@@ -671,7 +671,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.MODTOOL_ROOM_CHATLOG, ModtoolRoomChatlogEvent);
         this._events.set(IncomingHeader.MODERATION_USER_INFO, ModtoolUserInfoEvent);
         this._events.set(IncomingHeader.MODERATION_TOPICS, ModtoolCallForHelpTopicsEvent);
-        this._events.set(IncomingHeader.MODERATION_TOOL, ModtoolMainEvent);
+        this._events.set(IncomingHeader.MODERATION_TOOL, ModeratorInitMessageEvent);
         this._events.set(IncomingHeader.MODTOOL_VISITED_ROOMS_USER, ModtoolReceivedRoomsUserEvent);
 
         // MYSTERY BOX
@@ -1228,7 +1228,7 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.MODTOOL_SANCTION_BAN, ModtoolSanctionBanComposer);
         this._composers.set(OutgoingHeader.MODTOOL_SANCTION_KICK, ModtoolSanctionKickComposer);
         this._composers.set(OutgoingHeader.MODTOOL_SANCTION_TRADELOCK, ModtoolSanctionTradelockComposer);
-        this._composers.set(OutgoingHeader.MODTOOL_ALERTEVENT, ModtoolEventAlertComposer);
+        this._composers.set(OutgoingHeader.MODTOOL_ALERTEVENT, ModMessageMessageComposer);
         this._composers.set(OutgoingHeader.MODTOOL_SANCTION_MUTE, ModtoolSanctionMuteComposer);
         this._composers.set(OutgoingHeader.MODTOOL_REQUEST_USER_ROOMS, ModtoolRequestUserRoomsComposer);
         this._composers.set(OutgoingHeader.MODTOOL_ROOM_ALERT, ModeratorActionMessageComposer);
