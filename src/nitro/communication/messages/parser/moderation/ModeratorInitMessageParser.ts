@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
-import { ModeratorInitData } from './utils/ModeratorInitData';
+import { ModeratorInitData } from './ModeratorInitData';
 
 export class ModeratorInitMessageParser  implements IMessageParser
 {

@@ -1,13 +1,14 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
-import { ChatRecordData } from './utils/ChatRecordData';
+import { RoomModerationData } from '../../incoming/moderation/RoomModerationData';
 
-export class ModtoolRoomChatlogParser implements IMessageParser
+export class ModeratorRoomInfoMessageParser implements IMessageParser
 {
-    private _data: ChatRecordData;
+    private _data:RoomModerationData;
 
     public flush(): boolean
     {
         this._data = null;
+
         return true;
     }
 
@@ -15,12 +16,12 @@ export class ModtoolRoomChatlogParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._data = new ChatRecordData(wrapper);
+        this._data = new RoomModerationData(wrapper);
 
         return true;
     }
 
-    public get data(): ChatRecordData
+    public get data():RoomModerationData
     {
         return this._data;
     }

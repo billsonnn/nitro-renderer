@@ -1,4 +1,4 @@
-import { Nitro } from '../../../../../Nitro';
+import { Nitro } from '../../../../Nitro';
 import { PatternMatchData } from './PatternMatchData';
 
 export class IssueMessageData

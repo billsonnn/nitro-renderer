@@ -1,8 +1,7 @@
-import { IMessageDataWrapper } from '../../../../../../core';
+import { IMessageDataWrapper } from '../../../../../core';
 import { RoomVisitData } from './RoomVisitData';
 
-
-export class ModtoolRoomVisitedData
+export class RoomVisitsData
 {
     private _userId: number;
     private _userName: string;

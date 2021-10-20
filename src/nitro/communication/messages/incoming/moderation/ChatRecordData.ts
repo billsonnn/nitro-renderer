@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../..';
-import { ModtoolRoomChatlogLine } from './ModtoolRoomChatlogLine';
+import { IMessageDataWrapper } from '../../../../..';
+import { ChatlineData } from './ChatlineData';
 
 export class ChatRecordData
 {
@@ -13,7 +13,7 @@ export class ChatRecordData
 
     private _recordType:number;
     private _context:Map<string, any>;
-    private _chatlog:ModtoolRoomChatlogLine[];
+    private _chatlog:ChatlineData[];
 
     constructor(wrapper: IMessageDataWrapper)
     {
@@ -54,7 +54,7 @@ export class ChatRecordData
             const message = wrapper.readString();
             const hasHighlighting = wrapper.readBoolean();
 
-            this._chatlog.push(new ModtoolRoomChatlogLine(timestamp, habboId, username, message, hasHighlighting));
+            this._chatlog.push(new ChatlineData(timestamp, habboId, username, message, hasHighlighting));
         }
     }
 
@@ -68,7 +68,7 @@ export class ChatRecordData
         return this._context;
     }
 
-    public get chatlog():ModtoolRoomChatlogLine[]
+    public get chatlog():ChatlineData[]
     {
         return this._chatlog;
     }

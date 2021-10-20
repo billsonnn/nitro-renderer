@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../../core';
-import { IDisposable } from '../../../../../../core/common/disposable/IDisposable';
+import { IMessageDataWrapper } from '../../../../../core';
+import { IDisposable } from '../../../../../core/common/disposable/IDisposable';
 
 export class PatternMatchData implements IDisposable
 {

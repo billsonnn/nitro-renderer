@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../core';
+import { IMessageDataWrapper } from '../../../../../core';
 import { IssueInfoMessageParser } from './IssueInfoMessageParser';
 import { IssueMessageData } from './IssueMessageData';
 

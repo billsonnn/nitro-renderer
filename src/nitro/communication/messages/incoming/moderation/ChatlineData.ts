@@ -1,6 +1,5 @@
-import { IChatlog } from './IChatlog';
 
-export class ModtoolRoomChatlogLine implements IChatlog
+export class ChatlineData
 {
     private readonly _timestamp: string;
     private readonly _habboId: number;

@@ -1,7 +1,7 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
-import { ChatRecordData } from './utils/ChatRecordData';
+import { ChatRecordData } from '../../incoming/moderation/ChatRecordData';
 
-export class ModtoolUserChatlogParser implements IMessageParser
+export class UserChatlogMessageParser implements IMessageParser
 {
     private _userId: number;
     private _username: string;

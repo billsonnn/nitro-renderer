@@ -83,7 +83,6 @@ export class IncomingHeader
     public static MESSENGER_UPDATE                 = 2800;
     public static MODERATION_REPORT_DISABLED       = 1651;
     public static MODERATION_TOOL                  = 2696;
-    public static MODERATION_TOPICS                = 325;
     public static MODERATION_USER_INFO             = 2866;
     public static MOTD_MESSAGES                    = 2035;
     public static NAVIGATOR_CATEGORIES             = 1562;
@@ -216,6 +215,7 @@ export class IncomingHeader
     public static MODTOOL_ROOM_INFO                = 1333;
     public static MODTOOL_USER_CHATLOG             = 3377;
     public static MODTOOL_ROOM_CHATLOG             = 3434;
+    public static CFH_CHATLOG                      = 607;
     public static LOVELOCK_FURNI_START             = 3753;
     public static LOVELOCK_FURNI_FRIEND_COMFIRMED  = 382;
     public static LOVELOCK_FURNI_FINISHED          = 770;

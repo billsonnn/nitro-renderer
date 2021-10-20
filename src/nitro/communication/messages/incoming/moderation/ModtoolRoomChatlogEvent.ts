@@ -1,16 +1,16 @@
 import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
 import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
-import { ModtoolRoomChatlogParser } from '../../parser/moderation/ModtoolRoomChatlogParser';
+import { RoomChatlogMessageParser } from '../../parser/moderation/RoomChatlogMessageParser';
 
 export class ModtoolRoomChatlogEvent extends MessageEvent implements IMessageEvent
 {
     constructor(callBack: Function)
     {
-        super(callBack, ModtoolRoomChatlogParser);
+        super(callBack, RoomChatlogMessageParser);
     }
 
-    public getParser(): ModtoolRoomChatlogParser
+    public getParser(): RoomChatlogMessageParser
     {
-        return this.parser as ModtoolRoomChatlogParser;
+        return this.parser as RoomChatlogMessageParser;
     }
 }

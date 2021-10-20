@@ -90,7 +90,7 @@ import { MarketplaceItemStatsEvent } from './messages/incoming/marketplace/Marke
 import { MarketplaceMakeOfferResult } from './messages/incoming/marketplace/MarketplaceMakeOfferResult';
 import { MarketPlaceOffersEvent } from './messages/incoming/marketplace/MarketplaceOffersEvent';
 import { MarketplaceOwnOffersEvent } from './messages/incoming/marketplace/MarketplaceOwnOffersEvent';
-import { ModeratorInitMessageEvent, ModtoolCallForHelpTopicsEvent, ModtoolReceivedRoomsUserEvent, ModtoolRoomChatlogEvent, ModtoolRoomInfoEvent, ModtoolUserChatlogEvent, ModtoolUserInfoEvent, UserBannedMessageEvent } from './messages/incoming/moderation';
+import { CfhChatlogEvent, ModeratorInitMessageEvent, ModeratorRoomInfoEvent, ModtoolRoomChatlogEvent, ModtoolUserChatlogEvent, ModtoolUserInfoEvent, RoomVisitsEvent, UserBannedMessageEvent } from './messages/incoming/moderation';
 import { ModeratorCautionEvent } from './messages/incoming/moderation/ModeratorCautionEvent';
 import { NavigatorCategoriesEvent } from './messages/incoming/navigator/NavigatorCategoriesEvent';
 import { NavigatorCollapsedEvent } from './messages/incoming/navigator/NavigatorCollapsedEvent';
@@ -656,17 +656,15 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.MARKETPLACE_OWN_ITEMS, MarketplaceOwnOffersEvent);
 
         // MODERATION
-        this._events.set(IncomingHeader.MARKETPLACE_OWN_ITEMS, UserBannedMessageEvent);
+        this._events.set(IncomingHeader.USER_BANNED, UserBannedMessageEvent);
         this._events.set(IncomingHeader.MODERATION_CAUTION, ModeratorCautionEvent);
-
-        // MODTOOL
-        this._events.set(IncomingHeader.MODTOOL_ROOM_INFO, ModtoolRoomInfoEvent);
+        this._events.set(IncomingHeader.MODTOOL_ROOM_INFO, ModeratorRoomInfoEvent);
         this._events.set(IncomingHeader.MODTOOL_USER_CHATLOG, ModtoolUserChatlogEvent);
         this._events.set(IncomingHeader.MODTOOL_ROOM_CHATLOG, ModtoolRoomChatlogEvent);
         this._events.set(IncomingHeader.MODERATION_USER_INFO, ModtoolUserInfoEvent);
-        this._events.set(IncomingHeader.MODERATION_TOPICS, ModtoolCallForHelpTopicsEvent);
         this._events.set(IncomingHeader.MODERATION_TOOL, ModeratorInitMessageEvent);
-        this._events.set(IncomingHeader.MODTOOL_VISITED_ROOMS_USER, ModtoolReceivedRoomsUserEvent);
+        this._events.set(IncomingHeader.MODTOOL_VISITED_ROOMS_USER, RoomVisitsEvent);
+        this._events.set(IncomingHeader.CFH_CHATLOG, CfhChatlogEvent);
 
         // MYSTERY BOX
         this._events.set(IncomingHeader.MYSTERY_BOX_KEYS, MysteryBoxKeysEvent);

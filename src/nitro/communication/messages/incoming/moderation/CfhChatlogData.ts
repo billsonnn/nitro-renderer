@@ -1,5 +1,5 @@
 import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { ChatRecordData } from '../../parser/moderation/utils/ChatRecordData';
+import { ChatRecordData } from './ChatRecordData';
 
 export class CfhChatlogData
 {
