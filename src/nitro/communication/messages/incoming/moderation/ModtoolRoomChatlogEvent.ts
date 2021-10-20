@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
 import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
-import { ModtoolRoomChatlogParser } from '../../parser/modtool/ModtoolRoomChatlogParser';
+import { ModtoolRoomChatlogParser } from '../../parser/moderation/ModtoolRoomChatlogParser';
 
 export class ModtoolRoomChatlogEvent extends MessageEvent implements IMessageEvent
 {

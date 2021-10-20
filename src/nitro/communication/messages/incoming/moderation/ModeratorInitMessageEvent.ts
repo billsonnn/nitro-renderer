@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
 import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
-import { ModeratorInitMessageParser } from '../../parser/modtool/ModeratorInitMessageParser';
+import { ModeratorInitMessageParser } from '../../parser/moderation/ModeratorInitMessageParser';
 
 export class ModeratorInitMessageEvent extends MessageEvent implements IMessageEvent
 {

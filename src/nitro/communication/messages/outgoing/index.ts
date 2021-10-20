@@ -16,7 +16,7 @@ export * from './helper';
 export * from './inventory';
 export * from './landingview';
 export * from './marketplace';
-export * from './modtool';
+export * from './moderation';
 export * from './navigator';
 export * from './OutgoingHeader';
 export * from './pet';

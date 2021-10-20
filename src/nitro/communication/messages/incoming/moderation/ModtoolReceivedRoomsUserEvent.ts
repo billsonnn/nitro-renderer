@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
 import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
-import { ModtoolRoomUsersParser } from '../../parser/modtool/ModtoolRoomUsersParser';
+import { ModtoolRoomUsersParser } from '../../parser/moderation/ModtoolRoomUsersParser';
 
 export class ModtoolReceivedRoomsUserEvent extends MessageEvent implements IMessageEvent
 {

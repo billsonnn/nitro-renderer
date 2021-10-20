@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
 import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
-import { ModtoolCFHTopicsParser } from '../../parser/modtool/ModtoolCFHTopicsParser';
+import { ModtoolCFHTopicsParser } from '../../parser/moderation/ModtoolCFHTopicsParser';
 
 export class ModtoolCallForHelpTopicsEvent extends MessageEvent implements IMessageEvent
 {
