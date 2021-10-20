@@ -14,9 +14,24 @@ export class ColorConverter
         return out;
     }
 
+    public static hex2rgba(hex: number, out: Array<number> | Float32Array = []): Array<number> | Float32Array
+    {
+        out[0] = ((hex >> 16) & 0xFF) / 255;
+        out[1] = ((hex >> 8) & 0xFF) / 255;
+        out[2] = (hex & 0xFF) / 255;
+        out[3] = (hex & 0xFF);
+
+        return out;
+    }
+
     public static rgb2hex(rgb: number[] | Float32Array): number
     {
         return (((rgb[0] * 255) << 16) + ((rgb[1] * 255) << 8) + (rgb[2] * 255 | 0));
+    }
+
+    public static rgba2hex(rgb: number[] | Float32Array): number
+    {
+        return (((rgb[0] * 255) << 16) + ((rgb[1] * 255) << 8) + (rgb[2] * 255 | 0) + (rgb[3] | 0));
     }
 
     public static rgbStringToHex(rgb: string): string
