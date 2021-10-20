@@ -151,6 +151,7 @@ import { RoomUsersWithRightsEvent } from './messages/incoming/room/data/RoomUser
 import { ObjectsDataUpdateEvent } from './messages/incoming/room/engine/ObjectsDataUpdateEvent';
 import { ObjectsRollingEvent } from './messages/incoming/room/engine/ObjectsRollingEvent';
 import { RoomCreatedEvent } from './messages/incoming/room/engine/RoomCreatedEvent';
+import { DiceValueMessageEvent } from './messages/incoming/room/furniture/DiceValueMessageEvent';
 import { FurnitureFloorAddEvent } from './messages/incoming/room/furniture/floor/FurnitureFloorAddEvent';
 import { FurnitureFloorEvent } from './messages/incoming/room/furniture/floor/FurnitureFloorEvent';
 import { FurnitureFloorRemoveEvent } from './messages/incoming/room/furniture/floor/FurnitureFloorRemoveEvent';
@@ -160,7 +161,6 @@ import { FurnitureDataEvent } from './messages/incoming/room/furniture/Furniture
 import { FurnitureItemDataEvent } from './messages/incoming/room/furniture/FurnitureItemDataEvent';
 import { FurniturePostItStickyPoleOpenEvent } from './messages/incoming/room/furniture/FurniturePostItStickyPoleOpenEvent';
 import { FurnitureStackHeightEvent } from './messages/incoming/room/furniture/FurnitureStackHeightEvent';
-import { FurnitureState2Event } from './messages/incoming/room/furniture/FurnitureState2Event';
 import { FurnitureStateEvent } from './messages/incoming/room/furniture/FurnitureStateEvent';
 import { GroupFurniContextMenuInfoMessageEvent } from './messages/incoming/room/furniture/GroupFurniContextMenuInfoMessageEvent';
 import { LoveLockFurniFinishedEvent } from './messages/incoming/room/furniture/LoveLockFurniFinishedEvent';
@@ -752,7 +752,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.ITEM_STACK_HELPER, FurnitureStackHeightEvent);
         this._events.set(IncomingHeader.FURNITURE_STATE, FurnitureStateEvent);
         this._events.set(IncomingHeader.ITEM_DIMMER_SETTINGS, RoomDimmerPresetsEvent);
-        this._events.set(IncomingHeader.FURNITURE_STATE_2, FurnitureState2Event);
+        this._events.set(IncomingHeader.FURNITURE_STATE_2, DiceValueMessageEvent);
         this._events.set(IncomingHeader.LOVELOCK_FURNI_FINISHED, LoveLockFurniFinishedEvent);
         this._events.set(IncomingHeader.LOVELOCK_FURNI_FRIEND_COMFIRMED, LoveLockFurniFriendConfirmedEvent);
         this._events.set(IncomingHeader.LOVELOCK_FURNI_START, LoveLockFurniStartEvent);
