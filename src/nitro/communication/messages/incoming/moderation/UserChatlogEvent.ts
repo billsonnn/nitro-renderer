@@ -2,7 +2,7 @@ import { IMessageEvent } from '../../../../../core/communication/messages/IMessa
 import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
 import { UserChatlogMessageParser } from '../../parser/moderation/UserChatlogMessageParser';
 
-export class ModtoolUserChatlogEvent extends MessageEvent implements IMessageEvent
+export class UserChatlogEvent extends MessageEvent implements IMessageEvent
 {
     constructor(callBack: Function)
     {

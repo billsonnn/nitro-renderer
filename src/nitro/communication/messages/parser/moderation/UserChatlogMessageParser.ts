@@ -1,17 +1,13 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
-import { ChatRecordData } from '../../incoming/moderation/ChatRecordData';
+import { UserChatlogData } from '../../incoming/moderation/UserChatlogData';
 
 export class UserChatlogMessageParser implements IMessageParser
 {
-    private _userId: number;
-    private _username: string;
-    private _roomVisits: ChatRecordData[] = [];
+    private _data:UserChatlogData;
 
     public flush(): boolean
     {
-        this._userId   = null;
-        this._username = null;
-        this._roomVisits = [];
+        this._data = null;
 
         return true;
     }
@@ -20,30 +16,13 @@ export class UserChatlogMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._userId   = wrapper.readInt();
-        this._username = wrapper.readString();
-        const size = wrapper.readInt();
-        for(let i = 0; i < size; i++)
-        {
-            this._roomVisits.push(new ChatRecordData(wrapper));
-        }
+        this._data = new UserChatlogData(wrapper);
 
         return true;
     }
 
-    public get userId(): number
+    public get data():UserChatlogData
     {
-        return this._userId;
+        return this._data;
     }
-
-    public get username(): string
-    {
-        return this._username;
-    }
-
-    public get roomVisits(): ChatRecordData[]
-    {
-        return this._roomVisits;
-    }
-
 }

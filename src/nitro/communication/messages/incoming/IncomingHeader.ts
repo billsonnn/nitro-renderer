@@ -215,6 +215,11 @@ export class IncomingHeader
     public static MODTOOL_ROOM_INFO                = 1333;
     public static MODTOOL_USER_CHATLOG             = 3377;
     public static MODTOOL_ROOM_CHATLOG             = 3434;
+    public static MODTOOL_VISITED_ROOMS_USER       = 1752;
+    public static MODERATOR_ACTION_RESULT          = 2335;
+    public static ISSUE_DELETED                    = 3192;
+    public static ISSUE_INFO                       = 3609;
+    public static ISSUE_PICK_FAILED                = 3150;
     public static CFH_CHATLOG                      = 607;
     public static LOVELOCK_FURNI_START             = 3753;
     public static LOVELOCK_FURNI_FRIEND_COMFIRMED  = 382;
@@ -230,7 +235,6 @@ export class IncomingHeader
     public static CLUB_GIFT_INFO               = 619;
     public static REDEEM_VOUCHER_ERROR             = 714;
     public static REDEEM_VOUCHER_OK                = 3336;
-    public static MODTOOL_VISITED_ROOMS_USER       = 1752;
     public static IN_CLIENT_LINK                   = 2023;
     public static BOT_COMMAND_CONFIGURATION        = 1618;
     public static HAND_ITEM_RECEIVED               = 354;
