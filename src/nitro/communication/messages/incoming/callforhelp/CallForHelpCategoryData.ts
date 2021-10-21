@@ -19,7 +19,7 @@ export class CallForHelpCategoryData implements INamed, IDisposable
         {
             this._topics.push(new CallForHelpTopicData(wrapper));
 
-            count++;
+            count--;
         }
     }
 
