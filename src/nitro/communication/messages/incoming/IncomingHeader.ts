@@ -221,6 +221,7 @@ export class IncomingHeader
     public static ISSUE_INFO                       = 3609;
     public static ISSUE_PICK_FAILED                = 3150;
     public static CFH_CHATLOG                      = 607;
+    public static MODERATOR_TOOL_PREFERENCES       = 1576;
     public static LOVELOCK_FURNI_START             = 3753;
     public static LOVELOCK_FURNI_FRIEND_COMFIRMED  = 382;
     public static LOVELOCK_FURNI_FINISHED          = 770;
