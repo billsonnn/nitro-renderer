@@ -1,7 +1,7 @@
 import { IDisposable } from '../../../../../core/common/disposable/IDisposable';
 import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
 
-export class RoomData implements IDisposable
+export class ModRoomData implements IDisposable
 {
     private _exists:boolean;
     private _name:string;

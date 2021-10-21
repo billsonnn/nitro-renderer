@@ -1,4 +1,3 @@
-
 export class ChatlineData
 {
     private readonly _timestamp: string;

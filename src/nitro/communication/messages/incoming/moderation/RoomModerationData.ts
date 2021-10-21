@@ -1,6 +1,6 @@
 import { IDisposable } from '../../../../../core/common/disposable/IDisposable';
 import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { RoomData } from './RoomData';
+import { ModRoomData } from './ModRoomData';
 
 export class RoomModerationData implements IDisposable
 {
@@ -9,7 +9,7 @@ export class RoomModerationData implements IDisposable
     private _ownerInRoom:boolean;
     private _ownerId:number;
     private _ownerName:string;
-    private _room:RoomData;
+    private _room:ModRoomData;
     private _disposed:boolean;
 
     constructor(k:IMessageDataWrapper)
@@ -19,7 +19,7 @@ export class RoomModerationData implements IDisposable
         this._ownerInRoom = k.readBoolean();
         this._ownerId = k.readInt();
         this._ownerName = k.readString();
-        this._room = new RoomData(k);
+        this._room = new ModRoomData(k);
     }
 
     public get flatId():number
@@ -47,7 +47,7 @@ export class RoomModerationData implements IDisposable
         return this._ownerName;
     }
 
-    public get room():RoomData
+    public get room():ModRoomData
     {
         return this._room;
     }
