@@ -9,6 +9,7 @@ export * from './IssuePickFailedMessageEvent';
 export * from './ModeratorActionResultMessageEvent';
 export * from './ModeratorCautionEvent';
 export * from './ModeratorInitMessageEvent';
+export * from './ModeratorMessageEvent';
 export * from './ModeratorRoomInfoEvent';
 export * from './ModeratorUserInfoData';
 export * from './ModeratorUserInfoEvent';

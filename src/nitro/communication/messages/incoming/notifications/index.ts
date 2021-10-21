@@ -6,7 +6,6 @@ export * from './ClubGiftNotificationEvent';
 export * from './HabboBroadcastMessageEvent';
 export * from './HotelWillShutdownEvent';
 export * from './InfoFeedEnableMessageEvent';
-export * from './ModeratorMessageEvent';
 export * from './MOTDNotificationEvent';
 export * from './NotificationDialogMessageEvent';
 export * from './PetLevelNotificationEvent';

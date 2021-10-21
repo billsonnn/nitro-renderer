@@ -5,7 +5,6 @@ export * from './ClubGiftNotificationParser';
 export * from './HabboBroadcastMessageParser';
 export * from './HotelWillShutdownParser';
 export * from './InfoFeedEnableMessageParser';
-export * from './ModeratorMessageParser';
 export * from './MOTDNotificationParser';
 export * from './NotificationDialogMessageParser';
 export * from './PetLevelNotificationParser';

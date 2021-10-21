@@ -90,7 +90,7 @@ import { MarketplaceItemStatsEvent } from './messages/incoming/marketplace/Marke
 import { MarketplaceMakeOfferResult } from './messages/incoming/marketplace/MarketplaceMakeOfferResult';
 import { MarketPlaceOffersEvent } from './messages/incoming/marketplace/MarketplaceOffersEvent';
 import { MarketplaceOwnOffersEvent } from './messages/incoming/marketplace/MarketplaceOwnOffersEvent';
-import { CfhChatlogEvent, IssueDeletedMessageEvent, IssueInfoMessageEvent, IssuePickFailedMessageEvent, ModeratorActionResultMessageEvent, ModeratorInitMessageEvent, ModeratorRoomInfoEvent, ModeratorUserInfoEvent, RoomChatlogEvent, RoomVisitsEvent, UserBannedMessageEvent, UserChatlogEvent } from './messages/incoming/moderation';
+import { CfhChatlogEvent, IssueDeletedMessageEvent, IssueInfoMessageEvent, IssuePickFailedMessageEvent, ModeratorActionResultMessageEvent, ModeratorInitMessageEvent, ModeratorMessageEvent, ModeratorRoomInfoEvent, ModeratorUserInfoEvent, RoomChatlogEvent, RoomVisitsEvent, UserBannedMessageEvent, UserChatlogEvent } from './messages/incoming/moderation';
 import { ModeratorCautionEvent } from './messages/incoming/moderation/ModeratorCautionEvent';
 import { NavigatorCategoriesEvent } from './messages/incoming/navigator/NavigatorCategoriesEvent';
 import { NavigatorCollapsedEvent } from './messages/incoming/navigator/NavigatorCollapsedEvent';
@@ -104,7 +104,6 @@ import { NavigatorSearchEvent } from './messages/incoming/navigator/NavigatorSea
 import { NavigatorSettingsEvent } from './messages/incoming/navigator/NavigatorSettingsEvent';
 import { BotErrorEvent } from './messages/incoming/notifications/BotErrorEvent';
 import { HabboBroadcastMessageEvent } from './messages/incoming/notifications/HabboBroadcastMessageEvent';
-import { ModeratorMessageEvent } from './messages/incoming/notifications/ModeratorMessageEvent';
 import { MOTDNotificationEvent } from './messages/incoming/notifications/MOTDNotificationEvent';
 import { NotificationDialogMessageEvent } from './messages/incoming/notifications/NotificationDialogMessageEvent';
 import { PetLevelNotificationEvent } from './messages/incoming/notifications/PetLevelNotificationEvent';
@@ -669,6 +668,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.ISSUE_INFO, IssueInfoMessageEvent);
         this._events.set(IncomingHeader.ISSUE_PICK_FAILED, IssuePickFailedMessageEvent);
         this._events.set(IncomingHeader.MODERATOR_ACTION_RESULT, ModeratorActionResultMessageEvent);
+        this._events.set(IncomingHeader.MODERATOR_MESSAGE, ModeratorMessageEvent);
 
         // MYSTERY BOX
         this._events.set(IncomingHeader.MYSTERY_BOX_KEYS, MysteryBoxKeysEvent);
@@ -693,7 +693,6 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.ACHIEVEMENT_NOTIFICATION, AchievementNotificationMessageEvent);
         this._events.set(IncomingHeader.INFO_FEED_ENABLE, InfoFeedEnableMessageEvent);
         this._events.set(IncomingHeader.CLUB_GIFT_NOTIFICATION, ClubGiftNotificationEvent);
-        this._events.set(IncomingHeader.MODERATOR_MESSAGE, ModeratorMessageEvent);
         this._events.set(IncomingHeader.ACTIVITY_POINT_NOTIFICATION, ActivityPointNotificationMessageEvent);
         this._events.set(IncomingHeader.BOT_ERROR, BotErrorEvent);
         this._events.set(IncomingHeader.PET_LEVEL_NOTIFICATION, PetLevelNotificationEvent);
