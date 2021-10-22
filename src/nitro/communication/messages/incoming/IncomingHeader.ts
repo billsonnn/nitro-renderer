@@ -329,4 +329,5 @@ export class IncomingHeader
     public static YOUTUBE_CONTROL_VIDEO            = 1554;
     public static YOUTUBE_DISPLAY_PLAYLISTS        = 1112;
     public static YOUTUBE_DISPLAY_VIDEO            = 1411;
+    public static CFH_DISABLED_NOTIFY              = 1651;
 }

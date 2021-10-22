@@ -49,6 +49,7 @@ import { GroupInformationEvent } from './messages/incoming/group/GroupInformatio
 import { GroupMembersEvent } from './messages/incoming/group/GroupMembersEvent';
 import { GroupPurchasedEvent } from './messages/incoming/group/GroupPurchasedEvent';
 import { GroupSettingsEvent } from './messages/incoming/group/GroupSettingsEvent';
+import { CallForHelpDisabledNotifyMessageEvent } from './messages/incoming/help/CallForHelpDisabledNotifyMessageEvent';
 import { CallForHelpResultMessageEvent } from './messages/incoming/help/CallForHelpResultMessageEvent';
 import { IncomingHeader } from './messages/incoming/IncomingHeader';
 import { AchievementEvent } from './messages/incoming/inventory/achievements/AchievementEvent';
@@ -598,8 +599,10 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.GROUP_BADGES, GroupBadgesEvent);
 
         // HELP
+        this._events.set(IncomingHeader.CFH_DISABLED_NOTIFY, CallForHelpDisabledNotifyMessageEvent);
         this._events.set(IncomingHeader.CFH_RESULT_MESSAGE, CallForHelpResultMessageEvent);
         this._events.set(IncomingHeader.HELPER_TALENT_TRACK, TalentTrackEvent);
+
 
         // INVENTORY
         this._events.set(IncomingHeader.ACHIEVEMENT_PROGRESSED, AchievementEvent);
