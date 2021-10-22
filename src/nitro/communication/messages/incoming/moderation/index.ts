@@ -11,6 +11,7 @@ export * from './ModeratorCautionEvent';
 export * from './ModeratorInitMessageEvent';
 export * from './ModeratorMessageEvent';
 export * from './ModeratorRoomInfoEvent';
+export * from './ModeratorToolPreferencesEvent';
 export * from './ModeratorUserInfoData';
 export * from './ModeratorUserInfoEvent';
 export * from './ModRoomData';
