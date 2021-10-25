@@ -41,7 +41,7 @@ export class CallForHelpCategoryData implements INamed, IDisposable
         return this._name;
     }
 
-    public get _Str_14841(): CallForHelpTopicData[]
+    public get topics(): CallForHelpTopicData[]
     {
         return this._topics;
     }
