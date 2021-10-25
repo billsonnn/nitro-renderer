@@ -26,24 +26,27 @@ export class IssueMessageData
     private _disposed: boolean = false;
     private _creationTimeInMilliseconds: number;
 
-    constructor(k: number, _arg_2: number, _arg_3: number, _arg_4: number, _arg_5: number, _arg_6: number, _arg_7: number, _arg_8: number, _arg_9: string, _arg_10: number, _arg_11: string, _arg_12: number, _arg_13: string, _arg_14: string, _arg_15: number, _arg_16:PatternMatchData[])
+    constructor(issueId: number, state: number, categoryId: number, reportedCategoryId: number,
+        issueAgeinMs: number, priority: number, groupingId: number, reporterUserId: number, reporterUsername: string,
+        reportedUserId: number, reportedUsername: string, pickerUserId: number, pickerUsername: string, message: string,
+        chatRecordId: number, patterns:PatternMatchData[])
     {
-        this._issueId = k;
-        this._state = _arg_2;
-        this._categoryId = _arg_3;
-        this._reportedCategoryId = _arg_4;
-        this._issueAgeInMilliseconds = _arg_5;
-        this._priority = _arg_6;
-        this._groupingId = _arg_7;
-        this._reporterUserId = _arg_8;
-        this._reporterUserName = _arg_9;
-        this._reportedUserId = _arg_10;
-        this._reportedUserName = _arg_11;
-        this._pickerUserId = _arg_12;
-        this._pickerUserName = _arg_13;
-        this._message = _arg_14;
-        this._chatRecordId = _arg_15;
-        this._patterns = _arg_16;
+        this._issueId = issueId;
+        this._state = state;
+        this._categoryId = categoryId;
+        this._reportedCategoryId = reportedCategoryId;
+        this._issueAgeInMilliseconds = issueAgeinMs;
+        this._priority = priority;
+        this._groupingId = groupingId;
+        this._reporterUserId = reporterUserId;
+        this._reporterUserName = reporterUsername;
+        this._reportedUserId = reportedUserId;
+        this._reportedUserName = reportedUsername;
+        this._pickerUserId = pickerUserId;
+        this._pickerUserName = pickerUsername;
+        this._message = message;
+        this._chatRecordId = chatRecordId;
+        this._patterns = patterns;
         this._creationTimeInMilliseconds = Nitro.instance.time; //getTimer()
     }
 

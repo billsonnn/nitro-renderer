@@ -20,30 +20,33 @@ export  class IssueInfoMessageParser implements IMessageParser
 
     public parse(k:IMessageDataWrapper): boolean
     {
-        const _local_2: number = k.readInt();
-        const _local_3: number = k.readInt();
-        const _local_4: number = k.readInt();
-        const _local_5: number = k.readInt();
-        const _local_6: number = k.readInt();
-        const _local_7: number = k.readInt();
-        const _local_8: number = k.readInt();
-        const _local_9: number = k.readInt();
-        const _local_10: string = k.readString();
-        const _local_11: number = k.readInt();
-        const _local_12: string = k.readString();
-        const _local_13: number = k.readInt();
-        const _local_14: string = k.readString();
-        const _local_15: string = k.readString();
-        const _local_16: number = k.readInt();
-        const _local_17: number = k.readInt();
-        const _local_18:PatternMatchData[] = [];
-        let _local_19 = 0;
-        while(_local_19 < _local_17)
+        const issueId: number = k.readInt();
+        const state: number = k.readInt();
+        const categoryId: number = k.readInt();
+        const reportedCategoryId: number = k.readInt();
+        const issueAgeInMs: number = k.readInt();
+        const priority: number = k.readInt();
+        const groupingId: number = k.readInt();
+        const reporterUserId: number = k.readInt();
+        const reporterUsername: string = k.readString();
+        const reportedUserId: number = k.readInt();
+        const reportedUsername: string = k.readString();
+        const pickerUserId: number = k.readInt();
+        const pickerUsername: string = k.readString();
+        const message: string = k.readString();
+        const chatRecordId: number = k.readInt();
+
+        const patternsCount: number = k.readInt();
+        const patterns:PatternMatchData[] = [];
+
+        for(let i = 0; i < patternsCount; i++)
         {
-            _local_18.push(new PatternMatchData(k));
-            _local_19++;
+            patterns.push(new PatternMatchData(k));
         }
-        this._issueData = new IssueMessageData(_local_2, _local_3, _local_4, _local_5, _local_6, _local_7, _local_8, _local_9, _local_10, _local_11, _local_12, _local_13, _local_14, _local_15, _local_16, _local_18);
+
+        this._issueData = new IssueMessageData(issueId, state, categoryId, reportedCategoryId, issueAgeInMs,
+            priority, groupingId, reporterUserId, reporterUsername, reportedUserId, reportedUsername,
+            pickerUserId, pickerUsername, message, chatRecordId, patterns);
         return true;
     }
 }

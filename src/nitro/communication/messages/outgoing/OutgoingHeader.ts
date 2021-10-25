@@ -118,7 +118,7 @@ export class OutgoingHeader
     public static PET_MOVE                       = 3449;
     public static RECYCLER_PRIZES                = 398;
     public static RELEASE_VERSION                = 4000;
-    public static REPORT                         = 1691;
+    public static CALL_FOR_HELP                  = 1691;
     public static ROOM_AMBASSADOR_ALERT          = 2996;
     public static ROOM_BAN_GIVE                  = 1477;
     public static ROOM_BAN_LIST                  = 2267;

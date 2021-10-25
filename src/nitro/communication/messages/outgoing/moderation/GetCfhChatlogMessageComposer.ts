@@ -5,9 +5,9 @@ export class GetCfhChatlogMessageComposer implements IMessageComposer<Constructo
 {
     private _data: ConstructorParameters<typeof GetCfhChatlogMessageComposer>;
 
-    constructor(k: number)
+    constructor(issueId: number)
     {
-        this._data = [k];
+        this._data = [issueId];
     }
 
     public getMessageArray()
