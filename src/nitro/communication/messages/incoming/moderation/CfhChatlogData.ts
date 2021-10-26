@@ -3,7 +3,7 @@ import { ChatRecordData } from './ChatRecordData';
 
 export class CfhChatlogData
 {
-    private _callId: number;
+    private _issueId: number;
     private _callerUserId: number;
     private _reportedUserId: number;
     private _chatRecordId: number;
@@ -11,16 +11,16 @@ export class CfhChatlogData
 
     constructor(k:IMessageDataWrapper)
     {
-        this._callId = k.readInt();
+        this._issueId = k.readInt();
         this._callerUserId = k.readInt();
         this._reportedUserId = k.readInt();
         this._chatRecordId = k.readInt();
         this._chatRecord = new ChatRecordData(k);
     }
 
-    public get callId(): number
+    public get issueId(): number
     {
-        return this._callId;
+        return this._issueId;
     }
 
     public get callerUserId(): number

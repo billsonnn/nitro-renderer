@@ -1,13 +1,16 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-
 export class CloseIssuesMessageComposer implements IMessageComposer<number[]>
 {
+    public static readonly RESOLUTION_USELESS = 1;
+    public static readonly RESOLUTION_ABUSIVE = 2;
+    public static readonly RESOLUTION_RESOLVED = 3;
+
     private _data: number[];
 
-    constructor(issueIds: number[], _arg_2: number)
+    constructor(issueIds: number[], resolutionType: number)
     {
-        this._data = [ _arg_2, issueIds.length, ...issueIds];
+        this._data = [ resolutionType, issueIds.length, ...issueIds];
     }
 
     public getMessageArray()

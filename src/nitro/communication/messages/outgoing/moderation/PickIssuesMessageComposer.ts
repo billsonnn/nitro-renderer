@@ -4,9 +4,9 @@ export class PickIssuesMessageComposer implements IMessageComposer<any>
 {
     private _data: any;
 
-    constructor(k:number[], _arg_2:boolean, _arg_3:number, _arg_4:string)
+    constructor(issueIds:number[], retryEnabled:boolean, retryCount:number, message:string)
     {
-        this._data = [k.length, ...k, _arg_2, _arg_3, _arg_4];
+        this._data = [issueIds.length, ...issueIds, retryEnabled, retryCount, message];
     }
 
     public getMessageArray()

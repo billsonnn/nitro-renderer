@@ -4,9 +4,9 @@ export class ReleaseIssuesMessageComposer implements IMessageComposer<number[]>
 {
     private _data: number[];
 
-    constructor(k: number[])
+    constructor(issueIds: number[])
     {
-        this._data = [k.length, ...k];
+        this._data = [issueIds.length, ...issueIds];
     }
 
     public getMessageArray()
