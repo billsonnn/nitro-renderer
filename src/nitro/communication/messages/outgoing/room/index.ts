@@ -4,7 +4,7 @@ export * from './bots';
 export * from './data';
 export * from './engine';
 export * from './furniture';
-export * from './mapping';
+export * from './layout';
 export * from './RedeemItemClothingComposer';
 export * from './RoomCreateComposer';
 export * from './session';

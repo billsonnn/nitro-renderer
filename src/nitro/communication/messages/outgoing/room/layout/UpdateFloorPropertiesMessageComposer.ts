@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
 
-export class RoomModelSaveComposer implements IMessageComposer<ConstructorParameters<typeof RoomModelSaveComposer>>
+export class UpdateFloorPropertiesMessageComposer implements IMessageComposer<ConstructorParameters<typeof UpdateFloorPropertiesMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof RoomModelSaveComposer>;
+    private _data: ConstructorParameters<typeof UpdateFloorPropertiesMessageComposer>;
 
     constructor(model: string, doorX: number, doorY: number, doorDirection: number, thicknessWall: number, thicknessFloor: number, wallHeight: number)
     {

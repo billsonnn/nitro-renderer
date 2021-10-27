@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
 
-export class RoomBlockedTilesComposer implements IMessageComposer<ConstructorParameters<typeof RoomBlockedTilesComposer>>
+export class GetOccupiedTilesMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetOccupiedTilesMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof RoomBlockedTilesComposer>;
+    private _data: ConstructorParameters<typeof GetOccupiedTilesMessageComposer>;
 
     constructor()
     {

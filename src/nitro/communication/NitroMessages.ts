@@ -409,10 +409,10 @@ import { FurnitureMannequinSaveNameComposer } from './messages/outgoing/room/fur
 import { OpenPresentComposer } from './messages/outgoing/room/furniture/presents/OpenPresentComposer';
 import { ApplyTonerComposer } from './messages/outgoing/room/furniture/toner/ApplyTonerComposer';
 import { FurnitureWallUpdateComposer } from './messages/outgoing/room/furniture/wall/FurnitureWallUpdateComposer';
-import { RoomBlockedTilesComposer } from './messages/outgoing/room/mapping/RoomBlockedTilesComposer';
-import { RoomDoorSettingsComposer } from './messages/outgoing/room/mapping/RoomDoorSettingsComposer';
-import { RoomModelComposer } from './messages/outgoing/room/mapping/RoomModelComposer';
-import { RoomModelSaveComposer } from './messages/outgoing/room/mapping/RoomModelSaveComposer';
+import { GetOccupiedTilesMessageComposer } from './messages/outgoing/room/layout/GetOccupiedTilesMessageComposer';
+import { GetRoomEntryDataMessageComposer } from './messages/outgoing/room/layout/GetRoomEntryDataMessageComposer';
+import { GetRoomEntryTileMessageComposer } from './messages/outgoing/room/layout/GetRoomEntryTileMessageComposer';
+import { UpdateFloorPropertiesMessageComposer } from './messages/outgoing/room/layout/UpdateFloorPropertiesMessageComposer';
 import { RedeemItemClothingComposer } from './messages/outgoing/room/RedeemItemClothingComposer';
 import { RoomCreateComposer } from './messages/outgoing/room/RoomCreateComposer';
 import { RoomUnitChatComposer } from './messages/outgoing/room/unit/chat/RoomUnitChatComposer';
@@ -1141,11 +1141,11 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.ITEM_EXCHANGE_REDEEM, FurnitureExchangeComposer);
         this._composers.set(OutgoingHeader.ITEM_CLOTHING_REDEEM, RedeemItemClothingComposer);
 
-        // MAPPING
-        this._composers.set(OutgoingHeader.ROOM_MODEL, RoomModelComposer);
-        this._composers.set(OutgoingHeader.ROOM_MODEL_BLOCKED_TILES, RoomBlockedTilesComposer);
-        this._composers.set(OutgoingHeader.ROOM_MODEL_DOOR, RoomDoorSettingsComposer);
-        this._composers.set(OutgoingHeader.ROOM_MODEL_SAVE, RoomModelSaveComposer);
+        // LAYOUT
+        this._composers.set(OutgoingHeader.ROOM_MODEL, GetRoomEntryDataMessageComposer);
+        this._composers.set(OutgoingHeader.GET_OCCUPIED_TILES, GetOccupiedTilesMessageComposer);
+        this._composers.set(OutgoingHeader.GET_ROOM_ENTRY_TILE, GetRoomEntryTileMessageComposer);
+        this._composers.set(OutgoingHeader.ROOM_MODEL_SAVE, UpdateFloorPropertiesMessageComposer);
 
         // UNIT
         this._composers.set(OutgoingHeader.UNIT_ACTION, RoomUnitActionComposer);

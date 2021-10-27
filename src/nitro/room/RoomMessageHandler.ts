@@ -44,7 +44,7 @@ import { RoomUnitStatusEvent } from '../communication/messages/incoming/room/uni
 import { UserInfoEvent } from '../communication/messages/incoming/user/data/UserInfoEvent';
 import { IgnoreResultEvent } from '../communication/messages/incoming/user/IgnoreResultEvent';
 import { FurnitureAliasesComposer } from '../communication/messages/outgoing/room/furniture/FurnitureAliasesComposer';
-import { RoomModelComposer } from '../communication/messages/outgoing/room/mapping/RoomModelComposer';
+import { GetRoomEntryDataMessageComposer } from '../communication/messages/outgoing/room/layout/GetRoomEntryDataMessageComposer';
 import { FurnitureFloorDataParser } from '../communication/messages/parser/room/furniture/floor/FurnitureFloorDataParser';
 import { FurnitureWallDataParser } from '../communication/messages/parser/room/furniture/wall/FurnitureWallDataParser';
 import { RoomDoorParser } from '../communication/messages/parser/room/mapping/RoomDoorParser';
@@ -199,7 +199,7 @@ export class RoomMessageHandler extends Disposable
             return;
         }
 
-        event.connection.send(new RoomModelComposer());
+        event.connection.send(new GetRoomEntryDataMessageComposer());
     }
 
     private onRoomPaintEvent(event: RoomPaintEvent): void
@@ -482,7 +482,7 @@ export class RoomMessageHandler extends Disposable
 
         const alises = event.getParser().aliases;
 
-        this._connection.send(new RoomModelComposer());
+        this._connection.send(new GetRoomEntryDataMessageComposer());
     }
 
     private onFurnitureFloorAddEvent(event: FurnitureFloorAddEvent): void
