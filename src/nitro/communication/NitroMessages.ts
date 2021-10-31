@@ -167,14 +167,14 @@ import { FurnitureWallUpdateEvent } from './messages/incoming/room/furniture/wal
 import { YoutubeControlVideoMessageEvent } from './messages/incoming/room/furniture/youtube/YoutubeControlVideoMessageEvent';
 import { YoutubeDisplayPlaylistsEvent } from './messages/incoming/room/furniture/youtube/YoutubeDisplayPlaylistsEvent';
 import { YoutubeDisplayVideoMessageEvent } from './messages/incoming/room/furniture/youtube/YoutubeDisplayVideoMessageEvent';
-import { RoomBlockedTilesEvent } from './messages/incoming/room/mapping/RoomBlockedTilesEvent';
-import { RoomDoorEvent } from './messages/incoming/room/mapping/RoomDoorEvent';
+import { FloorHeightMapEvent } from './messages/incoming/room/mapping/FloorHeightMapEvent';
+import { RoomEntryTileMessageEvent } from './messages/incoming/room/mapping/RoomEntryTileMessageEvent';
 import { RoomHeightMapEvent } from './messages/incoming/room/mapping/RoomHeightMapEvent';
 import { RoomHeightMapUpdateEvent } from './messages/incoming/room/mapping/RoomHeightMapUpdateEvent';
-import { RoomModelEvent } from './messages/incoming/room/mapping/RoomModelEvent';
 import { RoomModelNameEvent } from './messages/incoming/room/mapping/RoomModelNameEvent';
+import { RoomOccupiedTilesMessageEvent } from './messages/incoming/room/mapping/RoomOccupiedTilesMessageEvent';
 import { RoomPaintEvent } from './messages/incoming/room/mapping/RoomPaintEvent';
-import { RoomThicknessEvent } from './messages/incoming/room/mapping/RoomThicknessEvent';
+import { RoomVisualizationSettingsEvent } from './messages/incoming/room/mapping/RoomVisualizationSettingsEvent';
 import { PetFigureUpdateEvent } from './messages/incoming/room/pet/PetFigureUpdateEvent';
 import { PetInfoEvent } from './messages/incoming/room/pet/PetInfoEvent';
 import { YouArePlayingGameEvent } from './messages/incoming/room/session/YouArePlayingGameEvent';
@@ -760,14 +760,14 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.FURNITURE_POSTIT_STICKY_POLE_OPEN, FurniturePostItStickyPoleOpenEvent);
 
         // MAPPING
-        this._events.set(IncomingHeader.ROOM_MODEL_DOOR, RoomDoorEvent);
+        this._events.set(IncomingHeader.ROOM_MODEL_DOOR, RoomEntryTileMessageEvent);
         this._events.set(IncomingHeader.ROOM_HEIGHT_MAP, RoomHeightMapEvent);
         this._events.set(IncomingHeader.ROOM_HEIGHT_MAP_UPDATE, RoomHeightMapUpdateEvent);
-        this._events.set(IncomingHeader.ROOM_MODEL, RoomModelEvent);
+        this._events.set(IncomingHeader.ROOM_MODEL, FloorHeightMapEvent);
         this._events.set(IncomingHeader.ROOM_MODEL_NAME, RoomModelNameEvent);
         this._events.set(IncomingHeader.ROOM_PAINT, RoomPaintEvent);
-        this._events.set(IncomingHeader.ROOM_THICKNESS, RoomThicknessEvent);
-        this._events.set(IncomingHeader.ROOM_MODEL_BLOCKED_TILES, RoomBlockedTilesEvent);
+        this._events.set(IncomingHeader.ROOM_THICKNESS, RoomVisualizationSettingsEvent);
+        this._events.set(IncomingHeader.ROOM_MODEL_BLOCKED_TILES, RoomOccupiedTilesMessageEvent);
         this._events.set(IncomingHeader.PET_FIGURE_UPDATE, PetFigureUpdateEvent);
         this._events.set(IncomingHeader.PET_INFO, PetInfoEvent);
         this._events.set(IncomingHeader.PET_EXPERIENCE, PetExperienceEvent);

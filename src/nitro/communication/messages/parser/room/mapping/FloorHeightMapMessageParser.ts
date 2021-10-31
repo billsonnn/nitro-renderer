@@ -1,7 +1,7 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 import { RoomPlaneParser } from '../../../../../room/object/RoomPlaneParser';
 
-export class RoomModelParser implements IMessageParser
+export class FloorHeightMapMessageParser implements IMessageParser
 {
     private _model: string;
     private _width: number;

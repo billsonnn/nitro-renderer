@@ -8,8 +8,8 @@ import { IRoomRenderingCanvas } from '../../../room/renderer/IRoomRenderingCanva
 import { IVector3D } from '../../../room/utils/IVector3D';
 import { RoomId } from '../../../room/utils/RoomId';
 import { Vector3d } from '../../../room/utils/Vector3d';
-import { RoomDoorParser } from '../../communication/messages/parser/room/mapping/RoomDoorParser';
-import { RoomModelParser } from '../../communication/messages/parser/room/mapping/RoomModelParser';
+import { FloorHeightMapMessageParser } from '../../communication/messages/parser/room/mapping/FloorHeightMapMessageParser';
+import { RoomEntryTileMessageParser } from '../../communication/messages/parser/room/mapping/RoomEntryTileMessageParser';
 import { Nitro } from '../../Nitro';
 import { RoomEngineEvent } from '../events/RoomEngineEvent';
 import { RoomEngineObjectEvent } from '../events/RoomEngineObjectEvent';
@@ -155,7 +155,7 @@ export class RoomPreviewer
 
     public updatePreviewModel(model: string, wallHeight: number, scale: boolean = true): void
     {
-        const parser = new RoomModelParser();
+        const parser = new FloorHeightMapMessageParser();
 
         parser.flush();
         parser.parseModel(model, wallHeight, scale);
@@ -172,7 +172,7 @@ export class RoomPreviewer
 
         this._planeParser.initializeTileMap(width, height);
 
-        const entryTile: RoomDoorParser = null;
+        const entryTile: RoomEntryTileMessageParser = null;
 
         let doorX           = -1;
         let doorY           = -1;
