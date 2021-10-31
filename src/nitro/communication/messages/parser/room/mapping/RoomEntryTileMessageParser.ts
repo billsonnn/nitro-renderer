@@ -1,6 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 
-export class RoomDoorParser implements IMessageParser
+export class RoomEntryTileMessageParser implements IMessageParser
 {
     private _x: number;
     private _y: number;

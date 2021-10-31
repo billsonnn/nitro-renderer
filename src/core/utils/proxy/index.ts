@@ -13,3 +13,4 @@ export * from './NitroTexture';
 export * from './PixiApplicationProxy';
 export * from './PixiInteractionEventProxy';
 export * from './PixiLoaderProxy';
+export * from './tilemap';

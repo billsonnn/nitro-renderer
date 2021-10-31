@@ -1,6 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 
-export class RoomBlockedTilesParser implements IMessageParser
+export class RoomOccupiedTilesMessageParser implements IMessageParser
 {
     private _blockedTilesMap: boolean[][];
 

@@ -1,6 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 
-export class RoomThicknessParser implements IMessageParser
+export class RoomVisualizationSettingsParser implements IMessageParser
 {
     private _hideWalls: boolean;
     private _thicknessWall: number;
