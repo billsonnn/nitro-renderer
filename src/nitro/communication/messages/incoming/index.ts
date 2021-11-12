@@ -47,6 +47,7 @@ export * from './room/unit/chat';
 export * from './roomevents';
 export * from './security';
 export * from './sound';
+export * from './talent';
 export * from './user';
 export * from './user/access';
 export * from './user/data';

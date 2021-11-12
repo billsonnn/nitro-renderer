@@ -1,7 +1,7 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
-import { TalentTrackLevel } from './common/TalentTrackLevel';
-import { TalentTrackLevelAchievement } from './common/TalentTrackLevelAchievement';
-import { TalentTrackLevelItem } from './common/TalentTrackLevelItem';
+import { TalentTrackLevel } from './TalentTrackLevel';
+import { TalentTrackRewardProduct } from './TalentTrackRewardProduct';
+import { TalentTrackTask } from './TalentTrackTask';
 
 export class TalentTrackParser implements IMessageParser
 {
@@ -30,7 +30,7 @@ export class TalentTrackParser implements IMessageParser
             const levelId = wrapper.readInt();
             const levelState = wrapper.readInt();
 
-            const levelAchievements: TalentTrackLevelAchievement[] = [];
+            const levelAchievements: TalentTrackTask[] = [];
             const achievementsCount = wrapper.readInt();
 
             for(let j = 0; j < achievementsCount; j++)
@@ -42,7 +42,7 @@ export class TalentTrackParser implements IMessageParser
                 const progress = wrapper.readInt();
                 const achievementProgress = wrapper.readInt();
 
-                levelAchievements.push(new TalentTrackLevelAchievement(id, index, code, state, progress, achievementProgress));
+                levelAchievements.push(new TalentTrackTask(id, index, code, state, progress, achievementProgress));
             }
 
             const levelPerks: string[] = [];
@@ -50,7 +50,7 @@ export class TalentTrackParser implements IMessageParser
 
             for(let j = 0; j < perksCount; j++) levelPerks.push(wrapper.readString());
 
-            const levelItems: TalentTrackLevelItem[] = [];
+            const levelItems: TalentTrackRewardProduct[] = [];
             const itemsCount = wrapper.readInt();
 
             for(let j = 0; j < itemsCount; j++)
@@ -58,7 +58,7 @@ export class TalentTrackParser implements IMessageParser
                 const name = wrapper.readString();
                 const unknownInt = wrapper.readInt();
 
-                levelItems.push(new TalentTrackLevelItem(name, unknownInt));
+                levelItems.push(new TalentTrackRewardProduct(name, unknownInt));
             }
 
             this._levels.push(new TalentTrackLevel(levelId, levelState, levelAchievements, levelPerks, levelItems));

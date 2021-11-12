@@ -1,8 +1,8 @@
 import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
 import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
-import { TalentTrackParser } from '../../parser/help/TalentTrackParser';
+import { TalentTrackParser } from '../../parser/talent/TalentTrackParser';
 
-export class TalentTrackEvent extends MessageEvent implements IMessageEvent
+export class TalentTrackMessageEvent extends MessageEvent implements IMessageEvent
 {
     constructor(callBack: Function)
     {
