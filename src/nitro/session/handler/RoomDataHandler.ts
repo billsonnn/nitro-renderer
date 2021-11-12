@@ -1,5 +1,5 @@
 import { IConnection } from '../../../core/communication/connections/IConnection';
-import { RoomInfoEvent } from '../../communication/messages/incoming/room/data/RoomInfoEvent';
+import { GetGuestRoomResultEvent } from '../../communication/messages/incoming/room/data/GetGuestRoomResultEvent';
 import { RoomSessionEvent } from '../events/RoomSessionEvent';
 import { RoomSessionPropertyUpdateEvent } from '../events/RoomSessionPropertyUpdateEvent';
 import { IRoomHandlerListener } from '../IRoomHandlerListener';
@@ -11,12 +11,12 @@ export class RoomDataHandler extends BaseHandler
     {
         super(connection, listener);
 
-        connection.addMessageEvent(new RoomInfoEvent(this.onRoomInfoEvent.bind(this)));
+        connection.addMessageEvent(new GetGuestRoomResultEvent(this.onGetGuestRoomResultEvent.bind(this)));
     }
 
-    private onRoomInfoEvent(event: RoomInfoEvent): void
+    private onGetGuestRoomResultEvent(event: GetGuestRoomResultEvent): void
     {
-        if(!(event instanceof RoomInfoEvent)) return;
+        if(!(event instanceof GetGuestRoomResultEvent)) return;
 
         const parser = event.getParser();
 

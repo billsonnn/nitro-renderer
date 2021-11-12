@@ -1,6 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 
-export class FurnitureStateParser implements IMessageParser
+export class OneWayDoorStatusMessageParser implements IMessageParser
 {
     private _itemId: number;
     private _state: number;

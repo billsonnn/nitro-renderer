@@ -1,16 +1,16 @@
 import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
 import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
-import { FurnitureState2Parser } from '../../../parser/room/furniture/FurnitureState2Parser';
+import { DiceValueMessageParser } from '../../../parser/room/furniture/DiceValueMessageParser';
 
 export class DiceValueMessageEvent extends MessageEvent implements IMessageEvent
 {
     constructor(callBack: Function)
     {
-        super(callBack, FurnitureState2Parser);
+        super(callBack, DiceValueMessageParser);
     }
 
-    public getParser(): FurnitureState2Parser
+    public getParser(): DiceValueMessageParser
     {
-        return this.parser as FurnitureState2Parser;
+        return this.parser as DiceValueMessageParser;
     }
 }

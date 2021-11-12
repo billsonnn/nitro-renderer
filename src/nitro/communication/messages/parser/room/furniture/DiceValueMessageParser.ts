@@ -1,6 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 
-export class FurnitureState2Parser implements IMessageParser
+export class DiceValueMessageParser implements IMessageParser
 {
     private _itemId: number;
     private _value: number;

@@ -1,6 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 
-export class RoomInfoOwnerParser implements IMessageParser
+export class RoomEntryInfoMessageParser implements IMessageParser
 {
     private _roomId: number;
     private _isOwner: boolean;
