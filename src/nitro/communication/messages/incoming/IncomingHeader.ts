@@ -331,4 +331,10 @@ export class IncomingHeader
     public static YOUTUBE_DISPLAY_PLAYLISTS        = 1112;
     public static YOUTUBE_DISPLAY_VIDEO            = 1411;
     public static CFH_DISABLED_NOTIFY              = 1651;
+    public static QUESTION                         = 2665;
+    public static POLL_CONTENTS                    = 2997;
+    public static POLL_ERROR                       = 662;
+    public static POLL_OFFER                       = 3785;
+    public static QUESTION_ANSWERED                = 2589;
+    public static QUESTION_FINISHED                = 1066;
 }
