@@ -372,4 +372,7 @@ export class OutgoingHeader
     public static GUIDE_SESSION_RESOLVED           = 887;
     public static POST_QUIZ_ANSWERS                = 3720;
     public static SEARCH_FAQS                      = 2031;
+    public static POLL_ANSWER                      = 3505;
+    public static POLL_REJECT                      = 1773;
+    public static POLL_START                       = 109;
 }

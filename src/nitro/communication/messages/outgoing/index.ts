@@ -20,6 +20,7 @@ export * from './moderation';
 export * from './navigator';
 export * from './OutgoingHeader';
 export * from './pet';
+export * from './poll';
 export * from './quest';
 export * from './room';
 export * from './roomevents';
