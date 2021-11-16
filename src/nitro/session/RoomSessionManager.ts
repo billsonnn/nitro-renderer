@@ -12,6 +12,7 @@ import { RoomPermissionsHandler } from './handler/RoomPermissionsHandler';
 import { RoomPresentHandler } from './handler/RoomPresentHandler';
 import { RoomSessionHandler } from './handler/RoomSessionHandler';
 import { RoomUsersHandler } from './handler/RoomUsersHandler';
+import { WordQuizHandler } from './handler/WordQuizHandler';
 import { IRoomHandlerListener } from './IRoomHandlerListener';
 import { IRoomSession } from './IRoomSession';
 import { IRoomSessionManager } from './IRoomSessionManager';
@@ -77,6 +78,7 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
             new RoomUsersHandler(connection, this),
             new RoomPresentHandler(connection, this),
             new GenericErrorHandler(connection, this),
+            new WordQuizHandler(connection, this),
         );
     }
 

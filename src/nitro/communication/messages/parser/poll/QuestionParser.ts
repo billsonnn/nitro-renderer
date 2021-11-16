@@ -77,7 +77,7 @@ export class QuestionParser implements IMessageParser
     }
 }
 
-interface IQuestion
+export interface IQuestion
 {
     id: number;
     number: number;
