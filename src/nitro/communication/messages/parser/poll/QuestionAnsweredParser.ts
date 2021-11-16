@@ -12,7 +12,7 @@ export class QuestionAnsweredParser implements IMessageParser
         this._userId = -1;
         this._value = '';
         this._answerCounts = null;
-        return false;
+        return true;
     }
 
     parse(wrapper: IMessageDataWrapper): boolean

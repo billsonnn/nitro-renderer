@@ -10,7 +10,7 @@ export class QuestionFinishedParser implements IMessageParser
     {
         this._questionId = -1;
         this._answerCounts = null;
-        return false;
+        return true;
     }
 
     parse(wrapper: IMessageDataWrapper): boolean
