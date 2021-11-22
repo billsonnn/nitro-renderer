@@ -1,12 +1,12 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class MarketplaceRequestComposer implements IMessageComposer<ConstructorParameters<typeof MarketplaceRequestComposer>>
+export class BuyMarketplaceTokensMessageComposer implements IMessageComposer<ConstructorParameters<typeof BuyMarketplaceTokensMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof MarketplaceRequestComposer>;
+    private _data: ConstructorParameters<typeof BuyMarketplaceTokensMessageComposer>;
 
     constructor()
     {
-        this._data = [ ];
+        this._data = [];
     }
 
     public getMessageArray()

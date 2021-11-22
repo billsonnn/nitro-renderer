@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class MarketplaceRedeemCreditsComposer implements IMessageComposer<ConstructorParameters<typeof MarketplaceRedeemCreditsComposer>>
+export class GetMarketplaceOwnOffersMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetMarketplaceOwnOffersMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof MarketplaceRedeemCreditsComposer>;
+    private _data: ConstructorParameters<typeof GetMarketplaceOwnOffersMessageComposer>;
 
     constructor()
     {

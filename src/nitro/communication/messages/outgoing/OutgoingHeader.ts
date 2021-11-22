@@ -246,6 +246,7 @@ export class OutgoingHeader
     public static MARKETPLACE_REDEEM_CREDITS     = 2650;
     public static MARKETPLACE_REQUEST_OFFERS     = 2407;
     public static MARKETPLACE_BUY_OFFER          = 1603;
+    public static MARKETPLACE_BUY_TOKENS         = 1866;
     public static CATALOG_REQUESET_PET_BREEDS    = 1756;
     public static APPROVE_NAME                   = 2109;
     public static UNIT_GIVE_HANDITEM_PET         = 2768;
