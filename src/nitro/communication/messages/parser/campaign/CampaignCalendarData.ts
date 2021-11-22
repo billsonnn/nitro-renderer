@@ -21,22 +21,18 @@ export class CampaignCalendarData
 
         let count = wrapper.readInt();
 
-        while(count > 0)
+        for(let i = 0; i < count; i++)
         {
             this._openedDays.push(wrapper.readInt());
-
-            count--;
         }
 
         this._missedDays = [];
 
         count = wrapper.readInt();
 
-        while(count > 0)
+        for(let i = 0; i < count; i++)
         {
             this._missedDays.push(wrapper.readInt());
-
-            count--;
         }
 
         return true;
@@ -46,72 +42,72 @@ export class CampaignCalendarData
     {
         const data = new CampaignCalendarData();
 
-        data._Str_8399 = this._campaignDays;
-        data._Str_19589 = this._campaignImage;
-        data._Str_11123 = this._campaignName;
-        data._Str_5472 = this._currentDay;
-        data._Str_14267 = this._missedDays;
-        data._Str_10724 = this._openedDays;
+        data.campaignDays = this._campaignDays;
+        data.campaignImage = this._campaignImage;
+        data.campaignData = this._campaignName;
+        data.currentDay = this._currentDay;
+        data.missedDays = this._missedDays;
+        data.openedDays = this._openedDays;
 
         return data;
     }
 
-    public get _Str_11123(): string
+    public get campaignData(): string
     {
         return this._campaignName;
     }
 
-    public set _Str_11123(name: string)
+    public set campaignData(name: string)
     {
         this._campaignName = name;
     }
 
-    public get _Str_19589(): string
+    public get campaignImage(): string
     {
         return this._campaignImage;
     }
 
-    public set _Str_19589(image: string)
+    public set campaignImage(image: string)
     {
         this._campaignImage = image;
     }
 
-    public get _Str_5472(): number
+    public get currentDay(): number
     {
         return this._currentDay;
     }
 
-    public set _Str_5472(day: number)
+    public set currentDay(day: number)
     {
         this._currentDay = day;
     }
 
-    public get _Str_8399(): number
+    public get campaignDays(): number
     {
         return this._campaignDays;
     }
 
-    public set _Str_8399(days: number)
+    public set campaignDays(days: number)
     {
         this._campaignDays = days;
     }
 
-    public get _Str_10724(): number[]
+    public get openedDays(): number[]
     {
         return this._openedDays;
     }
 
-    public set _Str_10724(days: number[])
+    public set openedDays(days: number[])
     {
         this._openedDays = days;
     }
 
-    public get _Str_14267(): number[]
+    public get missedDays(): number[]
     {
         return this._missedDays;
     }
 
-    public set _Str_14267(days: number[])
+    public set missedDays(days: number[])
     {
         this._missedDays = days;
     }
