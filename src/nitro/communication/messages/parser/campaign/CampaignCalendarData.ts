@@ -44,7 +44,7 @@ export class CampaignCalendarData
 
         data.campaignDays = this._campaignDays;
         data.campaignImage = this._campaignImage;
-        data.campaignData = this._campaignName;
+        data.campaignName = this._campaignName;
         data.currentDay = this._currentDay;
         data.missedDays = this._missedDays;
         data.openedDays = this._openedDays;
@@ -52,12 +52,12 @@ export class CampaignCalendarData
         return data;
     }
 
-    public get campaignData(): string
+    public get campaignName(): string
     {
         return this._campaignName;
     }
 
-    public set campaignData(name: string)
+    public set campaignName(name: string)
     {
         this._campaignName = name;
     }
