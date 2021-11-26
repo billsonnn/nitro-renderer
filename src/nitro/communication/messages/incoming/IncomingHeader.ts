@@ -14,7 +14,7 @@ export class IncomingHeader
     public static PRODUCT_OFFER                   = 3388;
     public static LIMITED_SOLD_OUT                 = 377;
     public static CATALOG_PUBLISHED                  = 1866;
-    public static CFH_RESULT_MESSAGE               = 934;
+    public static CFH_RESULT_MESSAGE               = 3635;
     public static CLIENT_LATENCY                   = 10;
     public static CLIENT_PING                      = 3928;
     public static DESKTOP_CAMPAIGN                 = 1745;
@@ -337,4 +337,21 @@ export class IncomingHeader
     public static POLL_OFFER                       = 3785;
     public static QUESTION_ANSWERED                = 2589;
     public static QUESTION_FINISHED                = 1066;
+    public static CALL_FOR_HELP_PENDING_CALLS      = 1121;
+    public static GUIDE_ON_DUTY_STATUS             = 1548;
+    public static GUIDE_SESSION_ATTACHED           = 1591;
+    public static GUIDE_SESSION_DETACHED           = 138;
+    public static GUIDE_SESSION_ENDED              = 1456;
+    public static GUIDE_SESSION_ERROR              = 673;
+    public static GUIDE_SESSION_INVITED_TO_GUIDE_ROOM = 219;
+    public static GUIDE_SESSION_MESSAGE            = 841;
+    public static GUIDE_SESSION_PARTNER_IS_TYPING  = 1016;
+    public static GUIDE_SESSION_REQUESTER_ROOM     = 1847;
+    public static GUIDE_SESSION_STARTED            = 3209;
+    public static GUIDE_TICKET_CREATION_RESULT     = 3285;
+    public static GUIDE_TICKET_RESOLUTION          = 2674;
+    public static HOTEL_MERGE_NAME_CHANGE          = 1663;
+    public static ISSUE_CLOSE_NOTIFICATION         = 934;
+    public static QUIZ_DATA                        = 2927;
+    public static QUIZ_RESULTS                     = 2772;
 }
