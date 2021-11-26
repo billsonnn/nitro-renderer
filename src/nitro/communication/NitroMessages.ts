@@ -110,6 +110,7 @@ import { NotificationDialogMessageEvent } from './messages/incoming/notification
 import { PetLevelNotificationEvent } from './messages/incoming/notifications/PetLevelNotificationEvent';
 import { PetPlacingErrorEvent } from './messages/incoming/notifications/PetPlacingErrorEvent';
 import { UnseenItemsEvent } from './messages/incoming/notifications/UnseenItemsEvent';
+import { PerkAllowancesMessageEvent } from './messages/incoming/perk';
 import { CommunityGoalEarnedPrizesMessageEvent } from './messages/incoming/quest/CommunityGoalEarnedPrizesMessageEvent';
 import { CommunityGoalHallOfFameMessageEvent } from './messages/incoming/quest/CommunityGoalHallOfFameMessageEvent';
 import { CommunityGoalProgressMessageEvent } from './messages/incoming/quest/CommunityGoalProgressMessageEvent';
@@ -204,7 +205,6 @@ import { WiredRewardResultMessageEvent } from './messages/incoming/roomevents/Wi
 import { WiredSaveSuccessEvent } from './messages/incoming/roomevents/WiredSaveSuccessEvent';
 import { WiredValidationErrorEvent } from './messages/incoming/roomevents/WiredValidationErrorEvent';
 import { AuthenticatedEvent } from './messages/incoming/security/AuthenticatedEvent';
-import { UserPerksEvent } from './messages/incoming/user/access/UserPerksEvent';
 import { UserPermissionsEvent } from './messages/incoming/user/access/UserPermissionsEvent';
 import { RelationshipStatusInfoEvent } from './messages/incoming/user/data/RelationshipStatusInfoEvent';
 import { UserCurrentBadgesEvent } from './messages/incoming/user/data/UserCurrentBadgesEvent';
@@ -699,6 +699,9 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.BOT_ERROR, BotErrorEvent);
         this._events.set(IncomingHeader.PET_LEVEL_NOTIFICATION, PetLevelNotificationEvent);
 
+        // PERK
+        this._events.set(IncomingHeader.USER_PERKS, PerkAllowancesMessageEvent);
+
         // POLL
         this._events.set(IncomingHeader.QUESTION, QuestionEvent);
         this._events.set(IncomingHeader.POLL_CONTENTS, PollContentsEvent);
@@ -827,7 +830,6 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.USER_IGNORED, IgnoredUsersEvent);
         this._events.set(IncomingHeader.USER_IGNORED_RESULT, IgnoreResultEvent);
         this._events.set(IncomingHeader.USER_RESPECT, RespectReceivedEvent);
-        this._events.set(IncomingHeader.USER_PERKS, UserPerksEvent);
         this._events.set(IncomingHeader.USER_PERMISSIONS, UserPermissionsEvent);
         this._events.set(IncomingHeader.USER_BADGES_CURRENT, UserCurrentBadgesEvent);
         this._events.set(IncomingHeader.USER_INFO, UserInfoEvent);
