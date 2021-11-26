@@ -1,14 +1,14 @@
 export class PerkData
 {
     private _code: string;
-    private _isAllowed: boolean;
     private _errorMessage: string;
+    private _isAllowed: boolean;
 
-    constructor(code: string, isAllowed: boolean, errorMessage: string)
+    constructor(code: string, errorMessage: string, isAllowed: boolean)
     {
         this._code = code;
-        this._isAllowed = isAllowed;
         this._errorMessage = errorMessage;
+        this._isAllowed = isAllowed;
     }
 
     public get code(): string
@@ -16,13 +16,13 @@ export class PerkData
         return this._code;
     }
 
-    public get isAllowed(): boolean
-    {
-        return this._isAllowed;
-    }
-
     public get errorMessage(): string
     {
         return this._errorMessage;
+    }
+
+    public get isAllowed(): boolean
+    {
+        return this._isAllowed;
     }
 }

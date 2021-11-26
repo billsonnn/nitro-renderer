@@ -22,8 +22,8 @@ export class PerkAllowancesMessageParser implements IMessageParser
 
         for(let i = 0; i < size; i++) this._perks.push(new PerkData(
             wrapper.readString(),
-            wrapper.readBoolean(),
-            wrapper.readString()
+            wrapper.readString(),
+            wrapper.readBoolean()
         ));
 
         return true;
