@@ -51,6 +51,7 @@ import { GroupPurchasedEvent } from './messages/incoming/group/GroupPurchasedEve
 import { GroupSettingsEvent } from './messages/incoming/group/GroupSettingsEvent';
 import { CallForHelpDisabledNotifyMessageEvent } from './messages/incoming/help/CallForHelpDisabledNotifyMessageEvent';
 import { CallForHelpResultMessageEvent } from './messages/incoming/help/CallForHelpResultMessageEvent';
+import { GuideReportingStatusMessageEvent } from './messages/incoming/help/GuideReportingStatusMessageEvent';
 import { IncomingHeader } from './messages/incoming/IncomingHeader';
 import { AchievementEvent } from './messages/incoming/inventory/achievements/AchievementEvent';
 import { AchievementsEvent } from './messages/incoming/inventory/achievements/AchievementsEvent';
@@ -619,6 +620,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.GUIDE_SESSION_STARTED, GuideSessionStartedMessageEvent);
         this._events.set(IncomingHeader.GUIDE_TICKET_CREATION_RESULT, GuideTicketCreationResultMessageEvent);
         this._events.set(IncomingHeader.GUIDE_TICKET_RESOLUTION, GuideTicketResolutionMessageEvent);
+        this._events.set(IncomingHeader.GUIDE_REPORTING_STATUS, GuideReportingStatusMessageEvent);
         this._events.set(IncomingHeader.HOTEL_MERGE_NAME_CHANGE, HotelMergeNameChangeEvent);
         this._events.set(IncomingHeader.ISSUE_CLOSE_NOTIFICATION, IssueCloseNotificationMessageEvent);
         this._events.set(IncomingHeader.QUIZ_DATA, QuizDataMessageEvent);
