@@ -29,6 +29,22 @@ export class PerkAllowancesMessageParser implements IMessageParser
         return true;
     }
 
+    public isAllowed(perkCode: string): boolean
+    {
+        let allowed = false;
+
+        for(const perk of this._perks)
+        {
+            if(perk.code === perkCode)
+            {
+                allowed = perk.isAllowed;
+                break;
+            }
+        }
+
+        return allowed;
+    }
+
     public get perks(): PerkData[]
     {
         return this._perks;
