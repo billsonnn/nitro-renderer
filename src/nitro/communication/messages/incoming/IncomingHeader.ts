@@ -337,7 +337,7 @@ export class IncomingHeader
     public static POLL_OFFER                       = 3785;
     public static QUESTION_ANSWERED                = 2589;
     public static QUESTION_FINISHED                = 1066;
-    public static CALL_FOR_HELP_PENDING_CALLS      = 1121;
+    public static CFH_PENDING_CALLS                = 1121;
     public static GUIDE_ON_DUTY_STATUS             = 1548;
     public static GUIDE_SESSION_ATTACHED           = 1591;
     public static GUIDE_SESSION_DETACHED           = 138;
@@ -354,4 +354,6 @@ export class IncomingHeader
     public static ISSUE_CLOSE_NOTIFICATION         = 934;
     public static QUIZ_DATA                        = 2927;
     public static QUIZ_RESULTS                     = 2772;
+    public static CFH_PENDING_CALLS_DELETED        = 77;
+    public static CFH_REPLY                        = 3796;
 }

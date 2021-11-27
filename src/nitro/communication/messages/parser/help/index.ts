@@ -1,4 +1,7 @@
 export * from './CallForHelpDisabledNotifyMessageParser';
+export * from './CallForHelpPendingCallsDeletedMessageParser';
+export * from './CallForHelpPendingCallsMessageParser';
+export * from './CallForHelpReplyMessageParser';
 export * from './CallForHelpResultMessageParser';
 export * from './GuideOnDutyStatusMessageParser';
 export * from './GuideReportingStatusMessageParser';

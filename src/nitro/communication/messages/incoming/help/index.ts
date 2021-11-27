@@ -1,4 +1,7 @@
 export * from './CallForHelpDisabledNotifyMessageEvent';
+export * from './CallForHelpPendingCallsDeletedMessageEvent';
+export * from './CallForHelpPendingCallsMessageEvent';
+export * from './CallForHelpReplyMessageEvent';
 export * from './CallForHelpResultMessageEvent';
 export * from './GuideOnDutyStatusMessageEvent';
 export * from './GuideSessionAttachedMessageEvent';
