@@ -350,6 +350,7 @@ export class IncomingHeader
     public static GUIDE_SESSION_STARTED            = 3209;
     public static GUIDE_TICKET_CREATION_RESULT     = 3285;
     public static GUIDE_TICKET_RESOLUTION          = 2674;
+    public static GUIDE_REPORTING_STATUS           = 3463;
     public static HOTEL_MERGE_NAME_CHANGE          = 1663;
     public static ISSUE_CLOSE_NOTIFICATION         = 934;
     public static QUIZ_DATA                        = 2927;
