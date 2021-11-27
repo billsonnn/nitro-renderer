@@ -356,4 +356,9 @@ export class IncomingHeader
     public static QUIZ_RESULTS                     = 2772;
     public static CFH_PENDING_CALLS_DELETED        = 77;
     public static CFH_REPLY                        = 3796;
+    public static CHAT_REVIEW_SESSION_DETACHED     = 30;
+    public static CHAT_REVIEW_SESSION_OFFERED_TO_GUIDE = 735;
+    public static CHAT_REVIEW_SESSION_RESULTS      = 3276;
+    public static CHAT_REVIEW_SESSION_STARTED      = 143;
+    public static CHAT_REVIEW_SESSION_VOTING_STATUS = 1829;
 }
