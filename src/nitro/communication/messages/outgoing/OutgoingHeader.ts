@@ -376,4 +376,5 @@ export class OutgoingHeader
     public static POLL_ANSWER                      = 3505;
     public static POLL_REJECT                      = 1773;
     public static POLL_START                       = 109;
+    public static DISCONNECT                       = 2445;
 }

@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class SecurityTicketComposer implements IMessageComposer<ConstructorParameters<typeof SecurityTicketComposer>>
+export class SSOTicketMessageComposer implements IMessageComposer<ConstructorParameters<typeof SSOTicketMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof SecurityTicketComposer>;
+    private _data: ConstructorParameters<typeof SSOTicketMessageComposer>;
 
     constructor(ticket: string, time: number)
     {

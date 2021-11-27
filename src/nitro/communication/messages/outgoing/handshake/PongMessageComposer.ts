@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class ClientPongComposer implements IMessageComposer<ConstructorParameters<typeof ClientPongComposer>>
+export class PongMessageComposer implements IMessageComposer<ConstructorParameters<typeof PongMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof ClientPongComposer>;
+    private _data: ConstructorParameters<typeof PongMessageComposer>;
 
     constructor()
     {

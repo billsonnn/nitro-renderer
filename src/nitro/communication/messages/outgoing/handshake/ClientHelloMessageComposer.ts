@@ -3,9 +3,9 @@ import { ClientDeviceCategoryEnum } from '../../../../../core/communication/conn
 import { ClientPlatformEnum } from '../../../../../core/communication/connections/enums/ClientPlatformEnum';
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class ClientReleaseVersionComposer implements IMessageComposer<ConstructorParameters<typeof ClientReleaseVersionComposer>>
+export class ClientHelloMessageComposer implements IMessageComposer<ConstructorParameters<typeof ClientHelloMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof ClientReleaseVersionComposer>;
+    private _data: ConstructorParameters<typeof ClientHelloMessageComposer>;
 
     constructor(releaseVersion: string, type: string, platform: number, category: number)
     {

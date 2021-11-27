@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class InfoRetrieveBaseMessageComposer implements IMessageComposer<ConstructorParameters<typeof InfoRetrieveBaseMessageComposer>>
+export class InfoRetrieveMessageComposer implements IMessageComposer<ConstructorParameters<typeof InfoRetrieveMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof InfoRetrieveBaseMessageComposer>;
+    private _data: ConstructorParameters<typeof InfoRetrieveMessageComposer>;
 
     constructor()
     {

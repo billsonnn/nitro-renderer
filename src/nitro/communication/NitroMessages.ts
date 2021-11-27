@@ -248,8 +248,6 @@ import { PurchaseFromCatalogComposer } from './messages/outgoing/catalog/Purchas
 import { RedeemVoucherMessageComposer } from './messages/outgoing/catalog/RedeemVoucherMessageComposer';
 import { RoomAdPurchaseInitiatedComposer } from './messages/outgoing/catalog/RoomAdPurchaseInitiatedComposer';
 import { SelectClubGiftComposer } from './messages/outgoing/catalog/SelectClubGiftComposer';
-import { ClientPongComposer } from './messages/outgoing/client/ClientPongComposer';
-import { ClientReleaseVersionComposer } from './messages/outgoing/client/ClientReleaseVersionComposer';
 import { ForwardToACompetitionRoomMessageComposer } from './messages/outgoing/competition/ForwardToACompetitionRoomMessageComposer';
 import { GetIsUserPartOfCompetitionMessageComposer } from './messages/outgoing/competition/GetIsUserPartOfCompetitionMessageComposer';
 import { CraftComposer } from './messages/outgoing/crafting/CraftComposer';
@@ -293,8 +291,13 @@ import { GroupSaveInformationComposer } from './messages/outgoing/group/GroupSav
 import { GroupSavePreferencesComposer } from './messages/outgoing/group/GroupSavePreferencesComposer';
 import { GroupSettingsComposer } from './messages/outgoing/group/GroupSettingsComposer';
 import { AuthenticationMessageComposer } from './messages/outgoing/handshake/AuthenticationMessageComposer';
-import { InfoRetrieveBaseMessageComposer } from './messages/outgoing/handshake/InfoRetrieveBaseMessageComposer';
-import { SecurityTicketComposer } from './messages/outgoing/handshake/SecurityTicketComposer';
+import { ClientHelloMessageComposer } from './messages/outgoing/handshake/ClientHelloMessageComposer';
+import { DisconnectMessageComposer } from './messages/outgoing/handshake/DisconnectMessageComposer';
+import { InfoRetrieveMessageComposer } from './messages/outgoing/handshake/InfoRetrieveMessageComposer';
+import { PongMessageComposer } from './messages/outgoing/handshake/PongMessageComposer';
+import { SSOTicketMessageComposer } from './messages/outgoing/handshake/SSOTicketMessageComposer';
+import { UniqueIDMessageComposer } from './messages/outgoing/handshake/UniqueIDMessageComposer';
+import { VersionCheckMessageComposer } from './messages/outgoing/handshake/VersionCheckMessageComposer';
 import { RequestBadgesComposer } from './messages/outgoing/inventory/badges/RequestBadgesComposer';
 import { SetActivatedBadgesComposer } from './messages/outgoing/inventory/badges/SetActivatedBadgesComposer';
 import { GetBotInventoryComposer } from './messages/outgoing/inventory/bots/GetBotInventoryComposer';
@@ -997,6 +1000,15 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.UPDATE_FORUM_SETTINGS, UpdateForumSettingsMessageComposer);
         this._composers.set(OutgoingHeader.FORUM_UPDATE_THREAD, UpdateThreadMessageComposer);
 
+        // HANDSHAKE
+        this._composers.set(OutgoingHeader.CLIENT_PONG, PongMessageComposer);
+        this._composers.set(OutgoingHeader.RELEASE_VERSION, ClientHelloMessageComposer);
+        this._composers.set(OutgoingHeader.SECURITY_TICKET, SSOTicketMessageComposer);
+        this._composers.set(OutgoingHeader.USER_INFO, InfoRetrieveMessageComposer);
+        this._composers.set(OutgoingHeader.DISCONNECT, DisconnectMessageComposer);
+        this._composers.set(OutgoingHeader.SECURITY_MACHINE, UniqueIDMessageComposer);
+        this._composers.set(OutgoingHeader.CLIENT_VARIABLES, VersionCheckMessageComposer);
+
         // HELP
         this._composers.set(OutgoingHeader.CALL_FOR_HELP_FROM_FORUM_MESSAGE, CallForHelpFromForumMessageMessageComposer);
         this._composers.set(OutgoingHeader.CALL_FOR_HELP_FROM_FORUM_THREAD, CallForHelpFromForumThreadMessageComposer);
@@ -1029,10 +1041,6 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.POST_QUIZ_ANSWERS, PostQuizAnswersComposer);
         this._composers.set(OutgoingHeader.SEARCH_FAQS, SearchFaqsMessageComposer);
 
-        // CLIENT
-        this._composers.set(OutgoingHeader.CLIENT_PONG, ClientPongComposer);
-        this._composers.set(OutgoingHeader.RELEASE_VERSION, ClientReleaseVersionComposer);
-
         // DESKTOP
         this._composers.set(OutgoingHeader.DESKTOP_VIEW, DesktopViewComposer);
 
@@ -1057,10 +1065,6 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.GROUP_SAVE_PREFERENCES, GroupSavePreferencesComposer);
         this._composers.set(OutgoingHeader.GROUP_FAVORITE, GroupFavoriteComposer);
         this._composers.set(OutgoingHeader.GROUP_BADGES, GroupBadgesComposer);
-
-        // SECURITY
-        this._composers.set(OutgoingHeader.SECURITY_TICKET, SecurityTicketComposer);
-        this._composers.set(OutgoingHeader.USER_INFO, InfoRetrieveBaseMessageComposer);
 
         // NAVIGATOR
         this._composers.set(OutgoingHeader.NAVIGATOR_CATEGORIES, NavigatorCategoriesComposer);
@@ -1288,7 +1292,7 @@ export class NitroMessages implements IMessageConfiguration
         // SUBSCRIPTION
         this._composers.set(OutgoingHeader.USER_SUBSCRIPTION, UserSubscriptionComposer);
 
-        // MODTOOL
+        // MODERATION
         this._composers.set(OutgoingHeader.MODTOOL_REQUEST_ROOM_INFO, GetModeratorRoomInfoMessageComposer);
         this._composers.set(OutgoingHeader.MODTOOL_CHANGE_ROOM_SETTINGS, ModerateRoomMessageComposer);
         this._composers.set(OutgoingHeader.MODTOOL_REQUEST_USER_CHATLOG, GetUserChatlogMessageComposer);
