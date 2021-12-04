@@ -38,6 +38,13 @@ export class EvaWireDataWrapper implements IMessageDataWrapper
         return this._buffer.readShort();
     }
 
+    public readDouble(): number
+    {
+        if(!this._buffer) return -1;
+
+        return this._buffer.readDouble();
+    }
+
     public readInt(): number
     {
         if(!this._buffer) return -1;

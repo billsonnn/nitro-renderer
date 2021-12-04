@@ -36,6 +36,15 @@ export class BinaryReader
         return short;
     }
 
+    public readDouble(): number
+    {
+        const double = this._dataView.getFloat64(this._position);
+
+        this._position += 8;
+
+        return double;
+    }
+
     public readInt(): number
     {
         const int = this._dataView.getInt32(this._position);
