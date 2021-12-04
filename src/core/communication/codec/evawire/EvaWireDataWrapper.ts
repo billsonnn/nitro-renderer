@@ -12,18 +12,18 @@ export class EvaWireDataWrapper implements IMessageDataWrapper
         this._buffer    = buffer;
     }
 
-    public readByte(): number
-    {
-        if(!this._buffer) return -1;
-
-        return this._buffer.readByte();
-    }
-
     public readBytes(length: number): BinaryReader
     {
         if(!this._buffer) return null;
 
         return this._buffer.readBytes(length);
+    }
+
+    public readByte(): number
+    {
+        if(!this._buffer) return -1;
+
+        return this._buffer.readByte();
     }
 
     public readBoolean(): boolean
@@ -38,18 +38,25 @@ export class EvaWireDataWrapper implements IMessageDataWrapper
         return this._buffer.readShort();
     }
 
-    public readDouble(): number
-    {
-        if(!this._buffer) return -1;
-
-        return this._buffer.readDouble();
-    }
-
     public readInt(): number
     {
         if(!this._buffer) return -1;
 
         return this._buffer.readInt();
+    }
+
+    public readFloat(): number
+    {
+        if(!this._buffer) return -1;
+
+        return this._buffer.readFloat();
+    }
+
+    public readDouble(): number
+    {
+        if(!this._buffer) return -1;
+
+        return this._buffer.readDouble();
     }
 
     public readString(): string
