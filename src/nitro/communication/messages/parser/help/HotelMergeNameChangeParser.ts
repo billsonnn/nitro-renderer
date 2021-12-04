@@ -1,6 +1,6 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
-export class UserPerksParser implements IMessageParser
+export class HotelMergeNameChangeParser implements IMessageParser
 {
     public flush(): boolean
     {

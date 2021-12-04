@@ -3,7 +3,6 @@ export * from './avatar';
 export * from './camera';
 export * from './campaign';
 export * from './catalog';
-export * from './client';
 export * from './competition';
 export * from './desktop';
 export * from './friendfurni';

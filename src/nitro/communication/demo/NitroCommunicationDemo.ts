@@ -6,10 +6,10 @@ import { Nitro } from '../../Nitro';
 import { INitroCommunicationManager } from '../INitroCommunicationManager';
 import { ClientPingEvent } from '../messages/incoming/client/ClientPingEvent';
 import { AuthenticatedEvent } from '../messages/incoming/security/AuthenticatedEvent';
-import { ClientPongComposer } from '../messages/outgoing/client/ClientPongComposer';
-import { ClientReleaseVersionComposer } from '../messages/outgoing/client/ClientReleaseVersionComposer';
-import { InfoRetrieveBaseMessageComposer } from '../messages/outgoing/handshake/InfoRetrieveBaseMessageComposer';
-import { SecurityTicketComposer } from '../messages/outgoing/handshake/SecurityTicketComposer';
+import { ClientHelloMessageComposer } from '../messages/outgoing/handshake/ClientHelloMessageComposer';
+import { InfoRetrieveMessageComposer } from '../messages/outgoing/handshake/InfoRetrieveMessageComposer';
+import { PongMessageComposer } from '../messages/outgoing/handshake/PongMessageComposer';
+import { SSOTicketMessageComposer } from '../messages/outgoing/handshake/SSOTicketMessageComposer';
 import { NitroCommunicationDemoEvent } from './NitroCommunicationDemoEvent';
 
 export class NitroCommunicationDemo extends NitroManager
@@ -88,7 +88,7 @@ export class NitroCommunicationDemo extends NitroManager
 
         this.startHandshake(connection);
 
-        connection.send(new ClientReleaseVersionComposer(null, null, null, null));
+        connection.send(new ClientHelloMessageComposer(null, null, null, null));
 
         this.tryAuthentication(connection);
     }
@@ -129,7 +129,7 @@ export class NitroCommunicationDemo extends NitroManager
             return;
         }
 
-        connection.send(new SecurityTicketComposer(this._sso, Nitro.instance.time));
+        connection.send(new SSOTicketMessageComposer(this._sso, Nitro.instance.time));
     }
 
     private onClientPingEvent(event: ClientPingEvent): void
@@ -149,7 +149,7 @@ export class NitroCommunicationDemo extends NitroManager
 
         //event.connection.send(new UserHomeRoomComposer(555));
 
-        event.connection.send(new InfoRetrieveBaseMessageComposer());
+        event.connection.send(new InfoRetrieveMessageComposer());
     }
 
     public setSSO(sso: string): void
@@ -195,7 +195,7 @@ export class NitroCommunicationDemo extends NitroManager
 
         if(!connection) return;
 
-        connection.send(new ClientPongComposer());
+        connection.send(new PongMessageComposer());
     }
 
     private dispatchCommunicationDemoEvent(type: string, connection: IConnection): void
