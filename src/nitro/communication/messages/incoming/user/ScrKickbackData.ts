@@ -16,7 +16,7 @@ export class ScrKickbackData
     {
         this._currentHcStreak = k.readInt();
         this._firstSubscriptionDate = k.readString();
-        this._kickbackPercentage = parseFloat(k.readString());
+        this._kickbackPercentage = k.readDouble();
         this._totalCreditsMissed = k.readInt();
         this._totalCreditsRewarded = k.readInt();
         this._totalCreditsSpent = k.readInt();
