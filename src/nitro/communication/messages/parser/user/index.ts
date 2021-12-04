@@ -8,4 +8,5 @@ export * from './InClientLinkParser';
 export * from './inventory';
 export * from './RespectReceivedParser';
 export * from './RoomEntryData';
+export * from './ScrSendKickbackInfoMessageParser';
 export * from './wardrobe';
