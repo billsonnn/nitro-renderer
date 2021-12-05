@@ -33,6 +33,7 @@ import { IRoomSessionManager } from './session/IRoomSessionManager';
 import { ISessionDataManager } from './session/ISessionDataManager';
 import { RoomSessionManager } from './session/RoomSessionManager';
 import { SessionDataManager } from './session/SessionDataManager';
+import { ISoundManager } from './sound/ISoundManager';
 import { SoundManager } from './sound/SoundManager';
 import { HabboWebTools } from './utils/HabboWebTools';
 
@@ -98,6 +99,7 @@ export class Nitro extends Application implements INitro
 
         if(this._worker) this._worker.onmessage = this.createWorkerEvent.bind(this);
     }
+    soundManager: ISoundManager;
 
     public static bootstrap(): void
     {
