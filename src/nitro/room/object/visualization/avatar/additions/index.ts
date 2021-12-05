@@ -2,6 +2,8 @@ export * from './ExpressionAddition';
 export * from './ExpressionAdditionFactory';
 export * from './FloatingHeartAddition';
 export * from './FloatingIdleZAddition';
+export * from './GameClickTargetAddition';
+export * from './GuideStatusBubbleAddition';
 export * from './IAvatarAddition';
 export * from './IExpressionAddition';
 export * from './MutedBubbleAddition';

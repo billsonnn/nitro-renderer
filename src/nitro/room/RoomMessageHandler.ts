@@ -2,8 +2,12 @@ import { Disposable } from '../../core/common/disposable/Disposable';
 import { IConnection } from '../../core/communication/connections/IConnection';
 import { IVector3D } from '../../room/utils/IVector3D';
 import { Vector3d } from '../../room/utils/Vector3d';
+import { AvatarGuideStatus } from '../avatar/enum/AvatarGuideStatus';
 import { PetType } from '../avatar/pets/PetType';
 import { ObjectsDataUpdateEvent, PetExperienceEvent } from '../communication';
+import { GuideSessionEndedMessageEvent } from '../communication/messages/incoming/help/GuideSessionEndedMessageEvent';
+import { GuideSessionErrorMessageEvent } from '../communication/messages/incoming/help/GuideSessionErrorMessageEvent';
+import { GuideSessionStartedMessageEvent } from '../communication/messages/incoming/help/GuideSessionStartedMessageEvent';
 import { ObjectsRollingEvent } from '../communication/messages/incoming/room/engine/ObjectsRollingEvent';
 import { DiceValueMessageEvent } from '../communication/messages/incoming/room/furniture/DiceValueMessageEvent';
 import { FurnitureFloorAddEvent } from '../communication/messages/incoming/room/furniture/floor/FurnitureFloorAddEvent';
@@ -48,6 +52,7 @@ import { GetRoomEntryDataMessageComposer } from '../communication/messages/outgo
 import { FurnitureFloorDataParser } from '../communication/messages/parser/room/furniture/floor/FurnitureFloorDataParser';
 import { FurnitureWallDataParser } from '../communication/messages/parser/room/furniture/wall/FurnitureWallDataParser';
 import { RoomEntryTileMessageParser } from '../communication/messages/parser/room/mapping/RoomEntryTileMessageParser';
+import { RoomObjectType } from '../room/object/RoomObjectType';
 import { IRoomCreator } from './IRoomCreator';
 import { LegacyDataType } from './object/data/type/LegacyDataType';
 import { RoomObjectUserType } from './object/RoomObjectUserType';
@@ -68,6 +73,8 @@ export class RoomMessageHandler extends Disposable
     private _currentRoomId: number;
     private _ownUserId: number;
     private _initialConnection: boolean;
+    private _guideId: number;
+    private _requesterId: number;
 
     constructor(roomCreator: IRoomCreator)
     {
@@ -81,6 +88,8 @@ export class RoomMessageHandler extends Disposable
         this._currentRoomId     = 0;
         this._ownUserId         = 0;
         this._initialConnection = true;
+        this._guideId           = -1;
+        this._requesterId       = -1;
     }
 
     protected onDispose(): void
@@ -146,6 +155,9 @@ export class RoomMessageHandler extends Disposable
         this._connection.addMessageEvent(new YouArePlayingGameEvent(this.onYouArePlayingGameEvent.bind(this)));
         this._connection.addMessageEvent(new DiceValueMessageEvent(this.onDiceValueMessageEvent.bind(this)));
         this._connection.addMessageEvent(new IgnoreResultEvent(this.onIgnoreResultEvent.bind(this)));
+        this._connection.addMessageEvent(new GuideSessionStartedMessageEvent(this.onGuideSessionStartedMessageEvent.bind(this)));
+        this._connection.addMessageEvent(new GuideSessionEndedMessageEvent(this.onGuideSessionEndedMessageEvent.bind(this)));
+        this._connection.addMessageEvent(new GuideSessionErrorMessageEvent(this.onGuideSessionErrorMessageEvent.bind(this)));
     }
 
     public setRoomId(id: number): void
@@ -947,6 +959,58 @@ export class RoomMessageHandler extends Disposable
                 this._roomCreator.updateRoomObjectUserAction(this._currentRoomId, userData.roomIndex, RoomObjectVariable.FIGURE_IS_MUTED, 0);
                 return;
         }
+    }
+
+    private onGuideSessionStartedMessageEvent(event: GuideSessionStartedMessageEvent): void
+    {
+        const parser = event.getParser();
+
+        this._guideId = parser.guideUserId;
+        this._requesterId = parser.requesterUserId;
+
+        this.updateGuideMarker();
+    }
+
+    private onGuideSessionEndedMessageEvent(k: GuideSessionEndedMessageEvent): void
+    {
+        this.removeGuideMarker();
+    }
+
+    private onGuideSessionErrorMessageEvent(k: GuideSessionErrorMessageEvent): void
+    {
+        this.removeGuideMarker();
+    }
+
+    private updateGuideMarker():void
+    {
+        const userId = this._roomCreator.sessionDataManager.userId;
+
+        this.setUserGuideStatus(this._guideId, ((this._requesterId === userId) ? AvatarGuideStatus.GUIDE : AvatarGuideStatus.NONE));
+        this.setUserGuideStatus(this._requesterId, ((this._guideId === userId) ? AvatarGuideStatus.REQUESTER : AvatarGuideStatus.NONE));
+    }
+
+    private removeGuideMarker():void
+    {
+        this.setUserGuideStatus(this._guideId, AvatarGuideStatus.NONE);
+        this.setUserGuideStatus(this._requesterId, AvatarGuideStatus.NONE);
+
+        this._guideId = -1;
+        this._requesterId = -1;
+    }
+
+    private setUserGuideStatus(userId: number, status: number):void
+    {
+        if(!this._roomCreator || !this._roomCreator.roomSessionManager) return;
+
+        const roomSession = this._roomCreator.roomSessionManager.getSession(this._currentRoomId);
+
+        if(!roomSession) return;
+
+        const userData = roomSession.userDataManager.getDataByType(userId, RoomObjectType.USER);
+
+        if(!userData) return;
+
+        this._roomCreator.updateRoomObjectUserAction(this._currentRoomId, userData.roomIndex, RoomObjectVariable.FIGURE_GUIDE_STATUS, status);
     }
 
     // public _SafeStr_10580(event:_SafeStr_2242): void
