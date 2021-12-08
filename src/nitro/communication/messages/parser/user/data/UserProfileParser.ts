@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
-import { GroupDataParser } from '../../group/utils/GroupDataParser';
+import { HabboGroupEntryData } from '../HabboGroupEntryData';
 
 export class UserProfileParser implements IMessageParser
 {
@@ -13,7 +13,7 @@ export class UserProfileParser implements IMessageParser
     private _isMyFriend: boolean;
     private _requestSent: boolean;
     private _isOnline: boolean;
-    private _groups: GroupDataParser[];
+    private _groups: HabboGroupEntryData[];
     private _secondsSinceLastVisit: number;
     private _openProfileWindow: boolean;
 
@@ -54,7 +54,7 @@ export class UserProfileParser implements IMessageParser
 
         for(let i = 0; i < groupsCount; i++)
         {
-            this._groups.push(new GroupDataParser(wrapper));
+            this._groups.push(new HabboGroupEntryData(wrapper));
         }
 
         this._secondsSinceLastVisit = wrapper.readInt();
@@ -113,7 +113,7 @@ export class UserProfileParser implements IMessageParser
         return this._isOnline;
     }
 
-    public get groups(): GroupDataParser[]
+    public get groups(): HabboGroupEntryData[]
     {
         return this._groups;
     }
