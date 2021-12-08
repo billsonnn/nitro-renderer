@@ -1,9 +1,8 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
 export class RoomMutedParser implements IMessageParser
 {
-    private _isMuted:boolean;
+    private _isMuted: boolean;
 
     public flush(): boolean
     {

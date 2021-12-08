@@ -8,6 +8,7 @@ import { RoomObjectLogicBase } from '../../../../../room/object/logic/RoomObject
 import { ColorConverter } from '../../../../../room/utils/ColorConverter';
 import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
 import { Vector3d } from '../../../../../room/utils/Vector3d';
+import { Nitro } from '../../../../Nitro';
 import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectTileMouseEvent } from '../../../events/RoomObjectTileMouseEvent';
 import { RoomObjectWallMouseEvent } from '../../../events/RoomObjectWallMouseEvent';
@@ -39,6 +40,7 @@ export class RoomLogic extends RoomObjectLogicBase
     private _colorTransitionLength: number;
     private _lastHoleUpdate: number;
     private _needsMapUpdate: boolean;
+    private _skipColorTransition: boolean;
 
     constructor()
     {
@@ -56,6 +58,7 @@ export class RoomLogic extends RoomObjectLogicBase
         this._colorTransitionLength = 1500;
         this._lastHoleUpdate        = 0;
         this._needsMapUpdate        = false;
+        this._skipColorTransition   = false;
     }
 
     public getEventTypes(): string[]
@@ -97,6 +100,8 @@ export class RoomLogic extends RoomObjectLogicBase
         this.object.model.setValue(RoomObjectVariable.ROOM_FLOOR_VISIBILITY, 1);
         this.object.model.setValue(RoomObjectVariable.ROOM_WALL_VISIBILITY, 1);
         this.object.model.setValue(RoomObjectVariable.ROOM_LANDSCAPE_VISIBILITY, 1);
+
+        this._skipColorTransition = (Nitro.instance.getConfiguration<boolean>('room.color.skip.transition') === true);
     }
 
     public update(time: number): void
@@ -325,7 +330,11 @@ export class RoomLogic extends RoomObjectLogicBase
         this._targetColor = message.color;
         this._targetLight = message.light;
         this._colorChangedTime  = this.time;
-        this._colorTransitionLength = 1500;
+
+        if(this._skipColorTransition)
+            this._colorTransitionLength = 0;
+        else
+            this._colorTransitionLength = 1500;
 
         model.setValue(RoomObjectVariable.ROOM_COLORIZE_BG_ONLY, message.backgroundOnly);
     }
@@ -398,15 +407,15 @@ export class RoomLogic extends RoomObjectLogicBase
         _local_18.add(Vector3d.product(planeRightSide, (planePosition.y / rightSideLength)));
         _local_18.add(planeLocation);
 
-        const _local_19 = _local_18.x;
-        const _local_20 = _local_18.y;
-        const _local_21 = _local_18.z;
+        const tileX = _local_18.x;
+        const tileY = _local_18.y;
+        const tileZ = _local_18.z;
 
         if(((((planePosition.x >= 0) && (planePosition.x < leftSideLength)) && (planePosition.y >= 0)) && (planePosition.y < rightSideLength)))
         {
-            this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_X, _local_19);
-            this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_Y, _local_20);
-            this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_Z, _local_21);
+            this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_X, tileX);
+            this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_Y, tileY);
+            this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_Z, tileZ);
             this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_PLANE, (planeId + 1));
         }
         else
@@ -430,7 +439,7 @@ export class RoomLogic extends RoomObjectLogicBase
 
                 if(planeType === RoomPlaneData.PLANE_FLOOR)
                 {
-                    newEvent = new RoomObjectTileMouseEvent(eventType, this.object, event.eventId, _local_19, _local_20, _local_21, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
+                    newEvent = new RoomObjectTileMouseEvent(eventType, this.object, event.eventId, tileX, tileY, tileZ, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
                 }
 
                 else if((planeType === RoomPlaneData.PLANE_WALL) || (planeType === RoomPlaneData.PLANE_LANDSCAPE))

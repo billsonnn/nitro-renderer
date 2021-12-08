@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
 export class GroupInformationParser implements IMessageParser
 {
@@ -12,6 +11,7 @@ export class GroupInformationParser implements IMessageParser
     private _roomName: string;
     private _membershipType: number;
     private _membersCount: number;
+    private _isFavorite: boolean;
     private _createdAt: string;
     private _isOwner: boolean;
     private _isAdmin: boolean;
@@ -30,7 +30,8 @@ export class GroupInformationParser implements IMessageParser
         this._roomId                 = 0;
         this._roomName               = null;
         this._membershipType         = 0;
-        this._membersCount            = 0;
+        this._membersCount           = 0;
+        this._isFavorite             = false;
         this._createdAt              = null;
         this._isOwner                = false;
         this._isAdmin                = false;
@@ -56,7 +57,7 @@ export class GroupInformationParser implements IMessageParser
         this._roomName               = wrapper.readString();
         this._membershipType         = wrapper.readInt();
         this._membersCount           = wrapper.readInt();
-        wrapper.readBoolean();
+        this._isFavorite             = wrapper.readBoolean();
         this._createdAt              = wrapper.readString();
         this._isOwner                = wrapper.readBoolean();
         this._isAdmin                = wrapper.readBoolean();
@@ -111,6 +112,11 @@ export class GroupInformationParser implements IMessageParser
     public get membersCount(): number
     {
         return this._membersCount;
+    }
+
+    public get isFavorite(): boolean
+    {
+        return this._isFavorite;
     }
 
     public get createdAt(): string

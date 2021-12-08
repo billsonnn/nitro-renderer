@@ -10,14 +10,16 @@ import { RoomObjectSpriteVisualization } from '../../../../../room/object/visual
 import { IGraphicAsset } from '../../../../../room/object/visualization/utils/IGraphicAsset';
 import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
 import { AvatarAction } from '../../../../avatar/enum/AvatarAction';
+import { AvatarGuideStatus } from '../../../../avatar/enum/AvatarGuideStatus';
 import { AvatarSetType } from '../../../../avatar/enum/AvatarSetType';
 import { IAvatarEffectListener } from '../../../../avatar/IAvatarEffectListener';
 import { IAvatarImage } from '../../../../avatar/IAvatarImage';
 import { IAvatarImageListener } from '../../../../avatar/IAvatarImageListener';
-import { Nitro } from '../../../../Nitro';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { ExpressionAdditionFactory } from './additions/ExpressionAdditionFactory';
 import { FloatingIdleZAddition } from './additions/FloatingIdleZAddition';
+import { GameClickTargetAddition } from './additions/GameClickTargetAddition';
+import { GuideStatusBubbleAddition } from './additions/GuideStatusBubbleAddition';
 import { IAvatarAddition } from './additions/IAvatarAddition';
 import { MutedBubbleAddition } from './additions/MutedBubbleAddition';
 import { NumberBubbleAddition } from './additions/NumberBubbleAddition';
@@ -31,7 +33,9 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
     private static TYPING_BUBBLE_ID: number         = 2;
     private static EXPRESSION_ID: number            = 3;
     private static NUMBER_BUBBLE_ID: number         = 4;
+    private static GAME_CLICK_TARGET_ID: number     = 5;
     private static MUTED_BUBBLE_ID: number          = 6;
+    private static GUIDE_BUBBLE_ID: number          = 7;
     private static OWN_USER_ID: number              = 4;
     private static UPDATE_TIME_INCREASER: number    = 41;
     private static AVATAR_LAYER_ID: number          = 0;
@@ -767,6 +771,40 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
             }
         }
 
+        const guideStatusValue = (model.getValue<number>(RoomObjectVariable.FIGURE_GUIDE_STATUS) || 0);
+
+        if(guideStatusValue !== AvatarGuideStatus.NONE)
+        {
+            this.removeAddition(AvatarVisualization.GUIDE_BUBBLE_ID);
+            this.addAddition(new GuideStatusBubbleAddition(AvatarVisualization.GUIDE_BUBBLE_ID, this, guideStatusValue));
+
+            needsUpdate = true;
+        }
+        else
+        {
+            if(this.getAddition(AvatarVisualization.GUIDE_BUBBLE_ID))
+            {
+                this.removeAddition(AvatarVisualization.GUIDE_BUBBLE_ID);
+
+                needsUpdate = true;
+            }
+        }
+
+        const isPlayingGame = (model.getValue<number>(RoomObjectVariable.FIGURE_IS_PLAYING_GAME) > 0);
+
+        let gameClickAddition = this.getAddition(AvatarVisualization.GAME_CLICK_TARGET_ID);
+
+        if(isPlayingGame)
+        {
+            if(!gameClickAddition) gameClickAddition = this.addAddition(new GameClickTargetAddition(AvatarVisualization.GAME_CLICK_TARGET_ID));
+
+            needsUpdate = true;
+        }
+        else
+        {
+            if(gameClickAddition) this.removeAddition(AvatarVisualization.GAME_CLICK_TARGET_ID);
+        }
+
         const numberValue = model.getValue<number>(RoomObjectVariable.FIGURE_NUMBER_VALUE);
 
         let numberAddition = this.getAddition(AvatarVisualization.NUMBER_BUBBLE_ID);
@@ -1093,9 +1131,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
     public getAvatarRenderAsset(name: string): Texture<Resource>
     {
-        const url = (Nitro.instance.getConfiguration<string>('images.url') + '/additions/' + name + '.png');
-
-        return this._data ? this._data.getAvatarRendererAsset(url) : null;
+        return this._data ? this._data.getAvatarRendererAsset(name) : null;
     }
 
     public get direction(): number

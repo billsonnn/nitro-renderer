@@ -1,5 +1,6 @@
 import { Resource, Texture } from '@pixi/core';
 import { IRoomObjectSprite } from '../../../../../../room/object/visualization/IRoomObjectSprite';
+import { AvatarAction } from '../../../../../avatar/enum/AvatarAction';
 import { Nitro } from '../../../../../Nitro';
 import { AvatarVisualization } from '../AvatarVisualization';
 import { ExpressionAddition } from './ExpressionAddition';
@@ -42,7 +43,7 @@ export class FloatingHeartAddition extends ExpressionAddition
 
         if(scale < 48)
         {
-            this._asset = this.visualization.getAvatarRenderAsset('user_blowkiss_small');
+            this._asset = this.visualization.getAvatarRenderAsset('avatar_addition_user_blowkiss_small');
 
             if((this.visualization.angle === 90) || (this.visualization.angle === 270))
             {
@@ -62,7 +63,7 @@ export class FloatingHeartAddition extends ExpressionAddition
         }
         else
         {
-            this._asset = this.visualization.getAvatarRenderAsset('user_blowkiss');
+            this._asset = this.visualization.getAvatarRenderAsset('avatar_addition_user_blowkiss');
 
             if((this.visualization.angle === 90) || (this.visualization.angle === 270))
             {
@@ -79,12 +80,12 @@ export class FloatingHeartAddition extends ExpressionAddition
             this._offsetY = -70;
         }
 
-        if(this.visualization.posture === 'sit')
+        if(this.visualization.posture === AvatarAction.POSTURE_SIT)
         {
             this._offsetY += (additionScale / 2);
         }
 
-        else if(this.visualization.posture === 'lay')
+        else if(this.visualization.posture === AvatarAction.POSTURE_LAY)
         {
             this._offsetY += additionScale;
         }

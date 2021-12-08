@@ -36,7 +36,7 @@ export class BadgeBaseAndLevel
         return this._level;
     }
 
-    public set level(k :number)
+    public set level(k : number)
     {
         this._level = Math.max(1, k);
     }

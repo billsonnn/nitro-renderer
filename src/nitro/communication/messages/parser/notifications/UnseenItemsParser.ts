@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 import { AdvancedMap } from '../../../../../core/utils/AdvancedMap';
 
 export class UnseenItemsParser implements IMessageParser

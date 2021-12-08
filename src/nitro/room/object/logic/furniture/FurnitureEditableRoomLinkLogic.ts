@@ -18,11 +18,14 @@ export class FurnitureEditableRoomLinkLogic extends FurnitureLogic
     {
         super.initialize(asset);
 
-        if(asset.action)
+        if(asset.logic)
         {
-            if(asset.action.link && (asset.action.link !== '') && (asset.action.link.length > 0))
+            if(asset.logic.action)
             {
-                (this.object && this.object.model && this.object.model.setValue<string>(RoomObjectVariable.FURNITURE_INTERNAL_LINK, asset.action.link));
+                if(asset.logic.action.link && (asset.logic.action.link !== '') && (asset.logic.action.link.length > 0))
+                {
+                    (this.object && this.object.model && this.object.model.setValue<string>(RoomObjectVariable.FURNITURE_INTERNAL_LINK, asset.logic.action.link));
+                }
             }
         }
     }

@@ -3,7 +3,7 @@ import { RoomObjectUpdateMessage } from '../../../room/messages/RoomObjectUpdate
 export class ObjectModelDataUpdateMessage extends RoomObjectUpdateMessage
 {
     private _numberKey: string;
-    private _numberValue:number;
+    private _numberValue: number;
 
     constructor(numberKey: string, numberValue: number)
     {

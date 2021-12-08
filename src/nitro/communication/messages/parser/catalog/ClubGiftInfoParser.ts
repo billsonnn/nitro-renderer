@@ -1,13 +1,12 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
-import { CatalogPageOfferData } from './utils/CatalogPageOfferData';
-import { ClubGiftData } from './utils/ClubGiftData';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { CatalogPageMessageOfferData } from '../../incoming/catalog/CatalogPageMessageOfferData';
+import { ClubGiftData } from '../../incoming/catalog/ClubGiftData';
 
 export class ClubGiftInfoParser implements IMessageParser
 {
-    private _daysUntilNextGift:number;
-    private _giftsAvailable:number;
-    private _offers: CatalogPageOfferData[];
+    private _daysUntilNextGift: number;
+    private _giftsAvailable: number;
+    private _offers: CatalogPageMessageOfferData[];
     private _giftData:Map<number, ClubGiftData>;
 
     public flush(): boolean
@@ -29,7 +28,7 @@ export class ClubGiftInfoParser implements IMessageParser
 
         for(let i = 0; i < offerCount; i ++)
         {
-            this._offers.push(new CatalogPageOfferData(wrapper));
+            this._offers.push(new CatalogPageMessageOfferData(wrapper));
         }
 
         const giftDataCount = wrapper.readInt();
@@ -43,17 +42,17 @@ export class ClubGiftInfoParser implements IMessageParser
         return true;
     }
 
-    public get offers(): CatalogPageOfferData[]
+    public get offers(): CatalogPageMessageOfferData[]
     {
         return this._offers;
     }
 
-    public  get daysUntilNextGift():number
+    public  get daysUntilNextGift(): number
     {
         return this._daysUntilNextGift;
     }
 
-    public get giftsAvailable():number
+    public get giftsAvailable(): number
     {
         return this._giftsAvailable;
     }

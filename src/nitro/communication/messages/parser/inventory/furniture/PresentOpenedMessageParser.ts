@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 
 export class PresentOpenedMessageParser implements IMessageParser
 {
@@ -34,37 +33,37 @@ export class PresentOpenedMessageParser implements IMessageParser
         return true;
     }
 
-    public get itemType():string
+    public get itemType(): string
     {
         return this._itemType;
     }
 
-    public get classId():number
+    public get classId(): number
     {
         return this._classId;
     }
 
-    public get productCode():string
+    public get productCode(): string
     {
         return this._productCode;
     }
 
-    public get placedItemId():number
+    public get placedItemId(): number
     {
         return this._placedItemId;
     }
 
-    public get placedItemType():string
+    public get placedItemType(): string
     {
         return this._placedItemType;
     }
 
-    public get placedInRoom():boolean
+    public get placedInRoom(): boolean
     {
         return this._placedInRoom;
     }
 
-    public get petFigureString():string
+    public get petFigureString(): string
     {
         return this._petFigureString;
     }

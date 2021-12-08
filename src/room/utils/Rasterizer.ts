@@ -7,14 +7,14 @@ export class Rasterizer
 {
     // public static line(k:BitmapData, _arg_2: Point, _arg_3: Point, _arg_4: number): void
     // {
-    //     var _local_5:int;
-    //     var _local_6:int;
-    //     var _local_7:int;
-    //     var _local_8:int;
-    //     var _local_9:int;
-    //     var _local_10:int;
-    //     var _local_11:int = _arg_2.x;
-    //     var _local_12:int = _arg_2.y;
+    //     var _local_5: number;
+    //     var _local_6: number;
+    //     var _local_7: number;
+    //     var _local_8: number;
+    //     var _local_9: number;
+    //     var _local_10: number;
+    //     var _local_11: number = _arg_2.x;
+    //     var _local_12: number = _arg_2.y;
     //     _local_5 = (_arg_3.x - _arg_2.x);
     //     _local_6 = (_arg_3.y - _arg_2.y);
     //     _local_8 = ((_local_5 > 0) ? 1 : -1);

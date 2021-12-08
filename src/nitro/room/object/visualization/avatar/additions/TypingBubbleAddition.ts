@@ -1,5 +1,6 @@
 import { Resource, Texture } from '@pixi/core';
 import { IRoomObjectSprite } from '../../../../../../room/object/visualization/IRoomObjectSprite';
+import { AvatarAction } from '../../../../../avatar/enum/AvatarAction';
 import { AvatarVisualization } from '../AvatarVisualization';
 import { IAvatarAddition } from './IAvatarAddition';
 
@@ -38,7 +39,7 @@ export class TypingBubbleAddition implements IAvatarAddition
 
         if(scale < 48)
         {
-            this._asset = this._visualization.getAvatarRenderAsset('user_typing_small');
+            this._asset = this._visualization.getAvatarRenderAsset('avatar_addition_user_typing_small');
 
             offsetX = 3;
             offsetY = -42;
@@ -47,18 +48,18 @@ export class TypingBubbleAddition implements IAvatarAddition
         }
         else
         {
-            this._asset = this._visualization.getAvatarRenderAsset('user_typing');
+            this._asset = this._visualization.getAvatarRenderAsset('avatar_addition_user_typing');
 
             offsetX = 14;
             offsetY = -83;
         }
 
-        if(this._visualization.posture === 'sit')
+        if(this._visualization.posture === AvatarAction.POSTURE_SIT)
         {
             offsetY += (additionScale / 2);
         }
 
-        else if(this._visualization.posture === 'lay')
+        else if(this._visualization.posture === AvatarAction.POSTURE_LAY)
         {
             offsetY += scale;
         }

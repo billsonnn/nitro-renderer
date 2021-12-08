@@ -8,4 +8,5 @@ export class MouseEventType
     public static MOUSE_UP: string         = 'mouseup';
     public static ROLL_OVER: string        = 'mouseover';
     public static ROLL_OUT: string         = 'mouseout';
+    public static RIGHT_CLICK: string      = 'contextmenu';
 }

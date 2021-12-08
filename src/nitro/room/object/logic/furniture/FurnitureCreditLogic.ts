@@ -20,7 +20,10 @@ export class FurnitureCreditLogic extends FurnitureLogic
 
         let creditValue = 0;
 
-        if(asset.credits && (asset.credits !== '') && (asset.credits.length > 0)) creditValue = parseInt(asset.credits);
+        if(asset.logic)
+        {
+            if(asset.logic.credits && (asset.logic.credits !== '') && (asset.logic.credits.length > 0)) creditValue = parseInt(asset.logic.credits);
+        }
 
         this.object.model.setValue(RoomObjectVariable.FURNITURE_CREDIT_VALUE, creditValue);
     }

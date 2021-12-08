@@ -523,12 +523,6 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         const setTypes  = this.getBodyParts(setType, this._mainAction.definition.geometryType, this._mainDirection);
         const container = new NitroContainer();
-        const sprite    = new NitroSprite(Texture.EMPTY);
-
-        sprite.width    = avatarCanvas.width;
-        sprite.height   = avatarCanvas.height;
-
-        container.addChild(sprite);
 
         let partCount = (setTypes.length - 1);
 
@@ -576,7 +570,9 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             partCount--;
         }
 
-        const image = TextureUtils.generateImage(container);
+        const texture = TextureUtils.generateTexture(container, new Rectangle(0, 0, avatarCanvas.width, avatarCanvas.height));
+
+        const image = TextureUtils.generateImage(texture);
 
         if(!image) return null;
 

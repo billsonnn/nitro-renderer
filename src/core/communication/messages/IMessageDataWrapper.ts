@@ -7,6 +7,8 @@ export interface IMessageDataWrapper
     readBoolean(): boolean;
     readShort(): number;
     readInt(): number;
+    readFloat(): number;
+    readDouble(): number;
     readString(): string;
     header: number;
     bytesAvailable: boolean;

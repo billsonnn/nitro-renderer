@@ -12,6 +12,7 @@ import { TilingSpriteRenderer } from '@pixi/sprite-tiling';
 import { SpritesheetLoader } from '@pixi/spritesheet';
 import { BitmapFontLoader } from '@pixi/text-bitmap';
 import { TickerPlugin } from '@pixi/ticker';
+import { TileRenderer } from '@pixi/tilemap';
 
 Renderer.registerPlugin('accessibility', AccessibilityManager);
 Renderer.registerPlugin('extract', Extract);
@@ -20,6 +21,7 @@ Renderer.registerPlugin('particle', ParticleRenderer);
 Renderer.registerPlugin('prepare', Prepare);
 Renderer.registerPlugin('batch', BatchRenderer);
 Renderer.registerPlugin('tilingSprite', TilingSpriteRenderer);
+Renderer.registerPlugin('tilemap', TileRenderer);
 
 Loader.registerPlugin(BitmapFontLoader);
 Loader.registerPlugin(CompressedTextureLoader);

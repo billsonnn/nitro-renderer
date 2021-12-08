@@ -87,15 +87,14 @@ export interface IRoomEngine extends INitroManager
     objectInitialized(roomId: string, objectId: number, category: number): void;
     changeObjectModelData(roomId: number, objectId: number, category: number, numberKey: string, numberValue: number): boolean;
     changeObjectState(roomId: number, objectId: number, category: number): void;
-    processRoomObjectWallOperation(objectId: number, category: number, operation: string, data: Map<string, string>): boolean;
-    processRoomObjectFloorOperation(objectId: number, category: number, operation: string, data: string): boolean;
     processRoomObjectOperation(objectId: number, category: number, operation: string): boolean;
+    modifyRoomObjectDataWithMap(objectId: number, category: number, operation: string, data: Map<string, string>): boolean
+    modifyRoomObjectData(objectId: number, category: number, colorHex: string, data: string): boolean
     processRoomObjectPlacement(placementSource: string, id: number, category: number, typeId: number, legacyString?: string, stuffData?: IObjectData, state?: number, frameNumber?: number, posture?: string): boolean;
     dispatchMouseEvent(canvasId: number, x: number, y: number, type: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean, buttonDown: boolean): void;
     createTextureFromRoom(roomId: number, canvasId?: number, bounds?: Rectangle): RenderTexture;
     saveTextureAsScreenshot(texture: RenderTexture, saveAsThumbnail?: boolean): void;
     saveBase64AsScreenshot(base64: string, saveAsThumbnail?: boolean): void;
-    modifyRoomObjectData(objectId: number, objectCategory: number, colorHex: string, text: string): boolean;
     deleteRoomObject(objectId: number, objectCategory: number): boolean;
     sessionDataManager: ISessionDataManager;
     roomSessionManager: IRoomSessionManager;

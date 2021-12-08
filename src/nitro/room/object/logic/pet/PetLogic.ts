@@ -64,16 +64,19 @@ export class PetLogic extends MovingObjectLogic
 
         if(!model) return;
 
-        const directions = asset.directions;
-
-        if(directions && directions.length)
+        if(asset.logic)
         {
-            for(const direction of directions) this._directions.push(direction);
-
-            this._directions.sort((a, b) =>
+            if(asset.logic.model)
             {
-                return a - b;
-            });
+                const directions = asset.logic.model.directions;
+
+                if(directions && directions.length)
+                {
+                    for(const direction of directions) this._directions.push(direction);
+
+                    this._directions.sort();
+                }
+            }
         }
 
         model.setValue(RoomObjectVariable.PET_ALLOWED_DIRECTIONS, this._directions);

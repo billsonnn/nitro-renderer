@@ -1,5 +1,6 @@
 import { Resource, Texture } from '@pixi/core';
 import { IRoomObjectSprite } from '../../../../../../room/object/visualization/IRoomObjectSprite';
+import { AvatarAction } from '../../../../../avatar/enum/AvatarAction';
 import { AvatarVisualization } from '../AvatarVisualization';
 import { IAvatarAddition } from './IAvatarAddition';
 
@@ -46,7 +47,7 @@ export class NumberBubbleAddition implements IAvatarAddition
         {
             if(scale < 48)
             {
-                this._asset = this._visualization.getAvatarRenderAsset('number_' + this._number + '_small');
+                this._asset = this._visualization.getAvatarRenderAsset('avatar_addition_number_' + this._number + '_small');
 
                 additionScale   = 32;
                 offsetX         = -6;
@@ -54,18 +55,18 @@ export class NumberBubbleAddition implements IAvatarAddition
             }
             else
             {
-                this._asset = this._visualization.getAvatarRenderAsset('number_' + this._number);
+                this._asset = this._visualization.getAvatarRenderAsset('avatar_addition_number_' + this._number);
 
                 offsetX = -8;
                 offsetY = -105;
             }
 
-            if(this._visualization.posture === 'sit')
+            if(this._visualization.posture === AvatarAction.POSTURE_SIT)
             {
                 offsetY += (additionScale / 2);
             }
 
-            else if(this._visualization.posture === 'lay')
+            else if(this._visualization.posture === AvatarAction.POSTURE_LAY)
             {
                 offsetY += scale;
             }

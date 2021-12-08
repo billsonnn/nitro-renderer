@@ -1,6 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
-import { GroupBadgePart } from './utils/GroupBadgePart';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { GroupDataBadgePart } from './utils/GroupDataBadgePart';
 
 export class GroupSettingsParser implements IMessageParser
 {
@@ -13,7 +12,7 @@ export class GroupSettingsParser implements IMessageParser
     private _colorB: number;
     private _state: number;
     private _canMembersDecorate: boolean;
-    private _badgeParts: Map<number, GroupBadgePart>;
+    private _badgeParts: Map<number, GroupDataBadgePart>;
     private _badgeCode: string;
     private _membersCount: number;
 
@@ -68,7 +67,7 @@ export class GroupSettingsParser implements IMessageParser
 
         for(let i = 0; i < badgePartsCount; i++)
         {
-            const part              = new GroupBadgePart(i === 0);
+            const part              = new GroupDataBadgePart(i === 0);
 
             part.key                = wrapper.readInt();
             part.color              = wrapper.readInt();
@@ -133,7 +132,7 @@ export class GroupSettingsParser implements IMessageParser
         return this._canMembersDecorate;
     }
 
-    public get badgeParts(): Map<number, GroupBadgePart>
+    public get badgeParts(): Map<number, GroupDataBadgePart>
     {
         return this._badgeParts;
     }

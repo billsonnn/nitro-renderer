@@ -1,6 +1,5 @@
 export * from './data';
 export * from './events';
-export * from './floorplan';
 export * from './IRoomInstance';
 export * from './IRoomInstanceContainer';
 export * from './IRoomManager';

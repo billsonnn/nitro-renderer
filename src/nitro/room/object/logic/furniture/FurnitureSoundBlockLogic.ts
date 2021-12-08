@@ -32,10 +32,14 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
     {
         super.initialize(asset);
 
-        if(!asset.soundSample) return;
-
-        this._sampleId = asset.soundSample.id;
-        this._noPitch = asset.soundSample.noPitch;
+        if(asset.logic)
+        {
+            if(asset.logic.soundSample)
+            {
+                this._sampleId = asset.logic.soundSample.id;
+                this._noPitch = asset.logic.soundSample.noPitch;
+            }
+        }
 
         this.object.model.setValue(RoomObjectVariable.FURNITURE_SOUNDBLOCK_RELATIVE_ANIMATION_SPEED, 1);
     }
@@ -103,6 +107,8 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
 
     private getPitchForHeight(height: number): number
     {
+        if(this._noPitch) return 1;
+
         let heightScaled: number = (height * 2);
 
         if(heightScaled > FurnitureSoundBlockLogic.HIGHEST_SEMITONE)
@@ -110,6 +116,6 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
             heightScaled = Math.min(0, (FurnitureSoundBlockLogic.LOWEST_SEMITONE + ((heightScaled - FurnitureSoundBlockLogic.HIGHEST_SEMITONE) - 1)));
         }
 
-        return (this._noPitch) ? 1 : Math.pow(2, (heightScaled / 12));
+        return Math.pow(2, (heightScaled / 12));
     }
 }

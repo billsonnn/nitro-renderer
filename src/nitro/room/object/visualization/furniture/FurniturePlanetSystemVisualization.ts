@@ -1,4 +1,4 @@
-import { IPlanetSystem } from '../../../../../core';
+import { IAssetLogicPlanetSystem } from '../../../../../core';
 import { Vector3d } from '../../../../../room';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
@@ -86,7 +86,7 @@ export class FurniturePlanetSystemVisualization extends FurnitureAnimatedVisuali
     {
         if(!this.object || !this.object.model) return;
 
-        const planetSystems = this.object.model.getValue<IPlanetSystem[]>(RoomObjectVariable.FURNITURE_PLANETSYSTEM_DATA);
+        const planetSystems = this.object.model.getValue<IAssetLogicPlanetSystem[]>(RoomObjectVariable.FURNITURE_PLANETSYSTEM_DATA);
 
         if(!planetSystems) return false;
 
