@@ -117,6 +117,8 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
     public getValue(key: string, doParams: boolean = true): string
     {
+        if(!key || !key.length) return null;
+
         if(key.startsWith('${')) key = key.substr(2, (key.length - 3));
 
         let value = (this._definitions.get(key) || null);

@@ -1550,6 +1550,8 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
     private handleMoveTargetFurni(k: number, _arg_2: RoomObjectMouseEvent): boolean
     {
+        if((_arg_2.objectType === RoomObjectUserType.USER) || (_arg_2.objectType === RoomObjectUserType.PET) || (_arg_2.objectType === RoomObjectUserType.BOT) || (_arg_2.objectType === RoomObjectUserType.RENTABLE_BOT) || (_arg_2.objectType === RoomObjectUserType.MONSTER_PLANT)) return;
+
         const _local_3 = this._roomEngine.getRoomObject(k, _arg_2.objectId, RoomObjectCategory.FLOOR);
         const _local_4 = this.getActiveSurfaceLocation(_local_3, _arg_2);
 
