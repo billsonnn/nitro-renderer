@@ -5,19 +5,9 @@ function install()
     try
     {
         const params = {};
-        const userAgent = process.env.npm_config_user_agent;
 
-        if(userAgent)
-        {
-            const agentParts = userAgent.split(/[\s/]+/);
-
-            params['packageName'] = process.env.npm_package_name;
-            params['packageVersion'] = process.env.npm_package_version;
-            params['nodeVersion'] = agentParts[3];
-            params['npmVersion'] = agentParts[1];
-            params['osType'] = agentParts[4];
-            params['osArch'] = agentParts[5];
-        }
+        params['packageName'] = process.env.npm_package_name;
+        params['packageVersion'] = process.env.npm_package_version;
 
         const data = JSON.stringify(params);
         const request = httpsRequest({
