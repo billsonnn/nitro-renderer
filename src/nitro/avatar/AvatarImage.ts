@@ -396,7 +396,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         {
             this.convertToGrayscale(container);
 
-            container.filters.push(new PaletteMapFilter(this._avatarSpriteData.reds, [], [], []));
+            container.filters.push(new PaletteMapFilter(this._avatarSpriteData.reds, PaletteMapFilter.CHANNEL_RED));
         }
 
         if(!cache)

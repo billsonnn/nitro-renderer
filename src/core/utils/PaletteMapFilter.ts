@@ -48,27 +48,13 @@ export class PaletteMapFilter extends NitroFilter
     private _lut: NitroBaseTexture;
     private _channel: number;
 
-    constructor(reds: number[], greens: number[], blues: number[], alphas: number[])
+    constructor(palette: number[], channel = PaletteMapFilter.CHANNEL_RED)
     {
         super(vertex, fragment);
-        this._channel = this.getChannelForPalette(reds, greens, blues, alphas);
+        this._channel = channel;
         let lut: number[] = [];
 
-        switch(this._channel)
-        {
-            case (PaletteMapFilter.CHANNEL_RED):
-                lut = this.getLutForPalette(reds);
-                break;
-            case (PaletteMapFilter.CHANNEL_GREEN):
-                lut = this.getLutForPalette(greens);
-                break;
-            case (PaletteMapFilter.CHANNEL_BLUE):
-                lut = this.getLutForPalette(blues);
-                break;
-            case (PaletteMapFilter.CHANNEL_ALPHA):
-                lut = this.getLutForPalette(alphas);
-                break;
-        }
+        lut = this.getLutForPalette(palette);
 
         this._lut = NitroBaseTexture.fromBuffer(Uint8Array.from(lut), lut.length / 4, 1, { mipmap: 0, scaleMode: 0 });
 
@@ -93,14 +79,6 @@ export class PaletteMapFilter extends NitroFilter
         }
 
         return lut;
-    }
-
-    private getChannelForPalette(reds: number[], greens: number[], blues: number[], alphas: number[]): number
-    {
-        if(reds.length === 256) return PaletteMapFilter.CHANNEL_RED;
-        if(greens.length === 256) return PaletteMapFilter.CHANNEL_GREEN;
-        if(blues.length === 256) return PaletteMapFilter.CHANNEL_BLUE;
-        if(alphas.length === 256) return PaletteMapFilter.CHANNEL_ALPHA;
     }
 
     public get lut(): NitroBaseTexture
