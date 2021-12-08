@@ -3,13 +3,13 @@ import { IMessageParser } from '../../../../../core/communication/messages/IMess
 
 export class ModeratorMessageParser implements IMessageParser
 {
-    private _message: string;
-    private _link: string;
+    private _message:string;
+    private _url:string;
 
     public flush(): boolean
     {
-        this._message   = null;
-        this._link      = null;
+        this._message = '';
+        this._url = '';
 
         return true;
     }
@@ -18,19 +18,19 @@ export class ModeratorMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._message   = wrapper.readString();
-        this._link      = wrapper.readString();
+        this._message = wrapper.readString();
+        this._url = wrapper.readString();
 
         return true;
     }
 
-    public get message(): string
+    public get message():string
     {
         return this._message;
     }
 
-    public get link(): string
+    public get url():string
     {
-        return this._link;
+        return this._url;
     }
 }

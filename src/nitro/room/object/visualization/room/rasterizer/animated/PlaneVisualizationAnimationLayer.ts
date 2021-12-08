@@ -71,11 +71,11 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
         }
     }
 
-    public render(k: Graphics, _arg_2: number, _arg_3: number, _arg_4: IVector3D, _arg_5: number, _arg_6: number, _arg_7: number, _arg_8: number, _arg_9: number, _arg_10: number, _arg_11: number): Graphics
+    public render(canvas: Graphics, width: number, height: number, normal: IVector3D, offsetX: number, offsetY: number, maxX: number, maxY: number, dimensionX: number, dimensionY: number, timeSinceStartMs: number): Graphics
     {
-        if((((k == null) || (!(k.width == _arg_2))) || (!(k.height == _arg_3))))
+        if((((canvas == null) || (!(canvas.width == width))) || (!(canvas.height == height))))
         {
-            if((((this._bitmapData == null) || (!(this._bitmapData.width == _arg_2))) || (!(this._bitmapData.height == _arg_3))))
+            if((((this._bitmapData == null) || (!(this._bitmapData.width == width))) || (!(this._bitmapData.height == height))))
             {
                 if(this._bitmapData != null)
                 {
@@ -83,7 +83,7 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
                 }
 
                 this._bitmapData = new Graphics()
-                    .drawRect(0, 0, _arg_2, _arg_3);
+                    .drawRect(0, 0, width, height);
             }
             else
             {
@@ -94,10 +94,10 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
                 //this._bitmapData.fillRect(this._bitmapData.rect, 0xFFFFFF);
             }
 
-            k = this._bitmapData;
+            canvas = this._bitmapData;
         }
 
-        if(((_arg_7 > 0) && (_arg_8 > 0)))
+        if(((maxX > 0) && (maxY > 0)))
         {
             let _local_12 = 0;
 
@@ -106,16 +106,16 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
                 const _local_13 = (this._items[_local_12] as AnimationItem);
                 if(_local_13 != null)
                 {
-                    const _local_14 = _local_13.getPosition(_arg_7, _arg_8, _arg_9, _arg_10, _arg_11);
+                    const _local_14 = _local_13.getPosition(maxX, maxY, dimensionX, dimensionY, timeSinceStartMs);
 
-                    _local_14.x = (_local_14.x - _arg_5);
-                    _local_14.y = (_local_14.y - _arg_6);
+                    _local_14.x = (_local_14.x - offsetX);
+                    _local_14.y = (_local_14.y - offsetY);
 
                     if(_local_13.bitmapData)
                     {
-                        if(_local_14.x > 0 && (_local_14.x + _local_13.bitmapData.width < k.width))
+                        if(_local_14.x > 0 && (_local_14.x + _local_13.bitmapData.width < canvas.width))
                         {
-                            k
+                            canvas
                                 .beginFill(0x00FF00)
                                 .beginTextureFill({ texture: _local_13.bitmapData.texture, matrix: new Matrix(1, 0, 0, 1, _local_14.x, _local_14.y) })
                                 .drawRect(_local_14.x, _local_14.y, _local_13.bitmapData.width, _local_13.bitmapData.height)
@@ -123,8 +123,8 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
                         }
                         else if(_local_14.x > 0)
                         {
-                            const difference = k.width - _local_14.x;
-                            k
+                            const difference = canvas.width - _local_14.x;
+                            canvas
                                 .beginFill(0x00FF00)
                                 .beginTextureFill({ texture: _local_13.bitmapData.texture, matrix: new Matrix(1, 0, 0, 1, _local_14.x, _local_14.y) })
                                 .drawRect(_local_14.x, _local_14.y, difference, _local_13.bitmapData.height)
@@ -134,7 +134,7 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
                         {
                             //if(_local_14.x > -_local_13.bitmapData.width) 
                             const difference = _local_13.bitmapData.width + _local_14.x;
-                            k
+                            canvas
                                 .beginFill(0x00FF00)
                                 .beginTextureFill({ texture: _local_13.bitmapData.texture, matrix: new Matrix(1, 0, 0, 1, _local_14.x, _local_14.y) })
                                 .drawRect(0, _local_14.y, difference, _local_13.bitmapData.height)
@@ -147,6 +147,6 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
             }
         }
 
-        return k;
+        return canvas;
     }
 }

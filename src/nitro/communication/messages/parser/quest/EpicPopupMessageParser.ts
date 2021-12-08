@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from './../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageParser } from './../../../../../core';
 
 export class EpicPopupMessageParser implements IMessageParser
 {
@@ -19,7 +19,7 @@ export class EpicPopupMessageParser implements IMessageParser
       return true;
   }
 
-  public get imageUri():string
+  public get imageUri(): string
   {
       return this._imageUri;
   }

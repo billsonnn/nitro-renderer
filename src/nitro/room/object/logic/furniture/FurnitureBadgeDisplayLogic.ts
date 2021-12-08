@@ -12,7 +12,7 @@ export class FurnitureBadgeDisplayLogic extends FurnitureLogic
 {
     public getEventTypes(): string[]
     {
-        const types = [ RoomObjectBadgeAssetEvent.LOAD_BADGE ];
+        const types = [ RoomObjectWidgetRequestEvent.BADGE_DISPLAY_ENGRAVING, RoomObjectBadgeAssetEvent.LOAD_BADGE ];
 
         return this.mergeTypes(super.getEventTypes(), types);
     }

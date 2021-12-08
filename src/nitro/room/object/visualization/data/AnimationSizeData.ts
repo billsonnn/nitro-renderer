@@ -42,7 +42,7 @@ export class AnimationSizeData extends SizeData
 
             if(!animation) return false;
 
-            let animationId     = parseInt(key);
+            let animationId     = parseInt(key.split('_')[0]);
             let isTransition    = false;
 
             const transitionTo      = animation.transitionTo;

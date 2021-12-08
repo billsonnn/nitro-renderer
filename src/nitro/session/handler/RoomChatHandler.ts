@@ -1,11 +1,11 @@
 import { IConnection } from '../../../core/communication/connections/IConnection';
-import { RespectReceivedEvent } from '../../communication/messages/incoming/notifications/RespectReceivedEvent';
 import { FloodControlEvent } from '../../communication/messages/incoming/room/unit/chat/FloodControlEvent';
 import { RemainingMuteEvent } from '../../communication/messages/incoming/room/unit/chat/RemainingMuteEvent';
 import { RoomUnitChatEvent } from '../../communication/messages/incoming/room/unit/chat/RoomUnitChatEvent';
 import { RoomUnitChatShoutEvent } from '../../communication/messages/incoming/room/unit/chat/RoomUnitChatShoutEvent';
 import { RoomUnitChatWhisperEvent } from '../../communication/messages/incoming/room/unit/chat/RoomUnitChatWhisperEvent';
 import { RoomUnitHandItemReceivedEvent } from '../../communication/messages/incoming/room/unit/RoomUnitHandItemReceivedEvent';
+import { RespectReceivedEvent } from '../../communication/messages/incoming/user/RespectReceivedEvent';
 import { SystemChatStyleEnum } from '../../ui/widget/enums/SystemChatStyleEnum';
 import { RoomSessionChatEvent } from '../events/RoomSessionChatEvent';
 import { IRoomHandlerListener } from '../IRoomHandlerListener';

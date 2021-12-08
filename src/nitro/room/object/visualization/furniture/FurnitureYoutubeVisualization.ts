@@ -9,8 +9,10 @@ export class FurnitureYoutubeVisualization extends FurnitureDynamicThumbnailVisu
     {
         if(!this.object) return null;
 
-        const url = this.object.model.getValue<string>(RoomObjectVariable.SESSION_URL_PREFIX);
+        const furnitureData = this.object.model.getValue<{ [index: string]: string }>(RoomObjectVariable.FURNITURE_DATA);
 
-        return (url + FurnitureYoutubeVisualization.THUMBNAIL);
+        if(furnitureData) return (furnitureData[FurnitureYoutubeVisualization.THUMBNAIL_URL] || null);
+
+        return null;
     }
 }

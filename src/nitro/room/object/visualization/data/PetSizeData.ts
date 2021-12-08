@@ -18,16 +18,14 @@ export class PetSizeData extends AnimationSizeData
         this._defaultPosture        = null;
     }
 
-    public processPostures(postures: { [index: string]: IAssetPosture }): boolean
+    public processPostures(postures: { defaultPosture?: string, postures: IAssetPosture[] }): boolean
     {
         if(!postures) return false;
 
-        for(const key in postures)
+        if(postures.defaultPosture && postures.defaultPosture.length) this._defaultPosture = postures.defaultPosture;
+
+        for(const posture of postures.postures)
         {
-            const posture = postures[key];
-
-            if(!posture) continue;
-
             if(this._posturesToAnimations.get(posture.id)) continue;
 
             if(this._defaultPosture === null) this._defaultPosture = posture.id;
@@ -40,16 +38,12 @@ export class PetSizeData extends AnimationSizeData
         return true;
     }
 
-    public processGestures(gestures: { [index: string]: IAssetGesture }): boolean
+    public processGestures(gestures: IAssetGesture[]): boolean
     {
         if(!gestures) return false;
 
-        for(const key in gestures)
+        for(const gesture of gestures)
         {
-            const gesture = gestures[key];
-
-            if(!gesture) continue;
-
             if(this._gesturesToAnimations.get(gesture.id)) continue;
 
             this._gesturesToAnimations.set(gesture.id, gesture.animationId);

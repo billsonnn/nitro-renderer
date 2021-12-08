@@ -1,5 +1,6 @@
 import { Resource, Texture } from '@pixi/core';
 import { IRoomObjectSprite } from '../../../../../../room/object/visualization/IRoomObjectSprite';
+import { AvatarAction } from '../../../../../avatar/enum/AvatarAction';
 import { Nitro } from '../../../../../Nitro';
 import { AvatarVisualization } from '../AvatarVisualization';
 import { IAvatarAddition } from './IAvatarAddition';
@@ -43,7 +44,7 @@ export class FloatingIdleZAddition implements IAvatarAddition
 
         if((this._visualization.angle === 135) || (this._visualization.angle === 180) || (this._visualization.angle === 225) || (this._visualization.angle === 270)) side = 'right';
 
-        return ('user_idle_' + side + '_' + state + ((this._scale < 48) ? '_small' : ''));
+        return ('avatar_addition_user_idle_' + side + '_' + state + ((this._scale < 48) ? '_small' : ''));
     }
 
     public update(sprite: IRoomObjectSprite, scale: number): void
@@ -85,12 +86,12 @@ export class FloatingIdleZAddition implements IAvatarAddition
             this._offsetY = -70;
         }
 
-        if(this._visualization.posture === 'sit')
+        if(this._visualization.posture === AvatarAction.POSTURE_SIT)
         {
             this._offsetY += (additionScale / 2);
         }
 
-        else if(this._visualization.posture === 'lay')
+        else if(this._visualization.posture === AvatarAction.POSTURE_LAY)
         {
             this._offsetY += (additionScale - (0.3 * additionScale));
         }

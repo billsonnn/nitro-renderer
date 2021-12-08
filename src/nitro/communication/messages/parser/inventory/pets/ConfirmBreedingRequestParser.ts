@@ -1,5 +1,4 @@
-﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 import { BreedingPetInfo } from '../../../incoming/room/pet/BreedingPetInfo';
 import { RarityCategoryData } from '../../../incoming/room/pet/RarityCategoryData';
 

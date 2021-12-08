@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 import { Vector3d } from '../../../../../../room/utils/Vector3d';
 import { ObjectRolling } from '../../../../../room/utils/ObjectRolling';
 

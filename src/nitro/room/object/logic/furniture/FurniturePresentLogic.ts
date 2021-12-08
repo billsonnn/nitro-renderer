@@ -1,5 +1,4 @@
-import { IAssetData } from '../../../../../core/asset/interfaces';
-import { IParticleSystem } from '../../../../../core/asset/interfaces/particlesystem';
+import { IAssetData, IParticleSystem } from '../../../../../core/asset/interfaces';
 import { RoomSpriteMouseEvent } from '../../../../../room/events/RoomSpriteMouseEvent';
 import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
 import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
@@ -33,9 +32,12 @@ export class FurniturePresentLogic extends FurnitureLogic
     {
         super.initialize(asset);
 
-        if(asset.particleSystems && asset.particleSystems.length)
+        if(asset.logic)
         {
-            this.object.model.setValue<IParticleSystem[]>(RoomObjectVariable.FURNITURE_FIREWORKS_DATA, asset.particleSystems);
+            if(asset.logic.particleSystems && asset.logic.particleSystems.length)
+            {
+                this.object.model.setValue<IParticleSystem[]>(RoomObjectVariable.FURNITURE_FIREWORKS_DATA, asset.logic.particleSystems);
+            }
         }
     }
 

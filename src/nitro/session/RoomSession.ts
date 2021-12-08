@@ -1,6 +1,6 @@
 import { Disposable } from '../../core/common/disposable/Disposable';
 import { IConnection } from '../../core/communication/connections/IConnection';
-import { FurnitureMultiStateComposer, PetMountComposer, RemovePetSaddleComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from '../communication';
+import { FurnitureMultiStateComposer, PetMountComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from '../communication';
 import { RoomDoorbellAccessComposer } from '../communication/messages/outgoing/room/access/RoomDoorbellAccessComposer';
 import { RoomEnterComposer } from '../communication/messages/outgoing/room/access/RoomEnterComposer';
 import { RoomAmbassadorAlertComposer } from '../communication/messages/outgoing/room/action/RoomAmbassadorAlertComposer';
@@ -225,11 +225,27 @@ export class RoomSession extends Disposable implements IRoomSession
         this._connection.send(new RoomTakeRightsComposer(userId));
     }
 
-    public updateMoodlightData(id: number, _Str_24446: number, color: number, brightness: number, apply: boolean): void
+    public sendPollStartMessage(pollId:number):void
     {
-        const local6 = '000000' + color.toString(16).toUpperCase();
-        const local7 = '#' + local6.substring((local6.length - 6));
-        this.connection.send(new MoodlightSettingsSaveComposer(id, _Str_24446, local7, brightness, apply));
+        this._connection.send(new PollStartComposer(pollId));
+    }
+
+    public sendPollRejectMessage(pollId:number):void
+    {
+        this._connection.send(new PollRejectComposer(pollId));
+    }
+
+    public sendPollAnswerMessage(pollId:number, questionId:number, answers:string[]):void
+    {
+        this._connection.send(new PollAnswerComposer(pollId, questionId, answers));
+    }
+
+    public updateMoodlightData(id: number, effectId: number, color: number, brightness: number, apply: boolean): void
+    {
+        let colorString = '000000' + color.toString(16).toUpperCase();
+        colorString = '#' + colorString.substring((colorString.length - 6));
+
+        this.connection.send(new MoodlightSettingsSaveComposer(id, effectId, colorString, brightness, apply));
     }
 
     public toggleMoodlightState(): void

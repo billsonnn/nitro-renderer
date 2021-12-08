@@ -4,7 +4,7 @@ import { Vector3d } from '../../../room/utils/Vector3d';
 export class RoomPlaneBitmapMaskData
 {
     public static WINDOW: string    = 'window';
-    public static HOLE:string       = 'hole';
+    public static HOLE: string       = 'hole';
 
     private _loc: Vector3d;
     private _type: string;

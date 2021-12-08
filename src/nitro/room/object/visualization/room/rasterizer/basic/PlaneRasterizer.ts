@@ -152,30 +152,30 @@ export class PlaneRasterizer implements IPlaneRasterizer
         this._textures.clear();
     }
 
-    protected getTexture(k: string): PlaneTexture
+    protected getTexture(textureId: string): PlaneTexture
     {
-        return this._textures.get(k);
+        return this._textures.get(textureId);
     }
 
-    protected getMaterial(k: string): PlaneMaterial
+    protected getMaterial(materialId: string): PlaneMaterial
     {
-        return this._materials.get(k);
+        return this._materials.get(materialId);
     }
 
-    protected getPlane(k: string): Plane
+    protected getPlane(planeId: string): Plane
     {
-        return this._planes.get(k);
+        return this._planes.get(planeId);
     }
 
-    protected addPlane(k: string, _arg_2: Plane): boolean
+    protected addPlane(id: string, plane: Plane): boolean
     {
-        if(!_arg_2) return false;
+        if(!plane) return false;
 
-        const existing = this._planes.get(k);
+        const existing = this._planes.get(id);
 
         if(!existing)
         {
-            this._planes.set(k, _arg_2);
+            this._planes.set(id, plane);
 
             return true;
         }
@@ -183,11 +183,11 @@ export class PlaneRasterizer implements IPlaneRasterizer
         return false;
     }
 
-    public initializeAssetCollection(k: IGraphicAssetCollection): void
+    public initializeAssetCollection(collection: IGraphicAssetCollection): void
     {
         if(!this._data) return;
 
-        this._assetCollection = k;
+        this._assetCollection = collection;
 
         this.initializeAll();
     }
@@ -212,13 +212,13 @@ export class PlaneRasterizer implements IPlaneRasterizer
     {
     }
 
-    private parseTextures(k: any, _arg_2: IGraphicAssetCollection): void
+    private parseTextures(textures: any, collection: IGraphicAssetCollection): void
     {
-        if(!k || !_arg_2) return;
+        if(!textures || !collection) return;
 
-        if(k.length)
+        if(textures.length)
         {
-            for(const texture of k)
+            for(const texture of textures)
             {
                 if(!texture) continue;
 
@@ -246,7 +246,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
                             if(bitmap.normalMinY !== undefined) normalMinY = bitmap.normalMinY;
                             if(bitmap.normalMaxY !== undefined) normalMaxY = bitmap.normalMaxY;
 
-                            const asset = _arg_2.getAsset(assetName);
+                            const asset = collection.getAsset(assetName);
 
                             if(asset)
                             {
@@ -273,11 +273,11 @@ export class PlaneRasterizer implements IPlaneRasterizer
         }
     }
 
-    private parsePlaneMaterials(k: any): void
+    private parsePlaneMaterials(materials: any): void
     {
-        if(!k || !k.length) return;
+        if(!materials || !materials.length) return;
 
-        for(const material of k)
+        for(const material of materials)
         {
             if(!material) continue;
 
@@ -354,17 +354,17 @@ export class PlaneRasterizer implements IPlaneRasterizer
         }
     }
 
-    private parsePlaneMaterialCellColumn(k: { repeatMode: string, width: number }, _arg_2: PlaneMaterialCellMatrix, _arg_3: number): void
+    private parsePlaneMaterialCellColumn(column: { repeatMode: string, width: number }, cellMatrix: PlaneMaterialCellMatrix, index: number): void
     {
-        if(!k || !_arg_2) return;
+        if(!column || !cellMatrix) return;
 
         let repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_ALL;
 
-        const width = k.width;
+        const width = column.width;
 
-        const cells = this.parsePlaneMaterialCells(k);
+        const cells = this.parsePlaneMaterialCells(column);
 
-        switch(k.repeatMode)
+        switch(column.repeatMode)
         {
             case 'borders':
                 repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_BORDERS;
@@ -386,20 +386,20 @@ export class PlaneRasterizer implements IPlaneRasterizer
                 break;
         }
 
-        _arg_2.createColumn(_arg_3, width, cells, repeatMode);
+        cellMatrix.createColumn(index, width, cells, repeatMode);
     }
 
-    private parsePlaneMaterialCells(k: any): PlaneMaterialCell[]
+    private parsePlaneMaterialCells(column: any): PlaneMaterialCell[]
     {
-        if(!k || !k.cells || !k.cells.length) return null;
+        if(!column || !column.cells || !column.cells.length) return null;
 
         const cells: PlaneMaterialCell[] = [];
 
         let index = 0;
 
-        while(index < k.cells.length)
+        while(index < column.cells.length)
         {
-            const cell = k.cells[index];
+            const cell = column.cells[index];
 
             if(cell)
             {
@@ -509,34 +509,34 @@ export class PlaneRasterizer implements IPlaneRasterizer
         return offsets;
     }
 
-    protected getGeometry(k: number, _arg_2: number, _arg_3: number): IRoomGeometry
+    protected getGeometry(size: number, horizontalAngle: number, verticalAngle: number): IRoomGeometry
     {
-        _arg_2 = Math.abs(_arg_2);
-        if(_arg_2 > 90) _arg_2 = 90;
+        horizontalAngle = Math.abs(horizontalAngle);
+        if(horizontalAngle > 90) horizontalAngle = 90;
 
-        _arg_3 = Math.abs(_arg_3);
-        if(_arg_3 > 90) _arg_3 = 90;
+        verticalAngle = Math.abs(verticalAngle);
+        if(verticalAngle > 90) verticalAngle = 90;
 
-        const identifier = `${ k }_${ Math.round(_arg_2) }_${ Math.round(_arg_3) }`;
+        const identifier = `${ size }_${ Math.round(horizontalAngle) }_${ Math.round(verticalAngle) }`;
 
         let geometry = this._geometries.get(identifier);
 
         if(geometry) return geometry;
 
-        geometry = new RoomGeometry(k, new Vector3d(_arg_2, _arg_3), new Vector3d(-10, 0, 0));
+        geometry = new RoomGeometry(size, new Vector3d(horizontalAngle, verticalAngle), new Vector3d(-10, 0, 0));
 
         this._geometries.set(identifier, geometry);
 
         return geometry;
     }
 
-    protected parseVisualizations(k: Plane, _arg_2: any): void
+    protected parseVisualizations(plane: Plane, visualizations: any): void
     {
-        if(!k || !_arg_2) return;
+        if(!plane || !visualizations) return;
 
-        if(_arg_2 && _arg_2.length)
+        if(visualizations && visualizations.length)
         {
-            for(const visualization of _arg_2)
+            for(const visualization of visualizations)
             {
                 if(!visualization) continue;
 
@@ -550,7 +550,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
                 const layers = visualization.layers;
 
-                const planeVisualization = k.createPlaneVisualization(size, ((layers && layers.length) || 0), this.getGeometry(size, horizontalAngle, verticalAngle));
+                const planeVisualization = plane.createPlaneVisualization(size, ((layers && layers.length) || 0), this.getGeometry(size, horizontalAngle, verticalAngle));
 
                 if(planeVisualization && (layers && layers.length))
                 {
@@ -590,19 +590,19 @@ export class PlaneRasterizer implements IPlaneRasterizer
         }
     }
 
-    public render(k: Graphics, _arg_2: string, _arg_3: number, _arg_4: number, _arg_5: number, _arg_6: IVector3D, _arg_7: boolean, _arg_8: number  =0, _arg_9: number = 0, _arg_10: number = 0, _arg_11: number = 0, _arg_12: number = 0): PlaneBitmapData
+    public render(canvas: Graphics, id: string, width: number, height: number, size: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
     {
         return null;
     }
 
-    public getTextureIdentifier(k: number, _arg_2: IVector3D): string
+    public getTextureIdentifier(k: number, normal: IVector3D): string
     {
         return k.toString();
     }
 
-    public getLayers(k: string): PlaneVisualizationLayer[]
+    public getLayers(id: string): PlaneVisualizationLayer[]
     {
-        let planes = this.getPlane(k);
+        let planes = this.getPlane(id);
 
         if(!planes) planes = this.getPlane(PlaneRasterizer.DEFAULT);
 

@@ -28,7 +28,10 @@ export interface IRoomSession extends IDisposable
     sendBanMessage(userId: number, type: string): void;
     sendGiveRightsMessage(userId: number): void;
     sendTakeRightsMessage(userId: number): void;
-    updateMoodlightData(_Str_25037: number, _Str_24446: number, color: number, brightness: number, apply: boolean): void;
+    sendPollStartMessage(pollId:number):void;
+    sendPollRejectMessage(pollId:number):void;
+    sendPollAnswerMessage(pollId:number, questionId:number, answers:string[]):void;
+    updateMoodlightData(id: number, effectId: number, color: number, brightness: number, apply: boolean): void;
     toggleMoodlightState(): void;
     pickupPet(id: number): void;
     pickupBot(id: number): void;

@@ -2,13 +2,12 @@ import { Resource, Texture } from '@pixi/core';
 import { NitroManager } from '../../core/common/NitroManager';
 import { IMessageComposer } from '../../core/communication/messages/IMessageComposer';
 import { NitroEvent } from '../../core/events/NitroEvent';
-import { MysteryBoxKeysEvent } from '../communication';
+import { FigureUpdateEvent, MysteryBoxKeysEvent } from '../communication';
 import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { AvailabilityStatusMessageEvent } from '../communication/messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { ChangeUserNameResultMessageEvent } from '../communication/messages/incoming/avatar/ChangeUserNameResultMessageEvent';
-import { RoomModelNameEvent } from '../communication/messages/incoming/room/mapping/RoomModelNameEvent';
+import { RoomReadyMessageEvent } from '../communication/messages/incoming/room/mapping/RoomReadyMessageEvent';
 import { UserPermissionsEvent } from '../communication/messages/incoming/user/access/UserPermissionsEvent';
-import { UserFigureEvent } from '../communication/messages/incoming/user/data/UserFigureEvent';
 import { UserInfoEvent } from '../communication/messages/incoming/user/data/UserInfoEvent';
 import { UserNameChangeMessageEvent } from '../communication/messages/incoming/user/data/UserNameChangeMessageEvent';
 import { InClientLinkEvent } from '../communication/messages/incoming/user/InClientLinkEvent';
@@ -19,7 +18,7 @@ import { UserRespectComposer } from '../communication/messages/outgoing/user/Use
 import { NitroSettingsEvent } from '../events/NitroSettingsEvent';
 import { Nitro } from '../Nitro';
 import { HabboWebTools } from '../utils/HabboWebTools';
-import { BadgeImageManager } from './BadgeImageManager';
+import { BadgeImageManager } from './badge/BadgeImageManager';
 import { SecurityLevel } from './enum/SecurityLevel';
 import { MysteryBoxKeysUpdateEvent } from './events';
 import { SessionDataPreferencesEvent } from './events/SessionDataPreferencesEvent';
@@ -27,6 +26,7 @@ import { UserNameUpdateEvent } from './events/UserNameUpdateEvent';
 import { FurnitureDataLoader } from './furniture/FurnitureDataLoader';
 import { IFurnitureData } from './furniture/IFurnitureData';
 import { IFurnitureDataListener } from './furniture/IFurnitureDataListener';
+import { GroupInformationManager } from './GroupInformationManager';
 import { IgnoredUsersManager } from './IgnoredUsersManager';
 import { ISessionDataManager } from './ISessionDataManager';
 import { IProductData } from './product/IProductData';
@@ -48,6 +48,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     private _canChangeName: boolean;
 
     private _ignoredUsersManager: IgnoredUsersManager;
+    private _groupInformationManager: GroupInformationManager;
 
     private _clubLevel: number;
     private _securityLevel: number;
@@ -83,6 +84,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this.resetUserInfo();
 
         this._ignoredUsersManager           = new IgnoredUsersManager(this);
+        this._groupInformationManager       = new GroupInformationManager(this);
 
         this._clubLevel                     = 0;
         this._securityLevel                 = 0;
@@ -112,6 +114,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this.onProductDataReadyEvent    = this.onProductDataReadyEvent.bind(this);
         this.onNitroSettingsEvent       = this.onNitroSettingsEvent.bind(this);
     }
+    groupInformationManager: GroupInformationManager;
 
     protected onInit(): void
     {
@@ -120,14 +123,15 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this.loadBadgeImageManager();
 
         (this._ignoredUsersManager && this._ignoredUsersManager.init());
+        (this._groupInformationManager && this._groupInformationManager.init());
 
-        this._communication.registerMessageEvent(new UserFigureEvent(this.onUserFigureEvent.bind(this)));
+        this._communication.registerMessageEvent(new FigureUpdateEvent(this.onUserFigureEvent.bind(this)));
         this._communication.registerMessageEvent(new UserInfoEvent(this.onUserInfoEvent.bind(this)));
         this._communication.registerMessageEvent(new UserPermissionsEvent(this.onUserPermissionsEvent.bind(this)));
         this._communication.registerMessageEvent(new AvailabilityStatusMessageEvent(this.onAvailabilityStatusMessageEvent.bind(this)));
         this._communication.registerMessageEvent(new ChangeUserNameResultMessageEvent(this.onChangeNameUpdateEvent.bind(this)));
         this._communication.registerMessageEvent(new UserNameChangeMessageEvent(this.onUserNameChangeMessageEvent.bind(this)));
-        this._communication.registerMessageEvent(new RoomModelNameEvent(this.onRoomModelNameEvent.bind(this)));
+        this._communication.registerMessageEvent(new RoomReadyMessageEvent(this.onRoomModelNameEvent.bind(this)));
         this._communication.registerMessageEvent(new InClientLinkEvent(this.onInClientLinkEvent.bind(this)));
         this._communication.registerMessageEvent(new MysteryBoxKeysEvent(this.onMysteryBoxKeysEvent.bind(this)));
 
@@ -143,6 +147,13 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
             this._ignoredUsersManager.dispose();
 
             this._ignoredUsersManager = null;
+        }
+
+        if(this._groupInformationManager)
+        {
+            this._groupInformationManager.dispose();
+
+            this._groupInformationManager = null;
         }
 
         Nitro.instance.events.removeEventListener(NitroSettingsEvent.SETTINGS_UPDATED, this.onNitroSettingsEvent);
@@ -186,7 +197,8 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     {
         if(this._badgeImageManager) return;
 
-        this._badgeImageManager = new BadgeImageManager(Nitro.instance.core.asset, this.events);
+        this._badgeImageManager = new BadgeImageManager(Nitro.instance.core.asset, this);
+        this._badgeImageManager.init();
     }
 
     public hasProductData(listener: IProductDataListener): boolean
@@ -237,7 +249,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._pendingFurnitureListeners.splice(index, 1);
     }
 
-    private onUserFigureEvent(event: UserFigureEvent): void
+    private onUserFigureEvent(event: FigureUpdateEvent): void
     {
         if(!event || !event.connection) return;
 
@@ -323,7 +335,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this.events.dispatchEvent(new UserNameUpdateEvent(this._name));
     }
 
-    private onRoomModelNameEvent(event: RoomModelNameEvent): void
+    private onRoomModelNameEvent(event: RoomReadyMessageEvent): void
     {
         if(!event) return;
 
@@ -540,6 +552,11 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     public isUserIgnored(name: string): boolean
     {
         return (this._ignoredUsersManager && this._ignoredUsersManager.isIgnored(name));
+    }
+
+    public getGroupBadge(groupId: number): string
+    {
+        return (this._groupInformationManager && this._groupInformationManager.getGroupBadge(groupId));
     }
 
     public send(composer: IMessageComposer<unknown[]>): void

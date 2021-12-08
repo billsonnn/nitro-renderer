@@ -99,28 +99,42 @@ export class FurnitureLogic extends MovingObjectLogic
 
         if(!model) return;
 
-        const dimensions = asset.dimensions;
-
-        if(!dimensions) return;
-
-        this._sizeX = dimensions.x;
-        this._sizeY = dimensions.y;
-        this._sizeZ = dimensions.z;
-
-        this._centerX   = (this._sizeX / 2);
-        this._centerY   = (this._sizeY / 2);
-        this._centerZ   = (this._sizeZ / 2);
-
-        const directions = asset.directions;
-
-        if(directions && directions.length)
+        if(asset.logic)
         {
-            for(const direction of directions) this._directions.push(direction);
-
-            this._directions.sort((a, b) =>
+            if(asset.logic.model)
             {
-                return a - b;
-            });
+                const dimensions = asset.logic.model.dimensions;
+
+                if(dimensions)
+                {
+                    this._sizeX = dimensions.x;
+                    this._sizeY = dimensions.y;
+                    this._sizeZ = dimensions.z;
+
+                    this._centerX   = (this._sizeX / 2);
+                    this._centerY   = (this._sizeY / 2);
+                    this._centerZ   = (this._sizeZ / 2);
+                }
+
+                const directions = asset.logic.model.directions;
+
+                if(directions && directions.length)
+                {
+                    for(const direction of directions) this._directions.push(direction);
+
+                    this._directions.sort((a, b) => (a - b));
+                }
+            }
+
+            if(asset.logic.customVars)
+            {
+                const variables = asset.logic.customVars.variables;
+
+                if(variables && variables.length)
+                {
+                    model.setValue(RoomObjectVariable.FURNITURE_CUSTOM_VARIABLES, variables);
+                }
+            }
         }
 
         model.setValue(RoomObjectVariable.FURNITURE_SIZE_X, this._sizeX);

@@ -1,3 +1,2 @@
-export * from './GroupBadgePart';
-export * from './GroupDataParser';
+export * from './GroupDataBadgePart';
 export * from './GroupMemberParser';

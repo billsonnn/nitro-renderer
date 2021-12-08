@@ -34,6 +34,7 @@ export class RoomObjectVariable
     public static FIGURE_GUIDE_STATUS: string                           = 'figure_guide_status';
     public static FIGURE_EXPRESSION: string                             = 'figure_expression';
     public static HEAD_DIRECTION: string                                = 'head_direction';
+    public static FURNITURE_CUSTOM_VARIABLES: string                    = 'furniture_custom_variables';
     public static FURNITURE_AUTOMATIC_STATE_INDEX: string               = 'furniture_automatic_state_index';
     public static FURNITURE_ALWAYS_STACKABLE: string                    = 'furniture_always_stackable';
     public static FURNITURE_DISABLE_PICKING_ANIMATION: string           = 'furniture_disable_picking_animation';
@@ -49,7 +50,7 @@ export class RoomObjectVariable
     public static FURNITURE_COLOR: string                               = 'furniture_color';
     public static FURNITURE_LIFT_AMOUNT: string                         = 'furniure_lift_amount';
     public static FURNITURE_GUILD_CUSTOMIZED_GUILD_ID: string           = 'furniture_guild_customized_guild_id';
-    public static FURNITURE_GUILD_CUSTOMIZED_BADGE: string              = 'furniture_guild_customized_badge';
+    public static FURNITURE_GUILD_CUSTOMIZED_ASSET_NAME: string         = 'furniture_guild_customized_asset_name';
     public static FURNITURE_GUILD_CUSTOMIZED_COLOR_1: string            = 'furniture_guild_customized_color_1';
     public static FURNITURE_GUILD_CUSTOMIZED_COLOR_2: string            = 'furniture_guild_customized_color_2';
     public static FURNITURE_STATE_UPDATE_TIME: string                   = 'furniture_state_update_time';

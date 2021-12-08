@@ -4,7 +4,7 @@ export class GetCraftingRecipesAvailableComposer implements IMessageComposer<num
 {
   private _data: number[];
 
-  constructor(k: number, _arg_2:number[])
+  constructor(k: number, _arg_2: number[])
   {
       this._data = [k, _arg_2.length].concat(_arg_2);
   }

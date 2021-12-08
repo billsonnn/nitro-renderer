@@ -1,5 +1,4 @@
-﻿import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 import { AvatarEffect } from '../../../incoming/inventory/avatareffect/AvatarEffect';
 
 export class AvatarEffectsParser implements IMessageParser

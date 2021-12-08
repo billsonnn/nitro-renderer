@@ -8,8 +8,8 @@ export class FurnitureGiftWrappedFireworksVisualization extends FurnitureFirewor
     private static MAX_PACKET_TYPE_VALUE: number    = 9;
     private static MAX_RIBBON_TYPE_VALUE: number    = 11;
 
-    private _packetType:number          = 0;
-    private _ribbonType:number          = 0;
+    private _packetType: number          = 0;
+    private _ribbonType: number          = 0;
     private _lastAnimationId: number    = 0;
 
     public update(geometry: IRoomGeometry, time: number, update: boolean, skipUpdate: boolean)

@@ -11,13 +11,13 @@ import { IRoomGeometry } from '../../room/utils/IRoomGeometry';
 import { IVector3D } from '../../room/utils/IVector3D';
 import { RoomEnterEffect } from '../../room/utils/RoomEnterEffect';
 import { Vector3d } from '../../room/utils/Vector3d';
-import { FurnitureGuildInfoComposer } from '../communication';
+import { FurnitureGroupInfoComposer, SetObjectDataMessageComposer } from '../communication';
 import { BotPlaceComposer } from '../communication/messages/outgoing/room/engine/BotPlaceComposer';
 import { GetItemDataComposer } from '../communication/messages/outgoing/room/engine/GetItemDataComposer';
-import { ModifyWallItemDataComposer } from '../communication/messages/outgoing/room/engine/ModifyWallItemDataComposer';
 import { PetMoveComposer } from '../communication/messages/outgoing/room/engine/PetMoveComposer';
 import { PetPlaceComposer } from '../communication/messages/outgoing/room/engine/PetPlaceComposer';
 import { RemoveWallItemComposer } from '../communication/messages/outgoing/room/engine/RemoveWallItemComposer';
+import { SetItemDataMessageComposer } from '../communication/messages/outgoing/room/engine/SetItemDataMessageComposer';
 import { FurnitureFloorUpdateComposer } from '../communication/messages/outgoing/room/furniture/floor/FurnitureFloorUpdateComposer';
 import { FurniturePickupComposer } from '../communication/messages/outgoing/room/furniture/FurniturePickupComposer';
 import { FurniturePlaceComposer } from '../communication/messages/outgoing/room/furniture/FurniturePlaceComposer';
@@ -814,7 +814,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 eventDispatcher.dispatchEvent(new RoomEngineUseProductEvent(RoomEngineUseProductEvent.USE_PRODUCT_FROM_ROOM, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.GUILD_FURNI_CONTEXT_MENU:
-                this._roomEngine.connection.send(new FurnitureGuildInfoComposer(event.objectId, event.object.model.getValue<number>(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_GUILD_ID)));
+                this._roomEngine.connection.send(new FurnitureGroupInfoComposer(event.objectId, event.object.model.getValue<number>(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_GUILD_ID)));
                 return;
             case RoomObjectWidgetRequestEvent.MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG, roomId, objectId, objectCategory));
@@ -1550,6 +1550,8 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
     private handleMoveTargetFurni(k: number, _arg_2: RoomObjectMouseEvent): boolean
     {
+        if((_arg_2.objectType === RoomObjectUserType.USER) || (_arg_2.objectType === RoomObjectUserType.PET) || (_arg_2.objectType === RoomObjectUserType.BOT) || (_arg_2.objectType === RoomObjectUserType.RENTABLE_BOT) || (_arg_2.objectType === RoomObjectUserType.MONSTER_PLANT)) return;
+
         const _local_3 = this._roomEngine.getRoomObject(k, _arg_2.objectId, RoomObjectCategory.FLOOR);
         const _local_4 = this.getActiveSurfaceLocation(_local_3, _arg_2);
 
@@ -1746,36 +1748,6 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         }
     }
 
-    public processRoomObjectWallOperation(roomId: number, objectId: number, category: number, operation: string, data: Map<string, string>): boolean
-    {
-        if(!this._roomEngine) return false;
-
-        const roomObject = this._roomEngine.getRoomObject(roomId, objectId, category);
-
-        if(!roomObject) return false;
-
-        switch(operation)
-        {
-            case RoomObjectOperationType.OBJECT_SAVE_STUFF_DATA:
-                if(this._roomEngine.connection)
-                {
-                    //this._roomEngine.connection.send(new _Str_5686(objectId, data));
-                }
-                break;
-        }
-
-        return true;
-    }
-
-    public processRoomObjectFloorOperation(roomId: number, objectId: number, operation: string, data: string): boolean
-    {
-        if(!this._roomEngine) return false;
-
-        //this._roomEngine.connection.send(new _Str_10640(objectId, operation, data));
-
-        return true;
-    }
-
     public modifyRoomObject(roomId: number, objectId: number, category: number, operation: string): boolean
     {
         if(!this._roomEngine) return false;
@@ -1921,6 +1893,45 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         }
 
         if(_local_9) this.resetSelectedObjectData(roomId);
+
+        return true;
+    }
+
+    public modifyRoomObjectDataWithMap(roomId: number, objectId: number, category: number, operation: string, data: Map<string, string>): boolean
+    {
+        if(!this._roomEngine) return false;
+
+        const roomObject = this._roomEngine.getRoomObject(roomId, objectId, category);
+
+        if(!roomObject) return false;
+
+        switch(operation)
+        {
+            case RoomObjectOperationType.OBJECT_SAVE_STUFF_DATA:
+                if(this._roomEngine.connection)
+                {
+                    this._roomEngine.connection.send(new SetObjectDataMessageComposer(objectId, data));
+                }
+                break;
+        }
+
+        return true;
+    }
+
+    public modifyWallItemData(roomId: number, objectId: number, colorHex: string, text: string): boolean
+    {
+        if(!this._roomEngine || !this._roomEngine.connection) return false;
+
+        this._roomEngine.connection.send(new SetItemDataMessageComposer(objectId, colorHex, text));
+
+        return true;
+    }
+
+    public deleteWallItem(roomId: number, itemId: number): boolean
+    {
+        if(!this._roomEngine || !this._roomEngine.connection) return false;
+
+        this._roomEngine.connection.send(new RemoveWallItemComposer(itemId));
 
         return true;
     }
@@ -2233,30 +2244,6 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         if(!wallGeometry.isRoomTile(x, y)) return false;
 
         roomObject.setLocation(new Vector3d(x, y, wallGeometry.getHeight(x, y)));
-
-        return true;
-    }
-
-    public modifyWallItemData(roomId: number, objectId: number, colorHex: string, text: string): boolean
-    {
-        if(!this._roomEngine || !this._roomEngine.connection)
-        {
-            return false;
-        }
-
-        this._roomEngine.connection.send(new ModifyWallItemDataComposer(objectId, colorHex, text));
-
-        return true;
-    }
-
-    public deleteWallItem(roomId: number, itemId: number): boolean
-    {
-        if(!this._roomEngine || !this._roomEngine.connection)
-        {
-            return false;
-        }
-
-        this._roomEngine.connection.send(new RemoveWallItemComposer(itemId));
 
         return true;
     }

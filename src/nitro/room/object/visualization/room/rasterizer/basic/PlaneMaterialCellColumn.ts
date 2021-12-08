@@ -1,4 +1,5 @@
 import { Graphics } from '@pixi/graphics';
+import { NitroRenderTexture } from '../../../../../../../core';
 import { IVector3D } from '../../../../../../../room/utils/IVector3D';
 import { Vector3d } from '../../../../../../../room/utils/Vector3d';
 import { PlaneMaterialCell } from './PlaneMaterialCell';
@@ -15,6 +16,7 @@ export class PlaneMaterialCellColumn
     private _cells: PlaneMaterialCell[];
     private _repeatMode: number;
     private _width: number;
+    private _cachedTexture: NitroRenderTexture;
     private _cachedBitmapData: Graphics;
     private _cachedBitmapNormal: Vector3d;
     private _cachedBitmapDataOffsetX: number;
@@ -22,11 +24,11 @@ export class PlaneMaterialCellColumn
     private _isCached: boolean;
     private _isStatic: boolean;
 
-    constructor(k: number, _arg_2: PlaneMaterialCell[], _arg_3: number = 1)
+    constructor(width: number, cells: PlaneMaterialCell[], repeatMode: number = 1)
     {
         this._cells                     = [];
-        this._repeatMode                = _arg_3;
-        this._width                     = (k < 1) ? 1 : k;
+        this._repeatMode                = repeatMode;
+        this._width                     = (width < 1) ? 1 : width;
         this._cachedBitmapData          = null;
         this._cachedBitmapNormal        = null;
         this._cachedBitmapDataOffsetX   = 0;
@@ -34,13 +36,13 @@ export class PlaneMaterialCellColumn
         this._isCached                  = false;
         this._isStatic                  = true;
 
-        if(_arg_2 && _arg_2.length)
+        if(cells && cells.length)
         {
             let cellIndex = 0;
 
-            while(cellIndex < _arg_2.length)
+            while(cellIndex < cells.length)
             {
-                const cell = _arg_2[cellIndex];
+                const cell = cells[cellIndex];
 
                 if(cell)
                 {
@@ -192,19 +194,19 @@ export class PlaneMaterialCellColumn
                 this.renderRepeatNone(normal);
                 break;
             case PlaneMaterialCellColumn.REPEAT_MODE_BORDERS:
-                console.log('tru2');
+                console.log('REPEAT_MODE_BORDERS');
                 //     this.renderRepeatBorders(normal);
                 break;
             case PlaneMaterialCellColumn.REPEAT_MODE_CENTER:
-                console.log('tru3');
+                console.log('REPEAT_MODE_CENTER');
                 //     this.renderRepeatCenter(normal);
                 break;
             case PlaneMaterialCellColumn.REPEAT_MODE_FIRST:
-                console.log('tru4');
+                console.log('REPEAT_MODE_FIRST');
                 //     this.renderRepeatFirst(normal);
                 break;
             case PlaneMaterialCellColumn.REPEAT_MODE_LAST:
-                console.log('tru5');
+                console.log('REPEAT_MODE_LAST');
                 //     this.renderRepeatLast(normal);
                 break;
             default:
@@ -215,18 +217,18 @@ export class PlaneMaterialCellColumn
         return this._cachedBitmapData;
     }
 
-    private getCellsHeight(k: PlaneMaterialCell[], _arg_2: IVector3D): number
+    private getCellsHeight(cells: PlaneMaterialCell[], normal: IVector3D): number
     {
-        if(!k || !k.length) return 0;
+        if(!cells || !cells.length) return 0;
 
         let height          = 0;
         let cellIterator    = 0;
 
-        while(cellIterator < k.length)
+        while(cellIterator < cells.length)
         {
-            const cell = k[cellIterator];
+            const cell = cells[cellIterator];
 
-            if(cell) height += cell.getHeight(_arg_2);
+            if(cell) height += cell.getHeight(normal);
 
             cellIterator++;
         }
@@ -234,57 +236,57 @@ export class PlaneMaterialCellColumn
         return height;
     }
 
-    private renderCells(k: PlaneMaterialCell[], _arg_2: number, _arg_3: boolean, _arg_4: IVector3D, _arg_5: number = 0, _arg_6: number = 0): number
+    private renderCells(cells: PlaneMaterialCell[], index: number, flag: boolean, normal: IVector3D, offsetX: number = 0, offsetY: number = 0): number
     {
-        if(((!k || !k.length) || !this._cachedBitmapData)) return _arg_2;
+        if(((!cells || !cells.length) || !this._cachedBitmapData)) return index;
 
         let cellIndex = 0;
 
-        while(cellIndex < k.length)
+        while(cellIndex < cells.length)
         {
             let cell: PlaneMaterialCell = null;
 
-            if(_arg_3)
+            if(flag)
             {
-                cell = k[cellIndex];
+                cell = cells[cellIndex];
             }
             else
             {
-                cell = k[((k.length - 1) - cellIndex)];
+                cell = cells[((cells.length - 1) - cellIndex)];
             }
 
             if(cell)
             {
-                const graphic = cell.render(_arg_4, _arg_5, _arg_6);
+                const graphic = cell.render(normal, offsetX, offsetY);
 
                 if(graphic)
                 {
-                    if(!_arg_3) _arg_2 -= graphic.height;
+                    if(!flag) index -= graphic.height;
 
-                    graphic.y = _arg_2;
+                    graphic.y = index;
 
                     this._cachedBitmapData.addChild(graphic);
 
-                    if(_arg_3) _arg_2 = (_arg_2 + graphic.height);
+                    if(flag) index = (index + graphic.height);
 
-                    if(((_arg_3) && (_arg_2 >= this._cachedBitmapData.height)) || ((!(_arg_3)) && (_arg_2 <= 0))) return _arg_2;
+                    if(((flag) && (index >= this._cachedBitmapData.height)) || ((!(flag)) && (index <= 0))) return index;
                 }
             }
 
             cellIndex++;
         }
 
-        return _arg_2;
+        return index;
     }
 
-    private renderRepeatNone(k: IVector3D): void
+    private renderRepeatNone(normal: IVector3D): void
     {
         if(!this._cells.length || !this._cachedBitmapData) return;
 
-        this.renderCells(this._cells, 0, true, k);
+        this.renderCells(this._cells, 0, true, normal);
     }
 
-    private renderRepeatAll(k: IVector3D, _arg_2: number, _arg_3: number): void
+    private renderRepeatAll(normal: IVector3D, offsetX: number, offsetY: number): void
     {
         if(!this._cells.length || !this._cachedBitmapData) return;
 
@@ -292,7 +294,7 @@ export class PlaneMaterialCellColumn
 
         while(index < this._cachedBitmapData.height)
         {
-            index = this.renderCells(this._cells, index, true, k, _arg_2, _arg_3);
+            index = this.renderCells(this._cells, index, true, normal, offsetX, offsetY);
 
             if(!index) return;
         }

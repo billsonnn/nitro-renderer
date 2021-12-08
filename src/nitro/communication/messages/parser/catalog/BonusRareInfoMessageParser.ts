@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from './../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageParser } from './../../../../../core';
 
 export class BonusRareInfoMessageParser implements IMessageParser
 {
@@ -17,7 +17,7 @@ export class BonusRareInfoMessageParser implements IMessageParser
       return true;
   }
 
-  public parse(wrapper:IMessageDataWrapper): boolean
+  public parse(wrapper: IMessageDataWrapper): boolean
   {
       if(!wrapper) return false;
 

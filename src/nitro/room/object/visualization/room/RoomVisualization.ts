@@ -461,7 +461,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         const _local_4 = this.getLandscapeHeight();
 
         let _local_5    = 0;
-        let _local_6    = this.object.model.getValue<number>(RoomObjectVariable.ROOM_RANDOM_SEED);
+        let randomSeed  = this.object.model.getValue<number>(RoomObjectVariable.ROOM_RANDOM_SEED);
         let index       = 0;
 
         while(index < this._roomPlaneParser.planeCount)
@@ -478,17 +478,17 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
             {
                 const _local_14 = Vector3d.crossProduct(leftSide, rightSide);
 
-                _local_6    = ((_local_6 * 7613) + 517);
+                randomSeed  = ((randomSeed * 7613) + 517);
                 plane       = null;
 
                 if(planeType === RoomPlaneData.PLANE_FLOOR)
                 {
                     const _local_15 = ((location.x + leftSide.x) + 0.5);
                     const _local_16 = ((location.y + rightSide.y) + 0.5);
-                    const _local_17 = (Math.trunc(_local_15) - _local_15);
-                    const _local_18 = (Math.trunc(_local_16) - _local_16);
+                    const textureOffsetX = (Math.trunc(_local_15) - _local_15);
+                    const textureOffsetY = (Math.trunc(_local_16) - _local_16);
 
-                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_FLOOR, true, secondaryNormals, _local_6, -(_local_17), -(_local_18));
+                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_FLOOR, true, secondaryNormals, randomSeed, -(textureOffsetX), -(textureOffsetY));
 
                     if(_local_14.z !== 0)
                     {
@@ -504,7 +504,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                 else if(planeType === RoomPlaneData.PLANE_WALL)
                 {
-                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_WALL, true, secondaryNormals, _local_6);
+                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_WALL, true, secondaryNormals, randomSeed);
 
                     if((leftSide.length < 1) || (rightSide.length < 1))
                     {
@@ -539,7 +539,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                 else if(planeType === RoomPlaneData.PLANE_LANDSCAPE)
                 {
-                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_LANDSCAPE, true, secondaryNormals, _local_6, _local_5, 0, _local_3, _local_4);
+                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_LANDSCAPE, true, secondaryNormals, randomSeed, _local_5, 0, _local_3, _local_4);
 
                     if(_local_14.y > 0)
                     {
@@ -564,7 +564,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                 else if(planeType == RoomPlaneData.PLANE_BILLBOARD)
                 {
-                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_WALL, true, secondaryNormals, _local_6);
+                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_WALL, true, secondaryNormals, randomSeed);
                     if(((leftSide.length < 1) || (rightSide.length < 1)))
                     {
                         plane.hasTexture = false;

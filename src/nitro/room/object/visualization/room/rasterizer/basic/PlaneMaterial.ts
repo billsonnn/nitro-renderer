@@ -50,18 +50,18 @@ export class PlaneMaterial
         this._isCached = false;
     }
 
-    public addMaterialCellMatrix(k: number, _arg_2: number, _arg_3: number, _arg_4: number = -1, _arg_5: number = 1, _arg_6: number = -1, _arg_7: number = 1): PlaneMaterialCellMatrix
+    public addMaterialCellMatrix(totalColumns: number, repeatMode: number, align: number, normalMinX: number = -1, normalMaxX: number = 1, normalMinY: number = -1, normalMaxY: number = 1): PlaneMaterialCellMatrix
     {
-        const cellMatrix = new PlaneMaterialCellMatrix(k, _arg_2, _arg_3, _arg_4, _arg_5, _arg_6, _arg_7);
+        const cellMatrix = new PlaneMaterialCellMatrix(totalColumns, repeatMode, align, normalMinX, normalMaxX, normalMinY, normalMaxY);
 
         this._planeMaterialItems.push(cellMatrix);
 
         return cellMatrix;
     }
 
-    public getMaterialCellMatrix(k: IVector3D): PlaneMaterialCellMatrix
+    public getMaterialCellMatrix(normal: IVector3D): PlaneMaterialCellMatrix
     {
-        if(!k) return null;
+        if(!normal) return null;
 
         if(this._planeMaterialItems && this._planeMaterialItems.length)
         {
@@ -69,25 +69,25 @@ export class PlaneMaterial
             {
                 if(!item) continue;
 
-                if((((k.x >= item.normalMinX) && (k.x <= item.normalMaxX)) && (k.y >= item.normalMinY)) && (k.y <= item.normalMaxY)) return item;
+                if((((normal.x >= item.normalMinX) && (normal.x <= item.normalMaxX)) && (normal.y >= item.normalMinY)) && (normal.y <= item.normalMaxY)) return item;
             }
         }
 
         return null;
     }
 
-    public render(k: Graphics, _arg_2: number, _arg_3: number, _arg_4: IVector3D, _arg_5: boolean, _arg_6: number, _arg_7: number, _arg_8: boolean): Graphics
+    public render(canvas: Graphics, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number, topAlign: boolean): Graphics
     {
-        if(_arg_2 < 1) _arg_2 = 1;
+        if(width < 1) width = 1;
 
-        if(_arg_3 < 1) _arg_3 = 1;
+        if(height < 1) height = 1;
 
-        const cellMatrix = this.getMaterialCellMatrix(_arg_4);
+        const cellMatrix = this.getMaterialCellMatrix(normal);
 
         if(!cellMatrix) return null;
 
         this._isCached = true;
 
-        return cellMatrix.render(k, _arg_2, _arg_3, _arg_4, _arg_5, _arg_6, _arg_7, _arg_8);
+        return cellMatrix.render(canvas, width, height, normal, useTexture, offsetX, offsetY, topAlign);
     }
 }

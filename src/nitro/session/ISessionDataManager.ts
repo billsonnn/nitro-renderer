@@ -3,6 +3,7 @@ import { INitroManager } from '../../core/common/INitroManager';
 import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { IFurnitureData } from './furniture/IFurnitureData';
 import { IFurnitureDataListener } from './furniture/IFurnitureDataListener';
+import { GroupInformationManager } from './GroupInformationManager';
 import { IgnoredUsersManager } from './IgnoredUsersManager';
 import { IProductData } from './product/IProductData';
 
@@ -29,6 +30,7 @@ export interface ISessionDataManager extends INitroManager
     ignoreUser(name: string): void;
     unignoreUser(name: string): void;
     isUserIgnored(name: string): boolean;
+    getGroupBadge(groupId: number): string;
     communication: INitroCommunicationManager;
     userId: number;
     userName: string;
@@ -37,6 +39,7 @@ export interface ISessionDataManager extends INitroManager
     isGodMode: boolean;
     realName: string;
     ignoredUsersManager: IgnoredUsersManager;
+    groupInformationManager: GroupInformationManager;
     respectsReceived: number;
     respectsLeft: number;
     respectsPetLeft: number;

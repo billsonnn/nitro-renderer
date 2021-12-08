@@ -1,4 +1,5 @@
-﻿import { IRoomSession } from '../IRoomSession';
+﻿import { PollQuestion } from '../../communication/messages/parser/poll/PollQuestion';
+import { IRoomSession } from '../IRoomSession';
 import { RoomSessionEvent } from './RoomSessionEvent';
 
 
@@ -14,7 +15,7 @@ export class RoomSessionPollEvent extends RoomSessionEvent
     private _numQuestions: number = 0;
     private _startMessage: string = '';
     private _endMessage: string = '';
-    private _questionArray: string[] = null;
+    private _questionArray: PollQuestion[] = null;
     private _npsPoll: boolean = false;
 
     constructor(k: string, _arg_2: IRoomSession, _arg_3: number)
@@ -79,12 +80,12 @@ export class RoomSessionPollEvent extends RoomSessionEvent
         this._endMessage = k;
     }
 
-    public get questionArray(): string[]
+    public get questionArray(): PollQuestion[]
     {
         return this._questionArray;
     }
 
-    public set questionArray(k: string[])
+    public set questionArray(k: PollQuestion[])
     {
         this._questionArray = k;
     }

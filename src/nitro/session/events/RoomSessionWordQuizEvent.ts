@@ -1,4 +1,5 @@
-﻿import { IRoomSession } from '../IRoomSession';
+﻿import { IQuestion } from '../../communication/messages/parser/poll/QuestionParser';
+import { IRoomSession } from '../IRoomSession';
 import { RoomSessionEvent } from './RoomSessionEvent';
 
 export class RoomSessionWordQuizEvent extends RoomSessionEvent
@@ -12,7 +13,7 @@ export class RoomSessionWordQuizEvent extends RoomSessionEvent
     private _pollId: number = -1;
     private _questionId: number = -1;
     private _duration: number = -1;
-    private _question: string[] = null;
+    private _question: IQuestion = null;
     private _userId: number = -1;
     private _value: string;
     private _answerCounts: Map<string, number>;
@@ -69,12 +70,12 @@ export class RoomSessionWordQuizEvent extends RoomSessionEvent
         this._duration = k;
     }
 
-    public get question(): string[]
+    public get question(): IQuestion
     {
         return this._question;
     }
 
-    public set question(k: string[])
+    public set question(k: IQuestion)
     {
         this._question = k;
     }

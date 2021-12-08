@@ -8,6 +8,7 @@ import { RoomObjectVariable } from '../RoomObjectVariable';
 
 export class MovingObjectLogic extends RoomObjectLogicBase
 {
+    public static UPDATE_MOVING_INTERVAL: number = 500;
     private static TEMP_VECTOR: Vector3d = new Vector3d();
 
     private _liftAmount: number;
@@ -16,7 +17,6 @@ export class MovingObjectLogic extends RoomObjectLogicBase
     private _locationDelta: Vector3d;
     private _lastUpdateTime: number;
     private _changeTime: number;
-    private _updateInterval: number;
 
     constructor()
     {
@@ -28,7 +28,6 @@ export class MovingObjectLogic extends RoomObjectLogicBase
         this._locationDelta     = new Vector3d();
         this._lastUpdateTime    = 0;
         this._changeTime        = 0;
-        this._updateInterval    = 500;
     }
 
     protected onDispose(): void
@@ -73,14 +72,14 @@ export class MovingObjectLogic extends RoomObjectLogicBase
 
             let difference = (this.time - this._changeTime);
 
-            if(difference === (this._updateInterval >> 1)) difference++;
+            if(difference === (MovingObjectLogic.UPDATE_MOVING_INTERVAL >> 1)) difference++;
 
-            if(difference > this._updateInterval) difference = this._updateInterval;
+            if(difference > MovingObjectLogic.UPDATE_MOVING_INTERVAL) difference = MovingObjectLogic.UPDATE_MOVING_INTERVAL;
 
             if(this._locationDelta.length > 0)
             {
                 vector.assign(this._locationDelta);
-                vector.multiply((difference / this._updateInterval));
+                vector.multiply((difference / MovingObjectLogic.UPDATE_MOVING_INTERVAL));
                 vector.add(this._location);
             }
             else
@@ -92,7 +91,7 @@ export class MovingObjectLogic extends RoomObjectLogicBase
 
             this.object.setLocation(vector);
 
-            if(difference === this._updateInterval)
+            if(difference === MovingObjectLogic.UPDATE_MOVING_INTERVAL)
             {
                 this._locationDelta.x = 0;
                 this._locationDelta.y = 0;

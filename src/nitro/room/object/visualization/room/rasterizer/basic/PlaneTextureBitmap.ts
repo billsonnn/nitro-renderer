@@ -12,14 +12,14 @@ export class PlaneTextureBitmap
     private _normalMaxY: number;
     private _assetName: string;
 
-    constructor(k: Texture<Resource>, _arg_2: number = -1, _arg_3: number = 1, _arg_4: number = -1, _arg_5: number = 1, _arg_6: string = null)
+    constructor(texture: Texture<Resource>, normalMinX: number = -1, normalMaxX: number = 1, normalMinY: number = -1, normalMaxY: number = 1, assetName: string = null)
     {
-        this._normalMinX    = _arg_2;
-        this._normalMaxX    = _arg_3;
-        this._normalMinY    = _arg_4;
-        this._normalMaxY    = _arg_5;
-        this._assetName     = _arg_6;
-        this._bitmap        = k;
+        this._normalMinX    = normalMinX;
+        this._normalMaxX    = normalMaxX;
+        this._normalMinY    = normalMinY;
+        this._normalMaxY    = normalMaxY;
+        this._assetName     = assetName;
+        this._bitmap        = texture;
     }
 
     public get bitmap(): Texture<Resource>

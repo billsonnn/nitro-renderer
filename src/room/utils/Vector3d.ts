@@ -121,6 +121,8 @@ export class Vector3d implements IVector3D
 
     public divide(amount: number): void
     {
+        if(!amount) return;
+
         this._x        /= amount;
         this._y        /= amount;
         this._z        /= amount;

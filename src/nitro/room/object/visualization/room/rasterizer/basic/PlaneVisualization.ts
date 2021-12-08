@@ -1,10 +1,8 @@
 ﻿import { Graphics } from '@pixi/graphics';
-import { Rectangle } from '@pixi/math';
 import { IDisposable } from '../../../../../../../core/common/disposable/IDisposable';
 import { IGraphicAssetCollection } from '../../../../../../../room/object/visualization/utils/IGraphicAssetCollection';
 import { IRoomGeometry } from '../../../../../../../room/utils/IRoomGeometry';
 import { IVector3D } from '../../../../../../../room/utils/IVector3D';
-import { TextureUtils } from '../../../../../../../room/utils/TextureUtils';
 import { Vector3d } from '../../../../../../../room/utils/Vector3d';
 import { PlaneVisualizationAnimationLayer } from '../animated/PlaneVisualizationAnimationLayer';
 import { PlaneMaterial } from './PlaneMaterial';
@@ -19,20 +17,20 @@ export class PlaneVisualization
     private _isCached: boolean;
     private _hasAnimationLayers: boolean;
 
-    constructor(k: number, _arg_2: number, _arg_3: IRoomGeometry)
+    constructor(size: number, totalLayers: number, geometry: IRoomGeometry)
     {
         this._layers                = [];
-        this._geometry              = _arg_3;
+        this._geometry              = geometry;
         this._cachedBitmapData      = null;
         this._cachedBitmapNormal    = new Vector3d();
         this._isCached              = false;
         this._hasAnimationLayers    = false;
 
-        if(_arg_2 < 0) _arg_2 = 0;
+        if(totalLayers < 0) totalLayers = 0;
 
         let index = 0;
 
-        while(index < _arg_2)
+        while(index < totalLayers)
         {
             this._layers.push(null);
 
@@ -107,32 +105,32 @@ export class PlaneVisualization
         this._isCached = false;
     }
 
-    public setLayer(k: number, _arg_2: PlaneMaterial, _arg_3: number, _arg_4: number, _arg_5: number = 0): boolean
+    public setLayer(layerId: number, material: PlaneMaterial, color: number, align: number, offset: number = 0): boolean
     {
-        if((k < 0) || (k > this._layers.length)) return false;
+        if((layerId < 0) || (layerId > this._layers.length)) return false;
 
-        let layer = this._layers[k];
+        let layer = this._layers[layerId];
 
         if(layer) layer.dispose();
 
-        layer = new PlaneVisualizationLayer(_arg_2, _arg_3, _arg_4, _arg_5);
+        layer = new PlaneVisualizationLayer(material, color, align, offset);
 
-        this._layers[k] = layer;
+        this._layers[layerId] = layer;
 
         return true;
     }
 
-    public setAnimationLayer(k: number, _arg_2: any, _arg_3: IGraphicAssetCollection): boolean
+    public setAnimationLayer(layerId: number, animationItems: any, collection: IGraphicAssetCollection): boolean
     {
-        if((k < 0) || (k > this._layers.length)) return false;
+        if((layerId < 0) || (layerId > this._layers.length)) return false;
 
-        let layer = this._layers[k] as IDisposable;
+        let layer = this._layers[layerId] as IDisposable;
 
         if(layer) layer.dispose();
 
-        layer = new PlaneVisualizationAnimationLayer(_arg_2, _arg_3);
+        layer = new PlaneVisualizationAnimationLayer(animationItems, collection);
 
-        this._layers[k]             = layer;
+        this._layers[layerId]             = layer;
         this._hasAnimationLayers    = true;
 
         return true;
@@ -159,17 +157,20 @@ export class PlaneVisualization
                 {
                     if(canvas)
                     {
-                        const texture = TextureUtils.generateTexture(this._cachedBitmapData, new Rectangle(0, 0, width, height));
+                        canvas.addChild(this._cachedBitmapData);
 
-                        if(texture)
-                        {
-                            canvas
-                                .beginTextureFill({ texture })
-                                .drawRect(0, 0, texture.width, texture.height)
-                                .endFill();
+                        return canvas;
+                        // const texture = TextureUtils.generateTexture(this._cachedBitmapData, new Rectangle(0, 0, width, height));
 
-                            return canvas;
-                        }
+                        // if(texture)
+                        // {
+                        //     canvas
+                        //         .beginTextureFill({ texture })
+                        //         .drawRect(0, 0, texture.width, texture.height)
+                        //         .endFill();
+
+                        //     return canvas;
+                        // }
                     }
 
                     return this._cachedBitmapData;
@@ -187,12 +188,10 @@ export class PlaneVisualization
 
         if(!this._cachedBitmapData)
         {
-            const graphic = new Graphics()
+            this._cachedBitmapData = new Graphics()
                 .beginFill(0xFFFFFF)
                 .drawRect(0, 0, width, height)
                 .endFill();
-
-            this._cachedBitmapData = graphic;
         }
         else
         {
@@ -226,12 +225,13 @@ export class PlaneVisualization
 
         if(canvas && (canvas !== this._cachedBitmapData))
         {
-            const texture = TextureUtils.generateTexture(canvas, new Rectangle(0, 0, canvas.width, canvas.height));
+            this._cachedBitmapData.addChild(canvas.clone());
+            // const texture = TextureUtils.generateTexture(canvas, new Rectangle(0, 0, canvas.width, canvas.height));
 
-            this._cachedBitmapData
-                .beginTextureFill({ texture })
-                .drawRect(0, 0, canvas.width, canvas.height)
-                .endFill();
+            // this._cachedBitmapData
+            //     .beginTextureFill({ texture })
+            //     .drawRect(0, 0, canvas.width, canvas.height)
+            //     .endFill();
 
             return canvas;
         }

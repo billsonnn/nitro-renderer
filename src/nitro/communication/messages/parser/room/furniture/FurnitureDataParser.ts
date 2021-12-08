@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 import { IObjectData } from '../../../../../room/object/data/IObjectData';
 import { ObjectDataFactory } from '../../../../../room/object/data/ObjectDataFactory';
 

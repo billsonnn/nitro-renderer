@@ -1,9 +1,9 @@
-import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageDataWrapper } from '../../../../../../core';
 import { RelationshipStatusEnum } from '../../../../../enums/RelationshipStatusEnum';
 
 export class RelationshipStatusInfo
 {
-    private _relationshipStatusType: RelationshipStatusEnum;
+    private _relationshipStatusType: number;
     private _friendCount: number;
     private _randomFriendId: number;
     private _randomFriendName: string;
@@ -19,11 +19,11 @@ export class RelationshipStatusInfo
 
     public flush(): boolean
     {
-        this._relationshipStatusType     = RelationshipStatusEnum.NONE;
-        this._friendCount    = 0;
+        this._relationshipStatusType = RelationshipStatusEnum.NONE;
+        this._friendCount = 0;
         this._randomFriendId = 0;
-        this._randomFriendFigure  = null;
-        this._randomFriendName    = null;
+        this._randomFriendFigure = null;
+        this._randomFriendName = null;
 
         return true;
     }
@@ -32,16 +32,16 @@ export class RelationshipStatusInfo
     {
         if(!wrapper) return false;
 
-        this._relationshipStatusType     = wrapper.readInt();
+        this._relationshipStatusType = wrapper.readInt();
         this._friendCount = wrapper.readInt();
-        this._randomFriendId    = wrapper.readInt();
+        this._randomFriendId = wrapper.readInt();
         this._randomFriendName = wrapper.readString();
-        this._randomFriendFigure    = wrapper.readString();
+        this._randomFriendFigure = wrapper.readString();
 
         return true;
     }
 
-    public get relationshipStatusType(): RelationshipStatusEnum
+    public get relationshipStatusType(): number
     {
         return this._relationshipStatusType;
     }
