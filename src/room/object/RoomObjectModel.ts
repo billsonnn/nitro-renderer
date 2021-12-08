@@ -27,6 +27,11 @@ export class RoomObjectModel implements IRoomObjectModel
 
     public setValue<T>(key: string, value: T): void
     {
+        if(this._map.has(key))
+        {
+            if(this._map.get(key) === value) return;
+        }
+
         this._map.set(key, (value as T));
 
         this._updateCounter++;

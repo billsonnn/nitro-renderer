@@ -122,21 +122,21 @@ export class FurnitureRoomDimmerLogic extends FurnitureLogic
     {
         super.update(time);
 
-        if(this.object && this.object.model)
-        {
-            const realRoomObject = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT);
+        // if(this.object && this.object.model)
+        // {
+        //     const realRoomObject = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT);
 
-            if(realRoomObject === 1)
-            {
-                const data = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_DATA);
+        //     if(realRoomObject === 1)
+        //     {
+        //         const data = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_DATA);
 
-                if(data && data.length > 0)
-                {
-                    this.object.model.setValue(RoomObjectVariable.FURNITURE_DATA, '');
+        //         if(data && data.length > 0)
+        //         {
+        //             this.object.model.setValue(RoomObjectVariable.FURNITURE_DATA, '');
 
-                    this.processDimmerData(data);
-                }
-            }
-        }
+        //             this.processDimmerData(data);
+        //         }
+        //     }
+        // }
     }
 }

@@ -18,7 +18,7 @@ export interface IRoomRenderingCanvas
     skipSpriteVisibilityChecking(): void;
     resumeSpriteVisibilityChecking(): void;
     getPlaneSortableSprites(): SortableSprite[];
-    handleMouseEvent(k: number, _arg_2: number, _arg_3: string, _arg_4: boolean, _arg_5: boolean, _arg_6: boolean, _arg_7: boolean): boolean;
+    handleMouseEvent(x: number, y: number, type: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean, buttonDown: boolean): boolean;
     getSortableSpriteList(): RoomObjectSpriteData[];
     getDisplayAsTexture(): RenderTexture;
     id: number;

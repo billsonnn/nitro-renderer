@@ -3,31 +3,31 @@ import { IMessageParser } from './../../../../../core';
 
 export class SanctionStatusMessageParser implements IMessageParser
 {
-    private _Str_21269: boolean;
-    private _Str_20966: boolean;
-    private _Str_19378: string;
-    private _Str_19998: number;
-    private _Str_21197: string;
-    private _Str_20631: string;
-    private _Str_19322: number;
-    private _Str_22000: string;
-    private _Str_19157: number;
-    private _Str_21458: boolean;
-    private _Str_22154: string;
+    private _isSanctionNew: boolean;
+    private _isSanctionActive: boolean;
+    private _sanctionName: string;
+    private _sanctionLengthHours: number;
+    private _sanctionReason: string;
+    private _sanctionCreationTime: string;
+    private _probationHoursLeft: number;
+    private _nextSanctionName: string;
+    private _nextSanctionLengthHours: number;
+    private _hasCustomMute: boolean;
+    private _tradeLockExpiryTime: string;
 
     public flush(): boolean
     {
-        this._Str_21269 = false;
-        this._Str_20966 = false;
-        this._Str_19378 = null;
-        this._Str_19998 = 0;
-        this._Str_21197 = null;
-        this._Str_20631 = null;
-        this._Str_19322 = 0;
-        this._Str_22000 = null;
-        this._Str_19157 = 0;
-        this._Str_21458 = false;
-        this._Str_22154 = null;
+        this._isSanctionNew = false;
+        this._isSanctionActive = false;
+        this._sanctionName = null;
+        this._sanctionLengthHours = 0;
+        this._sanctionReason = null;
+        this._sanctionCreationTime = null;
+        this._probationHoursLeft = 0;
+        this._nextSanctionName = null;
+        this._nextSanctionLengthHours = 0;
+        this._hasCustomMute = false;
+        this._tradeLockExpiryTime = null;
 
         return true;
     }
@@ -36,80 +36,80 @@ export class SanctionStatusMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._Str_21269 = wrapper.readBoolean();
-        this._Str_20966 = wrapper.readBoolean();
-        this._Str_19378 = wrapper.readString();
-        this._Str_19998 = wrapper.readInt();
+        this._isSanctionNew = wrapper.readBoolean();
+        this._isSanctionActive = wrapper.readBoolean();
+        this._sanctionName = wrapper.readString();
+        this._sanctionLengthHours = wrapper.readInt();
 
         wrapper.readInt();
 
-        this._Str_21197 = wrapper.readString();
-        this._Str_20631 = wrapper.readString();
-        this._Str_19322 = wrapper.readInt();
-        this._Str_22000 = wrapper.readString();
-        this._Str_19157 = wrapper.readInt();
+        this._sanctionReason = wrapper.readString();
+        this._sanctionCreationTime = wrapper.readString();
+        this._probationHoursLeft = wrapper.readInt();
+        this._nextSanctionName = wrapper.readString();
+        this._nextSanctionLengthHours = wrapper.readInt();
 
         wrapper.readInt();
 
-        this._Str_21458 = wrapper.readBoolean();
+        this._hasCustomMute = wrapper.readBoolean();
 
-        if(wrapper.bytesAvailable) this._Str_22154 = wrapper.readString();
+        if(wrapper.bytesAvailable) this._tradeLockExpiryTime = wrapper.readString();
 
         return true;
     }
 
-    public get _Str_22957(): boolean
+    public get isSanctionNew(): boolean
     {
-        return this._Str_21269;
+        return this._isSanctionNew;
     }
 
-    public get _Str_16442(): boolean
+    public get isSanctionActive(): boolean
     {
-        return this._Str_20966;
+        return this._isSanctionActive;
     }
 
-    public get _Str_22691(): string
+    public get sanctionName(): string
     {
-        return this._Str_19378;
+        return this._sanctionName;
     }
 
-    public get _Str_22497(): number
+    public get sanctionLengthHours(): number
     {
-        return this._Str_19998;
+        return this._sanctionLengthHours;
     }
 
-    public get _Str_22005(): string
+    public get sanctionReason(): string
     {
-        return this._Str_21197;
+        return this._sanctionReason;
     }
 
-    public get _Str_25720(): string
+    public get sanctionCreationTime(): string
     {
-        return this._Str_20631;
+        return this._sanctionCreationTime;
     }
 
-    public get _Str_20904(): number
+    public get probationHoursLeft(): number
     {
-        return this._Str_19322;
+        return this._probationHoursLeft;
     }
 
-    public get _Str_23024(): string
+    public get nextSanctionName(): string
     {
-        return this._Str_22000;
+        return this._nextSanctionName;
     }
 
-    public get _Str_23610(): number
+    public get nextSanctionLengthHours(): number
     {
-        return this._Str_19157;
+        return this._nextSanctionLengthHours;
     }
 
-    public get _Str_23177(): boolean
+    public get hasCustomMute(): boolean
     {
-        return this._Str_21458;
+        return this._hasCustomMute;
     }
 
-    public get _Str_21248(): string
+    public get tradeLockExpiryTime(): string
     {
-        return this._Str_22154;
+        return this._tradeLockExpiryTime;
     }
 }

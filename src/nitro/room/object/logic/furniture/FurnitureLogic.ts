@@ -122,7 +122,7 @@ export class FurnitureLogic extends MovingObjectLogic
                 {
                     for(const direction of directions) this._directions.push(direction);
 
-                    this._directions.sort();
+                    this._directions.sort((a, b) => (a - b));
                 }
             }
 

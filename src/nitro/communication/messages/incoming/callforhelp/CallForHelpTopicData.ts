@@ -24,7 +24,7 @@ export class CallForHelpTopicData implements INamed
         return this._id;
     }
 
-    public get _Str_26337(): string
+    public get consequence(): string
     {
         return this._consequence;
     }

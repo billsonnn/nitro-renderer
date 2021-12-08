@@ -3,17 +3,17 @@ import { IMessageParser } from './../../../../../core';
 
 export class CampaignCalendarDoorOpenedMessageParser implements IMessageParser
 {
-    private _Str_17229: boolean;
+    private _doorOpened: boolean;
     private _productName: string;
     private _customImage: string;
-    private _Str_6002: string;
+    private _furnitureClassName: string;
 
     public flush(): boolean
     {
-        this._Str_17229 = false;
+        this._doorOpened = false;
         this._productName = null;
         this._customImage = null;
-        this._Str_6002 = null;
+        this._furnitureClassName = null;
 
         return true;
     }
@@ -22,17 +22,17 @@ export class CampaignCalendarDoorOpenedMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._Str_17229 = wrapper.readBoolean();
+        this._doorOpened = wrapper.readBoolean();
         this._productName = wrapper.readString();
         this._customImage = wrapper.readString();
-        this._Str_6002 = wrapper.readString();
+        this._furnitureClassName = wrapper.readString();
 
         return true;
     }
 
-    public get _Str_22341(): boolean
+    public get doorOpened(): boolean
     {
-        return this._Str_17229;
+        return this._doorOpened;
     }
 
     public get productName(): string
@@ -45,8 +45,8 @@ export class CampaignCalendarDoorOpenedMessageParser implements IMessageParser
         return this._customImage;
     }
 
-    public get _Str_8979(): string
+    public get furnitureClassName(): string
     {
-        return this._Str_6002;
+        return this._furnitureClassName;
     }
 }

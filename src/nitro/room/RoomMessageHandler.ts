@@ -5,26 +5,26 @@ import { Vector3d } from '../../room/utils/Vector3d';
 import { PetType } from '../avatar/pets/PetType';
 import { ObjectsDataUpdateEvent, PetExperienceEvent } from '../communication';
 import { ObjectsRollingEvent } from '../communication/messages/incoming/room/engine/ObjectsRollingEvent';
+import { DiceValueMessageEvent } from '../communication/messages/incoming/room/furniture/DiceValueMessageEvent';
 import { FurnitureFloorAddEvent } from '../communication/messages/incoming/room/furniture/floor/FurnitureFloorAddEvent';
 import { FurnitureFloorEvent } from '../communication/messages/incoming/room/furniture/floor/FurnitureFloorEvent';
 import { FurnitureFloorRemoveEvent } from '../communication/messages/incoming/room/furniture/floor/FurnitureFloorRemoveEvent';
 import { FurnitureFloorUpdateEvent } from '../communication/messages/incoming/room/furniture/floor/FurnitureFloorUpdateEvent';
 import { FurnitureAliasesEvent } from '../communication/messages/incoming/room/furniture/FurnitureAliasesEvent';
 import { FurnitureDataEvent } from '../communication/messages/incoming/room/furniture/FurnitureDataEvent';
-import { FurnitureItemDataEvent } from '../communication/messages/incoming/room/furniture/FurnitureItemDataEvent';
-import { FurnitureState2Event } from '../communication/messages/incoming/room/furniture/FurnitureState2Event';
-import { FurnitureStateEvent } from '../communication/messages/incoming/room/furniture/FurnitureStateEvent';
+import { ItemDataUpdateMessageEvent } from '../communication/messages/incoming/room/furniture/ItemDataUpdateMessageEvent';
+import { OneWayDoorStatusMessageEvent } from '../communication/messages/incoming/room/furniture/OneWayDoorStatusMessageEvent';
 import { FurnitureWallAddEvent } from '../communication/messages/incoming/room/furniture/wall/FurnitureWallAddEvent';
 import { FurnitureWallEvent } from '../communication/messages/incoming/room/furniture/wall/FurnitureWallEvent';
 import { FurnitureWallRemoveEvent } from '../communication/messages/incoming/room/furniture/wall/FurnitureWallRemoveEvent';
 import { FurnitureWallUpdateEvent } from '../communication/messages/incoming/room/furniture/wall/FurnitureWallUpdateEvent';
-import { RoomDoorEvent } from '../communication/messages/incoming/room/mapping/RoomDoorEvent';
+import { FloorHeightMapEvent } from '../communication/messages/incoming/room/mapping/FloorHeightMapEvent';
+import { RoomEntryTileMessageEvent } from '../communication/messages/incoming/room/mapping/RoomEntryTileMessageEvent';
 import { RoomHeightMapEvent } from '../communication/messages/incoming/room/mapping/RoomHeightMapEvent';
 import { RoomHeightMapUpdateEvent } from '../communication/messages/incoming/room/mapping/RoomHeightMapUpdateEvent';
-import { RoomModelEvent } from '../communication/messages/incoming/room/mapping/RoomModelEvent';
-import { RoomModelNameEvent } from '../communication/messages/incoming/room/mapping/RoomModelNameEvent';
 import { RoomPaintEvent } from '../communication/messages/incoming/room/mapping/RoomPaintEvent';
-import { RoomThicknessEvent } from '../communication/messages/incoming/room/mapping/RoomThicknessEvent';
+import { RoomReadyMessageEvent } from '../communication/messages/incoming/room/mapping/RoomReadyMessageEvent';
+import { RoomVisualizationSettingsEvent } from '../communication/messages/incoming/room/mapping/RoomVisualizationSettingsEvent';
 import { PetFigureUpdateEvent } from '../communication/messages/incoming/room/pet/PetFigureUpdateEvent';
 import { YouArePlayingGameEvent } from '../communication/messages/incoming/room/session/YouArePlayingGameEvent';
 import { RoomUnitChatEvent } from '../communication/messages/incoming/room/unit/chat/RoomUnitChatEvent';
@@ -44,10 +44,10 @@ import { RoomUnitStatusEvent } from '../communication/messages/incoming/room/uni
 import { UserInfoEvent } from '../communication/messages/incoming/user/data/UserInfoEvent';
 import { IgnoreResultEvent } from '../communication/messages/incoming/user/IgnoreResultEvent';
 import { FurnitureAliasesComposer } from '../communication/messages/outgoing/room/furniture/FurnitureAliasesComposer';
-import { RoomModelComposer } from '../communication/messages/outgoing/room/mapping/RoomModelComposer';
+import { GetRoomEntryDataMessageComposer } from '../communication/messages/outgoing/room/layout/GetRoomEntryDataMessageComposer';
 import { FurnitureFloorDataParser } from '../communication/messages/parser/room/furniture/floor/FurnitureFloorDataParser';
 import { FurnitureWallDataParser } from '../communication/messages/parser/room/furniture/wall/FurnitureWallDataParser';
-import { RoomDoorParser } from '../communication/messages/parser/room/mapping/RoomDoorParser';
+import { RoomEntryTileMessageParser } from '../communication/messages/parser/room/mapping/RoomEntryTileMessageParser';
 import { IRoomCreator } from './IRoomCreator';
 import { LegacyDataType } from './object/data/type/LegacyDataType';
 import { RoomObjectUserType } from './object/RoomObjectUserType';
@@ -63,7 +63,7 @@ export class RoomMessageHandler extends Disposable
     private _connection: IConnection;
     private _roomCreator: IRoomCreator;
     private _planeParser: RoomPlaneParser;
-    private _latestEntryTileEvent: RoomDoorEvent;
+    private _latestEntryTileEvent: RoomEntryTileMessageEvent;
 
     private _currentRoomId: number;
     private _ownUserId: number;
@@ -106,13 +106,13 @@ export class RoomMessageHandler extends Disposable
         this._connection = connection;
 
         this._connection.addMessageEvent(new UserInfoEvent(this.onUserInfoEvent.bind(this)));
-        this._connection.addMessageEvent(new RoomModelNameEvent(this.onRoomModelNameEvent.bind(this)));
+        this._connection.addMessageEvent(new RoomReadyMessageEvent(this.onRoomReadyMessageEvent.bind(this)));
         this._connection.addMessageEvent(new RoomPaintEvent(this.onRoomPaintEvent.bind(this)));
-        this._connection.addMessageEvent(new RoomModelEvent(this.onRoomModelEvent.bind(this)));
+        this._connection.addMessageEvent(new FloorHeightMapEvent(this.onRoomModelEvent.bind(this)));
         this._connection.addMessageEvent(new RoomHeightMapEvent(this.onRoomHeightMapEvent.bind(this)));
         this._connection.addMessageEvent(new RoomHeightMapUpdateEvent(this.onRoomHeightMapUpdateEvent.bind(this)));
-        this._connection.addMessageEvent(new RoomThicknessEvent(this.onRoomThicknessEvent.bind(this)));
-        this._connection.addMessageEvent(new RoomDoorEvent(this.onRoomDoorEvent.bind(this)));
+        this._connection.addMessageEvent(new RoomVisualizationSettingsEvent(this.onRoomThicknessEvent.bind(this)));
+        this._connection.addMessageEvent(new RoomEntryTileMessageEvent(this.onRoomDoorEvent.bind(this)));
         this._connection.addMessageEvent(new ObjectsRollingEvent(this.onRoomRollingEvent.bind(this)));
         this._connection.addMessageEvent(new ObjectsDataUpdateEvent(this.onObjectsDataUpdateEvent.bind(this)));
         this._connection.addMessageEvent(new FurnitureAliasesEvent(this.onFurnitureAliasesEvent.bind(this)));
@@ -125,8 +125,8 @@ export class RoomMessageHandler extends Disposable
         this._connection.addMessageEvent(new FurnitureWallRemoveEvent(this.onFurnitureWallRemoveEvent.bind(this)));
         this._connection.addMessageEvent(new FurnitureWallUpdateEvent(this.onFurnitureWallUpdateEvent.bind(this)));
         this._connection.addMessageEvent(new FurnitureDataEvent(this.onFurnitureDataEvent.bind(this)));
-        this._connection.addMessageEvent(new FurnitureItemDataEvent(this.onFurnitureItemDataEvent.bind(this)));
-        this._connection.addMessageEvent(new FurnitureStateEvent(this.onFurnitureStateEvent.bind(this)));
+        this._connection.addMessageEvent(new ItemDataUpdateMessageEvent(this.onItemDataUpdateMessageEvent.bind(this)));
+        this._connection.addMessageEvent(new OneWayDoorStatusMessageEvent(this.onOneWayDoorStatusMessageEvent.bind(this)));
         this._connection.addMessageEvent(new RoomUnitDanceEvent(this.onRoomUnitDanceEvent.bind(this)));
         this._connection.addMessageEvent(new RoomUnitEffectEvent(this.onRoomUnitEffectEvent.bind(this)));
         this._connection.addMessageEvent(new RoomUnitEvent(this.onRoomUnitEvent.bind(this)));
@@ -144,7 +144,7 @@ export class RoomMessageHandler extends Disposable
         this._connection.addMessageEvent(new PetFigureUpdateEvent(this.onPetFigureUpdateEvent.bind(this)));
         this._connection.addMessageEvent(new PetExperienceEvent(this.onPetExperienceEvent.bind(this)));
         this._connection.addMessageEvent(new YouArePlayingGameEvent(this.onYouArePlayingGameEvent.bind(this)));
-        this._connection.addMessageEvent(new FurnitureState2Event(this.onFurnitureState2Event.bind(this)));
+        this._connection.addMessageEvent(new DiceValueMessageEvent(this.onDiceValueMessageEvent.bind(this)));
         this._connection.addMessageEvent(new IgnoreResultEvent(this.onIgnoreResultEvent.bind(this)));
     }
 
@@ -176,18 +176,18 @@ export class RoomMessageHandler extends Disposable
         this._ownUserId = parser.userInfo.userId;
     }
 
-    private onRoomModelNameEvent(event: RoomModelNameEvent): void
+    private onRoomReadyMessageEvent(event: RoomReadyMessageEvent): void
     {
-        if(!(event instanceof RoomModelNameEvent) || !event.connection) return;
+        const parser = event.getParser();
 
-        if(this._currentRoomId !== event.getParser().roomId)
+        if(this._currentRoomId !== parser.roomId)
         {
-            this.setRoomId(event.getParser().roomId);
+            this.setRoomId(parser.roomId);
         }
 
         if(this._roomCreator)
         {
-            this._roomCreator.setRoomInstanceModelName(event.getParser().roomId, event.getParser().name);
+            this._roomCreator.setRoomInstanceModelName(parser.roomId, parser.name);
         }
 
         if(this._initialConnection)
@@ -199,7 +199,7 @@ export class RoomMessageHandler extends Disposable
             return;
         }
 
-        event.connection.send(new RoomModelComposer());
+        event.connection.send(new GetRoomEntryDataMessageComposer());
     }
 
     private onRoomPaintEvent(event: RoomPaintEvent): void
@@ -220,9 +220,9 @@ export class RoomMessageHandler extends Disposable
         }
     }
 
-    private onRoomModelEvent(event: RoomModelEvent): void
+    private onRoomModelEvent(event: FloorHeightMapEvent): void
     {
-        if(!(event instanceof RoomModelEvent) || !event.connection || !this._roomCreator) return;
+        if(!(event instanceof FloorHeightMapEvent) || !event.connection || !this._roomCreator) return;
 
         const parser = event.getParser();
 
@@ -239,7 +239,7 @@ export class RoomMessageHandler extends Disposable
 
         this._planeParser.initializeTileMap(width, height);
 
-        let entryTile: RoomDoorParser = null;
+        let entryTile: RoomEntryTileMessageParser = null;
 
         if(this._latestEntryTileEvent) entryTile = this._latestEntryTileEvent.getParser();
 
@@ -387,9 +387,9 @@ export class RoomMessageHandler extends Disposable
         this._roomCreator.refreshTileObjectMap(this._currentRoomId, 'RoomMessageHandler.onRoomHeightMapUpdateEvent()');
     }
 
-    private onRoomThicknessEvent(event: RoomThicknessEvent): void
+    private onRoomThicknessEvent(event: RoomVisualizationSettingsEvent): void
     {
-        if(!(event instanceof RoomThicknessEvent)) return;
+        if(!(event instanceof RoomVisualizationSettingsEvent)) return;
 
         const parser = event.getParser();
 
@@ -407,9 +407,9 @@ export class RoomMessageHandler extends Disposable
         }
     }
 
-    private onRoomDoorEvent(event: RoomDoorEvent): void
+    private onRoomDoorEvent(event: RoomEntryTileMessageEvent): void
     {
-        if(!(event instanceof RoomDoorEvent)) return;
+        if(!(event instanceof RoomEntryTileMessageEvent)) return;
 
         this._latestEntryTileEvent = event;
     }
@@ -482,7 +482,7 @@ export class RoomMessageHandler extends Disposable
 
         const alises = event.getParser().aliases;
 
-        this._connection.send(new RoomModelComposer());
+        this._connection.send(new GetRoomEntryDataMessageComposer());
     }
 
     private onFurnitureFloorAddEvent(event: FurnitureFloorAddEvent): void
@@ -627,27 +627,27 @@ export class RoomMessageHandler extends Disposable
         this._roomCreator.updateRoomObjectFloor(this._currentRoomId, parser.furnitureId, null, null, parser.objectData.state, parser.objectData);
     }
 
-    private onFurnitureItemDataEvent(event: FurnitureItemDataEvent): void
+    private onItemDataUpdateMessageEvent(event: ItemDataUpdateMessageEvent): void
     {
-        if(!(event instanceof FurnitureItemDataEvent) || !event.connection || !this._roomCreator) return;
+        if(!(event instanceof ItemDataUpdateMessageEvent) || !event.connection || !this._roomCreator) return;
 
         const parser = event.getParser();
 
         this._roomCreator.updateRoomObjectWallItemData(this._currentRoomId, parser.furnitureId, parser.data);
     }
 
-    private onFurnitureStateEvent(event: FurnitureStateEvent): void
+    private onOneWayDoorStatusMessageEvent(event: OneWayDoorStatusMessageEvent): void
     {
-        if(!(event instanceof FurnitureStateEvent) || !event.connection || !this._roomCreator) return;
+        if(!(event instanceof OneWayDoorStatusMessageEvent) || !event.connection || !this._roomCreator) return;
 
         const parser = event.getParser();
 
         this._roomCreator.updateRoomObjectFloor(this._currentRoomId, parser.itemId, null, null, parser.state, new LegacyDataType());
     }
 
-    private onFurnitureState2Event(event: FurnitureState2Event): void
+    private onDiceValueMessageEvent(event: DiceValueMessageEvent): void
     {
-        if(!(event instanceof FurnitureState2Event) || !event.connection || !this._roomCreator) return;
+        if(!(event instanceof DiceValueMessageEvent) || !event.connection || !this._roomCreator) return;
 
         const parser = event.getParser();
 

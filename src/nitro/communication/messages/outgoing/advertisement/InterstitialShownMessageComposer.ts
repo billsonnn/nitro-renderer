@@ -9,7 +9,7 @@ export class InterstitialShownMessageComposer implements IMessageComposer<Constr
         this._data = [];
     }
 
-    dispose(): void
+    public dispose(): void
     {
         return;
     }

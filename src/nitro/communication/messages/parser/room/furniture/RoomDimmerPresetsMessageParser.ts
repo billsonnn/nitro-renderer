@@ -1,14 +1,48 @@
 ﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
-import { MoodlightFromServer } from '../../../incoming/room/furniture/moodlightFromServer';
+import { RoomDimmerPresetsMessageData } from '../../../incoming/room/furniture/RoomDimmerPresetsMessageData';
 
 export class RoomDimmerPresetsMessageParser implements IMessageParser
 {
-    private _selectedPresetId: number = 0;
-    private _presets: MoodlightFromServer[];
+    private _selectedPresetId: number;
+    private _presets: RoomDimmerPresetsMessageData[];
 
     constructor()
     {
+        this._selectedPresetId = 0;
         this._presets = [];
+    }
+
+    public flush(): boolean
+    {
+        this._presets = [];
+
+        return true;
+    }
+
+    public parse(wrapper: IMessageDataWrapper): boolean
+    {
+        const totalPresets = wrapper.readInt();
+
+        this._selectedPresetId = wrapper.readInt();
+
+        for(let i = 0; i < totalPresets; i++)
+        {
+            const presetId = wrapper.readInt();
+            const type = wrapper.readInt();
+            const color = parseInt(wrapper.readString().substr(1), 16);
+            const brightness = wrapper.readInt();
+
+            this._presets.push(new RoomDimmerPresetsMessageData(presetId, type, color, brightness));
+        }
+
+        return true;
+    }
+
+    public getPreset(id: number): RoomDimmerPresetsMessageData
+    {
+        if((id < 0) || (id >= this.presetCount)) return null;
+
+        return this._presets[id];
     }
 
     public get presetCount(): number
@@ -19,51 +53,5 @@ export class RoomDimmerPresetsMessageParser implements IMessageParser
     public get selectedPresetId(): number
     {
         return this._selectedPresetId;
-    }
-
-    public getPreset(k: number): MoodlightFromServer
-    {
-        if((k < 0) || (k >= this.presetCount)) return null;
-
-        return this._presets[k];
-    }
-
-    public flush(): boolean
-    {
-        this._presets = [];
-
-        return true;
-    }
-
-    public parse(k: IMessageDataWrapper): boolean
-    {
-        const totalPresets = k.readInt();
-
-        this._selectedPresetId = k.readInt();
-
-        let _local_3 = 0;
-
-        while(_local_3 < totalPresets)
-        {
-            const presetId = k.readInt();
-            const isBackGroundOnly = k.readInt(); // Background only? 2: 1
-            const color = k.readString();
-            const colorForSWF = parseInt(color.substr(1), 16);
-            const intensity = k.readInt();
-
-            const _local_9 = new MoodlightFromServer(presetId);
-
-            _local_9.type       = isBackGroundOnly;
-            _local_9.color      = colorForSWF;
-            _local_9.intensity  = intensity;
-
-            _local_9.parsed();
-            _local_9.htmlColor = color;
-            this._presets.push(_local_9);
-
-            _local_3++;
-        }
-
-        return true;
     }
 }

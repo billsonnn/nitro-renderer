@@ -3,14 +3,14 @@
     private _id: number;
     private _type: number;
     private _color: number;
-    private _light: number;
+    private _brightness: number;
 
-    constructor(k: number, _arg_2: number, _arg_3: number, _arg_4: number)
+    constructor(id: number, type: number, color: number, brightness: number)
     {
-        this._id = k;
-        this._type = _arg_2;
-        this._color = _arg_3;
-        this._light = _arg_4;
+        this._id = id;
+        this._type = type;
+        this._color = color;
+        this._brightness = brightness;
     }
 
     public get id(): number
@@ -28,8 +28,8 @@
         return this._color;
     }
 
-    public get light(): number
+    public get brightness(): number
     {
-        return this._light;
+        return this._brightness;
     }
 }

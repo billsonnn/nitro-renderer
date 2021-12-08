@@ -1,12 +1,11 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 import { AdvancedMap } from '../../../../../../core/utils/AdvancedMap';
-import { RelationshipStatusEnum } from '../../../../../enums/RelationshipStatusEnum';
 import { RelationshipStatusInfo } from './RelationshipStatusInfo';
 
 export class RelationshipStatusInfoMessageParser implements IMessageParser
 {
     private _userId: number;
-    private _relationshipStatusMap: AdvancedMap<RelationshipStatusEnum, RelationshipStatusInfo>;
+    private _relationshipStatusMap: AdvancedMap<number, RelationshipStatusInfo>;
 
     public flush(): boolean
     {
@@ -20,7 +19,7 @@ export class RelationshipStatusInfoMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._userId                = wrapper.readInt();
+        this._userId = wrapper.readInt();
         this._relationshipStatusMap = new AdvancedMap();
 
         const relationshipsCount  = wrapper.readInt();
@@ -40,7 +39,7 @@ export class RelationshipStatusInfoMessageParser implements IMessageParser
         return this._userId;
     }
 
-    public get relationshipStatusMap(): AdvancedMap<RelationshipStatusEnum, RelationshipStatusInfo>
+    public get relationshipStatusMap(): AdvancedMap<number, RelationshipStatusInfo>
     {
         return this._relationshipStatusMap;
     }

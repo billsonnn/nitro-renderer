@@ -9,15 +9,6 @@ export class BinaryReader
         this._dataView = new DataView(buffer);
     }
 
-    public readByte(): number
-    {
-        const byte = this._dataView.getInt8(this._position);
-
-        this._position++;
-
-        return byte;
-    }
-
     public readBytes(length: number): BinaryReader
     {
         const buffer = new BinaryReader(this._dataView.buffer.slice(this._position, this._position + length));
@@ -25,6 +16,15 @@ export class BinaryReader
         this._position += length;
 
         return buffer;
+    }
+
+    public readByte(): number
+    {
+        const byte = this._dataView.getInt8(this._position);
+
+        this._position++;
+
+        return byte;
     }
 
     public readShort(): number
@@ -43,6 +43,24 @@ export class BinaryReader
         this._position += 4;
 
         return int;
+    }
+
+    public readFloat(): number
+    {
+        const float = this._dataView.getFloat32(this._position);
+
+        this._position += 4;
+
+        return float;
+    }
+
+    public readDouble(): number
+    {
+        const double = this._dataView.getFloat64(this._position);
+
+        this._position += 8;
+
+        return double;
     }
 
     public remaining(): number

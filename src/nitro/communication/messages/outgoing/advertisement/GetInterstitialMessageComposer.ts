@@ -9,7 +9,7 @@ export class GetInterstitialMessageComposer implements IMessageComposer<Construc
         this._data = [];
     }
 
-    dispose(): void
+    public dispose(): void
     {
         return;
     }

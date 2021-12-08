@@ -7,4 +7,3 @@ export * from './FurnitureOneWayDoorComposer';
 export * from './FurnitureRandomStateComposer';
 export * from './FurnitureStackHeightComposer';
 export * from './FurnitureWallMultiStateComposer';
-export * from './LoveLockStartConfirmComposer';
