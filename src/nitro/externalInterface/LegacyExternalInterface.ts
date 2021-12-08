@@ -39,8 +39,35 @@ declare global
 
 export class LegacyExternalInterface
 {
+    private static readonly MESSAGE_KEY = 'Nitro_LegacyExternalInterface';
+    private static _isListeningForPostMessages = false;
+
+
     public static get available(): boolean
     {
+        if(!this._isListeningForPostMessages)
+        {
+            this._isListeningForPostMessages = true;
+            window.addEventListener('message', (ev) =>
+            {
+                if(typeof ev.data !== 'string') return;
+
+                if(ev.data.startsWith(LegacyExternalInterface.MESSAGE_KEY))
+                {
+                    const { method, params } = JSON.parse(
+                        ev.data.substr(LegacyExternalInterface.MESSAGE_KEY.length)
+                    );
+
+                    const fn = (window as any)[method];
+                    if(!fn) return;
+
+                    fn(...params);
+                    return;
+                }
+
+            });
+        }
+
         return true;
     }
 
@@ -51,7 +78,7 @@ export class LegacyExternalInterface
     {
         if(window.top !== window)
         {
-            window.top.postMessage('Nitro_LegacyExternalInterface' + JSON.stringify({
+            window.top.postMessage(LegacyExternalInterface.MESSAGE_KEY + JSON.stringify({
                 method,
                 params
             }), '*');
