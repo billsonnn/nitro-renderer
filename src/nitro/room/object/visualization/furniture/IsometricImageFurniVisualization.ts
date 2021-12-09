@@ -1,7 +1,6 @@
 import { Resource, Texture } from '@pixi/core';
-import { Graphics } from '@pixi/graphics';
 import { Matrix } from '@pixi/math';
-import { NitroContainer, NitroRectangle, NitroSprite } from '../../../../../core';
+import { NitroRectangle, NitroSprite } from '../../../../../core';
 import { IGraphicAsset } from '../../../../../room/object/visualization/utils/IGraphicAsset';
 import { TextureUtils } from '../../../../../room/utils/TextureUtils';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
@@ -127,34 +126,16 @@ export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualiza
                 matrix.ty = 0;
         }
 
+        const sprite = new NitroSprite(texture);
+
         if(this._hasOutline)
         {
-            const container = new NitroContainer();
-
-            const sprite = new NitroSprite(texture);
-
-            sprite.transform.setFromMatrix(matrix);
-
-            const border = new Graphics()
-                .beginFill(0x000000)
-                .setMatrix(matrix)
-                .drawRect(0, 0, texture.width + 2, texture.height + 2)
-                .endFill();
-            //border.skew.y = ((this.direction === 2) ? -0.5 : ((this.direction === 0) || (this.direction === 4)) ? 0.5 : 0);
-
-            container.addChild(border);
-            //container.addChild(sprite);
-
-            return TextureUtils.generateTexture(container);
+            //
         }
-        else
-        {
-            const sprite = new NitroSprite(texture);
 
-            sprite.transform.setFromMatrix(matrix);
+        sprite.transform.setFromMatrix(matrix);
 
-            return TextureUtils.generateTexture(sprite, new NitroRectangle(0, 0, (asset.width + 2), (asset.height + 2)));
-        }
+        return TextureUtils.generateTexture(sprite, new NitroRectangle(0, 0, (asset.width + 2), (asset.height + 2)));
     }
 
     protected getSpriteAssetName(scale: number, layerId: number): string
