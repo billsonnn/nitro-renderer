@@ -89,10 +89,12 @@ export class RoomPlane implements IRoomPlane
         this._rightSide = new Vector3d();
         this._rightSide.assign(rightSide);
         this._normal = Vector3d.crossProduct(this._leftSide, this._rightSide);
+
         if(this._normal.length > 0)
         {
             this._normal.multiply((1 / this._normal.length));
         }
+
         if(secondaryNormals != null)
         {
             for(const entry of secondaryNormals)

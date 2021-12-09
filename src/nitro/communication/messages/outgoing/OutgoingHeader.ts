@@ -186,6 +186,7 @@ export class OutgoingHeader
     public static USER_IGNORED                   = 3878;
     public static USER_PETS                      = 3095;
     public static USER_PROFILE                   = 3265;
+    public static USER_PROFILE_BY_NAME           = 2249;
     public static USER_RESPECT                   = 2694;
     public static GET_SOUND_SETTINGS             = 2388;
     public static USER_SETTINGS_CAMERA           = 1461;

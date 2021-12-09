@@ -1,3 +1,4 @@
+export * from './GetExtendedProfileByNameMessageComposer';
 export * from './GetIgnoredUsersComposer';
 export * from './IgnoreUserComposer';
 export * from './IgnoreUserIdComposer';

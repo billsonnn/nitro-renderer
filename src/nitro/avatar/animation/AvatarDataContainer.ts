@@ -48,6 +48,7 @@ export class AvatarDataContainer implements IAvatarDataContainer
             this._paletteIsGrayscale = false;
         }
 
+        this._colorTransform = new AdjustmentFilter({ red: (this._r / 255), green: (this._g / 255), blue: (this._b / 255), alpha: this._alphaMultiplier });
         this._colorMap = this.generatePaletteMapForGrayscale(this._backGround, this._foreGround);
     }
 
