@@ -391,7 +391,14 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             partCount--;
         }
 
-        if(this._avatarSpriteData && this._avatarSpriteData.paletteIsGrayscale) this.convertToGrayscale(container);
+        if(this._avatarSpriteData)
+        {
+            if(!container.filters) container.filters = [];
+
+            if(this._avatarSpriteData.colorTransform) container.filters.push(this._avatarSpriteData.colorTransform);
+
+            if(this._avatarSpriteData.paletteIsGrayscale) this.convertToGrayscale(container);
+        }
 
         if(!cache)
         {
@@ -1019,7 +1026,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         colorFilter.matrix = [_local_3, _local_4, _local_5, 0, 0, _local_3, _local_4, _local_5, 0, 0, _local_3, _local_4, _local_5, 0, 0, 0, 0, 0, 1, 0];
 
-        container.filters = [ colorFilter ];
+        container.filters.push(colorFilter);
 
         return container;
     }
