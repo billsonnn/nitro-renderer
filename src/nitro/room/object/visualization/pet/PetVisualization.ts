@@ -23,7 +23,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     private static HAIR: string                             = 'hair';
     private static ADDITIONAL_SPRITE_COUNT: number          = 1;
     private static EXPERIENCE_BUBBLE_VISIBLE_IN_MS: number  = 1000;
-    private static PET_EXPERIENCE_BUBBLE: string            = 'pet_experience_bubble';
+    private static PET_EXPERIENCE_BUBBLE: string            = 'avatar_addition_pet_experience_bubble';
     private static POSTURE_ANIMATION_INDEX: number          = 0;
     private static GESTURE_ANIMATION_INDEX: number          = 1;
     private static ANIMATION_INDEX_COUNT: number            = 2;
@@ -600,8 +600,6 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     public getPetAdditionAsset(name: string): Texture<Resource>
     {
-        const url = (Nitro.instance.getConfiguration<string>('images.url') + '/additions/' + name + '.png');
-
-        return Nitro.instance.core.asset.getTexture(url);
+        return Nitro.instance.core.asset.getTexture(name);
     }
 }
