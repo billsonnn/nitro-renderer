@@ -11,15 +11,15 @@ export class RoomSessionPetStatusUpdateEvent extends RoomSessionEvent
     private _canRevive: boolean;
     private _hasBreedingPermission: boolean;
 
-    constructor(k: IRoomSession, _arg_2: number, _arg_3: boolean, _arg_4: boolean, _arg_5: boolean, _arg_6: boolean)
+    constructor(roomSession: IRoomSession, petId: number, canBreed: boolean, canHarvest: boolean, canRevive: boolean, hasBreedingPermission: boolean)
     {
-        super(RoomSessionPetStatusUpdateEvent.PET_STATUS_UPDATE, k);
+        super(RoomSessionPetStatusUpdateEvent.PET_STATUS_UPDATE, roomSession);
 
-        this._petId = _arg_2;
-        this._canBreed = _arg_3;
-        this._canHarvest = _arg_4;
-        this._canRevive = _arg_5;
-        this._hasBreedingPermission = _arg_6;
+        this._petId = petId;
+        this._canBreed = canBreed;
+        this._canHarvest = canHarvest;
+        this._canRevive = canRevive;
+        this._hasBreedingPermission = hasBreedingPermission;
     }
 
     public get petId(): number

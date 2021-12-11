@@ -12,10 +12,6 @@ export class LayerData
     public static DEFAULT_YOFFSET: number       = 0;
     public static DEFAULT_ZOFFSET: number       = 0;
 
-    public static ADD_INK: number               = BLEND_MODES.ADD;
-    public static SUBTRACT_INK: number          = BLEND_MODES.NORMAL;
-    public static DARKEN_INK: number            = BLEND_MODES.NORMAL;
-
     private _tag: string;
     private _ink: number;
     private _alpha: number;

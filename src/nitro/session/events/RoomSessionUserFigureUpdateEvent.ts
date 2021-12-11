@@ -11,14 +11,15 @@ export class RoomSessionUserFigureUpdateEvent extends RoomSessionEvent
     private _customInfo: string = '';
     private _achievementScore: number;
 
-    constructor(k: IRoomSession, _arg_2: number, _arg_3: string, _arg_4: string, _arg_5: string, _arg_6: number)
+    constructor(session: IRoomSession, userId: number, figure: string, gender: string, customInfo: string, achievementScore: number)
     {
-        super(RoomSessionUserFigureUpdateEvent.USER_FIGURE, k);
-        this._userId = _arg_2;
-        this._figure = _arg_3;
-        this._gender = _arg_4;
-        this._customInfo = _arg_5;
-        this._achievementScore = _arg_6;
+        super(RoomSessionUserFigureUpdateEvent.USER_FIGURE, session);
+
+        this._userId = userId;
+        this._figure = figure;
+        this._gender = gender;
+        this._customInfo = customInfo;
+        this._achievementScore = achievementScore;
     }
 
     public get userId(): number

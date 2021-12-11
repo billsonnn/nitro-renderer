@@ -363,4 +363,5 @@ export class IncomingHeader
     public static CHAT_REVIEW_SESSION_STARTED      = 143;
     public static CHAT_REVIEW_SESSION_VOTING_STATUS = 1829;
     public static SCR_SEND_KICKBACK_INFO            = 3277;
+    public static PET_STATUS                       = 1907;
 }

@@ -174,6 +174,34 @@ export class UserDataManager extends Disposable
         userData.custom = custom;
     }
 
+    public updateAchievementScore(roomIndex: number, score: number): void
+    {
+        const userData = this.getUserDataByIndex(roomIndex);
+
+        if(!userData) return;
+
+        userData.activityPoints = score;
+    }
+
+    public updatePetLevel(roomIndex: number, level: number): void
+    {
+        const userData = this.getUserDataByIndex(roomIndex);
+
+        if(userData) userData.petLevel = level;
+    }
+
+    public updatePetBreedingStatus(roomIndex: number, canBreed: boolean, canHarvest: boolean, canRevive: boolean, hasBreedingPermission: boolean): void
+    {
+        const userData = this.getUserDataByIndex(roomIndex);
+
+        if(!userData) return;
+
+        userData.canBreed = canBreed;
+        userData.canHarvest = canHarvest;
+        userData.canRevive = canRevive;
+        userData.hasBreedingPermission = hasBreedingPermission;
+    }
+
     public requestPetInfo(id: number): void
     {
         if(!this._connection) return;

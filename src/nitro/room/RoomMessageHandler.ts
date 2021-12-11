@@ -715,6 +715,8 @@ export class RoomMessageHandler extends Disposable
 
             this._roomCreator.updateRoomObjectUserAction(this._currentRoomId, user.roomIndex, RoomObjectVariable.FIGURE_IS_MUTED, (this._roomCreator.sessionDataManager.isUserIgnored(user.name) ? 1 : 0));
         }
+
+        this.updateGuideMarker();
     }
 
     private onRoomUnitExpressionEvent(event: RoomUnitExpressionEvent): void
@@ -761,6 +763,8 @@ export class RoomMessageHandler extends Disposable
         if(!(event instanceof RoomUnitRemoveEvent) || !event.connection || !this._roomCreator) return;
 
         this._roomCreator.removeRoomObjectUser(this._currentRoomId, event.getParser().unitId);
+
+        this.updateGuideMarker();
     }
 
     private onRoomUnitStatusEvent(event: RoomUnitStatusEvent): void
@@ -840,6 +844,8 @@ export class RoomMessageHandler extends Disposable
             if(postureUpdate) this._roomCreator.updateRoomObjectUserPosture(this._currentRoomId, status.id, postureType, parameter);
             else if(isPosture) this._roomCreator.updateRoomObjectUserPosture(this._currentRoomId, status.id, RoomObjectVariable.STD, '');
         }
+
+        this.updateGuideMarker();
     }
 
     private onRoomUnitChatEvent(event: RoomUnitChatEvent): void

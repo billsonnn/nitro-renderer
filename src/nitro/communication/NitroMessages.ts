@@ -179,6 +179,7 @@ import { RoomReadyMessageEvent } from './messages/incoming/room/mapping/RoomRead
 import { RoomVisualizationSettingsEvent } from './messages/incoming/room/mapping/RoomVisualizationSettingsEvent';
 import { PetFigureUpdateEvent } from './messages/incoming/room/pet/PetFigureUpdateEvent';
 import { PetInfoEvent } from './messages/incoming/room/pet/PetInfoEvent';
+import { PetStatusUpdateEvent } from './messages/incoming/room/pet/PetStatusUpdateEvent';
 import { YouArePlayingGameEvent } from './messages/incoming/room/session/YouArePlayingGameEvent';
 import { FloodControlEvent } from './messages/incoming/room/unit/chat/FloodControlEvent';
 import { RemainingMuteEvent } from './messages/incoming/room/unit/chat/RemainingMuteEvent';
@@ -808,6 +809,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.ROOM_MODEL_BLOCKED_TILES, RoomOccupiedTilesMessageEvent);
         this._events.set(IncomingHeader.PET_FIGURE_UPDATE, PetFigureUpdateEvent);
         this._events.set(IncomingHeader.PET_INFO, PetInfoEvent);
+        this._events.set(IncomingHeader.PET_STATUS, PetStatusUpdateEvent);
         this._events.set(IncomingHeader.PET_EXPERIENCE, PetExperienceEvent);
         this._events.set(IncomingHeader.PLAYING_GAME, YouArePlayingGameEvent);
         this._events.set(IncomingHeader.UNIT_DANCE, RoomUnitDanceEvent);
