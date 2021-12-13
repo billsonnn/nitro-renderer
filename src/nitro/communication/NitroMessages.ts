@@ -383,7 +383,9 @@ import { SaveRoomSettingsComposer } from './messages/outgoing/room/data/SaveRoom
 import { BotPlaceComposer } from './messages/outgoing/room/engine/BotPlaceComposer';
 import { BotRemoveComposer } from './messages/outgoing/room/engine/BotRemoveComposer';
 import { BotSkillSaveComposer } from './messages/outgoing/room/engine/BotSkillSaveComposer';
+import { CompostPlantMessageComposer } from './messages/outgoing/room/engine/CompostPlantMessageComposer';
 import { GetItemDataComposer } from './messages/outgoing/room/engine/GetItemDataComposer';
+import { HarvestPetMessageComposer } from './messages/outgoing/room/engine/HarvestPetMessageComposer';
 import { PetMoveComposer } from './messages/outgoing/room/engine/PetMoveComposer';
 import { PetPlaceComposer } from './messages/outgoing/room/engine/PetPlaceComposer';
 import { PetRemoveComposer } from './messages/outgoing/room/engine/PetRemoveComposer';
@@ -1176,6 +1178,8 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.PET_PICKUP, PetRemoveComposer);
         this._composers.set(OutgoingHeader.SET_ITEM_DATA, SetItemDataMessageComposer);
         this._composers.set(OutgoingHeader.SET_OBJECT_DATA, SetObjectDataMessageComposer);
+        this._composers.set(OutgoingHeader.COMPOST_PLANT, CompostPlantMessageComposer);
+        this._composers.set(OutgoingHeader.HARVEST_PET, HarvestPetMessageComposer);
 
         // FURNITURE
         this._composers.set(OutgoingHeader.FURNITURE_ALIASES, FurnitureAliasesComposer);
