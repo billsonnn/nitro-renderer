@@ -122,11 +122,6 @@ export class Nitro extends Application implements INitro
         });
 
         canvas.addEventListener('webglcontextlost', () => instance.events.dispatchEvent(new NitroEvent(Nitro.WEBGL_CONTEXT_LOST)));
-
-        //@ts-ignore
-        const sso = (NitroConfig.sso as string);
-
-        instance.communication.demo.setSSO(sso);
     }
 
     public init(): void

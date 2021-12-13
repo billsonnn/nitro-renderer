@@ -1,18 +1,17 @@
 ﻿import { NitroManager } from '../common/NitroManager';
-import { AdvancedMap } from '../utils/AdvancedMap';
 import { ConfigurationEvent } from './ConfigurationEvent';
 import { IConfigurationManager } from './IConfigurationManager';
 
 export class ConfigurationManager extends NitroManager implements IConfigurationManager
 {
-    private _definitions: AdvancedMap<string, unknown>;
+    private _definitions: Map<string, unknown>;
     private _pendingUrls: string[];
 
     constructor()
     {
         super();
 
-        this._definitions = new AdvancedMap();
+        this._definitions = new Map();
         this._pendingUrls = [];
 
         this.onConfigurationLoaded = this.onConfigurationLoaded.bind(this);
@@ -21,24 +20,9 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
     protected onInit(): void
     {
         //@ts-ignore
-        let urls: string[] = NitroConfig.configurationUrls;
+        const defaultConfig = this.getDefaultConfig();
 
-        if(!urls || !urls.length)
-        {
-            //@ts-ignore
-            const url: string = NitroConfig.configurationUrl;
-
-            if(url && url.length) urls = [ url ];
-        }
-
-        if(!urls || !urls.length)
-        {
-            this.dispatchConfigurationEvent(ConfigurationEvent.FAILED);
-
-            return;
-        }
-
-        this._pendingUrls = urls;
+        this._pendingUrls = defaultConfig['config.urls'] as string[];
 
         this.loadNextConfiguration();
     }
@@ -48,6 +32,8 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
         if(!this._pendingUrls.length)
         {
             this.dispatchConfigurationEvent(ConfigurationEvent.LOADED);
+
+            this.parseConfiguration(this.getDefaultConfig());
 
             return;
         }
@@ -115,7 +101,7 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
                     value = this.interpolate((value as string), regex);
                 }
 
-                this._definitions.add(key, value);
+                this._definitions.set(key, value);
             }
 
             return true;
@@ -139,7 +125,7 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
         {
             for(const piece of pieces)
             {
-                const existing = (this._definitions.getValue(this.removeInterpolateKey(piece)) as string);
+                const existing = (this._definitions.get(this.removeInterpolateKey(piece)) as string);
 
                 if(existing) (value = value.replace(piece, existing));
             }
@@ -155,7 +141,7 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
     public getValue<T>(key: string, value: T = null): T
     {
-        let existing = this._definitions.getValue(key);
+        let existing = this._definitions.get(key);
 
         if(existing === undefined)
         {
@@ -169,6 +155,12 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
     public setValue(key: string, value: string): void
     {
-        this._definitions.add(key, value);
+        this._definitions.set(key, value);
+    }
+
+    public getDefaultConfig(): { [index: string]: any }
+    {
+        //@ts-ignore
+        return NitroConfig as { [index: string]: any };
     }
 }
