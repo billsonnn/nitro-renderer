@@ -21,7 +21,7 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
     protected onInit(): void
     {
-        this.parseConfiguration(this.getDefaultConfig());
+        this.parseConfiguration(this.getDefaultConfig(), true);
 
         this._pendingUrls = this.getValue<string[]>('config.urls').slice();
 
@@ -83,7 +83,7 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
         this.events && this.events.dispatchEvent(new ConfigurationEvent(type));
     }
 
-    private parseConfiguration(data: { [index: string]: any }): boolean
+    private parseConfiguration(data: { [index: string]: any }, overrides: boolean = false): boolean
     {
         if(!data) return false;
 
@@ -93,13 +93,18 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
             for(const key in data)
             {
-                if(this._definitions.has(key)) continue;
-
                 let value = data[key];
 
                 if(typeof value === 'string') value = this.interpolate((value as string), regex);
 
-                this.setValue(key, value);
+                if(this._definitions.has(key))
+                {
+                    if(overrides) this.setValue(key, value);
+                }
+                else
+                {
+                    this.setValue(key, value);
+                }
             }
 
             return true;
