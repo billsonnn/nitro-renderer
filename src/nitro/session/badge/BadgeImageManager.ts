@@ -160,7 +160,6 @@ export class BadgeImageManager implements IDisposable
                 url = (Nitro.instance.getConfiguration<string>('badge.asset.url')).replace('%badgename%', badge);
                 break;
             case BadgeImageManager.GROUP_BADGE:
-                //url = (Nitro.instance.getConfiguration<string>('badge.asset.group.url')).replace('%badgedata%', badge);
                 url = badge;
                 break;
         }

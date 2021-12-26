@@ -6,6 +6,7 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 {
     private _definitions: Map<string, unknown>;
     private _pendingUrls: string[];
+    private _missingKeys: string[];
 
     constructor()
     {
@@ -13,16 +14,16 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
         this._definitions = new Map();
         this._pendingUrls = [];
+        this._missingKeys = [];
 
         this.onConfigurationLoaded = this.onConfigurationLoaded.bind(this);
     }
 
     protected onInit(): void
     {
-        //@ts-ignore
-        const defaultConfig = this.getDefaultConfig();
+        this.parseConfiguration(this.getDefaultConfig(), true);
 
-        this._pendingUrls = defaultConfig['config.urls'] as string[];
+        this._pendingUrls = this.getValue<string[]>('config.urls').slice();
 
         this.loadNextConfiguration();
     }
@@ -32,8 +33,6 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
         if(!this._pendingUrls.length)
         {
             this.dispatchConfigurationEvent(ConfigurationEvent.LOADED);
-
-            this.parseConfiguration(this.getDefaultConfig());
 
             return;
         }
@@ -84,7 +83,7 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
         this.events && this.events.dispatchEvent(new ConfigurationEvent(type));
     }
 
-    private parseConfiguration(data: { [index: string]: any }): boolean
+    private parseConfiguration(data: { [index: string]: any }, overrides: boolean = false): boolean
     {
         if(!data) return false;
 
@@ -96,12 +95,16 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
             {
                 let value = data[key];
 
-                if(typeof value === 'string')
-                {
-                    value = this.interpolate((value as string), regex);
-                }
+                if(typeof value === 'string') value = this.interpolate((value as string), regex);
 
-                this._definitions.set(key, value);
+                if(this._definitions.has(key))
+                {
+                    if(overrides) this.setValue(key, value);
+                }
+                else
+                {
+                    this.setValue(key, value);
+                }
             }
 
             return true;
@@ -145,6 +148,9 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
         if(existing === undefined)
         {
+            if(this._missingKeys.indexOf(key) >= 0) return value;
+
+            this._missingKeys.push(key);
             this.logger.warn(`Missing configuration key: ${ key }`);
 
             existing = value;
