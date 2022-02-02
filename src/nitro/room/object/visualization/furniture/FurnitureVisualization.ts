@@ -506,7 +506,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
 
     protected getLayerYOffset(scale: number, direction: number, layerId: number): number
     {
-        if(layerId === this._shadowLayerIndex) return Math.ceil((this._furnitureLift * (64 / 2)));
+        if(layerId === this._shadowLayerIndex) return Math.ceil((this._furnitureLift * (scale / 2)));
 
         const existing = this._spriteYOffsets[layerId];
 

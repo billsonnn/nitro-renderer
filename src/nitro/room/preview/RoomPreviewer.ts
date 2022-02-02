@@ -258,8 +258,6 @@ export class RoomPreviewer
 
         if(this.isRoomEngineReady)
         {
-            if((this._currentPreviewObjectCategory === RoomObjectCategory.FLOOR) && (this._currentPreviewObjectType === classId)) return RoomPreviewer.PREVIEW_OBJECT_ID;
-
             this.reset(false);
 
             this._currentPreviewObjectType      = classId;
@@ -512,7 +510,7 @@ export class RoomPreviewer
         return this._addViewOffset;
     }
 
-    private updatePreviewObjectBoundingRectangle(point: Point): void
+    public updatePreviewObjectBoundingRectangle(point: Point): void
     {
         const objectBounds = this._roomEngine.getRoomObjectBoundingRectangle(this._previewRoomId, RoomPreviewer.PREVIEW_OBJECT_ID, this._currentPreviewObjectCategory, RoomPreviewer.PREVIEW_CANVAS_ID);
 

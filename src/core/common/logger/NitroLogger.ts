@@ -39,7 +39,7 @@ export class NitroLogger implements INitroLogger
 
     public static log(message: string, name: string = 'Nitro', modus: string = null): void
     {
-        const logString = `[Nitro] ${ new Date().toDateString() } [${ name }] ${ message } ${ this.getTimestamp() }`;
+        const logString = `[Nitro] [${ name }] ${ message } ${ this.getTimestamp() }`;
 
         switch(modus)
         {
