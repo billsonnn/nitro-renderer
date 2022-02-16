@@ -4,7 +4,7 @@ export class GetCraftingRecipeComposer implements IMessageComposer<ConstructorPa
 {
   private _data: ConstructorParameters<typeof GetCraftingRecipeComposer>;
 
-  constructor(k: number)
+  constructor(k: string)
   {
       this._data = [k];
   }

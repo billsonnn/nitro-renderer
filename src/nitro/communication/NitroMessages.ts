@@ -961,8 +961,8 @@ export class NitroMessages implements IMessageConfiguration
         // CRAFTING
         this._composers.set(OutgoingHeader.CRAFT, CraftComposer);
         this._composers.set(OutgoingHeader.CRAFT_SECRET, CraftSecretComposer);
-        this._composers.set(OutgoingHeader.GET_CRAFTABLE_PRODUCTS, GetCraftableProductsComposer);
-        this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPE, GetCraftingRecipeComposer);
+        this._composers.set(OutgoingHeader.GET_CRAFTABLE_PRODUCTS, GetCraftingRecipeComposer);
+        this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPE, GetCraftableProductsComposer);
         this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPES_AVAILABLE, GetCraftingRecipesAvailableComposer);
 
         // FRIENDFURNI
