@@ -4,6 +4,7 @@ export * from './camera';
 export * from './campaign';
 export * from './catalog';
 export * from './competition';
+export * from './crafting';
 export * from './desktop';
 export * from './friendfurni';
 export * from './friendlist';
