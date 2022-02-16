@@ -12,6 +12,7 @@ import { RoomObjectSpriteType } from '../object/enum/RoomObjectSpriteType';
 import { IRoomObject } from '../object/IRoomObject';
 import { IRoomObjectSprite } from '../object/visualization/IRoomObjectSprite';
 import { IRoomObjectSpriteVisualization } from '../object/visualization/IRoomObjectSpriteVisualization';
+import { RoomRotatingEffect, RoomShakingEffect } from '../utils';
 import { IRoomGeometry } from '../utils/IRoomGeometry';
 import { RoomEnterEffect } from '../utils/RoomEnterEffect';
 import { RoomGeometry } from '../utils/RoomGeometry';
@@ -62,6 +63,14 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     private _eventCache: Map<string, RoomSpriteMouseEvent>;
     private _eventId: number;
     private _scale: number;
+
+    private _SafeStr_4507: boolean = false;
+    private _rotation: number = 0;
+    private _rotationOrigin: Vector3d = null;
+    private _rotationRodLength: number = 0;
+    private _effectDirection: Vector3d;
+    private _effectLocation: Vector3d;
+    private _SafeStr_795: number = 0;
 
     private _restrictsScaling: boolean;
     private _noSpriteVisibilityChecking: boolean;
@@ -335,6 +344,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         if(time === -1) time = (this._renderTimestamp + 1);
 
         if(!this._container || !this._geometry) return;
+
+        this.doMagic();
 
         if((this._width !== this._renderedWidth) || (this._height !== this._renderedHeight)) update = true;
 
@@ -1031,6 +1042,177 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         this._screenOffsetY = _local_3;
 
         return renderTexture;
+    }
+
+    private doMagic(): void
+    {
+        const geometry = (this.geometry as RoomGeometry);
+
+        if(this._rotation !== 0)
+        {
+            let direction = this._effectDirection;
+
+            geometry.direction = new Vector3d((direction.x + this._rotation), direction.y, direction.z);
+
+            direction = (geometry.direction as Vector3d);
+
+            geometry.setDepthVector(new Vector3d(direction.x, direction.y, 5));
+
+            const location = new Vector3d();
+
+            location.assign(this._rotationOrigin);
+
+            location.x = (location.x + ((this._rotationRodLength * Math.cos((((direction.x + 180) / 180) * 3.14159265358979))) * Math.cos(((direction.y / 180) * 3.14159265358979))));
+            location.y = (location.y + ((this._rotationRodLength * Math.sin((((direction.x + 180) / 180) * 3.14159265358979))) * Math.cos(((direction.y / 180) * 3.14159265358979))));
+            location.z = (location.z + (this._rotationRodLength * Math.sin(((direction.y / 180) * 3.14159265358979))));
+
+            geometry.location = location;
+
+            this._effectLocation = new Vector3d();
+            this._effectLocation.assign(location);
+            this._effectDirection = new Vector3d();
+            this._effectDirection.assign(geometry.direction);
+        }
+
+        if(RoomShakingEffect.isVisualizationOn() && !this._SafeStr_4507)
+        {
+            this.changeShaking();
+        }
+        else
+        {
+            if(!RoomShakingEffect.isVisualizationOn() && this._SafeStr_4507) this.changeShaking();
+        }
+
+        if(RoomRotatingEffect.isVisualizationOn()) this.changeRotation();
+
+        if(this._SafeStr_4507)
+        {
+            this._SafeStr_795++;
+
+            const _local_4 = this._effectDirection;
+            const _local_1 = Vector3d.sum(_local_4, new Vector3d((Math.sin((((this._SafeStr_795 * 5) / 180) * 3.14159265358979)) * 2), (Math.sin(((this._SafeStr_795 / 180) * 3.14159265358979)) * 5), (Math.sin((((this._SafeStr_795 * 10) / 180) * 3.14159265358979)) * 2)));
+
+            geometry.direction = _local_1;
+        }
+        else
+        {
+            this._SafeStr_795 = 0;
+
+            geometry.direction = this._effectDirection;
+        }
+    }
+
+    private changeShaking(): void
+    {
+        this._SafeStr_4507 = !this._SafeStr_4507;
+
+        if(this._SafeStr_4507)
+        {
+            const direction = this.geometry.direction;
+
+            this._effectDirection = new Vector3d(direction.x, direction.y, direction.z);
+        }
+    }
+
+    private changeRotation(): void
+    {
+        if(this._SafeStr_4507) return;
+
+        const geometry = (this.geometry as RoomGeometry);
+
+        if(!geometry) return;
+
+        if(this._rotation === 0)
+        {
+            const location = geometry.location;
+            const directionAxis = geometry.directionAxis;
+
+            this._effectLocation = new Vector3d();
+            this._effectLocation.assign(location);
+            this._effectDirection = new Vector3d();
+            this._effectDirection.assign(geometry.direction);
+
+            const intersection = RoomGeometry.getIntersectionVector(location, directionAxis, new Vector3d(0, 0, 0), new Vector3d(0, 0, 1));
+
+            if(intersection !== null)
+            {
+                this._rotationOrigin = new Vector3d(intersection.x, intersection.y, intersection.z);
+                this._rotationRodLength = Vector3d.dif(intersection, location).length;
+                this._rotation = 1;
+            }
+
+            return;
+        }
+
+        this._rotation = 0;
+
+        geometry.location = this._effectLocation;
+        geometry.direction = this._effectDirection;
+        geometry.setDepthVector(new Vector3d(this._effectDirection.x, this._effectDirection.y, 5));
+    }
+
+    public moveLeft(): void
+    {
+        if(this._rotation !== 0)
+        {
+            if(this._rotation === 1)
+            {
+                this._rotation = -1;
+            }
+            else
+            {
+                this._rotation = (this._rotation - 1);
+            }
+
+            return;
+        }
+
+        const geometry = (this.geometry as RoomGeometry);
+        const direction = (((geometry.direction.x - 90) / 180) * 3.14159265358979);
+
+        geometry.location = Vector3d.sum(geometry.location, new Vector3d((Math.cos(direction) * Math.sqrt(2)), (Math.sin(direction) * Math.sqrt(2))));
+    }
+
+    public moveRight(): void
+    {
+        if(this._rotation !== 0)
+        {
+            if(this._rotation === -1)
+            {
+                this._rotation = 1;
+            }
+            else
+            {
+                this._rotation = (this._rotation + 1);
+            }
+
+            return;
+        }
+
+        const geometry = (this.geometry as RoomGeometry);
+        const direction = (((geometry.direction.x + 90) / 180) * 3.14159265358979);
+
+        geometry.location = Vector3d.sum(geometry.location, new Vector3d((Math.cos(direction) * Math.sqrt(2)), (Math.sin(direction) * Math.sqrt(2))));
+    }
+
+    public moveUp(): void
+    {
+        if(this._rotation !== 0) return;
+
+        const geometry = (this.geometry as RoomGeometry);
+        const direction = ((geometry.direction.x / 180) * 3.14159265358979);
+
+        geometry.location = Vector3d.sum(geometry.location, new Vector3d((Math.cos(direction) * Math.sqrt(2)), (Math.sin(direction) * Math.sqrt(2))));
+    }
+
+    public moveDown(): void
+    {
+        if(this._rotation !== 0) return;
+
+        const geometry = (this.geometry as RoomGeometry);
+        const direction = (((geometry.direction.x + 180) / 180) * 3.14159265358979);
+
+        geometry.location = Vector3d.sum(geometry.location, new Vector3d((Math.cos(direction) * Math.sqrt(2)), (Math.sin(direction) * Math.sqrt(2))));
     }
 
     public get id(): number
