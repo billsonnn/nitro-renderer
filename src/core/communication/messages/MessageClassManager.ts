@@ -67,13 +67,6 @@ export class MessageClassManager
             existing = [];
 
             this._messageInstancesById.set(header, existing);
-
-            //@ts-ignore
-            event.parser = new event.parserClass();
-        }
-        else
-        {
-            event.parser = existing[0].parser;
         }
 
         existing.push(event);

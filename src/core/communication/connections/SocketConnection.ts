@@ -301,9 +301,12 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
         try
         {
-            const parser = events[0].parser;
+            //@ts-ignore
+            const parser = new events[0].parserClass();
 
             if(!parser || !parser.flush() || !parser.parse(wrapper)) return null;
+
+            for(const event of events) (event.parser = parser);
         }
 
         catch (e)
