@@ -2,25 +2,25 @@
 
 export class RoomEnterEffect
 {
-    public static STATE_NOT_INITIALIZED: number     = 0;
-    public static STATE_START_DELAY: number         = 1;
-    public static STATE_RUNNING: number             = 2;
-    public static STATE_OVER: number                = 3;
+    public static STATE_NOT_INITIALIZED: number = 0;
+    public static STATE_START_DELAY: number = 1;
+    public static STATE_RUNNING: number = 2;
+    public static STATE_OVER: number = 3;
 
-    private static _state: number                   = RoomEnterEffect.STATE_NOT_INITIALIZED;
-    private static _visualizationOn: boolean        = false;
-    private static _currentDelta: number            = 0;
-    private static _initializationTimeMs: number    = 0;
-    private static _startDelayMs: number            = (20 * 1000);
-    private static _effectDurationMs: number        = 2000;
+    private static _state: number = RoomEnterEffect.STATE_NOT_INITIALIZED;
+    private static _visualizationOn: boolean = false;
+    private static _currentDelta: number = 0;
+    private static _initializationTimeMs: number = 0;
+    private static _startDelayMs: number = (20 * 1000);
+    private static _effectDurationMs: number = 2000;
 
     public static init(delay: number, duration: number): void
     {
-        RoomEnterEffect._currentDelta           = 0;
-        RoomEnterEffect._startDelayMs           = delay;
-        RoomEnterEffect._effectDurationMs       = duration;
-        RoomEnterEffect._initializationTimeMs   = Nitro.instance.time;
-        RoomEnterEffect._state                  = RoomEnterEffect.STATE_START_DELAY;
+        RoomEnterEffect._currentDelta = 0;
+        RoomEnterEffect._startDelayMs = delay;
+        RoomEnterEffect._effectDurationMs = duration;
+        RoomEnterEffect._initializationTimeMs = Nitro.instance.time;
+        RoomEnterEffect._state = RoomEnterEffect.STATE_START_DELAY;
     }
 
     public static turnVisualizationOn(): void
@@ -45,8 +45,8 @@ export class RoomEnterEffect
             return;
         }
 
-        RoomEnterEffect._state    = RoomEnterEffect.STATE_RUNNING;
-        RoomEnterEffect._currentDelta  = ((k - RoomEnterEffect._startDelayMs) / RoomEnterEffect._effectDurationMs);
+        RoomEnterEffect._state = RoomEnterEffect.STATE_RUNNING;
+        RoomEnterEffect._currentDelta = ((k - RoomEnterEffect._startDelayMs) / RoomEnterEffect._effectDurationMs);
     }
 
     public static turnVisualizationOff(): void

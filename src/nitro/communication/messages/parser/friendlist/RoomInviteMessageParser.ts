@@ -7,8 +7,8 @@ export class RoomInviteParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._senderId      = 0;
-        this._messageText   = null;
+        this._senderId = 0;
+        this._messageText = null;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class RoomInviteParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._senderId      = wrapper.readInt();
-        this._messageText   = wrapper.readString();
+        this._senderId = wrapper.readInt();
+        this._messageText = wrapper.readString();
 
         return true;
     }

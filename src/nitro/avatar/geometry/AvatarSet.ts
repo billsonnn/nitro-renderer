@@ -8,11 +8,11 @@
 
     constructor(k: any)
     {
-        this._id            = k.id;
-        this._isMain        = k.main || false;
-        this._avatarSets    = new Map();
-        this._bodyParts     = [];
-        this._allBodyParts  = [];
+        this._id = k.id;
+        this._isMain = k.main || false;
+        this._avatarSets = new Map();
+        this._bodyParts = [];
+        this._allBodyParts = [];
 
         if(k.avatarSets && (k.avatarSets.length > 0))
         {

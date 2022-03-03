@@ -10,8 +10,8 @@ export class ObjectMoveUpdateMessage extends RoomObjectUpdateMessage
     {
         super(location, direction);
 
-        this._targetLocation    = targetLocation;
-        this._isSlide           = isSlide;
+        this._targetLocation = targetLocation;
+        this._isSlide = isSlide;
     }
 
     public get targetLocation(): IVector3D

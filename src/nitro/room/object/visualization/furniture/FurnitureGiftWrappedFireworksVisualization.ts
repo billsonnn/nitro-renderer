@@ -4,13 +4,13 @@ import { FurnitureFireworksVisualization } from './FurnitureFireworksVisualizati
 
 export class FurnitureGiftWrappedFireworksVisualization extends FurnitureFireworksVisualization
 {
-    private static PRESENT_DEFAULT_STATE: number    = 0;
-    private static MAX_PACKET_TYPE_VALUE: number    = 9;
-    private static MAX_RIBBON_TYPE_VALUE: number    = 11;
+    private static PRESENT_DEFAULT_STATE: number = 0;
+    private static MAX_PACKET_TYPE_VALUE: number = 9;
+    private static MAX_RIBBON_TYPE_VALUE: number = 11;
 
-    private _packetType: number          = 0;
-    private _ribbonType: number          = 0;
-    private _lastAnimationId: number    = 0;
+    private _packetType: number = 0;
+    private _ribbonType: number = 0;
+    private _lastAnimationId: number = 0;
 
     public update(geometry: IRoomGeometry, time: number, update: boolean, skipUpdate: boolean)
     {
@@ -23,12 +23,12 @@ export class FurnitureGiftWrappedFireworksVisualization extends FurnitureFirewor
     {
         if(!this.object) return;
 
-        const local3        = 1000;
-        const extras        = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_EXTRAS);
+        const local3 = 1000;
+        const extras = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_EXTRAS);
 
-        const typeIndex     = parseInt(extras);
-        const packetType    = Math.floor((typeIndex / local3));
-        const ribbonType    = (typeIndex % local3);
+        const typeIndex = parseInt(extras);
+        const packetType = Math.floor((typeIndex / local3));
+        const ribbonType = (typeIndex % local3);
 
         this._packetType = ((packetType > FurnitureGiftWrappedFireworksVisualization.MAX_PACKET_TYPE_VALUE) ? 0 : packetType);
         this._ribbonType = ((ribbonType > FurnitureGiftWrappedFireworksVisualization.MAX_RIBBON_TYPE_VALUE) ? 0 : ribbonType);
@@ -50,8 +50,8 @@ export class FurnitureGiftWrappedFireworksVisualization extends FurnitureFirewor
     {
         const size = this.getValidSize(scale);
 
-        let assetName   = this._type;
-        let layerCode   = '';
+        let assetName = this._type;
+        let layerCode = '';
 
         if(layerId < (this.spriteCount - 1))
         {

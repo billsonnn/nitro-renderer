@@ -17,7 +17,7 @@ export class TradingOpenFailedParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._reason    = wrapper.readInt();
+        this._reason = wrapper.readInt();
         this._otherUserName = wrapper.readString();
 
         return true;

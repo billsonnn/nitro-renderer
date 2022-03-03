@@ -11,9 +11,9 @@ export class MessageClassManager
 
     constructor()
     {
-        this._messageIdByEvent      = new Map();
-        this._messageIdByComposer   = new Map();
-        this._messageInstancesById  = new Map();
+        this._messageIdByEvent = new Map();
+        this._messageIdByComposer = new Map();
+        this._messageInstancesById = new Map();
     }
 
     public dispose(): void
@@ -67,13 +67,6 @@ export class MessageClassManager
             existing = [];
 
             this._messageInstancesById.set(header, existing);
-
-            //@ts-ignore
-            event.parser = new event.parserClass();
-        }
-        else
-        {
-            event.parser = existing[0].parser;
         }
 
         existing.push(event);

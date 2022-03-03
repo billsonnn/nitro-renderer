@@ -3,11 +3,12 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 export class IssueCloseNotificationMessageParser implements IMessageParser
 {
     private _closeReason: number;
+    private _messageText: string;
 
     public flush(): boolean
     {
         this._closeReason = 0;
-
+        this._messageText = '';
         return true;
     }
 
@@ -16,6 +17,7 @@ export class IssueCloseNotificationMessageParser implements IMessageParser
         if(!wrapper) return false;
 
         this._closeReason = wrapper.readInt();
+        this._messageText = wrapper.readString();
 
         return true;
     }
@@ -23,5 +25,10 @@ export class IssueCloseNotificationMessageParser implements IMessageParser
     public get closeReason(): number
     {
         return this._closeReason;
+    }
+
+    public get messageText(): string
+    {
+        return this._messageText;
     }
 }

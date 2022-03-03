@@ -12,8 +12,8 @@ export class AnimationSizeData extends SizeData
     {
         super(layerCount, angle);
 
-        this._animations    = new Map();
-        this._animationIds  = [];
+        this._animations = new Map();
+        this._animationIds = [];
     }
 
     public dispose(): void
@@ -42,22 +42,22 @@ export class AnimationSizeData extends SizeData
 
             if(!animation) return false;
 
-            let animationId     = parseInt(key);
-            let isTransition    = false;
+            let animationId = parseInt(key.split('_')[0]);
+            let isTransition = false;
 
-            const transitionTo      = animation.transitionTo;
-            const transitionFrom    = animation.transitionFrom;
+            const transitionTo = animation.transitionTo;
+            const transitionFrom = animation.transitionFrom;
 
             if(transitionTo !== undefined)
             {
-                animationId     = AnimationData.getTransitionToAnimationId(transitionTo);
-                isTransition    = true;
+                animationId = AnimationData.getTransitionToAnimationId(transitionTo);
+                isTransition = true;
             }
 
             if(transitionFrom !== undefined)
             {
-                animationId     = AnimationData.getTransitionFromAnimationId(transitionFrom);
-                isTransition    = true;
+                animationId = AnimationData.getTransitionFromAnimationId(transitionFrom);
+                isTransition = true;
             }
 
             const animationData = this.createAnimationData();
@@ -73,7 +73,7 @@ export class AnimationSizeData extends SizeData
 
             if(immediateChangeFrom !== undefined)
             {
-                const changes   = immediateChangeFrom.split(',');
+                const changes = immediateChangeFrom.split(',');
                 const changeIds = [];
 
                 for(const change of changes)

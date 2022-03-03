@@ -8,9 +8,9 @@ export class ActivityPointNotificationParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._amount        = 0;
+        this._amount = 0;
         this._amountChanged = 0;
-        this._type          = -1;
+        this._type = -1;
 
         return true;
     }
@@ -19,9 +19,9 @@ export class ActivityPointNotificationParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._amount        = wrapper.readInt();
+        this._amount = wrapper.readInt();
         this._amountChanged = wrapper.readInt();
-        this._type          = wrapper.readInt();
+        this._type = wrapper.readInt();
 
         return true;
     }

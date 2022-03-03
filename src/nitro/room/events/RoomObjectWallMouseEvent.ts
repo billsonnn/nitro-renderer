@@ -16,16 +16,16 @@ export class RoomObjectWallMouseEvent extends RoomObjectMouseEvent
     {
         super(type, object, eventId, altKey, ctrlKey, shiftKey, buttonDown);
 
-        this._wallLocation  = new Vector3d();
-        this._wallWd        = new Vector3d();
-        this._wallHt        = new Vector3d();
+        this._wallLocation = new Vector3d();
+        this._wallWd = new Vector3d();
+        this._wallHt = new Vector3d();
 
         this._wallLocation.assign(wallLocation);
         this._wallWd.assign(wallWidth);
         this._wallHt.assign(wallHeight);
 
-        this._x         = x;
-        this._y         = y;
+        this._x = x;
+        this._y = y;
         this._direction = direction;
     }
 

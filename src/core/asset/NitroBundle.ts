@@ -21,7 +21,7 @@ export class NitroBundle
         let binary = '';
 
         const bytes = new Uint8Array(buffer);
-        const len   = bytes.byteLength;
+        const len = bytes.byteLength;
 
         for(let i = 0; i < len; i++) (binary += String.fromCharCode(bytes[i]));
 
@@ -36,10 +36,10 @@ export class NitroBundle
 
         while(fileCount > 0)
         {
-            const fileNameLength    = binaryReader.readShort();
-            const fileName          = binaryReader.readBytes(fileNameLength).toString();
-            const fileLength        = binaryReader.readInt();
-            const buffer            = binaryReader.readBytes(fileLength);
+            const fileNameLength = binaryReader.readShort();
+            const fileName = binaryReader.readBytes(fileNameLength).toString();
+            const fileLength = binaryReader.readInt();
+            const buffer = binaryReader.readBytes(fileLength);
 
             if(fileName.endsWith('.json'))
             {
@@ -49,8 +49,8 @@ export class NitroBundle
             }
             else
             {
-                const decompressed  = inflate((buffer.toArrayBuffer() as Data));
-                const base64        = NitroBundle.arrayBufferToBase64(decompressed);
+                const decompressed = inflate((buffer.toArrayBuffer() as Data));
+                const base64 = NitroBundle.arrayBufferToBase64(decompressed);
 
                 this._baseTexture = new BaseTexture('data:image/png;base64,' + base64);
             }

@@ -1,6 +1,6 @@
 import { Disposable } from '../../core/common/disposable/Disposable';
 import { IConnection } from '../../core/communication/connections/IConnection';
-import { FurnitureMultiStateComposer, PetMountComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from '../communication';
+import { CompostPlantMessageComposer, FurnitureMultiStateComposer, HarvestPetMessageComposer, PetMountComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from '../communication';
 import { RoomDoorbellAccessComposer } from '../communication/messages/outgoing/room/access/RoomDoorbellAccessComposer';
 import { RoomEnterComposer } from '../communication/messages/outgoing/room/access/RoomEnterComposer';
 import { RoomAmbassadorAlertComposer } from '../communication/messages/outgoing/room/action/RoomAmbassadorAlertComposer';
@@ -56,22 +56,22 @@ export class RoomSession extends Disposable implements IRoomSession
     {
         super();
 
-        this._connection            = null;
-        this._userData              = new UserDataManager();
+        this._connection = null;
+        this._userData = new UserDataManager();
 
-        this._roomId                = 0;
-        this._password              = null;
-        this._state                 = RoomSessionEvent.CREATED;
-        this._tradeMode             = RoomTradingLevelEnum.NO_TRADING;
-        this._doorMode              = 0;
-        this._controllerLevel       = RoomControllerLevel.NONE;
-        this._ownRoomIndex          = -1;
-        this._isGuildRoom           = false;
-        this._isRoomOwner           = false;
-        this._isDecorating          = false;
-        this._isSpectator           = false;
+        this._roomId = 0;
+        this._password = null;
+        this._state = RoomSessionEvent.CREATED;
+        this._tradeMode = RoomTradingLevelEnum.NO_TRADING;
+        this._doorMode = 0;
+        this._controllerLevel = RoomControllerLevel.NONE;
+        this._ownRoomIndex = -1;
+        this._isGuildRoom = false;
+        this._isRoomOwner = false;
+        this._isDecorating = false;
+        this._isSpectator = false;
 
-        this._moderationSettings    = null;
+        this._moderationSettings = null;
     }
 
     protected onDispose(): void
@@ -312,6 +312,16 @@ export class RoomSession extends Disposable implements IRoomSession
     public useMultistateItem(id: number): void
     {
         this._connection.send(new FurnitureMultiStateComposer(id));
+    }
+
+    public harvestPet(id: number): void
+    {
+        this._connection.send(new HarvestPetMessageComposer(id));
+    }
+
+    public compostPlant(id: number): void
+    {
+        this._connection.send(new CompostPlantMessageComposer(id));
     }
 
     public get connection(): IConnection

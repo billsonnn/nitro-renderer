@@ -18,15 +18,15 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 {
     public static TYPE: string = RoomObjectVisualizationType.PET_ANIMATED;
 
-    private static HEAD: string                             = 'head';
-    private static SADDLE: string                           = 'saddle';
-    private static HAIR: string                             = 'hair';
-    private static ADDITIONAL_SPRITE_COUNT: number          = 1;
-    private static EXPERIENCE_BUBBLE_VISIBLE_IN_MS: number  = 1000;
-    private static PET_EXPERIENCE_BUBBLE: string            = 'pet_experience_bubble';
-    private static POSTURE_ANIMATION_INDEX: number          = 0;
-    private static GESTURE_ANIMATION_INDEX: number          = 1;
-    private static ANIMATION_INDEX_COUNT: number            = 2;
+    private static HEAD: string = 'head';
+    private static SADDLE: string = 'saddle';
+    private static HAIR: string = 'hair';
+    private static ADDITIONAL_SPRITE_COUNT: number = 1;
+    private static EXPERIENCE_BUBBLE_VISIBLE_IN_MS: number = 1000;
+    private static PET_EXPERIENCE_BUBBLE: string = 'avatar_addition_pet_experience_bubble';
+    private static POSTURE_ANIMATION_INDEX: number = 0;
+    private static GESTURE_ANIMATION_INDEX: number = 1;
+    private static ANIMATION_INDEX_COUNT: number = 2;
 
     protected _data: PetVisualizationData;
 
@@ -57,30 +57,30 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     {
         super();
 
-        this._data                          = null;
+        this._data = null;
 
-        this._posture                       = '';
-        this._gesture                       = '';
-        this._isSleeping                    = false;
-        this._headDirection                 = -1;
-        this._headOnly                      = false;
-        this._nonHeadSprites                = [];
-        this._headSprites                   = [];
-        this._saddleSprites                 = [];
-        this._animationOver                 = false;
-        this._paletteIndex                  = -1;
-        this._paletteName                   = '';
-        this._customLayerIds                = [];
-        this._customPartIds                 = [];
-        this._customPaletteIds              = [];
-        this._isRiding                      = false;
-        this._color                         = 0xFFFFFF;
-        this._experience                    = 0;
-        this._experienceTimestamp           = 0;
-        this._experienceData                = null;
+        this._posture = '';
+        this._gesture = '';
+        this._isSleeping = false;
+        this._headDirection = -1;
+        this._headOnly = false;
+        this._nonHeadSprites = [];
+        this._headSprites = [];
+        this._saddleSprites = [];
+        this._animationOver = false;
+        this._paletteIndex = -1;
+        this._paletteName = '';
+        this._customLayerIds = [];
+        this._customPartIds = [];
+        this._customPaletteIds = [];
+        this._isRiding = false;
+        this._color = 0xFFFFFF;
+        this._experience = 0;
+        this._experienceTimestamp = 0;
+        this._experienceData = null;
 
-        this._previousAnimationDirection    = -1;
-        this._animationStates               = [];
+        this._previousAnimationDirection = -1;
+        this._animationStates = [];
 
         while(this._animationStates.length < PetVisualization.ANIMATION_INDEX_COUNT) this._animationStates.push(new AnimationStateData());
     }
@@ -159,11 +159,11 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
                     if(texture)
                     {
-                        sprite.texture  = texture;
-                        sprite.offsetX  = -20;
-                        sprite.offsetY  = -80;
-                        sprite.alpha    = this._experienceData.alpha;
-                        sprite.visible  = true;
+                        sprite.texture = texture;
+                        sprite.offsetX = -20;
+                        sprite.offsetY = -80;
+                        sprite.alpha = this._experienceData.alpha;
+                        sprite.visible = true;
                         sprite.relativeDepth = -0.2;
 
                         return;
@@ -216,25 +216,25 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         this._experience = (model.getValue<number>(RoomObjectVariable.FIGURE_GAINED_EXPERIENCE));
         this._experienceTimestamp = (model.getValue<number>(RoomObjectVariable.FIGURE_EXPERIENCE_TIMESTAMP));
 
-        const customPaletteIndex    = model.getValue<number>(RoomObjectVariable.PET_PALETTE_INDEX);
-        const customLayerIds        = model.getValue<number[]>(RoomObjectVariable.PET_CUSTOM_LAYER_IDS);
-        const customPartIds         = model.getValue<number[]>(RoomObjectVariable.PET_CUSTOM_PARTS_IDS);
-        const customPaletteIds      = model.getValue<number[]>(RoomObjectVariable.PET_CUSTOM_PALETTE_IDS);
-        const isRiding              = model.getValue<number>(RoomObjectVariable.PET_IS_RIDING);
-        const headOnly              = model.getValue<number>(RoomObjectVariable.PET_HEAD_ONLY);
-        const color                 = model.getValue<number>(RoomObjectVariable.PET_COLOR);
+        const customPaletteIndex = model.getValue<number>(RoomObjectVariable.PET_PALETTE_INDEX);
+        const customLayerIds = model.getValue<number[]>(RoomObjectVariable.PET_CUSTOM_LAYER_IDS);
+        const customPartIds = model.getValue<number[]>(RoomObjectVariable.PET_CUSTOM_PARTS_IDS);
+        const customPaletteIds = model.getValue<number[]>(RoomObjectVariable.PET_CUSTOM_PALETTE_IDS);
+        const isRiding = model.getValue<number>(RoomObjectVariable.PET_IS_RIDING);
+        const headOnly = model.getValue<number>(RoomObjectVariable.PET_HEAD_ONLY);
+        const color = model.getValue<number>(RoomObjectVariable.PET_COLOR);
 
         if(customPaletteIndex !== this._paletteIndex)
         {
-            this._paletteIndex  = customPaletteIndex;
-            this._paletteName   = this._paletteIndex.toString();
+            this._paletteIndex = customPaletteIndex;
+            this._paletteName = this._paletteIndex.toString();
         }
 
-        this._customLayerIds    = (customLayerIds) ? customLayerIds : [];
-        this._customPartIds     = (customPartIds) ? customPartIds : [];
-        this._customPaletteIds  = (customPaletteIds) ? customPaletteIds : [];
-        this._isRiding          = (!isNaN(isRiding) && (isRiding > 0));
-        this._headOnly          = (!isNaN(headOnly) && (headOnly > 0));
+        this._customLayerIds = (customLayerIds) ? customLayerIds : [];
+        this._customPartIds = (customPartIds) ? customPartIds : [];
+        this._customPaletteIds = (customPaletteIds) ? customPaletteIds : [];
+        this._isRiding = (!isNaN(isRiding) && (isRiding > 0));
+        this._headOnly = (!isNaN(headOnly) && (headOnly > 0));
 
         if(!isNaN(color) && this._color !== color) this._color = color;
 
@@ -316,9 +316,9 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     {
         if(this._animationOver) return 0;
 
-        let animationOver   = true;
-        let _local_3        = 0;
-        let index           = 0;
+        let animationOver = true;
+        let _local_3 = 0;
+        let index = 0;
 
         while(index < this._animationStates.length)
         {
@@ -394,8 +394,8 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     protected getLayerXOffset(scale: number, direction: number, layerId: number): number
     {
-        let offset  = super.getLayerXOffset(scale, direction, layerId);
-        let index   = (this._animationStates.length - 1);
+        let offset = super.getLayerXOffset(scale, direction, layerId);
+        let index = (this._animationStates.length - 1);
 
         while(index >= 0)
         {
@@ -416,8 +416,8 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     protected getLayerYOffset(scale: number, direction: number, layerId: number): number
     {
-        let offset  = super.getLayerYOffset(scale, direction, layerId);
-        let index   = (this._animationStates.length - 1);
+        let offset = super.getLayerYOffset(scale, direction, layerId);
+        let index = (this._animationStates.length - 1);
 
         while(index >= 0)
         {
@@ -532,15 +532,15 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     {
         if(!this.asset) return null;
 
-        const layerIndex  = this._customLayerIds.indexOf(layerId);
+        const layerIndex = this._customLayerIds.indexOf(layerId);
         let paletteName = this._paletteName;
-        let partId      = -1;
-        let paletteId   = -1;
+        let partId = -1;
+        let paletteId = -1;
 
         if(layerIndex > -1)
         {
-            partId      = this._customPartIds[layerIndex];
-            paletteId   = this._customPaletteIds[layerIndex];
+            partId = this._customPartIds[layerIndex];
+            paletteId = this._customPaletteIds[layerIndex];
             paletteName = ((paletteId > -1) ? paletteId.toString() : this._paletteName);
         }
 
@@ -566,9 +566,9 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     protected getPostureForAsset(scale: number, name: string): string
     {
-        const parts   = name.split('_');
-        let length  = parts.length;
-        let i       = 0;
+        const parts = name.split('_');
+        let length = parts.length;
+        let i = 0;
 
         while(i < parts.length)
         {
@@ -600,8 +600,6 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     public getPetAdditionAsset(name: string): Texture<Resource>
     {
-        const url = (Nitro.instance.getConfiguration<string>('images.url') + '/additions/' + name + '.png');
-
-        return Nitro.instance.core.asset.getTexture(url);
+        return Nitro.instance.core.asset.getTexture(name);
     }
 }

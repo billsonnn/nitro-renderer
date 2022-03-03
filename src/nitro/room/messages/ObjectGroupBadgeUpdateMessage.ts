@@ -11,7 +11,7 @@ export class ObjectGroupBadgeUpdateMessage extends RoomObjectUpdateMessage
     {
         super(null, null);
 
-        this._badgeId   = badgeId;
+        this._badgeId = badgeId;
         this._assetName = assetName;
     }
 

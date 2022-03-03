@@ -2,11 +2,11 @@ import { IMessageDataWrapper } from '../../../../../../core';
 
 export class GroupRank
 {
-    public static readonly OWNER: number       = 0;
-    public static readonly ADMIN: number       = 1;
-    public static readonly MEMBER: number      = 2;
-    public static readonly REQUESTED: number   = 3;
-    public static readonly DELETED: number     = 4;
+    public static readonly OWNER: number = 0;
+    public static readonly ADMIN: number = 1;
+    public static readonly MEMBER: number = 2;
+    public static readonly REQUESTED: number = 3;
+    public static readonly DELETED: number = 4;
 }
 
 export class GroupMemberParser
@@ -27,11 +27,11 @@ export class GroupMemberParser
 
     public flush(): boolean
     {
-        this._rank      = -1;
-        this._id        = 0;
-        this._name      = null;
-        this._figure    = null;
-        this._joinedAt  = null;
+        this._rank = -1;
+        this._id = 0;
+        this._name = null;
+        this._figure = null;
+        this._joinedAt = null;
 
         return true;
     }
@@ -40,11 +40,11 @@ export class GroupMemberParser
     {
         if(!wrapper) return false;
 
-        this._rank      = wrapper.readInt();
-        this._id        = wrapper.readInt();
-        this._name      = wrapper.readString();
-        this._figure    = wrapper.readString();
-        this._joinedAt  = wrapper.readString();
+        this._rank = wrapper.readInt();
+        this._id = wrapper.readInt();
+        this._name = wrapper.readString();
+        this._figure = wrapper.readString();
+        this._joinedAt = wrapper.readString();
 
         return true;
     }

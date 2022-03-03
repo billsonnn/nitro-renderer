@@ -21,12 +21,12 @@ export class RoomInstance extends Disposable implements IRoomInstance
     {
         super();
 
-        this._id                = id;
-        this._container         = container;
-        this._renderer          = null;
-        this._managers          = new Map();
-        this._updateCategories  = [];
-        this._model             = new RoomObjectModel();
+        this._id = id;
+        this._container = container;
+        this._renderer = null;
+        this._managers = new Map();
+        this._updateCategories = [];
+        this._model = new RoomObjectModel();
     }
 
     protected onDispose(): void

@@ -11,18 +11,18 @@ export class ActiveActionData implements IActiveActionData
 
     constructor(action: string, parameter: string = '', startFrame: number = 0)
     {
-        this._actionType        = action || '';
-        this._actionParameter   = parameter || '';
-        this._definition        = null;
-        this._startFrame        = startFrame || 0;
-        this._overridingAction  = null;
+        this._actionType = action || '';
+        this._actionParameter = parameter || '';
+        this._definition = null;
+        this._startFrame = startFrame || 0;
+        this._overridingAction = null;
     }
 
     public dispose(): void
     {
-        this._actionType        = null;
-        this._actionParameter   = null;
-        this._definition        = null;
+        this._actionType = null;
+        this._actionParameter = null;
+        this._definition = null;
     }
 
     public get id(): string

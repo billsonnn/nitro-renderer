@@ -7,7 +7,7 @@ import { ICommunicationManager } from './ICommunicationManager';
 
 export class CommunicationManager extends Disposable implements ICommunicationManager, IUpdateReceiver
 {
-    private _connections: IConnection[]
+    private _connections: IConnection[];
 
     constructor()
     {

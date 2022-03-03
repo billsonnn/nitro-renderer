@@ -12,13 +12,13 @@ export class FloorHeightMapMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._model         = null;
-        this._width         = 0;
-        this._height        = 0;
-        this._wallHeight    = -1;
-        this._heightMap     = [];
-        this._scale         = 64;
-        this._model         = null;
+        this._model = null;
+        this._width = 0;
+        this._height = 0;
+        this._wallHeight = -1;
+        this._heightMap = [];
+        this._scale = 64;
+        this._model = null;
 
         return true;
     }
@@ -27,9 +27,9 @@ export class FloorHeightMapMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        const scale         = wrapper.readBoolean();
-        const wallHeight    = wrapper.readInt();
-        const model         = wrapper.readString();
+        const scale = wrapper.readBoolean();
+        const wallHeight = wrapper.readInt();
+        const model = wrapper.readString();
 
         return this.parseExplicitly(model, wallHeight, scale);
     }
@@ -41,15 +41,15 @@ export class FloorHeightMapMessageParser implements IMessageParser
 
     private parseExplicitly(modelString: string, wallHeight: number, scale: boolean = true): boolean
     {
-        this._scale         = scale ? 32 : 64;
-        this._wallHeight    = wallHeight;
-        this._model         = modelString;
+        this._scale = scale ? 32 : 64;
+        this._wallHeight = wallHeight;
+        this._model = modelString;
 
-        const model     = this._model.split('\r');
+        const model = this._model.split('\r');
         const modelRows = model.length;
 
-        let width   = 0;
-        const height  = 0;
+        let width = 0;
+        const height = 0;
 
         let iterator = 0;
 
@@ -66,7 +66,7 @@ export class FloorHeightMapMessageParser implements IMessageParser
         }
 
         this._heightMap = [];
-        iterator        = 0;
+        iterator = 0;
 
         while(iterator < modelRows)
         {
@@ -86,15 +86,15 @@ export class FloorHeightMapMessageParser implements IMessageParser
             iterator++;
         }
 
-        this._width     = width;
-        this._height    = modelRows;
+        this._width = width;
+        this._height = modelRows;
 
         iterator = 0;
 
         while(iterator < modelRows)
         {
             const heightMap = this._heightMap[iterator];
-            const text      = model[iterator];
+            const text = model[iterator];
 
             if(text.length > 0)
             {
@@ -102,8 +102,8 @@ export class FloorHeightMapMessageParser implements IMessageParser
 
                 while(subIterator < text.length)
                 {
-                    const char  = text.charAt(subIterator);
-                    let height  = RoomPlaneParser.TILE_BLOCKED;
+                    const char = text.charAt(subIterator);
+                    let height = RoomPlaneParser.TILE_BLOCKED;
 
                     if((char !== 'x') && (char !== 'X')) height = parseInt(char, 36);
 

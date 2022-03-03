@@ -17,12 +17,12 @@ export class LegacyWallGeometry
 
     constructor()
     {
-        this._isDisposed    = false;
-        this._scale         = 64;
-        this._heightMap     = [];
-        this._width         = 0;
-        this._height        = 0;
-        this._floorHeight   = 0;
+        this._isDisposed = false;
+        this._scale = 64;
+        this._heightMap = [];
+        this._width = 0;
+        this._height = 0;
+        this._floorHeight = 0;
     }
 
     public get disposed(): boolean
@@ -50,9 +50,9 @@ export class LegacyWallGeometry
     {
         if((width <= this._width) && (height <= this._height))
         {
-            this._width         = width;
-            this._height        = height;
-            this._floorHeight   = floorHeight;
+            this._width = width;
+            this._height = height;
+            this._floorHeight = floorHeight;
 
             return;
         }
@@ -79,9 +79,9 @@ export class LegacyWallGeometry
             y++;
         }
 
-        this._width         = width;
-        this._height        = height;
-        this._floorHeight   = floorHeight;
+        this._width = width;
+        this._height = height;
+        this._floorHeight = floorHeight;
     }
 
     private reset(): void

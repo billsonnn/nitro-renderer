@@ -62,11 +62,11 @@ export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
 
     constructor()
     {
-        this._events            = new EventDispatcher();
+        this._events = new EventDispatcher();
 
-        this._cachedEvents      = new Map();
-        this._registeredEvents  = new Map();
-        this._functions         = [];
+        this._cachedEvents = new Map();
+        this._registeredEvents = new Map();
+        this._functions = [];
     }
 
     public getLogic(type: string): IRoomObjectEventHandler

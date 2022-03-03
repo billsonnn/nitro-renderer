@@ -11,11 +11,11 @@ export class RoomUnitChatParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._roomIndex     = null;
-        this._message       = null;
-        this._gesture       = 0;
-        this._bubble        = 0;
-        this._urls          = [];
+        this._roomIndex = null;
+        this._message = null;
+        this._gesture = 0;
+        this._bubble = 0;
+        this._urls = [];
         this._messageLength = 0;
 
         return true;
@@ -25,10 +25,10 @@ export class RoomUnitChatParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._roomIndex     = wrapper.readInt();
-        this._message       = wrapper.readString();
-        this._gesture       = wrapper.readInt();
-        this._bubble        = wrapper.readInt();
+        this._roomIndex = wrapper.readInt();
+        this._message = wrapper.readString();
+        this._gesture = wrapper.readInt();
+        this._bubble = wrapper.readInt();
 
         this.parseUrls(wrapper);
 

@@ -15,22 +15,22 @@ export class PlaneDrawingData implements IPlaneDrawingData
 
     constructor(k: PlaneDrawingData = null, _arg_2: number = 0, _arg_3: boolean = false)
     {
-        this._assetNames            = [];
-        this._maskAssetNames        = [];
-        this._maskAssetLocations    = [];
-        this._maskAssetFlipHs       = [];
-        this._maskAssetFlipVs       = [];
+        this._assetNames = [];
+        this._maskAssetNames = [];
+        this._maskAssetLocations = [];
+        this._maskAssetFlipHs = [];
+        this._maskAssetFlipVs = [];
 
         if(k != null)
         {
-            this._maskAssetNames        = k._maskAssetNames;
-            this._maskAssetLocations    = k._maskAssetLocations;
-            this._maskAssetFlipHs       = k._maskAssetFlipHs;
-            this._maskAssetFlipVs       = k._maskAssetFlipVs;
+            this._maskAssetNames = k._maskAssetNames;
+            this._maskAssetLocations = k._maskAssetLocations;
+            this._maskAssetFlipHs = k._maskAssetFlipHs;
+            this._maskAssetFlipVs = k._maskAssetFlipVs;
         }
 
-        this._color         = _arg_2;
-        this._alignBottom   = _arg_3;
+        this._color = _arg_2;
+        this._alignBottom = _arg_3;
     }
 
     public addMask(k: string, _arg_2: Point, _arg_3: boolean, _arg_4: boolean): void

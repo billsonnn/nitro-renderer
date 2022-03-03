@@ -10,8 +10,8 @@ export class Interval extends Motion
     {
         super(target);
 
-        this._complete  = false;
-        this._duration  = duration;
+        this._complete = false;
+        this._duration = duration;
     }
 
     public get duration(): number
@@ -23,8 +23,8 @@ export class Interval extends Motion
     {
         super.start();
 
-        this._complete      = false;
-        this._startTimeMs   = Nitro.instance.time;
+        this._complete = false;
+        this._startTimeMs = Nitro.instance.time;
     }
 
     public tick(time: number): void

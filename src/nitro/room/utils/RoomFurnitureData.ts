@@ -22,22 +22,22 @@ export class RoomFurnitureData
 
     constructor(id: number, typeId: number, type: string, location: IVector3D, direction: IVector3D, state: number, objectData: IObjectData, extra: number = NaN, expires: number = -1, usagePolicy: number = 0, ownerId: number = 0, ownerName: string = '', synchronized: boolean = true, realRoomObject: boolean = true, sizeZ: number = -1)
     {
-        this._id                = id;
-        this._typeId            = typeId;
-        this._type              = type;
-        this._state             = state;
-        this._data              = objectData;
-        this._extra             = extra;
-        this._expiryTime        = expires;
-        this._usagePolicy       = usagePolicy;
-        this._ownerId           = ownerId;
-        this._ownerName         = ownerName;
-        this._synchronized      = synchronized;
-        this._realRoomObject    = realRoomObject;
-        this._sizeZ             = sizeZ;
+        this._id = id;
+        this._typeId = typeId;
+        this._type = type;
+        this._state = state;
+        this._data = objectData;
+        this._extra = extra;
+        this._expiryTime = expires;
+        this._usagePolicy = usagePolicy;
+        this._ownerId = ownerId;
+        this._ownerName = ownerName;
+        this._synchronized = synchronized;
+        this._realRoomObject = realRoomObject;
+        this._sizeZ = sizeZ;
 
-        this._location          = new Vector3d();
-        this._direction         = new Vector3d();
+        this._location = new Vector3d();
+        this._direction = new Vector3d();
 
         this._location.assign(location);
         this._direction.assign(direction);

@@ -12,15 +12,15 @@ export class BaseHandler extends Disposable
     {
         super();
 
-        this._connection    = connection;
-        this._listener      = listener;
-        this._roomId        = 0;
+        this._connection = connection;
+        this._listener = listener;
+        this._roomId = 0;
     }
 
     protected onDispose(): void
     {
-        this._connection    = null;
-        this._listener      = null;
+        this._connection = null;
+        this._listener = null;
     }
 
     public setRoomId(id: number): void

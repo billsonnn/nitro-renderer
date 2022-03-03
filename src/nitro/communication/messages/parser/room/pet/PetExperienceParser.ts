@@ -8,9 +8,9 @@ export class PetExperienceParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._petId             = -1;
-        this._roomIndex         = -1;
-        this._gainedExperience  = 0;
+        this._petId = -1;
+        this._roomIndex = -1;
+        this._gainedExperience = 0;
         return true;
     }
 
@@ -18,9 +18,9 @@ export class PetExperienceParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._petId             = wrapper.readInt();
-        this._roomIndex         = wrapper.readInt();
-        this._gainedExperience  = wrapper.readInt();
+        this._petId = wrapper.readInt();
+        this._roomIndex = wrapper.readInt();
+        this._gainedExperience = wrapper.readInt();
 
         return true;
     }

@@ -11,11 +11,11 @@ export class RoomHeightMapUpdateParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._wrapper   = null;
-        this._count     = 0;
-        this._x         = 0;
-        this._y         = 0;
-        this._value     = 0;
+        this._wrapper = null;
+        this._count = 0;
+        this._x = 0;
+        this._y = 0;
+        this._value = 0;
 
         return true;
     }
@@ -41,9 +41,9 @@ export class RoomHeightMapUpdateParser implements IMessageParser
 
         this._count--;
 
-        this._x         = this._wrapper.readByte();
-        this._y         = this._wrapper.readByte();
-        this._value     = this._wrapper.readShort();
+        this._x = this._wrapper.readByte();
+        this._y = this._wrapper.readByte();
+        this._value = this._wrapper.readShort();
 
         return true;
     }
@@ -52,8 +52,8 @@ export class RoomHeightMapUpdateParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._wrapper   = wrapper;
-        this._count     = wrapper.readByte();
+        this._wrapper = wrapper;
+        this._count = wrapper.readByte();
 
         return true;
     }

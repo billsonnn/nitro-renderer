@@ -7,8 +7,8 @@ export class ItemDataUpdateMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._itemId    = 0;
-        this._data      = '';
+        this._itemId = 0;
+        this._data = '';
 
         return true;
     }
@@ -17,8 +17,8 @@ export class ItemDataUpdateMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._itemId    = parseInt(wrapper.readString());
-        this._data      = wrapper.readString();
+        this._itemId = parseInt(wrapper.readString());
+        this._data = wrapper.readString();
 
         return true;
     }

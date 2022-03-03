@@ -27,11 +27,11 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
     {
         if(!data) throw new Error('invalid_collection');
 
-        this._name              = data.name;
-        this._data              = data;
-        this._textures          = new Map();
-        this._assets            = new Map();
-        this._palettes          = new Map();
+        this._name = data.name;
+        this._data = data;
+        this._textures = new Map();
+        this._assets = new Map();
+        this._palettes = new Map();
         this._paletteAssetNames = [];
 
         if(spritesheet) this.addLibraryAsset(spritesheet.textures);
@@ -75,8 +75,8 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
 
         if(this._referenceCount <= 0)
         {
-            this._referenceCount        = 0;
-            this._referenceTimestamp    = Nitro.instance.time;
+            this._referenceCount = 0;
+            this._referenceTimestamp = Nitro.instance.time;
 
             this.disposePaletteAssets(false);
         }
@@ -84,8 +84,8 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
 
     public define(data: IAssetData): void
     {
-        const assets    = data.assets;
-        const palettes  = data.palettes;
+        const assets = data.assets;
+        const palettes = data.palettes;
 
         if(assets) this.defineAssets(assets);
 
@@ -102,12 +102,12 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
 
             if(!asset) continue;
 
-            const x           = (-(asset.x) || 0);
-            const y           = (-(asset.y) || 0);
-            let flipH       = false;
-            const flipV       = false;
+            const x = (-(asset.x) || 0);
+            const y = (-(asset.y) || 0);
+            let flipH = false;
+            const flipV = false;
             const usesPalette = (asset.usesPalette || false);
-            let source      = (asset.source || '');
+            let source = (asset.source || '');
 
             if(asset.flipH && source.length) flipH = true;
 
@@ -147,8 +147,8 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
 
             if(this._palettes.get(id)) continue;
 
-            let colorOne    = 0xFFFFFF;
-            let colorTwo    = 0xFFFFFF;
+            let colorOne = 0xFFFFFF;
+            let colorTwo = 0xFFFFFF;
 
             let color = palette.color1;
 
@@ -271,8 +271,8 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
         if(override)
         {
             existingTexture.baseTexture = texture.baseTexture;
-            existingTexture.frame       = texture.frame;
-            existingTexture.trim        = texture.trim;
+            existingTexture.frame = texture.frame;
+            existingTexture.trim = texture.trim;
 
             existingTexture.updateUvs();
 

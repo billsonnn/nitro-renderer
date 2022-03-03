@@ -17,10 +17,10 @@ export class NavigatorLiftedDataParser
 
     public flush(): boolean
     {
-        this._roomId    = -1;
-        this._areaId    = -1;
-        this._image     = null;
-        this._caption   = null;
+        this._roomId = -1;
+        this._areaId = -1;
+        this._image = null;
+        this._caption = null;
 
         return true;
     }
@@ -29,10 +29,10 @@ export class NavigatorLiftedDataParser
     {
         if(!wrapper) return false;
 
-        this._roomId    = wrapper.readInt();
-        this._areaId    = wrapper.readInt();
-        this._image     = wrapper.readString();
-        this._caption   = wrapper.readString();
+        this._roomId = wrapper.readInt();
+        this._areaId = wrapper.readInt();
+        this._image = wrapper.readString();
+        this._caption = wrapper.readString();
 
         return true;
     }

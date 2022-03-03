@@ -7,7 +7,7 @@ export class PlaneBitmapData
 
     constructor(k: Graphics, _arg_2: number)
     {
-        this._bitmap    = k;
+        this._bitmap = k;
         this._timeStamp = _arg_2;
     }
 

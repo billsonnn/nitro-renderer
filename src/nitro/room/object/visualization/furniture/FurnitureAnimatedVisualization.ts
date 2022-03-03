@@ -9,8 +9,8 @@ import { FurnitureVisualization } from './FurnitureVisualization';
 
 export class FurnitureAnimatedVisualization extends FurnitureVisualization
 {
-    public static TYPE: string                  = RoomObjectVisualizationType.FURNITURE_ANIMATED;
-    public static DEFAULT_ANIMATION_ID: number  = 0;
+    public static TYPE: string = RoomObjectVisualizationType.FURNITURE_ANIMATED;
+    public static DEFAULT_ANIMATION_ID: number = 0;
 
     protected _data: FurnitureAnimatedVisualizationData;
 
@@ -26,13 +26,13 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
     {
         super();
 
-        this._state                 = -1;
-        this._frameIncrease         = 1;
-        this._animationData         = new AnimationStateData();
-        this._animationScale        = 0;
-        this._animationChangeTime   = 0;
-        this._animatedLayerCount    = 0;
-        this._directionChanged      = false;
+        this._state = -1;
+        this._frameIncrease = 1;
+        this._animationData = new AnimationStateData();
+        this._animationScale = 0;
+        this._animationChangeTime = 0;
+        this._animatedLayerCount = 0;
+        this._directionChanged = false;
     }
 
     public initialize(data: IObjectVisualizationData): boolean
@@ -250,8 +250,8 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
 
         if(scale !== this._animationScale)
         {
-            this._animationScale        = scale;
-            this._animatedLayerCount    = this._data.getLayerCount(scale);
+            this._animationScale = scale;
+            this._animatedLayerCount = this._data.getLayerCount(scale);
 
             this.resetAllAnimationFrames();
         }
@@ -286,18 +286,18 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
         if(animationData.animationOver && !this._directionChanged) return 0;
 
         const animationId = this.getAnimationId(animationData);
-        let frameCount  = animationData.frameCounter;
+        let frameCount = animationData.frameCounter;
 
         if(!frameCount) frameCount = this._data.getStartFrame(scale, animationId, this._direction);
 
-        frameCount                  += this.frameIncrease;
-        animationData.frameCounter  = frameCount;
+        frameCount += this.frameIncrease;
+        animationData.frameCounter = frameCount;
         animationData.animationOver = true;
 
         let animationPlayed = false;
-        let layerId         = (this._animatedLayerCount - 1);
-        let update          = 0;
-        let layerUpdate     = (1 << (this._animatedLayerCount - 1));
+        let layerId = (this._animatedLayerCount - 1);
+        let update = 0;
+        let layerUpdate = (1 << (this._animatedLayerCount - 1));
 
         while(layerId >= 0)
         {
@@ -308,7 +308,7 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
             if(!animationPlayed || this._directionChanged)
             {
                 let lastFramePlayed = animationData.getLastFramePlayed(layerId);
-                let frame           = animationData.getFrame(layerId);
+                let frame = animationData.getFrame(layerId);
 
                 if(frame)
                 {
@@ -402,7 +402,7 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
 
         super.setDirection(direction);
 
-        this._directionChanged  = true;
+        this._directionChanged = true;
     }
 
     protected get frameIncrease(): number

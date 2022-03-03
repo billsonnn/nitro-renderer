@@ -5,7 +5,7 @@
 
     constructor()
     {
-        this._objectId  = '';
+        this._objectId = '';
         this._spriteTag = '';
     }
 

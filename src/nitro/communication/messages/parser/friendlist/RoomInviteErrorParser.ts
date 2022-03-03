@@ -7,8 +7,8 @@ export class RoomInviteErrorParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._errorCode         = 0;
-        this._failedRecipients  = [];
+        this._errorCode = 0;
+        this._failedRecipients = [];
 
         return true;
     }

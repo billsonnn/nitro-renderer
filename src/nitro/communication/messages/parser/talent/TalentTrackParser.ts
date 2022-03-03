@@ -10,8 +10,8 @@ export class TalentTrackParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._type      = null;
-        this._levels    = null;
+        this._type = null;
+        this._levels = null;
 
         return true;
     }

@@ -9,7 +9,7 @@ export class RoomEngineObjectPlacedOnUserEvent extends RoomEngineObjectEvent
     {
         super(k, roomId, objectId, category);
 
-        this._droppedObjectId       = droppedObjectId;
+        this._droppedObjectId = droppedObjectId;
         this._droppedObjectCategory = droppedObjectCategory;
     }
 

@@ -6,7 +6,7 @@ export class CallForHelpReplyMessageEvent extends MessageEvent implements IMessa
 {
     constructor(callBack: Function)
     {
-        super(callBack,  CallForHelpReplyMessageParser);
+        super(callBack, CallForHelpReplyMessageParser);
     }
 
     public getParser(): CallForHelpReplyMessageParser

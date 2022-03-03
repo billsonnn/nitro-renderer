@@ -6,10 +6,10 @@ import { RoomUserData } from './RoomUserData';
 
 export class UserDataManager extends Disposable
 {
-    private static TYPE_USER: number            = 1;
-    private static TYPE_PET: number             = 2;
-    private static TYPE_BOT: number             = 3;
-    private static TYPE_RENTABLE_BOT: number    = 4;
+    private static TYPE_USER: number = 1;
+    private static TYPE_PET: number = 2;
+    private static TYPE_BOT: number = 3;
+    private static TYPE_RENTABLE_BOT: number = 4;
 
     private _connection: IConnection;
 
@@ -21,11 +21,11 @@ export class UserDataManager extends Disposable
     {
         super();
 
-        this._connection            = null;
+        this._connection = null;
 
-        this._userDataByType        = new Map();
-        this._userDataByRoomIndex   = new Map();
-        this._userBadges            = new Map();
+        this._userDataByType = new Map();
+        this._userDataByRoomIndex = new Map();
+        this._userBadges = new Map();
     }
 
     protected onDispose(): void
@@ -150,10 +150,10 @@ export class UserDataManager extends Disposable
 
         if(!userData) return;
 
-        userData.figure     = figure;
-        userData.sex        = sex;
-        userData.hasSaddle  = hasSaddle;
-        userData.isRiding   = isRiding;
+        userData.figure = figure;
+        userData.sex = sex;
+        userData.hasSaddle = hasSaddle;
+        userData.isRiding = isRiding;
     }
 
     public updateName(roomIndex: number, name: string): void
@@ -172,6 +172,34 @@ export class UserDataManager extends Disposable
         if(!userData) return;
 
         userData.custom = custom;
+    }
+
+    public updateAchievementScore(roomIndex: number, score: number): void
+    {
+        const userData = this.getUserDataByIndex(roomIndex);
+
+        if(!userData) return;
+
+        userData.activityPoints = score;
+    }
+
+    public updatePetLevel(roomIndex: number, level: number): void
+    {
+        const userData = this.getUserDataByIndex(roomIndex);
+
+        if(userData) userData.petLevel = level;
+    }
+
+    public updatePetBreedingStatus(roomIndex: number, canBreed: boolean, canHarvest: boolean, canRevive: boolean, hasBreedingPermission: boolean): void
+    {
+        const userData = this.getUserDataByIndex(roomIndex);
+
+        if(!userData) return;
+
+        userData.canBreed = canBreed;
+        userData.canHarvest = canHarvest;
+        userData.canRevive = canRevive;
+        userData.hasBreedingPermission = hasBreedingPermission;
     }
 
     public requestPetInfo(id: number): void

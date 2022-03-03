@@ -7,8 +7,8 @@ export class RoomCameraWidgetSelectedEffect
 
     constructor(effect: IRoomCameraWidgetEffect, alpha: number)
     {
-        this._effect    = effect;
-        this._alpha     = alpha;
+        this._effect = effect;
+        this._alpha = alpha;
     }
 
     public get effect(): IRoomCameraWidgetEffect

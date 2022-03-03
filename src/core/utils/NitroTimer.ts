@@ -6,9 +6,9 @@ export class NitroTimer
 
     constructor(percision: number = 1)
     {
-        this._elapsedTime   = 0;
-        this._percision     = percision;
-        this._timer         = null;
+        this._elapsedTime = 0;
+        this._percision = percision;
+        this._timer = null;
 
         this.start();
     }

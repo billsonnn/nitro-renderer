@@ -9,10 +9,10 @@ export class Vector3d implements IVector3D
 
     constructor(x: number = 0, y: number = 0, z: number = 0)
     {
-        this._x         = x;
-        this._y         = y;
-        this._z         = z;
-        this._length    = NaN;
+        this._x = x;
+        this._y = y;
+        this._z = z;
+        this._length = NaN;
     }
 
     public static sum(vector1: IVector3D, vector2: IVector3D): Vector3d
@@ -95,46 +95,48 @@ export class Vector3d implements IVector3D
     {
         if(!vector) return;
 
-        this._x        += vector.x;
-        this._y        += vector.y;
-        this._z        += vector.z;
-        this._length    = NaN;
+        this._x += vector.x;
+        this._y += vector.y;
+        this._z += vector.z;
+        this._length = NaN;
     }
 
     public subtract(vector: IVector3D): void
     {
         if(!vector) return;
 
-        this._x        -= vector.x;
-        this._y        -= vector.y;
-        this._z        -= vector.z;
-        this._length    = NaN;
+        this._x -= vector.x;
+        this._y -= vector.y;
+        this._z -= vector.z;
+        this._length = NaN;
     }
 
     public multiply(amount: number): void
     {
-        this._x        *= amount;
-        this._y        *= amount;
-        this._z        *= amount;
-        this._length    = NaN;
+        this._x *= amount;
+        this._y *= amount;
+        this._z *= amount;
+        this._length = NaN;
     }
 
     public divide(amount: number): void
     {
-        this._x        /= amount;
-        this._y        /= amount;
-        this._z        /= amount;
-        this._length    = NaN;
+        if(!amount) return;
+
+        this._x /= amount;
+        this._y /= amount;
+        this._z /= amount;
+        this._length = NaN;
     }
 
     public assign(vector: IVector3D): void
     {
         if(!vector) return;
 
-        this._x         = vector.x;
-        this._y         = vector.y;
-        this._z         = vector.z;
-        this._length    = NaN;
+        this._x = vector.x;
+        this._y = vector.y;
+        this._z = vector.z;
+        this._length = NaN;
     }
 
     public get x(): number
@@ -144,8 +146,8 @@ export class Vector3d implements IVector3D
 
     public set x(k: number)
     {
-        this._x         = k;
-        this._length    = NaN;
+        this._x = k;
+        this._length = NaN;
     }
 
     public get y(): number
@@ -155,8 +157,8 @@ export class Vector3d implements IVector3D
 
     public set y(k: number)
     {
-        this._y         = k;
-        this._length    = NaN;
+        this._y = k;
+        this._length = NaN;
     }
 
     public get z(): number
@@ -166,8 +168,8 @@ export class Vector3d implements IVector3D
 
     public set z(k: number)
     {
-        this._z         = k;
-        this._length    = NaN;
+        this._z = k;
+        this._length = NaN;
     }
 
     public get length(): number

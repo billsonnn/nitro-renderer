@@ -16,16 +16,16 @@ export class VoteDataType extends ObjectDataBase
     {
         super();
 
-        this._state     = '';
-        this._result    = 0;
+        this._state = '';
+        this._result = 0;
     }
 
     public parseWrapper(wrapper: IMessageDataWrapper): void
     {
         if(!wrapper) return;
 
-        this._state     = wrapper.readString();
-        this._result    = wrapper.readInt();
+        this._state = wrapper.readString();
+        this._result = wrapper.readInt();
 
         super.parseWrapper(wrapper);
     }

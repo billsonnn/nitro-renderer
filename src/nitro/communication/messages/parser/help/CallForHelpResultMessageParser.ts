@@ -7,8 +7,8 @@ export class CallForHelpResultMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._resultType    = 0;
-        this._messageText   = null;
+        this._resultType = 0;
+        this._messageText = null;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class CallForHelpResultMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._resultType    = wrapper.readInt();
-        this._messageText   = wrapper.readString();
+        this._resultType = wrapper.readInt();
+        this._messageText = wrapper.readString();
 
         return true;
     }

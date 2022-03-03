@@ -17,9 +17,9 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
 
     constructor()
     {
-        this._effects   = new Map();
-        this._events    = new EventDispatcher();
-        this._isLoaded  = false;
+        this._effects = new Map();
+        this._events = new EventDispatcher();
+        this._isLoaded = false;
     }
 
     public init(): void
@@ -29,7 +29,7 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
         this._isLoaded = true;
 
         const imagesUrl = Nitro.instance.getConfiguration<string>('image.library.url') + 'Habbo-Stories/';
-        const effects   = Nitro.instance.getConfiguration<{ name: string, colorMatrix?: ColorMatrix, minLevel: number, blendMode?: number, enabled: boolean }[]>('camera.available.effects');
+        const effects = Nitro.instance.getConfiguration<{ name: string, colorMatrix?: ColorMatrix, minLevel: number, blendMode?: number, enabled: boolean }[]>('camera.available.effects');
 
         for(const effect of effects)
         {
@@ -43,8 +43,8 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
             }
             else
             {
-                cameraEffect.texture    = Texture.from(imagesUrl + effect.name + '.png');
-                cameraEffect.blendMode  = effect.blendMode;
+                cameraEffect.texture = Texture.from(imagesUrl + effect.name + '.png');
+                cameraEffect.blendMode = effect.blendMode;
             }
 
             this._effects.set(cameraEffect.name, cameraEffect);
@@ -56,7 +56,7 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
     public applyEffects(texture: Texture, selectedEffects: IRoomCameraWidgetSelectedEffect[], isZoomed: boolean): HTMLImageElement
     {
         const container = new NitroContainer();
-        const sprite    = new NitroSprite(texture);
+        const sprite = new NitroSprite(texture);
 
         container.addChild(sprite);
 
@@ -70,8 +70,8 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
             {
                 const filter = new ColorMatrixFilter();
 
-                filter.matrix   = effect.colorMatrix;
-                filter.alpha    = selectedEffect.alpha;
+                filter.matrix = effect.colorMatrix;
+                filter.alpha = selectedEffect.alpha;
 
                 if(!sprite.filters) sprite.filters = [];
 
@@ -79,9 +79,9 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
             }
             else
             {
-                const effectSprite      = new NitroSprite(effect.texture);
-                effectSprite.alpha      = selectedEffect.alpha;
-                effectSprite.blendMode  = effect.blendMode;
+                const effectSprite = new NitroSprite(effect.texture);
+                effectSprite.alpha = selectedEffect.alpha;
+                effectSprite.blendMode = effect.blendMode;
 
                 container.addChild(effectSprite);
             }

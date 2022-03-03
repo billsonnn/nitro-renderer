@@ -30,11 +30,11 @@ export class RoomChatSettings
 
     public flush(): boolean
     {
-        this._mode          = 0;
-        this._weight        = 0;
-        this._speed         = 0;
-        this._distance      = 0;
-        this._protection    = 0;
+        this._mode = 0;
+        this._weight = 0;
+        this._speed = 0;
+        this._distance = 0;
+        this._protection = 0;
 
         return true;
     }
@@ -43,11 +43,11 @@ export class RoomChatSettings
     {
         if(!wrapper) return false;
 
-        this._mode          = wrapper.readInt();
-        this._weight        = wrapper.readInt();
-        this._speed         = wrapper.readInt();
-        this._distance      = wrapper.readInt();
-        this._protection    = wrapper.readInt();
+        this._mode = wrapper.readInt();
+        this._weight = wrapper.readInt();
+        this._speed = wrapper.readInt();
+        this._distance = wrapper.readInt();
+        this._protection = wrapper.readInt();
 
         return true;
     }

@@ -9,9 +9,9 @@ export class FriendListFragmentParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._totalFragments    = 0;
-        this._fragmentNumber    = 0;
-        this._fragment          = [];
+        this._totalFragments = 0;
+        this._fragmentNumber = 0;
+        this._fragment = [];
 
         return true;
     }
@@ -20,8 +20,8 @@ export class FriendListFragmentParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._totalFragments    = wrapper.readInt();
-        this._fragmentNumber    = wrapper.readInt();
+        this._totalFragments = wrapper.readInt();
+        this._fragmentNumber = wrapper.readInt();
 
         let totalFriends = wrapper.readInt();
 

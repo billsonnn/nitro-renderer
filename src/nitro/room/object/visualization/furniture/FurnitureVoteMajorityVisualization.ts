@@ -3,16 +3,16 @@ import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization
 
 export class FurnitureVoteMajorityVisualization extends FurnitureAnimatedVisualization
 {
-    private static ONES_SPRITE: string      = 'ones_sprite';
-    private static TENS_SPRITE: string      = 'tens_sprite';
-    private static HUNDREDS_SPRITE: string  = 'hundreds_sprite';
-    private static HIDE_RESULTS_STATES: number[]     = [-1, 1];
-    private static HIDE_RESULTS_VALUE: number       = -1;
+    private static ONES_SPRITE: string = 'ones_sprite';
+    private static TENS_SPRITE: string = 'tens_sprite';
+    private static HUNDREDS_SPRITE: string = 'hundreds_sprite';
+    private static HIDE_RESULTS_STATES: number[] = [-1, 1];
+    private static HIDE_RESULTS_VALUE: number = -1;
 
     protected getFrameNumber(scale: number, layerId: number): number
     {
-        const result    = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_VOTE_MAJORITY_RESULT);
-        const tag       = this.getLayerTag(scale, this.direction, layerId);
+        const result = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_VOTE_MAJORITY_RESULT);
+        const tag = this.getLayerTag(scale, this.direction, layerId);
 
         switch(tag)
         {

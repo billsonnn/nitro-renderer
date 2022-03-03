@@ -7,8 +7,8 @@ export class UserFigureParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._figure    = null;
-        this._gender    = null;
+        this._figure = null;
+        this._gender = null;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class UserFigureParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._figure    = wrapper.readString();
-        this._gender    = wrapper.readString();
+        this._figure = wrapper.readString();
+        this._gender = wrapper.readString();
 
         return true;
     }

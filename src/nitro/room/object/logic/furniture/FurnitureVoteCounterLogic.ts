@@ -18,9 +18,9 @@ export class FurnitureVoteCounterLogic extends FurnitureMultiStateLogic
     {
         super();
 
-        this._total         = 0;
-        this._lastUpdate    = 0;
-        this._interval      = 33;
+        this._total = 0;
+        this._lastUpdate = 0;
+        this._interval = 33;
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void

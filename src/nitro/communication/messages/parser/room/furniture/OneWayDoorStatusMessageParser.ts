@@ -7,8 +7,8 @@ export class OneWayDoorStatusMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._itemId    = 0;
-        this._state     = 0;
+        this._itemId = 0;
+        this._state = 0;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class OneWayDoorStatusMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._itemId    = wrapper.readInt();
-        this._state     = wrapper.readInt();
+        this._itemId = wrapper.readInt();
+        this._state = wrapper.readInt();
 
         return true;
     }

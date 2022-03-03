@@ -3,22 +3,22 @@ import { IMessageParser } from './../../../../../../core';
 
 export class CommunityVoteReceivedParser implements IMessageParser
 {
-  private _acknowledged: boolean;
+    private _acknowledged: boolean;
 
-  public flush(): boolean
-  {
-      return true;
-  }
+    public flush(): boolean
+    {
+        return true;
+    }
 
-  public parse(wrapper: IMessageDataWrapper): boolean
-  {
-      if(!wrapper) return false;
-      this._acknowledged = wrapper.readBoolean();
-      return true;
-  }
+    public parse(wrapper: IMessageDataWrapper): boolean
+    {
+        if(!wrapper) return false;
+        this._acknowledged = wrapper.readBoolean();
+        return true;
+    }
 
-  public get acknowledged(): boolean
-  {
-      return this._acknowledged;
-  }
+    public get acknowledged(): boolean
+    {
+        return this._acknowledged;
+    }
 }

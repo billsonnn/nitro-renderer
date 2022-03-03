@@ -1,11 +1,11 @@
 export class RoomObjectUserType
 {
-    public static USER: string                              = 'user';
-    public static PET: string                               = 'pet';
-    public static BOT: string                               = 'bot';
-    public static RENTABLE_BOT: string                      = 'rentable_bot';
-    public static MONSTER_PLANT: string                     = 'monsterplant';
-    public static AVATAR_TYPES: { [key: string]: number }   = { 'user': 1, 'pet': 2, 'bot': 3, 'rentable_bot': 4 };
+    public static USER: string = 'user';
+    public static PET: string = 'pet';
+    public static BOT: string = 'bot';
+    public static RENTABLE_BOT: string = 'rentable_bot';
+    public static MONSTER_PLANT: string = 'monsterplant';
+    public static AVATAR_TYPES: { [key: string]: number } = { 'user': 1, 'pet': 2, 'bot': 3, 'rentable_bot': 4 };
 
     public static getTypeNumber(type: string): number
     {

@@ -39,25 +39,25 @@ export class FurnitureListItemParser implements IFurnitureItemData
 
     public flush(): boolean
     {
-        this._rentable              = false;
-        this._itemId                = 0;
-        this._furniType             = null;
-        this._ref                   = 0;
-        this._spriteId              = 0;
-        this._category              = 0;
-        this._stuffData             = null;
-        this._isGroupable           = false;
-        this._isRecyclable          = false;
-        this._tradable              = false;
-        this._sellable              = false;
-        this._secondsToExpiration   = 0;
-        this._extra              = 0;
-        this._flatId                = 0;
-        this._isWallItem            = false;
-        this._hasRentPeriodStarted  = false;
-        this._expirationTimeStamp              = 0;
-        this._slotId                = '';
-        this._songId              = -1;
+        this._rentable = false;
+        this._itemId = 0;
+        this._furniType = null;
+        this._ref = 0;
+        this._spriteId = 0;
+        this._category = 0;
+        this._stuffData = null;
+        this._isGroupable = false;
+        this._isRecyclable = false;
+        this._tradable = false;
+        this._sellable = false;
+        this._secondsToExpiration = 0;
+        this._extra = 0;
+        this._flatId = 0;
+        this._isWallItem = false;
+        this._hasRentPeriodStarted = false;
+        this._expirationTimeStamp = 0;
+        this._slotId = '';
+        this._songId = -1;
 
         return true;
     }
@@ -66,18 +66,18 @@ export class FurnitureListItemParser implements IFurnitureItemData
     {
         if(!wrapper) return false;
 
-        this._itemId                = wrapper.readInt();
-        this._furniType             = wrapper.readString();
-        this._ref                   = wrapper.readInt();
-        this._spriteId              = wrapper.readInt();
-        this._category              = wrapper.readInt();
-        this._stuffData             = FurnitureDataParser.parseObjectData(wrapper);
-        this._isRecyclable          = wrapper.readBoolean();
-        this._tradable              = wrapper.readBoolean();
-        this._isGroupable           = wrapper.readBoolean();
-        this._sellable              = wrapper.readBoolean();
-        this._secondsToExpiration   = wrapper.readInt();
-        this._expirationTimeStamp              = Nitro.instance.time;
+        this._itemId = wrapper.readInt();
+        this._furniType = wrapper.readString();
+        this._ref = wrapper.readInt();
+        this._spriteId = wrapper.readInt();
+        this._category = wrapper.readInt();
+        this._stuffData = FurnitureDataParser.parseObjectData(wrapper);
+        this._isRecyclable = wrapper.readBoolean();
+        this._tradable = wrapper.readBoolean();
+        this._isGroupable = wrapper.readBoolean();
+        this._sellable = wrapper.readBoolean();
+        this._secondsToExpiration = wrapper.readInt();
+        this._expirationTimeStamp = Nitro.instance.time;
 
         if(this.secondsToExpiration > -1)
         {
@@ -85,18 +85,18 @@ export class FurnitureListItemParser implements IFurnitureItemData
         }
         else
         {
-            this._rentable              = false;
-            this._secondsToExpiration   = -1;
+            this._rentable = false;
+            this._secondsToExpiration = -1;
         }
 
-        this._hasRentPeriodStarted  = wrapper.readBoolean();
-        this._flatId                = wrapper.readInt();
-        this._isWallItem            = (this._furniType === FurnitureListItemParser.WALL_ITEM);
+        this._hasRentPeriodStarted = wrapper.readBoolean();
+        this._flatId = wrapper.readInt();
+        this._isWallItem = (this._furniType === FurnitureListItemParser.WALL_ITEM);
 
         if(this._furniType === FurnitureListItemParser.FLOOR_ITEM)
         {
-            this._slotId    = wrapper.readString();
-            this._extra  = wrapper.readInt();
+            this._slotId = wrapper.readString();
+            this._extra = wrapper.readInt();
         }
 
         return true;

@@ -21,20 +21,20 @@ export class FriendParser
     {
         if(!wrapper) throw new Error('invalid_wrapper');
 
-        this._id                    = wrapper.readInt();
-        this._name                  = wrapper.readString();
-        this._gender                = wrapper.readInt();
-        this._online                = wrapper.readBoolean();
-        this._followingAllowed      = wrapper.readBoolean();
-        this._figure                = wrapper.readString();
-        this._categoryId            = wrapper.readInt();
-        this._motto                 = wrapper.readString();
-        this._realName              = wrapper.readString();
-        this._lastAccess            = wrapper.readString();
-        this._persistedMessageUser  = wrapper.readBoolean();
-        this._vipMember             = wrapper.readBoolean();
-        this._pocketHabboUser       = wrapper.readBoolean();
-        this._relationshipStatus    = wrapper.readShort();
+        this._id = wrapper.readInt();
+        this._name = wrapper.readString();
+        this._gender = wrapper.readInt();
+        this._online = wrapper.readBoolean();
+        this._followingAllowed = wrapper.readBoolean();
+        this._figure = wrapper.readString();
+        this._categoryId = wrapper.readInt();
+        this._motto = wrapper.readString();
+        this._realName = wrapper.readString();
+        this._lastAccess = wrapper.readString();
+        this._persistedMessageUser = wrapper.readBoolean();
+        this._vipMember = wrapper.readBoolean();
+        this._pocketHabboUser = wrapper.readBoolean();
+        this._relationshipStatus = wrapper.readShort();
     }
 
     public get id(): number

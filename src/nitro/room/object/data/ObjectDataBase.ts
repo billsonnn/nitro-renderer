@@ -12,24 +12,24 @@ export class ObjectDataBase implements IObjectData
 
     constructor()
     {
-        this._flags         = 0;
-        this._uniqueNumber  = 0;
-        this._uniqueSeries  = 0;
+        this._flags = 0;
+        this._uniqueNumber = 0;
+        this._uniqueSeries = 0;
     }
 
     public parseWrapper(wrapper: IMessageDataWrapper): void
     {
         if((this._flags & ObjectDataFlags.UNIQUE_SET) > 0)
         {
-            this._uniqueNumber  = wrapper.readInt();
-            this._uniqueSeries  = wrapper.readInt();
+            this._uniqueNumber = wrapper.readInt();
+            this._uniqueSeries = wrapper.readInt();
         }
     }
 
     public initializeFromRoomObjectModel(model: IRoomObjectModel): void
     {
-        this._uniqueNumber  = model.getValue<number>(RoomObjectVariable.FURNITURE_UNIQUE_SERIAL_NUMBER);
-        this._uniqueSeries  = model.getValue<number>(RoomObjectVariable.FURNITURE_UNIQUE_EDITION_SIZE);
+        this._uniqueNumber = model.getValue<number>(RoomObjectVariable.FURNITURE_UNIQUE_SERIAL_NUMBER);
+        this._uniqueSeries = model.getValue<number>(RoomObjectVariable.FURNITURE_UNIQUE_EDITION_SIZE);
     }
 
     public writeRoomObjectModel(model: IRoomObjectModel): void

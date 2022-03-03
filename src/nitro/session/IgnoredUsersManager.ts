@@ -17,8 +17,8 @@ export class IgnoredUsersManager implements IDisposable
 
     constructor(sessionDataManager: SessionDataManager)
     {
-        this._sessionDataManager    = sessionDataManager;
-        this._ignoredUsers          = [];
+        this._sessionDataManager = sessionDataManager;
+        this._ignoredUsers = [];
     }
 
     public init(): void

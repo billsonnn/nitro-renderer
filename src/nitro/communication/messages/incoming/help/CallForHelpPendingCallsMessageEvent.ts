@@ -6,7 +6,7 @@ export class CallForHelpPendingCallsMessageEvent extends MessageEvent implements
 {
     constructor(callBack: Function)
     {
-        super(callBack,  CallForHelpPendingCallsMessageParser);
+        super(callBack, CallForHelpPendingCallsMessageParser);
     }
 
     public getParser(): CallForHelpPendingCallsMessageParser

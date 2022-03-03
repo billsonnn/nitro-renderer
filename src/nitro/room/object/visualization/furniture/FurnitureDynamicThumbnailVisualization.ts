@@ -28,8 +28,8 @@ export class FurnitureDynamicThumbnailVisualization extends IsometricImageFurniV
                 {
                     const image = new Image();
 
-                    image.src           = thumbnailUrl;
-                    image.crossOrigin   = '*';
+                    image.src = thumbnailUrl;
+                    image.crossOrigin = '*';
 
                     image.onload = () =>
                     {

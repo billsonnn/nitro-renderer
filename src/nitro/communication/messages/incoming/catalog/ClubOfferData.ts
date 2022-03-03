@@ -20,22 +20,22 @@ export class ClubOfferData
     {
         if(!wrapper) throw new Error('invalid_wrapper');
 
-        this._offerId       = wrapper.readInt();
-        this._productCode   = wrapper.readString();
+        this._offerId = wrapper.readInt();
+        this._productCode = wrapper.readString();
 
         wrapper.readBoolean();
 
-        this._priceCredits              = wrapper.readInt();
-        this._priceActivityPoints       = wrapper.readInt();
-        this._priceActivityPointsType   = wrapper.readInt();
-        this._vip                       = wrapper.readBoolean();
-        this._months                    = wrapper.readInt();
-        this._extraDays                 = wrapper.readInt();
-        this._giftable                  = wrapper.readBoolean();
-        this._daysLeftAfterPurchase     = wrapper.readInt();
-        this._year                      = wrapper.readInt();
-        this._month                     = wrapper.readInt();
-        this._day                       = wrapper.readInt();
+        this._priceCredits = wrapper.readInt();
+        this._priceActivityPoints = wrapper.readInt();
+        this._priceActivityPointsType = wrapper.readInt();
+        this._vip = wrapper.readBoolean();
+        this._months = wrapper.readInt();
+        this._extraDays = wrapper.readInt();
+        this._giftable = wrapper.readBoolean();
+        this._daysLeftAfterPurchase = wrapper.readInt();
+        this._year = wrapper.readInt();
+        this._month = wrapper.readInt();
+        this._day = wrapper.readInt();
     }
 
     public get offerId(): number

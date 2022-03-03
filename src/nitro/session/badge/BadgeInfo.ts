@@ -7,8 +7,8 @@ export class BadgeInfo
 
     constructor(image: Texture<Resource>, placeHolder: boolean)
     {
-        this._image         = image;
-        this._placeHolder   = placeHolder;
+        this._image = image;
+        this._placeHolder = placeHolder;
     }
 
     public get image(): Texture<Resource>

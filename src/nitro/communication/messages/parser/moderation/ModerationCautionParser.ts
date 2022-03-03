@@ -1,6 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
-export class ModerationCautionParser  implements IMessageParser
+export class ModerationCautionParser implements IMessageParser
 {
     private _message: string;
     private _url: string;

@@ -16,15 +16,15 @@ export class SpriteDataContainer implements ISpriteDataContainer
 
     constructor(k: IAnimation, _arg_2: IAssetAnimationSprite)
     {
-        this._animation     = k;
-        this._id            = _arg_2.id;
-        this._ink           = _arg_2.ink;
-        this._member        = _arg_2.member;
-        this._hasStaticY    = _arg_2.staticY ? true : false;
+        this._animation = k;
+        this._id = _arg_2.id;
+        this._ink = _arg_2.ink;
+        this._member = _arg_2.member;
+        this._hasStaticY = _arg_2.staticY ? true : false;
         this._hasDirections = _arg_2.directions ? true : false;
-        this._dx            = [];
-        this._dy            = [];
-        this._dz            = [];
+        this._dx = [];
+        this._dy = [];
+        this._dz = [];
 
         const directions = _arg_2.directionList;
 

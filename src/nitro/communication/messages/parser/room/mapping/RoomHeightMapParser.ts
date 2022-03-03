@@ -44,9 +44,9 @@ export class RoomHeightMapParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._width     = 0;
-        this._height    = 0;
-        this._heights   = [];
+        this._width = 0;
+        this._height = 0;
+        this._heights = [];
 
         return true;
     }
@@ -55,9 +55,9 @@ export class RoomHeightMapParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._width     = wrapper.readInt();
-        const totalTiles  = wrapper.readInt();
-        this._height    = totalTiles / this._width;
+        this._width = wrapper.readInt();
+        const totalTiles = wrapper.readInt();
+        this._height = totalTiles / this._width;
 
         let i = 0;
 

@@ -10,11 +10,11 @@ export class AvatarImageBodyPartContainer
 
     constructor(k: Container, _arg_2: Point, _arg_3: boolean)
     {
-        this._image         = k;
-        this._regPoint      = _arg_2;
-        this._offset        = new Point(0, 0);
-        this._regPoint      = _arg_2;
-        this._isCacheable   = _arg_3;
+        this._image = k;
+        this._regPoint = _arg_2;
+        this._offset = new Point(0, 0);
+        this._regPoint = _arg_2;
+        this._isCacheable = _arg_3;
 
         this.cleanPoints();
     }
@@ -28,9 +28,9 @@ export class AvatarImageBodyPartContainer
             });
         }
 
-        this._image     = null;
-        this._regPoint  = null;
-        this._offset    = null;
+        this._image = null;
+        this._regPoint = null;
+        this._offset = null;
     }
 
     private cleanPoints(): void

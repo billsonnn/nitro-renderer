@@ -4,8 +4,8 @@ import { WiredRewardResultMessageParser } from '../../parser/roomevents/WiredRew
 
 export class WiredRewardResultMessageEvent extends MessageEvent implements IMessageEvent
 {
-    public static PRODUCT_DONATED_CODE: number    = 6;
-    public static BADGE_DONATED_CODE: number    = 7;
+    public static PRODUCT_DONATED_CODE: number = 6;
+    public static BADGE_DONATED_CODE: number = 7;
 
     constructor(callBack: Function)
     {

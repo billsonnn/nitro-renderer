@@ -21,8 +21,8 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
         if(_arg_2 < 0) _arg_2 = 0;
 
-        this._landscapeWidth    = k;
-        this._landscapeHeight   = _arg_2;
+        this._landscapeWidth = k;
+        this._landscapeHeight = _arg_2;
 
         return true;
     }
@@ -48,8 +48,8 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
             if(!landscape) continue;
 
-            const id                = landscape.id;
-            const visualizations    = landscape.animatedVisualizations;
+            const id = landscape.id;
+            const visualizations = landscape.animatedVisualizations;
 
             const plane = new LandscapePlane();
 
@@ -60,16 +60,16 @@ export class LandscapeRasterizer extends PlaneRasterizer
                 const size = visualization.size;
 
                 let horizontalAngle = LandscapePlane.HORIZONTAL_ANGLE_DEFAULT;
-                let verticalAngle   = LandscapePlane.VERTICAL_ANGLE_DEFAULT;
+                let verticalAngle = LandscapePlane.VERTICAL_ANGLE_DEFAULT;
 
-                if(visualization.horizontalAngle) horizontalAngle   = visualization.horizontalAngle;
-                if(visualization.verticalAngle) verticalAngle       = visualization.verticalAngle;
+                if(visualization.horizontalAngle) horizontalAngle = visualization.horizontalAngle;
+                if(visualization.verticalAngle) verticalAngle = visualization.verticalAngle;
 
-                const basicLayers           = visualization.layers;
-                const animatedLayers        = visualization.animationLayers;
-                const totalBasicLayers      = ((basicLayers && basicLayers.length) || 0);
-                const totalAnimatedLayers   = ((animatedLayers && animatedLayers.length) || 0);
-                const totalLayers           = (totalBasicLayers + totalAnimatedLayers);
+                const basicLayers = visualization.layers;
+                const animatedLayers = visualization.animationLayers;
+                const totalBasicLayers = ((basicLayers && basicLayers.length) || 0);
+                const totalAnimatedLayers = ((animatedLayers && animatedLayers.length) || 0);
+                const totalLayers = (totalBasicLayers + totalAnimatedLayers);
 
                 const planeVisualization = plane.createPlaneVisualization(size, (totalLayers || 0), this.getGeometry(size, horizontalAngle, verticalAngle));
 
@@ -87,10 +87,10 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
                             if(layer)
                             {
-                                let material: PlaneMaterial     = null;
-                                let align: number               = PlaneVisualizationLayer.ALIGN_DEFAULT;
-                                let color: number               = LandscapePlane.DEFAULT_COLOR;
-                                let offset: number              = PlaneVisualizationLayer.DEFAULT_OFFSET;
+                                let material: PlaneMaterial = null;
+                                let align: number = PlaneVisualizationLayer.ALIGN_DEFAULT;
+                                let color: number = LandscapePlane.DEFAULT_COLOR;
+                                let offset: number = PlaneVisualizationLayer.DEFAULT_OFFSET;
 
                                 if(layer.materialId) material = this.getMaterial(layer.materialId);
 
@@ -135,12 +135,12 @@ export class LandscapeRasterizer extends PlaneRasterizer
                                     {
                                         if(item)
                                         {
-                                            const id        = item.id;
-                                            const assetId   = item.assetId;
-                                            const x         = this.getCoordinateValue(item.x || '', item.randomX || '');
-                                            const y         = this.getCoordinateValue(item.y || '', item.randomY || '');
-                                            const speedX    = item.speedX ? item.speedX / Nitro.instance.getConfiguration<number>('system.animation.fps') : 0;
-                                            const speedY    = item.speedY ? item.speedY / Nitro.instance.getConfiguration<number>('system.animation.fps') : 0;
+                                            const id = item.id;
+                                            const assetId = item.assetId;
+                                            const x = this.getCoordinateValue(item.x || '', item.randomX || '');
+                                            const y = this.getCoordinateValue(item.y || '', item.randomY || '');
+                                            const speedX = item.speedX ? item.speedX / Nitro.instance.getConfiguration<number>('system.animation.fps') : 0;
+                                            const speedY = item.speedY ? item.speedY / Nitro.instance.getConfiguration<number>('system.animation.fps') : 0;
 
                                             animationItems.push({
                                                 asset: assetId,
@@ -182,9 +182,9 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
         if((_arg_2.length > 0))
         {
-            const _local_4  = 10000;
-            const _local_5  = Randomizer.getValues(1, 0, _local_4);
-            const _local_6  = (_local_5[0] / _local_4);
+            const _local_4 = 10000;
+            const _local_5 = Randomizer.getValues(1, 0, _local_4);
+            const _local_6 = (_local_5[0] / _local_4);
 
             if(_arg_2.charAt((_arg_2.length - 1)) === '%')
             {

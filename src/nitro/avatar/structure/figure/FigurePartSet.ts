@@ -20,20 +20,20 @@ export class FigurePartSet implements IFigurePartSet
     {
         if(!type || !data) throw new Error('invalid_data');
 
-        this._id                = data.id;
-        this._type              = type;
-        this._gender            = data.gender;
-        this._clubLevel         = data.club;
-        this._isColorable       = data.colorable;
-        this._isSelectable      = data.selectable;
-        this._parts             = [];
-        this._hiddenLayers      = [];
-        this._isPreSelectable   = data.preselectable;
-        this._isSellable        = data.sellable;
+        this._id = data.id;
+        this._type = type;
+        this._gender = data.gender;
+        this._clubLevel = data.club;
+        this._isColorable = data.colorable;
+        this._isSelectable = data.selectable;
+        this._parts = [];
+        this._hiddenLayers = [];
+        this._isPreSelectable = data.preselectable;
+        this._isSellable = data.sellable;
 
         for(const part of data.parts)
         {
-            const newPart   = new FigurePart(part);
+            const newPart = new FigurePart(part);
             const partIndex = this.getPartIndex(newPart);
 
             if(partIndex !== -1) this._parts.splice(partIndex, 0, newPart);
@@ -55,8 +55,8 @@ export class FigurePartSet implements IFigurePartSet
             figurePart.dispose();
         }
 
-        this._parts         = null;
-        this._hiddenLayers  = null;
+        this._parts = null;
+        this._hiddenLayers = null;
     }
 
     private getPartIndex(part: FigurePart): number

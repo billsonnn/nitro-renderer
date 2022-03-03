@@ -25,9 +25,9 @@ export class WallRasterizer extends PlaneRasterizer
 
             if(!wall) continue;
 
-            const id            = wall.id;
+            const id = wall.id;
             const visualization = wall.visualizations;
-            const plane         = new WallPlane();
+            const plane = new WallPlane();
 
             this.parseVisualizations(plane, visualization);
 

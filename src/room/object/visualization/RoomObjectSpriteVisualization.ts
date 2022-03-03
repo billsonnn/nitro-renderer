@@ -28,16 +28,16 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
 
     constructor()
     {
-        this._id                    = RoomObjectSpriteVisualization.VISUALIZATION_COUNTER++;
-        this._object                = null;
-        this._asset                 = null;
-        this._sprites               = [];
+        this._id = RoomObjectSpriteVisualization.VISUALIZATION_COUNTER++;
+        this._object = null;
+        this._asset = null;
+        this._sprites = [];
 
-        this._scale                 = -1;
+        this._scale = -1;
 
-        this._updateObjectCounter   = -1;
-        this._updateModelCounter    = -1;
-        this._updateSpriteCounter   = -1;
+        this._updateObjectCounter = -1;
+        this._updateModelCounter = -1;
+        this._updateSpriteCounter = -1;
     }
 
     public initialize(data: IObjectVisualizationData): boolean
@@ -71,8 +71,8 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
             this._sprites = null;
         }
 
-        this._object    = null;
-        this._asset     = null;
+        this._object = null;
+        this._asset = null;
     }
 
     public getSprite(index: number): IRoomObjectSprite
@@ -136,7 +136,7 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
 
         if((boundingRectangle.width * boundingRectangle.height) === 0) return null;
 
-        const spriteCount                     = this.totalSprites;
+        const spriteCount = this.totalSprites;
         const spriteList: IRoomObjectSprite[] = [];
 
         let index = 0;
@@ -161,19 +161,19 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
 
         while(index < spriteList.length)
         {
-            const objectSprite  = spriteList[index];
-            const texture       = objectSprite.texture;
+            const objectSprite = spriteList[index];
+            const texture = objectSprite.texture;
 
             if(texture)
             {
                 const sprite = new NitroSprite(texture);
 
-                sprite.alpha            = (objectSprite.alpha / 255);
-                sprite.tint             = objectSprite.color;
-                sprite.x                = objectSprite.offsetX;
-                sprite.y                = objectSprite.offsetY;
-                sprite.blendMode        = objectSprite.blendMode;
-                sprite.filters          = objectSprite.filters;
+                sprite.alpha = (objectSprite.alpha / 255);
+                sprite.tint = objectSprite.color;
+                sprite.x = objectSprite.offsetX;
+                sprite.y = objectSprite.offsetY;
+                sprite.blendMode = objectSprite.blendMode;
+                sprite.filters = objectSprite.filters;
 
                 if(objectSprite.flipH) sprite.scale.x = -1;
 
@@ -194,8 +194,8 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
 
     public getBoundingRectangle(): Rectangle
     {
-        const totalSprites  = this.totalSprites;
-        const rectangle     = new Rectangle();
+        const totalSprites = this.totalSprites;
+        const rectangle = new Rectangle();
 
         let iterator = 0;
 
@@ -212,10 +212,10 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
 
                 if(iterator === 0)
                 {
-                    rectangle.x         = point.x;
-                    rectangle.y         = point.y;
-                    rectangle.width     = sprite.width;
-                    rectangle.height    = sprite.height;
+                    rectangle.x = point.x;
+                    rectangle.y = point.y;
+                    rectangle.width = sprite.width;
+                    rectangle.height = sprite.height;
                 }
                 else
                 {

@@ -7,10 +7,10 @@
 
     constructor(k: number, _arg_2: number, _arg_3: number, _arg_4: number)
     {
-        this._leftSideLoc       = k;
-        this._rightSideLoc      = _arg_2;
-        this._leftSideLength    = _arg_3;
-        this._rightSideLength   = _arg_4;
+        this._leftSideLoc = k;
+        this._rightSideLoc = _arg_2;
+        this._leftSideLength = _arg_3;
+        this._rightSideLength = _arg_4;
     }
 
     public get leftSideLoc(): number

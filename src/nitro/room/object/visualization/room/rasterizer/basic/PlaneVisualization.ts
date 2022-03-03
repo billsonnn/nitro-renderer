@@ -19,12 +19,12 @@ export class PlaneVisualization
 
     constructor(size: number, totalLayers: number, geometry: IRoomGeometry)
     {
-        this._layers                = [];
-        this._geometry              = geometry;
-        this._cachedBitmapData      = null;
-        this._cachedBitmapNormal    = new Vector3d();
-        this._isCached              = false;
-        this._hasAnimationLayers    = false;
+        this._layers = [];
+        this._geometry = geometry;
+        this._cachedBitmapData = null;
+        this._cachedBitmapNormal = new Vector3d();
+        this._isCached = false;
+        this._hasAnimationLayers = false;
 
         if(totalLayers < 0) totalLayers = 0;
 
@@ -130,8 +130,8 @@ export class PlaneVisualization
 
         layer = new PlaneVisualizationAnimationLayer(animationItems, collection);
 
-        this._layers[layerId]             = layer;
-        this._hasAnimationLayers    = true;
+        this._layers[layerId] = layer;
+        this._hasAnimationLayers = true;
 
         return true;
     }

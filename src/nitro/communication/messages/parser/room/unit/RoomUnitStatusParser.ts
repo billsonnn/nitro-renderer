@@ -8,7 +8,7 @@ export class RoomUnitStatusParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._statuses  = [];
+        this._statuses = [];
 
         return true;
     }
@@ -42,71 +42,117 @@ export class RoomUnitStatusParser implements IMessageParser
     {
         if(!wrapper) return null;
 
-        const unitId        = wrapper.readInt();
-        const x               = wrapper.readInt();
-        const y               = wrapper.readInt();
-        const z               = parseFloat(wrapper.readString());
+        const unitId = wrapper.readInt();
+        const x = wrapper.readInt();
+        const y = wrapper.readInt();
+        const z = parseFloat(wrapper.readString());
         const headDirection = ((wrapper.readInt() % 8) * 45);
-        const direction     = ((wrapper.readInt() % 8) * 45);
-        const actions       = wrapper.readString();
+        const direction = ((wrapper.readInt() % 8) * 45);
+        const actions = wrapper.readString();
 
-        let targetX     = 0;
-        let targetY     = 0;
-        let targetZ     = 0;
-        let height      = 0;
-        let canStandUp  = false;
-        let didMove     = false;
-        const isSlide     = false;
+        let targetX = 0;
+        let targetY = 0;
+        let targetZ = 0;
+        let height = 0;
+        let canStandUp = false;
+        let didMove = false;
+        const isSlide = false;
 
         if(actions)
         {
             const actionParts = actions.split('/');
-
-            const totalActions = actionParts.length;
-
             const statusActions: RoomUnitStatusAction[] = [];
 
-            if(totalActions)
+            for(const action of actionParts)
             {
-                for(let i = 0; i < totalActions; i++)
+                const parts = action.split(' ');
+
+                if(parts[0] === '') continue;
+
+                if(parts.length >= 2)
                 {
-                    const action = actionParts[i];
-
-                    if(!action) continue;
-
-                    const [ key, value, extra ] = action.split(' ');
-
-                    if(!key || !value) continue;
-
-                    switch(key)
+                    switch(parts[0])
                     {
-                        case 'mv':
-                            [ targetX, targetY, targetZ ] = value.split(',').map(a => parseFloat(a));
+                        case 'mv': {
+                            const values = parts[1].split(',');
 
-                            didMove = true;
+                            if(values.length >= 3)
+                            {
+                                targetX = parseInt(values[0]);
+                                targetY = parseInt(values[1]);
+                                targetZ = parseFloat(values[2]);
+                                didMove = true;
+                            }
 
                             break;
+                        }
                         case 'sit': {
-                            const sitHeight = parseFloat(value);
+                            const sitHeight = parseFloat(parts[1]);
 
-                            if(extra !== undefined) canStandUp = value === '1';
+                            if(parts.length >= 3) canStandUp = (parts[2] === '1');
 
                             height = sitHeight;
 
                             break;
                         }
                         case 'lay': {
-                            const layHeight = parseFloat(value);
+                            const layHeight = parseFloat(parts[1]);
 
-                            height = layHeight;
+                            height = Math.abs(layHeight);
 
                             break;
                         }
                     }
 
-                    statusActions.push(new RoomUnitStatusAction(key, value));
+                    statusActions.push(new RoomUnitStatusAction(parts[0], parts[1]));
                 }
             }
+
+            // const totalActions = actionParts.length;
+
+            // if(totalActions)
+            // {
+            //     for(let i = 0; i < totalActions; i++)
+            //     {
+            //         const action = actionParts[i];
+
+            //         if(!action) continue;
+
+            //         console.log(action);
+
+            //         const [ key, value, extra ] = action.split(' ');
+
+            //         if(!key || !value) continue;
+
+            //         switch(key)
+            //         {
+            //             case 'mv':
+            //                 [ targetX, targetY, targetZ ] = value.split(',').map(a => parseFloat(a));
+
+            //                 didMove = true;
+
+            //                 break;
+            //             case 'sit': {
+            //                 const sitHeight = parseFloat(value);
+
+            //                 if(extra !== undefined) canStandUp = value === '1';
+
+            //                 height = sitHeight;
+
+            //                 break;
+            //             }
+            //             case 'lay': {
+            //                 const layHeight = parseFloat(value);
+
+            //                 height = layHeight;
+
+            //                 break;
+            //             }
+            //         }
+
+            //         statusActions.push(new RoomUnitStatusAction(key, value));
+            //     }
+            // }
 
             this._statuses.push(new RoomUnitStatusMessage(unitId, x, y, z, height, headDirection, direction, targetX, targetY, targetZ, didMove, canStandUp, statusActions));
         }

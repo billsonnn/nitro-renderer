@@ -22,8 +22,8 @@ export class UnseenItemsParser implements IMessageParser
         {
             const category = wrapper.readInt();
 
-            let totalItems          = wrapper.readInt();
-            const itemIds: number[]   = [];
+            let totalItems = wrapper.readInt();
+            const itemIds: number[] = [];
 
             while(totalItems > 0)
             {

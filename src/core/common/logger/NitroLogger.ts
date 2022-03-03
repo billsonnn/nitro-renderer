@@ -10,9 +10,9 @@ export class NitroLogger implements INitroLogger
 
     constructor(name: string, description: string | number = null)
     {
-        this._name          = name;
-        this._description   = description;
-        this._print         = true;
+        this._name = name;
+        this._description = description;
+        this._print = true;
     }
 
     public log(message: string): void
@@ -39,7 +39,7 @@ export class NitroLogger implements INitroLogger
 
     public static log(message: string, name: string = 'Nitro', modus: string = null): void
     {
-        const logString = `[Nitro] ${ new Date().toDateString() } [${ name }] ${ message } ${ this.getTimestamp() }`;
+        const logString = `[Nitro] [${ name }] ${ message } ${ this.getTimestamp() }`;
 
         switch(modus)
         {

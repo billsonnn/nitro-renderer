@@ -16,12 +16,12 @@ export class AvatarModelGeometry
 
     constructor(k: any)
     {
-        this._camera                = new Vector3D(0, 0, 10);
-        this._avatarSet             = new AvatarSet(k.avatarSets[0]);
-        this._geometryTypes         = new Map();
-        this._itemIdToBodyPartMap   = new Map();
-        this._transformation        = new Matrix4x4();
-        this._canvases              = new Map();
+        this._camera = new Vector3D(0, 0, 10);
+        this._avatarSet = new AvatarSet(k.avatarSets[0]);
+        this._geometryTypes = new Map();
+        this._itemIdToBodyPartMap = new Map();
+        this._transformation = new Matrix4x4();
+        this._canvases = new Map();
 
         const camera = k.camera;
 
@@ -38,8 +38,8 @@ export class AvatarModelGeometry
             {
                 if(!canvas) continue;
 
-                const scale         = canvas.scale;
-                const geometries    = new Map();
+                const scale = canvas.scale;
+                const geometries = new Map();
 
                 if(canvas.geometries && (canvas.geometries.length > 0))
                 {
@@ -63,8 +63,8 @@ export class AvatarModelGeometry
             {
                 if(!type) continue;
 
-                const bodyParts: Map<string, GeometryBodyPart>  = new Map();
-                const itemIds: Map<string, GeometryBodyPart>    = new Map();
+                const bodyParts: Map<string, GeometryBodyPart> = new Map();
+                const itemIds: Map<string, GeometryBodyPart> = new Map();
 
                 if(type.bodyParts && (type.bodyParts.length > 0))
                 {
@@ -211,7 +211,7 @@ export class AvatarModelGeometry
 
     private getBodyPartsInAvatarSet(k: Map<string, GeometryBodyPart>, _arg_2: string): GeometryBodyPart[]
     {
-        const parts         = this.getBodyPartIdsInAvatarSet(_arg_2);
+        const parts = this.getBodyPartIdsInAvatarSet(_arg_2);
         const geometryParts = [];
 
         for(const part of parts)
@@ -233,10 +233,10 @@ export class AvatarModelGeometry
     {
         if(!_arg_3) return [];
 
-        const geometryParts                         = this.getBodyPartsOfType(_arg_3);
-        const parts                                 = this.getBodyPartsInAvatarSet(geometryParts, k);
-        const sets: [ number, GeometryBodyPart ][]  = [];
-        const ids: string[]                         = [];
+        const geometryParts = this.getBodyPartsOfType(_arg_3);
+        const parts = this.getBodyPartsInAvatarSet(geometryParts, k);
+        const sets: [ number, GeometryBodyPart ][] = [];
+        const ids: string[] = [];
 
         this._transformation = Matrix4x4.getYRotationMatrix(_arg_2);
 

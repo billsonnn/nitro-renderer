@@ -1,4 +1,4 @@
-import { BaseTexture, Resource, Texture } from '@pixi/core';
+import { Resource, Texture } from '@pixi/core';
 import { Loader, LoaderResource } from '@pixi/loaders';
 import { Spritesheet } from '@pixi/spritesheet';
 import { IGraphicAsset } from '../../room';
@@ -21,9 +21,9 @@ export class AssetManager extends Disposable implements IAssetManager
     {
         super();
 
-        this._logger        = new NitroLogger(this.constructor.name);
-        this._textures      = new Map();
-        this._collections   = new Map();
+        this._logger = new NitroLogger(this.constructor.name);
+        this._textures = new Map();
+        this._collections = new Map();
     }
 
     public static removeFileExtension(name: string): string
@@ -167,10 +167,10 @@ export class AssetManager extends Disposable implements IAssetManager
 
         if(resource.extension === 'nitro')
         {
-            const nitroBundle   = new NitroBundle(resource.data);
-            const assetData     = (nitroBundle.jsonFile as IAssetData);
+            const nitroBundle = new NitroBundle(resource.data);
+            const assetData = (nitroBundle.jsonFile as IAssetData);
 
-            if(!assetData || !assetData.type)
+            if(!assetData)
             {
                 onDownloaded(loader, resource, false);
 
@@ -231,77 +231,7 @@ export class AssetManager extends Disposable implements IAssetManager
             onDownloaded(loader, resource, true);
         }
 
-        else if(resource.type === LoaderResource.TYPE.JSON)
-        {
-            const assetData = (resource.data as IAssetData);
-
-            if(!assetData || !assetData.type)
-            {
-                onDownloaded(loader, resource, false);
-
-                return;
-            }
-
-            if(assetData.spritesheet && Object.keys(assetData.spritesheet).length)
-            {
-                const imageName = (assetData.spritesheet.meta && assetData.spritesheet.meta.image);
-
-                if(!imageName || !imageName.length)
-                {
-                    onDownloaded(loader, resource, false);
-
-                    return;
-                }
-
-                const imageUrl      = (resource.url.substring(0, (resource.url.lastIndexOf('/') + 1)) + imageName);
-                const baseTexture   = BaseTexture.from(imageUrl);
-
-                if(baseTexture.valid)
-                {
-                    const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
-
-                    spritesheet.parse(() =>
-                    {
-                        this.createCollection(assetData, spritesheet);
-
-                        onDownloaded(loader, resource, true);
-                    });
-                }
-                else
-                {
-                    baseTexture.once('loaded', () =>
-                    {
-                        baseTexture.removeAllListeners();
-
-                        const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
-
-                        spritesheet.parse(() =>
-                        {
-                            this.createCollection(assetData, spritesheet);
-
-                            onDownloaded(loader, resource, true);
-                        });
-                    });
-
-                    baseTexture.once('error', () =>
-                    {
-                        baseTexture.removeAllListeners();
-
-                        onDownloaded(loader, resource, false);
-                    });
-                }
-
-                return;
-            }
-
-            this.createCollection(assetData, null);
-
-            onDownloaded(loader, resource, true);
-
-            return;
-        }
-
-        if(resource.type === LoaderResource.TYPE.IMAGE)
+        else if(resource.type === LoaderResource.TYPE.IMAGE)
         {
             if(resource.texture.valid)
             {

@@ -16,11 +16,11 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
     {
         super();
 
-        this._definitions   = new Map();
-        this._parameters    = new Map();
+        this._definitions = new Map();
+        this._parameters = new Map();
         this._badgePointLimits = new Map();
         this._romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXII', 'XXIII', 'XXIV', 'XXV', 'XXVI', 'XXVII', 'XXVIII', 'XXIX', 'XXX'];
-        this._pendingUrls   = [];
+        this._pendingUrls = [];
     }
 
     protected onInit(): void
@@ -117,6 +117,8 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
     public getValue(key: string, doParams: boolean = true): string
     {
+        if(!key || !key.length) return null;
+
         if(key.startsWith('${')) key = key.substr(2, (key.length - 3));
 
         let value = (this._definitions.get(key) || null);
@@ -141,7 +143,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
     {
         const value = this.getValue(key, false);
 
-        const replacedValue =  value.replace('%' + parameter + '%', replacement);
+        const replacedValue = value.replace('%' + parameter + '%', replacement);
 
         if(value.startsWith('%{'))
         {
@@ -157,7 +159,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
             if(!result) return replacedValue;
 
-            let indexKey =  -1;
+            let indexKey = -1;
             const replacementAsNumber = Number.parseInt(replacement);
             let replace = false;
 
@@ -208,15 +210,15 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
                 if(value.startsWith('%{'))
                 {
-                    const regex     = new RegExp('%{' + parameter.toUpperCase() + '\\|([^|]*)\\|([^|]*)\\|([^|]*)}');
-                    const result    = value.match(regex);
+                    const regex = new RegExp('%{' + parameter.toUpperCase() + '\\|([^|]*)\\|([^|]*)\\|([^|]*)}');
+                    const result = value.match(regex);
 
                     if(!result) continue;
 
                     const replacementAsNumber = parseInt(replacement);
 
-                    let indexKey    =  -1;
-                    let replace     = false;
+                    let indexKey = -1;
+                    let replace = false;
 
                     switch(replacementAsNumber)
                     {
@@ -273,7 +275,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
     public getBadgeName(key: string): string
     {
         const badge = new BadgeBaseAndLevel(key);
-        const keys  = [ 'badge_name_' + key, 'badge_name_' + badge.base ];
+        const keys = [ 'badge_name_' + key, 'badge_name_' + badge.base ];
 
         let name = this._Str_2103(this.getExistingKey(keys));
 
@@ -285,7 +287,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
     public getBadgeDesc(key: string): string
     {
         const badge = new BadgeBaseAndLevel(key);
-        const keys  = [ 'badge_desc_' + key, 'badge_desc_' + badge.base ];
+        const keys = [ 'badge_desc_' + key, 'badge_desc_' + badge.base ];
 
         let desc = this._Str_2103(this.getExistingKey(keys));
 
@@ -309,7 +311,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
         return '';
     }
 
-    private  _Str_2103(k: string): string
+    private _Str_2103(k: string): string
     {
         return k.replace('${', '$')
             .replace('{', '$')

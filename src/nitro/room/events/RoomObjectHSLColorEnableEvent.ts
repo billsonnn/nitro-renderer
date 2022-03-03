@@ -14,10 +14,10 @@ export class RoomObjectHSLColorEnableEvent extends RoomObjectEvent
     {
         super(k, _arg_2);
 
-        this._enable        = _arg_3;
-        this._hue           = _arg_4;
-        this._saturation    = _arg_5;
-        this._lightness     = _arg_6;
+        this._enable = _arg_3;
+        this._hue = _arg_4;
+        this._saturation = _arg_5;
+        this._lightness = _arg_6;
     }
 
     public get enable(): boolean

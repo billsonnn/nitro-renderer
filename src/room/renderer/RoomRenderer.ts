@@ -14,11 +14,11 @@ export class RoomRenderer implements IRoomRenderer, IRoomSpriteCanvasContainer
 
     constructor()
     {
-        this._objects                       = new Map();
-        this._canvases                      = new Map();
+        this._objects = new Map();
+        this._canvases = new Map();
 
-        this._disposed                      = false;
-        this._roomObjectVariableAccurateZ   = null;
+        this._disposed = false;
+        this._roomObjectVariableAccurateZ = null;
     }
 
     public dispose(): void

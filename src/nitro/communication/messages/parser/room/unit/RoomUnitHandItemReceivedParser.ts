@@ -7,8 +7,8 @@ export class RoomUnitHandItemReceivedParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._giverUserId   = -1;
-        this._handItemType  = -1;
+        this._giverUserId = -1;
+        this._handItemType = -1;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class RoomUnitHandItemReceivedParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._giverUserId   = wrapper.readInt();
-        this._handItemType  = wrapper.readInt();
+        this._giverUserId = wrapper.readInt();
+        this._handItemType = wrapper.readInt();
 
         return true;
     }

@@ -1,44 +1,29 @@
 ﻿import { NitroManager } from '../common/NitroManager';
-import { AdvancedMap } from '../utils/AdvancedMap';
 import { ConfigurationEvent } from './ConfigurationEvent';
 import { IConfigurationManager } from './IConfigurationManager';
 
 export class ConfigurationManager extends NitroManager implements IConfigurationManager
 {
-    private _definitions: AdvancedMap<string, unknown>;
+    private _definitions: Map<string, unknown>;
     private _pendingUrls: string[];
+    private _missingKeys: string[];
 
     constructor()
     {
         super();
 
-        this._definitions = new AdvancedMap();
+        this._definitions = new Map();
         this._pendingUrls = [];
+        this._missingKeys = [];
 
         this.onConfigurationLoaded = this.onConfigurationLoaded.bind(this);
     }
 
     protected onInit(): void
     {
-        //@ts-ignore
-        let urls: string[] = NitroConfig.configurationUrls;
+        this.parseConfiguration(this.getDefaultConfig(), true);
 
-        if(!urls || !urls.length)
-        {
-            //@ts-ignore
-            const url: string = NitroConfig.configurationUrl;
-
-            if(url && url.length) urls = [ url ];
-        }
-
-        if(!urls || !urls.length)
-        {
-            this.dispatchConfigurationEvent(ConfigurationEvent.FAILED);
-
-            return;
-        }
-
-        this._pendingUrls = urls;
+        this._pendingUrls = this.getValue<string[]>('config.urls').slice();
 
         this.loadNextConfiguration();
     }
@@ -98,7 +83,7 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
         this.events && this.events.dispatchEvent(new ConfigurationEvent(type));
     }
 
-    private parseConfiguration(data: { [index: string]: any }): boolean
+    private parseConfiguration(data: { [index: string]: any }, overrides: boolean = false): boolean
     {
         if(!data) return false;
 
@@ -110,12 +95,16 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
             {
                 let value = data[key];
 
-                if(typeof value === 'string')
-                {
-                    value = this.interpolate((value as string), regex);
-                }
+                if(typeof value === 'string') value = this.interpolate((value as string), regex);
 
-                this._definitions.add(key, value);
+                if(this._definitions.has(key))
+                {
+                    if(overrides) this.setValue(key, value);
+                }
+                else
+                {
+                    this.setValue(key, value);
+                }
             }
 
             return true;
@@ -139,7 +128,7 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
         {
             for(const piece of pieces)
             {
-                const existing = (this._definitions.getValue(this.removeInterpolateKey(piece)) as string);
+                const existing = (this._definitions.get(this.removeInterpolateKey(piece)) as string);
 
                 if(existing) (value = value.replace(piece, existing));
             }
@@ -155,10 +144,13 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
     public getValue<T>(key: string, value: T = null): T
     {
-        let existing = this._definitions.getValue(key);
+        let existing = this._definitions.get(key);
 
         if(existing === undefined)
         {
+            if(this._missingKeys.indexOf(key) >= 0) return value;
+
+            this._missingKeys.push(key);
             this.logger.warn(`Missing configuration key: ${ key }`);
 
             existing = value;
@@ -169,6 +161,12 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
     public setValue(key: string, value: string): void
     {
-        this._definitions.add(key, value);
+        this._definitions.set(key, value);
+    }
+
+    public getDefaultConfig(): { [index: string]: any }
+    {
+        //@ts-ignore
+        return NitroConfig as { [index: string]: any };
     }
 }

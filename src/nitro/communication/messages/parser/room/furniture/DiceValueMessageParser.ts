@@ -7,8 +7,8 @@ export class DiceValueMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._itemId    = 0;
-        this._value     = 0;
+        this._itemId = 0;
+        this._value = 0;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class DiceValueMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._itemId    = wrapper.readInt();
-        this._value     = wrapper.readInt();
+        this._itemId = wrapper.readInt();
+        this._value = wrapper.readInt();
 
         return true;
     }

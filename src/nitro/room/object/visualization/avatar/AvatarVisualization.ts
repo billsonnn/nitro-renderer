@@ -10,14 +10,16 @@ import { RoomObjectSpriteVisualization } from '../../../../../room/object/visual
 import { IGraphicAsset } from '../../../../../room/object/visualization/utils/IGraphicAsset';
 import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
 import { AvatarAction } from '../../../../avatar/enum/AvatarAction';
+import { AvatarGuideStatus } from '../../../../avatar/enum/AvatarGuideStatus';
 import { AvatarSetType } from '../../../../avatar/enum/AvatarSetType';
 import { IAvatarEffectListener } from '../../../../avatar/IAvatarEffectListener';
 import { IAvatarImage } from '../../../../avatar/IAvatarImage';
 import { IAvatarImageListener } from '../../../../avatar/IAvatarImageListener';
-import { Nitro } from '../../../../Nitro';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { ExpressionAdditionFactory } from './additions/ExpressionAdditionFactory';
 import { FloatingIdleZAddition } from './additions/FloatingIdleZAddition';
+import { GameClickTargetAddition } from './additions/GameClickTargetAddition';
+import { GuideStatusBubbleAddition } from './additions/GuideStatusBubbleAddition';
 import { IAvatarAddition } from './additions/IAvatarAddition';
 import { MutedBubbleAddition } from './additions/MutedBubbleAddition';
 import { NumberBubbleAddition } from './additions/NumberBubbleAddition';
@@ -26,26 +28,28 @@ import { AvatarVisualizationData } from './AvatarVisualizationData';
 
 export class AvatarVisualization extends RoomObjectSpriteVisualization implements IAvatarImageListener, IAvatarEffectListener
 {
-    private static AVATAR: string                   = 'avatar';
-    private static FLOATING_IDLE_Z_ID: number       = 1;
-    private static TYPING_BUBBLE_ID: number         = 2;
-    private static EXPRESSION_ID: number            = 3;
-    private static NUMBER_BUBBLE_ID: number         = 4;
-    private static MUTED_BUBBLE_ID: number          = 6;
-    private static OWN_USER_ID: number              = 4;
-    private static UPDATE_TIME_INCREASER: number    = 41;
-    private static AVATAR_LAYER_ID: number          = 0;
-    private static SHADOW_LAYER_ID: number          = 1;
-    private static SNOWBOARDING_EFFECT: number      = 97;
+    private static AVATAR: string = 'avatar';
+    private static FLOATING_IDLE_Z_ID: number = 1;
+    private static TYPING_BUBBLE_ID: number = 2;
+    private static EXPRESSION_ID: number = 3;
+    private static NUMBER_BUBBLE_ID: number = 4;
+    private static GAME_CLICK_TARGET_ID: number = 5;
+    private static MUTED_BUBBLE_ID: number = 6;
+    private static GUIDE_BUBBLE_ID: number = 7;
+    private static OWN_USER_ID: number = 4;
+    private static UPDATE_TIME_INCREASER: number = 41;
+    private static AVATAR_LAYER_ID: number = 0;
+    private static SHADOW_LAYER_ID: number = 1;
+    private static SNOWBOARDING_EFFECT: number = 97;
     private static INITIAL_RESERVED_SPRITES: number = 2;
     private static ANIMATION_FRAME_UPDATE_INTERVAL: number = 2;
     private static DEFAULT_CANVAS_OFFSETS: number[] = [0, 0, 0];
-    private static MAX_EFFECT_CACHE: number         = 2;
-    private static SPRITE_INDEX_AVATAR: number      = 0;
-    private static BASE_Y_SCALE: number             = 1000;
+    private static MAX_EFFECT_CACHE: number = 2;
+    private static SPRITE_INDEX_AVATAR: number = 0;
+    private static BASE_Y_SCALE: number = 1000;
     private static AVATAR_SPRITE_DEFAULT_DEPTH: number = -0.01;
-    private static AVATAR_OWN_DEPTH_ADJUST: number     = 0.001;
-    private static AVATAR_SPRITE_LAYING_DEPTH: number  = -0.409;
+    private static AVATAR_OWN_DEPTH_ADJUST: number = 0.001;
+    private static AVATAR_SPRITE_LAYING_DEPTH: number = -0.409;
 
     protected _data: AvatarVisualizationData;
 
@@ -98,59 +102,59 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
     {
         super();
 
-        this._data                  = null;
+        this._data = null;
 
-        this._avatarImage           = null;
-        this._cachedAvatars         = new AdvancedMap();
-        this._cachedAvatarEffects   = new AdvancedMap();
-        this._shadow                = null;
-        this._lastUpdate            = -1000;
-        this._disposed              = false;
+        this._avatarImage = null;
+        this._cachedAvatars = new AdvancedMap();
+        this._cachedAvatarEffects = new AdvancedMap();
+        this._shadow = null;
+        this._lastUpdate = -1000;
+        this._disposed = false;
 
-        this._figure                = null;
-        this._gender                = null;
-        this._direction             = -1;
-        this._headDirection         = -1;
-        this._posture               = '';
-        this._postureParameter      = '';
-        this._canStandUp            = false;
-        this._postureOffset         = 0;
-        this._verticalOffset        = 0;
-        this._angle                 = -1;
-        this._headAngle             = -1;
-        this._talk                  = false;
-        this._expression            = 0;
-        this._sleep                 = false;
-        this._blink                 = false;
-        this._gesture               = 0;
-        this._sign                  = -1;
-        this._highlightEnabled      = false;
-        this._highlight             = false;
-        this._dance                 = 0;
-        this._effect                = 0;
-        this._carryObject           = 0;
-        this._useObject             = 0;
-        this._ownUser               = false;
+        this._figure = null;
+        this._gender = null;
+        this._direction = -1;
+        this._headDirection = -1;
+        this._posture = '';
+        this._postureParameter = '';
+        this._canStandUp = false;
+        this._postureOffset = 0;
+        this._verticalOffset = 0;
+        this._angle = -1;
+        this._headAngle = -1;
+        this._talk = false;
+        this._expression = 0;
+        this._sleep = false;
+        this._blink = false;
+        this._gesture = 0;
+        this._sign = -1;
+        this._highlightEnabled = false;
+        this._highlight = false;
+        this._dance = 0;
+        this._effect = 0;
+        this._carryObject = 0;
+        this._useObject = 0;
+        this._ownUser = false;
 
-        this._isLaying              = false;
-        this._layInside             = false;
-        this._isAnimating           = false;
+        this._isLaying = false;
+        this._layInside = false;
+        this._isAnimating = false;
         this._extraSpritesStartIndex = 2;
-        this._forcedAnimFrames       = 0;
+        this._forcedAnimFrames = 0;
         this._updatesUntilFrameUpdate = 0;
 
-        this._isAvatarReady         = false;
-        this._needsUpdate           = false;
+        this._isAvatarReady = false;
+        this._needsUpdate = false;
         this._geometryUpdateCounter = -1;
 
-        this._additions             = new Map();
+        this._additions = new Map();
     }
 
     public initialize(data: IObjectVisualizationData): boolean
     {
         if(!(data instanceof AvatarVisualizationData)) return false;
 
-        this._data  = data;
+        this._data = data;
 
         this.createSprites(AvatarVisualization.INITIAL_RESERVED_SPRITES);
 
@@ -167,8 +171,8 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         if(this._avatarImage) this._avatarImage.dispose();
 
-        this._shadow    = null;
-        this._disposed  = true;
+        this._shadow = null;
+        this._disposed = true;
     }
 
     public update(geometry: IRoomGeometry, time: number, update: boolean, skipUpdate: boolean): void
@@ -181,14 +185,14 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         if((this._lastUpdate + AvatarVisualization.UPDATE_TIME_INCREASER) < time) this._lastUpdate = (time - AvatarVisualization.UPDATE_TIME_INCREASER);
 
-        const model     = this.object.model;
-        const scale     = geometry.scale;
-        const effect    = this._effect;
+        const model = this.object.model;
+        const scale = geometry.scale;
+        const effect = this._effect;
 
-        let didScaleUpdate  = false;
+        let didScaleUpdate = false;
         let didEffectUpdate = false;
-        let otherUpdate     = false;
-        let objectUpdate    = false;
+        let otherUpdate = false;
+        let objectUpdate = false;
 
         const updateModel = this.updateModel(model, scale);
 
@@ -352,8 +356,8 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
             this._isAnimating = this._avatarImage.isAnimating();
 
-            let _local_21   = AvatarVisualization.INITIAL_RESERVED_SPRITES;
-            const direction   = this._avatarImage.getDirection();
+            let _local_21 = AvatarVisualization.INITIAL_RESERVED_SPRITES;
+            const direction = this._avatarImage.getDirection();
 
             for(const spriteData of this._avatarImage.getSprites())
             {
@@ -393,25 +397,25 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
                     if(sprite)
                     {
-                        sprite.alphaTolerance   = AlphaTolerance.MATCH_NOTHING;
-                        sprite.visible          = true;
+                        sprite.alphaTolerance = AlphaTolerance.MATCH_NOTHING;
+                        sprite.visible = true;
 
                         const layerData = this._avatarImage.getLayerData(spriteData);
 
                         let frameNumber = 0;
-                        let offsetX     = spriteData.getDirectionOffsetX(direction);
-                        let offsetY     = spriteData.getDirectionOffsetY(direction);
-                        const offsetZ     = spriteData.getDirectionOffsetZ(direction);
-                        let dd          = 0;
+                        let offsetX = spriteData.getDirectionOffsetX(direction);
+                        let offsetY = spriteData.getDirectionOffsetY(direction);
+                        const offsetZ = spriteData.getDirectionOffsetZ(direction);
+                        let dd = 0;
 
                         if(spriteData.hasDirections) dd = direction;
 
                         if(layerData)
                         {
                             frameNumber = layerData.animationFrame;
-                            offsetX    += layerData.dx;
-                            offsetY    += layerData.dy;
-                            dd         += layerData.dd;
+                            offsetX += layerData.dx;
+                            offsetY += layerData.dy;
+                            dd += layerData.dd;
                         }
 
                         if(scale < 48)
@@ -432,10 +436,10 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
                         if(!asset) continue;
 
-                        sprite.texture  = asset.texture;
-                        sprite.offsetX  = ((asset.offsetX - (scale / 2)) + offsetX);
-                        sprite.offsetY  = (asset.offsetY + offsetY);
-                        sprite.flipH    = asset.flipH;
+                        sprite.texture = asset.texture;
+                        sprite.offsetX = ((asset.offsetX - (scale / 2)) + offsetX);
+                        sprite.offsetY = (asset.offsetY + offsetY);
+                        sprite.flipH = asset.flipH;
 
                         if(spriteData.hasStaticY)
                         {
@@ -467,8 +471,8 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
     private createAvatarImage(scale: number, effectId: number): IAvatarImage
     {
-        let cachedImage: IAvatarImage   = null;
-        let imageName                   = 'avatarImage' + scale.toString();
+        let cachedImage: IAvatarImage = null;
+        let imageName = 'avatarImage' + scale.toString();
 
         if(!effectId)
         {
@@ -513,18 +517,18 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
     {
         if((!_arg_4 && (this.updateObjectCounter === object.updateCounter)) && (this._geometryUpdateCounter === geometry.updateId)) return false;
 
-        let direction       = (object.getDirection().x - geometry.direction.x);
-        let headDirection   = (this._headDirection - geometry.direction.x);
+        let direction = (object.getDirection().x - geometry.direction.x);
+        let headDirection = (this._headDirection - geometry.direction.x);
 
         if(this._posture === 'float') headDirection = direction;
 
-        direction       = (((direction % 360) + 360) % 360);
-        headDirection   = (((headDirection % 360) + 360) % 360);
+        direction = (((direction % 360) + 360) % 360);
+        headDirection = (((headDirection % 360) + 360) % 360);
 
         if((this._posture === 'sit') && this._canStandUp)
         {
-            direction      -= ((direction % 90) - 45);
-            headDirection  -= ((headDirection % 90) - 45);
+            direction -= ((direction % 90) - 45);
+            headDirection -= ((headDirection % 90) - 45);
         }
 
         if((direction !== this._angle) || _arg_4)
@@ -767,6 +771,40 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
             }
         }
 
+        const guideStatusValue = (model.getValue<number>(RoomObjectVariable.FIGURE_GUIDE_STATUS) || 0);
+
+        if(guideStatusValue !== AvatarGuideStatus.NONE)
+        {
+            this.removeAddition(AvatarVisualization.GUIDE_BUBBLE_ID);
+            this.addAddition(new GuideStatusBubbleAddition(AvatarVisualization.GUIDE_BUBBLE_ID, this, guideStatusValue));
+
+            needsUpdate = true;
+        }
+        else
+        {
+            if(this.getAddition(AvatarVisualization.GUIDE_BUBBLE_ID))
+            {
+                this.removeAddition(AvatarVisualization.GUIDE_BUBBLE_ID);
+
+                needsUpdate = true;
+            }
+        }
+
+        const isPlayingGame = (model.getValue<number>(RoomObjectVariable.FIGURE_IS_PLAYING_GAME) > 0);
+
+        let gameClickAddition = this.getAddition(AvatarVisualization.GAME_CLICK_TARGET_ID);
+
+        if(isPlayingGame)
+        {
+            if(!gameClickAddition) gameClickAddition = this.addAddition(new GameClickTargetAddition(AvatarVisualization.GAME_CLICK_TARGET_ID));
+
+            needsUpdate = true;
+        }
+        else
+        {
+            if(gameClickAddition) this.removeAddition(AvatarVisualization.GAME_CLICK_TARGET_ID);
+        }
+
         const numberValue = model.getValue<number>(RoomObjectVariable.FIGURE_NUMBER_VALUE);
 
         let numberAddition = this.getAddition(AvatarVisualization.NUMBER_BUBBLE_ID);
@@ -880,7 +918,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
         }
 
         this._layInside = false;
-        this._isLaying  = false;
+        this._isLaying = false;
 
         if(this._posture === 'lay')
         {
@@ -991,8 +1029,8 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         if(sprite)
         {
-            sprite.texture  = Texture.EMPTY;
-            sprite.alpha    = 255;
+            sprite.texture = Texture.EMPTY;
+            sprite.alpha = 255;
         }
     }
 
@@ -1071,11 +1109,11 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
                 if(this._shadow)
                 {
-                    sprite.texture          = this._shadow.texture;
-                    sprite.offsetX          = offsetX;
-                    sprite.offsetY          = offsetY;
-                    sprite.alpha            = 50;
-                    sprite.relativeDepth    = 1;
+                    sprite.texture = this._shadow.texture;
+                    sprite.offsetX = offsetX;
+                    sprite.offsetY = offsetY;
+                    sprite.alpha = 50;
+                    sprite.relativeDepth = 1;
                 }
                 else
                 {
@@ -1093,9 +1131,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
     public getAvatarRenderAsset(name: string): Texture<Resource>
     {
-        const url = (Nitro.instance.getConfiguration<string>('images.url') + '/additions/' + name + '.png');
-
-        return this._data ? this._data.getAvatarRendererAsset(url) : null;
+        return this._data ? this._data.getAvatarRendererAsset(name) : null;
     }
 
     public get direction(): number

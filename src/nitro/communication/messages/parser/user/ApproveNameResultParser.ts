@@ -7,8 +7,8 @@ export class ApproveNameResultParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._result            = -1;
-        this._validationInfo    = '';
+        this._result = -1;
+        this._validationInfo = '';
 
         return true;
     }
@@ -17,8 +17,8 @@ export class ApproveNameResultParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._result            = wrapper.readInt();
-        this._validationInfo    = wrapper.readString();
+        this._result = wrapper.readInt();
+        this._validationInfo = wrapper.readString();
 
         return true;
     }

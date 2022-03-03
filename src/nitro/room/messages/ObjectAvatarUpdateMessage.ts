@@ -12,8 +12,8 @@ export class ObjectAvatarUpdateMessage extends ObjectMoveUpdateMessage
         super(location, targetLocation, direction);
 
         this._headDirection = headDirection;
-        this._canStandUp    = canStandUp;
-        this._baseY         = baseY;
+        this._canStandUp = canStandUp;
+        this._baseY = baseY;
     }
 
     public get headDirection(): number

@@ -15,22 +15,22 @@ export class RoomMapData
 
     constructor()
     {
-        this._width             = 0;
-        this._height            = 0;
-        this._wallHeight        = 0;
-        this._fixedWallsHeight  = 0;
-        this._tileMap           = [];
-        this._holeMap           = [];
-        this._doors             = [];
-        this._dimensions        = {
+        this._width = 0;
+        this._height = 0;
+        this._wallHeight = 0;
+        this._fixedWallsHeight = 0;
+        this._tileMap = [];
+        this._holeMap = [];
+        this._doors = [];
+        this._dimensions = {
             minX: 0,
             maxX: 0,
             minY: 0,
             maxY: 0
         };
         this._restrictsDragging = false;
-        this._restrictedScale   = 1;
-        this._restrictsScaling  = false;
+        this._restrictedScale = 1;
+        this._restrictsScaling = false;
     }
 
     public get width(): number

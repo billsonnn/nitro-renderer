@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
-import { GroupDataParser } from '../../group/utils/GroupDataParser';
+import { HabboGroupEntryData } from '../HabboGroupEntryData';
 
 export class UserProfileParser implements IMessageParser
 {
@@ -13,23 +13,23 @@ export class UserProfileParser implements IMessageParser
     private _isMyFriend: boolean;
     private _requestSent: boolean;
     private _isOnline: boolean;
-    private _groups: GroupDataParser[];
+    private _groups: HabboGroupEntryData[];
     private _secondsSinceLastVisit: number;
     private _openProfileWindow: boolean;
 
     public flush(): boolean
     {
-        this._id                = 0;
-        this._username          = null;
-        this._figure            = null;
-        this._motto             = null;
-        this._registration      = null;
+        this._id = 0;
+        this._username = null;
+        this._figure = null;
+        this._motto = null;
+        this._registration = null;
         this._achievementPoints = 0;
-        this._friendsCount      = 0;
-        this._isMyFriend        = false;
-        this._requestSent       = false;
-        this._isOnline          = false;
-        this._groups            = [];
+        this._friendsCount = 0;
+        this._isMyFriend = false;
+        this._requestSent = false;
+        this._isOnline = false;
+        this._groups = [];
         this._secondsSinceLastVisit = 0;
         this._openProfileWindow = false;
 
@@ -40,21 +40,21 @@ export class UserProfileParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._id                = wrapper.readInt();
-        this._username          = wrapper.readString();
-        this._figure            = wrapper.readString();
-        this._motto             = wrapper.readString();
-        this._registration      = wrapper.readString();
+        this._id = wrapper.readInt();
+        this._username = wrapper.readString();
+        this._figure = wrapper.readString();
+        this._motto = wrapper.readString();
+        this._registration = wrapper.readString();
         this._achievementPoints = wrapper.readInt();
-        this._friendsCount      = wrapper.readInt();
-        this._isMyFriend        = wrapper.readBoolean();
-        this._requestSent       = wrapper.readBoolean();
-        this._isOnline          = wrapper.readBoolean();
-        const groupsCount         = wrapper.readInt();
+        this._friendsCount = wrapper.readInt();
+        this._isMyFriend = wrapper.readBoolean();
+        this._requestSent = wrapper.readBoolean();
+        this._isOnline = wrapper.readBoolean();
+        const groupsCount = wrapper.readInt();
 
         for(let i = 0; i < groupsCount; i++)
         {
-            this._groups.push(new GroupDataParser(wrapper));
+            this._groups.push(new HabboGroupEntryData(wrapper));
         }
 
         this._secondsSinceLastVisit = wrapper.readInt();
@@ -113,7 +113,7 @@ export class UserProfileParser implements IMessageParser
         return this._isOnline;
     }
 
-    public get groups(): GroupDataParser[]
+    public get groups(): HabboGroupEntryData[]
     {
         return this._groups;
     }

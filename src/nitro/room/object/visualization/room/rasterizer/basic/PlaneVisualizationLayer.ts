@@ -21,12 +21,12 @@ export class PlaneVisualizationLayer
 
     constructor(material: PlaneMaterial, color: number, align: number, offset: number = 0)
     {
-        this._material      = material;
-        this._offset        = offset;
-        this._align         = align;
-        this._color         = color;
-        this._bitmapData    = null;
-        this._isDisposed    = false;
+        this._material = material;
+        this._offset = offset;
+        this._align = align;
+        this._color = color;
+        this._bitmapData = null;
+        this._isDisposed = false;
     }
 
     public get offset(): number
@@ -46,8 +46,8 @@ export class PlaneVisualizationLayer
 
     public dispose(): void
     {
-        this._isDisposed    = true;
-        this._material      = null;
+        this._isDisposed = true;
+        this._material = null;
 
         this.clearCache();
     }

@@ -16,12 +16,12 @@ import { RoomObjectManager } from './RoomObjectManager';
 
 export class RoomManager extends NitroManager implements IRoomManager, IRoomInstanceContainer
 {
-    public static ROOM_MANAGER_ERROR: number     = -1;
-    public static ROOM_MANAGER_LOADING: number    = 0;
-    public static ROOM_MANAGER_LOADED: number    = 1;
-    public static ROOM_MANAGER_INITIALIZING: number    = 2;
-    public static ROOM_MANAGER_INITIALIZED: number     = 3;
-    private static CONTENT_PROCESSING_TIME_LIMIT_MILLISECONDS: number   = 40;
+    public static ROOM_MANAGER_ERROR: number = -1;
+    public static ROOM_MANAGER_LOADING: number = 0;
+    public static ROOM_MANAGER_LOADED: number = 1;
+    public static ROOM_MANAGER_INITIALIZING: number = 2;
+    public static ROOM_MANAGER_INITIALIZED: number = 3;
+    private static CONTENT_PROCESSING_TIME_LIMIT_MILLISECONDS: number = 40;
 
     private _state: number;
     private _rooms: Map<string, IRoomInstance>;
@@ -42,20 +42,20 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
     {
         super();
 
-        this._state                 = RoomManager.ROOM_MANAGER_LOADED;
-        this._rooms                 = new Map();
-        this._contentLoader         = null;
-        this._updateCategories      = [];
+        this._state = RoomManager.ROOM_MANAGER_LOADED;
+        this._rooms = new Map();
+        this._contentLoader = null;
+        this._updateCategories = [];
 
-        this._listener              = listener;
-        this._visualizationFactory  = visualizationFactory;
-        this._logicFactory          = logicFactory;
+        this._listener = listener;
+        this._visualizationFactory = visualizationFactory;
+        this._logicFactory = logicFactory;
 
-        this._initialLoadList       = [];
-        this._pendingContentTypes   = [];
+        this._initialLoadList = [];
+        this._pendingContentTypes = [];
         this._skipContentProcessing = false;
 
-        this._disposed              = false;
+        this._disposed = false;
 
         this.onRoomContentLoadedEvent = this.onRoomContentLoadedEvent.bind(this);
 
@@ -132,11 +132,11 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
 
         if(!instance) return null;
 
-        let visualization                   = type;
-        let logic                           = type;
-        let assetName                       = type;
-        let asset: IGraphicAssetCollection  = null;
-        let isLoading              = false;
+        let visualization = type;
+        let logic = type;
+        let assetName = type;
+        let asset: IGraphicAssetCollection = null;
+        let isLoading = false;
 
         if(this._contentLoader.isLoaderType(type))
         {
@@ -148,14 +148,14 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
 
                 this._contentLoader.downloadAsset(type, this.events);
 
-                assetName   = this._contentLoader.getPlaceholderName(type);
-                asset       = this._contentLoader.getCollection(assetName);
+                assetName = this._contentLoader.getPlaceholderName(type);
+                asset = this._contentLoader.getCollection(assetName);
 
                 if(!asset) return null;
             }
 
-            visualization   = asset.data.visualizationType;
-            logic           = asset.data.logicType;
+            visualization = asset.data.visualizationType;
+            logic = asset.data.logicType;
         }
 
         const object = (instance.createRoomObject(objectId, 1, type, category) as IRoomObjectController);
@@ -214,8 +214,8 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
 
         if(!asset) return;
 
-        const visualization     = asset.data.visualizationType;
-        const logic             = asset.data.logicType;
+        const visualization = asset.data.visualizationType;
+        const logic = asset.data.logicType;
         const visualizationData = this._visualizationFactory.getVisualizationData(type, visualization, asset.data);
 
         for(const room of this._rooms.values())

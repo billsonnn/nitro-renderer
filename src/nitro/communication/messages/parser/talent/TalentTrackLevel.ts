@@ -5,7 +5,7 @@ export class TalentTrackLevel
 {
     private _level: number;
     private _state: number;
-    private _tasks: TalentTrackTask[]
+    private _tasks: TalentTrackTask[];
     private _rewardPerks: string[];
     private _rewardProducts: TalentTrackRewardProduct[];
 

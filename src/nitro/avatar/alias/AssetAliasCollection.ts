@@ -12,16 +12,16 @@ export class AssetAliasCollection
 
     constructor(k: AvatarRenderManager, _arg_2: IAssetManager)
     {
-        this._avatarRenderManager   = k;
-        this._aliases               = new Map();
-        this._assets                = _arg_2;
-        this._missingAssetNames     = [];
+        this._avatarRenderManager = k;
+        this._aliases = new Map();
+        this._assets = _arg_2;
+        this._missingAssetNames = [];
     }
 
     public dispose(): void
     {
-        this._assets    = null;
-        this._aliases   = null;
+        this._assets = null;
+        this._aliases = null;
     }
 
     public reset(): void

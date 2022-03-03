@@ -6,9 +6,9 @@ export class AvatarAssetDownloadLibrary extends EventDispatcher
 {
     public static DOWNLOAD_COMPLETE: string = 'AADL_DOWNLOAD_COMPLETE';
 
-    private static NOT_LOADED: number       = 0;
-    private static LOADING: number          = 1;
-    private static LOADED: number           = 2;
+    private static NOT_LOADED: number = 0;
+    private static LOADING: number = 1;
+    private static LOADED: number = 2;
 
     private _state: number;
     private _libraryName: string;
@@ -20,11 +20,11 @@ export class AvatarAssetDownloadLibrary extends EventDispatcher
     {
         super();
 
-        this._state         = AvatarAssetDownloadLibrary.NOT_LOADED;
-        this._libraryName   = id;
-        this._revision      = revision;
-        this._downloadUrl   = assetUrl;
-        this._assets        = assets;
+        this._state = AvatarAssetDownloadLibrary.NOT_LOADED;
+        this._libraryName = id;
+        this._revision = revision;
+        this._downloadUrl = assetUrl;
+        this._assets = assets;
 
         this._downloadUrl = this._downloadUrl.replace(/%libname%/gi, this._libraryName);
         this._downloadUrl = this._downloadUrl.replace(/%revision%/gi, this._revision);

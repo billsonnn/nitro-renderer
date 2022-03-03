@@ -7,7 +7,7 @@ export class CfhChatlogData
     private _callerUserId: number;
     private _reportedUserId: number;
     private _chatRecordId: number;
-    private _chatRecord: ChatRecordData
+    private _chatRecord: ChatRecordData;
 
     constructor(k:IMessageDataWrapper)
     {

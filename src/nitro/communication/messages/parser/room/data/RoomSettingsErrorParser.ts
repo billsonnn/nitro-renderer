@@ -8,9 +8,9 @@ export class RoomSettingsErrorParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._roomId    = 0;
-        this._code      = 0;
-        this._message   = null;
+        this._roomId = 0;
+        this._code = 0;
+        this._message = null;
 
         return true;
     }
@@ -19,9 +19,9 @@ export class RoomSettingsErrorParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._roomId    = wrapper.readInt();
-        this._code      = wrapper.readInt();
-        this._message   = wrapper.readString();
+        this._roomId = wrapper.readInt();
+        this._code = wrapper.readInt();
+        this._message = wrapper.readString();
 
         return true;
     }

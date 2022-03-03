@@ -43,15 +43,15 @@ export class AvatarStructure extends EventDispatcher
     {
         super();
 
-        this._renderManager         = renderManager;
-        this._geometry              = null;
-        this._figureData            = new FigureSetData();
-        this._partSetsData          = new PartSetsData();
-        this._animationData         = new AvatarAnimationData();
-        this._animationManager      = new AnimationManager();
-        this._mandatorySetTypeIds   = {};
-        this._actionManager         = null;
-        this._defaultAction         = null;
+        this._renderManager = renderManager;
+        this._geometry = null;
+        this._figureData = new FigureSetData();
+        this._partSetsData = new PartSetsData();
+        this._animationData = new AvatarAnimationData();
+        this._animationManager = new AnimationManager();
+        this._mandatorySetTypeIds = {};
+        this._actionManager = null;
+        this._defaultAction = null;
     }
 
     public init(): void
@@ -65,11 +65,11 @@ export class AvatarStructure extends EventDispatcher
 
         super.dispose();
 
-        this._renderManager         = null;
-        this._figureData            = null;
-        this._partSetsData          = null;
-        this._animationData         = null;
-        this._mandatorySetTypeIds   = null;
+        this._renderManager = null;
+        this._figureData = null;
+        this._partSetsData = null;
+        this._animationData = null;
+        this._mandatorySetTypeIds = null;
     }
 
     public initGeometry(k: any): void
@@ -251,8 +251,8 @@ export class AvatarStructure extends EventDispatcher
     {
         let _local_3: string[] = [];
 
-        const _local_4: string[]    = [];
-        const _local_5              = k.definition.geometryType;
+        const _local_4: string[] = [];
+        const _local_5 = k.definition.geometryType;
 
         if(k.definition.isAnimation)
         {
@@ -356,10 +356,10 @@ export class AvatarStructure extends EventDispatcher
 
         if(!_arg_3 == null) return [];
 
-        const _local_9                                = this._partSetsData.getActiveParts(_arg_3.definition);
-        const _local_11: AvatarImagePartContainer[]   = [];
-        let _local_14: any[]                     = [ 0 ];
-        const _local_15                               = this._animationData.getAction(_arg_3.definition);
+        const _local_9 = this._partSetsData.getActiveParts(_arg_3.definition);
+        const _local_11: AvatarImagePartContainer[] = [];
+        let _local_14: any[] = [ 0 ];
+        const _local_15 = this._animationData.getAction(_arg_3.definition);
 
         if(_arg_3.definition.isAnimation)
         {
@@ -388,8 +388,8 @@ export class AvatarStructure extends EventDispatcher
             }
         }
 
-        const _local_16     = this._geometry.getParts(_arg_4, k, _arg_5, _local_9, _arg_7);
-        const  _local_21    = _arg_2.getPartTypeIds();
+        const _local_16 = this._geometry.getParts(_arg_4, k, _arg_5, _local_9, _arg_7);
+        const _local_21 = _arg_2.getPartTypeIds();
 
         for(const _local_17 of _local_21)
         {
@@ -469,7 +469,7 @@ export class AvatarStructure extends EventDispatcher
         for(const _local_12 of _local_16)
         {
             let _local_39: IPartColor = null;
-            let _local_38             = false;
+            let _local_38 = false;
 
             const _local_40 = ((_arg_8) && (_arg_8.get(_local_12)));
 

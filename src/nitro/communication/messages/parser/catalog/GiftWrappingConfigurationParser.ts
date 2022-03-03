@@ -28,7 +28,7 @@ export class GiftWrappingConfigurationParser implements IMessageParser
         const boxTypes = [];
         const ribbonTypes = [];
         const giftFurnis = [];
-        this._isEnabled  = wrapper.readBoolean();
+        this._isEnabled = wrapper.readBoolean();
         // hotel.gifts.special.price
         this._price = wrapper.readInt();
 

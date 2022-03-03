@@ -53,24 +53,24 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         super();
 
-        this._structure                     = null;
-        this._avatarAssetDownloadManager    = null;
+        this._structure = null;
+        this._avatarAssetDownloadManager = null;
 
-        this._placeHolderFigure             = null;
+        this._placeHolderFigure = null;
 
-        this._figureMapReady                = false;
-        this._effectMapReady                = false;
-        this._actionsReady                  = false;
-        this._geometryReady                 = false;
-        this._partSetsReady                 = false;
-        this._animationsReady               = false;
-        this._isReady                       = false;
+        this._figureMapReady = false;
+        this._effectMapReady = false;
+        this._actionsReady = false;
+        this._geometryReady = false;
+        this._partSetsReady = false;
+        this._animationsReady = false;
+        this._isReady = false;
 
-        this.onAvatarAssetDownloaderReady   = this.onAvatarAssetDownloaderReady.bind(this);
-        this.onAvatarAssetDownloaded        = this.onAvatarAssetDownloaded.bind(this);
-        this.onEffectAssetDownloaderReady   = this.onEffectAssetDownloaderReady.bind(this);
-        this.onEffectAssetDownloaded        = this.onEffectAssetDownloaded.bind(this);
-        this.onAvatarStructureDownloadDone  = this.onAvatarStructureDownloadDone.bind(this);
+        this.onAvatarAssetDownloaderReady = this.onAvatarAssetDownloaderReady.bind(this);
+        this.onAvatarAssetDownloaded = this.onAvatarAssetDownloaded.bind(this);
+        this.onEffectAssetDownloaderReady = this.onEffectAssetDownloaderReady.bind(this);
+        this.onEffectAssetDownloaded = this.onEffectAssetDownloaded.bind(this);
+        this.onAvatarStructureDownloadDone = this.onAvatarStructureDownloadDone.bind(this);
     }
 
     public onInit(): void
@@ -356,8 +356,8 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         if(!this._structure) return 0;
 
-        const figureData    = this._structure.figureData;
-        const parts         = Array.from(container.getPartTypeIds());
+        const figureData = this._structure.figureData;
+        const parts = Array.from(container.getPartTypeIds());
 
         let clubLevel = 0;
 
@@ -367,15 +367,15 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
             if(!set) continue;
 
-            const setId     = container.getPartSetId(part);
-            const partSet   = set.getPartSet(setId);
+            const setId = container.getPartSetId(part);
+            const partSet = set.getPartSet(setId);
 
             if(partSet)
             {
                 clubLevel = Math.max(partSet.clubLevel, clubLevel);
 
-                const palette   = figureData.getPalette(set.paletteID);
-                const colors   = container.getPartColorIds(part);
+                const palette = figureData.getPalette(set.paletteID);
+                const colors = container.getPartColorIds(part);
 
                 for(const colorId of colors)
                 {
@@ -405,7 +405,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     public isValidFigureSetForGender(setId: number, gender: string): boolean
     {
         const structure = this.structureData;
-        const partSet   = structure.getFigurePartSet(setId);
+        const partSet = structure.getFigurePartSet(setId);
 
         return !!(partSet && ((partSet.gender.toUpperCase() === 'U') || (partSet.gender.toUpperCase() === gender.toUpperCase())));
     }
@@ -428,8 +428,8 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     private resolveFigureSets(k: number[]): IFigurePartSet[]
     {
-        const structure                     = this.structureData;
-        const partSets: IFigurePartSet[]   = [];
+        const structure = this.structureData;
+        const partSets: IFigurePartSet[] = [];
 
         for(const _local_4 of k)
         {

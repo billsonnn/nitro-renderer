@@ -17,8 +17,8 @@ export class RoomUnitIdleParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._unitId    = wrapper.readInt();
-        this._isIdle    = wrapper.readBoolean();
+        this._unitId = wrapper.readInt();
+        this._isIdle = wrapper.readBoolean();
 
         return true;
     }

@@ -35,8 +35,8 @@ export class DirectionData
 
         for(let i = 0; i < totalLayers; i++)
         {
-            const localLayer        = this.getLayer(i);
-            const directionLayer    = directionData.getLayer(i);
+            const localLayer = this.getLayer(i);
+            const directionLayer = directionData.getLayer(i);
 
             if(!localLayer) continue;
 

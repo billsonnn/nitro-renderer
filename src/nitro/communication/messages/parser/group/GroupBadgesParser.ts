@@ -19,7 +19,7 @@ export class GroupBadgesParser implements IMessageParser
 
         while(badgesCount > 0)
         {
-            const id    = wrapper.readInt();
+            const id = wrapper.readInt();
             const badge = wrapper.readString();
 
             this._badges.set(id, badge);

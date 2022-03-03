@@ -18,9 +18,9 @@ export class CatalogIndexMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._root                  = new NodeData(wrapper);
+        this._root = new NodeData(wrapper);
         this._newAdditionsAvailable = wrapper.readBoolean();
-        this._catalogType           = wrapper.readString();
+        this._catalogType = wrapper.readString();
 
         return true;
     }

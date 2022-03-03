@@ -1,7 +1,7 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 import { RoomVisitsData } from '../../incoming/moderation/RoomVisitsData';
 
-export class RoomVisitsMessageParser  implements IMessageParser
+export class RoomVisitsMessageParser implements IMessageParser
 {
     private _data: RoomVisitsData;
 

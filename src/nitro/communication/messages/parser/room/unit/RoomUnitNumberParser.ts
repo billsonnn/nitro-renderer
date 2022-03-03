@@ -7,8 +7,8 @@ export class RoomUnitNumberParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._unitId    = null;
-        this._value     = 0;
+        this._unitId = null;
+        this._value = 0;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class RoomUnitNumberParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._unitId    = wrapper.readInt();
-        this._value     = wrapper.readInt();
+        this._unitId = wrapper.readInt();
+        this._value = wrapper.readInt();
 
         return true;
     }

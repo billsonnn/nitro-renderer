@@ -13,21 +13,21 @@ export class ImageData
 
     constructor(texture: Texture<Resource>, rectangle: Rectangle, _arg_3: Point, flipH: boolean, color: number, container: Container = null)
     {
-        this._texture   = texture;
+        this._texture = texture;
         this._container = container;
-        this._rect      = rectangle;
-        this._regPoint  = _arg_3;
-        this._flipH     = flipH;
-        this._colorTransform     = color;
+        this._rect = rectangle;
+        this._regPoint = _arg_3;
+        this._flipH = flipH;
+        this._colorTransform = color;
 
         if(flipH) this._regPoint.x = (-(this._regPoint.x) + rectangle.width);
     }
 
     public dispose(): void
     {
-        this._texture    = null;
-        this._regPoint  = null;
-        this._colorTransform     = null;
+        this._texture = null;
+        this._regPoint = null;
+        this._colorTransform = null;
     }
 
     public get texture(): Texture<Resource>

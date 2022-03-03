@@ -10,10 +10,10 @@ export class RoomData
 
     constructor(roomId: number, data: RoomMapData)
     {
-        this._roomId        = roomId;
-        this._data          = data;
-        this._floorType     = null;
-        this._wallType      = null;
+        this._roomId = roomId;
+        this._data = data;
+        this._floorType = null;
+        this._wallType = null;
         this._landscapeType = null;
     }
 

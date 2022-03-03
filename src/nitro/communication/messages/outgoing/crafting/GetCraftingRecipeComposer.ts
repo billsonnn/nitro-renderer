@@ -2,20 +2,20 @@ import { IMessageComposer } from '../../../../../core/communication/messages/IMe
 
 export class GetCraftingRecipeComposer implements IMessageComposer<ConstructorParameters<typeof GetCraftingRecipeComposer>>
 {
-  private _data: ConstructorParameters<typeof GetCraftingRecipeComposer>;
+    private _data: ConstructorParameters<typeof GetCraftingRecipeComposer>;
 
-  constructor(k: number)
-  {
-      this._data = [k];
-  }
+    constructor(k: string)
+    {
+        this._data = [k];
+    }
 
-  public getMessageArray()
-  {
-      return this._data;
-  }
+    public getMessageArray()
+    {
+        return this._data;
+    }
 
-  public dispose(): void
-  {
-      return;
-  }
+    public dispose(): void
+    {
+        return;
+    }
 }

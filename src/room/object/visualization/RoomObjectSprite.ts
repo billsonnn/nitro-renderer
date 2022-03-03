@@ -42,43 +42,43 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     constructor()
     {
-        this._id                = RoomObjectSprite.SPRITE_COUNTER++;
-        this._name              = '';
-        this._type              = '';
-        this._spriteType        = RoomObjectSpriteType.DEFAULT;
-        this._texture           = null;
-        this._container         = null;
+        this._id = RoomObjectSprite.SPRITE_COUNTER++;
+        this._name = '';
+        this._type = '';
+        this._spriteType = RoomObjectSpriteType.DEFAULT;
+        this._texture = null;
+        this._container = null;
 
-        this._width             = 0;
-        this._height            = 0;
-        this._offsetX           = 0;
-        this._offsetY           = 0;
-        this._flipH             = false;
-        this._flipV             = false;
-        this._direction         = 0;
+        this._width = 0;
+        this._height = 0;
+        this._offsetX = 0;
+        this._offsetY = 0;
+        this._flipH = false;
+        this._flipV = false;
+        this._direction = 0;
 
-        this._alpha             = 255;
-        this._blendMode         = BLEND_MODES.NORMAL;
-        this._color             = 0xFFFFFF;
-        this._relativeDepth     = 0;
-        this._varyingDepth          = false;
-        this._libraryAssetName         = '';
-        this._clickHandling     = false;
-        this._visible           = true;
-        this._tag               = '';
-        this._posture           = null;
-        this._alphaTolerance    = AlphaTolerance.MATCH_OPAQUE_PIXELS;
-        this._filters           = [];
+        this._alpha = 255;
+        this._blendMode = BLEND_MODES.NORMAL;
+        this._color = 0xFFFFFF;
+        this._relativeDepth = 0;
+        this._varyingDepth = false;
+        this._libraryAssetName = '';
+        this._clickHandling = false;
+        this._visible = true;
+        this._tag = '';
+        this._posture = null;
+        this._alphaTolerance = AlphaTolerance.MATCH_OPAQUE_PIXELS;
+        this._filters = [];
 
-        this._updateCounter     = 0;
-        this._updateContainer   = false;
+        this._updateCounter = 0;
+        this._updateContainer = false;
     }
 
     public dispose(): void
     {
-        this._texture   = null;
-        this._width     = 0;
-        this._height    = 0;
+        this._texture = null;
+        this._width = 0;
+        this._height = 0;
     }
 
     public get id(): number
@@ -136,8 +136,8 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
         if(texture)
         {
-            this._width     = texture.width;
-            this._height    = texture.height;
+            this._width = texture.width;
+            this._height = texture.height;
         }
 
         this._texture = texture;
@@ -158,8 +158,8 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
         if(container)
         {
-            this._width     = container.width;
-            this._height    = container.height;
+            this._width = container.width;
+            this._height = container.height;
         }
 
         this._container = container;

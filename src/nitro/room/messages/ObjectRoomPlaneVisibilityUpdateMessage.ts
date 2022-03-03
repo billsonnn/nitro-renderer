@@ -2,8 +2,8 @@ import { RoomObjectUpdateMessage } from '../../../room/messages/RoomObjectUpdate
 
 export class ObjectRoomPlaneVisibilityUpdateMessage extends RoomObjectUpdateMessage
 {
-    public static WALL_VISIBILITY: string   = 'RORPVUM_WALL_VISIBILITY';
-    public static FLOOR_VISIBILITY: string  = 'RORPVUM_FLOOR_VISIBILITY';
+    public static WALL_VISIBILITY: string = 'RORPVUM_WALL_VISIBILITY';
+    public static FLOOR_VISIBILITY: string = 'RORPVUM_FLOOR_VISIBILITY';
 
     private _type: string;
     private _visible: boolean;
@@ -12,8 +12,8 @@ export class ObjectRoomPlaneVisibilityUpdateMessage extends RoomObjectUpdateMess
     {
         super(null, null);
 
-        this._type      = type;
-        this._visible   = visible;
+        this._type = type;
+        this._visible = visible;
     }
 
     public get type(): string

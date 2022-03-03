@@ -7,8 +7,8 @@ import { RoomObjectVariable } from '../../RoomObjectVariable';
 export class TileCursorLogic extends RoomObjectLogicBase
 {
     private static CURSOR_VISIBLE_STATE: number = 0;
-    private static CURSOR_HIDDEN_STATE: number  = 1;
-    private static CURSOR_HEIGHT_STATE: number  = 6;
+    private static CURSOR_HIDDEN_STATE: number = 1;
+    private static CURSOR_HEIGHT_STATE: number = 6;
 
     private _lastEventId: string;
     private _isHidden: boolean;
@@ -17,8 +17,8 @@ export class TileCursorLogic extends RoomObjectLogicBase
     {
         super();
 
-        this._lastEventId   = null;
-        this._isHidden      = false;
+        this._lastEventId = null;
+        this._isHidden = false;
     }
 
     public initialize(data: IAssetData): void

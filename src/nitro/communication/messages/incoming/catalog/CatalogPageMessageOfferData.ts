@@ -18,13 +18,13 @@ export class CatalogPageMessageOfferData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        this._offerId                   = wrapper.readInt();
-        this._localizationId            = wrapper.readString();
-        this._rent                      = wrapper.readBoolean();
-        this._priceCredits              = wrapper.readInt();
-        this._priceActivityPoints       = wrapper.readInt();
-        this._priceActivityPointsType   = wrapper.readInt();
-        this._giftable                  = wrapper.readBoolean();
+        this._offerId = wrapper.readInt();
+        this._localizationId = wrapper.readString();
+        this._rent = wrapper.readBoolean();
+        this._priceCredits = wrapper.readInt();
+        this._priceActivityPoints = wrapper.readInt();
+        this._priceActivityPointsType = wrapper.readInt();
+        this._giftable = wrapper.readBoolean();
 
         this._products = [];
 
@@ -37,10 +37,10 @@ export class CatalogPageMessageOfferData
             totalProducts--;
         }
 
-        this._clubLevel             = wrapper.readInt();
+        this._clubLevel = wrapper.readInt();
         this._bundlePurchaseAllowed = wrapper.readBoolean();
-        this._isPet                 = wrapper.readBoolean();
-        this._previewImage          = wrapper.readString();
+        this._isPet = wrapper.readBoolean();
+        this._previewImage = wrapper.readString();
     }
 
     public get offerId(): number

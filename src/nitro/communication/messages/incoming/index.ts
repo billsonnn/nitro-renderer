@@ -7,6 +7,7 @@ export * from './camera';
 export * from './campaign';
 export * from './catalog';
 export * from './client';
+export * from './crafting';
 export * from './desktop';
 export * from './friendlist';
 export * from './game';

@@ -9,12 +9,12 @@ export class AnimationFrameData
 
     constructor(id: number, x: number, y: number, randomX: number, randomY: number, repeats: number)
     {
-        this._id        = id;
-        this._x         = x;
-        this._y         = y;
-        this._randomX   = randomX;
-        this._randomY   = randomY;
-        this._repeats   = repeats;
+        this._id = id;
+        this._x = x;
+        this._y = y;
+        this._randomX = randomX;
+        this._randomY = randomY;
+        this._repeats = repeats;
     }
 
     public get id(): number

@@ -44,9 +44,9 @@ settings.ROUND_PIXELS = true;
 
 export class Nitro extends Application implements INitro
 {
-    public static WEBGL_CONTEXT_LOST: string    = 'NE_WEBGL_CONTEXT_LOST';
-    public static WEBGL_UNAVAILABLE: string     = 'NE_WEBGL_UNAVAILABLE';
-    public static READY: string                 = 'NE_READY!';
+    public static WEBGL_CONTEXT_LOST: string = 'NE_WEBGL_CONTEXT_LOST';
+    public static WEBGL_UNAVAILABLE: string = 'NE_WEBGL_UNAVAILABLE';
+    public static READY: string = 'NE_READY!';
 
     private static INSTANCE: INitro = null;
 
@@ -75,24 +75,24 @@ export class Nitro extends Application implements INitro
 
         if(!Nitro.INSTANCE) Nitro.INSTANCE = this;
 
-        this._nitroTimer                = new NitroTimer();
-        this._worker                    = null;
-        this._core                      = core;
-        this._events                    = new EventDispatcher();
-        this._localization              = new NitroLocalizationManager();
-        this._communication             = new NitroCommunicationManager(core.communication);
-        this._avatar                    = new AvatarRenderManager();
-        this._roomEngine                = new RoomEngine(this._communication);
-        this._sessionDataManager        = new SessionDataManager(this._communication);
-        this._roomSessionManager        = new RoomSessionManager(this._communication, this._roomEngine);
-        this._roomManager               = new RoomManager(this._roomEngine, this._roomEngine.visualizationFactory, this._roomEngine.logicFactory);
-        this._cameraManager             = new RoomCameraWidgetManager();
-        this._soundManager              = new SoundManager();
-        this._linkTrackers              = [];
-        this._workerTrackers            = [];
+        this._nitroTimer = new NitroTimer();
+        this._worker = null;
+        this._core = core;
+        this._events = new EventDispatcher();
+        this._localization = new NitroLocalizationManager();
+        this._communication = new NitroCommunicationManager(core.communication);
+        this._avatar = new AvatarRenderManager();
+        this._roomEngine = new RoomEngine(this._communication);
+        this._sessionDataManager = new SessionDataManager(this._communication);
+        this._roomSessionManager = new RoomSessionManager(this._communication, this._roomEngine);
+        this._roomManager = new RoomManager(this._roomEngine, this._roomEngine.visualizationFactory, this._roomEngine.logicFactory);
+        this._cameraManager = new RoomCameraWidgetManager();
+        this._soundManager = new SoundManager();
+        this._linkTrackers = [];
+        this._workerTrackers = [];
 
-        this._isReady       = false;
-        this._isDisposed    = false;
+        this._isReady = false;
+        this._isDisposed = false;
 
         this._core.configuration.events.addEventListener(ConfigurationEvent.LOADED, this.onConfigurationLoadedEvent.bind(this));
         this._roomEngine.events.addEventListener(RoomEngineEvent.ENGINE_INITIALIZED, this.onRoomEngineReady.bind(this));
@@ -112,8 +112,8 @@ export class Nitro extends Application implements INitro
 
         const canvas = document.createElement('canvas');
 
-        canvas.id           = 'client-wrapper';
-        canvas.className    = 'client-canvas';
+        canvas.id = 'client-wrapper';
+        canvas.className = 'client-canvas';
 
         const instance = new this(new NitroCore(), {
             autoDensity: true,
@@ -124,11 +124,6 @@ export class Nitro extends Application implements INitro
         });
 
         canvas.addEventListener('webglcontextlost', () => instance.events.dispatchEvent(new NitroEvent(Nitro.WEBGL_CONTEXT_LOST)));
-
-        //@ts-ignore
-        const sso = (NitroConfig.sso as string);
-
-        instance.communication.demo.setSSO(sso);
     }
 
     public init(): void
@@ -143,7 +138,7 @@ export class Nitro extends Application implements INitro
         {
             this._roomEngine.sessionDataManager = this._sessionDataManager;
             this._roomEngine.roomSessionManager = this._roomSessionManager;
-            this._roomEngine.roomManager        = this._roomManager;
+            this._roomEngine.roomManager = this._roomManager;
 
             if(this._sessionDataManager) this._sessionDataManager.init();
             if(this._roomSessionManager) this._roomSessionManager.init();
@@ -216,14 +211,14 @@ export class Nitro extends Application implements INitro
 
         super.destroy();
 
-        this._isDisposed    = true;
-        this._isReady       = false;
+        this._isDisposed = true;
+        this._isReady = false;
     }
 
     private onConfigurationLoadedEvent(event: ConfigurationEvent): void
     {
-        const animationFPS  = this.getConfiguration<number>('system.animation.fps', 24);
-        const limitsFPS     = this.getConfiguration<boolean>('system.limits.fps', true);
+        const animationFPS = this.getConfiguration<number>('system.animation.fps', 24);
+        const limitsFPS = this.getConfiguration<boolean>('system.limits.fps', true);
 
         if(limitsFPS) Nitro.instance.ticker.maxFPS = animationFPS;
     }

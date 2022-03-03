@@ -51,36 +51,36 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
     {
         super();
 
-        this._data                  = null;
+        this._data = null;
 
-        this._type                  = null;
-        this._direction             = 0;
-        this._lastCameraAngle       = NaN;
-        this._selectedColor         = 0;
-        this._furnitureLift         = 0;
-        this._alphaMultiplier       = 1;
-        this._alphaChanged          = false;
-        this._clickUrl              = null;
-        this._clickHandling         = false;
+        this._type = null;
+        this._direction = 0;
+        this._lastCameraAngle = NaN;
+        this._selectedColor = 0;
+        this._furnitureLift = 0;
+        this._alphaMultiplier = 1;
+        this._alphaChanged = false;
+        this._clickUrl = null;
+        this._clickHandling = false;
 
-        this._cacheDirection        = -1;
-        this._cacheScale            = 0;
-        this._cacheSize             = -1;
+        this._cacheDirection = -1;
+        this._cacheScale = 0;
+        this._cacheSize = -1;
 
-        this._layerCount            = 0;
-        this._shadowLayerIndex      = -1;
-        this._updatedLayers         = [];
-        this._assetNames            = [];
-        this._spriteTags            = [];
-        this._spriteInks            = [];
-        this._spriteAlphas          = [];
-        this._spriteColors          = [];
-        this._spriteMouseCaptures   = [];
-        this._spriteXOffsets        = [];
-        this._spriteYOffsets        = [];
-        this._spriteZOffsets        = [];
+        this._layerCount = 0;
+        this._shadowLayerIndex = -1;
+        this._updatedLayers = [];
+        this._assetNames = [];
+        this._spriteTags = [];
+        this._spriteInks = [];
+        this._spriteAlphas = [];
+        this._spriteColors = [];
+        this._spriteMouseCaptures = [];
+        this._spriteXOffsets = [];
+        this._spriteYOffsets = [];
+        this._spriteZOffsets = [];
 
-        this._animationNumber       = 0;
+        this._animationNumber = 0;
     }
 
     public initialize(data: IObjectVisualizationData): boolean
@@ -89,8 +89,8 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
 
         if(!(data instanceof FurnitureVisualizationData)) return false;
 
-        this._type  = data.type;
-        this._data  = data;
+        this._type = data.type;
+        this._data = data;
 
         return true;
     }
@@ -99,17 +99,17 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
     {
         super.dispose();
 
-        this._data                  = null;
-        this._updatedLayers         = null;
-        this._assetNames            = null;
-        this._spriteTags            = null;
-        this._spriteInks            = null;
-        this._spriteAlphas          = null;
-        this._spriteColors          = null;
-        this._spriteMouseCaptures   = null;
-        this._spriteXOffsets        = null;
-        this._spriteYOffsets        = null;
-        this._spriteZOffsets        = null;
+        this._data = null;
+        this._updatedLayers = null;
+        this._assetNames = null;
+        this._spriteTags = null;
+        this._spriteInks = null;
+        this._spriteAlphas = null;
+        this._spriteColors = null;
+        this._spriteMouseCaptures = null;
+        this._spriteXOffsets = null;
+        this._spriteYOffsets = null;
+        this._spriteZOffsets = null;
     }
 
     protected reset(): void
@@ -118,17 +118,17 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
 
         this.setDirection(-1);
 
-        this._data                  = null;
-        this._updatedLayers         = [];
-        this._assetNames            = [];
-        this._spriteTags            = [];
-        this._spriteInks            = [];
-        this._spriteAlphas          = [];
-        this._spriteColors          = [];
-        this._spriteMouseCaptures   = [];
-        this._spriteXOffsets        = [];
-        this._spriteYOffsets        = [];
-        this._spriteZOffsets        = [];
+        this._data = null;
+        this._updatedLayers = [];
+        this._assetNames = [];
+        this._spriteTags = [];
+        this._spriteInks = [];
+        this._spriteAlphas = [];
+        this._spriteColors = [];
+        this._spriteMouseCaptures = [];
+        this._spriteXOffsets = [];
+        this._spriteYOffsets = [];
+        this._spriteZOffsets = [];
 
         this.createSprites(0);
     }
@@ -137,20 +137,20 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
     {
         if((this._cacheDirection === direction) && (this._cacheScale === scale)) return;
 
-        this._updatedLayers         = [];
-        this._assetNames            = [];
-        this._spriteTags            = [];
-        this._spriteInks            = [];
-        this._spriteAlphas          = [];
-        this._spriteColors          = [];
-        this._spriteMouseCaptures   = [];
-        this._spriteXOffsets        = [];
-        this._spriteYOffsets        = [];
-        this._spriteZOffsets        = [];
+        this._updatedLayers = [];
+        this._assetNames = [];
+        this._spriteTags = [];
+        this._spriteInks = [];
+        this._spriteAlphas = [];
+        this._spriteColors = [];
+        this._spriteMouseCaptures = [];
+        this._spriteXOffsets = [];
+        this._spriteYOffsets = [];
+        this._spriteZOffsets = [];
 
-        this._cacheDirection        = direction;
-        this._cacheScale            = scale;
-        this._cacheSize             = this.getValidSize(scale);
+        this._cacheDirection = direction;
+        this._cacheScale = scale;
+        this._cacheSize = this.getValidSize(scale);
 
         this.setLayerCount(((this._data && this._data.getLayerCount(scale)) || 0) + this.getAdditionalLayerCount());
     }
@@ -159,8 +159,8 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
     {
         if(!geometry) return;
 
-        const scale           = geometry.scale;
-        let updateSprites   = false;
+        const scale = geometry.scale;
+        let updateSprites = false;
 
         if(this.updateObject(scale, geometry.direction.x)) updateSprites = true;
 
@@ -206,8 +206,8 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
             this.setDirection(validDirection);
         }
 
-        this._lastCameraAngle   = direction;
-        this._scale             = scale;
+        this._lastCameraAngle = direction;
+        this._scale = scale;
 
         this.updateObjectCounter = this.object.updateCounter;
 
@@ -225,7 +225,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         if(this.updateModelCounter === model.updateCounter) return false;
 
         this._selectedColor = model.getValue<number>(RoomObjectVariable.FURNITURE_COLOR);
-        this._clickUrl      = model.getValue<string>(RoomObjectVariable.FURNITURE_AD_URL);
+        this._clickUrl = model.getValue<string>(RoomObjectVariable.FURNITURE_AD_URL);
         this._clickHandling = ((this._clickUrl && (this._clickUrl !== '') && (this._clickUrl.indexOf('http') === 0)) || false);
         this._furnitureLift = (model.getValue<number>(RoomObjectVariable.FURNITURE_LIFT_AMOUNT) || 0);
 
@@ -279,7 +279,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
     protected updateSprite(scale: number, layerId: number): void
     {
         const assetName = this.getSpriteAssetName(scale, layerId);
-        const sprite    = this.getSprite(layerId);
+        const sprite = this.getSprite(layerId);
 
         if(assetName && sprite)
         {
@@ -287,43 +287,43 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
 
             if(assetData && assetData.texture)
             {
-                sprite.visible      = true;
-                sprite.type         = this._type;
-                sprite.texture      = assetData.texture;
-                sprite.flipH        = assetData.flipH;
-                sprite.flipV        = assetData.flipV;
-                sprite.direction    = this._direction;
+                sprite.visible = true;
+                sprite.type = this._type;
+                sprite.texture = assetData.texture;
+                sprite.flipH = assetData.flipH;
+                sprite.flipV = assetData.flipV;
+                sprite.direction = this._direction;
 
                 let relativeDepth = 0;
 
                 if(layerId !== this._shadowLayerIndex)
                 {
-                    sprite.tag              = this.getLayerTag(scale, this._direction, layerId);
-                    sprite.alpha            = this.getLayerAlpha(scale, this._direction, layerId);
-                    sprite.color            = this.getLayerColor(scale, layerId, this._selectedColor);
-                    sprite.offsetX          = (assetData.offsetX + this.getLayerXOffset(scale, this._direction, layerId));
-                    sprite.offsetY          = (assetData.offsetY + this.getLayerYOffset(scale, this._direction, layerId));
-                    sprite.blendMode        = this.getLayerInk(scale, this._direction, layerId);
-                    sprite.alphaTolerance   = (this.getLayerIgnoreMouse(scale, this._direction, layerId) ? AlphaTolerance.MATCH_NOTHING : AlphaTolerance.MATCH_OPAQUE_PIXELS);
+                    sprite.tag = this.getLayerTag(scale, this._direction, layerId);
+                    sprite.alpha = this.getLayerAlpha(scale, this._direction, layerId);
+                    sprite.color = this.getLayerColor(scale, layerId, this._selectedColor);
+                    sprite.offsetX = (assetData.offsetX + this.getLayerXOffset(scale, this._direction, layerId));
+                    sprite.offsetY = (assetData.offsetY + this.getLayerYOffset(scale, this._direction, layerId));
+                    sprite.blendMode = this.getLayerInk(scale, this._direction, layerId);
+                    sprite.alphaTolerance = (this.getLayerIgnoreMouse(scale, this._direction, layerId) ? AlphaTolerance.MATCH_NOTHING : AlphaTolerance.MATCH_OPAQUE_PIXELS);
 
                     relativeDepth = this.getLayerZOffset(scale, this._direction, layerId);
                     relativeDepth = (relativeDepth - (layerId * 0.001));
                 }
                 else
                 {
-                    sprite.offsetX          = assetData.offsetX;
-                    sprite.offsetY          = (assetData.offsetY + this.getLayerYOffset(scale, this._direction, layerId));
-                    sprite.alpha            = (48 * this._alphaMultiplier);
-                    sprite.alphaTolerance   = AlphaTolerance.MATCH_NOTHING;
+                    sprite.offsetX = assetData.offsetX;
+                    sprite.offsetY = (assetData.offsetY + this.getLayerYOffset(scale, this._direction, layerId));
+                    sprite.alpha = (48 * this._alphaMultiplier);
+                    sprite.alphaTolerance = AlphaTolerance.MATCH_NOTHING;
 
                     relativeDepth = 1;
                 }
 
-                sprite.relativeDepth    = (relativeDepth * FurnitureVisualization.DEPTH_MULTIPLIER);
-                sprite.name             = assetName;
+                sprite.relativeDepth = (relativeDepth * FurnitureVisualization.DEPTH_MULTIPLIER);
+                sprite.name = assetName;
                 sprite.libraryAssetName = this.getLibraryAssetNameForSprite(assetData, sprite);
-                sprite.posture          = this.getPostureForAsset(scale, assetData.source);
-                sprite.clickHandling    = this._clickHandling;
+                sprite.posture = this.getPostureForAsset(scale, assetData.source);
+                sprite.clickHandling = this._clickHandling;
             }
             else
             {
@@ -350,29 +350,29 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
     {
         if(!sprite) return;
 
-        sprite.texture          = null;
+        sprite.texture = null;
         sprite.libraryAssetName = '';
-        sprite.posture          = '';
-        sprite.tag              = '';
-        sprite.offsetX          = 0;
-        sprite.offsetY          = 0;
-        sprite.flipH            = false;
-        sprite.flipV            = false;
-        sprite.relativeDepth    = 0;
-        sprite.clickHandling    = false;
+        sprite.posture = '';
+        sprite.tag = '';
+        sprite.offsetX = 0;
+        sprite.offsetY = 0;
+        sprite.flipH = false;
+        sprite.flipV = false;
+        sprite.relativeDepth = 0;
+        sprite.clickHandling = false;
     }
 
     protected getSpriteAssetName(scale: number, layerId: number): string
     {
         if(!this._data || (layerId >= FurnitureVisualizationData.LAYER_LETTERS.length)) return '';
 
-        let assetName   = this._assetNames[layerId];
-        let updated     = this._updatedLayers[layerId];
+        let assetName = this._assetNames[layerId];
+        let updated = this._updatedLayers[layerId];
 
         if(!assetName || !assetName.length)
         {
-            assetName   = this.cacheSpriteAssetName(scale, layerId, true);
-            updated     = (this._cacheSize !== 1);
+            assetName = this.cacheSpriteAssetName(scale, layerId, true);
+            updated = (this._cacheSize !== 1);
         }
 
         if(updated) assetName += this.getFrameNumber(scale, layerId);
@@ -382,10 +382,10 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
 
     protected cacheSpriteAssetName(scale: number, layerId: number, cache: boolean): string
     {
-        const type        = this._type;
-        const size        = (cache) ? this._cacheSize : this.getValidSize(scale);
-        let layerCode   = '';
-        const isntIcon    = (size !== 1);
+        const type = this._type;
+        const size = (cache) ? this._cacheSize : this.getValidSize(scale);
+        let layerCode = '';
+        const isntIcon = (size !== 1);
 
         if(layerId !== this._shadowLayerIndex)
         {
@@ -402,8 +402,8 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
 
         if(cache)
         {
-            this._assetNames[layerId]       = assetName;
-            this._updatedLayers[layerId]    = isntIcon;
+            this._assetNames[layerId] = assetName;
+            this._updatedLayers[layerId] = isntIcon;
         }
 
         return assetName;
@@ -506,7 +506,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
 
     protected getLayerYOffset(scale: number, direction: number, layerId: number): number
     {
-        if(layerId === this._shadowLayerIndex) return Math.ceil((this._furnitureLift * (64 / 2)));
+        if(layerId === this._shadowLayerIndex) return Math.ceil((this._furnitureLift * (scale / 2)));
 
         const existing = this._spriteYOffsets[layerId];
 
@@ -545,8 +545,8 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
 
     protected setLayerCount(count: number): void
     {
-        this._layerCount        = count;
-        this._shadowLayerIndex   = count - this.getAdditionalLayerCount();
+        this._layerCount = count;
+        this._shadowLayerIndex = count - this.getAdditionalLayerCount();
     }
 
     protected setDirection(direction: number): void

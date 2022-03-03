@@ -11,10 +11,10 @@ import { IAvatarEffectListener } from './IAvatarEffectListener';
 
 export class EffectAssetDownloadManager extends EventDispatcher
 {
-    public static DOWNLOADER_READY: string  = 'EADM_DOWNLOADER_READY';
-    public static LIBRARY_LOADED: string    = 'EADM_LIBRARY_LOADED';
+    public static DOWNLOADER_READY: string = 'EADM_DOWNLOADER_READY';
+    public static LIBRARY_LOADED: string = 'EADM_LIBRARY_LOADED';
 
-    private static MAX_DOWNLOADS: number    = 2;
+    private static MAX_DOWNLOADS: number = 2;
 
     private _assets: IAssetManager;
     private _structure: AvatarStructure;
@@ -33,21 +33,21 @@ export class EffectAssetDownloadManager extends EventDispatcher
     {
         super();
 
-        this._assets                = assets;
-        this._structure             = structure;
+        this._assets = assets;
+        this._structure = structure;
 
-        this._missingMandatoryLibs  = Nitro.instance.getConfiguration<string[]>('avatar.mandatory.effect.libraries');
-        this._effectMap             = new Map();
-        this._effectListeners       = new Map();
-        this._incompleteEffects     = new Map();
-        this._initDownloadBuffer    = [];
-        this._pendingDownloadQueue  = [];
-        this._currentDownloads      = [];
-        this._libraryNames          = [];
-        this._isReady               = false;
+        this._missingMandatoryLibs = Nitro.instance.getConfiguration<string[]>('avatar.mandatory.effect.libraries');
+        this._effectMap = new Map();
+        this._effectListeners = new Map();
+        this._incompleteEffects = new Map();
+        this._initDownloadBuffer = [];
+        this._pendingDownloadQueue = [];
+        this._currentDownloads = [];
+        this._libraryNames = [];
+        this._isReady = false;
 
-        this.onLibraryLoaded        = this.onLibraryLoaded.bind(this);
-        this.onAvatarRenderReady    = this.onAvatarRenderReady.bind(this);
+        this.onLibraryLoaded = this.onLibraryLoaded.bind(this);
+        this.onAvatarRenderReady = this.onAvatarRenderReady.bind(this);
 
         this.loadEffectMap();
 
@@ -100,9 +100,9 @@ export class EffectAssetDownloadManager extends EventDispatcher
         {
             if(!effect) continue;
 
-            const id        = (effect.id as string);
-            const lib       = (effect.lib as string);
-            const revision  = (effect.revision || '');
+            const id = (effect.id as string);
+            const lib = (effect.lib as string);
+            const revision = (effect.revision || '');
 
             if(this._libraryNames.indexOf(lib) >= 0) continue;
 

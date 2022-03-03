@@ -10,7 +10,7 @@ export class PollContentsParser implements IMessageParser
     private _endMessage = '';
     private _numQuestions = 0;
     private _questionArray:PollQuestion[] = [];
-    private _npsPoll = false
+    private _npsPoll = false;
 
     flush(): boolean
     {

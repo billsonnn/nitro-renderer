@@ -2,20 +2,20 @@ import { IMessageComposer } from '../../../../../core/communication/messages/IMe
 
 export class GetCommunityGoalHallOfFameMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetCommunityGoalHallOfFameMessageComposer>>
 {
-  private _data: ConstructorParameters<typeof GetCommunityGoalHallOfFameMessageComposer>;
+    private _data: ConstructorParameters<typeof GetCommunityGoalHallOfFameMessageComposer>;
 
-  constructor(k: string)
-  {
-      this._data = [k];
-  }
+    constructor(k: string)
+    {
+        this._data = [k];
+    }
 
-  public getMessageArray()
-  {
-      return this._data;
-  }
+    public getMessageArray()
+    {
+        return this._data;
+    }
 
-  public dispose(): void
-  {
-      return;
-  }
+    public dispose(): void
+    {
+        return;
+    }
 }

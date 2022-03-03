@@ -9,9 +9,9 @@ export class Node3D
 
     constructor(k: number, _arg_2: number, _arg_3: number)
     {
-        this._location              = new Vector3D(k, _arg_2, _arg_3);
-        this._transformedLocation   = new Vector3D();
-        this._needsTransformation   = false;
+        this._location = new Vector3D(k, _arg_2, _arg_3);
+        this._transformedLocation = new Vector3D();
+        this._needsTransformation = false;
 
         if(((!(k == 0)) || (!(_arg_2 == 0))) || (!(_arg_3 == 0))) this._needsTransformation = true;
     }

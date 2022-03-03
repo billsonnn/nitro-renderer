@@ -9,10 +9,10 @@ export class FurnitureFloorRemoveParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._itemId    = 0;
+        this._itemId = 0;
         this._isExpired = true;
-        this._userId    = 0;
-        this._delay     = 0;
+        this._userId = 0;
+        this._delay = 0;
 
         return true;
     }
@@ -21,10 +21,10 @@ export class FurnitureFloorRemoveParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._itemId    = parseInt(wrapper.readString());
+        this._itemId = parseInt(wrapper.readString());
         this._isExpired = wrapper.readBoolean();
-        this._userId    = wrapper.readInt();
-        this._delay     = wrapper.readInt();
+        this._userId = wrapper.readInt();
+        this._delay = wrapper.readInt();
 
         return true;
     }

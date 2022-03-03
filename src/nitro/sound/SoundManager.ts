@@ -89,9 +89,9 @@ export class SoundManager extends NitroManager implements ISoundManager
 
                 const volumeFurniUpdated = castedEvent.volumeFurni !== this._volumeFurni;
 
-                this._volumeSystem  = (castedEvent.volumeSystem / 100);
-                this._volumeFurni   = (castedEvent.volumeFurni / 100);
-                this._volumeTrax    = (castedEvent.volumeTrax / 100);
+                this._volumeSystem = (castedEvent.volumeSystem / 100);
+                this._volumeFurni = (castedEvent.volumeFurni / 100);
+                this._volumeTrax = (castedEvent.volumeTrax / 100);
 
                 if(volumeFurniUpdated) this.updateFurniSamplesVolume(this._volumeFurni);
                 return;

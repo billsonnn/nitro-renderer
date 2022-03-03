@@ -16,7 +16,7 @@ export class FurnitureEditableInternalLinkLogic extends FurnitureLogic
         super();
 
         this._showStateOnceRendered = false;
-        this._updateCount           = 0;
+        this._updateCount = 0;
     }
 
     public getEventTypes(): string[]

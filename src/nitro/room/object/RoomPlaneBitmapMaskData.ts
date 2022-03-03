@@ -3,8 +3,8 @@ import { Vector3d } from '../../../room/utils/Vector3d';
 
 export class RoomPlaneBitmapMaskData
 {
-    public static WINDOW: string    = 'window';
-    public static HOLE: string       = 'hole';
+    public static WINDOW: string = 'window';
+    public static HOLE: string = 'hole';
 
     private _loc: Vector3d;
     private _type: string;
@@ -12,9 +12,9 @@ export class RoomPlaneBitmapMaskData
 
     constructor(type: string, loc: IVector3D, category: string)
     {
-        this.type       = type;
-        this.loc        = loc;
-        this.category   = category;
+        this.type = type;
+        this.loc = loc;
+        this.category = category;
     }
 
     public get loc(): IVector3D

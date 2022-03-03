@@ -4,24 +4,24 @@ import { IMessageParser } from './../../../../../core';
 
 export class CommunityGoalHallOfFameMessageParser implements IMessageParser
 {
-  private _data: CommunityGoalHallOfFameData;
+    private _data: CommunityGoalHallOfFameData;
 
-  public flush(): boolean
-  {
-      this._data = null;
-      return true;
-  }
+    public flush(): boolean
+    {
+        this._data = null;
+        return true;
+    }
 
-  public parse(wrapper: IMessageDataWrapper): boolean
-  {
-      if(!wrapper) return false;
+    public parse(wrapper: IMessageDataWrapper): boolean
+    {
+        if(!wrapper) return false;
 
-      this._data = new CommunityGoalHallOfFameData(wrapper);
-      return true;
-  }
+        this._data = new CommunityGoalHallOfFameData(wrapper);
+        return true;
+    }
 
-  public get data(): CommunityGoalHallOfFameData
-  {
-      return this._data;
-  }
+    public get data(): CommunityGoalHallOfFameData
+    {
+        return this._data;
+    }
 }

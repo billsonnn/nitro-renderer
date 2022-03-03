@@ -17,18 +17,18 @@ export class CrackableDataType extends ObjectDataBase implements IObjectData
     {
         super();
 
-        this._state     = '';
-        this._hits      = 0;
-        this._target    = 0;
+        this._state = '';
+        this._hits = 0;
+        this._target = 0;
     }
 
     public parseWrapper(wrapper: IMessageDataWrapper): void
     {
         if(!wrapper) return;
 
-        this._state     = wrapper.readString();
-        this._hits      = wrapper.readInt();
-        this._target    = wrapper.readInt();
+        this._state = wrapper.readString();
+        this._hits = wrapper.readInt();
+        this._target = wrapper.readInt();
 
         super.parseWrapper(wrapper);
     }
@@ -37,9 +37,9 @@ export class CrackableDataType extends ObjectDataBase implements IObjectData
     {
         super.initializeFromRoomObjectModel(model);
 
-        this._state     = model.getValue<string>(RoomObjectVariable.FURNITURE_CRACKABLE_STATE);
-        this._hits      = model.getValue<number>(RoomObjectVariable.FURNITURE_CRACKABLE_HITS);
-        this._target    = model.getValue<number>(RoomObjectVariable.FURNITURE_CRACKABLE_TARGET);
+        this._state = model.getValue<string>(RoomObjectVariable.FURNITURE_CRACKABLE_STATE);
+        this._hits = model.getValue<number>(RoomObjectVariable.FURNITURE_CRACKABLE_HITS);
+        this._target = model.getValue<number>(RoomObjectVariable.FURNITURE_CRACKABLE_TARGET);
     }
 
     public writeRoomObjectModel(model: IRoomObjectModel): void

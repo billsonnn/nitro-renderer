@@ -7,7 +7,7 @@ export class RoomObjectUpdateMessage
 
     constructor(location: IVector3D, direction: IVector3D)
     {
-        this._location  = location;
+        this._location = location;
         this._direction = direction;
     }
 

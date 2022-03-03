@@ -1,5 +1,6 @@
 import { Resource, Texture } from '@pixi/core';
 import { IRoomObjectSprite } from '../../../../../../room/object/visualization/IRoomObjectSprite';
+import { AvatarAction } from '../../../../../avatar/enum/AvatarAction';
 import { AvatarVisualization } from '../AvatarVisualization';
 import { IAvatarAddition } from './IAvatarAddition';
 
@@ -12,33 +13,33 @@ export class TypingBubbleAddition implements IAvatarAddition
 
     constructor(id: number, visualization: AvatarVisualization)
     {
-        this._id            = id;
+        this._id = id;
         this._visualization = visualization;
-        this._asset         = null;
+        this._asset = null;
         this._relativeDepth = 0;
     }
 
     public dispose(): void
     {
         this._visualization = null;
-        this._asset         = null;
+        this._asset = null;
     }
 
     public update(sprite: IRoomObjectSprite, scale: number): void
     {
         if(!sprite) return;
 
-        sprite.visible          = true;
-        sprite.relativeDepth    = this._relativeDepth;
-        sprite.alpha            = 255;
+        sprite.visible = true;
+        sprite.relativeDepth = this._relativeDepth;
+        sprite.alpha = 255;
 
-        let additionScale   = 64;
-        let offsetX         = 0;
-        let offsetY         = 0;
+        let additionScale = 64;
+        let offsetX = 0;
+        let offsetY = 0;
 
         if(scale < 48)
         {
-            this._asset = this._visualization.getAvatarRenderAsset('user_typing_small');
+            this._asset = this._visualization.getAvatarRenderAsset('avatar_addition_user_typing_small');
 
             offsetX = 3;
             offsetY = -42;
@@ -47,28 +48,28 @@ export class TypingBubbleAddition implements IAvatarAddition
         }
         else
         {
-            this._asset = this._visualization.getAvatarRenderAsset('user_typing');
+            this._asset = this._visualization.getAvatarRenderAsset('avatar_addition_user_typing');
 
             offsetX = 14;
             offsetY = -83;
         }
 
-        if(this._visualization.posture === 'sit')
+        if(this._visualization.posture === AvatarAction.POSTURE_SIT)
         {
             offsetY += (additionScale / 2);
         }
 
-        else if(this._visualization.posture === 'lay')
+        else if(this._visualization.posture === AvatarAction.POSTURE_LAY)
         {
             offsetY += scale;
         }
 
         if(this._asset)
         {
-            sprite.texture          = this._asset;
-            sprite.offsetX          = offsetX;
-            sprite.offsetY          = offsetY;
-            sprite.relativeDepth    = (-0.02 + 0);
+            sprite.texture = this._asset;
+            sprite.offsetX = offsetX;
+            sprite.offsetY = offsetY;
+            sprite.relativeDepth = (-0.02 + 0);
         }
     }
 

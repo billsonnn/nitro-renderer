@@ -8,9 +8,9 @@ export class ObjectData
 
     constructor(id: number, state: number, objectData: IObjectData)
     {
-        this._id    = id;
+        this._id = id;
         this._state = state;
-        this._data  = objectData;
+        this._data = objectData;
     }
 
     public get id(): number

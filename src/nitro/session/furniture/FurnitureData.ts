@@ -34,35 +34,35 @@ export class FurnitureData implements IFurnitureData
 
     constructor(type: string, id: number, fullName: string, className: string, category: string, localizedName: string, description: string, revision: number, tileSizeX: number, tileSizeY: number, tileSizeZ: number, colors: number[], hadIndexedColor: boolean, colorIndex: number, adUrl: string, purchaseOfferId: number, purchaseCouldBeUsedForBuyout: boolean, rentOfferId: number, rentCouldBeUsedForBuyout: boolean, availableForBuildersClub: boolean, customParams: string, specialType: number, canStandOn: boolean, canSitOn: boolean, canLayOn: boolean, excludedfromDynamic: boolean, furniLine: string, environment: string, rare: boolean)
     {
-        this._type                         = type;
-        this._id                           = id;
-        this._fullName                     = fullName;
-        this._className                    = className;
-        this._category                     = category;
-        this._revision                     = revision;
-        this._tileSizeX                    = tileSizeX;
-        this._tileSizeY                    = tileSizeY;
-        this._tileSizeZ                    = tileSizeZ;
-        this._colors                       = colors;
-        this._hasIndexedColor              = hadIndexedColor;
-        this._colourIndex                  = colorIndex;
-        this._localizedName                = localizedName;
-        this._description                  = description;
-        this._adUrl                        = adUrl;
-        this._purchaseOfferId              = purchaseOfferId;
+        this._type = type;
+        this._id = id;
+        this._fullName = fullName;
+        this._className = className;
+        this._category = category;
+        this._revision = revision;
+        this._tileSizeX = tileSizeX;
+        this._tileSizeY = tileSizeY;
+        this._tileSizeZ = tileSizeZ;
+        this._colors = colors;
+        this._hasIndexedColor = hadIndexedColor;
+        this._colourIndex = colorIndex;
+        this._localizedName = localizedName;
+        this._description = description;
+        this._adUrl = adUrl;
+        this._purchaseOfferId = purchaseOfferId;
         this._purchaseCouldBeUsedForBuyout = purchaseCouldBeUsedForBuyout;
-        this._rentOfferId                  = rentOfferId;
-        this._rentCouldBeUsedForBuyout     = rentCouldBeUsedForBuyout;
-        this._customParams                 = customParams;
-        this._specialType                  = specialType;
-        this._availableForBuildersClub     = availableForBuildersClub;
-        this._canStandOn                   = canStandOn;
-        this._canSitOn                     = canSitOn;
-        this._canLayOn                     = canLayOn;
-        this._excludedFromDynamic          = excludedfromDynamic;
-        this._furniLine                    = furniLine;
-        this._environment                  = environment;
-        this._rare                         = rare;
+        this._rentOfferId = rentOfferId;
+        this._rentCouldBeUsedForBuyout = rentCouldBeUsedForBuyout;
+        this._customParams = customParams;
+        this._specialType = specialType;
+        this._availableForBuildersClub = availableForBuildersClub;
+        this._canStandOn = canStandOn;
+        this._canSitOn = canSitOn;
+        this._canLayOn = canLayOn;
+        this._excludedFromDynamic = excludedfromDynamic;
+        this._furniLine = furniLine;
+        this._environment = environment;
+        this._rare = rare;
     }
 
     public get type(): string

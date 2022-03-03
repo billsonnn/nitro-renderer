@@ -10,8 +10,8 @@ export class RoomObjectManager implements IRoomObjectManager
 
     constructor()
     {
-        this._objects           = new AdvancedMap();
-        this._objectsPerType    = new AdvancedMap();
+        this._objects = new AdvancedMap();
+        this._objectsPerType = new AdvancedMap();
     }
 
     public dispose(): void

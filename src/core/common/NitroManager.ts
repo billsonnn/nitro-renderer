@@ -18,24 +18,24 @@ export class NitroManager extends Disposable implements INitroManager
     {
         super();
 
-        this._logger        = logger instanceof NitroLogger ? logger : new NitroLogger(this.constructor.name);
+        this._logger = logger instanceof NitroLogger ? logger : new NitroLogger(this.constructor.name);
 
-        this._events        = new EventDispatcher();
+        this._events = new EventDispatcher();
 
-        this._isLoaded      = false;
-        this._isLoading     = false;
+        this._isLoaded = false;
+        this._isLoading = false;
     }
 
     public init(): void
     {
         if(this._isLoaded || this._isLoading || this.isDisposing) return;
 
-        this._isLoading     = true;
+        this._isLoading = true;
 
         this.onInit();
 
-        this._isLoaded      = true;
-        this._isLoading     = false;
+        this._isLoaded = true;
+        this._isLoading = false;
     }
 
     protected onInit(): void

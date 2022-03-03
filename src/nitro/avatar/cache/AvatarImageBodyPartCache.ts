@@ -34,8 +34,8 @@ export class AvatarImageBodyPartCache
 
             this._cache.clear();
 
-            this._cache   = null;
-            this._disposed  = true;
+            this._cache = null;
+            this._disposed = true;
         }
     }
 

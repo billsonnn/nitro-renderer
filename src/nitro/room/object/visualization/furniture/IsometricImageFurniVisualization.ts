@@ -74,7 +74,7 @@ export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualiza
             if(this.getLayerTag(scale, this.direction, layerId) === IsometricImageFurniVisualization.THUMBNAIL)
             {
                 const assetName = (this.cacheSpriteAssetName(scale, layerId, false) + this.getFrameNumber(scale, layerId));
-                const asset     = this.getAsset(assetName, layerId);
+                const asset = this.getAsset(assetName, layerId);
 
                 if(asset)
                 {
@@ -94,9 +94,9 @@ export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualiza
 
     private generateTransformedThumbnail(texture: Texture<Resource>, asset: IGraphicAsset): Texture<Resource>
     {
-        const scale  = 1.1;
-        const matrix    = new Matrix();
-        const _local_5  = (asset.width / texture.width);
+        const scale = 1.1;
+        const matrix = new Matrix();
+        const _local_5 = (asset.width / texture.width);
 
         switch(this.direction)
         {

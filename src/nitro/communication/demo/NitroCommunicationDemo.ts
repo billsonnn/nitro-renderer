@@ -16,7 +16,6 @@ export class NitroCommunicationDemo extends NitroManager
 {
     private _communication: INitroCommunicationManager;
 
-    private _sso: string;
     private _handShaking: boolean;
     private _didConnect: boolean;
 
@@ -28,16 +27,15 @@ export class NitroCommunicationDemo extends NitroManager
 
         this._communication = communication;
 
-        this._sso           = null;
-        this._handShaking   = false;
-        this._didConnect    = false;
+        this._handShaking = false;
+        this._didConnect = false;
 
-        this._pongInterval  = null;
+        this._pongInterval = null;
 
-        this.onConnectionOpenedEvent    = this.onConnectionOpenedEvent.bind(this);
-        this.onConnectionClosedEvent    = this.onConnectionClosedEvent.bind(this);
-        this.onConnectionErrorEvent     = this.onConnectionErrorEvent.bind(this);
-        this.sendPong                   = this.sendPong.bind(this);
+        this.onConnectionOpenedEvent = this.onConnectionOpenedEvent.bind(this);
+        this.onConnectionClosedEvent = this.onConnectionClosedEvent.bind(this);
+        this.onConnectionErrorEvent = this.onConnectionErrorEvent.bind(this);
+        this.sendPong = this.sendPong.bind(this);
     }
 
     protected onInit(): void
@@ -66,8 +64,7 @@ export class NitroCommunicationDemo extends NitroManager
             connection.removeEventListener(SocketConnectionEvent.CONNECTION_ERROR, this.onConnectionErrorEvent);
         }
 
-        this._sso           = null;
-        this._handShaking   = false;
+        this._handShaking = false;
 
         this.stopPonging();
 
@@ -117,9 +114,9 @@ export class NitroCommunicationDemo extends NitroManager
 
     private tryAuthentication(connection: IConnection): void
     {
-        if(!connection || !this._sso)
+        if(!connection || !this.getSSO())
         {
-            if(!this._sso)
+            if(!this.getSSO())
             {
                 NitroLogger.log('Login without an SSO ticket is not supported');
             }
@@ -129,7 +126,7 @@ export class NitroCommunicationDemo extends NitroManager
             return;
         }
 
-        connection.send(new SSOTicketMessageComposer(this._sso, Nitro.instance.time));
+        connection.send(new SSOTicketMessageComposer(this.getSSO(), Nitro.instance.time));
     }
 
     private onClientPingEvent(event: ClientPingEvent): void
@@ -147,16 +144,7 @@ export class NitroCommunicationDemo extends NitroManager
 
         this.dispatchCommunicationDemoEvent(NitroCommunicationDemoEvent.CONNECTION_AUTHENTICATED, event.connection);
 
-        //event.connection.send(new UserHomeRoomComposer(555));
-
         event.connection.send(new InfoRetrieveMessageComposer());
-    }
-
-    public setSSO(sso: string): void
-    {
-        if(!sso || (sso === '') || this._sso) return;
-
-        this._sso = sso;
     }
 
     private startHandshake(connection: IConnection): void
@@ -201,5 +189,10 @@ export class NitroCommunicationDemo extends NitroManager
     private dispatchCommunicationDemoEvent(type: string, connection: IConnection): void
     {
         Nitro.instance.events.dispatchEvent(new NitroCommunicationDemoEvent(type, connection));
+    }
+
+    private getSSO(): string
+    {
+        return Nitro.instance.getConfiguration('sso.ticket', null);
     }
 }
