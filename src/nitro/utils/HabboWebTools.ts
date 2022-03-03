@@ -4,8 +4,8 @@ import { LegacyExternalInterface } from '../externalInterface/LegacyExternalInte
 export class HabboWebTools
 {
     public static ADVERTISEMENT: string = 'advertisement';
-    public static OPENLINK: string      = 'openlink';
-    public static OPENROOM: string      = 'openroom';
+    public static OPENLINK: string = 'openlink';
+    public static OPENROOM: string = 'openroom';
 
     public static logEventLog(data: string): void
     {

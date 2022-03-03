@@ -7,8 +7,8 @@ export class RoomEntryInfoMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._roomId    = 0;
-        this._isOwner   = false;
+        this._roomId = 0;
+        this._isOwner = false;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class RoomEntryInfoMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._roomId    = wrapper.readInt();
-        this._isOwner   = wrapper.readBoolean();
+        this._roomId = wrapper.readInt();
+        this._isOwner = wrapper.readBoolean();
 
         return true;
     }

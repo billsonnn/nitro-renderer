@@ -28,18 +28,18 @@ export class AchievementData
         if(!wrapper) throw new Error('invalid_parser');
 
         this._achievementId = wrapper.readInt();
-        this._level         = wrapper.readInt();
-        this._badgeId       = wrapper.readString();
-        this._scoreAtStartOfLevel      = wrapper.readInt();
-        this._scoreLimit     = Math.max(1, wrapper.readInt());
-        this._levelRewardPoints     = wrapper.readInt();
-        this._levelRewardPointType     = wrapper.readInt();
-        this._currentPoints     = wrapper.readInt();
-        this._finalLevel     = wrapper.readBoolean();
-        this._category      = wrapper.readString();
-        this._subCategory     = wrapper.readString();
-        this._levelCount     = wrapper.readInt();
-        this._displayMethod     = wrapper.readInt();
+        this._level = wrapper.readInt();
+        this._badgeId = wrapper.readString();
+        this._scoreAtStartOfLevel = wrapper.readInt();
+        this._scoreLimit = Math.max(1, wrapper.readInt());
+        this._levelRewardPoints = wrapper.readInt();
+        this._levelRewardPointType = wrapper.readInt();
+        this._currentPoints = wrapper.readInt();
+        this._finalLevel = wrapper.readBoolean();
+        this._category = wrapper.readString();
+        this._subCategory = wrapper.readString();
+        this._levelCount = wrapper.readInt();
+        this._displayMethod = wrapper.readInt();
     }
 
     public get achievementId(): number
@@ -140,17 +140,17 @@ export class AchievementData
     public reset(badge: AchievementData)
     {
         this._achievementId = badge._achievementId;
-        this._level         = badge._level;
-        this._badgeId       = badge._badgeId;
-        this._scoreAtStartOfLevel      = badge._scoreAtStartOfLevel;
-        this._scoreLimit     = badge._scoreLimit;
-        this._levelRewardPoints     = badge._levelRewardPoints;
-        this._levelRewardPointType     = badge._levelRewardPointType;
-        this._currentPoints     = badge._currentPoints;
-        this._finalLevel     = badge._finalLevel;
-        this._category      = badge.category;
-        this._subCategory     = badge._subCategory;
-        this._levelCount     = badge._levelCount;
-        this._displayMethod     = badge._displayMethod;
+        this._level = badge._level;
+        this._badgeId = badge._badgeId;
+        this._scoreAtStartOfLevel = badge._scoreAtStartOfLevel;
+        this._scoreLimit = badge._scoreLimit;
+        this._levelRewardPoints = badge._levelRewardPoints;
+        this._levelRewardPointType = badge._levelRewardPointType;
+        this._currentPoints = badge._currentPoints;
+        this._finalLevel = badge._finalLevel;
+        this._category = badge.category;
+        this._subCategory = badge._subCategory;
+        this._levelCount = badge._levelCount;
+        this._displayMethod = badge._displayMethod;
     }
 }

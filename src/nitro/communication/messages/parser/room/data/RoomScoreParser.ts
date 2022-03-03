@@ -7,8 +7,8 @@ export class RoomScoreParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._totalLikes    = 0;
-        this._canLike       = false;
+        this._totalLikes = 0;
+        this._canLike = false;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class RoomScoreParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._totalLikes    = wrapper.readInt();
-        this._canLike       = wrapper.readBoolean();
+        this._totalLikes = wrapper.readInt();
+        this._canLike = wrapper.readBoolean();
 
         return true;
     }

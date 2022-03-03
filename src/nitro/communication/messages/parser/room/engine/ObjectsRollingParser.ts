@@ -10,10 +10,10 @@ export class ObjectsRollingParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._rollerId      = 0;
+        this._rollerId = 0;
 
-        this._itemsRolling  = [];
-        this._unitRolling   = null;
+        this._itemsRolling = [];
+        this._unitRolling = null;
 
         return true;
     }
@@ -22,8 +22,8 @@ export class ObjectsRollingParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        const x     = wrapper.readInt();
-        const y     = wrapper.readInt();
+        const x = wrapper.readInt();
+        const y = wrapper.readInt();
         const nextX = wrapper.readInt();
         const nextY = wrapper.readInt();
 
@@ -31,10 +31,10 @@ export class ObjectsRollingParser implements IMessageParser
 
         while(totalItems > 0)
         {
-            const id            = wrapper.readInt();
-            const height        = parseFloat(wrapper.readString());
-            const nextHeight    = parseFloat(wrapper.readString());
-            const rollingData   = new ObjectRolling(id, new Vector3d(x, y, height), new Vector3d(nextX, nextY, nextHeight));
+            const id = wrapper.readInt();
+            const height = parseFloat(wrapper.readString());
+            const nextHeight = parseFloat(wrapper.readString());
+            const rollingData = new ObjectRolling(id, new Vector3d(x, y, height), new Vector3d(nextX, nextY, nextHeight));
 
             this._itemsRolling.push(rollingData);
 
@@ -45,10 +45,10 @@ export class ObjectsRollingParser implements IMessageParser
 
         if(!wrapper.bytesAvailable) return true;
 
-        const movementType  = wrapper.readInt();
-        const unitId        = wrapper.readInt();
-        const height        = parseFloat(wrapper.readString());
-        const nextHeight    = parseFloat(wrapper.readString());
+        const movementType = wrapper.readInt();
+        const unitId = wrapper.readInt();
+        const height = parseFloat(wrapper.readString());
+        const nextHeight = parseFloat(wrapper.readString());
 
         switch(movementType)
         {

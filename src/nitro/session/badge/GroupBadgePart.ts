@@ -5,7 +5,6 @@ export class GroupBadgePart
     public static BASE: string = 'b';
     public static SYMBOL: string = 's';
     public static SYMBOL_ALT: string = 't';
-
     public static BASE_PART: number = 0;
     public static LAYER_PART: number = 1;
     public static IMAGE_WIDTH: number = 39;
@@ -17,15 +16,13 @@ export class GroupBadgePart
     public key: number;
     public color: number;
     public position: number;
-    public urls: string[];
 
-    constructor(type: string, key?: number, color?: number, position?: number)
+    constructor(type: string, key: number = 0, color: number = 0, position: number = 0)
     {
         this.type = type;
-        this.key = key ? key : 0;
-        this.color = color ? color : 0;
-        this.position = position ? position : 4;
-        this.urls = [];
+        this.key = key;
+        this.color = color;
+        this.position = position;
     }
 
     public get code(): string

@@ -68,7 +68,7 @@ export class ModeratorInitData
 
 
     }
-    public  dispose():void
+    public dispose():void
     {
         if(this._disposed)
         {

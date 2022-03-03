@@ -2,20 +2,20 @@ import { IMessageComposer } from '../../../../../core/communication/messages/IMe
 
 export class GetQuestsMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetQuestsMessageComposer>>
 {
-  private _data: ConstructorParameters<typeof GetQuestsMessageComposer>;
+    private _data: ConstructorParameters<typeof GetQuestsMessageComposer>;
 
-  constructor()
-  {
-      this._data = [];
-  }
+    constructor()
+    {
+        this._data = [];
+    }
 
-  public getMessageArray()
-  {
-      return this._data;
-  }
+    public getMessageArray()
+    {
+        return this._data;
+    }
 
-  public dispose(): void
-  {
-      return;
-  }
+    public dispose(): void
+    {
+        return;
+    }
 }

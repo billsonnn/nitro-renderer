@@ -12,7 +12,7 @@ export class ObjectDataUpdateMessage extends RoomObjectUpdateMessage
         super(null, null);
 
         this._state = state;
-        this._data  = data;
+        this._data = data;
         this._extra = extra;
     }
 

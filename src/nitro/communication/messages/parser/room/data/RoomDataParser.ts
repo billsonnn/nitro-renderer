@@ -2,17 +2,17 @@ import { IMessageDataWrapper } from '../../../../../../core';
 
 export class RoomDataParser
 {
-    public static THUMBNAIL_BITMASK         = 1;
-    public static GROUPDATA_BITMASK         = 2;
-    public static ROOMAD_BITMASK            = 4;
-    public static SHOWOWNER_BITMASK         = 8;
-    public static ALLOW_PETS_BITMASK        = 16;
-    public static DISPLAY_ROOMAD_BITMASK    = 32;
+    public static THUMBNAIL_BITMASK = 1;
+    public static GROUPDATA_BITMASK = 2;
+    public static ROOMAD_BITMASK = 4;
+    public static SHOWOWNER_BITMASK = 8;
+    public static ALLOW_PETS_BITMASK = 16;
+    public static DISPLAY_ROOMAD_BITMASK = 32;
 
-    public static OPEN_STATE                = 0;
-    public static DOORBELL_STATE            = 1;
-    public static PASSWORD_STATE            = 2;
-    public static INVISIBLE_STATE           = 4;
+    public static OPEN_STATE = 0;
+    public static DOORBELL_STATE = 1;
+    public static PASSWORD_STATE = 2;
+    public static INVISIBLE_STATE = 4;
 
     private _roomId: number;
     private _roomName: string;
@@ -54,35 +54,35 @@ export class RoomDataParser
 
     public flush(): boolean
     {
-        this._roomId                = 0;
-        this._roomName              = null;
-        this._ownerId               = 0;
-        this._ownerName             = null;
-        this._doorMode                 = 0;
-        this._userCount             = 0;
-        this._maxUserCount          = 0;
-        this._description           = null;
-        this._tradeMode             = 2;
-        this._score                 = 0;
-        this._ranking               = 0;
-        this._categoryId            = 0;
-        this._totalStars            = 0;
-        this._groupId               = 0;
-        this._groupName             = null;
-        this._groupBadge            = null;
-        this._tags                  = [];
-        this._bitMask               = 0;
-        this._thumbnail             = null;
-        this._allowPets             = false;
-        this._showOwner             = true;
-        this._displayAd             = false;
-        this._adName                = null;
-        this._adDescription         = null;
-        this._adExpiresIn           = 0;
-        this._allInRoomMuted        = false;
-        this._canMute               = false;
-        this._roomPicker            = false;
-        this._officialRoomPicRef    = null;
+        this._roomId = 0;
+        this._roomName = null;
+        this._ownerId = 0;
+        this._ownerName = null;
+        this._doorMode = 0;
+        this._userCount = 0;
+        this._maxUserCount = 0;
+        this._description = null;
+        this._tradeMode = 2;
+        this._score = 0;
+        this._ranking = 0;
+        this._categoryId = 0;
+        this._totalStars = 0;
+        this._groupId = 0;
+        this._groupName = null;
+        this._groupBadge = null;
+        this._tags = [];
+        this._bitMask = 0;
+        this._thumbnail = null;
+        this._allowPets = false;
+        this._showOwner = true;
+        this._displayAd = false;
+        this._adName = null;
+        this._adDescription = null;
+        this._adExpiresIn = 0;
+        this._allInRoomMuted = false;
+        this._canMute = false;
+        this._roomPicker = false;
+        this._officialRoomPicRef = null;
 
         return true;
     }
@@ -91,18 +91,18 @@ export class RoomDataParser
     {
         if(!wrapper) return false;
 
-        this._roomId        = wrapper.readInt();
-        this._roomName      = wrapper.readString();
-        this._ownerId       = wrapper.readInt();
-        this._ownerName     = wrapper.readString();
-        this._doorMode      = wrapper.readInt();
-        this._userCount     = wrapper.readInt();
-        this._maxUserCount  = wrapper.readInt();
-        this._description   = wrapper.readString();
-        this._tradeMode     = wrapper.readInt();
-        this._score         = wrapper.readInt();
-        this._ranking       = wrapper.readInt();
-        this._categoryId    = wrapper.readInt();
+        this._roomId = wrapper.readInt();
+        this._roomName = wrapper.readString();
+        this._ownerId = wrapper.readInt();
+        this._ownerName = wrapper.readString();
+        this._doorMode = wrapper.readInt();
+        this._userCount = wrapper.readInt();
+        this._maxUserCount = wrapper.readInt();
+        this._description = wrapper.readString();
+        this._tradeMode = wrapper.readInt();
+        this._score = wrapper.readInt();
+        this._ranking = wrapper.readInt();
+        this._categoryId = wrapper.readInt();
 
         this.parseTags(wrapper);
 
@@ -139,22 +139,22 @@ export class RoomDataParser
 
         if(this._bitMask & RoomDataParser.GROUPDATA_BITMASK)
         {
-            this._groupId       = wrapper.readInt();
-            this._groupName     = wrapper.readString();
-            this._groupBadge    = wrapper.readString();
+            this._groupId = wrapper.readInt();
+            this._groupName = wrapper.readString();
+            this._groupBadge = wrapper.readString();
         }
 
         if(this._bitMask & RoomDataParser.ROOMAD_BITMASK)
         {
-            this._adName        = wrapper.readString();
+            this._adName = wrapper.readString();
             this._adDescription = wrapper.readString();
-            this._adExpiresIn   = wrapper.readInt();
+            this._adExpiresIn = wrapper.readInt();
         }
 
-        this._showOwner     = (this._bitMask & RoomDataParser.SHOWOWNER_BITMASK) > 0;
-        this._allowPets     = (this._bitMask & RoomDataParser.ALLOW_PETS_BITMASK) > 0;
-        this._displayAd     = (this._bitMask & RoomDataParser.DISPLAY_ROOMAD_BITMASK) > 0;
-        this._thumbnail     = null;
+        this._showOwner = (this._bitMask & RoomDataParser.SHOWOWNER_BITMASK) > 0;
+        this._allowPets = (this._bitMask & RoomDataParser.ALLOW_PETS_BITMASK) > 0;
+        this._displayAd = (this._bitMask & RoomDataParser.DISPLAY_ROOMAD_BITMASK) > 0;
+        this._thumbnail = null;
 
         return true;
     }

@@ -18,11 +18,11 @@ export class PetFigureUpdateParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._roomIndex     = wrapper.readInt();
-        this._petId         = wrapper.readInt();
-        this._figureData    = new PetFigureDataParser(wrapper);
-        this._hasSaddle     = wrapper.readBoolean();
-        this._isRiding      = wrapper.readBoolean();
+        this._roomIndex = wrapper.readInt();
+        this._petId = wrapper.readInt();
+        this._figureData = new PetFigureDataParser(wrapper);
+        this._hasSaddle = wrapper.readBoolean();
+        this._isRiding = wrapper.readBoolean();
 
         return true;
     }

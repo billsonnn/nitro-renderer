@@ -20,13 +20,13 @@ export class NavigatorCategoryDataParser
 
     public flush(): boolean
     {
-        this._id                    = -1;
-        this._name                  = null;
-        this._visible               = false;
-        this._automatic             = false;
-        this._automaticCategoryKey  = null;
-        this._globalCategoryKey     = null;
-        this._staffOnly             = false;
+        this._id = -1;
+        this._name = null;
+        this._visible = false;
+        this._automatic = false;
+        this._automaticCategoryKey = null;
+        this._globalCategoryKey = null;
+        this._staffOnly = false;
 
         return true;
     }
@@ -35,13 +35,13 @@ export class NavigatorCategoryDataParser
     {
         if(!wrapper) return false;
 
-        this._id                    = wrapper.readInt();
-        this._name                  = wrapper.readString();
-        this._visible               = wrapper.readBoolean();
-        this._automatic             = wrapper.readBoolean();
-        this._automaticCategoryKey  = wrapper.readString();
-        this._globalCategoryKey     = wrapper.readString();
-        this._staffOnly             = wrapper.readBoolean();
+        this._id = wrapper.readInt();
+        this._name = wrapper.readString();
+        this._visible = wrapper.readBoolean();
+        this._automatic = wrapper.readBoolean();
+        this._automaticCategoryKey = wrapper.readString();
+        this._globalCategoryKey = wrapper.readString();
+        this._staffOnly = wrapper.readBoolean();
 
         return true;
     }

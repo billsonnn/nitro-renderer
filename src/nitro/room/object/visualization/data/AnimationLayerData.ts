@@ -11,11 +11,11 @@ export class AnimationLayerData
 
     constructor(loopCount: number, frameRepeat: number, isRandom: boolean)
     {
-        this._frameSequences    = [];
-        this._frameCount        = -1;
-        this._loopCount         = (loopCount < 0) ? 0 : loopCount;
-        this._frameRepeat       = (frameRepeat < 1) ? 1 : frameRepeat;
-        this._isRandom          = isRandom;
+        this._frameSequences = [];
+        this._frameCount = -1;
+        this._loopCount = (loopCount < 0) ? 0 : loopCount;
+        this._frameRepeat = (frameRepeat < 1) ? 1 : frameRepeat;
+        this._isRandom = isRandom;
     }
 
     public get frameCount(): number
@@ -69,19 +69,19 @@ export class AnimationLayerData
         if(!this._isRandom)
         {
             const count = Math.floor(frameCount / this._frameCount);
-            frameCount  = Math.floor(frameCount % this._frameCount);
+            frameCount = Math.floor(frameCount % this._frameCount);
 
-            let doesRepeat                              = false;
-            let sequence: AnimationFrameSequenceData    = null;
+            let doesRepeat = false;
+            let sequence: AnimationFrameSequenceData = null;
 
             if(((this._loopCount > 0) && (count >= this._loopCount)) || ((this._loopCount <= 0) && (this._frameCount === 1)))
             {
-                frameCount  = (this._frameCount - 1);
-                doesRepeat  = true;
+                frameCount = (this._frameCount - 1);
+                doesRepeat = true;
             }
 
-            let sequenceFrameCount  = 0;
-            let sequenceId          = 0;
+            let sequenceFrameCount = 0;
+            let sequenceId = 0;
 
             while(sequenceId < this._frameSequences.length)
             {
@@ -100,8 +100,8 @@ export class AnimationLayerData
             return this.getFrameFromSpecificSequence(direction, sequence, sequenceId, (frameCount - sequenceFrameCount), doesRepeat);
         }
 
-        const sequenceId    = Math.trunc(this._frameSequences.length * Math.random());
-        const sequence      = this._frameSequences[sequenceId];
+        const sequenceId = Math.trunc(this._frameSequences.length * Math.random());
+        const sequence = this._frameSequences[sequenceId];
 
         if(sequence.frameCount < 1) return null;
 
@@ -125,16 +125,16 @@ export class AnimationLayerData
     {
         if(!sequence) return null;
 
-        const frameIndex    = sequence.getFrameIndex(offset);
-        const frame         = sequence.getFrame(frameIndex);
+        const frameIndex = sequence.getFrameIndex(offset);
+        const frame = sequence.getFrame(frameIndex);
 
         if(!frame) return null;
 
-        let x           = frame.getX(direction);
-        let y           = frame.getY(direction);
-        const randomX     = frame.randomX;
-        const randomY     = frame.randomY;
-        let repeats     = frame.repeats;
+        let x = frame.getX(direction);
+        let y = frame.getY(direction);
+        const randomX = frame.randomX;
+        const randomY = frame.randomY;
+        let repeats = frame.repeats;
         let isLastFrame = false;
 
         if(randomX) x = Math.trunc(x + randomX * Math.random());

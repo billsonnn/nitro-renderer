@@ -19,12 +19,12 @@ export class FurnitureVisualizationData implements IObjectVisualizationData
 
     constructor()
     {
-        this._type              = '';
-        this._sizes             = [];
-        this._sizeDatas         = new Map();
-        this._lastSize          = -1;
-        this._lastSizeScale     = -1;
-        this._lastSizeData      = null;
+        this._type = '';
+        this._sizes = [];
+        this._sizeDatas = new Map();
+        this._lastSize = -1;
+        this._lastSizeScale = -1;
+        this._lastSizeData = null;
         this._lastSizeDataScale = -1;
     }
 
@@ -55,8 +55,8 @@ export class FurnitureVisualizationData implements IObjectVisualizationData
             this._sizeDatas = null;
         }
 
-        this._lastSizeData  = null;
-        this._sizes         = null;
+        this._lastSizeData = null;
+        this._sizes = null;
     }
 
     private reset(): void
@@ -70,8 +70,8 @@ export class FurnitureVisualizationData implements IObjectVisualizationData
 
         this._sizeDatas.clear();
 
-        this._sizes             = [];
-        this._lastSizeData      = null;
+        this._sizes = [];
+        this._lastSizeData = null;
         this._lastSizeDataScale = -1;
     }
 
@@ -88,8 +88,8 @@ export class FurnitureVisualizationData implements IObjectVisualizationData
         {
             const visualization = visualizations[visualizationId];
 
-            const layerCount    = visualization.layerCount;
-            const angle         = visualization.angle;
+            const layerCount = visualization.layerCount;
+            const angle = visualization.angle;
 
             let size = visualization.size;
 
@@ -155,7 +155,7 @@ export class FurnitureVisualizationData implements IObjectVisualizationData
         if(sizeIndex < this._sizes.length) newScale = this._sizes[sizeIndex];
 
         this._lastSizeScale = scale;
-        this._lastSize      = newScale;
+        this._lastSize = newScale;
 
         return newScale;
     }
@@ -164,8 +164,8 @@ export class FurnitureVisualizationData implements IObjectVisualizationData
     {
         if(size <= 0) return 0;
 
-        let index       = 0;
-        let iterator    = 1;
+        let index = 0;
+        let iterator = 1;
 
         while(iterator < this._sizes.length)
         {

@@ -17,9 +17,9 @@ export class NavigatorSearchResultSet
 
     public flush(): boolean
     {
-        this._code      = null;
-        this._data      = null;
-        this._results   = [];
+        this._code = null;
+        this._data = null;
+        this._results = [];
 
         return true;
     }
@@ -28,8 +28,8 @@ export class NavigatorSearchResultSet
     {
         if(!wrapper) return false;
 
-        this._code  = wrapper.readString();
-        this._data  = wrapper.readString();
+        this._code = wrapper.readString();
+        this._data = wrapper.readString();
 
         let totalResults = wrapper.readInt();
 

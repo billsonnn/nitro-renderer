@@ -19,11 +19,11 @@ export class RoomVisualizationData extends Disposable implements IObjectVisualiz
     {
         super();
 
-        this._wallRasterizer        = new WallRasterizer();
-        this._floorRasterizer       = new FloorRasterizer();
-        this._landscapeRasterizer   = new LandscapeRasterizer();
-        this._maskManager           = new PlaneMaskManager();
-        this._initialized           = false;
+        this._wallRasterizer = new WallRasterizer();
+        this._floorRasterizer = new FloorRasterizer();
+        this._landscapeRasterizer = new LandscapeRasterizer();
+        this._maskManager = new PlaneMaskManager();
+        this._initialized = false;
     }
 
     public initialize(asset: IAssetData): boolean

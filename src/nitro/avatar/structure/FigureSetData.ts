@@ -14,8 +14,8 @@ export class FigureSetData implements IFigureSetData, IStructureData
 
     constructor()
     {
-        this._palettes  = new Map();
-        this._setTypes  = new Map();
+        this._palettes = new Map();
+        this._setTypes = new Map();
     }
 
     public dispose(): void

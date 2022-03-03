@@ -13,7 +13,7 @@ export class RoomSessionDanceEvent extends RoomSessionEvent
         super(RoomSessionDanceEvent.RSDE_DANCE, session);
 
         this._roomIndex = roomIndex;
-        this._danceId   = danceId;
+        this._danceId = danceId;
     }
 
     public get roomIndex(): number

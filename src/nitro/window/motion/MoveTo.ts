@@ -29,7 +29,7 @@ export class MoveTo extends Interval
 
     public update(k: number): void
     {
-        this.target.style.left  = ((this._startX + (this._deltaX * k)) + 'px');
-        this.target.style.top   = ((this._startY + (this._deltaY * k)) + 'px');
+        this.target.style.left = ((this._startX + (this._deltaX * k)) + 'px');
+        this.target.style.top = ((this._startY + (this._deltaY * k)) + 'px');
     }
 }

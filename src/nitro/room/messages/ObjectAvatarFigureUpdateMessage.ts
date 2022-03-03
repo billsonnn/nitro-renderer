@@ -11,10 +11,10 @@ export class ObjectAvatarFigureUpdateMessage extends ObjectStateUpdateMessage
     {
         super();
 
-        this._figure    = figure;
-        this._gender    = gender;
-        this._subType   = subType;
-        this._isRiding  = isRiding;
+        this._figure = figure;
+        this._gender = gender;
+        this._subType = subType;
+        this._isRiding = isRiding;
     }
 
     public get figure(): string

@@ -9,8 +9,8 @@ export class RoomObjectCacheItem
 
     constructor(accurateZ: string)
     {
-        this._location  = new RoomObjectLocationCacheItem(accurateZ);
-        this._sprites   = new RoomObjectSortableSpriteCacheItem();
+        this._location = new RoomObjectLocationCacheItem(accurateZ);
+        this._sprites = new RoomObjectSortableSpriteCacheItem();
     }
 
     public get location(): RoomObjectLocationCacheItem

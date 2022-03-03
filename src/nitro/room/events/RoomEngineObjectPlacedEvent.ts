@@ -16,15 +16,15 @@ export class RoomEngineObjectPlacedEvent extends RoomEngineObjectEvent
     {
         super(type, roomId, objectId, category);
 
-        this._wallLocation  = wallLocation;
-        this._x             = x;
-        this._y             = y;
-        this._z             = z;
-        this._direction     = direction;
-        this._placedInRoom  = placedInRoom;
+        this._wallLocation = wallLocation;
+        this._x = x;
+        this._y = y;
+        this._z = z;
+        this._direction = direction;
+        this._placedInRoom = placedInRoom;
         this._placedOnFloor = placedOnFloor;
-        this._placedOnWall  = placedOnWall;
-        this._instanceData  = instanceData;
+        this._placedOnWall = placedOnWall;
+        this._instanceData = instanceData;
     }
 
     public get wallLocation(): string

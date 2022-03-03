@@ -12,12 +12,12 @@ export class FurniturePlaceComposer implements IMessageComposer<string[]>
 
     constructor(itemId: number, category: number, wallLocation: string, x: number, y: number, direction: number)
     {
-        this._itemId        = itemId;
-        this._category      = category;
-        this._wallLocation  = wallLocation;
-        this._x             = x;
-        this._y             = y;
-        this._direction     = direction;
+        this._itemId = itemId;
+        this._category = category;
+        this._wallLocation = wallLocation;
+        this._x = x;
+        this._y = y;
+        this._direction = direction;
     }
 
     public getMessageArray()

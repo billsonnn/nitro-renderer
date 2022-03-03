@@ -21,9 +21,9 @@ export class UserWardrobePageParser implements IMessageParser
 
         while(totalLooks > 0)
         {
-            const slotId    = wrapper.readInt();
-            const look      = wrapper.readString();
-            const gender    = wrapper.readString();
+            const slotId = wrapper.readInt();
+            const look = wrapper.readString();
+            const gender = wrapper.readString();
 
             this._looks.set(slotId, [ look, gender ]);
 

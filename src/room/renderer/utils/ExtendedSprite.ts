@@ -23,14 +23,14 @@ export class ExtendedSprite extends Sprite
     {
         super(texture);
 
-        this._offsetX                   = 0;
-        this._offsetY                   = 0;
-        this._tag                       = '';
-        this._alphaTolerance            = 128;
-        this._varyingDepth              = false;
-        this._clickHandling             = false;
+        this._offsetX = 0;
+        this._offsetY = 0;
+        this._tag = '';
+        this._alphaTolerance = 128;
+        this._varyingDepth = false;
+        this._clickHandling = false;
 
-        this._pairedSpriteId            = -1;
+        this._pairedSpriteId = -1;
         this._pairedSpriteUpdateCounter = -1;
     }
 
@@ -38,7 +38,7 @@ export class ExtendedSprite extends Sprite
     {
         if((this._pairedSpriteId === pairedSpriteId) && (this._pairedSpriteUpdateCounter === pairedSpriteUpdateCounter)) return false;
 
-        this._pairedSpriteId            = pairedSpriteId;
+        this._pairedSpriteId = pairedSpriteId;
         this._pairedSpriteUpdateCounter = pairedSpriteUpdateCounter;
 
         return true;
@@ -59,7 +59,7 @@ export class ExtendedSprite extends Sprite
 
         if(texture === Texture.EMPTY)
         {
-            this._pairedSpriteId            = -1;
+            this._pairedSpriteId = -1;
             this._pairedSpriteUpdateCounter = -1;
         }
 
@@ -138,12 +138,12 @@ export class ExtendedSprite extends Sprite
 
     private static generateHitMap(baseTexture: BaseTexture, tempCanvas: HTMLCanvasElement = null): boolean
     {
-        let canvas: HTMLCanvasElement           = null;
-        let context: CanvasRenderingContext2D   = null;
+        let canvas: HTMLCanvasElement = null;
+        let context: CanvasRenderingContext2D = null;
 
         if(tempCanvas)
         {
-            canvas  = tempCanvas;
+            canvas = tempCanvas;
             context = canvas.getContext('2d');
         }
         else
@@ -157,16 +157,16 @@ export class ExtendedSprite extends Sprite
 
             if(source.getContext)
             {
-                canvas  = source;
+                canvas = source;
                 context = canvas.getContext('2d');
             }
 
             else if(source instanceof Image)
             {
-                canvas          = document.createElement('canvas');
-                canvas.width    = source.width;
-                canvas.height   = source.height;
-                context         = canvas.getContext('2d');
+                canvas = document.createElement('canvas');
+                canvas.width = source.width;
+                canvas.height = source.height;
+                context = canvas.getContext('2d');
 
                 context.drawImage(source, 0, 0);
             }
@@ -174,8 +174,8 @@ export class ExtendedSprite extends Sprite
             else return false;
         }
 
-        const width     = canvas.width;
-        const height    = canvas.height;
+        const width = canvas.width;
+        const height = canvas.height;
         const imageData = context.getImageData(0, 0, width, height);
 
         const hitmap = new Uint32Array(Math.ceil(width * height / 32));

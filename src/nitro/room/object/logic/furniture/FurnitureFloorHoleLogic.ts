@@ -16,8 +16,8 @@ export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
     {
         super();
 
-        this._currentState      = -1;
-        this._currentLocation   = null;
+        this._currentState = -1;
+        this._currentLocation = null;
     }
 
     public getEventTypes(): string[]

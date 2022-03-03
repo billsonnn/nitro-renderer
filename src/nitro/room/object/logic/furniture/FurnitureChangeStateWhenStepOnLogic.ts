@@ -30,13 +30,13 @@ export class FurnitureChangeStateWhenStepOnLogic extends FurnitureLogic
     {
         if(!event || !this.object) return;
 
-        const location          = this.object.getLocation();
-        const targetLocation    = event.targetLocation;
+        const location = this.object.getLocation();
+        const targetLocation = event.targetLocation;
 
         if(!targetLocation) return;
 
-        let sizeX   = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_SIZE_X);
-        let sizeY   = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_SIZE_Y);
+        let sizeX = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_SIZE_X);
+        let sizeY = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_SIZE_Y);
 
         const direction = (((Math.floor(this.object.getDirection().x) + 45) % 360) / 90);
 

@@ -10,10 +10,10 @@ export class MessengerInitParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._userFriendLimit       = 0;
-        this._normalFriendLimit     = 0;
-        this._extendedFriendLimit   = 0;
-        this._categories            = [];
+        this._userFriendLimit = 0;
+        this._normalFriendLimit = 0;
+        this._extendedFriendLimit = 0;
+        this._categories = [];
         return true;
     }
 
@@ -21,9 +21,9 @@ export class MessengerInitParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._userFriendLimit       = wrapper.readInt();
-        this._normalFriendLimit     = wrapper.readInt();
-        this._extendedFriendLimit   = wrapper.readInt();
+        this._userFriendLimit = wrapper.readInt();
+        this._normalFriendLimit = wrapper.readInt();
+        this._extendedFriendLimit = wrapper.readInt();
 
         let totalCategories = wrapper.readInt();
 

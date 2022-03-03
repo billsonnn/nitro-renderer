@@ -13,10 +13,10 @@ import { RoomEngine } from '../RoomEngine';
 
 export class SpriteDataCollector
 {
-    private static MANNEQUIN_MAGIC_X_OFFSET: number   = 1;
-    private static MANNEQUIN_MAGIC_Y_OFFSET: number   = -16;
-    private static AVATAR_WATER_EFFECT_MAGIC_Y_OFFSET: number   = -52;
-    private static MAX_EXTERNAL_IMAGE_COUNT: number   = 30;
+    private static MANNEQUIN_MAGIC_X_OFFSET: number = 1;
+    private static MANNEQUIN_MAGIC_Y_OFFSET: number = -16;
+    private static AVATAR_WATER_EFFECT_MAGIC_Y_OFFSET: number = -52;
+    private static MAX_EXTERNAL_IMAGE_COUNT: number = 30;
 
     private maxZ: number;
     private spriteCount: number = 0;
@@ -285,7 +285,7 @@ export class SpriteDataCollector
 
         if(_local_6.indexOf('http') === 0)
         {
-            _local_5.width  = k.width;
+            _local_5.width = k.width;
             _local_5.height = k.height;
 
             this.externalImageCount++;
@@ -323,8 +323,8 @@ export class SpriteDataCollector
 
         const _local_10 = new PlaneDrawingData(null, _arg_2);
 
-        _local_10.cornerPoints  = _local_8;
-        _local_10.z             = _local_9;
+        _local_10.cornerPoints = _local_8;
+        _local_10.z = _local_9;
 
         return _local_10;
     }
@@ -389,13 +389,13 @@ export class SpriteDataCollector
     {
         const _local_5: PlaneDrawingData[] = [];
 
-        const roomObject    = _arg_3.getRoomObject(_arg_3.activeRoomId, RoomEngine.ROOM_OBJECT_ID, RoomObjectCategory.ROOM);
+        const roomObject = _arg_3.getRoomObject(_arg_3.activeRoomId, RoomEngine.ROOM_OBJECT_ID, RoomObjectCategory.ROOM);
         const visualization = (roomObject.visualization as unknown as IPlaneVisualization);
 
         if(visualization)
         {
-            const _local_8  = _arg_2.geometry;
-            const _local_9  = this.sortRoomPlanes(visualization.planes, _arg_2, _arg_3);
+            const _local_8 = _arg_2.geometry;
+            const _local_9 = this.sortRoomPlanes(visualization.planes, _arg_2, _arg_3);
             const _local_10 = Nitro.instance.stage;
 
             for(const _local_11 of _local_9)
@@ -444,8 +444,8 @@ export class SpriteDataCollector
 
                     for(const _local_23 of _local_12.getDrawingDatas(_local_8))
                     {
-                        _local_23.cornerPoints  = _local_22;
-                        _local_23.z             = _local_11.z;
+                        _local_23.cornerPoints = _local_22;
+                        _local_23.z = _local_11.z;
 
                         _local_5.push(_local_23);
                     }

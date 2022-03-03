@@ -66,28 +66,28 @@ export class RoomUsersHandler extends BaseHandler
 
                 const userData = new RoomUserData(user.roomIndex);
 
-                userData.name                   = user.name;
-                userData.custom                 = user.custom;
-                userData.activityPoints         = user.activityPoints;
-                userData.figure                 = user.figure;
-                userData.type                   = user.userType;
-                userData.webID                  = user.webID;
-                userData.guildId                = user.groupID;
-                userData.groupName              = user.groupName;
-                userData.groupStatus            = user.groupStatus;
-                userData.sex                    = user.sex;
-                userData.ownerId                = user.ownerId;
-                userData.ownerName              = user.ownerName;
-                userData.rarityLevel            = user.rarityLevel;
-                userData.hasSaddle              = user.hasSaddle;
-                userData.isRiding               = user.isRiding;
-                userData.canBreed               = user.canBreed;
-                userData.canHarvest             = user.canHarvest;
-                userData.canRevive              = user.canRevive;
-                userData.hasBreedingPermission  = user.hasBreedingPermission;
-                userData.petLevel               = user.petLevel;
-                userData.botSkills              = user.botSkills;
-                userData.isModerator            = user.isModerator;
+                userData.name = user.name;
+                userData.custom = user.custom;
+                userData.activityPoints = user.activityPoints;
+                userData.figure = user.figure;
+                userData.type = user.userType;
+                userData.webID = user.webID;
+                userData.guildId = user.groupID;
+                userData.groupName = user.groupName;
+                userData.groupStatus = user.groupStatus;
+                userData.sex = user.sex;
+                userData.ownerId = user.ownerId;
+                userData.ownerName = user.ownerName;
+                userData.rarityLevel = user.rarityLevel;
+                userData.hasSaddle = user.hasSaddle;
+                userData.isRiding = user.isRiding;
+                userData.canBreed = user.canBreed;
+                userData.canHarvest = user.canHarvest;
+                userData.canRevive = user.canRevive;
+                userData.hasBreedingPermission = user.hasBreedingPermission;
+                userData.petLevel = user.petLevel;
+                userData.botSkills = user.botSkills;
+                userData.isModerator = user.isModerator;
 
                 if(!session.userDataManager.getUserData(user.roomIndex)) usersToAdd.push(userData);
 
@@ -226,32 +226,32 @@ export class RoomUsersHandler extends BaseHandler
 
         const petData = new RoomPetData();
 
-        petData.id                  = parser.id;
-        petData.level               = parser.level;
-        petData.maximumLevel        = parser.maximumLevel;
-        petData.experience          = parser.experience;
+        petData.id = parser.id;
+        petData.level = parser.level;
+        petData.maximumLevel = parser.maximumLevel;
+        petData.experience = parser.experience;
         petData.levelExperienceGoal = parser.levelExperienceGoal;
-        petData.energy              = parser.energy;
-        petData.maximumEnergy       = parser.maximumEnergy;
-        petData.happyness           = parser.happyness;
-        petData.maximumHappyness    = parser.maximumHappyness;
-        petData.ownerId             = parser.ownerId;
-        petData.ownerName           = parser.ownerName;
-        petData.respect             = parser.respect;
-        petData.age                 = parser.age;
-        petData.unknownRarity       = parser.unknownRarity;
-        petData.saddle              = parser.saddle;
-        petData.rider               = parser.rider;
-        petData.breedable           = parser.breedable;
-        petData.fullyGrown          = parser.fullyGrown;
-        petData.rarityLevel         = parser.rarityLevel;
-        petData.dead                = parser.dead;
-        petData.skillTresholds      = parser.skillTresholds;
-        petData.publiclyRideable    = parser.publiclyRideable;
-        petData.maximumTimeToLive   = parser.maximumTimeToLive;
+        petData.energy = parser.energy;
+        petData.maximumEnergy = parser.maximumEnergy;
+        petData.happyness = parser.happyness;
+        petData.maximumHappyness = parser.maximumHappyness;
+        petData.ownerId = parser.ownerId;
+        petData.ownerName = parser.ownerName;
+        petData.respect = parser.respect;
+        petData.age = parser.age;
+        petData.unknownRarity = parser.unknownRarity;
+        petData.saddle = parser.saddle;
+        petData.rider = parser.rider;
+        petData.breedable = parser.breedable;
+        petData.fullyGrown = parser.fullyGrown;
+        petData.rarityLevel = parser.rarityLevel;
+        petData.dead = parser.dead;
+        petData.skillTresholds = parser.skillTresholds;
+        petData.publiclyRideable = parser.publiclyRideable;
+        petData.maximumTimeToLive = parser.maximumTimeToLive;
         petData.remainingTimeToLive = parser.remainingTimeToLive;
-        petData.remainingGrowTime   = parser.remainingGrowTime;
-        petData.publiclyBreedable   = parser.publiclyBreedable;
+        petData.remainingGrowTime = parser.remainingGrowTime;
+        petData.publiclyBreedable = parser.publiclyBreedable;
 
         this.listener.events.dispatchEvent(new RoomSessionPetInfoUpdateEvent(session, petData));
     }

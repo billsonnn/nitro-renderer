@@ -13,10 +13,10 @@ export class Triggerable
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        this._stuffIds                  = [];
-        this._intParams                 = [];
+        this._stuffIds = [];
+        this._intParams = [];
         this._stuffTypeSelectionEnabled = wrapper.readBoolean();
-        this._furniLimit                = wrapper.readInt();
+        this._furniLimit = wrapper.readInt();
 
         let count = wrapper.readInt();
 
@@ -27,9 +27,9 @@ export class Triggerable
             count--;
         }
 
-        this._stuffTypeId   = wrapper.readInt();
-        this._id            = wrapper.readInt();
-        this._stringParam   = wrapper.readString();
+        this._stuffTypeId = wrapper.readInt();
+        this._id = wrapper.readInt();
+        this._stringParam = wrapper.readString();
 
         count = wrapper.readInt();
 

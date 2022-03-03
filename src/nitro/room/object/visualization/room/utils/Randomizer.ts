@@ -1,7 +1,7 @@
 ﻿export class Randomizer
 {
-    public static DEFAULT_SEED: number    = 1;
-    public static DEFAULT_MODULUS: number    = 16777216;
+    public static DEFAULT_SEED: number = 1;
+    public static DEFAULT_MODULUS: number = 16777216;
 
     private static _randomizer:Randomizer = null;
 

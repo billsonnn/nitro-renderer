@@ -3,10 +3,10 @@ import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization
 
 export class FurnitureVoteCounterVisualization extends FurnitureAnimatedVisualization
 {
-    private static ONES_SPRITE: string      = 'ones_sprite';
-    private static TENS_SPRITE: string      = 'tens_sprite';
-    private static HUNDREDS_SPRITE: string  = 'hundreds_sprite';
-    private static HIDE_COUNTER_SCORE: number       = -1;
+    private static ONES_SPRITE: string = 'ones_sprite';
+    private static TENS_SPRITE: string = 'tens_sprite';
+    private static HUNDREDS_SPRITE: string = 'hundreds_sprite';
+    private static HIDE_COUNTER_SCORE: number = -1;
 
     protected updateObject(scale: number, direction: number): boolean
     {
@@ -17,8 +17,8 @@ export class FurnitureVoteCounterVisualization extends FurnitureAnimatedVisualiz
 
     protected getFrameNumber(scale: number, layerId: number): number
     {
-        const result    = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_VOTE_COUNTER_COUNT);
-        const tag       = this.getLayerTag(scale, this.direction, layerId);
+        const result = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_VOTE_COUNTER_COUNT);
+        const tag = this.getLayerTag(scale, this.direction, layerId);
 
         switch(tag)
         {

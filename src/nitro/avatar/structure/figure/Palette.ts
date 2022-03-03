@@ -13,8 +13,8 @@ export class Palette implements IPalette
     {
         if(!data) throw new Error('invalid_data');
 
-        this._id        = data.id;
-        this._colors    = new AdvancedMap();
+        this._id = data.id;
+        this._colors = new AdvancedMap();
 
         this.append(data);
     }

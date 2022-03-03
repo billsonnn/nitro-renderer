@@ -7,8 +7,8 @@ export class MysteryBoxKeysParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._boxColor  = null;
-        this._keyColor  = null;
+        this._boxColor = null;
+        this._keyColor = null;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class MysteryBoxKeysParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._boxColor  = wrapper.readString();
-        this._keyColor  = wrapper.readString();
+        this._boxColor = wrapper.readString();
+        this._keyColor = wrapper.readString();
 
         return true;
     }

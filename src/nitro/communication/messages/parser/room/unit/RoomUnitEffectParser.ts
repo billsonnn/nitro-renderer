@@ -8,9 +8,9 @@ export class RoomUnitEffectParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._unitId    = null;
-        this._effectId  = 0;
-        this._delay     = 0;
+        this._unitId = null;
+        this._effectId = 0;
+        this._delay = 0;
 
         return true;
     }
@@ -19,9 +19,9 @@ export class RoomUnitEffectParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._unitId    = wrapper.readInt();
-        this._effectId  = wrapper.readInt();
-        this._delay     = wrapper.readInt();
+        this._unitId = wrapper.readInt();
+        this._effectId = wrapper.readInt();
+        this._delay = wrapper.readInt();
 
         return true;
     }

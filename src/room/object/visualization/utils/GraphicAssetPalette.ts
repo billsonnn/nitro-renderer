@@ -14,8 +14,8 @@ export class GraphicAssetPalette
 
         while(this._palette.length < 256) this._palette.push([ 0, 0, 0 ]);
 
-        this._primaryColor      = primaryColor;
-        this._secondaryColor    = secondaryColor;
+        this._primaryColor = primaryColor;
+        this._secondaryColor = secondaryColor;
     }
 
     public dispose(): void
@@ -25,11 +25,11 @@ export class GraphicAssetPalette
 
     public applyPalette(texture: Texture<Resource>): Texture<Resource>
     {
-        const sprite            = new NitroSprite(texture);
-        const textureCanvas     = TextureUtils.generateCanvas(sprite);
-        const textureCtx        = textureCanvas.getContext('2d');
-        const textureImageData  = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
-        const data              = textureImageData.data;
+        const sprite = new NitroSprite(texture);
+        const textureCanvas = TextureUtils.generateCanvas(sprite);
+        const textureCtx = textureCanvas.getContext('2d');
+        const textureImageData = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
+        const data = textureImageData.data;
 
         for(let i = 0; i < data.length; i += 4)
         {
@@ -37,9 +37,9 @@ export class GraphicAssetPalette
 
             if(paletteColor === undefined) paletteColor = [ 0, 0, 0 ];
 
-            data[ i ]       = paletteColor[0];
-            data[ i + 1 ]   = paletteColor[1];
-            data[ i + 2 ]   = paletteColor[2];
+            data[ i ] = paletteColor[0];
+            data[ i + 1 ] = paletteColor[1];
+            data[ i + 2 ] = paletteColor[2];
         }
 
         textureCtx.putImageData(textureImageData, 0, 0);

@@ -19,17 +19,17 @@ export class HighScoreDataType extends ObjectDataBase implements IObjectData
     {
         super();
 
-        this._state     = '';
+        this._state = '';
         this._scoreType = -1;
         this._clearType = -1;
-        this._entries   = [];
+        this._entries = [];
     }
 
     public parseWrapper(wrapper: IMessageDataWrapper): void
     {
         if(!wrapper) return;
 
-        this._state     = wrapper.readString();
+        this._state = wrapper.readString();
         this._scoreType = wrapper.readInt();
         this._clearType = wrapper.readInt();
 
@@ -39,7 +39,7 @@ export class HighScoreDataType extends ObjectDataBase implements IObjectData
         {
             const data = new HighScoreData();
 
-            data.score  = wrapper.readInt();
+            data.score = wrapper.readInt();
 
             let totalUsers = wrapper.readInt();
 
@@ -62,7 +62,7 @@ export class HighScoreDataType extends ObjectDataBase implements IObjectData
     {
         this._scoreType = model.getValue<number>(RoomObjectVariable.FURNITURE_HIGHSCORE_SCORE_TYPE);
         this._clearType = model.getValue<number>(RoomObjectVariable.FURNITURE_HIGHSCORE_CLEAR_TYPE);
-        this._entries   = [];
+        this._entries = [];
 
         const totalEntries = model.getValue<number>(RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_COUNT);
 
@@ -72,8 +72,8 @@ export class HighScoreDataType extends ObjectDataBase implements IObjectData
         {
             const data = new HighScoreData();
 
-            data.score  = model.getValue<number>(RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_BASE_SCORE_ + i);
-            data.users  = model.getValue<string[]>(RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_BASE_USERS_ + i);
+            data.score = model.getValue<number>(RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_BASE_SCORE_ + i);
+            data.users = model.getValue<string[]>(RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_BASE_USERS_ + i);
 
             this._entries.push(data);
 

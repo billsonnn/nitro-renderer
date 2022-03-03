@@ -32,17 +32,17 @@ export class RoomWallData
 
     constructor()
     {
-        this._corners           = [];
-        this._endPoints         = [];
-        this._directions        = [];
-        this._lengths           = [];
-        this._leftTurns         = [];
-        this._borders           = [];
-        this._hideWalls         = [];
-        this._manuallyLeftCut   = [];
-        this._manuallyRightCut  = [];
-        this._addDuplicates     = false;
-        this._count             = 0;
+        this._corners = [];
+        this._endPoints = [];
+        this._directions = [];
+        this._lengths = [];
+        this._leftTurns = [];
+        this._borders = [];
+        this._hideWalls = [];
+        this._manuallyLeftCut = [];
+        this._manuallyRightCut = [];
+        this._addDuplicates = false;
+        this._count = 0;
     }
 
     public addWall(k: Point, _arg_2: number, _arg_3: number, _arg_4: boolean, _arg_5: boolean): void

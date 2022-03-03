@@ -9,7 +9,7 @@ export class ObjectAvatarEffectUpdateMessage extends ObjectStateUpdateMessage
     {
         super();
 
-        this._effect            = effect;
+        this._effect = effect;
         this._delayMilliseconds = delayMilliseconds;
     }
 

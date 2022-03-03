@@ -29,8 +29,8 @@ export class LandscapePlane extends Plane
 
         if((k !== this._width) || (_arg_2 !== this._height))
         {
-            this._width     = k;
-            this._height    = _arg_2;
+            this._width = k;
+            this._height = _arg_2;
         }
     }
 

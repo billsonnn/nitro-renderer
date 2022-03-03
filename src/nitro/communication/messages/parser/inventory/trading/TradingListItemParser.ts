@@ -14,14 +14,14 @@ export class TradingListItemParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._firstUserID           = -1;
-        this._firstUserItemArray    = null;
-        this._firstUserNumItems     = 0;
-        this._firstUserNumCredits   = 0;
-        this._secondUserID          = -1;
-        this._secondUserItemArray   = null;
-        this._secondUserNumItems    = 0;
-        this._secondUserNumCredits  = 0;
+        this._firstUserID = -1;
+        this._firstUserItemArray = null;
+        this._firstUserNumItems = 0;
+        this._firstUserNumCredits = 0;
+        this._secondUserID = -1;
+        this._secondUserItemArray = null;
+        this._secondUserNumItems = 0;
+        this._secondUserNumCredits = 0;
 
         return true;
     }
@@ -35,16 +35,16 @@ export class TradingListItemParser implements IMessageParser
 
         if(!this.parseItems(wrapper, this._firstUserItemArray)) return false;
 
-        this._firstUserNumItems     = wrapper.readInt();
-        this._firstUserNumCredits   = wrapper.readInt();
+        this._firstUserNumItems = wrapper.readInt();
+        this._firstUserNumCredits = wrapper.readInt();
 
-        this._secondUserID          = wrapper.readInt();
-        this._secondUserItemArray   = [];
+        this._secondUserID = wrapper.readInt();
+        this._secondUserItemArray = [];
 
         if(!this.parseItems(wrapper, this._secondUserItemArray)) return false;
 
-        this._secondUserNumItems    = wrapper.readInt();
-        this._secondUserNumCredits  = wrapper.readInt();
+        this._secondUserNumItems = wrapper.readInt();
+        this._secondUserNumCredits = wrapper.readInt();
 
         return true;
     }

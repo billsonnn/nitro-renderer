@@ -25,9 +25,9 @@ export class FloorRasterizer extends PlaneRasterizer
 
             if(!floor) continue;
 
-            const id            = floor.id;
+            const id = floor.id;
             const visualization = floor.visualizations;
-            const plane         = new FloorPlane();
+            const plane = new FloorPlane();
 
             this.parseVisualizations(plane, visualization);
 

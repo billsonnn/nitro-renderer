@@ -8,9 +8,9 @@ export class BotCommandConfigurationParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._botId     = -1;
+        this._botId = -1;
         this._commandId = -1;
-        this._data      = '';
+        this._data = '';
 
         return true;
     }
@@ -19,9 +19,9 @@ export class BotCommandConfigurationParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._botId     = wrapper.readInt();
+        this._botId = wrapper.readInt();
         this._commandId = wrapper.readInt();
-        this._data      = wrapper.readString();
+        this._data = wrapper.readString();
 
         return true;
     }

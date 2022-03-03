@@ -2,17 +2,17 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
 
 export class CantConnectMessageParser implements IMessageParser
 {
-    public static REASON_FULL: number    = 1;
-    public static REASON_CLOSED: number    = 2;
-    public static REASON_QUEUE_ERROR: number   = 3;
-    public static REASON_BANNED: number        = 4;
+    public static REASON_FULL: number = 1;
+    public static REASON_CLOSED: number = 2;
+    public static REASON_QUEUE_ERROR: number = 3;
+    public static REASON_BANNED: number = 4;
 
     private _reason: number;
     private _parameter: string;
 
     public flush(): boolean
     {
-        this._reason    = 0;
+        this._reason = 0;
         this._parameter = '';
 
         return true;
@@ -22,7 +22,7 @@ export class CantConnectMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._reason    = wrapper.readInt();
+        this._reason = wrapper.readInt();
         this._parameter = wrapper.readString();
 
         return true;

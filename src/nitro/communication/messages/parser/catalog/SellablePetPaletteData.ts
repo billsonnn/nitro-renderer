@@ -18,11 +18,11 @@ export class SellablePetPaletteData
 
     public flush(): boolean
     {
-        this._type      = -1;
-        this._breedId   = -1;
+        this._type = -1;
+        this._breedId = -1;
         this._paletteId = -1;
-        this._sellable  = false;
-        this._rare      = false;
+        this._sellable = false;
+        this._rare = false;
 
         return true;
     }
@@ -31,11 +31,11 @@ export class SellablePetPaletteData
     {
         if(!wrapper) return false;
 
-        this._type      = wrapper.readInt();
-        this._breedId   = wrapper.readInt();
+        this._type = wrapper.readInt();
+        this._breedId = wrapper.readInt();
         this._paletteId = wrapper.readInt();
-        this._sellable  = wrapper.readBoolean();
-        this._rare      = wrapper.readBoolean();
+        this._sellable = wrapper.readBoolean();
+        this._rare = wrapper.readBoolean();
 
         return true;
     }

@@ -13,14 +13,14 @@ export class GeometryItem extends Node3D
     {
         super(parseFloat(k.x), parseFloat(k.y), parseFloat(k.z));
 
-        this._id            = k.id;
-        this._radius        = parseFloat(k.radius);
-        this._normal        = new Vector3D(parseFloat(k.nx), parseFloat(k.ny), parseFloat(k.nz));
+        this._id = k.id;
+        this._radius = parseFloat(k.radius);
+        this._normal = new Vector3D(parseFloat(k.nx), parseFloat(k.ny), parseFloat(k.nz));
         this._isDoubleSided = k.double || false;
-        this._isDynamic     = _arg_2;
+        this._isDynamic = _arg_2;
     }
 
-    public  getDistance(k: Vector3D): number
+    public getDistance(k: Vector3D): number
     {
         const _local_2 = Math.abs(((k.z - this.transformedLocation.z) - this._radius));
         const _local_3 = Math.abs(((k.z - this.transformedLocation.z) + this._radius));

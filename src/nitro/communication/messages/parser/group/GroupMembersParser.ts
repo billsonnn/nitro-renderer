@@ -17,17 +17,17 @@ export class GroupMembersParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._groupId           = 0;
-        this._groupTitle        = null;
-        this._roomId            = 0;
-        this._badge             = null;
+        this._groupId = 0;
+        this._groupTitle = null;
+        this._roomId = 0;
+        this._badge = null;
         this._totalMembersCount = 0;
-        this._result            = [];
-        this._admin             = false;
-        this._pageSize          = 0;
-        this._pageIndex         = 0;
-        this._level             = 0;
-        this._query             = null;
+        this._result = [];
+        this._admin = false;
+        this._pageSize = 0;
+        this._pageIndex = 0;
+        this._level = 0;
+        this._query = null;
 
         return true;
     }
@@ -36,13 +36,13 @@ export class GroupMembersParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._groupId           = wrapper.readInt();
-        this._groupTitle        = wrapper.readString();
-        this._roomId            = wrapper.readInt();
-        this._badge             = wrapper.readString();
+        this._groupId = wrapper.readInt();
+        this._groupTitle = wrapper.readString();
+        this._roomId = wrapper.readInt();
+        this._badge = wrapper.readString();
         this._totalMembersCount = wrapper.readInt();
 
-        let resultCount         = wrapper.readInt();
+        let resultCount = wrapper.readInt();
 
         while(resultCount > 0)
         {
@@ -51,11 +51,11 @@ export class GroupMembersParser implements IMessageParser
             resultCount--;
         }
 
-        this._admin             = wrapper.readBoolean();
-        this._pageSize          = wrapper.readInt();
-        this._pageIndex         = wrapper.readInt();
-        this._level             = wrapper.readInt();
-        this._query             = wrapper.readString();
+        this._admin = wrapper.readBoolean();
+        this._pageSize = wrapper.readInt();
+        this._pageIndex = wrapper.readInt();
+        this._level = wrapper.readInt();
+        this._query = wrapper.readString();
 
         return true;
     }

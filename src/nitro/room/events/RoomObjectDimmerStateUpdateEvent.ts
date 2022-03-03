@@ -15,11 +15,11 @@ export class RoomObjectDimmerStateUpdateEvent extends RoomObjectEvent
     {
         super(RoomObjectDimmerStateUpdateEvent.DIMMER_STATE, object);
 
-        this._state         = state;
-        this._presetId      = presetId;
-        this._effectId      = effectId;
-        this._color         = color;
-        this._brightness    = brightness;
+        this._state = state;
+        this._presetId = presetId;
+        this._effectId = effectId;
+        this._color = color;
+        this._brightness = brightness;
     }
 
     public get state(): number

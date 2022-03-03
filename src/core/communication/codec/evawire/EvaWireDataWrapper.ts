@@ -8,8 +8,8 @@ export class EvaWireDataWrapper implements IMessageDataWrapper
 
     constructor(header: number, buffer: BinaryReader)
     {
-        this._header    = header;
-        this._buffer    = buffer;
+        this._header = header;
+        this._buffer = buffer;
     }
 
     public readBytes(length: number): BinaryReader
@@ -61,8 +61,8 @@ export class EvaWireDataWrapper implements IMessageDataWrapper
 
     public readString(): string
     {
-        const length    = this.readShort();
-        const buffer    = this._buffer.readBytes(length);
+        const length = this.readShort();
+        const buffer = this._buffer.readBytes(length);
 
         return buffer.toString('utf8');
     }

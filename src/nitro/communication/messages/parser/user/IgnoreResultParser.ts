@@ -7,8 +7,8 @@ export class IgnoreResultParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._result    = -1;
-        this._name      = null;
+        this._result = -1;
+        this._name = null;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class IgnoreResultParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._result    = wrapper.readInt();
-        this._name      = wrapper.readString();
+        this._result = wrapper.readInt();
+        this._name = wrapper.readString();
 
         return true;
     }

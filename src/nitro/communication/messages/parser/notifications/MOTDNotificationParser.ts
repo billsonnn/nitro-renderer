@@ -2,7 +2,7 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
 export class MOTDNotificationParser implements IMessageParser
 {
-    private _messages: string[]
+    private _messages: string[];
 
     public flush(): boolean
     {

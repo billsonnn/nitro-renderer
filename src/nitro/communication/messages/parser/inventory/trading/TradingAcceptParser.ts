@@ -7,8 +7,8 @@ export class TradingAcceptParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._userID        = -1;
-        this._userAccepts   = false;
+        this._userID = -1;
+        this._userAccepts = false;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class TradingAcceptParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._userID        = wrapper.readInt();
-        this._userAccepts   = (wrapper.readInt() > 0);
+        this._userID = wrapper.readInt();
+        this._userAccepts = (wrapper.readInt() > 0);
 
         return true;
     }

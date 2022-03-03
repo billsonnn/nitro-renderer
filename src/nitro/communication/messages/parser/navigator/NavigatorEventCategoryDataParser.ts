@@ -16,9 +16,9 @@ export class NavigatorEventCategoryDataParser
 
     public flush(): boolean
     {
-        this._id        = -1;
-        this._name      = null;
-        this._visible   = false;
+        this._id = -1;
+        this._name = null;
+        this._visible = false;
 
         return true;
     }
@@ -27,9 +27,9 @@ export class NavigatorEventCategoryDataParser
     {
         if(!wrapper) return false;
 
-        this._id        = wrapper.readInt();
-        this._name      = wrapper.readString();
-        this._visible   = wrapper.readBoolean();
+        this._id = wrapper.readInt();
+        this._name = wrapper.readString();
+        this._visible = wrapper.readBoolean();
 
         return true;
     }

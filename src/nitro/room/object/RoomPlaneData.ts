@@ -4,11 +4,11 @@ import { RoomPlaneMaskData } from './RoomPlaneMaskData';
 
 export class RoomPlaneData
 {
-    public static PLANE_UNDEFINED: number   = 0;
-    public static PLANE_FLOOR: number       = 1;
-    public static PLANE_WALL: number        = 2;
-    public static PLANE_LANDSCAPE: number   = 3;
-    public static PLANE_BILLBOARD: number   = 4;
+    public static PLANE_UNDEFINED: number = 0;
+    public static PLANE_FLOOR: number = 1;
+    public static PLANE_WALL: number = 2;
+    public static PLANE_LANDSCAPE: number = 3;
+    public static PLANE_BILLBOARD: number = 4;
 
     private _type: number = 0;
     private _loc: Vector3d = null;

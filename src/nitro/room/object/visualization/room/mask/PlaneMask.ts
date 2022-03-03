@@ -12,11 +12,11 @@ export class PlaneMask
 
     constructor()
     {
-        this._sizes                 = [];
-        this._maskVisualizations    = new Map();
-        this._assetNames            = new Map();
+        this._sizes = [];
+        this._maskVisualizations = new Map();
+        this._assetNames = new Map();
         this._lastMaskVisualization = null;
-        this._lastSize              = -1;
+        this._lastSize = -1;
     }
 
     public dispose(): void
@@ -34,7 +34,7 @@ export class PlaneMask
         }
 
         this._lastMaskVisualization = null;
-        this._sizes                 = null;
+        this._sizes = null;
     }
 
     public createMaskVisualization(size: number): PlaneMaskVisualization
@@ -55,8 +55,8 @@ export class PlaneMask
 
     private getSizeIndex(k: number): number
     {
-        let sizeIndex   = 0;
-        const index       = 1;
+        let sizeIndex = 0;
+        const index = 1;
 
         while(index < this._sizes.length)
         {

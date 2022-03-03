@@ -16,7 +16,7 @@ export class FurnitureWallUpdateParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._item          = new FurnitureWallDataParser(wrapper);
+        this._item = new FurnitureWallDataParser(wrapper);
         this._item.username = wrapper.readString();
 
         return true;

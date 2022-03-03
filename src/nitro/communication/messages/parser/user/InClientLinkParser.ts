@@ -2,24 +2,24 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
 export class InClientLinkParser implements IMessageParser
 {
-  private _link: string;
+    private _link: string;
 
-  public flush(): boolean
-  {
-      this._link = null;
-      return true;
-  }
+    public flush(): boolean
+    {
+        this._link = null;
+        return true;
+    }
 
-  public parse(wrapper: IMessageDataWrapper): boolean
-  {
-      if(!wrapper) return false;
+    public parse(wrapper: IMessageDataWrapper): boolean
+    {
+        if(!wrapper) return false;
 
-      this._link = wrapper.readString();
-      return true;
-  }
+        this._link = wrapper.readString();
+        return true;
+    }
 
-  public get link(): string
-  {
-      return this._link;
-  }
+    public get link(): string
+    {
+        return this._link;
+    }
 }

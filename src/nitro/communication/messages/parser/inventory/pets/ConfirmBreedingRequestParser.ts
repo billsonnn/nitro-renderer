@@ -37,9 +37,9 @@ export class ConfirmBreedingRequestParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._nestId  = wrapper.readInt();
-        this._pet1      = new BreedingPetInfo(wrapper);
-        this._pet2      = new BreedingPetInfo(wrapper);
+        this._nestId = wrapper.readInt();
+        this._pet1 = new BreedingPetInfo(wrapper);
+        this._pet2 = new BreedingPetInfo(wrapper);
 
         let totalCount = wrapper.readInt();
 

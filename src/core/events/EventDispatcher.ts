@@ -15,7 +15,7 @@ export class EventDispatcher extends Disposable implements IEventDispatcher, IDi
     {
         super();
 
-        this._logger    = new NitroLogger(this.constructor.name);
+        this._logger = new NitroLogger(this.constructor.name);
         this._listeners = new Map();
     }
 

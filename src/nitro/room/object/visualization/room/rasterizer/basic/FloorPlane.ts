@@ -19,8 +19,8 @@ export class FloorPlane extends Plane
         const _local_11 = visualization.geometry.getScreenPoint(new Vector3d(0, (height / visualization.geometry.scale), 0));
         const _local_12 = visualization.geometry.getScreenPoint(new Vector3d((width / visualization.geometry.scale), 0, 0));
 
-        let x   = 0;
-        let y   = 0;
+        let x = 0;
+        let y = 0;
 
         if(_local_10 && _local_11 && _local_12)
         {

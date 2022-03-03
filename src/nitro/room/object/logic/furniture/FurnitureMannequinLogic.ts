@@ -7,9 +7,9 @@ import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureMannequinLogic extends FurnitureLogic
 {
-    private static GENDER: string       = 'GENDER';
-    private static FIGURE: string       = 'FIGURE';
-    private static OUTFIT_NAME: string  = 'OUTFIT_NAME';
+    private static GENDER: string = 'GENDER';
+    private static FIGURE: string = 'FIGURE';
+    private static OUTFIT_NAME: string = 'OUTFIT_NAME';
 
     public getEventTypes(): string[]
     {

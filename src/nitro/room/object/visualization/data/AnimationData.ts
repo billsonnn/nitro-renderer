@@ -5,10 +5,10 @@ import { DirectionalOffsetData } from './DirectionalOffsetData';
 
 export class AnimationData
 {
-    private static TRANSITION_TO_ANIMATION_OFFSET: number   = 1000000;
+    private static TRANSITION_TO_ANIMATION_OFFSET: number = 1000000;
     private static TRANSITION_FROM_ANIMATION_OFFSET: number = 2000000;
 
-    public static DEFAULT_FRAME_NUMBER: number              = 0;
+    public static DEFAULT_FRAME_NUMBER: number = 0;
 
     private _layers: Map<number, AnimationLayerData>;
     private _frameCount: number;
@@ -17,10 +17,10 @@ export class AnimationData
 
     constructor()
     {
-        this._layers            = new Map();
-        this._frameCount        = -1;
-        this._randomStart       = false;
-        this._immediateChanges  = null;
+        this._layers = new Map();
+        this._frameCount = -1;
+        this._randomStart = false;
+        this._immediateChanges = null;
     }
 
     public static getTransitionToAnimationId(animationId: number): number
@@ -90,9 +90,9 @@ export class AnimationData
 
                 const animationId = parseInt(key);
 
-                const loopCount   = (layer.loopCount !== undefined) ? layer.loopCount : 1;
+                const loopCount = (layer.loopCount !== undefined) ? layer.loopCount : 1;
                 const frameRepeat = (layer.frameRepeat !== undefined) ? layer.frameRepeat : 1;
-                const isRandom    = ((layer.random !== undefined) && (layer.random !== 0)) ? true : false;
+                const isRandom = ((layer.random !== undefined) && (layer.random !== 0)) ? true : false;
 
                 if(!this.addLayer(animationId, loopCount, frameRepeat, isRandom, layer)) return false;
             }
@@ -113,7 +113,7 @@ export class AnimationData
 
                 if(!animationSequence) continue;
 
-                const loopCount        = (animationSequence.loopCount !== undefined) ? animationSequence.loopCount : 1;
+                const loopCount = (animationSequence.loopCount !== undefined) ? animationSequence.loopCount : 1;
                 const isSequenceRandom = ((animationSequence.random !== undefined) && (animationSequence.random !== 0)) ? true : false;
 
                 const frame = layerData.addFrameSequence(loopCount, isSequenceRandom);

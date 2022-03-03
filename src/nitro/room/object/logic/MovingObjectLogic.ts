@@ -22,12 +22,12 @@ export class MovingObjectLogic extends RoomObjectLogicBase
     {
         super();
 
-        this._liftAmount        = 0;
+        this._liftAmount = 0;
 
-        this._location          = new Vector3d();
-        this._locationDelta     = new Vector3d();
-        this._lastUpdateTime    = 0;
-        this._changeTime        = 0;
+        this._location = new Vector3d();
+        this._locationDelta = new Vector3d();
+        this._lastUpdateTime = 0;
+        this._changeTime = 0;
     }
 
     protected onDispose(): void
@@ -41,8 +41,8 @@ export class MovingObjectLogic extends RoomObjectLogicBase
     {
         super.update(time);
 
-        const locationOffset    = this.getLocationOffset();
-        const model             = this.object && this.object.model;
+        const locationOffset = this.getLocationOffset();
+        const model = this.object && this.object.model;
 
         if(model)
         {

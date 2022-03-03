@@ -21,17 +21,17 @@ export class UserSubscriptionParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._productName               = null;
-        this._daysToPeriodEnd           = 0;
-        this._memberPeriods             = 0;
-        this._periodsSubscribedAhead    = 0;
-        this._responseType              = 0;
-        this._hasEverBeenMember         = false;
-        this._isVip                     = false;
-        this._pastClubDays              = 0;
-        this._pastVipDays               = 0;
-        this._minutesUntilExpiration    = 0;
-        this._minutesSinceLastModified  = 0;
+        this._productName = null;
+        this._daysToPeriodEnd = 0;
+        this._memberPeriods = 0;
+        this._periodsSubscribedAhead = 0;
+        this._responseType = 0;
+        this._hasEverBeenMember = false;
+        this._isVip = false;
+        this._pastClubDays = 0;
+        this._pastVipDays = 0;
+        this._minutesUntilExpiration = 0;
+        this._minutesSinceLastModified = 0;
 
         return true;
     }
@@ -40,16 +40,16 @@ export class UserSubscriptionParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._productName               = wrapper.readString();
-        this._daysToPeriodEnd           = wrapper.readInt();
-        this._memberPeriods             = wrapper.readInt();
-        this._periodsSubscribedAhead    = wrapper.readInt();
-        this._responseType              = wrapper.readInt();
-        this._hasEverBeenMember         = wrapper.readBoolean();
-        this._isVip                     = wrapper.readBoolean();
-        this._pastClubDays              = wrapper.readInt();
-        this._pastVipDays               = wrapper.readInt();
-        this._minutesUntilExpiration    = wrapper.readInt();
+        this._productName = wrapper.readString();
+        this._daysToPeriodEnd = wrapper.readInt();
+        this._memberPeriods = wrapper.readInt();
+        this._periodsSubscribedAhead = wrapper.readInt();
+        this._responseType = wrapper.readInt();
+        this._hasEverBeenMember = wrapper.readBoolean();
+        this._isVip = wrapper.readBoolean();
+        this._pastClubDays = wrapper.readInt();
+        this._pastVipDays = wrapper.readInt();
+        this._minutesUntilExpiration = wrapper.readInt();
 
         if(wrapper.bytesAvailable) this._minutesSinceLastModified = wrapper.readInt();
 

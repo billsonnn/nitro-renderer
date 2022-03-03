@@ -11,11 +11,11 @@ export class GroupFurniContextMenuInfoMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._objectId              = 0;
-        this._guildId               = 0;
-        this._guildName             = null;
-        this._guildHomeRoomId       = 0;
-        this._userIsMember          = false;
+        this._objectId = 0;
+        this._guildId = 0;
+        this._guildName = null;
+        this._guildHomeRoomId = 0;
+        this._userIsMember = false;
         this._guildHasReadableForum = false;
 
         return true;
@@ -25,11 +25,11 @@ export class GroupFurniContextMenuInfoMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._objectId              = wrapper.readInt();
-        this._guildId               = wrapper.readInt();
-        this._guildName             = wrapper.readString();
-        this._guildHomeRoomId       = wrapper.readInt();
-        this._userIsMember          = wrapper.readBoolean();
+        this._objectId = wrapper.readInt();
+        this._guildId = wrapper.readInt();
+        this._guildName = wrapper.readString();
+        this._guildHomeRoomId = wrapper.readInt();
+        this._userIsMember = wrapper.readBoolean();
         this._guildHasReadableForum = wrapper.readBoolean();
 
         return true;

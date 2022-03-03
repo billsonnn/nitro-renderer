@@ -27,20 +27,20 @@ export class UserInfoDataParser
 
     public flush(): boolean
     {
-        this._userId                    = 0;
-        this._username                  = null;
-        this._figure                    = null;
-        this._gender                    = null;
-        this._motto                     = null;
-        this._realName                  = null;
-        this._directMail                = false;
-        this._respectsReceived          = 0;
-        this._respectsRemaining         = 0;
-        this._respectsPetRemaining      = 0;
-        this._streamPublishingAllowed   = false;
-        this._lastAccessDate            = null;
-        this._canChangeName             = false;
-        this._safetyLocked              = false;
+        this._userId = 0;
+        this._username = null;
+        this._figure = null;
+        this._gender = null;
+        this._motto = null;
+        this._realName = null;
+        this._directMail = false;
+        this._respectsReceived = 0;
+        this._respectsRemaining = 0;
+        this._respectsPetRemaining = 0;
+        this._streamPublishingAllowed = false;
+        this._lastAccessDate = null;
+        this._canChangeName = false;
+        this._safetyLocked = false;
 
         return true;
     }
@@ -49,20 +49,20 @@ export class UserInfoDataParser
     {
         if(!wrapper) return false;
 
-        this._userId                    = wrapper.readInt();
-        this._username                  = wrapper.readString();
-        this._figure                    = wrapper.readString();
-        this._gender                    = wrapper.readString();
-        this._motto                     = wrapper.readString();
-        this._realName                  = wrapper.readString();
-        this._directMail                = wrapper.readBoolean();
-        this._respectsReceived          = wrapper.readInt();
-        this._respectsRemaining         = wrapper.readInt();
-        this._respectsPetRemaining      = wrapper.readInt();
-        this._streamPublishingAllowed   = wrapper.readBoolean();
-        this._lastAccessDate            = wrapper.readString();
-        this._canChangeName             = wrapper.readBoolean();
-        this._safetyLocked              = wrapper.readBoolean();
+        this._userId = wrapper.readInt();
+        this._username = wrapper.readString();
+        this._figure = wrapper.readString();
+        this._gender = wrapper.readString();
+        this._motto = wrapper.readString();
+        this._realName = wrapper.readString();
+        this._directMail = wrapper.readBoolean();
+        this._respectsReceived = wrapper.readInt();
+        this._respectsRemaining = wrapper.readInt();
+        this._respectsPetRemaining = wrapper.readInt();
+        this._streamPublishingAllowed = wrapper.readBoolean();
+        this._lastAccessDate = wrapper.readString();
+        this._canChangeName = wrapper.readBoolean();
+        this._safetyLocked = wrapper.readBoolean();
 
         return true;
     }

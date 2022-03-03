@@ -73,10 +73,10 @@ export class FurnitureRoomBackgroundColorLogic extends FurnitureMultiStateLogic
 
         numberData.initializeFromRoomObjectModel(this.object.model);
 
-        const state         = numberData.getValue(0);
-        const hue           = numberData.getValue(1);
-        const saturation    = numberData.getValue(2);
-        const lightness     = numberData.getValue(3);
+        const state = numberData.getValue(0);
+        const hue = numberData.getValue(1);
+        const saturation = numberData.getValue(2);
+        const lightness = numberData.getValue(3);
 
         if((state > -1) && (hue > -1) && (saturation > -1) && (lightness > -1))
         {

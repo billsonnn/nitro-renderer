@@ -24,16 +24,16 @@ export class PurchaseOKMessageOfferData
 
     public flush(): boolean
     {
-        this._offerId                   = -1;
-        this._localizationId            = null;
-        this._rent                      = false;
-        this._priceCredits              = 0;
-        this._priceActivityPoints       = 0;
-        this._priceActivityPointsType   = 0;
-        this._clubLevel                 = 0;
-        this._giftable                  = false;
-        this._bundlePurchaseAllowed     = false;
-        this._products                  = [];
+        this._offerId = -1;
+        this._localizationId = null;
+        this._rent = false;
+        this._priceCredits = 0;
+        this._priceActivityPoints = 0;
+        this._priceActivityPointsType = 0;
+        this._clubLevel = 0;
+        this._giftable = false;
+        this._bundlePurchaseAllowed = false;
+        this._products = [];
 
         return true;
     }
@@ -42,13 +42,13 @@ export class PurchaseOKMessageOfferData
     {
         if(!wrapper) return false;
 
-        this._offerId                   = wrapper.readInt();
-        this._localizationId            = wrapper.readString();
-        this._rent                      = wrapper.readBoolean();
-        this._priceCredits              = wrapper.readInt();
-        this._priceActivityPoints       = wrapper.readInt();
-        this._priceActivityPointsType   = wrapper.readInt();
-        this._giftable                  = wrapper.readBoolean();
+        this._offerId = wrapper.readInt();
+        this._localizationId = wrapper.readString();
+        this._rent = wrapper.readBoolean();
+        this._priceCredits = wrapper.readInt();
+        this._priceActivityPoints = wrapper.readInt();
+        this._priceActivityPointsType = wrapper.readInt();
+        this._giftable = wrapper.readBoolean();
 
         let totalProducts = wrapper.readInt();
 
@@ -59,7 +59,7 @@ export class PurchaseOKMessageOfferData
             totalProducts--;
         }
 
-        this._clubLevel             = wrapper.readInt();
+        this._clubLevel = wrapper.readInt();
         this._bundlePurchaseAllowed = wrapper.readBoolean();
 
         return true;

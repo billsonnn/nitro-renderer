@@ -10,8 +10,8 @@ export class TriggerDefinition extends Triggerable
     {
         super(wrapper);
 
-        this._conflictingActions    = [];
-        this._triggerConf           = wrapper.readInt();
+        this._conflictingActions = [];
+        this._triggerConf = wrapper.readInt();
 
         let count = wrapper.readInt();
 

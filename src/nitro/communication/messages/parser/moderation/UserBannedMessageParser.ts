@@ -1,6 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
-export class UserBannedMessageParser  implements IMessageParser
+export class UserBannedMessageParser implements IMessageParser
 {
     private _message: string;
 

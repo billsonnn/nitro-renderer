@@ -9,8 +9,8 @@ export class ObjectAvatarCarryObjectUpdateMessage extends ObjectStateUpdateMessa
     {
         super();
 
-        this._itemType  = itemType;
-        this._itemName  = itemName;
+        this._itemType = itemType;
+        this._itemName = itemName;
     }
 
     public get itemType(): number

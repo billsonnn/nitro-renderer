@@ -12,11 +12,11 @@ export class AnimationFrameSequenceData
 
     constructor(loopCount: number, isRandom: boolean)
     {
-        this._frames        = [];
-        this._frameIndexes  = [];
-        this._frameRepeats  = [];
-        this._isRandom      = isRandom;
-        this._loopCount     = (loopCount < 1) ? 1 : loopCount;
+        this._frames = [];
+        this._frameIndexes = [];
+        this._frameRepeats = [];
+        this._isRandom = isRandom;
+        this._loopCount = (loopCount < 1) ? 1 : loopCount;
     }
 
     public get isRandom(): boolean
@@ -36,9 +36,9 @@ export class AnimationFrameSequenceData
 
     public initialize(): void
     {
-        let frameIndex: number  = (this._frameIndexes.length - 1);
-        let realIndex   = -1;
-        let nextIndex   = 1;
+        let frameIndex: number = (this._frameIndexes.length - 1);
+        let realIndex = -1;
+        let nextIndex = 1;
 
         while(frameIndex >= 0)
         {

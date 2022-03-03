@@ -20,7 +20,7 @@ export class ModeratorUserInfoData
     private _figure: string;
     private _userClassification: string;
     private _lastSanctionTime: string = '';
-    private  _sanctionAgeHours: number = 0;
+    private _sanctionAgeHours: number = 0;
 
     constructor(wrapper: IMessageDataWrapper)
     {

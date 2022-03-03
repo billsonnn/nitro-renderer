@@ -13,10 +13,10 @@ export class JumpBy extends Interval
     {
         super(target, duration);
 
-        this._deltaX    = deltaX;
-        this._deltaY    = deltaY;
-        this._height    = -(height);
-        this._numJumps  = numJumps;
+        this._deltaX = deltaX;
+        this._deltaY = deltaY;
+        this._height = -(height);
+        this._numJumps = numJumps;
     }
 
     public start(): void
@@ -31,7 +31,7 @@ export class JumpBy extends Interval
     {
         super.update(k);
 
-        this.target.style.left  = ((this._startX + (this._deltaX * k)) + 'px');
-        this.target.style.top   = (((this._startY + (this._height * Math.abs(Math.sin(((k * Math.PI) * this._numJumps))))) + (this._deltaY * k)) + 'px');
+        this.target.style.left = ((this._startX + (this._deltaX * k)) + 'px');
+        this.target.style.top = (((this._startY + (this._height * Math.abs(Math.sin(((k * Math.PI) * this._numJumps))))) + (this._deltaY * k)) + 'px');
     }
 }

@@ -9,7 +9,7 @@ export class FriendRequestsParser implements IMessageParser
     public flush(): boolean
     {
         this._totalRequests = 0;
-        this._requests      = [];
+        this._requests = [];
 
         return true;
     }

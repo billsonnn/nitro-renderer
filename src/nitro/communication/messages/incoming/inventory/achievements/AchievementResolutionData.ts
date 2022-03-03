@@ -13,18 +13,18 @@ export class AchievementResolutionData
     constructor(wrapper: IMessageDataWrapper)
     {
         this._achievementId = wrapper.readInt();
-        this._level         = wrapper.readInt();
-        this._badgeId       = wrapper.readString();
-        this._requiredLevel      = wrapper.readInt();
-        this._state         = wrapper.readInt();
+        this._level = wrapper.readInt();
+        this._badgeId = wrapper.readString();
+        this._requiredLevel = wrapper.readInt();
+        this._state = wrapper.readInt();
     }
 
     public dispose(): void
     {
         this._achievementId = 0;
-        this._level         = 0;
-        this._badgeId       = '';
-        this._requiredLevel      = 0;
+        this._level = 0;
+        this._badgeId = '';
+        this._requiredLevel = 0;
     }
 
     public get achievementId(): number

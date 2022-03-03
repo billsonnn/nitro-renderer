@@ -88,13 +88,13 @@ export class FurnitureRoomDimmerLogic extends FurnitureLogic
 
         if(parts.length >= 5)
         {
-            const state     = this.getStateFromDimmerData(data);
-            const presetId  = parseInt(parts[1]);
-            const effectId  = parseInt(parts[2]);
-            const color     = parts[3];
+            const state = this.getStateFromDimmerData(data);
+            const presetId = parseInt(parts[1]);
+            const effectId = parseInt(parts[2]);
+            const color = parts[3];
 
-            let colorCode   = parseInt(color.substr(1), 16);
-            let brightness  = parseInt(parts[4]);
+            let colorCode = parseInt(color.substr(1), 16);
+            let brightness = parseInt(parts[4]);
 
             if(!state)
             {

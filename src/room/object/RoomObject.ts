@@ -33,21 +33,21 @@ export class RoomObject extends Disposable implements IRoomObjectController
     {
         super();
 
-        this._id                    = id;
-        this._instanceId            = RoomObject.OBJECT_COUNTER++;
-        this._type                  = type;
-        this._model                 = new RoomObjectModel();
+        this._id = id;
+        this._instanceId = RoomObject.OBJECT_COUNTER++;
+        this._type = type;
+        this._model = new RoomObjectModel();
 
-        this._location              = new Vector3d();
-        this._direction             = new Vector3d();
-        this._states                = [];
+        this._location = new Vector3d();
+        this._direction = new Vector3d();
+        this._states = [];
 
-        this._visualization         = null;
-        this._logic                 = null;
-        this._pendingLogicMessages  = [];
+        this._visualization = null;
+        this._logic = null;
+        this._pendingLogicMessages = [];
 
-        this._updateCounter         = 0;
-        this._isReady               = false;
+        this._updateCounter = 0;
+        this._isReady = false;
 
         let i = (stateCount - 1);
 
@@ -82,9 +82,9 @@ export class RoomObject extends Disposable implements IRoomObjectController
 
         if((vector.x === this._location.x) && (vector.y === this._location.y) && (vector.z === this._location.z)) return;
 
-        this._location.x    = vector.x;
-        this._location.y    = vector.y;
-        this._location.z    = vector.z;
+        this._location.x = vector.x;
+        this._location.y = vector.y;
+        this._location.z = vector.z;
 
         this._updateCounter++;
     }

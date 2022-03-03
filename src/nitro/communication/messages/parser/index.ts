@@ -8,6 +8,7 @@ export * from './campaign';
 export * from './catalog';
 export * from './client';
 export * from './competition';
+export * from './crafting';
 export * from './desktop';
 export * from './friendlist';
 export * from './game';

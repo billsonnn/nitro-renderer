@@ -15,10 +15,10 @@ export class GeometryBodyPart extends Node3D
     {
         super(parseFloat(k.x), parseFloat(k.y), parseFloat(k.z));
 
-        this._id            = k.id;
-        this._radius        = parseFloat(k.radius);
-        this._parts         = new Map();
-        this._dynamicParts  = new Map();
+        this._id = k.id;
+        this._radius = parseFloat(k.radius);
+        this._parts = new Map();
+        this._dynamicParts = new Map();
 
         if(k.items && (k.items.length > 0))
         {
@@ -35,7 +35,7 @@ export class GeometryBodyPart extends Node3D
 
     public getDynamicParts(k: IAvatarImage): GeometryItem[]
     {
-        const existing              = this._dynamicParts.get(k);
+        const existing = this._dynamicParts.get(k);
         const parts: GeometryItem[] = [];
 
         if(existing)

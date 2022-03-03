@@ -25,13 +25,13 @@ export class CatalogPageMessageProductData
 
     public flush(): boolean
     {
-        this._productType                   = null;
-        this._furniClassId                  = -1;
-        this._extraParam                    = null;
-        this._productCount                  = 0;
-        this._uniqueLimitedItem             = false;
-        this._uniqueLimitedItemSeriesSize   = 0;
-        this._uniqueLimitedItemsLeft        = 0;
+        this._productType = null;
+        this._furniClassId = -1;
+        this._extraParam = null;
+        this._productCount = 0;
+        this._uniqueLimitedItem = false;
+        this._uniqueLimitedItemSeriesSize = 0;
+        this._uniqueLimitedItemsLeft = 0;
 
         return true;
     }
@@ -43,19 +43,19 @@ export class CatalogPageMessageProductData
         switch(this._productType)
         {
             case CatalogPageMessageProductData.B:
-                this._extraParam    = wrapper.readString();
-                this._productCount  = 1;
+                this._extraParam = wrapper.readString();
+                this._productCount = 1;
                 return true;
             default:
-                this._furniClassId  = wrapper.readInt();
-                this._extraParam    = wrapper.readString();
-                this._productCount  = wrapper.readInt();
+                this._furniClassId = wrapper.readInt();
+                this._extraParam = wrapper.readString();
+                this._productCount = wrapper.readInt();
                 this._uniqueLimitedItem = wrapper.readBoolean();
 
                 if(this._uniqueLimitedItem)
                 {
-                    this._uniqueLimitedItemSeriesSize   = wrapper.readInt();
-                    this._uniqueLimitedItemsLeft        = wrapper.readInt();
+                    this._uniqueLimitedItemSeriesSize = wrapper.readInt();
+                    this._uniqueLimitedItemsLeft = wrapper.readInt();
                 }
                 return true;
         }

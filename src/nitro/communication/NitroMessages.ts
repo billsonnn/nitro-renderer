@@ -49,6 +49,7 @@ import { GroupInformationEvent } from './messages/incoming/group/GroupInformatio
 import { GroupMembersEvent } from './messages/incoming/group/GroupMembersEvent';
 import { GroupPurchasedEvent } from './messages/incoming/group/GroupPurchasedEvent';
 import { GroupSettingsEvent } from './messages/incoming/group/GroupSettingsEvent';
+import { HabboGroupDeactivatedMessageEvent } from './messages/incoming/group/HabboGroupDeactivatedMessageEvent';
 import { CallForHelpDisabledNotifyMessageEvent } from './messages/incoming/help/CallForHelpDisabledNotifyMessageEvent';
 import { CallForHelpResultMessageEvent } from './messages/incoming/help/CallForHelpResultMessageEvent';
 import { GuideReportingStatusMessageEvent } from './messages/incoming/help/GuideReportingStatusMessageEvent';
@@ -470,7 +471,7 @@ export class NitroMessages implements IMessageConfiguration
 
     constructor()
     {
-        this._events    = new Map();
+        this._events = new Map();
         this._composers = new Map();
 
         this.registerEvents();
@@ -604,6 +605,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.GROUP_SETTINGS, GroupSettingsEvent);
         this._events.set(IncomingHeader.GROUP_PURCHASED, GroupPurchasedEvent);
         this._events.set(IncomingHeader.GROUP_BADGES, GroupBadgesEvent);
+        this._events.set(IncomingHeader.GROUP_DEACTIVATE, HabboGroupDeactivatedMessageEvent);
 
         // HELP
         this._events.set(IncomingHeader.CFH_DISABLED_NOTIFY, CallForHelpDisabledNotifyMessageEvent);
@@ -961,8 +963,8 @@ export class NitroMessages implements IMessageConfiguration
         // CRAFTING
         this._composers.set(OutgoingHeader.CRAFT, CraftComposer);
         this._composers.set(OutgoingHeader.CRAFT_SECRET, CraftSecretComposer);
-        this._composers.set(OutgoingHeader.GET_CRAFTABLE_PRODUCTS, GetCraftableProductsComposer);
-        this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPE, GetCraftingRecipeComposer);
+        this._composers.set(OutgoingHeader.GET_CRAFTABLE_PRODUCTS, GetCraftingRecipeComposer);
+        this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPE, GetCraftableProductsComposer);
         this._composers.set(OutgoingHeader.GET_CRAFTING_RECIPES_AVAILABLE, GetCraftingRecipesAvailableComposer);
 
         // FRIENDFURNI

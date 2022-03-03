@@ -7,8 +7,8 @@ export class GroupPurchasedParser implements IMessageParser
 
     flush(): boolean
     {
-        this._roomId    = 0;
-        this._groupId   = 0;
+        this._roomId = 0;
+        this._groupId = 0;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class GroupPurchasedParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._roomId    = wrapper.readInt();
-        this._groupId   = wrapper.readInt();
+        this._roomId = wrapper.readInt();
+        this._groupId = wrapper.readInt();
 
         return true;
     }

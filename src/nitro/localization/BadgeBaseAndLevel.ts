@@ -1,8 +1,8 @@
 export class BadgeBaseAndLevel
 {
-    private _badgeId: string    = '';
-    private _level: number      = 1;
-    private _base: string       = '';
+    private _badgeId: string = '';
+    private _level: number = 1;
+    private _base: string = '';
 
     constructor(badgeId: string)
     {

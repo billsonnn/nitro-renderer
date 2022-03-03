@@ -93,9 +93,9 @@ export class RoomPlaneBitmapMaskParser
         {
             if(!mask) continue;
 
-            const type      = this.getMaskType(mask);
-            const category  = this.getMaskCategory(mask);
-            const location  = this.getMaskLocation(mask);
+            const type = this.getMaskType(mask);
+            const category = this.getMaskCategory(mask);
+            const location = this.getMaskLocation(mask);
 
             if(type && category && location)
             {

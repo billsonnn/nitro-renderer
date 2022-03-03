@@ -20,13 +20,13 @@ export class NodeData
 
     public flush(): boolean
     {
-        this._visible       = false;
-        this._icon          = 0;
-        this._pageId        = -1;
-        this._pageName      = null;
-        this._localization  = null;
-        this._children      = [];
-        this._offerIds      = [];
+        this._visible = false;
+        this._icon = 0;
+        this._pageId = -1;
+        this._pageName = null;
+        this._localization = null;
+        this._children = [];
+        this._offerIds = [];
 
         return true;
     }
@@ -35,11 +35,11 @@ export class NodeData
     {
         if(!wrapper) return false;
 
-        this._visible       = wrapper.readBoolean();
-        this._icon          = wrapper.readInt();
-        this._pageId        = wrapper.readInt();
-        this._pageName      = wrapper.readString();
-        this._localization  = wrapper.readString();
+        this._visible = wrapper.readBoolean();
+        this._icon = wrapper.readInt();
+        this._pageId = wrapper.readInt();
+        this._pageName = wrapper.readString();
+        this._localization = wrapper.readString();
 
         let totalOffers = wrapper.readInt();
 

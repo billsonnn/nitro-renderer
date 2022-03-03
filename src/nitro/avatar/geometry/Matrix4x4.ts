@@ -2,8 +2,8 @@
 
 export class Matrix4x4
 {
-    public static IDENTITY:Matrix4x4    = new Matrix4x4(1, 0, 0, 0, 1, 0, 0, 0, 1);
-    private static TOLERANS: number     = 1E-18;
+    public static IDENTITY:Matrix4x4 = new Matrix4x4(1, 0, 0, 0, 1, 0, 0, 0, 1);
+    private static TOLERANS: number = 1E-18;
 
     private _data: number[];
 
@@ -57,14 +57,14 @@ export class Matrix4x4
 
     public multiply(k:Matrix4x4): Matrix4x4
     {
-        const _local_2  = (((this._data[0] * k.data[0]) + (this._data[1] * k.data[3])) + (this._data[2] * k.data[6]));
-        const _local_3  = (((this._data[0] * k.data[1]) + (this._data[1] * k.data[4])) + (this._data[2] * k.data[7]));
-        const _local_4  = (((this._data[0] * k.data[2]) + (this._data[1] * k.data[5])) + (this._data[2] * k.data[8]));
-        const _local_5  = (((this._data[3] * k.data[0]) + (this._data[4] * k.data[3])) + (this._data[5] * k.data[6]));
-        const _local_6  = (((this._data[3] * k.data[1]) + (this._data[4] * k.data[4])) + (this._data[5] * k.data[7]));
-        const _local_7  = (((this._data[3] * k.data[2]) + (this._data[4] * k.data[5])) + (this._data[5] * k.data[8]));
-        const _local_8  = (((this._data[6] * k.data[0]) + (this._data[7] * k.data[3])) + (this._data[8] * k.data[6]));
-        const _local_9  = (((this._data[6] * k.data[1]) + (this._data[7] * k.data[4])) + (this._data[8] * k.data[7]));
+        const _local_2 = (((this._data[0] * k.data[0]) + (this._data[1] * k.data[3])) + (this._data[2] * k.data[6]));
+        const _local_3 = (((this._data[0] * k.data[1]) + (this._data[1] * k.data[4])) + (this._data[2] * k.data[7]));
+        const _local_4 = (((this._data[0] * k.data[2]) + (this._data[1] * k.data[5])) + (this._data[2] * k.data[8]));
+        const _local_5 = (((this._data[3] * k.data[0]) + (this._data[4] * k.data[3])) + (this._data[5] * k.data[6]));
+        const _local_6 = (((this._data[3] * k.data[1]) + (this._data[4] * k.data[4])) + (this._data[5] * k.data[7]));
+        const _local_7 = (((this._data[3] * k.data[2]) + (this._data[4] * k.data[5])) + (this._data[5] * k.data[8]));
+        const _local_8 = (((this._data[6] * k.data[0]) + (this._data[7] * k.data[3])) + (this._data[8] * k.data[6]));
+        const _local_9 = (((this._data[6] * k.data[1]) + (this._data[7] * k.data[4])) + (this._data[8] * k.data[7]));
         const _local_10 = (((this._data[6] * k.data[2]) + (this._data[7] * k.data[5])) + (this._data[8] * k.data[8]));
 
         return new Matrix4x4(_local_2, _local_3, _local_4, _local_5, _local_6, _local_7, _local_8, _local_9, _local_10);

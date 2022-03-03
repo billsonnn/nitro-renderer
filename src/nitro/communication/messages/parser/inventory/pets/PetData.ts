@@ -12,10 +12,10 @@ export class PetData
     {
         if(!wrapper) throw new Error('invalid_wrapper');
 
-        this._id            = wrapper.readInt();
-        this._name          = wrapper.readString();
-        this._figureData    = new PetFigureDataParser(wrapper);
-        this._level         = wrapper.readInt();
+        this._id = wrapper.readInt();
+        this._name = wrapper.readString();
+        this._figureData = new PetFigureDataParser(wrapper);
+        this._level = wrapper.readInt();
     }
 
     public get id(): number

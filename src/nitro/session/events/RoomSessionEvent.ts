@@ -3,9 +3,9 @@ import { IRoomSession } from '../IRoomSession';
 
 export class RoomSessionEvent extends NitroEvent
 {
-    public static CREATED: string   = 'RSE_CREATED';
-    public static STARTED: string   = 'RSE_STARTED';
-    public static ENDED: string     = 'RSE_ENDED';
+    public static CREATED: string = 'RSE_CREATED';
+    public static STARTED: string = 'RSE_STARTED';
+    public static ENDED: string = 'RSE_ENDED';
     public static ROOM_DATA: string = 'RSE_ROOM_DATA';
 
     private _session: IRoomSession;
@@ -15,8 +15,8 @@ export class RoomSessionEvent extends NitroEvent
     {
         super(type);
 
-        this._session           = session;
-        this._openLandingView   = openLandingView;
+        this._session = session;
+        this._openLandingView = openLandingView;
     }
 
     public get session(): IRoomSession

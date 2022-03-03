@@ -21,6 +21,10 @@ export interface IRoomRenderingCanvas
     handleMouseEvent(x: number, y: number, type: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean, buttonDown: boolean): boolean;
     getSortableSpriteList(): RoomObjectSpriteData[];
     getDisplayAsTexture(): RenderTexture;
+    moveLeft(): void;
+    moveRight(): void;
+    moveUp(): void;
+    moveDown(): void;
     id: number;
     geometry: IRoomGeometry;
     master: DisplayObject;

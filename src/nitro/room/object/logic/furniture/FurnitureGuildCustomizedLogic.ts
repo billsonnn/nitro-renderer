@@ -11,10 +11,10 @@ import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureGuildCustomizedLogic extends FurnitureMultiStateLogic
 {
-    public static GROUPID_KEY: number   = 1;
-    public static BADGE_KEY: number     = 2;
-    public static COLOR1_KEY: number    = 3;
-    public static COLOR2_KEY: number    = 4;
+    public static GROUPID_KEY: number = 1;
+    public static BADGE_KEY: number = 2;
+    public static COLOR1_KEY: number = 3;
+    public static COLOR2_KEY: number = 4;
 
     public getEventTypes(): string[]
     {

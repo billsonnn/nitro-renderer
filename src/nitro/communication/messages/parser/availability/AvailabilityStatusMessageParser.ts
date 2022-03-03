@@ -8,9 +8,9 @@ export class AvailabilityStatusMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._isOpen            = false;
-        this._onShutdown        = false;
-        this._isAuthenticUser   = false;
+        this._isOpen = false;
+        this._onShutdown = false;
+        this._isAuthenticUser = false;
 
         return true;
     }
@@ -19,8 +19,8 @@ export class AvailabilityStatusMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._isOpen        = wrapper.readBoolean();
-        this._onShutdown    = wrapper.readBoolean();
+        this._isOpen = wrapper.readBoolean();
+        this._onShutdown = wrapper.readBoolean();
 
         if(wrapper.bytesAvailable)
         {

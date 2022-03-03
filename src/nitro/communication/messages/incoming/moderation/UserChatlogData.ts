@@ -9,7 +9,7 @@ export class UserChatlogData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        this._userId   = wrapper.readInt();
+        this._userId = wrapper.readInt();
         this._username = wrapper.readString();
         const size = wrapper.readInt();
         for(let i = 0; i < size; i++)

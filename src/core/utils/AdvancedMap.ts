@@ -9,10 +9,10 @@ export class AdvancedMap<T, U> implements IDisposable
 
     constructor(map: Map<T, U> = null)
     {
-        this._length        = 0;
-        this._dictionary    = new Map();
-        this._array         = [];
-        this._keys          = [];
+        this._length = 0;
+        this._dictionary = new Map();
+        this._array = [];
+        this._keys = [];
 
         if(map) for(const [ key, value ] of map.entries()) this.add(key, value);
     }
@@ -36,18 +36,18 @@ export class AdvancedMap<T, U> implements IDisposable
             this._dictionary = null;
         }
 
-        this._length    = 0;
-        this._array     = null;
-        this._keys      = null;
+        this._length = 0;
+        this._array = null;
+        this._keys = null;
     }
 
     public reset(): void
     {
         for(const key of this._dictionary.keys()) this._dictionary.delete(key);
 
-        this._length    = 0;
-        this._array     = [];
-        this._keys      = [];
+        this._length = 0;
+        this._array = [];
+        this._keys = [];
     }
 
     public unshift(key: T, value: U): boolean
@@ -70,8 +70,8 @@ export class AdvancedMap<T, U> implements IDisposable
 
         this._dictionary.set(key, value);
 
-        this._array[this._length]   = value;
-        this._keys[this._length]    = key;
+        this._array[this._length] = value;
+        this._keys[this._length] = key;
 
         this._length++;
 

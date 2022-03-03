@@ -9,8 +9,8 @@ export class FurnitureDataParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._itemId    = 0;
-        this._data      = null;
+        this._itemId = 0;
+        this._data = null;
 
         return true;
     }
@@ -19,8 +19,8 @@ export class FurnitureDataParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._itemId    = parseInt(wrapper.readString());
-        this._data      = FurnitureDataParser.parseObjectData(wrapper);
+        this._itemId = parseInt(wrapper.readString());
+        this._data = FurnitureDataParser.parseObjectData(wrapper);
 
         return true;
     }

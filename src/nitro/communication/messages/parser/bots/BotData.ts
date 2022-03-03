@@ -12,11 +12,11 @@ export class BotData
     {
         if(!wrapper) throw new Error('invalid_parser');
 
-        this._id        = wrapper.readInt();
-        this._name      = wrapper.readString();
-        this._motto     = wrapper.readString();
-        this._gender    = wrapper.readString();
-        this._figure    = wrapper.readString();
+        this._id = wrapper.readInt();
+        this._name = wrapper.readString();
+        this._motto = wrapper.readString();
+        this._gender = wrapper.readString();
+        this._figure = wrapper.readString();
     }
 
     public get id(): number

@@ -14,10 +14,10 @@ export class ExperienceData
 
     constructor(texture: Texture<Resource>)
     {
-        this._sprite    = new NitroSprite(texture);
-        this._texture   = null;
-        this._amount    = -1;
-        this._alpha     = 0;
+        this._sprite = new NitroSprite(texture);
+        this._texture = null;
+        this._amount = -1;
+        this._alpha = 0;
     }
 
     public renderBubble(amount: number): RenderTexture

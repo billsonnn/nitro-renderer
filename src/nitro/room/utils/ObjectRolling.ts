@@ -2,7 +2,7 @@ import { IVector3D } from '../../../room/utils/IVector3D';
 
 export class ObjectRolling
 {
-    public static MOVE: string  = 'mv';
+    public static MOVE: string = 'mv';
     public static SLIDE: string = 'sld';
 
     private _id: number;
@@ -12,10 +12,10 @@ export class ObjectRolling
 
     constructor(id: number, location: IVector3D, targetLocation: IVector3D, movementType: string = null)
     {
-        this._id                = id;
-        this._location          = location;
-        this._targetLocation    = targetLocation;
-        this._movementType      = movementType;
+        this._id = id;
+        this._location = location;
+        this._targetLocation = targetLocation;
+        this._movementType = movementType;
     }
 
     public get id(): number

@@ -16,17 +16,17 @@ export class HabboSearchResultData
     {
         if(!wrapper) throw new Error('invalid_wrapper');
 
-        this._avatarId          = wrapper.readInt();
-        this._avatarName        = wrapper.readString();
-        this._avatarMotto       = wrapper.readString();
-        this._isAvatarOnline    = wrapper.readBoolean();
-        this._canFollow         = wrapper.readBoolean();
+        this._avatarId = wrapper.readInt();
+        this._avatarName = wrapper.readString();
+        this._avatarMotto = wrapper.readString();
+        this._isAvatarOnline = wrapper.readBoolean();
+        this._canFollow = wrapper.readBoolean();
 
-        this._lastOnlineData    = wrapper.readString(); // this was not assigned to anything on original packet
+        this._lastOnlineData = wrapper.readString(); // this was not assigned to anything on original packet
 
-        this._avatarGender      = wrapper.readInt();
-        this._avatarFigure      = wrapper.readString();
-        this._realName          = wrapper.readString();
+        this._avatarGender = wrapper.readInt();
+        this._avatarFigure = wrapper.readString();
+        this._realName = wrapper.readString();
     }
 
     public get avatarId(): number

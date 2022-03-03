@@ -1,4 +1,4 @@
 export class ObjectDataFlags
 {
-    public static UNIQUE_SET  = 256;
+    public static UNIQUE_SET = 256;
 }

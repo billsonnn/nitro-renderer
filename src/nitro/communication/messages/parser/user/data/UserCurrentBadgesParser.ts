@@ -7,8 +7,8 @@ export class UserCurrentBadgesParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._userId    = null;
-        this._badges    = [];
+        this._userId = null;
+        this._badges = [];
 
         return true;
     }
@@ -23,7 +23,7 @@ export class UserCurrentBadgesParser implements IMessageParser
 
         while(totalBadges > 0)
         {
-            const slotId    = wrapper.readInt();
+            const slotId = wrapper.readInt();
             const badgeCode = wrapper.readString();
 
             this._badges.push(badgeCode);

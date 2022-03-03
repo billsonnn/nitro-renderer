@@ -12,14 +12,14 @@ export class PetColorResult
 
     constructor(primaryColor: number, secondaryColor: number, breed: number, tag: number, id: string, isMaster: boolean, layerTags: string[])
     {
-        this._layerTags         = [];
-        this._primaryColor      = (primaryColor & 0xFFFFFF);
-        this._secondaryColor    = (secondaryColor & 0xFFFFFF);
-        this._breed             = breed;
-        this._tag               = (((tag > -1) && (tag < PetColorResult.COLOR_TAGS.length)) ? PetColorResult.COLOR_TAGS[tag] : '');
-        this._id                = id;
-        this._isMaster          = isMaster;
-        this._layerTags         = layerTags;
+        this._layerTags = [];
+        this._primaryColor = (primaryColor & 0xFFFFFF);
+        this._secondaryColor = (secondaryColor & 0xFFFFFF);
+        this._breed = breed;
+        this._tag = (((tag > -1) && (tag < PetColorResult.COLOR_TAGS.length)) ? PetColorResult.COLOR_TAGS[tag] : '');
+        this._id = id;
+        this._isMaster = isMaster;
+        this._layerTags = layerTags;
     }
 
     public get primaryColor(): number

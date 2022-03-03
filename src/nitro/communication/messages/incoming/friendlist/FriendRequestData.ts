@@ -11,10 +11,10 @@ export class FriendRequestData
     {
         if(!wrapper) throw new Error('invalid_wrapper');
 
-        this._requestId         = wrapper.readInt();
-        this._requesterName     = wrapper.readString();
-        this._figureString      = wrapper.readString();
-        this._requesterUserId   = this._requestId;
+        this._requestId = wrapper.readInt();
+        this._requesterName = wrapper.readString();
+        this._figureString = wrapper.readString();
+        this._requesterUserId = this._requestId;
     }
 
     public get requestId(): number

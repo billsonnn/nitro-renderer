@@ -8,7 +8,7 @@ export class CatalogPublishedMessageParser implements IMessageParser
     public flush(): boolean
     {
         this._instantlyRefreshCatalogue = false;
-        this._newFurniDataHash          = null;
+        this._newFurniDataHash = null;
 
         return true;
     }

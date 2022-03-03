@@ -5,8 +5,8 @@ export class AvatarAnimationFrame
 
     constructor(data: any)
     {
-        this._number                = data.number;
-        this._assetPartDefinition   = data.assetPartDefinition || null;
+        this._number = data.number;
+        this._assetPartDefinition = data.assetPartDefinition || null;
     }
 
     public get number(): number

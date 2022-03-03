@@ -12,9 +12,9 @@ export class RoomZoomEvent extends RoomEngineEvent
     {
         super(RoomZoomEvent.ROOM_ZOOM, roomId);
 
-        this._level     = level;
+        this._level = level;
         this._forceFlip = forceFlip;
-        this._asDelta   = asDelta;
+        this._asDelta = asDelta;
     }
 
     public get level(): number

@@ -7,7 +7,7 @@ export class RoomObjectModel implements IRoomObjectModel
 
     constructor()
     {
-        this._map           = new Map();
+        this._map = new Map();
         this._updateCounter = 0;
     }
 

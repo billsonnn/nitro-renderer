@@ -6,7 +6,7 @@ import { ICommunicationManager } from './communication/ICommunicationManager';
 import { ConfigurationManager } from './configuration/ConfigurationManager';
 import { IConfigurationManager } from './configuration/IConfigurationManager';
 import { INitroCore } from './INitroCore';
-import { NitroVersion } from './NitroVersion';
+import { SayHello } from './utils/SayHello';
 
 export class NitroCore extends Disposable implements INitroCore
 {
@@ -18,13 +18,11 @@ export class NitroCore extends Disposable implements INitroCore
     {
         super();
 
-        window.console.log.apply(console, [
-            `\n%c       _   ___ __              \n      / | / (_) /__________    \n     /  |/ / / __/ ___/ __ \\   \n    / /|  / / /_/ /  / /_/ /   \n   /_/ |_/_/\\__/_/   \\____/    \n                               \n Thanks for using Nitro        \n To report bugs or issues      \n join us on Discord            \n https://nitrots.co/discord    \n                               \n Renderer: v${ NitroVersion.RENDERER_VERSION }              \n UI: v${ NitroVersion.UI_VERSION }                    \n                               \n`,
-            'color: #FFFFFF; background: #000000; padding:0px 0;' ]);
+        SayHello();
 
         this._configuration = new ConfigurationManager();
         this._communication = new CommunicationManager();
-        this._asset         = new AssetManager();
+        this._asset = new AssetManager();
     }
 
     protected onDispose(): void

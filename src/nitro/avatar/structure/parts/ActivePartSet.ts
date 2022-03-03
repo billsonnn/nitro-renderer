@@ -5,7 +5,7 @@ export class ActivePartSet
 
     constructor(data: any)
     {
-        this._id    = data.id;
+        this._id = data.id;
         this._parts = [];
 
         if(data.activeParts && (data.activeParts.length > 0))

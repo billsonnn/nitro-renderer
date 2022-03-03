@@ -17,10 +17,10 @@ export class RoomObjectLogicBase extends Disposable implements IRoomObjectEventH
     {
         super();
 
-        this._object    = null;
-        this._events    = null;
+        this._object = null;
+        this._events = null;
 
-        this._time      = 0;
+        this._time = 0;
     }
 
     public initialize(data: unknown): void

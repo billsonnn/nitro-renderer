@@ -10,8 +10,8 @@ export class ExpressionAddition implements IExpressionAddition
 
     constructor(id: number, type: number, visualization: AvatarVisualization)
     {
-        this._id            = id;
-        this._type          = type;
+        this._id = id;
+        this._type = type;
         this._visualization = visualization;
     }
 

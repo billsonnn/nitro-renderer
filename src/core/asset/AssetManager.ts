@@ -21,9 +21,9 @@ export class AssetManager extends Disposable implements IAssetManager
     {
         super();
 
-        this._logger        = new NitroLogger(this.constructor.name);
-        this._textures      = new Map();
-        this._collections   = new Map();
+        this._logger = new NitroLogger(this.constructor.name);
+        this._textures = new Map();
+        this._collections = new Map();
     }
 
     public static removeFileExtension(name: string): string
@@ -167,8 +167,8 @@ export class AssetManager extends Disposable implements IAssetManager
 
         if(resource.extension === 'nitro')
         {
-            const nitroBundle   = new NitroBundle(resource.data);
-            const assetData     = (nitroBundle.jsonFile as IAssetData);
+            const nitroBundle = new NitroBundle(resource.data);
+            const assetData = (nitroBundle.jsonFile as IAssetData);
 
             if(!assetData)
             {

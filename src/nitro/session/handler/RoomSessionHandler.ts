@@ -11,9 +11,9 @@ import { BaseHandler } from './BaseHandler';
 
 export class RoomSessionHandler extends BaseHandler
 {
-    public static RS_CONNECTED: string      = 'RS_CONNECTED';
-    public static RS_READY: string          = 'RS_READY';
-    public static RS_DISCONNECTED: string   = 'RS_DISCONNECTED';
+    public static RS_CONNECTED: string = 'RS_CONNECTED';
+    public static RS_READY: string = 'RS_READY';
+    public static RS_DISCONNECTED: string = 'RS_DISCONNECTED';
 
     constructor(connection: IConnection, listener: IRoomHandlerListener)
     {
@@ -37,8 +37,8 @@ export class RoomSessionHandler extends BaseHandler
     {
         if(!(event instanceof RoomReadyMessageEvent)) return;
 
-        const fromRoomId    = this.roomId;
-        const toRoomId      = event.getParser().roomId;
+        const fromRoomId = this.roomId;
+        const toRoomId = event.getParser().roomId;
 
         if(this.listener)
         {

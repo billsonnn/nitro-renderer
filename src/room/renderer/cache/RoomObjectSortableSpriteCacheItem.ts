@@ -9,10 +9,10 @@ export class RoomObjectSortableSpriteCacheItem
 
     constructor()
     {
-        this._sprites   = [];
+        this._sprites = [];
         this._updateId1 = -1;
         this._updateId2 = -1;
-        this._isEmpty   = false;
+        this._isEmpty = false;
     }
 
     public get spriteCount(): number

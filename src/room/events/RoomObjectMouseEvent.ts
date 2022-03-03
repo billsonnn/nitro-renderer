@@ -3,14 +3,14 @@ import { RoomObjectEvent } from './RoomObjectEvent';
 
 export class RoomObjectMouseEvent extends RoomObjectEvent
 {
-    public static CLICK: string             = 'ROE_MOUSE_CLICK';
-    public static DOUBLE_CLICK: string      = 'ROE_MOUSE_DOUBLE_CLICK';
-    public static MOUSE_MOVE: string        = 'ROE_MOUSE_MOVE';
-    public static MOUSE_DOWN: string        = 'ROE_MOUSE_DOWN';
-    public static MOUSE_DOWN_LONG: string   = 'ROE_MOUSE_DOWN_LONG';
-    public static MOUSE_UP: string          = 'ROE_MOUSE_UP';
-    public static MOUSE_ENTER: string       = 'ROE_MOUSE_ENTER';
-    public static MOUSE_LEAVE: string       = 'ROE_MOUSE_LEAVE';
+    public static CLICK: string = 'ROE_MOUSE_CLICK';
+    public static DOUBLE_CLICK: string = 'ROE_MOUSE_DOUBLE_CLICK';
+    public static MOUSE_MOVE: string = 'ROE_MOUSE_MOVE';
+    public static MOUSE_DOWN: string = 'ROE_MOUSE_DOWN';
+    public static MOUSE_DOWN_LONG: string = 'ROE_MOUSE_DOWN_LONG';
+    public static MOUSE_UP: string = 'ROE_MOUSE_UP';
+    public static MOUSE_ENTER: string = 'ROE_MOUSE_ENTER';
+    public static MOUSE_LEAVE: string = 'ROE_MOUSE_LEAVE';
 
     private _eventId: string = '';
     private _altKey: boolean;
@@ -26,11 +26,11 @@ export class RoomObjectMouseEvent extends RoomObjectEvent
     {
         super(type, object);
 
-        this._eventId       = eventId;
-        this._altKey        = altKey;
-        this._ctrlKey       = ctrlKey;
-        this._shiftKey      = shiftKey;
-        this._buttonDown    = buttonDown;
+        this._eventId = eventId;
+        this._altKey = altKey;
+        this._ctrlKey = ctrlKey;
+        this._shiftKey = shiftKey;
+        this._buttonDown = buttonDown;
     }
 
     public get eventId(): string

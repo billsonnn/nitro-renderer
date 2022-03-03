@@ -9,7 +9,7 @@ export class AcceptFriendFailerData
     {
         if(!wrapper) throw new Error('invalid_wrapper');
 
-        this._senderId  = wrapper.readInt();
+        this._senderId = wrapper.readInt();
         this._errorCode = wrapper.readInt();
     }
 

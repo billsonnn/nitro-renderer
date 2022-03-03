@@ -12,8 +12,8 @@ export class FurnitureIceStormLogic extends FurnitureMultiStateLogic
     {
         super();
 
-        this._nextState             = 0;
-        this._nextStateTimestamp    = 0;
+        this._nextState = 0;
+        this._nextStateTimestamp = 0;
     }
 
     public update(totalTimeRunning: number): void
@@ -44,7 +44,7 @@ export class FurnitureIceStormLogic extends FurnitureMultiStateLogic
         if(!message) return;
 
         const state = message.state / 1000;
-        const time  = message.state % 1000;
+        const time = message.state % 1000;
 
         if(!time)
         {
@@ -58,8 +58,8 @@ export class FurnitureIceStormLogic extends FurnitureMultiStateLogic
         }
         else
         {
-            this._nextState             = state;
-            this._nextStateTimestamp    = this.time + time;
+            this._nextState = state;
+            this._nextStateTimestamp = this.time + time;
         }
     }
 }

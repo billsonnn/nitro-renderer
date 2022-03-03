@@ -35,15 +35,15 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
     {
         super();
 
-        this._communication     = communication;
-        this._roomEngine        = roomEngine;
+        this._communication = communication;
+        this._roomEngine = roomEngine;
 
-        this._handlers          = [];
-        this._sessions          = new Map();
-        this._pendingSession    = null;
+        this._handlers = [];
+        this._sessions = new Map();
+        this._pendingSession = null;
 
-        this._sessionStarting   = false;
-        this._viewerSession     = null;
+        this._sessionStarting = false;
+        this._viewerSession = null;
 
         this.onRoomEngineEvent = this.onRoomEngineEvent.bind(this);
     }
@@ -123,8 +123,8 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
     {
         const session = new RoomSession();
 
-        session.roomId      = roomId;
-        session.password    = password;
+        session.roomId = roomId;
+        session.password = password;
 
         return this.addSession(session);
     }

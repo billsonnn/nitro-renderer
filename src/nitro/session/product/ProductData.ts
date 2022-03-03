@@ -8,9 +8,9 @@ export class ProductData implements IProductData
 
     constructor(type: string, name: string, description: string)
     {
-        this._type          = type;
-        this._name          = name;
-        this._description   = description;
+        this._type = type;
+        this._name = name;
+        this._description = description;
     }
 
     public get type(): string

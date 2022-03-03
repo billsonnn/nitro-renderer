@@ -25,15 +25,15 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
     {
         super();
 
-        this._mannequinScale    = -1;
-        this._figure            = null;
-        this._gender            = null;
-        this._dynamicAssetName  = null;
-        this._needsUpdate       = false;
+        this._mannequinScale = -1;
+        this._figure = null;
+        this._gender = null;
+        this._dynamicAssetName = null;
+        this._needsUpdate = false;
 
         this._placeHolderFigure = 'hd-99999-99998';
 
-        this._disposed          = false;
+        this._disposed = false;
     }
 
     public initialize(data: IObjectVisualizationData): boolean
@@ -86,8 +86,8 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
 
             if(figure)
             {
-                this._figure   = (figure + '.' + this._placeHolderFigure);
-                this._gender   = (this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_MANNEQUIN_GENDER) || null);
+                this._figure = (figure + '.' + this._placeHolderFigure);
+                this._gender = (this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_MANNEQUIN_GENDER) || null);
 
                 this.updateAvatar();
             }
@@ -114,8 +114,8 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
 
                 this.asset.addAsset(this.getAvatarAssetName(), avatarImage.getImage(AvatarSetType.FULL, false, 1, false), true);
 
-                this._dynamicAssetName  = this.getAvatarAssetName();
-                this._needsUpdate       = true;
+                this._dynamicAssetName = this.getAvatarAssetName();
+                this._needsUpdate = true;
 
                 avatarImage.dispose();
             }

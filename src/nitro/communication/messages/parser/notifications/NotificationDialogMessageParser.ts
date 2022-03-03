@@ -7,8 +7,8 @@ export class NotificationDialogMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._type          = null;
-        this._parameters    = new Map();
+        this._type = null;
+        this._parameters = new Map();
 
         return true;
     }

@@ -19,14 +19,14 @@ export class SizeData
 
     constructor(layerCount: number, angle: number)
     {
-        this._layerCount        = ((layerCount < 0) ? 0 : ((layerCount > SizeData.MAX_LAYERS) ? SizeData.MAX_LAYERS : layerCount));
-        this._angle             = angle < 1 ? 1 : angle > 360 ? 360 : angle;
+        this._layerCount = ((layerCount < 0) ? 0 : ((layerCount > SizeData.MAX_LAYERS) ? SizeData.MAX_LAYERS : layerCount));
+        this._angle = angle < 1 ? 1 : angle > 360 ? 360 : angle;
 
-        this._defaultDirection  = new DirectionData(this._layerCount);
-        this._directions        = new Map();
-        this._colors            = [];
+        this._defaultDirection = new DirectionData(this._layerCount);
+        this._directions = new Map();
+        this._colors = [];
         this._lastDirectionData = null;
-        this._lastDirection     = -1;
+        this._lastDirection = -1;
     }
 
     public dispose(): void
@@ -52,10 +52,10 @@ export class SizeData
 
     protected reset(): void
     {
-        this._defaultDirection  = null;
-        this._colors            = [];
+        this._defaultDirection = null;
+        this._colors = [];
         this._lastDirectionData = null;
-        this._lastDirection     = -1;
+        this._lastDirection = -1;
 
         this._directions.clear();
     }
@@ -90,7 +90,7 @@ export class SizeData
             this._directions.set(directionNumber, directionData);
 
             this._lastDirectionData = null;
-            this._lastDirection     = -1;
+            this._lastDirection = -1;
         }
 
         return true;
@@ -118,8 +118,8 @@ export class SizeData
 
                 if(!colorLayer) continue;
 
-                const layerId   = parseInt(layer);
-                const colorId   = colorLayer.color;
+                const layerId = parseInt(layer);
+                const colorId = colorLayer.color;
 
                 colorData.setColorLayer(layerId, colorId);
             }
@@ -170,8 +170,8 @@ export class SizeData
 
         direction = (((direction % 360) + 360) % 360);
 
-        let currentAngle    = -1;
-        let validDirection  = -1;
+        let currentAngle = -1;
+        let validDirection = -1;
 
         for(const key of this._directions.keys())
         {
@@ -181,8 +181,8 @@ export class SizeData
 
             if((angle < currentAngle) || (currentAngle < 0))
             {
-                currentAngle    = angle;
-                validDirection  = key;
+                currentAngle = angle;
+                validDirection = key;
             }
         }
 
@@ -199,7 +199,7 @@ export class SizeData
 
         if(!directionData) directionData = this._defaultDirection;
 
-        this._lastDirection     = direction;
+        this._lastDirection = direction;
         this._lastDirectionData = directionData;
 
         return this._lastDirectionData;

@@ -8,9 +8,9 @@ export class UserNameChangeMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._webId     = -1;
-        this._id        = -1;
-        this._newName   = '';
+        this._webId = -1;
+        this._id = -1;
+        this._newName = '';
 
         return true;
     }
@@ -19,9 +19,9 @@ export class UserNameChangeMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._webId     = wrapper.readInt();
-        this._id        = wrapper.readInt();
-        this._newName   = wrapper.readString();
+        this._webId = wrapper.readInt();
+        this._id = wrapper.readInt();
+        this._newName = wrapper.readString();
 
         return true;
     }

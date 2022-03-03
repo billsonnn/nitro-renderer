@@ -33,23 +33,23 @@ export class SocketConnection extends EventDispatcher implements IConnection
     {
         super();
 
-        this._communicationManager  = communicationManager;
-        this._stateListener         = stateListener;
-        this._socket                = null;
-        this._messages              = new MessageClassManager();
-        this._codec                 = new EvaWireFormat();
-        this._dataBuffer            = null;
-        this._isReady               = false;
+        this._communicationManager = communicationManager;
+        this._stateListener = stateListener;
+        this._socket = null;
+        this._messages = new MessageClassManager();
+        this._codec = new EvaWireFormat();
+        this._dataBuffer = null;
+        this._isReady = false;
 
         this._pendingClientMessages = [];
         this._pendingServerMessages = [];
 
-        this._isAuthenticated       = false;
+        this._isAuthenticated = false;
 
-        this.onOpen     = this.onOpen.bind(this);
-        this.onClose    = this.onClose.bind(this);
-        this.onError    = this.onError.bind(this);
-        this.onMessage  = this.onMessage.bind(this);
+        this.onOpen = this.onOpen.bind(this);
+        this.onClose = this.onClose.bind(this);
+        this.onError = this.onError.bind(this);
+        this.onMessage = this.onMessage.bind(this);
     }
 
     public init(socketUrl: string): void
@@ -68,11 +68,11 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
         this.destroySocket();
 
-        this._communicationManager  = null;
-        this._stateListener         = null;
-        this._messages              = null;
-        this._codec                 = null;
-        this._dataBuffer            = null;
+        this._communicationManager = null;
+        this._stateListener = null;
+        this._messages = null;
+        this._codec = null;
+        this._dataBuffer = null;
     }
 
     public onReady(): void
@@ -95,8 +95,8 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
         this.destroySocket();
 
-        this._dataBuffer    = new ArrayBuffer(0);
-        this._socket        = new WebSocket(socketUrl);
+        this._dataBuffer = new ArrayBuffer(0);
+        this._socket = new WebSocket(socketUrl);
 
         this._socket.addEventListener(WebSocketEventEnum.CONNECTION_OPENED, this.onOpen);
         this._socket.addEventListener(WebSocketEventEnum.CONNECTION_CLOSED, this.onClose);
@@ -189,8 +189,8 @@ export class SocketConnection extends EventDispatcher implements IConnection
                 continue;
             }
 
-            const message   = composer.getMessageArray();
-            const encoded   = this._codec.encode(header, message);
+            const message = composer.getMessageArray();
+            const encoded = this._codec.encode(header, message);
 
             if(!encoded)
             {
@@ -301,9 +301,12 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
         try
         {
-            const parser = events[0].parser;
+            //@ts-ignore
+            const parser = new events[0].parserClass();
 
             if(!parser || !parser.flush() || !parser.parse(wrapper)) return null;
+
+            for(const event of events) (event.parser = parser);
         }
 
         catch (e)

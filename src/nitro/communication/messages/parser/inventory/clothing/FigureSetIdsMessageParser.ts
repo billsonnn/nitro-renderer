@@ -3,12 +3,12 @@
 export class FigureSetIdsMessageParser implements IMessageParser
 {
     private _figureSetIds: number[];
-    private _boundFurnitureNames: string[]
+    private _boundFurnitureNames: string[];
 
     public flush(): boolean
     {
-        this._figureSetIds          = [];
-        this._boundFurnitureNames   = [];
+        this._figureSetIds = [];
+        this._boundFurnitureNames = [];
 
         return true;
     }

@@ -20,7 +20,7 @@ export class FurnitureGiftWrappedVisualization extends FurnitureVisualization
 
         const extras = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_EXTRAS);
 
-        const local3    = 1000;
+        const local3 = 1000;
         const typeIndex = parseInt(extras);
 
         this._packetType = Math.floor((typeIndex / local3));
@@ -38,8 +38,8 @@ export class FurnitureGiftWrappedVisualization extends FurnitureVisualization
     {
         const size = this.getValidSize(scale);
 
-        let assetName   = this._type;
-        let layerCode   = '';
+        let assetName = this._type;
+        let layerCode = '';
 
         if(layerId < (this.spriteCount - 1))
         {

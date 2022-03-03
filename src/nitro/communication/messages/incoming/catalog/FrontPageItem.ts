@@ -3,9 +3,9 @@ import { Nitro } from '../../../../Nitro';
 
 export class FrontPageItem
 {
-    public static ITEM_CATALOGUE_PAGE: number   = 0;
-    public static ITEM_PRODUCT_OFFER: number    = 1;
-    public static ITEM_IAP: number              = 2;
+    public static ITEM_CATALOGUE_PAGE: number = 0;
+    public static ITEM_PRODUCT_OFFER: number = 1;
+    public static ITEM_IAP: number = 2;
 
     private _type: number;
     private _position: number;
@@ -26,14 +26,14 @@ export class FrontPageItem
 
     public flush(): boolean
     {
-        this._type                  = -1;
-        this._position              = null;
-        this._itemName              = null;
-        this._itemPromoImage        = null;
-        this._catalogPageLocation   = null;
-        this._productCode           = null;
-        this._productOfferId        = 0;
-        this._expirationTime        = 0;
+        this._type = -1;
+        this._position = null;
+        this._itemName = null;
+        this._itemPromoImage = null;
+        this._catalogPageLocation = null;
+        this._productCode = null;
+        this._productOfferId = 0;
+        this._expirationTime = 0;
 
         return true;
     }
@@ -42,10 +42,10 @@ export class FrontPageItem
     {
         if(!wrapper) return false;
 
-        this._position          = wrapper.readInt();
-        this._itemName          = wrapper.readString();
-        this._itemPromoImage    = wrapper.readString();
-        this._type              = wrapper.readInt();
+        this._position = wrapper.readInt();
+        this._itemName = wrapper.readString();
+        this._itemPromoImage = wrapper.readString();
+        this._type = wrapper.readInt();
 
         switch(this._type)
         {

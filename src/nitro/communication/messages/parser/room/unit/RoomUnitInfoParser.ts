@@ -10,11 +10,11 @@ export class RoomUnitInfoParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._unitId            = null;
-        this._figure            = null;
-        this._gender            = 'M';
-        this._motto             = null;
-        this._achievementScore  = 0;
+        this._unitId = null;
+        this._figure = null;
+        this._gender = 'M';
+        this._motto = null;
+        this._achievementScore = 0;
 
         return true;
     }
@@ -23,11 +23,11 @@ export class RoomUnitInfoParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._unitId            = wrapper.readInt();
-        this._figure            = wrapper.readString();
-        this._gender            = wrapper.readString().toLocaleUpperCase();
-        this._motto             = wrapper.readString();
-        this._achievementScore  = wrapper.readInt();
+        this._unitId = wrapper.readInt();
+        this._figure = wrapper.readString();
+        this._gender = wrapper.readString().toLocaleUpperCase();
+        this._motto = wrapper.readString();
+        this._achievementScore = wrapper.readInt();
 
         return true;
     }

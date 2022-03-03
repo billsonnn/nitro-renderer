@@ -12,8 +12,8 @@ export class RoomObjectBadgeAssetEvent extends RoomObjectEvent
     {
         super(k, _arg_2);
 
-        this._badgeId       = badgeId;
-        this._groupBadge    = groupBadge;
+        this._badgeId = badgeId;
+        this._groupBadge = groupBadge;
     }
 
     public get badgeId(): string

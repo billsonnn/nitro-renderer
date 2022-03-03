@@ -8,9 +8,9 @@ export class FriendNotificationParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._typeCode  = -1;
-        this._avatarId  = 0;
-        this._message   = null;
+        this._typeCode = -1;
+        this._avatarId = 0;
+        this._message = null;
 
         return true;
     }
@@ -19,9 +19,9 @@ export class FriendNotificationParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._typeCode  = wrapper.readInt();
-        this._avatarId  = wrapper.readInt();
-        this._message   = wrapper.readString();
+        this._typeCode = wrapper.readInt();
+        this._avatarId = wrapper.readInt();
+        this._message = wrapper.readString();
 
         return true;
     }

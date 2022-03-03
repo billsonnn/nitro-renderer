@@ -15,9 +15,9 @@ export class GuideStatusBubbleAddition implements IAvatarAddition
 
     constructor(id: number, visualization: AvatarVisualization, status: number)
     {
-        this._id            = id;
+        this._id = id;
         this._visualization = visualization;
-        this._asset         = null;
+        this._asset = null;
         this._relativeDepth = 0;
         this._status = status;
     }
@@ -25,20 +25,20 @@ export class GuideStatusBubbleAddition implements IAvatarAddition
     public dispose(): void
     {
         this._visualization = null;
-        this._asset         = null;
+        this._asset = null;
     }
 
     public update(sprite: IRoomObjectSprite, scale: number): void
     {
         if(!sprite) return;
 
-        sprite.visible          = true;
-        sprite.relativeDepth    = this._relativeDepth;
-        sprite.alpha            = 255;
+        sprite.visible = true;
+        sprite.relativeDepth = this._relativeDepth;
+        sprite.alpha = 255;
 
-        let additionScale   = 64;
-        let offsetX         = 0;
-        let offsetY         = 0;
+        let additionScale = 64;
+        let offsetX = 0;
+        let offsetY = 0;
 
         this._asset = this._visualization.getAvatarRenderAsset((this._status === AvatarGuideStatus.GUIDE) ? 'avatar_addition_user_guide_bubble' : 'avatar_addition_user_guide_requester_bubble');
 
@@ -66,10 +66,10 @@ export class GuideStatusBubbleAddition implements IAvatarAddition
 
         if(this._asset)
         {
-            sprite.texture          = this._asset;
-            sprite.offsetX          = offsetX;
-            sprite.offsetY          = offsetY;
-            sprite.relativeDepth    = (-0.02 + 0);
+            sprite.texture = this._asset;
+            sprite.offsetX = offsetX;
+            sprite.offsetY = offsetY;
+            sprite.relativeDepth = (-0.02 + 0);
         }
     }
 

@@ -7,8 +7,8 @@ export class RespectReceivedParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._userId            = 0;
-        this._respectsReceived  = 0;
+        this._userId = 0;
+        this._respectsReceived = 0;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class RespectReceivedParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._userId            = wrapper.readInt();
-        this._respectsReceived  = wrapper.readInt();
+        this._userId = wrapper.readInt();
+        this._respectsReceived = wrapper.readInt();
 
         return true;
     }

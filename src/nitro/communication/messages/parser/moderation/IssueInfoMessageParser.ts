@@ -2,7 +2,7 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 import { IssueMessageData } from './IssueMessageData';
 import { PatternMatchData } from './PatternMatchData';
 
-export  class IssueInfoMessageParser implements IMessageParser
+export class IssueInfoMessageParser implements IMessageParser
 {
     private _issueData:IssueMessageData;
 

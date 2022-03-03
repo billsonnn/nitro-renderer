@@ -9,8 +9,8 @@ export class ObjectAvatarPostureUpdateMessage extends ObjectStateUpdateMessage
     {
         super();
 
-        this._postureType   = postureType;
-        this._parameter     = parameter;
+        this._postureType = postureType;
+        this._parameter = parameter;
     }
 
     public get postureType(): string

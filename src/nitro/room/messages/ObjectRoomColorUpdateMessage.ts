@@ -13,10 +13,10 @@ export class ObjectRoomColorUpdateMessage extends RoomObjectUpdateMessage
     {
         super(null, null);
 
-        this._type              = type;
-        this._color             = color;
-        this._light             = light;
-        this._backgroundOnly    = backgroundOnly;
+        this._type = type;
+        this._color = color;
+        this._light = light;
+        this._backgroundOnly = backgroundOnly;
     }
 
     public get type(): string

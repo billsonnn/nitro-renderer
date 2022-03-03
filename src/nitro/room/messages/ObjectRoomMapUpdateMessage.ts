@@ -12,8 +12,8 @@ export class ObjectRoomMapUpdateMessage extends RoomObjectUpdateMessage
     {
         super(null, null);
 
-        this._type      = ObjectRoomMapUpdateMessage.UPDATE_MAP;
-        this._mapData   = mapData;
+        this._type = ObjectRoomMapUpdateMessage.UPDATE_MAP;
+        this._mapData = mapData;
     }
 
     public get type(): string

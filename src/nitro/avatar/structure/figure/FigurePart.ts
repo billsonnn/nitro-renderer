@@ -14,12 +14,12 @@ export class FigurePart implements IFigurePart
     {
         if(!data) throw new Error('invalid_data');
 
-        this._id                = data.id;
-        this._type              = data.type;
-        this._index             = data.index;
-        this._colorLayerIndex   = data.colorindex;
-        this._paletteMapId      = -1;
-        this._breed             = -1;
+        this._id = data.id;
+        this._type = data.type;
+        this._index = data.index;
+        this._colorLayerIndex = data.colorindex;
+        this._paletteMapId = -1;
+        this._breed = -1;
     }
 
     public dispose(): void

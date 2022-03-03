@@ -76,7 +76,7 @@ export class BinaryWriter
     {
         if(!array) return;
 
-        const mergedArray = new Uint8Array( ((this.position + array.length) > this._buffer.length) ?  (this.position + array.length) : this._buffer.length);
+        const mergedArray = new Uint8Array( ((this.position + array.length) > this._buffer.length) ? (this.position + array.length) : this._buffer.length);
 
         mergedArray.set(this._buffer);
         mergedArray.set(array, this.position);

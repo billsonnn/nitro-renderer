@@ -11,9 +11,9 @@ export class WiredActionDefinition extends Triggerable
     {
         super(wrapper);
 
-        this._conflictingTriggers   = [];
-        this._type                  = wrapper.readInt();
-        this._delayInPulses         = wrapper.readInt();
+        this._conflictingTriggers = [];
+        this._type = wrapper.readInt();
+        this._delayInPulses = wrapper.readInt();
 
         let count = wrapper.readInt();
 

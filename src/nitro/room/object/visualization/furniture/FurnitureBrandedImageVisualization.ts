@@ -23,13 +23,13 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
     {
         super();
 
-        this._imageUrl      = null;
-        this._shortUrl      = null;
-        this._imageReady    = false;
+        this._imageUrl = null;
+        this._shortUrl = null;
+        this._imageReady = false;
 
-        this._offsetX       = 0;
-        this._offsetY       = 0;
-        this._offsetZ       = 0;
+        this._offsetX = 0;
+        this._offsetY = 0;
+        this._offsetZ = 0;
     }
 
     public dispose(): void
@@ -54,9 +54,9 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
 
         if(flag)
         {
-            this._offsetX   = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BRANDING_OFFSET_X);
-            this._offsetY   = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BRANDING_OFFSET_Y);
-            this._offsetZ   = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BRANDING_OFFSET_Z);
+            this._offsetX = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BRANDING_OFFSET_X);
+            this._offsetY = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BRANDING_OFFSET_Y);
+            this._offsetZ = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BRANDING_OFFSET_Z);
         }
 
         if(!this._imageReady)
@@ -74,8 +74,8 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
         {
             if(this.checkIfImageChanged())
             {
-                this._imageReady    = false;
-                this._imageUrl      = null;
+                this._imageReady = false;
+                this._imageUrl = null;
 
                 return true;
             }
@@ -123,7 +123,7 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
 
         if(imageStatus === 1)
         {
-            const texture   = Nitro.instance.core.asset.getTexture(imageUrl);
+            const texture = Nitro.instance.core.asset.getTexture(imageUrl);
 
             if(!texture) return false;
 
@@ -139,7 +139,7 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
     {
         if(!this._imageUrl) return;
 
-        const texture   = Nitro.instance.core.asset.getTexture(this._imageUrl);
+        const texture = Nitro.instance.core.asset.getTexture(this._imageUrl);
 
         if(!texture) return;
 

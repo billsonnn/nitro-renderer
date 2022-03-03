@@ -11,10 +11,10 @@ export class Plane
 
     constructor()
     {
-        this._planeVisualizations       = new Map();
-        this._sizes                     = [];
-        this._lastPlaneVisualization    = null;
-        this._lastSize                  = -1;
+        this._planeVisualizations = new Map();
+        this._sizes = [];
+        this._lastPlaneVisualization = null;
+        this._lastSize = -1;
     }
 
     public isStatic(size: number): boolean
@@ -31,10 +31,10 @@ export class Plane
             visualization.dispose();
         }
 
-        this._planeVisualizations       = null;
-        this._lastPlaneVisualization    = null;
-        this._sizes                     = null;
-        this._lastSize                  = -1;
+        this._planeVisualizations = null;
+        this._lastPlaneVisualization = null;
+        this._sizes = null;
+        this._lastSize = -1;
     }
 
     public clearCache(): void

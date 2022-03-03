@@ -8,9 +8,9 @@ export class CheckUserNameResultMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._resultCode        = -1;
-        this._name              = '';
-        this._nameSuggestions   = [];
+        this._resultCode = -1;
+        this._name = '';
+        this._nameSuggestions = [];
 
         return true;
     }
@@ -19,8 +19,8 @@ export class CheckUserNameResultMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._resultCode    = wrapper.readInt();
-        this._name          = wrapper.readString();
+        this._resultCode = wrapper.readInt();
+        this._name = wrapper.readString();
 
         let totalSuggestions = wrapper.readInt();
 

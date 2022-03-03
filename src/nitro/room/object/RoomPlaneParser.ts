@@ -8,12 +8,12 @@ import { RoomWallData } from './RoomWallData';
 
 export class RoomPlaneParser
 {
-    private static FLOOR_THICKNESS: number              = 0.25;
-    private static WALL_THICKNESS: number               = 0.25;
-    private static MAX_WALL_ADDITIONAL_HEIGHT: number   = 20;
+    private static FLOOR_THICKNESS: number = 0.25;
+    private static WALL_THICKNESS: number = 0.25;
+    private static MAX_WALL_ADDITIONAL_HEIGHT: number = 20;
 
-    public static TILE_BLOCKED: number                  = -110;
-    public static TILE_HOLE: number                     = -100;
+    public static TILE_BLOCKED: number = -110;
+    public static TILE_HOLE: number = -100;
 
     private _tileMatrix: number[][];
     private _tileMatrixOriginal: number[][];
@@ -415,25 +415,25 @@ export class RoomPlaneParser
 
         if(height < 0) height = 0;
 
-        this._tileMatrix            = [];
-        this._tileMatrixOriginal    = [];
-        this._floorHoleMatrix       = [];
+        this._tileMatrix = [];
+        this._tileMatrixOriginal = [];
+        this._floorHoleMatrix = [];
 
         let y = 0;
 
         while(y < height)
         {
-            const tileMatrix            = [];
-            const tileMatrixOriginal    = [];
-            const floorHoleMatrix       = [];
+            const tileMatrix = [];
+            const tileMatrixOriginal = [];
+            const floorHoleMatrix = [];
 
             let x = 0;
 
             while(x < width)
             {
-                tileMatrix[x]           = RoomPlaneParser.TILE_BLOCKED;
-                tileMatrixOriginal[x]   = RoomPlaneParser.TILE_BLOCKED;
-                floorHoleMatrix[x]      = false;
+                tileMatrix[x] = RoomPlaneParser.TILE_BLOCKED;
+                tileMatrixOriginal[x] = RoomPlaneParser.TILE_BLOCKED;
+                floorHoleMatrix[x] = false;
 
                 x++;
             }
@@ -445,12 +445,12 @@ export class RoomPlaneParser
             y++;
         }
 
-        this._width     = width;
-        this._height    = height;
-        this._minX      = this._width;
-        this._maxX      = -1;
-        this._minY      = this._height;
-        this._maxY      = -1;
+        this._width = width;
+        this._height = height;
+        this._minX = this._width;
+        this._maxX = -1;
+        this._minY = this._height;
+        this._maxY = -1;
 
         return true;
     }
@@ -1228,10 +1228,10 @@ export class RoomPlaneParser
 
         this.resetFloorHoles();
 
-        const width             = data.width;
-        const height            = data.height;
-        const wallHeight        = data.wallHeight;
-        const fixedWallsHeight  = data.fixedWallsHeight;
+        const width = data.width;
+        const height = data.height;
+        const wallHeight = data.wallHeight;
+        const fixedWallsHeight = data.fixedWallsHeight;
 
         this.initializeTileMap(width, height);
 
@@ -1279,10 +1279,10 @@ export class RoomPlaneParser
             this.initializeHoleMap();
         }
 
-        this.wallHeight         = wallHeight;
-        this.restrictsDragging  = data.restrictsDragging;
-        this.restrictsScaling   = data.restrictsScaling;
-        this.restrictedScale    = data.restrictedScale;
+        this.wallHeight = wallHeight;
+        this.restrictsDragging = data.restrictsDragging;
+        this.restrictsScaling = data.restrictsScaling;
+        this.restrictedScale = data.restrictedScale;
 
         this.initializeFromTileData(fixedWallsHeight);
 
@@ -1304,24 +1304,24 @@ export class RoomPlaneParser
     {
         const data = new RoomMapData();
 
-        data.width              = this._width;
-        data.height             = this._height;
-        data.wallHeight         = this._wallHeight;
-        data.fixedWallsHeight   = this._fixedWallHeight;
-        data.dimensions.minX    = this.minX;
-        data.dimensions.maxX    = this.maxX;
-        data.dimensions.minY    = this.minY;
-        data.dimensions.maxY    = this.maxY;
-        data.restrictsDragging  = this.restrictsDragging;
-        data.restrictsScaling   = this.restrictsScaling;
-        data.restrictedScale    = this.restrictedScale;
+        data.width = this._width;
+        data.height = this._height;
+        data.wallHeight = this._wallHeight;
+        data.fixedWallsHeight = this._fixedWallHeight;
+        data.dimensions.minX = this.minX;
+        data.dimensions.maxX = this.maxX;
+        data.dimensions.minY = this.minY;
+        data.dimensions.maxY = this.maxY;
+        data.restrictsDragging = this.restrictsDragging;
+        data.restrictsScaling = this.restrictsScaling;
+        data.restrictedScale = this.restrictedScale;
 
         let y = 0;
 
         while(y < this._height)
         {
             const tileRow: { height: number }[] = [];
-            const tileMatrix                    = this._tileMatrixOriginal[y];
+            const tileMatrix = this._tileMatrixOriginal[y];
 
             let x = 0;
 

@@ -31,24 +31,24 @@ export class FurnitureWallDataParser
 
     public flush(): boolean
     {
-        this._itemId                    = 0;
-        this._spriteId                  = 0;
-        this._location                  = null;
-        this._stuffData                 = null;
-        this._state                     = 0;
-        this._secondsToExpiration       = 0;
-        this._usagePolicy               = -1;
-        this._userId                    = 0;
-        this._username                  = null;
+        this._itemId = 0;
+        this._spriteId = 0;
+        this._location = null;
+        this._stuffData = null;
+        this._state = 0;
+        this._secondsToExpiration = 0;
+        this._usagePolicy = -1;
+        this._userId = 0;
+        this._username = null;
 
-        this._width                     = 0;
-        this._height                    = 0;
-        this._localX                    = 0;
-        this._localY                    = 0;
-        this._y                         = 0;
-        this._z                         = 0;
-        this._direction                 = null;
-        this._isOldFormat                 = false;
+        this._width = 0;
+        this._height = 0;
+        this._localX = 0;
+        this._localY = 0;
+        this._y = 0;
+        this._z = 0;
+        this._direction = null;
+        this._isOldFormat = false;
 
         return true;
     }
@@ -57,14 +57,14 @@ export class FurnitureWallDataParser
     {
         if(!wrapper) return false;
 
-        this._itemId                    = parseInt(wrapper.readString());
-        this._spriteId                  = wrapper.readInt();
-        this._location                  = wrapper.readString();
-        this._stuffData                 = wrapper.readString();
-        this._secondsToExpiration       = wrapper.readInt();
-        this._usagePolicy               = wrapper.readInt();
-        this._userId                    = wrapper.readInt();
-        this._username                  = null;
+        this._itemId = parseInt(wrapper.readString());
+        this._spriteId = wrapper.readInt();
+        this._location = wrapper.readString();
+        this._stuffData = wrapper.readString();
+        this._secondsToExpiration = wrapper.readInt();
+        this._usagePolicy = wrapper.readInt();
+        this._userId = wrapper.readInt();
+        this._username = null;
 
         const state = parseFloat(this._stuffData);
 
@@ -79,32 +79,32 @@ export class FurnitureWallDataParser
             if(parts.length >= 3)
             {
                 let widthHeight = parts[0];
-                let leftRight   = parts[1];
+                let leftRight = parts[1];
 
                 const direction = parts[2];
 
                 if((widthHeight.length > 3) && (leftRight.length > 2))
                 {
                     widthHeight = widthHeight.substr(3);
-                    leftRight   = leftRight.substr(2);
-                    parts       = widthHeight.split(',');
+                    leftRight = leftRight.substr(2);
+                    parts = widthHeight.split(',');
 
                     if(parts.length >= 2)
                     {
-                        const width     = parseInt(parts[0]);
-                        const height    = parseInt(parts[1]);
+                        const width = parseInt(parts[0]);
+                        const height = parseInt(parts[1]);
 
                         parts = leftRight.split(',');
 
                         if(parts.length >= 2)
                         {
-                            const localX    = parseInt(parts[0]);
-                            const localY    = parseInt(parts[1]);
+                            const localX = parseInt(parts[0]);
+                            const localY = parseInt(parts[1]);
 
-                            this._width     = width;
-                            this._height    = height;
-                            this._localX    = localX;
-                            this._localY    = localY;
+                            this._width = width;
+                            this._height = height;
+                            this._localX = localX;
+                            this._localY = localY;
                             this._direction = direction;
                         }
                     }

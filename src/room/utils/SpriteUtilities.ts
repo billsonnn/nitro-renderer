@@ -11,6 +11,10 @@ export class SpriteUtilities
     {
         if(ink == 'ADD' || ink == 33) return BLEND_MODES.ADD;
 
+        if(ink == 'SUBTRACT') return BLEND_MODES.SUBTRACT;
+
+        if(ink == 'DARKEN') return BLEND_MODES.DARKEN;
+
         return BLEND_MODES.NORMAL;
     }
 }

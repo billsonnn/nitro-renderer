@@ -9,7 +9,7 @@ export class RelationshipStatusInfoMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._userId     = 0;
+        this._userId = 0;
         this._relationshipStatusMap = null;
 
         return true;
@@ -22,7 +22,7 @@ export class RelationshipStatusInfoMessageParser implements IMessageParser
         this._userId = wrapper.readInt();
         this._relationshipStatusMap = new AdvancedMap();
 
-        const relationshipsCount  = wrapper.readInt();
+        const relationshipsCount = wrapper.readInt();
 
         for(let i = 0; i < relationshipsCount; i++)
         {

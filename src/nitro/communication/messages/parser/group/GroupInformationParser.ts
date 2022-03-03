@@ -22,23 +22,23 @@ export class GroupInformationParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._id                     = 0;
-        this._type                   = 0;
-        this._title                  = null;
-        this._description            = null;
-        this._badge                  = null;
-        this._roomId                 = 0;
-        this._roomName               = null;
-        this._membershipType         = 0;
-        this._membersCount           = 0;
-        this._isFavorite             = false;
-        this._createdAt              = null;
-        this._isOwner                = false;
-        this._isAdmin                = false;
-        this._ownerName              = null;
-        this._flag                   = false;
-        this._canMembersDecorate     = false;
-        this._pendingRequestsCount   = 0;
+        this._id = 0;
+        this._type = 0;
+        this._title = null;
+        this._description = null;
+        this._badge = null;
+        this._roomId = 0;
+        this._roomName = null;
+        this._membershipType = 0;
+        this._membersCount = 0;
+        this._isFavorite = false;
+        this._createdAt = null;
+        this._isOwner = false;
+        this._isAdmin = false;
+        this._ownerName = null;
+        this._flag = false;
+        this._canMembersDecorate = false;
+        this._pendingRequestsCount = 0;
 
         return true;
     }
@@ -47,24 +47,24 @@ export class GroupInformationParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._id                     = wrapper.readInt();
+        this._id = wrapper.readInt();
         wrapper.readBoolean();
-        this._type                   = wrapper.readInt();
-        this._title                  = wrapper.readString();
-        this._description            = wrapper.readString();
-        this._badge                  = wrapper.readString();
-        this._roomId                 = wrapper.readInt();
-        this._roomName               = wrapper.readString();
-        this._membershipType         = wrapper.readInt();
-        this._membersCount           = wrapper.readInt();
-        this._isFavorite             = wrapper.readBoolean();
-        this._createdAt              = wrapper.readString();
-        this._isOwner                = wrapper.readBoolean();
-        this._isAdmin                = wrapper.readBoolean();
-        this._ownerName              = wrapper.readString();
-        this._flag                   = wrapper.readBoolean();
-        this._canMembersDecorate     = wrapper.readBoolean();
-        this._pendingRequestsCount   = wrapper.readInt();
+        this._type = wrapper.readInt();
+        this._title = wrapper.readString();
+        this._description = wrapper.readString();
+        this._badge = wrapper.readString();
+        this._roomId = wrapper.readInt();
+        this._roomName = wrapper.readString();
+        this._membershipType = wrapper.readInt();
+        this._membersCount = wrapper.readInt();
+        this._isFavorite = wrapper.readBoolean();
+        this._createdAt = wrapper.readString();
+        this._isOwner = wrapper.readBoolean();
+        this._isAdmin = wrapper.readBoolean();
+        this._ownerName = wrapper.readString();
+        this._flag = wrapper.readBoolean();
+        this._canMembersDecorate = wrapper.readBoolean();
+        this._pendingRequestsCount = wrapper.readInt();
 
         return true;
     }

@@ -23,23 +23,23 @@ export class ActionDefinition implements IActionDefinition
 
     constructor(data: any)
     {
-        this._id                    = data.id;
-        this._state                 = data.state;
-        this._precedence            = data.precedence;
-        this._activePartSet         = data.activePartSet;
-        this._assetPartDefinition   = data.assetPartDefinition;
-        this._lay                   = data.lay;
-        this._geometryType          = data.geometryType;
-        this._isMain                = data.main || false;
-        this._isDefault             = data.isDefault || false;
-        this._isAnimation           = data.animation || false;
-        this._startFromFrameZero    = data.startFromFrameZero || false;
-        this._prevents              = data.prevents || [];
-        this._preventHeadTurn       = data.preventHeadTurn || false;
-        this._types                 = new Map();
-        this._params                = new Map();
+        this._id = data.id;
+        this._state = data.state;
+        this._precedence = data.precedence;
+        this._activePartSet = data.activePartSet;
+        this._assetPartDefinition = data.assetPartDefinition;
+        this._lay = data.lay;
+        this._geometryType = data.geometryType;
+        this._isMain = data.main || false;
+        this._isDefault = data.isDefault || false;
+        this._isAnimation = data.animation || false;
+        this._startFromFrameZero = data.startFromFrameZero || false;
+        this._prevents = data.prevents || [];
+        this._preventHeadTurn = data.preventHeadTurn || false;
+        this._types = new Map();
+        this._params = new Map();
         this._defaultParameterValue = '';
-        this._canvasOffsets         = null;
+        this._canvasOffsets = null;
 
         if(data.params && (data.params.length > 0))
         {

@@ -7,8 +7,8 @@ export class RoomUnitTypingParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._unitId    = null;
-        this._isTyping  = false;
+        this._unitId = null;
+        this._isTyping = false;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class RoomUnitTypingParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._unitId    = wrapper.readInt();
-        this._isTyping  = wrapper.readInt() === 1 ? true : false;
+        this._unitId = wrapper.readInt();
+        this._isTyping = wrapper.readInt() === 1 ? true : false;
 
         return true;
     }
