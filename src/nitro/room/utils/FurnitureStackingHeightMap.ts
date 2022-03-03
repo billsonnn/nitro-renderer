@@ -2,7 +2,7 @@ export class FurnitureStackingHeightMap
 {
     private _width: number;
     private _height: number;
-    private _heights: number[]
+    private _heights: number[];
     private _isNotStackable: boolean[];
     private _isRoomTile: boolean[];
 

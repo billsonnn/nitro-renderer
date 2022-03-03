@@ -4,32 +4,32 @@ import { CraftingRecipeIngredientParser } from './CraftingRecipeIngredientParser
 
 export class CraftingRecipeMessageParser implements IMessageParser
 {
-  private _ingredients: CraftingRecipeIngredientParser[];
+    private _ingredients: CraftingRecipeIngredientParser[];
 
-  constructor()
-  {
-      this._ingredients = [];
-  }
+    constructor()
+    {
+        this._ingredients = [];
+    }
 
-  public parse(wrapper: IMessageDataWrapper): boolean
-  {
-      if(!wrapper) return false;
-      const ingredientCount = wrapper.readInt();
-      for(let i = 0; i < ingredientCount; i++)
-      {
-          this._ingredients.push(new CraftingRecipeIngredientParser(wrapper));
-      }
-      return true;
-  }
+    public parse(wrapper: IMessageDataWrapper): boolean
+    {
+        if(!wrapper) return false;
+        const ingredientCount = wrapper.readInt();
+        for(let i = 0; i < ingredientCount; i++)
+        {
+            this._ingredients.push(new CraftingRecipeIngredientParser(wrapper));
+        }
+        return true;
+    }
 
-  public flush(): boolean
-  {
-      this._ingredients = [];
-      return true;
-  }
+    public flush(): boolean
+    {
+        this._ingredients = [];
+        return true;
+    }
 
-  public get ingredients(): CraftingRecipeIngredientParser[]
-  {
-      return this._ingredients;
-  }
+    public get ingredients(): CraftingRecipeIngredientParser[]
+    {
+        return this._ingredients;
+    }
 }

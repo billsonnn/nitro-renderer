@@ -4,24 +4,24 @@ import { IMessageParser } from './../../../../../core';
 
 export class CommunityGoalProgressMessageParser implements IMessageParser
 {
-  private _data: CommunityGoalData;
+    private _data: CommunityGoalData;
 
-  public flush(): boolean
-  {
-      this._data = null;
-      return true;
-  }
+    public flush(): boolean
+    {
+        this._data = null;
+        return true;
+    }
 
-  public parse(wrapper: IMessageDataWrapper): boolean
-  {
-      if(!wrapper) return false;
+    public parse(wrapper: IMessageDataWrapper): boolean
+    {
+        if(!wrapper) return false;
 
-      this._data = new CommunityGoalData(wrapper);
-      return true;
-  }
+        this._data = new CommunityGoalData(wrapper);
+        return true;
+    }
 
-  public get data(): CommunityGoalData
-  {
-      return this._data;
-  }
+    public get data(): CommunityGoalData
+    {
+        return this._data;
+    }
 }

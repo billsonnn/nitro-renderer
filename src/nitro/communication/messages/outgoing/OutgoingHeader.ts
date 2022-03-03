@@ -218,7 +218,7 @@ export class OutgoingHeader
     public static USER_IGNORE_ID                 = 3314;
     public static USER_IGNORE                    = 1117;
     public static USER_UNIGNORE                  = 2061;
-	public static MODTOOL_REQUEST_ROOM_INFO      = 707;
+    public static MODTOOL_REQUEST_ROOM_INFO      = 707;
     public static MODTOOL_CHANGE_ROOM_SETTINGS   = 3260;
     public static MODTOOL_REQUEST_USER_CHATLOG   = 1391;
     public static MODTOOL_REQUEST_ROOM_CHATLOG   = 2587;
@@ -367,7 +367,7 @@ export class OutgoingHeader
     public static GUIDE_SESSION_GUIDE_DECIDES      = 1424;
     public static GUIDE_SESSION_INVITE_REQUESTER   = 234;
     public static GUIDE_SESSION_IS_TYPING          = 519;
-    public static GUIDE_SESSION_MESSAGE            = 3899
+    public static GUIDE_SESSION_MESSAGE            = 3899;
     public static GUIDE_SESSION_ON_DUTY_UPDATE     = 1922;
     public static GUIDE_SESSION_REPORT             = 3969;
     public static GUIDE_SESSION_REQUESTER_CANCELS  = 291;

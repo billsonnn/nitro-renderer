@@ -2,20 +2,20 @@ import { IMessageComposer } from '../../../../../core/communication/messages/IMe
 
 export class StartCampaignMessageComposer implements IMessageComposer<ConstructorParameters<typeof StartCampaignMessageComposer>>
 {
-  private _data: ConstructorParameters<typeof StartCampaignMessageComposer>;
+    private _data: ConstructorParameters<typeof StartCampaignMessageComposer>;
 
-  constructor(k: string)
-  {
-      this._data = [k];
-  }
+    constructor(k: string)
+    {
+        this._data = [k];
+    }
 
-  public getMessageArray()
-  {
-      return this._data;
-  }
+    public getMessageArray()
+    {
+        return this._data;
+    }
 
-  public dispose(): void
-  {
-      return;
-  }
+    public dispose(): void
+    {
+        return;
+    }
 }

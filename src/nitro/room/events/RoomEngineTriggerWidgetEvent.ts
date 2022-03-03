@@ -34,7 +34,7 @@ export class RoomEngineTriggerWidgetEvent extends RoomEngineObjectEvent
     public static REQUEST_INTERNAL_LINK: string                               = 'RETWE_REQUEST_INTERNAL_LINK';
     public static REQUEST_ROOM_LINK: string                                   = 'RETWE_REQUEST_ROOM_LINK';
 
-    private _widget: string
+    private _widget: string;
 
     constructor(type: string, roomId: number, objectId: number, category: number, widget: string = null)
     {
