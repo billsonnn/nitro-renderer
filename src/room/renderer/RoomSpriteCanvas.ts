@@ -345,8 +345,6 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if(!this._container || !this._geometry) return;
 
-        this.doMagic();
-
         if((this._width !== this._renderedWidth) || (this._height !== this._renderedHeight)) update = true;
 
         if((this._display.x !== this._screenOffsetX) || (this._display.y !== this._screenOffsetY))
@@ -363,6 +361,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
             update = true;
         }
+
+        this.doMagic();
 
         const frame = Math.round(this._totalTimeRunning / (60 / this._animationFPS));
 
