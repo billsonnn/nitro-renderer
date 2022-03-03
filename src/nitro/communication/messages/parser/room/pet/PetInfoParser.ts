@@ -32,8 +32,8 @@ export class PetInfoParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._id                = -1;
-        this._skillThresholds   = [];
+        this._id = -1;
+        this._skillThresholds = [];
 
         return true;
     }
@@ -42,23 +42,23 @@ export class PetInfoParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._id                  = wrapper.readInt();
-        this._name                = wrapper.readString();
-        this._level               = wrapper.readInt();
-        this._maximumLevel        = wrapper.readInt();
-        this._experience          = wrapper.readInt();
+        this._id = wrapper.readInt();
+        this._name = wrapper.readString();
+        this._level = wrapper.readInt();
+        this._maximumLevel = wrapper.readInt();
+        this._experience = wrapper.readInt();
         this._levelExperienceGoal = wrapper.readInt();
-        this._energy              = wrapper.readInt();
-        this._maximumEnergy       = wrapper.readInt();
-        this._happyness           = wrapper.readInt();
-        this._maximumHappyness    = wrapper.readInt();
-        this._respect             = wrapper.readInt();
-        this._ownerId             = wrapper.readInt();
-        this._age                 = wrapper.readInt();
-        this._ownerName           = wrapper.readString();
-        this._rarityLevel         = wrapper.readInt();
-        this._saddle              = wrapper.readBoolean();
-        this._rider               = wrapper.readBoolean();
+        this._energy = wrapper.readInt();
+        this._maximumEnergy = wrapper.readInt();
+        this._happyness = wrapper.readInt();
+        this._maximumHappyness = wrapper.readInt();
+        this._respect = wrapper.readInt();
+        this._ownerId = wrapper.readInt();
+        this._age = wrapper.readInt();
+        this._ownerName = wrapper.readString();
+        this._rarityLevel = wrapper.readInt();
+        this._saddle = wrapper.readBoolean();
+        this._rider = wrapper.readBoolean();
 
         let total = wrapper.readInt();
 
@@ -70,15 +70,15 @@ export class PetInfoParser implements IMessageParser
         }
 
         this._skillThresholds.sort();
-        this._publiclyRideable    = wrapper.readInt();
-        this._breedable           = wrapper.readBoolean();
-        this._fullyGrown          = wrapper.readBoolean();
-        this._dead                = wrapper.readBoolean();
-        this._unknownRarity       = wrapper.readInt();
-        this._maximumTimeToLive   = wrapper.readInt();
+        this._publiclyRideable = wrapper.readInt();
+        this._breedable = wrapper.readBoolean();
+        this._fullyGrown = wrapper.readBoolean();
+        this._dead = wrapper.readBoolean();
+        this._unknownRarity = wrapper.readInt();
+        this._maximumTimeToLive = wrapper.readInt();
         this._remainingTimeToLive = wrapper.readInt();
-        this._remainingGrowTime   = wrapper.readInt();
-        this._publiclyBreedable   = wrapper.readBoolean();
+        this._remainingGrowTime = wrapper.readInt();
+        this._publiclyBreedable = wrapper.readBoolean();
 
         return true;
     }

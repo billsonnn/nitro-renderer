@@ -8,11 +8,11 @@ export class FurnitureStackingHeightMap
 
     constructor(width: number, height: number)
     {
-        this._width             = width;
-        this._height            = height;
-        this._heights           = [];
-        this._isNotStackable    = [];
-        this._isRoomTile        = [];
+        this._width = width;
+        this._height = height;
+        this._heights = [];
+        this._isNotStackable = [];
+        this._isRoomTile = [];
 
         let total = (width * height);
 
@@ -28,11 +28,11 @@ export class FurnitureStackingHeightMap
 
     public dispose(): void
     {
-        this._width             = 0;
-        this._height            =0;
-        this._height            = null;
-        this._isNotStackable    = null;
-        this._isRoomTile        = null;
+        this._width = 0;
+        this._height =0;
+        this._height = null;
+        this._isNotStackable = null;
+        this._isRoomTile = null;
     }
 
     private validPosition(x: number, y: number): boolean

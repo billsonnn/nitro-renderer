@@ -9,8 +9,8 @@ export class MapDataType extends ObjectDataBase
 {
     public static FORMAT_KEY = ObjectDataKey.MAP_KEY;
 
-    private static STATE: string    = 'state';
-    private static RARITY: string   = 'rarity';
+    private static STATE: string = 'state';
+    private static RARITY: string = 'rarity';
 
     private _data: { [index: string]: string };
 

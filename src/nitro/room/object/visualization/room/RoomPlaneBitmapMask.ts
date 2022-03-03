@@ -6,9 +6,9 @@
 
     constructor(k: string, _arg_2: number, _arg_3: number)
     {
-        this._type              = k;
-        this._leftSideLoc       = _arg_2;
-        this._rightSideLoc      = _arg_3;
+        this._type = k;
+        this._leftSideLoc = _arg_2;
+        this._rightSideLoc = _arg_3;
     }
 
     public get type(): string

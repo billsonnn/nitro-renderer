@@ -10,9 +10,9 @@ export class NitroLogger implements INitroLogger
 
     constructor(name: string, description: string | number = null)
     {
-        this._name          = name;
-        this._description   = description;
-        this._print         = true;
+        this._name = name;
+        this._description = description;
+        this._print = true;
     }
 
     public log(message: string): void

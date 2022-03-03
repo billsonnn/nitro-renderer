@@ -7,7 +7,7 @@ export class NavigatorHomeRoomParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._homeRoomId    = -1;
+        this._homeRoomId = -1;
         this._roomIdToEnter = -1;
 
         return true;
@@ -17,7 +17,7 @@ export class NavigatorHomeRoomParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._homeRoomId    = wrapper.readInt();
+        this._homeRoomId = wrapper.readInt();
         this._roomIdToEnter = wrapper.readInt();
 
         return true;

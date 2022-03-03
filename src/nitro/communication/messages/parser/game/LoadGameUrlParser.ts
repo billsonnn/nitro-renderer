@@ -8,8 +8,8 @@ export class LoadGameUrlParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._gameTypeId   = 0;
-        this._url          = null;
+        this._gameTypeId = 0;
+        this._url = null;
         this._gameClientId = null;
 
         return true;
@@ -19,9 +19,9 @@ export class LoadGameUrlParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._gameTypeId   = wrapper.readInt();
+        this._gameTypeId = wrapper.readInt();
         this._gameClientId = wrapper.readString();
-        this._url          = wrapper.readString();
+        this._url = wrapper.readString();
 
         return true;
     }

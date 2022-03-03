@@ -13,9 +13,9 @@ export class PetSizeData extends AnimationSizeData
     {
         super(layerCount, angle);
 
-        this._posturesToAnimations  = new Map();
-        this._gesturesToAnimations  = new Map();
-        this._defaultPosture        = null;
+        this._posturesToAnimations = new Map();
+        this._gesturesToAnimations = new Map();
+        this._defaultPosture = null;
     }
 
     public processPostures(postures: { defaultPosture?: string, postures: IAssetPosture[] }): boolean

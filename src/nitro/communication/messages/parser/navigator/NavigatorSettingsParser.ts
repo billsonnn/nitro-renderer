@@ -11,12 +11,12 @@ export class NavigatorSettingsParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._windowX           = 0;
-        this._windowY           = 0;
-        this._windowWidth       = 0;
-        this._windowHeight      = 0;
-        this._leftPanelHidden   = false;
-        this._resultsMode       = 0;
+        this._windowX = 0;
+        this._windowY = 0;
+        this._windowWidth = 0;
+        this._windowHeight = 0;
+        this._leftPanelHidden = false;
+        this._resultsMode = 0;
 
         return true;
     }
@@ -25,12 +25,12 @@ export class NavigatorSettingsParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._windowX           = wrapper.readInt();
-        this._windowY           = wrapper.readInt();
-        this._windowWidth       = wrapper.readInt();
-        this._windowHeight      = wrapper.readInt();
-        this._leftPanelHidden   = wrapper.readBoolean();
-        this._resultsMode       = wrapper.readInt();
+        this._windowX = wrapper.readInt();
+        this._windowY = wrapper.readInt();
+        this._windowWidth = wrapper.readInt();
+        this._windowHeight = wrapper.readInt();
+        this._leftPanelHidden = wrapper.readBoolean();
+        this._resultsMode = wrapper.readInt();
 
         return true;
     }

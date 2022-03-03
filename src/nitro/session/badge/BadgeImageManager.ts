@@ -15,8 +15,8 @@ import { GroupBadgePart } from './GroupBadgePart';
 
 export class BadgeImageManager implements IDisposable
 {
-    public static GROUP_BADGE: string   = 'group_badge';
-    public static NORMAL_BADGE: string  = 'normal_badge';
+    public static GROUP_BADGE: string = 'group_badge';
+    public static NORMAL_BADGE: string = 'normal_badge';
 
     private _assets: IAssetManager;
     private _sessionDataManager: SessionDataManager;
@@ -33,15 +33,15 @@ export class BadgeImageManager implements IDisposable
 
     constructor(assetManager: IAssetManager, sessionDataManager: SessionDataManager)
     {
-        this._assets                = assetManager;
-        this._sessionDataManager    = sessionDataManager;
+        this._assets = assetManager;
+        this._sessionDataManager = sessionDataManager;
 
-        this._groupBases            = new Map();
-        this._groupSymbols          = new Map();
-        this._groupPartColors       = new Map();
+        this._groupBases = new Map();
+        this._groupSymbols = new Map();
+        this._groupPartColors = new Map();
 
-        this._requestedBadges       = new Map();
-        this._groupBadgesQueue      = new Map();
+        this._requestedBadges = new Map();
+        this._groupBadgesQueue = new Map();
 
         this._readyToGenerateGroupBadges = false;
     }

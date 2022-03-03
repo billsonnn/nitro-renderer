@@ -7,8 +7,8 @@ export class ConfirmBreedingResultParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._breedingNestStuffId  = 0;
-        this._result    = 0;
+        this._breedingNestStuffId = 0;
+        this._result = 0;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class ConfirmBreedingResultParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._breedingNestStuffId  = wrapper.readInt();
-        this._result    = wrapper.readInt();
+        this._breedingNestStuffId = wrapper.readInt();
+        this._result = wrapper.readInt();
 
         return true;
     }

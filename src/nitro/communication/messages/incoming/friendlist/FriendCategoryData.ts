@@ -9,8 +9,8 @@ export class FriendCategoryData
     {
         if(!wrapper) throw new Error('invalid_wrapper');
 
-        this._id    = wrapper.readInt();
-        this._name  = wrapper.readString();
+        this._id = wrapper.readInt();
+        this._name = wrapper.readString();
     }
 
     public get id(): number

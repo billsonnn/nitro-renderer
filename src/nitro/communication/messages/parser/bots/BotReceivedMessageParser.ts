@@ -9,7 +9,7 @@ export class BotReceivedMessageParser implements IMessageParser
     public flush(): boolean
     {
         this._boughtAsGift = false;
-        this._item         = null;
+        this._item = null;
 
         return true;
     }
@@ -19,7 +19,7 @@ export class BotReceivedMessageParser implements IMessageParser
         if(!wrapper) return false;
 
         this._boughtAsGift = wrapper.readBoolean();
-        this._item         = new BotData(wrapper);
+        this._item = new BotData(wrapper);
 
         return true;
     }

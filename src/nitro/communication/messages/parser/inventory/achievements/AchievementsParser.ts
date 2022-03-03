@@ -9,8 +9,8 @@ export class AchievementsParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._achievements  = [];
-        this._defaultCategory     = null;
+        this._achievements = [];
+        this._defaultCategory = null;
 
         return true;
     }

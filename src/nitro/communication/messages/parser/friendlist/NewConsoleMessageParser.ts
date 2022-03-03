@@ -9,10 +9,10 @@ export class NewConsoleMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._senderId          = 0;
-        this._messageText       = null;
-        this._secondsSinceSent  = 0;
-        this._extraData         = null;
+        this._senderId = 0;
+        this._messageText = null;
+        this._secondsSinceSent = 0;
+        this._extraData = null;
 
         return true;
     }
@@ -21,9 +21,9 @@ export class NewConsoleMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._senderId          = wrapper.readInt();
-        this._messageText       = wrapper.readString();
-        this._secondsSinceSent  = wrapper.readInt();
+        this._senderId = wrapper.readInt();
+        this._messageText = wrapper.readString();
+        this._secondsSinceSent = wrapper.readInt();
 
         if(wrapper.bytesAvailable)
         {

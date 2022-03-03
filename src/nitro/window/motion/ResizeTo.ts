@@ -29,7 +29,7 @@ export class ResizeTo extends Interval
 
     public update(k: number): void
     {
-        this.target.style.width     = ((this._startW + (this._deltaW * k)) + 'px');
-        this.target.style.height    = ((this._startH + (this._deltaH * k)) + 'px');
+        this.target.style.width = ((this._startW + (this._deltaW * k)) + 'px');
+        this.target.style.height = ((this._startH + (this._deltaH * k)) + 'px');
     }
 }

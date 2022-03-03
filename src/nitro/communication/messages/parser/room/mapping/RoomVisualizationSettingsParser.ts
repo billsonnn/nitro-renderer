@@ -8,9 +8,9 @@ export class RoomVisualizationSettingsParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._hideWalls         = false;
-        this._thicknessWall     = 0;
-        this._thicknessFloor    = 0;
+        this._hideWalls = false;
+        this._thicknessWall = 0;
+        this._thicknessFloor = 0;
 
         return true;
     }
@@ -19,16 +19,16 @@ export class RoomVisualizationSettingsParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._hideWalls         = wrapper.readBoolean();
+        this._hideWalls = wrapper.readBoolean();
 
-        let thicknessWall   = wrapper.readInt();
-        let thicknessFloor  = wrapper.readInt();
+        let thicknessWall = wrapper.readInt();
+        let thicknessFloor = wrapper.readInt();
 
-        thicknessWall   = (thicknessWall < -2) ? -2 : (thicknessWall > 1) ? 1 : thicknessWall;
-        thicknessFloor  = (thicknessFloor < -2) ? -2 : (thicknessFloor > 1) ? 1 : thicknessFloor;
+        thicknessWall = (thicknessWall < -2) ? -2 : (thicknessWall > 1) ? 1 : thicknessWall;
+        thicknessFloor = (thicknessFloor < -2) ? -2 : (thicknessFloor > 1) ? 1 : thicknessFloor;
 
-        this._thicknessWall     = Math.pow(2, thicknessWall);
-        this._thicknessFloor    = Math.pow(2, thicknessFloor);
+        this._thicknessWall = Math.pow(2, thicknessWall);
+        this._thicknessFloor = Math.pow(2, thicknessFloor);
 
         return true;
     }

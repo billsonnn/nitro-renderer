@@ -15,11 +15,11 @@ export class PlaneMaterialCell
 
     constructor(texture: PlaneTexture, assets: IGraphicAsset[] = null, offsetPoints: Point[] = null, limit: number = 0)
     {
-        this._cachedSprite      = null;
-        this._texture           = texture;
-        this._extraItemOffsets  = [];
-        this._extraItemAssets   = [];
-        this._extraItemCount    = 0;
+        this._cachedSprite = null;
+        this._texture = texture;
+        this._extraItemOffsets = [];
+        this._extraItemAssets = [];
+        this._extraItemCount = 0;
 
         if(assets && assets.length && (limit > 0))
         {
@@ -76,9 +76,9 @@ export class PlaneMaterialCell
             this._cachedSprite = null;
         }
 
-        this._extraItemAssets   = null;
-        this._extraItemOffsets  = null;
-        this._extraItemCount    = 0;
+        this._extraItemAssets = null;
+        this._extraItemOffsets = null;
+        this._extraItemCount = 0;
     }
 
     public clearCache(): void
@@ -125,13 +125,13 @@ export class PlaneMaterialCell
             if(textureOffsetX)
             {
                 bitmap.anchor.x = 1;
-                bitmap.scale.x  = -1;
+                bitmap.scale.x = -1;
             }
 
             if(textureOffsetY)
             {
                 bitmap.anchor.y = 1;
-                bitmap.scale.y  = -1;
+                bitmap.scale.y = -1;
             }
         }
 
@@ -154,16 +154,16 @@ export class PlaneMaterialCell
                     this._cachedSprite = new NitroSprite(texture);
                 }
 
-                const limitMin      = Math.min(this._extraItemCount, this._extraItemOffsets.length);
-                const limitMax      = Math.max(this._extraItemCount, this._extraItemOffsets.length);
+                const limitMin = Math.min(this._extraItemCount, this._extraItemOffsets.length);
+                const limitMax = Math.max(this._extraItemCount, this._extraItemOffsets.length);
                 const offsetIndexes = Randomizer.getArray(this._extraItemCount, limitMax);
 
                 let i = 0;
 
                 while(i < limitMin)
                 {
-                    const offset    = this._extraItemOffsets[offsetIndexes[i]];
-                    const item      = this._extraItemAssets[(i % this._extraItemAssets.length)];
+                    const offset = this._extraItemOffsets[offsetIndexes[i]];
+                    const item = this._extraItemAssets[(i % this._extraItemAssets.length)];
 
                     if(offset && item)
                     {
@@ -171,24 +171,24 @@ export class PlaneMaterialCell
 
                         if(assetTexture)
                         {
-                            const offsetFinal   = new Point((offset.x + item.offsetX), (offset.y + item.offsetY));
-                            const flipMatrix    = new Matrix();
+                            const offsetFinal = new Point((offset.x + item.offsetX), (offset.y + item.offsetY));
+                            const flipMatrix = new Matrix();
 
-                            let x           = 1;
-                            let y           = 1;
-                            let translateX  = 0;
-                            let translateY  = 0;
+                            let x = 1;
+                            let y = 1;
+                            let translateX = 0;
+                            let translateY = 0;
 
                             if(item.flipH)
                             {
-                                x           = -1;
-                                translateX  = assetTexture.width;
+                                x = -1;
+                                translateX = assetTexture.width;
                             }
 
                             if(item.flipV)
                             {
-                                y           = -1;
-                                translateY  = assetTexture.height;
+                                y = -1;
+                                translateY = assetTexture.height;
                             }
 
                             let offsetX = (offsetFinal.x + translateX);

@@ -25,17 +25,17 @@ export class Animation implements IAnimation
 
     constructor(k: AvatarStructure, _arg_2: IAssetAnimation)
     {
-        this._id                = _arg_2.name;
-        this._description       = this._id;
-        this._frames            = [];
-        this._spriteData        = null;
-        this._avatarData        = null;
-        this._directionData     = null;
-        this._removeData        = null;
-        this._addData           = null;
+        this._id = _arg_2.name;
+        this._description = this._id;
+        this._frames = [];
+        this._spriteData = null;
+        this._avatarData = null;
+        this._directionData = null;
+        this._removeData = null;
+        this._addData = null;
         this._overriddenActions = null;
-        this._overrideFrames    = null;
-        this._resetOnToggle     = (_arg_2.resetOnToggle || false);
+        this._overrideFrames = null;
+        this._resetOnToggle = (_arg_2.resetOnToggle || false);
 
         if(_arg_2.sprites && _arg_2.sprites.length)
         {
@@ -64,12 +64,12 @@ export class Animation implements IAnimation
 
         if(_arg_2.overrides && _arg_2.overrides.length)
         {
-            this._overrideFrames    = new Map();
+            this._overrideFrames = new Map();
             this._overriddenActions = new Map();
 
             for(const override of _arg_2.overrides)
             {
-                const name  = override.name;
+                const name = override.name;
                 const value = override.override;
 
                 this._overriddenActions.set(value, name);
@@ -105,8 +105,8 @@ export class Animation implements IAnimation
                 {
                     for(const bodyPart of frame.bodyparts)
                     {
-                        const definition    = _arg_3.getActionDefinition(bodyPart.action);
-                        const layer         = new AvatarAnimationLayerData(bodyPart, AvatarAnimationLayerData.BODYPART, definition);
+                        const definition = _arg_3.getActionDefinition(bodyPart.action);
+                        const layer = new AvatarAnimationLayerData(bodyPart, AvatarAnimationLayerData.BODYPART, definition);
 
                         layers.push(layer);
                     }
@@ -116,8 +116,8 @@ export class Animation implements IAnimation
                 {
                     for(const fx of frame.fxs)
                     {
-                        const definition    = _arg_3.getActionDefinition(fx.action);
-                        const layer         = new AvatarAnimationLayerData(fx, AvatarAnimationLayerData.FX, definition);
+                        const definition = _arg_3.getActionDefinition(fx.action);
+                        const layer = new AvatarAnimationLayerData(fx, AvatarAnimationLayerData.FX, definition);
 
                         layers.push(layer);
                     }

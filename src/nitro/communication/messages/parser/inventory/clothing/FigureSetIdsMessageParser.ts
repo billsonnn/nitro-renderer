@@ -7,8 +7,8 @@ export class FigureSetIdsMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._figureSetIds          = [];
-        this._boundFurnitureNames   = [];
+        this._figureSetIds = [];
+        this._boundFurnitureNames = [];
 
         return true;
     }

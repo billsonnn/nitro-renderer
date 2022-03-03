@@ -8,9 +8,9 @@ export class AvatarEffectActivatedParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._type          = 0;
-        this._duration      = 0;
-        this._isPermanent   = false;
+        this._type = 0;
+        this._duration = 0;
+        this._isPermanent = false;
 
         return true;
     }
@@ -19,9 +19,9 @@ export class AvatarEffectActivatedParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._type          = wrapper.readInt();
-        this._duration      = wrapper.readInt();
-        this._isPermanent  = wrapper.readBoolean();
+        this._type = wrapper.readInt();
+        this._duration = wrapper.readInt();
+        this._isPermanent = wrapper.readBoolean();
 
         return true;
     }

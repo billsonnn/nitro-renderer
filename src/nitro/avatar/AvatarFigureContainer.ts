@@ -96,9 +96,9 @@ export class AvatarFigureContainer implements IAvatarFigureContainer
 
             if(pieces.length >= 2)
             {
-                const type      = pieces[0];
-                const setId     = parseInt(pieces[1]);
-                const colors    = [];
+                const type = pieces[0];
+                const setId = parseInt(pieces[1]);
+                const colors = [];
 
                 let index = 2;
 

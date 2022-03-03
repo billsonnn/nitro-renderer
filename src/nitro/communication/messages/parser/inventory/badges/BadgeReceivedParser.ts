@@ -7,8 +7,8 @@ export class BadgeReceivedParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._badgeId   = 0;
-        this._badgeCode  = null;
+        this._badgeId = 0;
+        this._badgeCode = null;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class BadgeReceivedParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._badgeId   = wrapper.readInt();
-        this._badgeCode  = wrapper.readString();
+        this._badgeId = wrapper.readInt();
+        this._badgeCode = wrapper.readString();
 
         return true;
     }

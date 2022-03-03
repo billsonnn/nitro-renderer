@@ -13,8 +13,8 @@ export class RoomObjectCache
 
     constructor(accurateZ: string)
     {
-        this._data                          = new Map();
-        this._roomObjectVariableAccurateZ   = accurateZ;
+        this._data = new Map();
+        this._roomObjectVariableAccurateZ = accurateZ;
     }
 
     public dispose(): void
@@ -79,19 +79,19 @@ export class RoomObjectCache
                 {
                     const data = new RoomObjectSpriteData();
 
-                    data.objectId   = item.objectId;
-                    data.x          = sprite.x;
-                    data.y          = sprite.y;
-                    data.z          = sprite.z;
-                    data.name       = sprite.sprite.name || '';
-                    data.flipH      = sprite.sprite.flipH;
-                    data.alpha      = sprite.sprite.alpha;
-                    data.color      = sprite.sprite.color.toString();
-                    data.blendMode  = sprite.sprite.blendMode.toString();
-                    data.width      = sprite.sprite.width;
-                    data.height     = sprite.sprite.height;
-                    data.type       = sprite.sprite.type;
-                    data.posture    = sprite.sprite.posture;
+                    data.objectId = item.objectId;
+                    data.x = sprite.x;
+                    data.y = sprite.y;
+                    data.z = sprite.z;
+                    data.name = sprite.sprite.name || '';
+                    data.flipH = sprite.sprite.flipH;
+                    data.alpha = sprite.sprite.alpha;
+                    data.color = sprite.sprite.color.toString();
+                    data.blendMode = sprite.sprite.blendMode.toString();
+                    data.width = sprite.sprite.width;
+                    data.height = sprite.sprite.height;
+                    data.type = sprite.sprite.type;
+                    data.posture = sprite.sprite.posture;
 
                     const isSkewed = this.isSkewedSprite(sprite.sprite);
 

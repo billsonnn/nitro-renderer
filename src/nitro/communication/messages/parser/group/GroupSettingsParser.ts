@@ -18,18 +18,18 @@ export class GroupSettingsParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._roomId                = 0;
-        this._roomName              = null;
-        this._id                    = 0;
-        this._title                 = null;
-        this._description           = null;
-        this._colorA                = 0;
-        this._colorB                = 0;
-        this._state                 = 0;
-        this._canMembersDecorate    = false;
-        this._badgeParts            = new Map();
-        this._badgeCode             = null;
-        this._membersCount          = 0;
+        this._roomId = 0;
+        this._roomName = null;
+        this._id = 0;
+        this._title = null;
+        this._description = null;
+        this._colorA = 0;
+        this._colorB = 0;
+        this._state = 0;
+        this._canMembersDecorate = false;
+        this._badgeParts = new Map();
+        this._badgeCode = null;
+        this._membersCount = 0;
 
         return true;
     }
@@ -42,36 +42,36 @@ export class GroupSettingsParser implements IMessageParser
 
         if(hasRoomData === 1)
         {
-            this._roomId                = wrapper.readInt();
-            this._roomName              = wrapper.readString();
+            this._roomId = wrapper.readInt();
+            this._roomName = wrapper.readString();
             wrapper.readBoolean();
         }
 
         wrapper.readBoolean();
 
-        this._id                    = wrapper.readInt();
-        this._title                 = wrapper.readString();
-        this._description           = wrapper.readString();
+        this._id = wrapper.readInt();
+        this._title = wrapper.readString();
+        this._description = wrapper.readString();
 
         wrapper.readInt();
 
-        this._colorA                = wrapper.readInt();
-        this._colorB                = wrapper.readInt();
-        this._state                 = wrapper.readInt();
-        this._canMembersDecorate    = wrapper.readInt() === 0;
+        this._colorA = wrapper.readInt();
+        this._colorB = wrapper.readInt();
+        this._state = wrapper.readInt();
+        this._canMembersDecorate = wrapper.readInt() === 0;
 
         wrapper.readBoolean();
         wrapper.readString();
 
-        const badgePartsCount       = wrapper.readInt();
+        const badgePartsCount = wrapper.readInt();
 
         for(let i = 0; i < badgePartsCount; i++)
         {
-            const part              = new GroupDataBadgePart(i === 0);
+            const part = new GroupDataBadgePart(i === 0);
 
-            part.key                = wrapper.readInt();
-            part.color              = wrapper.readInt();
-            part.position           = wrapper.readInt();
+            part.key = wrapper.readInt();
+            part.color = wrapper.readInt();
+            part.position = wrapper.readInt();
 
             if(part.key === 0)
             {
@@ -81,8 +81,8 @@ export class GroupSettingsParser implements IMessageParser
             this._badgeParts.set(i, part);
         }
 
-        this._badgeCode             = wrapper.readString();
-        this._membersCount          = wrapper.readInt();
+        this._badgeCode = wrapper.readString();
+        this._membersCount = wrapper.readInt();
 
         return true;
     }

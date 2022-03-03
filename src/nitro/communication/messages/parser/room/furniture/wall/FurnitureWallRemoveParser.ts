@@ -7,8 +7,8 @@ export class FurnitureWallRemoveParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._itemId    = 0;
-        this._userId    = 0;
+        this._itemId = 0;
+        this._userId = 0;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class FurnitureWallRemoveParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._itemId    = parseInt(wrapper.readString());
-        this._userId    = wrapper.readInt();
+        this._itemId = parseInt(wrapper.readString());
+        this._userId = wrapper.readInt();
 
         return true;
     }

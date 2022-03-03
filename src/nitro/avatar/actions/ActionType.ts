@@ -8,11 +8,11 @@ export class ActionType
 
     constructor(data: any)
     {
-        this._id                = parseInt(data.id);
-        this._value             = parseInt(data.id);
-        this._prevents          = data.prevents || [];
-        this._preventHeadTurn   = data.preventHeadTurn || false;
-        this._isAnimated        = true;
+        this._id = parseInt(data.id);
+        this._value = parseInt(data.id);
+        this._prevents = data.prevents || [];
+        this._preventHeadTurn = data.preventHeadTurn || false;
+        this._isAnimated = true;
 
         if((data.animated !== undefined) && (data.animated === false)) this._isAnimated = false;
     }

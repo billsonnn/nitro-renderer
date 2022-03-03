@@ -19,17 +19,17 @@ export class AvatarImagePartContainer
 
     constructor(k: string, _arg_2: string, _arg_3: string, _arg_4: IPartColor, _arg_5: AvatarAnimationFrame[], _arg_6: IActionDefinition, _arg_7: boolean, _arg_8: number, _arg_9: string = '', _arg_10: boolean = false, _arg_11: number = 1)
     {
-        this._bodyPartId        = k;
-        this._partType          = _arg_2;
-        this._partId            = _arg_3;
-        this._color             = _arg_4;
-        this._frames            = _arg_5;
-        this._action            = _arg_6;
-        this._isColorable       = _arg_7;
-        this._paletteMapId      = _arg_8;
-        this._flippedPartType   = _arg_9;
-        this._isBlendable       = _arg_10;
-        this._blendTransform    = null;
+        this._bodyPartId = k;
+        this._partType = _arg_2;
+        this._partId = _arg_3;
+        this._color = _arg_4;
+        this._frames = _arg_5;
+        this._action = _arg_6;
+        this._isColorable = _arg_7;
+        this._paletteMapId = _arg_8;
+        this._flippedPartType = _arg_9;
+        this._isBlendable = _arg_10;
+        this._blendTransform = null;
 
         if(this._partType === 'ey') this._isColorable = false;
     }

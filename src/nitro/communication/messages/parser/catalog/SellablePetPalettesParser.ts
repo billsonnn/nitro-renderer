@@ -8,8 +8,8 @@ export class SellablePetPalettesParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._productCode   = '';
-        this._palettes      = [];
+        this._productCode = '';
+        this._palettes = [];
 
         return true;
     }

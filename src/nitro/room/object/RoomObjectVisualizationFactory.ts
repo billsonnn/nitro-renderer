@@ -238,7 +238,7 @@ export class RoomObjectVisualizationFactory implements IRoomObjectVisualizationF
                 visualizationData = new FurnitureMannequinVisualizationData();
                 break;
             case RoomObjectVisualizationType.ROOM:
-                visualizationData   = new RoomVisualizationData();
+                visualizationData = new RoomVisualizationData();
                 break;
             case RoomObjectVisualizationType.USER:
             case RoomObjectVisualizationType.BOT:

@@ -5,8 +5,8 @@ export class DirectionalOffsetData
 
     constructor()
     {
-        this._offsetX   = new Map();
-        this._offsetY   = new Map();
+        this._offsetX = new Map();
+        this._offsetY = new Map();
     }
 
     public getXOffset(direction: number, defaultX: number): number

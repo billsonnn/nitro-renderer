@@ -32,12 +32,12 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
     constructor()
     {
-        this._assetCollection   = null;
-        this._textures          = new Map();
-        this._materials         = new Map();
-        this._planes            = new Map();
-        this._geometries        = new Map();
-        this._data              = null;
+        this._assetCollection = null;
+        this._textures = new Map();
+        this._materials = new Map();
+        this._planes = new Map();
+        this._geometries = new Map();
+        this._data = null;
     }
 
     protected get data(): any
@@ -95,8 +95,8 @@ export class PlaneRasterizer implements IPlaneRasterizer
             this._geometries = null;
         }
 
-        this._data              = null;
-        this._assetCollection   = null;
+        this._data = null;
+        this._assetCollection = null;
     }
 
     public clearCache(): void
@@ -281,8 +281,8 @@ export class PlaneRasterizer implements IPlaneRasterizer
         {
             if(!material) continue;
 
-            const id            = material.id;
-            const newMaterial   = new PlaneMaterial();
+            const id = material.id;
+            const newMaterial = new PlaneMaterial();
 
             if(material.matrices && material.matrices.length)
             {
@@ -290,12 +290,12 @@ export class PlaneRasterizer implements IPlaneRasterizer
                 {
                     if(!matrix) continue;
 
-                    let repeatMode  = matrix.repeatMode;
-                    let align       = matrix.align;
-                    const normalMinX  = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE;
-                    const normalMaxX  = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE;
-                    const normalMinY  = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE;
-                    const normalMaxY  = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE;
+                    let repeatMode = matrix.repeatMode;
+                    let align = matrix.align;
+                    const normalMinX = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE;
+                    const normalMaxX = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE;
+                    const normalMinY = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE;
+                    const normalMaxY = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE;
 
                     switch(repeatMode)
                     {
@@ -405,27 +405,27 @@ export class PlaneRasterizer implements IPlaneRasterizer
             {
                 const textureId = cell.textureId;
 
-                let assetNames: string[]        = null;
-                let offsetPoints: Point[]  = null;
-                let graphics: IGraphicAsset[]   = null;
-                let limit               = 0;
+                let assetNames: string[] = null;
+                let offsetPoints: Point[] = null;
+                let graphics: IGraphicAsset[] = null;
+                let limit = 0;
 
                 if(cell.extras && cell.extras.length)
                 {
-                    const extra     = cell.extras[0];
-                    const types     = extra.types;
-                    const offsets   = extra.offsets;
+                    const extra = cell.extras[0];
+                    const types = extra.types;
+                    const offsets = extra.offsets;
 
                     if(types && offsets)
                     {
                         if(types.length && offsets.length)
                         {
-                            const type          = types[0];
-                            const offset        = offsets[0];
+                            const type = types[0];
+                            const offset = offsets[0];
 
-                            assetNames      = this.parseExtraItemTypes(type);
-                            offsetPoints    = this.parseExtraItemOffsets(offset);
-                            limit           = offsetPoints.length;
+                            assetNames = this.parseExtraItemTypes(type);
+                            offsetPoints = this.parseExtraItemOffsets(offset);
+                            limit = offsetPoints.length;
 
                             if(extra.limitMax) limit = extra.limitMax;
                         }
@@ -448,8 +448,8 @@ export class PlaneRasterizer implements IPlaneRasterizer
                     }
                 }
 
-                const texture   = this.getTexture(textureId);
-                const newCell   = new PlaneMaterialCell(texture, graphics, offsetPoints, limit);
+                const texture = this.getTexture(textureId);
+                const newCell = new PlaneMaterialCell(texture, graphics, offsetPoints, limit);
 
                 cells.push(newCell);
             }
@@ -543,10 +543,10 @@ export class PlaneRasterizer implements IPlaneRasterizer
                 const size = visualization.size;
 
                 let horizontalAngle = FloorPlane.HORIZONTAL_ANGLE_DEFAULT;
-                let verticalAngle   = FloorPlane.VERTICAL_ANGLE_DEFAULT;
+                let verticalAngle = FloorPlane.VERTICAL_ANGLE_DEFAULT;
 
-                if(visualization.horizontalAngle) horizontalAngle   = visualization.horizontalAngle;
-                if(visualization.verticalAngle) verticalAngle       = visualization.verticalAngle;
+                if(visualization.horizontalAngle) horizontalAngle = visualization.horizontalAngle;
+                if(visualization.verticalAngle) verticalAngle = visualization.verticalAngle;
 
                 const layers = visualization.layers;
 
@@ -562,10 +562,10 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
                         if(layer)
                         {
-                            let material: PlaneMaterial     = null;
-                            let align: number               = PlaneVisualizationLayer.ALIGN_DEFAULT;
-                            let color: number               = FloorPlane.DEFAULT_COLOR;
-                            let offset: number              = PlaneVisualizationLayer.DEFAULT_OFFSET;
+                            let material: PlaneMaterial = null;
+                            let align: number = PlaneVisualizationLayer.ALIGN_DEFAULT;
+                            let color: number = FloorPlane.DEFAULT_COLOR;
+                            let offset: number = PlaneVisualizationLayer.DEFAULT_OFFSET;
 
                             if(layer.materialId) material = this.getMaterial(layer.materialId);
 

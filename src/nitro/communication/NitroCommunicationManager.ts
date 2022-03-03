@@ -25,14 +25,14 @@ export class NitroCommunicationManager extends NitroManager implements INitroCom
         super();
 
         this._communication = communication;
-        this._connection    = null;
-        this._messages      = new NitroMessages();
+        this._connection = null;
+        this._messages = new NitroMessages();
 
-        this._demo          = new NitroCommunicationDemo(this);
+        this._demo = new NitroCommunicationDemo(this);
 
-        this.onConnectionOpenedEvent        = this.onConnectionOpenedEvent.bind(this);
-        this.onConnectionClosedEvent        = this.onConnectionClosedEvent.bind(this);
-        this.onConnectionErrorEvent         = this.onConnectionErrorEvent.bind(this);
+        this.onConnectionOpenedEvent = this.onConnectionOpenedEvent.bind(this);
+        this.onConnectionClosedEvent = this.onConnectionClosedEvent.bind(this);
+        this.onConnectionErrorEvent = this.onConnectionErrorEvent.bind(this);
         this.onConnectionAuthenticatedEvent = this.onConnectionAuthenticatedEvent.bind(this);
     }
 

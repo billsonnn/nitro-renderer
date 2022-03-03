@@ -2,12 +2,12 @@
 
 export class FriendlyTime
 {
-    private static MINUTE: number   = 60;
-    private static HOUR: number     = (60 * FriendlyTime.MINUTE);
-    private static DAY: number      = (24 * FriendlyTime.HOUR);
-    private static WEEK: number     = (7 * FriendlyTime.DAY);
-    private static MONTH: number    = (30 * FriendlyTime.DAY);
-    private static YEAR: number     = (365 * FriendlyTime.DAY);
+    private static MINUTE: number = 60;
+    private static HOUR: number = (60 * FriendlyTime.MINUTE);
+    private static DAY: number = (24 * FriendlyTime.HOUR);
+    private static WEEK: number = (7 * FriendlyTime.DAY);
+    private static MONTH: number = (30 * FriendlyTime.DAY);
+    private static YEAR: number = (365 * FriendlyTime.DAY);
 
 
     public static format(seconds: number, key: string = '', threshold: number = 3): string

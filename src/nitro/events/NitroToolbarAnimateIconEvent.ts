@@ -13,8 +13,8 @@ export class NitroToolbarAnimateIconEvent extends NitroToolbarEvent
         super(NitroToolbarAnimateIconEvent.ANIMATE_ICON);
 
         this._image = image;
-        this._x     = x;
-        this._y     = y;
+        this._x = x;
+        this._y = y;
     }
 
     public get image(): HTMLImageElement

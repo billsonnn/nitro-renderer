@@ -10,10 +10,10 @@ export class AddDataContainer
 
     constructor(k: IAssetAnimationAdd)
     {
-        this._id    = k.id || '';
+        this._id = k.id || '';
         this._align = k.align || '';
-        this._base  = k.base || '';
-        this._ink   = k.ink || 0;
+        this._base = k.base || '';
+        this._ink = k.ink || 0;
         this._blend = 0;
 
         const _local_2 = k.blend;

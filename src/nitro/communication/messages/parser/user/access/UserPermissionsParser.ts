@@ -8,9 +8,9 @@ export class UserPermissionsParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._clubLevel     = 0;
+        this._clubLevel = 0;
         this._securityLevel = 0;
-        this._isAmbassador  = false;
+        this._isAmbassador = false;
 
         return true;
     }
@@ -19,9 +19,9 @@ export class UserPermissionsParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._clubLevel     = wrapper.readInt();
+        this._clubLevel = wrapper.readInt();
         this._securityLevel = wrapper.readInt();
-        this._isAmbassador  = wrapper.readBoolean();
+        this._isAmbassador = wrapper.readBoolean();
 
         return true;
     }

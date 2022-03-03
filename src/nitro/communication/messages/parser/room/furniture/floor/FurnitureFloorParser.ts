@@ -8,8 +8,8 @@ export class FurnitureFloorParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._owners    = new Map();
-        this._items     = [];
+        this._owners = new Map();
+        this._items = [];
 
         return true;
     }

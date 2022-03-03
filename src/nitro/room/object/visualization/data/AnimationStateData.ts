@@ -13,14 +13,14 @@ export class AnimationStateData
 
     constructor()
     {
-        this._animationId                   = -1;
-        this._animationAfterTransitionId    = 0;
-        this._animationOver                 = false;
-        this._frameCounter                  = 0;
-        this._frames                        = [];
-        this._lastFramePlayed               = [];
-        this._animationPlayed               = [];
-        this._layerCount                    = 0;
+        this._animationId = -1;
+        this._animationAfterTransitionId = 0;
+        this._animationOver = false;
+        this._frameCounter = 0;
+        this._frames = [];
+        this._lastFramePlayed = [];
+        this._animationPlayed = [];
+        this._layerCount = 0;
     }
 
     public get animationOver(): boolean
@@ -71,9 +71,9 @@ export class AnimationStateData
     {
         this.recycleFrames();
 
-        this._frames            = null;
-        this._lastFramePlayed   = null;
-        this._animationPlayed   = null;
+        this._frames = null;
+        this._lastFramePlayed = null;
+        this._animationPlayed = null;
     }
 
     public setLayerCount(k: number): void
@@ -92,10 +92,10 @@ export class AnimationStateData
             this._frames = [];
         }
 
-        this._lastFramePlayed   = [];
-        this._animationPlayed   = [];
-        this._animationOver     = false;
-        this._frameCounter      = 0;
+        this._lastFramePlayed = [];
+        this._animationPlayed = [];
+        this._animationOver = false;
+        this._frameCounter = 0;
 
         let layerId = 0;
 
@@ -117,8 +117,8 @@ export class AnimationStateData
                 }
             }
 
-            this._lastFramePlayed[layerId]  = false;
-            this._animationPlayed[layerId]  = false;
+            this._lastFramePlayed[layerId] = false;
+            this._animationPlayed[layerId] = false;
 
             layerId++;
         }

@@ -11,12 +11,12 @@ export class PetFigureDataParser
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        this._typeId            = wrapper.readInt();
-        this._paletteId         = wrapper.readInt();
-        this._color             = wrapper.readString();
-        this._breedId           = wrapper.readInt();
-        this._customParts       = [];
-        this._customPartCount   = wrapper.readInt();
+        this._typeId = wrapper.readInt();
+        this._paletteId = wrapper.readInt();
+        this._color = wrapper.readString();
+        this._breedId = wrapper.readInt();
+        this._customParts = [];
+        this._customPartCount = wrapper.readInt();
 
         let i = 0;
 

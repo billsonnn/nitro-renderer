@@ -13,8 +13,8 @@ export class GroupInformationManager implements IDisposable
 
     constructor(sessionDataManager: SessionDataManager)
     {
-        this._sessionDataManager    = sessionDataManager;
-        this._groupBadges           = new Map();
+        this._sessionDataManager = sessionDataManager;
+        this._groupBadges = new Map();
     }
 
     public init(): void

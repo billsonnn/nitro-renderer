@@ -21,8 +21,8 @@ export class EvaWireFormat implements ICodec
 
             if(type === 'object')
             {
-                if(value === null)              type = 'null';
-                else if(value instanceof Byte)  type = 'byte';
+                if(value === null) type = 'null';
+                else if(value instanceof Byte) type = 'byte';
                 else if(value instanceof Short) type = 'short';
                 else if(value instanceof ArrayBuffer) type = 'arraybuffer';
             }
@@ -75,7 +75,7 @@ export class EvaWireFormat implements ICodec
             if(connection.dataBuffer.byteLength < 4) break;
 
             const container = new BinaryReader(connection.dataBuffer);
-            const length    = container.readInt();
+            const length = container.readInt();
 
             if(length > (connection.dataBuffer.byteLength - 4)) break;
 

@@ -17,10 +17,10 @@ export class NavigatorSavedSearch
 
     public flush(): boolean
     {
-        this._id            = -1;
-        this._code          = null;
-        this._filter        = null;
-        this._localization  = null;
+        this._id = -1;
+        this._code = null;
+        this._filter = null;
+        this._localization = null;
 
         return true;
     }
@@ -29,10 +29,10 @@ export class NavigatorSavedSearch
     {
         if(!wrapper) return false;
 
-        this._id            = wrapper.readInt();
-        this._code          = wrapper.readString();
-        this._filter        = wrapper.readString();
-        this._localization  = wrapper.readString();
+        this._id = wrapper.readInt();
+        this._code = wrapper.readString();
+        this._filter = wrapper.readString();
+        this._localization = wrapper.readString();
 
         return true;
     }

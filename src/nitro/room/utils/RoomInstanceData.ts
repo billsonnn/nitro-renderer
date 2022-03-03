@@ -23,19 +23,19 @@ export class RoomInstanceData
 
     constructor(roomId: number)
     {
-        this._roomId                        = roomId;
+        this._roomId = roomId;
 
-        this._modelName                     = null;
-        this._legacyGeometry                = new LegacyWallGeometry();
-        this._tileObjectMap                 = null;
-        this._roomCamera                    = new RoomCamera();
-        this._selectedObject                = null;
-        this._placedObject                  = null;
-        this._furnitureStackingHeightMap    = null;
+        this._modelName = null;
+        this._legacyGeometry = new LegacyWallGeometry();
+        this._tileObjectMap = null;
+        this._roomCamera = new RoomCamera();
+        this._selectedObject = null;
+        this._placedObject = null;
+        this._furnitureStackingHeightMap = null;
 
-        this._floorStack                    = new Map();
-        this._wallStack                     = new Map();
-        this._mouseButtonCursorOwners       = [];
+        this._floorStack = new Map();
+        this._wallStack = new Map();
+        this._mouseButtonCursorOwners = [];
     }
 
     public dispose(): void

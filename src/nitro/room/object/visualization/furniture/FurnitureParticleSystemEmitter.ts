@@ -41,8 +41,8 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
     {
         for(const k of this._particles) k.dispose();
 
-        this._particles                 = null;
-        this._particleConfigurations    = null;
+        this._particles = null;
+        this._particleConfigurations = null;
 
         super.dispose();
     }

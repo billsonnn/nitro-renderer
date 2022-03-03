@@ -10,8 +10,8 @@ export class FurnitureExternalImageVisualization extends FurnitureDynamicThumbna
     {
         super();
 
-        this._url           = null;
-        this._typePrefix    = null;
+        this._url = null;
+        this._typePrefix = null;
     }
 
     protected getThumbnailURL(): string

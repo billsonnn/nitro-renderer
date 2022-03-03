@@ -12,11 +12,11 @@ export class RoomCameraWidgetEffect implements IRoomCameraWidgetEffect
 
     constructor(name: string, minLevel: number = -1, texture: Texture<Resource> = null, colorMatrix: ColorMatrix = null, blendMode: number = null)
     {
-        this._name          = name;
-        this._minLevel      = minLevel;
-        this._texture       = texture;
-        this._colorMatrix   = colorMatrix;
-        this._blendMode     = blendMode;
+        this._name = name;
+        this._minLevel = minLevel;
+        this._texture = texture;
+        this._colorMatrix = colorMatrix;
+        this._blendMode = blendMode;
     }
 
     public get name(): string

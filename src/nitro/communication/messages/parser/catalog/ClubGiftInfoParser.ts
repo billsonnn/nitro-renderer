@@ -47,7 +47,7 @@ export class ClubGiftInfoParser implements IMessageParser
         return this._offers;
     }
 
-    public  get daysUntilNextGift(): number
+    public get daysUntilNextGift(): number
     {
         return this._daysUntilNextGift;
     }
@@ -70,7 +70,7 @@ export class ClubGiftInfoParser implements IMessageParser
     }
 
 
-    public  get giftData():Map<number, ClubGiftData>
+    public get giftData():Map<number, ClubGiftData>
     {
         return this._giftData;
     }

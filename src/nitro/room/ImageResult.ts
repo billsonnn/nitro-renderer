@@ -3,9 +3,9 @@ import { TextureUtils } from '../../room/utils/TextureUtils';
 
 export class ImageResult
 {
-    public id: number               = 0;
-    public data: RenderTexture      = null;
-    public image: HTMLImageElement  = null;
+    public id: number = 0;
+    public data: RenderTexture = null;
+    public image: HTMLImageElement = null;
 
     public getImage(): HTMLImageElement
     {

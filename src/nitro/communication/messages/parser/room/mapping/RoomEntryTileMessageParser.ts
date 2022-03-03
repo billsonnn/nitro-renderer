@@ -8,8 +8,8 @@ export class RoomEntryTileMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._x         = 0;
-        this._y         = 0;
+        this._x = 0;
+        this._y = 0;
         this._direction = 0;
 
         return true;
@@ -19,8 +19,8 @@ export class RoomEntryTileMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._x         = wrapper.readInt();
-        this._y         = wrapper.readInt();
+        this._x = wrapper.readInt();
+        this._y = wrapper.readInt();
         this._direction = wrapper.readInt();
 
         return true;

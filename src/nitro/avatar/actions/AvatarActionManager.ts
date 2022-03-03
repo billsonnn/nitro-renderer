@@ -10,8 +10,8 @@ export class AvatarActionManager
 
     constructor(k: IAssetManager, data: any)
     {
-        this._assets        = k;
-        this._actions       = new Map();
+        this._assets = k;
+        this._actions = new Map();
         this._defaultAction = null;
 
         this.updateActions(data);
@@ -45,7 +45,7 @@ export class AvatarActionManager
 
             for(const canvasOffset of offset.offsets)
             {
-                const size      = (canvasOffset.size || '');
+                const size = (canvasOffset.size || '');
                 const direction = canvasOffset.direction;
 
                 if((size === '') || (direction === undefined)) continue;
@@ -106,8 +106,8 @@ export class AvatarActionManager
         {
             if(!activeAction) continue;
 
-            const action    = this._actions.get(activeAction.actionType);
-            const offsets   = action && action.getOffsets(_arg_2, _arg_3);
+            const action = this._actions.get(activeAction.actionType);
+            const offsets = action && action.getOffsets(_arg_2, _arg_3);
 
             if(offsets) canvasOffsets = offsets;
         }
@@ -143,8 +143,8 @@ export class AvatarActionManager
 
     private filterActions(actions: IActiveActionData[]): IActiveActionData[]
     {
-        let preventions: string[]               = [];
-        const activeActions: IActiveActionData[]  = [];
+        let preventions: string[] = [];
+        const activeActions: IActiveActionData[] = [];
 
         for(const action of actions)
         {

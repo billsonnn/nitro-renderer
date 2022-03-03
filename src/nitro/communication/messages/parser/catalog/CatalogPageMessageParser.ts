@@ -16,14 +16,14 @@ export class CatalogPageMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._pageId                        = -1;
-        this._catalogType                   = null;
-        this._layoutCode                    = null;
-        this._localization                  = null;
-        this._offers                        = [];
-        this._offerId                       = -1;
+        this._pageId = -1;
+        this._catalogType = null;
+        this._layoutCode = null;
+        this._localization = null;
+        this._offers = [];
+        this._offerId = -1;
         this._acceptSeasonCurrencyAsCredits = false;
-        this._frontPageItems                = [];
+        this._frontPageItems = [];
 
         return true;
     }
@@ -32,10 +32,10 @@ export class CatalogPageMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._pageId        = wrapper.readInt();
-        this._catalogType   = wrapper.readString();
-        this._layoutCode    = wrapper.readString();
-        this._localization  = new CatalogLocalizationData(wrapper);
+        this._pageId = wrapper.readInt();
+        this._catalogType = wrapper.readString();
+        this._layoutCode = wrapper.readString();
+        this._localization = new CatalogLocalizationData(wrapper);
 
         let totalOffers = wrapper.readInt();
 
@@ -46,7 +46,7 @@ export class CatalogPageMessageParser implements IMessageParser
             totalOffers--;
         }
 
-        this._offerId                       = wrapper.readInt();
+        this._offerId = wrapper.readInt();
         this._acceptSeasonCurrencyAsCredits = wrapper.readBoolean();
 
         if(wrapper.bytesAvailable)

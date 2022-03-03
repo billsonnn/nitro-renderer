@@ -6,8 +6,8 @@ export class PetCustomPart
 
     constructor(layerId: number, partId: number, paletteId: number)
     {
-        this._layerId   = layerId;
-        this._partId    = partId;
+        this._layerId = layerId;
+        this._partId = partId;
         this._paletteId = paletteId;
     }
 

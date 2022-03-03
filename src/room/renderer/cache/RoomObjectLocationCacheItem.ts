@@ -16,14 +16,14 @@ export class RoomObjectLocationCacheItem
 
     constructor(accurateZ: string)
     {
-        this._roomObjectVariableAccurateZ   = accurateZ || '';
+        this._roomObjectVariableAccurateZ = accurateZ || '';
 
-        this._location                      = new Vector3d();
-        this._screenLocation                = new Vector3d();
-        this._locationChanged               = false;
+        this._location = new Vector3d();
+        this._screenLocation = new Vector3d();
+        this._locationChanged = false;
 
-        this._geometryUpdateId              = -1;
-        this._objectUpdateId                = -1;
+        this._geometryUpdateId = -1;
+        this._objectUpdateId = -1;
     }
 
     public dispose(): void

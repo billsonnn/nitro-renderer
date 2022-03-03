@@ -2,9 +2,9 @@ import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization
 
 export class FurnitureBottleVisualization extends FurnitureAnimatedVisualization
 {
-    private static ANIMATION_ID_OFFSET_SLOW1: number    = 20;
-    private static ANIMATION_ID_OFFSET_SLOW2: number    = 9;
-    private static ANIMATION_ID_ROLL: number            = -1;
+    private static ANIMATION_ID_OFFSET_SLOW1: number = 20;
+    private static ANIMATION_ID_OFFSET_SLOW2: number = 9;
+    private static ANIMATION_ID_ROLL: number = -1;
 
     private _stateQueue: number[];
     private _running: boolean;
@@ -13,8 +13,8 @@ export class FurnitureBottleVisualization extends FurnitureAnimatedVisualization
     {
         super();
 
-        this._stateQueue    = [];
-        this._running       = false;
+        this._stateQueue = [];
+        this._running = false;
     }
 
     protected setAnimation(animationId: number): void
@@ -23,8 +23,8 @@ export class FurnitureBottleVisualization extends FurnitureAnimatedVisualization
         {
             if(!this._running)
             {
-                this._running       = true;
-                this._stateQueue    = [];
+                this._running = true;
+                this._stateQueue = [];
 
                 this._stateQueue.push(FurnitureBottleVisualization.ANIMATION_ID_ROLL);
 
@@ -36,8 +36,8 @@ export class FurnitureBottleVisualization extends FurnitureAnimatedVisualization
         {
             if(this._running)
             {
-                this._running       = false;
-                this._stateQueue    = [];
+                this._running = false;
+                this._stateQueue = [];
 
                 this._stateQueue.push(FurnitureBottleVisualization.ANIMATION_ID_OFFSET_SLOW1);
                 this._stateQueue.push(FurnitureBottleVisualization.ANIMATION_ID_OFFSET_SLOW2 + animationId);

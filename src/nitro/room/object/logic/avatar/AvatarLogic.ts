@@ -34,13 +34,13 @@ import { MovingObjectLogic } from '../MovingObjectLogic';
 
 export class AvatarLogic extends MovingObjectLogic
 {
-    private static MAX_HAND_ID: number      = 999999999;
-    private static MAX_HAND_USE_ID: number  = 999;
-    private static EFFECT_TYPE_SPLASH: number       = 28;
-    private static EFFECT_SPLASH_LENGTH: number        = 500;
-    private static EFFECT_TYPE_SWIM: number       = 29;
-    private static EFFECT_TYPE_SPLASH_DARK: number       = 184;
-    private static EFFECT_TYPE_SWIM_DARK: number       = 185;
+    private static MAX_HAND_ID: number = 999999999;
+    private static MAX_HAND_USE_ID: number = 999;
+    private static EFFECT_TYPE_SPLASH: number = 28;
+    private static EFFECT_SPLASH_LENGTH: number = 500;
+    private static EFFECT_TYPE_SWIM: number = 29;
+    private static EFFECT_TYPE_SPLASH_DARK: number = 184;
+    private static EFFECT_TYPE_SWIM_DARK: number = 185;
 
     private _selected: boolean;
     private _reportedLocation: Vector3d;
@@ -63,22 +63,22 @@ export class AvatarLogic extends MovingObjectLogic
     {
         super();
 
-        this._selected                      = false;
-        this._reportedLocation              = null;
-        this._effectChangeTimeStamp         = 0;
-        this._newEffect                     = 0;
-        this._blinkingStartTimestamp        = Nitro.instance.time + this.randomBlinkStartTimestamp();
-        this._blinkingEndTimestamp          = 0;
-        this._talkingEndTimestamp           = 0;
-        this._talkingPauseStartTimestamp    = 0;
-        this._talkingPauseEndTimestamp      = 0;
-        this._carryObjectStartTimestamp     = 0;
-        this._carryObjectEndTimestamp       = 0;
-        this._allowUseCarryObject           = false;
-        this._animationEndTimestamp         = 0;
-        this._signEndTimestamp              = 0;
-        this._gestureEndTimestamp           = 0;
-        this._numberValueEndTimestamp       = 0;
+        this._selected = false;
+        this._reportedLocation = null;
+        this._effectChangeTimeStamp = 0;
+        this._newEffect = 0;
+        this._blinkingStartTimestamp = Nitro.instance.time + this.randomBlinkStartTimestamp();
+        this._blinkingEndTimestamp = 0;
+        this._talkingEndTimestamp = 0;
+        this._talkingPauseStartTimestamp = 0;
+        this._talkingPauseEndTimestamp = 0;
+        this._carryObjectStartTimestamp = 0;
+        this._carryObjectEndTimestamp = 0;
+        this._allowUseCarryObject = false;
+        this._animationEndTimestamp = 0;
+        this._signEndTimestamp = 0;
+        this._gestureEndTimestamp = 0;
+        this._numberValueEndTimestamp = 0;
     }
 
     public getEventTypes(): string[]
@@ -134,16 +134,16 @@ export class AvatarLogic extends MovingObjectLogic
             {
                 model.setValue(RoomObjectVariable.FIGURE_TALK, 0);
 
-                this._talkingEndTimestamp           = 0;
-                this._talkingPauseStartTimestamp    = 0;
-                this._talkingPauseEndTimestamp      = 0;
+                this._talkingEndTimestamp = 0;
+                this._talkingPauseStartTimestamp = 0;
+                this._talkingPauseEndTimestamp = 0;
             }
             else
             {
                 if(!this._talkingPauseEndTimestamp && !this._talkingPauseStartTimestamp)
                 {
-                    this._talkingPauseStartTimestamp    = time + this.randomTalkingPauseStartTimestamp();
-                    this._talkingPauseEndTimestamp      = this._talkingPauseStartTimestamp + this.randomTalkingPauseEndTimestamp();
+                    this._talkingPauseStartTimestamp = time + this.randomTalkingPauseStartTimestamp();
+                    this._talkingPauseEndTimestamp = this._talkingPauseStartTimestamp + this.randomTalkingPauseEndTimestamp();
                 }
                 else
                 {
@@ -195,8 +195,8 @@ export class AvatarLogic extends MovingObjectLogic
                 model.setValue(RoomObjectVariable.FIGURE_USE_OBJECT, 0);
 
                 this._carryObjectStartTimestamp = 0;
-                this._carryObjectEndTimestamp   = 0;
-                this._allowUseCarryObject       = false;
+                this._carryObjectEndTimestamp = 0;
+                this._allowUseCarryObject = false;
             }
         }
 
@@ -219,8 +219,8 @@ export class AvatarLogic extends MovingObjectLogic
         {
             model.setValue(RoomObjectVariable.FIGURE_BLINK, 1);
 
-            this._blinkingStartTimestamp    = time + this.randomBlinkStartTimestamp();
-            this._blinkingEndTimestamp      = time + this.randomBlinkEndTimestamp();
+            this._blinkingStartTimestamp = time + this.randomBlinkStartTimestamp();
+            this._blinkingEndTimestamp = time + this.randomBlinkEndTimestamp();
         }
 
         if((this._blinkingEndTimestamp > 0) && (time > this._blinkingEndTimestamp))
@@ -363,8 +363,8 @@ export class AvatarLogic extends MovingObjectLogic
             if(message.itemType === 0)
             {
                 this._carryObjectStartTimestamp = 0;
-                this._carryObjectEndTimestamp   = 0;
-                this._allowUseCarryObject       = false;
+                this._carryObjectEndTimestamp = 0;
+                this._allowUseCarryObject = false;
             }
             else
             {
@@ -372,13 +372,13 @@ export class AvatarLogic extends MovingObjectLogic
 
                 if(message.itemType < AvatarLogic.MAX_HAND_ID)
                 {
-                    this._carryObjectEndTimestamp   = 0;
-                    this._allowUseCarryObject       = message.itemType <= AvatarLogic.MAX_HAND_USE_ID;
+                    this._carryObjectEndTimestamp = 0;
+                    this._allowUseCarryObject = message.itemType <= AvatarLogic.MAX_HAND_USE_ID;
                 }
                 else
                 {
-                    this._carryObjectEndTimestamp   = this._carryObjectStartTimestamp + 1500;
-                    this._allowUseCarryObject       = false;
+                    this._carryObjectEndTimestamp = this._carryObjectStartTimestamp + 1500;
+                    this._allowUseCarryObject = false;
                 }
             }
 
@@ -418,8 +418,8 @@ export class AvatarLogic extends MovingObjectLogic
 
         if(message instanceof ObjectAvatarSelectedMessage)
         {
-            this._selected          = message.selected;
-            this._reportedLocation  = null;
+            this._selected = message.selected;
+            this._reportedLocation = null;
 
             return;
         }
@@ -437,19 +437,19 @@ export class AvatarLogic extends MovingObjectLogic
         if(effect === AvatarLogic.EFFECT_TYPE_SPLASH)
         {
             this._effectChangeTimeStamp = (Nitro.instance.time + AvatarLogic.EFFECT_SPLASH_LENGTH);
-            this._newEffect             = AvatarLogic.EFFECT_TYPE_SWIM;
+            this._newEffect = AvatarLogic.EFFECT_TYPE_SWIM;
         }
 
         else if(effect === AvatarLogic.EFFECT_TYPE_SPLASH_DARK)
         {
             this._effectChangeTimeStamp = (Nitro.instance.time + AvatarLogic.EFFECT_SPLASH_LENGTH);
-            this._newEffect             = AvatarLogic.EFFECT_TYPE_SWIM_DARK;
+            this._newEffect = AvatarLogic.EFFECT_TYPE_SWIM_DARK;
         }
 
         else if(model.getValue<number>(RoomObjectVariable.FIGURE_EFFECT) === AvatarLogic.EFFECT_TYPE_SWIM)
         {
             this._effectChangeTimeStamp = (Nitro.instance.time + AvatarLogic.EFFECT_SPLASH_LENGTH);
-            this._newEffect             = effect;
+            this._newEffect = effect;
 
             effect = AvatarLogic.EFFECT_TYPE_SPLASH;
         }
@@ -457,7 +457,7 @@ export class AvatarLogic extends MovingObjectLogic
         else if(model.getValue<number>(RoomObjectVariable.FIGURE_EFFECT) === AvatarLogic.EFFECT_TYPE_SWIM_DARK)
         {
             this._effectChangeTimeStamp = (Nitro.instance.time + AvatarLogic.EFFECT_SPLASH_LENGTH);
-            this._newEffect             = effect;
+            this._newEffect = effect;
 
             effect = AvatarLogic.EFFECT_TYPE_SPLASH_DARK;
         }
@@ -470,7 +470,7 @@ export class AvatarLogic extends MovingObjectLogic
         else
         {
             this._effectChangeTimeStamp = (Nitro.instance.time + delay);
-            this._newEffect             = effect;
+            this._newEffect = effect;
 
             return;
         }

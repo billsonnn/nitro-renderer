@@ -9,10 +9,10 @@ export class RoomPaintParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._floorType             = null;
-        this._wallType              = null;
-        this._landscapeType         = null;
-        this._landscapeAnimation    = null;
+        this._floorType = null;
+        this._wallType = null;
+        this._landscapeType = null;
+        this._landscapeAnimation = null;
 
         return true;
     }

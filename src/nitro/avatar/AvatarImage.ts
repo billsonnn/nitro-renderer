@@ -31,15 +31,15 @@ import { IPartColor } from './structure/figure/IPartColor';
 
 export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 {
-    private static CHANNELS_EQUAL: string       = 'CHANNELS_EQUAL';
-    private static CHANNELS_UNIQUE: string      = 'CHANNELS_UNIQUE';
-    private static CHANNELS_RED: string         = 'CHANNELS_RED';
-    private static CHANNELS_GREEN: string       = 'CHANNELS_GREEN';
-    private static CHANNELS_BLUE: string        = 'CHANNELS_BLUE';
+    private static CHANNELS_EQUAL: string = 'CHANNELS_EQUAL';
+    private static CHANNELS_UNIQUE: string = 'CHANNELS_UNIQUE';
+    private static CHANNELS_RED: string = 'CHANNELS_RED';
+    private static CHANNELS_GREEN: string = 'CHANNELS_GREEN';
+    private static CHANNELS_BLUE: string = 'CHANNELS_BLUE';
     private static CHANNELS_DESATURATED: string = 'CHANNELS_DESATURATED';
-    private static DEFAULT_ACTION: string       = 'Default';
-    private static DEFAULT_DIRECTION: number    = 2;
-    private static DEFAULT_AVATAR_SET: string   = AvatarSetType.FULL;
+    private static DEFAULT_ACTION: string = 'Default';
+    private static DEFAULT_DIRECTION: number = 2;
+    private static DEFAULT_AVATAR_SET: string = AvatarSetType.FULL;
 
     protected _structure: AvatarStructure;
     protected _scale: string;
@@ -333,7 +333,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                 this._reusableTexture = null;
             }
 
-            this._image         = null;
+            this._image = null;
             this._isCachedImage = false;
         }
 
@@ -343,8 +343,8 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         const container = new NitroContainer();
 
-        let isCachable  = true;
-        let partCount   = (_local_6.length - 1);
+        let isCachable = true;
+        let partCount = (_local_6.length - 1);
 
         while(partCount >= 0)
         {
@@ -435,18 +435,18 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         }
         */
 
-        this._image     = this._reusableTexture;
-        this._changes   = false;
+        this._image = this._reusableTexture;
+        this._changes = false;
 
         return this._image;
     }
 
     public applyPalette(texture: RenderTexture, reds: number[] = [], greens: number[] = [], blues: number[] = []): RenderTexture
     {
-        const textureCanvas     = TextureUtils.generateCanvas(texture);
-        const textureCtx        = textureCanvas.getContext('2d');
-        const textureImageData  = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
-        const data              = textureImageData.data;
+        const textureCanvas = TextureUtils.generateCanvas(texture);
+        const textureCtx = textureCanvas.getContext('2d');
+        const textureImageData = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
+        const data = textureImageData.data;
 
         for(let i = 0; i < data.length; i += 4)
         {
@@ -502,12 +502,12 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(!avatarCanvas) return null;
 
-        const setTypes  = this.getBodyParts(setType, this._mainAction.definition.geometryType, this._mainDirection);
+        const setTypes = this.getBodyParts(setType, this._mainAction.definition.geometryType, this._mainDirection);
         const container = new NitroSprite();
-        const sprite    = new NitroSprite(Texture.EMPTY);
+        const sprite = new NitroSprite(Texture.EMPTY);
 
-        sprite.width    = avatarCanvas.width;
-        sprite.height   = avatarCanvas.height;
+        sprite.width = avatarCanvas.width;
+        sprite.height = avatarCanvas.height;
 
         container.addChild(sprite);
 
@@ -515,8 +515,8 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         while(partCount >= 0)
         {
-            const set   = setTypes[partCount];
-            const part  = this._cache.getImageContainer(set, this._frameCounter);
+            const set = setTypes[partCount];
+            const part = this._cache.getImageContainer(set, this._frameCounter);
 
             if(part)
             {
@@ -567,15 +567,15 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(!avatarCanvas) return null;
 
-        const setTypes  = this.getBodyParts(setType, this._mainAction.definition.geometryType, this._mainDirection);
+        const setTypes = this.getBodyParts(setType, this._mainAction.definition.geometryType, this._mainDirection);
         const container = new NitroContainer();
 
         let partCount = (setTypes.length - 1);
 
         while(partCount >= 0)
         {
-            const set   = setTypes[partCount];
-            const part  = this._cache.getImageContainer(set, this._frameCounter);
+            const set = setTypes[partCount];
+            const part = this._cache.getImageContainer(set, this._frameCounter);
 
             if(part)
             {
@@ -927,8 +927,8 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
     {
         if(!this._sortedActions == null) return;
 
-        const _local_3: number    = Nitro.instance.time;
-        const _local_4: string[]  = [];
+        const _local_3: number = Nitro.instance.time;
+        const _local_4: string[] = [];
 
         for(const k of this._sortedActions) _local_4.push(k.actionType);
 

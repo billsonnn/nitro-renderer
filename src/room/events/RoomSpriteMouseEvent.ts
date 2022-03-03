@@ -17,18 +17,18 @@ export class RoomSpriteMouseEvent
 
     constructor(type: string, eventId: string, canvasId: string, spriteTag: string, screenX: number, screenY: number, localX: number = 0, localY: number = 0, ctrlKey: boolean = false, altKey: boolean = false, shiftKey: boolean = false, buttonDown: boolean = false)
     {
-        this._type          = type;
-        this._eventId       = eventId;
-        this._canvasId      = canvasId;
-        this._spriteTag     = spriteTag;
-        this._screenX       = screenX;
-        this._screenY       = screenY;
-        this._localX        = localX;
-        this._localY        = localY;
-        this._ctrlKey       = ctrlKey;
-        this._altKey        = altKey;
-        this._shiftKey      = shiftKey;
-        this._buttonDown    = buttonDown;
+        this._type = type;
+        this._eventId = eventId;
+        this._canvasId = canvasId;
+        this._spriteTag = spriteTag;
+        this._screenX = screenX;
+        this._screenY = screenY;
+        this._localX = localX;
+        this._localY = localY;
+        this._ctrlKey = ctrlKey;
+        this._altKey = altKey;
+        this._shiftKey = shiftKey;
+        this._buttonDown = buttonDown;
         this._spriteOffsetX = 0;
         this._spriteOffsetY = 0;
     }

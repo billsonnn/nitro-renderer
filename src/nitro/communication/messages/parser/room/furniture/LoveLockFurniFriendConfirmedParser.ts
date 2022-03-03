@@ -2,7 +2,7 @@
 
 export class LoveLockFurniFriendConfirmedParser implements IMessageParser
 {
-    private _furniId:   number;
+    private _furniId: number;
 
     public get furniId(): number
     {
@@ -11,13 +11,13 @@ export class LoveLockFurniFriendConfirmedParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._furniId   = -1;
+        this._furniId = -1;
         return true;
     }
 
     public parse(packet: IMessageDataWrapper): boolean
     {
-        this._furniId   = packet.readInt();
+        this._furniId = packet.readInt();
         return true;
     }
 }

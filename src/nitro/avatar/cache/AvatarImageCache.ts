@@ -38,16 +38,16 @@ export class AvatarImageCache
 
     constructor(k: AvatarStructure, _arg_2: IAvatarImage, _arg_3: AssetAliasCollection, _arg_4: string)
     {
-        this._structure         = k;
-        this._avatar            = _arg_2;
-        this._assets            = _arg_3;
-        this._scale             = _arg_4;
-        this._cache             = new Map();
-        this._canvas            = null;
-        this._disposed          = false;
-        this._unionImages       = [];
-        this._matrix            = new Matrix();
-        this._serverRenderData  = [];
+        this._structure = k;
+        this._avatar = _arg_2;
+        this._assets = _arg_3;
+        this._scale = _arg_4;
+        this._cache = new Map();
+        this._canvas = null;
+        this._disposed = false;
+        this._unionImages = [];
+        this._matrix = new Matrix();
+        this._serverRenderData = [];
     }
 
     public dispose(): void
@@ -55,10 +55,10 @@ export class AvatarImageCache
         if(this._disposed) return;
 
         this._structure = null;
-        this._avatar    = null;
-        this._assets    = null;
-        this._canvas    = null;
-        this._disposed  = true;
+        this._avatar = null;
+        this._assets = null;
+        this._canvas = null;
+        this._disposed = true;
 
         if(this._cache)
         {
@@ -148,16 +148,16 @@ export class AvatarImageCache
 
         if((((this._geometryType === GeometryType.SITTING) && (k === GeometryType.VERTICAL)) || ((this._geometryType === GeometryType.VERTICAL) && (k === GeometryType.SITTING)) || ((this._geometryType === GeometryType.SNOWWARS_HORIZONTAL) && (k = GeometryType.SNOWWARS_HORIZONTAL))))
         {
-            this._geometryType  = k;
-            this._canvas        = null;
+            this._geometryType = k;
+            this._canvas = null;
 
             return;
         }
 
         this.disposeInactiveActions(0);
 
-        this._geometryType  = k;
-        this._canvas        = null;
+        this._geometryType = k;
+        this._canvas = null;
     }
 
     public getImageContainer(k: string, frameNumber: number, _arg_3: boolean = false): AvatarImageBodyPartContainer
@@ -177,10 +177,10 @@ export class AvatarImageCache
 
         if(_local_7.definition.startFromFrameZero) frameCount -= _local_7.startFrame;
 
-        let _local_8                        = _local_7;
-        let _local_9: string[]              = [];
-        let _local_10: Map<string, string>  = new Map();
-        const _local_11                       = new Point();
+        let _local_8 = _local_7;
+        let _local_9: string[] = [];
+        let _local_10: Map<string, string> = new Map();
+        const _local_11 = new Point();
 
         if(!((!(_local_7)) || (!(_local_7.definition))))
         {
@@ -332,10 +332,10 @@ export class AvatarImageCache
             if(!this._canvas) return null;
         }
 
-        const isFlipped           = AvatarDirectionAngle.DIRECTION_IS_FLIPPED[direction] || false;
+        const isFlipped = AvatarDirectionAngle.DIRECTION_IS_FLIPPED[direction] || false;
         let assetPartDefinition = _arg_4.definition.assetPartDefinition;
-        let isCacheable         = true;
-        let containerIndex      = (containers.length - 1);
+        let isCacheable = true;
+        let containerIndex = (containers.length - 1);
 
         while(containerIndex >= 0)
         {
@@ -347,10 +347,10 @@ export class AvatarImageCache
             {
                 if(!((container.partType === 'ri') && !container.partId))
                 {
-                    const partId            = container.partId;
-                    const animationFrame    = container.getFrameDefinition(frameCount);
+                    const partId = container.partId;
+                    const animationFrame = container.getFrameDefinition(frameCount);
 
-                    let partType    = container.partType;
+                    let partType = container.partType;
                     let frameNumber = 0;
 
                     if(animationFrame)
@@ -361,8 +361,8 @@ export class AvatarImageCache
                     }
                     else frameNumber = container.getFrameIndex(frameCount);
 
-                    let assetDirection  = direction;
-                    let flipH           = false;
+                    let assetDirection = direction;
+                    let flipH = false;
 
                     if(isFlipped)
                     {
@@ -372,21 +372,21 @@ export class AvatarImageCache
                         }
                         else
                         {
-                            if(direction === 4)         assetDirection = 2;
-                            else if(direction === 5)    assetDirection = 1;
-                            else if(direction === 6)    assetDirection = 0;
+                            if(direction === 4) assetDirection = 2;
+                            else if(direction === 5) assetDirection = 1;
+                            else if(direction === 6) assetDirection = 0;
 
                             if(container.flippedPartType !== partType) partType = container.flippedPartType;
                         }
                     }
 
-                    let assetName   = (this._scale + '_' + assetPartDefinition + '_' + partType + '_' + partId + '_' + assetDirection + '_' + frameNumber);
-                    let asset       = this._assets.getAsset(assetName);
+                    let assetName = (this._scale + '_' + assetPartDefinition + '_' + partType + '_' + partId + '_' + assetDirection + '_' + frameNumber);
+                    let asset = this._assets.getAsset(assetName);
 
                     if(!asset)
                     {
-                        assetName   = (this._scale + '_std_' + partType + '_' + partId + '_' + assetDirection + '_0');
-                        asset       = this._assets.getAsset(assetName);
+                        assetName = (this._scale + '_std_' + partType + '_' + partId + '_' + assetDirection + '_0');
+                        asset = this._assets.getAsset(assetName);
                     }
 
                     if(asset)
@@ -409,13 +409,13 @@ export class AvatarImageCache
                             {
                                 const spriteData = new RoomObjectSpriteData();
 
-                                spriteData.name      = this._assets.getAssetName(assetName);
-                                spriteData.x         = (-(offset.x) - 33);
-                                spriteData.y         = -(offset.y);
-                                spriteData.z         = (this._serverRenderData.length * -0.0001);
-                                spriteData.width     = asset.rectangle.width;
-                                spriteData.height    = asset.rectangle.height;
-                                spriteData.flipH     = flipH;
+                                spriteData.name = this._assets.getAssetName(assetName);
+                                spriteData.x = (-(offset.x) - 33);
+                                spriteData.y = -(offset.y);
+                                spriteData.z = (this._serverRenderData.length * -0.0001);
+                                spriteData.width = asset.rectangle.width;
+                                spriteData.height = asset.rectangle.height;
+                                spriteData.flipH = flipH;
 
                                 if(assetPartDefinition === 'lay') spriteData.x = (spriteData.x + 53);
 
@@ -443,9 +443,9 @@ export class AvatarImageCache
 
         if(!this._unionImages.length) return null;
 
-        const imageData     = this.createUnionImage(this._unionImages, isFlipped);
-        const canvasOffset  = ((this._scale === AvatarScaleType.LARGE) ? (this._canvas.height - 16) : (this._canvas.height - 8));
-        const offset        = new Point(-(imageData.regPoint.x), (canvasOffset - imageData.regPoint.y));
+        const imageData = this.createUnionImage(this._unionImages, isFlipped);
+        const canvasOffset = ((this._scale === AvatarScaleType.LARGE) ? (this._canvas.height - 16) : (this._canvas.height - 8));
+        const offset = new Point(-(imageData.regPoint.x), (canvasOffset - imageData.regPoint.y));
 
         if(isFlipped && (assetPartDefinition !== 'lay')) offset.x = (offset.x + ((this._scale === AvatarScaleType.LARGE) ? 67 : 31));
 
@@ -479,13 +479,13 @@ export class AvatarImageCache
 
         for(const data of k) data && bounds.enlarge(data.offsetRect);
 
-        const point     = new Point(-(bounds.x), -(bounds.y));
+        const point = new Point(-(bounds.x), -(bounds.y));
         const container = new NitroContainer();
 
         const sprite = new NitroSprite(Texture.EMPTY);
 
-        sprite.width    = bounds.width;
-        sprite.height   = bounds.height;
+        sprite.width = bounds.width;
+        sprite.height = bounds.height;
 
         container.addChild(sprite);
 
@@ -493,10 +493,10 @@ export class AvatarImageCache
         {
             if(!data) continue;
 
-            const texture   = data.texture;
-            const color     = data.colorTransform;
-            const flipH     = (!(isFlipped && data.flipH) && (isFlipped || data.flipH));
-            const regPoint  = point.clone();
+            const texture = data.texture;
+            const color = data.colorTransform;
+            const flipH = (!(isFlipped && data.flipH) && (isFlipped || data.flipH));
+            const regPoint = point.clone();
 
             regPoint.x -= data.regPoint.x;
             regPoint.y -= data.regPoint.y;
@@ -505,7 +505,7 @@ export class AvatarImageCache
 
             if(flipH)
             {
-                this._matrix.a  = -1;
+                this._matrix.a = -1;
                 this._matrix.tx = ((data.rect.x + data.rect.width) + regPoint.x);
                 this._matrix.ty = (regPoint.y - data.rect.y);
             }

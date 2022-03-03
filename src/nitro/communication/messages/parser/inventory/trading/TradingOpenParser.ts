@@ -9,9 +9,9 @@ export class TradingOpenParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._userId            = -1;
-        this._userCanTrade      = false;
-        this._otherUserId       = -1;
+        this._userId = -1;
+        this._userCanTrade = false;
+        this._otherUserId = -1;
         this._otherUserCanTrade = false;
 
         return true;
@@ -21,9 +21,9 @@ export class TradingOpenParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._userId            = wrapper.readInt();
-        this._userCanTrade      = (wrapper.readInt() === 1);
-        this._otherUserId       = wrapper.readInt();
+        this._userId = wrapper.readInt();
+        this._userCanTrade = (wrapper.readInt() === 1);
+        this._otherUserId = wrapper.readInt();
         this._otherUserCanTrade = (wrapper.readInt() === 1);
 
         return true;

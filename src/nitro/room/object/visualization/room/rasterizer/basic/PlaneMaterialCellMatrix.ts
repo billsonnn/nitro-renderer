@@ -10,18 +10,18 @@ import { PlaneMaterialCellColumn } from './PlaneMaterialCellColumn';
 
 export class PlaneMaterialCellMatrix
 {
-    public static REPEAT_MODE_ALL: number     = 1;
-    public static REPEAT_MODE_BORDERS: number     = 2;
-    public static REPEAT_MODE_CENTER: number     = 3;
-    public static REPEAT_MODE_FIRST: number     = 4;
-    public static REPEAT_MODE_LAST: number     = 5;
-    public static REPEAT_MODE_RANDOM: number     = 6;
-    public static REPEAT_MODE_DEFAULT: number    = PlaneMaterialCellMatrix.REPEAT_MODE_ALL;//1
-    public static MIN_NORMAL_COORDINATE_VALUE: number     = -1;
-    public static MAX_NORMAL_COORDINATE_VALUE: number     = 1;
-    public static ALIGN_TOP: number     = 1;
-    public static ALIGN_BOTTOM: number     = 2;
-    public static ALIGN_DEFAULT: number     = PlaneMaterialCellMatrix.ALIGN_TOP;//1
+    public static REPEAT_MODE_ALL: number = 1;
+    public static REPEAT_MODE_BORDERS: number = 2;
+    public static REPEAT_MODE_CENTER: number = 3;
+    public static REPEAT_MODE_FIRST: number = 4;
+    public static REPEAT_MODE_LAST: number = 5;
+    public static REPEAT_MODE_RANDOM: number = 6;
+    public static REPEAT_MODE_DEFAULT: number = PlaneMaterialCellMatrix.REPEAT_MODE_ALL;//1
+    public static MIN_NORMAL_COORDINATE_VALUE: number = -1;
+    public static MAX_NORMAL_COORDINATE_VALUE: number = 1;
+    public static ALIGN_TOP: number = 1;
+    public static ALIGN_BOTTOM: number = 2;
+    public static ALIGN_DEFAULT: number = PlaneMaterialCellMatrix.ALIGN_TOP;//1
 
     private _columns: PlaneMaterialCellColumn[];
     private _repeatMode: number = 1;
@@ -408,8 +408,8 @@ export class PlaneMaterialCellMatrix
 
         const totalWidth: number = this.getColumnsWidth(columns);
 
-        let x       = 0;
-        let y       = 0;
+        let x = 0;
+        let y = 0;
 
         while(x < canvas.width)
         {

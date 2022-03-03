@@ -9,9 +9,9 @@ export class FurnitureListParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._totalFragments    = 0;
-        this._fragmentNumber    = 0;
-        this._fragment          = new Map();
+        this._totalFragments = 0;
+        this._fragmentNumber = 0;
+        this._fragment = new Map();
 
         return true;
     }
@@ -20,8 +20,8 @@ export class FurnitureListParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._totalFragments    = wrapper.readInt();
-        this._fragmentNumber    = wrapper.readInt();
+        this._totalFragments = wrapper.readInt();
+        this._fragmentNumber = wrapper.readInt();
 
         let totalItems = wrapper.readInt();
 

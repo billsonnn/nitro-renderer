@@ -15,13 +15,13 @@ export class RoomInfoParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._roomEnter     = false;
-        this._roomForward   = false;
-        this._staffPick     = false;
-        this._data          = null;
+        this._roomEnter = false;
+        this._roomForward = false;
+        this._staffPick = false;
+        this._data = null;
         this._isGroupMember = false;
-        this._moderation    = null;
-        this._chat          = null;
+        this._moderation = null;
+        this._chat = null;
 
         return true;
     }
@@ -30,15 +30,15 @@ export class RoomInfoParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._roomEnter      = wrapper.readBoolean();
-        this._data           = new RoomDataParser(wrapper);
-        this._roomForward    = wrapper.readBoolean();
+        this._roomEnter = wrapper.readBoolean();
+        this._data = new RoomDataParser(wrapper);
+        this._roomForward = wrapper.readBoolean();
         this.data.roomPicker = wrapper.readBoolean();
-        this._isGroupMember  = wrapper.readBoolean();
-        this.data.allInRoomMuted          = wrapper.readBoolean();
-        this._moderation     = new RoomModerationSettings(wrapper);
-        this.data.canMute   = wrapper.readBoolean();
-        this._chat           = new RoomChatSettings(wrapper);
+        this._isGroupMember = wrapper.readBoolean();
+        this.data.allInRoomMuted = wrapper.readBoolean();
+        this._moderation = new RoomModerationSettings(wrapper);
+        this.data.canMute = wrapper.readBoolean();
+        this._chat = new RoomChatSettings(wrapper);
 
         return true;
     }

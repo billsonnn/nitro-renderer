@@ -6,7 +6,7 @@ export class PurchaseNotAllowedMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._code  = 0;
+        this._code = 0;
 
         return true;
     }

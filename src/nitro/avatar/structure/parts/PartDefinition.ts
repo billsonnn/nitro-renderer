@@ -10,11 +10,11 @@ export class PartDefinition
     {
         if(!data) throw new Error('invalid_data');
 
-        this._setType           = data.setType;
-        this._flippedSetType    = data.flippedSetType || null;
-        this._removeSetType     = data.removeSetType || null;
-        this._appendToFigure    = false;
-        this._staticId          = -1;
+        this._setType = data.setType;
+        this._flippedSetType = data.flippedSetType || null;
+        this._removeSetType = data.removeSetType || null;
+        this._appendToFigure = false;
+        this._staticId = -1;
     }
 
     public hasStaticId(): boolean

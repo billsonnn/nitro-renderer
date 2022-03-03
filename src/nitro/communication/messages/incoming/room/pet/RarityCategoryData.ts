@@ -10,7 +10,7 @@ export class RarityCategoryData
         if(!wrapper) throw new Error('invalid_wrapper');
 
         this._chance = wrapper.readInt();
-        this._breeds    = [];
+        this._breeds = [];
 
         let totalCount = wrapper.readInt();
 
@@ -25,7 +25,7 @@ export class RarityCategoryData
     public dispose():void
     {
         this._chance = -1;
-        this._breeds    = [];
+        this._breeds = [];
     }
 
     public get chance(): number

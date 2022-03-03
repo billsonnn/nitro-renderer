@@ -8,8 +8,8 @@ export class AvatarImageDirectionCache
 
     constructor(k: AvatarImagePartContainer[])
     {
-        this._partList  = k;
-        this._images    = new Map();
+        this._partList = k;
+        this._images = new Map();
     }
 
     public dispose(): void

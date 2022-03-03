@@ -8,8 +8,8 @@ export class HabboSearchResultParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._friends   = [];
-        this._others    = [];
+        this._friends = [];
+        this._others = [];
 
         return true;
     }

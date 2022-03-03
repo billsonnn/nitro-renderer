@@ -9,8 +9,8 @@ export class InstantMessageErrorParser implements IMessageParser
     public flush(): boolean
     {
         this._errorCode = 0;
-        this._userId    = 0;
-        this._message   = null;
+        this._userId = 0;
+        this._message = null;
 
         return true;
     }
@@ -20,8 +20,8 @@ export class InstantMessageErrorParser implements IMessageParser
         if(!wrapper) return false;
 
         this._errorCode = wrapper.readInt();
-        this._userId    = wrapper.readInt();
-        this._message   = wrapper.readString();
+        this._userId = wrapper.readInt();
+        this._message = wrapper.readString();
 
         return true;
     }

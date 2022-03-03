@@ -22,7 +22,7 @@ export class NitroCore extends Disposable implements INitroCore
 
         this._configuration = new ConfigurationManager();
         this._communication = new CommunicationManager();
-        this._asset         = new AssetManager();
+        this._asset = new AssetManager();
     }
 
     protected onDispose(): void

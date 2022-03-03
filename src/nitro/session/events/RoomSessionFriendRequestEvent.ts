@@ -14,8 +14,8 @@ export class RoomSessionFriendRequestEvent extends RoomSessionEvent
         super(RoomSessionFriendRequestEvent.RSFRE_FRIEND_REQUEST, session);
 
         this._requestId = requestId;
-        this._userId    = userId;
-        this._userName  = userName;
+        this._userId = userId;
+        this._userName = userName;
     }
 
     public get requestId(): number

@@ -27,15 +27,15 @@ export class NitroCommunicationDemo extends NitroManager
 
         this._communication = communication;
 
-        this._handShaking   = false;
-        this._didConnect    = false;
+        this._handShaking = false;
+        this._didConnect = false;
 
-        this._pongInterval  = null;
+        this._pongInterval = null;
 
-        this.onConnectionOpenedEvent    = this.onConnectionOpenedEvent.bind(this);
-        this.onConnectionClosedEvent    = this.onConnectionClosedEvent.bind(this);
-        this.onConnectionErrorEvent     = this.onConnectionErrorEvent.bind(this);
-        this.sendPong                   = this.sendPong.bind(this);
+        this.onConnectionOpenedEvent = this.onConnectionOpenedEvent.bind(this);
+        this.onConnectionClosedEvent = this.onConnectionClosedEvent.bind(this);
+        this.onConnectionErrorEvent = this.onConnectionErrorEvent.bind(this);
+        this.sendPong = this.sendPong.bind(this);
     }
 
     protected onInit(): void
@@ -64,7 +64,7 @@ export class NitroCommunicationDemo extends NitroManager
             connection.removeEventListener(SocketConnectionEvent.CONNECTION_ERROR, this.onConnectionErrorEvent);
         }
 
-        this._handShaking   = false;
+        this._handShaking = false;
 
         this.stopPonging();
 

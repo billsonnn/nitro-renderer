@@ -13,11 +13,11 @@ export class AnimationAction
 
     constructor(data: any)
     {
-        this._id                = data.id;
-        this._actionParts       = new Map();
-        this._bodyPartOffsets   = new Map();
-        this._frameCount        = 0;
-        this._frameIndexes      = [];
+        this._id = data.id;
+        this._actionParts = new Map();
+        this._bodyPartOffsets = new Map();
+        this._frameCount = 0;
+        this._frameIndexes = [];
 
         if(data.parts && (data.parts.length > 0))
         {
@@ -104,9 +104,9 @@ export class AnimationAction
 
     public getFrameBodyPartOffset(frameId: number, frameCount: number, partId: string): Point
     {
-        const frameIndex    = (frameCount % this._frameIndexes.length);
-        const frameNumber   = this._frameIndexes[frameIndex];
-        const offsets       = this._bodyPartOffsets.get(frameNumber);
+        const frameIndex = (frameCount % this._frameIndexes.length);
+        const frameNumber = this._frameIndexes[frameIndex];
+        const offsets = this._bodyPartOffsets.get(frameNumber);
 
         if(!offsets) return AnimationAction.DEFAULT_OFFSET;
 

@@ -16,7 +16,7 @@ export class NavigatorTopLevelContext
 
     public flush(): boolean
     {
-        this._code          = null;
+        this._code = null;
         this._savedSearches = [];
 
         return true;
@@ -26,7 +26,7 @@ export class NavigatorTopLevelContext
     {
         if(!wrapper) return false;
 
-        this._code  = wrapper.readString();
+        this._code = wrapper.readString();
 
         let totalSavedSearches = wrapper.readInt();
 

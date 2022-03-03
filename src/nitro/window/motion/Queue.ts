@@ -13,8 +13,8 @@ export class Queue extends Motion
 
         for(const motion of motions) this._queue.push(motion);
 
-        this._motion    = motions[0];
-        this._complete  = !this._motion;
+        this._motion = motions[0];
+        this._complete = !this._motion;
     }
 
     public get running(): boolean

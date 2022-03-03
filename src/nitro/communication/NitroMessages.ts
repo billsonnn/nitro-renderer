@@ -471,7 +471,7 @@ export class NitroMessages implements IMessageConfiguration
 
     constructor()
     {
-        this._events    = new Map();
+        this._events = new Map();
         this._composers = new Map();
 
         this.registerEvents();

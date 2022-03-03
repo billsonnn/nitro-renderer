@@ -21,9 +21,9 @@ export class ObjectsDataUpdateParser implements IMessageParser
 
         while(totalObjects > 0)
         {
-            const id        = wrapper.readInt();
+            const id = wrapper.readInt();
             const stuffData = FurnitureDataParser.parseObjectData(wrapper);
-            const state     = parseFloat(stuffData.getLegacyString());
+            const state = parseFloat(stuffData.getLegacyString());
 
             this._objects.push(new ObjectData(id, state, stuffData));
 

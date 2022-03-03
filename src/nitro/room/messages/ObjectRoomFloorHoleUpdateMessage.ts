@@ -16,12 +16,12 @@ export class ObjectRoomFloorHoleUpdateMessage extends RoomObjectUpdateMessage
     {
         super(null, null);
 
-        this._type      = type;
-        this._id        = id;
-        this._x         = x;
-        this._y         = y;
-        this._width     = width;
-        this._height    = height;
+        this._type = type;
+        this._id = id;
+        this._x = x;
+        this._y = y;
+        this._width = width;
+        this._height = height;
     }
 
     public get type(): string

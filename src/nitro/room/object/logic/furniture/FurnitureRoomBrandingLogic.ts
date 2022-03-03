@@ -13,12 +13,12 @@ import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureRoomBrandingLogic extends FurnitureLogic
 {
-    public static STATE: string         = 'state';
-    public static IMAGEURL_KEY: string  = 'imageUrl';
-    public static CLICKURL_KEY: string  = 'clickUrl';
-    public static OFFSETX_KEY: string   = 'offsetX';
-    public static OFFSETY_KEY: string   = 'offsetY';
-    public static OFFSETZ_KEY: string   = 'offsetZ';
+    public static STATE: string = 'state';
+    public static IMAGEURL_KEY: string = 'imageUrl';
+    public static CLICKURL_KEY: string = 'clickUrl';
+    public static OFFSETX_KEY: string = 'offsetX';
+    public static OFFSETY_KEY: string = 'offsetY';
+    public static OFFSETZ_KEY: string = 'offsetZ';
 
     protected _disableFurnitureSelection: boolean;
     protected _hasClickUrl: boolean;
@@ -69,8 +69,8 @@ export class FurnitureRoomBrandingLogic extends FurnitureLogic
 
         if(!isNaN(state) && (this.object.getState(0) !== state)) this.object.setState(state, 0);
 
-        const imageUrl      = objectData.getValue(FurnitureRoomBrandingLogic.IMAGEURL_KEY);
-        const existingUrl   = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_BRANDING_IMAGE_URL);
+        const imageUrl = objectData.getValue(FurnitureRoomBrandingLogic.IMAGEURL_KEY);
+        const existingUrl = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_BRANDING_IMAGE_URL);
 
         if(!existingUrl || (existingUrl !== imageUrl))
         {
@@ -144,8 +144,8 @@ export class FurnitureRoomBrandingLogic extends FurnitureLogic
 
         if(!model) return;
 
-        const imageUrl      = model.getValue<string>(RoomObjectVariable.FURNITURE_BRANDING_IMAGE_URL);
-        const imageStatus   = model.getValue<number>(RoomObjectVariable.FURNITURE_BRANDING_IMAGE_STATUS);
+        const imageUrl = model.getValue<string>(RoomObjectVariable.FURNITURE_BRANDING_IMAGE_URL);
+        const imageStatus = model.getValue<number>(RoomObjectVariable.FURNITURE_BRANDING_IMAGE_STATUS);
 
         if(!imageUrl || (imageUrl === '') || (imageStatus === 1)) return;
 

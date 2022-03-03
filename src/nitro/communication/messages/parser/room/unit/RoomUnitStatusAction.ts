@@ -5,8 +5,8 @@ export class RoomUnitStatusAction
 
     constructor(action: string, value: string)
     {
-        this._action    = action;
-        this._value     = value;
+        this._action = action;
+        this._value = value;
     }
 
     public get action(): string

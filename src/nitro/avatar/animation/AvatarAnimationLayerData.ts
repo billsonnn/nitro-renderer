@@ -22,15 +22,15 @@ export class AvatarAnimationLayerData implements IAnimationLayerData
 
     constructor(k: IAssetAnimationFramePart, _arg_2: string, _arg_3: IActionDefinition)
     {
-        this._id                = k.id;
-        this._animationFrame    = (k.frame || 0);
-        this._dx                = (k.dx || 0);
-        this._dy                = (k.dy || 0);
-        this._dz                = (k.dz || 0);
-        this._directionOffset   = (k.dd || 0);
-        this._type              = _arg_2;
-        this._base              = (k.base || '');
-        this._items             = new Map();
+        this._id = k.id;
+        this._animationFrame = (k.frame || 0);
+        this._dx = (k.dx || 0);
+        this._dy = (k.dy || 0);
+        this._dz = (k.dz || 0);
+        this._directionOffset = (k.dd || 0);
+        this._type = _arg_2;
+        this._base = (k.base || '');
+        this._items = new Map();
 
         if(k.items) for(const _local_4 of k.items) this._items.set(_local_4.id, _local_4.base);
 
@@ -40,8 +40,8 @@ export class AvatarAnimationLayerData implements IAnimationLayerData
 
         if(_arg_3)
         {
-            this._action            = new ActiveActionData(_arg_3.state, this.base);
-            this._action.definition   = _arg_3;
+            this._action = new ActiveActionData(_arg_3.state, this.base);
+            this._action.definition = _arg_3;
         }
     }
 
@@ -52,8 +52,8 @@ export class AvatarAnimationLayerData implements IAnimationLayerData
 
     private baseAsInt(): number
     {
-        let k       = 0;
-        let index   = 0;
+        let k = 0;
+        let index = 0;
 
         while(index < this._base.length)
         {

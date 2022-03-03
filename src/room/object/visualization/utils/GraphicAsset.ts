@@ -23,26 +23,26 @@ export class GraphicAsset implements IGraphicAsset
     {
         const graphicAsset = (GraphicAsset.GRAPHIC_POOL.length ? GraphicAsset.GRAPHIC_POOL.pop() : new GraphicAsset());
 
-        graphicAsset._name      = name;
-        graphicAsset._source    = source || null;
+        graphicAsset._name = name;
+        graphicAsset._source = source || null;
 
         if(texture)
         {
-            graphicAsset._texture      = texture;
-            graphicAsset._initialized  = false;
+            graphicAsset._texture = texture;
+            graphicAsset._initialized = false;
         }
         else
         {
-            graphicAsset._texture      = null;
-            graphicAsset._initialized  = true;
+            graphicAsset._texture = null;
+            graphicAsset._initialized = true;
         }
 
-        graphicAsset._usesPalette  = usesPalette;
-        graphicAsset._x            = x;
-        graphicAsset._y            = y;
-        graphicAsset._flipH        = flipH;
-        graphicAsset._flipV        = flipV;
-        graphicAsset._rectangle    = null;
+        graphicAsset._usesPalette = usesPalette;
+        graphicAsset._x = x;
+        graphicAsset._y = y;
+        graphicAsset._flipH = flipH;
+        graphicAsset._flipV = flipV;
+        graphicAsset._rectangle = null;
 
         return graphicAsset;
     }
@@ -58,8 +58,8 @@ export class GraphicAsset implements IGraphicAsset
     {
         if(this._initialized || !this._texture) return;
 
-        this._width     = this._texture.width;
-        this._height    = this._texture.height;
+        this._width = this._texture.width;
+        this._height = this._texture.height;
 
         this._initialized = true;
     }

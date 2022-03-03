@@ -7,8 +7,8 @@
     {
         if(k < 0) k = 0;
 
-        this._reservedNumbers   = [];
-        this._freeNumbers       = [];
+        this._reservedNumbers = [];
+        this._freeNumbers = [];
 
         let i = 0;
 
@@ -22,8 +22,8 @@
 
     public dispose(): void
     {
-        this._reservedNumbers   = null;
-        this._freeNumbers       = null;
+        this._reservedNumbers = null;
+        this._freeNumbers = null;
     }
 
     public reserveNumber(): number

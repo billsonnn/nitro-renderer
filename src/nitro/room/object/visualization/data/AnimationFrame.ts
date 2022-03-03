@@ -4,8 +4,8 @@ export class AnimationFrame
     public static FRAME_REPEAT_FOREVER: number = -1;
     public static SEQUENCE_NOT_DEFINED: number = -1;
 
-    private static POOL_SIZE_LIMIT: number  = 3000;
-    private static POOL: AnimationFrame[]   = [];
+    private static POOL_SIZE_LIMIT: number = 3000;
+    private static POOL: AnimationFrame[] = [];
 
     private _id: number;
     private _x: number;
@@ -26,23 +26,23 @@ export class AnimationFrame
 
         if(frameRepeats < 0) frameRepeats = AnimationFrame.FRAME_REPEAT_FOREVER;
 
-        frame._id                       = id;
-        frame._x                        = x || 0;
-        frame._y                        = y || 0;
-        frame._repeats                  = repeats;
-        frame._frameRepeats             = frameRepeats;
-        frame._remainingFrameRepeats    = frameRepeats;
-        frame._isLastFrame              = isLastFrame;
-        frame._isRecycled               = false;
+        frame._id = id;
+        frame._x = x || 0;
+        frame._y = y || 0;
+        frame._repeats = repeats;
+        frame._frameRepeats = frameRepeats;
+        frame._remainingFrameRepeats = frameRepeats;
+        frame._isLastFrame = isLastFrame;
+        frame._isRecycled = false;
 
         if(activeSequence >= 0)
         {
-            frame._activeSequence       = activeSequence;
+            frame._activeSequence = activeSequence;
             frame._activeSequenceOffset = sequenceOffset;
         }
         else
         {
-            frame._activeSequence       = -1;
+            frame._activeSequence = -1;
             frame._activeSequenceOffset = 0;
         }
 

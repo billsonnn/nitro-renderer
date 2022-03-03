@@ -27,23 +27,23 @@ export class ItemDataStructure implements IFurnitureItemData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        this._itemId                = wrapper.readInt();
-        this._furniType             = wrapper.readString().toUpperCase();
-        this._ref                   = wrapper.readInt();
-        this._spriteId              = wrapper.readInt();
-        this._category              = wrapper.readInt();
-        this._isGroupable           = wrapper.readBoolean();
-        this._stuffData             = FurnitureDataParser.parseObjectData(wrapper);
-        this._secondsToExpiration   = -1;
-        this._expirationTimeStamp              = Nitro.instance.time;
-        this._hasRentPeriodStarted  = false;
-        this._creationDay              = wrapper.readInt();
-        this._creationMonth              = wrapper.readInt();
-        this._creationYear              = wrapper.readInt();
-        this._extra              = ((this.furniType === 'S') ? wrapper.readInt() : -1);
-        this._flatId                = -1;
-        this._rentable              = false;
-        this._isWallItem            = (this._furniType === 'I');
+        this._itemId = wrapper.readInt();
+        this._furniType = wrapper.readString().toUpperCase();
+        this._ref = wrapper.readInt();
+        this._spriteId = wrapper.readInt();
+        this._category = wrapper.readInt();
+        this._isGroupable = wrapper.readBoolean();
+        this._stuffData = FurnitureDataParser.parseObjectData(wrapper);
+        this._secondsToExpiration = -1;
+        this._expirationTimeStamp = Nitro.instance.time;
+        this._hasRentPeriodStarted = false;
+        this._creationDay = wrapper.readInt();
+        this._creationMonth = wrapper.readInt();
+        this._creationYear = wrapper.readInt();
+        this._extra = ((this.furniType === 'S') ? wrapper.readInt() : -1);
+        this._flatId = -1;
+        this._rentable = false;
+        this._isWallItem = (this._furniType === 'I');
     }
 
     public get itemId(): number

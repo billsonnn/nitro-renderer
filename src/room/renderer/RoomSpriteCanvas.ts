@@ -84,51 +84,51 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
     constructor(container: IRoomSpriteCanvasContainer, id: number, width: number, height: number, scale: number)
     {
-        this._id                            = id;
-        this._container                     = container;
+        this._id = id;
+        this._container = container;
 
-        this._geometry                      = new RoomGeometry(scale, new Vector3d(-135, 30, 0), new Vector3d(11, 11, 5), new Vector3d(-135, 0.5, 0));
-        this._animationFPS                  = Nitro.instance.getConfiguration<number>('system.animation.fps', 24);
-        this._renderTimestamp               = 0;
-        this._totalTimeRunning              = 0;
-        this._lastFrame                     = 0;
+        this._geometry = new RoomGeometry(scale, new Vector3d(-135, 30, 0), new Vector3d(11, 11, 5), new Vector3d(-135, 0.5, 0));
+        this._animationFPS = Nitro.instance.getConfiguration<number>('system.animation.fps', 24);
+        this._renderTimestamp = 0;
+        this._totalTimeRunning = 0;
+        this._lastFrame = 0;
 
-        this._master                        = null;
-        this._display                       = null;
-        this._mask                          = null;
+        this._master = null;
+        this._display = null;
+        this._mask = null;
 
-        this._sortableSprites               = [];
-        this._spriteCount                   = 0;
-        this._activeSpriteCount             = 0;
-        this._spritePool                    = [];
-        this._skipObjectUpdate              = false;
-        this._runningSlow                   = false;
+        this._sortableSprites = [];
+        this._spriteCount = 0;
+        this._activeSpriteCount = 0;
+        this._spritePool = [];
+        this._skipObjectUpdate = false;
+        this._runningSlow = false;
 
-        this._width                         = 0;
-        this._height                        = 0;
-        this._renderedWidth                 = 0;
-        this._renderedHeight                = 0;
-        this._screenOffsetX                 = 0;
-        this._screenOffsetY                 = 0;
-        this._mouseLocation                 = new Point;
-        this._mouseOldX                     = 0;
-        this._mouseOldY                     = 0;
-        this._mouseCheckCount               = 0;
-        this._mouseSpriteWasHit             = false;
-        this._mouseActiveObjects            = new Map();
-        this._eventCache                    = new Map();
-        this._eventId                       = 0;
-        this._scale                         = 1;
+        this._width = 0;
+        this._height = 0;
+        this._renderedWidth = 0;
+        this._renderedHeight = 0;
+        this._screenOffsetX = 0;
+        this._screenOffsetY = 0;
+        this._mouseLocation = new Point;
+        this._mouseOldX = 0;
+        this._mouseOldY = 0;
+        this._mouseCheckCount = 0;
+        this._mouseSpriteWasHit = false;
+        this._mouseActiveObjects = new Map();
+        this._eventCache = new Map();
+        this._eventId = 0;
+        this._scale = 1;
 
-        this._restrictsScaling              = false;
-        this._noSpriteVisibilityChecking    = false;
-        this._usesExclusionRectangles       = false;
-        this._usesMask                      = true;
-        this._canvasUpdated                 = false;
+        this._restrictsScaling = false;
+        this._noSpriteVisibilityChecking = false;
+        this._usesExclusionRectangles = false;
+        this._usesMask = true;
+        this._canvasUpdated = false;
 
-        this._objectCache                   = new RoomObjectCache(this._container.roomObjectVariableAccurateZ);
+        this._objectCache = new RoomObjectCache(this._container.roomObjectVariableAccurateZ);
 
-        this._mouseListener                 = null;
+        this._mouseListener = null;
 
         this.setupCanvas();
         this.initialize(width, height);
@@ -189,8 +189,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             this._master = null;
         }
 
-        this._display           = null;
-        this._sortableSprites   = [];
+        this._display = null;
+        this._sortableSprites = [];
 
         if(this._mouseActiveObjects)
         {
@@ -221,8 +221,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
     public initialize(width: number, height: number): void
     {
-        width   = width < 1 ? 1 : width;
-        height  = height < 1 ? 1 : height;
+        width = width < 1 ? 1 : width;
+        height = height < 1 ? 1 : height;
 
         if(this._usesMask)
         {
@@ -256,8 +256,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             {
                 const hitArea = (this._master.hitArea as Rectangle);
 
-                hitArea.width   = width;
-                hitArea.height  = height;
+                hitArea.width = width;
+                hitArea.height = height;
             }
             else
             {
@@ -268,8 +268,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             {
                 const filterArea = this._master.filterArea;
 
-                filterArea.width    = width;
-                filterArea.height   = height;
+                filterArea.width = width;
+                filterArea.height = height;
             }
             else
             {
@@ -277,8 +277,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             }
         }
 
-        this._width     = width;
-        this._height    = height;
+        this._width = width;
+        this._height = height;
     }
 
     public setMask(flag: boolean): void
@@ -329,8 +329,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             this._scale = scale;
         }
 
-        this.screenOffsetX  = (offsetPoint.x - (point.x * this._scale));
-        this.screenOffsetY  = (offsetPoint.y - (point.y * this._scale));
+        this.screenOffsetX = (offsetPoint.x - (point.x * this._scale));
+        this.screenOffsetY = (offsetPoint.y - (point.y * this._scale));
     }
 
     public render(time: number, update: boolean = false): void
@@ -414,9 +414,9 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if(update || updateVisuals) this._canvasUpdated = true;
 
-        this._renderTimestamp   = this._totalTimeRunning;
-        this._renderedWidth     = this._width;
-        this._renderedHeight    = this._height;
+        this._renderTimestamp = this._totalTimeRunning;
+        this._renderedWidth = this._width;
+        this._renderedHeight = this._height;
     }
 
     public skipSpriteVisibilityChecking(): void
@@ -483,9 +483,9 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             return sortableCache.spriteCount;
         }
 
-        let x   = vector.x;
-        let y   = vector.y;
-        let z   = vector.z;
+        let x = vector.x;
+        let y = vector.y;
+        let z = vector.z;
 
         if(x > 0) z = (z + (x * 1.2E-7));
         else z = (z + (-(x) * 1.2E-7));
@@ -499,8 +499,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         {
             if(!sprite || !sprite.visible) continue;
 
-            const texture       = sprite.texture;
-            const baseTexture   = texture && texture.baseTexture;
+            const texture = sprite.texture;
+            const baseTexture = texture && texture.baseTexture;
 
             if(!texture || !baseTexture) continue;
 
@@ -546,9 +546,9 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
                 sortableSprite.sprite.libraryAssetName = 'avatar_' + object.id;
             }
 
-            sortableSprite.x    = (spriteX - this._screenOffsetX);
-            sortableSprite.y    = (spriteY - this._screenOffsetY);
-            sortableSprite.z    = ((z + sprite.relativeDepth) + (3.7E-11 * count));
+            sortableSprite.x = (spriteX - this._screenOffsetX);
+            sortableSprite.y = (spriteY - this._screenOffsetY);
+            sortableSprite.z = ((z + sprite.relativeDepth) + (3.7E-11 * count));
 
             spriteCount++;
             count++;
@@ -590,8 +590,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if(!sprite) return false;
 
-        const objectSprite      = sprite.sprite;
-        const extendedSprite    = this.getExtendedSprite(index);
+        const objectSprite = sprite.sprite;
+        const extendedSprite = this.getExtendedSprite(index);
 
         if(!objectSprite || !extendedSprite) return false;
 
@@ -613,12 +613,12 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if(extendedSprite.needsUpdate(objectSprite.id, objectSprite.updateCounter) || RoomEnterEffect.isVisualizationOn())
         {
-            extendedSprite.tag              = objectSprite.tag;
-            extendedSprite.alphaTolerance   = objectSprite.alphaTolerance;
-            extendedSprite.name             = sprite.name;
-            extendedSprite.varyingDepth     = objectSprite.varyingDepth;
-            extendedSprite.clickHandling    = objectSprite.clickHandling;
-            extendedSprite.filters          = objectSprite.filters;
+            extendedSprite.tag = objectSprite.tag;
+            extendedSprite.alphaTolerance = objectSprite.alphaTolerance;
+            extendedSprite.name = sprite.name;
+            extendedSprite.varyingDepth = objectSprite.varyingDepth;
+            extendedSprite.clickHandling = objectSprite.clickHandling;
+            extendedSprite.filters = objectSprite.filters;
 
             const alpha = (objectSprite.alpha / 255);
 
@@ -685,19 +685,19 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if(extendedSprite.children.length) extendedSprite.removeChildren();
 
-        extendedSprite.tag              = sprite.tag;
-        extendedSprite.alphaTolerance   = sprite.alphaTolerance;
-        extendedSprite.alpha            = (sprite.alpha / 255);
-        extendedSprite.tint             = sprite.color;
-        extendedSprite.x                = sortableSprite.x;
-        extendedSprite.y                = sortableSprite.y;
-        extendedSprite.offsetX          = sprite.offsetX;
-        extendedSprite.offsetY          = sprite.offsetY;
-        extendedSprite.name             = sprite.name;
-        extendedSprite.varyingDepth     = sprite.varyingDepth;
-        extendedSprite.clickHandling    = sprite.clickHandling;
-        extendedSprite.blendMode        = sprite.blendMode;
-        extendedSprite.filters          = sprite.filters;
+        extendedSprite.tag = sprite.tag;
+        extendedSprite.alphaTolerance = sprite.alphaTolerance;
+        extendedSprite.alpha = (sprite.alpha / 255);
+        extendedSprite.tint = sprite.color;
+        extendedSprite.x = sortableSprite.x;
+        extendedSprite.y = sortableSprite.y;
+        extendedSprite.offsetX = sprite.offsetX;
+        extendedSprite.offsetY = sprite.offsetY;
+        extendedSprite.name = sprite.name;
+        extendedSprite.varyingDepth = sprite.varyingDepth;
+        extendedSprite.clickHandling = sprite.clickHandling;
+        extendedSprite.blendMode = sprite.blendMode;
+        extendedSprite.filters = sprite.filters;
 
         extendedSprite.setTexture(sprite.texture);
 
@@ -812,10 +812,10 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         if(this._noSpriteVisibilityChecking) return true;
 
-        x       = (((x - this._screenOffsetX) * this._scale) + this._screenOffsetX);
-        y       = (((y - this._screenOffsetY) * this._scale) + this._screenOffsetY);
-        width   = (width * this._scale);
-        height  = (height * this._scale);
+        x = (((x - this._screenOffsetX) * this._scale) + this._screenOffsetX);
+        y = (((y - this._screenOffsetY) * this._scale) + this._screenOffsetY);
+        width = (width * this._scale);
+        height = (height * this._scale);
 
         if(((x < this._width) && ((x + width) >= 0)) && ((y < this._height) && ((y + height) >= 0)))
         {
@@ -846,9 +846,9 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         const checkedSprites: string[] = [];
 
-        let didHitSprite                        = false;
-        let mouseEvent: RoomSpriteMouseEvent    = null;
-        let spriteId                            = (this._activeSpriteCount - 1);
+        let didHitSprite = false;
+        let mouseEvent: RoomSpriteMouseEvent = null;
+        let spriteId = (this._activeSpriteCount - 1);
 
         while(spriteId >= 0)
         {
@@ -961,9 +961,9 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
     protected createMouseEvent(x: number, y: number, localX: number, localY: number, type: string, tag: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean, buttonDown: boolean): RoomSpriteMouseEvent
     {
-        const screenX: number       = (x - (this._width / 2));
-        const screenY: number       = (y - (this._height / 2));
-        const canvasName            = `canvas_${ this._id }`;
+        const screenX: number = (x - (this._width / 2));
+        const screenY: number = (y - (this._height / 2));
+        const canvasName = `canvas_${ this._id }`;
 
         return new RoomSpriteMouseEvent(type, ((canvasName + '_') + this._eventId), canvasName, tag, screenX, screenY, localX, localY, ctrlKey, altKey, shiftKey, buttonDown);
     }
@@ -1244,8 +1244,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         x = Math.trunc(x);
 
-        this._mouseLocation.x   = (this._mouseLocation.x - (x - this._screenOffsetX));
-        this._screenOffsetX     = x;
+        this._mouseLocation.x = (this._mouseLocation.x - (x - this._screenOffsetX));
+        this._screenOffsetX = x;
     }
 
     public get screenOffsetY(): number
@@ -1257,8 +1257,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         y = Math.trunc(y);
 
-        this._mouseLocation.y   = (this._mouseLocation.y - (y - this._screenOffsetY));
-        this._screenOffsetY     = y;
+        this._mouseLocation.y = (this._mouseLocation.y - (y - this._screenOffsetY));
+        this._screenOffsetY = y;
     }
 
     public get scale(): number

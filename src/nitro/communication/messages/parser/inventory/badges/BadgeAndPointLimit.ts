@@ -9,8 +9,8 @@ export class BadgeAndPointLimit
     {
         if(!_arg_2) throw new Error('invalid_parser');
 
-        this._badgeId   = (('ACH_' + k) + _arg_2.readInt());
-        this._limit     = _arg_2.readInt();
+        this._badgeId = (('ACH_' + k) + _arg_2.readInt());
+        this._limit = _arg_2.readInt();
     }
 
     public get badgeId(): string

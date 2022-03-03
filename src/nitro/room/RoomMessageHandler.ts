@@ -80,25 +80,25 @@ export class RoomMessageHandler extends Disposable
     {
         super();
 
-        this._connection            = null;
-        this._roomCreator           = roomCreator;
-        this._planeParser           = new RoomPlaneParser();
-        this._latestEntryTileEvent  = null;
+        this._connection = null;
+        this._roomCreator = roomCreator;
+        this._planeParser = new RoomPlaneParser();
+        this._latestEntryTileEvent = null;
 
-        this._currentRoomId     = 0;
-        this._ownUserId         = 0;
+        this._currentRoomId = 0;
+        this._ownUserId = 0;
         this._initialConnection = true;
-        this._guideId           = -1;
-        this._requesterId       = -1;
+        this._guideId = -1;
+        this._requesterId = -1;
     }
 
     protected onDispose(): void
     {
         super.onDispose();
 
-        this._connection            = null;
-        this._roomCreator           = null;
-        this._latestEntryTileEvent  = null;
+        this._connection = null;
+        this._roomCreator = null;
+        this._latestEntryTileEvent = null;
 
         if(this._planeParser)
         {
@@ -167,14 +167,14 @@ export class RoomMessageHandler extends Disposable
             if(this._roomCreator) this._roomCreator.destroyRoom(this._currentRoomId);
         }
 
-        this._currentRoomId         = id;
-        this._latestEntryTileEvent  = null;
+        this._currentRoomId = id;
+        this._latestEntryTileEvent = null;
     }
 
     public clearRoomId(): void
     {
-        this._currentRoomId         = 0;
-        this._latestEntryTileEvent  = null;
+        this._currentRoomId = 0;
+        this._latestEntryTileEvent = null;
     }
 
     private onUserInfoEvent(event: UserInfoEvent): void
@@ -222,8 +222,8 @@ export class RoomMessageHandler extends Disposable
 
         if(!parser) return;
 
-        const floorType     = parser.floorType;
-        const wallType      = parser.wallType;
+        const floorType = parser.floorType;
+        const wallType = parser.wallType;
         const landscapeType = parser.landscapeType;
 
         if(this._roomCreator)
@@ -246,8 +246,8 @@ export class RoomMessageHandler extends Disposable
 
         this._planeParser.reset();
 
-        const width     = parser.width;
-        const height    = parser.height;
+        const width = parser.width;
+        const height = parser.height;
 
         this._planeParser.initializeTileMap(width, height);
 
@@ -255,10 +255,10 @@ export class RoomMessageHandler extends Disposable
 
         if(this._latestEntryTileEvent) entryTile = this._latestEntryTileEvent.getParser();
 
-        let doorX           = -1;
-        let doorY           = -1;
-        let doorZ           = 0;
-        let doorDirection   = 0;
+        let doorX = -1;
+        let doorY = -1;
+        let doorZ = 0;
+        let doorDirection = 0;
 
         let y = 0;
 
@@ -274,18 +274,18 @@ export class RoomMessageHandler extends Disposable
                 {
                     if(((parser.getHeight(x, (y - 1)) == RoomPlaneParser.TILE_BLOCKED) && (parser.getHeight((x - 1), y) == RoomPlaneParser.TILE_BLOCKED)) && (parser.getHeight(x, (y + 1)) == RoomPlaneParser.TILE_BLOCKED))
                     {
-                        doorX           = (x + 0.5);
-                        doorY           = y;
-                        doorZ           = tileHeight;
-                        doorDirection   = 90;
+                        doorX = (x + 0.5);
+                        doorY = y;
+                        doorZ = tileHeight;
+                        doorDirection = 90;
                     }
 
                     if(((parser.getHeight(x, (y - 1)) == RoomPlaneParser.TILE_BLOCKED) && (parser.getHeight((x - 1), y) == RoomPlaneParser.TILE_BLOCKED)) && (parser.getHeight((x + 1), y) == RoomPlaneParser.TILE_BLOCKED))
                     {
-                        doorX           = x;
-                        doorY           = (y + 0.5);
-                        doorZ           = tileHeight;
-                        doorDirection   = 180;
+                        doorX = x;
+                        doorY = (y + 0.5);
+                        doorZ = tileHeight;
+                        doorDirection = 180;
                     }
                 }
 
@@ -304,14 +304,14 @@ export class RoomMessageHandler extends Disposable
         if(parser.scale === 64)
         {
             this._planeParser.restrictsDragging = true;
-            this._planeParser.restrictsScaling  = true;
-            this._planeParser.restrictedScale   = 0.5;
+            this._planeParser.restrictsScaling = true;
+            this._planeParser.restrictedScale = 0.5;
         }
         else
         {
             this._planeParser.restrictsDragging = false;
-            this._planeParser.restrictsScaling  = false;
-            this._planeParser.restrictedScale   = 1;
+            this._planeParser.restrictsScaling = false;
+            this._planeParser.restrictedScale = 1;
         }
 
         wallGeometry.scale = LegacyWallGeometry.DEFAULT_SCALE;
@@ -352,8 +352,8 @@ export class RoomMessageHandler extends Disposable
 
         if(!parser) return;
 
-        const width     = parser.width;
-        const height    = parser.height;
+        const width = parser.width;
+        const height = parser.height;
         const heightMap = new FurnitureStackingHeightMap(width, height);
 
         let y = 0;
@@ -407,10 +407,10 @@ export class RoomMessageHandler extends Disposable
 
         if(!parser) return;
 
-        const visibleWall       = !parser.hideWalls;
-        const visibleFloor      = true;
-        const thicknessWall     = parser.thicknessWall;
-        const thicknessFloor    = parser.thicknessFloor;
+        const visibleWall = !parser.hideWalls;
+        const visibleFloor = true;
+        const thicknessWall = parser.thicknessWall;
+        const thicknessFloor = parser.thicknessFloor;
 
         if(this._roomCreator)
         {
@@ -559,8 +559,8 @@ export class RoomMessageHandler extends Disposable
 
         if(!item) return;
 
-        const location: IVector3D   = new Vector3d(item.x, item.y, item.z);
-        const direction: IVector3D  = new Vector3d(item.direction);
+        const location: IVector3D = new Vector3d(item.x, item.y, item.z);
+        const direction: IVector3D = new Vector3d(item.direction);
 
         this._roomCreator.updateRoomObjectFloor(this._currentRoomId, item.itemId, location, direction, item.data.state, item.data, item.extra);
         this._roomCreator.updateRoomObjectFloorHeight(this._currentRoomId, item.itemId, item.stackHeight);
@@ -623,7 +623,7 @@ export class RoomMessageHandler extends Disposable
 
         if(!item) return;
 
-        const location  = wallGeometry.getLocation(item.width, item.height, item.localX, item.localY, item.direction);
+        const location = wallGeometry.getLocation(item.width, item.height, item.localX, item.localY, item.direction);
         const direction = new Vector3d(wallGeometry.getDirection(item.direction));
 
         this._roomCreator.updateRoomObjectWall(this._currentRoomId, item.itemId, location, direction, item.state, item.stuffData);
@@ -692,7 +692,7 @@ export class RoomMessageHandler extends Disposable
         {
             if(!user) continue;
 
-            const location  = new Vector3d(user.x, user.y, user.z);
+            const location = new Vector3d(user.x, user.y, user.z);
             const direction = new Vector3d(user.dir);
 
             this._roomCreator.addRoomObjectUser(this._currentRoomId, user.roomIndex, location, direction, user.dir, user.userType, user.figure);
@@ -789,7 +789,7 @@ export class RoomMessageHandler extends Disposable
 
             if(height) height = (height / zScale);
 
-            const location  = new Vector3d(status.x, status.y, (status.z + height));
+            const location = new Vector3d(status.x, status.y, (status.z + height));
             const direction = new Vector3d(status.direction);
 
             let goal: IVector3D = null;
@@ -799,10 +799,10 @@ export class RoomMessageHandler extends Disposable
             this._roomCreator.updateRoomObjectUserLocation(this._currentRoomId, status.id, location, goal, status.canStandUp, height, direction, status.headDirection);
             this._roomCreator.updateRoomObjectUserFlatControl(this._currentRoomId, status.id, null);
 
-            let isPosture       = true;
-            let postureUpdate   = false;
-            let postureType     = RoomObjectVariable.STD;
-            let parameter       = '';
+            let isPosture = true;
+            let postureUpdate = false;
+            let postureType = RoomObjectVariable.STD;
+            let parameter = '';
 
             if(status.actions && status.actions.length)
             {
@@ -827,15 +827,15 @@ export class RoomMessageHandler extends Disposable
                             break;
                         case 'wav':
                         case 'mv':
-                            postureUpdate   = true;
-                            postureType     = action.action;
-                            parameter       = action.value;
+                            postureUpdate = true;
+                            postureType = action.action;
+                            parameter = action.value;
                             break;
                         case 'trd': break;
                         default:
-                            postureUpdate   = true;
-                            postureType     = action.action;
-                            parameter       = action.value;
+                            postureUpdate = true;
+                            postureType = action.action;
+                            parameter = action.value;
                             break;
                     }
                 }
@@ -902,7 +902,7 @@ export class RoomMessageHandler extends Disposable
     {
         if(!data || !this._roomCreator) return;
 
-        const location  = new Vector3d(data.x, data.y, data.z);
+        const location = new Vector3d(data.x, data.y, data.z);
         const direction = new Vector3d(data.direction);
 
         if(data.spriteName)

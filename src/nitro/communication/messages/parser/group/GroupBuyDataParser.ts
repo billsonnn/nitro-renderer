@@ -7,8 +7,8 @@ export class GroupBuyDataParser implements IMessageParser
 
     flush(): boolean
     {
-        this._groupCost         = 0;
-        this._availableRooms    = new Map();
+        this._groupCost = 0;
+        this._availableRooms = new Map();
 
         return true;
     }
@@ -22,8 +22,8 @@ export class GroupBuyDataParser implements IMessageParser
 
         while(availableRoomsCount > 0)
         {
-            const roomId    = wrapper.readInt();
-            const roomName  = wrapper.readString();
+            const roomId = wrapper.readInt();
+            const roomName = wrapper.readString();
             wrapper.readBoolean();
 
             this._availableRooms.set(roomId, roomName);

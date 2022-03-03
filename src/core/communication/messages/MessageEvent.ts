@@ -11,18 +11,18 @@ export class MessageEvent implements IMessageEvent
 
     constructor(callBack: Function, parser: { new(): IMessageParser })
     {
-        this._callBack      = callBack;
-        this._parserClass   = parser;
-        this._parser        = null;
-        this._connection    = null;
+        this._callBack = callBack;
+        this._parserClass = parser;
+        this._parser = null;
+        this._connection = null;
     }
 
     public dispose(): void
     {
-        this._callBack      = null;
-        this._parserClass   = null;
-        this._parser        = null;
-        this._connection    = null;
+        this._callBack = null;
+        this._parserClass = null;
+        this._parser = null;
+        this._connection = null;
     }
 
     public get callBack(): Function

@@ -8,16 +8,16 @@ export class PetAddedToInventoryParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._pet           = null;
-        this._boughtAsGift  = false;
+        this._pet = null;
+        this._boughtAsGift = false;
 
         return true;
     }
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        this._pet           = new PetData(wrapper);
-        this._boughtAsGift  = wrapper.readBoolean();
+        this._pet = new PetData(wrapper);
+        this._boughtAsGift = wrapper.readBoolean();
 
         return true;
     }

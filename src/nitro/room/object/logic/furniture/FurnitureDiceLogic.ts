@@ -14,8 +14,8 @@ export class FurnitureDiceLogic extends FurnitureLogic
     {
         super();
 
-        this._noTags                    = false;
-        this._noTagsLastStateActivate   = false;
+        this._noTags = false;
+        this._noTagsLastStateActivate = false;
     }
 
     public getEventTypes(): string[]

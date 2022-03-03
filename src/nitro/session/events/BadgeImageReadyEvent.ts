@@ -12,8 +12,8 @@ export class BadgeImageReadyEvent extends NitroEvent
     {
         super(BadgeImageReadyEvent.IMAGE_READY);
 
-        this._badgeId   = badgeId;
-        this._image     = image;
+        this._badgeId = badgeId;
+        this._image = image;
     }
 
     public get badgeId(): string

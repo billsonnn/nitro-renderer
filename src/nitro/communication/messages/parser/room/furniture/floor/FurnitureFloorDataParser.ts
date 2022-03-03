@@ -30,21 +30,21 @@ export class FurnitureFloorDataParser
 
     public flush(): boolean
     {
-        this._itemId        = 0;
-        this._spriteId      = 0;
-        this._spriteName    = null;
-        this._x             = 0;
-        this._y             = 0;
-        this._direction     = 0;
-        this._z             = 0;
-        this._stackHeight   = 0;
-        this._extra         = 0;
-        this._data          = null;
-        this._state         = 0;
-        this._expires       = 0;
-        this._usagePolicy   = 0;
-        this._userId        = 0;
-        this._username      = null;
+        this._itemId = 0;
+        this._spriteId = 0;
+        this._spriteName = null;
+        this._x = 0;
+        this._y = 0;
+        this._direction = 0;
+        this._z = 0;
+        this._stackHeight = 0;
+        this._extra = 0;
+        this._data = null;
+        this._state = 0;
+        this._expires = 0;
+        this._usagePolicy = 0;
+        this._userId = 0;
+        this._username = null;
 
         return true;
     }
@@ -53,20 +53,20 @@ export class FurnitureFloorDataParser
     {
         if(!wrapper) return false;
 
-        this._itemId        = wrapper.readInt();
-        this._spriteId      = wrapper.readInt();
-        this._x             = wrapper.readInt();
-        this._y             = wrapper.readInt();
-        this._direction     = ((wrapper.readInt() % 8) * 45);
-        this._z             = parseFloat(wrapper.readString());
-        this._stackHeight   = parseFloat(wrapper.readString());
-        this._extra         = wrapper.readInt();
-        this._data          = FurnitureDataParser.parseObjectData(wrapper);
-        this._state         = parseFloat(this._data && this._data.getLegacyString()) || 0;
-        this._expires       = wrapper.readInt();
-        this._usagePolicy   = wrapper.readInt();
-        this._userId        = wrapper.readInt();
-        this._username      = null;
+        this._itemId = wrapper.readInt();
+        this._spriteId = wrapper.readInt();
+        this._x = wrapper.readInt();
+        this._y = wrapper.readInt();
+        this._direction = ((wrapper.readInt() % 8) * 45);
+        this._z = parseFloat(wrapper.readString());
+        this._stackHeight = parseFloat(wrapper.readString());
+        this._extra = wrapper.readInt();
+        this._data = FurnitureDataParser.parseObjectData(wrapper);
+        this._state = parseFloat(this._data && this._data.getLegacyString()) || 0;
+        this._expires = wrapper.readInt();
+        this._usagePolicy = wrapper.readInt();
+        this._userId = wrapper.readInt();
+        this._username = null;
 
         if(this._spriteId < 0) this._spriteName = wrapper.readString();
 

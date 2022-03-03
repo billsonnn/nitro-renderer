@@ -3,11 +3,11 @@ import { Motion } from './Motion';
 
 export class Motions
 {
-    private static _QUEUED_MOTIONS: Motion[]                          = [];
-    private static _RUNNING_MOTIONS: Motion[]                          = [];
-    private static _REMOVED_MOTIONS: Motion[]                         = [];
-    private static _TIMER: ReturnType<typeof setInterval>    = null;
-    private static _IS_UPDATING: boolean                           = false;
+    private static _QUEUED_MOTIONS: Motion[] = [];
+    private static _RUNNING_MOTIONS: Motion[] = [];
+    private static _REMOVED_MOTIONS: Motion[] = [];
+    private static _TIMER: ReturnType<typeof setInterval> = null;
+    private static _IS_UPDATING: boolean = false;
 
     public static get TIMER_TIME(): number
     {

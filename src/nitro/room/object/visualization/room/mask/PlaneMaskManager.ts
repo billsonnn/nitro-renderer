@@ -13,9 +13,9 @@ export class PlaneMaskManager
 
     constructor()
     {
-        this._assetCollection   = null;
-        this._masks             = new Map();
-        this._data              = null;
+        this._assetCollection = null;
+        this._masks = new Map();
+        this._data = null;
     }
 
     public get data(): any
@@ -25,8 +25,8 @@ export class PlaneMaskManager
 
     public dispose(): void
     {
-        this._assetCollection   = null;
-        this._data              = null;
+        this._assetCollection = null;
+        this._data = null;
 
         if(this._masks && this._masks.size)
         {
@@ -69,8 +69,8 @@ export class PlaneMaskManager
 
                 if(mask)
                 {
-                    const id        = mask.id;
-                    const existing  = this._masks.get(id);
+                    const id = mask.id;
+                    const existing = this._masks.get(id);
 
                     if(existing) continue;
 
@@ -86,7 +86,7 @@ export class PlaneMaskManager
 
                             if(visualization)
                             {
-                                const size              = visualization.size as number;
+                                const size = visualization.size as number;
                                 const maskVisualization = newMask.createMaskVisualization(size);
 
                                 if(maskVisualization)
@@ -120,14 +120,14 @@ export class PlaneMaskManager
             if(!bitmap) continue;
 
             const assetName = bitmap.assetName;
-            const asset     = _arg_3.getAsset(assetName);
+            const asset = _arg_3.getAsset(assetName);
 
             if(!asset) continue;
 
-            let normalMinX  = PlaneMaskVisualization.MIN_NORMAL_COORDINATE_VALUE;
-            let normalMaxX  = PlaneMaskVisualization.MAX_NORMAL_COORDINATE_VALUE;
-            let normalMinY  = PlaneMaskVisualization.MIN_NORMAL_COORDINATE_VALUE;
-            let normalMaxY  = PlaneMaskVisualization.MAX_NORMAL_COORDINATE_VALUE;
+            let normalMinX = PlaneMaskVisualization.MIN_NORMAL_COORDINATE_VALUE;
+            let normalMaxX = PlaneMaskVisualization.MAX_NORMAL_COORDINATE_VALUE;
+            let normalMinY = PlaneMaskVisualization.MIN_NORMAL_COORDINATE_VALUE;
+            let normalMaxY = PlaneMaskVisualization.MAX_NORMAL_COORDINATE_VALUE;
 
             if(bitmap.normalMinX !== undefined) normalMinX = bitmap.normalMinX;
             if(bitmap.normalMaxX !== undefined) normalMaxX = bitmap.normalMaxX;

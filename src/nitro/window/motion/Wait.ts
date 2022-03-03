@@ -22,8 +22,8 @@ export class Wait extends Motion
     {
         super.start();
 
-        this._complete      = false;
-        this._startTimeMs   = Nitro.instance.time;
+        this._complete = false;
+        this._startTimeMs = Nitro.instance.time;
     }
 
     public tick(k: number): void

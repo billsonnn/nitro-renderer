@@ -9,9 +9,9 @@ export class BadgesParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._allBadgeCodes     = [];
-        this._activeBadgeCodes  = [];
-        this._badgeIds          = null;
+        this._allBadgeCodes = [];
+        this._activeBadgeCodes = [];
+        this._badgeIds = null;
 
         return true;
     }
@@ -20,15 +20,15 @@ export class BadgesParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._allBadgeCodes     = [];
-        this._activeBadgeCodes  = [];
-        this._badgeIds          = new AdvancedMap();
+        this._allBadgeCodes = [];
+        this._activeBadgeCodes = [];
+        this._badgeIds = new AdvancedMap();
 
         let count = wrapper.readInt();
 
         while(count > 0)
         {
-            const badgeId   = wrapper.readInt();
+            const badgeId = wrapper.readInt();
             const badgeCode = wrapper.readString();
 
             this._badgeIds.add(badgeCode, badgeId);

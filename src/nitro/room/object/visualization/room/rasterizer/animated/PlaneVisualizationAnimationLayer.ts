@@ -14,10 +14,10 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
 
     constructor(k: any, _arg_2: IGraphicAssetCollection)
     {
-        this._color         = 0;
-        this._bitmapData    = null;
-        this._isDisposed    = false;
-        this._items         = [];
+        this._color = 0;
+        this._bitmapData = null;
+        this._isDisposed = false;
+        this._items = [];
 
         if(k && _arg_2)
         {

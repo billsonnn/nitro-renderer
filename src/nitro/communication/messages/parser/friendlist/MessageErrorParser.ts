@@ -7,8 +7,8 @@ export class MessageErrorParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._clientMessageId   = 0;
-        this._errorCode         = 0;
+        this._clientMessageId = 0;
+        this._errorCode = 0;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class MessageErrorParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._clientMessageId   = wrapper.readInt();
-        this._errorCode         = wrapper.readInt();
+        this._clientMessageId = wrapper.readInt();
+        this._errorCode = wrapper.readInt();
 
         return true;
     }

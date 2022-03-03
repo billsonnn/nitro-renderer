@@ -25,69 +25,69 @@ export class RoomUnitParser implements IMessageParser
 
         while(i < totalUsers)
         {
-            const id        = wrapper.readInt();
-            const username  = wrapper.readString();
-            const custom    = wrapper.readString();
-            let figure    = wrapper.readString();
+            const id = wrapper.readInt();
+            const username = wrapper.readString();
+            const custom = wrapper.readString();
+            let figure = wrapper.readString();
             const roomIndex = wrapper.readInt();
-            const x         = wrapper.readInt();
-            const y         = wrapper.readInt();
-            const z         = parseFloat(wrapper.readString());
+            const x = wrapper.readInt();
+            const y = wrapper.readInt();
+            const z = parseFloat(wrapper.readString());
             const direction = wrapper.readInt();
-            const type      = wrapper.readInt();
+            const type = wrapper.readInt();
 
             const user = new UserMessageData(roomIndex);
 
-            user.dir    = direction;
-            user.name   = username;
+            user.dir = direction;
+            user.name = username;
             user.custom = custom;
-            user.x      = x;
-            user.y      = y;
-            user.z      = z;
+            user.x = x;
+            user.y = y;
+            user.z = z;
 
             this._users.push(user);
 
             if(type === 1)
             {
-                user.webID          = id;
-                user.userType       = RoomObjectType.USER;
-                user.sex            = this.resolveSex(wrapper.readString());
-                user.groupID        = ('' + wrapper.readInt());
-                user.groupStatus    = wrapper.readInt();
-                user.groupName      = wrapper.readString();
+                user.webID = id;
+                user.userType = RoomObjectType.USER;
+                user.sex = this.resolveSex(wrapper.readString());
+                user.groupID = ('' + wrapper.readInt());
+                user.groupStatus = wrapper.readInt();
+                user.groupName = wrapper.readString();
 
                 const swimFigure = wrapper.readString();
 
                 if(swimFigure !== '') figure = this.convertSwimFigure(swimFigure, figure, user.sex);
 
-                user.figure         = figure;
+                user.figure = figure;
                 user.activityPoints = wrapper.readInt();
-                user.isModerator    = wrapper.readBoolean();
+                user.isModerator = wrapper.readBoolean();
             }
 
             else if(type === 2)
             {
-                user.userType               = RoomObjectType.PET;
-                user.figure                 = figure;
-                user.webID                  = id;
-                user.subType                = wrapper.readInt().toString();
-                user.ownerId                = wrapper.readInt();
-                user.ownerName              = wrapper.readString();
-                user.rarityLevel            = wrapper.readInt();
-                user.hasSaddle              = wrapper.readBoolean();
-                user.isRiding               = wrapper.readBoolean();
-                user.canBreed               = wrapper.readBoolean();
-                user.canHarvest             = wrapper.readBoolean();
-                user.canRevive              = wrapper.readBoolean();
-                user.hasBreedingPermission  = wrapper.readBoolean();
-                user.petLevel               = wrapper.readInt();
-                user.petPosture             = wrapper.readString();
+                user.userType = RoomObjectType.PET;
+                user.figure = figure;
+                user.webID = id;
+                user.subType = wrapper.readInt().toString();
+                user.ownerId = wrapper.readInt();
+                user.ownerName = wrapper.readString();
+                user.rarityLevel = wrapper.readInt();
+                user.hasSaddle = wrapper.readBoolean();
+                user.isRiding = wrapper.readBoolean();
+                user.canBreed = wrapper.readBoolean();
+                user.canHarvest = wrapper.readBoolean();
+                user.canRevive = wrapper.readBoolean();
+                user.hasBreedingPermission = wrapper.readBoolean();
+                user.petLevel = wrapper.readInt();
+                user.petPosture = wrapper.readString();
             }
 
             else if(type === 3)
             {
-                user.userType   = RoomObjectType.BOT;
-                user.webID      = (roomIndex * -1);
+                user.userType = RoomObjectType.BOT;
+                user.webID = (roomIndex * -1);
 
                 if(figure.indexOf('/') === -1) user.figure = figure;
                 else user.figure = 'hr-100-.hd-180-1.ch-876-66.lg-270-94.sh-300-64';
@@ -97,12 +97,12 @@ export class RoomUnitParser implements IMessageParser
 
             else if(type === 4)
             {
-                user.userType   = RoomObjectType.RENTABLE_BOT;
-                user.webID      = id;
-                user.sex        = this.resolveSex(wrapper.readString());
-                user.figure     = figure;
-                user.ownerId    = wrapper.readInt();
-                user.ownerName  = wrapper.readString();
+                user.userType = RoomObjectType.RENTABLE_BOT;
+                user.webID = id;
+                user.sex = this.resolveSex(wrapper.readString());
+                user.figure = figure;
+                user.ownerId = wrapper.readInt();
+                user.ownerName = wrapper.readString();
 
                 const totalSkills = wrapper.readInt();
 
@@ -138,12 +138,12 @@ export class RoomUnitParser implements IMessageParser
 
     private convertSwimFigure(k: string, _arg_2: string, _arg_3: string): string
     {
-        const _local_4    = _arg_2.split('.');
-        let _local_5    = 1;
-        let _local_6    = 1;
-        let _local_7    = 1;
-        const _local_8    = 10000;
-        let i           = 0;
+        const _local_4 = _arg_2.split('.');
+        let _local_5 = 1;
+        let _local_6 = 1;
+        let _local_7 = 1;
+        const _local_8 = 10000;
+        let i = 0;
 
         while(i < _local_4.length)
         {

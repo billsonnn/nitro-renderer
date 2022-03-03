@@ -16,9 +16,9 @@ export class FurnitureScoreLogic extends FurnitureLogic
     {
         super();
 
-        this._score             = 0;
-        this._scoreIncreaser    = 50;
-        this._scoreTimer        = 0;
+        this._score = 0;
+        this._scoreIncreaser = 50;
+        this._scoreTimer = 0;
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void

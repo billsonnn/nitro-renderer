@@ -12,9 +12,9 @@ export class RoomBackgroundColorEvent extends RoomEngineEvent
     {
         super(RoomBackgroundColorEvent.ROOM_COLOR, roomId);
 
-        this._color     = color;
+        this._color = color;
         this._brightness = _arg_3;
-        this._bgOnly  = _arg_4;
+        this._bgOnly = _arg_4;
     }
 
     public get color(): number

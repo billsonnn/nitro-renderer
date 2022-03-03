@@ -12,9 +12,9 @@ export class PetBreedingMessageParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._state     = 0;
-        this._ownPetId  = 0;
-        this._otherPetId  = 0;
+        this._state = 0;
+        this._ownPetId = 0;
+        this._otherPetId = 0;
 
         return true;
     }
@@ -23,9 +23,9 @@ export class PetBreedingMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._state     = wrapper.readInt();
-        this._ownPetId  = wrapper.readInt();
-        this._otherPetId  = wrapper.readInt();
+        this._state = wrapper.readInt();
+        this._ownPetId = wrapper.readInt();
+        this._otherPetId = wrapper.readInt();
 
         return true;
     }

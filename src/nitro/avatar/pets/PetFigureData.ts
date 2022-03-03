@@ -14,17 +14,17 @@ export class PetFigureData
 
     constructor(k: string)
     {
-        this._typeId    = this.getTypeId(k);
+        this._typeId = this.getTypeId(k);
         this._paletteId = this.getPaletteId(k);
-        this._color     = this.getColor(k);
-        this._headOnly  = this.getHeadOnly(k);
+        this._color = this.getColor(k);
+        this._headOnly = this.getHeadOnly(k);
 
         const _local_2 = this.getCustomData(k);
 
-        this._customLayerIds    = this.getCustomLayerIds(_local_2);
-        this._customPartIds     = this.getCustomPartIds(_local_2);
-        this._customPaletteIds  = this.getCustomPaletteIds(_local_2);
-        this._customParts       = [];
+        this._customLayerIds = this.getCustomLayerIds(_local_2);
+        this._customPartIds = this.getCustomPartIds(_local_2);
+        this._customPaletteIds = this.getCustomPaletteIds(_local_2);
+        this._customParts = [];
 
         let i = 0;
 
@@ -114,16 +114,16 @@ export class PetFigureData
 
         if(k)
         {
-            const _local_3  = k.split(' ');
-            const _local_4  = ((this._headOnly) ? 1 : 0);
-            const _local_5  = (4 + _local_4);
+            const _local_3 = k.split(' ');
+            const _local_4 = ((this._headOnly) ? 1 : 0);
+            const _local_5 = (4 + _local_4);
 
             if(_local_3.length > _local_5)
             {
-                const _local_6  = (3 + _local_4);
-                const _local_7  = parseInt(_local_3[_local_6]);
+                const _local_6 = (3 + _local_4);
+                const _local_7 = parseInt(_local_3[_local_6]);
 
-                _local_2  = _local_3.slice(_local_5, (_local_5 + (_local_7 * 3)));
+                _local_2 = _local_3.slice(_local_5, (_local_5 + (_local_7 * 3)));
             }
         }
 

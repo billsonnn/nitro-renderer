@@ -11,8 +11,8 @@ export class RoomDragEvent extends RoomEngineEvent
     {
         super(RoomDragEvent.ROOM_DRAG, roomId);
 
-        this._offsetX   = offsetX;
-        this._offsetY   = offsetY;
+        this._offsetX = offsetX;
+        this._offsetY = offsetY;
     }
 
     public get offsetX(): number

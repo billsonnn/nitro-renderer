@@ -8,7 +8,7 @@ export class BotAddedToInventoryParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._item          = null;
+        this._item = null;
         this._openInventory = false;
 
         return true;
@@ -18,7 +18,7 @@ export class BotAddedToInventoryParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._item          = new BotData(wrapper);
+        this._item = new BotData(wrapper);
         this._openInventory = wrapper.readBoolean();
 
         return true;

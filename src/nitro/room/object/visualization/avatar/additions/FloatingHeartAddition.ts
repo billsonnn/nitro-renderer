@@ -7,11 +7,11 @@ import { ExpressionAddition } from './ExpressionAddition';
 
 export class FloatingHeartAddition extends ExpressionAddition
 {
-    private static DELAY_BEFORE_ANIMATION: number   = 300;
-    private static STATE_DELAY: number              = 0;
-    private static STATE_FADE_IN: number            = 1;
-    private static STATE_FLOAT: number              = 2;
-    private static STATE_COMPLETE: number           = 3;
+    private static DELAY_BEFORE_ANIMATION: number = 300;
+    private static STATE_DELAY: number = 0;
+    private static STATE_FADE_IN: number = 1;
+    private static STATE_FLOAT: number = 2;
+    private static STATE_COMPLETE: number = 3;
 
     private _asset: Texture<Resource>;
     private _startTime: number;
@@ -24,12 +24,12 @@ export class FloatingHeartAddition extends ExpressionAddition
     {
         super(id, type, visualization);
 
-        this._asset         = null;
-        this._startTime     = Nitro.instance.time;
-        this._delta         = 0;
-        this._offsetY       = 0;
-        this._scale         = 0;
-        this._state         = 0;
+        this._asset = null;
+        this._startTime = Nitro.instance.time;
+        this._delta = 0;
+        this._offsetY = 0;
+        this._scale = 0;
+        this._state = 0;
     }
 
     public update(sprite: IRoomObjectSprite, scale: number): void
@@ -38,8 +38,8 @@ export class FloatingHeartAddition extends ExpressionAddition
 
         this._scale = scale;
 
-        let additionScale   = 64;
-        let offsetX         = 0;
+        let additionScale = 64;
+        let offsetX = 0;
 
         if(scale < 48)
         {
@@ -92,11 +92,11 @@ export class FloatingHeartAddition extends ExpressionAddition
 
         if(this._asset)
         {
-            sprite.texture          = this._asset;
-            sprite.offsetX          = offsetX;
-            sprite.offsetY          = this._offsetY;
-            sprite.relativeDepth    = -0.02;
-            sprite.alpha            = 0;
+            sprite.texture = this._asset;
+            sprite.offsetX = offsetX;
+            sprite.offsetY = this._offsetY;
+            sprite.relativeDepth = -0.02;
+            sprite.alpha = 0;
 
             const delta = this._delta;
 
@@ -118,8 +118,8 @@ export class FloatingHeartAddition extends ExpressionAddition
 
             this._state = FloatingHeartAddition.STATE_FADE_IN;
 
-            sprite.alpha    = 0;
-            sprite.visible  = true;
+            sprite.alpha = 0;
+            sprite.visible = true;
 
             this._delta = 0;
 
@@ -131,7 +131,7 @@ export class FloatingHeartAddition extends ExpressionAddition
             this._delta += 0.1;
 
             sprite.offsetY = this._offsetY;
-            sprite.alpha    = (Math.pow(this._delta, 0.9) * 255);
+            sprite.alpha = (Math.pow(this._delta, 0.9) * 255);
 
             if(this._delta >= 1)
             {
@@ -152,8 +152,8 @@ export class FloatingHeartAddition extends ExpressionAddition
 
             const offset = ((this._scale < 48) ? -30 : -40);
 
-            sprite.offsetY  = (this._offsetY + (((this._delta < 1) ? alpha : 1) * offset));
-            sprite.alpha    = ((1 - alpha) * 255);
+            sprite.offsetY = (this._offsetY + (((this._delta < 1) ? alpha : 1) * offset));
+            sprite.alpha = ((1 - alpha) * 255);
 
             if(sprite.alpha <= 0)
             {

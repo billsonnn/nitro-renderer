@@ -15,12 +15,12 @@ export class SetType implements ISetType
     {
         if(!data) throw new Error('invalid_data');
 
-        this._type              = data.type;
-        this._paletteId         = data.paletteId;
-        this._isMandatory       = {};
-        this._isMandatory['F']  = [ data.mandatory_f_0, data.mandatory_f_1 ];
-        this._isMandatory['M']  = [ data.mandatory_m_0, data.mandatory_m_1 ];
-        this._partSets          = new AdvancedMap();
+        this._type = data.type;
+        this._paletteId = data.paletteId;
+        this._isMandatory = {};
+        this._isMandatory['F'] = [ data.mandatory_f_0, data.mandatory_f_1 ];
+        this._isMandatory['M'] = [ data.mandatory_m_0, data.mandatory_m_1 ];
+        this._partSets = new AdvancedMap();
 
         this.append(data);
     }

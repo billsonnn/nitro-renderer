@@ -26,15 +26,15 @@ export class PlaneMaterialCellColumn
 
     constructor(width: number, cells: PlaneMaterialCell[], repeatMode: number = 1)
     {
-        this._cells                     = [];
-        this._repeatMode                = repeatMode;
-        this._width                     = (width < 1) ? 1 : width;
-        this._cachedBitmapData          = null;
-        this._cachedBitmapNormal        = null;
-        this._cachedBitmapDataOffsetX   = 0;
-        this._cachedBitmapDataOffsetY   = 0;
-        this._isCached                  = false;
-        this._isStatic                  = true;
+        this._cells = [];
+        this._repeatMode = repeatMode;
+        this._width = (width < 1) ? 1 : width;
+        this._cachedBitmapData = null;
+        this._cachedBitmapNormal = null;
+        this._cachedBitmapDataOffsetX = 0;
+        this._cachedBitmapDataOffsetY = 0;
+        this._isCached = false;
+        this._isStatic = true;
 
         if(cells && cells.length)
         {
@@ -132,8 +132,8 @@ export class PlaneMaterialCellColumn
 
         if(this._repeatMode == PlaneMaterialCellColumn.REPEAT_MODE_NONE)
         {
-            ht      = this.getCellsHeight(this._cells, normal);
-            height  = ht;
+            ht = this.getCellsHeight(this._cells, normal);
+            height = ht;
         }
 
         if(!this._cachedBitmapNormal) this._cachedBitmapNormal = new Vector3d();
@@ -221,8 +221,8 @@ export class PlaneMaterialCellColumn
     {
         if(!cells || !cells.length) return 0;
 
-        let height          = 0;
-        let cellIterator    = 0;
+        let height = 0;
+        let cellIterator = 0;
 
         while(cellIterator < cells.length)
         {

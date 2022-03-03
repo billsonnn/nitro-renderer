@@ -18,19 +18,19 @@ export class RoomUnitStatusMessage
 
     constructor(id: number, x: number, y: number, z: number, height: number, headDirection: number, direction: number, targetX: number = 0, targetY: number = 0, targetZ: number = 0, didMove: boolean, canStandUp: boolean, actions: RoomUnitStatusAction[])
     {
-        this._id            = id;
-        this._x             = x;
-        this._y             = y;
-        this._z             = z;
-        this._height        = height;
+        this._id = id;
+        this._x = x;
+        this._y = y;
+        this._z = z;
+        this._height = height;
         this._headDirection = headDirection;
-        this._direction     = direction;
-        this._targetX       = targetX;
-        this._targetY       = targetY;
-        this._targetZ       = targetZ;
-        this._didMove       = didMove;
-        this._canStandUp    = canStandUp;
-        this._actions       = actions || [];
+        this._direction = direction;
+        this._targetX = targetX;
+        this._targetY = targetY;
+        this._targetZ = targetZ;
+        this._didMove = didMove;
+        this._canStandUp = canStandUp;
+        this._actions = actions || [];
     }
 
     public get id(): number

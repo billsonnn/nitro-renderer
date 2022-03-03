@@ -7,8 +7,8 @@ export class RoomUnitDanceParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._unitId    = null;
-        this._danceId   = 0;
+        this._unitId = null;
+        this._danceId = 0;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class RoomUnitDanceParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._unitId    = wrapper.readInt();
-        this._danceId   = wrapper.readInt();
+        this._unitId = wrapper.readInt();
+        this._danceId = wrapper.readInt();
 
         return true;
     }

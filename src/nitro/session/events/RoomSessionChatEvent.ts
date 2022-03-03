@@ -3,20 +3,20 @@ import { RoomSessionEvent } from './RoomSessionEvent';
 
 export class RoomSessionChatEvent extends RoomSessionEvent
 {
-    public static CHAT_EVENT: string   = 'RSCE_CHAT_EVENT';
-    public static FLOOD_EVENT: string  = 'RSCE_FLOOD_EVENT';
+    public static CHAT_EVENT: string = 'RSCE_CHAT_EVENT';
+    public static FLOOD_EVENT: string = 'RSCE_FLOOD_EVENT';
 
-    public static CHAT_TYPE_SPEAK: number       = 0;
-    public static CHAT_TYPE_WHISPER: number      = 1;
-    public static CHAT_TYPE_SHOUT: number        = 2;
-    public static CHAT_TYPE_RESPECT: number         = 3;
-    public static CHAT_TYPE_PETRESPECT: number         = 4;
-    public static CHAT_TYPE_HAND_ITEM_RECEIVED: number         = 5;
-    public static CHAT_TYPE_PETTREAT: number         = 6;
-    public static CHAT_TYPE_PETREVIVE: number         = 7;
-    public static CHAT_TYPE_PET_REBREED_FERTILIZE: number         = 8;
-    public static CHAT_TYPE_PET_SPEED_FERTILIZE: number         = 9;
-    public static CHAT_TYPE_MUTE_REMAINING: number         = 10;
+    public static CHAT_TYPE_SPEAK: number = 0;
+    public static CHAT_TYPE_WHISPER: number = 1;
+    public static CHAT_TYPE_SHOUT: number = 2;
+    public static CHAT_TYPE_RESPECT: number = 3;
+    public static CHAT_TYPE_PETRESPECT: number = 4;
+    public static CHAT_TYPE_HAND_ITEM_RECEIVED: number = 5;
+    public static CHAT_TYPE_PETTREAT: number = 6;
+    public static CHAT_TYPE_PETREVIVE: number = 7;
+    public static CHAT_TYPE_PET_REBREED_FERTILIZE: number = 8;
+    public static CHAT_TYPE_PET_SPEED_FERTILIZE: number = 9;
+    public static CHAT_TYPE_MUTE_REMAINING: number = 10;
 
     private _objectId: number;
     private _message: string;
@@ -29,12 +29,12 @@ export class RoomSessionChatEvent extends RoomSessionEvent
     {
         super(type, session);
 
-        this._objectId      = objectId;
-        this._message       = message;
-        this._chatType      = chatType;
-        this._links         = links;
-        this._extraParam    = extraParam;
-        this._style         = style;
+        this._objectId = objectId;
+        this._message = message;
+        this._chatType = chatType;
+        this._links = links;
+        this._extraParam = extraParam;
+        this._style = style;
     }
 
     public get objectId(): number

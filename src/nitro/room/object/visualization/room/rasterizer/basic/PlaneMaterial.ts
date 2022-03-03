@@ -12,8 +12,8 @@ export class PlaneMaterial
 
     constructor()
     {
-        this._planeMaterialItems    = [];
-        this._isCached              = false;
+        this._planeMaterialItems = [];
+        this._isCached = false;
     }
 
     public dispose(): void

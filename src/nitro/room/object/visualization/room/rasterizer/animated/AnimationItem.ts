@@ -11,11 +11,11 @@ export class AnimationItem
 
     constructor(k: number, _arg_2: number, _arg_3: number, _arg_4: number, _arg_5: IGraphicAsset)
     {
-        this._x             = k;
-        this._y             = _arg_2;
-        this._speedX        = _arg_3;
-        this._speedY        = _arg_4;
-        this._bitmapData    = _arg_5;
+        this._x = k;
+        this._y = _arg_2;
+        this._speedX = _arg_3;
+        this._speedY = _arg_4;
+        this._bitmapData = _arg_5;
 
         if(isNaN(this._x)) this._x = 0;
 

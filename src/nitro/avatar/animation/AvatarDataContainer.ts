@@ -29,18 +29,18 @@ export class AvatarDataContainer implements IAvatarDataContainer
         foreground = foreground.replace('#', '');
         background = background.replace('#', '');
 
-        this._foreGround            = parseInt(foreground, 16);
-        this._backGround            = parseInt(background, 16);
-        this._colorTransform        = null;
-        this._rgb                   = parseInt(foreground, 16);
-        this._r                     = ((this._rgb >> 16) & 0xFF);
-        this._g                     = ((this._rgb >> 8) & 0xFF);
-        this._b                     = ((this._rgb >> 0) & 0xFF);
-        this._redMultiplier         = ((this._r / 0xFF) * 1);
-        this._greenMultiplier       = ((this._g / 0xFF) * 1);
-        this._blueMultiplier        = ((this._b / 0xFF) * 1);
-        this._alphaMultiplier       = 1;
-        this._paletteIsGrayscale    = true;
+        this._foreGround = parseInt(foreground, 16);
+        this._backGround = parseInt(background, 16);
+        this._colorTransform = null;
+        this._rgb = parseInt(foreground, 16);
+        this._r = ((this._rgb >> 16) & 0xFF);
+        this._g = ((this._rgb >> 8) & 0xFF);
+        this._b = ((this._rgb >> 0) & 0xFF);
+        this._redMultiplier = ((this._r / 0xFF) * 1);
+        this._greenMultiplier = ((this._g / 0xFF) * 1);
+        this._blueMultiplier = ((this._b / 0xFF) * 1);
+        this._alphaMultiplier = 1;
+        this._paletteIsGrayscale = true;
 
         if(this._ink === 37)
         {

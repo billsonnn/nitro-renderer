@@ -22,8 +22,8 @@ import { MovingObjectLogic } from '../MovingObjectLogic';
 
 export class FurnitureLogic extends MovingObjectLogic
 {
-    private static BOUNCING_STEPS: number   = -1;
-    private static BOUNCING_Z: number       = -1;
+    private static BOUNCING_STEPS: number = -1;
+    private static BOUNCING_Z: number = -1;
 
     private _sizeX: number;
     private _sizeY: number;
@@ -45,21 +45,21 @@ export class FurnitureLogic extends MovingObjectLogic
     {
         super();
 
-        this._sizeX                 = 0;
-        this._sizeY                 = 0;
-        this._sizeZ                 = 0;
-        this._centerX               = 0;
-        this._centerY               = 0;
-        this._centerZ               = 0;
+        this._sizeX = 0;
+        this._sizeY = 0;
+        this._sizeZ = 0;
+        this._centerX = 0;
+        this._centerY = 0;
+        this._centerZ = 0;
 
-        this._directions            = [];
+        this._directions = [];
 
-        this._mouseOver             = false;
+        this._mouseOver = false;
 
-        this._locationOffset        = new Vector3d();
-        this._bouncingStep          = 0;
-        this._storedRotateMessage   = null;
-        this._directionInitialized  = false;
+        this._locationOffset = new Vector3d();
+        this._bouncingStep = 0;
+        this._storedRotateMessage = null;
+        this._directionInitialized = false;
 
         if(FurnitureLogic.BOUNCING_STEPS === -1)
         {
@@ -111,9 +111,9 @@ export class FurnitureLogic extends MovingObjectLogic
                     this._sizeY = dimensions.y;
                     this._sizeZ = dimensions.z;
 
-                    this._centerX   = (this._sizeX / 2);
-                    this._centerY   = (this._sizeY / 2);
-                    this._centerZ   = (this._sizeZ / 2);
+                    this._centerX = (this._sizeX / 2);
+                    this._centerY = (this._sizeY / 2);
+                    this._centerZ = (this._sizeZ / 2);
                 }
 
                 const directions = asset.logic.model.directions;
@@ -149,8 +149,8 @@ export class FurnitureLogic extends MovingObjectLogic
 
     protected onDispose(): void
     {
-        this._storedRotateMessage   = null;
-        this._directions            = null;
+        this._storedRotateMessage = null;
+        this._directions = null;
 
         super.onDispose();
     }
@@ -216,14 +216,14 @@ export class FurnitureLogic extends MovingObjectLogic
             if(!(message instanceof ObjectMoveUpdateMessage))
             {
                 const direction = this.object.getDirection();
-                const location  = this.object.getLocation();
+                const location = this.object.getLocation();
 
                 if((direction.x !== message.direction.x) && this._directionInitialized)
                 {
                     if((location.x === message.location.x) && (location.y === message.location.y) && (location.z === message.location.z))
                     {
-                        this._bouncingStep          = 1;
-                        this._storedRotateMessage   = new RoomObjectUpdateMessage(message.location, message.direction);
+                        this._bouncingStep = 1;
+                        this._storedRotateMessage = new RoomObjectUpdateMessage(message.location, message.direction);
 
                         message = null;
                     }
@@ -284,10 +284,10 @@ export class FurnitureLogic extends MovingObjectLogic
                 {
                     const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_MOVE, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
-                    mouseEvent.localX           = event.localX;
-                    mouseEvent.localY           = event.localY;
-                    mouseEvent.spriteOffsetX    = event.spriteOffsetX;
-                    mouseEvent.spriteOffsetY    = event.spriteOffsetY;
+                    mouseEvent.localX = event.localX;
+                    mouseEvent.localY = event.localY;
+                    mouseEvent.spriteOffsetX = event.spriteOffsetX;
+                    mouseEvent.spriteOffsetY = event.spriteOffsetY;
 
                     this.eventDispatcher.dispatchEvent(mouseEvent);
                 }
@@ -304,10 +304,10 @@ export class FurnitureLogic extends MovingObjectLogic
 
                         const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_ENTER, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
-                        mouseEvent.localX           = event.localX;
-                        mouseEvent.localY           = event.localY;
-                        mouseEvent.spriteOffsetX    = event.spriteOffsetX;
-                        mouseEvent.spriteOffsetY    = event.spriteOffsetY;
+                        mouseEvent.localX = event.localX;
+                        mouseEvent.localY = event.localY;
+                        mouseEvent.spriteOffsetX = event.spriteOffsetX;
+                        mouseEvent.spriteOffsetY = event.spriteOffsetY;
 
                         this.eventDispatcher.dispatchEvent(mouseEvent);
                     }
@@ -327,10 +327,10 @@ export class FurnitureLogic extends MovingObjectLogic
 
                         const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.MOUSE_LEAVE, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
-                        mouseEvent.localX           = event.localX;
-                        mouseEvent.localY           = event.localY;
-                        mouseEvent.spriteOffsetX    = event.spriteOffsetX;
-                        mouseEvent.spriteOffsetY    = event.spriteOffsetY;
+                        mouseEvent.localX = event.localX;
+                        mouseEvent.localY = event.localY;
+                        mouseEvent.spriteOffsetX = event.spriteOffsetX;
+                        mouseEvent.spriteOffsetY = event.spriteOffsetY;
 
                         this.eventDispatcher.dispatchEvent(mouseEvent);
                     }
@@ -346,10 +346,10 @@ export class FurnitureLogic extends MovingObjectLogic
                 {
                     const mouseEvent = new RoomObjectMouseEvent(RoomObjectMouseEvent.CLICK, this.object, event.eventId, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
 
-                    mouseEvent.localX           = event.localX;
-                    mouseEvent.localY           = event.localY;
-                    mouseEvent.spriteOffsetX    = event.spriteOffsetX;
-                    mouseEvent.spriteOffsetY    = event.spriteOffsetY;
+                    mouseEvent.localX = event.localX;
+                    mouseEvent.localY = event.localY;
+                    mouseEvent.spriteOffsetX = event.spriteOffsetX;
+                    mouseEvent.spriteOffsetY = event.spriteOffsetY;
 
                     this.eventDispatcher.dispatchEvent(mouseEvent);
 
@@ -384,8 +384,8 @@ export class FurnitureLogic extends MovingObjectLogic
     {
         if(this._bouncingStep <= 0) return null;
 
-        this._locationOffset.x  = 0;
-        this._locationOffset.y  = 0;
+        this._locationOffset.x = 0;
+        this._locationOffset.y = 0;
 
         if(this._bouncingStep <= (FurnitureLogic.BOUNCING_STEPS / 2))
         {

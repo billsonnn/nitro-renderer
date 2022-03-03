@@ -21,8 +21,8 @@ export class TileObjectMap
             index++;
         }
 
-        this._width     = k;
-        this._height    = _arg_2;
+        this._width = k;
+        this._height = _arg_2;
     }
 
     public clear(): void
@@ -47,8 +47,8 @@ export class TileObjectMap
     public dispose(): void
     {
         this._tileObjectMap = null;
-        this._width         = 0;
-        this._height        = 0;
+        this._width = 0;
+        this._height = 0;
     }
 
     public getObjectIntTile(k: number, _arg_2: number): IRoomObject
@@ -84,7 +84,7 @@ export class TileObjectMap
     {
         if(!k || !k.model || !k.isReady) return;
 
-        const location  = k.getLocation();
+        const location = k.getLocation();
         const direction = k.getDirection();
 
         if(!location || !direction) return;

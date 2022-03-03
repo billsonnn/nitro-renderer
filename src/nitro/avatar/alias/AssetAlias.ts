@@ -9,8 +9,8 @@ export class AssetAlias
 
     constructor(name: string, alias: IAssetAlias)
     {
-        this._name  = name;
-        this._link  = alias.link;
+        this._name = name;
+        this._link = alias.link;
         this._flipH = alias.flipH;
         this._flipV = alias.flipV;
     }

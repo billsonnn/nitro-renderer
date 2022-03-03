@@ -13,10 +13,10 @@ import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurniturePresentLogic extends FurnitureLogic
 {
-    private static MESSAGE: string          = 'MESSAGE';
-    private static PRODUCT_CODE: string     = 'PRODUCT_CODE';
-    private static EXTRA_PARAM: string      = 'EXTRA_PARAM';
-    private static PURCHASER_NAME: string   = 'PURCHASER_NAME';
+    private static MESSAGE: string = 'MESSAGE';
+    private static PRODUCT_CODE: string = 'PRODUCT_CODE';
+    private static EXTRA_PARAM: string = 'EXTRA_PARAM';
+    private static PURCHASER_NAME: string = 'PURCHASER_NAME';
     private static PURCHASER_FIGURE: string = 'PURCHASER_FIGURE';
 
     public getEventTypes(): string[]
@@ -69,8 +69,8 @@ export class FurniturePresentLogic extends FurnitureLogic
 
         stuffData.initializeFromRoomObjectModel(this.object.model);
 
-        const message   = stuffData.getValue(FurniturePresentLogic.MESSAGE);
-        const data      = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_DATA);
+        const message = stuffData.getValue(FurniturePresentLogic.MESSAGE);
+        const data = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_DATA);
 
         if(!message && (typeof data === 'string'))
         {

@@ -7,8 +7,8 @@ export class FurnitureStackHeightParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._furniId   = -1;
-        this._height    = 0;
+        this._furniId = -1;
+        this._height = 0;
 
         return true;
     }
@@ -17,8 +17,8 @@ export class FurnitureStackHeightParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._furniId   = wrapper.readInt();
-        this._height    = (wrapper.readInt() / 100);
+        this._furniId = wrapper.readInt();
+        this._height = (wrapper.readInt() / 100);
 
         return true;
     }

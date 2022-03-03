@@ -33,26 +33,26 @@ export class RoomSettingsParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._roomId            = wrapper.readInt();
-        this._name              = wrapper.readString();
-        this._description       = wrapper.readString();
-        this._state             = wrapper.readInt();
-        this._categoryId        = wrapper.readInt();
-        this._userCount         = wrapper.readInt();
-        this._maxUserCount      = wrapper.readInt();
+        this._roomId = wrapper.readInt();
+        this._name = wrapper.readString();
+        this._description = wrapper.readString();
+        this._state = wrapper.readInt();
+        this._categoryId = wrapper.readInt();
+        this._userCount = wrapper.readInt();
+        this._maxUserCount = wrapper.readInt();
 
         this.parseTags(wrapper);
 
-        this._tradeMode         = wrapper.readInt();
-        this._allowPets         = wrapper.readInt();
-        this._allowPetsEat      = wrapper.readInt();
-        this._allowWalkthrough  = wrapper.readInt();
-        this._hideWalls         = wrapper.readInt();
-        this._thicknessWall     = wrapper.readInt();
-        this._thicknessFloor    = wrapper.readInt();
-        this._chat              = new RoomChatSettings(wrapper);
+        this._tradeMode = wrapper.readInt();
+        this._allowPets = wrapper.readInt();
+        this._allowPetsEat = wrapper.readInt();
+        this._allowWalkthrough = wrapper.readInt();
+        this._hideWalls = wrapper.readInt();
+        this._thicknessWall = wrapper.readInt();
+        this._thicknessFloor = wrapper.readInt();
+        this._chat = new RoomChatSettings(wrapper);
         wrapper.readBoolean();
-        this._moderation        = new RoomModerationSettings(wrapper);
+        this._moderation = new RoomModerationSettings(wrapper);
 
         return true;
     }

@@ -1,25 +1,25 @@
 ﻿export class FigureDataContainer
 {
-    private static MALE: string            = 'M';
-    private static FEMALE: string            = 'F';
-    private static UNISEX: string            = 'U';
-    private static SCALE: string            = 'h';
-    private static STD: string          = 'std';
-    private static DEFAULT_FRAME: string    = '0';
-    private static HD: string           = 'hd';
-    private static HAIR: string           = 'hr';
-    private static HAT: string           = 'ha';
-    private static HEAD_ACCESSORIES: string           = 'he';
-    private static EYE_ACCESSORIES: string           = 'ea';
-    private static FACE_ACCESSORIES: string           = 'fa';
-    private static JACKET: string           = 'cc';
-    private static SHIRT: string           = 'ch';
-    private static CHEST_ACCESSORIES: string           = 'ca';
-    private static CHEST_PRINTS: string           = 'cp';
-    private static TROUSERS: string           = 'lg';
-    private static SHOES: string           = 'sh';
-    private static TROUSER_ACCESSORIES: string           = 'wa';
-    private static BLOCKED_FX_TYPES: number[]  = [28, 29, 30, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 68];
+    private static MALE: string = 'M';
+    private static FEMALE: string = 'F';
+    private static UNISEX: string = 'U';
+    private static SCALE: string = 'h';
+    private static STD: string = 'std';
+    private static DEFAULT_FRAME: string = '0';
+    private static HD: string = 'hd';
+    private static HAIR: string = 'hr';
+    private static HAT: string = 'ha';
+    private static HEAD_ACCESSORIES: string = 'he';
+    private static EYE_ACCESSORIES: string = 'ea';
+    private static FACE_ACCESSORIES: string = 'fa';
+    private static JACKET: string = 'cc';
+    private static SHIRT: string = 'ch';
+    private static CHEST_ACCESSORIES: string = 'ca';
+    private static CHEST_PRINTS: string = 'cp';
+    private static TROUSERS: string = 'lg';
+    private static SHOES: string = 'sh';
+    private static TROUSER_ACCESSORIES: string = 'wa';
+    private static BLOCKED_FX_TYPES: number[] = [28, 29, 30, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 68];
 
     private _data: Map<string, number>;
     private _colors: Map<string, number[]>;
@@ -29,18 +29,18 @@
 
     public loadAvatarData(k: string, _arg_2: string): void
     {
-        this._data      = new Map();
-        this._colors    = new Map();
-        this._gender    = _arg_2;
+        this._data = new Map();
+        this._colors = new Map();
+        this._gender = _arg_2;
 
         this.parseFigureString(k);
     }
 
     public dispose(): void
     {
-        this._data          = null;
-        this._colors        = null;
-        this._isDisposed    = true;
+        this._data = null;
+        this._colors = null;
+        this._isDisposed = true;
     }
 
     public get disposed(): boolean
@@ -58,9 +58,9 @@
 
             if(_local_3.length > 0)
             {
-                const part              = _local_3[0];
-                const setId             = parseInt(_local_3[1]);
-                const colors: number[]  = [];
+                const part = _local_3[0];
+                const setId = parseInt(_local_3[1]);
+                const colors: number[] = [];
 
                 let i = 2;
 
@@ -189,8 +189,8 @@
     {
         const partSets: string[] = [ FigureDataContainer.HD ];
 
-        let figure          = '';
-        const sets: string[]  = [];
+        let figure = '';
+        const sets: string[] = [];
 
         for(const part of partSets)
         {

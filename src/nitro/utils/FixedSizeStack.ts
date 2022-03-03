@@ -6,9 +6,9 @@
 
     constructor(k: number)
     {
-        this._data      = [];
-        this._maxSize   = k;
-        this._index     = 0;
+        this._data = [];
+        this._maxSize = k;
+        this._index = 0;
     }
 
     public reset(): void

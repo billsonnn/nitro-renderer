@@ -11,10 +11,10 @@ export class FriendListUpdateParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._categories        = [];
-        this._removedFriendIds  = [];
-        this._addedFriends      = [];
-        this._updatedFriends    = [];
+        this._categories = [];
+        this._removedFriendIds = [];
+        this._addedFriends = [];
+        this._updatedFriends = [];
 
         return true;
     }

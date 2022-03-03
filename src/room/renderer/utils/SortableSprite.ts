@@ -14,18 +14,18 @@ export class SortableSprite implements ISortableSprite
 
     constructor()
     {
-        this._name      = '';
-        this._sprite    = null;
+        this._name = '';
+        this._sprite = null;
 
-        this._x         = 0;
-        this._y         = 0;
-        this._z         = 0;
+        this._x = 0;
+        this._y = 0;
+        this._z = 0;
     }
 
     public dispose(): void
     {
-        this._z         = -(SortableSprite.Z_INFINITY);
-        this._sprite    = null;
+        this._z = -(SortableSprite.Z_INFINITY);
+        this._sprite = null;
     }
 
     public get name(): string

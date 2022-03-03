@@ -10,11 +10,11 @@ export class GroupBadgePartsParser implements IMessageParser
 
     flush(): boolean
     {
-        this._bases             = new Map();
-        this._symbols           = new Map();
-        this._partColors        = new Map();
-        this._colorsA           = new Map();
-        this._colorsB           = new Map();
+        this._bases = new Map();
+        this._symbols = new Map();
+        this._partColors = new Map();
+        this._colorsA = new Map();
+        this._colorsB = new Map();
 
         return true;
     }
@@ -27,9 +27,9 @@ export class GroupBadgePartsParser implements IMessageParser
 
         while(basesCount > 0)
         {
-            const id        = wrapper.readInt();
-            const valueA    = wrapper.readString();
-            const valueB    = wrapper.readString();
+            const id = wrapper.readInt();
+            const valueA = wrapper.readString();
+            const valueB = wrapper.readString();
 
             this._bases.set(id, [valueA, valueB]);
             basesCount--;
@@ -39,9 +39,9 @@ export class GroupBadgePartsParser implements IMessageParser
 
         while(symbolsCount > 0)
         {
-            const id        = wrapper.readInt();
-            const valueA    = wrapper.readString();
-            const valueB    = wrapper.readString();
+            const id = wrapper.readInt();
+            const valueA = wrapper.readString();
+            const valueB = wrapper.readString();
 
             this._symbols.set(id, [valueA, valueB]);
             symbolsCount--;
@@ -51,7 +51,7 @@ export class GroupBadgePartsParser implements IMessageParser
 
         while(partColorsCount > 0)
         {
-            const id    = wrapper.readInt();
+            const id = wrapper.readInt();
             const color = wrapper.readString();
 
             this._partColors.set(id, color);
@@ -62,7 +62,7 @@ export class GroupBadgePartsParser implements IMessageParser
 
         while(colorsACount > 0)
         {
-            const id    = wrapper.readInt();
+            const id = wrapper.readInt();
             const color = wrapper.readString();
 
             this._colorsA.set(id, color);
@@ -73,7 +73,7 @@ export class GroupBadgePartsParser implements IMessageParser
 
         while(colorsBCount > 0)
         {
-            const id    = wrapper.readInt();
+            const id = wrapper.readInt();
             const color = wrapper.readString();
 
             this._colorsB.set(id, color);

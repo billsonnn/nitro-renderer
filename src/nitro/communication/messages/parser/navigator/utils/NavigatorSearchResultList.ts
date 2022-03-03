@@ -20,12 +20,12 @@ export class NavigatorSearchResultList
 
     public flush(): boolean
     {
-        this._code      = null;
-        this._data      = null;
-        this._action    = -1;
-        this._closed    = false;
-        this._mode      = -1;
-        this._rooms     = [];
+        this._code = null;
+        this._data = null;
+        this._action = -1;
+        this._closed = false;
+        this._mode = -1;
+        this._rooms = [];
 
         return true;
     }
@@ -34,11 +34,11 @@ export class NavigatorSearchResultList
     {
         if(!wrapper) return false;
 
-        this._code      = wrapper.readString();
-        this._data      = wrapper.readString();
-        this._action    = wrapper.readInt();
-        this._closed    = wrapper.readBoolean();
-        this._mode      = wrapper.readInt();
+        this._code = wrapper.readString();
+        this._data = wrapper.readString();
+        this._action = wrapper.readInt();
+        this._closed = wrapper.readBoolean();
+        this._mode = wrapper.readInt();
 
         let totalRooms = wrapper.readInt();
 

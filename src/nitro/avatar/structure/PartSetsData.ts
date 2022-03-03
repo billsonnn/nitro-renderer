@@ -11,8 +11,8 @@ export class PartSetsData implements IFigureSetData
 
     constructor()
     {
-        this._parts             = new Map();
-        this._activePartSets    = new Map();
+        this._parts = new Map();
+        this._activePartSets = new Map();
     }
 
     public parse(data: any): boolean

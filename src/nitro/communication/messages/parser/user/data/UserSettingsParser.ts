@@ -13,14 +13,14 @@ export class UserSettingsParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._volumeSystem  = 0;
-        this._volumeFurni   = 0;
-        this._volumeTrax    = 0;
-        this._oldChat       = false;
-        this._roomInvites   = false;
-        this._cameraFollow  = false;
-        this._flags         = 0;
-        this._chatType      = 0;
+        this._volumeSystem = 0;
+        this._volumeFurni = 0;
+        this._volumeTrax = 0;
+        this._oldChat = false;
+        this._roomInvites = false;
+        this._cameraFollow = false;
+        this._flags = 0;
+        this._chatType = 0;
 
         return true;
     }
@@ -29,14 +29,14 @@ export class UserSettingsParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._volumeSystem  = wrapper.readInt();
-        this._volumeFurni   = wrapper.readInt();
-        this._volumeTrax    = wrapper.readInt();
-        this._oldChat       = wrapper.readBoolean();
-        this._roomInvites   = wrapper.readBoolean();
-        this._cameraFollow  = wrapper.readBoolean();
-        this._flags         = wrapper.readInt();
-        this._chatType      = wrapper.readInt();
+        this._volumeSystem = wrapper.readInt();
+        this._volumeFurni = wrapper.readInt();
+        this._volumeTrax = wrapper.readInt();
+        this._oldChat = wrapper.readBoolean();
+        this._roomInvites = wrapper.readBoolean();
+        this._cameraFollow = wrapper.readBoolean();
+        this._flags = wrapper.readInt();
+        this._chatType = wrapper.readInt();
 
         return true;
     }

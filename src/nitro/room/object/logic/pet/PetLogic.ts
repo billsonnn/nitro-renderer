@@ -37,16 +37,16 @@ export class PetLogic extends MovingObjectLogic
     {
         super();
 
-        this._selected                  = false;
-        this._reportedLocation          = null;
-        this._postureIndex              = 0;
-        this._gestureIndex              = 0;
-        this._headDirectionDelta        = 0;
-        this._directions                = [];
+        this._selected = false;
+        this._reportedLocation = null;
+        this._postureIndex = 0;
+        this._gestureIndex = 0;
+        this._headDirectionDelta = 0;
+        this._directions = [];
 
-        this._talkingEndTimestamp       = 0;
-        this._gestureEndTimestamp       = 0;
-        this._expressionEndTimestamp    = 0;
+        this._talkingEndTimestamp = 0;
+        this._gestureEndTimestamp = 0;
+        this._expressionEndTimestamp = 0;
     }
 
     public getEventTypes(): string[]
@@ -89,8 +89,8 @@ export class PetLogic extends MovingObjectLogic
             if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectMoveEvent(RoomObjectMoveEvent.OBJECT_REMOVED, this.object));
         }
 
-        this._directions        = null;
-        this._reportedLocation  = null;
+        this._directions = null;
+        this._reportedLocation = null;
     }
 
     public update(totalTimeRunning: number): void
@@ -212,8 +212,8 @@ export class PetLogic extends MovingObjectLogic
 
         if(message instanceof ObjectAvatarSelectedMessage)
         {
-            this._selected          = message.selected;
-            this._reportedLocation  = null;
+            this._selected = message.selected;
+            this._reportedLocation = null;
 
             return;
         }

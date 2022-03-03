@@ -11,9 +11,9 @@ export class MessageClassManager
 
     constructor()
     {
-        this._messageIdByEvent      = new Map();
-        this._messageIdByComposer   = new Map();
-        this._messageInstancesById  = new Map();
+        this._messageIdByEvent = new Map();
+        this._messageIdByComposer = new Map();
+        this._messageInstancesById = new Map();
     }
 
     public dispose(): void

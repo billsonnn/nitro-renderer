@@ -8,7 +8,7 @@ export class RoomUnitStatusParser implements IMessageParser
 
     public flush(): boolean
     {
-        this._statuses  = [];
+        this._statuses = [];
 
         return true;
     }
@@ -50,13 +50,13 @@ export class RoomUnitStatusParser implements IMessageParser
         const direction = ((wrapper.readInt() % 8) * 45);
         const actions = wrapper.readString();
 
-        let targetX     = 0;
-        let targetY     = 0;
-        let targetZ     = 0;
-        let height      = 0;
-        let canStandUp  = false;
-        let didMove     = false;
-        const isSlide     = false;
+        let targetX = 0;
+        let targetY = 0;
+        let targetZ = 0;
+        let height = 0;
+        let canStandUp = false;
+        let didMove = false;
+        const isSlide = false;
 
         if(actions)
         {

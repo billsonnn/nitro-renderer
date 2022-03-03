@@ -7,8 +7,8 @@ export class RoomObjectBadgeImageAssetListener
 
     constructor(object: IRoomObjectController, groupBadge: boolean)
     {
-        this._object        = object;
-        this._groupBadge    = groupBadge;
+        this._object = object;
+        this._groupBadge = groupBadge;
     }
 
     public get object(): IRoomObjectController
