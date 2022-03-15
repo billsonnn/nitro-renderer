@@ -1,4 +1,4 @@
-import { Resource, Texture } from '@pixi/core';
+import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { IAssetData } from '../../../../core/asset/interfaces';
 import { GraphicAssetPalette } from './GraphicAssetPalette';
 import { IGraphicAsset } from './IGraphicAsset';
@@ -11,6 +11,7 @@ export interface IGraphicAssetCollection
     define(data: IAssetData): void;
     getAsset(name: string): IGraphicAsset;
     getAssetWithPalette(name: string, paletteName: string): IGraphicAsset;
+    getTexture(name: string): Texture<Resource>;
     getPaletteNames(): string[];
     getPaletteColors(paletteName: string): number[];
     getPalette(name: string): GraphicAssetPalette;
@@ -19,5 +20,6 @@ export interface IGraphicAssetCollection
     referenceCount: number;
     referenceTimestamp: number;
     name: string;
+    baseTexture: BaseTexture;
     data: IAssetData;
 }

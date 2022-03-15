@@ -1,4 +1,4 @@
-import { Resource, Texture } from '@pixi/core';
+import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Spritesheet } from '@pixi/spritesheet';
 import { Dict } from '@pixi/utils';
 import { AssetManager } from '../../../../core/asset/AssetManager';
@@ -17,6 +17,7 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
     private _referenceTimestamp: number;
 
     private _name: string;
+    private _baseTexture: BaseTexture;
     private _data: IAssetData;
     private _textures: Map<string, Texture<Resource>>;
     private _assets: Map<string, GraphicAsset>;
@@ -28,6 +29,7 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
         if(!data) throw new Error('invalid_collection');
 
         this._name = data.name;
+        this._baseTexture = ((spritesheet && spritesheet.baseTexture) || null);
         this._data = data;
         this._textures = new Map();
         this._assets = new Map();
@@ -230,6 +232,11 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
         return asset;
     }
 
+    public getTexture(name: string): Texture<Resource>
+    {
+        return this._textures.get(name);
+    }
+
     public getPaletteNames(): string[]
     {
         return Array.from(this._palettes.keys());
@@ -355,6 +362,11 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
     public get name(): string
     {
         return this._name;
+    }
+
+    public get baseTexture(): BaseTexture
+    {
+        return this._baseTexture;
     }
 
     public get data(): IAssetData

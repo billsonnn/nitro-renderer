@@ -34,20 +34,12 @@ export class MessageClassManager
     {
         if(!header || !handler) return;
 
-        const existing = this._messageIdByEvent.get(handler);
-
-        if(existing) return;
-
         this._messageIdByEvent.set(handler, header);
     }
 
     private registerMessageComposerClass(header: number, handler: Function): void
     {
         if(!header || !handler) return;
-
-        const existing = this._messageIdByComposer.get(handler);
-
-        if(existing) return;
 
         this._messageIdByComposer.set(handler, header);
     }
