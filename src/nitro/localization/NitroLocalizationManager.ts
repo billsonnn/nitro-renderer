@@ -119,9 +119,21 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
     {
         if(!key || !key.length) return null;
 
-        if(key.startsWith('${')) key = key.substr(2, (key.length - 3));
+        const keys = key.match(/\$\{.[^}]*\}/g);
+
+        if(keys && keys.length)
+        {
+            for(const splitKey of keys) key = key.replace(splitKey, this.getValue(splitKey.slice(2, -1), doParams));
+        }
 
         let value = (this._definitions.get(key) || null);
+
+        if(!value)
+        {
+            value = (Nitro.instance.core.configuration.definitions.get(key) as any);
+
+            if(value) return value;
+        }
 
         if(value && doParams)
         {

@@ -169,4 +169,9 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
         //@ts-ignore
         return NitroConfig as { [index: string]: any };
     }
+
+    public get definitions(): Map<string, unknown>
+    {
+        return this._definitions;
+    }
 }
