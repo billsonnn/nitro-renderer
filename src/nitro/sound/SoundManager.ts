@@ -2,8 +2,11 @@ import { AdvancedMap, Nitro, NitroSettingsEvent, RoomEngineEvent, RoomEngineObje
 import { NitroManager } from '../../core/common/NitroManager';
 import { NitroSoundEvent } from '../events/NitroSoundEvent';
 import { NitroEvent } from './../../core/events/NitroEvent';
+import { ISoundManager } from './ISoundManager';
+import { IMusicManager } from './music/IMusicManager';
+import { MusicManager } from './music/MusicManager';
 
-export class SoundManager extends NitroManager
+export class SoundManager extends NitroManager implements ISoundManager
 {
     private _volumeSystem: number;
     private _volumeFurni: number;
@@ -12,6 +15,8 @@ export class SoundManager extends NitroManager
     private _internalSamples: AdvancedMap<string, HTMLAudioElement>;
     private _furniSamples: AdvancedMap<number, HTMLAudioElement>;
     private _furnitureBeingPlayed: AdvancedMap<number, number>;
+
+    private _musicManager: MusicManager;
 
     constructor()
     {
@@ -25,7 +30,35 @@ export class SoundManager extends NitroManager
         this._furniSamples = new AdvancedMap();
         this._furnitureBeingPlayed = new AdvancedMap();
 
+        this._musicManager = new MusicManager();
+
         this.onEvent = this.onEvent.bind(this);
+    }
+
+    public onInit(): void
+    {
+        this._musicManager.init();
+
+        Nitro.instance.roomEngine.events.addEventListener(RoomEngineSamplePlaybackEvent.PLAY_SAMPLE, this.onEvent);
+        Nitro.instance.roomEngine.events.addEventListener(RoomEngineObjectEvent.REMOVED, this.onEvent);
+        Nitro.instance.roomEngine.events.addEventListener(RoomEngineEvent.DISPOSED, this.onEvent);
+        Nitro.instance.events.addEventListener(NitroSettingsEvent.SETTINGS_UPDATED, this.onEvent);
+        Nitro.instance.events.addEventListener(NitroSoundEvent.PLAY_SOUND, this.onEvent);
+    }
+
+    public onDispose(): void
+    {
+        if(this._musicManager)
+        {
+            this._musicManager.dispose();
+            this._musicManager = null;
+        }
+
+        Nitro.instance.roomEngine.events.removeEventListener(RoomEngineSamplePlaybackEvent.PLAY_SAMPLE, this.onEvent);
+        Nitro.instance.roomEngine.events.removeEventListener(RoomEngineObjectEvent.REMOVED, this.onEvent);
+        Nitro.instance.roomEngine.events.removeEventListener(RoomEngineEvent.DISPOSED, this.onEvent);
+        Nitro.instance.events.removeEventListener(NitroSettingsEvent.SETTINGS_UPDATED, this.onEvent);
+        Nitro.instance.events.removeEventListener(NitroSoundEvent.PLAY_SOUND, this.onEvent);
     }
 
     private onEvent(event: NitroEvent)
@@ -70,24 +103,6 @@ export class SoundManager extends NitroManager
                 return;
             }
         }
-    }
-
-    public onInit(): void
-    {
-        Nitro.instance.roomEngine.events.addEventListener(RoomEngineSamplePlaybackEvent.PLAY_SAMPLE, this.onEvent);
-        Nitro.instance.roomEngine.events.addEventListener(RoomEngineObjectEvent.REMOVED, this.onEvent);
-        Nitro.instance.roomEngine.events.addEventListener(RoomEngineEvent.DISPOSED, this.onEvent);
-        Nitro.instance.events.addEventListener(NitroSettingsEvent.SETTINGS_UPDATED, this.onEvent);
-        Nitro.instance.events.addEventListener(NitroSoundEvent.PLAY_SOUND, this.onEvent);
-    }
-
-    public onDispose(): void
-    {
-        Nitro.instance.roomEngine.events.removeEventListener(RoomEngineSamplePlaybackEvent.PLAY_SAMPLE, this.onEvent);
-        Nitro.instance.roomEngine.events.removeEventListener(RoomEngineObjectEvent.REMOVED, this.onEvent);
-        Nitro.instance.roomEngine.events.removeEventListener(RoomEngineEvent.DISPOSED, this.onEvent);
-        Nitro.instance.events.removeEventListener(NitroSettingsEvent.SETTINGS_UPDATED, this.onEvent);
-        Nitro.instance.events.removeEventListener(NitroSoundEvent.PLAY_SOUND, this.onEvent);
     }
 
     private playSample(sample: HTMLAudioElement, volume: number, pitch: number = 1): void
@@ -204,5 +219,10 @@ export class SoundManager extends NitroManager
         {
             sample.volume = volume;
         });
+    }
+
+    public get musicManager(): IMusicManager
+    {
+        return this._musicManager;
     }
 }
