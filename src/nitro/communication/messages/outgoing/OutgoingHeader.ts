@@ -381,4 +381,5 @@ export class OutgoingHeader
     public static SCR_GET_KICKBACK_INFO = 869;
     public static COMPOST_PLANT = 3835;
     public static HARVEST_PET = 1521;
+    public static GROUP_UNFAVORITE = 1820;
 }

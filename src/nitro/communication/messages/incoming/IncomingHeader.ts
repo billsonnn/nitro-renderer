@@ -365,4 +365,5 @@ export class IncomingHeader
     public static SCR_SEND_KICKBACK_INFO = 3277;
     public static PET_STATUS = 1907;
     public static GROUP_DEACTIVATE = 3129;
+    public static PET_RESPECTED = 2788;
 }

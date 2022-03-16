@@ -222,6 +222,7 @@ import { InClientLinkEvent } from './messages/incoming/user/InClientLinkEvent';
 import { UserCreditsEvent } from './messages/incoming/user/inventory/currency/UserCreditsEvent';
 import { UserCurrencyEvent } from './messages/incoming/user/inventory/currency/UserCurrencyEvent';
 import { UserSubscriptionEvent } from './messages/incoming/user/inventory/subscription/UserSubscriptionEvent';
+import { PetRespectNoficationEvent } from './messages/incoming/user/PetRespectNoficationEvent';
 import { RespectReceivedEvent } from './messages/incoming/user/RespectReceivedEvent';
 import { UserWardrobePageEvent } from './messages/incoming/user/wardrobe/UserWardrobePageEvent';
 import { RequestAchievementsMessageComposer } from './messages/outgoing/advertisement/RequestAchievementsMessageComposer';
@@ -293,6 +294,7 @@ import { GroupSaveColorsComposer } from './messages/outgoing/group/GroupSaveColo
 import { GroupSaveInformationComposer } from './messages/outgoing/group/GroupSaveInformationComposer';
 import { GroupSavePreferencesComposer } from './messages/outgoing/group/GroupSavePreferencesComposer';
 import { GroupSettingsComposer } from './messages/outgoing/group/GroupSettingsComposer';
+import { GroupUnfavoriteComposer } from './messages/outgoing/group/GroupUnfavoriteComposer';
 import { AuthenticationMessageComposer } from './messages/outgoing/handshake/AuthenticationMessageComposer';
 import { ClientHelloMessageComposer } from './messages/outgoing/handshake/ClientHelloMessageComposer';
 import { DisconnectMessageComposer } from './messages/outgoing/handshake/DisconnectMessageComposer';
@@ -878,6 +880,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.USER_SUBSCRIPTION, UserSubscriptionEvent);
         this._events.set(IncomingHeader.USER_WARDROBE_PAGE, UserWardrobePageEvent);
         this._events.set(IncomingHeader.SCR_SEND_KICKBACK_INFO, ScrSendKickbackInfoMessageEvent);
+        this._events.set(IncomingHeader.PET_RESPECTED, PetRespectNoficationEvent);
 
         this._events.set(IncomingHeader.GENERIC_ERROR, GenericErrorEvent);
         this._events.set(IncomingHeader.GROUP_LIST, GuildMembershipsMessageEvent);
@@ -1073,6 +1076,7 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.GROUP_SAVE_INFORMATION, GroupSaveInformationComposer);
         this._composers.set(OutgoingHeader.GROUP_SAVE_PREFERENCES, GroupSavePreferencesComposer);
         this._composers.set(OutgoingHeader.GROUP_FAVORITE, GroupFavoriteComposer);
+        this._composers.set(OutgoingHeader.GROUP_UNFAVORITE, GroupUnfavoriteComposer);
         this._composers.set(OutgoingHeader.GROUP_BADGES, GroupBadgesComposer);
 
         // NAVIGATOR

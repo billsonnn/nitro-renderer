@@ -6,6 +6,7 @@ export * from './IgnoredUsersParser';
 export * from './IgnoreResultParser';
 export * from './InClientLinkParser';
 export * from './inventory';
+export * from './PetRespectNotificationParser';
 export * from './RespectReceivedParser';
 export * from './RoomEntryData';
 export * from './ScrSendKickbackInfoMessageParser';

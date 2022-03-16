@@ -18,3 +18,4 @@ export * from './GroupSaveColorsComposer';
 export * from './GroupSaveInformationComposer';
 export * from './GroupSavePreferencesComposer';
 export * from './GroupSettingsComposer';
+export * from './GroupUnfavoriteComposer';
