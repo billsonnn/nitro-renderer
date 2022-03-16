@@ -207,20 +207,20 @@ export class BadgeImageManager implements IDisposable
                 for(const partName of partNames)
                 {
                     if(!partName || !partName.length) continue;
-    
+
                     const texture = this._assets.getTexture(`badgepart_${ partName }`);
-    
+
                     if(!texture) continue;
-    
+
                     const { x, y } = part.calculatePosition(texture);
                     const sprite = new NitroSprite(texture);
-    
+
                     sprite.position.set(x, y);
-    
+
                     if(isFirst) sprite.tint = parseInt(this._groupPartColors.get(part.color), 16);
-    
+
                     isFirst = false;
-    
+
                     container.addChild(sprite);
                 }
             }
