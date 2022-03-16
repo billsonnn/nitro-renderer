@@ -1,4 +1,4 @@
-﻿import { Resource, Texture } from '@pixi/core';
+import { Resource, Texture } from '@pixi/core';
 import { NitroContainer, NitroTexture } from '../../..';
 import { IAssetManager } from '../../../core/asset/IAssetManager';
 import { IMessageEvent } from '../../../core/communication/messages/IMessageEvent';
@@ -202,24 +202,27 @@ export class BadgeImageManager implements IDisposable
 
             const partNames = ((part.type === 'b') ? this._groupBases.get(part.key) : this._groupSymbols.get(part.key));
 
-            for(const partName of partNames)
+            if(partNames)
             {
-                if(!partName || !partName.length) continue;
-
-                const texture = this._assets.getTexture(`badgepart_${ partName }`);
-
-                if(!texture) continue;
-
-                const { x, y } = part.calculatePosition(texture);
-                const sprite = new NitroSprite(texture);
-
-                sprite.position.set(x, y);
-
-                if(isFirst) sprite.tint = parseInt(this._groupPartColors.get(part.color), 16);
-
-                isFirst = false;
-
-                container.addChild(sprite);
+                for(const partName of partNames)
+                {
+                    if(!partName || !partName.length) continue;
+    
+                    const texture = this._assets.getTexture(`badgepart_${ partName }`);
+    
+                    if(!texture) continue;
+    
+                    const { x, y } = part.calculatePosition(texture);
+                    const sprite = new NitroSprite(texture);
+    
+                    sprite.position.set(x, y);
+    
+                    if(isFirst) sprite.tint = parseInt(this._groupPartColors.get(part.color), 16);
+    
+                    isFirst = false;
+    
+                    container.addChild(sprite);
+                }
             }
         }
 
