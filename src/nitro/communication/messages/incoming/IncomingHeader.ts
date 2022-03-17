@@ -366,4 +366,5 @@ export class IncomingHeader
     public static PET_STATUS = 1907;
     public static GROUP_DEACTIVATE = 3129;
     public static PET_RESPECTED = 2788;
+    public static PET_SUPPLEMENT = 3441;
 }

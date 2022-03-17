@@ -1,3 +1,4 @@
+import { PetSupplementedNotificationEvent, PetSupplementTypeEnum } from '../..';
 import { IConnection } from '../../../core/communication/connections/IConnection';
 import { FloodControlEvent } from '../../communication/messages/incoming/room/unit/chat/FloodControlEvent';
 import { RemainingMuteEvent } from '../../communication/messages/incoming/room/unit/chat/RemainingMuteEvent';
@@ -5,6 +6,7 @@ import { RoomUnitChatEvent } from '../../communication/messages/incoming/room/un
 import { RoomUnitChatShoutEvent } from '../../communication/messages/incoming/room/unit/chat/RoomUnitChatShoutEvent';
 import { RoomUnitChatWhisperEvent } from '../../communication/messages/incoming/room/unit/chat/RoomUnitChatWhisperEvent';
 import { RoomUnitHandItemReceivedEvent } from '../../communication/messages/incoming/room/unit/RoomUnitHandItemReceivedEvent';
+import { PetRespectNoficationEvent } from '../../communication/messages/incoming/user/PetRespectNoficationEvent';
 import { RespectReceivedEvent } from '../../communication/messages/incoming/user/RespectReceivedEvent';
 import { SystemChatStyleEnum } from '../../ui/widget/enums/SystemChatStyleEnum';
 import { RoomSessionChatEvent } from '../events/RoomSessionChatEvent';
@@ -22,6 +24,8 @@ export class RoomChatHandler extends BaseHandler
         connection.addMessageEvent(new RoomUnitChatWhisperEvent(this.onRoomUnitChatEvent.bind(this)));
         connection.addMessageEvent(new RoomUnitHandItemReceivedEvent(this.onRoomUnitHandItemReceivedEvent.bind(this)));
         connection.addMessageEvent(new RespectReceivedEvent(this.onRespectReceivedEvent.bind(this)));
+        connection.addMessageEvent(new PetRespectNoficationEvent(this.onPetRespectNoficationEvent.bind(this)));
+        connection.addMessageEvent(new PetSupplementedNotificationEvent(this.onPetSupplementedNotificationEvent.bind(this)));
         connection.addMessageEvent(new FloodControlEvent(this.onFloodControlEvent.bind(this)));
         connection.addMessageEvent(new RemainingMuteEvent(this.onRemainingMuteEvent.bind(this)));
     }
@@ -80,6 +84,69 @@ export class RoomChatHandler extends BaseHandler
         if(!userData) return;
 
         this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, userData.roomIndex, '', RoomSessionChatEvent.CHAT_TYPE_RESPECT, SystemChatStyleEnum.GENERIC));
+    }
+
+    private onPetRespectNoficationEvent(event: PetRespectNoficationEvent): void
+    {
+        if(!this.listener) return;
+
+        const session = this.listener.getSession(this.roomId);
+
+        if(!session) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        const petData = session.userDataManager.getPetData(parser.petData.id);
+
+        if(!petData) return;
+
+        let chatType = RoomSessionChatEvent.CHAT_TYPE_PETRESPECT;
+
+        if(parser.isTreat) chatType = RoomSessionChatEvent.CHAT_TYPE_PETTREAT;
+
+        this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, petData.roomIndex, '', chatType, SystemChatStyleEnum.GENERIC));
+    }
+
+    private onPetSupplementedNotificationEvent(event: PetSupplementedNotificationEvent): void
+    {
+        if(!this.listener) return;
+
+        const session = this.listener.getSession(this.roomId);
+
+        if(!session) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        const petData = session.userDataManager.getPetData(parser.petId);
+
+        if(!petData) return;
+
+        let userRoomIndex = -1;
+
+        const userData = session.userDataManager.getUserData(parser.userId);
+
+        if(userData) userRoomIndex = userData.roomIndex;
+
+        let chatType = RoomSessionChatEvent.CHAT_TYPE_PETREVIVE;
+
+        switch(parser.supplementType)
+        {
+            case PetSupplementTypeEnum.REVIVE:
+                chatType = RoomSessionChatEvent.CHAT_TYPE_PETREVIVE;
+                break;
+            case PetSupplementTypeEnum.REBREED_FERTILIZER:
+                chatType = RoomSessionChatEvent.CHAT_TYPE_PET_REBREED_FERTILIZE;
+                break;
+            case PetSupplementTypeEnum.SPEED_FERTILIZER:
+                chatType = RoomSessionChatEvent.CHAT_TYPE_PET_SPEED_FERTILIZE;
+                break;
+        }
+
+        this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, petData.roomIndex, '', chatType, SystemChatStyleEnum.GENERIC, null, userRoomIndex));
     }
 
     private onFloodControlEvent(event: FloodControlEvent): void

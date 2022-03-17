@@ -881,6 +881,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.USER_WARDROBE_PAGE, UserWardrobePageEvent);
         this._events.set(IncomingHeader.SCR_SEND_KICKBACK_INFO, ScrSendKickbackInfoMessageEvent);
         this._events.set(IncomingHeader.PET_RESPECTED, PetRespectNoficationEvent);
+        this._events.set(IncomingHeader.PET_SUPPLEMENT, PetSupplementComposer);
 
         this._events.set(IncomingHeader.GENERIC_ERROR, GenericErrorEvent);
         this._events.set(IncomingHeader.GROUP_LIST, GuildMembershipsMessageEvent);

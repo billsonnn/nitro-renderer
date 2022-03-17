@@ -6,6 +6,8 @@ export * from './IgnoredUsersEvent';
 export * from './IgnoreResultEvent';
 export * from './InClientLinkEvent';
 export * from './inventory';
+export * from './PetSupplementedNotificationEvent';
+export * from './PetSupplementTypeEnum';
 export * from './RespectReceivedEvent';
 export * from './ScrKickbackData';
 export * from './ScrSendKickbackInfoMessageEvent';
