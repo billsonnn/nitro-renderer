@@ -7,22 +7,21 @@ export class SetActivatedBadgesComposer implements IMessageComposer<any[]>
     public getMessageArray()
     {
         const data = [];
-        let local2 = 1;
-        while(local2 <= 5)
+
+        for(let i = 0; i < this._badges.length; i++)
         {
-            if(local2 <= this._badges.length)
+            if(i <= this._badges.length)
             {
-                data.push(local2);
-                data.push(this._badges[(local2 - 1)]);
+                data.push(i + 1);
+                data.push(this._badges[i]);
             }
             else
             {
-                data.push(local2);
+                data.push(i + 1);
                 data.push('');
             }
-
-            local2++;
         }
+
         return data;
     }
 
@@ -33,8 +32,6 @@ export class SetActivatedBadgesComposer implements IMessageComposer<any[]>
 
     public addActivatedBadge(badge: string): void
     {
-        if(this._badges.length >= 5) return;
-
         this._badges.push(badge);
     }
 }
