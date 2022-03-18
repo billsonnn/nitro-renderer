@@ -12,6 +12,7 @@ import { IVector3D } from '../../room/utils/IVector3D';
 import { RoomEnterEffect } from '../../room/utils/RoomEnterEffect';
 import { Vector3d } from '../../room/utils/Vector3d';
 import { FurnitureGroupInfoComposer, SetObjectDataMessageComposer } from '../communication';
+import { GetResolutionAchievementsMessageComposer } from '../communication/messages/outgoing/game/GetResolutionAchievementsMessageComposer';
 import { BotPlaceComposer } from '../communication/messages/outgoing/room/engine/BotPlaceComposer';
 import { GetItemDataComposer } from '../communication/messages/outgoing/room/engine/GetItemDataComposer';
 import { PetMoveComposer } from '../communication/messages/outgoing/room/engine/PetMoveComposer';
@@ -835,8 +836,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MYSTERYTROPHY_OPEN_DIALOG, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_OPEN:
-                //this._roomEngine.connection.send();
-                // new _Str_4406(k._Str_1577, 0)
+                this._roomEngine.connection.send(new GetResolutionAchievementsMessageComposer(event.objectId, 0));
                 return;
             case RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_ENGRAVING:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ACHIEVEMENT_RESOLUTION_ENGRAVING, roomId, objectId, objectCategory));

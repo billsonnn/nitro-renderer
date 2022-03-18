@@ -275,6 +275,7 @@ import { SendMessageComposer } from './messages/outgoing/friendlist/SendMessageC
 import { SendRoomInviteComposer } from './messages/outgoing/friendlist/SendRoomInviteComposer';
 import { SetRelationshipStatusComposer } from './messages/outgoing/friendlist/SetRelationshipStatusComposer';
 import { VisitUserComposer } from './messages/outgoing/friendlist/VisitUserComposer';
+import { GetResolutionAchievementsMessageComposer } from './messages/outgoing/game/GetResolutionAchievementsMessageComposer';
 import { GroupAdminGiveComposer } from './messages/outgoing/group/GroupAdminGiveComposer';
 import { GroupAdminTakeComposer } from './messages/outgoing/group/GroupAdminTakeComposer';
 import { GroupBadgePartsComposer } from './messages/outgoing/group/GroupBadgePartsComposer';
@@ -1374,6 +1375,8 @@ export class NitroMessages implements IMessageConfiguration
 
         // TALENT
         this._composers.set(OutgoingHeader.HELPER_TALENT_TRACK, TalentTrackComposer);
+
+        this._composers.set(OutgoingHeader.ACHIEVEMENT_RESOLUTION_OPEN, GetResolutionAchievementsMessageComposer);
     }
 
     public get events(): Map<number, Function>

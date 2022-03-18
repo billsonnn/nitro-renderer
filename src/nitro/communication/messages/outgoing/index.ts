@@ -8,6 +8,7 @@ export * from './crafting';
 export * from './desktop';
 export * from './friendfurni';
 export * from './friendlist';
+export * from './game';
 export * from './gifts';
 export * from './group';
 export * from './groupforums';
