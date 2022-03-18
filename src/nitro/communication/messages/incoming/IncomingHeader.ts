@@ -367,4 +367,5 @@ export class IncomingHeader
     public static GROUP_DEACTIVATE = 3129;
     public static PET_RESPECTED = 2788;
     public static PET_SUPPLEMENT = 3441;
+    public static NOOBNESS_LEVEL = 3738;
 }

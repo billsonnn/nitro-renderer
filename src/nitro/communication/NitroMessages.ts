@@ -50,6 +50,7 @@ import { GroupMembersEvent } from './messages/incoming/group/GroupMembersEvent';
 import { GroupPurchasedEvent } from './messages/incoming/group/GroupPurchasedEvent';
 import { GroupSettingsEvent } from './messages/incoming/group/GroupSettingsEvent';
 import { HabboGroupDeactivatedMessageEvent } from './messages/incoming/group/HabboGroupDeactivatedMessageEvent';
+import { NoobnessLevelMessageEvent } from './messages/incoming/handshake/NoobnessLevelMessageEvent';
 import { CallForHelpDisabledNotifyMessageEvent } from './messages/incoming/help/CallForHelpDisabledNotifyMessageEvent';
 import { CallForHelpResultMessageEvent } from './messages/incoming/help/CallForHelpResultMessageEvent';
 import { GuideReportingStatusMessageEvent } from './messages/incoming/help/GuideReportingStatusMessageEvent';
@@ -887,6 +888,9 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.GENERIC_ERROR, GenericErrorEvent);
         this._events.set(IncomingHeader.GROUP_LIST, GuildMembershipsMessageEvent);
         this._events.set(IncomingHeader.CATALOG_APPROVE_NAME_RESULT, ApproveNameMessageEvent);
+
+        // HANDSHAKE
+        this._events.set(IncomingHeader.NOOBNESS_LEVEL, NoobnessLevelMessageEvent);
     }
 
     private registerComposers(): void
