@@ -168,7 +168,7 @@ export class BadgeImageManager implements IDisposable
     private loadGroupBadge(badgeCode: string): void
     {
         const groupBadge = new GroupBadge(badgeCode);
-        const partMatches = [...badgeCode.matchAll(/[b|s][0-9]{5,6}/g)];
+        const partMatches = [...badgeCode.matchAll(/[b|s][0-9]{4,6}/g)];
 
         for(const partMatch of partMatches)
         {
@@ -177,7 +177,7 @@ export class BadgeImageManager implements IDisposable
             const partType = partCode[0];
             const partId = parseInt(partCode.slice(1, shortMethod ? 3 : 4));
             const partColor = parseInt(partCode.slice(shortMethod ? 3 : 4, shortMethod ? 5 : 6));
-            const partPosition = parseInt(partCode.slice(shortMethod ? 5 : 6, shortMethod ? 6 : 7));
+            const partPosition = partCode.length < 6 ? 0 : parseInt(partCode.slice(shortMethod ? 5 : 6, shortMethod ? 6 : 7)); // sometimes position is ommitted 
             const part = new GroupBadgePart(partType, partId, partColor, partPosition);
 
             groupBadge.parts.push(part);
