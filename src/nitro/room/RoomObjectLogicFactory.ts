@@ -6,6 +6,7 @@ import { IRoomObjectLogicFactory } from '../../room/object/logic/IRoomObjectLogi
 import { RoomObjectLogicBase } from '../../room/object/logic/RoomObjectLogicBase';
 import { FurnitureEcotronBoxLogic, FurnitureEffectBoxLogic, FurnitureGroupForumTerminalLogic, FurnitureHweenLovelockLogic, FurnitureInternalLinkLogic, FurnitureJukeboxLogic, FurnitureLoveLockLogic, FurnitureMonsterplantSeedLogic, FurnitureMysteryBoxLogic, FurnitureMysteryTrophyLogic, FurniturePlaceholderLogic, FurniturePlanetSystemLogic, FurnitureRandomStateLogic, FurnitureRandomTeleportLogic, FurnitureRentableSpaceLogic, FurnitureSongDiskLogic, FurnitureSoundMachineLogic, FurnitureWelcomeGiftLogic } from './object';
 import { AvatarLogic } from './object/logic/avatar/AvatarLogic';
+import { FurnitureAchievementResolutionLogic } from './object/logic/furniture/FurnitureAchievementResolutionLogic';
 import { FurnitureBadgeDisplayLogic } from './object/logic/furniture/FurnitureBadgeDisplayLogic';
 import { FurnitureChangeStateWhenStepOnLogic } from './object/logic/furniture/FurnitureChangeStateWhenStepOnLogic';
 import { FurnitureClothingChangeLogic } from './object/logic/furniture/FurnitureClothingChangeLogic';
@@ -344,6 +345,9 @@ export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
                 break;
             case RoomObjectLogicType.FURNITURE_WELCOME_GIFT:
                 logic = FurnitureWelcomeGiftLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_ACHIEVEMENT_RESOLUTION:
+                logic = FurnitureAchievementResolutionLogic;
                 break;
             default:
                 logic = FurnitureLogic;

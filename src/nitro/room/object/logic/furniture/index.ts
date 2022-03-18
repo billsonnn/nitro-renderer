@@ -1,3 +1,4 @@
+export * from './FurnitureAchievementResolutionLogic';
 export * from './FurnitureBadgeDisplayLogic';
 export * from './FurnitureChangeStateWhenStepOnLogic';
 export * from './FurnitureCounterClockLogic';

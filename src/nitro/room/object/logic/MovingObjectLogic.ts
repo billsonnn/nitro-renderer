@@ -8,7 +8,7 @@ import { RoomObjectVariable } from '../RoomObjectVariable';
 
 export class MovingObjectLogic extends RoomObjectLogicBase
 {
-    public static UPDATE_MOVING_INTERVAL: number = 500;
+    public static DEFAULT_UPDATE_INTERVAL: number = 500;
     private static TEMP_VECTOR: Vector3d = new Vector3d();
 
     private _liftAmount: number;
@@ -17,6 +17,7 @@ export class MovingObjectLogic extends RoomObjectLogicBase
     private _locationDelta: Vector3d;
     private _lastUpdateTime: number;
     private _changeTime: number;
+    private _updateInterval: number;
 
     constructor()
     {
@@ -28,6 +29,7 @@ export class MovingObjectLogic extends RoomObjectLogicBase
         this._locationDelta = new Vector3d();
         this._lastUpdateTime = 0;
         this._changeTime = 0;
+        this._updateInterval = MovingObjectLogic.DEFAULT_UPDATE_INTERVAL;
     }
 
     protected onDispose(): void
@@ -72,14 +74,14 @@ export class MovingObjectLogic extends RoomObjectLogicBase
 
             let difference = (this.time - this._changeTime);
 
-            if(difference === (MovingObjectLogic.UPDATE_MOVING_INTERVAL >> 1)) difference++;
+            if(difference === (this._updateInterval >> 1)) difference++;
 
-            if(difference > MovingObjectLogic.UPDATE_MOVING_INTERVAL) difference = MovingObjectLogic.UPDATE_MOVING_INTERVAL;
+            if(difference > this._updateInterval) difference = this._updateInterval;
 
             if(this._locationDelta.length > 0)
             {
                 vector.assign(this._locationDelta);
-                vector.multiply((difference / MovingObjectLogic.UPDATE_MOVING_INTERVAL));
+                vector.multiply((difference / this._updateInterval));
                 vector.add(this._location);
             }
             else
@@ -91,7 +93,7 @@ export class MovingObjectLogic extends RoomObjectLogicBase
 
             this.object.setLocation(vector);
 
-            if(difference === MovingObjectLogic.UPDATE_MOVING_INTERVAL)
+            if(difference === this._updateInterval)
             {
                 this._locationDelta.x = 0;
                 this._locationDelta.y = 0;
@@ -138,5 +140,12 @@ export class MovingObjectLogic extends RoomObjectLogicBase
     protected get lastUpdateTime(): number
     {
         return this._lastUpdateTime;
+    }
+
+    protected set updateInterval(interval: number)
+    {
+        if(interval <= 0) interval = 1;
+
+        this._updateInterval = interval;
     }
 }
