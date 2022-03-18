@@ -1,8 +1,9 @@
-import { MovingObjectLogic } from '..';
-import { LegacyDataType } from '../..';
-import { ObjectDataUpdateMessage, ObjectMoveUpdateMessage } from '../../..';
-import { Vector3d } from '../../../../..';
-import { RoomObjectUpdateMessage } from '../../../../../room';
+import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
+import { Vector3d } from '../../../../../room/utils/Vector3d';
+import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
+import { ObjectMoveUpdateMessage } from '../../../messages/ObjectMoveUpdateMessage';
+import { LegacyDataType } from '../../data/type/LegacyDataType';
+import { MovingObjectLogic } from '../MovingObjectLogic';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurniturePushableLogic extends FurnitureMultiStateLogic
