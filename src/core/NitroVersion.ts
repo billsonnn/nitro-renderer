@@ -1,5 +1,5 @@
 export class NitroVersion
 {
-    public static RENDERER_VERSION: string = '1.1.12';
+    public static RENDERER_VERSION: string = '1.1.13';
     public static UI_VERSION: string = '';
 }
