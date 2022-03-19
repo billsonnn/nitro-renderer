@@ -1,4 +1,5 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageParser } from '../../../../../../././core/communication/messages/IMessageParser';
+import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
 import { RoomChatSettings } from './RoomChatSettings';
 import { RoomDataParser } from './RoomDataParser';
 import { RoomModerationSettings } from './RoomModerationSettings';

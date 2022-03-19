@@ -1,6 +1,6 @@
-import { PetData } from '..';
-import { PetType } from '../../../..';
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { PetType } from '../../../../avatar/pets/PetType';
+import { PetData } from '../inventory/pets/PetData';
 
 export class PetRespectNotificationParser implements IMessageParser
 {

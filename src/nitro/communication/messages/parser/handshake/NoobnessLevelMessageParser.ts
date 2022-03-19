@@ -1,4 +1,5 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
 
 export class NoobnessLevelMessageParser implements IMessageParser
 {

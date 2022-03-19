@@ -1,6 +1,6 @@
-import { PetRespectNotificationParser } from '../..';
 import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
 import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { PetRespectNotificationParser } from '../../parser/user/PetRespectNotificationParser';
 
 export class PetRespectNoficationEvent extends MessageEvent implements IMessageEvent
 {
