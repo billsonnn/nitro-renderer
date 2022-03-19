@@ -7,8 +7,8 @@ export class RoomInfoParser implements IMessageParser
 {
     private _roomEnter: boolean;
     private _roomForward: boolean;
-    private _staffPick: boolean;
     private _data: RoomDataParser;
+    private _staffPick: boolean;
     private _isGroupMember: boolean;
     private _moderation: RoomModerationSettings;
     private _chat: RoomChatSettings;
@@ -17,8 +17,8 @@ export class RoomInfoParser implements IMessageParser
     {
         this._roomEnter = false;
         this._roomForward = false;
-        this._staffPick = false;
         this._data = null;
+        this._staffPick = false;
         this._isGroupMember = false;
         this._moderation = null;
         this._chat = null;
@@ -33,7 +33,7 @@ export class RoomInfoParser implements IMessageParser
         this._roomEnter = wrapper.readBoolean();
         this._data = new RoomDataParser(wrapper);
         this._roomForward = wrapper.readBoolean();
-        this.data.roomPicker = wrapper.readBoolean();
+        this._staffPick = wrapper.readBoolean();
         this._isGroupMember = wrapper.readBoolean();
         this.data.allInRoomMuted = wrapper.readBoolean();
         this._moderation = new RoomModerationSettings(wrapper);
@@ -56,6 +56,11 @@ export class RoomInfoParser implements IMessageParser
     public get data(): RoomDataParser
     {
         return this._data;
+    }
+
+    public get staffPick(): boolean
+    {
+        return this._staffPick;
     }
 
     public get isGroupMember(): boolean

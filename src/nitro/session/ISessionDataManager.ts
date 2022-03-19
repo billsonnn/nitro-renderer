@@ -47,6 +47,8 @@ export interface ISessionDataManager extends INitroManager
     clubLevel: number;
     securityLevel: number;
     isAmbassador: boolean;
+    isNoob: boolean;
+    isRealNoob: boolean;
     isSystemOpen: boolean;
     isSystemShutdown: boolean;
     isAuthenticHabbo: boolean;

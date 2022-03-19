@@ -1,16 +1,16 @@
 import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
 import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
-import { CallForHelpDisabledNotifyMessageParser } from '../../parser/help/CallForHelpDisabledNotifyMessageParser';
+import { NoobnessLevelMessageParser } from '../../parser/handshake/NoobnessLevelMessageParser';
 
 export class NoobnessLevelMessageEvent extends MessageEvent implements IMessageEvent
 {
     constructor(callBack: Function)
     {
-        super(callBack, CallForHelpDisabledNotifyMessageParser);
+        super(callBack, NoobnessLevelMessageParser);
     }
 
-    public getParser(): CallForHelpDisabledNotifyMessageParser
+    public getParser(): NoobnessLevelMessageParser
     {
-        return this.parser as CallForHelpDisabledNotifyMessageParser;
+        return this.parser as NoobnessLevelMessageParser;
     }
 }

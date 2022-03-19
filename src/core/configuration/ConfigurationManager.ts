@@ -159,7 +159,7 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
         return (existing as T);
     }
 
-    public setValue(key: string, value: string): void
+    public setValue<T>(key: string, value: T): void
     {
         this._definitions.set(key, value);
     }
