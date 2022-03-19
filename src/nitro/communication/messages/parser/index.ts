@@ -28,6 +28,7 @@ export * from './poll';
 export * from './quest';
 export * from './room';
 export * from './roomevents';
+export * from './roomsettings';
 export * from './security';
 export * from './sound';
 export * from './talent';

@@ -96,6 +96,7 @@ import { MarketPlaceOffersEvent } from './messages/incoming/marketplace/Marketpl
 import { MarketplaceOwnOffersEvent } from './messages/incoming/marketplace/MarketplaceOwnOffersEvent';
 import { CfhChatlogEvent, IssueDeletedMessageEvent, IssueInfoMessageEvent, IssuePickFailedMessageEvent, ModeratorActionResultMessageEvent, ModeratorInitMessageEvent, ModeratorMessageEvent, ModeratorRoomInfoEvent, ModeratorToolPreferencesEvent, ModeratorUserInfoEvent, RoomChatlogEvent, RoomVisitsEvent, UserBannedMessageEvent, UserChatlogEvent } from './messages/incoming/moderation';
 import { ModeratorCautionEvent } from './messages/incoming/moderation/ModeratorCautionEvent';
+import { CanCreateRoomEventEvent } from './messages/incoming/navigator/CanCreateRoomEventEvent';
 import { NavigatorCategoriesEvent } from './messages/incoming/navigator/NavigatorCategoriesEvent';
 import { NavigatorCollapsedEvent } from './messages/incoming/navigator/NavigatorCollapsedEvent';
 import { NavigatorEventCategoriesEvent } from './messages/incoming/navigator/NavigatorEventCategoriesEvent';
@@ -136,7 +137,6 @@ import { RoomEnterEvent } from './messages/incoming/room/access/RoomEnterEvent';
 import { RoomForwardEvent } from './messages/incoming/room/access/RoomForwardEvent';
 import { BotCommandConfigurationEvent } from './messages/incoming/room/bots/BotCommandConfigurationEvent';
 import { GetGuestRoomResultEvent } from './messages/incoming/room/data/GetGuestRoomResultEvent';
-import { RoomBannedUsersEvent } from './messages/incoming/room/data/RoomBannedUsersEvent';
 import { RoomChatSettingsEvent } from './messages/incoming/room/data/RoomChatSettingsEvent';
 import { RoomEntryInfoMessageEvent } from './messages/incoming/room/data/RoomEntryInfoMessageEvent';
 import { RoomScoreEvent } from './messages/incoming/room/data/RoomScoreEvent';
@@ -144,7 +144,6 @@ import { RoomSettingsErrorEvent } from './messages/incoming/room/data/RoomSettin
 import { RoomSettingsEvent } from './messages/incoming/room/data/RoomSettingsEvent';
 import { RoomSettingsSavedEvent } from './messages/incoming/room/data/RoomSettingsSavedEvent';
 import { RoomSettingsUpdatedEvent } from './messages/incoming/room/data/RoomSettingsUpdatedEvent';
-import { RoomUsersWithRightsEvent } from './messages/incoming/room/data/RoomUsersWithRightsEvent';
 import { ObjectsDataUpdateEvent } from './messages/incoming/room/engine/ObjectsDataUpdateEvent';
 import { ObjectsRollingEvent } from './messages/incoming/room/engine/ObjectsRollingEvent';
 import { RoomCreatedEvent } from './messages/incoming/room/engine/RoomCreatedEvent';
@@ -208,6 +207,10 @@ import { WiredOpenEvent } from './messages/incoming/roomevents/WiredOpenEvent';
 import { WiredRewardResultMessageEvent } from './messages/incoming/roomevents/WiredRewardResultMessageEvent';
 import { WiredSaveSuccessEvent } from './messages/incoming/roomevents/WiredSaveSuccessEvent';
 import { WiredValidationErrorEvent } from './messages/incoming/roomevents/WiredValidationErrorEvent';
+import { BannedUsersFromRoomEvent } from './messages/incoming/roomsettings/BannedUsersFromRoomEvent';
+import { FlatControllerAddedEvent } from './messages/incoming/roomsettings/FlatControllerAddedEvent';
+import { FlatControllerRemovedEvent } from './messages/incoming/roomsettings/FlatControllerRemovedEvent';
+import { FlatControllersEvent } from './messages/incoming/roomsettings/FlatControllersEvent';
 import { AuthenticatedEvent } from './messages/incoming/security/AuthenticatedEvent';
 import { UserPermissionsEvent } from './messages/incoming/user/access/UserPermissionsEvent';
 import { RelationshipStatusInfoEvent } from './messages/incoming/user/data/RelationshipStatusInfoEvent';
@@ -724,6 +727,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.NAVIGATOR_SEARCHES, NavigatorSearchesEvent);
         this._events.set(IncomingHeader.NAVIGATOR_SEARCH, NavigatorSearchEvent);
         this._events.set(IncomingHeader.NAVIGATOR_SETTINGS, NavigatorSettingsEvent);
+        this._events.set(IncomingHeader.CAN_CREATE_ROOM_EVENT, CanCreateRoomEventEvent);
 
         // NOTIFICATIONS
         this._events.set(IncomingHeader.GENERIC_ALERT, HabboBroadcastMessageEvent);
@@ -780,8 +784,6 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.ROOM_SETTINGS, RoomSettingsEvent);
         this._events.set(IncomingHeader.ROOM_SETTINGS_SAVE, RoomSettingsSavedEvent);
         this._events.set(IncomingHeader.ROOM_SETTINGS_UPDATED, RoomSettingsUpdatedEvent);
-        this._events.set(IncomingHeader.ROOM_RIGHTS_LIST, RoomUsersWithRightsEvent);
-        this._events.set(IncomingHeader.ROOM_BAN_LIST, RoomBannedUsersEvent);
         this._events.set(IncomingHeader.ROOM_ROLLING, ObjectsRollingEvent);
         this._events.set(IncomingHeader.ROOM_CREATED, RoomCreatedEvent);
         this._events.set(IncomingHeader.FURNITURE_FLOOR_ADD, FurnitureFloorAddEvent);
@@ -805,6 +807,12 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.OBJECTS_DATA_UPDATE, ObjectsDataUpdateEvent);
         this._events.set(IncomingHeader.FURNITURE_GROUP_CONTEXT_MENU_INFO, GroupFurniContextMenuInfoMessageEvent);
         this._events.set(IncomingHeader.FURNITURE_POSTIT_STICKY_POLE_OPEN, FurniturePostItStickyPoleOpenEvent);
+
+        // ROOM SETTINGS
+        this._events.set(IncomingHeader.ROOM_RIGHTS_LIST, FlatControllersEvent);
+        this._events.set(IncomingHeader.ROOM_RIGHTS_LIST_ADD, FlatControllerAddedEvent);
+        this._events.set(IncomingHeader.ROOM_RIGHTS_LIST_REMOVE, FlatControllerRemovedEvent);
+        this._events.set(IncomingHeader.ROOM_BAN_LIST, BannedUsersFromRoomEvent);
 
         // MAPPING
         this._events.set(IncomingHeader.ROOM_MODEL_DOOR, RoomEntryTileMessageEvent);

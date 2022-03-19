@@ -368,4 +368,5 @@ export class IncomingHeader
     public static PET_RESPECTED = 2788;
     public static PET_SUPPLEMENT = 3441;
     public static NOOBNESS_LEVEL = 3738;
+    public static CAN_CREATE_ROOM_EVENT = 2599;
 }

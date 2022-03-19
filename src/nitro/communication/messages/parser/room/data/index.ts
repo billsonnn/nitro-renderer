@@ -9,4 +9,3 @@ export * from './RoomSettingsErrorParser';
 export * from './RoomSettingsParser';
 export * from './RoomSettingsSavedParser';
 export * from './RoomSettingsUpdatedParser';
-export * from './RoomSettingsUsersListParser';
