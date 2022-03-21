@@ -52,7 +52,7 @@ export class RoomUnitParser implements IMessageParser
                 user.webID = id;
                 user.userType = RoomObjectType.USER;
                 user.sex = this.resolveSex(wrapper.readString());
-                user.groupID = ('' + wrapper.readInt());
+                user.groupID = wrapper.readInt();
                 user.groupStatus = wrapper.readInt();
                 user.groupName = wrapper.readString();
 

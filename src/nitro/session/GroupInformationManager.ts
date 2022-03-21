@@ -1,7 +1,8 @@
 import { IDisposable } from '../../core/common/disposable/IDisposable';
 import { IMessageEvent } from '../../core/communication/messages/IMessageEvent';
-import { GroupBadgesEvent } from '../communication/messages/incoming/group/GroupBadgesEvent';
-import { GroupBadgesComposer } from '../communication/messages/outgoing/group/GroupBadgesComposer';
+import { RoomReadyMessageEvent } from '../communication';
+import { HabboGroupBadgesMessageEvent } from '../communication/messages/incoming/user/HabboGroupBadgesMessageEvent';
+import { GetHabboGroupBadgesMessageComposer } from '../communication/messages/outgoing/user/GetHabboGroupBadgesMessageComposer';
 import { SessionDataManager } from './SessionDataManager';
 
 export class GroupInformationManager implements IDisposable
@@ -22,7 +23,8 @@ export class GroupInformationManager implements IDisposable
         if(this._sessionDataManager && this._sessionDataManager.communication)
         {
             this._messages = [
-                new GroupBadgesEvent(this.onGroupBadgesEvent.bind(this))
+                new RoomReadyMessageEvent(this.onRoomReadyMessageEvent.bind(this)),
+                new HabboGroupBadgesMessageEvent(this.onGroupBadgesEvent.bind(this))
             ];
 
             for(const message of this._messages) this._sessionDataManager.communication.registerMessageEvent(message);
@@ -44,20 +46,16 @@ export class GroupInformationManager implements IDisposable
         this._sessionDataManager = null;
     }
 
-    public requestGroupBadges(): void
+    private onRoomReadyMessageEvent(event: RoomReadyMessageEvent): void
     {
-        this._sessionDataManager.send(new GroupBadgesComposer());
+        this._sessionDataManager.send(new GetHabboGroupBadgesMessageComposer());
     }
 
-    private onGroupBadgesEvent(event: GroupBadgesEvent): void
+    private onGroupBadgesEvent(event: HabboGroupBadgesMessageEvent): void
     {
-        if(!event) return;
-
         const parser = event.getParser();
 
-        if(!parser) return;
-
-        this._groupBadges = parser.badges;
+        for(const [ groupId, badgeId ] of parser.badges.entries()) this._groupBadges.set(groupId, badgeId);
     }
 
     public getGroupBadge(groupId: number): string

@@ -118,7 +118,6 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this.onProductDataReadyEvent = this.onProductDataReadyEvent.bind(this);
         this.onNitroSettingsEvent = this.onNitroSettingsEvent.bind(this);
     }
-    groupInformationManager: GroupInformationManager;
 
     protected onInit(): void
     {
@@ -614,6 +613,11 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         return this._ignoredUsersManager;
     }
 
+    public get groupInformationManager(): GroupInformationManager
+    {
+        return this._groupInformationManager;
+    }
+
     public get respectsReceived(): number
     {
         return this._respectsReceived;
@@ -677,11 +681,6 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     public get isModerator(): boolean
     {
         return (this._securityLevel >= SecurityLevel.MODERATOR);
-    }
-
-    public get isGodMode(): boolean
-    {
-        return this.securityLevel >= SecurityLevel.MODERATOR;
     }
 
     public get isCameraFollowDisabled(): boolean

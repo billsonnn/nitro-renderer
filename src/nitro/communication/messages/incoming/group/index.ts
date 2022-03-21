@@ -1,5 +1,4 @@
 export * from './GroupBadgePartsEvent';
-export * from './GroupBadgesEvent';
 export * from './GroupBuyDataEvent';
 export * from './GroupConfirmMemberRemoveEvent';
 export * from './GroupInformationEvent';

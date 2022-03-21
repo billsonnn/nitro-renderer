@@ -4,6 +4,7 @@ import { NewFriendRequestEvent } from '../../communication/messages/incoming/fri
 import { BotErrorEvent } from '../../communication/messages/incoming/notifications/BotErrorEvent';
 import { PetPlacingErrorEvent } from '../../communication/messages/incoming/notifications/PetPlacingErrorEvent';
 import { RoomDoorbellEvent } from '../../communication/messages/incoming/room/access/doorbell/RoomDoorbellEvent';
+import { FavoriteMembershipUpdateMessageEvent } from '../../communication/messages/incoming/room/engine/FavoriteMembershipUpdateMessageEvent';
 import { PetInfoEvent } from '../../communication/messages/incoming/room/pet/PetInfoEvent';
 import { PetStatusUpdateEvent } from '../../communication/messages/incoming/room/pet/PetStatusUpdateEvent';
 import { RoomUnitDanceEvent } from '../../communication/messages/incoming/room/unit/RoomUnitDanceEvent';
@@ -16,6 +17,7 @@ import { RoomSessionPetFigureUpdateEvent, RoomSessionPetStatusUpdateEvent, RoomS
 import { RoomSessionDanceEvent } from '../events/RoomSessionDanceEvent';
 import { RoomSessionDoorbellEvent } from '../events/RoomSessionDoorbellEvent';
 import { RoomSessionErrorMessageEvent } from '../events/RoomSessionErrorMessageEvent';
+import { RoomSessionFavoriteGroupUpdateEvent } from '../events/RoomSessionFavoriteGroupUpdateEvent';
 import { RoomSessionFriendRequestEvent } from '../events/RoomSessionFriendRequestEvent';
 import { RoomSessionPetInfoUpdateEvent } from '../events/RoomSessionPetInfoUpdateEvent';
 import { RoomSessionUserBadgesEvent } from '../events/RoomSessionUserBadgesEvent';
@@ -44,6 +46,7 @@ export class RoomUsersHandler extends BaseHandler
         connection.addMessageEvent(new PetFigureUpdateEvent(this.onPetFigureUpdateEvent.bind(this)));
         connection.addMessageEvent(new PetPlacingErrorEvent(this.onPetPlacingError.bind(this)));
         connection.addMessageEvent(new BotErrorEvent(this.onBotError.bind(this)));
+        connection.addMessageEvent(new FavoriteMembershipUpdateMessageEvent(this.onFavoriteMembershipUpdateMessageEvent.bind(this)));
     }
 
     private onRoomUnitEvent(event: RoomUnitEvent): void
@@ -72,7 +75,7 @@ export class RoomUsersHandler extends BaseHandler
                 userData.figure = user.figure;
                 userData.type = user.userType;
                 userData.webID = user.webID;
-                userData.guildId = user.groupID;
+                userData.groupId = user.groupID;
                 userData.groupName = user.groupName;
                 userData.groupStatus = user.groupStatus;
                 userData.sex = user.sex;
@@ -373,5 +376,24 @@ export class RoomUsersHandler extends BaseHandler
         if(!type || type.length == 0) return;
 
         this.listener.events.dispatchEvent(new RoomSessionErrorMessageEvent(type, session));
+    }
+
+    private onFavoriteMembershipUpdateMessageEvent(event: FavoriteMembershipUpdateMessageEvent): void
+    {
+        if(!this.listener) return;
+
+        const parser = event.getParser();
+        const session = this.listener.getSession(this.roomId);
+
+        if(!session) return;
+
+        const userData = session.userDataManager.getUserDataByIndex(parser.roomIndex);
+
+        if(!userData) return;
+
+        userData.groupId = parser.groupId;
+        userData.groupName = parser.groupName;
+
+        this.listener.events.dispatchEvent(new RoomSessionFavoriteGroupUpdateEvent(session, parser.roomIndex, parser.groupId, parser.status, parser.groupName));
     }
 }

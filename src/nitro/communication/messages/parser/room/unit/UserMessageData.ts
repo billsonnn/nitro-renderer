@@ -15,7 +15,7 @@ export class UserMessageData
     private _custom: string = '';
     private _activityPoints: number = 0;
     private _webID: number = 0;
-    private _groupID: string = '';
+    private _groupID: number = 0;
     private _groupStatus: number = 0;
     private _groupName: string = '';
     private _subType: string = '';
@@ -192,16 +192,16 @@ export class UserMessageData
         }
     }
 
-    public get groupID(): string
+    public get groupID(): number
     {
         return this._groupID;
     }
 
-    public set groupID(k: string)
+    public set groupID(groupId: number)
     {
         if(!this._isReadOnly)
         {
-            this._groupID = k;
+            this._groupID = groupId;
         }
     }
 
