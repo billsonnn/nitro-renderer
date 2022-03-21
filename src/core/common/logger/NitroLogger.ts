@@ -56,6 +56,16 @@ export class NitroLogger implements INitroLogger
         }
     }
 
+    public static error(message: string, name: string = 'Nitro'): void
+    {
+        return this.log(message, name, 'error');
+    }
+
+    public static warn(message: string, name: string = 'Nitro'): void
+    {
+        return this.log(message, name, 'warn');
+    }
+
     public static getTimestamp(): string
     {
         const now = Date.now();
