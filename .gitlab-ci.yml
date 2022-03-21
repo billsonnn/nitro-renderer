@@ -18,7 +18,7 @@ Compile:
     stage: compile
     script:
         - yarn install
-        - yarnm compile
+        - yarn compile
     cache:
         key: ${CI_COMMIT_BRANCH}
         paths:
