@@ -49,8 +49,8 @@ export class FurnitureIceStormLogic extends FurnitureMultiStateLogic
     {
         if(!message) return;
 
-        const state = message.state / 1000;
-        const time = message.state % 1000;
+        const state = ~~(message.state / 1000);
+        const time = ~~(message.state % 1000);
 
         if(!time)
         {
