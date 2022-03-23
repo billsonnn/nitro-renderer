@@ -6,6 +6,7 @@ import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 export class FurnitureIceStormLogic extends FurnitureMultiStateLogic
 {
     private _nextState: number;
+    private _nextStateExtra: number;
     private _nextStateTimestamp: number;
 
     constructor()
@@ -26,7 +27,7 @@ export class FurnitureIceStormLogic extends FurnitureMultiStateLogic
 
             data.setString(this._nextState.toString());
 
-            super.processUpdateMessage(new ObjectDataUpdateMessage(this._nextState, data));
+            super.processUpdateMessage(new ObjectDataUpdateMessage(this._nextState, data, this._nextStateExtra));
         }
 
         super.update(totalTimeRunning);
@@ -34,7 +35,12 @@ export class FurnitureIceStormLogic extends FurnitureMultiStateLogic
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void
     {
-        if(message instanceof ObjectDataUpdateMessage) return this.processUpdate(message);
+        if(message instanceof ObjectDataUpdateMessage)
+        {
+            this.processUpdate(message);
+
+            return;
+        }
 
         super.processUpdateMessage(message);
     }
@@ -54,11 +60,12 @@ export class FurnitureIceStormLogic extends FurnitureMultiStateLogic
 
             data.setString(state.toString());
 
-            super.processUpdateMessage(new ObjectDataUpdateMessage(state, data));
+            super.processUpdateMessage(new ObjectDataUpdateMessage(state, data, message.extra));
         }
         else
         {
             this._nextState = state;
+            this._nextStateExtra = message.extra;
             this._nextStateTimestamp = this.time + time;
         }
     }
