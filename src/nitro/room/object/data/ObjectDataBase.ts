@@ -67,9 +67,19 @@ export class ObjectDataBase implements IObjectData
         return this._uniqueNumber;
     }
 
+    public set uniqueNumber(number: number)
+    {
+        this._uniqueNumber = number;
+    }
+
     public get uniqueSeries(): number
     {
         return this._uniqueSeries;
+    }
+
+    public set uniqueSeries(series: number)
+    {
+        this._uniqueSeries = series;
     }
 
     public get rarityLevel(): number
