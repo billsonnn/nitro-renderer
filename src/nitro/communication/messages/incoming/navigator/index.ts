@@ -1,3 +1,4 @@
+export * from './CanCreateRoomEventEvent';
 export * from './NavigatorCategoriesEvent';
 export * from './NavigatorCollapsedEvent';
 export * from './NavigatorEventCategoriesEvent';

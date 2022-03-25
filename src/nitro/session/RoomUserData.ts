@@ -8,7 +8,7 @@ export class RoomUserData
     private _custom: string = '';
     private _activityPoints: number;
     private _webID: number = 0;
-    private _groupID: string = '';
+    private _groupID: number = 0;
     private _groupStatus: number = 0;
     private _groupName: string = '';
     private _ownerId: number = 0;
@@ -104,14 +104,14 @@ export class RoomUserData
         this._webID = k;
     }
 
-    public get guildId(): string
+    public get groupId(): number
     {
         return this._groupID;
     }
 
-    public set guildId(k: string)
+    public set groupId(groupId: number)
     {
-        this._groupID = k;
+        this._groupID = groupId;
     }
 
     public get groupName(): string

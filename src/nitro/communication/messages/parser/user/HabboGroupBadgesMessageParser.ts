@@ -1,6 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
-export class GroupBadgesParser implements IMessageParser
+export class HabboGroupBadgesMessageParser implements IMessageParser
 {
     private _badges: Map<number, string>;
 

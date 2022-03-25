@@ -10,7 +10,7 @@ export * from './RoomSessionDimmerPresetsEventPresetItem';
 export * from './RoomSessionDoorbellEvent';
 export * from './RoomSessionErrorMessageEvent';
 export * from './RoomSessionEvent';
-export * from './RoomSessionFavouriteGroupUpdateEvent';
+export * from './RoomSessionFavoriteGroupUpdateEvent';
 export * from './RoomSessionFriendRequestEvent';
 export * from './RoomSessionNestBreedingSuccessEvent';
 export * from './RoomSessionPetBreedingEvent';

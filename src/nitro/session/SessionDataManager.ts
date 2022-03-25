@@ -6,6 +6,7 @@ import { FigureUpdateEvent, MysteryBoxKeysEvent } from '../communication';
 import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { AvailabilityStatusMessageEvent } from '../communication/messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { ChangeUserNameResultMessageEvent } from '../communication/messages/incoming/avatar/ChangeUserNameResultMessageEvent';
+import { NoobnessLevelMessageEvent } from '../communication/messages/incoming/handshake/NoobnessLevelMessageEvent';
 import { RoomReadyMessageEvent } from '../communication/messages/incoming/room/mapping/RoomReadyMessageEvent';
 import { UserPermissionsEvent } from '../communication/messages/incoming/user/access/UserPermissionsEvent';
 import { UserInfoEvent } from '../communication/messages/incoming/user/data/UserInfoEvent';
@@ -19,6 +20,7 @@ import { NitroSettingsEvent } from '../events/NitroSettingsEvent';
 import { Nitro } from '../Nitro';
 import { HabboWebTools } from '../utils/HabboWebTools';
 import { BadgeImageManager } from './badge/BadgeImageManager';
+import { NoobnessLevelEnum } from './enum/NoobnessLevelEnum';
 import { SecurityLevel } from './enum/SecurityLevel';
 import { MysteryBoxKeysUpdateEvent } from './events';
 import { SessionDataPreferencesEvent } from './events/SessionDataPreferencesEvent';
@@ -53,6 +55,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     private _clubLevel: number;
     private _securityLevel: number;
     private _isAmbassador: boolean;
+    private _noobnessLevel: number;
 
     private _systemOpen: boolean;
     private _systemShutdown: boolean;
@@ -89,6 +92,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._clubLevel = 0;
         this._securityLevel = 0;
         this._isAmbassador = false;
+        this._noobnessLevel = -1;
 
         this._systemOpen = false;
         this._systemShutdown = false;
@@ -114,7 +118,6 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this.onProductDataReadyEvent = this.onProductDataReadyEvent.bind(this);
         this.onNitroSettingsEvent = this.onNitroSettingsEvent.bind(this);
     }
-    groupInformationManager: GroupInformationManager;
 
     protected onInit(): void
     {
@@ -134,6 +137,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._communication.registerMessageEvent(new RoomReadyMessageEvent(this.onRoomModelNameEvent.bind(this)));
         this._communication.registerMessageEvent(new InClientLinkEvent(this.onInClientLinkEvent.bind(this)));
         this._communication.registerMessageEvent(new MysteryBoxKeysEvent(this.onMysteryBoxKeysEvent.bind(this)));
+        this._communication.registerMessageEvent(new NoobnessLevelMessageEvent(this.onNoobnessLevelMessageEvent.bind(this)));
 
         Nitro.instance.events.addEventListener(NitroSettingsEvent.SETTINGS_UPDATED, this.onNitroSettingsEvent);
     }
@@ -398,6 +402,16 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this.events.dispatchEvent(new MysteryBoxKeysUpdateEvent(parser.boxColor, parser.keyColor));
     }
 
+    private onNoobnessLevelMessageEvent(event: NoobnessLevelMessageEvent): void
+    {
+        this._noobnessLevel = event.getParser().noobnessLevel;
+
+        if(this._noobnessLevel !== NoobnessLevelEnum.OLD_IDENTITY)
+        {
+            Nitro.instance.core.configuration.setValue<number>('new.identity', 1);
+        }
+    }
+
     private onNitroSettingsEvent(event: NitroSettingsEvent): void
     {
         this._isRoomCameraFollowDisabled = event.cameraFollow;
@@ -599,6 +613,11 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         return this._ignoredUsersManager;
     }
 
+    public get groupInformationManager(): GroupInformationManager
+    {
+        return this._groupInformationManager;
+    }
+
     public get respectsReceived(): number
     {
         return this._respectsReceived;
@@ -634,6 +653,16 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         return this._isAmbassador;
     }
 
+    public get isNoob(): boolean
+    {
+        return (this._noobnessLevel !== NoobnessLevelEnum.OLD_IDENTITY);
+    }
+
+    public get isRealNoob(): boolean
+    {
+        return (this._noobnessLevel === NoobnessLevelEnum.REAL_NOOB);
+    }
+
     public get isSystemOpen(): boolean
     {
         return this._systemOpen;
@@ -652,11 +681,6 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     public get isModerator(): boolean
     {
         return (this._securityLevel >= SecurityLevel.MODERATOR);
-    }
-
-    public get isGodMode(): boolean
-    {
-        return this.securityLevel >= SecurityLevel.MODERATOR;
     }
 
     public get isCameraFollowDisabled(): boolean

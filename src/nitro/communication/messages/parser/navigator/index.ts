@@ -1,3 +1,4 @@
+export * from './CanCreateRoomEventParser';
 export * from './NavigatorCategoriesParser';
 export * from './NavigatorCategoryDataParser';
 export * from './NavigatorCollapsedParser';

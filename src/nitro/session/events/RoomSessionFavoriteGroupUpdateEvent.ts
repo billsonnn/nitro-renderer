@@ -1,7 +1,7 @@
 ﻿import { IRoomSession } from '../IRoomSession';
 import { RoomSessionEvent } from './RoomSessionEvent';
 
-export class RoomSessionFavouriteGroupUpdateEvent extends RoomSessionEvent
+export class RoomSessionFavoriteGroupUpdateEvent extends RoomSessionEvent
 {
     public static FAVOURITE_GROUP_UPDATE: string = 'RSFGUE_FAVOURITE_GROUP_UPDATE';
 
@@ -10,14 +10,14 @@ export class RoomSessionFavouriteGroupUpdateEvent extends RoomSessionEvent
     private _habboGroupName: string;
     private _status: number;
 
-    constructor(k: IRoomSession, _arg_2: number, _arg_3: number, _arg_4: number, _arg_5: string)
+    constructor(session: IRoomSession, roomIndex: number, groupId: number, status: number, groupName: string)
     {
-        super(RoomSessionFavouriteGroupUpdateEvent.FAVOURITE_GROUP_UPDATE, k);
+        super(RoomSessionFavoriteGroupUpdateEvent.FAVOURITE_GROUP_UPDATE, session);
 
-        this._roomIndex = _arg_2;
-        this._habboGroupId = _arg_3;
-        this._habboGroupName = _arg_5;
-        this._status = _arg_4;
+        this._roomIndex = roomIndex;
+        this._habboGroupId = groupId;
+        this._habboGroupName = groupName;
+        this._status = status;
     }
 
     public get roomIndex(): number

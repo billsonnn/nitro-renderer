@@ -24,6 +24,8 @@ export class PetSizeData extends AnimationSizeData
 
         if(postures.defaultPosture && postures.defaultPosture.length) this._defaultPosture = postures.defaultPosture;
 
+        if(!postures.postures) return false;
+
         for(const posture of postures.postures)
         {
             if(this._posturesToAnimations.get(posture.id)) continue;

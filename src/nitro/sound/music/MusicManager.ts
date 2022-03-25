@@ -84,7 +84,7 @@ export class MusicManager extends NitroManager implements IMusicManager
 
     private onEvent(event: NitroEvent): void
     {
-        console.log('music manager', event);
+
     }
 
     private onTraxSongInfoMessageEvent(event: TraxSongInfoMessageEvent): void

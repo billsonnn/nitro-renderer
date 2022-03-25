@@ -1,6 +1,7 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
 
-export class RoomSettingsUsersListParser implements IMessageParser
+export class FlatControllersParser implements IMessageParser
 {
     private _roomId: number;
     private _users: Map<number, string>;
@@ -27,6 +28,7 @@ export class RoomSettingsUsersListParser implements IMessageParser
             const name = wrapper.readString();
 
             this._users.set(id, name);
+
             usersCount--;
         }
 

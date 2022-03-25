@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class GroupBadgesComposer implements IMessageComposer<ConstructorParameters<typeof GroupBadgesComposer>>
+export class GetHabboGroupBadgesMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetHabboGroupBadgesMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof GroupBadgesComposer>;
+    private _data: ConstructorParameters<typeof GetHabboGroupBadgesMessageComposer>;
 
     constructor()
     {

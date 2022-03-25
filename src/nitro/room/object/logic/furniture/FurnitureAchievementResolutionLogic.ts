@@ -1,11 +1,11 @@
-import { FurnitureBadgeDisplayLogic } from '.';
-import { ObjectSelectedMessage } from '../../..';
-import { RoomObjectEvent } from '../../../../..';
+import { RoomObjectEvent } from '../../../../../room/events/RoomObjectEvent';
 import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
 import { RoomObjectBadgeAssetEvent } from '../../../events/RoomObjectBadgeAssetEvent';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { ObjectGroupBadgeUpdateMessage } from '../../../messages/ObjectGroupBadgeUpdateMessage';
+import { ObjectSelectedMessage } from '../../../messages/ObjectSelectedMessage';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
+import { FurnitureBadgeDisplayLogic } from './FurnitureBadgeDisplayLogic';
 
 export class FurnitureAchievementResolutionLogic extends FurnitureBadgeDisplayLogic
 {

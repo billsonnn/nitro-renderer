@@ -1,7 +1,6 @@
 export * from './GroupAdminGiveComposer';
 export * from './GroupAdminTakeComposer';
 export * from './GroupBadgePartsComposer';
-export * from './GroupBadgesComposer';
 export * from './GroupBuyComposer';
 export * from './GroupBuyDataComposer';
 export * from './GroupConfirmRemoveMemberComposer';
