@@ -1,12 +1,12 @@
 import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
 
-export class SendRoomInviteComposer implements IMessageComposer<ConstructorParameters<typeof SendRoomInviteComposer>>
+export class SendRoomInviteComposer implements IMessageComposer<any>
 {
-    private _data: ConstructorParameters<typeof SendRoomInviteComposer>;
+    private _data: any;
 
-    constructor(message: string, ...userIds: number[])
+    constructor(userIds: number[], message: string)
     {
-        this._data = [ message, userIds.length, ...userIds ];
+        this._data = [ userIds.length, ...userIds, message ];
     }
 
     public getMessageArray()
