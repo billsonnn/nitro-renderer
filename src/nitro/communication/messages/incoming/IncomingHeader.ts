@@ -78,7 +78,6 @@ export class IncomingHeader
     public static MESSENGER_REQUEST = 2219;
     public static MESSENGER_REQUEST_ERROR = 892;
     public static MESSENGER_REQUESTS = 280;
-    public static MESSENGER_ROOM_INVITE = 3870;
     public static MESSENGER_SEARCH = 973;
     public static MESSENGER_UPDATE = 2800;
     public static MODERATION_REPORT_DISABLED = 1651;
