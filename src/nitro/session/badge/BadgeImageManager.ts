@@ -173,35 +173,17 @@ export class BadgeImageManager implements IDisposable
         for(const partMatch of partMatches)
         {
             const partCode = partMatch[0];
-            const part = this.parsePartString(partCode);
+            const shortMethod = (partCode.length === 6);
+            const partType = partCode[0];
+            const partId = parseInt(partCode.slice(1, shortMethod ? 3 : 4));
+            const partColor = parseInt(partCode.slice(shortMethod ? 3 : 4, shortMethod ? 5 : 6));
+            const partPosition = partCode.length < 6 ? 0 : parseInt(partCode.slice(shortMethod ? 5 : 6, shortMethod ? 6 : 7)); // sometimes position is ommitted 
+            const part = new GroupBadgePart(partType, partId, partColor, partPosition);
 
-            if(part) groupBadge.parts.push(part);
+            groupBadge.parts.push(part);
         }
 
         this.renderGroupBadge(groupBadge);
-    }
-
-    /**
-     * Returns a badge part based on the part string.
-     * This is ugly but it is not my fault. I blame emulators for 
-     * different ways of implementing group badges wrong
-     * @param partCode (for example b08010)
-     * @returns badge part object
-     */
-    private parsePartString(partCode: string) : GroupBadgePart
-    {
-        const arr = partCode.split('');
-
-        const partType = arr.splice(0, 1).join('');
-        const isSymbol = partType !== 'b';
-
-        const partId = parseInt(arr.splice(0, (partCode.length == 7 || (!isSymbol && partCode.length == 6 && arr[0] == '0')) ? 3 : 2).join(''));
-
-        const partColor = parseInt(arr.splice(0, 2).join(''));
-
-        const partPosition = arr.length ? parseInt(arr[0]) : 0; // sometimes position is ommitted 
-
-        return new GroupBadgePart(partType, partId, partColor, partPosition);
     }
 
     private renderGroupBadge(groupBadge: GroupBadge): void
