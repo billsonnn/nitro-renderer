@@ -63,7 +63,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
     {
         if(!data) return;
 
-        if(!this.parseLocalization(data)) return;
+        if(!this.parseLocalization(data)) throw new Error(`Invalid json data for file ${url}`);
 
         const index = this._pendingUrls.indexOf(url);
 
