@@ -21,7 +21,7 @@ export class EvaWireFormat implements ICodec
 
             if(type === 'object')
             {
-                if(value === null || value === undefined) type = 'null';
+                if(value === null) type = 'null';
                 else if(value instanceof Byte) type = 'byte';
                 else if(value instanceof Short) type = 'short';
                 else if(value instanceof ArrayBuffer) type = 'arraybuffer';
@@ -29,6 +29,7 @@ export class EvaWireFormat implements ICodec
 
             switch(type)
             {
+                case 'undefined':
                 case 'null':
                     writer.writeShort(0);
                     break;
