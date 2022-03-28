@@ -1,7 +1,7 @@
 {
   "name": "@nitrots/nitro-renderer",
   "description": "Javascript library for rendering Nitro in the browser using PixiJS",
-  "version": "1.1.18",
+  "version": "1.1.19",
   "publishConfig": {
     "access": "public"
   },
