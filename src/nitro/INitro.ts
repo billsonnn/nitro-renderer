@@ -13,6 +13,7 @@ import { INitroLocalizationManager } from './localization/INitroLocalizationMana
 import { IRoomEngine } from './room/IRoomEngine';
 import { IRoomSessionManager } from './session/IRoomSessionManager';
 import { ISessionDataManager } from './session/ISessionDataManager';
+import { ISoundManager } from './sound/ISoundManager';
 
 export interface INitro extends Application
 {
@@ -41,6 +42,7 @@ export interface INitro extends Application
     roomSessionManager: IRoomSessionManager;
     roomManager: IRoomManager;
     cameraManager: IRoomCameraWidgetManager;
+    soundManager: ISoundManager;
     width: number;
     height: number;
     ticker: Ticker;

@@ -1,4 +1,6 @@
 ﻿import { NitroManager } from '../../core/common/NitroManager';
+import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
+import { BadgePointLimitsEvent } from '../communication/messages/incoming/inventory/badges/BadgePointLimitsEvent';
 import { Nitro } from '../Nitro';
 import { BadgeBaseAndLevel } from './BadgeBaseAndLevel';
 import { INitroLocalizationManager } from './INitroLocalizationManager';
@@ -6,16 +8,18 @@ import { NitroLocalizationEvent } from './NitroLocalizationEvent';
 
 export class NitroLocalizationManager extends NitroManager implements INitroLocalizationManager
 {
+    private _communication: INitroCommunicationManager;
     private _definitions: Map<string, string>;
     private _parameters: Map<string, Map<string, string>>;
     private _badgePointLimits: Map<string, number>;
     private _romanNumerals: string[];
     private _pendingUrls: string[];
 
-    constructor()
+    constructor(communication: INitroCommunicationManager)
     {
         super();
 
+        this._communication = communication;
         this._definitions = new Map();
         this._parameters = new Map();
         this._badgePointLimits = new Map();
@@ -25,6 +29,8 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
     protected onInit(): void
     {
+        this._communication.registerMessageEvent(new BadgePointLimitsEvent(this.onBadgePointLimitsEvent.bind(this)));
+
         let urls: string[] = Nitro.instance.getConfiguration<string[]>('external.texts.url');
 
         if(!Array.isArray(urls))
@@ -84,6 +90,13 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
         for(const key in data) this._definitions.set(key, data[key]);
 
         return true;
+    }
+
+    private onBadgePointLimitsEvent(event: BadgePointLimitsEvent): void
+    {
+        const parser = event.getParser();
+
+        for(const data of parser.data) this.setBadgePointLimit(data.badgeId, data.limit);
     }
 
     public getBadgePointLimit(badge: string): number
@@ -217,6 +230,8 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
             {
                 const parameter = parameters[i];
                 const replacement = replacements[i];
+
+                if(replacement === undefined) continue;
 
                 value = value.replace('%' + parameter + '%', replacement);
 
