@@ -114,10 +114,10 @@ export class Nitro extends Application implements INitro
         canvas.className = 'client-canvas';
 
         const instance = new this(new NitroCore(), {
-            autoDensity: true,
-            resolution: window.devicePixelRatio,
-            width: window.innerWidth,
-            height: window.innerHeight,
+            autoDensity: false,
+            resolution: 1,
+            width: window.innerWidth * window.devicePixelRatio,
+            height: window.innerHeight * window.devicePixelRatio,
             view: canvas
         });
 
@@ -400,12 +400,12 @@ export class Nitro extends Application implements INitro
 
     public get width(): number
     {
-        return (this.renderer.width / this.renderer.resolution);
+        return this.renderer.width;
     }
 
     public get height(): number
     {
-        return (this.renderer.height / this.renderer.resolution);
+        return this.renderer.height;
     }
 
     public get ticker(): Ticker

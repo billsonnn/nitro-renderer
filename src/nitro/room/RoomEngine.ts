@@ -1519,6 +1519,9 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(!screenPoint) return null;
 
+        screenPoint.x = Math.round(screenPoint.x);
+        screenPoint.y = Math.round(screenPoint.y);
+
         rectangle.x = (rectangle.x * scale);
         rectangle.y = (rectangle.y * scale);
         rectangle.width = (rectangle.width * scale);
@@ -1532,8 +1535,8 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         if(!canvas) return null;
 
-        rectangle.x += ((canvas.width / 2) + canvas.screenOffsetX);
-        rectangle.y += ((canvas.height / 2) + canvas.screenOffsetY);
+        rectangle.x += (Math.round(canvas.width / 2) + canvas.screenOffsetX);
+        rectangle.y += (Math.round(canvas.height / 2) + canvas.screenOffsetY);
 
         return rectangle;
     }
@@ -2731,6 +2734,9 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         screenPoint.x += ((renderingCanvas.width / 2) + renderingCanvas.screenOffsetX);
         screenPoint.y += ((renderingCanvas.height / 2) + renderingCanvas.screenOffsetY);
+
+        screenPoint.x = Math.round(screenPoint.x);
+        screenPoint.y = Math.round(screenPoint.y);
 
         return screenPoint;
     }
