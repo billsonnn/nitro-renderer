@@ -1,6 +1,6 @@
 import { Resource, Texture } from '@pixi/core';
 import { Matrix } from '@pixi/math';
-import { NitroRectangle, NitroSprite } from '../../../../../core';
+import { NitroSprite, NitroTexture } from '../../../../../core';
 import { IGraphicAsset } from '../../../../../room/object/visualization/utils/IGraphicAsset';
 import { TextureUtils } from '../../../../../room/utils/TextureUtils';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
@@ -94,48 +94,63 @@ export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualiza
 
     private generateTransformedThumbnail(texture: Texture<Resource>, asset: IGraphicAsset): Texture<Resource>
     {
+        if(this._hasOutline)
+        {
+            const container = new NitroSprite();
+            const background = new NitroSprite(NitroTexture.WHITE);
+
+            background.tint = 0x000000;
+            background.width = (texture.width + 40);
+            background.height = (texture.height + 40);
+
+            const sprite = new NitroSprite(texture);
+            const offsetX = ((background.width - sprite.width) / 2);
+            const offsetY = ((background.height - sprite.height) / 2);
+
+            sprite.position.set(offsetX, offsetY);
+
+            container.addChild(background, sprite);
+
+            texture = TextureUtils.generateTexture(container);
+        }
+
         const scale = 1.1;
         const matrix = new Matrix();
-        const _local_5 = (asset.width / texture.width);
+        const difference = (asset.width / texture.width);
 
         switch(this.direction)
         {
             case 2:
-                matrix.a = _local_5;
-                matrix.b = (-0.5 * _local_5);
+                matrix.a = difference;
+                matrix.b = (-0.5 * difference);
                 matrix.c = 0;
-                matrix.d = (_local_5 * scale);
+                matrix.d = (difference * scale);
                 matrix.tx = 0;
-                matrix.ty = ((0.5 * _local_5) * texture.width);
+                matrix.ty = ((0.5 * difference) * texture.width);
                 break;
             case 0:
             case 4:
-                matrix.a = _local_5;
-                matrix.b = (0.5 * _local_5);
+                matrix.a = difference;
+                matrix.b = (0.5 * difference);
                 matrix.c = 0;
-                matrix.d = (_local_5 * scale);
+                matrix.d = (difference * scale);
                 matrix.tx = 0;
                 matrix.ty = 0;
                 break;
             default:
-                matrix.a = _local_5;
+                matrix.a = difference;
                 matrix.b = 0;
                 matrix.c = 0;
-                matrix.d = _local_5;
+                matrix.d = difference;
                 matrix.tx = 0;
                 matrix.ty = 0;
         }
 
         const sprite = new NitroSprite(texture);
 
-        if(this._hasOutline)
-        {
-            //
-        }
-
         sprite.transform.setFromMatrix(matrix);
 
-        return TextureUtils.generateTexture(sprite, new NitroRectangle(0, 0, (asset.width + 2), (asset.height + 2)));
+        return TextureUtils.generateTexture(sprite);
     }
 
     protected getSpriteAssetName(scale: number, layerId: number): string
