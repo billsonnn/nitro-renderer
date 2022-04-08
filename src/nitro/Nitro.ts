@@ -38,7 +38,7 @@ import { HabboWebTools } from './utils/HabboWebTools';
 
 LegacyExternalInterface.available;
 
-settings.SCALE_MODE = SCALE_MODES.NEAREST;
+settings.SCALE_MODE = (!(window.devicePixelRatio % 1)) ? SCALE_MODES.NEAREST : SCALE_MODES.LINEAR;
 settings.ROUND_PIXELS = true;
 
 export class Nitro extends Application implements INitro
@@ -110,14 +110,11 @@ export class Nitro extends Application implements INitro
 
         const canvas = document.createElement('canvas');
 
-        canvas.id = 'client-wrapper';
-        canvas.className = 'client-canvas';
-
         const instance = new this(new NitroCore(), {
             autoDensity: false,
-            resolution: 1,
-            width: window.innerWidth * window.devicePixelRatio,
-            height: window.innerHeight * window.devicePixelRatio,
+            resolution: window.devicePixelRatio,
+            width: window.innerWidth,
+            height: window.innerHeight,
             view: canvas
         });
 
