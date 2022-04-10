@@ -1,4 +1,4 @@
-import { Resource, Texture } from '@pixi/core';
+import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Loader, LoaderResource } from '@pixi/loaders';
 import { Spritesheet } from '@pixi/spritesheet';
 import { IAssetData } from '../../core/asset/interfaces';
@@ -10,6 +10,7 @@ import { NitroEvent } from '../../core/events/NitroEvent';
 import { RoomContentLoadedEvent } from '../../room/events/RoomContentLoadedEvent';
 import { IRoomObject } from '../../room/object/IRoomObject';
 import { GraphicAssetCollection } from '../../room/object/visualization/utils/GraphicAssetCollection';
+import { GraphicAssetGifCollection } from '../../room/object/visualization/utils/GraphicAssetGifCollection';
 import { IGraphicAssetCollection } from '../../room/object/visualization/utils/IGraphicAssetCollection';
 import { Nitro } from '../Nitro';
 import { FurnitureType } from '../session/furniture/FurnitureType';
@@ -42,6 +43,7 @@ export class RoomContentLoader implements IFurnitureDataListener
     private _waitingForSessionDataManager: boolean;
     private _iconListener: IRoomContentListener;
     private _collections: Map<string, IGraphicAssetCollection>;
+    private _gifCollections: Map<string, GraphicAssetGifCollection>;
     private _images: Map<string, HTMLImageElement>;
 
     private _events: Map<string, IEventDispatcher>;
@@ -69,6 +71,7 @@ export class RoomContentLoader implements IFurnitureDataListener
         this._waitingForSessionDataManager = false;
         this._iconListener = null;
         this._collections = new Map();
+        this._gifCollections = new Map();
         this._images = new Map();
 
         this._events = new Map();
@@ -312,6 +315,13 @@ export class RoomContentLoader implements IFurnitureDataListener
         return existing;
     }
 
+    public getGifCollection(name: string): GraphicAssetGifCollection
+    {
+        if(!name) return null;
+
+        return this._gifCollections.get(name) || null;
+    }
+
     public getImage(name: string): HTMLImageElement
     {
         if(!name) return null;
@@ -334,6 +344,17 @@ export class RoomContentLoader implements IFurnitureDataListener
         if(!collection) return false;
 
         return collection.addAsset(assetName, texture, override, 0, 0, false, false);
+    }
+
+    public createGifCollection(collectionName: string, textures: Texture<Resource>[], durations: number[]): GraphicAssetGifCollection
+    {
+        if(!collectionName || !textures || !durations) return null;
+
+        const collection = new GraphicAssetGifCollection(collectionName, textures, durations);
+
+        this._gifCollections.set(collectionName, collection);
+
+        return collection;
     }
 
     private createCollection(data: IAssetData, spritesheet: Spritesheet): GraphicAssetCollection
@@ -480,149 +501,111 @@ export class RoomContentLoader implements IFurnitureDataListener
         return false;
     }
 
-    public downloadAsset(type: string, events: IEventDispatcher): boolean
+    public downloadAsset(type: string, events: IEventDispatcher): void
     {
         const assetUrls: string[] = this.getAssetUrls(type);
 
-        if(!assetUrls || !assetUrls.length) return false;
+        if(!assetUrls || !assetUrls.length) return;
 
-        if((this._pendingContentTypes.indexOf(type) >= 0) || this.getOrRemoveEventDispatcher(type)) return false;
+        if((this._pendingContentTypes.indexOf(type) >= 0) || this.getOrRemoveEventDispatcher(type)) return;
 
         this._pendingContentTypes.push(type);
         this._events.set(type, events);
 
-        const totalToDownload = assetUrls.length;
-        let totalDownloaded = 0;
-
-        const onDownloaded = (loader: Loader, resource: LoaderResource, flag: boolean) =>
-        {
-            if(loader) loader.destroy();
-
-            if(!flag)
-            {
-                this._logger.error('Failed to download asset: ' + resource.url);
-
-                events.dispatchEvent(new RoomContentLoadedEvent(RoomContentLoadedEvent.RCLE_FAILURE, type));
-
-                return;
-            }
-
-            totalDownloaded++;
-
-            if(totalDownloaded === totalToDownload)
-            {
-                const events = this._events.get(type);
-
-                if(!events) return;
-
-                events.dispatchEvent(new RoomContentLoadedEvent(RoomContentLoadedEvent.RCLE_SUCCESS, type));
-            }
-        };
+        const loader = new Loader();
 
         for(const url of assetUrls)
         {
-            if(!url) continue;
-
-            const loader = new Loader();
+            if(!url || !url.endsWith('.nitro')) continue;
 
             loader
                 .add({
                     url,
                     crossOrigin: 'anonymous',
                     xhrType: url.endsWith('.nitro') ? LoaderResource.XHR_RESPONSE_TYPE.BUFFER : LoaderResource.XHR_RESPONSE_TYPE.JSON
-                })
-                .use((resource: LoaderResource, next: Function) =>
-                {
-                    this.assetLoader(loader, resource, onDownloaded);
-
-                    next();
-                })
-                .load();
+                });
         }
 
-        return true;
-    }
+        let remaining = assetUrls.length;
 
-    private assetLoader(loader: Loader, resource: LoaderResource, onDownloaded: Function): void
-    {
-        if(!resource || resource.error)
+        const onDownloaded = (status: boolean, url: string) =>
         {
-            if(resource && resource.texture) resource.texture.destroy(true);
-
-            onDownloaded(loader, resource, false);
-
-            return;
-        }
-
-        if(resource.extension === 'nitro')
-        {
-            const nitroBundle = new NitroBundle(resource.data);
-            const assetData = (nitroBundle.jsonFile as IAssetData);
-
-            if(!assetData)
+            if(!status)
             {
-                onDownloaded(loader, resource, false);
+                this._logger.error('Failed to download asset: ' + url);
+
+                loader.destroy();
+
+                events.dispatchEvent(new RoomContentLoadedEvent(RoomContentLoadedEvent.RCLE_FAILURE, type));
 
                 return;
             }
 
-            if(assetData.spritesheet && Object.keys(assetData.spritesheet).length)
-            {
-                const baseTexture = nitroBundle.baseTexture;
+            remaining--;
 
-                if(!baseTexture)
+            if(!remaining)
+            {
+                loader.destroy();
+
+                const events = this._events.get(type);
+
+                if(!events) return;
+
+                events.dispatchEvent(new RoomContentLoadedEvent(RoomContentLoadedEvent.RCLE_SUCCESS, type));
+
+                return;
+            }
+        };
+
+        loader.load((loader, resources) =>
+        {
+            for(const key in resources)
+            {
+                const resource = resources[key];
+
+                if(!resource || resource.error)
                 {
-                    onDownloaded(loader, resource, false);
+                    onDownloaded(false, resource.url);
 
                     return;
                 }
 
-                if(baseTexture.valid)
+                if(resource.extension === 'nitro')
                 {
-                    const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
+                    const nitroBundle = new NitroBundle(resource.data);
 
-                    spritesheet.parse(() =>
+                    this.processAsset(nitroBundle.baseTexture, (nitroBundle.jsonFile as IAssetData), status =>
                     {
-                        this.createCollection(assetData, spritesheet);
-
-                        onDownloaded(loader, resource, true);
+                        onDownloaded(true, resource.url);
                     });
+
+                    continue;
                 }
-                else
-                {
-                    baseTexture.once('loaded', () =>
-                    {
-                        baseTexture.removeAllListeners();
-
-                        const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
-
-                        spritesheet.parse(() =>
-                        {
-                            this.createCollection(assetData, spritesheet);
-
-                            onDownloaded(loader, resource, true);
-                        });
-                    });
-
-                    baseTexture.once('error', () =>
-                    {
-                        baseTexture.removeAllListeners();
-
-                        onDownloaded(loader, resource, false);
-                    });
-                }
-
-                return;
             }
+        });
+    }
 
-            this.createCollection(assetData, null);
+    private processAsset(baseTexture: BaseTexture, data: IAssetData, onDownloaded: (status: boolean) => void): void
+    {
+        const spritesheetData = data.spritesheet;
 
-            onDownloaded(loader, resource, true);
-        }
-        else
+        if(spritesheetData && Object.keys(spritesheetData).length)
         {
-            onDownloaded(loader, resource, false);
+            const spritesheet = new Spritesheet(baseTexture, spritesheetData);
+
+            spritesheet.parse(() =>
+            {
+                this.createCollection(data, spritesheet);
+
+                onDownloaded(true);
+            });
+
+            return;
         }
+
+        this.createCollection(data, null);
+
+        onDownloaded(true);
     }
 
     public setAssetAliasName(name: string, originalName: string): void

@@ -19,6 +19,7 @@ export class RoomObjectVisualizationType
     public static FURNITURE_SCORE_BOARD = 'furniture_score_board';
     public static FURNITURE_FIREWORKS = 'furniture_fireworks';
     public static FURNITURE_BB = 'furniture_bb';
+    public static FURNITURE_ISOMETRIC_BB = 'furniture_isometric_bb';
     public static FURNITURE_BG = 'furniture_bg';
     public static FURNITURE_STICKIE = 'furniture_stickie';
     public static FURNITURE_MANNEQUIN = 'furniture_mannequin';

@@ -23,6 +23,7 @@ import { FurnitureGiftWrappedVisualization } from './visualization/furniture/Fur
 import { FurnitureGuildCustomizedVisualization } from './visualization/furniture/FurnitureGuildCustomizedVisualization';
 import { FurnitureGuildIsometricBadgeVisualization } from './visualization/furniture/FurnitureGuildIsometricBadgeVisualization';
 import { FurnitureHabboWheelVisualization } from './visualization/furniture/FurnitureHabboWheelVisualization';
+import { FurnitureIsometricBBVisualization } from './visualization/furniture/FurnitureIsometricBBVisualization';
 import { FurnitureMannequinVisualization } from './visualization/furniture/FurnitureMannequinVisualization';
 import { FurnitureMannequinVisualizationData } from './visualization/furniture/FurnitureMannequinVisualizationData';
 import { FurniturePartyBeamerVisualization } from './visualization/furniture/FurniturePartyBeamerVisualization';
@@ -106,6 +107,9 @@ export class RoomObjectVisualizationFactory implements IRoomObjectVisualizationF
                 break;
             case RoomObjectVisualizationType.FURNITURE_BB:
                 visualization = FurnitureBBVisualization;
+                break;
+            case RoomObjectVisualizationType.FURNITURE_ISOMETRIC_BB:
+                visualization = FurnitureIsometricBBVisualization;
                 break;
             case RoomObjectVisualizationType.FURNITURE_BOTTLE:
                 visualization = FurnitureBottleVisualization;
@@ -204,6 +208,7 @@ export class RoomObjectVisualizationFactory implements IRoomObjectVisualizationF
             case RoomObjectVisualizationType.FURNITURE_STATIC:
             case RoomObjectVisualizationType.FURNITURE_GIFT_WRAPPED:
             case RoomObjectVisualizationType.FURNITURE_BB:
+            case RoomObjectVisualizationType.FURNITURE_ISOMETRIC_BB:
             case RoomObjectVisualizationType.FURNITURE_BG:
             case RoomObjectVisualizationType.FURNITURE_STICKIE:
             case RoomObjectVisualizationType.FURNITURE_BUILDER_PLACEHOLDER:

@@ -1,4 +1,4 @@
-import { Resource, Texture } from '@pixi/core';
+import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Loader, LoaderResource } from '@pixi/loaders';
 import { Spritesheet } from '@pixi/spritesheet';
 import { IGraphicAsset } from '../../room';
@@ -94,158 +94,119 @@ export class AssetManager extends Disposable implements IAssetManager
         return collection;
     }
 
-    public downloadAsset(assetUrl: string, cb: Function): boolean
+    public downloadAsset(assetUrl: string, cb: (status: boolean) => void): void
     {
-        return this.downloadAssets([ assetUrl ], cb);
+        this.downloadAssets([ assetUrl ], cb);
     }
 
-    public downloadAssets(assetUrls: string[], cb: Function): boolean
+    public downloadAssets(assetUrls: string[], cb: (status: boolean) => void): void
     {
         if(!assetUrls || !assetUrls.length)
         {
             cb(true);
 
-            return true;
+            return;
         }
 
-        const totalToDownload = assetUrls.length;
-
-        let totalDownloaded = 0;
-
-        const onDownloaded = (loader: Loader, resource: LoaderResource, flag: boolean) =>
-        {
-            if(loader) loader.destroy();
-
-            if(!flag)
-            {
-                this._logger.error('Failed to download asset: ' + resource.url);
-
-                cb(false);
-
-                return;
-            }
-
-            totalDownloaded++;
-
-            if(totalDownloaded === totalToDownload) cb(true);
-        };
+        const loader = new Loader();
 
         for(const url of assetUrls)
         {
             if(!url) continue;
-
-            const loader = new Loader();
 
             loader
                 .add({
                     url,
                     crossOrigin: 'anonymous',
                     xhrType: url.endsWith('.nitro') ? LoaderResource.XHR_RESPONSE_TYPE.BUFFER : LoaderResource.XHR_RESPONSE_TYPE.JSON
-                })
-                .use((resource: LoaderResource, next: Function) =>
-                {
-                    this.assetLoader(loader, resource, onDownloaded);
-
-                    next();
-                })
-                .load();
+                });
         }
 
-        return true;
-    }
+        let remaining = assetUrls.length;
 
-    private assetLoader(loader: Loader, resource: LoaderResource, onDownloaded: Function): void
-    {
-        if(!resource || resource.error)
+        const onDownloaded = (status: boolean, url: string) =>
         {
-            if(resource && resource.texture) resource.texture.destroy(true);
-
-            onDownloaded(loader, resource, false);
-
-            return;
-        }
-
-        if(resource.extension === 'nitro')
-        {
-            const nitroBundle = new NitroBundle(resource.data);
-            const assetData = (nitroBundle.jsonFile as IAssetData);
-
-            if(!assetData)
+            if(!status)
             {
-                onDownloaded(loader, resource, false);
+                this._logger.error('Failed to download asset: ' + url);
+
+                loader.destroy();
+
+                cb(false);
 
                 return;
             }
 
-            if(assetData.spritesheet && Object.keys(assetData.spritesheet).length)
-            {
-                const baseTexture = nitroBundle.baseTexture;
+            remaining--;
 
-                if(!baseTexture)
+            if(!remaining)
+            {
+                loader.destroy();
+
+                cb(true);
+
+                return;
+            }
+        };
+
+        loader.load((loader, resources) =>
+        {
+            for(const key in resources)
+            {
+                const resource = resources[key];
+
+                if(!resource || resource.error)
                 {
-                    onDownloaded(loader, resource, false);
+                    onDownloaded(false, resource.url);
 
                     return;
                 }
 
-                if(baseTexture.valid)
+                if(resource.extension === 'nitro')
                 {
-                    const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
+                    const nitroBundle = new NitroBundle(resource.data);
 
-                    spritesheet.parse(() =>
+                    this.processAsset(nitroBundle.baseTexture, (nitroBundle.jsonFile as IAssetData), status =>
                     {
-                        this.createCollection(assetData, spritesheet);
-
-                        onDownloaded(loader, resource, true);
-                    });
-                }
-                else
-                {
-                    baseTexture.once('loaded', () =>
-                    {
-                        baseTexture.removeAllListeners();
-
-                        const spritesheet = new Spritesheet(baseTexture, assetData.spritesheet);
-
-                        spritesheet.parse(() =>
-                        {
-                            this.createCollection(assetData, spritesheet);
-
-                            onDownloaded(loader, resource, true);
-                        });
+                        onDownloaded(true, resource.url);
                     });
 
-                    baseTexture.once('error', () =>
-                    {
-                        baseTexture.removeAllListeners();
-
-                        onDownloaded(loader, resource, false);
-                    });
+                    continue;
                 }
 
-                return;
+                if(resource.type === LoaderResource.TYPE.IMAGE)
+                {
+                    if(resource.texture) this.setTexture(resource.name, resource.texture);
+
+                    onDownloaded(true, resource.url);
+
+                    continue;
+                }
             }
+        });
+    }
 
-            this.createCollection(assetData, null);
+    private processAsset(baseTexture: BaseTexture, data: IAssetData, onDownloaded: (status: boolean) => void): void
+    {
+        const spritesheetData = data.spritesheet;
 
-            onDownloaded(loader, resource, true);
-        }
-
-        else if(resource.type === LoaderResource.TYPE.IMAGE)
+        if(spritesheetData && Object.keys(spritesheetData).length)
         {
-            if(resource.texture.valid)
-            {
-                this.setTexture(resource.name, resource.texture);
+            const spritesheet = new Spritesheet(baseTexture, spritesheetData);
 
-                onDownloaded(loader, resource, true);
-            }
-            else
+            spritesheet.parse(() =>
             {
-                onDownloaded(loader, resource, false);
-            }
+                this.createCollection(data, spritesheet);
+
+                onDownloaded(true);
+            });
 
             return;
         }
+
+        this.createCollection(data, null);
+
+        onDownloaded(true);
     }
 
     public get collections(): Map<string, IGraphicAssetCollection>
