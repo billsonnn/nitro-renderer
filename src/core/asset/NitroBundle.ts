@@ -1,6 +1,7 @@
 import { BaseTexture } from '@pixi/core';
 import { Data, inflate } from 'pako';
 import { BinaryReader } from '../communication/codec/BinaryReader';
+import { ArrayBufferToBase64 } from '../utils';
 
 export class NitroBundle
 {
@@ -14,18 +15,6 @@ export class NitroBundle
     constructor(arrayBuffer: ArrayBuffer)
     {
         this.parse(arrayBuffer);
-    }
-
-    private static arrayBufferToBase64(buffer: ArrayBuffer): string
-    {
-        let binary = '';
-
-        const bytes = new Uint8Array(buffer);
-        const len = bytes.byteLength;
-
-        for(let i = 0; i < len; i++) (binary += String.fromCharCode(bytes[i]));
-
-        return window.btoa(binary);
     }
 
     public parse(arrayBuffer: ArrayBuffer): void
@@ -50,7 +39,7 @@ export class NitroBundle
             else
             {
                 const decompressed = inflate((buffer.toArrayBuffer() as Data));
-                const base64 = NitroBundle.arrayBufferToBase64(decompressed);
+                const base64 = ArrayBufferToBase64(decompressed);
 
                 this._baseTexture = new BaseTexture('data:image/png;base64,' + base64);
             }

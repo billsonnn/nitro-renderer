@@ -1,12 +1,13 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Loader, LoaderResource } from '@pixi/loaders';
 import { Spritesheet } from '@pixi/spritesheet';
-import { IGraphicAsset } from '../../room';
+import { IGraphicAsset } from '../../room/object/visualization/utils';
 import { GraphicAssetCollection } from '../../room/object/visualization/utils/GraphicAssetCollection';
 import { IGraphicAssetCollection } from '../../room/object/visualization/utils/IGraphicAssetCollection';
 import { Disposable } from '../common/disposable/Disposable';
 import { INitroLogger } from '../common/logger/INitroLogger';
 import { NitroLogger } from '../common/logger/NitroLogger';
+import { ArrayBufferToBase64 } from '../utils';
 import { IAssetManager } from './IAssetManager';
 import { IAssetData } from './interfaces';
 import { NitroBundle } from './NitroBundle';
@@ -118,7 +119,8 @@ export class AssetManager extends Disposable implements IAssetManager
                 .add({
                     url,
                     crossOrigin: 'anonymous',
-                    xhrType: url.endsWith('.nitro') ? LoaderResource.XHR_RESPONSE_TYPE.BUFFER : LoaderResource.XHR_RESPONSE_TYPE.JSON
+                    loadType: LoaderResource.LOAD_TYPE.XHR,
+                    xhrType: LoaderResource.XHR_RESPONSE_TYPE.BUFFER
                 });
         }
 
@@ -155,14 +157,16 @@ export class AssetManager extends Disposable implements IAssetManager
             {
                 const resource = resources[key];
 
-                if(!resource || resource.error)
+                if(!resource || resource.error || !resource.xhr)
                 {
                     onDownloaded(false, resource.url);
 
                     return;
                 }
 
-                if(resource.extension === 'nitro')
+                const resourceType = resource.xhr.getResponseHeader('Content-Type');
+
+                if(resourceType === 'application/octet-stream')
                 {
                     const nitroBundle = new NitroBundle(resource.data);
 
@@ -174,14 +178,19 @@ export class AssetManager extends Disposable implements IAssetManager
                     continue;
                 }
 
-                if(resource.type === LoaderResource.TYPE.IMAGE)
+                if(resourceType === 'image/png')
                 {
-                    if(resource.texture) this.setTexture(resource.name, resource.texture);
+                    const base64 = ArrayBufferToBase64(resource.data);
+                    const texture = new Texture(new BaseTexture('data:image/png;base64,' + base64));
+
+                    this.setTexture(resource.name, texture);
 
                     onDownloaded(true, resource.url);
 
                     continue;
                 }
+
+                onDownloaded(false, resource.url);
             }
         });
     }
