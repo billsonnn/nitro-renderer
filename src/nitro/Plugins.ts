@@ -3,6 +3,7 @@ import '@pixi/canvas-display';
 import { BatchRenderer, Renderer } from '@pixi/core';
 import { Extract } from '@pixi/extract';
 import '@pixi/graphics-extras';
+import { InteractionManager } from '@pixi/interaction';
 import { AppLoaderPlugin, Loader } from '@pixi/loaders';
 import '@pixi/math-extras';
 import '@pixi/mixin-cache-as-bitmap';
@@ -36,6 +37,7 @@ Renderer.registerPlugin('batch', BatchRenderer);
 Renderer.registerPlugin('extract', Extract);
 Renderer.registerPlugin('tilingSprite', TilingSpriteRenderer);
 Renderer.registerPlugin('tilemap', TileRenderer);
+Renderer.registerPlugin('interaction', InteractionManager);
 
 Loader.registerPlugin(SpritesheetLoader);
 
