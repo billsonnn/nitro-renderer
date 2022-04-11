@@ -571,7 +571,7 @@ export class RoomContentLoader implements IFurnitureDataListener
                     return;
                 }
 
-                const resourceType = resource.xhr.getResponseHeader('Content-Type');
+                const resourceType = (resource.xhr.getResponseHeader('Content-Type') || 'application/octet-stream');
 
                 if(resourceType === 'application/octet-stream')
                 {
