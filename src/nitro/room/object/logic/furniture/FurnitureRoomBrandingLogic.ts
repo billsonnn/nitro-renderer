@@ -206,6 +206,10 @@ export class FurnitureRoomBrandingLogic extends FurnitureLogic
                     Nitro.instance.roomEngine.roomContentLoader.createGifCollection(imageUrl, textures, durations);
 
                     this.processUpdateMessage(new ObjectAdUpdateMessage(ObjectAdUpdateMessage.IMAGE_LOADED));
+                })
+                .catch(error =>
+                {
+                    this.processUpdateMessage(new ObjectAdUpdateMessage(ObjectAdUpdateMessage.IMAGE_LOADING_FAILED));
                 });
         }
         else

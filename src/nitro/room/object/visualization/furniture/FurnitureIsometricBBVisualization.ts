@@ -2,7 +2,6 @@ import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Matrix } from '@pixi/math';
 import { NitroSprite } from '../../../../../core/utils/proxy/NitroSprite';
 import { IGraphicAsset } from '../../../../../room/object/visualization/utils/IGraphicAsset';
-import { TextureUtils } from '../../../../../room/utils/TextureUtils';
 import { Nitro } from '../../../../Nitro';
 import { FurnitureBBVisualization } from './FurnitureBBVisualization';
 import { FurnitureBrandedImageVisualization } from './FurnitureBrandedImageVisualization';
@@ -63,26 +62,19 @@ export class FurnitureIsometricBBVisualization extends FurnitureBBVisualization
 
             const sprite = new NitroSprite(texture);
 
-            const x = asset.x;
-            const y = asset.y;
-            const flipH = asset.flipH;
-            const flipV = asset.flipV;
-
             const renderTexture = RenderTexture.create({
-                width: asset.width,
-                height: asset.height
+                width: (asset.width + matrix.tx),
+                height: (asset.height + matrix.ty)
             });
 
             Nitro.instance.renderer.render(sprite, {
-                renderTexture: renderTexture,
+                renderTexture,
                 clear: true,
                 transform: matrix
             });
 
-            const newTexture = TextureUtils.generateTexture(sprite);
-
             this.asset.disposeAsset(`${ this._imageUrl }_${ i }`);
-            this.asset.addAsset(`${ this._imageUrl }_${ i }`, newTexture, true, x, y, flipH, flipV);
+            this.asset.addAsset(`${ this._imageUrl }_${ i }`, renderTexture, true, asset.x, asset.y, asset.flipH, asset.flipV);
         }
 
         this._needsTransform = false;
@@ -124,17 +116,19 @@ export class FurnitureIsometricBBVisualization extends FurnitureBBVisualization
 
         const sprite = new NitroSprite(texture);
 
-        sprite.transform.setFromMatrix(matrix);
+        const renderTexture = RenderTexture.create({
+            width: (asset.width + matrix.tx),
+            height: (asset.height + matrix.ty)
+        });
 
-        const x = asset.x;
-        const y = asset.y;
-        const flipH = asset.flipH;
-        const flipV = asset.flipV;
-
-        const newTexture = TextureUtils.generateTexture(sprite);
+        Nitro.instance.renderer.render(sprite, {
+            renderTexture,
+            clear: true,
+            transform: matrix
+        });
 
         this.asset.disposeAsset(`${ this._imageUrl }_0`);
-        this.asset.addAsset(`${ this._imageUrl }_0`, newTexture, true, x, y, flipH, flipV);
+        this.asset.addAsset(`${ this._imageUrl }_0`, renderTexture, true, sprite.x, sprite.y, asset.flipH, asset.flipV);
 
         this._needsTransform = false;
     }
