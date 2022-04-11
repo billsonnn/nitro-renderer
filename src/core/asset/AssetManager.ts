@@ -172,20 +172,36 @@ export class AssetManager extends Disposable implements IAssetManager
 
                     this.processAsset(nitroBundle.baseTexture, (nitroBundle.jsonFile as IAssetData), status =>
                     {
-                        onDownloaded(true, resource.url);
+                        onDownloaded(status, resource.url);
                     });
 
                     continue;
                 }
 
-                if(resourceType === 'image/png')
+                if((resourceType === 'image/png') || (resourceType === 'image/gif'))
                 {
                     const base64 = ArrayBufferToBase64(resource.data);
-                    const texture = new Texture(new BaseTexture('data:image/png;base64,' + base64));
+                    const baseTexture = new BaseTexture(`data:${ resourceType };base64,${ base64 }`);
 
-                    this.setTexture(resource.name, texture);
+                    if(baseTexture.valid)
+                    {
+                        const texture = new Texture(baseTexture);
 
-                    onDownloaded(true, resource.url);
+                        this.setTexture(resource.name, texture);
+
+                        onDownloaded(true, resource.url);
+                    }
+                    else
+                    {
+                        baseTexture.once('update', () =>
+                        {
+                            const texture = new Texture(baseTexture);
+
+                            this.setTexture(resource.name, texture);
+
+                            onDownloaded(true, resource.url);
+                        });
+                    }
 
                     continue;
                 }
@@ -199,7 +215,16 @@ export class AssetManager extends Disposable implements IAssetManager
     {
         const spritesheetData = data.spritesheet;
 
-        if(spritesheetData && Object.keys(spritesheetData).length)
+        if(!baseTexture || !spritesheetData || !Object.keys(spritesheetData).length)
+        {
+            this.createCollection(data, null);
+
+            onDownloaded(true);
+
+            return;
+        }
+
+        const createAsset = () =>
         {
             const spritesheet = new Spritesheet(baseTexture, spritesheetData);
 
@@ -209,13 +234,16 @@ export class AssetManager extends Disposable implements IAssetManager
 
                 onDownloaded(true);
             });
+        };
 
-            return;
+        if(baseTexture.valid)
+        {
+            createAsset();
         }
-
-        this.createCollection(data, null);
-
-        onDownloaded(true);
+        else
+        {
+            baseTexture.once('update', () => createAsset());
+        }
     }
 
     public get collections(): Map<string, IGraphicAssetCollection>

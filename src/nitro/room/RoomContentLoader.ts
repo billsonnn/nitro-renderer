@@ -516,13 +516,14 @@ export class RoomContentLoader implements IFurnitureDataListener
 
         for(const url of assetUrls)
         {
-            if(!url || !url.endsWith('.nitro')) continue;
+            if(!url || !url.length) continue;
 
             loader
                 .add({
                     url,
                     crossOrigin: 'anonymous',
-                    xhrType: url.endsWith('.nitro') ? LoaderResource.XHR_RESPONSE_TYPE.BUFFER : LoaderResource.XHR_RESPONSE_TYPE.JSON
+                    loadType: LoaderResource.LOAD_TYPE.XHR,
+                    xhrType: LoaderResource.XHR_RESPONSE_TYPE.BUFFER
                 });
         }
 
@@ -563,20 +564,22 @@ export class RoomContentLoader implements IFurnitureDataListener
             {
                 const resource = resources[key];
 
-                if(!resource || resource.error)
+                if(!resource || resource.error || !resource.xhr)
                 {
                     onDownloaded(false, resource.url);
 
                     return;
                 }
 
-                if(resource.extension === 'nitro')
+                const resourceType = resource.xhr.getResponseHeader('Content-Type');
+
+                if(resourceType === 'application/octet-stream')
                 {
                     const nitroBundle = new NitroBundle(resource.data);
 
                     this.processAsset(nitroBundle.baseTexture, (nitroBundle.jsonFile as IAssetData), status =>
                     {
-                        onDownloaded(true, resource.url);
+                        onDownloaded(status, resource.url);
                     });
 
                     continue;
@@ -589,7 +592,16 @@ export class RoomContentLoader implements IFurnitureDataListener
     {
         const spritesheetData = data.spritesheet;
 
-        if(spritesheetData && Object.keys(spritesheetData).length)
+        if(!baseTexture || !spritesheetData || !Object.keys(spritesheetData).length)
+        {
+            this.createCollection(data, null);
+
+            onDownloaded(true);
+
+            return;
+        }
+
+        const createAsset = () =>
         {
             const spritesheet = new Spritesheet(baseTexture, spritesheetData);
 
@@ -599,13 +611,16 @@ export class RoomContentLoader implements IFurnitureDataListener
 
                 onDownloaded(true);
             });
+        };
 
-            return;
+        if(baseTexture.valid)
+        {
+            createAsset();
         }
-
-        this.createCollection(data, null);
-
-        onDownloaded(true);
+        else
+        {
+            baseTexture.once('update', () => createAsset());
+        }
     }
 
     public setAssetAliasName(name: string, originalName: string): void
