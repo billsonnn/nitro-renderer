@@ -1,10 +1,19 @@
 import { IAssetData } from '../../../../../core/asset/interfaces';
-import { RoomWidgetEnum } from '../../../../ui/widget/enums/RoomWidgetEnum';
+import { RoomObjectWidgetRequestEvent } from '../../../events';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureExternalImageLogic extends FurnitureMultiStateLogic
 {
+    public getEventTypes(): string[]
+    {
+        const types = [
+            RoomObjectWidgetRequestEvent.EXTERNAL_IMAGE
+        ];
+
+        return this.mergeTypes(super.getEventTypes(), types);
+    }
+
     public initialize(asset: IAssetData): void
     {
         super.initialize(asset);
@@ -25,8 +34,12 @@ export class FurnitureExternalImageLogic extends FurnitureMultiStateLogic
         }
     }
 
-    public get widget(): string
+    public useObject(): void
     {
-        return RoomWidgetEnum.EXTERNAL_IMAGE;
+        if(!this.object || !this.eventDispatcher) return;
+
+        this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.EXTERNAL_IMAGE, this.object));
+
+        super.useObject();
     }
 }

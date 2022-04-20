@@ -9,7 +9,7 @@ export class ClientHelloMessageComposer implements IMessageComposer<ConstructorP
 
     constructor(releaseVersion: string, type: string, platform: number, category: number)
     {
-        this._data = [ NitroVersion.RENDERER_VERSION, 'HTML5', ClientPlatformEnum.HTML5, ClientDeviceCategoryEnum.BROWSER ];
+        this._data = [ `NITRO-${ NitroVersion.RENDERER_VERSION.replaceAll('.', '-') }`, 'HTML5', ClientPlatformEnum.HTML5, ClientDeviceCategoryEnum.BROWSER ];
     }
 
     public getMessageArray()

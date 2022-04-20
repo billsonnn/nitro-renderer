@@ -802,17 +802,17 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return true;
     }
 
-    public updateObjectRoomColor(k: number, _arg_2: number, _arg_3: number, _arg_4: boolean): boolean
+    public updateObjectRoomColor(roomId: number, color: number, light: number, backgroundOnly: boolean): boolean
     {
-        const roomObject = this.getRoomOwnObject(k);
+        const roomObject = this.getRoomOwnObject(roomId);
 
         if(!roomObject || !roomObject.logic) return false;
 
-        const event = new ObjectRoomColorUpdateMessage(ObjectRoomColorUpdateMessage.BACKGROUND_COLOR, _arg_2, _arg_3, _arg_4);
+        const event = new ObjectRoomColorUpdateMessage(ObjectRoomColorUpdateMessage.BACKGROUND_COLOR, color, light, backgroundOnly);
 
         roomObject.logic.processUpdateMessage(event);
 
-        this.events.dispatchEvent(new RoomBackgroundColorEvent(k, _arg_2, _arg_3, _arg_4));
+        this.events.dispatchEvent(new RoomBackgroundColorEvent(roomId, color, light, backgroundOnly));
 
         return true;
     }

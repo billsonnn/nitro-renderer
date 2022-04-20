@@ -259,6 +259,8 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             case RoomObjectWidgetRequestEvent.CLOSE_FURNI_CONTEXT_MENU:
             case RoomObjectWidgetRequestEvent.PLACEHOLDER:
             case RoomObjectWidgetRequestEvent.CREDITFURNI:
+            case RoomObjectWidgetRequestEvent.STACK_HEIGHT:
+            case RoomObjectWidgetRequestEvent.EXTERNAL_IMAGE:
             case RoomObjectWidgetRequestEvent.STICKIE:
             case RoomObjectWidgetRequestEvent.PRESENT:
             case RoomObjectWidgetRequestEvent.TROPHY:
@@ -780,6 +782,12 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 return;
             case RoomObjectWidgetRequestEvent.CREDITFURNI:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_CREDITFURNI, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.STACK_HEIGHT:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_STACK_HEIGHT, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.EXTERNAL_IMAGE:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_EXTERNAL_IMAGE, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.STICKIE:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_STICKIE, roomId, objectId, objectCategory));

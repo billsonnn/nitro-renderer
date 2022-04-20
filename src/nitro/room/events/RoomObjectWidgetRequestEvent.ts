@@ -9,6 +9,8 @@ export class RoomObjectWidgetRequestEvent extends RoomObjectEvent
     public static CLOSE_FURNI_CONTEXT_MENU: string = 'ROWRE_CLOSE_FURNI_CONTEXT_MENU';
     public static PLACEHOLDER: string = 'ROWRE_PLACEHOLDER';
     public static CREDITFURNI: string = 'ROWRE_CREDITFURNI';
+    public static STACK_HEIGHT: string = 'ROWRE_STACK_HEIGHT';
+    public static EXTERNAL_IMAGE: string = 'ROWRE_EXTERNAL_IMAGE';
     public static STICKIE: string = 'ROWRE_STICKIE';
     public static PRESENT: string = 'ROWRE_PRESENT';
     public static TROPHY: string = 'ROWRE_TROPHY';
