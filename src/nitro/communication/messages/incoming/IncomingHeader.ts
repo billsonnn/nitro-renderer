@@ -41,9 +41,15 @@ export class IncomingHeader
     public static GIFT_WRAPPER_CONFIG = 2234;
     public static GROUP_BADGES = 2402;
     public static GROUP_CREATE_OPTIONS = 2159;
-    public static GROUP_FORUM_INFO = 3011;
+    public static GROUP_FORUM_DATA = 3011;
     public static GROUP_FORUM_LIST = 3001;
     public static GROUP_FORUM_THREADS = 1073;
+    public static GROUP_FORUM_POST = 2049;
+    public static GROUP_FORUM_POST_THREAD = 1862;
+    public static GROUP_FORUM_THREAD_MESSAGES = 509;
+    public static GROUP_FORUM_UNREAD_COUNT = 2379;
+    public static GROUP_FORUM_UPDATE_MESSAGE = 324;
+    public static GROUP_FORUM_UPDATE_THREAD = 2528;
     public static GROUP_INFO = 1702;
     public static GROUP_LIST = 420;
     public static GROUP_MEMBER = 265;

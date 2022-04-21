@@ -50,6 +50,7 @@ import { GroupMembersEvent } from './messages/incoming/group/GroupMembersEvent';
 import { GroupPurchasedEvent } from './messages/incoming/group/GroupPurchasedEvent';
 import { GroupSettingsEvent } from './messages/incoming/group/GroupSettingsEvent';
 import { HabboGroupDeactivatedMessageEvent } from './messages/incoming/group/HabboGroupDeactivatedMessageEvent';
+import { ForumDataMessageEvent, ForumsListMessageEvent, GuildForumThreadsEvent, PostMessageMessageEvent, PostThreadMessageEvent, ThreadMessagesMessageEvent, UnreadForumsCountMessageEvent, UpdateMessageMessageEvent, UpdateThreadMessageEvent } from './messages/incoming/groupforums';
 import { NoobnessLevelMessageEvent } from './messages/incoming/handshake/NoobnessLevelMessageEvent';
 import { CallForHelpDisabledNotifyMessageEvent } from './messages/incoming/help/CallForHelpDisabledNotifyMessageEvent';
 import { CallForHelpResultMessageEvent } from './messages/incoming/help/CallForHelpResultMessageEvent';
@@ -614,6 +615,17 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.GROUP_PURCHASED, GroupPurchasedEvent);
         this._events.set(IncomingHeader.GROUP_BADGES, HabboGroupBadgesMessageEvent);
         this._events.set(IncomingHeader.GROUP_DEACTIVATE, HabboGroupDeactivatedMessageEvent);
+
+        // GROUP FORUMS
+        this._events.set(IncomingHeader.GROUP_FORUM_DATA, ForumDataMessageEvent);
+        this._events.set(IncomingHeader.GROUP_FORUM_LIST, ForumsListMessageEvent);
+        this._events.set(IncomingHeader.GROUP_FORUM_THREADS, GuildForumThreadsEvent);
+        this._events.set(IncomingHeader.GROUP_FORUM_POST, PostMessageMessageEvent);
+        this._events.set(IncomingHeader.GROUP_FORUM_POST_THREAD, PostThreadMessageEvent);
+        this._events.set(IncomingHeader.GROUP_FORUM_THREAD_MESSAGES, ThreadMessagesMessageEvent);
+        this._events.set(IncomingHeader.GROUP_FORUM_UNREAD_COUNT, UnreadForumsCountMessageEvent);
+        this._events.set(IncomingHeader.GROUP_FORUM_UPDATE_MESSAGE, UpdateMessageMessageEvent);
+        this._events.set(IncomingHeader.GROUP_FORUM_UPDATE_THREAD, UpdateThreadMessageEvent);
 
         // HELP
         this._events.set(IncomingHeader.CFH_DISABLED_NOTIFY, CallForHelpDisabledNotifyMessageEvent);
