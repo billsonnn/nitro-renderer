@@ -17,7 +17,7 @@ export class MessageData
     private _adminOperationTimeAsSeccondsAgo: number;
     private _authorPostCount: number;
 
-    public static _Str_4933(wrapper: IMessageDataWrapper):MessageData
+    public static parse(wrapper: IMessageDataWrapper): MessageData
     {
         const messageData = new MessageData();
 

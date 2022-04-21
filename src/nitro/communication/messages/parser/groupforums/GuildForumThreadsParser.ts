@@ -4,7 +4,7 @@ import { GuildForumThread } from './GuildForumThread';
 export class GuildForumThreadsParser implements IMessageParser
 {
     private _groupId: number;
-    private _startIndex; number;
+    private _startIndex: number;
     private _amount: number;
     private _threads: GuildForumThread[];
 

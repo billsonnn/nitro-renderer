@@ -13,6 +13,7 @@ export * from './friendlist';
 export * from './game';
 export * from './generic';
 export * from './group';
+export * from './groupforums';
 export * from './handshake';
 export * from './help';
 export * from './IncomingHeader';

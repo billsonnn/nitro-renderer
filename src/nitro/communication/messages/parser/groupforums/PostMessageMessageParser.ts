@@ -22,7 +22,7 @@ export class PostMessageMessageParser implements IMessageParser
 
         this._groupId = wrapper.readInt();
         this._threadId = wrapper.readInt();
-        this._message = MessageData._Str_4933(wrapper);
+        this._message = MessageData.parse(wrapper);
 
         return true;
     }

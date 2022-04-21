@@ -34,7 +34,7 @@ export class ThreadMessagesMessageParser implements IMessageParser
 
         while(i < this._amount)
         {
-            const message = MessageData._Str_4933(wrapper);
+            const message = MessageData.parse(wrapper);
 
             message.groupID = this._groupId;
             message.threadId = this._threadId;
