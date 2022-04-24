@@ -184,6 +184,7 @@ import { PetFigureUpdateEvent } from './messages/incoming/room/pet/PetFigureUpda
 import { PetInfoEvent } from './messages/incoming/room/pet/PetInfoEvent';
 import { PetStatusUpdateEvent } from './messages/incoming/room/pet/PetStatusUpdateEvent';
 import { YouArePlayingGameEvent } from './messages/incoming/room/session/YouArePlayingGameEvent';
+import { YouAreSpectatorMessageEvent } from './messages/incoming/room/session/YouAreSpectatorMessageEvent';
 import { FloodControlEvent } from './messages/incoming/room/unit/chat/FloodControlEvent';
 import { RemainingMuteEvent } from './messages/incoming/room/unit/chat/RemainingMuteEvent';
 import { RoomUnitChatEvent } from './messages/incoming/room/unit/chat/RoomUnitChatEvent';
@@ -820,6 +821,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.OBJECTS_DATA_UPDATE, ObjectsDataUpdateEvent);
         this._events.set(IncomingHeader.FURNITURE_GROUP_CONTEXT_MENU_INFO, GroupFurniContextMenuInfoMessageEvent);
         this._events.set(IncomingHeader.FURNITURE_POSTIT_STICKY_POLE_OPEN, FurniturePostItStickyPoleOpenEvent);
+        this._events.set(IncomingHeader.ROOM_SPECTATOR, YouAreSpectatorMessageEvent);
 
         // ROOM SETTINGS
         this._events.set(IncomingHeader.ROOM_RIGHTS_LIST, FlatControllersEvent);
