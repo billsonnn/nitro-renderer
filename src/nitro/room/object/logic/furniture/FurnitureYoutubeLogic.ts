@@ -1,4 +1,4 @@
-import { RoomWidgetEnum } from '../../../../ui/widget/enums/RoomWidgetEnum';
+import { RoomObjectWidgetRequestEvent } from '../../../events';
 import { RoomObjectDataRequestEvent } from '../../../events/RoomObjectDataRequestEvent';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureLogic } from './FurnitureLogic';
@@ -8,6 +8,7 @@ export class FurnitureYoutubeLogic extends FurnitureLogic
     public getEventTypes(): string[]
     {
         const types = [
+            RoomObjectWidgetRequestEvent.YOUTUBE,
             RoomObjectDataRequestEvent.RODRE_URL_PREFIX
         ];
 
@@ -24,8 +25,12 @@ export class FurnitureYoutubeLogic extends FurnitureLogic
         }
     }
 
-    public get widget(): string
+    public useObject(): void
     {
-        return RoomWidgetEnum.YOUTUBE;
+        if(!this.object || !this.eventDispatcher) return;
+
+        console.log(this.object);
+
+        this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.YOUTUBE, this.object));
     }
 }

@@ -35,6 +35,7 @@ export class RoomEngineTriggerWidgetEvent extends RoomEngineObjectEvent
     public static REQUEST_HIDE_HIGH_SCORE_DISPLAY: string = 'RETWE_REQUEST_HIDE_HIGH_SCORE_DISPLAY';
     public static REQUEST_INTERNAL_LINK: string = 'RETWE_REQUEST_INTERNAL_LINK';
     public static REQUEST_ROOM_LINK: string = 'RETWE_REQUEST_ROOM_LINK';
+    public static REQUEST_YOUTUBE: string = 'RETWE_REQUEST_YOUTUBE';
 
     private _widget: string;
 

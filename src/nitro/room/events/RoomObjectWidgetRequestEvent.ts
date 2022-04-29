@@ -39,6 +39,7 @@ export class RoomObjectWidgetRequestEvent extends RoomObjectEvent
     public static HIDE_HIGH_SCORE_DISPLAY: string = 'ROWRE_HIDE_HIGH_SCORE_DISPLAY';
     public static INERNAL_LINK: string = 'ROWRE_INTERNAL_LINK';
     public static ROOM_LINK: string = 'ROWRE_ROOM_LINK';
+    public static YOUTUBE: string = 'ROWRE_YOUTUBE';
 
     constructor(type: string, roomObject: IRoomObject)
     {

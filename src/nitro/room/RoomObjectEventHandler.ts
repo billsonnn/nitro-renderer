@@ -289,6 +289,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             case RoomObjectWidgetRequestEvent.HIDE_HIGH_SCORE_DISPLAY:
             case RoomObjectWidgetRequestEvent.INERNAL_LINK:
             case RoomObjectWidgetRequestEvent.ROOM_LINK:
+            case RoomObjectWidgetRequestEvent.YOUTUBE:
                 this.onRoomObjectWidgetRequestEvent((event as RoomObjectWidgetRequestEvent), roomId);
                 return;
             case RoomObjectFurnitureActionEvent.DICE_ACTIVATE:
@@ -872,6 +873,9 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 return;
             case RoomObjectWidgetRequestEvent.ROOM_LINK:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ROOM_LINK, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.YOUTUBE:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_YOUTUBE, roomId, objectId, objectCategory));
                 return;
         }
     }
