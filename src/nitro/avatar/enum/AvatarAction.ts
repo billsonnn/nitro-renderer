@@ -35,7 +35,7 @@ export class AvatarAction
     public static POSTURE_SWIM = 'swim';
     public static POSTURE_WALK = 'mv';
     public static SIGN = 'sign';
-    public static SLEEP = 'sleep';
+    public static SLEEP = 'Sleep';
     public static SNOWWAR_DIE_BACK = 'swdieback';
     public static SNOWWAR_DIE_FRONT = 'swdiefront';
     public static SNOWWAR_PICK = 'swpick';
