@@ -25,6 +25,7 @@ export * from './RoomSessionPollEvent';
 export * from './RoomSessionPresentEvent';
 export * from './RoomSessionPropertyUpdateEvent';
 export * from './RoomSessionQueueEvent';
+export * from './RoomSessionSpectatorModeEvent';
 export * from './RoomSessionUserBadgesEvent';
 export * from './RoomSessionUserDataUpdateEvent';
 export * from './RoomSessionUserFigureUpdateEvent';

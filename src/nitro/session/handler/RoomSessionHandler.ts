@@ -4,9 +4,11 @@ import { RoomDoorbellAcceptedEvent } from '../../communication/messages/incoming
 import { RoomDoorbellRejectedEvent } from '../../communication/messages/incoming/room/access/doorbell/RoomDoorbellRejectedEvent';
 import { RoomEnterEvent } from '../../communication/messages/incoming/room/access/RoomEnterEvent';
 import { RoomReadyMessageEvent } from '../../communication/messages/incoming/room/mapping/RoomReadyMessageEvent';
+import { YouAreSpectatorMessageEvent } from '../../communication/messages/incoming/room/session/YouAreSpectatorMessageEvent';
 import { GoToFlatMessageComposer } from '../../communication/messages/outgoing/room/session/GoToFlatMessageComposer';
 import { RoomSessionDoorbellEvent } from '../events/RoomSessionDoorbellEvent';
 import { IRoomHandlerListener } from '../IRoomHandlerListener';
+import { RoomSessionSpectatorModeEvent } from './../events/RoomSessionSpectatorModeEvent';
 import { BaseHandler } from './BaseHandler';
 
 export class RoomSessionHandler extends BaseHandler
@@ -24,6 +26,7 @@ export class RoomSessionHandler extends BaseHandler
         connection.addMessageEvent(new DesktopViewEvent(this.onDesktopViewEvent.bind(this)));
         connection.addMessageEvent(new RoomDoorbellAcceptedEvent(this.onRoomDoorbellAcceptedEvent.bind(this)));
         connection.addMessageEvent(new RoomDoorbellRejectedEvent(this.onRoomDoorbellRejectedEvent.bind(this)));
+        connection.addMessageEvent(new YouAreSpectatorMessageEvent(this.onYouAreSpectatorMessageEvent.bind(this)));
     }
 
     private onRoomEnterEvent(event: RoomEnterEvent): void
@@ -105,6 +108,19 @@ export class RoomSessionHandler extends BaseHandler
 
                 this.listener.events.dispatchEvent(new RoomSessionDoorbellEvent(RoomSessionDoorbellEvent.RSDE_REJECTED, session, username));
             }
+        }
+    }
+
+    private onYouAreSpectatorMessageEvent(event: YouAreSpectatorMessageEvent): void
+    {
+        if(this.listener)
+        {
+            const session = this.listener.getSession(this.roomId);
+
+            if(!session) return;
+
+            session.isSpectator = true;
+            this.listener.events.dispatchEvent(new RoomSessionSpectatorModeEvent(RoomSessionSpectatorModeEvent.SPECTATOR_MODE, session));
         }
     }
 }
