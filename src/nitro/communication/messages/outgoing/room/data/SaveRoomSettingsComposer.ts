@@ -1,10 +1,15 @@
 import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
 
-export class SaveRoomSettingsComposer implements IMessageComposer<ConstructorParameters<typeof SaveRoomSettingsComposer>>
+export class SaveRoomSettingsComposer
+implements
+        IMessageComposer<
+            ConstructorParameters<typeof SaveRoomSettingsComposer>
+        >
 {
     private _data: ConstructorParameters<typeof SaveRoomSettingsComposer>;
 
-    constructor(roomId: number,
+    constructor(
+        roomId: number,
         roomName: string,
         roomDescription: string,
         lockState: number,
@@ -30,16 +35,22 @@ export class SaveRoomSettingsComposer implements IMessageComposer<ConstructorPar
         chatFloodProtection: number
     )
     {
-        this._data = [
+        //@ts-ignore
+        this._data = [];
+
+        this._data.push(
             roomId,
             roomName,
             roomDescription,
             lockState,
             password,
             userCount,
-            categoryId,
-            tagsCount,
-            tags,
+            categoryId
+        );
+
+        this._data.push(tags.length, ...tags);
+
+        this._data.push(
             tradeState,
             allowPets,
             allowPetsEat,
@@ -55,7 +66,7 @@ export class SaveRoomSettingsComposer implements IMessageComposer<ConstructorPar
             chatBubbleSpeed,
             chatDistance,
             chatFloodProtection
-        ];
+        );
     }
 
     public getMessageArray()
