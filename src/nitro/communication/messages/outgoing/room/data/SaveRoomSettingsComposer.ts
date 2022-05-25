@@ -35,6 +35,9 @@ implements
         chatFloodProtection: number
     )
     {
+        //@ts-ignore
+        this._data = [];
+
         this._data.push(
             roomId,
             roomName,
