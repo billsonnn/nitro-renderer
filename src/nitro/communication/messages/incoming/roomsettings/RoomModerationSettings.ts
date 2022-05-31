@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../core';
+import { IMessageDataWrapper } from '../../../../../core';
 
 export class RoomModerationSettings
 {
@@ -11,19 +11,6 @@ export class RoomModerationSettings
     private _allowBan: number;
 
     constructor(wrapper: IMessageDataWrapper)
-    {
-        this.reset();
-        this.parse(wrapper);
-    }
-
-    private reset(): void
-    {
-        this._allowMute = 0;
-        this._allowKick = 0;
-        this._allowBan = 0;
-    }
-
-    public parse(wrapper: IMessageDataWrapper): void
     {
         this._allowMute = wrapper.readInt();
         this._allowKick = wrapper.readInt();

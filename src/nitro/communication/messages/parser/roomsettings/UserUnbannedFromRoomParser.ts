@@ -1,12 +1,14 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
-export class RoomSettingsSavedParser implements IMessageParser
+export class UserUnbannedFromRoomParser implements IMessageParser
 {
     private _roomId: number;
+    private _userId: number;
 
     public flush(): boolean
     {
         this._roomId = 0;
+        this._userId = 0;
 
         return true;
     }
@@ -16,6 +18,7 @@ export class RoomSettingsSavedParser implements IMessageParser
         if(!wrapper) return false;
 
         this._roomId = wrapper.readInt();
+        this._userId = wrapper.readInt();
 
         return true;
     }
@@ -23,5 +26,10 @@ export class RoomSettingsSavedParser implements IMessageParser
     public get roomId(): number
     {
         return this._roomId;
+    }
+
+    public get userId(): number
+    {
+        return this._userId;
     }
 }

@@ -1,11 +1,13 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
 
-export class RoomMutedParser implements IMessageParser
+export class RoomSettingsSavedParser implements IMessageParser
 {
-    private _isMuted: boolean;
+    private _roomId: number;
 
     public flush(): boolean
     {
+        this._roomId = 0;
+
         return true;
     }
 
@@ -13,13 +15,13 @@ export class RoomMutedParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._isMuted = wrapper.readBoolean();
+        this._roomId = wrapper.readInt();
 
         return true;
     }
 
-    public get isMuted(): boolean
+    public get roomId(): number
     {
-        return this._isMuted;
+        return this._roomId;
     }
 }

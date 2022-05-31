@@ -137,7 +137,7 @@ export class IncomingHeader
     public static ROOM_SETTINGS_CHAT = 1191;
     public static ROOM_SETTINGS_SAVE = 948;
     public static ROOM_SETTINGS_SAVE_ERROR = 1555;
-    public static ROOM_SETTINGS_UPDATED = 3297;
+    public static ROOM_INFO_UPDATED = 3297;
     public static ROOM_SPECTATOR = 1033;
     public static ROOM_THICKNESS = 3547;
     public static INFO_FEED_ENABLE = 3284;
@@ -375,4 +375,7 @@ export class IncomingHeader
     public static NOOBNESS_LEVEL = 3738;
     public static CAN_CREATE_ROOM_EVENT = 2599;
     public static FAVORITE_GROUP_UDPATE = 3403;
+    public static NO_SUCH_FLAT = 84;
+    public static ROOM_SETTINGS_ERROR = 2897;
+    public static SHOW_ENFORCE_ROOM_CATEGORY = 3896;
 }
