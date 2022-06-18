@@ -1,5 +1,5 @@
 import { IMessageConfiguration } from '../../core/communication/messages/IMessageConfiguration';
-import { AchievementNotificationMessageEvent, ActivityPointNotificationMessageEvent, AddJukeboxDiskComposer, ApproveNameMessageComposer, ApproveNameMessageEvent, AvailabilityTimeMessageEvent, BadgePointLimitsEvent, BadgeReceivedEvent, BonusRareInfoMessageEvent, BuildersClubFurniCountMessageEvent, BuildersClubSubscriptionStatusMessageEvent, BundleDiscountRulesetMessageEvent, BuyMarketplaceOfferMessageComposer, BuyMarketplaceTokensMessageComposer, CallForHelpFromForumMessageMessageComposer, CallForHelpFromForumThreadMessageComposer, CallForHelpFromIMMessageComposer, CallForHelpFromPhotoMessageComposer, CallForHelpFromSelfieMessageComposer, CallForHelpMessageComposer, CallForHelpPendingCallsDeletedMessageEvent, CallForHelpPendingCallsMessageEvent, CallForHelpReplyMessageEvent, CancelMarketplaceOfferMessageComposer, ChangeUserNameMessageComposer, ChangeUserNameResultMessageEvent, ChatReviewGuideDecidesOnOfferMessageComposer, ChatReviewGuideDetachedMessageComposer, ChatReviewGuideVoteMessageComposer, ChatReviewSessionCreateMessageComposer, ChatReviewSessionDetachedMessageEvent, ChatReviewSessionOfferedToGuideMessageEvent, ChatReviewSessionResultsMessageEvent, ChatReviewSessionStartedMessageEvent, ChatReviewSessionVotingStatusMessageEvent, CheckUserNameMessageComposer, CheckUserNameResultMessageEvent, CloseIssueDefaultActionMessageComposer, CloseIssuesMessageComposer, ClubGiftNotificationEvent, ControlYoutubeDisplayPlaybackMessageComposer, DeletePendingCallsForHelpMessageComposer, DirectSMSClubBuyAvailableMessageEvent, FigureUpdateEvent, ForwardToASubmittableRoomMessageComposer, ForwardToRandomCompetitionRoomMessageComposer, FurnitureGroupInfoComposer, GetBonusRareInfoMessageComposer, GetCatalogPageExpirationComposer, GetCatalogPageWithEarliestExpiryComposer, GetCfhChatlogMessageComposer, GetCfhStatusMessageComposer, GetCurrentTimingCodeMessageComposer, GetDirectClubBuyAvailableComposer, GetExtendedProfileByNameMessageComposer, GetFaqCategoryMessageComposer, GetFaqTextMessageComposer, GetForumsListMessageComposer, GetForumStatsMessageComposer, GetGiftMessageComposer, GetGuideReportingStatusMessageComposer, GetHabboBasicMembershipExtendOfferComposer, GetHabboClubExtendOfferMessageComposer, GetHabboGroupBadgesMessageComposer, GetInterstitialMessageComposer, GetJukeboxPlayListMessageComposer, GetLimitedOfferAppearingNextComposer, GetMarketplaceConfigurationMessageComposer, GetMarketplaceItemStatsComposer, GetMarketplaceOffersMessageComposer, GetMarketplaceOwnOffersMessageComposer, GetMessagesMessageComposer, GetNextTargetedOfferComposer, GetNowPlayingMessageComposer, GetOfficialSongIdMessageComposer, GetPendingCallsForHelpMessageComposer, GetQuizQuestionsComposer, GetRoomAdPurchaseInfoComposer, GetSeasonalCalendarDailyOfferComposer, GetSecondsUntilMessageComposer, GetSongInfoMessageComposer, GetSoundMachinePlayListMessageComposer, GetThreadMessageComposer, GetThreadsMessageComposer, GetUnreadForumsCountMessageComposer, GetUserSongDisksMessageComposer, GetYoutubeDisplayStatusMessageComposer, GoToFlatMessageComposer, GuideOnDutyStatusMessageEvent, GuideSessionAttachedMessageEvent, GuideSessionCreateMessageComposer, GuideSessionDetachedMessageEvent, GuideSessionEndedMessageEvent, GuideSessionErrorMessageEvent, GuideSessionFeedbackMessageComposer, GuideSessionGetRequesterRoomMessageComposer, GuideSessionGuideDecidesMessageComposer, GuideSessionInvitedToGuideRoomMessageEvent, GuideSessionInviteRequesterMessageComposer, GuideSessionIsTypingMessageComposer, GuideSessionMessageMessageComposer, GuideSessionMessageMessageEvent, GuideSessionOnDutyUpdateMessageComposer, GuideSessionPartnerIsTypingMessageEvent, GuideSessionReportMessageComposer, GuideSessionRequesterCancelsMessageComposer, GuideSessionRequesterRoomMessageEvent, GuideSessionResolvedMessageComposer, GuideSessionStartedMessageEvent, GuideTicketCreationResultMessageEvent, GuideTicketResolutionMessageEvent, HabboClubExtendOfferMessageEvent, HabboGroupBadgesMessageEvent, HotelClosedAndOpensEvent, HotelClosesAndWillOpenAtEvent, HotelMergeNameChangeEvent, HotelWillCloseInMinutesEvent, InfoFeedEnableMessageEvent, InterstitialMessageEvent, InterstitialShownMessageComposer, IsBadgeRequestFulfilledEvent, IsOfferGiftableMessageEvent, IssueCloseNotificationMessageEvent, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, LimitedOfferAppearingNextMessageEvent, MaintenanceStatusMessageEvent, MarkCatalogNewAdditionsPageOpenedComposer, ModerateMessageMessageComposer, ModerateThreadMessageComposer, ModToolPreferencesComposer, ModToolSanctionComposer, MysteryBoxKeysEvent, NotEnoughBalanceMessageEvent, NowPlayingMessageEvent, OfficialSongIdMessageEvent, OpenCampaignCalendarDoorAsStaffComposer, OpenCampaignCalendarDoorComposer, PetExperienceEvent, PetMountComposer, PetSupplementComposer, PickIssuesMessageComposer, PlayListMessageEvent, PlayListSongAddedMessageEvent, PollAnswerComposer, PollContentsEvent, PollErrorEvent, PollOfferEvent, PollRejectComposer, PollStartComposer, PostMessageMessageComposer, PostQuizAnswersComposer, PurchaseBasicMembershipExtensionComposer, PurchaseRoomAdMessageComposer, PurchaseTargetedOfferComposer, PurchaseVipMembershipExtensionComposer, QuestionAnsweredEvent, QuestionEvent, QuestionFinishedEvent, QuizDataMessageEvent, QuizResultsMessageEvent, RedeemMarketplaceOfferCreditsMessageComposer, ReleaseIssuesMessageComposer, RemoveAllRightsMessageComposer, RemoveJukeboxDiskComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, ResetPhoneNumberStateMessageComposer, RoomAdErrorEvent, RoomAdPurchaseInfoEvent, RoomCompetitionInitMessageComposer, RoomUnitGiveHandItemPetComposer, ScrGetKickbackInfoMessageComposer, ScrSendKickbackInfoMessageEvent, SearchFaqsMessageComposer, SeasonalCalendarDailyOfferMessageEvent, SellablePetPalettesMessageEvent, SetPhoneNumberVerificationStatusMessageComposer, SetTargetedOfferStateComposer, SetYoutubeDisplayPlaylistMessageComposer, ShopTargetedOfferViewedComposer, SubmitRoomToCompetitionMessageComposer, TalentTrackMessageEvent, TargetedOfferEvent, TargetedOfferNotFoundEvent, TogglePetBreedingComposer, TogglePetRidingComposer, TraxSongInfoMessageEvent, TryPhoneNumberMessageComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UpdateForumReadMarkerMessageComposer, UpdateForumSettingsMessageComposer, UpdateThreadMessageComposer, UsePetProductComposer, UserSongDisksInventoryMessageEvent, VerifyCodeMessageComposer, VoteForRoomMessageComposer, WardrobeMessageEvent } from './messages';
+import { AchievementNotificationMessageEvent, ActivityPointNotificationMessageEvent, AddFavouriteRoomMessageComposer, AddJukeboxDiskComposer, ApproveNameMessageComposer, ApproveNameMessageEvent, AvailabilityTimeMessageEvent, BadgePointLimitsEvent, BadgeReceivedEvent, BonusRareInfoMessageEvent, BuildersClubFurniCountMessageEvent, BuildersClubSubscriptionStatusMessageEvent, BundleDiscountRulesetMessageEvent, BuyMarketplaceOfferMessageComposer, BuyMarketplaceTokensMessageComposer, CallForHelpFromForumMessageMessageComposer, CallForHelpFromForumThreadMessageComposer, CallForHelpFromIMMessageComposer, CallForHelpFromPhotoMessageComposer, CallForHelpFromSelfieMessageComposer, CallForHelpMessageComposer, CallForHelpPendingCallsDeletedMessageEvent, CallForHelpPendingCallsMessageEvent, CallForHelpReplyMessageEvent, CancelEventMessageComposer, CancelMarketplaceOfferMessageComposer, CanCreateRoomEvent, CanCreateRoomMessageComposer, CategoriesWithVisitorCountEvent, ChangeUserNameMessageComposer, ChangeUserNameResultMessageEvent, ChatReviewGuideDecidesOnOfferMessageComposer, ChatReviewGuideDetachedMessageComposer, ChatReviewGuideVoteMessageComposer, ChatReviewSessionCreateMessageComposer, ChatReviewSessionDetachedMessageEvent, ChatReviewSessionOfferedToGuideMessageEvent, ChatReviewSessionResultsMessageEvent, ChatReviewSessionStartedMessageEvent, ChatReviewSessionVotingStatusMessageEvent, CheckUserNameMessageComposer, CheckUserNameResultMessageEvent, CloseIssueDefaultActionMessageComposer, CloseIssuesMessageComposer, ClubGiftNotificationEvent, CompetitionRoomsDataMessageEvent, CompetitionRoomsSearchMessageComposer, ControlYoutubeDisplayPlaybackMessageComposer, ConvertedRoomIdEvent, DeleteFavouriteRoomMessageComposer, DeletePendingCallsForHelpMessageComposer, DirectSMSClubBuyAvailableMessageEvent, DoorbellMessageEvent, EditEventMessageComposer, FavouriteChangedEvent, FavouritesEvent, FigureUpdateEvent, FlatAccessDeniedMessageEvent, FlatCreatedEvent, ForwardToARandomPromotedRoomMessageComposer, ForwardToASubmittableRoomMessageComposer, ForwardToRandomCompetitionRoomMessageComposer, ForwardToSomeRoomMessageComposer, FurnitureGroupInfoComposer, GetBonusRareInfoMessageComposer, GetCatalogPageExpirationComposer, GetCatalogPageWithEarliestExpiryComposer, GetCategoriesWithUserCountMessageComposer, GetCfhChatlogMessageComposer, GetCfhStatusMessageComposer, GetCurrentTimingCodeMessageComposer, GetDirectClubBuyAvailableComposer, GetExtendedProfileByNameMessageComposer, GetFaqCategoryMessageComposer, GetFaqTextMessageComposer, GetForumsListMessageComposer, GetForumStatsMessageComposer, GetGiftMessageComposer, GetGuestRoomMessageComposer, GetGuestRoomResultEvent, GetGuideReportingStatusMessageComposer, GetHabboBasicMembershipExtendOfferComposer, GetHabboClubExtendOfferMessageComposer, GetHabboGroupBadgesMessageComposer, GetInterstitialMessageComposer, GetJukeboxPlayListMessageComposer, GetLimitedOfferAppearingNextComposer, GetMarketplaceConfigurationMessageComposer, GetMarketplaceItemStatsComposer, GetMarketplaceOffersMessageComposer, GetMarketplaceOwnOffersMessageComposer, GetMessagesMessageComposer, GetNextTargetedOfferComposer, GetNowPlayingMessageComposer, GetOfficialRoomsMessageComposer, GetOfficialSongIdMessageComposer, GetPendingCallsForHelpMessageComposer, GetPopularRoomTagsMessageComposer, GetQuizQuestionsComposer, GetRoomAdPurchaseInfoComposer, GetSeasonalCalendarDailyOfferComposer, GetSecondsUntilMessageComposer, GetSongInfoMessageComposer, GetSoundMachinePlayListMessageComposer, GetThreadMessageComposer, GetThreadsMessageComposer, GetUnreadForumsCountMessageComposer, GetUserSongDisksMessageComposer, GetYoutubeDisplayStatusMessageComposer, GoToFlatMessageComposer, GuideOnDutyStatusMessageEvent, GuideSessionAttachedMessageEvent, GuideSessionCreateMessageComposer, GuideSessionDetachedMessageEvent, GuideSessionEndedMessageEvent, GuideSessionErrorMessageEvent, GuideSessionFeedbackMessageComposer, GuideSessionGetRequesterRoomMessageComposer, GuideSessionGuideDecidesMessageComposer, GuideSessionInvitedToGuideRoomMessageEvent, GuideSessionInviteRequesterMessageComposer, GuideSessionIsTypingMessageComposer, GuideSessionMessageMessageComposer, GuideSessionMessageMessageEvent, GuideSessionOnDutyUpdateMessageComposer, GuideSessionPartnerIsTypingMessageEvent, GuideSessionReportMessageComposer, GuideSessionRequesterCancelsMessageComposer, GuideSessionRequesterRoomMessageEvent, GuideSessionResolvedMessageComposer, GuideSessionStartedMessageEvent, GuideTicketCreationResultMessageEvent, GuideTicketResolutionMessageEvent, GuildBaseSearchMessageComposer, HabboClubExtendOfferMessageEvent, HabboGroupBadgesMessageEvent, HotelClosedAndOpensEvent, HotelClosesAndWillOpenAtEvent, HotelMergeNameChangeEvent, HotelWillCloseInMinutesEvent, InfoFeedEnableMessageEvent, InterstitialMessageEvent, InterstitialShownMessageComposer, IsBadgeRequestFulfilledEvent, IsOfferGiftableMessageEvent, IssueCloseNotificationMessageEvent, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, LimitedOfferAppearingNextMessageEvent, MaintenanceStatusMessageEvent, MarkCatalogNewAdditionsPageOpenedComposer, ModerateMessageMessageComposer, ModerateThreadMessageComposer, ModToolPreferencesComposer, ModToolSanctionComposer, MyFavouriteRoomsSearchMessageComposer, MyFrequentRoomHistorySearchMessageComposer, MyFriendsRoomsSearchMessageComposer, MyGuildBasesSearchMessageComposer, MyRecommendedRoomsMessageComposer, MyRoomHistorySearchMessageComposer, MyRoomRightsSearchMessageComposer, MyRoomsSearchMessageComposer, MysteryBoxKeysEvent, NotEnoughBalanceMessageEvent, NowPlayingMessageEvent, OfficialSongIdMessageEvent, OpenCampaignCalendarDoorAsStaffComposer, OpenCampaignCalendarDoorComposer, PetExperienceEvent, PetMountComposer, PetSupplementComposer, PickIssuesMessageComposer, PlayListMessageEvent, PlayListSongAddedMessageEvent, PollAnswerComposer, PollContentsEvent, PollErrorEvent, PollOfferEvent, PollRejectComposer, PollStartComposer, PopularRoomsSearchMessageComposer, PostMessageMessageComposer, PostQuizAnswersComposer, PurchaseBasicMembershipExtensionComposer, PurchaseRoomAdMessageComposer, PurchaseTargetedOfferComposer, PurchaseVipMembershipExtensionComposer, QuestionAnsweredEvent, QuestionEvent, QuestionFinishedEvent, QuizDataMessageEvent, QuizResultsMessageEvent, RateFlatMessageComposer, RedeemMarketplaceOfferCreditsMessageComposer, ReleaseIssuesMessageComposer, RemoveAllRightsMessageComposer, RemoveJukeboxDiskComposer, RemoveOwnRoomRightsRoomMessageComposer, RemovePetSaddleComposer, ResetPhoneNumberStateMessageComposer, RoomAdErrorEvent, RoomAdEventTabAdClickedComposer, RoomAdEventTabViewedComposer, RoomAdPurchaseInfoEvent, RoomAdSearchMessageComposer, RoomCompetitionInitMessageComposer, RoomEventCancelEvent, RoomEventEvent, RoomsWhereMyFriendsAreSearchMessageComposer, RoomsWithHighestScoreSearchMessageComposer, RoomTextSearchMessageComposer, RoomThumbnailUpdateResultEvent, RoomUnitGiveHandItemPetComposer, ScrGetKickbackInfoMessageComposer, ScrSendKickbackInfoMessageEvent, SearchFaqsMessageComposer, SeasonalCalendarDailyOfferMessageEvent, SellablePetPalettesMessageEvent, SetPhoneNumberVerificationStatusMessageComposer, SetRoomSessionTagsMessageComposer, SetTargetedOfferStateComposer, SetYoutubeDisplayPlaylistMessageComposer, ShopTargetedOfferViewedComposer, SubmitRoomToCompetitionMessageComposer, TalentTrackMessageEvent, TargetedOfferEvent, TargetedOfferNotFoundEvent, TogglePetBreedingComposer, TogglePetRidingComposer, ToggleStaffPickMessageComposer, TraxSongInfoMessageEvent, TryPhoneNumberMessageComposer, UnseenResetCategoryComposer, UnseenResetItemsComposer, UpdateForumReadMarkerMessageComposer, UpdateForumSettingsMessageComposer, UpdateHomeRoomMessageComposer, UpdateRoomThumbnailMessageComposer, UpdateThreadMessageComposer, UsePetProductComposer, UserSongDisksInventoryMessageEvent, VerifyCodeMessageComposer, VoteForRoomMessageComposer, WardrobeMessageEvent } from './messages';
 import { AvailabilityStatusMessageEvent } from './messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { BotAddedToInventoryEvent, BotInventoryMessageEvent, BotReceivedMessageEvent, BotRemovedFromInventoryEvent } from './messages/incoming/bots';
 import { CfhSanctionMessageEvent, CfhTopicsInitEvent, SanctionStatusEvent } from './messages/incoming/callforhelp';
@@ -98,9 +98,8 @@ import { MarketplaceOwnOffersEvent } from './messages/incoming/marketplace/Marke
 import { CfhChatlogEvent, IssueDeletedMessageEvent, IssueInfoMessageEvent, IssuePickFailedMessageEvent, ModeratorActionResultMessageEvent, ModeratorInitMessageEvent, ModeratorMessageEvent, ModeratorRoomInfoEvent, ModeratorToolPreferencesEvent, ModeratorUserInfoEvent, RoomChatlogEvent, RoomVisitsEvent, UserBannedMessageEvent, UserChatlogEvent } from './messages/incoming/moderation';
 import { ModeratorCautionEvent } from './messages/incoming/moderation/ModeratorCautionEvent';
 import { CanCreateRoomEventEvent } from './messages/incoming/navigator/CanCreateRoomEventEvent';
-import { NavigatorCategoriesEvent } from './messages/incoming/navigator/NavigatorCategoriesEvent';
+import { GuestRoomSearchResultEvent } from './messages/incoming/navigator/GuestRoomSearchResultEvent';
 import { NavigatorCollapsedEvent } from './messages/incoming/navigator/NavigatorCollapsedEvent';
-import { NavigatorEventCategoriesEvent } from './messages/incoming/navigator/NavigatorEventCategoriesEvent';
 import { NavigatorHomeRoomEvent } from './messages/incoming/navigator/NavigatorHomeRoomEvent';
 import { NavigatorLiftedEvent } from './messages/incoming/navigator/NavigatorLiftedEvent';
 import { NavigatorMetadataEvent } from './messages/incoming/navigator/NavigatorMetadataEvent';
@@ -109,6 +108,8 @@ import { NavigatorSearchesEvent } from './messages/incoming/navigator/NavigatorS
 import { NavigatorSearchEvent } from './messages/incoming/navigator/NavigatorSearchEvent';
 import { NavigatorSettingsEvent } from './messages/incoming/navigator/NavigatorSettingsEvent';
 import { RoomSettingsUpdatedEvent } from './messages/incoming/navigator/RoomSettingsUpdatedEvent';
+import { UserEventCatsEvent } from './messages/incoming/navigator/UserEventCatsEvent';
+import { UserFlatCatsEvent } from './messages/incoming/navigator/UserFlatCatsEvent';
 import { BotErrorEvent } from './messages/incoming/notifications/BotErrorEvent';
 import { HabboBroadcastMessageEvent } from './messages/incoming/notifications/HabboBroadcastMessageEvent';
 import { MOTDNotificationEvent } from './messages/incoming/notifications/MOTDNotificationEvent';
@@ -129,8 +130,6 @@ import { QuestMessageEvent } from './messages/incoming/quest/QuestMessageEvent';
 import { QuestsMessageEvent } from './messages/incoming/quest/QuestsMessageEvent';
 import { SeasonalQuestsMessageEvent } from './messages/incoming/quest/SeasonalQuestsMessageEvent';
 import { RoomDoorbellAcceptedEvent } from './messages/incoming/room/access/doorbell/RoomDoorbellAcceptedEvent';
-import { RoomDoorbellEvent } from './messages/incoming/room/access/doorbell/RoomDoorbellEvent';
-import { RoomDoorbellRejectedEvent } from './messages/incoming/room/access/doorbell/RoomDoorbellRejectedEvent';
 import { RoomRightsClearEvent } from './messages/incoming/room/access/rights/RoomRightsClearEvent';
 import { RoomRightsEvent } from './messages/incoming/room/access/rights/RoomRightsEvent';
 import { RoomRightsOwnerEvent } from './messages/incoming/room/access/rights/RoomRightsOwnerEvent';
@@ -138,14 +137,12 @@ import { RoomEnterErrorEvent } from './messages/incoming/room/access/RoomEnterEr
 import { RoomEnterEvent } from './messages/incoming/room/access/RoomEnterEvent';
 import { RoomForwardEvent } from './messages/incoming/room/access/RoomForwardEvent';
 import { BotCommandConfigurationEvent } from './messages/incoming/room/bots/BotCommandConfigurationEvent';
-import { GetGuestRoomResultEvent } from './messages/incoming/room/data/GetGuestRoomResultEvent';
 import { RoomChatSettingsEvent } from './messages/incoming/room/data/RoomChatSettingsEvent';
 import { RoomEntryInfoMessageEvent } from './messages/incoming/room/data/RoomEntryInfoMessageEvent';
 import { RoomScoreEvent } from './messages/incoming/room/data/RoomScoreEvent';
 import { FavoriteMembershipUpdateMessageEvent } from './messages/incoming/room/engine/FavoriteMembershipUpdateMessageEvent';
 import { ObjectsDataUpdateEvent } from './messages/incoming/room/engine/ObjectsDataUpdateEvent';
 import { ObjectsRollingEvent } from './messages/incoming/room/engine/ObjectsRollingEvent';
-import { RoomCreatedEvent } from './messages/incoming/room/engine/RoomCreatedEvent';
 import { DiceValueMessageEvent } from './messages/incoming/room/furniture/DiceValueMessageEvent';
 import { FurnitureFloorAddEvent } from './messages/incoming/room/furniture/floor/FurnitureFloorAddEvent';
 import { FurnitureFloorEvent } from './messages/incoming/room/furniture/floor/FurnitureFloorEvent';
@@ -349,14 +346,15 @@ import { ModMessageMessageComposer } from './messages/outgoing/moderation/ModMes
 import { ModMuteMessageComposer } from './messages/outgoing/moderation/ModMuteMessageComposer';
 import { ModTradingLockMessageComposer } from './messages/outgoing/moderation/ModTradingLockMessageComposer';
 import { ConvertGlobalRoomIdMessageComposer } from './messages/outgoing/navigator/ConvertGlobalRoomIdComposer';
-import { NavigatorCategoriesComposer } from './messages/outgoing/navigator/NavigatorCategoriesComposer';
+import { CreateFlatMessageComposer } from './messages/outgoing/navigator/CreateFlatMessageComposer';
+import { GetUserEventCatsMessageComposer } from './messages/outgoing/navigator/GetUserEventCatsMessageComposer';
+import { GetUserFlatCatsMessageComposer } from './messages/outgoing/navigator/GetUserFlatCatsMessageComposer';
 import { NavigatorCategoryListModeComposer } from './messages/outgoing/navigator/NavigatorCategoryListModeComposer';
 import { NavigatorInitComposer } from './messages/outgoing/navigator/NavigatorInitComposer';
 import { NavigatorSearchCloseComposer } from './messages/outgoing/navigator/NavigatorSearchCloseComposer';
 import { NavigatorSearchComposer } from './messages/outgoing/navigator/NavigatorSearchComposer';
 import { NavigatorSearchOpenComposer } from './messages/outgoing/navigator/NavigatorSearchOpenComposer';
 import { NavigatorSearchSaveComposer } from './messages/outgoing/navigator/NavigatorSearchSaveComposer';
-import { NavigatorSettingsComposer } from './messages/outgoing/navigator/NavigatorSettingsComposer';
 import { NavigatorSettingsSaveComposer } from './messages/outgoing/navigator/NavigatorSettingsSaveComposer';
 import { OutgoingHeader } from './messages/outgoing/OutgoingHeader';
 import { PetRespectComposer } from './messages/outgoing/pet/PetRespectComposer';
@@ -384,14 +382,11 @@ import { RoomBanUserComposer } from './messages/outgoing/room/action/RoomBanUser
 import { RoomDeleteComposer } from './messages/outgoing/room/action/RoomDeleteComposer';
 import { RoomGiveRightsComposer } from './messages/outgoing/room/action/RoomGiveRightsComposer';
 import { RoomKickUserComposer } from './messages/outgoing/room/action/RoomKickUserComposer';
-import { RoomLikeRoomComposer } from './messages/outgoing/room/action/RoomLikeRoomComposer';
 import { RoomMuteUserComposer } from './messages/outgoing/room/action/RoomMuteUserComposer';
-import { RoomStaffPickComposer } from './messages/outgoing/room/action/RoomStaffPickComposer';
 import { RoomTakeRightsComposer } from './messages/outgoing/room/action/RoomTakeRightsComposer';
 import { RoomUnbanUserComposer } from './messages/outgoing/room/action/RoomUnbanUserComposer';
 import { RequestBotCommandConfigurationComposer } from './messages/outgoing/room/bots/RequestBotConfigurationComposer';
 import { RoomBannedUsersComposer } from './messages/outgoing/room/data/RoomBannedUsersComposer';
-import { RoomInfoComposer } from './messages/outgoing/room/data/RoomInfoComposer';
 import { RoomSettingsComposer } from './messages/outgoing/room/data/RoomSettingsComposer';
 import { RoomUsersWithRightsComposer } from './messages/outgoing/room/data/RoomUsersWithRightsComposer';
 import { SaveRoomSettingsComposer } from './messages/outgoing/room/data/SaveRoomSettingsComposer';
@@ -436,7 +431,6 @@ import { GetRoomEntryDataMessageComposer } from './messages/outgoing/room/layout
 import { GetRoomEntryTileMessageComposer } from './messages/outgoing/room/layout/GetRoomEntryTileMessageComposer';
 import { UpdateFloorPropertiesMessageComposer } from './messages/outgoing/room/layout/UpdateFloorPropertiesMessageComposer';
 import { RedeemItemClothingComposer } from './messages/outgoing/room/RedeemItemClothingComposer';
-import { RoomCreateComposer } from './messages/outgoing/room/RoomCreateComposer';
 import { RoomUnitChatComposer } from './messages/outgoing/room/unit/chat/RoomUnitChatComposer';
 import { RoomUnitChatShoutComposer } from './messages/outgoing/room/unit/chat/RoomUnitChatShoutComposer';
 import { RoomUnitChatStyleComposer } from './messages/outgoing/room/unit/chat/RoomUnitChatStyleComposer';
@@ -466,7 +460,6 @@ import { IgnoreUserIdComposer } from './messages/outgoing/user/data/IgnoreUserId
 import { UnignoreUserComposer } from './messages/outgoing/user/data/UnignoreUserComposer';
 import { UserCurrentBadgesComposer } from './messages/outgoing/user/data/UserCurrentBadgesComposer';
 import { UserFigureComposer } from './messages/outgoing/user/data/UserFigureComposer';
-import { UserHomeRoomComposer } from './messages/outgoing/user/data/UserHomeRoomComposer';
 import { UserMottoComposer } from './messages/outgoing/user/data/UserMottoComposer';
 import { UserProfileComposer } from './messages/outgoing/user/data/UserProfileComposer';
 import { UserRelationshipsComposer } from './messages/outgoing/user/data/UserRelationshipsComposer';
@@ -735,17 +728,33 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.MYSTERY_BOX_KEYS, MysteryBoxKeysEvent);
 
         // NAVIGATOR
-        this._events.set(IncomingHeader.NAVIGATOR_CATEGORIES, NavigatorCategoriesEvent);
-        this._events.set(IncomingHeader.NAVIGATOR_COLLAPSED, NavigatorCollapsedEvent);
-        this._events.set(IncomingHeader.NAVIGATOR_EVENT_CATEGORIES, NavigatorEventCategoriesEvent);
+        this._events.set(IncomingHeader.CAN_CREATE_ROOM, CanCreateRoomEvent);
+        this._events.set(IncomingHeader.CAN_CREATE_ROOM_EVENT, CanCreateRoomEventEvent);
+        this._events.set(IncomingHeader.CATEGORIES_WITH_VISITOR_COUNT, CategoriesWithVisitorCountEvent);
+        this._events.set(IncomingHeader.COMPETITION_ROOMS_DATA, CompetitionRoomsDataMessageEvent);
+        this._events.set(IncomingHeader.CONVERTED_ROOM_ID, ConvertedRoomIdEvent);
+        this._events.set(IncomingHeader.ROOM_DOORBELL, DoorbellMessageEvent);
+        this._events.set(IncomingHeader.USER_FAVORITE_ROOM, FavouriteChangedEvent);
+        this._events.set(IncomingHeader.USER_FAVORITE_ROOM_COUNT, FavouritesEvent);
+        this._events.set(IncomingHeader.ROOM_DOORBELL_REJECTED, FlatAccessDeniedMessageEvent);
+        this._events.set(IncomingHeader.ROOM_CREATED, FlatCreatedEvent);
+        this._events.set(IncomingHeader.ROOM_INFO, GetGuestRoomResultEvent);
+        this._events.set(IncomingHeader.GUEST_ROOM_SEARCH_RESULT, GuestRoomSearchResultEvent);
         this._events.set(IncomingHeader.USER_HOME_ROOM, NavigatorHomeRoomEvent);
+        this._events.set(IncomingHeader.ROOM_EVENT_CANCEL, RoomEventCancelEvent);
+        this._events.set(IncomingHeader.ROOM_EVENT, RoomEventEvent);
+        this._events.set(IncomingHeader.ROOM_INFO_UPDATED, RoomSettingsUpdatedEvent);
+        this._events.set(IncomingHeader.THUMBNAIL_UPDATE_RESULT, RoomThumbnailUpdateResultEvent);
+        this._events.set(IncomingHeader.NAVIGATOR_EVENT_CATEGORIES, UserEventCatsEvent);
+        this._events.set(IncomingHeader.NAVIGATOR_CATEGORIES, UserFlatCatsEvent);
+
+        this._events.set(IncomingHeader.NAVIGATOR_COLLAPSED, NavigatorCollapsedEvent);
         this._events.set(IncomingHeader.NAVIGATOR_LIFTED, NavigatorLiftedEvent);
         this._events.set(IncomingHeader.NAVIGATOR_METADATA, NavigatorMetadataEvent);
         this._events.set(IncomingHeader.NAVIGATOR_OPEN_ROOM_CREATOR, NavigatorOpenRoomCreatorEvent);
         this._events.set(IncomingHeader.NAVIGATOR_SEARCHES, NavigatorSearchesEvent);
         this._events.set(IncomingHeader.NAVIGATOR_SEARCH, NavigatorSearchEvent);
         this._events.set(IncomingHeader.NAVIGATOR_SETTINGS, NavigatorSettingsEvent);
-        this._events.set(IncomingHeader.CAN_CREATE_ROOM_EVENT, CanCreateRoomEventEvent);
 
         // NOTIFICATIONS
         this._events.set(IncomingHeader.GENERIC_ALERT, HabboBroadcastMessageEvent);
@@ -787,19 +796,15 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.ROOM_ENTER_ERROR, RoomEnterErrorEvent);
         this._events.set(IncomingHeader.ROOM_ENTER, RoomEnterEvent);
         this._events.set(IncomingHeader.ROOM_FORWARD, RoomForwardEvent);
-        this._events.set(IncomingHeader.ROOM_DOORBELL, RoomDoorbellEvent);
         this._events.set(IncomingHeader.ROOM_DOORBELL_ACCEPTED, RoomDoorbellAcceptedEvent);
-        this._events.set(IncomingHeader.ROOM_DOORBELL_REJECTED, RoomDoorbellRejectedEvent);
         this._events.set(IncomingHeader.ROOM_RIGHTS_CLEAR, RoomRightsClearEvent);
         this._events.set(IncomingHeader.ROOM_RIGHTS_OWNER, RoomRightsOwnerEvent);
         this._events.set(IncomingHeader.ROOM_RIGHTS, RoomRightsEvent);
         this._events.set(IncomingHeader.BOT_COMMAND_CONFIGURATION, BotCommandConfigurationEvent);
         this._events.set(IncomingHeader.ROOM_SETTINGS_CHAT, RoomChatSettingsEvent);
-        this._events.set(IncomingHeader.ROOM_INFO, GetGuestRoomResultEvent);
         this._events.set(IncomingHeader.ROOM_INFO_OWNER, RoomEntryInfoMessageEvent);
         this._events.set(IncomingHeader.ROOM_SCORE, RoomScoreEvent);
         this._events.set(IncomingHeader.ROOM_ROLLING, ObjectsRollingEvent);
-        this._events.set(IncomingHeader.ROOM_CREATED, RoomCreatedEvent);
         this._events.set(IncomingHeader.FURNITURE_FLOOR_ADD, FurnitureFloorAddEvent);
         this._events.set(IncomingHeader.FURNITURE_FLOOR, FurnitureFloorEvent);
         this._events.set(IncomingHeader.FURNITURE_FLOOR_REMOVE, FurnitureFloorRemoveEvent);
@@ -832,7 +837,6 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.ROOM_SETTINGS_SAVE_ERROR, RoomSettingsSaveErrorEvent);
         this._events.set(IncomingHeader.ROOM_SETTINGS, RoomSettingsDataEvent);
         this._events.set(IncomingHeader.ROOM_SETTINGS_SAVE, RoomSettingsSavedEvent);
-        this._events.set(IncomingHeader.ROOM_INFO_UPDATED, RoomSettingsUpdatedEvent);
         this._events.set(IncomingHeader.ROOM_SETTINGS_ERROR, RoomSettingsErrorEvent);
         this._events.set(IncomingHeader.SHOW_ENFORCE_ROOM_CATEGORY, ShowEnforceRoomCategoryDialogEvent);
         this._events.set(IncomingHeader.ROOM_BAN_REMOVE, UserUnbannedFromRoomEvent);
@@ -1121,17 +1125,52 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.GROUP_BADGES, GetHabboGroupBadgesMessageComposer);
 
         // NAVIGATOR
-        this._composers.set(OutgoingHeader.NAVIGATOR_CATEGORIES, NavigatorCategoriesComposer);
+        this._composers.set(OutgoingHeader.ROOM_FAVORITE, AddFavouriteRoomMessageComposer);
+        this._composers.set(OutgoingHeader.CAN_CREATE_ROOM, CanCreateRoomMessageComposer);
+        this._composers.set(OutgoingHeader.CANCEL_ROOM_EVENT, CancelEventMessageComposer);
+        this._composers.set(OutgoingHeader.CONVERT_GLOBAL_ROOM_ID, ConvertGlobalRoomIdMessageComposer);
+        this._composers.set(OutgoingHeader.COMPETITION_ROOM_SEARCH, CompetitionRoomsSearchMessageComposer);
+        this._composers.set(OutgoingHeader.ROOM_CREATE, CreateFlatMessageComposer);
+        this._composers.set(OutgoingHeader.GET_USER_FLAT_CATS, GetUserFlatCatsMessageComposer);
+        this._composers.set(OutgoingHeader.GET_USER_EVENT_CATS, GetUserEventCatsMessageComposer);
+        this._composers.set(OutgoingHeader.ROOM_FAVORITE_REMOVE, DeleteFavouriteRoomMessageComposer);
+        this._composers.set(OutgoingHeader.EDIT_ROOM_EVENT, EditEventMessageComposer);
+        this._composers.set(OutgoingHeader.FORWARD_TO_RANDOM_PROMOTED_ROOM, ForwardToARandomPromotedRoomMessageComposer);
+        this._composers.set(OutgoingHeader.FORWARD_TO_SOME_ROOM, ForwardToSomeRoomMessageComposer);
+        this._composers.set(OutgoingHeader.GET_CATEGORIES_WITH_USER_COUNT, GetCategoriesWithUserCountMessageComposer);
+        this._composers.set(OutgoingHeader.GET_GUEST_ROOM, GetGuestRoomMessageComposer);
+        this._composers.set(OutgoingHeader.GET_OFFICIAL_ROOMS, GetOfficialRoomsMessageComposer);
+        this._composers.set(OutgoingHeader.GET_POPULAR_ROOM_TAGS, GetPopularRoomTagsMessageComposer);
+        this._composers.set(OutgoingHeader.GUILD_BASE_SEARCH, GuildBaseSearchMessageComposer);
+        this._composers.set(OutgoingHeader.MY_FAVOURITE_ROOMS_SEARCH, MyFavouriteRoomsSearchMessageComposer);
+        this._composers.set(OutgoingHeader.MY_FREQUENT_ROOM_HISTORY_SEARCH, MyFrequentRoomHistorySearchMessageComposer);
+        this._composers.set(OutgoingHeader.MY_FRIENDS_ROOM_SEARCH, MyFriendsRoomsSearchMessageComposer);
+        this._composers.set(OutgoingHeader.MY_GUILD_BASES_SEARCH, MyGuildBasesSearchMessageComposer);
+        this._composers.set(OutgoingHeader.MY_RECOMMENDED_ROOMS, MyRecommendedRoomsMessageComposer);
+        this._composers.set(OutgoingHeader.MY_ROOM_HISTORY_SEARCH, MyRoomHistorySearchMessageComposer);
+        this._composers.set(OutgoingHeader.MY_ROOM_RIGHTS_SEARCH, MyRoomRightsSearchMessageComposer);
+        this._composers.set(OutgoingHeader.MY_ROOMS_SEARCH, MyRoomsSearchMessageComposer);
+        this._composers.set(OutgoingHeader.POPULAR_ROOMS_SEARCH, PopularRoomsSearchMessageComposer);
+        this._composers.set(OutgoingHeader.ROOM_LIKE, RateFlatMessageComposer);
+        this._composers.set(OutgoingHeader.ROOM_RIGHTS_REMOVE_OWN, RemoveOwnRoomRightsRoomMessageComposer);
+        this._composers.set(OutgoingHeader.ROOM_AD_EVENT_TAB_CLICKED, RoomAdEventTabAdClickedComposer);
+        this._composers.set(OutgoingHeader.ROOM_AD_EVENT_TAB_VIEWED, RoomAdEventTabViewedComposer);
+        this._composers.set(OutgoingHeader.ROOM_AD_SEARCH, RoomAdSearchMessageComposer);
+        this._composers.set(OutgoingHeader.ROOM_TEXT_SEARCH, RoomTextSearchMessageComposer);
+        this._composers.set(OutgoingHeader.ROOMS_WHERE_MY_FRIENDS_ARE, RoomsWhereMyFriendsAreSearchMessageComposer);
+        this._composers.set(OutgoingHeader.ROOMS_WITH_HIGHEST_SCORE_SEARCH, RoomsWithHighestScoreSearchMessageComposer);
+        this._composers.set(OutgoingHeader.SET_ROOM_SESSION_TAGS, SetRoomSessionTagsMessageComposer);
+        this._composers.set(OutgoingHeader.ROOM_STAFF_PICK, ToggleStaffPickMessageComposer);
+        this._composers.set(OutgoingHeader.USER_HOME_ROOM, UpdateHomeRoomMessageComposer);
+        this._composers.set(OutgoingHeader.UPDATE_ROOM_THUMBNAIL, UpdateRoomThumbnailMessageComposer);
+        // NEW NAVIGATOR
         this._composers.set(OutgoingHeader.NAVIGATOR_INIT, NavigatorInitComposer);
         this._composers.set(OutgoingHeader.NAVIGATOR_SEARCH_CLOSE, NavigatorSearchCloseComposer);
         this._composers.set(OutgoingHeader.NAVIGATOR_SEARCH, NavigatorSearchComposer);
         this._composers.set(OutgoingHeader.NAVIGATOR_SEARCH_OPEN, NavigatorSearchOpenComposer);
         this._composers.set(OutgoingHeader.NAVIGATOR_SEARCH_SAVE, NavigatorSearchSaveComposer);
-        this._composers.set(OutgoingHeader.NAVIGATOR_SETTINGS, NavigatorSettingsComposer);
         this._composers.set(OutgoingHeader.NAVIGATOR_SETTINGS_SAVE, NavigatorSettingsSaveComposer);
         this._composers.set(OutgoingHeader.NAVIGATOR_CATEGORY_LIST_MODE, NavigatorCategoryListModeComposer);
-        this._composers.set(OutgoingHeader.CONVERT_GLOBAL_ROOM_ID, ConvertGlobalRoomIdMessageComposer);
-        this._composers.set(OutgoingHeader.ROOM_RIGHTS_REMOVE_OWN, RemoveOwnRoomRightsRoomMessageComposer);
 
         // POLL
         this._composers.set(OutgoingHeader.POLL_ANSWER, PollAnswerComposer);
@@ -1183,7 +1222,6 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.USE_PET_PRODUCT, UsePetProductComposer);
 
         // ROOM
-        this._composers.set(OutgoingHeader.ROOM_CREATE, RoomCreateComposer);
 
         // ACCESS
         this._composers.set(OutgoingHeader.ROOM_ENTER, RoomEnterComposer);
@@ -1200,12 +1238,9 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.ROOM_RIGHTS_REMOVE, RoomTakeRightsComposer);
         this._composers.set(OutgoingHeader.ROOM_RIGHTS_REMOVE_ALL, RemoveAllRightsMessageComposer);
 
-        this._composers.set(OutgoingHeader.ROOM_LIKE, RoomLikeRoomComposer);
         this._composers.set(OutgoingHeader.ROOM_DELETE, RoomDeleteComposer);
-        this._composers.set(OutgoingHeader.ROOM_STAFF_PICK, RoomStaffPickComposer);
 
         // DATA
-        this._composers.set(OutgoingHeader.ROOM_INFO, RoomInfoComposer);
         this._composers.set(OutgoingHeader.ROOM_SETTINGS, RoomSettingsComposer);
         this._composers.set(OutgoingHeader.ROOM_SETTINGS_SAVE, SaveRoomSettingsComposer);
         this._composers.set(OutgoingHeader.ROOM_RIGHTS_LIST, RoomUsersWithRightsComposer);
@@ -1311,7 +1346,6 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.USER_UNIGNORE, UnignoreUserComposer);
         this._composers.set(OutgoingHeader.USER_BADGES_CURRENT, UserCurrentBadgesComposer);
         this._composers.set(OutgoingHeader.USER_FIGURE, UserFigureComposer);
-        this._composers.set(OutgoingHeader.USER_HOME_ROOM, UserHomeRoomComposer);
         this._composers.set(OutgoingHeader.USER_MOTTO, UserMottoComposer);
         this._composers.set(OutgoingHeader.USER_PROFILE, UserProfileComposer);
         this._composers.set(OutgoingHeader.USER_PROFILE_BY_NAME, GetExtendedProfileByNameMessageComposer);

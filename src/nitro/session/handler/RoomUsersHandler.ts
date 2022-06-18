@@ -1,9 +1,9 @@
 import { IConnection } from '../../../core/communication/connections/IConnection';
 import { PetFigureUpdateEvent } from '../../communication';
 import { NewFriendRequestEvent } from '../../communication/messages/incoming/friendlist/NewFriendRequestEvent';
+import { DoorbellMessageEvent } from '../../communication/messages/incoming/navigator/DoorbellMessageEvent';
 import { BotErrorEvent } from '../../communication/messages/incoming/notifications/BotErrorEvent';
 import { PetPlacingErrorEvent } from '../../communication/messages/incoming/notifications/PetPlacingErrorEvent';
-import { RoomDoorbellEvent } from '../../communication/messages/incoming/room/access/doorbell/RoomDoorbellEvent';
 import { FavoriteMembershipUpdateMessageEvent } from '../../communication/messages/incoming/room/engine/FavoriteMembershipUpdateMessageEvent';
 import { PetInfoEvent } from '../../communication/messages/incoming/room/pet/PetInfoEvent';
 import { PetStatusUpdateEvent } from '../../communication/messages/incoming/room/pet/PetStatusUpdateEvent';
@@ -38,7 +38,7 @@ export class RoomUsersHandler extends BaseHandler
         connection.addMessageEvent(new RoomUnitRemoveEvent(this.onRoomUnitRemoveEvent.bind(this)));
         connection.addMessageEvent(new RoomUnitDanceEvent(this.onRoomUnitDanceEvent.bind(this)));
         connection.addMessageEvent(new UserCurrentBadgesEvent(this.onUserCurrentBadgesEvent.bind(this)));
-        connection.addMessageEvent(new RoomDoorbellEvent(this.onRoomDoorbellEvent.bind(this)));
+        connection.addMessageEvent(new DoorbellMessageEvent(this.onRoomDoorbellEvent.bind(this)));
         connection.addMessageEvent(new UserNameChangeMessageEvent(this.onUserNameChangeMessageEvent.bind(this)));
         connection.addMessageEvent(new NewFriendRequestEvent(this.onNewFriendRequestEvent.bind(this)));
         connection.addMessageEvent(new PetInfoEvent(this.onPetInfoEvent.bind(this)));
@@ -164,7 +164,7 @@ export class RoomUsersHandler extends BaseHandler
         this.listener.events.dispatchEvent(new RoomSessionUserBadgesEvent(session, parser.userId, parser.badges));
     }
 
-    private onRoomDoorbellEvent(event: RoomDoorbellEvent): void
+    private onRoomDoorbellEvent(event: DoorbellMessageEvent): void
     {
         if(!this.listener) return;
 
