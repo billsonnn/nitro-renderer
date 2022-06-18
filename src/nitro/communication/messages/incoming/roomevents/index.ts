@@ -1,5 +1,4 @@
 export * from './ConditionDefinition';
-export * from './RoomMutedEvent';
 export * from './Triggerable';
 export * from './TriggerDefinition';
 export * from './WiredActionDefinition';

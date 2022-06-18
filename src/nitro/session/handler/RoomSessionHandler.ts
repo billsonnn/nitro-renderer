@@ -1,7 +1,7 @@
 import { IConnection } from '../../../core/communication/connections/IConnection';
 import { DesktopViewEvent } from '../../communication/messages/incoming/desktop/DesktopViewEvent';
+import { FlatAccessDeniedMessageEvent } from '../../communication/messages/incoming/navigator/FlatAccessDeniedMessageEvent';
 import { RoomDoorbellAcceptedEvent } from '../../communication/messages/incoming/room/access/doorbell/RoomDoorbellAcceptedEvent';
-import { RoomDoorbellRejectedEvent } from '../../communication/messages/incoming/room/access/doorbell/RoomDoorbellRejectedEvent';
 import { RoomEnterEvent } from '../../communication/messages/incoming/room/access/RoomEnterEvent';
 import { RoomReadyMessageEvent } from '../../communication/messages/incoming/room/mapping/RoomReadyMessageEvent';
 import { YouAreSpectatorMessageEvent } from '../../communication/messages/incoming/room/session/YouAreSpectatorMessageEvent';
@@ -25,7 +25,7 @@ export class RoomSessionHandler extends BaseHandler
         connection.addMessageEvent(new RoomReadyMessageEvent(this.onRoomReadyMessageEvent.bind(this)));
         connection.addMessageEvent(new DesktopViewEvent(this.onDesktopViewEvent.bind(this)));
         connection.addMessageEvent(new RoomDoorbellAcceptedEvent(this.onRoomDoorbellAcceptedEvent.bind(this)));
-        connection.addMessageEvent(new RoomDoorbellRejectedEvent(this.onRoomDoorbellRejectedEvent.bind(this)));
+        connection.addMessageEvent(new FlatAccessDeniedMessageEvent(this.onRoomDoorbellRejectedEvent.bind(this)));
         connection.addMessageEvent(new YouAreSpectatorMessageEvent(this.onYouAreSpectatorMessageEvent.bind(this)));
     }
 
@@ -84,9 +84,9 @@ export class RoomSessionHandler extends BaseHandler
         }
     }
 
-    private onRoomDoorbellRejectedEvent(event: RoomDoorbellRejectedEvent): void
+    private onRoomDoorbellRejectedEvent(event: FlatAccessDeniedMessageEvent): void
     {
-        if(!(event instanceof RoomDoorbellRejectedEvent) || !this.listener) return;
+        if(!(event instanceof FlatAccessDeniedMessageEvent) || !this.listener) return;
 
         const parser = event.getParser();
 

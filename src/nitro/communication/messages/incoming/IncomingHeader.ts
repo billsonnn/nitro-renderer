@@ -99,6 +99,12 @@ export class IncomingHeader
     public static NAVIGATOR_SEARCH = 2690;
     public static NAVIGATOR_SEARCHES = 3984;
     public static NAVIGATOR_SETTINGS = 518;
+    public static THUMBNAIL_UPDATE_RESULT = 1927;
+    public static CAN_CREATE_ROOM = 378;
+    public static CATEGORIES_WITH_VISITOR_COUNT = 1455;
+    public static COMPETITION_ROOMS_DATA = 3954;
+    public static CONVERTED_ROOM_ID = 1331;
+    public static GUEST_ROOM_SEARCH_RESULT = 52;
     public static NOTIFICATION_LIST = 1992;
     public static PET_FIGURE_UPDATE = 1924;
     public static PET_INFO = 2901;
@@ -137,7 +143,7 @@ export class IncomingHeader
     public static ROOM_SETTINGS_CHAT = 1191;
     public static ROOM_SETTINGS_SAVE = 948;
     public static ROOM_SETTINGS_SAVE_ERROR = 1555;
-    public static ROOM_SETTINGS_UPDATED = 3297;
+    public static ROOM_INFO_UPDATED = 3297;
     public static ROOM_SPECTATOR = 1033;
     public static ROOM_THICKNESS = 3547;
     public static INFO_FEED_ENABLE = 3284;
@@ -190,6 +196,8 @@ export class IncomingHeader
     public static USER_FURNITURE_REFRESH = 3151;
     public static USER_FURNITURE_REMOVE = 159;
     public static USER_HOME_ROOM = 2875;
+    public static ROOM_EVENT_CANCEL = 3479;
+    public static ROOM_EVENT = 1840;
     public static USER_IGNORED = 126;
     public static USER_IGNORED_RESULT = 207;
     public static USER_INFO = 2725;
@@ -375,4 +383,7 @@ export class IncomingHeader
     public static NOOBNESS_LEVEL = 3738;
     public static CAN_CREATE_ROOM_EVENT = 2599;
     public static FAVORITE_GROUP_UDPATE = 3403;
+    public static NO_SUCH_FLAT = 84;
+    public static ROOM_SETTINGS_ERROR = 2897;
+    public static SHOW_ENFORCE_ROOM_CATEGORY = 3896;
 }

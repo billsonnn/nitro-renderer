@@ -262,6 +262,8 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     protected setPostureAndGesture(posture: string, gesture: string): void
     {
+        if(!this._data) return;
+
         if(posture !== this._posture)
         {
             this._posture = posture;

@@ -1,6 +1,7 @@
 import { Disposable } from '../../core/common/disposable/Disposable';
 import { IConnection } from '../../core/communication/connections/IConnection';
 import { CompostPlantMessageComposer, FurnitureMultiStateComposer, HarvestPetMessageComposer, PetMountComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from '../communication';
+import { RoomModerationSettings } from '../communication/messages/incoming/roomsettings/RoomModerationSettings';
 import { RoomDoorbellAccessComposer } from '../communication/messages/outgoing/room/access/RoomDoorbellAccessComposer';
 import { RoomEnterComposer } from '../communication/messages/outgoing/room/access/RoomEnterComposer';
 import { RoomAmbassadorAlertComposer } from '../communication/messages/outgoing/room/action/RoomAmbassadorAlertComposer';
@@ -25,7 +26,6 @@ import { RoomUnitDanceComposer } from '../communication/messages/outgoing/room/u
 import { RoomUnitPostureComposer } from '../communication/messages/outgoing/room/unit/RoomUnitPostureComposer';
 import { RoomUnitSignComposer } from '../communication/messages/outgoing/room/unit/RoomUnitSignComposer';
 import { UserMottoComposer } from '../communication/messages/outgoing/user/data/UserMottoComposer';
-import { RoomModerationSettings } from '../communication/messages/parser/room/data/RoomModerationSettings';
 import { RoomControllerLevel } from './enum/RoomControllerLevel';
 import { RoomTradingLevelEnum } from './enum/RoomTradingLevelEnum';
 import { RoomSessionEvent } from './events/RoomSessionEvent';
