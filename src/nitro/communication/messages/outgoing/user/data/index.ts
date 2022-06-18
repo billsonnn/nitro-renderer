@@ -5,7 +5,6 @@ export * from './IgnoreUserIdComposer';
 export * from './UnignoreUserComposer';
 export * from './UserCurrentBadgesComposer';
 export * from './UserFigureComposer';
-export * from './UserHomeRoomComposer';
 export * from './UserMottoComposer';
 export * from './UserProfileComposer';
 export * from './UserRelationshipsComposer';

@@ -1,6 +1,6 @@
 import { IDisposable } from '../../core/common/disposable/IDisposable';
 import { IConnection } from '../../core/communication/connections/IConnection';
-import { RoomModerationSettings } from '../communication/messages/parser/room/data/RoomModerationSettings';
+import { RoomModerationSettings } from '../communication/messages/incoming/roomsettings/RoomModerationSettings';
 import { UserDataManager } from './UserDataManager';
 
 export interface IRoomSession extends IDisposable

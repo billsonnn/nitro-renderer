@@ -8,6 +8,8 @@ export class RoomEngineTriggerWidgetEvent extends RoomEngineObjectEvent
     public static CLOSE_FURNI_CONTEXT_MENU: string = 'RETWE_CLOSE_FURNI_CONTEXT_MENU';
     public static REQUEST_PLACEHOLDER: string = 'RETWE_REQUEST_PLACEHOLDER';
     public static REQUEST_CREDITFURNI: string = 'RETWE_REQUEST_CREDITFURNI';
+    public static REQUEST_STACK_HEIGHT: string = 'RETWE_REQUEST_STACK_HEIGHT';
+    public static REQUEST_EXTERNAL_IMAGE: string = 'RETWE_REQUEST_EXTERNAL_IMAGE';
     public static REQUEST_STICKIE: string = 'RETWE_REQUEST_STICKIE';
     public static REQUEST_PRESENT: string = 'RETWE_REQUEST_PRESENT';
     public static REQUEST_TROPHY: string = 'RETWE_REQUEST_TROPHY';
@@ -33,6 +35,7 @@ export class RoomEngineTriggerWidgetEvent extends RoomEngineObjectEvent
     public static REQUEST_HIDE_HIGH_SCORE_DISPLAY: string = 'RETWE_REQUEST_HIDE_HIGH_SCORE_DISPLAY';
     public static REQUEST_INTERNAL_LINK: string = 'RETWE_REQUEST_INTERNAL_LINK';
     public static REQUEST_ROOM_LINK: string = 'RETWE_REQUEST_ROOM_LINK';
+    public static REQUEST_YOUTUBE: string = 'RETWE_REQUEST_YOUTUBE';
 
     private _widget: string;
 

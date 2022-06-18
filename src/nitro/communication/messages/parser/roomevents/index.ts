@@ -1,4 +1,3 @@
-export * from './RoomMutedParser';
 export * from './WiredFurniActionParser';
 export * from './WiredFurniConditionParser';
 export * from './WiredFurniTriggerParser';

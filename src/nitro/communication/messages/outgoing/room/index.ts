@@ -6,6 +6,5 @@ export * from './engine';
 export * from './furniture';
 export * from './layout';
 export * from './RedeemItemClothingComposer';
-export * from './RoomCreateComposer';
 export * from './session';
 export * from './unit';

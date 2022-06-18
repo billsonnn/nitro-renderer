@@ -259,6 +259,8 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             case RoomObjectWidgetRequestEvent.CLOSE_FURNI_CONTEXT_MENU:
             case RoomObjectWidgetRequestEvent.PLACEHOLDER:
             case RoomObjectWidgetRequestEvent.CREDITFURNI:
+            case RoomObjectWidgetRequestEvent.STACK_HEIGHT:
+            case RoomObjectWidgetRequestEvent.EXTERNAL_IMAGE:
             case RoomObjectWidgetRequestEvent.STICKIE:
             case RoomObjectWidgetRequestEvent.PRESENT:
             case RoomObjectWidgetRequestEvent.TROPHY:
@@ -287,6 +289,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             case RoomObjectWidgetRequestEvent.HIDE_HIGH_SCORE_DISPLAY:
             case RoomObjectWidgetRequestEvent.INERNAL_LINK:
             case RoomObjectWidgetRequestEvent.ROOM_LINK:
+            case RoomObjectWidgetRequestEvent.YOUTUBE:
                 this.onRoomObjectWidgetRequestEvent((event as RoomObjectWidgetRequestEvent), roomId);
                 return;
             case RoomObjectFurnitureActionEvent.DICE_ACTIVATE:
@@ -781,6 +784,12 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             case RoomObjectWidgetRequestEvent.CREDITFURNI:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_CREDITFURNI, roomId, objectId, objectCategory));
                 return;
+            case RoomObjectWidgetRequestEvent.STACK_HEIGHT:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_STACK_HEIGHT, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.EXTERNAL_IMAGE:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_EXTERNAL_IMAGE, roomId, objectId, objectCategory));
+                return;
             case RoomObjectWidgetRequestEvent.STICKIE:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_STICKIE, roomId, objectId, objectCategory));
                 return;
@@ -864,6 +873,9 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 return;
             case RoomObjectWidgetRequestEvent.ROOM_LINK:
                 eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ROOM_LINK, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.YOUTUBE:
+                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_YOUTUBE, roomId, objectId, objectCategory));
                 return;
         }
     }
