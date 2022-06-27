@@ -178,7 +178,7 @@ export class AssetManager extends Disposable implements IAssetManager
                     continue;
                 }
 
-                if((resourceType === 'image/png') || (resourceType === 'image/gif'))
+                if((resourceType === 'image/png') || (resourceType === 'image/jpeg') || (resourceType === 'image/gif'))
                 {
                     const base64 = ArrayBufferToBase64(resource.data);
                     const baseTexture = new BaseTexture(`data:${ resourceType };base64,${ base64 }`);
