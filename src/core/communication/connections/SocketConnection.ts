@@ -1,5 +1,4 @@
 import { Nitro } from '../../../nitro/Nitro';
-import { NitroLogger } from '../../common/logger/NitroLogger';
 import { EventDispatcher } from '../../events/EventDispatcher';
 import { EvaWireFormat } from '../codec/evawire/EvaWireFormat';
 import { ICodec } from '../codec/ICodec';
@@ -54,7 +53,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
     public init(socketUrl: string): void
     {
-        if(this._stateListener)
+        if (this._stateListener)
         {
             this._stateListener.connectionInit(socketUrl);
         }
@@ -77,13 +76,13 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
     public onReady(): void
     {
-        if(this._isReady) return;
+        if (this._isReady) return;
 
         this._isReady = true;
 
-        if(this._pendingServerMessages && this._pendingServerMessages.length) this.processWrappers(...this._pendingServerMessages);
+        if (this._pendingServerMessages && this._pendingServerMessages.length) this.processWrappers(...this._pendingServerMessages);
 
-        if(this._pendingClientMessages && this._pendingClientMessages.length) this.send(...this._pendingClientMessages);
+        if (this._pendingClientMessages && this._pendingClientMessages.length) this.send(...this._pendingClientMessages);
 
         this._pendingServerMessages = [];
         this._pendingClientMessages = [];
@@ -91,7 +90,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
     private createSocket(socketUrl: string): void
     {
-        if(!socketUrl) return;
+        if (!socketUrl) return;
 
         this.destroySocket();
 
@@ -106,14 +105,14 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
     private destroySocket(): void
     {
-        if(!this._socket) return;
+        if (!this._socket) return;
 
         this._socket.removeEventListener(WebSocketEventEnum.CONNECTION_OPENED, this.onOpen);
         this._socket.removeEventListener(WebSocketEventEnum.CONNECTION_CLOSED, this.onClose);
         this._socket.removeEventListener(WebSocketEventEnum.CONNECTION_ERROR, this.onError);
         this._socket.removeEventListener(WebSocketEventEnum.CONNECTION_MESSAGE, this.onMessage);
 
-        if(this._socket.readyState === WebSocket.OPEN) this._socket.close();
+        if (this._socket.readyState === WebSocket.OPEN) this._socket.close();
 
         this._socket = null;
     }
@@ -135,7 +134,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
     private onMessage(event: MessageEvent): void
     {
-        if(!event) return;
+        if (!event) return;
 
         //this.dispatchConnectionEvent(SocketConnectionEvent.CONNECTION_MESSAGE, event);
 
@@ -163,28 +162,28 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
     public send(...composers: IMessageComposer<unknown[]>[]): boolean
     {
-        if(this.disposed || !composers) return false;
+        if (this.disposed || !composers) return false;
 
-        composers = [ ...composers ];
+        composers = [...composers];
 
-        if(this._isAuthenticated && !this._isReady)
+        if (this._isAuthenticated && !this._isReady)
         {
-            if(!this._pendingClientMessages) this._pendingClientMessages = [];
+            if (!this._pendingClientMessages) this._pendingClientMessages = [];
 
             this._pendingClientMessages.push(...composers);
 
             return false;
         }
 
-        for(const composer of composers)
+        for (const composer of composers)
         {
-            if(!composer) continue;
+            if (!composer) continue;
 
             const header = this._messages.getComposerId(composer);
 
-            if(header === -1)
+            if (header === -1)
             {
-                NitroLogger.log(`Unknown Composer: ${ composer.constructor.name }`);
+                if (Nitro.instance.getConfiguration<boolean>('system.packet.log')) this.logger.log(`Unknown Composer: ${composer.constructor.name}`);
 
                 continue;
             }
@@ -192,14 +191,14 @@ export class SocketConnection extends EventDispatcher implements IConnection
             const message = composer.getMessageArray();
             const encoded = this._codec.encode(header, message);
 
-            if(!encoded)
+            if (!encoded)
             {
-                if(Nitro.instance.getConfiguration<boolean>('system.packet.log')) console.log(`Encoding Failed: ${ composer.constructor.name }`);
+                if (Nitro.instance.getConfiguration<boolean>('system.packet.log')) this.logger.log('Encoding Failed', composer.constructor.name);
 
                 continue;
             }
 
-            if(Nitro.instance.getConfiguration<boolean>('system.packet.log')) console.log(`OutgoingComposer: [${ header }] ${ composer.constructor.name }`, message);
+            if (Nitro.instance.getConfiguration<boolean>('system.packet.log')) this.logger.log('OutgoingComposer', header, composer.constructor.name, message);
 
             this.write(encoded.getBuffer());
         }
@@ -209,7 +208,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
     private write(buffer: ArrayBuffer): void
     {
-        if(this._socket.readyState !== WebSocket.OPEN) return;
+        if (this._socket.readyState !== WebSocket.OPEN) return;
 
         this._socket.send(buffer);
     }
@@ -223,7 +222,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
         catch (err)
         {
-            NitroLogger.log(err);
+            this.logger.error(err);
         }
     }
 
@@ -231,11 +230,11 @@ export class SocketConnection extends EventDispatcher implements IConnection
     {
         const wrappers = this.splitReceivedMessages();
 
-        if(!wrappers || !wrappers.length) return;
+        if (!wrappers || !wrappers.length) return;
 
-        if(this._isAuthenticated && !this._isReady)
+        if (this._isAuthenticated && !this._isReady)
         {
-            if(!this._pendingServerMessages) this._pendingServerMessages = [];
+            if (!this._pendingServerMessages) this._pendingServerMessages = [];
 
             this._pendingServerMessages.push(...wrappers);
 
@@ -247,20 +246,17 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
     private processWrappers(...wrappers: IMessageDataWrapper[]): void
     {
-        if(!wrappers || !wrappers.length) return;
+        if (!wrappers || !wrappers.length) return;
 
-        for(const wrapper of wrappers)
+        for (const wrapper of wrappers)
         {
-            if(!wrapper) continue;
+            if (!wrapper) continue;
 
             const messages = this.getMessagesForWrapper(wrapper);
 
-            if(!messages || !messages.length) continue;
+            if (!messages || !messages.length) continue;
 
-            if(Nitro.instance.getConfiguration<boolean>('system.packet.log'))
-            {
-                console.log(`IncomingMessage: [${ wrapper.header }] ${ messages[0].constructor.name }`, messages[0].parser);
-            }
+            if (Nitro.instance.getConfiguration<boolean>('system.packet.log')) this.logger.log('IncomingMessage', wrapper.header, messages[0].constructor.name, messages[0].parser);
 
             this.handleMessages(...messages);
         }
@@ -268,7 +264,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
     private splitReceivedMessages(): IMessageDataWrapper[]
     {
-        if(!this._dataBuffer || !this._dataBuffer.byteLength) return null;
+        if (!this._dataBuffer || !this._dataBuffer.byteLength) return null;
 
         return this._codec.decode(this);
     }
@@ -285,16 +281,13 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
     private getMessagesForWrapper(wrapper: IMessageDataWrapper): IMessageEvent[]
     {
-        if(!wrapper) return null;
+        if (!wrapper) return null;
 
         const events = this._messages.getEvents(wrapper.header);
 
-        if(!events || !events.length)
+        if (!events || !events.length)
         {
-            if(Nitro.instance.getConfiguration<boolean>('system.packet.log'))
-            {
-                console.log(`IncomingMessage: [${ wrapper.header }] UNREGISTERED`, wrapper);
-            }
+            if (Nitro.instance.getConfiguration<boolean>('system.packet.log')) this.logger.log('IncomingMessage', wrapper.header, 'UNREGISTERED', wrapper);
 
             return;
         }
@@ -304,14 +297,14 @@ export class SocketConnection extends EventDispatcher implements IConnection
             //@ts-ignore
             const parser = new events[0].parserClass();
 
-            if(!parser || !parser.flush() || !parser.parse(wrapper)) return null;
+            if (!parser || !parser.flush() || !parser.parse(wrapper)) return null;
 
-            for(const event of events) (event.parser = parser);
+            for (const event of events) (event.parser = parser);
         }
 
         catch (e)
         {
-            NitroLogger.log(`Error parsing message: ${ e }`, events[0].constructor.name);
+            this.logger.error('Error parsing message', e, events[0].constructor.name);
 
             return null;
         }
@@ -321,35 +314,35 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
     private handleMessages(...messages: IMessageEvent[]): void
     {
-        messages = [ ...messages ];
+        messages = [...messages];
 
-        for(const message of messages)
+        for (const message of messages)
         {
-            if(!message) continue;
+            if (!message) continue;
 
             message.connection = this;
 
-            if(message.callBack) message.callBack(message);
+            if (message.callBack) message.callBack(message);
         }
     }
 
     public registerMessages(configuration: IMessageConfiguration): void
     {
-        if(!configuration) return;
+        if (!configuration) return;
 
         this._messages.registerMessages(configuration);
     }
 
     public addMessageEvent(event: IMessageEvent): void
     {
-        if(!event || !this._messages) return;
+        if (!event || !this._messages) return;
 
         this._messages.registerMessageEvent(event);
     }
 
     public removeMessageEvent(event: IMessageEvent): void
     {
-        if(!event || !this._messages) return;
+        if (!event || !this._messages) return;
 
         this._messages.removeMessageEvent(event);
     }

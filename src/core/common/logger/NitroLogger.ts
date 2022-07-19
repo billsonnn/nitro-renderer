@@ -2,8 +2,6 @@ import { INitroLogger } from './INitroLogger';
 
 export class NitroLogger implements INitroLogger
 {
-    private static LAST_TIMESTAMP: number = Date.now();
-
     private _name: string;
     private _description: string | number;
     private _print: boolean;
@@ -15,66 +13,55 @@ export class NitroLogger implements INitroLogger
         this._print = true;
     }
 
-    public log(message: string): void
+    public log(...message: any[]): void
     {
-        this.printMessage(message, 'log');
+        this.printMessage('log', ...message);
     }
 
-    public error(message: string, trace?: string): void
+    public error(...message: any[]): void
     {
-        this.printMessage(trace || message, 'error');
+        this.printMessage('error', ...message);
     }
 
-    public warn(message: string): void
+    public warn(...message: any[]): void
     {
-        this.printMessage(message, 'warn');
+        this.printMessage('warn', ...message);
     }
 
-    public printMessage(message: string, modus: string): void
+    public printMessage(modus: string, ...message: any[]): void
     {
-        if(!this._print) return;
+        if (!this._print) return;
 
-        NitroLogger.log(message, this._name, modus);
+        NitroLogger.log(this._name, modus, ...message);
     }
 
-    public static log(message: string, name: string = 'Nitro', modus: string = null): void
+    public static log(name: string = 'Nitro', modus: string = null, ...message: any[]): void
     {
-        const logString = `[Nitro] [${ name }] ${ message } ${ this.getTimestamp() }`;
+        const logPrefix = `[Nitro] [${name}]`;
 
-        switch(modus)
+        switch (modus)
         {
             case 'error':
-                console.error(logString);
+                console.error(logPrefix, ...message);
                 break;
             case 'warn':
-                console.warn(logString);
+                console.warn(logPrefix, ...message);
                 break;
             case 'log':
             default:
-                console.log(logString);
+                console.log(logPrefix, ...message);
                 break;
         }
     }
 
-    public static error(message: string, name: string = 'Nitro'): void
+    public static error(name: string = 'Nitro', ...message: any[]): void
     {
-        return this.log(message, name, 'error');
+        return this.log(name, 'error', ...message);
     }
 
-    public static warn(message: string, name: string = 'Nitro'): void
+    public static warn(name: string = 'Nitro', ...message: any[]): void
     {
-        return this.log(message, name, 'warn');
-    }
-
-    public static getTimestamp(): string
-    {
-        const now = Date.now();
-
-        const result = ` +${ now - NitroLogger.LAST_TIMESTAMP || 0 }ms`;
-
-        this.LAST_TIMESTAMP = now;
-
-        return result;
+        return this.log(name, 'warn', ...message);
     }
 
     public get description(): string | number

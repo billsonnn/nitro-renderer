@@ -348,7 +348,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 this.onRoomObjectDataRequestEvent((event as RoomObjectDataRequestEvent), roomId);
                 return;
             default:
-                NitroLogger.log(`Unhandled Event: ${event.constructor.name}`, `Object ID: ${event.object.id}`);
+                NitroLogger.warn('Unhandled Event', event.constructor.name, 'Object ID', event.object.id);
                 return;
         }
     }

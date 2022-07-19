@@ -1,8 +1,8 @@
 export interface INitroLogger
 {
-    log(message: string): void;
-    error(message: string, trace?: string): void;
-    warn(message: string): void;
+    log(...message: any[]): void;
+    error(...message: any[]): void;
+    warn(...message: any[]): void;
     description: string | number;
     print: boolean;
 }

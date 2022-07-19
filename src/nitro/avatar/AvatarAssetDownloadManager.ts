@@ -1,5 +1,4 @@
 import { IAssetManager } from '../../core/asset/IAssetManager';
-import { NitroLogger } from '../../core/common/logger/NitroLogger';
 import { EventDispatcher } from '../../core/events/EventDispatcher';
 import { NitroEvent } from '../../core/events/NitroEvent';
 import { Nitro } from '../Nitro';
@@ -22,7 +21,7 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
     private _missingMandatoryLibs: string[];
     private _figureMap: Map<string, AvatarAssetDownloadLibrary[]>;
-    private _pendingContainers: [ IAvatarFigureContainer, IAvatarImageListener ][];
+    private _pendingContainers: [IAvatarFigureContainer, IAvatarImageListener][];
     private _figureListeners: Map<string, IAvatarImageListener[]>;
     private _incompleteFigures: Map<string, AvatarAssetDownloadLibrary[]>;
     private _pendingDownloadQueue: AvatarAssetDownloadLibrary[];
@@ -67,7 +66,7 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
             request.onloadend = e =>
             {
-                if(request.responseText)
+                if (request.responseText)
                 {
                     const data = JSON.parse(request.responseText);
 
@@ -89,22 +88,22 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
         catch (e)
         {
-            NitroLogger.log(e);
+            this.logger.error(e);
         }
     }
 
     private processFigureMap(data: any): void
     {
-        if(!data) return;
+        if (!data) return;
 
-        for(const library of data)
+        for (const library of data)
         {
-            if(!library) continue;
+            if (!library) continue;
 
             const id = (library.id as string);
             const revision = (library.revision || '');
 
-            if(this._libraryNames.indexOf(id) >= 0) continue;
+            if (this._libraryNames.indexOf(id) >= 0) continue;
 
             this._libraryNames.push(id);
 
@@ -112,7 +111,7 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
             downloadLibrary.addEventListener(AvatarRenderLibraryEvent.DOWNLOAD_COMPLETE, this.onLibraryLoaded);
 
-            for(const part of library.parts)
+            for (const part of library.parts)
             {
                 const id = (part.id as string);
                 const type = (part.type as string);
@@ -120,7 +119,7 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
                 let existing = this._figureMap.get(partString);
 
-                if(!existing) existing = [];
+                if (!existing) existing = [];
 
                 existing.push(downloadLibrary);
 
@@ -131,9 +130,9 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
     private onAvatarRenderReady(event: NitroEvent): void
     {
-        if(!event) return;
+        if (!event) return;
 
-        for(const [ container, listener ] of this._pendingContainers)
+        for (const [container, listener] of this._pendingContainers)
         {
             this.downloadAvatarFigure(container, listener);
         }
@@ -143,34 +142,34 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
     private onLibraryLoaded(event: AvatarRenderLibraryEvent): void
     {
-        if(!event || !event.library) return;
+        if (!event || !event.library) return;
 
         const loadedFigures: string[] = [];
 
-        for(const [ figure, libraries ] of this._incompleteFigures.entries())
+        for (const [figure, libraries] of this._incompleteFigures.entries())
         {
             let isReady = true;
 
-            for(const library of libraries)
+            for (const library of libraries)
             {
-                if(!library || library.isLoaded) continue;
+                if (!library || library.isLoaded) continue;
 
                 isReady = false;
 
                 break;
             }
 
-            if(isReady)
+            if (isReady)
             {
                 loadedFigures.push(figure);
 
                 const listeners = this._figureListeners.get(figure);
 
-                if(listeners)
+                if (listeners)
                 {
-                    for(const listener of listeners)
+                    for (const listener of listeners)
                     {
-                        if(!listener || listener.disposed) continue;
+                        if (!listener || listener.disposed) continue;
 
                         listener.resetFigure(figure);
                     }
@@ -182,22 +181,22 @@ export class AvatarAssetDownloadManager extends EventDispatcher
             }
         }
 
-        for(const figure of loadedFigures)
+        for (const figure of loadedFigures)
         {
-            if(!figure) continue;
+            if (!figure) continue;
 
             this._incompleteFigures.delete(figure);
         }
 
         let index = 0;
 
-        while(index < this._currentDownloads.length)
+        while (index < this._currentDownloads.length)
         {
             const download = this._currentDownloads[index];
 
-            if(download)
+            if (download)
             {
-                if(download.libraryName === event.library.libraryName) this._currentDownloads.splice(index, 1);
+                if (download.libraryName === event.library.libraryName) this._currentDownloads.splice(index, 1);
             }
 
             index++;
@@ -208,19 +207,19 @@ export class AvatarAssetDownloadManager extends EventDispatcher
     {
         const libraries = this._missingMandatoryLibs.slice();
 
-        for(const library of libraries)
+        for (const library of libraries)
         {
-            if(!library) continue;
+            if (!library) continue;
 
             const map = this._figureMap.get(library);
 
-            if(map) for(const avatar of map) avatar && this.downloadLibrary(avatar);
+            if (map) for (const avatar of map) avatar && this.downloadLibrary(avatar);
         }
     }
 
     public isAvatarFigureContainerReady(container: IAvatarFigureContainer): boolean
     {
-        if(!this._isReady || !this._structure.renderManager.isReady)
+        if (!this._isReady || !this._structure.renderManager.isReady)
         {
             return false;
         }
@@ -234,38 +233,38 @@ export class AvatarAssetDownloadManager extends EventDispatcher
     {
         const pendingLibraries: AvatarAssetDownloadLibrary[] = [];
 
-        if(!container || !this._structure) return pendingLibraries;
+        if (!container || !this._structure) return pendingLibraries;
 
         const figureData = this._structure.figureData;
 
-        if(!figureData) return pendingLibraries;
+        if (!figureData) return pendingLibraries;
 
         const setKeys = container.getPartTypeIds();
 
-        for(const key of setKeys)
+        for (const key of setKeys)
         {
             const set = figureData.getSetType(key);
 
-            if(!set) continue;
+            if (!set) continue;
 
             const figurePartSet = set.getPartSet(container.getPartSetId(key));
 
-            if(!figurePartSet) continue;
+            if (!figurePartSet) continue;
 
-            for(const part of figurePartSet.parts)
+            for (const part of figurePartSet.parts)
             {
-                if(!part) continue;
+                if (!part) continue;
 
                 const name = (part.type + ':' + part.id);
                 const existing = this._figureMap.get(name);
 
-                if(existing === undefined) continue;
+                if (existing === undefined) continue;
 
-                for(const library of existing)
+                for (const library of existing)
                 {
-                    if(!library || library.isLoaded) continue;
+                    if (!library || library.isLoaded) continue;
 
-                    if(pendingLibraries.indexOf(library) >= 0) continue;
+                    if (pendingLibraries.indexOf(library) >= 0) continue;
 
                     pendingLibraries.push(library);
                 }
@@ -277,9 +276,9 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
     public downloadAvatarFigure(container: IAvatarFigureContainer, listener: IAvatarImageListener): void
     {
-        if(!this._isReady || !this._structure.renderManager.isReady)
+        if (!this._isReady || !this._structure.renderManager.isReady)
         {
-            this._pendingContainers.push([ container, listener ]);
+            this._pendingContainers.push([container, listener]);
 
             return;
         }
@@ -287,13 +286,13 @@ export class AvatarAssetDownloadManager extends EventDispatcher
         const figure = container.getFigureString();
         const pendingLibraries = this.getAvatarFigurePendingLibraries(container);
 
-        if(pendingLibraries && pendingLibraries.length)
+        if (pendingLibraries && pendingLibraries.length)
         {
-            if(listener && !listener.disposed)
+            if (listener && !listener.disposed)
             {
                 let listeners = this._figureListeners.get(figure);
 
-                if(!listeners)
+                if (!listeners)
                 {
                     listeners = [];
 
@@ -305,24 +304,24 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
             this._incompleteFigures.set(figure, pendingLibraries);
 
-            for(const library of pendingLibraries)
+            for (const library of pendingLibraries)
             {
-                if(!library) continue;
+                if (!library) continue;
 
                 this.downloadLibrary(library);
             }
         }
         else
         {
-            if(listener && !listener.disposed) listener.resetFigure(figure);
+            if (listener && !listener.disposed) listener.resetFigure(figure);
         }
     }
 
     private downloadLibrary(library: AvatarAssetDownloadLibrary): void
     {
-        if(!library || library.isLoaded) return;
+        if (!library || library.isLoaded) return;
 
-        if((this._pendingDownloadQueue.indexOf(library) >= 0) || (this._currentDownloads.indexOf(library) >= 0)) return;
+        if ((this._pendingDownloadQueue.indexOf(library) >= 0) || (this._currentDownloads.indexOf(library) >= 0)) return;
 
         this._pendingDownloadQueue.push(library);
 
@@ -331,7 +330,7 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
     private processDownloadQueue(): void
     {
-        while(this._pendingDownloadQueue.length)
+        while (this._pendingDownloadQueue.length)
         {
             const library = this._pendingDownloadQueue[0];
 
