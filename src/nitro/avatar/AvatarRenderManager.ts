@@ -86,7 +86,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
         this._aliasCollection.init();
 
-        if (!this._avatarAssetDownloadManager)
+        if(!this._avatarAssetDownloadManager)
         {
             this._avatarAssetDownloadManager = new AvatarAssetDownloadManager(Nitro.instance.core.asset, this._structure);
 
@@ -94,7 +94,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
             this._avatarAssetDownloadManager.addEventListener(AvatarAssetDownloadManager.LIBRARY_LOADED, this.onAvatarAssetDownloaded);
         }
 
-        if (!this._effectAssetDownloadManager)
+        if(!this._effectAssetDownloadManager)
         {
             this._effectAssetDownloadManager = new EffectAssetDownloadManager(Nitro.instance.core.asset, this._structure);
 
@@ -107,14 +107,14 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     public onDispose(): void
     {
-        if (this._avatarAssetDownloadManager)
+        if(this._avatarAssetDownloadManager)
         {
             this._avatarAssetDownloadManager.removeEventListener(AvatarAssetDownloadManager.DOWNLOADER_READY, this.onAvatarAssetDownloaderReady);
 
             this._avatarAssetDownloadManager.removeEventListener(AvatarAssetDownloadManager.LIBRARY_LOADED, this.onAvatarAssetDownloaded);
         }
 
-        if (this._effectAssetDownloadManager)
+        if(this._effectAssetDownloadManager)
         {
             this._effectAssetDownloadManager.removeEventListener(EffectAssetDownloadManager.DOWNLOADER_READY, this.onEffectAssetDownloaderReady);
 
@@ -124,7 +124,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     private loadGeometry(): void
     {
-        if (!this._structure) return;
+        if(!this._structure) return;
 
         this._structure.initGeometry(HabboAvatarGeometry.geometry);
 
@@ -135,7 +135,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     private loadPartSets(): void
     {
-        if (!this._structure) return;
+        if(!this._structure) return;
 
         this._structure.initPartSets(HabboAvatarPartSets.partSets);
 
@@ -148,7 +148,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         const defaultActions = Nitro.instance.getConfiguration<string>('avatar.default.actions');
 
-        if (defaultActions) this._structure.initActions(Nitro.instance.core.asset, defaultActions);
+        if(defaultActions) this._structure.initActions(Nitro.instance.core.asset, defaultActions);
 
         const request = new XMLHttpRequest();
 
@@ -160,7 +160,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
             request.onloadend = e =>
             {
-                if (!this._structure) return;
+                if(!this._structure) return;
 
                 this._structure.updateActions(JSON.parse(request.responseText));
 
@@ -183,7 +183,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     private loadAnimations(): void
     {
-        if (!this._structure) return;
+        if(!this._structure) return;
 
         this._structure.initAnimation(HabboAvatarAnimations.animations);
 
@@ -196,14 +196,14 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         const defaultFigureData = Nitro.instance.getConfiguration<IFigureData>('avatar.default.figuredata');
 
-        if (!defaultFigureData || (typeof defaultFigureData === 'string'))
+        if(!defaultFigureData || (typeof defaultFigureData === 'string'))
         {
             this.logger.error('XML figuredata is no longer supported');
 
             return;
         }
 
-        if (this._structure) this._structure.initFigureData(defaultFigureData);
+        if(this._structure) this._structure.initFigureData(defaultFigureData);
 
         const structureDownloader = new AvatarStructureDownload(Nitro.instance.getConfiguration<string>('avatar.figuredata.url'), (this._structure.figureData as IFigureSetData));
 
@@ -221,7 +221,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     private onAvatarAssetDownloaderReady(event: NitroEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
         this._figureMapReady = true;
 
@@ -230,14 +230,14 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     private onAvatarAssetDownloaded(event: NitroEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
         this._aliasCollection.reset();
     }
 
     private onEffectAssetDownloaderReady(event: NitroEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
         this._effectMapReady = true;
 
@@ -246,20 +246,20 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     private onEffectAssetDownloaded(event: NitroEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
         this._aliasCollection.reset();
     }
 
     private checkReady(): void
     {
-        if (this._isReady) return;
+        if(this._isReady) return;
 
-        if (!this._geometryReady || !this._partSetsReady || !this._actionsReady || !this._animationsReady || !this._figureMapReady || !this._effectMapReady || !this._structureReady) return;
+        if(!this._geometryReady || !this._partSetsReady || !this._actionsReady || !this._animationsReady || !this._figureMapReady || !this._effectMapReady || !this._structureReady) return;
 
         this._isReady = true;
 
-        if (this.events) this.events.dispatchEvent(new NitroEvent(AvatarRenderEvent.AVATAR_RENDER_READY));
+        if(this.events) this.events.dispatchEvent(new NitroEvent(AvatarRenderEvent.AVATAR_RENDER_READY));
     }
 
     public createFigureContainer(figure: string): IAvatarFigureContainer
@@ -269,25 +269,25 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     public isFigureContainerReady(container: IAvatarFigureContainer): boolean
     {
-        if (!this._avatarAssetDownloadManager) return false;
+        if(!this._avatarAssetDownloadManager) return false;
 
         return this._avatarAssetDownloadManager.isAvatarFigureContainerReady(container);
     }
 
     public createAvatarImage(figure: string, size: string, gender: string, listener: IAvatarImageListener = null, effectListener: IAvatarEffectListener = null): IAvatarImage
     {
-        if (!this._structure || !this._avatarAssetDownloadManager) return null;
+        if(!this._structure || !this._avatarAssetDownloadManager) return null;
 
         const figureContainer = new AvatarFigureContainer(figure);
 
-        if (gender) this.validateAvatarFigure(figureContainer, gender);
+        if(gender) this.validateAvatarFigure(figureContainer, gender);
 
-        if (this._avatarAssetDownloadManager.isAvatarFigureContainerReady(figureContainer))
+        if(this._avatarAssetDownloadManager.isAvatarFigureContainerReady(figureContainer))
         {
             return new AvatarImage(this._structure, this._aliasCollection, figureContainer, size, this._effectAssetDownloadManager, effectListener);
         }
 
-        if (!this._placeHolderFigure) this._placeHolderFigure = new AvatarFigureContainer(AvatarRenderManager.DEFAULT_FIGURE);
+        if(!this._placeHolderFigure) this._placeHolderFigure = new AvatarFigureContainer(AvatarRenderManager.DEFAULT_FIGURE);
 
         this._avatarAssetDownloadManager.downloadAvatarFigure(figureContainer, listener);
 
@@ -296,7 +296,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     public downloadAvatarFigure(container: IAvatarFigureContainer, listener: IAvatarImageListener): void
     {
-        if (!this._avatarAssetDownloadManager) return;
+        if(!this._avatarAssetDownloadManager) return;
 
         this._avatarAssetDownloadManager.downloadAvatarFigure(container, listener);
     }
@@ -307,17 +307,17 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
         const typeIds = this._structure.getMandatorySetTypeIds(gender, 2);
 
-        if (typeIds)
+        if(typeIds)
         {
             const figureData = this._structure.figureData;
 
-            for (const id of typeIds)
+            for(const id of typeIds)
             {
-                if (!container.hasPartType(id))
+                if(!container.hasPartType(id))
                 {
                     const figurePartSet = this._structure.getDefaultPartSet(id, gender);
 
-                    if (figurePartSet)
+                    if(figurePartSet)
                     {
                         container.updatePart(id, figurePartSet.id, [0]);
 
@@ -328,15 +328,15 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
                 {
                     const setType = figureData.getSetType(id);
 
-                    if (setType)
+                    if(setType)
                     {
                         const figurePartSet = setType.getPartSet(container.getPartSetId(id));
 
-                        if (!figurePartSet)
+                        if(!figurePartSet)
                         {
                             const partSet = this._structure.getDefaultPartSet(id, gender);
 
-                            if (partSet)
+                            if(partSet)
                             {
                                 container.updatePart(id, partSet.id, [0]);
 
@@ -353,49 +353,49 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     public getFigureClubLevel(container: IAvatarFigureContainer, gender: string, searchParts: string[] = null): number
     {
-        if (!this._structure) return 0;
+        if(!this._structure) return 0;
 
         const figureData = this._structure.figureData;
         const parts = Array.from(container.getPartTypeIds());
 
         let clubLevel = 0;
 
-        for (const part of parts)
+        for(const part of parts)
         {
             const set = figureData.getSetType(part);
 
-            if (!set) continue;
+            if(!set) continue;
 
             const setId = container.getPartSetId(part);
             const partSet = set.getPartSet(setId);
 
-            if (partSet)
+            if(partSet)
             {
                 clubLevel = Math.max(partSet.clubLevel, clubLevel);
 
                 const palette = figureData.getPalette(set.paletteID);
                 const colors = container.getPartColorIds(part);
 
-                for (const colorId of colors)
+                for(const colorId of colors)
                 {
                     const color = palette.getColor(colorId);
 
-                    if (!color) continue;
+                    if(!color) continue;
 
                     clubLevel = Math.max(color.clubLevel, clubLevel);
                 }
             }
         }
 
-        if (!searchParts) searchParts = this._structure.getBodyPartsUnordered(AvatarSetType.FULL);
+        if(!searchParts) searchParts = this._structure.getBodyPartsUnordered(AvatarSetType.FULL);
 
-        for (const part of searchParts)
+        for(const part of searchParts)
         {
             const set = figureData.getSetType(part);
 
-            if (!set) continue;
+            if(!set) continue;
 
-            if (parts.indexOf(part) === -1) clubLevel = Math.max(set.optionalFromClubLevel(gender), clubLevel);
+            if(parts.indexOf(part) === -1) clubLevel = Math.max(set.optionalFromClubLevel(gender), clubLevel);
         }
 
         return clubLevel;
@@ -417,7 +417,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
         const partSets: IFigurePartSet[] = this.resolveFigureSets(_arg_3);
 
-        for (const partSet of partSets)
+        for(const partSet of partSets)
         {
             container.savePartData(partSet.type, partSet.id, container.getColourIds(partSet.type));
         }
@@ -430,11 +430,11 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         const structure = this.structureData;
         const partSets: IFigurePartSet[] = [];
 
-        for (const _local_4 of k)
+        for(const _local_4 of k)
         {
             const partSet = structure.getFigurePartSet(_local_4);
 
-            if (partSet) partSets.push(partSet);
+            if(partSet) partSets.push(partSet);
         }
 
         return partSets;
@@ -442,7 +442,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     public getMandatoryAvatarPartSetIds(k: string, _arg_2: number): string[]
     {
-        if (!this._structure) return null;
+        if(!this._structure) return null;
 
         return this._structure.getMandatorySetTypeIds(k, _arg_2);
     }
@@ -469,7 +469,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     public get structureData(): IStructureData
     {
-        if (this._structure) return this._structure.figureData;
+        if(this._structure) return this._structure.figureData;
 
         return null;
     }

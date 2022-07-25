@@ -4,6 +4,7 @@ import { IAssetManager } from '../../../core/asset/IAssetManager';
 import { IMessageEvent } from '../../../core/communication/messages/IMessageEvent';
 import { NitroSprite } from '../../../core/utils/proxy/NitroSprite';
 import { GroupBadgePartsEvent } from '../../communication/messages/incoming/group/GroupBadgePartsEvent';
+import { GroupBadgePartsComposer } from '../../communication/messages/outgoing/group/GroupBadgePartsComposer';
 import { Nitro } from '../../Nitro';
 import { BadgeImageReadyEvent } from '../events/BadgeImageReadyEvent';
 import { IDisposable } from './../../../core/common/disposable/IDisposable';
@@ -56,7 +57,7 @@ export class BadgeImageManager implements IDisposable
 
             for(const message of this._messages) this._sessionDataManager.communication.registerMessageEvent(message);
 
-            //this._sessionDataManager.send(new GroupBadgePartsComposer());
+            this._sessionDataManager.send(new GroupBadgePartsComposer());
         }
     }
 
@@ -208,7 +209,7 @@ export class BadgeImageManager implements IDisposable
                 {
                     if(!partName || !partName.length) continue;
 
-                    const texture = this._assets.getTexture(`badgepart_${ partName }`);
+                    const texture = this._assets.getTexture(`badgepart_${partName}`);
 
                     if(!texture) continue;
 
@@ -243,9 +244,9 @@ export class BadgeImageManager implements IDisposable
 
         if(!data) return;
 
-        data.bases.forEach((names, id) => this._groupBases.set(id, names.map( val => val.replace('.png', '').replace('.gif', ''))));
+        data.bases.forEach((names, id) => this._groupBases.set(id, names.map(val => val.replace('.png', '').replace('.gif', ''))));
 
-        data.symbols.forEach( (names, id) => this._groupSymbols.set(id, names.map( val => val.replace('.png', '').replace('.gif', ''))));
+        data.symbols.forEach((names, id) => this._groupSymbols.set(id, names.map(val => val.replace('.png', '').replace('.gif', ''))));
 
         this._groupPartColors = data.partColors;
         this._readyToGenerateGroupBadges = true;

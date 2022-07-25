@@ -74,23 +74,23 @@ export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
     {
         const logic = this.getLogicType(type);
 
-        if (!logic) return null;
+        if(!logic) return null;
 
         const instance = (new logic() as IRoomObjectEventHandler);
 
-        if (!instance) return null;
+        if(!instance) return null;
 
         instance.eventDispatcher = this._events;
 
-        if (!this._cachedEvents.get(type))
+        if(!this._cachedEvents.get(type))
         {
             this._cachedEvents.set(type, true);
 
             const eventTypes = instance.getEventTypes();
 
-            for (const eventType of eventTypes)
+            for(const eventType of eventTypes)
             {
-                if (!eventType) continue;
+                if(!eventType) continue;
 
                 this.registerEventType(eventType);
             }
@@ -101,13 +101,13 @@ export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
 
     private registerEventType(type: string): void
     {
-        if (this._registeredEvents.get(type)) return;
+        if(this._registeredEvents.get(type)) return;
 
         this._registeredEvents.set(type, true);
 
-        for (const func of this._functions)
+        for(const func of this._functions)
         {
-            if (!func) continue;
+            if(!func) continue;
 
             this._events.addEventListener(type, func);
         }
@@ -115,15 +115,15 @@ export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
 
     public registerEventFunction(func: Function): void
     {
-        if (!func) return;
+        if(!func) return;
 
-        if (this._functions.indexOf(func) >= 0) return;
+        if(this._functions.indexOf(func) >= 0) return;
 
         this._functions.push(func);
 
-        for (const eventType of this._registeredEvents.keys())
+        for(const eventType of this._registeredEvents.keys())
         {
-            if (!eventType) continue;
+            if(!eventType) continue;
 
             this._events.addEventListener(eventType, func);
         }
@@ -131,17 +131,17 @@ export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
 
     public removeEventFunction(func: Function): void
     {
-        if (!func) return;
+        if(!func) return;
 
         const index = this._functions.indexOf(func);
 
-        if (index === -1) return;
+        if(index === -1) return;
 
         this._functions.splice(index, 1);
 
-        for (const event of this._registeredEvents.keys())
+        for(const event of this._registeredEvents.keys())
         {
-            if (!event) continue;
+            if(!event) continue;
 
             this._events.removeEventListener(event, func);
         }
@@ -149,11 +149,11 @@ export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
 
     public getLogicType(type: string): typeof RoomObjectLogicBase
     {
-        if (!type) return null;
+        if(!type) return null;
 
         let logic: typeof RoomObjectLogicBase = null;
 
-        switch (type)
+        switch(type)
         {
             case RoomObjectLogicType.ROOM:
                 logic = RoomLogic;
@@ -354,7 +354,7 @@ export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
                 break;
         }
 
-        if (!logic)
+        if(!logic)
         {
             NitroLogger.warn('Unknown Logic', type);
 

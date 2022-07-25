@@ -63,18 +63,18 @@ export class RoomObjectVisualizationFactory implements IRoomObjectVisualizationF
     {
         const visualization = this.getVisualizationType(type);
 
-        if (!visualization) return null;
+        if(!visualization) return null;
 
         return new visualization();
     }
 
     public getVisualizationType(type: string): typeof RoomObjectSpriteVisualization
     {
-        if (!type) return null;
+        if(!type) return null;
 
         let visualization: typeof RoomObjectSpriteVisualization = null;
 
-        switch (type)
+        switch(type)
         {
             case RoomObjectVisualizationType.ROOM:
                 visualization = RoomVisualization;
@@ -185,7 +185,7 @@ export class RoomObjectVisualizationFactory implements IRoomObjectVisualizationF
                 break;
         }
 
-        if (!visualization)
+        if(!visualization)
         {
             NitroLogger.log('Unknown Visualization', type);
 
@@ -199,11 +199,11 @@ export class RoomObjectVisualizationFactory implements IRoomObjectVisualizationF
     {
         const existing = this._visualizationDatas.get(type);
 
-        if (existing) return existing;
+        if(existing) return existing;
 
         let visualizationData: IObjectVisualizationData = null;
 
-        switch (visualization)
+        switch(visualization)
         {
             case RoomObjectVisualizationType.FURNITURE_STATIC:
             case RoomObjectVisualizationType.FURNITURE_GIFT_WRAPPED:
@@ -255,21 +255,21 @@ export class RoomObjectVisualizationFactory implements IRoomObjectVisualizationF
                 break;
         }
 
-        if (!visualizationData) return null;
+        if(!visualizationData) return null;
 
-        if (!visualizationData.initialize(asset))
+        if(!visualizationData.initialize(asset))
         {
             visualizationData.dispose();
 
             return null;
         }
 
-        if ((visualizationData instanceof AvatarVisualizationData) || (visualizationData instanceof FurnitureMannequinVisualizationData))
+        if((visualizationData instanceof AvatarVisualizationData) || (visualizationData instanceof FurnitureMannequinVisualizationData))
         {
             visualizationData.avatarManager = Nitro.instance.avatar;
         }
 
-        if (RoomObjectVisualizationFactory.CACHING_ENABLED) this._visualizationDatas.set(type, visualizationData);
+        if(RoomObjectVisualizationFactory.CACHING_ENABLED) this._visualizationDatas.set(type, visualizationData);
 
         return visualizationData;
     }

@@ -51,21 +51,21 @@ export class RoomUsersHandler extends BaseHandler
 
     private onRoomUnitEvent(event: RoomUnitEvent): void
     {
-        if (!this.listener) return;
+        if(!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         const users = event.getParser().users;
 
         const usersToAdd: RoomUserData[] = [];
 
-        if (users && users.length)
+        if(users && users.length)
         {
-            for (const user of users)
+            for(const user of users)
             {
-                if (!user) continue;
+                if(!user) continue;
 
                 const userData = new RoomUserData(user.roomIndex);
 
@@ -92,7 +92,7 @@ export class RoomUsersHandler extends BaseHandler
                 userData.botSkills = user.botSkills;
                 userData.isModerator = user.isModerator;
 
-                if (!session.userDataManager.getUserData(user.roomIndex)) usersToAdd.push(userData);
+                if(!session.userDataManager.getUserData(user.roomIndex)) usersToAdd.push(userData);
 
                 session.userDataManager.updateUserData(userData);
             }
@@ -103,15 +103,15 @@ export class RoomUsersHandler extends BaseHandler
 
     private onRoomUnitInfoEvent(event: RoomUnitInfoEvent): void
     {
-        if (!this.listener) return;
+        if(!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         session.userDataManager.updateFigure(parser.unitId, parser.figure, parser.gender, false, false);
         session.userDataManager.updateMotto(parser.unitId, parser.motto);
@@ -123,41 +123,41 @@ export class RoomUsersHandler extends BaseHandler
 
     private onRoomUnitRemoveEvent(event: RoomUnitRemoveEvent): void
     {
-        if (!this.listener) return;
+        if(!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         session.userDataManager.removeUserData(event.getParser().unitId);
     }
 
     private onRoomUnitDanceEvent(event: RoomUnitDanceEvent): void
     {
-        if (!this.listener) return;
+        if(!this.listener) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         this.listener.events.dispatchEvent(new RoomSessionDanceEvent(session, parser.unitId, parser.danceId));
     }
 
     private onUserCurrentBadgesEvent(event: UserCurrentBadgesEvent): void
     {
-        if (!this.listener) return;
+        if(!this.listener) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         session.userDataManager.setUserBadges(parser.userId, parser.badges);
 
@@ -166,49 +166,49 @@ export class RoomUsersHandler extends BaseHandler
 
     private onRoomDoorbellEvent(event: DoorbellMessageEvent): void
     {
-        if (!this.listener) return;
+        if(!this.listener) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         const username = parser.userName;
 
-        if (!username || !username.length) return;
+        if(!username || !username.length) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         this.listener.events.dispatchEvent(new RoomSessionDoorbellEvent(RoomSessionDoorbellEvent.DOORBELL, session, username));
     }
 
     private onUserNameChangeMessageEvent(event: UserNameChangeMessageEvent): void
     {
-        if (!this.listener) return;
+        if(!this.listener) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         session.userDataManager.updateName(parser.id, parser.newName);
     }
 
     private onNewFriendRequestEvent(event: NewFriendRequestEvent): void
     {
-        if (!this.listener) return;
+        if(!this.listener) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         const request = parser.request;
 
@@ -217,15 +217,15 @@ export class RoomUsersHandler extends BaseHandler
 
     private onPetInfoEvent(event: PetInfoEvent): void
     {
-        if (!this.listener) return;
+        if(!this.listener) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         const petData = new RoomPetData();
 
@@ -261,15 +261,15 @@ export class RoomUsersHandler extends BaseHandler
 
     private onPetStatusUpdateEvent(event: PetStatusUpdateEvent): void
     {
-        if (!this.listener) return;
+        if(!this.listener) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         session.userDataManager.updatePetBreedingStatus(parser.roomIndex, parser.canBreed, parser.canHarvest, parser.canRevive, parser.hasBreedingPermission);
 
@@ -278,15 +278,15 @@ export class RoomUsersHandler extends BaseHandler
 
     private onPetFigureUpdateEvent(event: PetFigureUpdateEvent): void
     {
-        if (!this.listener) return;
+        if(!this.listener) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         const figure = parser.figureData.figuredata;
 
@@ -297,21 +297,21 @@ export class RoomUsersHandler extends BaseHandler
 
     private onPetPlacingError(event: PetPlacingErrorEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
-        if (!this.listener) return;
+        if(!this.listener) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         let type: string = null;
 
-        switch (parser.errorCode)
+        switch(parser.errorCode)
         {
             case 0:
                 type = RoomSessionErrorMessageEvent.RSEME_PETS_FORBIDDEN_IN_HOTEL;
@@ -333,28 +333,28 @@ export class RoomUsersHandler extends BaseHandler
                 break;
         }
 
-        if (!type || type.length == 0) return;
+        if(!type || type.length == 0) return;
 
         this.listener.events.dispatchEvent(new RoomSessionErrorMessageEvent(type, session));
     }
 
     private onBotError(event: BotErrorEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
-        if (!this.listener) return;
+        if(!this.listener) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         let type: string = null;
 
-        switch (parser.errorCode)
+        switch(parser.errorCode)
         {
             case 0:
                 type = RoomSessionErrorMessageEvent.RSEME_BOTS_FORBIDDEN_IN_HOTEL;
@@ -373,23 +373,23 @@ export class RoomUsersHandler extends BaseHandler
                 break;
         }
 
-        if (!type || type.length == 0) return;
+        if(!type || type.length == 0) return;
 
         this.listener.events.dispatchEvent(new RoomSessionErrorMessageEvent(type, session));
     }
 
     private onFavoriteMembershipUpdateMessageEvent(event: FavoriteMembershipUpdateMessageEvent): void
     {
-        if (!this.listener) return;
+        if(!this.listener) return;
 
         const parser = event.getParser();
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         const userData = session.userDataManager.getUserDataByIndex(parser.roomIndex);
 
-        if (!userData) return;
+        if(!userData) return;
 
         userData.groupId = parser.groupId;
         userData.groupName = parser.groupName;

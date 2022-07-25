@@ -28,11 +28,11 @@ export class EventDispatcher extends Disposable implements IEventDispatcher, IDi
 
     public addEventListener(type: string, callback: Function): void
     {
-        if (!type || !callback) return;
+        if(!type || !callback) return;
 
         const existing = this._listeners.get(type);
 
-        if (!existing)
+        if(!existing)
         {
             this._listeners.set(type, [callback]);
 
@@ -44,19 +44,19 @@ export class EventDispatcher extends Disposable implements IEventDispatcher, IDi
 
     public removeEventListener(type: string, callback: any): void
     {
-        if (!type || !callback) return;
+        if(!type || !callback) return;
 
         const existing = this._listeners.get(type);
 
-        if (!existing || !existing.length) return;
+        if(!existing || !existing.length) return;
 
-        for (const [i, cb] of existing.entries())
+        for(const [i, cb] of existing.entries())
         {
-            if (!cb || (cb !== callback)) continue;
+            if(!cb || (cb !== callback)) continue;
 
             existing.splice(i, 1);
 
-            if (!existing.length) this._listeners.delete(type);
+            if(!existing.length) this._listeners.delete(type);
 
             return;
         }
@@ -64,9 +64,9 @@ export class EventDispatcher extends Disposable implements IEventDispatcher, IDi
 
     public dispatchEvent(event: NitroEvent): boolean
     {
-        if (!event) return false;
+        if(!event) return false;
 
-        if (Nitro.instance.getConfiguration<boolean>('system.dispatcher.log')) this._logger.log('Dispatched Event', event.type);
+        if(Nitro.instance.getConfiguration<boolean>('system.dispatcher.log')) this._logger.log('Dispatched Event', event.type);
 
         this.processEvent(event);
 
@@ -77,18 +77,18 @@ export class EventDispatcher extends Disposable implements IEventDispatcher, IDi
     {
         const existing = this._listeners.get(event.type);
 
-        if (!existing || !existing.length) return;
+        if(!existing || !existing.length) return;
 
         const callbacks = [];
 
-        for (const callback of existing)
+        for(const callback of existing)
         {
-            if (!callback) continue;
+            if(!callback) continue;
 
             callbacks.push(callback);
         }
 
-        while (callbacks.length)
+        while(callbacks.length)
         {
             const callback = callbacks.shift();
 
