@@ -4,7 +4,7 @@ import { IEventDispatcher } from '../../core/events/IEventDispatcher';
 import { IRoomObjectEventHandler } from '../../room/object/logic/IRoomObjectEventHandler';
 import { IRoomObjectLogicFactory } from '../../room/object/logic/IRoomObjectLogicFactory';
 import { RoomObjectLogicBase } from '../../room/object/logic/RoomObjectLogicBase';
-import { FurnitureEcotronBoxLogic, FurnitureEffectBoxLogic, FurnitureGroupForumTerminalLogic, FurnitureHweenLovelockLogic, FurnitureInternalLinkLogic, FurnitureJukeboxLogic, FurnitureLoveLockLogic, FurnitureMonsterplantSeedLogic, FurnitureMysteryBoxLogic, FurnitureMysteryTrophyLogic, FurniturePlaceholderLogic, FurniturePlanetSystemLogic, FurnitureRandomStateLogic, FurnitureRandomTeleportLogic, FurnitureRentableSpaceLogic, FurnitureSongDiskLogic, FurnitureSoundMachineLogic, FurnitureWelcomeGiftLogic } from './object';
+import { FurnitureEcotronBoxLogic, FurnitureEffectBoxLogic, FurnitureGroupForumTerminalLogic, FurnitureHabboWheelLogic, FurnitureHweenLovelockLogic, FurnitureInternalLinkLogic, FurnitureJukeboxLogic, FurnitureLoveLockLogic, FurnitureMonsterplantSeedLogic, FurnitureMysteryBoxLogic, FurnitureMysteryTrophyLogic, FurniturePlaceholderLogic, FurniturePlanetSystemLogic, FurnitureRandomStateLogic, FurnitureRandomTeleportLogic, FurnitureRentableSpaceLogic, FurnitureSongDiskLogic, FurnitureSoundMachineLogic, FurnitureWelcomeGiftLogic } from './object';
 import { AvatarLogic } from './object/logic/avatar/AvatarLogic';
 import { FurnitureAchievementResolutionLogic } from './object/logic/furniture/FurnitureAchievementResolutionLogic';
 import { FurnitureBadgeDisplayLogic } from './object/logic/furniture/FurnitureBadgeDisplayLogic';
@@ -348,6 +348,9 @@ export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
                 break;
             case RoomObjectLogicType.FURNITURE_ACHIEVEMENT_RESOLUTION:
                 logic = FurnitureAchievementResolutionLogic;
+                break;
+            case RoomObjectLogicType.FURNITURE_HABBOWHEEL:
+                logic = FurnitureHabboWheelLogic;
                 break;
             default:
                 logic = FurnitureLogic;
