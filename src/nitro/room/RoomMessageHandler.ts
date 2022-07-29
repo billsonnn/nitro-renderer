@@ -875,7 +875,7 @@ export class RoomMessageHandler extends Disposable
 
         if(!parser) return;
 
-        this._roomCreator.updateRoomObjectUserFigure(this._currentRoomId, parser.roomIndex, parser.figureData.figuredata, '' , '', parser.isRiding);
+        this._roomCreator.updateRoomObjectUserFigure(this._currentRoomId, parser.roomIndex, parser.figureData.figuredata, '', '', parser.isRiding);
     }
 
     private onPetExperienceEvent(event: PetExperienceEvent): void
@@ -987,7 +987,7 @@ export class RoomMessageHandler extends Disposable
         this.removeGuideMarker();
     }
 
-    private updateGuideMarker():void
+    private updateGuideMarker(): void
     {
         const userId = this._roomCreator.sessionDataManager.userId;
 
@@ -995,7 +995,7 @@ export class RoomMessageHandler extends Disposable
         this.setUserGuideStatus(this._requesterId, ((this._guideId === userId) ? AvatarGuideStatus.REQUESTER : AvatarGuideStatus.NONE));
     }
 
-    private removeGuideMarker():void
+    private removeGuideMarker(): void
     {
         this.setUserGuideStatus(this._guideId, AvatarGuideStatus.NONE);
         this.setUserGuideStatus(this._requesterId, AvatarGuideStatus.NONE);
@@ -1004,7 +1004,7 @@ export class RoomMessageHandler extends Disposable
         this._requesterId = -1;
     }
 
-    private setUserGuideStatus(userId: number, status: number):void
+    private setUserGuideStatus(userId: number, status: number): void
     {
         if(!this._roomCreator || !this._roomCreator.roomSessionManager) return;
 

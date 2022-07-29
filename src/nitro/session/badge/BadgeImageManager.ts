@@ -4,7 +4,6 @@ import { IAssetManager } from '../../../core/asset/IAssetManager';
 import { IMessageEvent } from '../../../core/communication/messages/IMessageEvent';
 import { NitroSprite } from '../../../core/utils/proxy/NitroSprite';
 import { GroupBadgePartsEvent } from '../../communication/messages/incoming/group/GroupBadgePartsEvent';
-import { GroupBadgePartsComposer } from '../../communication/messages/outgoing/group/GroupBadgePartsComposer';
 import { Nitro } from '../../Nitro';
 import { BadgeImageReadyEvent } from '../events/BadgeImageReadyEvent';
 import { IDisposable } from './../../../core/common/disposable/IDisposable';
@@ -56,8 +55,6 @@ export class BadgeImageManager implements IDisposable
             ];
 
             for(const message of this._messages) this._sessionDataManager.communication.registerMessageEvent(message);
-
-            this._sessionDataManager.send(new GroupBadgePartsComposer());
         }
     }
 
