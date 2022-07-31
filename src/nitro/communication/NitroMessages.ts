@@ -150,7 +150,6 @@ import { FurnitureFloorRemoveEvent } from './messages/incoming/room/furniture/fl
 import { FurnitureFloorUpdateEvent } from './messages/incoming/room/furniture/floor/FurnitureFloorUpdateEvent';
 import { FurnitureAliasesEvent } from './messages/incoming/room/furniture/FurnitureAliasesEvent';
 import { FurnitureDataEvent } from './messages/incoming/room/furniture/FurnitureDataEvent';
-import { FurniturePostItStickyPoleOpenEvent } from './messages/incoming/room/furniture/FurniturePostItStickyPoleOpenEvent';
 import { FurnitureStackHeightEvent } from './messages/incoming/room/furniture/FurnitureStackHeightEvent';
 import { GroupFurniContextMenuInfoMessageEvent } from './messages/incoming/room/furniture/GroupFurniContextMenuInfoMessageEvent';
 import { ItemDataUpdateMessageEvent } from './messages/incoming/room/furniture/ItemDataUpdateMessageEvent';
@@ -158,6 +157,7 @@ import { LoveLockFurniFinishedEvent } from './messages/incoming/room/furniture/L
 import { LoveLockFurniFriendConfirmedEvent } from './messages/incoming/room/furniture/LoveLockFurniFriendConfirmedEvent';
 import { LoveLockFurniStartEvent } from './messages/incoming/room/furniture/LoveLockFurniStartEvent';
 import { OneWayDoorStatusMessageEvent } from './messages/incoming/room/furniture/OneWayDoorStatusMessageEvent';
+import { RequestSpamWallPostItMessageEvent } from './messages/incoming/room/furniture/RequestSpamWallPostItMessageEvent';
 import { RoomDimmerPresetsEvent } from './messages/incoming/room/furniture/RoomDimmerPresetsMessageEvent';
 import { FurnitureWallAddEvent } from './messages/incoming/room/furniture/wall/FurnitureWallAddEvent';
 import { FurnitureWallEvent } from './messages/incoming/room/furniture/wall/FurnitureWallEvent';
@@ -402,6 +402,7 @@ import { PetRemoveComposer } from './messages/outgoing/room/engine/PetRemoveComp
 import { RemoveWallItemComposer } from './messages/outgoing/room/engine/RemoveWallItemComposer';
 import { SetItemDataMessageComposer } from './messages/outgoing/room/engine/SetItemDataMessageComposer';
 import { SetObjectDataMessageComposer } from './messages/outgoing/room/engine/SetObjectDataMessageComposer';
+import { AddSpamWallPostItMessageComposer } from './messages/outgoing/room/furniture/AddSpamWallPostItMessageComposer';
 import { MoodlightSettingsComposer } from './messages/outgoing/room/furniture/dimmer/MoodlightSettingsComposer';
 import { MoodlightSettingsSaveComposer } from './messages/outgoing/room/furniture/dimmer/MoodlightSettingsSaveComposer';
 import { MoodlightTogggleStateComposer } from './messages/outgoing/room/furniture/dimmer/MoodlightTogggleStateComposer';
@@ -411,7 +412,6 @@ import { FurniturePickupComposer } from './messages/outgoing/room/furniture/Furn
 import { FurniturePlaceComposer } from './messages/outgoing/room/furniture/FurniturePlaceComposer';
 import { FurniturePlacePaintComposer } from './messages/outgoing/room/furniture/FurniturePlacePaintComposer';
 import { FurniturePostItPlaceComposer } from './messages/outgoing/room/furniture/FurniturePostItPlaceComposer';
-import { FurniturePostItSaveStickyPoleComposer } from './messages/outgoing/room/furniture/FurniturePostItSaveStickyPoleComposer';
 import { FurnitureColorWheelComposer } from './messages/outgoing/room/furniture/logic/FurnitureColorWheelComposer';
 import { FurnitureDiceActivateComposer } from './messages/outgoing/room/furniture/logic/FurnitureDiceActivateComposer';
 import { FurnitureDiceDeactivateComposer } from './messages/outgoing/room/furniture/logic/FurnitureDiceDeactivateComposer';
@@ -657,7 +657,7 @@ export class NitroMessages implements IMessageConfiguration
         // INVENTORY
         this._events.set(IncomingHeader.ACHIEVEMENT_PROGRESSED, AchievementEvent);
         this._events.set(IncomingHeader.ACHIEVEMENT_LIST, AchievementsEvent);
-        this._events.set(IncomingHeader.USER_ACHIEVEMENT_SCORE,AchievementsScoreEvent);
+        this._events.set(IncomingHeader.USER_ACHIEVEMENT_SCORE, AchievementsScoreEvent);
         this._events.set(IncomingHeader.USER_EFFECT_ACTIVATE, AvatarEffectActivatedEvent);
         this._events.set(IncomingHeader.USER_EFFECT_LIST_ADD, AvatarEffectAddedEvent);
         this._events.set(IncomingHeader.USER_EFFECT_LIST_REMOVE, AvatarEffectExpiredEvent);
@@ -825,7 +825,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.LOVELOCK_FURNI_START, LoveLockFurniStartEvent);
         this._events.set(IncomingHeader.OBJECTS_DATA_UPDATE, ObjectsDataUpdateEvent);
         this._events.set(IncomingHeader.FURNITURE_GROUP_CONTEXT_MENU_INFO, GroupFurniContextMenuInfoMessageEvent);
-        this._events.set(IncomingHeader.FURNITURE_POSTIT_STICKY_POLE_OPEN, FurniturePostItStickyPoleOpenEvent);
+        this._events.set(IncomingHeader.FURNITURE_POSTIT_STICKY_POLE_OPEN, RequestSpamWallPostItMessageEvent);
         this._events.set(IncomingHeader.ROOM_SPECTATOR, YouAreSpectatorMessageEvent);
 
         // ROOM SETTINGS
@@ -1270,7 +1270,7 @@ export class NitroMessages implements IMessageConfiguration
         this._composers.set(OutgoingHeader.FURNITURE_PLACE, FurniturePlaceComposer);
         this._composers.set(OutgoingHeader.ITEM_PAINT, FurniturePlacePaintComposer);
         this._composers.set(OutgoingHeader.FURNITURE_POSTIT_PLACE, FurniturePostItPlaceComposer);
-        this._composers.set(OutgoingHeader.FURNITURE_POSTIT_SAVE_STICKY_POLE, FurniturePostItSaveStickyPoleComposer);
+        this._composers.set(OutgoingHeader.FURNITURE_POSTIT_SAVE_STICKY_POLE, AddSpamWallPostItMessageComposer);
         this._composers.set(OutgoingHeader.CONTROL_YOUTUBE_DISPLAY_PLAYBACK, ControlYoutubeDisplayPlaybackMessageComposer);
         this._composers.set(OutgoingHeader.GET_YOUTUBE_DISPLAY_STATUS, GetYoutubeDisplayStatusMessageComposer);
         this._composers.set(OutgoingHeader.SET_YOUTUBE_DISPLAY_PLAYLIST, SetYoutubeDisplayPlaylistMessageComposer);

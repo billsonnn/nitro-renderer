@@ -76,6 +76,8 @@ export interface IRoomEngine extends INitroManager
     getFurnitureWallImage(typeId: number, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor?: number, extras?: string, state?: number, frameCount?: number): ImageResult;
     getRoomObjectImage(roomId: number, objectId: number, category: number, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor?: number): ImageResult;
     getRoomObjectPetImage(typeId: number, paletteId: number, color: number, direction: IVector3D, scale: number, listener: IGetImageListener, headOnly?: boolean, bgColor?: number, customParts?: PetCustomPart[], posture?: string): ImageResult;
+    getFurnitureFloorName(typeId: number): string;
+    getFurnitureWallName(typeId: number, extra?: string): string;
     selectRoomObject(roomId: number, objectId: number, objectCategory: number): void;
     setSelectedAvatar(roomId: number, objectId: number): void;
     cancelRoomObjectInsert(): void;

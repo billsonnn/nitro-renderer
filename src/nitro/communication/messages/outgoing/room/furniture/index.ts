@@ -1,3 +1,4 @@
+export * from './AddSpamWallPostItMessageComposer';
 export * from './dimmer';
 export * from './floor';
 export * from './FurnitureAliasesComposer';
@@ -6,7 +7,6 @@ export * from './FurniturePickupComposer';
 export * from './FurniturePlaceComposer';
 export * from './FurniturePlacePaintComposer';
 export * from './FurniturePostItPlaceComposer';
-export * from './FurniturePostItSaveStickyPoleComposer';
 export * from './logic';
 export * from './mannequin';
 export * from './presents';
