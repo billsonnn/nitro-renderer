@@ -84,7 +84,6 @@ export interface IRoomEngine extends INitroManager
     getPetColorResult(petIndex: number, paletteIndex: number): PetColorResult;
     getPetColorResultsForTag(petIndex: number, tagName: string): PetColorResult[];
     cancelRoomObjectPlacement(): void;
-    getFurnitureFloorName(typeId: number): string;
     useRoomObject(objectId: number, category: number): boolean;
     objectInitialized(roomId: string, objectId: number, category: number): void;
     changeObjectModelData(roomId: number, objectId: number, category: number, numberKey: string, numberValue: number): boolean;
