@@ -386,4 +386,5 @@ export class IncomingHeader
     public static NO_SUCH_FLAT = 84;
     public static ROOM_SETTINGS_ERROR = 2897;
     public static SHOW_ENFORCE_ROOM_CATEGORY = 3896;
+    public static CUSTOM_USER_NOTIFICATION = 909;
 }

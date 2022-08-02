@@ -1,3 +1,4 @@
+export * from './CustomUserNotificationMessageParser';
 export * from './DiceValueMessageParser';
 export * from './floor';
 export * from './FurnitureAliasesParser';
