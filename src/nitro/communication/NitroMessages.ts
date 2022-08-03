@@ -827,7 +827,7 @@ export class NitroMessages implements IMessageConfiguration
         this._events.set(IncomingHeader.FURNITURE_GROUP_CONTEXT_MENU_INFO, GroupFurniContextMenuInfoMessageEvent);
         this._events.set(IncomingHeader.FURNITURE_POSTIT_STICKY_POLE_OPEN, RequestSpamWallPostItMessageEvent);
         this._events.set(IncomingHeader.ROOM_SPECTATOR, YouAreSpectatorMessageEvent);
-        this._events.set(IncomingHeader.CUSTOM_USER_NOTIFICATION, CustomUserNotificationMessageEvent)
+        this._events.set(IncomingHeader.CUSTOM_USER_NOTIFICATION, CustomUserNotificationMessageEvent);
 
         // ROOM SETTINGS
         this._events.set(IncomingHeader.ROOM_RIGHTS_LIST, FlatControllersEvent);
