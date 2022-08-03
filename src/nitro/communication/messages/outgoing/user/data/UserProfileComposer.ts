@@ -4,9 +4,9 @@ export class UserProfileComposer implements IMessageComposer<ConstructorParamete
 {
     private _data: ConstructorParameters<typeof UserProfileComposer>;
 
-    constructor(userId: number)
+    constructor(userId: number, flag: boolean = true)
     {
-        this._data = [ userId ];
+        this._data = [ userId, flag ];
     }
 
     public getMessageArray()

@@ -107,7 +107,7 @@ export class RoomRenderer implements IRoomRenderer, IRoomSpriteCanvasContainer
     {
         const existing = this._canvases.get(id);
 
-        if(!existing) return;
+        if(!existing) return null;
 
         return existing;
     }
