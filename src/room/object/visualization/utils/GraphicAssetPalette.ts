@@ -1,18 +1,18 @@
 import { Resource, Texture } from '@pixi/core';
-import { NitroSprite } from '../../../../core';
+import { NitroSprite } from '../../../../pixi-proxy';
 import { TextureUtils } from '../../../utils';
 
 export class GraphicAssetPalette
 {
-    private _palette: [ number, number, number ][];
+    private _palette: [number, number, number][];
     private _primaryColor: number;
     private _secondaryColor: number;
 
-    constructor(palette: [ number, number, number ][], primaryColor: number, secondaryColor: number)
+    constructor(palette: [number, number, number][], primaryColor: number, secondaryColor: number)
     {
         this._palette = palette;
 
-        while(this._palette.length < 256) this._palette.push([ 0, 0, 0 ]);
+        while (this._palette.length < 256) this._palette.push([0, 0, 0]);
 
         this._primaryColor = primaryColor;
         this._secondaryColor = secondaryColor;
@@ -31,15 +31,15 @@ export class GraphicAssetPalette
         const textureImageData = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
         const data = textureImageData.data;
 
-        for(let i = 0; i < data.length; i += 4)
+        for (let i = 0; i < data.length; i += 4)
         {
-            let paletteColor = this._palette[data[ i + 1 ]];
+            let paletteColor = this._palette[data[i + 1]];
 
-            if(paletteColor === undefined) paletteColor = [ 0, 0, 0 ];
+            if (paletteColor === undefined) paletteColor = [0, 0, 0];
 
-            data[ i ] = paletteColor[0];
-            data[ i + 1 ] = paletteColor[1];
-            data[ i + 2 ] = paletteColor[2];
+            data[i] = paletteColor[0];
+            data[i + 1] = paletteColor[1];
+            data[i + 2] = paletteColor[2];
         }
 
         textureCtx.putImageData(textureImageData, 0, 0);

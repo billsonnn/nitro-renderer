@@ -1,5 +1,5 @@
 import { Graphics } from '@pixi/graphics';
-import { NitroRenderTexture } from '../../../../../../../core';
+import { NitroRenderTexture } from '../../../../../../../pixi-proxy';
 import { IVector3D } from '../../../../../../../room/utils/IVector3D';
 import { Vector3d } from '../../../../../../../room/utils/Vector3d';
 import { PlaneMaterialCell } from './PlaneMaterialCell';
@@ -36,19 +36,19 @@ export class PlaneMaterialCellColumn
         this._isCached = false;
         this._isStatic = true;
 
-        if(cells && cells.length)
+        if (cells && cells.length)
         {
             let cellIndex = 0;
 
-            while(cellIndex < cells.length)
+            while (cellIndex < cells.length)
             {
                 const cell = cells[cellIndex];
 
-                if(cell)
+                if (cell)
                 {
                     this._cells.push(cell);
 
-                    if(!cell.isStatic) this._isStatic = false;
+                    if (!cell.isStatic) this._isStatic = false;
                 }
 
                 cellIndex++;
@@ -73,11 +73,11 @@ export class PlaneMaterialCellColumn
 
     public dispose(): void
     {
-        if(this._cells && this._cells.length)
+        if (this._cells && this._cells.length)
         {
-            for(const cell of this._cells)
+            for (const cell of this._cells)
             {
-                if(!cell) continue;
+                if (!cell) continue;
 
                 cell.dispose();
             }
@@ -85,39 +85,39 @@ export class PlaneMaterialCellColumn
             this._cells = null;
         }
 
-        if(this._cachedBitmapData)
+        if (this._cachedBitmapData)
         {
             this._cachedBitmapData.destroy();
 
             this._cachedBitmapData = null;
         }
 
-        if(this._cachedBitmapNormal) this._cachedBitmapNormal = null;
+        if (this._cachedBitmapNormal) this._cachedBitmapNormal = null;
     }
 
     public clearCache(): void
     {
-        if(!this._isCached) return;
+        if (!this._isCached) return;
 
-        if(this._cachedBitmapData)
+        if (this._cachedBitmapData)
         {
             this._cachedBitmapData.destroy();
 
             this._cachedBitmapData = null;
         }
 
-        if(this._cachedBitmapNormal)
+        if (this._cachedBitmapNormal)
         {
             this._cachedBitmapNormal.x = 0;
             this._cachedBitmapNormal.y = 0;
             this._cachedBitmapNormal.z = 0;
         }
 
-        if(this._cells && this._cells.length)
+        if (this._cells && this._cells.length)
         {
-            for(const cell of this._cells)
+            for (const cell of this._cells)
             {
-                if(!cell) continue;
+                if (!cell) continue;
 
                 cell.clearCache();
             }
@@ -130,19 +130,19 @@ export class PlaneMaterialCellColumn
     {
         let ht = 0;
 
-        if(this._repeatMode == PlaneMaterialCellColumn.REPEAT_MODE_NONE)
+        if (this._repeatMode == PlaneMaterialCellColumn.REPEAT_MODE_NONE)
         {
             ht = this.getCellsHeight(this._cells, normal);
             height = ht;
         }
 
-        if(!this._cachedBitmapNormal) this._cachedBitmapNormal = new Vector3d();
+        if (!this._cachedBitmapNormal) this._cachedBitmapNormal = new Vector3d();
 
-        if(this.isStatic)
+        if (this.isStatic)
         {
-            if(this._cachedBitmapData)
+            if (this._cachedBitmapData)
             {
-                if((this._cachedBitmapData.height === height) && Vector3d.isEqual(this._cachedBitmapNormal, normal) && (this._cachedBitmapDataOffsetX === offsetX) && (this._cachedBitmapDataOffsetY === offsetY))
+                if ((this._cachedBitmapData.height === height) && Vector3d.isEqual(this._cachedBitmapNormal, normal) && (this._cachedBitmapDataOffsetX === offsetX) && (this._cachedBitmapDataOffsetY === offsetY))
                 {
                     return this._cachedBitmapData;
                 }
@@ -154,9 +154,9 @@ export class PlaneMaterialCellColumn
         }
         else
         {
-            if(this._cachedBitmapData)
+            if (this._cachedBitmapData)
             {
-                if(this._cachedBitmapData.height === height)
+                if (this._cachedBitmapData.height === height)
                 {
                     this._cachedBitmapData
                         .beginFill(0xFFFFFF)
@@ -174,7 +174,7 @@ export class PlaneMaterialCellColumn
 
         this._isCached = true;
 
-        if(!this._cachedBitmapData)
+        if (!this._cachedBitmapData)
         {
             this._cachedBitmapData = new Graphics()
                 .beginFill(0xFFFFFF)
@@ -186,9 +186,9 @@ export class PlaneMaterialCellColumn
         this._cachedBitmapDataOffsetX = offsetX;
         this._cachedBitmapDataOffsetY = offsetY;
 
-        if(!this._cells.length) return this._cachedBitmapData;
+        if (!this._cells.length) return this._cachedBitmapData;
 
-        switch(this._repeatMode)
+        switch (this._repeatMode)
         {
             case PlaneMaterialCellColumn.REPEAT_MODE_NONE:
                 this.renderRepeatNone(normal);
@@ -219,16 +219,16 @@ export class PlaneMaterialCellColumn
 
     private getCellsHeight(cells: PlaneMaterialCell[], normal: IVector3D): number
     {
-        if(!cells || !cells.length) return 0;
+        if (!cells || !cells.length) return 0;
 
         let height = 0;
         let cellIterator = 0;
 
-        while(cellIterator < cells.length)
+        while (cellIterator < cells.length)
         {
             const cell = cells[cellIterator];
 
-            if(cell) height += cell.getHeight(normal);
+            if (cell) height += cell.getHeight(normal);
 
             cellIterator++;
         }
@@ -238,15 +238,15 @@ export class PlaneMaterialCellColumn
 
     private renderCells(cells: PlaneMaterialCell[], index: number, flag: boolean, normal: IVector3D, offsetX: number = 0, offsetY: number = 0): number
     {
-        if(((!cells || !cells.length) || !this._cachedBitmapData)) return index;
+        if (((!cells || !cells.length) || !this._cachedBitmapData)) return index;
 
         let cellIndex = 0;
 
-        while(cellIndex < cells.length)
+        while (cellIndex < cells.length)
         {
             let cell: PlaneMaterialCell = null;
 
-            if(flag)
+            if (flag)
             {
                 cell = cells[cellIndex];
             }
@@ -255,21 +255,21 @@ export class PlaneMaterialCellColumn
                 cell = cells[((cells.length - 1) - cellIndex)];
             }
 
-            if(cell)
+            if (cell)
             {
                 const graphic = cell.render(normal, offsetX, offsetY);
 
-                if(graphic)
+                if (graphic)
                 {
-                    if(!flag) index -= graphic.height;
+                    if (!flag) index -= graphic.height;
 
                     graphic.y = index;
 
                     this._cachedBitmapData.addChild(graphic);
 
-                    if(flag) index = (index + graphic.height);
+                    if (flag) index = (index + graphic.height);
 
-                    if(((flag) && (index >= this._cachedBitmapData.height)) || ((!(flag)) && (index <= 0))) return index;
+                    if (((flag) && (index >= this._cachedBitmapData.height)) || ((!(flag)) && (index <= 0))) return index;
                 }
             }
 
@@ -281,22 +281,22 @@ export class PlaneMaterialCellColumn
 
     private renderRepeatNone(normal: IVector3D): void
     {
-        if(!this._cells.length || !this._cachedBitmapData) return;
+        if (!this._cells.length || !this._cachedBitmapData) return;
 
         this.renderCells(this._cells, 0, true, normal);
     }
 
     private renderRepeatAll(normal: IVector3D, offsetX: number, offsetY: number): void
     {
-        if(!this._cells.length || !this._cachedBitmapData) return;
+        if (!this._cells.length || !this._cachedBitmapData) return;
 
         let index = 0;
 
-        while(index < this._cachedBitmapData.height)
+        while (index < this._cachedBitmapData.height)
         {
             index = this.renderCells(this._cells, index, true, normal, offsetX, offsetY);
 
-            if(!index) return;
+            if (!index) return;
         }
     }
 

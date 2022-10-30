@@ -1,7 +1,7 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Matrix } from '@pixi/math';
 import { IGraphicAsset } from '../../../../../api';
-import { NitroSprite } from '../../../../../core/utils/proxy/NitroSprite';
+import { NitroSprite } from '../../../../../pixi-proxy';
 import { Nitro } from '../../../../Nitro';
 import { FurnitureBBVisualization } from './FurnitureBBVisualization';
 import { FurnitureBrandedImageVisualization } from './FurnitureBrandedImageVisualization';

@@ -1,6 +1,6 @@
 ﻿import { Matrix, Point } from '@pixi/math';
 import { IGraphicAsset } from '../../../../../../../api';
-import { NitroSprite } from '../../../../../../../core';
+import { NitroSprite } from '../../../../../../../pixi-proxy';
 import { IVector3D } from '../../../../../../../room/utils/IVector3D';
 import { Randomizer } from '../../utils';
 import { PlaneTexture } from './PlaneTexture';

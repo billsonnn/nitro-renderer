@@ -1,7 +1,7 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { Text } from '@pixi/text';
-import { NitroContainer, NitroSprite } from '../../../../../core';
+import { NitroContainer, NitroSprite } from '../../../../../pixi-proxy';
 import { TextureUtils } from '../../../../../room';
 import { Nitro } from '../../../../Nitro';
 
@@ -22,7 +22,7 @@ export class ExperienceData
 
     public renderBubble(amount: number): RenderTexture
     {
-        if(!this._sprite || (this._amount === amount)) return null;
+        if (!this._sprite || (this._amount === amount)) return null;
 
         const container = new NitroContainer();
 
@@ -42,7 +42,7 @@ export class ExperienceData
 
         container.addChild(text);
 
-        if(!this._texture)
+        if (!this._texture)
         {
             this._texture = TextureUtils.generateTexture(container);
         }

@@ -1,4 +1,4 @@
-import { NitroBaseTexture, NitroFilter } from './proxy';
+import { NitroBaseTexture, NitroFilter } from '../../pixi-proxy';
 
 const vertex = `
 attribute vec2 aVertexPosition;
@@ -66,7 +66,7 @@ export class PaletteMapFilter extends NitroFilter
     {
         const lut = [];
 
-        for(let i = 0; i < data.length; i++)
+        for (let i = 0; i < data.length; i++)
         {
             // R
             lut[(i * 4) + PaletteMapFilter.CHANNEL_RED] = ((data[i] >> 16) & 0xFF);
