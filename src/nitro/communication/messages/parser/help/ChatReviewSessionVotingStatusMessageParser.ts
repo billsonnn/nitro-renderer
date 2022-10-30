@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class ChatReviewSessionVotingStatusMessageParser implements IMessageParser
 {
@@ -10,7 +9,7 @@ export class ChatReviewSessionVotingStatusMessageParser implements IMessageParse
     public static readonly NO_VOTE = 4;
     public static readonly FINDING_NEW_VOTER = 5;
 
-    private _status:number[];
+    private _status: number[];
 
     flush(): boolean
     {
@@ -24,7 +23,7 @@ export class ChatReviewSessionVotingStatusMessageParser implements IMessageParse
 
         const count = wrapper.readInt();
 
-        for(let i = 0; i < count; i++)
+        for (let i = 0; i < count; i++)
         {
             this._status.push(wrapper.readInt());
         }

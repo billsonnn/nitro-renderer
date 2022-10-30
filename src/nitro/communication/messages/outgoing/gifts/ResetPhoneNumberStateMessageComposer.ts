@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class ResetPhoneNumberStateMessageComposer implements IMessageComposer<ConstructorParameters<typeof ResetPhoneNumberStateMessageComposer>>
 {

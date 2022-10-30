@@ -1,10 +1,10 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class SearchFaqsMessageComposer implements IMessageComposer<ConstructorParameters<typeof SearchFaqsMessageComposer>>
 {
     private _data: ConstructorParameters<typeof SearchFaqsMessageComposer>;
 
-    constructor(k:string)
+    constructor(k: string)
     {
         this._data = [k];
     }

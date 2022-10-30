@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../../core';
-import { IMessageParser } from './../../../../../../core';
+import { IMessageDataWrapper } from '../../../../../../api';
+import { IMessageParser } from './../../../../../../api';
 
 export class CommunityVoteReceivedParser implements IMessageParser
 {
@@ -12,7 +12,7 @@ export class CommunityVoteReceivedParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
         this._acknowledged = wrapper.readBoolean();
         return true;
     }

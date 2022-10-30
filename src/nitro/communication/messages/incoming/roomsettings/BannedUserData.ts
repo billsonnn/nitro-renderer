@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageDataWrapper } from '../../../../../api';
 import { IFlatUser } from './IFlatUser';
 
 export class BannedUserData implements IFlatUser

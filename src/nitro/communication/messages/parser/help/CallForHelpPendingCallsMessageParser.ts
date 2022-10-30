@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class CallForHelpPendingCallsMessageParser implements IMessageParser
 {
@@ -17,7 +16,7 @@ export class CallForHelpPendingCallsMessageParser implements IMessageParser
 
         const count = wrapper.readInt();
 
-        for(let i = 0; i < count; i++)
+        for (let i = 0; i < count; i++)
         {
             const callId = wrapper.readString();
             const timestamp = wrapper.readString();

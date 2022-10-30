@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../core';
+import { IMessageDataWrapper } from '../../../../../../api';
 
 export class UserInfoDataParser
 {
@@ -19,7 +19,7 @@ export class UserInfoDataParser
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_wrapper');
+        if (!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -47,7 +47,7 @@ export class UserInfoDataParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._userId = wrapper.readInt();
         this._username = wrapper.readString();

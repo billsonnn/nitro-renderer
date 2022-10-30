@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../../api';
 
 export class FurnitureWallRemoveParser implements IMessageParser
 {
@@ -15,7 +15,7 @@ export class FurnitureWallRemoveParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._itemId = parseInt(wrapper.readString());
         this._userId = wrapper.readInt();

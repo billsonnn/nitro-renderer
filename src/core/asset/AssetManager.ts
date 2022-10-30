@@ -1,11 +1,10 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Loader, LoaderResource } from '@pixi/loaders';
 import { Spritesheet } from '@pixi/spritesheet';
-import { IAssetData, IAssetManager, IGraphicAsset, IGraphicAssetCollection } from '../../api';
+import { IAssetData, IAssetManager, IGraphicAsset, IGraphicAssetCollection, INitroLogger } from '../../api';
 import { GraphicAssetCollection } from '../../room/object/visualization/utils/GraphicAssetCollection';
-import { Disposable } from '../common/disposable/Disposable';
-import { INitroLogger } from '../common/logger/INitroLogger';
-import { NitroLogger } from '../common/logger/NitroLogger';
+import { Disposable } from '../common/Disposable';
+import { NitroLogger } from '../common/NitroLogger';
 import { ArrayBufferToBase64 } from '../utils';
 import { NitroBundle } from './NitroBundle';
 

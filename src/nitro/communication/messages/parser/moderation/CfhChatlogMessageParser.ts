@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { CfhChatlogData } from '../../incoming/moderation/CfhChatlogData';
 
 export class CfhChatlogMessageParser implements IMessageParser
@@ -15,7 +14,7 @@ export class CfhChatlogMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._data = new CfhChatlogData(wrapper);
 

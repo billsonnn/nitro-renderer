@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class GroupUnfavoriteComposer implements IMessageComposer<ConstructorParameters<typeof GroupUnfavoriteComposer>>
 {
@@ -6,7 +6,7 @@ export class GroupUnfavoriteComposer implements IMessageComposer<ConstructorPara
 
     constructor(groupId: number)
     {
-        this._data = [ groupId ];
+        this._data = [groupId];
     }
 
     public getMessageArray()

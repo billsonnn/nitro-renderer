@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
 import { IssueInfoMessageParser } from './IssueInfoMessageParser';
 import { IssueMessageData } from './IssueMessageData';
 
@@ -6,7 +6,7 @@ export class ModeratorInitData
 {
     private _messageTemplates: string[];
     private _roomMessageTemplates: string[];
-    private _issues:IssueMessageData[];
+    private _issues: IssueMessageData[];
     private _cfhPermission: boolean;
     private _chatlogsPermission: boolean;
     private _alertPermission: boolean;
@@ -22,13 +22,13 @@ export class ModeratorInitData
         const local2 = new IssueInfoMessageParser();
         this._issues = [];
         this._messageTemplates = [];
-        this._roomMessageTemplates= [];
+        this._roomMessageTemplates = [];
 
         let local3 = wrapper.readInt();
         let i = 0;
-        while(i < local3)
+        while (i < local3)
         {
-            if(local2.parse(wrapper))
+            if (local2.parse(wrapper))
             {
                 this._issues.push(local2.issueData);
             }
@@ -37,7 +37,7 @@ export class ModeratorInitData
 
         local3 = wrapper.readInt();
         i = 0;
-        while(i < local3)
+        while (i < local3)
         {
             this._messageTemplates.push(wrapper.readString());
             i++;
@@ -45,7 +45,7 @@ export class ModeratorInitData
 
         local3 = wrapper.readInt();
         i = 0;
-        while(i < local3)
+        while (i < local3)
         {
             wrapper.readString();
             i++;
@@ -60,7 +60,7 @@ export class ModeratorInitData
         this._roomKickPermission = wrapper.readBoolean();
         local3 = wrapper.readInt();
         i = 0;
-        while(i < local3)
+        while (i < local3)
         {
             this._roomMessageTemplates.push(wrapper.readString());
             i++;
@@ -68,9 +68,9 @@ export class ModeratorInitData
 
 
     }
-    public dispose():void
+    public dispose(): void
     {
-        if(this._disposed)
+        if (this._disposed)
         {
             return;
         }
@@ -95,7 +95,7 @@ export class ModeratorInitData
         return this._roomMessageTemplates;
     }
 
-    public get issues():IssueMessageData[]
+    public get issues(): IssueMessageData[]
     {
         return this._issues;
     }

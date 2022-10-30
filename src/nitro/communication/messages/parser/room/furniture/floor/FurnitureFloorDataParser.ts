@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../../core';
+import { IMessageDataWrapper } from '../../../../../../../api';
 import { IObjectData } from '../../../../../../room/object/data/IObjectData';
 import { FurnitureDataParser } from '../FurnitureDataParser';
 
@@ -22,7 +22,7 @@ export class FurnitureFloorDataParser
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_wrapper');
+        if (!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -51,7 +51,7 @@ export class FurnitureFloorDataParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._itemId = wrapper.readInt();
         this._spriteId = wrapper.readInt();
@@ -68,7 +68,7 @@ export class FurnitureFloorDataParser
         this._userId = wrapper.readInt();
         this._username = null;
 
-        if(this._spriteId < 0) this._spriteName = wrapper.readString();
+        if (this._spriteId < 0) this._spriteName = wrapper.readString();
 
         return true;
     }

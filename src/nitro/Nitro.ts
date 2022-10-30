@@ -2,11 +2,9 @@ import { Application, IApplicationOptions } from '@pixi/app';
 import { SCALE_MODES } from '@pixi/constants';
 import { settings } from '@pixi/settings';
 import { Ticker } from '@pixi/ticker';
+import { IEventDispatcher, ILinkEventTracker, IWorkerEventTracker } from '../api';
 import { ConfigurationEvent } from '../core/configuration/ConfigurationEvent';
 import { EventDispatcher } from '../core/events/EventDispatcher';
-import { IEventDispatcher } from '../core/events/IEventDispatcher';
-import { ILinkEventTracker } from '../core/events/ILinkEventTracker';
-import { IWorkerEventTracker } from '../core/events/IWorkerEventTracker';
 import { NitroEvent } from '../core/events/NitroEvent';
 import { INitroCore } from '../core/INitroCore';
 import { NitroCore } from '../core/NitroCore';
@@ -72,7 +70,7 @@ export class Nitro extends Application implements INitro
     {
         super(options);
 
-        if(!Nitro.INSTANCE) Nitro.INSTANCE = this;
+        if (!Nitro.INSTANCE) Nitro.INSTANCE = this;
 
         this._nitroTimer = new NitroTimer();
         this._worker = null;
@@ -96,12 +94,12 @@ export class Nitro extends Application implements INitro
         this._core.configuration.events.addEventListener(ConfigurationEvent.LOADED, this.onConfigurationLoadedEvent.bind(this));
         this._roomEngine.events.addEventListener(RoomEngineEvent.ENGINE_INITIALIZED, this.onRoomEngineReady.bind(this));
 
-        if(this._worker) this._worker.onmessage = this.createWorkerEvent.bind(this);
+        if (this._worker) this._worker.onmessage = this.createWorkerEvent.bind(this);
     }
 
     public static bootstrap(): void
     {
-        if(Nitro.INSTANCE)
+        if (Nitro.INSTANCE)
         {
             Nitro.INSTANCE.dispose();
 
@@ -123,25 +121,25 @@ export class Nitro extends Application implements INitro
 
     public init(): void
     {
-        if(this._isReady || this._isDisposed) return;
+        if (this._isReady || this._isDisposed) return;
 
-        if(this._avatar) this._avatar.init();
+        if (this._avatar) this._avatar.init();
 
-        if(this._soundManager) this._soundManager.init();
+        if (this._soundManager) this._soundManager.init();
 
-        if(this._roomEngine)
+        if (this._roomEngine)
         {
             this._roomEngine.sessionDataManager = this._sessionDataManager;
             this._roomEngine.roomSessionManager = this._roomSessionManager;
             this._roomEngine.roomManager = this._roomManager;
 
-            if(this._sessionDataManager) this._sessionDataManager.init();
-            if(this._roomSessionManager) this._roomSessionManager.init();
+            if (this._sessionDataManager) this._sessionDataManager.init();
+            if (this._roomSessionManager) this._roomSessionManager.init();
 
             this._roomEngine.init();
         }
 
-        if(!this._communication.connection)
+        if (!this._communication.connection)
         {
             throw new Error('No connection found');
         }
@@ -153,51 +151,51 @@ export class Nitro extends Application implements INitro
 
     public dispose(): void
     {
-        if(this._isDisposed) return;
+        if (this._isDisposed) return;
 
-        if(this._roomManager)
+        if (this._roomManager)
         {
             this._roomManager.dispose();
 
             this._roomManager = null;
         }
 
-        if(this._roomSessionManager)
+        if (this._roomSessionManager)
         {
             this._roomSessionManager.dispose();
 
             this._roomSessionManager = null;
         }
 
-        if(this._sessionDataManager)
+        if (this._sessionDataManager)
         {
             this._sessionDataManager.dispose();
 
             this._sessionDataManager = null;
         }
 
-        if(this._roomEngine)
+        if (this._roomEngine)
         {
             this._roomEngine.dispose();
 
             this._roomEngine = null;
         }
 
-        if(this._avatar)
+        if (this._avatar)
         {
             this._avatar.dispose();
 
             this._avatar = null;
         }
 
-        if(this._soundManager)
+        if (this._soundManager)
         {
             this._soundManager.dispose();
 
             this._soundManager = null;
         }
 
-        if(this._communication)
+        if (this._communication)
         {
             this._communication.dispose();
 
@@ -215,7 +213,7 @@ export class Nitro extends Application implements INitro
         const animationFPS = this.getConfiguration<number>('system.animation.fps', 24);
         const limitsFPS = this.getConfiguration<boolean>('system.limits.fps', true);
 
-        if(limitsFPS) Nitro.instance.ticker.maxFPS = animationFPS;
+        if (limitsFPS) Nitro.instance.ticker.maxFPS = animationFPS;
     }
 
     private onRoomEngineReady(event: RoomEngineEvent): void
@@ -245,7 +243,7 @@ export class Nitro extends Application implements INitro
 
     public addWorkerEventTracker(tracker: IWorkerEventTracker): void
     {
-        if(this._workerTrackers.indexOf(tracker) >= 0) return;
+        if (this._workerTrackers.indexOf(tracker) >= 0) return;
 
         this._workerTrackers.push(tracker);
     }
@@ -254,20 +252,20 @@ export class Nitro extends Application implements INitro
     {
         const index = this._workerTrackers.indexOf(tracker);
 
-        if(index === -1) return;
+        if (index === -1) return;
 
         this._workerTrackers.splice(index, 1);
     }
 
     public createWorkerEvent(message: MessageEvent): void
     {
-        if(!message) return;
+        if (!message) return;
 
         const data: { [index: string]: any } = message.data;
 
-        for(const tracker of this._workerTrackers)
+        for (const tracker of this._workerTrackers)
         {
-            if(!tracker) continue;
+            if (!tracker) continue;
 
             tracker.workerMessageReceived(data);
         }
@@ -275,14 +273,14 @@ export class Nitro extends Application implements INitro
 
     public sendWorkerEvent(message: { [index: string]: any }): void
     {
-        if(!message || !this._worker) return;
+        if (!message || !this._worker) return;
 
         this._worker.postMessage(message);
     }
 
     public addLinkEventTracker(tracker: ILinkEventTracker): void
     {
-        if(this._linkTrackers.indexOf(tracker) >= 0) return;
+        if (this._linkTrackers.indexOf(tracker) >= 0) return;
 
         this._linkTrackers.push(tracker);
     }
@@ -291,24 +289,24 @@ export class Nitro extends Application implements INitro
     {
         const index = this._linkTrackers.indexOf(tracker);
 
-        if(index === -1) return;
+        if (index === -1) return;
 
         this._linkTrackers.splice(index, 1);
     }
 
     public createLinkEvent(link: string): void
     {
-        if(!link || (link === '')) return;
+        if (!link || (link === '')) return;
 
-        for(const tracker of this._linkTrackers)
+        for (const tracker of this._linkTrackers)
         {
-            if(!tracker) continue;
+            if (!tracker) continue;
 
             const prefix = tracker.eventUrlPrefix;
 
-            if(prefix.length > 0)
+            if (prefix.length > 0)
             {
-                if(link.substr(0, prefix.length) === prefix) tracker.linkReceived(link);
+                if (link.substr(0, prefix.length) === prefix) tracker.linkReceived(link);
             }
             else
             {

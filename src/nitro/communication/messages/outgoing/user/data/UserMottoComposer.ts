@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class UserMottoComposer implements IMessageComposer<ConstructorParameters<typeof UserMottoComposer>>
 {
@@ -6,7 +6,7 @@ export class UserMottoComposer implements IMessageComposer<ConstructorParameters
 
     constructor(motto: string)
     {
-        this._data = [ motto ];
+        this._data = [motto];
     }
 
     public getMessageArray()

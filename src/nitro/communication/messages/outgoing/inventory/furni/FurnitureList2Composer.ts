@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class FurnitureList2Composer implements IMessageComposer<ConstructorParameters<typeof FurnitureList2Composer>>
 {

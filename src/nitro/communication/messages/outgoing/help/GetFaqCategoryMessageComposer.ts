@@ -1,10 +1,10 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetFaqCategoryMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetFaqCategoryMessageComposer>>
 {
     private _data: ConstructorParameters<typeof GetFaqCategoryMessageComposer>;
 
-    constructor(categoryId:number)
+    constructor(categoryId: number)
     {
         this._data = [categoryId];
     }

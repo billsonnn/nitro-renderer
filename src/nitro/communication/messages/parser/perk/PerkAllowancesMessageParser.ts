@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { PerkData } from './common/PerkData';
 
 export class PerkAllowancesMessageParser implements IMessageParser
@@ -14,13 +14,13 @@ export class PerkAllowancesMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._perks = [];
 
         const size: number = wrapper.readInt();
 
-        for(let i = 0; i < size; i++) this._perks.push(new PerkData(
+        for (let i = 0; i < size; i++) this._perks.push(new PerkData(
             wrapper.readString(),
             wrapper.readString(),
             wrapper.readBoolean()
@@ -33,9 +33,9 @@ export class PerkAllowancesMessageParser implements IMessageParser
     {
         let allowed = false;
 
-        for(const perk of this._perks)
+        for (const perk of this._perks)
         {
-            if(perk.code === perkCode)
+            if (perk.code === perkCode)
             {
                 allowed = perk.isAllowed;
                 break;

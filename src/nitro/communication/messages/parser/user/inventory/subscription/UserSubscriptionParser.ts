@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../../api';
 
 export class UserSubscriptionParser implements IMessageParser
 {
@@ -38,7 +38,7 @@ export class UserSubscriptionParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._productName = wrapper.readString();
         this._daysToPeriodEnd = wrapper.readInt();
@@ -51,7 +51,7 @@ export class UserSubscriptionParser implements IMessageParser
         this._pastVipDays = wrapper.readInt();
         this._minutesUntilExpiration = wrapper.readInt();
 
-        if(wrapper.bytesAvailable) this._minutesSinceLastModified = wrapper.readInt();
+        if (wrapper.bytesAvailable) this._minutesSinceLastModified = wrapper.readInt();
 
         return true;
     }

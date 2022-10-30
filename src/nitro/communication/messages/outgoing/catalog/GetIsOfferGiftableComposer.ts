@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetIsOfferGiftableComposer implements IMessageComposer<ConstructorParameters<typeof GetIsOfferGiftableComposer>>
 {
@@ -6,7 +6,7 @@ export class GetIsOfferGiftableComposer implements IMessageComposer<ConstructorP
 
     constructor(k: number)
     {
-        this._data = [ k ];
+        this._data = [k];
     }
 
     public getMessageArray()

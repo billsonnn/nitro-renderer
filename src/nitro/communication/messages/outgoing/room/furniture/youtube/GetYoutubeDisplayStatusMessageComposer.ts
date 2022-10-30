@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../../core';
+import { IMessageComposer } from '../../../../../../../api';
 
 export class GetYoutubeDisplayStatusMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetYoutubeDisplayStatusMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class GetYoutubeDisplayStatusMessageComposer implements IMessageComposer<
 
     constructor(k: number)
     {
-        this._data = [ k ];
+        this._data = [k];
     }
 
     public getMessageArray()

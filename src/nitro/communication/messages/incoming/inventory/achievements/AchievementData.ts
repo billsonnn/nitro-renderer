@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper } from '../../../../../../core';
+﻿import { IMessageDataWrapper } from '../../../../../../api';
 
 export class AchievementData
 {
@@ -25,7 +25,7 @@ export class AchievementData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_parser');
+        if (!wrapper) throw new Error('invalid_parser');
 
         this._achievementId = wrapper.readInt();
         this._level = wrapper.readInt();

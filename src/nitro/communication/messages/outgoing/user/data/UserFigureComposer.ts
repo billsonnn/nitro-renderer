@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class UserFigureComposer implements IMessageComposer<ConstructorParameters<typeof UserFigureComposer>>
 {
@@ -6,7 +6,7 @@ export class UserFigureComposer implements IMessageComposer<ConstructorParameter
 
     constructor(gender: string, figure: string)
     {
-        this._data = [ gender, figure ];
+        this._data = [gender, figure];
     }
 
     public getMessageArray()

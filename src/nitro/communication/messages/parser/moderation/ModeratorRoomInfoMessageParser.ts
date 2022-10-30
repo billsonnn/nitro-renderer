@@ -1,9 +1,9 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { RoomModerationData } from '../../incoming/moderation/RoomModerationData';
 
 export class ModeratorRoomInfoMessageParser implements IMessageParser
 {
-    private _data:RoomModerationData;
+    private _data: RoomModerationData;
 
     public flush(): boolean
     {
@@ -14,14 +14,14 @@ export class ModeratorRoomInfoMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._data = new RoomModerationData(wrapper);
 
         return true;
     }
 
-    public get data():RoomModerationData
+    public get data(): RoomModerationData
     {
         return this._data;
     }

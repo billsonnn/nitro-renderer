@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
+﻿import { IMessageDataWrapper } from '../../../../../api';
 
 export class MessageData
 {

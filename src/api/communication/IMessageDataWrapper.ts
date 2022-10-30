@@ -1,9 +1,9 @@
-import { BinaryReader } from '../codec/BinaryReader';
+import { IBinaryReader } from './IBinaryReader';
 
 export interface IMessageDataWrapper
 {
     readByte(): number;
-    readBytes(length: number): BinaryReader;
+    readBytes(length: number): IBinaryReader;
     readBoolean(): boolean;
     readShort(): number;
     readInt(): number;

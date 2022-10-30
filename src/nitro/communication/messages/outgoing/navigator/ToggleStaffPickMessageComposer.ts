@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class ToggleStaffPickMessageComposer implements IMessageComposer<ConstructorParameters<typeof ToggleStaffPickMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class ToggleStaffPickMessageComposer implements IMessageComposer<Construc
 
     constructor(roomId: number)
     {
-        this._data = [ roomId ];
+        this._data = [roomId];
     }
 
     public getMessageArray()

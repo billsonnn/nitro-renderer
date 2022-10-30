@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class UserSettingsCameraFollowComposer implements IMessageComposer<ConstructorParameters<typeof UserSettingsCameraFollowComposer>>
 {
@@ -6,7 +6,7 @@ export class UserSettingsCameraFollowComposer implements IMessageComposer<Constr
 
     constructor(value: boolean)
     {
-        this._data = [ value ];
+        this._data = [value];
     }
 
     public getMessageArray()

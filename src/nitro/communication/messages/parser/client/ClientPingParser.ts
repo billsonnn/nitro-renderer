@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class ClientPingParser implements IMessageParser
 {
@@ -9,7 +9,7 @@ export class ClientPingParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         return true;
     }

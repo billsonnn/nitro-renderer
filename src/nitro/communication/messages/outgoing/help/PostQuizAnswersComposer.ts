@@ -1,10 +1,10 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class PostQuizAnswersComposer implements IMessageComposer<any>
 {
     private _data: any;
 
-    constructor(quizCode:string, answerIds:number[])
+    constructor(quizCode: string, answerIds: number[])
     {
         this._data = [quizCode, answerIds.length, ...answerIds];
     }

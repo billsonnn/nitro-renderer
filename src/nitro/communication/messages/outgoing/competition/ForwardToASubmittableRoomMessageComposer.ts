@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class ForwardToASubmittableRoomMessageComposer implements IMessageComposer<ConstructorParameters<typeof ForwardToASubmittableRoomMessageComposer>>
 {

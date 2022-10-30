@@ -1,4 +1,4 @@
-﻿import { IConnection } from '../../../core/communication/connections/IConnection';
+﻿import { IConnection } from '../../../api';
 import { RoomDimmerPresetsEvent } from '../../communication/messages/incoming/room/furniture/RoomDimmerPresetsMessageEvent';
 import { RoomSessionDimmerPresetsEvent } from '../events/RoomSessionDimmerPresetsEvent';
 import { IRoomHandlerListener } from '../IRoomHandlerListener';
@@ -15,15 +15,15 @@ export class RoomDimmerPresetsHandler extends BaseHandler
 
     private onRoomDimmerPresets(event: RoomDimmerPresetsEvent): void
     {
-        if(!event) return;
+        if (!event) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if(!session) return;
+        if (!session) return;
 
         const presetEvent = new RoomSessionDimmerPresetsEvent(RoomSessionDimmerPresetsEvent.ROOM_DIMMER_PRESETS, session);
 
@@ -31,11 +31,11 @@ export class RoomDimmerPresetsHandler extends BaseHandler
 
         let i = 0;
 
-        while(i < parser.presetCount)
+        while (i < parser.presetCount)
         {
             const preset = parser.getPreset(i);
 
-            if(preset) presetEvent.storePreset(preset.id, preset.type, preset.color, preset.brightness);
+            if (preset) presetEvent.storePreset(preset.id, preset.type, preset.color, preset.brightness);
 
             i++;
         }

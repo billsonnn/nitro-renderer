@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
 import { INamed } from '../moderation';
 
 export class CallForHelpTopicData implements INamed

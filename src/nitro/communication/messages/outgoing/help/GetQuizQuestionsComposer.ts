@@ -1,10 +1,10 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetQuizQuestionsComposer implements IMessageComposer<ConstructorParameters<typeof GetQuizQuestionsComposer>>
 {
     private _data: ConstructorParameters<typeof GetQuizQuestionsComposer>;
 
-    constructor(k:string)
+    constructor(k: string)
     {
         this._data = [k];
     }

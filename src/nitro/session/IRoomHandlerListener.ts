@@ -1,4 +1,4 @@
-import { IEventDispatcher } from '../../core/events/IEventDispatcher';
+import { IEventDispatcher } from '../../api';
 import { IRoomSession } from './IRoomSession';
 
 export interface IRoomHandlerListener

@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper } from '../../../../../core';
+﻿import { IMessageDataWrapper } from '../../../../../api';
 import { Triggerable } from './Triggerable';
 
 export class WiredActionDefinition extends Triggerable
@@ -17,7 +17,7 @@ export class WiredActionDefinition extends Triggerable
 
         let count = wrapper.readInt();
 
-        while(count > 0)
+        while (count > 0)
         {
             this._conflictingTriggers.push(wrapper.readInt());
 

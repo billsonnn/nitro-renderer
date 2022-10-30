@@ -1,8 +1,8 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export class UserWardrobePageParser implements IMessageParser
 {
-    private _looks: Map<number, [ string, string ]>;
+    private _looks: Map<number, [string, string]>;
 
     public flush(): boolean
     {
@@ -13,19 +13,19 @@ export class UserWardrobePageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         wrapper.readInt();
 
         let totalLooks = wrapper.readInt();
 
-        while(totalLooks > 0)
+        while (totalLooks > 0)
         {
             const slotId = wrapper.readInt();
             const look = wrapper.readString();
             const gender = wrapper.readString();
 
-            this._looks.set(slotId, [ look, gender ]);
+            this._looks.set(slotId, [look, gender]);
 
             totalLooks--;
         }

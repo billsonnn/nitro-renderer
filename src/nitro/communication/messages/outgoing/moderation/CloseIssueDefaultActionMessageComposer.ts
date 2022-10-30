@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class CloseIssueDefaultActionMessageComposer implements IMessageComposer<number[]>
 {
@@ -6,7 +6,7 @@ export class CloseIssueDefaultActionMessageComposer implements IMessageComposer<
 
     constructor(k: number, issueIds: number[], _arg_2: number)
     {
-        this._data = [ k, issueIds.length, ...issueIds, _arg_2 ];
+        this._data = [k, issueIds.length, ...issueIds, _arg_2];
     }
 
     public getMessageArray()

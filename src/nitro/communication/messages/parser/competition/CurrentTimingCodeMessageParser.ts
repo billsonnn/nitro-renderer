@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class CurrentTimingCodeMessageParser implements IMessageParser
 {

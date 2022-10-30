@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { FriendRequestData } from '../../incoming/friendlist/FriendRequestData';
 
 export class FriendRequestsParser implements IMessageParser
@@ -16,13 +16,13 @@ export class FriendRequestsParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._totalRequests = wrapper.readInt();
 
         let totalRequests = wrapper.readInt();
 
-        while(totalRequests > 0)
+        while (totalRequests > 0)
         {
             this._requests.push(new FriendRequestData(wrapper));
 

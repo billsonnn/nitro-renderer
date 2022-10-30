@@ -1,4 +1,4 @@
-import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
+import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
 import { CallForHelpDisabledNotifyMessageParser } from '../../parser/help/CallForHelpDisabledNotifyMessageParser';
 

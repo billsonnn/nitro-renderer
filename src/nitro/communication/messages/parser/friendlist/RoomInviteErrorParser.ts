@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class RoomInviteErrorParser implements IMessageParser
 {
@@ -15,13 +15,13 @@ export class RoomInviteErrorParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._errorCode = wrapper.readInt();
 
         let totalFailed = wrapper.readInt();
 
-        while(totalFailed > 0)
+        while (totalFailed > 0)
         {
             this._failedRecipients.push(wrapper.readInt());
 

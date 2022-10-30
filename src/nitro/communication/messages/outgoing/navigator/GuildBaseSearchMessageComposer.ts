@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class GuildBaseSearchMessageComposer implements IMessageComposer<ConstructorParameters<typeof GuildBaseSearchMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class GuildBaseSearchMessageComposer implements IMessageComposer<Construc
 
     constructor(k: number)
     {
-        this._data = [ k ];
+        this._data = [k];
     }
 
     public getMessageArray()

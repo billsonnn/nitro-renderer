@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../../api';
 
 export class FurnitureRandomStateComposer implements IMessageComposer<ConstructorParameters<typeof FurnitureRandomStateComposer>>
 {
@@ -6,7 +6,7 @@ export class FurnitureRandomStateComposer implements IMessageComposer<Constructo
 
     constructor(itemId: number, state: number)
     {
-        this._data = [ itemId, state ];
+        this._data = [itemId, state];
     }
 
     public getMessageArray()

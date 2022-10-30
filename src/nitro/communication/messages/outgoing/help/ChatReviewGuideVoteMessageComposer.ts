@@ -1,10 +1,10 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class ChatReviewGuideVoteMessageComposer implements IMessageComposer<ConstructorParameters<typeof ChatReviewGuideVoteMessageComposer>>
 {
     private _data: ConstructorParameters<typeof ChatReviewGuideVoteMessageComposer>;
 
-    constructor(k:number)
+    constructor(k: number)
     {
         this._data = [k];
     }

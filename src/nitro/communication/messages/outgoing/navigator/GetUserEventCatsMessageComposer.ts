@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetUserEventCatsMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetUserEventCatsMessageComposer>>
 {

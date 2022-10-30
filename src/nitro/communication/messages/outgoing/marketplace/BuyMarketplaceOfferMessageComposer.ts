@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class BuyMarketplaceOfferMessageComposer implements IMessageComposer<ConstructorParameters<typeof BuyMarketplaceOfferMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class BuyMarketplaceOfferMessageComposer implements IMessageComposer<Cons
 
     constructor(offerId: number)
     {
-        this._data = [ offerId ];
+        this._data = [offerId];
     }
 
     public getMessageArray()

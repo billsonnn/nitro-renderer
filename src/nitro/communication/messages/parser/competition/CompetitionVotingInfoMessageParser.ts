@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { CompetitionVotingInfoResult } from './CompetitionVotingInfoResult';
 
 export class CompetitionVotingInfoMessageParser implements IMessageParser

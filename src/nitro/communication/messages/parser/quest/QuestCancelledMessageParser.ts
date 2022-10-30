@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from './../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageParser } from './../../../../../api';
 
 export class QuestCancelledMessageParser implements IMessageParser
 {
@@ -10,9 +10,9 @@ export class QuestCancelledMessageParser implements IMessageParser
         return true;
     }
 
-    public parse(wrapper:IMessageDataWrapper): boolean
+    public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._expired = wrapper.readBoolean();
         return true;

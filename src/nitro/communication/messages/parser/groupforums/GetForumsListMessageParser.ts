@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { ForumData } from './ForumData';
 
 export class GetForumsListMessageParser implements IMessageParser
@@ -22,7 +22,7 @@ export class GetForumsListMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._listCode = wrapper.readInt();
         this._totalAmount = wrapper.readInt();
@@ -32,7 +32,7 @@ export class GetForumsListMessageParser implements IMessageParser
 
         let i = 0;
 
-        while(i < this._amount)
+        while (i < this._amount)
         {
             this._forums.push(ForumData.parse(wrapper));
 

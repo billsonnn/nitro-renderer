@@ -1,10 +1,10 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class PickIssuesMessageComposer implements IMessageComposer<any>
 {
     private _data: any;
 
-    constructor(issueIds:number[], retryEnabled:boolean, retryCount:number, message:string)
+    constructor(issueIds: number[], retryEnabled: boolean, retryCount: number, message: string)
     {
         this._data = [issueIds.length, ...issueIds, retryEnabled, retryCount, message];
     }

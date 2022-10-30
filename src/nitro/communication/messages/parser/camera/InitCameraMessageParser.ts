@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from './../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageParser } from './../../../../../api';
 
 export class InitCameraMessageParser implements IMessageParser
 {
@@ -18,12 +18,12 @@ export class InitCameraMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._creditPrice = wrapper.readInt();
         this._ducketPrice = wrapper.readInt();
 
-        if(wrapper.bytesAvailable) this._publishDucketPrice = wrapper.readInt();
+        if (wrapper.bytesAvailable) this._publishDucketPrice = wrapper.readInt();
 
         return true;
     }

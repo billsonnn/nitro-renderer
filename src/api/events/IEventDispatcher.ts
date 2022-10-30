@@ -1,12 +1,11 @@
-import { INitroLogger } from '../common';
-import { IDisposable } from '../common/disposable/IDisposable';
-import { NitroEvent } from './NitroEvent';
+import { IDisposable, INitroLogger } from '../common';
+import { INitroEvent } from './INitroEvent';
 
 export interface IEventDispatcher extends IDisposable
 {
     addEventListener(type: string, callback: Function): void
     removeEventListener(type: string, callback: Function): void;
     removeAllListeners(): void;
-    dispatchEvent(event: NitroEvent): boolean;
+    dispatchEvent(event: INitroEvent): boolean;
     logger: INitroLogger;
 }

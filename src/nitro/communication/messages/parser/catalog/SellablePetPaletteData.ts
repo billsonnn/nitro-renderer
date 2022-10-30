@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
 
 export class SellablePetPaletteData
 {
@@ -10,7 +10,7 @@ export class SellablePetPaletteData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_wrapper');
+        if (!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -29,7 +29,7 @@ export class SellablePetPaletteData
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._type = wrapper.readInt();
         this._breedId = wrapper.readInt();

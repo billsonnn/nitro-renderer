@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from './../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageParser } from './../../../../../api';
 import { CraftingResultObjectParser } from './CraftingResultObjectParser';
 
 export class CraftingResultMessageParser implements IMessageParser
@@ -7,11 +7,11 @@ export class CraftingResultMessageParser implements IMessageParser
     private _success: boolean;
     private _result: CraftingResultObjectParser;
 
-    public parse(wrapper:IMessageDataWrapper): boolean
+    public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
         this._success = wrapper.readBoolean();
-        if(this._success)
+        if (this._success)
         {
             this._result = new CraftingResultObjectParser(wrapper);
         }
@@ -29,7 +29,7 @@ export class CraftingResultMessageParser implements IMessageParser
         return this._success;
     }
 
-    public get result():CraftingResultObjectParser
+    public get result(): CraftingResultObjectParser
     {
         return this._result;
     }

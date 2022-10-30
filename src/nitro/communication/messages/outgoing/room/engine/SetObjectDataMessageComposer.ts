@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class SetObjectDataMessageComposer implements IMessageComposer<any[]>
 {
@@ -6,9 +6,9 @@ export class SetObjectDataMessageComposer implements IMessageComposer<any[]>
 
     constructor(objectId: number, data: Map<string, string>)
     {
-        this._data = [ objectId, (data.size * 2) ];
+        this._data = [objectId, (data.size * 2)];
 
-        for(const [ key, value ] of data.entries()) this._data.push( key, value );
+        for (const [key, value] of data.entries()) this._data.push(key, value);
     }
 
     public getMessageArray()

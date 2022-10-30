@@ -1,14 +1,14 @@
-import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageDataWrapper } from '../../../../../../api';
 import { RoomDataParser } from '../../room/data/RoomDataParser';
 import { OfficialRoomEntryData } from './OfficialRoomEntryData';
 
 export class GuestRoomSearchResultData
 {
-    private _searchType:number;
-    private _searchParam:string;
-    private _rooms:RoomDataParser[];
-    private _ad:OfficialRoomEntryData;
-    private _disposed:boolean;
+    private _searchType: number;
+    private _searchParam: string;
+    private _rooms: RoomDataParser[];
+    private _ad: OfficialRoomEntryData;
+    private _disposed: boolean;
 
     constructor(k: IMessageDataWrapper)
     {
@@ -16,32 +16,32 @@ export class GuestRoomSearchResultData
         this._searchType = k.readInt();
         this._searchParam = k.readString();
         const count = k.readInt();
-        for(let i = 0; i < count; i++)
+        for (let i = 0; i < count; i++)
         {
             this._rooms.push(new RoomDataParser(k));
         }
         const hasAdditional = k.readBoolean();
-        if(hasAdditional)
+        if (hasAdditional)
         {
             this._ad = new OfficialRoomEntryData(k);
         }
     }
 
-    public dispose():void
+    public dispose(): void
     {
-        if(this._disposed)
+        if (this._disposed)
         {
             return;
         }
         this._disposed = true;
-        if(this._rooms != null)
+        if (this._rooms != null)
         {
-            for(const k of this._rooms)
+            for (const k of this._rooms)
             {
                 k.flush();
             }
         }
-        if(this._ad != null)
+        if (this._ad != null)
         {
             this._ad.dispose();
             this._ad = null;
@@ -49,27 +49,27 @@ export class GuestRoomSearchResultData
         this._rooms = null;
     }
 
-    public get disposed():boolean
+    public get disposed(): boolean
     {
         return this._disposed;
     }
 
-    public get searchType():number
+    public get searchType(): number
     {
         return this._searchType;
     }
 
-    public get _Str_25185():string
+    public get _Str_25185(): string
     {
         return this._searchParam;
     }
 
-    public get rooms():RoomDataParser[]
+    public get rooms(): RoomDataParser[]
     {
         return this._rooms;
     }
 
-    public get ad():OfficialRoomEntryData
+    public get ad(): OfficialRoomEntryData
     {
         return this._ad;
     }

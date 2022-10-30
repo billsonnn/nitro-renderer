@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper } from '../../../../../core';
+﻿import { IMessageDataWrapper } from '../../../../../api';
 
 export class BundleDiscountRuleset
 {
@@ -18,7 +18,7 @@ export class BundleDiscountRuleset
 
         let count = wrapper.readInt();
 
-        while(count > 0)
+        while (count > 0)
         {
             this._Str_16144.push(wrapper.readInt());
 

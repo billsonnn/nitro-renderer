@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
+﻿import { IMessageDataWrapper } from '../../../../../api';
 import { GuildForumThread } from './GuildForumThread';
 
 export class ForumData
@@ -21,7 +21,7 @@ export class ForumData
         return this.fillFromMessage(new ForumData(), wrapper);
     }
 
-    protected static fillFromMessage(data: ForumData, wrapper: IMessageDataWrapper):ForumData
+    protected static fillFromMessage(data: ForumData, wrapper: IMessageDataWrapper): ForumData
     {
         data._groupId = wrapper.readInt();
         data._name = wrapper.readString();
@@ -99,7 +99,7 @@ export class ForumData
         return this._lastMessageTimeAsSecondsAgo;
     }
 
-    public _Str_25309(forum: ForumData):void
+    public _Str_25309(forum: ForumData): void
     {
         this._totalThreads = forum._totalThreads;
         this._totalMessages = forum._totalMessages;
@@ -119,7 +119,7 @@ export class ForumData
     {
         this._unreadMessages = (this._totalMessages - k);
 
-        if(this._unreadMessages < 0) this._unreadMessages = 0;
+        if (this._unreadMessages < 0) this._unreadMessages = 0;
     }
 
     public _Str_23783(thread: GuildForumThread): void

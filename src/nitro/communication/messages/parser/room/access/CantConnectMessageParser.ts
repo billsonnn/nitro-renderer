@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export class CantConnectMessageParser implements IMessageParser
 {
@@ -20,7 +20,7 @@ export class CantConnectMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._reason = wrapper.readInt();
         this._parameter = wrapper.readString();

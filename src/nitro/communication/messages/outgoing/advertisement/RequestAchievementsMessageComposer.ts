@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class RequestAchievementsMessageComposer implements IMessageComposer<ConstructorParameters<typeof RequestAchievementsMessageComposer>>
 {

@@ -1,10 +1,9 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class RoomThumbnailUpdateResultMessageParser implements IMessageParser
 {
-    private _flatId:number;
-    private _resultCode:number;
+    private _flatId: number;
+    private _resultCode: number;
 
     flush(): boolean
     {
@@ -18,12 +17,12 @@ export class RoomThumbnailUpdateResultMessageParser implements IMessageParser
         return true;
     }
 
-    public get flatId():number
+    public get flatId(): number
     {
         return this._flatId;
     }
 
-    public get resultCode():number
+    public get resultCode(): number
     {
         return this._resultCode;
     }

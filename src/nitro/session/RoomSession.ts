@@ -1,5 +1,5 @@
-import { Disposable } from '../../core/common/disposable/Disposable';
-import { IConnection } from '../../core/communication/connections/IConnection';
+import { IConnection } from '../../api';
+import { Disposable } from '../../core/common/Disposable';
 import { CompostPlantMessageComposer, FurnitureMultiStateComposer, HarvestPetMessageComposer, PetMountComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from '../communication';
 import { RoomModerationSettings } from '../communication/messages/incoming/roomsettings/RoomModerationSettings';
 import { RoomDoorbellAccessComposer } from '../communication/messages/outgoing/room/access/RoomDoorbellAccessComposer';
@@ -76,7 +76,7 @@ export class RoomSession extends Disposable implements IRoomSession
 
     protected onDispose(): void
     {
-        if(this._userData)
+        if (this._userData)
         {
             this._userData.dispose();
 
@@ -88,16 +88,16 @@ export class RoomSession extends Disposable implements IRoomSession
 
     public setConnection(connection: IConnection): void
     {
-        if(this._connection || !connection) return;
+        if (this._connection || !connection) return;
 
         this._connection = connection;
 
-        if(this._userData) this._userData.setConnection(connection);
+        if (this._userData) this._userData.setConnection(connection);
     }
 
     public setControllerLevel(level: number): void
     {
-        if((level >= RoomControllerLevel.NONE) && (level <= RoomControllerLevel.MODERATOR))
+        if ((level >= RoomControllerLevel.NONE) && (level <= RoomControllerLevel.MODERATOR))
         {
             this._controllerLevel = level;
 
@@ -119,7 +119,7 @@ export class RoomSession extends Disposable implements IRoomSession
 
     public start(): boolean
     {
-        if(this._state !== RoomSessionEvent.CREATED || !this._connection) return false;
+        if (this._state !== RoomSessionEvent.CREATED || !this._connection) return false;
 
         this._state = RoomSessionEvent.STARTED;
 
@@ -128,7 +128,7 @@ export class RoomSession extends Disposable implements IRoomSession
 
     private enterRoom(): boolean
     {
-        if(!this._connection) return false;
+        if (!this._connection) return false;
 
         this._connection.send(new RoomEnterComposer(this._roomId, this._password));
 
@@ -137,7 +137,7 @@ export class RoomSession extends Disposable implements IRoomSession
 
     public reset(roomId: number): void
     {
-        if(roomId === this._roomId) return;
+        if (roomId === this._roomId) return;
 
         this._roomId = roomId;
     }
@@ -159,7 +159,7 @@ export class RoomSession extends Disposable implements IRoomSession
 
     public sendChatTypingMessage(isTyping: boolean): void
     {
-        if(isTyping) this._connection.send(new RoomUnitTypingStartComposer());
+        if (isTyping) this._connection.send(new RoomUnitTypingStartComposer());
         else this._connection.send(new RoomUnitTypingStopComposer());
     }
 
@@ -180,7 +180,7 @@ export class RoomSession extends Disposable implements IRoomSession
 
     public sendSignMessage(sign: number): void
     {
-        if((sign < 0) || (sign > 17)) return;
+        if ((sign < 0) || (sign > 17)) return;
 
         this._connection.send(new RoomUnitSignComposer(sign));
     }
@@ -255,21 +255,21 @@ export class RoomSession extends Disposable implements IRoomSession
 
     public pickupPet(id: number): void
     {
-        if(!this._connection) return;
+        if (!this._connection) return;
 
         this._connection.send(new PetRemoveComposer(id));
     }
 
     public pickupBot(id: number): void
     {
-        if(!this._connection) return;
+        if (!this._connection) return;
 
         this._connection.send(new BotRemoveComposer(id));
     }
 
     public requestMoodlightSettings(): void
     {
-        if(!this._connection) return;
+        if (!this._connection) return;
 
         this._connection.send(new MoodlightSettingsComposer());
     }

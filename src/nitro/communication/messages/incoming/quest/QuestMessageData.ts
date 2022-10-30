@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
 
 export class QuestMessageData
 {
@@ -129,7 +129,7 @@ export class QuestMessageData
 
     public get waitPeriodSeconds(): number
     {
-        if(this._waitPeriodSeconds < 1)
+        if (this._waitPeriodSeconds < 1)
         {
             return 0;
         }

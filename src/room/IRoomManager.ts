@@ -1,5 +1,4 @@
-import { INitroManager } from '../core/common/INitroManager';
-import { IEventDispatcher } from '../core/events/IEventDispatcher';
+import { IEventDispatcher, INitroManager } from '../api';
 import { RoomContentLoader } from '../nitro/room/RoomContentLoader';
 import { IRoomInstance } from './IRoomInstance';
 import { IRoomObject } from './object/IRoomObject';

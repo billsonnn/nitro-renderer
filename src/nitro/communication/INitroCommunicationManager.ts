@@ -1,6 +1,4 @@
-import { IMessageEvent } from '../../core';
-import { INitroManager } from '../../core/common/INitroManager';
-import { IConnection } from '../../core/communication/connections/IConnection';
+import { IConnection, IMessageEvent, INitroManager } from '../../api';
 import { NitroCommunicationDemo } from './demo/NitroCommunicationDemo';
 
 export interface INitroCommunicationManager extends INitroManager

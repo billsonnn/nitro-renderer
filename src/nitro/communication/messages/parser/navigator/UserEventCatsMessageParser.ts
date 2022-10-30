@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { NavigatorEventCategoryDataParser } from './NavigatorEventCategoryDataParser';
 
 export class UserEventCatsMessageParser implements IMessageParser
@@ -14,11 +14,11 @@ export class UserEventCatsMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         let totalCategories = wrapper.readInt();
 
-        while(totalCategories > 0)
+        while (totalCategories > 0)
         {
             this._categories.push(new NavigatorEventCategoryDataParser(wrapper));
 

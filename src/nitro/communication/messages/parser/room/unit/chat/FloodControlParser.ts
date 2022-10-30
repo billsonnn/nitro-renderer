@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../../api';
 
 export class FloodControlParser implements IMessageParser
 {
@@ -13,7 +13,7 @@ export class FloodControlParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._seconds = wrapper.readInt();
 

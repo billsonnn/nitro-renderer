@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { CompetitionRoomsData } from './utils/CompetitionRoomsData';
 
 export class CompetitionRoomsDataMessageParser implements IMessageParser
@@ -13,14 +12,14 @@ export class CompetitionRoomsDataMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._data = new CompetitionRoomsData(wrapper);
 
         return true;
     }
 
-    public get data():CompetitionRoomsData
+    public get data(): CompetitionRoomsData
     {
         return this._data;
     }

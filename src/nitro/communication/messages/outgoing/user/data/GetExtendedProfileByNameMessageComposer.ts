@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core';
+import { IMessageComposer } from '../../../../../../api';
 
 export class GetExtendedProfileByNameMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetExtendedProfileByNameMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class GetExtendedProfileByNameMessageComposer implements IMessageComposer
 
     constructor(username: string)
     {
-        this._data = [ username ];
+        this._data = [username];
     }
 
     public getMessageArray()

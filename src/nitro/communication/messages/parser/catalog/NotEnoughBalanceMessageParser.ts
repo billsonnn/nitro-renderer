@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class NotEnoughBalanceMessageParser implements IMessageParser
 {
@@ -17,12 +17,12 @@ export class NotEnoughBalanceMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._Str_17433 = wrapper.readBoolean();
         this._Str_19031 = wrapper.readBoolean();
 
-        if(wrapper.bytesAvailable) this._activityPointType = wrapper.readInt();
+        if (wrapper.bytesAvailable) this._activityPointType = wrapper.readInt();
 
         return true;
     }

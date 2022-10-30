@@ -1,4 +1,4 @@
-﻿import { INitroManager } from '../common/INitroManager';
+﻿import { INitroManager } from '../../api';
 
 export interface IConfigurationManager extends INitroManager
 {

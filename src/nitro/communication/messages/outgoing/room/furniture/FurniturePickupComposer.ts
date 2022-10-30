@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class FurniturePickupComposer implements IMessageComposer<ConstructorParameters<typeof FurniturePickupComposer>>
 {
@@ -6,7 +6,7 @@ export class FurniturePickupComposer implements IMessageComposer<ConstructorPara
 
     constructor(category: number, objectId: number)
     {
-        this._data = [ category, objectId ];
+        this._data = [category, objectId];
     }
 
     public getMessageArray()

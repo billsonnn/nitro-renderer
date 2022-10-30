@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export class RoomUnitDanceParser implements IMessageParser
 {
@@ -15,7 +15,7 @@ export class RoomUnitDanceParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._unitId = wrapper.readInt();
         this._danceId = wrapper.readInt();

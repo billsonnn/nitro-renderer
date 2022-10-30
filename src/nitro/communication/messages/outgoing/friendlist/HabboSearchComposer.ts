@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class HabboSearchComposer implements IMessageComposer<ConstructorParameters<typeof HabboSearchComposer>>
 {
@@ -6,7 +6,7 @@ export class HabboSearchComposer implements IMessageComposer<ConstructorParamete
 
     constructor(search: string)
     {
-        this._data = [ search ];
+        this._data = [search];
     }
 
     public getMessageArray()

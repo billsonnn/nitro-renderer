@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class CanCreateRoomEventParser implements IMessageParser
 {
@@ -16,7 +15,7 @@ export class CanCreateRoomEventParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._canCreate = wrapper.readBoolean();
         this._errorCode = wrapper.readInt();

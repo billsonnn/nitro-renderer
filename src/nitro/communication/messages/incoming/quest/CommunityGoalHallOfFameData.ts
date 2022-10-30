@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IDisposable } from '../../../../../core/common/disposable/IDisposable';
+import { IDisposable, IMessageDataWrapper } from '../../../../../api';
 import { HallOfFameEntryData } from './HallOfFameEntryData';
 
 export class CommunityGoalHallOfFameData implements IDisposable
@@ -14,7 +13,7 @@ export class CommunityGoalHallOfFameData implements IDisposable
 
         const count = wrapper.readInt();
 
-        for(let i = 0; i < count; i++)
+        for (let i = 0; i < count; i++)
         {
             this._hof.push(new HallOfFameEntryData(wrapper));
         }

@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from './../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageParser } from './../../../../../api';
 
 export class CameraPurchaseOKMessageParser implements IMessageParser
 {
@@ -10,7 +10,7 @@ export class CameraPurchaseOKMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         return true;
     }

@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper } from '../../../../../../core';
+﻿import { IMessageDataWrapper } from '../../../../../../api';
 
 export class BreedingPetInfo
 {
@@ -10,7 +10,7 @@ export class BreedingPetInfo
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_wrapper');
+        if (!wrapper) throw new Error('invalid_wrapper');
 
         this._webId = wrapper.readInt();
         this._name = wrapper.readString();
@@ -19,7 +19,7 @@ export class BreedingPetInfo
         this._owner = wrapper.readString();
     }
 
-    public dispose():void
+    public dispose(): void
     {
         this._webId = 0;
         this._name = '';

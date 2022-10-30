@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class PollOfferParser implements IMessageParser
 {
@@ -25,22 +24,22 @@ export class PollOfferParser implements IMessageParser
         return true;
     }
 
-    public get id():number
+    public get id(): number
     {
         return this._id;
     }
 
-    public get type():string
+    public get type(): string
     {
         return this._type;
     }
 
-    public get headline():string
+    public get headline(): string
     {
         return this._headline;
     }
 
-    public get summary():string
+    public get summary(): string
     {
         return this._summary;
     }

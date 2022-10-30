@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetCatalogPageExpirationComposer implements IMessageComposer<ConstructorParameters<typeof GetCatalogPageExpirationComposer>>
 {
@@ -6,7 +6,7 @@ export class GetCatalogPageExpirationComposer implements IMessageComposer<Constr
 
     constructor(k: string)
     {
-        this._data = [ k ];
+        this._data = [k];
     }
 
     public getMessageArray()

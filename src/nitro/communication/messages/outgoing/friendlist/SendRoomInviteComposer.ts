@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class SendRoomInviteComposer implements IMessageComposer<any>
 {
@@ -6,7 +6,7 @@ export class SendRoomInviteComposer implements IMessageComposer<any>
 
     constructor(message: string, userIds: number[])
     {
-        this._data = [ userIds.length, ...userIds, message ];
+        this._data = [userIds.length, ...userIds, message];
     }
 
     public getMessageArray()

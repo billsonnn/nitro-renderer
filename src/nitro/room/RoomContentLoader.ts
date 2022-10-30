@@ -1,11 +1,9 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Loader, LoaderResource } from '@pixi/loaders';
 import { Spritesheet } from '@pixi/spritesheet';
-import { IAssetData, IGraphicAssetCollection } from '../../api';
+import { IAssetData, IEventDispatcher, IGraphicAssetCollection, INitroLogger } from '../../api';
 import { NitroBundle } from '../../core/asset/NitroBundle';
-import { INitroLogger } from '../../core/common/logger/INitroLogger';
-import { NitroLogger } from '../../core/common/logger/NitroLogger';
-import { IEventDispatcher } from '../../core/events/IEventDispatcher';
+import { NitroLogger } from '../../core/common/NitroLogger';
 import { NitroEvent } from '../../core/events/NitroEvent';
 import { RoomContentLoadedEvent } from '../../room/events/RoomContentLoadedEvent';
 import { IRoomObject } from '../../room/object/IRoomObject';

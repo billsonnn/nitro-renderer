@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
+﻿import { IMessageDataWrapper } from '../../../../../api';
 
 export class GuildForumThread
 {
@@ -20,7 +20,7 @@ export class GuildForumThread
     private _isPinned: boolean;
     private _isLocked: boolean;
 
-    public static parse(wrapper: IMessageDataWrapper):GuildForumThread
+    public static parse(wrapper: IMessageDataWrapper): GuildForumThread
     {
         const thread = new GuildForumThread();
 

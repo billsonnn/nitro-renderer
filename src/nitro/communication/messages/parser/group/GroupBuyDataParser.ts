@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class GroupBuyDataParser implements IMessageParser
 {
@@ -15,12 +15,12 @@ export class GroupBuyDataParser implements IMessageParser
 
     parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._groupCost = wrapper.readInt();
         let availableRoomsCount = wrapper.readInt();
 
-        while(availableRoomsCount > 0)
+        while (availableRoomsCount > 0)
         {
             const roomId = wrapper.readInt();
             const roomName = wrapper.readString();

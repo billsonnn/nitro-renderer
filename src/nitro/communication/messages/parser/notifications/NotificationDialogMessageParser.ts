@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class NotificationDialogMessageParser implements IMessageParser
 {
@@ -15,13 +15,13 @@ export class NotificationDialogMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._type = wrapper.readString();
 
         let totalParameters = wrapper.readInt();
 
-        while(totalParameters > 0)
+        while (totalParameters > 0)
         {
             this._parameters.set(wrapper.readString(), wrapper.readString());
 

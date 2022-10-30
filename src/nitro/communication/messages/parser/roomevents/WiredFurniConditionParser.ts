@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { ConditionDefinition } from '../../incoming/roomevents/ConditionDefinition';
 
 export class WiredFurniConditionParser implements IMessageParser
@@ -14,7 +14,7 @@ export class WiredFurniConditionParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._definition = new ConditionDefinition(wrapper);
 

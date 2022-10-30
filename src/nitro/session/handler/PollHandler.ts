@@ -1,4 +1,4 @@
-import { IConnection } from '../../../core/communication/connections/IConnection';
+import { IConnection } from '../../../api';
 import { PollContentsEvent } from '../../communication/messages/incoming/poll/PollContentsEvent';
 import { PollErrorEvent } from '../../communication/messages/incoming/poll/PollErrorEvent';
 import { PollOfferEvent } from '../../communication/messages/incoming/poll/PollOfferEvent';
@@ -19,15 +19,15 @@ export class PollHandler extends BaseHandler
 
     private onPollContentsEvent(event: PollContentsEvent): void
     {
-        if(!this.listener) return;
+        if (!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if(!session) return;
+        if (!session) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         const pollEvent = new RoomSessionPollEvent(RoomSessionPollEvent.CONTENT, session, parser.id);
 
@@ -42,15 +42,15 @@ export class PollHandler extends BaseHandler
 
     private onPollOfferEvent(event: PollOfferEvent): void
     {
-        if(!this.listener) return;
+        if (!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if(!session) return;
+        if (!session) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         const pollEvent = new RoomSessionPollEvent(RoomSessionPollEvent.OFFER, session, parser.id);
 
@@ -62,15 +62,15 @@ export class PollHandler extends BaseHandler
 
     private onPollErrorEvent(event: PollErrorEvent): void
     {
-        if(!this.listener) return;
+        if (!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if(!session) return;
+        if (!session) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         const pollEvent = new RoomSessionPollEvent(RoomSessionPollEvent.ERROR, session, -1);
         pollEvent.headline = '???';

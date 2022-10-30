@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageDataWrapper } from '../../../../../api';
 import { ChatRecordData } from './ChatRecordData';
 
 export class CfhChatlogData
@@ -9,7 +9,7 @@ export class CfhChatlogData
     private _chatRecordId: number;
     private _chatRecord: ChatRecordData;
 
-    constructor(k:IMessageDataWrapper)
+    constructor(k: IMessageDataWrapper)
     {
         this._issueId = k.readInt();
         this._callerUserId = k.readInt();

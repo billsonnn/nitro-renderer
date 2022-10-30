@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class UserSettingsOldChatComposer implements IMessageComposer<ConstructorParameters<typeof UserSettingsOldChatComposer>>
 {
@@ -6,7 +6,7 @@ export class UserSettingsOldChatComposer implements IMessageComposer<Constructor
 
     constructor(value: boolean)
     {
-        this._data = [ value ];
+        this._data = [value];
     }
 
     public getMessageArray()

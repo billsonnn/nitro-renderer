@@ -1,4 +1,4 @@
-﻿import { IDisposable } from '../common/disposable/IDisposable';
+﻿import { IDisposable } from '../../api';
 
 export class AdvancedMap<T, U> implements IDisposable
 {
@@ -14,7 +14,7 @@ export class AdvancedMap<T, U> implements IDisposable
         this._array = [];
         this._keys = [];
 
-        if(map) for(const [ key, value ] of map.entries()) this.add(key, value);
+        if (map) for (const [key, value] of map.entries()) this.add(key, value);
     }
 
     public get length(): number
@@ -29,9 +29,9 @@ export class AdvancedMap<T, U> implements IDisposable
 
     public dispose(): void
     {
-        if(!this._dictionary)
+        if (!this._dictionary)
         {
-            for(const key of this._dictionary.keys()) this._dictionary.delete(key);
+            for (const key of this._dictionary.keys()) this._dictionary.delete(key);
 
             this._dictionary = null;
         }
@@ -43,7 +43,7 @@ export class AdvancedMap<T, U> implements IDisposable
 
     public reset(): void
     {
-        for(const key of this._dictionary.keys()) this._dictionary.delete(key);
+        for (const key of this._dictionary.keys()) this._dictionary.delete(key);
 
         this._length = 0;
         this._array = [];
@@ -52,7 +52,7 @@ export class AdvancedMap<T, U> implements IDisposable
 
     public unshift(key: T, value: U): boolean
     {
-        if(this._dictionary.get(key) !== null) return false;
+        if (this._dictionary.get(key) !== null) return false;
 
         this._dictionary.set(key, value);
 
@@ -66,7 +66,7 @@ export class AdvancedMap<T, U> implements IDisposable
 
     public add(key: T, value: U): boolean
     {
-        if(this._dictionary.get(key) !== undefined) return false;
+        if (this._dictionary.get(key) !== undefined) return false;
 
         this._dictionary.set(key, value);
 
@@ -82,11 +82,11 @@ export class AdvancedMap<T, U> implements IDisposable
     {
         const value = this._dictionary.get(key);
 
-        if(!value) return null;
+        if (!value) return null;
 
         const index = this._array.indexOf(value);
 
-        if(index >= 0)
+        if (index >= 0)
         {
             this._array.splice(index, 1);
             this._keys.splice(index, 1);
@@ -101,14 +101,14 @@ export class AdvancedMap<T, U> implements IDisposable
 
     public getWithIndex(index: number): U
     {
-        if((index < 0) || (index >= this._length)) return null;
+        if ((index < 0) || (index >= this._length)) return null;
 
         return this._array[index];
     }
 
     public getKey(index: number): T
     {
-        if((index < 0) || (index >= this._length)) return null;
+        if ((index < 0) || (index >= this._length)) return null;
 
         return this._keys[index];
     }
@@ -145,7 +145,7 @@ export class AdvancedMap<T, U> implements IDisposable
 
     public concatenate(newValues: AdvancedMap<T, U>): void
     {
-        for(const k of newValues._keys) this.add(k, newValues.getValue(k));
+        for (const k of newValues._keys) this.add(k, newValues.getValue(k));
     }
 
     public clone(): AdvancedMap<T, U>

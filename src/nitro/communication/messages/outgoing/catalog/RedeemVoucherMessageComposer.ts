@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class RedeemVoucherMessageComposer implements IMessageComposer<ConstructorParameters<typeof RedeemVoucherMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class RedeemVoucherMessageComposer implements IMessageComposer<Constructo
 
     constructor(voucherCode: string)
     {
-        this._data = [ voucherCode ];
+        this._data = [voucherCode];
     }
 
     public getMessageArray()

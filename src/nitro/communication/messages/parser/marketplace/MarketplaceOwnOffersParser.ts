@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { IObjectData } from '../../../../room/object/data/IObjectData';
 import { ObjectDataFactory } from '../../../../room/object/data/ObjectDataFactory';
 import { LegacyDataType } from '../../../../room/object/data/type/LegacyDataType';
@@ -20,13 +20,13 @@ export class MarketplaceOwnOffersParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._offers = [];
         this._creditsWaiting = wrapper.readInt(); // SoldPriceTotal
 
         const offerCount = wrapper.readInt();
-        for(let i = 0; i < offerCount; i++)
+        for (let i = 0; i < offerCount; i++)
         {
             const offerId = wrapper.readInt();
             const status = wrapper.readInt();
@@ -34,20 +34,20 @@ export class MarketplaceOwnOffersParser implements IMessageParser
 
             let furniId;
             let extraData;
-            let stuffData:IObjectData;
-            if(furniType == 1)
+            let stuffData: IObjectData;
+            if (furniType == 1)
             {
                 furniId = wrapper.readInt();
                 stuffData = this.getStuffData(wrapper);
             }
             else
             {
-                if(furniType == 2)
+                if (furniType == 2)
                 {
                     furniId = wrapper.readInt();
                     extraData = wrapper.readString();
                 }
-                else if(furniType == 3)
+                else if (furniType == 3)
                 {
                     furniId = wrapper.readInt();
                     stuffData = ObjectDataFactory.getData(LegacyDataType.FORMAT_KEY);
@@ -62,7 +62,7 @@ export class MarketplaceOwnOffersParser implements IMessageParser
             const local10 = wrapper.readInt();
             const local13 = new MarketplaceOffer(offerId, furniId, furniType, extraData, stuffData, price, status, local9, local10);
 
-            if(i < MarketplaceOwnOffersParser.MAX_LIST_LENGTH)
+            if (i < MarketplaceOwnOffersParser.MAX_LIST_LENGTH)
             {
                 this._offers.push(local13);
             }
@@ -71,7 +71,7 @@ export class MarketplaceOwnOffersParser implements IMessageParser
         return true;
     }
 
-    public get offers():MarketplaceOffer[]
+    public get offers(): MarketplaceOffer[]
     {
         return this._offers;
     }

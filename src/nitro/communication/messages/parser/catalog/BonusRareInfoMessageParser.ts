@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from './../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageParser } from './../../../../../api';
 
 export class BonusRareInfoMessageParser implements IMessageParser
 {
@@ -19,7 +19,7 @@ export class BonusRareInfoMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._productType = wrapper.readString();
         this._productClassId = wrapper.readInt();

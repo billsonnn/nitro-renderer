@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 import { ItemDataStructure } from '../../../incoming/inventory/trading/ItemDataStructure';
 
 export class TradingListItemParser implements IMessageParser
@@ -28,12 +28,12 @@ export class TradingListItemParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._firstUserID = wrapper.readInt();
         this._firstUserItemArray = [];
 
-        if(!this.parseItems(wrapper, this._firstUserItemArray)) return false;
+        if (!this.parseItems(wrapper, this._firstUserItemArray)) return false;
 
         this._firstUserNumItems = wrapper.readInt();
         this._firstUserNumCredits = wrapper.readInt();
@@ -41,7 +41,7 @@ export class TradingListItemParser implements IMessageParser
         this._secondUserID = wrapper.readInt();
         this._secondUserItemArray = [];
 
-        if(!this.parseItems(wrapper, this._secondUserItemArray)) return false;
+        if (!this.parseItems(wrapper, this._secondUserItemArray)) return false;
 
         this._secondUserNumItems = wrapper.readInt();
         this._secondUserNumCredits = wrapper.readInt();
@@ -53,7 +53,7 @@ export class TradingListItemParser implements IMessageParser
     {
         let count = k.readInt();
 
-        while(count > 0)
+        while (count > 0)
         {
             itemArray.push(new ItemDataStructure(k));
 

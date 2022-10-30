@@ -1,14 +1,13 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class ModeratorToolPreferencesMessageParser implements IMessageParser
 {
-    private _windowX:number;
-    private _windowY:number;
-    private _windowWidth:number;
-    private _windowHeight:number;
+    private _windowX: number;
+    private _windowY: number;
+    private _windowWidth: number;
+    private _windowHeight: number;
 
-    public flush():boolean
+    public flush(): boolean
     {
         this._windowX = 0;
         this._windowY = 0;
@@ -17,7 +16,7 @@ export class ModeratorToolPreferencesMessageParser implements IMessageParser
         return true;
     }
 
-    public parse(k:IMessageDataWrapper):boolean
+    public parse(k: IMessageDataWrapper): boolean
     {
         this._windowX = k.readInt();
         this._windowY = k.readInt();

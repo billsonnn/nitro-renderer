@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class CompetitionEntrySubmitResultMessageParser implements IMessageParser
 {
@@ -36,7 +36,7 @@ export class CompetitionEntrySubmitResultMessageParser implements IMessageParser
 
         let count = wrapper.readInt();
 
-        while(count > 0)
+        while (count > 0)
         {
             this._requiredFurnis.push(wrapper.readString());
 
@@ -46,7 +46,7 @@ export class CompetitionEntrySubmitResultMessageParser implements IMessageParser
 
         count = wrapper.readInt();
 
-        while(count > 0)
+        while (count > 0)
         {
             this._missingFurnis[wrapper.readString()] = '';
 

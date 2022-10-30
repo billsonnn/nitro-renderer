@@ -1,7 +1,6 @@
 ﻿import { Graphics } from '@pixi/graphics';
 import { Matrix } from '@pixi/math';
-import { IGraphicAssetCollection } from '../../../../../../../api';
-import { IDisposable } from '../../../../../../../core/common/disposable/IDisposable';
+import { IDisposable, IGraphicAssetCollection } from '../../../../../../../api';
 import { IVector3D } from '../../../../../../../room/utils/IVector3D';
 import { AnimationItem } from './AnimationItem';
 

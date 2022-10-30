@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class UpdateActionMessageComposer implements IMessageComposer<unknown[]>
 {
@@ -6,7 +6,7 @@ export class UpdateActionMessageComposer implements IMessageComposer<unknown[]>
 
     constructor(id: number, ints: number[], string: string, stuffs: number[], delay: number, selectionCode: number)
     {
-        this._data = [ id, ints.length, ...ints, string, stuffs.length, ...stuffs, delay, selectionCode ];
+        this._data = [id, ints.length, ...ints, string, stuffs.length, ...stuffs, delay, selectionCode];
     }
 
     public getMessageArray()

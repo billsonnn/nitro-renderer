@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IDisposable } from '../../../../../core/common/disposable/IDisposable';
+import { IDisposable, IMessageDataWrapper } from '../../../../../api';
 
 export class PatternMatchData implements IDisposable
 {
@@ -8,14 +7,14 @@ export class PatternMatchData implements IDisposable
     private _endIndex: number;
     private _disposed: boolean = false;
 
-    constructor(k:IMessageDataWrapper)
+    constructor(k: IMessageDataWrapper)
     {
         this._pattern = k.readString();
         this._startIndex = k.readInt();
         this._endIndex = k.readInt();
     }
 
-    public dispose():void
+    public dispose(): void
     {
         this._disposed = true;
         this._pattern = '';

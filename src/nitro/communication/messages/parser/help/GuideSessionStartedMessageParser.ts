@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class GuideSessionStartedMessageParser implements IMessageParser
 {
@@ -23,7 +23,7 @@ export class GuideSessionStartedMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._requesterUserId = wrapper.readInt();
         this._requesterName = wrapper.readString();

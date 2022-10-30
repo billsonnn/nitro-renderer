@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 import { PetFigureDataParser } from '../../inventory/pets/PetFigureDataParser';
 
 export class PetFigureUpdateParser implements IMessageParser
@@ -16,7 +16,7 @@ export class PetFigureUpdateParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._roomIndex = wrapper.readInt();
         this._petId = wrapper.readInt();

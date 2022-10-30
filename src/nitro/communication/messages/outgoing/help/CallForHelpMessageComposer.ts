@@ -1,10 +1,10 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class CallForHelpMessageComposer implements IMessageComposer<any>
 {
     private _data: any;
 
-    constructor(message:string, topicIndex:number, reportedUserId:number, reportedRoomId:number, chatEntries:(string|number)[])
+    constructor(message: string, topicIndex: number, reportedUserId: number, reportedRoomId: number, chatEntries: (string | number)[])
     {
         this._data = [message, topicIndex, reportedUserId, reportedRoomId, chatEntries.length / 2, ...chatEntries];
     }

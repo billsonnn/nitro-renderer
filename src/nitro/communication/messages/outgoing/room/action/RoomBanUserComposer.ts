@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class RoomBanUserComposer implements IMessageComposer<ConstructorParameters<typeof RoomBanUserComposer>>
 {
@@ -6,7 +6,7 @@ export class RoomBanUserComposer implements IMessageComposer<ConstructorParamete
 
     constructor(userId: number, roomId: number = 0, type: string)
     {
-        this._data = [ userId, roomId, type ];
+        this._data = [userId, roomId, type];
     }
 
     public getMessageArray()

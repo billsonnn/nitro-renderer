@@ -1,4 +1,4 @@
-import { INitroManager } from '../../core/common/INitroManager';
+import { INitroManager } from '../../api';
 import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { IRoomSession } from './IRoomSession';
 

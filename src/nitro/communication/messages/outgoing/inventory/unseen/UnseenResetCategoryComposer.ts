@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class UnseenResetCategoryComposer implements IMessageComposer<ConstructorParameters<typeof UnseenResetCategoryComposer>>
 {
@@ -6,7 +6,7 @@ export class UnseenResetCategoryComposer implements IMessageComposer<Constructor
 
     constructor(category: number)
     {
-        this._data = [ category ];
+        this._data = [category];
     }
 
     public getMessageArray()

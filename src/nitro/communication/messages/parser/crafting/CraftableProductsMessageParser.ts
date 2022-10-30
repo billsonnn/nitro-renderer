@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from './../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageParser } from './../../../../../api';
 import { CraftingResultObjectParser } from './CraftingResultObjectParser';
 
 export class CraftableProductsMessageParser implements IMessageParser
@@ -22,14 +22,14 @@ export class CraftableProductsMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
         const craftingResultCount = wrapper.readInt();
-        for(let i = 0; i < craftingResultCount; i++)
+        for (let i = 0; i < craftingResultCount; i++)
         {
             this._recipes.push(new CraftingResultObjectParser(wrapper));
         }
         const ingredientCount = wrapper.readInt();
-        for(let i = 0; i < ingredientCount; i++)
+        for (let i = 0; i < ingredientCount; i++)
         {
             this._ingredients.push(wrapper.readString());
         }

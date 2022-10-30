@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class GetRoomEntryDataMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetRoomEntryDataMessageComposer>>
 {

@@ -9,3 +9,6 @@ export * from './asset/visualization/animation';
 export * from './asset/visualization/color';
 export * from './asset/visualization/gestures';
 export * from './asset/visualization/postures';
+export * from './common';
+export * from './communication';
+export * from './events';

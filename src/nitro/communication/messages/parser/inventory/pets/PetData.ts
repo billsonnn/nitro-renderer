@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper } from '../../../../../../core';
+﻿import { IMessageDataWrapper } from '../../../../../../api';
 import { PetFigureDataParser } from './PetFigureDataParser';
 
 export class PetData
@@ -10,7 +10,7 @@ export class PetData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_wrapper');
+        if (!wrapper) throw new Error('invalid_wrapper');
 
         this._id = wrapper.readInt();
         this._name = wrapper.readString();

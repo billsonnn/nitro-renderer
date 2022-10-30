@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class IgnoreUserComposer implements IMessageComposer<ConstructorParameters<typeof IgnoreUserComposer>>
 {
@@ -6,7 +6,7 @@ export class IgnoreUserComposer implements IMessageComposer<ConstructorParameter
 
     constructor(username: string)
     {
-        this._data = [ username ];
+        this._data = [username];
     }
 
     public getMessageArray()

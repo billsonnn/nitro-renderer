@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 import { RoomHeightMapParser } from './RoomHeightMapParser';
 
 export class RoomHeightMapUpdateParser implements IMessageParser
@@ -37,7 +37,7 @@ export class RoomHeightMapUpdateParser implements IMessageParser
 
     public next(): boolean
     {
-        if(!this._count) return false;
+        if (!this._count) return false;
 
         this._count--;
 
@@ -50,7 +50,7 @@ export class RoomHeightMapUpdateParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._wrapper = wrapper;
         this._count = wrapper.readByte();

@@ -1,4 +1,4 @@
-﻿import { NitroLogger } from '../../core/common/logger/NitroLogger';
+﻿import { NitroLogger } from '../../core/common/NitroLogger';
 import { LegacyExternalInterface } from '../externalInterface/LegacyExternalInterface';
 
 export class HabboWebTools
@@ -11,7 +11,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('logEventLog', data);
             }
@@ -27,7 +27,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('openPage', pageUrl);
             }
@@ -52,7 +52,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('heartBeat');
             }
@@ -68,7 +68,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 HabboWebTools.openPage(pageUrl);
             }
@@ -84,7 +84,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('closeWebPageAndRestoreClient');
             }
@@ -96,11 +96,11 @@ export class HabboWebTools
         }
     }
 
-    public static openHabblet(name: string, param: string=null): void
+    public static openHabblet(name: string, param: string = null): void
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('openHabblet', name, param);
             }
@@ -112,11 +112,11 @@ export class HabboWebTools
         }
     }
 
-    public static closeHabblet(name: string, param: string=null): void
+    public static closeHabblet(name: string, param: string = null): void
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('closeHabblet', name, param);
             }
@@ -132,7 +132,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('disconnect', reasonCode, reasonString);
             }
@@ -148,7 +148,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.callGame('showGame', gameUrl);
             }
@@ -164,7 +164,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.callGame('hideGame');
             }
@@ -180,7 +180,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('openExternalLink', escape(url));
             }
@@ -200,7 +200,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('roomVisited', roomId);
             }
@@ -220,7 +220,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('openMinimail', target);
             }
@@ -240,7 +240,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('openNews');
             }
@@ -260,7 +260,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('closeNews');
             }
@@ -280,7 +280,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('openAvatars');
             }
@@ -300,7 +300,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('openRoomEnterAd');
             }
@@ -320,7 +320,7 @@ export class HabboWebTools
     {
         try
         {
-            if(LegacyExternalInterface.available)
+            if (LegacyExternalInterface.available)
             {
                 LegacyExternalInterface.call('updateFigure', figure);
             }

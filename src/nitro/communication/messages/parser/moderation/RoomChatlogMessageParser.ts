@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { ChatRecordData } from '../../incoming/moderation/ChatRecordData';
 
 export class RoomChatlogMessageParser implements IMessageParser
@@ -13,7 +13,7 @@ export class RoomChatlogMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._data = new ChatRecordData(wrapper);
 

@@ -1,5 +1,4 @@
-import { IMessageParser } from '../../../../../././core/communication/messages/IMessageParser';
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { RoomChatSettings } from '../../incoming/roomsettings/RoomChatSettings';
 import { RoomModerationSettings } from '../../incoming/roomsettings/RoomModerationSettings';
 import { RoomDataParser } from '../room/data/RoomDataParser';
@@ -29,7 +28,7 @@ export class GetGuestRoomResultMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._roomEnter = wrapper.readBoolean();
         this._data = new RoomDataParser(wrapper);

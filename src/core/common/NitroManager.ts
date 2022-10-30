@@ -1,9 +1,7 @@
+import { IEventDispatcher, INitroLogger, INitroManager } from '../../api';
 import { EventDispatcher } from '../events/EventDispatcher';
-import { IEventDispatcher } from '../events/IEventDispatcher';
-import { Disposable } from './disposable/Disposable';
-import { INitroManager } from './INitroManager';
-import { INitroLogger } from './logger/INitroLogger';
-import { NitroLogger } from './logger/NitroLogger';
+import { Disposable } from './Disposable';
+import { NitroLogger } from './NitroLogger';
 
 export class NitroManager extends Disposable implements INitroManager
 {
@@ -28,7 +26,7 @@ export class NitroManager extends Disposable implements INitroManager
 
     public init(): void
     {
-        if(this._isLoaded || this._isLoading || this.isDisposing) return;
+        if (this._isLoaded || this._isLoading || this.isDisposing) return;
 
         this._isLoading = true;
 
@@ -45,7 +43,7 @@ export class NitroManager extends Disposable implements INitroManager
 
     protected onDispose(): void
     {
-        if(this._events) this._events.dispose();
+        if (this._events) this._events.dispose();
 
         super.onDispose();
     }

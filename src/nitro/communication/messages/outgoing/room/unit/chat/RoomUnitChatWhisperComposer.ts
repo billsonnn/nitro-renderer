@@ -1,12 +1,12 @@
-import { IMessageComposer } from '../../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../../api';
 
-export class RoomUnitChatWhisperComposer implements IMessageComposer<[ string, number ]>
+export class RoomUnitChatWhisperComposer implements IMessageComposer<[string, number]>
 {
-    private _data: [ string, number ];
+    private _data: [string, number];
 
     constructor(recipientName: string, message: string, styleId: number)
     {
-        this._data = [ (recipientName + ' ' + message), styleId ];
+        this._data = [(recipientName + ' ' + message), styleId];
     }
 
     public getMessageArray()

@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { BotData } from './BotData';
 
 export class BotInventoryMessageParser implements IMessageParser
@@ -18,7 +18,7 @@ export class BotInventoryMessageParser implements IMessageParser
 
         let count = wrapper.readInt();
 
-        while(count > 0)
+        while (count > 0)
         {
             const data = new BotData(wrapper);
 

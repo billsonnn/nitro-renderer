@@ -1,5 +1,4 @@
-import { IAssetManager, IGraphicAsset } from '../../api';
-import { INitroManager } from '../../core/common/INitroManager';
+import { IAssetManager, IGraphicAsset, INitroManager } from '../../api';
 import { AvatarAssetDownloadManager } from './AvatarAssetDownloadManager';
 import { AvatarStructure } from './AvatarStructure';
 import { IAvatarEffectListener } from './IAvatarEffectListener';

@@ -1,7 +1,6 @@
 import { RenderTexture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
-import { IGraphicAsset } from '../../api';
-import { IDisposable } from '../../core/common/disposable/IDisposable';
+import { IDisposable, IGraphicAsset } from '../../api';
 import { IAnimationLayerData } from './animation/IAnimationLayerData';
 import { IAvatarDataContainer } from './animation/IAvatarDataContainer';
 import { ISpriteDataContainer } from './animation/ISpriteDataContainer';

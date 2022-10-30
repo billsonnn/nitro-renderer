@@ -1,6 +1,6 @@
-import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
 import { QuestMessageData } from '../../incoming/quest/QuestMessageData';
-import { IMessageParser } from './../../../../../core';
+import { IMessageParser } from './../../../../../api';
 
 export class QuestMessageParser implements IMessageParser
 {
@@ -12,15 +12,15 @@ export class QuestMessageParser implements IMessageParser
         return true;
     }
 
-    public parse(wrapper:IMessageDataWrapper): boolean
+    public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._quest = new QuestMessageData(wrapper);
         return true;
     }
 
-    public get quest():QuestMessageData
+    public get quest(): QuestMessageData
     {
         return this._quest;
     }

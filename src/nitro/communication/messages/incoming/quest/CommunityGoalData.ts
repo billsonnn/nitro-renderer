@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IDisposable } from '../../../../../core/common/disposable/IDisposable';
+import { IDisposable, IMessageDataWrapper } from '../../../../../api';
 
 export class CommunityGoalData implements IDisposable
 {
@@ -28,7 +27,7 @@ export class CommunityGoalData implements IDisposable
         this._timeRemainingInSeconds = wrapper.readInt();
 
         const count = wrapper.readInt();
-        for(let i = 0; i < count; i++)
+        for (let i = 0; i < count; i++)
         {
             this._rewardUserLimits.push(wrapper.readInt());
         }

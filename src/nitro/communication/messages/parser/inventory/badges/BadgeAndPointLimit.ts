@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper } from '../../../../../../core';
+﻿import { IMessageDataWrapper } from '../../../../../../api';
 
 export class BadgeAndPointLimit
 {
@@ -7,7 +7,7 @@ export class BadgeAndPointLimit
 
     constructor(k: string, _arg_2: IMessageDataWrapper)
     {
-        if(!_arg_2) throw new Error('invalid_parser');
+        if (!_arg_2) throw new Error('invalid_parser');
 
         this._badgeId = (('ACH_' + k) + _arg_2.readInt());
         this._limit = _arg_2.readInt();

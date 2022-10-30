@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { RoomEntryData } from '../user';
 
 export class RoomAdPurchaseInfoEventParser implements IMessageParser
@@ -16,13 +16,13 @@ export class RoomAdPurchaseInfoEventParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._isVip = wrapper.readBoolean();
 
         let count = wrapper.readInt();
 
-        while(count > 0)
+        while (count > 0)
         {
             this._rooms.push(new RoomEntryData(wrapper.readInt(), wrapper.readString(), wrapper.readBoolean()));
 

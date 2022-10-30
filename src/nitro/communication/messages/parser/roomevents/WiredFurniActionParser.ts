@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { WiredActionDefinition } from '../../incoming/roomevents/WiredActionDefinition';
 
 export class WiredFurniActionParser implements IMessageParser
@@ -14,7 +14,7 @@ export class WiredFurniActionParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._definition = new WiredActionDefinition(wrapper);
 

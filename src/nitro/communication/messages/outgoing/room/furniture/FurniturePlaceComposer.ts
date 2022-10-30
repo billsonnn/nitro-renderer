@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 import { RoomObjectCategory } from '../../../../../room/object/RoomObjectCategory';
 
 export class FurniturePlaceComposer implements IMessageComposer<string[]>
@@ -22,12 +22,12 @@ export class FurniturePlaceComposer implements IMessageComposer<string[]>
 
     public getMessageArray()
     {
-        switch(this._category)
+        switch (this._category)
         {
             case RoomObjectCategory.FLOOR:
-                return [ `${ this._itemId } ${ this._x } ${ this._y } ${ this._direction }` ];
+                return [`${this._itemId} ${this._x} ${this._y} ${this._direction}`];
             case RoomObjectCategory.WALL:
-                return [ `${ this._itemId } ${ this._wallLocation } ` ];
+                return [`${this._itemId} ${this._wallLocation} `];
             default:
                 return [];
         }

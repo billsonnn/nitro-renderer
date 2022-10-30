@@ -1,6 +1,4 @@
-import { IConnection } from '../connections/IConnection';
-import { IMessageEvent } from './IMessageEvent';
-import { IMessageParser } from './IMessageParser';
+import { IConnection, IMessageEvent, IMessageParser } from '../../../api';
 
 export class MessageEvent implements IMessageEvent
 {

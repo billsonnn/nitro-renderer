@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
 import { CatalogPageMessageProductData } from './CatalogPageMessageProductData';
 
 export class PurchaseOKMessageOfferData
@@ -16,7 +16,7 @@ export class PurchaseOKMessageOfferData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_wrapper');
+        if (!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -40,7 +40,7 @@ export class PurchaseOKMessageOfferData
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._offerId = wrapper.readInt();
         this._localizationId = wrapper.readString();
@@ -52,7 +52,7 @@ export class PurchaseOKMessageOfferData
 
         let totalProducts = wrapper.readInt();
 
-        while(totalProducts > 0)
+        while (totalProducts > 0)
         {
             this._products.push(new CatalogPageMessageProductData(wrapper));
 

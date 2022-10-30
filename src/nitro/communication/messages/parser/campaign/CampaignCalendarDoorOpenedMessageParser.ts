@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from './../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageParser } from './../../../../../api';
 
 export class CampaignCalendarDoorOpenedMessageParser implements IMessageParser
 {
@@ -20,7 +20,7 @@ export class CampaignCalendarDoorOpenedMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._doorOpened = wrapper.readBoolean();
         this._productName = wrapper.readString();

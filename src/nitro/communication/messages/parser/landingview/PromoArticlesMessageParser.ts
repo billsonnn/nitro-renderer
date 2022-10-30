@@ -1,6 +1,6 @@
-import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
 import { PromoArticleData } from '../../incoming/landingview/PromoArticleData';
-import { IMessageParser } from './../../../../../core';
+import { IMessageParser } from './../../../../../api';
 
 export class PromoArticlesMessageParser implements IMessageParser
 {
@@ -14,11 +14,11 @@ export class PromoArticlesMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         const count = wrapper.readInt();
 
-        for(let i = 0; i < count; i++)
+        for (let i = 0; i < count; i++)
         {
             this._articles.push(new PromoArticleData(wrapper));
         }

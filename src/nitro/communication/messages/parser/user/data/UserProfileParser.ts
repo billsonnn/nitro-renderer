@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 import { HabboGroupEntryData } from '../HabboGroupEntryData';
 
 export class UserProfileParser implements IMessageParser
@@ -38,7 +38,7 @@ export class UserProfileParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._id = wrapper.readInt();
         this._username = wrapper.readString();
@@ -52,7 +52,7 @@ export class UserProfileParser implements IMessageParser
         this._isOnline = wrapper.readBoolean();
         const groupsCount = wrapper.readInt();
 
-        for(let i = 0; i < groupsCount; i++)
+        for (let i = 0; i < groupsCount; i++)
         {
             this._groups.push(new HabboGroupEntryData(wrapper));
         }

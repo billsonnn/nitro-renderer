@@ -1,5 +1,4 @@
-﻿
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 import { AchievementData } from '../../../incoming/inventory/achievements/AchievementData';
 
 export class AchievementsParser implements IMessageParser
@@ -17,13 +16,13 @@ export class AchievementsParser implements IMessageParser
 
     public parse(k: IMessageDataWrapper): boolean
     {
-        if(!k) return false;
+        if (!k) return false;
 
         this._achievements = [];
 
         let totalCount = k.readInt();
 
-        while(totalCount > 0)
+        while (totalCount > 0)
         {
             this._achievements.push(new AchievementData(k));
 

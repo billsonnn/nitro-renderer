@@ -1,4 +1,4 @@
-﻿import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+﻿import { IMessageComposer } from '../../../../../../api';
 
 export class TradingListAddItemComposer implements IMessageComposer<ConstructorParameters<typeof TradingListAddItemComposer>>
 {
@@ -6,7 +6,7 @@ export class TradingListAddItemComposer implements IMessageComposer<ConstructorP
 
     constructor(itemId: number)
     {
-        this._data = [ itemId ];
+        this._data = [itemId];
     }
 
     public getMessageArray()

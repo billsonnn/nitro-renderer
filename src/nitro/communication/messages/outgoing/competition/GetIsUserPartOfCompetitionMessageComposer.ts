@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetIsUserPartOfCompetitionMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetIsUserPartOfCompetitionMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class GetIsUserPartOfCompetitionMessageComposer implements IMessageCompos
 
     constructor(k: string)
     {
-        this._data = [ k ];
+        this._data = [k];
     }
 
     public getMessageArray()

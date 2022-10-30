@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
 
 export class NavigatorLiftedDataParser
 {
@@ -9,7 +9,7 @@ export class NavigatorLiftedDataParser
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_wrapper');
+        if (!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -27,7 +27,7 @@ export class NavigatorLiftedDataParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._roomId = wrapper.readInt();
         this._areaId = wrapper.readInt();

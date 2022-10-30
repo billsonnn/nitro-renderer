@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetCurrentTimingCodeMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetCurrentTimingCodeMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class GetCurrentTimingCodeMessageComposer implements IMessageComposer<Con
 
     constructor(k: string)
     {
-        this._data = [ k ];
+        this._data = [k];
     }
 
     public getMessageArray()

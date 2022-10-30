@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class RemoveWallItemComposer implements IMessageComposer<ConstructorParameters<typeof RemoveWallItemComposer>>
 {
@@ -6,7 +6,7 @@ export class RemoveWallItemComposer implements IMessageComposer<ConstructorParam
 
     constructor(itemId: number)
     {
-        this._data = [ itemId ];
+        this._data = [itemId];
     }
 
     public getMessageArray()

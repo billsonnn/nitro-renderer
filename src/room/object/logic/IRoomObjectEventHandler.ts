@@ -1,5 +1,4 @@
-import { IDisposable } from '../../../core/common/disposable/IDisposable';
-import { IEventDispatcher } from '../../../core/events/IEventDispatcher';
+import { IDisposable, IEventDispatcher } from '../../../api';
 import { RoomObjectUpdateMessage } from '../../messages/RoomObjectUpdateMessage';
 import { IRoomObjectController } from '../IRoomObjectController';
 import { IRoomObjectMouseHandler } from './IRoomObjectMouseHandler';

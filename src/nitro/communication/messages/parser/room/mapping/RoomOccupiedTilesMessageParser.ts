@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export class RoomOccupiedTilesMessageParser implements IMessageParser
 {
@@ -13,16 +13,16 @@ export class RoomOccupiedTilesMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         let tilesCount = wrapper.readInt();
 
-        while(tilesCount > 0)
+        while (tilesCount > 0)
         {
             const x = wrapper.readInt();
             const y = wrapper.readInt();
 
-            if(!this._blockedTilesMap[y]) this._blockedTilesMap[y] = [];
+            if (!this._blockedTilesMap[y]) this._blockedTilesMap[y] = [];
 
             this._blockedTilesMap[y][x] = true;
 

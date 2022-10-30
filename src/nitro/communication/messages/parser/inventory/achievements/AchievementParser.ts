@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 import { AchievementData } from '../../../incoming/inventory/achievements/AchievementData';
 
 export class AchievementParser implements IMessageParser
@@ -14,7 +14,7 @@ export class AchievementParser implements IMessageParser
 
     public parse(k: IMessageDataWrapper): boolean
     {
-        if(!k) return false;
+        if (!k) return false;
 
         this._achievement = new AchievementData(k);
 

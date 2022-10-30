@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class QuizDataMessageParser implements IMessageParser
 {
@@ -15,7 +15,7 @@ export class QuizDataMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._quizCode = wrapper.readString();
 
@@ -23,7 +23,7 @@ export class QuizDataMessageParser implements IMessageParser
 
         this._questionIds = [];
 
-        for(let i = 0; i < size; i++) this._questionIds.push(wrapper.readInt());
+        for (let i = 0; i < size; i++) this._questionIds.push(wrapper.readInt());
 
         return true;
     }

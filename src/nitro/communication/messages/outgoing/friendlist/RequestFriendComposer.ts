@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class RequestFriendComposer implements IMessageComposer<ConstructorParameters<typeof RequestFriendComposer>>
 {
@@ -6,7 +6,7 @@ export class RequestFriendComposer implements IMessageComposer<ConstructorParame
 
     constructor(username: string)
     {
-        this._data = [ username ];
+        this._data = [username];
     }
 
     public getMessageArray()

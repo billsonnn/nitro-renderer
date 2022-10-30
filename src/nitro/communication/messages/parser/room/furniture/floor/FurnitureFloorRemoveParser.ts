@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../../api';
 
 export class FurnitureFloorRemoveParser implements IMessageParser
 {
@@ -19,7 +19,7 @@ export class FurnitureFloorRemoveParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._itemId = parseInt(wrapper.readString());
         this._isExpired = wrapper.readBoolean();

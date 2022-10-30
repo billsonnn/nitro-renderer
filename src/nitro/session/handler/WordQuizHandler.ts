@@ -1,4 +1,4 @@
-import { IConnection } from '../../../core/communication/connections/IConnection';
+import { IConnection } from '../../../api';
 import { QuestionAnsweredEvent } from '../../communication/messages/incoming/poll/QuestionAnsweredEvent';
 import { QuestionEvent } from '../../communication/messages/incoming/poll/QuestionEvent';
 import { QuestionFinishedEvent } from '../../communication/messages/incoming/poll/QuestionFinishedEvent';
@@ -19,15 +19,15 @@ export class WordQuizHandler extends BaseHandler
 
     private onQuestionEvent(event: QuestionEvent): void
     {
-        if(!this.listener) return;
+        if (!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if(!session) return;
+        if (!session) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         const quizEvent = new RoomSessionWordQuizEvent(RoomSessionWordQuizEvent.QUESTION, session, parser.pollId);
 
@@ -42,15 +42,15 @@ export class WordQuizHandler extends BaseHandler
 
     private onQuestionAnsweredEvent(event: QuestionAnsweredEvent): void
     {
-        if(!this.listener) return;
+        if (!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if(!session) return;
+        if (!session) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         const quizEvent = new RoomSessionWordQuizEvent(RoomSessionWordQuizEvent.ANSWERED, session, parser.userId);
 
@@ -63,15 +63,15 @@ export class WordQuizHandler extends BaseHandler
 
     private onQuestionFinishedEvent(event: QuestionFinishedEvent): void
     {
-        if(!this.listener) return;
+        if (!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if(!session) return;
+        if (!session) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         const quizEvent = new RoomSessionWordQuizEvent(RoomSessionWordQuizEvent.FINISHED, session);
         quizEvent.questionId = parser.questionId;

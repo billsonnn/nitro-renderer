@@ -1,10 +1,10 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class SaveRoomSettingsComposer
-implements
-        IMessageComposer<
-            ConstructorParameters<typeof SaveRoomSettingsComposer>
-        >
+    implements
+    IMessageComposer<
+    ConstructorParameters<typeof SaveRoomSettingsComposer>
+    >
 {
     private _data: ConstructorParameters<typeof SaveRoomSettingsComposer>;
 

@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class RoomDoorbellAccessComposer implements IMessageComposer<ConstructorParameters<typeof RoomDoorbellAccessComposer>>
 {
@@ -6,7 +6,7 @@ export class RoomDoorbellAccessComposer implements IMessageComposer<ConstructorP
 
     constructor(user: string, allowedEntry: boolean)
     {
-        this._data = [ user, allowedEntry ];
+        this._data = [user, allowedEntry];
     }
 
     public getMessageArray()

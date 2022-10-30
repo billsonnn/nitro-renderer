@@ -1,13 +1,13 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { IssueMessageData } from './IssueMessageData';
 import { PatternMatchData } from './PatternMatchData';
 
 export class IssueInfoMessageParser implements IMessageParser
 {
-    private _issueData:IssueMessageData;
+    private _issueData: IssueMessageData;
 
 
-    public get issueData():IssueMessageData
+    public get issueData(): IssueMessageData
     {
         return this._issueData;
     }
@@ -18,7 +18,7 @@ export class IssueInfoMessageParser implements IMessageParser
         return true;
     }
 
-    public parse(k:IMessageDataWrapper): boolean
+    public parse(k: IMessageDataWrapper): boolean
     {
         const issueId: number = k.readInt();
         const state: number = k.readInt();
@@ -37,9 +37,9 @@ export class IssueInfoMessageParser implements IMessageParser
         const chatRecordId: number = k.readInt();
 
         const patternsCount: number = k.readInt();
-        const patterns:PatternMatchData[] = [];
+        const patterns: PatternMatchData[] = [];
 
-        for(let i = 0; i < patternsCount; i++)
+        for (let i = 0; i < patternsCount; i++)
         {
             patterns.push(new PatternMatchData(k));
         }

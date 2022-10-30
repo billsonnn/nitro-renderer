@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { FlatControllerData } from '../../incoming/roomsettings/FlatControllerData';
 
 export class FlatControllerAddedParser implements IMessageParser
@@ -17,7 +16,7 @@ export class FlatControllerAddedParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._roomId = wrapper.readInt();
         this._data = new FlatControllerData(wrapper);

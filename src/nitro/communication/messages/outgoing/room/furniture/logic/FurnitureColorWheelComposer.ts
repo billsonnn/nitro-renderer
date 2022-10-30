@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../../api';
 
 export class FurnitureColorWheelComposer implements IMessageComposer<ConstructorParameters<typeof FurnitureColorWheelComposer>>
 {
@@ -6,7 +6,7 @@ export class FurnitureColorWheelComposer implements IMessageComposer<Constructor
 
     constructor(itemId: number)
     {
-        this._data = [ itemId ];
+        this._data = [itemId];
     }
 
     public getMessageArray()

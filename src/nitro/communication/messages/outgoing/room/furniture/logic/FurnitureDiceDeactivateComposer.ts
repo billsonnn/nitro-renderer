@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../../api';
 
 export class FurnitureDiceDeactivateComposer implements IMessageComposer<ConstructorParameters<typeof FurnitureDiceDeactivateComposer>>
 {
@@ -6,7 +6,7 @@ export class FurnitureDiceDeactivateComposer implements IMessageComposer<Constru
 
     constructor(itemId: number)
     {
-        this._data = [ itemId ];
+        this._data = [itemId];
     }
 
     public getMessageArray()

@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class GroupConfirmMemberRemoveParser implements IMessageParser
 {
@@ -15,7 +15,7 @@ export class GroupConfirmMemberRemoveParser implements IMessageParser
 
     parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._userId = wrapper.readInt();
         this._furnitureCount = wrapper.readInt();

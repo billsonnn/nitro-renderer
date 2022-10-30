@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class MOTDNotificationParser implements IMessageParser
 {
@@ -13,11 +13,11 @@ export class MOTDNotificationParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         let totalMessages = wrapper.readInt();
 
-        while(totalMessages > 0)
+        while (totalMessages > 0)
         {
             this._messages.push(wrapper.readString());
 

@@ -1,16 +1,15 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class IssueDeletedMessageParser implements IMessageParser
 {
     private _issueId: number;
 
-    public flush():boolean
+    public flush(): boolean
     {
         return true;
     }
 
-    public parse(k:IMessageDataWrapper):boolean
+    public parse(k: IMessageDataWrapper): boolean
     {
         this._issueId = parseInt(k.readString());
         return true;

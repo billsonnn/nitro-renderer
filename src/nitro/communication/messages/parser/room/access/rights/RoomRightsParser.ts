@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../../api';
 import { RoomControllerLevel } from '../../../../../../session/enum/RoomControllerLevel';
 
 export class RoomRightsParser implements IMessageParser
@@ -14,7 +14,7 @@ export class RoomRightsParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._controllerLevel = wrapper.readInt();
 

@@ -1,12 +1,12 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
-export class RoomDeleteComposer implements IMessageComposer<[ number ]>
+export class RoomDeleteComposer implements IMessageComposer<[number]>
 {
-    private _data: [ number ];
+    private _data: [number];
 
     constructor(roomId: number)
     {
-        this._data = [ roomId ];
+        this._data = [roomId];
     }
 
     public getMessageArray()

@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class ForwardToRandomCompetitionRoomMessageComposer implements IMessageComposer<ConstructorParameters<typeof ForwardToRandomCompetitionRoomMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class ForwardToRandomCompetitionRoomMessageComposer implements IMessageCo
 
     constructor(k: string)
     {
-        this._data = [ k];
+        this._data = [k];
     }
 
     public getMessageArray()

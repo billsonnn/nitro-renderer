@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class RoomUnitGiveHandItemPetComposer implements IMessageComposer<ConstructorParameters<typeof RoomUnitGiveHandItemPetComposer>>
 {
@@ -6,7 +6,7 @@ export class RoomUnitGiveHandItemPetComposer implements IMessageComposer<Constru
 
     constructor(unitId: number)
     {
-        this._data = [ unitId ];
+        this._data = [unitId];
     }
 
     public getMessageArray()

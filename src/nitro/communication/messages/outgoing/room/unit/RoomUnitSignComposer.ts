@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class RoomUnitSignComposer implements IMessageComposer<ConstructorParameters<typeof RoomUnitSignComposer>>
 {
@@ -6,7 +6,7 @@ export class RoomUnitSignComposer implements IMessageComposer<ConstructorParamet
 
     constructor(signType: number)
     {
-        this._data = [ signType ];
+        this._data = [signType];
     }
 
     public getMessageArray()

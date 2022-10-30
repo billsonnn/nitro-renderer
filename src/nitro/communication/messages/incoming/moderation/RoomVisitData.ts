@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
 
 export class RoomVisitData
 {
@@ -7,7 +7,7 @@ export class RoomVisitData
     private _enterHour: number;
     private _enterMinute: number;
 
-    constructor(k:IMessageDataWrapper)
+    constructor(k: IMessageDataWrapper)
     {
         this._roomId = k.readInt();
         this._roomName = k.readString();

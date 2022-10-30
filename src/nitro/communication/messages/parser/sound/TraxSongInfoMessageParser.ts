@@ -1,9 +1,9 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { SongInfoEntry } from '../../incoming/sound/SongInfoEntry';
 
 export class TraxSongInfoMessageParser implements IMessageParser
 {
-    private _songs:SongInfoEntry[];
+    private _songs: SongInfoEntry[];
 
     flush(): boolean
     {
@@ -14,7 +14,7 @@ export class TraxSongInfoMessageParser implements IMessageParser
     parse(wrapper: IMessageDataWrapper): boolean
     {
         const count = wrapper.readInt();
-        for(let i = 0; i< count; i++)
+        for (let i = 0; i < count; i++)
         {
             const id = wrapper.readInt();
             const _local_3 = wrapper.readString();
@@ -28,7 +28,7 @@ export class TraxSongInfoMessageParser implements IMessageParser
         return true;
     }
 
-    public get songs():SongInfoEntry[]
+    public get songs(): SongInfoEntry[]
     {
         return this._songs;
     }

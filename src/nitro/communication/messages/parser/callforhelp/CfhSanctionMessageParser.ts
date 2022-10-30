@@ -1,6 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { CfhSanctionTypeData } from '../../incoming/callforhelp';
-import { IMessageParser } from './../../../../../core';
 
 export class CfhSanctionMessageParser implements IMessageParser
 {
@@ -19,7 +18,7 @@ export class CfhSanctionMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._issueId = wrapper.readInt();
         this._accountId = wrapper.readInt();

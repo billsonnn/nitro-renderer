@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export class PresentOpenedMessageParser implements IMessageParser
 {
@@ -21,7 +21,7 @@ export class PresentOpenedMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._itemType = wrapper.readString();
         this._classId = wrapper.readInt();

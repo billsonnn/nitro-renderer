@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class DirectSMSClubBuyAvailableMessageParser implements IMessageParser
 {
@@ -19,11 +19,11 @@ export class DirectSMSClubBuyAvailableMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._Str_16515 = wrapper.readString();
 
-        if(this._Str_16515 !== '') this._available = true;
+        if (this._Str_16515 !== '') this._available = true;
 
         this._Str_22121 = wrapper.readString();
         this._Str_21897 = wrapper.readInt();

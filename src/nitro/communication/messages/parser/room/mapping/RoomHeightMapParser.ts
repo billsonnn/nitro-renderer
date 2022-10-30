@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export class RoomHeightMapParser implements IMessageParser
 {
@@ -23,21 +23,21 @@ export class RoomHeightMapParser implements IMessageParser
 
     public getTileHeight(x: number, y: number): number
     {
-        if((x < 0) || (x >= this._width) || (y < 0) || (y >= this._height)) return -1;
+        if ((x < 0) || (x >= this._width) || (y < 0) || (y >= this._height)) return -1;
 
         return RoomHeightMapParser.decodeTileHeight(this._heights[((y * this._width) + x)]);
     }
 
     public getStackingBlocked(x: number, y: number): boolean
     {
-        if((x < 0) || (x >= this._width) || (y < 0) || (y >= this._height)) return true;
+        if ((x < 0) || (x >= this._width) || (y < 0) || (y >= this._height)) return true;
 
         return RoomHeightMapParser.decodeIsStackingBlocked(this._heights[((y * this._width) + x)]);
     }
 
     public isRoomTile(x: number, y: number): boolean
     {
-        if((x < 0) || (x >= this._width) || (y < 0) || (y >= this._height)) return false;
+        if ((x < 0) || (x >= this._width) || (y < 0) || (y >= this._height)) return false;
 
         return RoomHeightMapParser.decodeIsRoomTile(this._heights[((y * this._width) + x)]);
     }
@@ -53,7 +53,7 @@ export class RoomHeightMapParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._width = wrapper.readInt();
         const totalTiles = wrapper.readInt();
@@ -61,7 +61,7 @@ export class RoomHeightMapParser implements IMessageParser
 
         let i = 0;
 
-        while(i < totalTiles)
+        while (i < totalTiles)
         {
             this._heights[i] = wrapper.readShort();
 

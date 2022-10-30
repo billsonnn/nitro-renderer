@@ -1,5 +1,4 @@
-import { IDisposable } from '../../core/common/disposable/IDisposable';
-import { IConnection } from '../../core/communication/connections/IConnection';
+import { IConnection, IDisposable } from '../../api';
 import { RoomModerationSettings } from '../communication/messages/incoming/roomsettings/RoomModerationSettings';
 import { UserDataManager } from './UserDataManager';
 

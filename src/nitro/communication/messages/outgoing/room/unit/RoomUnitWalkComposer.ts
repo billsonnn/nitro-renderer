@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class RoomUnitWalkComposer implements IMessageComposer<ConstructorParameters<typeof RoomUnitWalkComposer>>
 {
@@ -6,7 +6,7 @@ export class RoomUnitWalkComposer implements IMessageComposer<ConstructorParamet
 
     constructor(x: number, y: number)
     {
-        this._data = [ x, y ];
+        this._data = [x, y];
     }
 
     public getMessageArray()

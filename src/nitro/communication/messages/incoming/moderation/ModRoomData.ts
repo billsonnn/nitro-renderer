@@ -1,19 +1,18 @@
-import { IDisposable } from '../../../../../core/common/disposable/IDisposable';
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
+import { IDisposable, IMessageDataWrapper } from '../../../../../api';
 
 export class ModRoomData implements IDisposable
 {
-    private _exists:boolean;
-    private _name:string;
-    private _desc:string;
-    private _tags:string[];
-    private _disposed:boolean;
+    private _exists: boolean;
+    private _name: string;
+    private _desc: string;
+    private _tags: string[];
+    private _disposed: boolean;
 
-    constructor(k:IMessageDataWrapper)
+    constructor(k: IMessageDataWrapper)
     {
         this._tags = [];
         this._exists = k.readBoolean();
-        if(!this.exists)
+        if (!this.exists)
         {
             return;
         }
@@ -22,40 +21,40 @@ export class ModRoomData implements IDisposable
 
         const tagCount = k.readInt();
 
-        for(let i = 0; i < tagCount; i++)
+        for (let i = 0; i < tagCount; i++)
         {
             this._tags.push(k.readString());
         }
     }
 
-    public get name():string
+    public get name(): string
     {
         return this._name;
     }
 
-    public get desc():string
+    public get desc(): string
     {
         return this._desc;
     }
 
-    public get tags():string[]
+    public get tags(): string[]
     {
         return this._tags;
     }
 
-    public get exists():boolean
+    public get exists(): boolean
     {
         return this._exists;
     }
 
-    public get disposed():boolean
+    public get disposed(): boolean
     {
         return this._disposed;
     }
 
-    public dispose():void
+    public dispose(): void
     {
-        if(this._disposed)
+        if (this._disposed)
         {
             return;
         }

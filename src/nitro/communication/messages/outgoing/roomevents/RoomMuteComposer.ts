@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class RoomMuteComposer implements IMessageComposer<unknown[]>
 {
@@ -6,7 +6,7 @@ export class RoomMuteComposer implements IMessageComposer<unknown[]>
 
     constructor()
     {
-        this._data = [ ];
+        this._data = [];
     }
 
     public getMessageArray()

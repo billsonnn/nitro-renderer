@@ -1,10 +1,10 @@
-import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
 import { QuestMessageData } from '../../incoming/quest/QuestMessageData';
-import { IMessageParser } from './../../../../../core';
+import { IMessageParser } from './../../../../../api';
 
 export class QuestDailyMessageParser implements IMessageParser
 {
-    private _quest:QuestMessageData;
+    private _quest: QuestMessageData;
     private _easyQuestCount: number;
     private _hardQuestCount: number;
 
@@ -14,12 +14,12 @@ export class QuestDailyMessageParser implements IMessageParser
         return true;
     }
 
-    public parse(wrapper:IMessageDataWrapper): boolean
+    public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         const _local_2 = wrapper.readBoolean();
-        if(_local_2)
+        if (_local_2)
         {
             this._quest = new QuestMessageData(wrapper);
             this._easyQuestCount = wrapper.readInt();

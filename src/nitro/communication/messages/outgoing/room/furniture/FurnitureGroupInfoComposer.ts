@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class FurnitureGroupInfoComposer implements IMessageComposer<ConstructorParameters<typeof FurnitureGroupInfoComposer>>
 {
@@ -6,7 +6,7 @@ export class FurnitureGroupInfoComposer implements IMessageComposer<ConstructorP
 
     constructor(objectId: number, guildId: number)
     {
-        this._data = [ objectId, guildId ];
+        this._data = [objectId, guildId];
     }
 
     public getMessageArray()

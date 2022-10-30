@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { RoomChatSettings } from '../../incoming/roomsettings/RoomChatSettings';
 import { RoomModerationSettings } from '../../incoming/roomsettings/RoomModerationSettings';
 import { RoomSettingsData } from '../../incoming/roomsettings/RoomSettingsData';
@@ -17,7 +16,7 @@ export class RoomSettingsDataParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._roomSettingsData = new RoomSettingsData();
 
@@ -32,7 +31,7 @@ export class RoomSettingsDataParser implements IMessageParser
 
         let totalTags = wrapper.readInt();
 
-        while(totalTags > 0)
+        while (totalTags > 0)
         {
             this._roomSettingsData.tags.push(wrapper.readString());
 

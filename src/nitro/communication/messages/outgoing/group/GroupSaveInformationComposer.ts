@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class GroupSaveInformationComposer implements IMessageComposer<ConstructorParameters<typeof GroupSaveInformationComposer>>
 {
@@ -6,7 +6,7 @@ export class GroupSaveInformationComposer implements IMessageComposer<Constructo
 
     constructor(groupId: number, title: string, description: string)
     {
-        this._data = [ groupId, title, description ];
+        this._data = [groupId, title, description];
     }
 
     public getMessageArray()

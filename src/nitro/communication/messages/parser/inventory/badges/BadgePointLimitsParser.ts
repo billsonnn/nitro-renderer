@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 import { BadgeAndPointLimit } from './BadgeAndPointLimit';
 
 export class BadgePointLimitsParser implements IMessageParser
@@ -14,18 +14,18 @@ export class BadgePointLimitsParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         let _local_2 = wrapper.readInt();
 
-        while(_local_2 > 0)
+        while (_local_2 > 0)
         {
             const _local_4 = wrapper.readString();
             const _local_5 = wrapper.readInt();
 
             let _local_6 = 0;
 
-            while(_local_6 < _local_5)
+            while (_local_6 < _local_5)
             {
                 this._data.push(new BadgeAndPointLimit(_local_4, wrapper));
 

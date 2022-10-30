@@ -1,10 +1,9 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class ModeratorActionResultMessageParser implements IMessageParser
 {
-    private _userId:number;
-    private _success:boolean;
+    private _userId: number;
+    private _success: boolean;
 
     public flush(): boolean
     {
@@ -21,12 +20,12 @@ export class ModeratorActionResultMessageParser implements IMessageParser
         return true;
     }
 
-    public get userId():number
+    public get userId(): number
     {
         return this._userId;
     }
 
-    public get success():boolean
+    public get success(): boolean
     {
         return this._success;
     }

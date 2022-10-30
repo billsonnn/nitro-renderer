@@ -1,4 +1,4 @@
-import { Disposable } from '../../core/common/disposable/Disposable';
+import { Disposable } from '../../core/common/Disposable';
 import { RoomObjectUpdateMessage } from '../messages/RoomObjectUpdateMessage';
 import { IVector3D } from '../utils/IVector3D';
 import { Vector3d } from '../utils/Vector3d';
@@ -51,7 +51,7 @@ export class RoomObject extends Disposable implements IRoomObjectController
 
         let i = (stateCount - 1);
 
-        while(i >= 0)
+        while (i >= 0)
         {
             this._states[i] = 0;
 
@@ -66,7 +66,7 @@ export class RoomObject extends Disposable implements IRoomObjectController
         this.setVisualization(null);
         this.setLogic(null);
 
-        if(this._model) this._model.dispose();
+        if (this._model) this._model.dispose();
 
         super.onDispose();
     }
@@ -78,9 +78,9 @@ export class RoomObject extends Disposable implements IRoomObjectController
 
     public setLocation(vector: IVector3D): void
     {
-        if(!vector) return;
+        if (!vector) return;
 
-        if((vector.x === this._location.x) && (vector.y === this._location.y) && (vector.z === this._location.z)) return;
+        if ((vector.x === this._location.x) && (vector.y === this._location.y) && (vector.z === this._location.z)) return;
 
         this._location.x = vector.x;
         this._location.y = vector.y;
@@ -96,9 +96,9 @@ export class RoomObject extends Disposable implements IRoomObjectController
 
     public setDirection(vector: IVector3D): void
     {
-        if(!vector) return;
+        if (!vector) return;
 
-        if((vector.x === this._direction.x) && (vector.y === this._direction.y) && (vector.z === this._direction.z)) return;
+        if ((vector.x === this._direction.x) && (vector.y === this._direction.y) && (vector.z === this._direction.z)) return;
 
         this._direction.x = (((vector.x % 360) + 360) % 360);
         this._direction.y = (((vector.y % 360) + 360) % 360);
@@ -109,7 +109,7 @@ export class RoomObject extends Disposable implements IRoomObjectController
 
     public getState(index: number = 0): number
     {
-        if((index >= 0) && (index < this._states.length))
+        if ((index >= 0) && (index < this._states.length))
         {
             return this._states[index];
         }
@@ -119,9 +119,9 @@ export class RoomObject extends Disposable implements IRoomObjectController
 
     public setState(state: number, index: number = 0): boolean
     {
-        if((index >= 0) && (index < this._states.length))
+        if ((index >= 0) && (index < this._states.length))
         {
-            if(this._states[index] !== state)
+            if (this._states[index] !== state)
             {
                 this._states[index] = state;
 
@@ -136,22 +136,22 @@ export class RoomObject extends Disposable implements IRoomObjectController
 
     public setVisualization(visualization: IRoomObjectVisualization): void
     {
-        if(this._visualization === visualization) return;
+        if (this._visualization === visualization) return;
 
-        if(this._visualization) this._visualization.dispose();
+        if (this._visualization) this._visualization.dispose();
 
         this._visualization = visualization;
 
-        if(this._visualization) this._visualization.object = this;
+        if (this._visualization) this._visualization.object = this;
     }
 
     public setLogic(logic: IRoomObjectEventHandler): void
     {
-        if(this._logic === logic) return;
+        if (this._logic === logic) return;
 
         const eventHandler = this._logic;
 
-        if(eventHandler)
+        if (eventHandler)
         {
             this._logic = null;
 
@@ -160,11 +160,11 @@ export class RoomObject extends Disposable implements IRoomObjectController
 
         this._logic = logic;
 
-        if(this._logic)
+        if (this._logic)
         {
             this._logic.setObject(this);
 
-            while(this._pendingLogicMessages.length)
+            while (this._pendingLogicMessages.length)
             {
                 const message = this._pendingLogicMessages.shift();
 
@@ -175,14 +175,14 @@ export class RoomObject extends Disposable implements IRoomObjectController
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void
     {
-        if(this._logic) return this._logic.processUpdateMessage(message);
+        if (this._logic) return this._logic.processUpdateMessage(message);
 
         this._pendingLogicMessages.push(message);
     }
 
     public tearDown(): void
     {
-        if(this._logic) this._logic.tearDown();
+        if (this._logic) this._logic.tearDown();
     }
 
     public get id(): number

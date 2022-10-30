@@ -1,10 +1,9 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class QuestionFinishedParser implements IMessageParser
 {
-    private _questionId:number;
-    private _answerCounts:Map<string, number>;
+    private _questionId: number;
+    private _answerCounts: Map<string, number>;
 
     flush(): boolean
     {
@@ -19,7 +18,7 @@ export class QuestionFinishedParser implements IMessageParser
         this._answerCounts = new Map();
         const count = wrapper.readInt();
 
-        for(let i = 0; i < count; i++)
+        for (let i = 0; i < count; i++)
         {
             const key = wrapper.readString();
             const value = wrapper.readInt();
@@ -28,12 +27,12 @@ export class QuestionFinishedParser implements IMessageParser
         return true;
     }
 
-    public get questionId():number
+    public get questionId(): number
     {
         return this._questionId;
     }
 
-    public get answerCounts():Map<string, number>
+    public get answerCounts(): Map<string, number>
     {
         return this._answerCounts;
     }

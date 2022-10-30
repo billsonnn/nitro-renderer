@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from './../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageParser } from './../../../../../api';
 import { CampaignCalendarData } from './CampaignCalendarData';
 
 export class CampaignCalendarDataMessageParser implements IMessageParser
@@ -15,7 +15,7 @@ export class CampaignCalendarDataMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._calendarData = new CampaignCalendarData();
         this._calendarData.parse(wrapper);

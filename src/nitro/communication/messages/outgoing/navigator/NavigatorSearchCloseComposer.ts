@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class NavigatorSearchCloseComposer implements IMessageComposer<ConstructorParameters<typeof NavigatorSearchCloseComposer>>
 {
@@ -6,7 +6,7 @@ export class NavigatorSearchCloseComposer implements IMessageComposer<Constructo
 
     constructor(code: string)
     {
-        this._data = [ code ];
+        this._data = [code];
     }
 
     public getMessageArray()

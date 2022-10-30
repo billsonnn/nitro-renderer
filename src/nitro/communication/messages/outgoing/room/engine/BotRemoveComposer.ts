@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class BotRemoveComposer implements IMessageComposer<ConstructorParameters<typeof BotRemoveComposer>>
 {
@@ -6,7 +6,7 @@ export class BotRemoveComposer implements IMessageComposer<ConstructorParameters
 
     constructor(botId: number)
     {
-        this._data = [ botId ];
+        this._data = [botId];
     }
 
     public getMessageArray()

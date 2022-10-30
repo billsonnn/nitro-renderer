@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class NavigatorSettingsSaveComposer implements IMessageComposer<ConstructorParameters<typeof NavigatorSettingsSaveComposer>>
 {
@@ -6,7 +6,7 @@ export class NavigatorSettingsSaveComposer implements IMessageComposer<Construct
 
     constructor(x: number, y: number, width: number, height: number, leftSideOpen: boolean, mode: number)
     {
-        this._data = [ x, y, width, height, leftSideOpen, mode ];
+        this._data = [x, y, width, height, leftSideOpen, mode];
     }
 
     public getMessageArray()

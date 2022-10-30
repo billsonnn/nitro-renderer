@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 import { RoomDimmerPresetsMessageData } from '../../../incoming/room/furniture/RoomDimmerPresetsMessageData';
 
 export class RoomDimmerPresetsMessageParser implements IMessageParser
@@ -25,7 +25,7 @@ export class RoomDimmerPresetsMessageParser implements IMessageParser
 
         this._selectedPresetId = wrapper.readInt();
 
-        for(let i = 0; i < totalPresets; i++)
+        for (let i = 0; i < totalPresets; i++)
         {
             const presetId = wrapper.readInt();
             const type = wrapper.readInt();
@@ -40,7 +40,7 @@ export class RoomDimmerPresetsMessageParser implements IMessageParser
 
     public getPreset(id: number): RoomDimmerPresetsMessageData
     {
-        if((id < 0) || (id >= this.presetCount)) return null;
+        if ((id < 0) || (id >= this.presetCount)) return null;
 
         return this._presets[id];
     }

@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export class RoomPaintParser implements IMessageParser
 {
@@ -19,12 +19,12 @@ export class RoomPaintParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         const type = wrapper.readString();
         const value = wrapper.readString();
 
-        switch(type)
+        switch (type)
         {
             case 'floor':
                 this._floorType = value;

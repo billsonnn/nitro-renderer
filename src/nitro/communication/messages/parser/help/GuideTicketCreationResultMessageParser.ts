@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class GuideTicketCreationResultMessageParser implements IMessageParser
 {
@@ -18,7 +18,7 @@ export class GuideTicketCreationResultMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._result = wrapper.readInt();
 

@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export class PetStatusUpdateParser implements IMessageParser
 {
@@ -23,7 +23,7 @@ export class PetStatusUpdateParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._roomIndex = wrapper.readInt();
         this._petId = wrapper.readInt();

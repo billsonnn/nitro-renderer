@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageDataWrapper } from '../../../../../api';
 import { IRoomObjectModel } from '../../../../../room/object/IRoomObjectModel';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { IObjectData } from '../IObjectData';
@@ -23,13 +23,13 @@ export class MapDataType extends ObjectDataBase
 
     public parseWrapper(wrapper: IMessageDataWrapper): void
     {
-        if(!wrapper) return;
+        if (!wrapper) return;
 
         this._data = {};
 
         const totalSets = wrapper.readInt();
 
-        if(totalSets) for(let i = 0; i < totalSets; i++) this._data[wrapper.readString()] = wrapper.readString();
+        if (totalSets) for (let i = 0; i < totalSets; i++) this._data[wrapper.readString()] = wrapper.readString();
 
         super.parseWrapper(wrapper);
     }
@@ -51,11 +51,11 @@ export class MapDataType extends ObjectDataBase
 
     public getLegacyString(): string
     {
-        if(!this._data) return '';
+        if (!this._data) return '';
 
         const state = this._data[MapDataType.STATE];
 
-        if(state === undefined || state === null) return '';
+        if (state === undefined || state === null) return '';
 
         return state;
     }
@@ -72,11 +72,11 @@ export class MapDataType extends ObjectDataBase
 
     public get rarityLevel(): number
     {
-        if(!this._data) return -1;
+        if (!this._data) return -1;
 
         const state = this._data[MapDataType.RARITY];
 
-        if(state === undefined || state === null) return -1;
+        if (state === undefined || state === null) return -1;
 
         return parseInt(state);
     }

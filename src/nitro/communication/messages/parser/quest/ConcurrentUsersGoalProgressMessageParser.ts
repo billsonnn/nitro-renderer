@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from './../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageParser } from './../../../../../api';
 
 export class ConcurrentUsersGoalProgressMessageParser implements IMessageParser
 {
@@ -15,9 +15,9 @@ export class ConcurrentUsersGoalProgressMessageParser implements IMessageParser
         return true;
     }
 
-    public parse(wrapper:IMessageDataWrapper): boolean
+    public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._state = wrapper.readInt();
         this._userCount = wrapper.readInt();

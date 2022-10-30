@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../core';
+import { IMessageDataWrapper } from '../../../../../../api';
 import { NavigatorSearchResultList } from './NavigatorSearchResultList';
 
 export class NavigatorSearchResultSet
@@ -9,7 +9,7 @@ export class NavigatorSearchResultSet
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_wrapper');
+        if (!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -26,14 +26,14 @@ export class NavigatorSearchResultSet
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._code = wrapper.readString();
         this._data = wrapper.readString();
 
         let totalResults = wrapper.readInt();
 
-        while(totalResults > 0)
+        while (totalResults > 0)
         {
             this._results.push(new NavigatorSearchResultList(wrapper));
 

@@ -1,12 +1,12 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class ForwardToACompetitionRoomMessageComposer implements IMessageComposer<ConstructorParameters<typeof ForwardToACompetitionRoomMessageComposer>>
 {
     private _data: ConstructorParameters<typeof ForwardToACompetitionRoomMessageComposer>;
 
-    constructor(k:string, _arg_2:number)
+    constructor(k: string, _arg_2: number)
     {
-        this._data = [ k, _arg_2 ];
+        this._data = [k, _arg_2];
     }
 
     public getMessageArray()

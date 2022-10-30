@@ -1,6 +1,6 @@
-import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
 import { PrizeData } from '../../incoming/quest/PrizeData';
-import { IMessageParser } from './../../../../../core';
+import { IMessageParser } from './../../../../../api';
 
 export class CommunityGoalEarnedPrizesMessageParser implements IMessageParser
 {
@@ -14,10 +14,10 @@ export class CommunityGoalEarnedPrizesMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         const count = wrapper.readInt();
-        for(let i = 0; i < count; i++)
+        for (let i = 0; i < count; i++)
         {
             this._prizes.push(new PrizeData(wrapper));
         }

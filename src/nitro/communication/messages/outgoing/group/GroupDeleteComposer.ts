@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class GroupDeleteComposer implements IMessageComposer<ConstructorParameters<typeof GroupDeleteComposer>>
 {
@@ -6,7 +6,7 @@ export class GroupDeleteComposer implements IMessageComposer<ConstructorParamete
 
     constructor(groupId: number)
     {
-        this._data = [ groupId ];
+        this._data = [groupId];
     }
 
     public getMessageArray()

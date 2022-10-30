@@ -1,4 +1,4 @@
-import { IDisposable } from '../core/common/disposable/IDisposable';
+import { IDisposable } from '../api';
 import { IRoomInstanceContainer } from './IRoomInstanceContainer';
 import { IRoomObjectManager } from './IRoomObjectManager';
 import { IRoomObject } from './object/IRoomObject';

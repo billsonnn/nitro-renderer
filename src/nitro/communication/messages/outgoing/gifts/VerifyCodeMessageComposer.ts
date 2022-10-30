@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class VerifyCodeMessageComposer implements IMessageComposer<ConstructorParameters<typeof VerifyCodeMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class VerifyCodeMessageComposer implements IMessageComposer<ConstructorPa
 
     constructor(k: string)
     {
-        this._data = [ k ];
+        this._data = [k];
     }
 
     public getMessageArray()

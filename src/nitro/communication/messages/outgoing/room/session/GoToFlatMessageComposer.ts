@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class GoToFlatMessageComposer implements IMessageComposer<ConstructorParameters<typeof GoToFlatMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class GoToFlatMessageComposer implements IMessageComposer<ConstructorPara
 
     constructor(roomId: number)
     {
-        this._data = [ roomId ];
+        this._data = [roomId];
     }
 
     public getMessageArray()

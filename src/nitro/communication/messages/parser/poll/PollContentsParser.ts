@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { PollChoice } from './PollChoice';
 import { PollQuestion } from './PollQuestion';
 
@@ -9,7 +8,7 @@ export class PollContentsParser implements IMessageParser
     private _startMessage = '';
     private _endMessage = '';
     private _numQuestions = 0;
-    private _questionArray:PollQuestion[] = [];
+    private _questionArray: PollQuestion[] = [];
     private _npsPoll = false;
 
     flush(): boolean
@@ -29,12 +28,12 @@ export class PollContentsParser implements IMessageParser
         this._endMessage = wrapper.readString();
         this._numQuestions = wrapper.readInt();
 
-        for(let i = 0; i < this._numQuestions; i++)
+        for (let i = 0; i < this._numQuestions; i++)
         {
             const question = this.parsePollQuestion(wrapper);
             const childrenCount = wrapper.readInt();
 
-            for(let j = 0; j < childrenCount; j++)
+            for (let j = 0; j < childrenCount; j++)
             {
                 question.children.push(this.parsePollQuestion(wrapper));
             }
@@ -46,7 +45,7 @@ export class PollContentsParser implements IMessageParser
         return true;
     }
 
-    private parsePollQuestion(k:IMessageDataWrapper):PollQuestion
+    private parsePollQuestion(k: IMessageDataWrapper): PollQuestion
     {
         const pollQuestion = new PollQuestion();
         pollQuestion.questionId = k.readInt();
@@ -56,9 +55,9 @@ export class PollContentsParser implements IMessageParser
         pollQuestion.questionCategory = k.readInt();
         pollQuestion.questionAnswerType = k.readInt();
         pollQuestion.questionAnswerCount = k.readInt();
-        if(((pollQuestion.questionType == 1) || (pollQuestion.questionType == 2)))
+        if (((pollQuestion.questionType == 1) || (pollQuestion.questionType == 2)))
         {
-            for(let i = 0; i < pollQuestion.questionAnswerCount; i++)
+            for (let i = 0; i < pollQuestion.questionAnswerCount; i++)
             {
                 pollQuestion.questionChoices.push(new PollChoice(k.readString(), k.readString(), k.readInt()));
             }
@@ -66,32 +65,32 @@ export class PollContentsParser implements IMessageParser
         return pollQuestion;
     }
 
-    public get id():number
+    public get id(): number
     {
         return this._id;
     }
 
-    public get startMessage():string
+    public get startMessage(): string
     {
         return this._startMessage;
     }
 
-    public get endMessage():string
+    public get endMessage(): string
     {
         return this._endMessage;
     }
 
-    public get numQuestions():number
+    public get numQuestions(): number
     {
         return this._numQuestions;
     }
 
-    public get questionArray():PollQuestion[]
+    public get questionArray(): PollQuestion[]
     {
         return this._questionArray;
     }
 
-    public get npsPoll():boolean
+    public get npsPoll(): boolean
     {
         return this._npsPoll;
     }

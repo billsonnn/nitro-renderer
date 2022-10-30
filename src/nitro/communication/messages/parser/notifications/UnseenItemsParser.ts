@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { AdvancedMap } from '../../../../../core/utils/AdvancedMap';
 
 export class UnseenItemsParser implements IMessageParser
@@ -14,18 +14,18 @@ export class UnseenItemsParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         let totalUnseen = wrapper.readInt();
 
-        while(totalUnseen > 0)
+        while (totalUnseen > 0)
         {
             const category = wrapper.readInt();
 
             let totalItems = wrapper.readInt();
             const itemIds: number[] = [];
 
-            while(totalItems > 0)
+            while (totalItems > 0)
             {
                 itemIds.push(wrapper.readInt());
 

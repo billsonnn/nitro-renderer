@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class AvailabilityStatusMessageParser implements IMessageParser
 {
@@ -17,12 +17,12 @@ export class AvailabilityStatusMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._isOpen = wrapper.readBoolean();
         this._onShutdown = wrapper.readBoolean();
 
-        if(wrapper.bytesAvailable)
+        if (wrapper.bytesAvailable)
         {
             this._isAuthenticUser = wrapper.readBoolean();
         }

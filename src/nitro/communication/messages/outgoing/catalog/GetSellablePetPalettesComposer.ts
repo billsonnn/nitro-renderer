@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetSellablePetPalettesComposer implements IMessageComposer<ConstructorParameters<typeof GetSellablePetPalettesComposer>>
 {
@@ -6,7 +6,7 @@ export class GetSellablePetPalettesComposer implements IMessageComposer<Construc
 
     constructor(name: string)
     {
-        this._data = [ name ];
+        this._data = [name];
     }
 
     public getMessageArray()

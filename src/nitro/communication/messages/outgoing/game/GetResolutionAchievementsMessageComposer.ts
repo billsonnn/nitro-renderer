@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetResolutionAchievementsMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetResolutionAchievementsMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class GetResolutionAchievementsMessageComposer implements IMessageCompose
 
     constructor(objectId: number, achievementId: number)
     {
-        this._data = [ objectId, achievementId ];
+        this._data = [objectId, achievementId];
     }
 
     public getMessageArray()

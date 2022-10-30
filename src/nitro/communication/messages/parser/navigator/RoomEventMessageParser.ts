@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { RoomEventData } from './utils/RoomEventData';
 
 export class RoomEventMessageParser implements IMessageParser

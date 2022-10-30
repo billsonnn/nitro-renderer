@@ -1,4 +1,4 @@
-import { IConnection } from '../connections/IConnection';
+import { IConnection } from './IConnection';
 import { IMessageParser } from './IMessageParser';
 
 export interface IMessageEvent

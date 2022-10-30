@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { IssueMessageData } from './IssueMessageData';
 
 export class IssuePickFailedMessageParser implements IMessageParser
@@ -20,7 +19,7 @@ export class IssuePickFailedMessageParser implements IMessageParser
 
         const count = k.readInt();
 
-        for(let i = 0; i < count; i++)
+        for (let i = 0; i < count; i++)
         {
             const _local_4 = k.readInt();
             const _local_5 = k.readInt();

@@ -1,10 +1,9 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class FavouriteChangedMessageParser implements IMessageParser
 {
-    private _flatId:number;
-    private _added:boolean;
+    private _flatId: number;
+    private _added: boolean;
 
     public flush(): boolean
     {
@@ -13,7 +12,7 @@ export class FavouriteChangedMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._flatId = wrapper.readInt();
         this._added = wrapper.readBoolean();
@@ -21,12 +20,12 @@ export class FavouriteChangedMessageParser implements IMessageParser
         return true;
     }
 
-    public get flatId():number
+    public get flatId(): number
     {
         return this._flatId;
     }
 
-    public get added():boolean
+    public get added(): boolean
     {
         return this._added;
     }

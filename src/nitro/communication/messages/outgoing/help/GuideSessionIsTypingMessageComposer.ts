@@ -1,10 +1,10 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class GuideSessionIsTypingMessageComposer implements IMessageComposer<ConstructorParameters<typeof GuideSessionIsTypingMessageComposer>>
 {
     private _data: ConstructorParameters<typeof GuideSessionIsTypingMessageComposer>;
 
-    constructor(k:boolean)
+    constructor(k: boolean)
     {
         this._data = [k];
     }

@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class TogglePetRidingComposer implements IMessageComposer<ConstructorParameters<typeof TogglePetRidingComposer>>
 {
@@ -6,7 +6,7 @@ export class TogglePetRidingComposer implements IMessageComposer<ConstructorPara
 
     constructor(petId: number)
     {
-        this._data = [ petId ];
+        this._data = [petId];
     }
 
     public getMessageArray()

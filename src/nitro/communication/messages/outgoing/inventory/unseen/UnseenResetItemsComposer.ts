@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class UnseenResetItemsComposer implements IMessageComposer<ConstructorParameters<typeof UnseenResetItemsComposer>>
 {
@@ -6,7 +6,7 @@ export class UnseenResetItemsComposer implements IMessageComposer<ConstructorPar
 
     constructor(category: number, ...itemIds: number[])
     {
-        this._data = [ category, itemIds.length, ...itemIds ];
+        this._data = [category, itemIds.length, ...itemIds];
     }
 
     public getMessageArray()

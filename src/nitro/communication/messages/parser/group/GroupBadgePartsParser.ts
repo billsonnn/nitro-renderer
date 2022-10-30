@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class GroupBadgePartsParser implements IMessageParser
 {
@@ -21,11 +21,11 @@ export class GroupBadgePartsParser implements IMessageParser
 
     parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         let basesCount = wrapper.readInt();
 
-        while(basesCount > 0)
+        while (basesCount > 0)
         {
             const id = wrapper.readInt();
             const valueA = wrapper.readString();
@@ -37,7 +37,7 @@ export class GroupBadgePartsParser implements IMessageParser
 
         let symbolsCount = wrapper.readInt();
 
-        while(symbolsCount > 0)
+        while (symbolsCount > 0)
         {
             const id = wrapper.readInt();
             const valueA = wrapper.readString();
@@ -49,7 +49,7 @@ export class GroupBadgePartsParser implements IMessageParser
 
         let partColorsCount = wrapper.readInt();
 
-        while(partColorsCount > 0)
+        while (partColorsCount > 0)
         {
             const id = wrapper.readInt();
             const color = wrapper.readString();
@@ -60,7 +60,7 @@ export class GroupBadgePartsParser implements IMessageParser
 
         let colorsACount = wrapper.readInt();
 
-        while(colorsACount > 0)
+        while (colorsACount > 0)
         {
             const id = wrapper.readInt();
             const color = wrapper.readString();
@@ -71,7 +71,7 @@ export class GroupBadgePartsParser implements IMessageParser
 
         let colorsBCount = wrapper.readInt();
 
-        while(colorsBCount > 0)
+        while (colorsBCount > 0)
         {
             const id = wrapper.readInt();
             const color = wrapper.readString();

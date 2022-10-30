@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class CatalogPublishedMessageParser implements IMessageParser
 {
@@ -15,11 +15,11 @@ export class CatalogPublishedMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._instantlyRefreshCatalogue = wrapper.readBoolean();
 
-        if(wrapper.bytesAvailable) this._newFurniDataHash = wrapper.readString();
+        if (wrapper.bytesAvailable) this._newFurniDataHash = wrapper.readString();
 
         return true;
     }

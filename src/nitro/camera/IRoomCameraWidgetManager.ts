@@ -1,5 +1,5 @@
 import { Resource, Texture } from '@pixi/core';
-import { IEventDispatcher } from '../../core';
+import { IEventDispatcher } from '../../api';
 import { IRoomCameraWidgetEffect } from './IRoomCameraWidgetEffect';
 import { IRoomCameraWidgetSelectedEffect } from './IRoomCameraWidgetSelectedEffect';
 

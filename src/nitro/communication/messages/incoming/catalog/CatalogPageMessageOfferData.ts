@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
 import { CatalogPageMessageProductData } from './CatalogPageMessageProductData';
 
 export class CatalogPageMessageOfferData
@@ -30,7 +30,7 @@ export class CatalogPageMessageOfferData
 
         let totalProducts = wrapper.readInt();
 
-        while(totalProducts > 0)
+        while (totalProducts > 0)
         {
             this._products.push(new CatalogPageMessageProductData(wrapper));
 

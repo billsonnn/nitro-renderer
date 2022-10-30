@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 import { ModBanMessageComposer } from './ModBanMessageComposer';
 
 export class ModMessageMessageComposer implements IMessageComposer<any>
@@ -12,7 +12,7 @@ export class ModMessageMessageComposer implements IMessageComposer<any>
         this._data.push('');
         this._data.push('');
         this._data.push(arg3);
-        if(arg4 != ModBanMessageComposer.NO_ISSUE_ID)
+        if (arg4 != ModBanMessageComposer.NO_ISSUE_ID)
         {
             this._data.push(arg4);
         }

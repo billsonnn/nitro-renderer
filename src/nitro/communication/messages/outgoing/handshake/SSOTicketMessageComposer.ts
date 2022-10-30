@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class SSOTicketMessageComposer implements IMessageComposer<ConstructorParameters<typeof SSOTicketMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class SSOTicketMessageComposer implements IMessageComposer<ConstructorPar
 
     constructor(ticket: string, time: number)
     {
-        this._data = [ ticket, time ];
+        this._data = [ticket, time];
     }
 
     public getMessageArray()

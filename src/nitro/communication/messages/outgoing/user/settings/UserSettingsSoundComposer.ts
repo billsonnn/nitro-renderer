@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../api';
 
 export class UserSettingsSoundComposer implements IMessageComposer<ConstructorParameters<typeof UserSettingsSoundComposer>>
 {
@@ -6,7 +6,7 @@ export class UserSettingsSoundComposer implements IMessageComposer<ConstructorPa
 
     constructor(volumeSystem: number, volumeFurni: number, volumeTrax: number)
     {
-        this._data = [ volumeSystem, volumeFurni, volumeTrax ];
+        this._data = [volumeSystem, volumeFurni, volumeTrax];
     }
 
     public getMessageArray()

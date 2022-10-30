@@ -1,6 +1,7 @@
 import { Texture } from '@pixi/core';
 import { ColorMatrix, ColorMatrixFilter } from '@pixi/filter-color-matrix';
-import { EventDispatcher, IEventDispatcher, NitroContainer, NitroSprite } from '../../core';
+import { IEventDispatcher } from '../../api';
+import { EventDispatcher, NitroContainer, NitroSprite } from '../../core';
 import { TextureUtils } from '../../room';
 import { Nitro } from '../Nitro';
 import { RoomCameraWidgetManagerEvent } from './events/RoomCameraWidgetManagerEvent';

@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageDataWrapper } from '../../../../../api';
 import { IRoomObjectModel } from '../../../../../room/object/IRoomObjectModel';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { IObjectData } from '../IObjectData';
@@ -24,7 +24,7 @@ export class CrackableDataType extends ObjectDataBase implements IObjectData
 
     public parseWrapper(wrapper: IMessageDataWrapper): void
     {
-        if(!wrapper) return;
+        if (!wrapper) return;
 
         this._state = wrapper.readString();
         this._hits = wrapper.readInt();

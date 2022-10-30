@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../core/communication/messages/IMessageDataWrapper';
+import { IMessageDataWrapper } from '../../../../../../api';
 
 export class CompetitionRoomsData
 {
@@ -6,12 +6,12 @@ export class CompetitionRoomsData
     private _pageIndex: number;
     private _pageCount: number;
 
-    constructor(k: IMessageDataWrapper, _arg_2:number=0, _arg_3:number=0)
+    constructor(k: IMessageDataWrapper, _arg_2: number = 0, _arg_3: number = 0)
     {
         this._goalId = _arg_2;
         this._pageIndex = _arg_3;
 
-        if(k)
+        if (k)
         {
             this._goalId = k.readInt();
             this._pageIndex = k.readInt();

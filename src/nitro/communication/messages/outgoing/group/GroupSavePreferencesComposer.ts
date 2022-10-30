@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class GroupSavePreferencesComposer implements IMessageComposer<ConstructorParameters<typeof GroupSavePreferencesComposer>>
 {
@@ -6,7 +6,7 @@ export class GroupSavePreferencesComposer implements IMessageComposer<Constructo
 
     constructor(groupId: number, state: number, onlyAdminCanDecorate: number)
     {
-        this._data = [ groupId, state, onlyAdminCanDecorate ];
+        this._data = [groupId, state, onlyAdminCanDecorate];
     }
 
     public getMessageArray()

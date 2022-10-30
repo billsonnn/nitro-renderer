@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { ModeratorUserInfoData } from '../../incoming/moderation/ModeratorUserInfoData';
 
 export class ModeratorUserInfoMessageParser implements IMessageParser
@@ -14,7 +14,7 @@ export class ModeratorUserInfoMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._data = new ModeratorUserInfoData(wrapper);
 

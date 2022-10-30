@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class MarketplaceItemStatsParser implements IMessageParser
 {
@@ -27,7 +27,7 @@ export class MarketplaceItemStatsParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._averagePrice = wrapper.readInt();
         this._currentOfferCount = wrapper.readInt();
@@ -35,7 +35,7 @@ export class MarketplaceItemStatsParser implements IMessageParser
 
         let count = wrapper.readInt();
 
-        while(count > 0)
+        while (count > 0)
         {
             this._dayOffsets.push(wrapper.readInt());
             this._averagePrices.push(wrapper.readInt());

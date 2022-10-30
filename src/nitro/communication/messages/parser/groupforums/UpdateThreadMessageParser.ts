@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { GuildForumThread } from './GuildForumThread';
 
 export class UpdateThreadMessageParser implements IMessageParser
@@ -16,7 +16,7 @@ export class UpdateThreadMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._groupId = wrapper.readInt();
         this._thread = GuildForumThread.parse(wrapper);

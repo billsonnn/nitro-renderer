@@ -1,13 +1,13 @@
 import { IMessageParser } from '../../../../../../..';
-import { IMessageDataWrapper } from '../../../../../../../core';
+import { IMessageDataWrapper } from '../../../../../../../api';
 
 export class YoutubeDisplayVideoMessageParser implements IMessageParser
 {
-    private _furniId:number;
-    private _videoId:string;
-    private _startAtSeconds:number;
-    private _endAtSeconds:number;
-    private _state:number;
+    private _furniId: number;
+    private _videoId: string;
+    private _startAtSeconds: number;
+    private _endAtSeconds: number;
+    private _state: number;
 
     flush(): boolean
     {
@@ -24,17 +24,17 @@ export class YoutubeDisplayVideoMessageParser implements IMessageParser
         return true;
     }
 
-    public get furniId():number
+    public get furniId(): number
     {
         return this._furniId;
     }
 
-    public get videoId():string
+    public get videoId(): string
     {
         return this._videoId;
     }
 
-    public get state():number
+    public get state(): number
     {
         return this._state;
     }

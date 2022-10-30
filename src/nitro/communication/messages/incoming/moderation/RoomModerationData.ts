@@ -1,18 +1,17 @@
-import { IDisposable } from '../../../../../core/common/disposable/IDisposable';
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
+import { IDisposable, IMessageDataWrapper } from '../../../../../api';
 import { ModRoomData } from './ModRoomData';
 
 export class RoomModerationData implements IDisposable
 {
-    private _flatId:number;
-    private _userCount:number;
-    private _ownerInRoom:boolean;
-    private _ownerId:number;
-    private _ownerName:string;
-    private _room:ModRoomData;
-    private _disposed:boolean;
+    private _flatId: number;
+    private _userCount: number;
+    private _ownerInRoom: boolean;
+    private _ownerId: number;
+    private _ownerName: string;
+    private _room: ModRoomData;
+    private _disposed: boolean;
 
-    constructor(k:IMessageDataWrapper)
+    constructor(k: IMessageDataWrapper)
     {
         this._flatId = k.readInt();
         this._userCount = k.readInt();
@@ -22,49 +21,49 @@ export class RoomModerationData implements IDisposable
         this._room = new ModRoomData(k);
     }
 
-    public get flatId():number
+    public get flatId(): number
     {
         return this._flatId;
     }
 
-    public get userCount():number
+    public get userCount(): number
     {
         return this._userCount;
     }
 
-    public get ownerInRoom():boolean
+    public get ownerInRoom(): boolean
     {
         return this._ownerInRoom;
     }
 
-    public get ownerId():number
+    public get ownerId(): number
     {
         return this._ownerId;
     }
 
-    public get ownerName():string
+    public get ownerName(): string
     {
         return this._ownerName;
     }
 
-    public get room():ModRoomData
+    public get room(): ModRoomData
     {
         return this._room;
     }
 
-    public get disposed():boolean
+    public get disposed(): boolean
     {
         return this._disposed;
     }
 
-    public dispose():void
+    public dispose(): void
     {
-        if(this._disposed)
+        if (this._disposed)
         {
             return;
         }
         this._disposed = true;
-        if(this._room != null)
+        if (this._room != null)
         {
             this._room.dispose();
             this._room = null;

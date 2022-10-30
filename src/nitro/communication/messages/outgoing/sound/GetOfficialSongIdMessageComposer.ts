@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetOfficialSongIdMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetOfficialSongIdMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class GetOfficialSongIdMessageComposer implements IMessageComposer<Constr
 
     constructor(k: string)
     {
-        this._data = [ k ];
+        this._data = [k];
     }
 
     public getMessageArray()

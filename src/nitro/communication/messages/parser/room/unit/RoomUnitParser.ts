@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 import { RoomObjectType } from '../../../../../room/object/RoomObjectType';
 import { UserMessageData } from './UserMessageData';
 
@@ -15,7 +15,7 @@ export class RoomUnitParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._users = [];
 
@@ -23,7 +23,7 @@ export class RoomUnitParser implements IMessageParser
 
         let i = 0;
 
-        while(i < totalUsers)
+        while (i < totalUsers)
         {
             const id = wrapper.readInt();
             const username = wrapper.readString();
@@ -47,7 +47,7 @@ export class RoomUnitParser implements IMessageParser
 
             this._users.push(user);
 
-            if(type === 1)
+            if (type === 1)
             {
                 user.webID = id;
                 user.userType = RoomObjectType.USER;
@@ -58,14 +58,14 @@ export class RoomUnitParser implements IMessageParser
 
                 const swimFigure = wrapper.readString();
 
-                if(swimFigure !== '') figure = this.convertSwimFigure(swimFigure, figure, user.sex);
+                if (swimFigure !== '') figure = this.convertSwimFigure(swimFigure, figure, user.sex);
 
                 user.figure = figure;
                 user.activityPoints = wrapper.readInt();
                 user.isModerator = wrapper.readBoolean();
             }
 
-            else if(type === 2)
+            else if (type === 2)
             {
                 user.userType = RoomObjectType.PET;
                 user.figure = figure;
@@ -84,18 +84,18 @@ export class RoomUnitParser implements IMessageParser
                 user.petPosture = wrapper.readString();
             }
 
-            else if(type === 3)
+            else if (type === 3)
             {
                 user.userType = RoomObjectType.BOT;
                 user.webID = (roomIndex * -1);
 
-                if(figure.indexOf('/') === -1) user.figure = figure;
+                if (figure.indexOf('/') === -1) user.figure = figure;
                 else user.figure = 'hr-100-.hd-180-1.ch-876-66.lg-270-94.sh-300-64';
 
                 user.sex = UserMessageData.M;
             }
 
-            else if(type === 4)
+            else if (type === 4)
             {
                 user.userType = RoomObjectType.RENTABLE_BOT;
                 user.webID = id;
@@ -106,13 +106,13 @@ export class RoomUnitParser implements IMessageParser
 
                 const totalSkills = wrapper.readInt();
 
-                if(totalSkills)
+                if (totalSkills)
                 {
                     const skills: number[] = [];
 
                     let j = 0;
 
-                    while(j < totalSkills)
+                    while (j < totalSkills)
                     {
                         skills.push(wrapper.readShort());
 
@@ -131,7 +131,7 @@ export class RoomUnitParser implements IMessageParser
 
     private resolveSex(sex: string): string
     {
-        if(sex.substr(0, 1).toLowerCase() === 'f') return UserMessageData.F;
+        if (sex.substr(0, 1).toLowerCase() === 'f') return UserMessageData.F;
 
         return UserMessageData.M;
     }
@@ -145,16 +145,16 @@ export class RoomUnitParser implements IMessageParser
         const _local_8 = 10000;
         let i = 0;
 
-        while(i < _local_4.length)
+        while (i < _local_4.length)
         {
             const _local_13 = _local_4[i];
             const _local_14 = _local_13.split('-');
 
-            if(_local_14.length > 2)
+            if (_local_14.length > 2)
             {
                 const _local_15 = _local_14[0];
 
-                if(_local_15 === 'hd') _local_5 = parseInt(_local_14[2]);
+                if (_local_15 === 'hd') _local_5 = parseInt(_local_14[2]);
             }
 
             i++;
@@ -163,13 +163,13 @@ export class RoomUnitParser implements IMessageParser
         const _local_10 = ['238,238,238', '250,56,49', '253,146,160', '42,199,210', '53,51,44', '239,255,146', '198,255,152', '255,146,90', '157,89,126', '182,243,255', '109,255,51', '51,120,201', '255,182,49', '223,161,233', '249,251,50', '202,175,143', '197,198,197', '71,98,61', '138,131,97', '255,140,51', '84,198,39', '30,108,153', '152,79,136', '119,200,255', '255,192,142', '60,75,135', '124,44,71', '215,255,227', '143,63,28', '255,99,147', '31,155,121', '253,255,51'];
         const _local_11 = k.split('=');
 
-        if(_local_11.length > 1)
+        if (_local_11.length > 1)
         {
             const _local_16 = _local_11[1].split('/');
             const _local_17 = _local_16[0];
             const _local_18 = _local_16[1];
 
-            if(_arg_3 === 'F') _local_7 = 10010;
+            if (_arg_3 === 'F') _local_7 = 10010;
             else _local_7 = 10011;
 
             const _local_19 = _local_10.indexOf(_local_18);

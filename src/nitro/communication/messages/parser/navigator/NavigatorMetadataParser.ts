@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { NavigatorTopLevelContext } from './utils/NavigatorTopLevelContext';
 
 export class NavigatorMetadataParser implements IMessageParser
@@ -14,11 +14,11 @@ export class NavigatorMetadataParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         let totalContexts = wrapper.readInt();
 
-        while(totalContexts > 0)
+        while (totalContexts > 0)
         {
             this._topLevelContexts.push(new NavigatorTopLevelContext(wrapper));
 

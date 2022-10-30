@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { BotData } from './BotData';
 
 export class BotReceivedMessageParser implements IMessageParser
@@ -16,7 +16,7 @@ export class BotReceivedMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._boughtAsGift = wrapper.readBoolean();
         this._item = new BotData(wrapper);

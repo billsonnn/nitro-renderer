@@ -1,4 +1,4 @@
-import { IDisposable, IMessageDataWrapper } from '../../../../../core';
+import { IDisposable, IMessageDataWrapper } from '../../../../../api';
 import { INamed } from '../moderation';
 import { CallForHelpTopicData } from './CallForHelpTopicData';
 
@@ -15,7 +15,7 @@ export class CallForHelpCategoryData implements INamed, IDisposable
 
         let count = wrapper.readInt();
 
-        while(count > 0)
+        while (count > 0)
         {
             this._topics.push(new CallForHelpTopicData(wrapper));
 
@@ -25,7 +25,7 @@ export class CallForHelpCategoryData implements INamed, IDisposable
 
     public dispose(): void
     {
-        if(this._disposed) return;
+        if (this._disposed) return;
 
         this._disposed = true;
         this._topics = null;

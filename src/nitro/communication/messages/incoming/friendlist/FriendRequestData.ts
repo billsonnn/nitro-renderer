@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
 
 export class FriendRequestData
 {
@@ -9,7 +9,7 @@ export class FriendRequestData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_wrapper');
+        if (!wrapper) throw new Error('invalid_wrapper');
 
         this._requestId = wrapper.readInt();
         this._requesterName = wrapper.readString();

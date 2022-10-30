@@ -1,8 +1,6 @@
 import { Application } from '@pixi/app';
 import { Ticker } from '@pixi/ticker';
-import { IEventDispatcher } from '../core/events/IEventDispatcher';
-import { ILinkEventTracker } from '../core/events/ILinkEventTracker';
-import { IWorkerEventTracker } from '../core/events/IWorkerEventTracker';
+import { IEventDispatcher, ILinkEventTracker, IWorkerEventTracker } from '../api';
 import { INitroCore } from '../core/INitroCore';
 import { NitroTimer } from '../core/utils/NitroTimer';
 import { IRoomManager } from '../room/IRoomManager';

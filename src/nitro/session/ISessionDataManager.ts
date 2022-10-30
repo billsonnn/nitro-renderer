@@ -1,5 +1,5 @@
 import { Resource, Texture } from '@pixi/core';
-import { INitroManager } from '../../core/common/INitroManager';
+import { INitroManager } from '../../api';
 import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { IFurnitureData } from './furniture/IFurnitureData';
 import { IFurnitureDataListener } from './furniture/IFurnitureDataListener';

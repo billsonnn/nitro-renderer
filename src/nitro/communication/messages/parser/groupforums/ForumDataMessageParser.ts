@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { ExtendedForumData } from './ExtendedForumData';
 
 export class ForumDataMessageParser implements IMessageParser
@@ -14,7 +14,7 @@ export class ForumDataMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._extendedForumData = ExtendedForumData.parse(wrapper);
 

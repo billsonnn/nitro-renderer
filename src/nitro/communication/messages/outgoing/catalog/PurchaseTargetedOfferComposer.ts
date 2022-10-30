@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class PurchaseTargetedOfferComposer implements IMessageComposer<ConstructorParameters<typeof PurchaseTargetedOfferComposer>>
 {
@@ -6,7 +6,7 @@ export class PurchaseTargetedOfferComposer implements IMessageComposer<Construct
 
     constructor(k: number, _arg_2: number)
     {
-        this._data = [ k, _arg_2 ];
+        this._data = [k, _arg_2];
     }
 
     public getMessageArray()

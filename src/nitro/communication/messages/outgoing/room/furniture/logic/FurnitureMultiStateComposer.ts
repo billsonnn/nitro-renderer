@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../../api';
 
 export class FurnitureMultiStateComposer implements IMessageComposer<ConstructorParameters<typeof FurnitureMultiStateComposer>>
 {
@@ -6,7 +6,7 @@ export class FurnitureMultiStateComposer implements IMessageComposer<Constructor
 
     constructor(itemId: number, state: number = 0)
     {
-        this._data = [ itemId, state ];
+        this._data = [itemId, state];
     }
 
     public getMessageArray()

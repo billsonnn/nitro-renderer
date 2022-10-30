@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { FriendCategoryData } from '../../incoming/friendlist/FriendCategoryData';
 
 export class MessengerInitParser implements IMessageParser
@@ -19,7 +19,7 @@ export class MessengerInitParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._userFriendLimit = wrapper.readInt();
         this._normalFriendLimit = wrapper.readInt();
@@ -27,7 +27,7 @@ export class MessengerInitParser implements IMessageParser
 
         let totalCategories = wrapper.readInt();
 
-        while(totalCategories > 0)
+        while (totalCategories > 0)
         {
             this._categories.push(new FriendCategoryData(wrapper));
 

@@ -1,12 +1,11 @@
-import { IMessageDataWrapper } from '../../../../../../../core';
-import { IMessageParser } from '../../../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../../api';
 import { YoutubeDisplayPlaylist } from './YoutubeDisplayPlaylist';
 
 export class YoutubeDisplayPlaylistsMessageParser implements IMessageParser
 {
-    private _furniId:number;
-    private _playlists:YoutubeDisplayPlaylist[];
-    private _selectedPlaylistId:string;
+    private _furniId: number;
+    private _playlists: YoutubeDisplayPlaylist[];
+    private _selectedPlaylistId: string;
 
     flush(): boolean
     {
@@ -21,7 +20,7 @@ export class YoutubeDisplayPlaylistsMessageParser implements IMessageParser
         this._furniId = wrapper.readInt();
         const count = wrapper.readInt();
         this._playlists = [];
-        for(let i = 0; i < count; i++)
+        for (let i = 0; i < count; i++)
         {
             this._playlists.push(new YoutubeDisplayPlaylist(wrapper.readString(), wrapper.readString(), wrapper.readString()));
         }
@@ -29,17 +28,17 @@ export class YoutubeDisplayPlaylistsMessageParser implements IMessageParser
         return true;
     }
 
-    public get furniId():number
+    public get furniId(): number
     {
         return this._furniId;
     }
 
-    public get playlists():YoutubeDisplayPlaylist[]
+    public get playlists(): YoutubeDisplayPlaylist[]
     {
         return this._playlists;
     }
 
-    public get selectedPlaylistId():string
+    public get selectedPlaylistId(): string
     {
         return this._selectedPlaylistId;
     }

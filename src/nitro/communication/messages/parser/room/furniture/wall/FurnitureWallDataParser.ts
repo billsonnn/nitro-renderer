@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../../core';
+import { IMessageDataWrapper } from '../../../../../../../api';
 
 export class FurnitureWallDataParser
 {
@@ -23,7 +23,7 @@ export class FurnitureWallDataParser
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_wrapper');
+        if (!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -55,7 +55,7 @@ export class FurnitureWallDataParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._itemId = parseInt(wrapper.readString());
         this._spriteId = wrapper.readInt();
@@ -68,35 +68,35 @@ export class FurnitureWallDataParser
 
         const state = parseFloat(this._stuffData);
 
-        if(!isNaN(state)) this._state = state;
+        if (!isNaN(state)) this._state = state;
 
-        if(this._location.indexOf(':') === 0)
+        if (this._location.indexOf(':') === 0)
         {
             this._isOldFormat = false;
 
             let parts = this._location.split(' ');
 
-            if(parts.length >= 3)
+            if (parts.length >= 3)
             {
                 let widthHeight = parts[0];
                 let leftRight = parts[1];
 
                 const direction = parts[2];
 
-                if((widthHeight.length > 3) && (leftRight.length > 2))
+                if ((widthHeight.length > 3) && (leftRight.length > 2))
                 {
                     widthHeight = widthHeight.substr(3);
                     leftRight = leftRight.substr(2);
                     parts = widthHeight.split(',');
 
-                    if(parts.length >= 2)
+                    if (parts.length >= 2)
                     {
                         const width = parseInt(parts[0]);
                         const height = parseInt(parts[1]);
 
                         parts = leftRight.split(',');
 
-                        if(parts.length >= 2)
+                        if (parts.length >= 2)
                         {
                             const localX = parseInt(parts[0]);
                             const localY = parseInt(parts[1]);

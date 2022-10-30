@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../core';
+import { IMessageDataWrapper } from '../../../../../../api';
 import { RelationshipStatusEnum } from '../../../../../enums/RelationshipStatusEnum';
 
 export class RelationshipStatusInfo
@@ -11,7 +11,7 @@ export class RelationshipStatusInfo
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_wrapper');
+        if (!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -30,7 +30,7 @@ export class RelationshipStatusInfo
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._relationshipStatusType = wrapper.readInt();
         this._friendCount = wrapper.readInt();

@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../core';
+import { IMessageDataWrapper } from '../../../../../../api';
 
 export class PetFigureDataParser
 {
@@ -20,7 +20,7 @@ export class PetFigureDataParser
 
         let i = 0;
 
-        while(i < this._customPartCount)
+        while (i < this._customPartCount)
         {
             this._customParts.push(wrapper.readInt());
             this._customParts.push(wrapper.readInt());
@@ -56,7 +56,7 @@ export class PetFigureDataParser
 
         figure = (figure + (' ' + this.custompartCount));
 
-        for(const _local_2 of this.customParts) figure = (figure + (' ' + _local_2));
+        for (const _local_2 of this.customParts) figure = (figure + (' ' + _local_2));
 
         return figure;
     }

@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetInterstitialMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetInterstitialMessageComposer>>
 {

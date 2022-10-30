@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../../../api';
 
 export class FurnitureStackHeightComposer implements IMessageComposer<ConstructorParameters<typeof FurnitureStackHeightComposer>>
 {
@@ -6,7 +6,7 @@ export class FurnitureStackHeightComposer implements IMessageComposer<Constructo
 
     constructor(itemId: number, height: number = -100)
     {
-        this._data = [ itemId, height ];
+        this._data = [itemId, height];
     }
 
     public getMessageArray()

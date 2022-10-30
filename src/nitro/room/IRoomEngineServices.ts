@@ -1,5 +1,4 @@
-import { IConnection } from '../../core/communication/connections/IConnection';
-import { IEventDispatcher } from '../../core/events/IEventDispatcher';
+import { IConnection, IEventDispatcher } from '../../api';
 import { IRoomInstance } from '../../room/IRoomInstance';
 import { IRoomObjectController } from '../../room/object/IRoomObjectController';
 import { IRoomRenderingCanvas } from '../../room/renderer/IRoomRenderingCanvas';

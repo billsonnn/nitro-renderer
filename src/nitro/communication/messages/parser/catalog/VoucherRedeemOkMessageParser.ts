@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class VoucherRedeemOkMessageParser implements IMessageParser
 {
@@ -14,7 +14,7 @@ export class VoucherRedeemOkMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._productDescription = wrapper.readString();
         this._productName = wrapper.readString();

@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 import { PetData } from './PetData';
 
 export class PetInventoryParser implements IMessageParser
@@ -23,7 +23,7 @@ export class PetInventoryParser implements IMessageParser
 
         this._fragment = new Map();
 
-        while(totalCount > 0)
+        while (totalCount > 0)
         {
             const petData = new PetData(wrapper);
 

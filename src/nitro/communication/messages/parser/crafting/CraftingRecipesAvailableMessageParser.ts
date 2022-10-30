@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from './../../../../../core';
+import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageParser } from './../../../../../api';
 
 export class CraftingRecipesAvailableMessageParser implements IMessageParser
 {
@@ -8,7 +8,7 @@ export class CraftingRecipesAvailableMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
         this._count = wrapper.readInt();
         this._hasRecipes = wrapper.readBoolean();
         return true;

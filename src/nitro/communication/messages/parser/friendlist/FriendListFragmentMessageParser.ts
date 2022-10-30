@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { FriendParser } from '../../incoming/friendlist/FriendParser';
 
 export class FriendListFragmentParser implements IMessageParser
@@ -18,14 +18,14 @@ export class FriendListFragmentParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._totalFragments = wrapper.readInt();
         this._fragmentNumber = wrapper.readInt();
 
         let totalFriends = wrapper.readInt();
 
-        while(totalFriends > 0)
+        while (totalFriends > 0)
         {
             this._fragment.push(new FriendParser(wrapper));
 

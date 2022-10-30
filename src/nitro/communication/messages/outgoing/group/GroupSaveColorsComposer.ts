@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class GroupSaveColorsComposer implements IMessageComposer<ConstructorParameters<typeof GroupSaveColorsComposer>>
 {
@@ -6,7 +6,7 @@ export class GroupSaveColorsComposer implements IMessageComposer<ConstructorPara
 
     constructor(groupId: number, colorA: number, colorB: number)
     {
-        this._data = [ groupId, colorA, colorB ];
+        this._data = [groupId, colorA, colorB];
     }
 
     public getMessageArray()

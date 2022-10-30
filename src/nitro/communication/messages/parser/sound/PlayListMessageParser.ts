@@ -1,10 +1,10 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { PlayListEntry } from '../../incoming/sound';
 
 export class PlayListMessageParser implements IMessageParser
 {
     private _synchronizationCount: number;
-    private _playlist:PlayListEntry[];
+    private _playlist: PlayListEntry[];
 
     flush(): boolean
     {
@@ -18,7 +18,7 @@ export class PlayListMessageParser implements IMessageParser
         this._synchronizationCount = wrapper.readInt();
         const count = wrapper.readInt();
 
-        for(let i = 0; i < count; i++)
+        for (let i = 0; i < count; i++)
         {
             this._playlist.push(new PlayListEntry(
                 wrapper.readInt(), wrapper.readInt(), wrapper.readString(), wrapper.readString()
@@ -32,7 +32,7 @@ export class PlayListMessageParser implements IMessageParser
         return this._synchronizationCount;
     }
 
-    public get playList():PlayListEntry[]
+    public get playList(): PlayListEntry[]
     {
         return this._playlist;
     }

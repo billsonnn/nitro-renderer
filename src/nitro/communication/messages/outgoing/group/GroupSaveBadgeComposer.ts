@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class GroupSaveBadgeComposer implements IMessageComposer<any[]>
 {
@@ -6,7 +6,7 @@ export class GroupSaveBadgeComposer implements IMessageComposer<any[]>
 
     constructor(groupId: number, badge: number[])
     {
-        this._data = [ groupId, badge.length, ...badge ];
+        this._data = [groupId, badge.length, ...badge];
     }
 
     public getMessageArray()

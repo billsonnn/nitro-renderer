@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class MarketplaceCancelOfferResultParser implements IMessageParser
 {
@@ -15,7 +15,7 @@ export class MarketplaceCancelOfferResultParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._offerId = wrapper.readInt();
         this._success = wrapper.readBoolean();

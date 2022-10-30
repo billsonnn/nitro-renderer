@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { ClubOfferData } from '../../incoming/catalog/ClubOfferData';
 
 export class HabboClubOffersMessageParser implements IMessageParser
@@ -14,11 +14,11 @@ export class HabboClubOffersMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         let totalOffers = wrapper.readInt();
 
-        while(totalOffers > 0)
+        while (totalOffers > 0)
         {
             this._offers.push(new ClubOfferData(wrapper));
 

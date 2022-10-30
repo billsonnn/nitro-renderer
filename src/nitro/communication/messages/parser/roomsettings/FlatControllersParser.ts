@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class FlatControllersParser implements IMessageParser
 {
@@ -16,13 +15,13 @@ export class FlatControllersParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._roomId = wrapper.readInt();
 
         let usersCount = wrapper.readInt();
 
-        while(usersCount > 0)
+        while (usersCount > 0)
         {
             const id = wrapper.readInt();
             const name = wrapper.readString();

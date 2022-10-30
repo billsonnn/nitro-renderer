@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { CatalogPageMessageOfferData } from '../../incoming/catalog/CatalogPageMessageOfferData';
 import { ClubGiftData } from '../../incoming/catalog/ClubGiftData';
 
@@ -7,7 +7,7 @@ export class ClubGiftInfoParser implements IMessageParser
     private _daysUntilNextGift: number;
     private _giftsAvailable: number;
     private _offers: CatalogPageMessageOfferData[];
-    private _giftData:Map<number, ClubGiftData>;
+    private _giftData: Map<number, ClubGiftData>;
 
     public flush(): boolean
     {
@@ -17,7 +17,7 @@ export class ClubGiftInfoParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._offers = [];
         this._giftData = new Map<number, ClubGiftData>();
@@ -26,14 +26,14 @@ export class ClubGiftInfoParser implements IMessageParser
 
         const offerCount = wrapper.readInt();
 
-        for(let i = 0; i < offerCount; i ++)
+        for (let i = 0; i < offerCount; i++)
         {
             this._offers.push(new CatalogPageMessageOfferData(wrapper));
         }
 
         const giftDataCount = wrapper.readInt();
 
-        for(let i = 0; i < giftDataCount; i++)
+        for (let i = 0; i < giftDataCount; i++)
         {
             const item = new ClubGiftData(wrapper);
             this._giftData.set(item.offerId, item);
@@ -64,13 +64,13 @@ export class ClubGiftInfoParser implements IMessageParser
 
     public getOfferExtraData(offerId: number): ClubGiftData
     {
-        if(!offerId) return null;
+        if (!offerId) return null;
 
         return this._giftData.get(offerId);
     }
 
 
-    public get giftData():Map<number, ClubGiftData>
+    public get giftData(): Map<number, ClubGiftData>
     {
         return this._giftData;
     }

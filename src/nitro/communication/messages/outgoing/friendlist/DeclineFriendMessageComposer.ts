@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class DeclineFriendMessageComposer implements IMessageComposer<ConstructorParameters<typeof DeclineFriendMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class DeclineFriendMessageComposer implements IMessageComposer<Constructo
 
     constructor(removeAll: boolean, ...userIds: number[])
     {
-        this._data = [ removeAll, userIds.length, ...userIds ];
+        this._data = [removeAll, userIds.length, ...userIds];
     }
 
     public getMessageArray()

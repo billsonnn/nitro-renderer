@@ -1,11 +1,10 @@
-import { IMessageDataWrapper } from '../../../../../core/communication/messages/IMessageDataWrapper';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class QuestionAnsweredParser implements IMessageParser
 {
-    private _userId:number;
-    private _value:string;
-    private _answerCounts:Map<string, number>;
+    private _userId: number;
+    private _value: string;
+    private _answerCounts: Map<string, number>;
 
     flush(): boolean
     {
@@ -23,7 +22,7 @@ export class QuestionAnsweredParser implements IMessageParser
 
         const count = wrapper.readInt();
 
-        for(let i = 0; i < count; i++)
+        for (let i = 0; i < count; i++)
         {
             const key = wrapper.readString();
             const value = wrapper.readInt();
@@ -32,17 +31,17 @@ export class QuestionAnsweredParser implements IMessageParser
         return true;
     }
 
-    public get userId():number
+    public get userId(): number
     {
         return this._userId;
     }
 
-    public get value():string
+    public get value(): string
     {
         return this._value;
     }
 
-    public get answerCounts():Map<string, number>
+    public get answerCounts(): Map<string, number>
     {
         return this._answerCounts;
     }

@@ -1,12 +1,12 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class ForwardToARandomPromotedRoomMessageComposer implements IMessageComposer<ConstructorParameters<typeof ForwardToARandomPromotedRoomMessageComposer>>
 {
     private _data: ConstructorParameters<typeof ForwardToARandomPromotedRoomMessageComposer>;
 
-    constructor(k:string)
+    constructor(k: string)
     {
-        this._data = [ k ];
+        this._data = [k];
     }
 
     public getMessageArray()

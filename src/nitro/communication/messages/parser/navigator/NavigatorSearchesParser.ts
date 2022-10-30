@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { NavigatorSavedSearch } from './utils/NavigatorSavedSearch';
 
 export class NavigatorSearchesParser implements IMessageParser
@@ -14,11 +14,11 @@ export class NavigatorSearchesParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         let totalSearches = wrapper.readInt();
 
-        while(totalSearches > 0)
+        while (totalSearches > 0)
         {
             this._searches.push(new NavigatorSavedSearch(wrapper));
 

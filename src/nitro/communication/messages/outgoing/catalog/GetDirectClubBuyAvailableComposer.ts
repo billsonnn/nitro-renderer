@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetDirectClubBuyAvailableComposer implements IMessageComposer<ConstructorParameters<typeof GetDirectClubBuyAvailableComposer>>
 {
@@ -6,7 +6,7 @@ export class GetDirectClubBuyAvailableComposer implements IMessageComposer<Const
 
     constructor(days: number)
     {
-        this._data = [ days ];
+        this._data = [days];
     }
 
     public getMessageArray()

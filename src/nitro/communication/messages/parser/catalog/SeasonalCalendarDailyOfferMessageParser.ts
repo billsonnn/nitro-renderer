@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { CatalogPageMessageOfferData } from '../../incoming';
 
 export class SeasonalCalendarDailyOfferMessageParser implements IMessageParser
@@ -16,7 +16,7 @@ export class SeasonalCalendarDailyOfferMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._pageId = wrapper.readInt();
         this._data = new CatalogPageMessageOfferData(wrapper);

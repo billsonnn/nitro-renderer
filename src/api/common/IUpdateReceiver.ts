@@ -1,4 +1,4 @@
-import { IDisposable } from './disposable/IDisposable';
+import { IDisposable } from './IDisposable';
 
 export interface IUpdateReceiver extends IDisposable
 {

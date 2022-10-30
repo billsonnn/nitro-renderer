@@ -1,8 +1,8 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetSongInfoMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetSongInfoMessageComposer>>
 {
-    private _data: ConstructorParameters< typeof GetSongInfoMessageComposer>;
+    private _data: ConstructorParameters<typeof GetSongInfoMessageComposer>;
 
     constructor(...args: number[])
     {

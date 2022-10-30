@@ -1,13 +1,12 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class QuestionParser implements IMessageParser
 {
-    private _pollType:string = null;
-    private _pollId= -1;
+    private _pollType: string = null;
+    private _pollId = -1;
     private _questionId = -1;
     private _duration = -1;
-    private _question:IQuestion = null;
+    private _question: IQuestion = null;
 
     flush(): boolean
     {
@@ -33,7 +32,7 @@ export class QuestionParser implements IMessageParser
 
         this._question = { id: questionId, number: questionNumber, type: questionType, content: questionContent };
 
-        if(((this._question.type == 1) || (this._question.type == 2)))
+        if (((this._question.type == 1) || (this._question.type == 2)))
         {
             this._question.selection_min = wrapper.readInt();
             const count = wrapper.readInt();
@@ -42,7 +41,7 @@ export class QuestionParser implements IMessageParser
             this._question.selection_count = count;
             this._question.selection_max = count;
 
-            for(let i = 0; i < count; i++)
+            for (let i = 0; i < count; i++)
             {
                 this._question.selection_values.push(wrapper.readString());
                 this._question.selections.push(wrapper.readString());
@@ -51,27 +50,27 @@ export class QuestionParser implements IMessageParser
         return true;
     }
 
-    public get pollType():string
+    public get pollType(): string
     {
         return this._pollType;
     }
 
-    public get pollId():number
+    public get pollId(): number
     {
         return this._pollId;
     }
 
-    public get questionId():number
+    public get questionId(): number
     {
         return this._questionId;
     }
 
-    public get duration():number
+    public get duration(): number
     {
         return this._duration;
     }
 
-    public get question():IQuestion
+    public get question(): IQuestion
     {
         return this._question;
     }

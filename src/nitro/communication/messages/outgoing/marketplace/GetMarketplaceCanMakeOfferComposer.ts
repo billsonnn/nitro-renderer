@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetMarketplaceCanMakeOfferComposer implements IMessageComposer<ConstructorParameters<typeof GetMarketplaceCanMakeOfferComposer>>
 {

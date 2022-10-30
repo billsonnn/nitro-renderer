@@ -1,9 +1,9 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { UserChatlogData } from '../../incoming/moderation/UserChatlogData';
 
 export class UserChatlogMessageParser implements IMessageParser
 {
-    private _data:UserChatlogData;
+    private _data: UserChatlogData;
 
     public flush(): boolean
     {
@@ -14,14 +14,14 @@ export class UserChatlogMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._data = new UserChatlogData(wrapper);
 
         return true;
     }
 
-    public get data():UserChatlogData
+    public get data(): UserChatlogData
     {
         return this._data;
     }

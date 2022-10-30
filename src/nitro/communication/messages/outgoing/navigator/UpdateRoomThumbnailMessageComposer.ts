@@ -1,12 +1,12 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class UpdateRoomThumbnailMessageComposer implements IMessageComposer<ConstructorParameters<typeof UpdateRoomThumbnailMessageComposer>>
 {
     private _data: ConstructorParameters<typeof UpdateRoomThumbnailMessageComposer>;
 
-    constructor(flatId:number, bgImgId:number, frontImgId:number, objCount:number)
+    constructor(flatId: number, bgImgId: number, frontImgId: number, objCount: number)
     {
-        this._data = [ flatId, bgImgId, frontImgId, objCount ];
+        this._data = [flatId, bgImgId, frontImgId, objCount];
     }
 
     public getMessageArray()

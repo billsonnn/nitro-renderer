@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetUserChatlogMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetUserChatlogMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class GetUserChatlogMessageComposer implements IMessageComposer<Construct
 
     constructor(userId: number)
     {
-        this._data = [ userId ];
+        this._data = [userId];
     }
 
     public getMessageArray()

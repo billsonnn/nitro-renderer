@@ -1,5 +1,5 @@
+import { IConnection } from '../../../api';
 import { NitroEvent } from '../../events/NitroEvent';
-import { IConnection } from '../connections/IConnection';
 
 export class SocketConnectionEvent extends NitroEvent
 {

@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { TalentTrackLevel } from './TalentTrackLevel';
 import { TalentTrackRewardProduct } from './TalentTrackRewardProduct';
 import { TalentTrackTask } from './TalentTrackTask';
@@ -18,14 +18,14 @@ export class TalentTrackParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._type = wrapper.readString();
 
         this._levels = [];
         const levelsCount = wrapper.readInt();
 
-        for(let i = 0; i < levelsCount; i++)
+        for (let i = 0; i < levelsCount; i++)
         {
             const levelId = wrapper.readInt();
             const levelState = wrapper.readInt();
@@ -33,7 +33,7 @@ export class TalentTrackParser implements IMessageParser
             const levelAchievements: TalentTrackTask[] = [];
             const achievementsCount = wrapper.readInt();
 
-            for(let j = 0; j < achievementsCount; j++)
+            for (let j = 0; j < achievementsCount; j++)
             {
                 const id = wrapper.readInt();
                 const index = wrapper.readInt();
@@ -48,12 +48,12 @@ export class TalentTrackParser implements IMessageParser
             const levelPerks: string[] = [];
             const perksCount = wrapper.readInt();
 
-            for(let j = 0; j < perksCount; j++) levelPerks.push(wrapper.readString());
+            for (let j = 0; j < perksCount; j++) levelPerks.push(wrapper.readString());
 
             const levelItems: TalentTrackRewardProduct[] = [];
             const itemsCount = wrapper.readInt();
 
-            for(let j = 0; j < itemsCount; j++)
+            for (let j = 0; j < itemsCount; j++)
             {
                 const name = wrapper.readString();
                 const unknownInt = wrapper.readInt();

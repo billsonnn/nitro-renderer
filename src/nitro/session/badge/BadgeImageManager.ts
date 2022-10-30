@@ -1,12 +1,10 @@
 import { Resource, Texture } from '@pixi/core';
-import { IAssetManager } from '../../../api';
-import { IMessageEvent } from '../../../core/communication/messages/IMessageEvent';
+import { IAssetManager, IDisposable, IMessageEvent } from '../../../api';
 import { NitroContainer, NitroTexture } from '../../../core/utils';
 import { NitroSprite } from '../../../core/utils/proxy/NitroSprite';
 import { GroupBadgePartsEvent } from '../../communication/messages/incoming/group/GroupBadgePartsEvent';
 import { Nitro } from '../../Nitro';
 import { BadgeImageReadyEvent } from '../events/BadgeImageReadyEvent';
-import { IDisposable } from './../../../core/common/disposable/IDisposable';
 import { TextureUtils } from './../../../room/utils/TextureUtils';
 import { SessionDataManager } from './../SessionDataManager';
 import { BadgeInfo } from './BadgeInfo';

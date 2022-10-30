@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper } from '../../../../../core';
+﻿import { IMessageDataWrapper } from '../../../../../api';
 
 export class BotData
 {
@@ -10,7 +10,7 @@ export class BotData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_parser');
+        if (!wrapper) throw new Error('invalid_parser');
 
         this._id = wrapper.readInt();
         this._name = wrapper.readString();

@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class AddJukeboxDiskComposer implements IMessageComposer<ConstructorParameters<typeof AddJukeboxDiskComposer>>
 {

@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class ConvertGlobalRoomIdMessageComposer implements IMessageComposer<ConstructorParameters<typeof ConvertGlobalRoomIdMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class ConvertGlobalRoomIdMessageComposer implements IMessageComposer<Cons
 
     constructor(flatId: string)
     {
-        this._data = [ flatId ];
+        this._data = [flatId];
     }
 
     public getMessageArray()

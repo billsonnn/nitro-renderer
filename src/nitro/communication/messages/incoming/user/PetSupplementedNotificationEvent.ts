@@ -1,5 +1,5 @@
 import { PetSupplementedNotificationParser } from '../..';
-import { IMessageEvent } from '../../../../../core/communication/messages/IMessageEvent';
+import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
 
 export class PetSupplementedNotificationEvent extends MessageEvent implements IMessageEvent

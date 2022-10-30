@@ -1,4 +1,4 @@
-import { IMessageEvent } from '../../../../../../core/communication/messages/IMessageEvent';
+import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
 import { GroupFurniContextMenuInfoMessageParser } from '../../../parser/room/furniture/GroupFurniContextMenuInfoMessageParser';
 

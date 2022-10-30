@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class FriendFurniConfirmLockMessageComposer implements IMessageComposer<ConstructorParameters<typeof FriendFurniConfirmLockMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class FriendFurniConfirmLockMessageComposer implements IMessageComposer<C
 
     constructor(itemId: number, confirmed: boolean)
     {
-        this._data = [ itemId, confirmed ];
+        this._data = [itemId, confirmed];
     }
 
     public getMessageArray()

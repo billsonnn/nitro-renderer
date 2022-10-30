@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class PurchaseBasicMembershipExtensionComposer implements IMessageComposer<ConstructorParameters<typeof PurchaseBasicMembershipExtensionComposer>>
 {
@@ -6,7 +6,7 @@ export class PurchaseBasicMembershipExtensionComposer implements IMessageCompose
 
     constructor(k: number)
     {
-        this._data = [ k ];
+        this._data = [k];
     }
 
     public getMessageArray()

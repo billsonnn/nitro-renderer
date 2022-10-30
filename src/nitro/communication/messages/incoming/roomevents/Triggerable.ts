@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper } from '../../../../../core';
+﻿import { IMessageDataWrapper } from '../../../../../api';
 
 export class Triggerable
 {
@@ -20,7 +20,7 @@ export class Triggerable
 
         let count = wrapper.readInt();
 
-        while(count > 0)
+        while (count > 0)
         {
             this._stuffIds.push(wrapper.readInt());
 
@@ -33,7 +33,7 @@ export class Triggerable
 
         count = wrapper.readInt();
 
-        while(count > 0)
+        while (count > 0)
         {
             this._intParams.push(wrapper.readInt());
 

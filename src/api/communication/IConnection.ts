@@ -1,7 +1,7 @@
-import { IEventDispatcher } from '../../events/IEventDispatcher';
-import { IMessageComposer } from '../messages/IMessageComposer';
-import { IMessageConfiguration } from '../messages/IMessageConfiguration';
-import { IMessageEvent } from '../messages/IMessageEvent';
+import { IEventDispatcher } from '../events';
+import { IMessageComposer } from './IMessageComposer';
+import { IMessageConfiguration } from './IMessageConfiguration';
+import { IMessageEvent } from './IMessageEvent';
 
 export interface IConnection extends IEventDispatcher
 {

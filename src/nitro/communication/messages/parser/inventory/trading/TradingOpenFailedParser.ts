@@ -1,4 +1,4 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export class TradingOpenFailedParser implements IMessageParser
 {
@@ -15,7 +15,7 @@ export class TradingOpenFailedParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._reason = wrapper.readInt();
         this._otherUserName = wrapper.readString();

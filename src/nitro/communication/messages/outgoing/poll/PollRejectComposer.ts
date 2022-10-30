@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class PollRejectComposer implements IMessageComposer<ConstructorParameters<typeof PollRejectComposer>>
 {
@@ -6,7 +6,7 @@ export class PollRejectComposer implements IMessageComposer<ConstructorParameter
 
     constructor(k: number)
     {
-        this._data = [ k ];
+        this._data = [k];
     }
 
     public getMessageArray()

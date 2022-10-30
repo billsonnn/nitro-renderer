@@ -1,8 +1,7 @@
-import { IAssetManager } from '../api';
+import { IAssetManager, ICommunicationManager } from '../api';
 import { AssetManager } from './asset/AssetManager';
-import { Disposable } from './common/disposable/Disposable';
+import { Disposable } from './common/Disposable';
 import { CommunicationManager } from './communication/CommunicationManager';
-import { ICommunicationManager } from './communication/ICommunicationManager';
 import { ConfigurationManager } from './configuration/ConfigurationManager';
 import { IConfigurationManager } from './configuration/IConfigurationManager';
 import { INitroCore } from './INitroCore';

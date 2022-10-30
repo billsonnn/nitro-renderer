@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetBundleDiscountRulesetComposer implements IMessageComposer<ConstructorParameters<typeof GetBundleDiscountRulesetComposer>>
 {

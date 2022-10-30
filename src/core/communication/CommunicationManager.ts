@@ -1,9 +1,6 @@
-import { Disposable } from '../common/disposable/Disposable';
-import { IUpdateReceiver } from '../common/IUpdateReceiver';
-import { IConnection } from './connections/IConnection';
-import { IConnectionStateListener } from './connections/IConnectionStateListener';
+import { ICommunicationManager, IConnection, IConnectionStateListener, IUpdateReceiver } from '../../api';
+import { Disposable } from '../common/Disposable';
 import { SocketConnection } from './connections/SocketConnection';
-import { ICommunicationManager } from './ICommunicationManager';
 
 export class CommunicationManager extends Disposable implements ICommunicationManager, IUpdateReceiver
 {
@@ -18,16 +15,16 @@ export class CommunicationManager extends Disposable implements ICommunicationMa
 
     protected onDispose(): void
     {
-        if(!this._connections || !this._connections.length) return;
+        if (!this._connections || !this._connections.length) return;
 
-        for(const connection of this._connections.values()) connection && connection.dispose();
+        for (const connection of this._connections.values()) connection && connection.dispose();
     }
 
     public createConnection(stateListener: IConnectionStateListener = null): IConnection
     {
         const connection = new SocketConnection(this, stateListener);
 
-        if(!connection) return;
+        if (!connection) return;
 
         this._connections.push(connection);
 
@@ -38,15 +35,15 @@ export class CommunicationManager extends Disposable implements ICommunicationMa
     {
         let index = 0;
 
-        while(index < this._connections.length)
+        while (index < this._connections.length)
         {
             const connection = this._connections[index];
 
             connection.processReceivedData();
 
-            if(this.disposed) return;
+            if (this.disposed) return;
 
-            if(connection.disposed) this._connections.splice(index, 1);
+            if (connection.disposed) this._connections.splice(index, 1);
             else index++;
         }
     }

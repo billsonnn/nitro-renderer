@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../core';
-import { IMessageParser } from '../../../../../core/communication/messages/IMessageParser';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class ChatReviewSessionResultsMessageParser implements IMessageParser
 {
@@ -22,7 +21,7 @@ export class ChatReviewSessionResultsMessageParser implements IMessageParser
         this._ownVoteCode = wrapper.readInt();
         const count = wrapper.readInt();
 
-        for(let i = 0; i < count; i++)
+        for (let i = 0; i < count; i++)
         {
             this._finalStatus.push(wrapper.readInt());
         }

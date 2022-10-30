@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export class RoomScoreParser implements IMessageParser
 {
@@ -15,7 +15,7 @@ export class RoomScoreParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._totalLikes = wrapper.readInt();
         this._canLike = wrapper.readBoolean();

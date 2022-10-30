@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../core';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class ShowEnforceRoomCategoryDialogParser implements IMessageParser
 {
@@ -13,7 +13,7 @@ export class ShowEnforceRoomCategoryDialogParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._selectionType = wrapper.readInt();
 

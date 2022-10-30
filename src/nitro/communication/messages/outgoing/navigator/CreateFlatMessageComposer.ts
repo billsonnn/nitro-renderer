@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core/communication/messages/IMessageComposer';
+import { IMessageComposer } from '../../../../../api';
 
 export class CreateFlatMessageComposer implements IMessageComposer<ConstructorParameters<typeof CreateFlatMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class CreateFlatMessageComposer implements IMessageComposer<ConstructorPa
 
     constructor(roomName: string, roomDesc: string, modelName: string, categoryId: number, maxVisitors: number, tradeType: number)
     {
-        this._data = [ roomName, roomDesc, modelName, categoryId, maxVisitors, tradeType ];
+        this._data = [roomName, roomDesc, modelName, categoryId, maxVisitors, tradeType];
     }
 
     public getMessageArray()

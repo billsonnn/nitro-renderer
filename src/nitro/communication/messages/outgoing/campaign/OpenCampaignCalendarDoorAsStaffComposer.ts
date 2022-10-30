@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class OpenCampaignCalendarDoorAsStaffComposer implements IMessageComposer<ConstructorParameters<typeof OpenCampaignCalendarDoorAsStaffComposer>>
 {
@@ -6,7 +6,7 @@ export class OpenCampaignCalendarDoorAsStaffComposer implements IMessageComposer
 
     constructor(k: string, _arg_2: number)
     {
-        this._data = [ k, _arg_2 ];
+        this._data = [k, _arg_2];
     }
 
     dispose(): void

@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../core';
+import { IMessageDataWrapper } from '../../../../../../api';
 
 export class NavigatorSavedSearch
 {
@@ -9,7 +9,7 @@ export class NavigatorSavedSearch
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_wrapper');
+        if (!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -27,7 +27,7 @@ export class NavigatorSavedSearch
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._id = wrapper.readInt();
         this._code = wrapper.readString();

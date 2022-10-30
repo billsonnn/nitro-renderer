@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../core';
+import { IMessageComposer } from '../../../../../api';
 
 export class ChangeUserNameMessageComposer implements IMessageComposer<ConstructorParameters<typeof ChangeUserNameMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class ChangeUserNameMessageComposer implements IMessageComposer<Construct
 
     constructor(name: string)
     {
-        this._data = [ name ];
+        this._data = [name];
     }
 
     dispose(): void
