@@ -1,4 +1,4 @@
-import { IGraphicAsset } from '../../../../../room';
+import { IGraphicAsset } from '../../../../../api';
 
 export interface ParticleSystemParticle
 {

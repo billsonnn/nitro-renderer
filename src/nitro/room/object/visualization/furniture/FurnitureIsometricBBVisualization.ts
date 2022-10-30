@@ -1,7 +1,7 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Matrix } from '@pixi/math';
+import { IGraphicAsset } from '../../../../../api';
 import { NitroSprite } from '../../../../../core/utils/proxy/NitroSprite';
-import { IGraphicAsset } from '../../../../../room/object/visualization/utils/IGraphicAsset';
 import { Nitro } from '../../../../Nitro';
 import { FurnitureBBVisualization } from './FurnitureBBVisualization';
 import { FurnitureBrandedImageVisualization } from './FurnitureBrandedImageVisualization';
@@ -12,27 +12,27 @@ export class FurnitureIsometricBBVisualization extends FurnitureBBVisualization
 
     protected transformGifTextures(asset: IGraphicAsset): void
     {
-        if(!this._gifCollection) return;
+        if (!this._gifCollection) return;
 
         const textures = this._gifCollection.textures;
 
-        if(!textures.length) return;
+        if (!textures.length) return;
 
-        for(let i = 0; i < textures.length; i++)
+        for (let i = 0; i < textures.length; i++)
         {
             const texture = textures[i];
 
-            if(!texture) continue;
+            if (!texture) continue;
 
-            const existingAsset = this.getAsset(`${ this._imageUrl }_${ i }`);
+            const existingAsset = this.getAsset(`${this._imageUrl}_${i}`);
 
-            if(!existingAsset) continue;
+            if (!existingAsset) continue;
 
             const scale = 1.1;
             const matrix = new Matrix();
             const difference = (asset.width / texture.width);
 
-            switch(this.direction)
+            switch (this.direction)
             {
                 case 2:
                     matrix.a = difference;
@@ -73,8 +73,8 @@ export class FurnitureIsometricBBVisualization extends FurnitureBBVisualization
                 transform: matrix
             });
 
-            this.asset.disposeAsset(`${ this._imageUrl }_${ i }`);
-            this.asset.addAsset(`${ this._imageUrl }_${ i }`, renderTexture, true, asset.x, asset.y, asset.flipH, asset.flipV);
+            this.asset.disposeAsset(`${this._imageUrl}_${i}`);
+            this.asset.addAsset(`${this._imageUrl}_${i}`, renderTexture, true, asset.x, asset.y, asset.flipH, asset.flipV);
         }
 
         this._needsTransform = false;
@@ -86,7 +86,7 @@ export class FurnitureIsometricBBVisualization extends FurnitureBBVisualization
         const matrix = new Matrix();
         const difference = (asset.width / texture.width);
 
-        switch(this.direction)
+        switch (this.direction)
         {
             case 2:
                 matrix.a = difference;
@@ -127,8 +127,8 @@ export class FurnitureIsometricBBVisualization extends FurnitureBBVisualization
             transform: matrix
         });
 
-        this.asset.disposeAsset(`${ this._imageUrl }_0`);
-        this.asset.addAsset(`${ this._imageUrl }_0`, renderTexture, true, sprite.x, sprite.y, asset.flipH, asset.flipV);
+        this.asset.disposeAsset(`${this._imageUrl}_0`);
+        this.asset.addAsset(`${this._imageUrl}_0`, renderTexture, true, sprite.x, sprite.y, asset.flipH, asset.flipV);
 
         this._needsTransform = false;
     }
@@ -144,11 +144,11 @@ export class FurnitureIsometricBBVisualization extends FurnitureBBVisualization
     {
         const tag = this.getLayerTag(scale, this._direction, layerId);
 
-        if((tag === FurnitureBrandedImageVisualization.BRANDED_IMAGE) && this._imageUrl)
+        if ((tag === FurnitureBrandedImageVisualization.BRANDED_IMAGE) && this._imageUrl)
         {
-            if(this._needsTransform)
+            if (this._needsTransform)
             {
-                if(this._isAnimated)
+                if (this._isAnimated)
                 {
                     this.transformGifTextures(this.getAsset(super.getSpriteAssetName(scale, layerId)));
                 }
@@ -158,7 +158,7 @@ export class FurnitureIsometricBBVisualization extends FurnitureBBVisualization
                 }
             }
 
-            return `${ this._imageUrl }_${ this.getFrameNumber(scale, layerId) }`;
+            return `${this._imageUrl}_${this.getFrameNumber(scale, layerId)}`;
         }
 
         return super.getSpriteAssetName(scale, layerId);

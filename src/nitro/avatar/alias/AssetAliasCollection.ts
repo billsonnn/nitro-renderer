@@ -1,5 +1,4 @@
-﻿import { IAssetManager } from '../../../core/asset/IAssetManager';
-import { IGraphicAsset } from '../../../room/object/visualization/utils/IGraphicAsset';
+﻿import { IAssetManager, IGraphicAsset } from '../../../api';
 import { AvatarRenderManager } from '../AvatarRenderManager';
 import { AssetAlias } from './AssetAlias';
 
@@ -31,19 +30,19 @@ export class AssetAliasCollection
 
     public init(): void
     {
-        for(const collection of this._assets.collections.values())
+        for (const collection of this._assets.collections.values())
         {
-            if(!collection) continue;
+            if (!collection) continue;
 
             const aliases = collection.data && collection.data.aliases;
 
-            if(!aliases) continue;
+            if (!aliases) continue;
 
-            for(const name in aliases)
+            for (const name in aliases)
             {
                 const alias = aliases[name];
 
-                if(!alias) continue;
+                if (!alias) continue;
 
                 this._aliases.set(name, new AssetAlias(name, alias));
             }
@@ -54,7 +53,7 @@ export class AssetAliasCollection
     {
         const alias = this._aliases.get(k);
 
-        if(alias) return true;
+        if (alias) return true;
 
         return false;
     }
@@ -64,7 +63,7 @@ export class AssetAliasCollection
         let _local_2 = k;
         let _local_3 = 5;
 
-        while(this.hasAlias(_local_2) && (_local_3 >= 0))
+        while (this.hasAlias(_local_2) && (_local_3 >= 0))
         {
             const _local_4 = this._aliases.get(_local_2);
 
@@ -77,13 +76,13 @@ export class AssetAliasCollection
 
     public getAsset(name: string): IGraphicAsset
     {
-        if(!this._assets) return null;
+        if (!this._assets) return null;
 
         name = this.getAssetName(name);
 
         const asset = this._assets.getAsset(name);
 
-        if(!asset) return null;
+        if (!asset) return null;
 
         return asset;
     }

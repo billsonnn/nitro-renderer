@@ -1,4 +1,5 @@
-import { IGraphicAsset, IRoomObjectSprite } from '../../../../../room';
+import { IGraphicAsset } from '../../../../../api';
+import { IRoomObjectSprite } from '../../../../../room';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { IsometricImageFurniVisualization } from './IsometricImageFurniVisualization';
 
@@ -16,20 +17,20 @@ export class FurnitureGuildIsometricBadgeVisualization extends IsometricImageFur
     {
         const flag = super.updateModel(scale);
 
-        if(!this.hasThumbnailImage)
+        if (!this.hasThumbnailImage)
         {
             const assetName = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_ASSET_NAME);
 
-            if(assetName && assetName.length) this.setThumbnailImages(this.getBitmapAsset(assetName));
+            if (assetName && assetName.length) this.setThumbnailImages(this.getBitmapAsset(assetName));
         }
 
         const color1 = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_COLOR_1);
 
-        this._color1 = color1 ? color1: FurnitureGuildIsometricBadgeVisualization.DEFAULT_COLOR_1;
+        this._color1 = color1 ? color1 : FurnitureGuildIsometricBadgeVisualization.DEFAULT_COLOR_1;
 
         const color2 = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_COLOR_2);
 
-        this._color2 = color2 ? color2: FurnitureGuildIsometricBadgeVisualization.DEFAULT_COLOR_2;
+        this._color2 = color2 ? color2 : FurnitureGuildIsometricBadgeVisualization.DEFAULT_COLOR_2;
 
         return flag;
     }
@@ -38,7 +39,7 @@ export class FurnitureGuildIsometricBadgeVisualization extends IsometricImageFur
     {
         const tag = this.getLayerTag(scale, this._direction, layerId);
 
-        switch(tag)
+        switch (tag)
         {
             case FurnitureGuildIsometricBadgeVisualization.PRIMARY_COLOUR_SPRITE_TAG: return this._color1;
             case FurnitureGuildIsometricBadgeVisualization.SECONDARY_COLOUR_SPRITE_TAG: return this._color2;
@@ -49,9 +50,9 @@ export class FurnitureGuildIsometricBadgeVisualization extends IsometricImageFur
 
     protected getLibraryAssetNameForSprite(asset: IGraphicAsset, sprite: IRoomObjectSprite): string
     {
-        if(sprite.tag === FurnitureGuildIsometricBadgeVisualization.THUMBNAIL)
+        if (sprite.tag === FurnitureGuildIsometricBadgeVisualization.THUMBNAIL)
         {
-            if(this.object && this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_ASSET_NAME))
+            if (this.object && this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_ASSET_NAME))
             {
                 return '%group.badge.url%' + this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_ASSET_NAME);
             }
@@ -64,7 +65,7 @@ export class FurnitureGuildIsometricBadgeVisualization extends IsometricImageFur
     {
         const asset = this.asset.getAsset(name);
 
-        if(!asset || !asset.texture) return null;
+        if (!asset || !asset.texture) return null;
 
         return asset.texture;
     }

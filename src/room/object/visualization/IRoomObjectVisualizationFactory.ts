@@ -1,4 +1,4 @@
-import { IAssetData } from '../../../core/asset/interfaces';
+import { IAssetData } from '../../../api';
 import { IRoomObjectGraphicVisualization } from './IRoomObjectGraphicVisualization';
 import { IObjectVisualizationData } from './IRoomObjectVisualizationData';
 

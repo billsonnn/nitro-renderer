@@ -1,4 +1,4 @@
-import { IAssetData, IAssetLogicPlanetSystem } from '../../../../../core/asset/interfaces';
+import { IAssetData, IAssetLogicPlanetSystem } from '../../../../../api';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureLogic } from './FurnitureLogic';
 
@@ -8,9 +8,9 @@ export class FurniturePlanetSystemLogic extends FurnitureLogic
     {
         super.initialize(asset);
 
-        if(asset.logic)
+        if (asset.logic)
         {
-            if(asset.logic.planetSystems)
+            if (asset.logic.planetSystems)
             {
                 this.object.model.setValue<IAssetLogicPlanetSystem[]>(RoomObjectVariable.FURNITURE_PLANETSYSTEM_DATA, asset.logic.planetSystems);
             }

@@ -1,4 +1,4 @@
-import { IAssetLogicPlanetSystem } from '../../../../../core';
+import { IAssetLogicPlanetSystem } from '../../../../../api';
 import { Vector3d } from '../../../../../room';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
@@ -19,11 +19,11 @@ export class FurniturePlanetSystemVisualization extends FurnitureAnimatedVisuali
         this._rootPosition = new Vector3d();
     }
 
-    public dispose():void
+    public dispose(): void
     {
-        if(this._planetIndex)
+        if (this._planetIndex)
         {
-            while(this._planetIndex.length > 0)
+            while (this._planetIndex.length > 0)
             {
                 const planet = this._planetIndex.shift();
 
@@ -37,14 +37,14 @@ export class FurniturePlanetSystemVisualization extends FurnitureAnimatedVisuali
 
     protected updateAnimation(scale: number): number
     {
-        if(!this._planetIndex && (this.spriteCount > 0))
+        if (!this._planetIndex && (this.spriteCount > 0))
         {
-            if(!this.processPlanets()) return 0;
+            if (!this.processPlanets()) return 0;
         }
 
-        if(this._planetIndex)
+        if (this._planetIndex)
         {
-            for(const planet of this._planetIndex) planet.update(this._offsetArray, this._rootPosition, scale);
+            for (const planet of this._planetIndex) planet.update(this._offsetArray, this._rootPosition, scale);
 
             return super.updateAnimation(scale);
         }
@@ -54,7 +54,7 @@ export class FurniturePlanetSystemVisualization extends FurnitureAnimatedVisuali
 
     protected getLayerXOffset(scale: number, direction: number, layerId: number): number
     {
-        if(this._offsetArray[layerId])
+        if (this._offsetArray[layerId])
         {
             return this._offsetArray[layerId].x;
         }
@@ -64,7 +64,7 @@ export class FurniturePlanetSystemVisualization extends FurnitureAnimatedVisuali
 
     protected getLayerYOffset(scale: number, direction: number, layerId: number): number
     {
-        if(this._offsetArray[layerId])
+        if (this._offsetArray[layerId])
         {
             return this._offsetArray[layerId].y;
         }
@@ -74,7 +74,7 @@ export class FurniturePlanetSystemVisualization extends FurnitureAnimatedVisuali
 
     protected getLayerZOffset(scale: number, direction: number, layerId: number): number
     {
-        if(this._offsetArray[layerId])
+        if (this._offsetArray[layerId])
         {
             return this._offsetArray[layerId].z;
         }
@@ -84,20 +84,20 @@ export class FurniturePlanetSystemVisualization extends FurnitureAnimatedVisuali
 
     private processPlanets(): boolean
     {
-        if(!this.object || !this.object.model) return;
+        if (!this.object || !this.object.model) return;
 
         const planetSystems = this.object.model.getValue<IAssetLogicPlanetSystem[]>(RoomObjectVariable.FURNITURE_PLANETSYSTEM_DATA);
 
-        if(!planetSystems) return false;
+        if (!planetSystems) return false;
 
         this._planetIndex = [];
         this._planetNameIndex = [];
 
-        for(const planet of planetSystems)
+        for (const planet of planetSystems)
         {
             const sprite = this.getSprite(planet.id);
 
-            if(sprite)
+            if (sprite)
             {
                 this.addPlanet(planet.name, planet.id, planet.parent, (planet.radius || 0), (planet.arcSpeed || 0), (planet.arcOffset || 0), (planet.height || 0));
             }
@@ -106,14 +106,14 @@ export class FurniturePlanetSystemVisualization extends FurnitureAnimatedVisuali
         return true;
     }
 
-    private addPlanet(name: string, index: number, parentName: string, radius: number, arcSpeed: number, arcOffset: number, height: number):void
+    private addPlanet(name: string, index: number, parentName: string, radius: number, arcSpeed: number, arcOffset: number, height: number): void
     {
-        if(!this._planetIndex) return;
+        if (!this._planetIndex) return;
 
         const planet = new FurniturePlanetSystemVisualizationPlanetObject(name, index, radius, arcSpeed, arcOffset, height);
         const existingPlanet = this.getPlanet(parentName);
 
-        if(existingPlanet) existingPlanet.addChild(planet);
+        if (existingPlanet) existingPlanet.addChild(planet);
         else
         {
             this._planetIndex.push(planet);
@@ -123,11 +123,11 @@ export class FurniturePlanetSystemVisualization extends FurnitureAnimatedVisuali
 
     private getPlanet(name: string): FurniturePlanetSystemVisualizationPlanetObject
     {
-        for(const planet of this._planetIndex)
+        for (const planet of this._planetIndex)
         {
-            if(planet.name === name) return planet;
+            if (planet.name === name) return planet;
 
-            if(planet.hasChild(name)) return planet.getChild(name);
+            if (planet.hasChild(name)) return planet.getChild(name);
         }
 
         return null;

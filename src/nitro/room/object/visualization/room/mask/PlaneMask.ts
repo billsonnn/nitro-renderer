@@ -1,4 +1,4 @@
-﻿import { IGraphicAsset } from '../../../../../../room/object/visualization/utils/IGraphicAsset';
+﻿import { IGraphicAsset } from '../../../../../../api';
 import { IVector3D } from '../../../../../../room/utils/IVector3D';
 import { PlaneMaskVisualization } from './PlaneMaskVisualization';
 
@@ -21,11 +21,11 @@ export class PlaneMask
 
     public dispose(): void
     {
-        if(this._maskVisualizations)
+        if (this._maskVisualizations)
         {
-            for(const mask of this._maskVisualizations.values())
+            for (const mask of this._maskVisualizations.values())
             {
-                if(!mask) continue;
+                if (!mask) continue;
 
                 mask.dispose();
             }
@@ -41,7 +41,7 @@ export class PlaneMask
     {
         const existing = this._maskVisualizations.get(size);
 
-        if(existing) return null;
+        if (existing) return null;
 
         const visualization = new PlaneMaskVisualization();
 
@@ -58,11 +58,11 @@ export class PlaneMask
         let sizeIndex = 0;
         const index = 1;
 
-        while(index < this._sizes.length)
+        while (index < this._sizes.length)
         {
-            if(this._sizes[index] > k)
+            if (this._sizes[index] > k)
             {
-                if((this._sizes[index] - k) < (k - this._sizes[(index - 1)])) sizeIndex = index;
+                if ((this._sizes[index] - k) < (k - this._sizes[(index - 1)])) sizeIndex = index;
 
                 break;
             }
@@ -75,11 +75,11 @@ export class PlaneMask
 
     protected getMaskVisualization(k: number): PlaneMaskVisualization
     {
-        if(k === this._lastSize) return this._lastMaskVisualization;
+        if (k === this._lastSize) return this._lastMaskVisualization;
 
         const sizeIndex = this.getSizeIndex(k);
 
-        if(sizeIndex < this._sizes.length)
+        if (sizeIndex < this._sizes.length)
         {
             this._lastMaskVisualization = (this._maskVisualizations.get(this._sizes[sizeIndex]));
         }
@@ -97,21 +97,21 @@ export class PlaneMask
     {
         const visualization = this.getMaskVisualization(k);
 
-        if(!visualization) return null;
+        if (!visualization) return null;
 
         return visualization.getAsset(_arg_2);
     }
 
     public getAssetName(k: number): string
     {
-        if(!this._assetNames) return null;
+        if (!this._assetNames) return null;
 
         return this._assetNames.get(k) || null;
     }
 
     public setAssetName(k: number, _arg_2: string): void
     {
-        if(!this._assetNames) return;
+        if (!this._assetNames) return;
 
         this._assetNames.set(k, _arg_2);
     }

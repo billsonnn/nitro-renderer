@@ -1,4 +1,4 @@
-import { IAssetData } from '../../../../../core/asset/interfaces';
+import { IAssetData } from '../../../../../api';
 import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
 import { ContextMenuEnum } from '../../../../ui';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
@@ -19,16 +19,16 @@ export class FurnitureFriendFurniLogic extends FurnitureMultiStateLogic
     {
         super.initialize(asset);
 
-        if(this.object) this.object.model.setValue(RoomObjectVariable.FURNITURE_FRIENDFURNI_ENGRAVING, this.engravingDialogType);
+        if (this.object) this.object.model.setValue(RoomObjectVariable.FURNITURE_FRIENDFURNI_ENGRAVING, this.engravingDialogType);
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void
     {
-        if(message instanceof ObjectDataUpdateMessage)
+        if (message instanceof ObjectDataUpdateMessage)
         {
             const data = (message.data as StringDataType);
 
-            if(data)
+            if (data)
             {
                 this._state = data.state;
             }
@@ -43,16 +43,16 @@ export class FurnitureFriendFurniLogic extends FurnitureMultiStateLogic
 
     public getEventTypes(): string[]
     {
-        const types = [ RoomObjectWidgetRequestEvent.FRIEND_FURNITURE_ENGRAVING ];
+        const types = [RoomObjectWidgetRequestEvent.FRIEND_FURNITURE_ENGRAVING];
 
         return this.mergeTypes(super.getEventTypes(), types);
     }
 
     public useObject(): void
     {
-        if(!this.object || !this.eventDispatcher) return;
+        if (!this.object || !this.eventDispatcher) return;
 
-        if(this._state === FurnitureFriendFurniLogic.STATE_LOCKED)
+        if (this._state === FurnitureFriendFurniLogic.STATE_LOCKED)
         {
             this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.FRIEND_FURNITURE_ENGRAVING, this.object));
         }

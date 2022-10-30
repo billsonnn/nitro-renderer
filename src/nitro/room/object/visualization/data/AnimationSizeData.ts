@@ -1,4 +1,4 @@
-import { IAssetVisualAnimation } from '../../../../../core/asset/interfaces/visualization';
+import { IAssetVisualAnimation } from '../../../../../api';
 import { AnimationData } from './AnimationData';
 import { AnimationFrame } from './AnimationFrame';
 import { SizeData } from './SizeData';
@@ -20,9 +20,9 @@ export class AnimationSizeData extends SizeData
     {
         super.dispose();
 
-        for(const animation of this._animations.values())
+        for (const animation of this._animations.values())
         {
-            if(!animation) continue;
+            if (!animation) continue;
 
             animation.dispose();
         }
@@ -34,13 +34,13 @@ export class AnimationSizeData extends SizeData
 
     public defineAnimations(animations: { [index: string]: IAssetVisualAnimation }): boolean
     {
-        if(!animations) return true;
+        if (!animations) return true;
 
-        for(const key in animations)
+        for (const key in animations)
         {
             const animation = animations[key];
 
-            if(!animation) return false;
+            if (!animation) return false;
 
             let animationId = parseInt(key.split('_')[0]);
             let isTransition = false;
@@ -48,13 +48,13 @@ export class AnimationSizeData extends SizeData
             const transitionTo = animation.transitionTo;
             const transitionFrom = animation.transitionFrom;
 
-            if(transitionTo !== undefined)
+            if (transitionTo !== undefined)
             {
                 animationId = AnimationData.getTransitionToAnimationId(transitionTo);
                 isTransition = true;
             }
 
-            if(transitionFrom !== undefined)
+            if (transitionFrom !== undefined)
             {
                 animationId = AnimationData.getTransitionFromAnimationId(transitionFrom);
                 isTransition = true;
@@ -62,7 +62,7 @@ export class AnimationSizeData extends SizeData
 
             const animationData = this.createAnimationData();
 
-            if(!animationData.initialize(animation))
+            if (!animationData.initialize(animation))
             {
                 animationData.dispose();
 
@@ -71,16 +71,16 @@ export class AnimationSizeData extends SizeData
 
             const immediateChangeFrom = animation.immediateChangeFrom;
 
-            if(immediateChangeFrom !== undefined)
+            if (immediateChangeFrom !== undefined)
             {
                 const changes = immediateChangeFrom.split(',');
                 const changeIds = [];
 
-                for(const change of changes)
+                for (const change of changes)
                 {
                     const changeId = parseInt(change);
 
-                    if(changeIds.indexOf(changeId) === -1) changeIds.push(changeId);
+                    if (changeIds.indexOf(changeId) === -1) changeIds.push(changeId);
                 }
 
                 animationData.setImmediateChanges(changeIds);
@@ -88,7 +88,7 @@ export class AnimationSizeData extends SizeData
 
             this._animations.set(animationId, animationData);
 
-            if(!isTransition) this._animationIds.push(animationId);
+            if (!isTransition) this._animationIds.push(animationId);
         }
 
         return true;
@@ -101,7 +101,7 @@ export class AnimationSizeData extends SizeData
 
     public hasAnimation(animationId: number): boolean
     {
-        if(!this._animations.get(animationId)) return false;
+        if (!this._animations.get(animationId)) return false;
 
         return true;
     }
@@ -115,7 +115,7 @@ export class AnimationSizeData extends SizeData
     {
         const totalAnimations = this.getAnimationCount();
 
-        if((animationId < 0) || (totalAnimations <= 0)) return 0;
+        if ((animationId < 0) || (totalAnimations <= 0)) return 0;
 
         return this._animationIds[(animationId % totalAnimations)];
     }
@@ -124,7 +124,7 @@ export class AnimationSizeData extends SizeData
     {
         const animation = this._animations.get(animationId);
 
-        if(!animation) return false;
+        if (!animation) return false;
 
         return animation.isImmediateChange(_arg_2);
     }
@@ -133,7 +133,7 @@ export class AnimationSizeData extends SizeData
     {
         const animation = this._animations.get(animationId);
 
-        if(!animation) return 0;
+        if (!animation) return 0;
 
         return animation.getStartFrame(direction);
     }
@@ -142,7 +142,7 @@ export class AnimationSizeData extends SizeData
     {
         const animation = this._animations.get(animationId);
 
-        if(!animation) return null;
+        if (!animation) return null;
 
         return animation.getFrame(direction, layerId, frameCount);
     }
@@ -151,7 +151,7 @@ export class AnimationSizeData extends SizeData
     {
         const animation = this._animations.get(animationId);
 
-        if(!animation) return null;
+        if (!animation) return null;
 
         return animation.getFrameFromSequence(direction, layerId, sequenceId, offset, frameCount);
     }

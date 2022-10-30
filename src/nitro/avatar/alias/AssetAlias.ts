@@ -1,4 +1,4 @@
-﻿import { IAssetAlias } from '../../../core/asset/interfaces';
+﻿import { IAssetAlias } from '../../../api';
 
 export class AssetAlias
 {

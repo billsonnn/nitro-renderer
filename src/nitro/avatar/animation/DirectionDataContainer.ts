@@ -1,4 +1,4 @@
-﻿import { IAssetAnimationDirection } from '../../../core/asset/interfaces';
+﻿import { IAssetAnimationDirection } from '../../../api';
 
 export class DirectionDataContainer
 {

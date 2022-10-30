@@ -1,4 +1,4 @@
-import { IAssetManager } from '../../../core/asset/IAssetManager';
+import { IAssetManager } from '../../../api';
 import { ActionDefinition } from './ActionDefinition';
 import { IActiveActionData } from './IActiveActionData';
 
@@ -19,53 +19,53 @@ export class AvatarActionManager
 
     public updateActions(data: any): void
     {
-        if(!data) return;
+        if (!data) return;
 
-        for(const action of data.actions)
+        for (const action of data.actions)
         {
-            if(!action || !action.state) continue;
+            if (!action || !action.state) continue;
 
             const definition = new ActionDefinition(action);
 
             this._actions.set(definition.state, definition);
         }
 
-        if(data.actionOffsets) this.parseActionOffsets(data.actionOffsets);
+        if (data.actionOffsets) this.parseActionOffsets(data.actionOffsets);
     }
 
     private parseActionOffsets(offsets: any): void
     {
-        if(!offsets || !offsets.length) return;
+        if (!offsets || !offsets.length) return;
 
-        for(const offset of offsets)
+        for (const offset of offsets)
         {
             const action = this._actions.get(offset.action);
 
-            if(!action) continue;
+            if (!action) continue;
 
-            for(const canvasOffset of offset.offsets)
+            for (const canvasOffset of offset.offsets)
             {
                 const size = (canvasOffset.size || '');
                 const direction = canvasOffset.direction;
 
-                if((size === '') || (direction === undefined)) continue;
+                if ((size === '') || (direction === undefined)) continue;
 
                 const x = (canvasOffset.x || 0);
                 const y = (canvasOffset.y || 0);
                 const z = (canvasOffset.z || 0);
 
-                action.setOffsets(size, direction, [ x, y, z ]);
+                action.setOffsets(size, direction, [x, y, z]);
             }
         }
     }
 
     public getActionDefinition(id: string): ActionDefinition
     {
-        if(!id) return null;
+        if (!id) return null;
 
-        for(const action of this._actions.values())
+        for (const action of this._actions.values())
         {
-            if(!action || (action.id !== id)) continue;
+            if (!action || (action.id !== id)) continue;
 
             return action;
         }
@@ -77,18 +77,18 @@ export class AvatarActionManager
     {
         const existing = this._actions.get(state);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         return existing;
     }
 
     public getDefaultAction(): ActionDefinition
     {
-        if(this._defaultAction) return this._defaultAction;
+        if (this._defaultAction) return this._defaultAction;
 
-        for(const action of this._actions.values())
+        for (const action of this._actions.values())
         {
-            if(!action || !action.isDefault) continue;
+            if (!action || !action.isDefault) continue;
 
             this._defaultAction = action;
 
@@ -102,14 +102,14 @@ export class AvatarActionManager
     {
         let canvasOffsets: number[] = [];
 
-        for(const activeAction of k)
+        for (const activeAction of k)
         {
-            if(!activeAction) continue;
+            if (!activeAction) continue;
 
             const action = this._actions.get(activeAction.actionType);
             const offsets = action && action.getOffsets(_arg_2, _arg_3);
 
-            if(offsets) canvasOffsets = offsets;
+            if (offsets) canvasOffsets = offsets;
         }
 
         return canvasOffsets;
@@ -117,19 +117,19 @@ export class AvatarActionManager
 
     public sortActions(actions: IActiveActionData[]): IActiveActionData[]
     {
-        if(!actions) return null;
+        if (!actions) return null;
 
         actions = this.filterActions(actions);
 
         const validatedActions: IActiveActionData[] = [];
 
-        for(const action of actions)
+        for (const action of actions)
         {
-            if(!action) continue;
+            if (!action) continue;
 
             const definition = this._actions.get(action.actionType);
 
-            if(!definition) continue;
+            if (!definition) continue;
 
             action.definition = definition;
 
@@ -146,24 +146,24 @@ export class AvatarActionManager
         let preventions: string[] = [];
         const activeActions: IActiveActionData[] = [];
 
-        for(const action of actions)
+        for (const action of actions)
         {
-            if(!action) continue;
+            if (!action) continue;
 
             const localAction = this._actions.get(action.actionType);
 
-            if(localAction) preventions = preventions.concat(localAction.getPrevents(action.actionParameter));
+            if (localAction) preventions = preventions.concat(localAction.getPrevents(action.actionParameter));
         }
 
-        for(const action of actions)
+        for (const action of actions)
         {
-            if(!action) continue;
+            if (!action) continue;
 
             let actionType = action.actionType;
 
-            if(action.actionType === 'fx') actionType = (actionType + ('.' + action.actionParameter));
+            if (action.actionType === 'fx') actionType = (actionType + ('.' + action.actionParameter));
 
-            if(preventions.indexOf(actionType) >= 0) continue;
+            if (preventions.indexOf(actionType) >= 0) continue;
 
             activeActions.push(action);
         }
@@ -173,14 +173,14 @@ export class AvatarActionManager
 
     private sortByPrecedence(actionOne: IActiveActionData, actionTwo: IActiveActionData): number
     {
-        if(!actionOne || !actionTwo) return 0;
+        if (!actionOne || !actionTwo) return 0;
 
         const precedenceOne = actionOne.definition.precedence;
         const precedenceTwo = actionTwo.definition.precedence;
 
-        if(precedenceOne < precedenceTwo) return 1;
+        if (precedenceOne < precedenceTwo) return 1;
 
-        if(precedenceOne > precedenceTwo) return -1;
+        if (precedenceOne > precedenceTwo) return -1;
 
         return 0;
     }

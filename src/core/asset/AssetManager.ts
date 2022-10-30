@@ -1,15 +1,12 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Loader, LoaderResource } from '@pixi/loaders';
 import { Spritesheet } from '@pixi/spritesheet';
-import { IGraphicAsset } from '../../room/object/visualization/utils';
+import { IAssetData, IAssetManager, IGraphicAsset, IGraphicAssetCollection } from '../../api';
 import { GraphicAssetCollection } from '../../room/object/visualization/utils/GraphicAssetCollection';
-import { IGraphicAssetCollection } from '../../room/object/visualization/utils/IGraphicAssetCollection';
 import { Disposable } from '../common/disposable/Disposable';
 import { INitroLogger } from '../common/logger/INitroLogger';
 import { NitroLogger } from '../common/logger/NitroLogger';
 import { ArrayBufferToBase64 } from '../utils';
-import { IAssetManager } from './IAssetManager';
-import { IAssetData } from './interfaces';
 import { NitroBundle } from './NitroBundle';
 
 export class AssetManager extends Disposable implements IAssetManager
@@ -34,33 +31,33 @@ export class AssetManager extends Disposable implements IAssetManager
 
     public getTexture(name: string): Texture<Resource>
     {
-        if(!name) return null;
+        if (!name) return null;
 
         const existing = this._textures.get(name);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         return existing;
     }
 
     public setTexture(name: string, texture: Texture<Resource>): void
     {
-        if(!name || !texture) return;
+        if (!name || !texture) return;
 
         this._textures.set(name, texture);
     }
 
     public getAsset(name: string): IGraphicAsset
     {
-        if(!name) return null;
+        if (!name) return null;
 
-        for(const collection of this._collections.values())
+        for (const collection of this._collections.values())
         {
-            if(!collection) continue;
+            if (!collection) continue;
 
             const existing = collection.getAsset(name);
 
-            if(!existing) continue;
+            if (!existing) continue;
 
             return existing;
         }
@@ -70,24 +67,24 @@ export class AssetManager extends Disposable implements IAssetManager
 
     public getCollection(name: string): IGraphicAssetCollection
     {
-        if(!name) return null;
+        if (!name) return null;
 
         const existing = this._collections.get(name);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         return existing;
     }
 
     public createCollection(data: IAssetData, spritesheet: Spritesheet): IGraphicAssetCollection
     {
-        if(!data) return null;
+        if (!data) return null;
 
         const collection = new GraphicAssetCollection(data, spritesheet);
 
-        if(collection)
+        if (collection)
         {
-            for(const [name, texture] of collection.textures.entries()) this.setTexture(name, texture);
+            for (const [name, texture] of collection.textures.entries()) this.setTexture(name, texture);
 
             this._collections.set(collection.name, collection);
         }
@@ -102,7 +99,7 @@ export class AssetManager extends Disposable implements IAssetManager
 
     public downloadAssets(assetUrls: string[], cb: (status: boolean) => void): void
     {
-        if(!assetUrls || !assetUrls.length)
+        if (!assetUrls || !assetUrls.length)
         {
             cb(true);
 
@@ -111,9 +108,9 @@ export class AssetManager extends Disposable implements IAssetManager
 
         const loader = new Loader();
 
-        for(const url of assetUrls)
+        for (const url of assetUrls)
         {
-            if(!url) continue;
+            if (!url) continue;
 
             loader
                 .add({
@@ -128,7 +125,7 @@ export class AssetManager extends Disposable implements IAssetManager
 
         const onDownloaded = (status: boolean, url: string) =>
         {
-            if(!status)
+            if (!status)
             {
                 this._logger.error('Failed to download asset', url);
 
@@ -141,7 +138,7 @@ export class AssetManager extends Disposable implements IAssetManager
 
             remaining--;
 
-            if(!remaining)
+            if (!remaining)
             {
                 loader.destroy();
 
@@ -153,11 +150,11 @@ export class AssetManager extends Disposable implements IAssetManager
 
         loader.load((loader, resources) =>
         {
-            for(const key in resources)
+            for (const key in resources)
             {
                 const resource = resources[key];
 
-                if(!resource || resource.error || !resource.xhr)
+                if (!resource || resource.error || !resource.xhr)
                 {
                     onDownloaded(false, resource.url);
 
@@ -166,7 +163,7 @@ export class AssetManager extends Disposable implements IAssetManager
 
                 const resourceType = (resource.xhr.getResponseHeader('Content-Type') || 'application/octet-stream');
 
-                if(resourceType === 'application/octet-stream')
+                if (resourceType === 'application/octet-stream')
                 {
                     const nitroBundle = new NitroBundle(resource.data);
 
@@ -178,12 +175,12 @@ export class AssetManager extends Disposable implements IAssetManager
                     continue;
                 }
 
-                if((resourceType === 'image/png') || (resourceType === 'image/jpeg') || (resourceType === 'image/gif'))
+                if ((resourceType === 'image/png') || (resourceType === 'image/jpeg') || (resourceType === 'image/gif'))
                 {
                     const base64 = ArrayBufferToBase64(resource.data);
                     const baseTexture = new BaseTexture(`data:${resourceType};base64,${base64}`);
 
-                    if(baseTexture.valid)
+                    if (baseTexture.valid)
                     {
                         const texture = new Texture(baseTexture);
 
@@ -215,7 +212,7 @@ export class AssetManager extends Disposable implements IAssetManager
     {
         const spritesheetData = data.spritesheet;
 
-        if(!baseTexture || !spritesheetData || !Object.keys(spritesheetData).length)
+        if (!baseTexture || !spritesheetData || !Object.keys(spritesheetData).length)
         {
             this.createCollection(data, null);
 
@@ -236,7 +233,7 @@ export class AssetManager extends Disposable implements IAssetManager
             });
         };
 
-        if(baseTexture.valid)
+        if (baseTexture.valid)
         {
             createAsset();
         }

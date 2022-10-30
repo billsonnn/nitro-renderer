@@ -1,5 +1,6 @@
 import { RenderTexture } from '@pixi/core';
 import { Point, Rectangle } from '@pixi/math';
+import { IGraphicAssetCollection } from '../../../api';
 import { NitroContainer, NitroSprite } from '../../../core';
 import { RoomObjectSpriteData } from '../../data/RoomObjectSpriteData';
 import { IRoomGeometry } from '../../utils/IRoomGeometry';
@@ -9,7 +10,6 @@ import { IRoomObjectSprite } from './IRoomObjectSprite';
 import { IRoomObjectSpriteVisualization } from './IRoomObjectSpriteVisualization';
 import { IObjectVisualizationData } from './IRoomObjectVisualizationData';
 import { RoomObjectSprite } from './RoomObjectSprite';
-import { IGraphicAssetCollection } from './utils/IGraphicAssetCollection';
 
 export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualization
 {
@@ -57,13 +57,13 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
 
     public dispose(): void
     {
-        if(this._sprites)
+        if (this._sprites)
         {
-            while(this._sprites.length)
+            while (this._sprites.length)
             {
                 const sprite = (this._sprites[0] as RoomObjectSprite);
 
-                if(sprite) sprite.dispose();
+                if (sprite) sprite.dispose();
 
                 this._sprites.pop();
             }
@@ -77,7 +77,7 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
 
     public getSprite(index: number): IRoomObjectSprite
     {
-        if((index >= 0) && (index < this._sprites.length)) return this._sprites[index];
+        if ((index >= 0) && (index < this._sprites.length)) return this._sprites[index];
 
         return null;
     }
@@ -96,7 +96,7 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
     {
         const sprite = new RoomObjectSprite();
 
-        if(index >= this._sprites.length)
+        if (index >= this._sprites.length)
         {
             this._sprites.push(sprite);
         }
@@ -110,16 +110,16 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
 
     protected createSprites(count: number): void
     {
-        while(this._sprites.length > count)
+        while (this._sprites.length > count)
         {
             const sprite = this._sprites[(this._sprites.length - 1)] as RoomObjectSprite;
 
-            if(sprite) sprite.dispose();
+            if (sprite) sprite.dispose();
 
             this._sprites.pop();
         }
 
-        while(this._sprites.length < count)
+        while (this._sprites.length < count)
         {
             this._sprites.push(new RoomObjectSprite());
         }
@@ -134,18 +134,18 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
     {
         const boundingRectangle = this.getBoundingRectangle();
 
-        if((boundingRectangle.width * boundingRectangle.height) === 0) return null;
+        if ((boundingRectangle.width * boundingRectangle.height) === 0) return null;
 
         const spriteCount = this.totalSprites;
         const spriteList: IRoomObjectSprite[] = [];
 
         let index = 0;
 
-        while(index < spriteCount)
+        while (index < spriteCount)
         {
             const objectSprite = this.getSprite(index);
 
-            if(objectSprite && objectSprite.visible && objectSprite.texture) spriteList.push(objectSprite);
+            if (objectSprite && objectSprite.visible && objectSprite.texture) spriteList.push(objectSprite);
 
             index++;
         }
@@ -159,12 +159,12 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
 
         index = 0;
 
-        while(index < spriteList.length)
+        while (index < spriteList.length)
         {
             const objectSprite = spriteList[index];
             const texture = objectSprite.texture;
 
-            if(texture)
+            if (texture)
             {
                 const sprite = new NitroSprite(texture);
 
@@ -175,9 +175,9 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
                 sprite.blendMode = objectSprite.blendMode;
                 sprite.filters = objectSprite.filters;
 
-                if(objectSprite.flipH) sprite.scale.x = -1;
+                if (objectSprite.flipH) sprite.scale.x = -1;
 
-                if(objectSprite.flipV) sprite.scale.y = -1;
+                if (objectSprite.flipV) sprite.scale.y = -1;
 
                 container.addChild(sprite);
             }
@@ -187,7 +187,7 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
 
         const texture = TextureUtils.generateTexture(container);
 
-        if(!texture) return null;
+        if (!texture) return null;
 
         return texture;
     }
@@ -199,18 +199,18 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
 
         let iterator = 0;
 
-        while(iterator < totalSprites)
+        while (iterator < totalSprites)
         {
             const sprite = this.getSprite(iterator);
 
-            if(sprite && sprite.texture && sprite.visible)
+            if (sprite && sprite.texture && sprite.visible)
             {
                 const offsetX = ((sprite.flipH) ? (-(sprite.width) + sprite.offsetX) : sprite.offsetX);
                 const offsetY = ((sprite.flipV) ? (-(sprite.height) + sprite.offsetY) : sprite.offsetY);
 
                 const point = new Point(offsetX, offsetY);
 
-                if(iterator === 0)
+                if (iterator === 0)
                 {
                     rectangle.x = point.x;
                     rectangle.y = point.y;
@@ -219,13 +219,13 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
                 }
                 else
                 {
-                    if(point.x < rectangle.x) rectangle.x = point.x;
+                    if (point.x < rectangle.x) rectangle.x = point.x;
 
-                    if(point.y < rectangle.y) rectangle.y = point.y;
+                    if (point.y < rectangle.y) rectangle.y = point.y;
 
-                    if((point.x + sprite.width) > rectangle.right) rectangle.width = ((point.x + sprite.width) - rectangle.x);
+                    if ((point.x + sprite.width) > rectangle.right) rectangle.width = ((point.x + sprite.width) - rectangle.x);
 
-                    if((point.y + sprite.height) > rectangle.bottom) rectangle.height = ((point.y + sprite.height) - rectangle.y);
+                    if ((point.y + sprite.height) > rectangle.bottom) rectangle.height = ((point.y + sprite.height) - rectangle.y);
                 }
             }
 
@@ -257,11 +257,11 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
 
     public set asset(asset: IGraphicAssetCollection)
     {
-        if(this._asset) this._asset.removeReference();
+        if (this._asset) this._asset.removeReference();
 
         this._asset = asset;
 
-        if(this._asset) this._asset.addReference();
+        if (this._asset) this._asset.addReference();
     }
 
     public get sprites(): IRoomObjectSprite[]

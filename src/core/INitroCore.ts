@@ -1,4 +1,4 @@
-import { IAssetManager } from './asset/IAssetManager';
+import { IAssetManager } from '../api';
 import { IDisposable } from './common/disposable/IDisposable';
 import { ICommunicationManager } from './communication/ICommunicationManager';
 import { IConfigurationManager } from './configuration/IConfigurationManager';

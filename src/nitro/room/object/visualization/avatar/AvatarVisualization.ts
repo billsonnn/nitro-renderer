@@ -1,5 +1,6 @@
 import { BLEND_MODES } from '@pixi/constants';
 import { Resource, Texture } from '@pixi/core';
+import { IGraphicAsset } from '../../../../../api';
 import { AdvancedMap } from '../../../../../core/utils/AdvancedMap';
 import { AlphaTolerance } from '../../../../../room/object/enum/AlphaTolerance';
 import { RoomObjectSpriteType } from '../../../../../room/object/enum/RoomObjectSpriteType';
@@ -7,7 +8,6 @@ import { IRoomObject } from '../../../../../room/object/IRoomObject';
 import { IRoomObjectModel } from '../../../../../room/object/IRoomObjectModel';
 import { IObjectVisualizationData } from '../../../../../room/object/visualization/IRoomObjectVisualizationData';
 import { RoomObjectSpriteVisualization } from '../../../../../room/object/visualization/RoomObjectSpriteVisualization';
-import { IGraphicAsset } from '../../../../../room/object/visualization/utils/IGraphicAsset';
 import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
 import { AvatarAction } from '../../../../avatar/enum/AvatarAction';
 import { AvatarGuideStatus } from '../../../../avatar/enum/AvatarGuideStatus';
@@ -152,7 +152,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
     public initialize(data: IObjectVisualizationData): boolean
     {
-        if(!(data instanceof AvatarVisualizationData)) return false;
+        if (!(data instanceof AvatarVisualizationData)) return false;
 
         this._data = data;
 
@@ -165,11 +165,11 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
     public dispose(): void
     {
-        if(this._disposed) return;
+        if (this._disposed) return;
 
         super.dispose();
 
-        if(this._avatarImage) this._avatarImage.dispose();
+        if (this._avatarImage) this._avatarImage.dispose();
 
         this._shadow = null;
         this._disposed = true;
@@ -177,13 +177,13 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
     public update(geometry: IRoomGeometry, time: number, update: boolean, skipUpdate: boolean): void
     {
-        if(!this.object || !geometry || !this._data) return;
+        if (!this.object || !geometry || !this._data) return;
 
-        if(time < (this._lastUpdate + AvatarVisualization.UPDATE_TIME_INCREASER)) return;
+        if (time < (this._lastUpdate + AvatarVisualization.UPDATE_TIME_INCREASER)) return;
 
         this._lastUpdate += AvatarVisualization.UPDATE_TIME_INCREASER;
 
-        if((this._lastUpdate + AvatarVisualization.UPDATE_TIME_INCREASER) < time) this._lastUpdate = (time - AvatarVisualization.UPDATE_TIME_INCREASER);
+        if ((this._lastUpdate + AvatarVisualization.UPDATE_TIME_INCREASER) < time) this._lastUpdate = (time - AvatarVisualization.UPDATE_TIME_INCREASER);
 
         const model = this.object.model;
         const scale = geometry.scale;
@@ -196,41 +196,41 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const updateModel = this.updateModel(model, scale);
 
-        if((updateModel || (scale !== this._scale)) || !this._avatarImage)
+        if ((updateModel || (scale !== this._scale)) || !this._avatarImage)
         {
-            if(scale !== this._scale)
+            if (scale !== this._scale)
             {
                 didScaleUpdate = true;
 
                 this.updateScale(scale);
             }
 
-            if(effect !== this._effect) didEffectUpdate = true;
+            if (effect !== this._effect) didEffectUpdate = true;
 
-            if(didScaleUpdate || !this._avatarImage || didEffectUpdate)
+            if (didScaleUpdate || !this._avatarImage || didEffectUpdate)
             {
                 this._avatarImage = this.createAvatarImage(scale, this._effect);
 
-                if(!this._avatarImage) return;
+                if (!this._avatarImage) return;
 
                 otherUpdate = true;
 
                 const sprite = this.getSprite(AvatarVisualization.AVATAR_LAYER_ID);
 
-                if((sprite && this._avatarImage) && this._avatarImage.isPlaceholder())
+                if ((sprite && this._avatarImage) && this._avatarImage.isPlaceholder())
                 {
                     sprite.alpha = 150;
                 }
 
-                else if(sprite)
+                else if (sprite)
                 {
                     sprite.alpha = 255;
                 }
             }
 
-            if(!this._avatarImage) return;
+            if (!this._avatarImage) return;
 
-            if(didEffectUpdate && this._avatarImage.animationHasResetOnToggle) this._avatarImage.resetAnimationFrameCounter();
+            if (didEffectUpdate && this._avatarImage.animationHasResetOnToggle) this._avatarImage.resetAnimationFrameCounter();
 
             this.updateShadow(scale);
 
@@ -238,11 +238,11 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
             this.processActionsForAvatar(this._avatarImage);
 
-            if(this._additions)
+            if (this._additions)
             {
                 let index = this._extraSpritesStartIndex;
 
-                for(const addition of this._additions.values())
+                for (const addition of this._additions.values())
                 {
                     addition.update(this.getSprite(index++), scale);
                 }
@@ -255,29 +255,29 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
             objectUpdate = this.updateObject(this.object, geometry, update);
         }
 
-        if(this._additions)
+        if (this._additions)
         {
             let index = this._extraSpritesStartIndex;
 
-            for(const addition of this._additions.values())
+            for (const addition of this._additions.values())
             {
-                if(addition.animate(this.getSprite(index++))) this.updateSpriteCounter++;
+                if (addition.animate(this.getSprite(index++))) this.updateSpriteCounter++;
             }
         }
 
         const update1 = (objectUpdate || updateModel || didScaleUpdate);
         const update2 = ((this._isAnimating || (this._forcedAnimFrames > 0)) && update);
 
-        if(update1) this._forcedAnimFrames = AvatarVisualization.ANIMATION_FRAME_UPDATE_INTERVAL;
+        if (update1) this._forcedAnimFrames = AvatarVisualization.ANIMATION_FRAME_UPDATE_INTERVAL;
 
-        if(update1 || update2)
+        if (update1 || update2)
         {
             this.updateSpriteCounter++;
 
             this._forcedAnimFrames--;
             this._updatesUntilFrameUpdate--;
 
-            if((((this._updatesUntilFrameUpdate <= 0) || didScaleUpdate) || updateModel) || otherUpdate)
+            if ((((this._updatesUntilFrameUpdate <= 0) || didScaleUpdate) || updateModel) || otherUpdate)
             {
                 this._avatarImage.updateAnimationByFrames(1);
 
@@ -290,21 +290,21 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
             let _local_20 = this._avatarImage.getCanvasOffsets();
 
-            if(!_local_20 || (_local_20.length < 3)) _local_20 = AvatarVisualization.DEFAULT_CANVAS_OFFSETS;
+            if (!_local_20 || (_local_20.length < 3)) _local_20 = AvatarVisualization.DEFAULT_CANVAS_OFFSETS;
 
             const sprite = this.getSprite(AvatarVisualization.SPRITE_INDEX_AVATAR);
 
-            if(sprite)
+            if (sprite)
             {
                 const highlightEnabled = ((this.object.model.getValue<number>(RoomObjectVariable.FIGURE_HIGHLIGHT_ENABLE) === 1) && (this.object.model.getValue<number>(RoomObjectVariable.FIGURE_HIGHLIGHT) === 1));
 
                 const avatarImage = this._avatarImage.getImage(AvatarSetType.FULL, highlightEnabled);
 
-                if(avatarImage)
+                if (avatarImage)
                 {
                     sprite.texture = avatarImage;
 
-                    if(highlightEnabled)
+                    if (highlightEnabled)
                     {
                         // sprite.filters  = [
                         //     new GlowFilter({
@@ -319,15 +319,15 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                     }
                 }
 
-                if(sprite.texture)
+                if (sprite.texture)
                 {
                     sprite.offsetX = ((((-1 * scale) / 2) + _local_20[0]) - ((sprite.texture.width - scale) / 2));
                     sprite.offsetY = (((-(sprite.texture.height) + (scale / 4)) + _local_20[1]) + this._postureOffset);
                 }
 
-                if(this._isLaying)
+                if (this._isLaying)
                 {
-                    if(this._layInside) sprite.relativeDepth = -0.5;
+                    if (this._layInside) sprite.relativeDepth = -0.5;
                     else sprite.relativeDepth = (AvatarVisualization.AVATAR_SPRITE_LAYING_DEPTH + _local_20[2]);
                 }
                 else
@@ -335,7 +335,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                     sprite.relativeDepth = (AvatarVisualization.AVATAR_SPRITE_DEFAULT_DEPTH + _local_20[2]);
                 }
 
-                if(this._ownUser)
+                if (this._ownUser)
                 {
                     sprite.relativeDepth -= AvatarVisualization.AVATAR_OWN_DEPTH_ADJUST;
                     sprite.spriteType = RoomObjectSpriteType.AVATAR_OWN;
@@ -348,9 +348,9 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
             const typingBubble = this.getAddition(AvatarVisualization.TYPING_BUBBLE_ID) as TypingBubbleAddition;
 
-            if(typingBubble)
+            if (typingBubble)
             {
-                if(!this._isLaying) typingBubble.relativeDepth = ((AvatarVisualization.AVATAR_SPRITE_DEFAULT_DEPTH - 0.01) + _local_20[2]);
+                if (!this._isLaying) typingBubble.relativeDepth = ((AvatarVisualization.AVATAR_SPRITE_DEFAULT_DEPTH - 0.01) + _local_20[2]);
                 else typingBubble.relativeDepth = ((AvatarVisualization.AVATAR_SPRITE_LAYING_DEPTH - 0.01) + _local_20[2]);
             }
 
@@ -359,32 +359,32 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
             let _local_21 = AvatarVisualization.INITIAL_RESERVED_SPRITES;
             const direction = this._avatarImage.getDirection();
 
-            for(const spriteData of this._avatarImage.getSprites())
+            for (const spriteData of this._avatarImage.getSprites())
             {
-                if(spriteData.id === AvatarVisualization.AVATAR)
+                if (spriteData.id === AvatarVisualization.AVATAR)
                 {
                     const sprite = this.getSprite(AvatarVisualization.SPRITE_INDEX_AVATAR);
 
-                    if(sprite)
+                    if (sprite)
                     {
                         const layerData = this._avatarImage.getLayerData(spriteData);
 
                         let offsetX = spriteData.getDirectionOffsetX(direction);
                         let offsetY = spriteData.getDirectionOffsetY(direction);
 
-                        if(layerData)
+                        if (layerData)
                         {
                             offsetX += layerData.dx;
                             offsetY += layerData.dy;
                         }
 
-                        if(scale < 48)
+                        if (scale < 48)
                         {
                             offsetX /= 2;
                             offsetY /= 2;
                         }
 
-                        if(!this._canStandUp)
+                        if (!this._canStandUp)
                         {
                             sprite.offsetX += offsetX;
                             sprite.offsetY += offsetY;
@@ -395,7 +395,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                 {
                     const sprite = this.getSprite(_local_21);
 
-                    if(sprite)
+                    if (sprite)
                     {
                         sprite.alphaTolerance = AlphaTolerance.MATCH_NOTHING;
                         sprite.visible = true;
@@ -408,9 +408,9 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                         const offsetZ = spriteData.getDirectionOffsetZ(direction);
                         let dd = 0;
 
-                        if(spriteData.hasDirections) dd = direction;
+                        if (spriteData.hasDirections) dd = direction;
 
-                        if(layerData)
+                        if (layerData)
                         {
                             frameNumber = layerData.animationFrame;
                             offsetX += layerData.dx;
@@ -418,30 +418,30 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                             dd += layerData.dd;
                         }
 
-                        if(scale < 48)
+                        if (scale < 48)
                         {
                             offsetX /= 2;
                             offsetY /= 2;
                         }
 
-                        if(dd < 0) dd += 8;
+                        if (dd < 0) dd += 8;
                         else
                         {
-                            if(dd > 7) dd -= 8;
+                            if (dd > 7) dd -= 8;
                         }
 
                         const assetName = ((((((this._avatarImage.getScale() + '_') + spriteData.member) + '_') + dd) + '_') + frameNumber);
 
                         const asset = this._avatarImage.getAsset(assetName);
 
-                        if(!asset) continue;
+                        if (!asset) continue;
 
                         sprite.texture = asset.texture;
                         sprite.offsetX = ((asset.offsetX - (scale / 2)) + offsetX);
                         sprite.offsetY = (asset.offsetY + offsetY);
                         sprite.flipH = asset.flipH;
 
-                        if(spriteData.hasStaticY)
+                        if (spriteData.hasStaticY)
                         {
                             sprite.offsetY += ((this._verticalOffset * scale) / (2 * AvatarVisualization.BASE_Y_SCALE));
                         }
@@ -450,7 +450,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                             sprite.offsetY += this._postureOffset;
                         }
 
-                        if(this._isLaying)
+                        if (this._isLaying)
                         {
                             sprite.relativeDepth = (AvatarVisualization.AVATAR_SPRITE_LAYING_DEPTH - ((0.001 * this.totalSprites) * offsetZ));
                         }
@@ -459,7 +459,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                             sprite.relativeDepth = (AvatarVisualization.AVATAR_SPRITE_DEFAULT_DEPTH - ((0.001 * this.totalSprites) * offsetZ));
                         }
 
-                        if(spriteData.ink === 33) sprite.blendMode = BLEND_MODES.ADD;
+                        if (spriteData.ink === 33) sprite.blendMode = BLEND_MODES.ADD;
                         else sprite.blendMode = BLEND_MODES.NORMAL;
                     }
 
@@ -474,7 +474,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
         let cachedImage: IAvatarImage = null;
         let imageName = 'avatarImage' + scale.toString();
 
-        if(!effectId)
+        if (!effectId)
         {
             cachedImage = this._cachedAvatars.getValue(imageName);
         }
@@ -485,24 +485,24 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
             cachedImage = this._cachedAvatarEffects.getValue(imageName);
         }
 
-        if(!cachedImage)
+        if (!cachedImage)
         {
             cachedImage = this._data.createAvatarImage(this._figure, scale, this._gender, this, this);
 
-            if(cachedImage)
+            if (cachedImage)
             {
-                if(!effectId)
+                if (!effectId)
                 {
                     this._cachedAvatars.add(imageName, cachedImage);
                 }
 
                 else
                 {
-                    if(this._cachedAvatarEffects.length >= AvatarVisualization.MAX_EFFECT_CACHE)
+                    if (this._cachedAvatarEffects.length >= AvatarVisualization.MAX_EFFECT_CACHE)
                     {
                         const cached = this._cachedAvatarEffects.remove(this._cachedAvatarEffects.getKey(0));
 
-                        if(cached) cached.dispose();
+                        if (cached) cached.dispose();
                     }
 
                     this._cachedAvatarEffects.add(imageName, cachedImage);
@@ -515,23 +515,23 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
     protected updateObject(object: IRoomObject, geometry: IRoomGeometry, update: boolean, _arg_4: boolean = false): boolean
     {
-        if((!_arg_4 && (this.updateObjectCounter === object.updateCounter)) && (this._geometryUpdateCounter === geometry.updateId)) return false;
+        if ((!_arg_4 && (this.updateObjectCounter === object.updateCounter)) && (this._geometryUpdateCounter === geometry.updateId)) return false;
 
         let direction = (object.getDirection().x - geometry.direction.x);
         let headDirection = (this._headDirection - geometry.direction.x);
 
-        if(this._posture === 'float') headDirection = direction;
+        if (this._posture === 'float') headDirection = direction;
 
         direction = (((direction % 360) + 360) % 360);
         headDirection = (((headDirection % 360) + 360) % 360);
 
-        if((this._posture === 'sit') && this._canStandUp)
+        if ((this._posture === 'sit') && this._canStandUp)
         {
             direction -= ((direction % 90) - 45);
             headDirection -= ((headDirection % 90) - 45);
         }
 
-        if((direction !== this._angle) || _arg_4)
+        if ((direction !== this._angle) || _arg_4)
         {
             update = true;
 
@@ -543,13 +543,13 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
             this._avatarImage.setDirectionAngle(AvatarSetType.FULL, direction);
         }
 
-        if((headDirection !== this._headAngle) || _arg_4)
+        if ((headDirection !== this._headAngle) || _arg_4)
         {
             update = true;
 
             this._headAngle = headDirection;
 
-            if(this._headAngle !== this._angle)
+            if (this._headAngle !== this._angle)
             {
                 headDirection = (headDirection - (135 - 22.5));
                 headDirection = ((headDirection + 360) % 360);
@@ -567,15 +567,15 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
     protected updateModel(model: IRoomObjectModel, scale: number): boolean
     {
-        if(!model) return false;
+        if (!model) return false;
 
-        if(this.updateModelCounter === model.updateCounter) return false;
+        if (this.updateModelCounter === model.updateCounter) return false;
 
         let needsUpdate = false;
 
         const talk = (model.getValue<number>(RoomObjectVariable.FIGURE_TALK) > 0);
 
-        if(talk !== this._talk)
+        if (talk !== this._talk)
         {
             this._talk = talk;
 
@@ -584,7 +584,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const expression = model.getValue<number>(RoomObjectVariable.FIGURE_EXPRESSION);
 
-        if(expression !== this._expression)
+        if (expression !== this._expression)
         {
             this._expression = expression;
 
@@ -593,7 +593,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const sleep = (model.getValue<number>(RoomObjectVariable.FIGURE_SLEEP) > 0);
 
-        if(sleep !== this._sleep)
+        if (sleep !== this._sleep)
         {
             this._sleep = sleep;
 
@@ -602,7 +602,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const blink = (model.getValue<number>(RoomObjectVariable.FIGURE_BLINK) > 0);
 
-        if(blink !== this._blink)
+        if (blink !== this._blink)
         {
             this._blink = blink;
 
@@ -611,7 +611,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const gesture = (model.getValue<number>(RoomObjectVariable.FIGURE_GESTURE) || 0);
 
-        if(gesture !== this._gesture)
+        if (gesture !== this._gesture)
         {
             this._gesture = gesture;
 
@@ -620,7 +620,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const posture = model.getValue<string>(RoomObjectVariable.FIGURE_POSTURE);
 
-        if(posture !== this._posture)
+        if (posture !== this._posture)
         {
             this._posture = posture;
 
@@ -629,7 +629,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const postureParameter = model.getValue<string>(RoomObjectVariable.FIGURE_POSTURE_PARAMETER);
 
-        if(postureParameter !== this._postureParameter)
+        if (postureParameter !== this._postureParameter)
         {
             this._postureParameter = postureParameter;
 
@@ -638,7 +638,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const canStandUp = model.getValue<boolean>(RoomObjectVariable.FIGURE_CAN_STAND_UP);
 
-        if(canStandUp !== this._canStandUp)
+        if (canStandUp !== this._canStandUp)
         {
             this._canStandUp = canStandUp;
 
@@ -647,7 +647,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const verticalOffset = (model.getValue<number>(RoomObjectVariable.FIGURE_VERTICAL_OFFSET) * AvatarVisualization.BASE_Y_SCALE);
 
-        if(verticalOffset !== this._verticalOffset)
+        if (verticalOffset !== this._verticalOffset)
         {
             this._verticalOffset = verticalOffset;
 
@@ -656,7 +656,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const dance = (model.getValue<number>(RoomObjectVariable.FIGURE_DANCE) || 0);
 
-        if(dance !== this._dance)
+        if (dance !== this._dance)
         {
             this._dance = dance;
 
@@ -665,7 +665,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const effect = (model.getValue<number>(RoomObjectVariable.FIGURE_EFFECT) || 0);
 
-        if(effect !== this._effect)
+        if (effect !== this._effect)
         {
             this._effect = effect;
 
@@ -674,7 +674,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const carryObject = (model.getValue<number>(RoomObjectVariable.FIGURE_CARRY_OBJECT) || 0);
 
-        if(carryObject !== this._carryObject)
+        if (carryObject !== this._carryObject)
         {
             this._carryObject = carryObject;
 
@@ -683,7 +683,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const useObject = (model.getValue<number>(RoomObjectVariable.FIGURE_USE_OBJECT) || 0);
 
-        if(useObject !== this._useObject)
+        if (useObject !== this._useObject)
         {
             this._useObject = useObject;
 
@@ -692,16 +692,16 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const headDirection = model.getValue<number>(RoomObjectVariable.HEAD_DIRECTION);
 
-        if(headDirection !== this._headDirection)
+        if (headDirection !== this._headDirection)
         {
             this._headDirection = headDirection;
 
             needsUpdate = true;
         }
 
-        if((this._carryObject > 0) && (useObject > 0))
+        if ((this._carryObject > 0) && (useObject > 0))
         {
-            if(this._useObject !== this._carryObject)
+            if (this._useObject !== this._carryObject)
             {
                 this._useObject = this._carryObject;
 
@@ -710,7 +710,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
         }
         else
         {
-            if(this._useObject !== 0)
+            if (this._useObject !== 0)
             {
                 this._useObject = 0;
 
@@ -720,30 +720,30 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         let idleAddition = this.getAddition(AvatarVisualization.FLOATING_IDLE_Z_ID);
 
-        if(this._sleep)
+        if (this._sleep)
         {
-            if(!idleAddition) idleAddition = this.addAddition(new FloatingIdleZAddition(AvatarVisualization.FLOATING_IDLE_Z_ID, this));
+            if (!idleAddition) idleAddition = this.addAddition(new FloatingIdleZAddition(AvatarVisualization.FLOATING_IDLE_Z_ID, this));
 
             needsUpdate = true;
         }
         else
         {
-            if(idleAddition) this.removeAddition(AvatarVisualization.FLOATING_IDLE_Z_ID);
+            if (idleAddition) this.removeAddition(AvatarVisualization.FLOATING_IDLE_Z_ID);
         }
 
         const isMuted = (model.getValue<number>(RoomObjectVariable.FIGURE_IS_MUTED) > 0);
 
         let mutedAddition = this.getAddition(AvatarVisualization.MUTED_BUBBLE_ID);
 
-        if(isMuted)
+        if (isMuted)
         {
-            if(!mutedAddition) mutedAddition = this.addAddition(new MutedBubbleAddition(AvatarVisualization.MUTED_BUBBLE_ID, this));
+            if (!mutedAddition) mutedAddition = this.addAddition(new MutedBubbleAddition(AvatarVisualization.MUTED_BUBBLE_ID, this));
 
             needsUpdate = true;
         }
         else
         {
-            if(mutedAddition)
+            if (mutedAddition)
             {
                 this.removeAddition(AvatarVisualization.MUTED_BUBBLE_ID);
 
@@ -754,15 +754,15 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
             let typingAddition = this.getAddition(AvatarVisualization.TYPING_BUBBLE_ID);
 
-            if(isTyping)
+            if (isTyping)
             {
-                if(!typingAddition) typingAddition = this.addAddition(new TypingBubbleAddition(AvatarVisualization.TYPING_BUBBLE_ID, this));
+                if (!typingAddition) typingAddition = this.addAddition(new TypingBubbleAddition(AvatarVisualization.TYPING_BUBBLE_ID, this));
 
                 needsUpdate = true;
             }
             else
             {
-                if(typingAddition)
+                if (typingAddition)
                 {
                     this.removeAddition(AvatarVisualization.TYPING_BUBBLE_ID);
 
@@ -773,7 +773,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const guideStatusValue = (model.getValue<number>(RoomObjectVariable.FIGURE_GUIDE_STATUS) || 0);
 
-        if(guideStatusValue !== AvatarGuideStatus.NONE)
+        if (guideStatusValue !== AvatarGuideStatus.NONE)
         {
             this.removeAddition(AvatarVisualization.GUIDE_BUBBLE_ID);
             this.addAddition(new GuideStatusBubbleAddition(AvatarVisualization.GUIDE_BUBBLE_ID, this, guideStatusValue));
@@ -782,7 +782,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
         }
         else
         {
-            if(this.getAddition(AvatarVisualization.GUIDE_BUBBLE_ID))
+            if (this.getAddition(AvatarVisualization.GUIDE_BUBBLE_ID))
             {
                 this.removeAddition(AvatarVisualization.GUIDE_BUBBLE_ID);
 
@@ -794,66 +794,66 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         let gameClickAddition = this.getAddition(AvatarVisualization.GAME_CLICK_TARGET_ID);
 
-        if(isPlayingGame)
+        if (isPlayingGame)
         {
-            if(!gameClickAddition) gameClickAddition = this.addAddition(new GameClickTargetAddition(AvatarVisualization.GAME_CLICK_TARGET_ID));
+            if (!gameClickAddition) gameClickAddition = this.addAddition(new GameClickTargetAddition(AvatarVisualization.GAME_CLICK_TARGET_ID));
 
             needsUpdate = true;
         }
         else
         {
-            if(gameClickAddition) this.removeAddition(AvatarVisualization.GAME_CLICK_TARGET_ID);
+            if (gameClickAddition) this.removeAddition(AvatarVisualization.GAME_CLICK_TARGET_ID);
         }
 
         const numberValue = model.getValue<number>(RoomObjectVariable.FIGURE_NUMBER_VALUE);
 
         let numberAddition = this.getAddition(AvatarVisualization.NUMBER_BUBBLE_ID);
 
-        if(numberValue > 0)
+        if (numberValue > 0)
         {
-            if(!numberAddition) numberAddition = this.addAddition(new NumberBubbleAddition(AvatarVisualization.NUMBER_BUBBLE_ID, numberValue, this));
+            if (!numberAddition) numberAddition = this.addAddition(new NumberBubbleAddition(AvatarVisualization.NUMBER_BUBBLE_ID, numberValue, this));
 
             needsUpdate = true;
         }
         else
         {
-            if(numberAddition) this.removeAddition(AvatarVisualization.NUMBER_BUBBLE_ID);
+            if (numberAddition) this.removeAddition(AvatarVisualization.NUMBER_BUBBLE_ID);
         }
 
         let expressionAddition = this.getAddition(AvatarVisualization.EXPRESSION_ID);
 
-        if(this._expression > 0)
+        if (this._expression > 0)
         {
-            if(!expressionAddition)
+            if (!expressionAddition)
             {
                 expressionAddition = ExpressionAdditionFactory.getExpressionAddition(AvatarVisualization.EXPRESSION_ID, this._expression, this);
 
-                if(expressionAddition) this.addAddition(expressionAddition);
+                if (expressionAddition) this.addAddition(expressionAddition);
             }
         }
         else
         {
-            if(expressionAddition) this.removeAddition(AvatarVisualization.EXPRESSION_ID);
+            if (expressionAddition) this.removeAddition(AvatarVisualization.EXPRESSION_ID);
         }
 
         this.updateScale(scale);
 
         const gender = model.getValue<string>(RoomObjectVariable.GENDER);
 
-        if(gender !== this._gender)
+        if (gender !== this._gender)
         {
             this._gender = gender;
 
             needsUpdate = true;
         }
 
-        if(this.updateFigure(model.getValue<string>(RoomObjectVariable.FIGURE))) needsUpdate = true;
+        if (this.updateFigure(model.getValue<string>(RoomObjectVariable.FIGURE))) needsUpdate = true;
 
         let sign = model.getValue<number>(RoomObjectVariable.FIGURE_SIGN);
 
-        if(sign === null) sign = -1;
+        if (sign === null) sign = -1;
 
-        if(this._sign !== sign)
+        if (this._sign !== sign)
         {
             this._sign = sign;
 
@@ -862,18 +862,18 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const highlightEnabled = (model.getValue<number>(RoomObjectVariable.FIGURE_HIGHLIGHT_ENABLE) > 0);
 
-        if(highlightEnabled !== this._highlightEnabled)
+        if (highlightEnabled !== this._highlightEnabled)
         {
             this._highlightEnabled = highlightEnabled;
 
             needsUpdate = true;
         }
 
-        if(this._highlightEnabled)
+        if (this._highlightEnabled)
         {
             const highlight = (model.getValue<number>(RoomObjectVariable.FIGURE_HIGHLIGHT) > 0);
 
-            if(highlight !== this._highlight)
+            if (highlight !== this._highlight)
             {
                 this._highlight = highlight;
 
@@ -883,7 +883,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const ownUser = (model.getValue<number>(RoomObjectVariable.OWN_USER) > 0);
 
-        if(ownUser !== this._ownUser)
+        if (ownUser !== this._ownUser)
         {
             this._ownUser = ownUser;
 
@@ -897,7 +897,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
     protected setDirection(direction: number): void
     {
-        if(this._direction === direction) return;
+        if (this._direction === direction) return;
 
         this._direction = direction;
 
@@ -906,9 +906,9 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
     private updateScale(scale: number): void
     {
-        if(scale < 48) this._blink = false;
+        if (scale < 48) this._blink = false;
 
-        if((this._posture === 'sit') || (this._posture === 'lay'))
+        if ((this._posture === 'sit') || (this._posture === 'lay'))
         {
             this._postureOffset = (scale / 2);
         }
@@ -920,45 +920,45 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
         this._layInside = false;
         this._isLaying = false;
 
-        if(this._posture === 'lay')
+        if (this._posture === 'lay')
         {
             this._isLaying = true;
 
             const _local_2 = parseInt(this._postureParameter);
 
-            if(_local_2 < 0) this._layInside = true;
+            if (_local_2 < 0) this._layInside = true;
         }
     }
 
     private processActionsForAvatar(avatar: IAvatarImage): void
     {
-        if(!avatar) return;
+        if (!avatar) return;
 
         avatar.initActionAppends();
 
         avatar.appendAction(AvatarAction.POSTURE, this._posture, this._postureParameter);
 
-        if(this._gesture > 0) this._avatarImage.appendAction(AvatarAction.GESTURE, AvatarAction.getGesture(this._gesture));
+        if (this._gesture > 0) this._avatarImage.appendAction(AvatarAction.GESTURE, AvatarAction.getGesture(this._gesture));
 
-        if(this._dance > 0) this._avatarImage.appendAction(AvatarAction.DANCE, this._dance);
+        if (this._dance > 0) this._avatarImage.appendAction(AvatarAction.DANCE, this._dance);
 
-        if(this._sign > -1) this._avatarImage.appendAction(AvatarAction.SIGN, this._sign);
+        if (this._sign > -1) this._avatarImage.appendAction(AvatarAction.SIGN, this._sign);
 
-        if(this._carryObject > 0) this._avatarImage.appendAction(AvatarAction.CARRY_OBJECT, this._carryObject);
+        if (this._carryObject > 0) this._avatarImage.appendAction(AvatarAction.CARRY_OBJECT, this._carryObject);
 
-        if(this._useObject > 0) this._avatarImage.appendAction(AvatarAction.USE_OBJECT, this._useObject);
+        if (this._useObject > 0) this._avatarImage.appendAction(AvatarAction.USE_OBJECT, this._useObject);
 
-        if(this._talk) this._avatarImage.appendAction(AvatarAction.TALK);
+        if (this._talk) this._avatarImage.appendAction(AvatarAction.TALK);
 
-        if(this._sleep || this._blink) this._avatarImage.appendAction(AvatarAction.SLEEP);
+        if (this._sleep || this._blink) this._avatarImage.appendAction(AvatarAction.SLEEP);
 
-        if(this._expression > 0)
+        if (this._expression > 0)
         {
             const expression = AvatarAction.getExpression(this._expression);
 
-            if(expression !== '')
+            if (expression !== '')
             {
-                switch(expression)
+                switch (expression)
                 {
                     case AvatarAction.DANCE:
                         this._avatarImage.appendAction(AvatarAction.DANCE, 2);
@@ -970,7 +970,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
             }
         }
 
-        if(this._effect > 0) this._avatarImage.appendAction(AvatarAction.EFFECT, this._effect);
+        if (this._effect > 0) this._avatarImage.appendAction(AvatarAction.EFFECT, this._effect);
 
         avatar.endActionAppends();
 
@@ -978,24 +978,24 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         let spriteCount = AvatarVisualization.INITIAL_RESERVED_SPRITES;
 
-        for(const sprite of this._avatarImage.getSprites())
+        for (const sprite of this._avatarImage.getSprites())
         {
-            if(sprite.id !== AvatarVisualization.AVATAR) spriteCount++;
+            if (sprite.id !== AvatarVisualization.AVATAR) spriteCount++;
         }
 
-        if(spriteCount !== this.totalSprites) this.createSprites(spriteCount);
+        if (spriteCount !== this.totalSprites) this.createSprites(spriteCount);
 
         this._extraSpritesStartIndex = spriteCount;
 
-        if(this._additions)
+        if (this._additions)
         {
-            for(const addition of this._additions.values()) this.createSprite();
+            for (const addition of this._additions.values()) this.createSprite();
         }
     }
 
     private updateFigure(figure: string): boolean
     {
-        if(this._figure === figure) return false;
+        if (this._figure === figure) return false;
 
         this._figure = figure;
 
@@ -1016,9 +1016,9 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
     private clearAvatar(): void
     {
-        for(const avatar of this._cachedAvatars.getValues()) avatar && avatar.dispose();
+        for (const avatar of this._cachedAvatars.getValues()) avatar && avatar.dispose();
 
-        for(const avatar of this._cachedAvatarEffects.getValues()) avatar && avatar.dispose();
+        for (const avatar of this._cachedAvatarEffects.getValues()) avatar && avatar.dispose();
 
         this._cachedAvatars.reset();
         this._cachedAvatarEffects.reset();
@@ -1027,7 +1027,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const sprite = this.getSprite(AvatarVisualization.AVATAR_LAYER_ID);
 
-        if(sprite)
+        if (sprite)
         {
             sprite.texture = Texture.EMPTY;
             sprite.alpha = 255;
@@ -1036,11 +1036,11 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
     private getAddition(id: number): IAvatarAddition
     {
-        if(!this._additions) return null;
+        if (!this._additions) return null;
 
         const existing = this._additions.get(id);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         return existing;
     }
@@ -1049,7 +1049,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
     {
         const existing = this.getAddition(addition.id);
 
-        if(existing) return;
+        if (existing) return;
 
         this._additions.set(addition.id, addition);
 
@@ -1060,7 +1060,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
     {
         const addition = this.getAddition(id);
 
-        if(!addition) return;
+        if (!addition) return;
 
         this._additions.delete(addition.id);
 
@@ -1073,22 +1073,22 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
         const sprite = this.getSprite(AvatarVisualization.SHADOW_LAYER_ID);
 
-        if(!sprite) return;
+        if (!sprite) return;
 
         let hasShadow = (((this._posture === 'mv') || (this._posture === 'std')) || ((this._posture === 'sit') && this._canStandUp));
 
-        if(this._effect === AvatarVisualization.SNOWBOARDING_EFFECT) hasShadow = false;
+        if (this._effect === AvatarVisualization.SNOWBOARDING_EFFECT) hasShadow = false;
 
-        if(hasShadow)
+        if (hasShadow)
         {
             sprite.visible = true;
 
-            if(!this._shadow || (scale !== this._scale))
+            if (!this._shadow || (scale !== this._scale))
             {
                 let offsetX = 0;
                 let offsetY = 0;
 
-                if(scale < 48)
+                if (scale < 48)
                 {
                     sprite.libraryAssetName = 'sh_std_sd_1_0_0';
 
@@ -1107,7 +1107,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                     offsetY = ((this._canStandUp) ? 10 : -7);
                 }
 
-                if(this._shadow)
+                if (this._shadow)
                 {
                     sprite.texture = this._shadow.texture;
                     sprite.offsetX = offsetX;

@@ -1,9 +1,9 @@
 
 import { Resource, Texture } from '@pixi/core';
 import { Spritesheet } from '@pixi/spritesheet';
-import { IGraphicAsset } from '../../room/object/visualization/utils/IGraphicAsset';
-import { IGraphicAssetCollection } from '../../room/object/visualization/utils/IGraphicAssetCollection';
-import { IAssetData } from './interfaces';
+import { IAssetData } from './IAssetData';
+import { IGraphicAsset } from './IGraphicAsset';
+import { IGraphicAssetCollection } from './IGraphicAssetCollection';
 
 export interface IAssetManager
 {

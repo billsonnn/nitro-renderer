@@ -1,4 +1,4 @@
-import { IAssetColor, IAssetVisualizationDirection, IAssetVisualizationLayer } from '../../../../../core/asset/interfaces/visualization';
+import { IAssetColor, IAssetVisualizationDirection, IAssetVisualizationLayer } from '../../../../../api';
 import { SpriteUtilities } from '../../../../../room/utils/SpriteUtilities';
 import { ColorData } from './ColorData';
 import { DirectionData } from './DirectionData';
@@ -31,18 +31,18 @@ export class SizeData
 
     public dispose(): void
     {
-        if(this._defaultDirection) this._defaultDirection.dispose();
+        if (this._defaultDirection) this._defaultDirection.dispose();
 
-        for(const direction of this._directions.values())
+        for (const direction of this._directions.values())
         {
-            if(!direction) continue;
+            if (!direction) continue;
 
             direction.dispose();
         }
 
-        for(const color of this._colors)
+        for (const color of this._colors)
         {
-            if(!color) continue;
+            if (!color) continue;
 
             color.dispose();
         }
@@ -62,24 +62,24 @@ export class SizeData
 
     public processLayers(layers: { [index: string]: IAssetVisualizationLayer }): boolean
     {
-        if(!layers) return false;
+        if (!layers) return false;
 
         return this.setDirectionLayers(this._defaultDirection, layers);
     }
 
     public processDirections(directions: { [index: string]: IAssetVisualizationDirection }): boolean
     {
-        if(!directions) return false;
+        if (!directions) return false;
 
-        for(const key in directions)
+        for (const key in directions)
         {
             const direction = directions[key];
 
-            if(!direction) continue;
+            if (!direction) continue;
 
             const directionNumber = parseInt(key);
 
-            if(this._directions.get(directionNumber)) return false;
+            if (this._directions.get(directionNumber)) return false;
 
             const directionData = new DirectionData(this._layerCount);
 
@@ -98,25 +98,25 @@ export class SizeData
 
     public processColors(colors: { [index: string]: IAssetColor }): boolean
     {
-        if(!colors) return false;
+        if (!colors) return false;
 
-        for(const key in colors)
+        for (const key in colors)
         {
             const color = colors[key];
 
-            if(!color) continue;
+            if (!color) continue;
 
             const colorNumber = parseInt(key);
 
-            if(this._colors[colorNumber]) return false;
+            if (this._colors[colorNumber]) return false;
 
             const colorData = new ColorData(this._layerCount);
 
-            for(const layer in color.layers)
+            for (const layer in color.layers)
             {
                 const colorLayer = color.layers[layer];
 
-                if(!colorLayer) continue;
+                if (!colorLayer) continue;
 
                 const layerId = parseInt(layer);
                 const colorId = colorLayer.color;
@@ -132,31 +132,31 @@ export class SizeData
 
     private setDirectionLayers(directionData: DirectionData, layers: { [index: string]: IAssetVisualizationLayer }): boolean
     {
-        if(!directionData || !layers) return false;
+        if (!directionData || !layers) return false;
 
-        for(const key in layers)
+        for (const key in layers)
         {
             const layer = layers[key];
 
-            if(!layer) continue;
+            if (!layer) continue;
 
             const layerId = parseInt(key);
 
-            if(layerId < 0 || (layerId >= this._layerCount)) return false;
+            if (layerId < 0 || (layerId >= this._layerCount)) return false;
 
-            if(layer.ink !== undefined) directionData.setLayerInk(layerId, SpriteUtilities.inkToBlendMode(layer.ink));
+            if (layer.ink !== undefined) directionData.setLayerInk(layerId, SpriteUtilities.inkToBlendMode(layer.ink));
 
-            if(layer.tag !== undefined) directionData.setLayerTag(layerId, layer.tag);
+            if (layer.tag !== undefined) directionData.setLayerTag(layerId, layer.tag);
 
-            if(layer.alpha !== undefined) directionData.setLayerAlpha(layerId, layer.alpha);
+            if (layer.alpha !== undefined) directionData.setLayerAlpha(layerId, layer.alpha);
 
-            if(layer.ignoreMouse !== undefined) directionData.setLayerIgnoreMouse(layerId, layer.ignoreMouse);
+            if (layer.ignoreMouse !== undefined) directionData.setLayerIgnoreMouse(layerId, layer.ignoreMouse);
 
-            if(layer.x !== undefined) directionData.setLayerXOffset(layerId, layer.x);
+            if (layer.x !== undefined) directionData.setLayerXOffset(layerId, layer.x);
 
-            if(layer.y !== undefined) directionData.setLayerYOffset(layerId, layer.y);
+            if (layer.y !== undefined) directionData.setLayerYOffset(layerId, layer.y);
 
-            if(layer.z !== undefined) directionData.setLayerZOffset(layerId, (layer.z / -1000));
+            if (layer.z !== undefined) directionData.setLayerZOffset(layerId, (layer.z / -1000));
         }
 
         return true;
@@ -166,38 +166,38 @@ export class SizeData
     {
         const existing = this._directions.get(direction);
 
-        if(existing) return direction;
+        if (existing) return direction;
 
         direction = (((direction % 360) + 360) % 360);
 
         let currentAngle = -1;
         let validDirection = -1;
 
-        for(const key of this._directions.keys())
+        for (const key of this._directions.keys())
         {
             let angle = ((((key * this._angle) - direction) + 360) % 360);
 
-            if(angle > 180) angle = (360 - angle);
+            if (angle > 180) angle = (360 - angle);
 
-            if((angle < currentAngle) || (currentAngle < 0))
+            if ((angle < currentAngle) || (currentAngle < 0))
             {
                 currentAngle = angle;
                 validDirection = key;
             }
         }
 
-        if(validDirection >= 0) return Math.trunc(validDirection);
+        if (validDirection >= 0) return Math.trunc(validDirection);
 
         return 0;
     }
 
     public getDirectionData(direction: number): DirectionData
     {
-        if(direction === this._lastDirection && this._lastDirectionData) return this._lastDirectionData;
+        if (direction === this._lastDirection && this._lastDirectionData) return this._lastDirectionData;
 
         let directionData = this._directions.get(direction);
 
-        if(!directionData) directionData = this._defaultDirection;
+        if (!directionData) directionData = this._defaultDirection;
 
         this._lastDirection = direction;
         this._lastDirectionData = directionData;
@@ -209,7 +209,7 @@ export class SizeData
     {
         const directionData = this.getDirectionData(direction);
 
-        if(!directionData) return LayerData.DEFAULT_TAG;
+        if (!directionData) return LayerData.DEFAULT_TAG;
 
         return directionData.getLayerTag(layerId);
     }
@@ -218,7 +218,7 @@ export class SizeData
     {
         const directionData = this.getDirectionData(direction);
 
-        if(!directionData) return LayerData.DEFAULT_INK;
+        if (!directionData) return LayerData.DEFAULT_INK;
 
         return directionData.getLayerInk(layerId);
     }
@@ -227,7 +227,7 @@ export class SizeData
     {
         const directionData = this.getDirectionData(direction);
 
-        if(!directionData) return LayerData.DEFAULT_ALPHA;
+        if (!directionData) return LayerData.DEFAULT_ALPHA;
 
         return directionData.getLayerAlpha(layerId);
     }
@@ -236,7 +236,7 @@ export class SizeData
     {
         const existing = this._colors[colorId] as ColorData;
 
-        if(!existing) return ColorData.DEFAULT_COLOR;
+        if (!existing) return ColorData.DEFAULT_COLOR;
 
         return existing.getLayerColor(layerId);
     }
@@ -245,7 +245,7 @@ export class SizeData
     {
         const directionData = this.getDirectionData(direction);
 
-        if(!directionData) return LayerData.DEFAULT_IGNORE_MOUSE;
+        if (!directionData) return LayerData.DEFAULT_IGNORE_MOUSE;
 
         return directionData.getLayerIgnoreMouse(layerId);
     }
@@ -254,7 +254,7 @@ export class SizeData
     {
         const directionData = this.getDirectionData(direction);
 
-        if(!directionData) return LayerData.DEFAULT_XOFFSET;
+        if (!directionData) return LayerData.DEFAULT_XOFFSET;
 
         return directionData.getLayerXOffset(layerId);
     }
@@ -263,7 +263,7 @@ export class SizeData
     {
         const directionData = this.getDirectionData(direction);
 
-        if(!directionData) return LayerData.DEFAULT_YOFFSET;
+        if (!directionData) return LayerData.DEFAULT_YOFFSET;
 
         return directionData.getLayerYOffset(layerId);
     }
@@ -272,7 +272,7 @@ export class SizeData
     {
         const directionData = this.getDirectionData(direction);
 
-        if(!directionData) return LayerData.DEFAULT_ZOFFSET;
+        if (!directionData) return LayerData.DEFAULT_ZOFFSET;
 
         return directionData.getLayerZOffset(layerId);
     }

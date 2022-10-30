@@ -1,5 +1,5 @@
 ﻿import { AdjustmentFilter } from '@pixi/filter-adjustment';
-import { IAssetAnimationAvatar } from '../../../core/asset/interfaces';
+import { IAssetAnimationAvatar } from '../../../api';
 import { IAvatarDataContainer } from './IAvatarDataContainer';
 
 export class AvatarDataContainer implements IAvatarDataContainer
@@ -42,7 +42,7 @@ export class AvatarDataContainer implements IAvatarDataContainer
         this._alphaMultiplier = 1;
         this._paletteIsGrayscale = true;
 
-        if(this._ink === 37)
+        if (this._ink === 37)
         {
             this._alphaMultiplier = 0.5;
             this._paletteIsGrayscale = false;
@@ -111,9 +111,9 @@ export class AvatarDataContainer implements IAvatarDataContainer
         let _local_22 = greenBackground;
         let _local_23 = blueBackground;
 
-        for(let i = 0; i < 256; i++)
+        for (let i = 0; i < 256; i++)
         {
-            if((((_local_21 == redBackground) && (_local_22 == greenBackground)) && (_local_23 == blueBackground)))
+            if ((((_local_21 == redBackground) && (_local_22 == greenBackground)) && (_local_23 == blueBackground)))
             {
                 _local_20 = 0;
             }

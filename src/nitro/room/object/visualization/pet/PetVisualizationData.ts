@@ -1,4 +1,4 @@
-import { IAssetVisualizationData } from '../../../../../core/asset/interfaces';
+import { IAssetVisualizationData } from '../../../../../api';
 import { AnimationSizeData } from '../data/AnimationSizeData';
 import { PetSizeData } from '../data/PetSizeData';
 import { SizeData } from '../data/SizeData';
@@ -17,7 +17,7 @@ export class PetVisualizationData extends FurnitureAnimatedVisualizationData
 
     protected createSizeData(scale: number, layerCount: number, angle: number): SizeData
     {
-        if(scale > 1) return new PetSizeData(layerCount, angle);
+        if (scale > 1) return new PetSizeData(layerCount, angle);
         else return new AnimationSizeData(layerCount, angle);
     }
 
@@ -30,18 +30,18 @@ export class PetVisualizationData extends FurnitureAnimatedVisualizationData
 
     protected processVisualElement(sizeData: SizeData, key: string, data: any): boolean
     {
-        if(!sizeData || !key || !data) return false;
+        if (!sizeData || !key || !data) return false;
 
-        switch(key)
+        switch (key)
         {
             case 'postures':
-                if(!(sizeData instanceof PetSizeData) || !sizeData.processPostures(data)) return false;
+                if (!(sizeData instanceof PetSizeData) || !sizeData.processPostures(data)) return false;
                 break;
             case 'gestures':
-                if(!(sizeData instanceof PetSizeData) || !sizeData.processGestures(data)) return false;
+                if (!(sizeData instanceof PetSizeData) || !sizeData.processGestures(data)) return false;
                 break;
             default:
-                if(!super.processVisualElement(sizeData, key, data)) return false;
+                if (!super.processVisualElement(sizeData, key, data)) return false;
                 break;
         }
 
@@ -52,7 +52,7 @@ export class PetVisualizationData extends FurnitureAnimatedVisualizationData
     {
         const size = this.getSizeData(scale) as PetSizeData;
 
-        if(!size) return PetSizeData.DEFAULT;
+        if (!size) return PetSizeData.DEFAULT;
 
         return size.postureToAnimation(posture);
     }
@@ -61,7 +61,7 @@ export class PetVisualizationData extends FurnitureAnimatedVisualizationData
     {
         const size = this.getSizeData(scale) as PetSizeData;
 
-        if(!size) return false;
+        if (!size) return false;
 
         return size.getGestureDisabled(posture);
     }
@@ -70,7 +70,7 @@ export class PetVisualizationData extends FurnitureAnimatedVisualizationData
     {
         const size = this.getSizeData(scale) as PetSizeData;
 
-        if(!size) return PetSizeData.DEFAULT;
+        if (!size) return PetSizeData.DEFAULT;
 
         return size.gestureToAnimation(gesture);
     }
@@ -79,7 +79,7 @@ export class PetVisualizationData extends FurnitureAnimatedVisualizationData
     {
         const size = this.getSizeData(scale) as PetSizeData;
 
-        if(!size) return null;
+        if (!size) return null;
 
         return size.animationToPosture(index, useDefault);
     }
@@ -88,7 +88,7 @@ export class PetVisualizationData extends FurnitureAnimatedVisualizationData
     {
         const size = this.getSizeData(scale) as PetSizeData;
 
-        if(!size) return null;
+        if (!size) return null;
 
         return size.animationToGesture(index);
     }
@@ -97,7 +97,7 @@ export class PetVisualizationData extends FurnitureAnimatedVisualizationData
     {
         const size = this.getSizeData(scale) as PetSizeData;
 
-        if(!size) return null;
+        if (!size) return null;
 
         return size.getGestureForAnimationId(_arg_2);
     }
@@ -106,7 +106,7 @@ export class PetVisualizationData extends FurnitureAnimatedVisualizationData
     {
         const size = this.getSizeData(scale) as PetSizeData;
 
-        if(!size) return 0;
+        if (!size) return 0;
 
         return size.totalPostures;
     }
@@ -115,7 +115,7 @@ export class PetVisualizationData extends FurnitureAnimatedVisualizationData
     {
         const size = this.getSizeData(scale) as PetSizeData;
 
-        if(!size) return 0;
+        if (!size) return 0;
 
         return size.totalGestures;
     }

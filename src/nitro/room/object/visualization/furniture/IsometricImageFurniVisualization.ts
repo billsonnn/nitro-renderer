@@ -1,7 +1,7 @@
 import { Resource, Texture } from '@pixi/core';
 import { Matrix } from '@pixi/math';
+import { IGraphicAsset } from '../../../../../api';
 import { NitroSprite, NitroTexture } from '../../../../../core';
-import { IGraphicAsset } from '../../../../../room/object/visualization/utils/IGraphicAsset';
 import { TextureUtils } from '../../../../../room/utils/TextureUtils';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
 
@@ -41,7 +41,7 @@ export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualiza
     {
         const flag = super.updateModel(scale);
 
-        if(!this._thumbnailChanged && (this._thumbnailDirection === this.direction)) return flag;
+        if (!this._thumbnailChanged && (this._thumbnailDirection === this.direction)) return flag;
 
         this.refreshThumbnail();
 
@@ -50,9 +50,9 @@ export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualiza
 
     private refreshThumbnail(): void
     {
-        if(this.asset == null) return;
+        if (this.asset == null) return;
 
-        if(this._thumbnailImageNormal)
+        if (this._thumbnailImageNormal)
         {
             this.addThumbnailAsset(this._thumbnailImageNormal, 64);
         }
@@ -69,14 +69,14 @@ export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualiza
     {
         let layerId = 0;
 
-        while(layerId < this.totalSprites)
+        while (layerId < this.totalSprites)
         {
-            if(this.getLayerTag(scale, this.direction, layerId) === IsometricImageFurniVisualization.THUMBNAIL)
+            if (this.getLayerTag(scale, this.direction, layerId) === IsometricImageFurniVisualization.THUMBNAIL)
             {
                 const assetName = (this.cacheSpriteAssetName(scale, layerId, false) + this.getFrameNumber(scale, layerId));
                 const asset = this.getAsset(assetName, layerId);
 
-                if(asset)
+                if (asset)
                 {
                     const _local_6 = this.generateTransformedThumbnail(k, asset);
                     const _local_7 = this.getThumbnailAssetName(scale);
@@ -94,7 +94,7 @@ export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualiza
 
     private generateTransformedThumbnail(texture: Texture<Resource>, asset: IGraphicAsset): Texture<Resource>
     {
-        if(this._hasOutline)
+        if (this._hasOutline)
         {
             const container = new NitroSprite();
             const background = new NitroSprite(NitroTexture.WHITE);
@@ -118,7 +118,7 @@ export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualiza
         const matrix = new Matrix();
         const difference = (asset.width / texture.width);
 
-        switch(this.direction)
+        switch (this.direction)
         {
             case 2:
                 matrix.a = difference;
@@ -155,7 +155,7 @@ export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualiza
 
     protected getSpriteAssetName(scale: number, layerId: number): string
     {
-        if(this._thumbnailImageNormal && (this.getLayerTag(scale, this.direction, layerId) === IsometricImageFurniVisualization.THUMBNAIL)) return this.getThumbnailAssetName(scale);
+        if (this._thumbnailImageNormal && (this.getLayerTag(scale, this.direction, layerId) === IsometricImageFurniVisualization.THUMBNAIL)) return this.getThumbnailAssetName(scale);
 
         return super.getSpriteAssetName(scale, layerId);
     }

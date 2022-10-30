@@ -1,6 +1,6 @@
 import { Resource, Texture } from '@pixi/core';
 import { Rectangle } from '@pixi/math';
-import { IGraphicAsset } from './IGraphicAsset';
+import { IGraphicAsset } from '../../../../api';
 
 export class GraphicAsset implements IGraphicAsset
 {
@@ -26,7 +26,7 @@ export class GraphicAsset implements IGraphicAsset
         graphicAsset._name = name;
         graphicAsset._source = source || null;
 
-        if(texture)
+        if (texture)
         {
             graphicAsset._texture = texture;
             graphicAsset._initialized = false;
@@ -56,7 +56,7 @@ export class GraphicAsset implements IGraphicAsset
 
     private initialize(): void
     {
-        if(this._initialized || !this._texture) return;
+        if (this._initialized || !this._texture) return;
 
         this._width = this._texture.width;
         this._height = this._texture.height;
@@ -110,14 +110,14 @@ export class GraphicAsset implements IGraphicAsset
 
     public get offsetX(): number
     {
-        if(!this._flipH) return this._x;
+        if (!this._flipH) return this._x;
 
         return (-(this._x));
     }
 
     public get offsetY(): number
     {
-        if(!this._flipV) return this._y;
+        if (!this._flipV) return this._y;
 
         return (-(this._y));
     }
@@ -134,7 +134,7 @@ export class GraphicAsset implements IGraphicAsset
 
     public get rectangle(): Rectangle
     {
-        if(!this._rectangle) this._rectangle = new Rectangle(0, 0, this.width, this.height);
+        if (!this._rectangle) this._rectangle = new Rectangle(0, 0, this.width, this.height);
 
         return this._rectangle;
     }

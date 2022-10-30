@@ -1,5 +1,5 @@
+import { IAssetManager } from '../api';
 import { AssetManager } from './asset/AssetManager';
-import { IAssetManager } from './asset/IAssetManager';
 import { Disposable } from './common/disposable/Disposable';
 import { CommunicationManager } from './communication/CommunicationManager';
 import { ICommunicationManager } from './communication/ICommunicationManager';
@@ -27,14 +27,14 @@ export class NitroCore extends Disposable implements INitroCore
 
     protected onDispose(): void
     {
-        if(this._asset)
+        if (this._asset)
         {
             this._asset.dispose();
 
             this._asset = null;
         }
 
-        if(this._communication)
+        if (this._communication)
         {
             this._communication.dispose();
 
