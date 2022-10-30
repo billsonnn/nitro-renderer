@@ -13,4 +13,4 @@ export * from './common';
 export * from './communication';
 export * from './communication/enums';
 export * from './configuration';
-export * from './events';
+export * from './INitroCore';

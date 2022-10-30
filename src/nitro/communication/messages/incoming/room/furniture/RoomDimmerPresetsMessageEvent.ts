@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../core';
 import { RoomDimmerPresetsMessageParser } from '../../../parser/room/furniture/RoomDimmerPresetsMessageParser';
 
 export class RoomDimmerPresetsEvent extends MessageEvent implements IMessageEvent

@@ -1,4 +1,4 @@
-import { NitroEvent } from '../../../core/events/NitroEvent';
+import { NitroEvent } from '../../../core';
 import { IRoomSession } from '../IRoomSession';
 
 export class RoomSessionEvent extends NitroEvent

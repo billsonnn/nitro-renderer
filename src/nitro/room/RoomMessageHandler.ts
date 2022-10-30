@@ -1,5 +1,5 @@
 import { IConnection } from '../../api';
-import { Disposable } from '../../core/common/Disposable';
+import { Disposable } from '../../core';
 import { IVector3D } from '../../room/utils/IVector3D';
 import { Vector3d } from '../../room/utils/Vector3d';
 import { AvatarGuideStatus } from '../avatar/enum/AvatarGuideStatus';

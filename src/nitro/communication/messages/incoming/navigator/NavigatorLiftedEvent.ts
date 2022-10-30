@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { NavigatorLiftedParser } from '../../parser/navigator/NavigatorLiftedParser';
 
 export class NavigatorLiftedEvent extends MessageEvent implements IMessageEvent

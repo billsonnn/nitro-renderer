@@ -1,8 +1,7 @@
 import { Resource, Texture } from '@pixi/core';
 import { Matrix } from '@pixi/math';
 import { IGraphicAsset } from '../../../../../api';
-import { NitroSprite, NitroTexture } from '../../../../../pixi-proxy';
-import { TextureUtils } from '../../../../../room/utils/TextureUtils';
+import { NitroSprite, NitroTexture, TextureUtils } from '../../../../../pixi-proxy';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
 
 export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualization

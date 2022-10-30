@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { VoucherRedeemErrorMessageParser } from '../../parser';
 
 export class VoucherRedeemErrorMessageEvent extends MessageEvent implements IMessageEvent

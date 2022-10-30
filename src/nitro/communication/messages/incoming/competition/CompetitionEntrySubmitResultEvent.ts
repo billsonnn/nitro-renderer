@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { CompetitionEntrySubmitResultMessageParser } from '../../parser';
 
 export class CompetitionEntrySubmitResultEvent extends MessageEvent implements IMessageEvent

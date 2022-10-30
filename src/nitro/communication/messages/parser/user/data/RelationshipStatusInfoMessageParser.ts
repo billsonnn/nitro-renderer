@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { AdvancedMap } from '../../../../../../core/utils/AdvancedMap';
+import { AdvancedMap } from '../../../../../../core';
 import { RelationshipStatusInfo } from './RelationshipStatusInfo';
 
 export class RelationshipStatusInfoMessageParser implements IMessageParser

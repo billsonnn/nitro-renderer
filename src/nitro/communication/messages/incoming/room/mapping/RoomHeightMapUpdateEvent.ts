@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../core';
 import { RoomHeightMapUpdateParser } from '../../../parser/room/mapping/RoomHeightMapUpdateParser';
 
 export class RoomHeightMapUpdateEvent extends MessageEvent implements IMessageEvent

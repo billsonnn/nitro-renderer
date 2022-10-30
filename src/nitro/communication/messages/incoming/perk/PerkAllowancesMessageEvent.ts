@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { PerkAllowancesMessageParser } from './../../parser/perk/PerkAllowancesMessageParser';
 
 export class PerkAllowancesMessageEvent extends MessageEvent implements IMessageEvent

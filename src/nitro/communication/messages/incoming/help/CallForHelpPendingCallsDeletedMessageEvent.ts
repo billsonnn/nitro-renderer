@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { CallForHelpPendingCallsDeletedMessageParser } from '../../parser/help/CallForHelpPendingCallsDeletedMessageParser';
 
 export class CallForHelpPendingCallsDeletedMessageEvent extends MessageEvent implements IMessageEvent

@@ -1,4 +1,4 @@
-import { IEventDispatcher } from '../events';
+import { IEventDispatcher } from '../common';
 import { IMessageComposer } from './IMessageComposer';
 import { IMessageConfiguration } from './IMessageConfiguration';
 import { IMessageEvent } from './IMessageEvent';

@@ -1,7 +1,7 @@
 ﻿import { Graphics } from '@pixi/graphics';
 import { Point, Rectangle } from '@pixi/math';
+import { TextureUtils } from '../../../../../../../pixi-proxy';
 import { IVector3D } from '../../../../../../../room/utils/IVector3D';
-import { TextureUtils } from '../../../../../../../room/utils/TextureUtils';
 import { Vector3d } from '../../../../../../../room/utils/Vector3d';
 import { RoomVisualization } from '../../RoomVisualization';
 import { Randomizer } from '../../utils/Randomizer';
@@ -36,15 +36,15 @@ export class PlaneMaterialCellMatrix
     private _normalMinY: number = -1;
     private _normalMaxY: number = 1;
 
-    constructor(totalColumns: number, repeatMode: number=1, align: number=1, normalMinX: number=-1, normalMaxX: number=1, normalMinY: number=-1, normalMaxY: number=1)
+    constructor(totalColumns: number, repeatMode: number = 1, align: number = 1, normalMinX: number = -1, normalMaxX: number = 1, normalMinY: number = -1, normalMaxY: number = 1)
     {
         this._columns = [];
-        if(totalColumns < 1)
+        if (totalColumns < 1)
         {
             totalColumns = 1;
         }
         let _local_8 = 0;
-        while(_local_8 < totalColumns)
+        while (_local_8 < totalColumns)
         {
             this._columns.push(null);
             _local_8++;
@@ -55,7 +55,7 @@ export class PlaneMaterialCellMatrix
         this._normalMaxX = normalMaxX;
         this._normalMinY = normalMinY;
         this._normalMaxY = normalMaxY;
-        if(this._repeatMode == PlaneMaterialCellMatrix.REPEAT_MODE_RANDOM)
+        if (this._repeatMode == PlaneMaterialCellMatrix.REPEAT_MODE_RANDOM)
         {
             this._isStatic = false;
         }
@@ -98,39 +98,39 @@ export class PlaneMaterialCellMatrix
 
     public dispose(): void
     {
-        if(this._cachedBitmapData)
+        if (this._cachedBitmapData)
         {
             this._cachedBitmapData.destroy();
 
             this._cachedBitmapData = null;
         }
 
-        if(this._cachedBitmapNormal) this._cachedBitmapNormal = null;
+        if (this._cachedBitmapNormal) this._cachedBitmapNormal = null;
     }
 
     public clearCache(): void
     {
-        if(!this._isCached) return;
+        if (!this._isCached) return;
 
-        if(this._cachedBitmapData)
+        if (this._cachedBitmapData)
         {
             this._cachedBitmapData.destroy();
 
             this._cachedBitmapData = null;
         }
 
-        if(this._cachedBitmapNormal)
+        if (this._cachedBitmapNormal)
         {
             this._cachedBitmapNormal.x = 0;
             this._cachedBitmapNormal.y = 0;
             this._cachedBitmapNormal.z = 0;
         }
 
-        if(this._columns && this._columns.length)
+        if (this._columns && this._columns.length)
         {
-            for(const column of this._columns)
+            for (const column of this._columns)
             {
-                if(!column) continue;
+                if (!column) continue;
 
                 column.clearCache();
             }
@@ -139,39 +139,39 @@ export class PlaneMaterialCellMatrix
         this._isCached = false;
     }
 
-    public createColumn(index: number, width: number, cells: PlaneMaterialCell[], repeatMode: number=1): boolean
+    public createColumn(index: number, width: number, cells: PlaneMaterialCell[], repeatMode: number = 1): boolean
     {
-        if((index < 0) || (index >= this._columns.length)) return false;
+        if ((index < 0) || (index >= this._columns.length)) return false;
 
         const newColumn = new PlaneMaterialCellColumn(width, cells, repeatMode);
         const oldColumn = this._columns[index];
 
-        if(oldColumn) oldColumn.dispose();
+        if (oldColumn) oldColumn.dispose();
 
         this._columns[index] = newColumn;
 
-        if(newColumn && !newColumn.isStatic) this._isStatic = false;
+        if (newColumn && !newColumn.isStatic) this._isStatic = false;
 
         return true;
     }
 
     public render(canvas: Graphics, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number, topAlign: boolean): Graphics
     {
-        if(width < 1) width = 1;
+        if (width < 1) width = 1;
 
-        if(height < 1) height = 1;
+        if (height < 1) height = 1;
 
-        if(!canvas || (canvas.width !== width) || (canvas.height !== height)) canvas = null;
+        if (!canvas || (canvas.width !== width) || (canvas.height !== height)) canvas = null;
 
-        if(!this._cachedBitmapNormal) this._cachedBitmapNormal = new Vector3d();
+        if (!this._cachedBitmapNormal) this._cachedBitmapNormal = new Vector3d();
 
-        if(this.isStatic)
+        if (this.isStatic)
         {
-            if(this._cachedBitmapData)
+            if (this._cachedBitmapData)
             {
-                if(((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height == height)) && Vector3d.isEqual(this._cachedBitmapNormal, normal))
+                if (((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height == height)) && Vector3d.isEqual(this._cachedBitmapNormal, normal))
                 {
-                    if(canvas)
+                    if (canvas)
                     {
                         this.copyCachedBitmapOnCanvas(canvas, this._cachedBitmapHeight, offsetY, topAlign);
 
@@ -188,9 +188,9 @@ export class PlaneMaterialCellMatrix
         }
         else
         {
-            if(this._cachedBitmapData)
+            if (this._cachedBitmapData)
             {
-                if((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height))
+                if ((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height))
                 {
                     this._cachedBitmapData
                         .beginFill(0xFFFFFF)
@@ -209,11 +209,11 @@ export class PlaneMaterialCellMatrix
         this._isCached = true;
         this._cachedBitmapNormal.assign(normal);
 
-        if(!useTexture)
+        if (!useTexture)
         {
             this._cachedBitmapHeight = height;
 
-            if(!this._cachedBitmapData)
+            if (!this._cachedBitmapData)
             {
                 const graphic = new Graphics()
                     .beginFill(0xFFFFFF)
@@ -230,7 +230,7 @@ export class PlaneMaterialCellMatrix
                     .endFill();
             }
 
-            if(canvas)
+            if (canvas)
             {
                 this.copyCachedBitmapOnCanvas(canvas, height, offsetY, topAlign);
 
@@ -240,7 +240,7 @@ export class PlaneMaterialCellMatrix
             return this._cachedBitmapData;
         }
 
-        if(!this._cachedBitmapData)
+        if (!this._cachedBitmapData)
         {
             this._cachedBitmapHeight = height;
 
@@ -256,45 +256,45 @@ export class PlaneMaterialCellMatrix
 
         let columnIndex = 0;
 
-        while(columnIndex < this._columns.length)
+        while (columnIndex < this._columns.length)
         {
             const column = this._columns[columnIndex];
 
-            if(column)
+            if (column)
             {
                 const columnBitmapData = column.render(height, normal, offsetX, offsetY);
 
-                if(columnBitmapData) columns.push(columnBitmapData);
+                if (columnBitmapData) columns.push(columnBitmapData);
             }
 
             columnIndex++;
         }
 
-        if(!columns.length)
+        if (!columns.length)
         {
-            if(canvas) return canvas;
+            if (canvas) return canvas;
 
             return this._cachedBitmapData;
         }
 
         let maxColumnHeight = 0;
 
-        switch(this._repeatMode)
+        switch (this._repeatMode)
         {
             case PlaneMaterialCellMatrix.REPEAT_MODE_BORDERS:
-            //     maxColumnHeight = this.renderRepeatBorders(this._cachedBitmapData, columns);
+                //     maxColumnHeight = this.renderRepeatBorders(this._cachedBitmapData, columns);
                 break;
             case PlaneMaterialCellMatrix.REPEAT_MODE_CENTER:
-            //     maxColumnHeight = this.renderRepeatCenter(this._cachedBitmapData, columns);
+                //     maxColumnHeight = this.renderRepeatCenter(this._cachedBitmapData, columns);
                 break;
             case PlaneMaterialCellMatrix.REPEAT_MODE_FIRST:
-            //     maxColumnHeight = this.renderRepeatFirst(this._cachedBitmapData, columns);
+                //     maxColumnHeight = this.renderRepeatFirst(this._cachedBitmapData, columns);
                 break;
             case PlaneMaterialCellMatrix.REPEAT_MODE_LAST:
-            //     maxColumnHeight = this.renderRepeatLast(this._cachedBitmapData, columns);
+                //     maxColumnHeight = this.renderRepeatLast(this._cachedBitmapData, columns);
                 break;
             case PlaneMaterialCellMatrix.REPEAT_MODE_RANDOM:
-            //     maxColumnHeight = this.renderRepeatRandom(this._cachedBitmapData, columns);
+                //     maxColumnHeight = this.renderRepeatRandom(this._cachedBitmapData, columns);
                 break;
             default:
                 maxColumnHeight = this.renderRepeatAll(this._cachedBitmapData, columns);
@@ -303,7 +303,7 @@ export class PlaneMaterialCellMatrix
 
         this._cachedBitmapHeight = maxColumnHeight;
 
-        if(canvas)
+        if (canvas)
         {
             this.copyCachedBitmapOnCanvas(canvas, maxColumnHeight, offsetY, topAlign);
 
@@ -315,13 +315,13 @@ export class PlaneMaterialCellMatrix
 
     private copyCachedBitmapOnCanvas(canvas: Graphics, height: number, offsetY: number, topAlign: boolean): void
     {
-        if(!canvas || !this._cachedBitmapData || (canvas === this._cachedBitmapData)) return;
+        if (!canvas || !this._cachedBitmapData || (canvas === this._cachedBitmapData)) return;
 
-        if(!topAlign) offsetY = ((canvas.height - height) - offsetY);
+        if (!topAlign) offsetY = ((canvas.height - height) - offsetY);
 
         let _local_5: Rectangle;
 
-        if(this._align == PlaneMaterialCellMatrix.ALIGN_TOP)
+        if (this._align == PlaneMaterialCellMatrix.ALIGN_TOP)
         {
             _local_5 = new Rectangle(0, 0, this._cachedBitmapData.width, this._cachedBitmapHeight);
         }
@@ -332,7 +332,7 @@ export class PlaneMaterialCellMatrix
 
         const texture = TextureUtils.generateTexture(this._cachedBitmapData, _local_5);
 
-        if(texture)
+        if (texture)
         {
             canvas
                 .beginTextureFill({ texture })
@@ -343,13 +343,13 @@ export class PlaneMaterialCellMatrix
 
     private getColumnsWidth(columns: Graphics[]): number
     {
-        if(!columns || !columns.length) return 0;
+        if (!columns || !columns.length) return 0;
 
         let width = 0;
 
-        for(const graphic of columns)
+        for (const graphic of columns)
         {
-            if(!graphic) continue;
+            if (!graphic) continue;
 
             width += graphic.width;
         }
@@ -359,26 +359,26 @@ export class PlaneMaterialCellMatrix
 
     private renderColumns(canvas: Graphics, columns: Graphics[], x: number, flag: boolean): Point
     {
-        if(!canvas || !columns || !columns.length) return new Point(x, 0);
+        if (!canvas || !columns || !columns.length) return new Point(x, 0);
 
         let height = 0;
         let i = 0;
 
-        while(i < columns.length)
+        while (i < columns.length)
         {
             const column = flag ? columns[i] : columns[((columns.length - 1) - i)];
 
-            if(column)
+            if (column)
             {
-                if(!flag) x = (x - column.width);
+                if (!flag) x = (x - column.width);
 
                 let y = 0;
 
-                if(this._align == PlaneMaterialCellMatrix.ALIGN_BOTTOM) y = (canvas.height - column.height);
+                if (this._align == PlaneMaterialCellMatrix.ALIGN_BOTTOM) y = (canvas.height - column.height);
 
                 let texture = RoomVisualization.getTextureCache(column);
 
-                if(!texture)
+                if (!texture)
                 {
                     texture = TextureUtils.generateTexture(column, new Rectangle(0, 0, column.width, column.height));
 
@@ -389,11 +389,11 @@ export class PlaneMaterialCellMatrix
                 canvas.drawRect(x, y, texture.width, texture.height);
                 canvas.endFill();
 
-                if(column.height > height) height = column.height;
+                if (column.height > height) height = column.height;
 
-                if(flag) x = (x + column.width);
+                if (flag) x = (x + column.width);
 
-                if((flag && (x >= canvas.width)) || (!flag && (x <= 0))) return new Point(x, height);
+                if ((flag && (x >= canvas.width)) || (!flag && (x <= 0))) return new Point(x, height);
             }
 
             i++;
@@ -404,22 +404,22 @@ export class PlaneMaterialCellMatrix
 
     private renderRepeatAll(canvas: Graphics, columns: Graphics[]): number
     {
-        if(!canvas || !columns || !columns.length) return 0;
+        if (!canvas || !columns || !columns.length) return 0;
 
         const totalWidth: number = this.getColumnsWidth(columns);
 
         let x = 0;
         let y = 0;
 
-        while(x < canvas.width)
+        while (x < canvas.width)
         {
             const point = this.renderColumns(canvas, columns, x, true);
 
             x = point.x;
 
-            if(point.y > y) y = point.y;
+            if (point.y > y) y = point.y;
 
-            if(!point.x) return y;
+            if (!point.x) return y;
         }
 
         return y;
@@ -681,21 +681,21 @@ export class PlaneMaterialCellMatrix
 
     public getColumns(width: number): PlaneMaterialCellColumn[]
     {
-        if(this._repeatMode === PlaneMaterialCellMatrix.REPEAT_MODE_RANDOM)
+        if (this._repeatMode === PlaneMaterialCellMatrix.REPEAT_MODE_RANDOM)
         {
             const columns: PlaneMaterialCellColumn[] = [];
 
             let columnIndex = 0;
 
-            while(columnIndex < width)
+            while (columnIndex < width)
             {
                 const column = this._columns[PlaneMaterialCellMatrix.nextRandomColumnIndex(this._columns.length)];
 
-                if(column)
+                if (column)
                 {
                     columns.push(column);
 
-                    if(column.width > 1) columnIndex += column.width;
+                    if (column.width > 1) columnIndex += column.width;
                     else break;
                 }
             }

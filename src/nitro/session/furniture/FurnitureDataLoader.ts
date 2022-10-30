@@ -1,6 +1,4 @@
-import { NitroLogger } from '../../../core/common/NitroLogger';
-import { EventDispatcher } from '../../../core/events/EventDispatcher';
-import { NitroEvent } from '../../../core/events/NitroEvent';
+import { EventDispatcher, NitroEvent, NitroLogger } from '../../../core';
 import { INitroLocalizationManager } from '../../localization/INitroLocalizationManager';
 import { FurnitureData } from './FurnitureData';
 import { FurnitureType } from './FurnitureType';

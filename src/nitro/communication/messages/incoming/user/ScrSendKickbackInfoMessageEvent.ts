@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { ScrSendKickbackInfoMessageParser } from '../../parser/user/ScrSendKickbackInfoMessageParser';
 
 export class ScrSendKickbackInfoMessageEvent extends MessageEvent implements IMessageEvent

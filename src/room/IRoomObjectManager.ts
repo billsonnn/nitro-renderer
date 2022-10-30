@@ -1,4 +1,4 @@
-import { AdvancedMap } from '../core/utils/AdvancedMap';
+import { AdvancedMap } from '../core';
 import { IRoomObjectController } from './object/IRoomObjectController';
 
 export interface IRoomObjectManager

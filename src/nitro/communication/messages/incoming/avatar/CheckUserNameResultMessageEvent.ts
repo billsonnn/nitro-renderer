@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { CheckUserNameResultMessageParser } from '../../parser/avatar/CheckUserNameResultMessageParser';
 
 export class CheckUserNameResultMessageEvent extends MessageEvent implements IMessageEvent

@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { NewConsoleMessageParser } from '../../parser/friendlist/NewConsoleMessageParser';
 
 export class NewConsoleMessageEvent extends MessageEvent implements IMessageEvent

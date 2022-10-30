@@ -1,4 +1,6 @@
-export class BinaryReader
+import { IBinaryReader } from '../../api';
+
+export class BinaryReader implements IBinaryReader
 {
     private _position: number;
     private _dataView: DataView;
@@ -9,7 +11,7 @@ export class BinaryReader
         this._dataView = new DataView(buffer);
     }
 
-    public readBytes(length: number): BinaryReader
+    public readBytes(length: number): IBinaryReader
     {
         const buffer = new BinaryReader(this._dataView.buffer.slice(this._position, this._position + length));
 

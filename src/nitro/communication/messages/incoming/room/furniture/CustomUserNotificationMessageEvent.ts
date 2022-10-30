@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../core';
 import { CustomUserNotificationMessageParser } from '../../../parser/room/furniture/CustomUserNotificationMessageParser';
 
 export class CustomUserNotificationMessageEvent extends MessageEvent implements IMessageEvent

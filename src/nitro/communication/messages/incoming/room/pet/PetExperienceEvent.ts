@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../core';
 import { PetExperienceParser } from '../../../parser';
 
 export class PetExperienceEvent extends MessageEvent implements IMessageEvent

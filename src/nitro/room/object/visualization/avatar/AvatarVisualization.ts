@@ -1,7 +1,7 @@
 import { BLEND_MODES } from '@pixi/constants';
 import { Resource, Texture } from '@pixi/core';
 import { IGraphicAsset } from '../../../../../api';
-import { AdvancedMap } from '../../../../../core/utils/AdvancedMap';
+import { AdvancedMap } from '../../../../../core';
 import { AlphaTolerance } from '../../../../../room/object/enum/AlphaTolerance';
 import { RoomObjectSpriteType } from '../../../../../room/object/enum/RoomObjectSpriteType';
 import { IRoomObject } from '../../../../../room/object/IRoomObject';

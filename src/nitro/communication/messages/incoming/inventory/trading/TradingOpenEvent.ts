@@ -1,5 +1,5 @@
 ﻿import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../core';
 import { TradingOpenParser } from '../../../parser/inventory/trading/TradingOpenParser';
 
 export class TradingOpenEvent extends MessageEvent implements IMessageEvent

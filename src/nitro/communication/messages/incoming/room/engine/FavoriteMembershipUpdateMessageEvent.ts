@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../core';
 import { FavoriteMembershipUpdateMessageParser } from '../../../parser/room/engine/FavoriteMembershipUpdateMessageParser';
 
 export class FavoriteMembershipUpdateMessageEvent extends MessageEvent implements IMessageEvent

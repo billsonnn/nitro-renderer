@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../core';
 import { RoomUnitInfoParser } from '../../../parser/room/unit/RoomUnitInfoParser';
 
 export class RoomUnitInfoEvent extends MessageEvent implements IMessageEvent

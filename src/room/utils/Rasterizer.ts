@@ -1,7 +1,7 @@
 ﻿import { Resource, Texture } from '@pixi/core';
 import { Graphics } from '@pixi/graphics';
 import { Matrix } from '@pixi/math';
-import { TextureUtils } from './TextureUtils';
+import { TextureUtils } from '../../pixi-proxy';
 
 export class Rasterizer
 {
@@ -65,7 +65,7 @@ export class Rasterizer
 
     public static getFlipHBitmapData(k: Texture<Resource>): Texture<Resource>
     {
-        if(!k) return null;
+        if (!k) return null;
 
         const matrix = new Matrix();
 
@@ -87,7 +87,7 @@ export class Rasterizer
 
     public static getFlipVBitmapData(k: Texture<Resource>): Texture<Resource>
     {
-        if(!k) return null;
+        if (!k) return null;
 
         const matrix = new Matrix();
 
@@ -109,7 +109,7 @@ export class Rasterizer
 
     public static getFlipHVBitmapData(k: Texture<Resource>): Texture<Resource>
     {
-        if(!k) return null;
+        if (!k) return null;
 
         const matrix = new Matrix();
 

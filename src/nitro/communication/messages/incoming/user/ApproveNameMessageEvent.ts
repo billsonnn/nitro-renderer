@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { ApproveNameResultParser } from '../../parser';
 
 export class ApproveNameMessageEvent extends MessageEvent implements IMessageEvent

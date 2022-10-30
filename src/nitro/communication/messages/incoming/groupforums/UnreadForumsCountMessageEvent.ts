@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { UnreadForumsCountMessageParser } from '../../parser/groupforums/UnreadForumsCountMessageParser';
 
 export class UnreadForumsCountMessageEvent extends MessageEvent implements IMessageEvent

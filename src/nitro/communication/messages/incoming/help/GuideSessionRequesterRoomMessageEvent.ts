@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { GuideSessionRequesterRoomMessageParser } from '../../parser/help/GuideSessionRequesterRoomMessageParser';
 
 export class GuideSessionRequesterRoomMessageEvent extends MessageEvent implements IMessageEvent

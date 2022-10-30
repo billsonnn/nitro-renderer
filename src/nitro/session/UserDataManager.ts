@@ -1,5 +1,5 @@
 import { IConnection } from '../../api';
-import { Disposable } from '../../core/common/Disposable';
+import { Disposable } from '../../core';
 import { RequestPetInfoComposer } from '../communication/messages/outgoing/pet/RequestPetInfoComposer';
 import { UserCurrentBadgesComposer } from '../communication/messages/outgoing/user/data/UserCurrentBadgesComposer';
 import { RoomUserData } from './RoomUserData';

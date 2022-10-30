@@ -1,5 +1,4 @@
-import { Disposable } from '../../core/common/Disposable';
-import { NitroLogger } from '../../core/common/NitroLogger';
+import { Disposable, NitroLogger } from '../../core';
 import { RoomId } from '../../room';
 import { RoomObjectEvent } from '../../room/events/RoomObjectEvent';
 import { RoomObjectMouseEvent } from '../../room/events/RoomObjectMouseEvent';

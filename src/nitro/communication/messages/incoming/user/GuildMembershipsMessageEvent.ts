@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { GuildMembershipsMessageParser } from '../../parser/user/GuildMembershipsMessageParser';
 
 export class GuildMembershipsMessageEvent extends MessageEvent implements IMessageEvent

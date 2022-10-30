@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { NotEnoughBalanceMessageParser } from '../../parser';
 
 export class NotEnoughBalanceMessageEvent extends MessageEvent implements IMessageEvent

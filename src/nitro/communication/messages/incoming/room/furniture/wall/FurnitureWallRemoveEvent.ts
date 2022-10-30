@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../../api';
-import { MessageEvent } from '../../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../../core';
 import { FurnitureWallRemoveParser } from '../../../../parser/room/furniture/wall/FurnitureWallRemoveParser';
 
 export class FurnitureWallRemoveEvent extends MessageEvent implements IMessageEvent

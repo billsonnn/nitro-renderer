@@ -1,5 +1,5 @@
 import { IConnection } from '../../api';
-import { Disposable } from '../../core/common/Disposable';
+import { Disposable } from '../../core';
 import { CompostPlantMessageComposer, FurnitureMultiStateComposer, HarvestPetMessageComposer, PetMountComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from '../communication';
 import { RoomModerationSettings } from '../communication/messages/incoming/roomsettings/RoomModerationSettings';
 import { RoomDoorbellAccessComposer } from '../communication/messages/outgoing/room/access/RoomDoorbellAccessComposer';

@@ -1,6 +1,6 @@
 import { RenderTexture } from '@pixi/core';
 import { IMessageComposer } from '../../../../../api';
-import { TextureUtils } from '../../../../../room';
+import { TextureUtils } from '../../../../../pixi-proxy';
 
 export class RenderRoomMessageComposer implements IMessageComposer<ConstructorParameters<typeof RenderRoomMessageComposer>>
 {

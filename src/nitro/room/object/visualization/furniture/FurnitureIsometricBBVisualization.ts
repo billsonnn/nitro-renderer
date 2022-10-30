@@ -1,7 +1,7 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Matrix } from '@pixi/math';
 import { IGraphicAsset } from '../../../../../api';
-import { NitroSprite } from '../../../../../pixi-proxy';
+import { NitroSprite, PixiApplicationProxy } from '../../../../../pixi-proxy';
 import { Nitro } from '../../../../Nitro';
 import { FurnitureBBVisualization } from './FurnitureBBVisualization';
 import { FurnitureBrandedImageVisualization } from './FurnitureBrandedImageVisualization';
@@ -67,7 +67,7 @@ export class FurnitureIsometricBBVisualization extends FurnitureBBVisualization
                 height: (asset.height + matrix.ty)
             });
 
-            Nitro.instance.renderer.render(sprite, {
+            PixiApplicationProxy.instance.renderer.render(sprite, {
                 renderTexture,
                 clear: true,
                 transform: matrix
@@ -121,7 +121,7 @@ export class FurnitureIsometricBBVisualization extends FurnitureBBVisualization
             height: (asset.height + matrix.ty)
         });
 
-        Nitro.instance.renderer.render(sprite, {
+        PixiApplicationProxy.instance.renderer.render(sprite, {
             renderTexture,
             clear: true,
             transform: matrix

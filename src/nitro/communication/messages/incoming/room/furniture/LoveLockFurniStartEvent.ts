@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../core';
 import { LoveLockFurniStartParser } from '../../../parser/room/furniture/LoveLockFurniStartParser';
 
 export class LoveLockFurniStartEvent extends MessageEvent implements IMessageEvent

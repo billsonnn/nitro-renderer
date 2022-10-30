@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { DoorbellMessageParser } from '../../parser/navigator/DoorbellMessageParser';
 
 export class DoorbellMessageEvent extends MessageEvent implements IMessageEvent

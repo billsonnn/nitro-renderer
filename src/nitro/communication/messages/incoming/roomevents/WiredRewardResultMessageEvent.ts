@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { WiredRewardResultMessageParser } from '../../parser/roomevents/WiredRewardResultMessageParser';
 
 export class WiredRewardResultMessageEvent extends MessageEvent implements IMessageEvent

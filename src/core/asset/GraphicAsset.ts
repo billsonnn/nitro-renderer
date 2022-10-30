@@ -1,6 +1,6 @@
 import { Resource, Texture } from '@pixi/core';
 import { Rectangle } from '@pixi/math';
-import { IGraphicAsset } from '../../../../api';
+import { IGraphicAsset } from '../../api';
 
 export class GraphicAsset implements IGraphicAsset
 {

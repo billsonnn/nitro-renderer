@@ -4,10 +4,8 @@ import { ColorMatrixFilter } from '@pixi/filter-color-matrix';
 import { Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
 import { IGraphicAsset } from '../../api';
-import { AdvancedMap } from '../../core/utils/AdvancedMap';
-import { PaletteMapFilter } from '../../core/utils/PaletteMapFilter';
-import { NitroContainer, NitroSprite } from '../../pixi-proxy';
-import { TextureUtils } from '../../room/utils/TextureUtils';
+import { AdvancedMap } from '../../core';
+import { NitroContainer, NitroSprite, PaletteMapFilter, PixiApplicationProxy, TextureUtils } from '../../pixi-proxy';
 import { Nitro } from '../Nitro';
 import { ActiveActionData } from './actions/ActiveActionData';
 import { IActionDefinition } from './actions/IActionDefinition';
@@ -413,7 +411,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if (this._reusableTexture)
         {
-            Nitro.instance.renderer.render(container, {
+            PixiApplicationProxy.instance.renderer.render(container, {
                 renderTexture: this._reusableTexture,
                 clear: true
             });
@@ -484,7 +482,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         const newTexture = new Sprite(Texture.from(textureCanvas));
 
-        Nitro.instance.renderer.render(newTexture, {
+        PixiApplicationProxy.instance.renderer.render(newTexture, {
             renderTexture: texture,
             clear: true
         });

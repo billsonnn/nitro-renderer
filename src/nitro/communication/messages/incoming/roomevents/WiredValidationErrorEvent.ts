@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { WiredValidationErrorParser } from '../../parser/roomevents/WiredValidationErrorParser';
 
 export class WiredValidationErrorEvent extends MessageEvent implements IMessageEvent

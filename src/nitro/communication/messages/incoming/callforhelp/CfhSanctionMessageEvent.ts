@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { CfhSanctionMessageParser } from '../../parser/callforhelp/CfhSanctionMessageParser';
 
 export class CfhSanctionMessageEvent extends MessageEvent implements IMessageEvent

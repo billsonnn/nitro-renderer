@@ -1,5 +1,5 @@
 import { IEventDispatcher } from '../../../api';
-import { Disposable } from '../../../core/common/Disposable';
+import { Disposable } from '../../../core';
 import { RoomSpriteMouseEvent } from '../../events/RoomSpriteMouseEvent';
 import { RoomObjectUpdateMessage } from '../../messages/RoomObjectUpdateMessage';
 import { IRoomGeometry } from '../../utils/IRoomGeometry';

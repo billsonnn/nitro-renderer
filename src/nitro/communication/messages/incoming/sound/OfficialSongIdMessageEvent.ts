@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { OfficialSongIdMessageParser } from '../../parser';
 
 export class OfficialSongIdMessageEvent extends MessageEvent implements IMessageEvent

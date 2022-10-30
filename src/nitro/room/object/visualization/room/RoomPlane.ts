@@ -1,11 +1,10 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Graphics } from '@pixi/graphics';
 import { Matrix, Point, Rectangle } from '@pixi/math';
-import { NitroRenderTexture } from '../../../../../pixi-proxy';
+import { NitroRenderTexture, TextureUtils } from '../../../../../pixi-proxy';
 import { IRoomPlane } from '../../../../../room/object/visualization/IRoomPlane';
 import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
 import { IVector3D } from '../../../../../room/utils/IVector3D';
-import { TextureUtils } from '../../../../../room/utils/TextureUtils';
 import { Vector3d } from '../../../../../room/utils/Vector3d';
 import { PlaneMaskManager } from './mask/PlaneMaskManager';
 import { PlaneDrawingData } from './PlaneDrawingData';

@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { AvailabilityStatusMessageParser } from '../../parser/availability/AvailabilityStatusMessageParser';
 
 export class AvailabilityStatusMessageEvent extends MessageEvent implements IMessageEvent

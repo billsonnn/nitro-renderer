@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { WiredFurniActionParser } from '../../parser/roomevents/WiredFurniActionParser';
 
 export class WiredFurniActionEvent extends MessageEvent implements IMessageEvent

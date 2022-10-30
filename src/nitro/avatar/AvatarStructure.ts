@@ -1,6 +1,6 @@
 import { Point } from '@pixi/math';
 import { IAssetAnimation, IAssetManager } from '../../api';
-import { EventDispatcher } from '../../core/events/EventDispatcher';
+import { EventDispatcher } from '../../core';
 import { ActionDefinition } from './actions/ActionDefinition';
 import { AvatarActionManager } from './actions/AvatarActionManager';
 import { IActionDefinition } from './actions/IActionDefinition';

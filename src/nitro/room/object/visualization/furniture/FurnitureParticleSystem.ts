@@ -4,10 +4,9 @@ import { Graphics } from '@pixi/graphics';
 import { Matrix } from '@pixi/math';
 import { IGraphicAsset, IParticleSystem } from '../../../../../api';
 import { AdvancedMap } from '../../../../../core';
-import { NitroPoint, NitroSprite } from '../../../../../pixi-proxy';
+import { NitroPoint, NitroSprite, PixiApplicationProxy } from '../../../../../pixi-proxy';
 import { IRoomObjectSprite } from '../../../../../room';
 import { Vector3D } from '../../../../avatar';
-import { Nitro } from '../../../../Nitro';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
 import { FurnitureParticleSystemEmitter } from './FurnitureParticleSystemEmitter';
 
@@ -192,7 +191,7 @@ export class FurnitureParticleSystem
 
                         sprite.filters = [this._particleColorTransform];
 
-                        Nitro.instance.renderer.render(sprite, {
+                        PixiApplicationProxy.instance.renderer.render(sprite, {
                             renderTexture: this._canvasTexture,
                             transform: this._translationMatrix,
                             clear: false
@@ -206,7 +205,7 @@ export class FurnitureParticleSystem
                         sprite.x = point.x;
                         sprite.y = point.y;
 
-                        Nitro.instance.renderer.render(sprite, {
+                        PixiApplicationProxy.instance.renderer.render(sprite, {
                             renderTexture: this._canvasTexture,
                             clear: false
                         });
@@ -222,7 +221,7 @@ export class FurnitureParticleSystem
                     sprite.width = 2;
                     sprite.height = 2;
 
-                    Nitro.instance.renderer.render(sprite, {
+                    PixiApplicationProxy.instance.renderer.render(sprite, {
                         renderTexture: this._canvasTexture,
                         clear: false
                     });
@@ -327,7 +326,7 @@ export class FurnitureParticleSystem
         }
         else
         {
-            Nitro.instance.renderer.render(this._emptySprite, {
+            PixiApplicationProxy.instance.renderer.render(this._emptySprite, {
                 renderTexture: this._canvasTexture,
                 clear: true
             });

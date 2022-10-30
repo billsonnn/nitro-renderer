@@ -1,5 +1,4 @@
-import { NitroManager } from '../../../core/common/NitroManager';
-import { NitroEvent } from '../../../core/events/NitroEvent';
+import { NitroEvent, NitroManager } from '../../../core';
 import { JukeboxPlayListFullMessageEvent } from '../../communication/messages/incoming/sound/JukeboxPlayListFullMessageEvent';
 import { JukeboxSongDisksMessageEvent } from '../../communication/messages/incoming/sound/JukeboxSongDisksMessageEvent';
 import { NowPlayingMessageEvent } from '../../communication/messages/incoming/sound/NowPlayingMessageEvent';
@@ -64,7 +63,7 @@ export class MusicManager extends NitroManager implements IMusicManager
 
     public onDispose(): void
     {
-        if(this._timerInstance)
+        if (this._timerInstance)
         {
             clearInterval(this._timerInstance);
             this._timerInstance = null;
@@ -91,14 +90,14 @@ export class MusicManager extends NitroManager implements IMusicManager
     {
         const parser = event.getParser();
 
-        for(const song of parser.songs)
+        for (const song of parser.songs)
         {
             const songAvailable: boolean = (this._availableSongs.get(song.id) !== null);
             const areSamplesRequested: boolean = (this._requestedSongs.get(song.id) !== null);
 
-            if(!songAvailable)
+            if (!songAvailable)
             {
-                if(areSamplesRequested)
+                if (areSamplesRequested)
                 {
                     //LoadTraxSong
                 }
@@ -120,7 +119,7 @@ export class MusicManager extends NitroManager implements IMusicManager
 
         this._isPlaying = (parser.currentSongId !== -1);
 
-        if(parser.currentSongId >= 0)
+        if (parser.currentSongId >= 0)
         {
             this.playSong(parser.currentSongId, MusicPriorities.PRIORITY_ROOM_PLAYLIST, (parser.syncCount / 1000), 0, 1, 1);
         }
@@ -129,7 +128,7 @@ export class MusicManager extends NitroManager implements IMusicManager
             this.stopPlaying();
         }
 
-        if(parser.nextSongId >= 0) this.requestSong(parser.nextSongId, true);
+        if (parser.nextSongId >= 0) this.requestSong(parser.nextSongId, true);
 
         this._playPosition = parser.currentPosition;
         //Dispatch local event NowPlayingEvent
@@ -137,7 +136,7 @@ export class MusicManager extends NitroManager implements IMusicManager
 
     private onTick(): void
     {
-        if(this._songRequestList.length === 0) return;
+        if (this._songRequestList.length === 0) return;
 
         Nitro.instance.communication.connection.send(new GetSongInfoMessageComposer(...this._songRequestList));
         this._songRequestList = [];
@@ -145,7 +144,7 @@ export class MusicManager extends NitroManager implements IMusicManager
 
     private requestSong(songId: number, arg2: boolean): void
     {
-        if(this._requestedSongs.get(songId) === null)
+        if (this._requestedSongs.get(songId) === null)
         {
             this._requestedSongs.set(songId, arg2);
             this._songRequestList.push(songId);
@@ -171,9 +170,9 @@ export class MusicManager extends NitroManager implements IMusicManager
 
     private getSongIdRequestedAtPriority(priorityIndex: number): number
     {
-        if(priorityIndex < 0 || priorityIndex >= MusicPriorities.PRIORITY_COUNT) return -1;
+        if (priorityIndex < 0 || priorityIndex >= MusicPriorities.PRIORITY_COUNT) return -1;
 
-        if(!this._songRequestsPerPriority[priorityIndex]) return -1;
+        if (!this._songRequestsPerPriority[priorityIndex]) return -1;
 
         return this._songRequestsPerPriority[priorityIndex].songId;
     }

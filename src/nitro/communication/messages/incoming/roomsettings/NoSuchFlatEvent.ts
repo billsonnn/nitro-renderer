@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { NoSuchFlatParser } from '../../parser/roomsettings/NoSuchFlatParser';
 
 export class NoSuchFlatEvent extends MessageEvent implements IMessageEvent

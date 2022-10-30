@@ -2,8 +2,7 @@ import { BLEND_MODES } from '@pixi/constants';
 import { BaseTexture, RenderTexture, Resource, Texture } from '@pixi/core';
 import { Point } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
-import { NitroSprite } from '../../../pixi-proxy';
-import { TextureUtils } from '../../utils';
+import { NitroSprite, TextureUtils } from '../../../pixi-proxy';
 
 export class ExtendedSprite extends Sprite
 {

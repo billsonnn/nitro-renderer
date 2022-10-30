@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { TraxSongInfoMessageParser } from '../../parser';
 
 export class TraxSongInfoMessageEvent extends MessageEvent implements IMessageEvent

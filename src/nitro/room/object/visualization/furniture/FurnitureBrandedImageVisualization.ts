@@ -1,5 +1,5 @@
 import { Resource, Texture } from '@pixi/core';
-import { GraphicAssetGifCollection } from '../../../../../room/object/visualization/utils/GraphicAssetGifCollection';
+import { GraphicAssetGifCollection } from '../../../../../core';
 import { Nitro } from '../../../../Nitro';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureVisualization } from './FurnitureVisualization';
@@ -45,7 +45,7 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
     {
         super.dispose();
 
-        if(this._imageUrl)
+        if (this._imageUrl)
         {
             (this.asset && this.asset.disposeAsset(this._imageUrl));
             // dispose all
@@ -54,9 +54,9 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
 
     protected updateObject(scale: number, direction: number): boolean
     {
-        if(!super.updateObject(scale, direction)) return false;
+        if (!super.updateObject(scale, direction)) return false;
 
-        if(this._imageReady) this.checkAndCreateImageForCurrentState();
+        if (this._imageReady) this.checkAndCreateImageForCurrentState();
 
         return true;
     }
@@ -65,7 +65,7 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
     {
         const flag = super.updateModel(scale);
 
-        if(flag)
+        if (flag)
         {
             this._offsetX = (this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BRANDING_OFFSET_X) || 0);
             this._offsetY = (this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BRANDING_OFFSET_Y) || 0);
@@ -73,11 +73,11 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
             this._isAnimated = (this.object.model.getValue<boolean>(RoomObjectVariable.FURNITURE_BRANDING_IS_ANIMATED) || false);
         }
 
-        if(!this._imageReady)
+        if (!this._imageReady)
         {
             this._imageReady = this.checkIfImageReady();
 
-            if(this._imageReady)
+            if (this._imageReady)
             {
                 this.checkAndCreateImageForCurrentState();
 
@@ -86,7 +86,7 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
         }
         else
         {
-            if(this.checkIfImageChanged())
+            if (this.checkIfImageChanged())
             {
                 this._imageReady = false;
                 this._imageUrl = null;
@@ -102,9 +102,9 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
     {
         const imageUrl = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_BRANDING_IMAGE_URL);
 
-        if(imageUrl && (imageUrl === this._imageUrl)) return false;
+        if (imageUrl && (imageUrl === this._imageUrl)) return false;
 
-        if(this._gifCollection)
+        if (this._gifCollection)
         {
             //
         }
@@ -120,25 +120,25 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
     {
         const model = this.object && this.object.model;
 
-        if(!model) return false;
+        if (!model) return false;
 
         const imageUrl = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_BRANDING_IMAGE_URL);
 
-        if(!imageUrl) return false;
+        if (!imageUrl) return false;
 
-        if(this._imageUrl && (this._imageUrl === imageUrl)) return false;
+        if (this._imageUrl && (this._imageUrl === imageUrl)) return false;
 
         const imageStatus = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BRANDING_IMAGE_STATUS);
 
-        if(imageStatus === 1)
+        if (imageStatus === 1)
         {
             let texture: Texture = null;
 
-            if(this._isAnimated)
+            if (this._isAnimated)
             {
                 const gifCollection = Nitro.instance.roomEngine.roomContentLoader.getGifCollection(imageUrl);
 
-                if(gifCollection)
+                if (gifCollection)
                 {
                     this._gifCollection = gifCollection;
 
@@ -150,7 +150,7 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
                 texture = Nitro.instance.core.asset.getTexture(imageUrl);
             }
 
-            if(!texture) return false;
+            if (!texture) return false;
 
             this.imageReady(texture, imageUrl);
 
@@ -162,7 +162,7 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
 
     protected imageReady(texture: Texture<Resource>, imageUrl: string): void
     {
-        if(!texture)
+        if (!texture)
         {
             this._imageUrl = null;
 
@@ -174,18 +174,18 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
 
     protected checkAndCreateImageForCurrentState(): void
     {
-        if(this._isAnimated)
+        if (this._isAnimated)
         {
             this.buildAssetsForGif();
 
             return;
         }
 
-        if(!this._imageUrl) return;
+        if (!this._imageUrl) return;
 
         const texture = Nitro.instance.core.asset.getTexture(this._imageUrl);
 
-        if(!texture) return;
+        if (!texture) return;
 
         const state = this.object.getState(0);
 
@@ -194,21 +194,21 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
 
     protected buildAssetsForGif(): void
     {
-        if(!this._gifCollection) return;
+        if (!this._gifCollection) return;
 
         const textures = this._gifCollection.textures;
         const durations = this._gifCollection.durations;
 
-        if(!textures.length || !durations.length || (textures.length !== durations.length)) return;
+        if (!textures.length || !durations.length || (textures.length !== durations.length)) return;
 
         const state = this.object.getState(0);
 
-        for(let i = 0; i < textures.length; i++)
+        for (let i = 0; i < textures.length; i++)
         {
             const texture = textures[i];
             const duration = durations[i];
 
-            if(!texture) continue;
+            if (!texture) continue;
 
             this.addBackgroundAsset(texture, state, i);
         }
@@ -224,7 +224,7 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
         let flipH = false;
         let flipV = false;
 
-        switch(state)
+        switch (state)
         {
             case FurnitureBrandedImageVisualization.STATE_0:
                 x = 0;
@@ -252,16 +252,16 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
                 break;
         }
 
-        this.asset.addAsset(`${ this._imageUrl }_${ frame }`, texture, true, x, y, flipH, flipV);
+        this.asset.addAsset(`${this._imageUrl}_${frame}`, texture, true, x, y, flipH, flipV);
     }
 
     protected getSpriteAssetName(scale: number, layerId: number): string
     {
         const tag = this.getLayerTag(scale, this._direction, layerId);
 
-        if((tag === FurnitureBrandedImageVisualization.BRANDED_IMAGE) && this._imageUrl)
+        if ((tag === FurnitureBrandedImageVisualization.BRANDED_IMAGE) && this._imageUrl)
         {
-            return `${ this._imageUrl }_${ this.getFrameNumber(scale, layerId) }`;
+            return `${this._imageUrl}_${this.getFrameNumber(scale, layerId)}`;
         }
 
         return super.getSpriteAssetName(scale, layerId);
@@ -269,22 +269,22 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
 
     protected updateAnimation(scale: number): number
     {
-        if(!this._imageReady || !this._isAnimated || (this._totalFrames <= 0)) return 0;
+        if (!this._imageReady || !this._isAnimated || (this._totalFrames <= 0)) return 0;
 
         return 1;
     }
 
     protected getFrameNumber(scale: number, layerId: number): number
     {
-        if(!this._imageReady || !this._isAnimated || (this._totalFrames <= 0)) return 0;
+        if (!this._imageReady || !this._isAnimated || (this._totalFrames <= 0)) return 0;
 
         const tag = this.getLayerTag(scale, this._direction, layerId);
 
-        if((tag === FurnitureBrandedImageVisualization.BRANDED_IMAGE) && this._imageUrl)
+        if ((tag === FurnitureBrandedImageVisualization.BRANDED_IMAGE) && this._imageUrl)
         {
             let newFrame = this._currentFrame;
 
-            if(newFrame < 0)
+            if (newFrame < 0)
             {
                 newFrame = 0;
             }
@@ -293,7 +293,7 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
                 newFrame += 1;
             }
 
-            if(newFrame === this._totalFrames) newFrame = 0;
+            if (newFrame === this._totalFrames) newFrame = 0;
 
             this._currentFrame = newFrame;
 

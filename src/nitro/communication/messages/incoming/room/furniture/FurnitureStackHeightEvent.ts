@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../core';
 import { FurnitureStackHeightParser } from '../../../parser/room/furniture/FurnitureStackHeightParser';
 
 export class FurnitureStackHeightEvent extends MessageEvent implements IMessageEvent

@@ -1,10 +1,9 @@
 import { RenderTexture } from '@pixi/core';
 import { Point, Rectangle } from '@pixi/math';
 import { IGraphicAssetCollection } from '../../../api';
-import { NitroContainer, NitroSprite } from '../../../pixi-proxy';
+import { NitroContainer, NitroSprite, TextureUtils } from '../../../pixi-proxy';
 import { RoomObjectSpriteData } from '../../data/RoomObjectSpriteData';
 import { IRoomGeometry } from '../../utils/IRoomGeometry';
-import { TextureUtils } from '../../utils/TextureUtils';
 import { IRoomObjectController } from '../IRoomObjectController';
 import { IRoomObjectSprite } from './IRoomObjectSprite';
 import { IRoomObjectSpriteVisualization } from './IRoomObjectSpriteVisualization';

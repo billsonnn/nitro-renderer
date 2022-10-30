@@ -1,6 +1,5 @@
 import { IConnection } from '../../../api';
-import { NitroManager } from '../../../core/common/NitroManager';
-import { SocketConnectionEvent } from '../../../core/communication/events/SocketConnectionEvent';
+import { NitroManager, SocketConnectionEvent } from '../../../core';
 import { Nitro } from '../../Nitro';
 import { INitroCommunicationManager } from '../INitroCommunicationManager';
 import { ClientPingEvent } from '../messages/incoming/client/ClientPingEvent';

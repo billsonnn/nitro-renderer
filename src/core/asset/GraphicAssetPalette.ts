@@ -1,6 +1,5 @@
 import { Resource, Texture } from '@pixi/core';
-import { NitroSprite } from '../../../../pixi-proxy';
-import { TextureUtils } from '../../../utils';
+import { NitroSprite, TextureUtils } from '../../pixi-proxy';
 
 export class GraphicAssetPalette
 {

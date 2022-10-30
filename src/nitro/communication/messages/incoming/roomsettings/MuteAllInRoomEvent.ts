@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { MuteAllInRoomParser } from '../../parser/roomsettings/MuteAllInRoomParser';
 
 export class MuteAllInRoomEvent extends MessageEvent implements IMessageEvent

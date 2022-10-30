@@ -1,4 +1,6 @@
-export class BinaryWriter
+import { IBinaryWriter } from '../../api';
+
+export class BinaryWriter implements IBinaryWriter
 {
     private _buffer: Uint8Array;
     private _position: number;
@@ -9,7 +11,7 @@ export class BinaryWriter
         this._position = 0;
     }
 
-    public writeByte(byte: number): BinaryWriter
+    public writeByte(byte: number): IBinaryWriter
     {
         const array = new Uint8Array(1);
 
@@ -20,7 +22,7 @@ export class BinaryWriter
         return this;
     }
 
-    public writeBytes(bytes: ArrayBuffer | number[]): BinaryWriter
+    public writeBytes(bytes: ArrayBuffer | number[]): IBinaryWriter
     {
         const array = new Uint8Array(bytes);
 
@@ -29,7 +31,7 @@ export class BinaryWriter
         return this;
     }
 
-    public writeShort(short: number): BinaryWriter
+    public writeShort(short: number): IBinaryWriter
     {
         const array = new Uint8Array(2);
 
@@ -41,7 +43,7 @@ export class BinaryWriter
         return this;
     }
 
-    public writeInt(integer: number): BinaryWriter
+    public writeInt(integer: number): IBinaryWriter
     {
         const array = new Uint8Array(4);
 
@@ -55,11 +57,11 @@ export class BinaryWriter
         return this;
     }
 
-    public writeString(string: string, includeLength: boolean = true): BinaryWriter
+    public writeString(string: string, includeLength: boolean = true): IBinaryWriter
     {
         const array = new TextEncoder().encode(string);
 
-        if(includeLength)
+        if (includeLength)
         {
             this.writeShort(array.length);
             this.appendArray(array);
@@ -74,9 +76,9 @@ export class BinaryWriter
 
     private appendArray(array: Uint8Array): void
     {
-        if(!array) return;
+        if (!array) return;
 
-        const mergedArray = new Uint8Array( ((this.position + array.length) > this._buffer.length) ? (this.position + array.length) : this._buffer.length);
+        const mergedArray = new Uint8Array(((this.position + array.length) > this._buffer.length) ? (this.position + array.length) : this._buffer.length);
 
         mergedArray.set(this._buffer);
         mergedArray.set(array, this.position);

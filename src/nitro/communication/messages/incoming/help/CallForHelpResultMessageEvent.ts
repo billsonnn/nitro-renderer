@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { CallForHelpResultMessageParser } from '../../parser/help/CallForHelpResultMessageParser';
 
 export class CallForHelpResultMessageEvent extends MessageEvent implements IMessageEvent

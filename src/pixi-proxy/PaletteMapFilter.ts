@@ -1,4 +1,5 @@
-import { NitroBaseTexture, NitroFilter } from '../../pixi-proxy';
+import { NitroBaseTexture } from './NitroBaseTexture';
+import { NitroFilter } from './NitroFilter';
 
 const vertex = `
 attribute vec2 aVertexPosition;

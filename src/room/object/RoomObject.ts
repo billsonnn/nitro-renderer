@@ -1,4 +1,4 @@
-import { Disposable } from '../../core/common/Disposable';
+import { Disposable } from '../../core';
 import { RoomObjectUpdateMessage } from '../messages/RoomObjectUpdateMessage';
 import { IVector3D } from '../utils/IVector3D';
 import { Vector3d } from '../utils/Vector3d';

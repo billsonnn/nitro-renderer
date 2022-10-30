@@ -1,4 +1,4 @@
-import { NitroManager } from '../../core/common/NitroManager';
+import { NitroManager } from '../../core';
 import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { RoomEngineEvent } from '../room/events/RoomEngineEvent';
 import { IRoomEngine } from '../room/IRoomEngine';
@@ -68,7 +68,7 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
     {
         const connection = this._communication && this._communication.connection;
 
-        if(!connection) return;
+        if (!connection) return;
 
         this._handlers.push(
             new RoomChatHandler(connection, this),
@@ -86,11 +86,11 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
 
     private setHandlers(session: IRoomSession): void
     {
-        if(!this._handlers || !this._handlers.length) return;
+        if (!this._handlers || !this._handlers.length) return;
 
-        for(const handler of this._handlers)
+        for (const handler of this._handlers)
         {
-            if(!handler) continue;
+            if (!handler) continue;
 
             handler.setRoomId(session.roomId);
         }
@@ -103,7 +103,7 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
 
     private processPendingSession(): void
     {
-        if(!this._pendingSession || !this._roomEngine.ready) return;
+        if (!this._pendingSession || !this._roomEngine.ready) return;
 
         this.addSession(this._pendingSession);
 
@@ -114,7 +114,7 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
     {
         const existing = this._sessions.get(this.getRoomId(id));
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         return existing;
     }
@@ -131,7 +131,7 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
 
     private addSession(roomSession: IRoomSession): boolean
     {
-        if(!this._roomEngine.ready)
+        if (!this._roomEngine.ready)
         {
             this._pendingSession = roomSession;
 
@@ -140,7 +140,7 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
 
         this._sessionStarting = true;
 
-        if(this._sessions.get(this.getRoomId(roomSession.roomId)))
+        if (this._sessions.get(this.getRoomId(roomSession.roomId)))
         {
             this.removeSession(roomSession.roomId, false);
         }
@@ -160,11 +160,11 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
 
     public startSession(session: IRoomSession): boolean
     {
-        if(session.state === RoomSessionEvent.STARTED) return false;
+        if (session.state === RoomSessionEvent.STARTED) return false;
 
         this._sessionStarting = false;
 
-        if(!session.start())
+        if (!session.start())
         {
             this.removeSession(session.roomId);
 
@@ -182,7 +182,7 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
     {
         const session = this.getSession(id);
 
-        if(!session) return;
+        if (!session) return;
 
         this._sessions.delete(this.getRoomId(id));
 
@@ -195,9 +195,9 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
     {
         const session = this.getSession(id);
 
-        if(!session) return;
+        if (!session) return;
 
-        switch(type)
+        switch (type)
         {
             case RoomSessionHandler.RS_CONNECTED:
                 return;
@@ -213,7 +213,7 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
     {
         const existing = this.getSession(fromRoomId);
 
-        if(!existing) return;
+        if (!existing) return;
 
         this._sessions.delete(this.getRoomId(fromRoomId));
 

@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../core';
 import { RequestSpamWallPostItMessageParser } from '../../../parser/room/furniture/RequestSpamWallPostItMessageParser';
 
 export class RequestSpamWallPostItMessageEvent extends MessageEvent implements IMessageEvent

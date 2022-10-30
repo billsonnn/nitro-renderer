@@ -1,9 +1,7 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { Text } from '@pixi/text';
-import { NitroContainer, NitroSprite } from '../../../../../pixi-proxy';
-import { TextureUtils } from '../../../../../room';
-import { Nitro } from '../../../../Nitro';
+import { NitroContainer, NitroSprite, PixiApplicationProxy, TextureUtils } from '../../../../../pixi-proxy';
 
 export class ExperienceData
 {
@@ -48,7 +46,7 @@ export class ExperienceData
         }
         else
         {
-            Nitro.instance.renderer.render(container, {
+            PixiApplicationProxy.instance.renderer.render(container, {
                 renderTexture: this._texture,
                 clear: true
             });

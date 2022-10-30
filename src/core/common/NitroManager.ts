@@ -1,6 +1,6 @@
 import { IEventDispatcher, INitroLogger, INitroManager } from '../../api';
-import { EventDispatcher } from '../events/EventDispatcher';
 import { Disposable } from './Disposable';
+import { EventDispatcher } from './EventDispatcher';
 import { NitroLogger } from './NitroLogger';
 
 export class NitroManager extends Disposable implements INitroManager

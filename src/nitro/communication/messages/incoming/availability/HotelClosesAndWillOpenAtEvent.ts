@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { HotelClosesAndWillOpenAtMessageParser } from '../../parser';
 
 export class HotelClosesAndWillOpenAtEvent extends MessageEvent implements IMessageEvent

@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../core';
 import { UserWardrobePageParser } from '../../../parser/user/wardrobe/UserWardrobePageParser';
 
 export class UserWardrobePageEvent extends MessageEvent implements IMessageEvent

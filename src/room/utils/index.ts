@@ -10,5 +10,4 @@ export * from './RoomId';
 export * from './RoomRotatingEffect';
 export * from './RoomShakingEffect';
 export * from './SpriteUtilities';
-export * from './TextureUtils';
 export * from './Vector3d';

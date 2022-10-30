@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { PurchaseOKMessageParser } from '../../parser';
 
 export class PurchaseOKMessageEvent extends MessageEvent implements IMessageEvent

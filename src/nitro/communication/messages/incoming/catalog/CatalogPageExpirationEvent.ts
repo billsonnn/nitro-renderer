@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { CatalogPageExpirationParser } from '../../parser';
 
 export class CatalogPageExpirationEvent extends MessageEvent implements IMessageEvent

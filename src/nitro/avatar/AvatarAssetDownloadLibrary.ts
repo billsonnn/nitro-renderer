@@ -1,5 +1,5 @@
 import { IAssetManager } from '../../api';
-import { EventDispatcher } from '../../core/events/EventDispatcher';
+import { EventDispatcher } from '../../core';
 import { AvatarRenderLibraryEvent } from './events/AvatarRenderLibraryEvent';
 
 export class AvatarAssetDownloadLibrary extends EventDispatcher

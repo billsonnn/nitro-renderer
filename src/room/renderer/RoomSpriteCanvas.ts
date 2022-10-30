@@ -5,7 +5,7 @@ import { Matrix, Point, Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
 import { Nitro } from '../../nitro/Nitro';
 import { MouseEventType } from '../../nitro/ui/MouseEventType';
-import { NitroContainer, NitroSprite } from '../../pixi-proxy';
+import { NitroContainer, NitroSprite, PixiApplicationProxy } from '../../pixi-proxy';
 import { RoomObjectSpriteData } from '../data/RoomObjectSpriteData';
 import { RoomSpriteMouseEvent } from '../events/RoomSpriteMouseEvent';
 import { RoomObjectSpriteType } from '../object/enum/RoomObjectSpriteType';
@@ -1028,7 +1028,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             height: this._display.height
         });
 
-        Nitro.instance.renderer.render(this._display, {
+        PixiApplicationProxy.instance.renderer.render(this._display, {
             renderTexture,
             clear: true,
             transform: new Matrix(1, 0, 0, 1, -(bounds.x), -(bounds.y))

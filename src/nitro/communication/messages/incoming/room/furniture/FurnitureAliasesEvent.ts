@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../core';
 import { FurnitureAliasesParser } from '../../../parser/room/furniture/FurnitureAliasesParser';
 
 export class FurnitureAliasesEvent extends MessageEvent implements IMessageEvent

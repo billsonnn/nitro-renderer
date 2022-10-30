@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../core';
 import { RelationshipStatusInfoMessageParser } from '../../../parser/user/data/RelationshipStatusInfoMessageParser';
 
 export class RelationshipStatusInfoEvent extends MessageEvent implements IMessageEvent

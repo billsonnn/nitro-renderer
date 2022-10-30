@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { DesktopViewParser } from '../../parser/desktop/DesktopViewParser';
 import { FriendNotificationParser } from '../../parser/friendlist/FriendNotificationParser';
 

@@ -1,9 +1,7 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Spritesheet } from '@pixi/spritesheet';
 import { Dict } from '@pixi/utils';
-import { IAsset, IAssetData, IAssetPalette, IGraphicAsset, IGraphicAssetCollection } from '../../../../api';
-import { AssetManager } from '../../../../core/asset/AssetManager';
-import { Nitro } from '../../../../nitro/Nitro';
+import { IAsset, IAssetData, IAssetPalette, IGraphicAsset, IGraphicAssetCollection } from '../../api';
 import { GraphicAsset } from './GraphicAsset';
 import { GraphicAssetPalette } from './GraphicAssetPalette';
 
@@ -39,6 +37,11 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
         this.define(data);
     }
 
+    public static removeFileExtension(name: string): string
+    {
+        return (name.substring(0, name.lastIndexOf('.')) || name);
+    }
+
     public dispose(): void
     {
         if (this._palettes)
@@ -66,7 +69,7 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
     public addReference(): void
     {
         this._referenceCount++;
-        this._referenceTimestamp = Nitro.instance.time;
+        //this._referenceTimestamp = Nitro.instance.time;
     }
 
     public removeReference(): void
@@ -76,7 +79,7 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
         if (this._referenceCount <= 0)
         {
             this._referenceCount = 0;
-            this._referenceTimestamp = Nitro.instance.time;
+            //this._referenceTimestamp = Nitro.instance.time;
 
             this.disposePaletteAssets(false);
         }
@@ -330,7 +333,7 @@ export class GraphicAssetCollection implements IGraphicAssetCollection
 
             if (!texture) continue;
 
-            this._textures.set(AssetManager.removeFileExtension(name), texture);
+            this._textures.set(GraphicAssetCollection.removeFileExtension(name), texture);
         }
     }
 

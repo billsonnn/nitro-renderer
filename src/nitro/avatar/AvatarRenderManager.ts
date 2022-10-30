@@ -1,6 +1,5 @@
 import { IAssetManager, IGraphicAsset } from '../../api';
-import { NitroManager } from '../../core/common/NitroManager';
-import { NitroEvent } from '../../core/events/NitroEvent';
+import { NitroEvent, NitroManager } from '../../core';
 import { Nitro } from '../Nitro';
 import { FigureDataContainer } from '../utils/FigureDataContainer';
 import { AssetAliasCollection } from './alias/AssetAliasCollection';

@@ -2,13 +2,9 @@ import { Application, IApplicationOptions } from '@pixi/app';
 import { SCALE_MODES } from '@pixi/constants';
 import { settings } from '@pixi/settings';
 import { Ticker } from '@pixi/ticker';
-import { IEventDispatcher, ILinkEventTracker, IWorkerEventTracker } from '../api';
-import { ConfigurationEvent } from '../core/configuration/ConfigurationEvent';
-import { EventDispatcher } from '../core/events/EventDispatcher';
-import { NitroEvent } from '../core/events/NitroEvent';
-import { INitroCore } from '../core/INitroCore';
-import { NitroCore } from '../core/NitroCore';
-import { NitroTimer } from '../core/utils/NitroTimer';
+import { IEventDispatcher, ILinkEventTracker, INitroCore, IWorkerEventTracker } from '../api';
+import { ConfigurationEvent, EventDispatcher, NitroCore, NitroEvent } from '../core';
+import { PixiApplicationProxy } from '../pixi-proxy';
 import { IRoomManager } from '../room/IRoomManager';
 import { RoomManager } from '../room/RoomManager';
 import { AvatarRenderManager } from './avatar/AvatarRenderManager';
@@ -39,7 +35,7 @@ LegacyExternalInterface.available;
 settings.SCALE_MODE = (!(window.devicePixelRatio % 1)) ? SCALE_MODES.NEAREST : SCALE_MODES.LINEAR;
 settings.ROUND_PIXELS = true;
 
-export class Nitro extends Application implements INitro
+export class Nitro implements INitro
 {
     public static WEBGL_CONTEXT_LOST: string = 'NE_WEBGL_CONTEXT_LOST';
     public static WEBGL_UNAVAILABLE: string = 'NE_WEBGL_UNAVAILABLE';
@@ -47,8 +43,8 @@ export class Nitro extends Application implements INitro
 
     private static INSTANCE: INitro = null;
 
-    private _nitroTimer: NitroTimer;
     private _worker: Worker;
+    private _application: Application;
     private _core: INitroCore;
     private _events: IEventDispatcher;
     private _communication: INitroCommunicationManager;
@@ -68,12 +64,10 @@ export class Nitro extends Application implements INitro
 
     constructor(core: INitroCore, options?: IApplicationOptions)
     {
-        super(options);
-
         if (!Nitro.INSTANCE) Nitro.INSTANCE = this;
 
-        this._nitroTimer = new NitroTimer();
         this._worker = null;
+        this._application = new PixiApplicationProxy(options);
         this._core = core;
         this._events = new EventDispatcher();
         this._communication = new NitroCommunicationManager(core.communication);
@@ -202,7 +196,12 @@ export class Nitro extends Application implements INitro
             this._communication = null;
         }
 
-        super.destroy();
+        if (this._application)
+        {
+            this._application.destroy();
+
+            this._application = null;
+        }
 
         this._isDisposed = true;
         this._isReady = false;
@@ -333,9 +332,9 @@ export class Nitro extends Application implements INitro
         this._worker.onmessage = this.createWorkerEvent.bind(this);
     }
 
-    public get nitroTimer(): NitroTimer
+    public get application(): Application
     {
-        return this._nitroTimer;
+        return this._application;
     }
 
     public get core(): INitroCore
@@ -395,12 +394,12 @@ export class Nitro extends Application implements INitro
 
     public get width(): number
     {
-        return this.renderer.width;
+        return this._application.renderer.width;
     }
 
     public get height(): number
     {
-        return this.renderer.height;
+        return this._application.renderer.height;
     }
 
     public get ticker(): Ticker

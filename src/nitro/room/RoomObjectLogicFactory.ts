@@ -1,6 +1,5 @@
 import { IEventDispatcher } from '../../api';
-import { NitroLogger } from '../../core/common/NitroLogger';
-import { EventDispatcher } from '../../core/events/EventDispatcher';
+import { EventDispatcher, NitroLogger } from '../../core';
 import { IRoomObjectEventHandler } from '../../room/object/logic/IRoomObjectEventHandler';
 import { IRoomObjectLogicFactory } from '../../room/object/logic/IRoomObjectLogicFactory';
 import { RoomObjectLogicBase } from '../../room/object/logic/RoomObjectLogicBase';

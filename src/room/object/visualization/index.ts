@@ -10,4 +10,3 @@ export * from './IRoomPlane';
 export * from './ISortableSprite';
 export * from './RoomObjectSprite';
 export * from './RoomObjectSpriteVisualization';
-export * from './utils';

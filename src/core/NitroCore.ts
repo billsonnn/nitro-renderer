@@ -1,10 +1,9 @@
-import { IAssetManager, ICommunicationManager, IConfigurationManager } from '../api';
-import { AssetManager } from './asset/AssetManager';
-import { Disposable } from './common/Disposable';
-import { CommunicationManager } from './communication/CommunicationManager';
-import { ConfigurationManager } from './configuration/ConfigurationManager';
-import { INitroCore } from './INitroCore';
-import { SayHello } from './utils/SayHello';
+import { IAssetManager, ICommunicationManager, IConfigurationManager, INitroCore } from '../api';
+import { AssetManager } from './asset';
+import { Disposable } from './common';
+import { CommunicationManager } from './communication';
+import { ConfigurationManager } from './configuration';
+import { SayHello } from './utils';
 
 export class NitroCore extends Disposable implements INitroCore
 {

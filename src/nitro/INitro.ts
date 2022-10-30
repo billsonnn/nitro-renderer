@@ -1,8 +1,6 @@
 import { Application } from '@pixi/app';
 import { Ticker } from '@pixi/ticker';
-import { IEventDispatcher, ILinkEventTracker, IWorkerEventTracker } from '../api';
-import { INitroCore } from '../core/INitroCore';
-import { NitroTimer } from '../core/utils/NitroTimer';
+import { IEventDispatcher, ILinkEventTracker, INitroCore, IWorkerEventTracker } from '../api';
 import { IRoomManager } from '../room/IRoomManager';
 import { IAvatarRenderManager } from './avatar/IAvatarRenderManager';
 import { IRoomCameraWidgetManager } from './camera/IRoomCameraWidgetManager';
@@ -13,7 +11,7 @@ import { IRoomSessionManager } from './session/IRoomSessionManager';
 import { ISessionDataManager } from './session/ISessionDataManager';
 import { ISoundManager } from './sound/ISoundManager';
 
-export interface INitro extends Application
+export interface INitro
 {
     init(): void;
     dispose(): void;
@@ -29,7 +27,7 @@ export interface INitro extends Application
     removeLinkEventTracker(tracker: ILinkEventTracker): void;
     createLinkEvent(link: string): void;
     setWorker(val: Worker): void;
-    nitroTimer: NitroTimer;
+    application: Application;
     core: INitroCore;
     events: IEventDispatcher;
     localization: INitroLocalizationManager;

@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../../core';
 import { OneWayDoorStatusMessageParser } from '../../../parser/room/furniture/OneWayDoorStatusMessageParser';
 
 export class OneWayDoorStatusMessageEvent extends MessageEvent implements IMessageEvent

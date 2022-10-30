@@ -1,5 +1,6 @@
-import { IDisposable, INitroLogger } from '../common';
+import { IDisposable } from './IDisposable';
 import { INitroEvent } from './INitroEvent';
+import { INitroLogger } from './INitroLogger';
 
 export interface IEventDispatcher extends IDisposable
 {

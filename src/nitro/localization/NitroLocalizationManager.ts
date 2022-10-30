@@ -1,4 +1,4 @@
-﻿import { NitroManager } from '../../core/common/NitroManager';
+﻿import { NitroManager } from '../../core';
 import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { BadgePointLimitsEvent } from '../communication/messages/incoming/inventory/badges/BadgePointLimitsEvent';
 import { Nitro } from '../Nitro';
@@ -33,12 +33,12 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
         let urls: string[] = Nitro.instance.getConfiguration<string[]>('external.texts.url');
 
-        if(!Array.isArray(urls))
+        if (!Array.isArray(urls))
         {
-            urls = [ Nitro.instance.getConfiguration<string>('external.texts.url') ];
+            urls = [Nitro.instance.getConfiguration<string>('external.texts.url')];
         }
 
-        for(let i = 0; i < urls.length; i++) urls[i] = Nitro.instance.core.configuration.interpolate(urls[i]);
+        for (let i = 0; i < urls.length; i++) urls[i] = Nitro.instance.core.configuration.interpolate(urls[i]);
 
         this._pendingUrls = urls;
 
@@ -47,7 +47,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
     private loadNextLocalization(): void
     {
-        if(!this._pendingUrls.length)
+        if (!this._pendingUrls.length)
         {
             this.events && this.events.dispatchEvent(new NitroLocalizationEvent(NitroLocalizationEvent.LOADED));
 
@@ -67,13 +67,13 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
     private onLocalizationLoaded(data: { [index: string]: any }, url: string): void
     {
-        if(!data) return;
+        if (!data) return;
 
-        if(!this.parseLocalization(data)) throw new Error(`Invalid json data for file ${url}`);
+        if (!this.parseLocalization(data)) throw new Error(`Invalid json data for file ${url}`);
 
         const index = this._pendingUrls.indexOf(url);
 
-        if(index >= 0) this._pendingUrls.splice(index, 1);
+        if (index >= 0) this._pendingUrls.splice(index, 1);
 
         this.loadNextLocalization();
     }
@@ -85,9 +85,9 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
     private parseLocalization(data: { [index: string]: any }): boolean
     {
-        if(!data) return false;
+        if (!data) return false;
 
-        for(const key in data) this._definitions.set(key, data[key]);
+        for (const key in data) this._definitions.set(key, data[key]);
 
         return true;
     }
@@ -96,7 +96,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
     {
         const parser = event.getParser();
 
-        for(const data of parser.data) this.setBadgePointLimit(data.badgeId, data.limit);
+        for (const data of parser.data) this.setBadgePointLimit(data.badgeId, data.limit);
     }
 
     public getBadgePointLimit(badge: string): number
@@ -130,31 +130,31 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
     public getValue(key: string, doParams: boolean = true): string
     {
-        if(!key || !key.length) return null;
+        if (!key || !key.length) return null;
 
         const keys = key.match(/\$\{.[^}]*\}/g);
 
-        if(keys && keys.length)
+        if (keys && keys.length)
         {
-            for(const splitKey of keys) key = key.replace(splitKey, this.getValue(splitKey.slice(2, -1), doParams));
+            for (const splitKey of keys) key = key.replace(splitKey, this.getValue(splitKey.slice(2, -1), doParams));
         }
 
         let value = (this._definitions.get(key) || null);
 
-        if(!value)
+        if (!value)
         {
             value = (Nitro.instance.core.configuration.definitions.get(key) as any);
 
-            if(value) return value;
+            if (value) return value;
         }
 
-        if(value && doParams)
+        if (value && doParams)
         {
             const parameters = this._parameters.get(key);
 
-            if(parameters)
+            if (parameters)
             {
-                for(const [ parameter, replacement ] of parameters)
+                for (const [parameter, replacement] of parameters)
                 {
                     value = value.replace('%' + parameter + '%', replacement);
                 }
@@ -170,7 +170,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
         const replacedValue = value.replace('%' + parameter + '%', replacement);
 
-        if(value.startsWith('%{'))
+        if (value.startsWith('%{'))
         {
             // This adds support for multi-optioned texts like
             // catalog.vip.item.header.months=%{NUM_MONTHS|0 months|1 month|%% months}
@@ -182,13 +182,13 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
             const regex = new RegExp('%{' + parameter.toUpperCase() + '\\|([^|]*)\\|([^|]*)\\|([^|]*)}');
             const result = value.match(regex);
 
-            if(!result) return replacedValue;
+            if (!result) return replacedValue;
 
             let indexKey = -1;
             const replacementAsNumber = Number.parseInt(replacement);
             let replace = false;
 
-            switch(replacementAsNumber)
+            switch (replacementAsNumber)
             {
                 case 0:
                     indexKey = 1;
@@ -204,14 +204,14 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
             }
 
 
-            if(indexKey == -1 || typeof result[indexKey] == 'undefined')
+            if (indexKey == -1 || typeof result[indexKey] == 'undefined')
             {
                 return replacedValue;
             }
 
             const valueFromResults = result[indexKey];
 
-            if(valueFromResults)
+            if (valueFromResults)
             {
                 return valueFromResults.replace('%%', replacement);
             }
@@ -224,30 +224,30 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
     {
         let value = this.getValue(key, false);
 
-        if(parameters)
+        if (parameters)
         {
-            for(let i = 0; i < parameters.length; i++)
+            for (let i = 0; i < parameters.length; i++)
             {
                 const parameter = parameters[i];
                 const replacement = replacements[i];
 
-                if(replacement === undefined) continue;
+                if (replacement === undefined) continue;
 
                 value = value.replace('%' + parameter + '%', replacement);
 
-                if(value.startsWith('%{'))
+                if (value.startsWith('%{'))
                 {
                     const regex = new RegExp('%{' + parameter.toUpperCase() + '\\|([^|]*)\\|([^|]*)\\|([^|]*)}');
                     const result = value.match(regex);
 
-                    if(!result) continue;
+                    if (!result) continue;
 
                     const replacementAsNumber = parseInt(replacement);
 
                     let indexKey = -1;
                     let replace = false;
 
-                    switch(replacementAsNumber)
+                    switch (replacementAsNumber)
                     {
                         case 0:
                             indexKey = 1;
@@ -263,11 +263,11 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
                     }
 
 
-                    if((indexKey === -1) || (typeof result[indexKey] === 'undefined')) continue;
+                    if ((indexKey === -1) || (typeof result[indexKey] === 'undefined')) continue;
 
                     const valueFromResults = result[indexKey];
 
-                    if(valueFromResults)
+                    if (valueFromResults)
                     {
                         value = valueFromResults.replace('%%', replacement);
                     }
@@ -285,11 +285,11 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
     public registerParameter(key: string, parameter: string, value: string): void
     {
-        if(!key || (key.length === 0) || !parameter || (parameter.length === 0)) return;
+        if (!key || (key.length === 0) || !parameter || (parameter.length === 0)) return;
 
         let existing = this._parameters.get(key);
 
-        if(!existing)
+        if (!existing)
         {
             existing = new Map();
 
@@ -302,7 +302,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
     public getBadgeName(key: string): string
     {
         const badge = new BadgeBaseAndLevel(key);
-        const keys = [ 'badge_name_' + key, 'badge_name_' + badge.base ];
+        const keys = ['badge_name_' + key, 'badge_name_' + badge.base];
 
         let name = this._Str_2103(this.getExistingKey(keys));
 
@@ -314,13 +314,13 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
     public getBadgeDesc(key: string): string
     {
         const badge = new BadgeBaseAndLevel(key);
-        const keys = [ 'badge_desc_' + key, 'badge_desc_' + badge.base ];
+        const keys = ['badge_desc_' + key, 'badge_desc_' + badge.base];
 
         let desc = this._Str_2103(this.getExistingKey(keys));
 
         const limit = this.getBadgePointLimit(key);
 
-        if(limit > -1) desc = desc.replace('%limit%', limit.toString());
+        if (limit > -1) desc = desc.replace('%limit%', limit.toString());
 
         desc = desc.replace('%roman%', this.getRomanNumeral(badge.level));
 
@@ -329,10 +329,10 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
     private getExistingKey(keys: string[]): string
     {
-        for(const entry of keys)
+        for (const entry of keys)
         {
             const item = this.getValue(entry);
-            if(item != entry) return item;
+            if (item != entry) return item;
         }
 
         return '';

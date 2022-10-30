@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core/communication/messages/MessageEvent';
+import { MessageEvent } from '../../../../../core';
 import { UserSongDisksInventoryMessageParser } from '../../parser';
 
 export class UserSongDisksInventoryMessageEvent extends MessageEvent implements IMessageEvent

@@ -1,4 +1,4 @@
-﻿import { NitroEvent } from '../../../core/events/NitroEvent';
+﻿import { NitroEvent } from '../../../core';
 
 export class RoomSessionUserTagsEvent extends NitroEvent
 {
