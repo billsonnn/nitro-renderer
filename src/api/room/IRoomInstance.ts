@@ -1,9 +1,8 @@
-import { IDisposable } from '../api';
+import { IDisposable } from '../../api';
 import { IRoomInstanceContainer } from './IRoomInstanceContainer';
 import { IRoomObjectManager } from './IRoomObjectManager';
-import { IRoomObject } from './object/IRoomObject';
-import { IRoomObjectModel } from './object/IRoomObjectModel';
-import { IRoomRendererBase } from './renderer/IRoomRendererBase';
+import { IRoomObject, IRoomObjectModel } from './object';
+import { IRoomRendererBase } from './renderer';
 
 export interface IRoomInstance extends IDisposable
 {

@@ -1,12 +1,8 @@
 ﻿import { Resource, Texture } from '@pixi/core';
 import { Graphics } from '@pixi/graphics';
 import { Point } from '@pixi/math';
-import { IGraphicAsset, IGraphicAssetCollection } from '../../../../../../../api';
-import { IRoomGeometry } from '../../../../../../../room/utils/IRoomGeometry';
-import { IVector3D } from '../../../../../../../room/utils/IVector3D';
-import { Rasterizer } from '../../../../../../../room/utils/Rasterizer';
-import { RoomGeometry } from '../../../../../../../room/utils/RoomGeometry';
-import { Vector3d } from '../../../../../../../room/utils/Vector3d';
+import { IGraphicAsset, IGraphicAssetCollection, IRoomGeometry, IVector3D } from '../../../../../../../api';
+import { Rasterizer, RoomGeometry, Vector3d } from '../../../../../../../room';
 import { PlaneBitmapData } from '../../utils/PlaneBitmapData';
 import { IPlaneRasterizer } from '../IPlaneRasterizer';
 import { FloorPlane } from './FloorPlane';

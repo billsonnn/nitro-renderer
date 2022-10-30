@@ -1,4 +1,4 @@
-import { Nitro } from '../../nitro/Nitro';
+import { PixiApplicationProxy } from '../../pixi-proxy';
 
 export class RoomRotatingEffect
 {
@@ -20,19 +20,19 @@ export class RoomRotatingEffect
         this._SafeStr_4513 = 0;
         this._SafeStr_4515 = _arg_1;
         this._SafeStr_4516 = _arg_2;
-        this._SafeStr_4514 = Nitro.instance.time;
+        this._SafeStr_4514 = PixiApplicationProxy.instance.ticker.lastTime;
         this._SafeStr_448 = 1;
     }
 
     public static turnVisualizationOn(): void
     {
-        if((this._SafeStr_448 === 0) || (this._SafeStr_448 === 3)) return;
+        if ((this._SafeStr_448 === 0) || (this._SafeStr_448 === 3)) return;
 
-        if(!this._SafeStr_4524) this._SafeStr_4524 = setTimeout(() => this.turnVisualizationOff(), this._SafeStr_4516);
+        if (!this._SafeStr_4524) this._SafeStr_4524 = setTimeout(() => this.turnVisualizationOff(), this._SafeStr_4516);
 
-        const _local_1 = (Nitro.instance.time - this._SafeStr_4514);
+        const _local_1 = (PixiApplicationProxy.instance.ticker.lastTime - this._SafeStr_4514);
 
-        if(_local_1 > (this._SafeStr_4515 + this._SafeStr_4516))
+        if (_local_1 > (this._SafeStr_4515 + this._SafeStr_4516))
         {
             this._SafeStr_448 = 3;
 
@@ -41,7 +41,7 @@ export class RoomRotatingEffect
 
         this._SafeStr_4512 = true;
 
-        if(_local_1 < this._SafeStr_4515)
+        if (_local_1 < this._SafeStr_4515)
         {
             this._SafeStr_448 = 1;
 
@@ -52,7 +52,7 @@ export class RoomRotatingEffect
         this._SafeStr_4513 = ((_local_1 - this._SafeStr_4515) / this._SafeStr_4516);
     }
 
-    public static turnVisualizationOff():void
+    public static turnVisualizationOff(): void
     {
         this._SafeStr_4512 = false;
 
@@ -68,7 +68,7 @@ export class RoomRotatingEffect
 
     private static isRunning(): boolean
     {
-        if((this._SafeStr_448 === 1) || (this._SafeStr_448 === 2)) return true;
+        if ((this._SafeStr_448 === 1) || (this._SafeStr_448 === 2)) return true;
 
         return false;
     }

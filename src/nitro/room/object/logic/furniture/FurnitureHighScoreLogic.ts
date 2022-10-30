@@ -1,4 +1,4 @@
-import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
+import { RoomObjectUpdateMessage } from '../../../../../room';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
@@ -12,12 +12,12 @@ export class FurnitureHighScoreLogic extends FurnitureLogic
 
     public getEventTypes(): string[]
     {
-        return [ RoomObjectWidgetRequestEvent.HIGH_SCORE_DISPLAY, RoomObjectWidgetRequestEvent.HIDE_HIGH_SCORE_DISPLAY ];
+        return [RoomObjectWidgetRequestEvent.HIGH_SCORE_DISPLAY, RoomObjectWidgetRequestEvent.HIDE_HIGH_SCORE_DISPLAY];
     }
 
     public tearDown(): void
     {
-        if(this.object.model.getValue(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) === 1)
+        if (this.object.model.getValue(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) === 1)
         {
             this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.HIDE_HIGH_SCORE_DISPLAY, this.object));
         }
@@ -29,11 +29,11 @@ export class FurnitureHighScoreLogic extends FurnitureLogic
     {
         super.processUpdateMessage(message);
 
-        if(this.object.model.getValue(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) !== 1) return;
+        if (this.object.model.getValue(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) !== 1) return;
 
-        if(message instanceof ObjectDataUpdateMessage)
+        if (message instanceof ObjectDataUpdateMessage)
         {
-            if(message.state === FurnitureHighScoreLogic.SHOW_WIDGET_IN_STATE)
+            if (message.state === FurnitureHighScoreLogic.SHOW_WIDGET_IN_STATE)
             {
                 this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.HIGH_SCORE_DISPLAY, this.object));
             }

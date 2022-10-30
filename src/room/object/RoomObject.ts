@@ -1,13 +1,7 @@
+import { IRoomObjectController, IRoomObjectEventHandler, IRoomObjectModel, IRoomObjectMouseHandler, IRoomObjectUpdateMessage, IRoomObjectVisualization, IVector3D } from '../../api';
 import { Disposable } from '../../core';
-import { RoomObjectUpdateMessage } from '../messages/RoomObjectUpdateMessage';
-import { IVector3D } from '../utils/IVector3D';
 import { Vector3d } from '../utils/Vector3d';
-import { IRoomObjectController } from './IRoomObjectController';
-import { IRoomObjectModel } from './IRoomObjectModel';
-import { IRoomObjectEventHandler } from './logic/IRoomObjectEventHandler';
-import { IRoomObjectMouseHandler } from './logic/IRoomObjectMouseHandler';
 import { RoomObjectModel } from './RoomObjectModel';
-import { IRoomObjectVisualization } from './visualization/IRoomObjectVisualization';
 
 export class RoomObject extends Disposable implements IRoomObjectController
 {
@@ -24,7 +18,7 @@ export class RoomObject extends Disposable implements IRoomObjectController
 
     private _visualization: IRoomObjectVisualization;
     private _logic: IRoomObjectEventHandler;
-    private _pendingLogicMessages: RoomObjectUpdateMessage[];
+    private _pendingLogicMessages: IRoomObjectUpdateMessage[];
 
     private _updateCounter: number;
     private _isReady: boolean;
@@ -173,7 +167,7 @@ export class RoomObject extends Disposable implements IRoomObjectController
         }
     }
 
-    public processUpdateMessage(message: RoomObjectUpdateMessage): void
+    public processUpdateMessage(message: IRoomObjectUpdateMessage): void
     {
         if (this._logic) return this._logic.processUpdateMessage(message);
 

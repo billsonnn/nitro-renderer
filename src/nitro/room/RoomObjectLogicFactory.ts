@@ -1,7 +1,5 @@
-import { IEventDispatcher } from '../../api';
+import { IEventDispatcher, IRoomObjectEventHandler, IRoomObjectLogicFactory } from '../../api';
 import { EventDispatcher, NitroLogger } from '../../core';
-import { IRoomObjectEventHandler } from '../../room/object/logic/IRoomObjectEventHandler';
-import { IRoomObjectLogicFactory } from '../../room/object/logic/IRoomObjectLogicFactory';
 import { RoomObjectLogicBase } from '../../room/object/logic/RoomObjectLogicBase';
 import { FurnitureEcotronBoxLogic, FurnitureEffectBoxLogic, FurnitureGroupForumTerminalLogic, FurnitureHabboWheelLogic, FurnitureHweenLovelockLogic, FurnitureInternalLinkLogic, FurnitureJukeboxLogic, FurnitureLoveLockLogic, FurnitureMonsterplantSeedLogic, FurnitureMysteryBoxLogic, FurnitureMysteryTrophyLogic, FurniturePlaceholderLogic, FurniturePlanetSystemLogic, FurnitureRandomStateLogic, FurnitureRandomTeleportLogic, FurnitureRentableSpaceLogic, FurnitureSongDiskLogic, FurnitureSoundMachineLogic, FurnitureWelcomeGiftLogic } from './object';
 import { AvatarLogic } from './object/logic/avatar/AvatarLogic';

@@ -1,7 +1,6 @@
+import { IRoomObjectController, IRoomObjectManager } from '../api';
 import { AdvancedMap } from '../core';
-import { IRoomObjectManager } from './IRoomObjectManager';
-import { IRoomObjectController } from './object/IRoomObjectController';
-import { RoomObject } from './object/RoomObject';
+import { RoomObject } from './object';
 
 export class RoomObjectManager implements IRoomObjectManager
 {

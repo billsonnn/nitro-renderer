@@ -1,6 +1,4 @@
-import { IRoomInstance } from '../../room/IRoomInstance';
-import { IRoomObjectController } from '../../room/object/IRoomObjectController';
-import { IVector3D } from '../../room/utils/IVector3D';
+import { IRoomInstance, IRoomObjectController, IVector3D } from '../../api';
 import { IRoomSessionManager } from '../session/IRoomSessionManager';
 import { ISessionDataManager } from '../session/ISessionDataManager';
 import { IObjectData } from './object/data/IObjectData';

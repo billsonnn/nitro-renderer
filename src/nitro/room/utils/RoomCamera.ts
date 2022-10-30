@@ -1,5 +1,5 @@
-﻿import { IVector3D } from '../../../room/utils/IVector3D';
-import { Vector3d } from '../../../room/utils/Vector3d';
+﻿import { IVector3D } from '../../../api';
+import { Vector3d } from '../../../room';
 
 export class RoomCamera
 {
@@ -7,12 +7,12 @@ export class RoomCamera
 
     private _targetId: number = -1;
     private _targetCategory: number = -2;
-    private _targetLoc:Vector3d = null;
+    private _targetLoc: Vector3d = null;
     private _moveDistance: number = 0;
     private _previousMoveSpeed: number = 0;
     private _maintainPreviousMoveSpeed: boolean = false;
-    private _currentLoc:Vector3d = null;
-    private _targetObjectLoc:Vector3d;
+    private _currentLoc: Vector3d = null;
+    private _targetObjectLoc: Vector3d;
     private _limitedLocX: boolean = false;
     private _limitedLocY: boolean = false;
     private _centeredLocX: boolean = false;
@@ -31,7 +31,7 @@ export class RoomCamera
         this._targetObjectLoc = new Vector3d();
     }
 
-    public get location():IVector3D
+    public get location(): IVector3D
     {
         return this._currentLoc;
     }
@@ -56,12 +56,12 @@ export class RoomCamera
         this._targetCategory = k;
     }
 
-    public get targetObjectLoc():IVector3D
+    public get targetObjectLoc(): IVector3D
     {
         return this._targetObjectLoc;
     }
 
-    public set targetObjectLoc(k:IVector3D)
+    public set targetObjectLoc(k: IVector3D)
     {
         this._targetObjectLoc.assign(k);
     }
@@ -133,7 +133,7 @@ export class RoomCamera
 
     public set scale(k: number)
     {
-        if(this._scale != k)
+        if (this._scale != k)
         {
             this._scale = k;
             this._scaleChanged = true;
@@ -172,21 +172,21 @@ export class RoomCamera
 
     public get isMoving(): boolean
     {
-        if(((!(this._targetLoc == null)) && (!(this._currentLoc == null))))
+        if (((!(this._targetLoc == null)) && (!(this._currentLoc == null))))
         {
             return true;
         }
         return false;
     }
 
-    public set target(k:IVector3D)
+    public set target(k: IVector3D)
     {
-        let _local_2:Vector3d;
-        if(this._targetLoc == null)
+        let _local_2: Vector3d;
+        if (this._targetLoc == null)
         {
             this._targetLoc = new Vector3d();
         }
-        if((((!(this._targetLoc.x == k.x)) || (!(this._targetLoc.y == k.y))) || (!(this._targetLoc.z == k.z))))
+        if ((((!(this._targetLoc.x == k.x)) || (!(this._targetLoc.y == k.y))) || (!(this._targetLoc.z == k.z))))
         {
             this._targetLoc.assign(k);
             _local_2 = Vector3d.dif(this._targetLoc, this._currentLoc);
@@ -201,9 +201,9 @@ export class RoomCamera
         this._currentLoc = null;
     }
 
-    public initializeLocation(k:IVector3D): void
+    public initializeLocation(k: IVector3D): void
     {
-        if(this._currentLoc != null)
+        if (this._currentLoc != null)
         {
             return;
         }
@@ -211,9 +211,9 @@ export class RoomCamera
         this._currentLoc.assign(k);
     }
 
-    public resetLocation(k:IVector3D): void
+    public resetLocation(k: IVector3D): void
     {
-        if(this._currentLoc == null)
+        if (this._currentLoc == null)
         {
             this._currentLoc = new Vector3d();
         }
@@ -222,14 +222,14 @@ export class RoomCamera
 
     public update(k: number, _arg_2: number): void
     {
-        let _local_3:Vector3d;
+        let _local_3: Vector3d;
         let _local_4: number;
         let _local_5: number;
         let _local_6: number;
         let _local_7: number;
-        if((((this._followDuration > 0) && (!(this._targetLoc == null))) && (!(this._currentLoc == null))))
+        if ((((this._followDuration > 0) && (!(this._targetLoc == null))) && (!(this._currentLoc == null))))
         {
-            if(this._scaleChanged)
+            if (this._scaleChanged)
             {
                 this._scaleChanged = false;
                 this._currentLoc = this._targetLoc;
@@ -237,11 +237,11 @@ export class RoomCamera
                 return;
             }
             _local_3 = Vector3d.dif(this._targetLoc, this._currentLoc);
-            if(_local_3.length > this._moveDistance)
+            if (_local_3.length > this._moveDistance)
             {
                 this._moveDistance = _local_3.length;
             }
-            if(_local_3.length <= _arg_2)
+            if (_local_3.length <= _arg_2)
             {
                 this._currentLoc = this._targetLoc;
                 this._targetLoc = null;
@@ -253,12 +253,12 @@ export class RoomCamera
                 _local_5 = (_arg_2 * 0.5);
                 _local_6 = (this._moveDistance / RoomCamera.MOVE_SPEED_DENOMINATOR);
                 _local_7 = (_local_5 + ((_local_6 - _local_5) * _local_4));
-                if(this._maintainPreviousMoveSpeed)
+                if (this._maintainPreviousMoveSpeed)
                 {
-                    if(_local_7 < this._previousMoveSpeed)
+                    if (_local_7 < this._previousMoveSpeed)
                     {
                         _local_7 = this._previousMoveSpeed;
-                        if(_local_7 > _local_3.length)
+                        if (_local_7 > _local_3.length)
                         {
                             _local_7 = _local_3.length;
                         }

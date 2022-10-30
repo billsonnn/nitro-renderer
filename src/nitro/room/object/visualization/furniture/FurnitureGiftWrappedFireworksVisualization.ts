@@ -1,4 +1,4 @@
-import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
+import { IRoomGeometry } from '../../../../../api';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureFireworksVisualization } from './FurnitureFireworksVisualization';
 
@@ -21,7 +21,7 @@ export class FurnitureGiftWrappedFireworksVisualization extends FurnitureFirewor
 
     private updatePresentWrap(): void
     {
-        if(!this.object) return;
+        if (!this.object) return;
 
         const local3 = 1000;
         const extras = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_EXTRAS);
@@ -36,11 +36,11 @@ export class FurnitureGiftWrappedFireworksVisualization extends FurnitureFirewor
 
     public getFrameNumber(scale: number, layerId: number): number
     {
-        if(this._lastAnimationId === FurnitureGiftWrappedFireworksVisualization.PRESENT_DEFAULT_STATE)
+        if (this._lastAnimationId === FurnitureGiftWrappedFireworksVisualization.PRESENT_DEFAULT_STATE)
         {
-            if(layerId <= 1) return this._packetType;
+            if (layerId <= 1) return this._packetType;
 
-            if(layerId === 2) return this._ribbonType;
+            if (layerId === 2) return this._ribbonType;
         }
 
         return super.getFrameNumber(scale, layerId);
@@ -53,7 +53,7 @@ export class FurnitureGiftWrappedFireworksVisualization extends FurnitureFirewor
         let assetName = this._type;
         let layerCode = '';
 
-        if(layerId < (this.spriteCount - 1))
+        if (layerId < (this.spriteCount - 1))
         {
             layerCode = String.fromCharCode(('a'.charCodeAt(0) + layerId));
         }
@@ -70,7 +70,7 @@ export class FurnitureGiftWrappedFireworksVisualization extends FurnitureFirewor
         return assetName;
     }
 
-    protected setAnimation(animationId: number):void
+    protected setAnimation(animationId: number): void
     {
         this._lastAnimationId = animationId;
 

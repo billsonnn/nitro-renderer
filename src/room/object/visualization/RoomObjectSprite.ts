@@ -1,9 +1,7 @@
 import { BLEND_MODES } from '@pixi/constants';
 import { Filter, Resource, Texture } from '@pixi/core';
 import { Container } from '@pixi/display';
-import { AlphaTolerance } from '../enum/AlphaTolerance';
-import { RoomObjectSpriteType } from '../enum/RoomObjectSpriteType';
-import { IRoomObjectSprite } from './IRoomObjectSprite';
+import { AlphaTolerance, IRoomObjectSprite, RoomObjectSpriteType } from '../../../api';
 
 export class RoomObjectSprite implements IRoomObjectSprite
 {
@@ -98,7 +96,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public set name(name: string)
     {
-        if(this._name === name) return;
+        if (this._name === name) return;
 
         this._name = name;
 
@@ -132,9 +130,9 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public set texture(texture: Texture<Resource>)
     {
-        if(this._texture === texture) return;
+        if (this._texture === texture) return;
 
-        if(texture)
+        if (texture)
         {
             this._width = texture.width;
             this._height = texture.height;
@@ -152,11 +150,11 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public set container(container: Container)
     {
-        if(this._container === container) return;
+        if (this._container === container) return;
 
         this.texture = Texture.EMPTY;
 
-        if(container)
+        if (container)
         {
             this._width = container.width;
             this._height = container.height;
@@ -186,7 +184,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public set offsetX(x: number)
     {
-        if(this._offsetX === x) return;
+        if (this._offsetX === x) return;
 
         this._offsetX = x;
 
@@ -200,7 +198,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public set offsetY(y: number)
     {
-        if(this._offsetY === y) return;
+        if (this._offsetY === y) return;
 
         this._offsetY = y;
 
@@ -214,7 +212,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public set flipH(flip: boolean)
     {
-        if(this._flipH === flip) return;
+        if (this._flipH === flip) return;
 
         this._flipH = flip;
 
@@ -228,7 +226,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public set flipV(flip: boolean)
     {
-        if(this._flipV === flip) return;
+        if (this._flipV === flip) return;
 
         this._flipV = flip;
 
@@ -254,7 +252,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
     {
         alpha = (alpha & 0xFF);
 
-        if(this._alpha === alpha) return;
+        if (this._alpha === alpha) return;
 
         this._alpha = alpha;
 
@@ -268,7 +266,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public set blendMode(blend: number)
     {
-        if(this._blendMode === blend) return;
+        if (this._blendMode === blend) return;
 
         this._blendMode = blend;
 
@@ -284,7 +282,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
     {
         color = (color & 0xFFFFFF);
 
-        if(this._color === color) return;
+        if (this._color === color) return;
 
         this._color = color;
 
@@ -298,7 +296,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public set relativeDepth(depth: number)
     {
-        if(this._relativeDepth === depth) return;
+        if (this._relativeDepth === depth) return;
 
         this._relativeDepth = depth;
 
@@ -312,7 +310,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public set varyingDepth(flag: boolean)
     {
-        if(flag === this._varyingDepth) return;
+        if (flag === this._varyingDepth) return;
 
         this._varyingDepth = flag;
 
@@ -346,7 +344,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public set visible(visible: boolean)
     {
-        if(this._visible === visible) return;
+        if (this._visible === visible) return;
 
         this._visible = visible;
 
@@ -360,7 +358,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public set tag(tag: string)
     {
-        if(this._tag === tag) return;
+        if (this._tag === tag) return;
 
         this._tag = tag;
 
@@ -374,7 +372,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public set posture(posture: string)
     {
-        if(this._posture === posture) return;
+        if (this._posture === posture) return;
 
         this._posture = posture;
 
@@ -388,7 +386,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public set alphaTolerance(tolerance: number)
     {
-        if(this._alphaTolerance === tolerance) return;
+        if (this._alphaTolerance === tolerance) return;
 
         this._alphaTolerance = tolerance;
 

@@ -1,4 +1,4 @@
-import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
+import { RoomObjectUpdateMessage } from '../../../../../room';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
 import { MapDataType } from '../../data/type/MapDataType';
@@ -13,7 +13,7 @@ export class FurnitureMannequinLogic extends FurnitureLogic
 
     public getEventTypes(): string[]
     {
-        const types = [ RoomObjectWidgetRequestEvent.MANNEQUIN ];
+        const types = [RoomObjectWidgetRequestEvent.MANNEQUIN];
 
         return this.mergeTypes(super.getEventTypes(), types);
     }
@@ -22,7 +22,7 @@ export class FurnitureMannequinLogic extends FurnitureLogic
     {
         super.processUpdateMessage(message);
 
-        if(message instanceof ObjectDataUpdateMessage)
+        if (message instanceof ObjectDataUpdateMessage)
         {
             message.data.writeRoomObjectModel(this.object.model);
 
@@ -32,7 +32,7 @@ export class FurnitureMannequinLogic extends FurnitureLogic
 
     private processObjectData(): void
     {
-        if(!this.object || !this.object.model) return;
+        if (!this.object || !this.object.model) return;
 
         const data = new MapDataType();
 
@@ -45,7 +45,7 @@ export class FurnitureMannequinLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if(!this.object || !this.eventDispatcher) return;
+        if (!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.MANNEQUIN, this.object));
     }

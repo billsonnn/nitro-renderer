@@ -1,4 +1,4 @@
-import { IAssetData } from '../../../api';
+import { IAssetData } from '../../../asset';
 
 export interface IObjectVisualizationData
 {

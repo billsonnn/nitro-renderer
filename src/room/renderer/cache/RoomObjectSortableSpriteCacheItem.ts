@@ -1,4 +1,4 @@
-﻿import { SortableSprite } from '../utils/SortableSprite';
+﻿import { SortableSprite } from '../utils';
 
 export class RoomObjectSortableSpriteCacheItem
 {
@@ -47,7 +47,7 @@ export class RoomObjectSortableSpriteCacheItem
 
     public needsUpdate(k: number, _arg_2: number): boolean
     {
-        if((k === this._updateId1) && (_arg_2 === this._updateId2)) return false;
+        if ((k === this._updateId1) && (_arg_2 === this._updateId2)) return false;
 
         this._updateId1 = k;
         this._updateId2 = _arg_2;
@@ -57,15 +57,15 @@ export class RoomObjectSortableSpriteCacheItem
 
     public setSpriteCount(k: number): void
     {
-        if(k < this._sprites.length)
+        if (k < this._sprites.length)
         {
             let iterator = k;
 
-            while(iterator < this._sprites.length)
+            while (iterator < this._sprites.length)
             {
                 const sprite = this._sprites[iterator];
 
-                if(sprite) sprite.dispose();
+                if (sprite) sprite.dispose();
 
                 iterator++;
             }

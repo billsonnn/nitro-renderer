@@ -1,4 +1,6 @@
-export class RoomSpriteMouseEvent
+import { IRoomSpriteMouseEvent } from '../../api';
+
+export class RoomSpriteMouseEvent implements IRoomSpriteMouseEvent
 {
     private _type: string;
     private _eventId: string;

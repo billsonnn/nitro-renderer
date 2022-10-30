@@ -1,4 +1,4 @@
-import { IRoomObjectSprite } from '../../../../../../room/object/visualization/IRoomObjectSprite';
+import { IRoomObjectSprite } from '../../../../../../api';
 
 export interface IAvatarAddition
 {

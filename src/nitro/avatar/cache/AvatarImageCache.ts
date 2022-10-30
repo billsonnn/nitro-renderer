@@ -1,8 +1,7 @@
 import { Texture } from '@pixi/core';
 import { Matrix, Point, Rectangle } from '@pixi/math';
-import { NitroContainer, NitroSprite } from '../../../pixi-proxy';
-import { RoomObjectSpriteData } from '../../../room/data/RoomObjectSpriteData';
-import { Nitro } from '../../Nitro';
+import { RoomObjectSpriteData } from '../../../api/room/RoomObjectSpriteData';
+import { NitroContainer, NitroSprite, PixiApplicationProxy } from '../../../pixi-proxy';
 import { IActiveActionData } from '../actions/IActiveActionData';
 import { AssetAliasCollection } from '../alias/AssetAliasCollection';
 import { AvatarAnimationLayerData } from '../animation/AvatarAnimationLayerData';
@@ -87,7 +86,7 @@ export class AvatarImageCache
 
     public disposeInactiveActions(k: number = 60000): void
     {
-        const time = Nitro.instance.time;
+        const time = PixiApplicationProxy.instance.ticker.lastTime;
 
         if (this._cache)
         {

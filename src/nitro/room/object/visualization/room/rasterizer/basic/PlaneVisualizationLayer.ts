@@ -1,7 +1,7 @@
 ﻿import { Graphics } from '@pixi/graphics';
 import { Rectangle } from '@pixi/math';
+import { IVector3D } from '../../../../../../../api';
 import { TextureUtils } from '../../../../../../../pixi-proxy';
-import { IVector3D } from '../../../../../../../room/utils/IVector3D';
 import { RoomVisualization } from '../../RoomVisualization';
 import { PlaneMaterial } from './PlaneMaterial';
 

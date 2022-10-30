@@ -1,5 +1,5 @@
 import { IRoomObjectManager } from './IRoomObjectManager';
-import { IRoomObject } from './object/IRoomObject';
+import { IRoomObject } from './object';
 
 export interface IRoomInstanceContainer
 {

@@ -1,7 +1,7 @@
-import { IEventDispatcher, INitroManager } from '../api';
-import { RoomContentLoader } from '../nitro/room/RoomContentLoader';
+import { IEventDispatcher, INitroManager } from '../common';
+import { IRoomContentLoader } from '../nitro';
 import { IRoomInstance } from './IRoomInstance';
-import { IRoomObject } from './object/IRoomObject';
+import { IRoomObject } from './object';
 
 export interface IRoomManager extends INitroManager
 {
@@ -11,7 +11,7 @@ export interface IRoomManager extends INitroManager
     addUpdateCategory(category: number): void;
     removeUpdateCategory(category: number): void;
     createRoomObjectAndInitalize(roomId: string, objectId: number, type: string, category: number): IRoomObject;
-    setContentLoader(loader: RoomContentLoader): void;
+    setContentLoader(loader: IRoomContentLoader): void;
     update(time: number, update?: boolean): void;
     rooms: Map<string, IRoomInstance>;
     events: IEventDispatcher;

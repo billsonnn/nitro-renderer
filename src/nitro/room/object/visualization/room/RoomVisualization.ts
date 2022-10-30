@@ -1,16 +1,8 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Rectangle } from '@pixi/math';
+import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType } from '../../../../../api';
 import { AdvancedMap } from '../../../../../core';
-import { AlphaTolerance } from '../../../../../room/object/enum/AlphaTolerance';
-import { RoomObjectSpriteType } from '../../../../../room/object/enum/RoomObjectSpriteType';
-import { IRoomObjectModel } from '../../../../../room/object/IRoomObjectModel';
-import { IPlaneVisualization } from '../../../../../room/object/visualization/IPlaneVisualization';
-import { IRoomObjectSprite } from '../../../../../room/object/visualization/IRoomObjectSprite';
-import { IObjectVisualizationData } from '../../../../../room/object/visualization/IRoomObjectVisualizationData';
-import { IRoomPlane } from '../../../../../room/object/visualization/IRoomPlane';
-import { RoomObjectSpriteVisualization } from '../../../../../room/object/visualization/RoomObjectSpriteVisualization';
-import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
-import { Vector3d } from '../../../../../room/utils/Vector3d';
+import { RoomObjectSpriteVisualization, Vector3d } from '../../../../../room';
 import { RoomMapData } from '../../RoomMapData';
 import { RoomMapMaskData } from '../../RoomMapMaskData';
 import { RoomObjectVariable } from '../../RoomObjectVariable';

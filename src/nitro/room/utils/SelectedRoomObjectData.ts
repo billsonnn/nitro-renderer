@@ -1,7 +1,7 @@
-import { IVector3D } from '../../../room/utils/IVector3D';
-import { Vector3d } from '../../../room/utils/Vector3d';
+import { IVector3D } from '../../../api';
+import { Vector3d } from '../../../room';
 import { ISelectedRoomObjectData } from '../ISelectedRoomObjectData';
-import { IObjectData } from '../object/data/IObjectData';
+import { IObjectData } from '../object';
 
 export class SelectedRoomObjectData implements ISelectedRoomObjectData
 {
@@ -49,12 +49,12 @@ export class SelectedRoomObjectData implements ISelectedRoomObjectData
         return this._operation;
     }
 
-    public get loc():Vector3d
+    public get loc(): Vector3d
     {
         return this._loc;
     }
 
-    public get dir():Vector3d
+    public get dir(): Vector3d
     {
         return this._dir;
     }

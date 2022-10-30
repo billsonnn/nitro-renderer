@@ -1,4 +1,4 @@
-import { IObjectVisualizationData } from '../../../../../room/object/visualization/IRoomObjectVisualizationData';
+import { IObjectVisualizationData } from '../../../../../api';
 import { AvatarSetType } from '../../../../avatar/enum/AvatarSetType';
 import { IAvatarImageListener } from '../../../../avatar/IAvatarImageListener';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
@@ -38,18 +38,18 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
 
     public initialize(data: IObjectVisualizationData): boolean
     {
-        if(!(data instanceof FurnitureMannequinVisualizationData)) return false;
+        if (!(data instanceof FurnitureMannequinVisualizationData)) return false;
 
         return super.initialize(data);
     }
 
     public dispose(): void
     {
-        if(this._disposed) return;
+        if (this._disposed) return;
 
         this._disposed = true;
 
-        if(this._dynamicAssetName && this.asset)
+        if (this._dynamicAssetName && this.asset)
         {
             this.asset.disposeAsset(this._dynamicAssetName);
 
@@ -63,9 +63,9 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
     {
         const updateObject = super.updateObject(scale, direction);
 
-        if(updateObject)
+        if (updateObject)
         {
-            if(this._mannequinScale !== scale)
+            if (this._mannequinScale !== scale)
             {
                 this._mannequinScale = scale;
 
@@ -80,11 +80,11 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
     {
         let updateModel = super.updateModel(scale);
 
-        if(updateModel)
+        if (updateModel)
         {
             const figure = (this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_MANNEQUIN_FIGURE) || null);
 
-            if(figure)
+            if (figure)
             {
                 this._figure = (figure + '.' + this._placeHolderFigure);
                 this._gender = (this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_MANNEQUIN_GENDER) || null);
@@ -102,15 +102,15 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
 
     private updateAvatar(forceUpdate: boolean = false): void
     {
-        if(!this.avatarExists() || forceUpdate)
+        if (!this.avatarExists() || forceUpdate)
         {
             const avatarImage = this._data.createAvatarImage(this._figure, this._mannequinScale, this._gender, this);
 
-            if(avatarImage)
+            if (avatarImage)
             {
                 avatarImage.setDirection(AvatarSetType.FULL, this.direction);
 
-                if(this._dynamicAssetName) this.asset.disposeAsset(this._dynamicAssetName);
+                if (this._dynamicAssetName) this.asset.disposeAsset(this._dynamicAssetName);
 
                 this.asset.addAsset(this.getAvatarAssetName(), avatarImage.getImage(AvatarSetType.FULL, false, 1, false), true);
 
@@ -134,14 +134,14 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
 
     public resetFigure(figure: string): void
     {
-        if(figure === this._figure) this.updateAvatar(true);
+        if (figure === this._figure) this.updateAvatar(true);
     }
 
     protected getSpriteAssetName(scale: number, layerId: number): string
     {
         const tag = this.getLayerTag(scale, this.direction, layerId);
 
-        if(this._figure && (tag === FurnitureMannequinVisualization.AVATAR_IMAGE_SPRITE_TAG) && this.avatarExists())
+        if (this._figure && (tag === FurnitureMannequinVisualization.AVATAR_IMAGE_SPRITE_TAG) && this.avatarExists())
         {
             return this.getAvatarAssetName();
         }
@@ -153,7 +153,7 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
     {
         const tag = this.getLayerTag(scale, direction, layerId);
 
-        if((tag === FurnitureMannequinVisualization.AVATAR_IMAGE_SPRITE_TAG) && this.avatarExists()) return (-(this.getSprite(layerId).width) / 2);
+        if ((tag === FurnitureMannequinVisualization.AVATAR_IMAGE_SPRITE_TAG) && this.avatarExists()) return (-(this.getSprite(layerId).width) / 2);
 
         return super.getLayerXOffset(scale, direction, layerId);
     }
@@ -162,7 +162,7 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
     {
         const tag = this.getLayerTag(scale, direction, layerId);
 
-        if((tag === FurnitureMannequinVisualization.AVATAR_IMAGE_SPRITE_TAG) && this.avatarExists()) return -(this.getSprite(layerId).height);
+        if ((tag === FurnitureMannequinVisualization.AVATAR_IMAGE_SPRITE_TAG) && this.avatarExists()) return -(this.getSprite(layerId).height);
 
         return super.getLayerYOffset(scale, direction, layerId);
     }

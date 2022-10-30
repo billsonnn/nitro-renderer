@@ -1,5 +1,4 @@
-import { IAssetData, IAssetVisualizationData } from '../../../../../api';
-import { IObjectVisualizationData } from '../../../../../room/object/visualization/IRoomObjectVisualizationData';
+import { IAssetData, IAssetVisualizationData, IObjectVisualizationData } from '../../../../../api';
 import { ColorData } from '../data/ColorData';
 import { LayerData } from '../data/LayerData';
 import { SizeData } from '../data/SizeData';

@@ -1,7 +1,6 @@
 ﻿import { Graphics } from '@pixi/graphics';
 import { Matrix, Point } from '@pixi/math';
-import { IGraphicAssetCollection } from '../../../../../../api';
-import { IVector3D } from '../../../../../../room/utils/IVector3D';
+import { IGraphicAssetCollection, IVector3D } from '../../../../../../api';
 import { PlaneMask } from './PlaneMask';
 import { PlaneMaskVisualization } from './PlaneMaskVisualization';
 

@@ -1,8 +1,5 @@
-import { RoomObjectUpdateMessage } from '../../../../room/messages/RoomObjectUpdateMessage';
-import { IRoomObjectController } from '../../../../room/object/IRoomObjectController';
-import { RoomObjectLogicBase } from '../../../../room/object/logic/RoomObjectLogicBase';
-import { IVector3D } from '../../../../room/utils/IVector3D';
-import { Vector3d } from '../../../../room/utils/Vector3d';
+import { IRoomObjectController, IRoomObjectUpdateMessage, IVector3D } from '../../../../api';
+import { RoomObjectLogicBase, Vector3d } from '../../../../room';
 import { ObjectMoveUpdateMessage } from '../../messages/ObjectMoveUpdateMessage';
 import { RoomObjectVariable } from '../RoomObjectVariable';
 
@@ -46,11 +43,11 @@ export class MovingObjectLogic extends RoomObjectLogicBase
         const locationOffset = this.getLocationOffset();
         const model = this.object && this.object.model;
 
-        if(model)
+        if (model)
         {
-            if(locationOffset)
+            if (locationOffset)
             {
-                if(this._liftAmount !== locationOffset.z)
+                if (this._liftAmount !== locationOffset.z)
                 {
                     this._liftAmount = locationOffset.z;
 
@@ -59,7 +56,7 @@ export class MovingObjectLogic extends RoomObjectLogicBase
             }
             else
             {
-                if(this._liftAmount !== 0)
+                if (this._liftAmount !== 0)
                 {
                     this._liftAmount = 0;
 
@@ -68,17 +65,17 @@ export class MovingObjectLogic extends RoomObjectLogicBase
             }
         }
 
-        if((this._locationDelta.length > 0) || locationOffset)
+        if ((this._locationDelta.length > 0) || locationOffset)
         {
             const vector = MovingObjectLogic.TEMP_VECTOR;
 
             let difference = (this.time - this._changeTime);
 
-            if(difference === (this._updateInterval >> 1)) difference++;
+            if (difference === (this._updateInterval >> 1)) difference++;
 
-            if(difference > this._updateInterval) difference = this._updateInterval;
+            if (difference > this._updateInterval) difference = this._updateInterval;
 
-            if(this._locationDelta.length > 0)
+            if (this._locationDelta.length > 0)
             {
                 vector.assign(this._locationDelta);
                 vector.multiply((difference / this._updateInterval));
@@ -89,11 +86,11 @@ export class MovingObjectLogic extends RoomObjectLogicBase
                 vector.assign(this._location);
             }
 
-            if(locationOffset) vector.add(locationOffset);
+            if (locationOffset) vector.add(locationOffset);
 
             this.object.setLocation(vector);
 
-            if(difference === this._updateInterval)
+            if (difference === this._updateInterval)
             {
                 this._locationDelta.x = 0;
                 this._locationDelta.y = 0;
@@ -108,23 +105,23 @@ export class MovingObjectLogic extends RoomObjectLogicBase
     {
         super.setObject(object);
 
-        if(object) this._location.assign(object.getLocation());
+        if (object) this._location.assign(object.getLocation());
     }
 
-    public processUpdateMessage(message: RoomObjectUpdateMessage): void
+    public processUpdateMessage(message: IRoomObjectUpdateMessage): void
     {
-        if(!message) return;
+        if (!message) return;
 
         super.processUpdateMessage(message);
 
-        if(message.location) this._location.assign(message.location);
+        if (message.location) this._location.assign(message.location);
 
-        if(message instanceof ObjectMoveUpdateMessage) return this.processMoveMessage(message);
+        if (message instanceof ObjectMoveUpdateMessage) return this.processMoveMessage(message);
     }
 
     private processMoveMessage(message: ObjectMoveUpdateMessage): void
     {
-        if(!message || !this.object || !message.location) return;
+        if (!message || !this.object || !message.location) return;
 
         this._changeTime = this._lastUpdateTime;
 
@@ -144,7 +141,7 @@ export class MovingObjectLogic extends RoomObjectLogicBase
 
     protected set updateInterval(interval: number)
     {
-        if(interval <= 0) interval = 1;
+        if (interval <= 0) interval = 1;
 
         this._updateInterval = interval;
     }

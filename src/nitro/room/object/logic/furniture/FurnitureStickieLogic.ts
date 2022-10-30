@@ -1,5 +1,5 @@
 import { IAssetData } from '../../../../../api';
-import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
+import { RoomObjectUpdateMessage } from '../../../../../room';
 import { RoomObjectFurnitureActionEvent } from '../../../events/RoomObjectFurnitureActionEvent';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { ObjectItemDataUpdateMessage } from '../../../messages/ObjectItemDataUpdateMessage';

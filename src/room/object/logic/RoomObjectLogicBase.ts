@@ -1,10 +1,6 @@
-import { IEventDispatcher } from '../../../api';
+import { IEventDispatcher, IRoomGeometry, IRoomObjectController, IRoomObjectEventHandler, IRoomObjectUpdateMessage } from '../../../api';
 import { Disposable } from '../../../core';
-import { RoomSpriteMouseEvent } from '../../events/RoomSpriteMouseEvent';
-import { RoomObjectUpdateMessage } from '../../messages/RoomObjectUpdateMessage';
-import { IRoomGeometry } from '../../utils/IRoomGeometry';
-import { IRoomObjectController } from '../IRoomObjectController';
-import { IRoomObjectEventHandler } from './IRoomObjectEventHandler';
+import { RoomSpriteMouseEvent } from '../../events';
 
 export class RoomObjectLogicBase extends Disposable implements IRoomObjectEventHandler
 {
@@ -40,7 +36,7 @@ export class RoomObjectLogicBase extends Disposable implements IRoomObjectEventH
         return;
     }
 
-    public processUpdateMessage(message: RoomObjectUpdateMessage): void
+    public processUpdateMessage(message: IRoomObjectUpdateMessage): void
     {
         if (!message || !this._object) return;
 

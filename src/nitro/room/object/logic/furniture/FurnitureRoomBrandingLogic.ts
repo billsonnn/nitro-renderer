@@ -1,8 +1,7 @@
 import { BaseTexture, Texture } from '@pixi/core';
 import { decompressFrames, parseGIF } from 'gifuct-js';
-import { IAssetData } from '../../../../../api';
-import { IRoomGeometry, RoomSpriteMouseEvent } from '../../../../../room';
-import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
+import { IAssetData, IRoomGeometry } from '../../../../../api';
+import { RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
 import { Nitro } from '../../../../Nitro';
 import { MouseEventType } from '../../../../ui';
 import { RoomWidgetEnumItemExtradataParameter } from '../../../../ui/widget/enums/RoomWidgetEnumItemExtradataParameter';

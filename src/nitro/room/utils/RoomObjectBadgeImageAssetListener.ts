@@ -1,4 +1,4 @@
-import { IRoomObjectController } from '../../../room/object/IRoomObjectController';
+import { IRoomObjectController } from '../../../api';
 
 export class RoomObjectBadgeImageAssetListener
 {

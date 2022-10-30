@@ -1,12 +1,5 @@
-import { IAssetData } from '../../../../../api';
-import { RoomObjectMouseEvent } from '../../../../../room/events/RoomObjectMouseEvent';
-import { RoomSpriteMouseEvent } from '../../../../../room/events/RoomSpriteMouseEvent';
-import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
-import { IRoomObjectController } from '../../../../../room/object/IRoomObjectController';
-import { IRoomObjectModel } from '../../../../../room/object/IRoomObjectModel';
-import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
-import { IVector3D } from '../../../../../room/utils/IVector3D';
-import { Vector3d } from '../../../../../room/utils/Vector3d';
+import { IAssetData, IRoomGeometry, IRoomObjectController, IRoomObjectModel, IVector3D } from '../../../../../api';
+import { RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent, Vector3d } from '../../../../../room';
 import { Nitro } from '../../../../Nitro';
 import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectRoomAdEvent } from '../../../events';

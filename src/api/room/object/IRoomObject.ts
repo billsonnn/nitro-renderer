@@ -1,8 +1,8 @@
-import { IDisposable } from '../../api';
-import { IVector3D } from '../utils/IVector3D';
+import { IDisposable } from '../../common';
+import { IVector3D } from '../IVector3D';
 import { IRoomObjectModel } from './IRoomObjectModel';
-import { IRoomObjectMouseHandler } from './logic/IRoomObjectMouseHandler';
-import { IRoomObjectVisualization } from './visualization/IRoomObjectVisualization';
+import { IRoomObjectMouseHandler } from './logic';
+import { IRoomObjectVisualization } from './visualization';
 
 export interface IRoomObject extends IDisposable
 {

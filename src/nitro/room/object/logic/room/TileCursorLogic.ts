@@ -1,6 +1,5 @@
 import { IAssetData } from '../../../../../api';
-import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
-import { RoomObjectLogicBase } from '../../../../../room/object/logic/RoomObjectLogicBase';
+import { RoomObjectLogicBase, RoomObjectUpdateMessage } from '../../../../../room';
 import { ObjectTileCursorUpdateMessage } from '../../../messages/ObjectTileCursorUpdateMessage';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 

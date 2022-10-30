@@ -1,5 +1,5 @@
-import { RoomObjectUpdateMessage } from '../../../room/messages/RoomObjectUpdateMessage';
-import { IVector3D } from '../../../room/utils/IVector3D';
+import { IVector3D } from '../../../api';
+import { RoomObjectUpdateMessage } from '../../../room';
 
 export class ObjectHeightUpdateMessage extends RoomObjectUpdateMessage
 {

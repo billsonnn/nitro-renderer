@@ -1,4 +1,4 @@
-import { IRoomObjectSprite } from '../../../../../../room/object/visualization/IRoomObjectSprite';
+import { IRoomObjectSprite } from '../../../../../../api';
 import { AvatarVisualization } from '../AvatarVisualization';
 import { IExpressionAddition } from './IExpressionAddition';
 

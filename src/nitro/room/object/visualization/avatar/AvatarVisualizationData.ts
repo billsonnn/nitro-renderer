@@ -1,7 +1,6 @@
 import { Resource, Texture } from '@pixi/core';
-import { IAssetData } from '../../../../../api';
+import { IAssetData, IObjectVisualizationData } from '../../../../../api';
 import { Disposable } from '../../../../../core';
-import { IObjectVisualizationData } from '../../../../../room/object/visualization/IRoomObjectVisualizationData';
 import { AvatarScaleType } from '../../../../avatar/enum/AvatarScaleType';
 import { IAvatarEffectListener } from '../../../../avatar/IAvatarEffectListener';
 import { IAvatarImage } from '../../../../avatar/IAvatarImage';

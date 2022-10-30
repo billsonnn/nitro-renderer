@@ -1,7 +1,6 @@
 import { Application } from '@pixi/app';
 import { Ticker } from '@pixi/ticker';
-import { IEventDispatcher, ILinkEventTracker, INitroCore, IWorkerEventTracker } from '../api';
-import { IRoomManager } from '../room/IRoomManager';
+import { IEventDispatcher, ILinkEventTracker, INitroCore, IRoomManager, IWorkerEventTracker } from '../api';
 import { IAvatarRenderManager } from './avatar/IAvatarRenderManager';
 import { IRoomCameraWidgetManager } from './camera/IRoomCameraWidgetManager';
 import { INitroCommunicationManager } from './communication/INitroCommunicationManager';

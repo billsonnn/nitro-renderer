@@ -1,4 +1,4 @@
-import { IRoomObjectModel } from '../../../../../room/object/IRoomObjectModel';
+import { IRoomObjectModel } from '../../../../../api';
 import { FurnitureRoomBrandingLogic } from './FurnitureRoomBrandingLogic';
 
 export class FurnitureRoomBackgroundLogic extends FurnitureRoomBrandingLogic

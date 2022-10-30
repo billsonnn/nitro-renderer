@@ -1,5 +1,5 @@
-import { AdvancedMap } from '../core';
-import { IRoomObjectController } from './object/IRoomObjectController';
+import { IAdvancedMap } from '../IAdvancedMap';
+import { IRoomObjectController } from './object';
 
 export interface IRoomObjectManager
 {
@@ -9,6 +9,6 @@ export interface IRoomObjectManager
     createObject(id: number, stateCount: number, type: string): IRoomObjectController;
     removeObject(id: number): void;
     removeAllObjects(): void;
-    objects: AdvancedMap<number, IRoomObjectController>;
+    objects: IAdvancedMap<number, IRoomObjectController>;
     totalObjects: number;
 }

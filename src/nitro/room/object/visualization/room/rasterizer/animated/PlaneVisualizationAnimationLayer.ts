@@ -1,7 +1,6 @@
 ﻿import { Graphics } from '@pixi/graphics';
 import { Matrix } from '@pixi/math';
-import { IDisposable, IGraphicAssetCollection } from '../../../../../../../api';
-import { IVector3D } from '../../../../../../../room/utils/IVector3D';
+import { IDisposable, IGraphicAssetCollection, IVector3D } from '../../../../../../../api';
 import { AnimationItem } from './AnimationItem';
 
 export class PlaneVisualizationAnimationLayer implements IDisposable

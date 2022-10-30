@@ -1,6 +1,5 @@
-import { IAssetData } from '../../../../../api';
-import { RoomSpriteMouseEvent } from '../../../../../room/events/RoomSpriteMouseEvent';
-import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
+import { IAssetData, IRoomGeometry } from '../../../../../api';
+import { RoomSpriteMouseEvent } from '../../../../../room';
 import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { RoomObjectVariable } from '../../RoomObjectVariable';

@@ -1,9 +1,6 @@
-import { IAssetData } from '../../../api';
+import { IAssetData, IObjectVisualizationData, IRoomObjectGraphicVisualization, IRoomObjectVisualizationFactory } from '../../../api';
 import { NitroLogger } from '../../../core';
-import { IRoomObjectGraphicVisualization } from '../../../room/object/visualization/IRoomObjectGraphicVisualization';
-import { IObjectVisualizationData } from '../../../room/object/visualization/IRoomObjectVisualizationData';
-import { IRoomObjectVisualizationFactory } from '../../../room/object/visualization/IRoomObjectVisualizationFactory';
-import { RoomObjectSpriteVisualization } from '../../../room/object/visualization/RoomObjectSpriteVisualization';
+import { RoomObjectSpriteVisualization } from '../../../room';
 import { Nitro } from '../../Nitro';
 import { RoomObjectVisualizationType } from './RoomObjectVisualizationType';
 import { AvatarVisualization } from './visualization/avatar/AvatarVisualization';

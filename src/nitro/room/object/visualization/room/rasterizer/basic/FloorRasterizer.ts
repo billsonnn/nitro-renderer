@@ -1,5 +1,5 @@
 ﻿import { Graphics } from '@pixi/graphics';
-import { IVector3D } from '../../../../../../../room/utils/IVector3D';
+import { IVector3D } from '../../../../../../../api';
 import { PlaneBitmapData } from '../../utils/PlaneBitmapData';
 import { FloorPlane } from './FloorPlane';
 import { PlaneRasterizer } from './PlaneRasterizer';
@@ -8,22 +8,22 @@ export class FloorRasterizer extends PlaneRasterizer
 {
     protected initializePlanes(): void
     {
-        if(!this.data) return;
+        if (!this.data) return;
 
         const floors = this.data.floors;
 
-        if(floors && floors.length) this.parseFloors(floors);
+        if (floors && floors.length) this.parseFloors(floors);
     }
 
     private parseFloors(k: any): void
     {
-        if(!k) return;
+        if (!k) return;
 
-        for(const floorIndex in k)
+        for (const floorIndex in k)
         {
             const floor = k[floorIndex];
 
-            if(!floor) continue;
+            if (!floor) continue;
 
             const id = floor.id;
             const visualization = floor.visualizations;
@@ -31,7 +31,7 @@ export class FloorRasterizer extends PlaneRasterizer
 
             this.parseVisualizations(plane, visualization);
 
-            if(!this.addPlane(id, plane)) plane.dispose();
+            if (!this.addPlane(id, plane)) plane.dispose();
         }
     }
 
@@ -39,19 +39,19 @@ export class FloorRasterizer extends PlaneRasterizer
     {
         let plane = this.getPlane(id) as FloorPlane;
 
-        if(!plane) plane = this.getPlane(PlaneRasterizer.DEFAULT) as FloorPlane;
+        if (!plane) plane = this.getPlane(PlaneRasterizer.DEFAULT) as FloorPlane;
 
-        if(!plane) return null;
+        if (!plane) return null;
 
-        if(canvas) canvas.clear();
+        if (canvas) canvas.clear();
 
         let graphic = plane.render(canvas, width, height, scale, normal, useTexture, offsetX, offsetY);
 
-        if(graphic && (graphic !== canvas))
+        if (graphic && (graphic !== canvas))
         {
             graphic = graphic.clone();
 
-            if(!graphic) return null;
+            if (!graphic) return null;
         }
 
         return new PlaneBitmapData(graphic, -1);

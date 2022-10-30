@@ -1,16 +1,10 @@
+import { IRoomCanvasMouseListener, IRoomGeometry, IRoomObject, IRoomObjectController, IVector3D } from '../../api';
 import { Disposable, NitroLogger } from '../../core';
-import { RoomId } from '../../room';
+import { RoomEnterEffect, RoomId, Vector3d } from '../../room';
 import { RoomObjectEvent } from '../../room/events/RoomObjectEvent';
 import { RoomObjectMouseEvent } from '../../room/events/RoomObjectMouseEvent';
 import { RoomSpriteMouseEvent } from '../../room/events/RoomSpriteMouseEvent';
 import { RoomObjectUpdateMessage } from '../../room/messages/RoomObjectUpdateMessage';
-import { IRoomObject } from '../../room/object/IRoomObject';
-import { IRoomObjectController } from '../../room/object/IRoomObjectController';
-import { IRoomCanvasMouseListener } from '../../room/renderer/IRoomCanvasMouseListener';
-import { IRoomGeometry } from '../../room/utils/IRoomGeometry';
-import { IVector3D } from '../../room/utils/IVector3D';
-import { RoomEnterEffect } from '../../room/utils/RoomEnterEffect';
-import { Vector3d } from '../../room/utils/Vector3d';
 import { FurnitureGroupInfoComposer, SetObjectDataMessageComposer } from '../communication';
 import { GetResolutionAchievementsMessageComposer } from '../communication/messages/outgoing/game/GetResolutionAchievementsMessageComposer';
 import { BotPlaceComposer } from '../communication/messages/outgoing/room/engine/BotPlaceComposer';

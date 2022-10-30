@@ -1,4 +1,6 @@
-export class NitroEvent
+import { INitroEvent } from '../../api';
+
+export class NitroEvent implements INitroEvent
 {
     private _type: string;
 

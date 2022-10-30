@@ -1,5 +1,5 @@
 ﻿import { Point } from '@pixi/math';
-import { IPlaneDrawingData } from '../../../../../room/object/visualization/IPlaneDrawingData';
+import { IPlaneDrawingData } from '../../../../../api';
 
 export class PlaneDrawingData implements IPlaneDrawingData
 {
@@ -21,7 +21,7 @@ export class PlaneDrawingData implements IPlaneDrawingData
         this._maskAssetFlipHs = [];
         this._maskAssetFlipVs = [];
 
-        if(k != null)
+        if (k != null)
         {
             this._maskAssetNames = k._maskAssetNames;
             this._maskAssetLocations = k._maskAssetLocations;

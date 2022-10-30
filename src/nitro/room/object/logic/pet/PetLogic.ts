@@ -1,10 +1,5 @@
-import { IAssetData } from '../../../../../api';
-import { RoomObjectMouseEvent } from '../../../../../room/events/RoomObjectMouseEvent';
-import { RoomSpriteMouseEvent } from '../../../../../room/events/RoomSpriteMouseEvent';
-import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
-import { IRoomObjectModel } from '../../../../../room/object/IRoomObjectModel';
-import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
-import { Vector3d } from '../../../../../room/utils/Vector3d';
+import { IAssetData, IRoomGeometry, IRoomObjectModel } from '../../../../../api';
+import { RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent, Vector3d } from '../../../../../room';
 import { PetFigureData } from '../../../../avatar/pets/PetFigureData';
 import { PetType } from '../../../../avatar/pets/PetType';
 import { MouseEventType } from '../../../../ui/MouseEventType';

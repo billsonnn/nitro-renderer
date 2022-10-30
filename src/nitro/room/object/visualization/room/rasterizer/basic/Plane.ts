@@ -1,4 +1,4 @@
-﻿import { IRoomGeometry } from '../../../../../../../room/utils/IRoomGeometry';
+﻿import { IRoomGeometry } from '../../../../../../../api';
 import { PlaneVisualization } from './PlaneVisualization';
 import { PlaneVisualizationLayer } from './PlaneVisualizationLayer';
 
@@ -24,9 +24,9 @@ export class Plane
 
     public dispose(): void
     {
-        for(const visualization of this._planeVisualizations.values())
+        for (const visualization of this._planeVisualizations.values())
         {
-            if(!visualization) continue;
+            if (!visualization) continue;
 
             visualization.dispose();
         }
@@ -39,9 +39,9 @@ export class Plane
 
     public clearCache(): void
     {
-        for(const visualization of this._planeVisualizations.values())
+        for (const visualization of this._planeVisualizations.values())
         {
-            if(!visualization) continue;
+            if (!visualization) continue;
 
             visualization.clearCache();
         }
@@ -51,7 +51,7 @@ export class Plane
     {
         const existing = this._planeVisualizations.get(size.toString());
 
-        if(existing) return null;
+        if (existing) return null;
 
         const plane = new PlaneVisualization(size, totalLayers, geometry);
 
@@ -68,11 +68,11 @@ export class Plane
         let sizeIndex = 0;
         let i = 1;
 
-        while(i < this._sizes.length)
+        while (i < this._sizes.length)
         {
-            if(this._sizes[i] > size)
+            if (this._sizes[i] > size)
             {
-                if((this._sizes[i] - size) < (size - this._sizes[(i - 1)])) sizeIndex = i;
+                if ((this._sizes[i] - size) < (size - this._sizes[(i - 1)])) sizeIndex = i;
 
                 break;
             }
@@ -87,11 +87,11 @@ export class Plane
 
     protected getPlaneVisualization(size: number): PlaneVisualization
     {
-        if(size === this._lastSize) return this._lastPlaneVisualization;
+        if (size === this._lastSize) return this._lastPlaneVisualization;
 
         const sizeIndex = this.getSizeIndex(size);
 
-        if(sizeIndex < this._sizes.length)
+        if (sizeIndex < this._sizes.length)
         {
             this._lastPlaneVisualization = this._planeVisualizations.get(this._sizes[sizeIndex].toString());
         }

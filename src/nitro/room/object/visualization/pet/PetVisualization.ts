@@ -1,7 +1,5 @@
 import { Resource, Texture } from '@pixi/core';
-import { IGraphicAsset } from '../../../../../api';
-import { IObjectVisualizationData } from '../../../../../room/object/visualization/IRoomObjectVisualizationData';
-import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
+import { IGraphicAsset, IObjectVisualizationData, IRoomGeometry } from '../../../../../api';
 import { Nitro } from '../../../../Nitro';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { RoomObjectVisualizationType } from '../../RoomObjectVisualizationType';

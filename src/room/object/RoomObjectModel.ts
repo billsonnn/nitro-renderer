@@ -1,4 +1,4 @@
-import { IRoomObjectModel } from './IRoomObjectModel';
+import { IRoomObjectModel } from '../../api';
 
 export class RoomObjectModel implements IRoomObjectModel
 {
@@ -27,9 +27,9 @@ export class RoomObjectModel implements IRoomObjectModel
 
     public setValue<T>(key: string, value: T): void
     {
-        if(this._map.has(key))
+        if (this._map.has(key))
         {
-            if(this._map.get(key) === value) return;
+            if (this._map.get(key) === value) return;
         }
 
         this._map.set(key, (value as T));
@@ -39,7 +39,7 @@ export class RoomObjectModel implements IRoomObjectModel
 
     public removeKey(key: string): void
     {
-        if(!key) return;
+        if (!key) return;
 
         this._map.delete(key);
 

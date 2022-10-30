@@ -1,8 +1,4 @@
-import { IConnection, IEventDispatcher } from '../../api';
-import { IRoomInstance } from '../../room/IRoomInstance';
-import { IRoomObjectController } from '../../room/object/IRoomObjectController';
-import { IRoomRenderingCanvas } from '../../room/renderer/IRoomRenderingCanvas';
-import { IVector3D } from '../../room/utils/IVector3D';
+import { IConnection, IEventDispatcher, IRoomInstance, IRoomObjectController, IRoomRenderingCanvas, IVector3D } from '../../api';
 import { IRoomSessionManager } from '../session/IRoomSessionManager';
 import { ISessionDataManager } from '../session/ISessionDataManager';
 import { IObjectData } from './object/data/IObjectData';

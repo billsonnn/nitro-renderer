@@ -1,5 +1,5 @@
-﻿import { RoomObjectEvent } from '../../../room/events/RoomObjectEvent';
-import { IRoomObject } from '../../../room/object/IRoomObject';
+﻿import { IRoomObject } from '../../../api';
+import { RoomObjectEvent } from '../../../room';
 
 export class RoomObjectHSLColorEnableEvent extends RoomObjectEvent
 {

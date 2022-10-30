@@ -1,6 +1,4 @@
 export * from './ColorConverter';
-export * from './IRoomGeometry';
-export * from './IVector3D';
 export * from './NumberBank';
 export * from './PointMath';
 export * from './Rasterizer';

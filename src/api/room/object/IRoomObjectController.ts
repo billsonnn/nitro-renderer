@@ -1,8 +1,8 @@
-import { RoomObjectUpdateMessage } from '../messages/RoomObjectUpdateMessage';
-import { IVector3D } from '../utils/IVector3D';
+import { IRoomObjectUpdateMessage } from '../IRoomObjectUpdateMessage';
+import { IVector3D } from '../IVector3D';
 import { IRoomObject } from './IRoomObject';
-import { IRoomObjectEventHandler } from './logic/IRoomObjectEventHandler';
-import { IRoomObjectGraphicVisualization } from './visualization/IRoomObjectGraphicVisualization';
+import { IRoomObjectEventHandler } from './logic';
+import { IRoomObjectGraphicVisualization } from './visualization';
 
 export interface IRoomObjectController extends IRoomObject
 {
@@ -11,7 +11,7 @@ export interface IRoomObjectController extends IRoomObject
     setState(state: number, index?: number): boolean;
     setVisualization(visualization: IRoomObjectGraphicVisualization): void;
     setLogic(logic: IRoomObjectEventHandler): void;
-    processUpdateMessage(message: RoomObjectUpdateMessage): void;
+    processUpdateMessage(message: IRoomObjectUpdateMessage): void;
     tearDown(): void;
     isReady: boolean;
     logic: IRoomObjectEventHandler;

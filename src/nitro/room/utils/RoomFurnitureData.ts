@@ -1,6 +1,6 @@
-﻿import { IVector3D } from '../../../room/utils/IVector3D';
-import { Vector3d } from '../../../room/utils/Vector3d';
-import { IObjectData } from '../object/data/IObjectData';
+﻿import { IVector3D } from '../../../api';
+import { Vector3d } from '../../../room';
+import { IObjectData } from '../object';
 
 export class RoomFurnitureData
 {

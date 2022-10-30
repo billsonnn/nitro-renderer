@@ -1,10 +1,10 @@
 import { RenderTexture } from '@pixi/core';
 import { DisplayObject } from '@pixi/display';
 import { Point } from '@pixi/math';
-import { RoomObjectSpriteData } from '../data/RoomObjectSpriteData';
-import { IRoomGeometry } from '../utils/IRoomGeometry';
+import { IRoomGeometry } from '../IRoomGeometry';
+import { ISortableSprite } from '../object';
+import { RoomObjectSpriteData } from '../RoomObjectSpriteData';
 import { IRoomCanvasMouseListener } from './IRoomCanvasMouseListener';
-import { SortableSprite } from './utils/SortableSprite';
 
 export interface IRoomRenderingCanvas
 {
@@ -17,7 +17,7 @@ export interface IRoomRenderingCanvas
     setMouseListener(listener: IRoomCanvasMouseListener): void;
     skipSpriteVisibilityChecking(): void;
     resumeSpriteVisibilityChecking(): void;
-    getPlaneSortableSprites(): SortableSprite[];
+    getPlaneSortableSprites(): ISortableSprite[];
     handleMouseEvent(x: number, y: number, type: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean, buttonDown: boolean): boolean;
     getSortableSpriteList(): RoomObjectSpriteData[];
     getDisplayAsTexture(): RenderTexture;

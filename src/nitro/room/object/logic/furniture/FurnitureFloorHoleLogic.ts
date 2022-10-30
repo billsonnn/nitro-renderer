@@ -1,5 +1,4 @@
-import { RoomObjectUpdateMessage } from '../../../../../room/messages/RoomObjectUpdateMessage';
-import { Vector3d } from '../../../../../room/utils/Vector3d';
+import { RoomObjectUpdateMessage, Vector3d } from '../../../../../room';
 import { RoomObjectFloorHoleEvent } from '../../../events/RoomObjectFloorHoleEvent';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
@@ -22,14 +21,14 @@ export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
 
     public getEventTypes(): string[]
     {
-        const types = [ RoomObjectFloorHoleEvent.ADD_HOLE, RoomObjectFloorHoleEvent.REMOVE_HOLE ];
+        const types = [RoomObjectFloorHoleEvent.ADD_HOLE, RoomObjectFloorHoleEvent.REMOVE_HOLE];
 
         return this.mergeTypes(super.getEventTypes(), types);
     }
 
     protected onDispose(): void
     {
-        if(this._currentState === FurnitureFloorHoleLogic.STATE_HOLE)
+        if (this._currentState === FurnitureFloorHoleLogic.STATE_HOLE)
         {
             this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.REMOVE_HOLE, this.object));
         }
@@ -48,26 +47,26 @@ export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
     {
         super.processUpdateMessage(message);
 
-        if(!this.object) return;
+        if (!this.object) return;
 
-        if(message instanceof ObjectDataUpdateMessage)
+        if (message instanceof ObjectDataUpdateMessage)
         {
             this.handleStateUpdate(this.object.getState(0));
         }
 
         const location = this.object.getLocation();
 
-        if(!this._currentLocation)
+        if (!this._currentLocation)
         {
             this._currentLocation = new Vector3d();
         }
         else
         {
-            if((location.x !== this._currentLocation.x) || (location.y !== this._currentLocation.y))
+            if ((location.x !== this._currentLocation.x) || (location.y !== this._currentLocation.y))
             {
-                if(this._currentState === FurnitureFloorHoleLogic.STATE_HOLE)
+                if (this._currentState === FurnitureFloorHoleLogic.STATE_HOLE)
                 {
-                    if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.ADD_HOLE, this.object));
+                    if (this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.ADD_HOLE, this.object));
                 }
             }
         }
@@ -77,16 +76,16 @@ export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
 
     private handleStateUpdate(state: number): void
     {
-        if(state === this._currentState) return;
+        if (state === this._currentState) return;
 
-        if(this.eventDispatcher)
+        if (this.eventDispatcher)
         {
-            if(state === FurnitureFloorHoleLogic.STATE_HOLE)
+            if (state === FurnitureFloorHoleLogic.STATE_HOLE)
             {
                 this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.ADD_HOLE, this.object));
             }
 
-            else if(this._currentState === FurnitureFloorHoleLogic.STATE_HOLE)
+            else if (this._currentState === FurnitureFloorHoleLogic.STATE_HOLE)
             {
                 this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.REMOVE_HOLE, this.object));
             }
@@ -97,14 +96,14 @@ export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
 
     private handleAutomaticStateUpdate(): void
     {
-        if(!this.object) return;
+        if (!this.object) return;
 
         const model = this.object.model;
 
-        if(!model) return;
+        if (!model) return;
 
         const stateIndex = model.getValue<number>(RoomObjectVariable.FURNITURE_AUTOMATIC_STATE_INDEX);
 
-        if(!isNaN(stateIndex)) this.handleStateUpdate((stateIndex % 2));
+        if (!isNaN(stateIndex)) this.handleStateUpdate((stateIndex % 2));
     }
 }

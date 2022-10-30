@@ -1,12 +1,6 @@
+import { IRoomInstance, IRoomInstanceContainer, IRoomObject, IRoomObjectController, IRoomObjectManager, IRoomObjectModel, IRoomRendererBase } from '../api';
 import { Disposable } from '../core';
-import { IRoomInstance } from './IRoomInstance';
-import { IRoomInstanceContainer } from './IRoomInstanceContainer';
-import { IRoomObjectManager } from './IRoomObjectManager';
-import { IRoomObject } from './object/IRoomObject';
-import { IRoomObjectController } from './object/IRoomObjectController';
-import { IRoomObjectModel } from './object/IRoomObjectModel';
-import { RoomObjectModel } from './object/RoomObjectModel';
-import { IRoomRendererBase } from './renderer/IRoomRendererBase';
+import { RoomObjectModel } from './object';
 
 export class RoomInstance extends Disposable implements IRoomInstance
 {

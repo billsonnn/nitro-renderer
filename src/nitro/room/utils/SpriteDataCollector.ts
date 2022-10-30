@@ -1,12 +1,7 @@
 ﻿import { Point, Rectangle } from '@pixi/math';
+import { IPlaneDrawingData, IPlaneVisualization, IRoomObjectSpriteVisualization, IRoomPlane, IRoomRenderingCanvas, RoomObjectSpriteData } from '../../../api';
 import { PixiApplicationProxy } from '../../../pixi-proxy';
-import { RoomObjectSpriteData } from '../../../room/data/RoomObjectSpriteData';
-import { IPlaneDrawingData } from '../../../room/object/visualization/IPlaneDrawingData';
-import { IPlaneVisualization } from '../../../room/object/visualization/IPlaneVisualization';
-import { IRoomObjectSpriteVisualization } from '../../../room/object/visualization/IRoomObjectSpriteVisualization';
-import { IRoomPlane } from '../../../room/object/visualization/IRoomPlane';
-import { IRoomRenderingCanvas } from '../../../room/renderer/IRoomRenderingCanvas';
-import { Vector3d } from '../../../room/utils/Vector3d';
+import { Vector3d } from '../../../room/utils';
 import { RoomObjectCategory } from '../object/RoomObjectCategory';
 import { PlaneDrawingData } from '../object/visualization/room/PlaneDrawingData';
 import { RoomEngine } from '../RoomEngine';
@@ -385,9 +380,9 @@ export class SpriteDataCollector
         return _local_8;
     }
 
-    public getRoomPlanes(k: Rectangle, _arg_2: IRoomRenderingCanvas, _arg_3: RoomEngine, _arg_4: number): PlaneDrawingData[]
+    public getRoomPlanes(k: Rectangle, _arg_2: IRoomRenderingCanvas, _arg_3: RoomEngine, _arg_4: number): IPlaneDrawingData[]
     {
-        const _local_5: PlaneDrawingData[] = [];
+        const _local_5: IPlaneDrawingData[] = [];
 
         const roomObject = _arg_3.getRoomObject(_arg_3.activeRoomId, RoomEngine.ROOM_OBJECT_ID, RoomObjectCategory.ROOM);
         const visualization = (roomObject.visualization as unknown as IPlaneVisualization);

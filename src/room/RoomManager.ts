@@ -1,16 +1,7 @@
-import { IGraphicAssetCollection } from '../api';
+import { IGraphicAssetCollection, IRoomContentLoader, IRoomInstance, IRoomInstanceContainer, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectManager, IRoomObjectVisualizationFactory } from '../api';
 import { NitroManager } from '../core';
 import { RoomContentLoader } from '../nitro/room/RoomContentLoader';
 import { RoomContentLoadedEvent } from './events/RoomContentLoadedEvent';
-import { IRoomInstance } from './IRoomInstance';
-import { IRoomInstanceContainer } from './IRoomInstanceContainer';
-import { IRoomManager } from './IRoomManager';
-import { IRoomManagerListener } from './IRoomManagerListener';
-import { IRoomObjectManager } from './IRoomObjectManager';
-import { IRoomObject } from './object/IRoomObject';
-import { IRoomObjectController } from './object/IRoomObjectController';
-import { IRoomObjectLogicFactory } from './object/logic/IRoomObjectLogicFactory';
-import { IRoomObjectVisualizationFactory } from './object/visualization/IRoomObjectVisualizationFactory';
 import { RoomInstance } from './RoomInstance';
 import { RoomObjectManager } from './RoomObjectManager';
 
@@ -25,7 +16,7 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
 
     private _state: number;
     private _rooms: Map<string, IRoomInstance>;
-    private _contentLoader: RoomContentLoader;
+    private _contentLoader: IRoomContentLoader;
     private _updateCategories: number[];
 
     private _listener: IRoomManagerListener;
@@ -303,7 +294,7 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
         }
     }
 
-    public setContentLoader(loader: RoomContentLoader): void
+    public setContentLoader(loader: IRoomContentLoader): void
     {
         if (this._contentLoader) this._contentLoader.dispose();
 

@@ -1,4 +1,4 @@
-import { RoomObjectSpriteData } from '../../data/RoomObjectSpriteData';
+import { RoomObjectSpriteData } from '../../RoomObjectSpriteData';
 import { IRoomObjectGraphicVisualization } from './IRoomObjectGraphicVisualization';
 import { IRoomObjectSprite } from './IRoomObjectSprite';
 

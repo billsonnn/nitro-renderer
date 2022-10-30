@@ -1,7 +1,6 @@
-import { IConnection } from '../../api';
+import { IConnection, IVector3D } from '../../api';
 import { Disposable } from '../../core';
-import { IVector3D } from '../../room/utils/IVector3D';
-import { Vector3d } from '../../room/utils/Vector3d';
+import { Vector3d } from '../../room';
 import { AvatarGuideStatus } from '../avatar/enum/AvatarGuideStatus';
 import { PetType } from '../avatar/pets/PetType';
 import { ObjectsDataUpdateEvent, PetExperienceEvent } from '../communication';

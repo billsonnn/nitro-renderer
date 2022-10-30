@@ -1,5 +1,4 @@
-import { IRoomRenderer } from './IRoomRenderer';
-import { IRoomRendererFactory } from './IRoomRendererFactory';
+import { IRoomRenderer, IRoomRendererFactory } from '../../api';
 import { RoomRenderer } from './RoomRenderer';
 
 export class RoomRendererFactory implements IRoomRendererFactory

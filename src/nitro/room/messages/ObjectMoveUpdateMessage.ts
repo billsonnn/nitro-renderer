@@ -1,5 +1,5 @@
-import { RoomObjectUpdateMessage } from '../../../room/messages/RoomObjectUpdateMessage';
-import { IVector3D } from '../../../room/utils/IVector3D';
+import { IVector3D } from '../../../api';
+import { RoomObjectUpdateMessage } from '../../../room';
 
 export class ObjectMoveUpdateMessage extends RoomObjectUpdateMessage
 {
@@ -16,7 +16,7 @@ export class ObjectMoveUpdateMessage extends RoomObjectUpdateMessage
 
     public get targetLocation(): IVector3D
     {
-        if(!this._targetLocation) return this.location;
+        if (!this._targetLocation) return this.location;
 
         return this._targetLocation;
     }

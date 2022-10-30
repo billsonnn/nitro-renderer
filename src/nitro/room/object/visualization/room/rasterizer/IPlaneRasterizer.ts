@@ -1,5 +1,5 @@
 ﻿import { Graphics } from '@pixi/graphics';
-import { IVector3D } from '../../../../../../room/utils/IVector3D';
+import { IVector3D } from '../../../../../../api';
 import { PlaneBitmapData } from '../utils/PlaneBitmapData';
 import { PlaneVisualizationLayer } from './basic/PlaneVisualizationLayer';
 

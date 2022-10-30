@@ -1,4 +1,4 @@
-import { IRoomObject } from '../object/IRoomObject';
+import { IRoomObject } from '../object';
 
 export interface IRoomRendererBase
 {

@@ -1,6 +1,6 @@
-﻿import { IDisposable } from '../../api';
+﻿import { IAdvancedMap } from '../../api';
 
-export class AdvancedMap<T, U> implements IDisposable
+export class AdvancedMap<T, U> implements IAdvancedMap<T, U>
 {
     private _length: number;
     private _dictionary: Map<T, U>;
@@ -148,7 +148,7 @@ export class AdvancedMap<T, U> implements IDisposable
         for (const k of newValues._keys) this.add(k, newValues.getValue(k));
     }
 
-    public clone(): AdvancedMap<T, U>
+    public clone(): IAdvancedMap<T, U>
     {
         const map = new AdvancedMap<T, U>();
 

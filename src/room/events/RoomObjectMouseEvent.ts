@@ -1,4 +1,4 @@
-import { IRoomObject } from '../object/IRoomObject';
+import { IRoomObject } from '../../api';
 import { RoomObjectEvent } from './RoomObjectEvent';
 
 export class RoomObjectMouseEvent extends RoomObjectEvent

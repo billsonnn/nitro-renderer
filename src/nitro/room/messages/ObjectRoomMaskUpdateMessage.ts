@@ -1,6 +1,5 @@
-import { RoomObjectUpdateMessage } from '../../../room/messages/RoomObjectUpdateMessage';
-import { IVector3D } from '../../../room/utils/IVector3D';
-import { Vector3d } from '../../../room/utils/Vector3d';
+import { IVector3D } from '../../../api';
+import { RoomObjectUpdateMessage, Vector3d } from '../../../room';
 
 export class ObjectRoomMaskUpdateMessage extends RoomObjectUpdateMessage
 {

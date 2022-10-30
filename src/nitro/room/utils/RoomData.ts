@@ -1,4 +1,4 @@
-import { RoomMapData } from '../object/RoomMapData';
+import { RoomMapData } from '../object';
 
 export class RoomData
 {

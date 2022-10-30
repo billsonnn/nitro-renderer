@@ -1,6 +1,6 @@
 ﻿import { Graphics } from '@pixi/graphics';
-import { IVector3D } from '../../../../../../../room/utils/IVector3D';
-import { Vector3d } from '../../../../../../../room/utils/Vector3d';
+import { IVector3D } from '../../../../../../../api';
+import { Vector3d } from '../../../../../../../room';
 import { Plane } from './Plane';
 
 export class FloorPlane extends Plane
@@ -13,7 +13,7 @@ export class FloorPlane extends Plane
     {
         const visualization = this.getPlaneVisualization(scale);
 
-        if(!visualization || !visualization.geometry) return null;
+        if (!visualization || !visualization.geometry) return null;
 
         const _local_10 = visualization.geometry.getScreenPoint(new Vector3d(0, 0, 0));
         const _local_11 = visualization.geometry.getScreenPoint(new Vector3d(0, (height / visualization.geometry.scale), 0));
@@ -22,7 +22,7 @@ export class FloorPlane extends Plane
         let x = 0;
         let y = 0;
 
-        if(_local_10 && _local_11 && _local_12)
+        if (_local_10 && _local_11 && _local_12)
         {
             width = Math.round(Math.abs((_local_10.x - _local_12.x)));
             height = Math.round(Math.abs((_local_10.x - _local_11.x)));

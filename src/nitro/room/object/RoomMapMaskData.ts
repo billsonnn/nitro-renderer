@@ -1,4 +1,4 @@
-import { IVector3D } from '../../../room/utils/IVector3D';
+import { IVector3D } from '../../../api';
 
 export class RoomMapMaskData
 {

@@ -1,5 +1,4 @@
-﻿import { IRoomObjectSprite } from '../../object/visualization/IRoomObjectSprite';
-import { ISortableSprite } from '../../object/visualization/ISortableSprite';
+﻿import { IRoomObjectSprite, ISortableSprite } from '../../../api';
 
 export class SortableSprite implements ISortableSprite
 {

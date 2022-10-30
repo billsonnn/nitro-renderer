@@ -1,9 +1,5 @@
-import { IGraphicAsset } from '../../../../../api';
-import { AlphaTolerance } from '../../../../../room/object/enum/AlphaTolerance';
-import { IRoomObjectSprite } from '../../../../../room/object/visualization/IRoomObjectSprite';
-import { IObjectVisualizationData } from '../../../../../room/object/visualization/IRoomObjectVisualizationData';
-import { RoomObjectSpriteVisualization } from '../../../../../room/object/visualization/RoomObjectSpriteVisualization';
-import { IRoomGeometry } from '../../../../../room/utils/IRoomGeometry';
+import { AlphaTolerance, IGraphicAsset, IObjectVisualizationData, IRoomGeometry, IRoomObjectSprite } from '../../../../../api';
+import { RoomObjectSpriteVisualization } from '../../../../../room';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { RoomObjectVisualizationType } from '../../RoomObjectVisualizationType';
 import { ColorData } from '../data/ColorData';

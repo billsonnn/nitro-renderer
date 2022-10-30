@@ -1,5 +1,4 @@
-import { IGraphicAsset } from '../../../../../api';
-import { IRoomObjectSprite } from '../../../../../room';
+import { IGraphicAsset, IRoomObjectSprite } from '../../../../../api';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { IsometricImageFurniVisualization } from './IsometricImageFurniVisualization';
 

@@ -1,5 +1,4 @@
-import { IGraphicAsset } from '../../../../../../api';
-import { IVector3D } from '../../../../../../room/utils/IVector3D';
+import { IGraphicAsset, IVector3D } from '../../../../../../api';
 import { PlaneMaskBitmap } from './PlaneMaskBitmap';
 
 export class PlaneMaskVisualization

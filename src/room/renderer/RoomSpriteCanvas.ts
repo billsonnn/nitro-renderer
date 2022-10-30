@@ -3,28 +3,14 @@ import { Container, DisplayObject } from '@pixi/display';
 import { Graphics } from '@pixi/graphics';
 import { Matrix, Point, Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
+import { IRoomCanvasMouseListener, IRoomGeometry, IRoomObject, IRoomObjectSprite, IRoomObjectSpriteVisualization, IRoomRenderingCanvas, IRoomSpriteCanvasContainer, IRoomSpriteMouseEvent, RoomObjectSpriteData, RoomObjectSpriteType } from '../../api';
 import { Nitro } from '../../nitro/Nitro';
 import { MouseEventType } from '../../nitro/ui/MouseEventType';
 import { NitroContainer, NitroSprite, PixiApplicationProxy } from '../../pixi-proxy';
-import { RoomObjectSpriteData } from '../data/RoomObjectSpriteData';
-import { RoomSpriteMouseEvent } from '../events/RoomSpriteMouseEvent';
-import { RoomObjectSpriteType } from '../object/enum/RoomObjectSpriteType';
-import { IRoomObject } from '../object/IRoomObject';
-import { IRoomObjectSprite } from '../object/visualization/IRoomObjectSprite';
-import { IRoomObjectSpriteVisualization } from '../object/visualization/IRoomObjectSpriteVisualization';
-import { RoomRotatingEffect, RoomShakingEffect } from '../utils';
-import { IRoomGeometry } from '../utils/IRoomGeometry';
-import { RoomEnterEffect } from '../utils/RoomEnterEffect';
-import { RoomGeometry } from '../utils/RoomGeometry';
-import { Vector3d } from '../utils/Vector3d';
-import { RoomObjectCache } from './cache/RoomObjectCache';
-import { RoomObjectCacheItem } from './cache/RoomObjectCacheItem';
-import { IRoomCanvasMouseListener } from './IRoomCanvasMouseListener';
-import { IRoomRenderingCanvas } from './IRoomRenderingCanvas';
-import { IRoomSpriteCanvasContainer } from './IRoomSpriteCanvasContainer';
-import { ExtendedSprite } from './utils/ExtendedSprite';
-import { ObjectMouseData } from './utils/ObjectMouseData';
-import { SortableSprite } from './utils/SortableSprite';
+import { RoomSpriteMouseEvent } from '../events';
+import { RoomEnterEffect, RoomGeometry, RoomRotatingEffect, RoomShakingEffect, Vector3d } from '../utils';
+import { RoomObjectCache, RoomObjectCacheItem } from './cache';
+import { ExtendedSprite, ObjectMouseData, SortableSprite } from './utils';
 
 export class RoomSpriteCanvas implements IRoomRenderingCanvas
 {
@@ -60,7 +46,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     private _mouseCheckCount: number;
     private _mouseSpriteWasHit: boolean;
     private _mouseActiveObjects: Map<string, ObjectMouseData>;
-    private _eventCache: Map<string, RoomSpriteMouseEvent>;
+    private _eventCache: Map<string, IRoomSpriteMouseEvent>;
     private _eventId: number;
     private _scale: number;
 
@@ -337,7 +323,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         this._canvasUpdated = false;
 
-        this._totalTimeRunning += Nitro.instance.ticker.deltaTime;
+        this._totalTimeRunning += PixiApplicationProxy.instance.ticker.deltaTime;
 
         if (this._totalTimeRunning === this._renderTimestamp) return;
 
@@ -847,7 +833,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         const checkedSprites: string[] = [];
 
         let didHitSprite = false;
-        let mouseEvent: RoomSpriteMouseEvent = null;
+        let mouseEvent: IRoomSpriteMouseEvent = null;
         let spriteId = (this._activeSpriteCount - 1);
 
         while (spriteId >= 0)
@@ -959,7 +945,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         return didHitSprite;
     }
 
-    protected createMouseEvent(x: number, y: number, localX: number, localY: number, type: string, tag: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean, buttonDown: boolean): RoomSpriteMouseEvent
+    protected createMouseEvent(x: number, y: number, localX: number, localY: number, type: string, tag: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean, buttonDown: boolean): IRoomSpriteMouseEvent
     {
         const screenX: number = (x - (this._width / 2));
         const screenY: number = (y - (this._height / 2));
@@ -968,7 +954,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         return new RoomSpriteMouseEvent(type, ((canvasName + '_') + this._eventId), canvasName, tag, screenX, screenY, localX, localY, ctrlKey, altKey, shiftKey, buttonDown);
     }
 
-    protected bufferMouseEvent(k: RoomSpriteMouseEvent, _arg_2: string): void
+    protected bufferMouseEvent(k: IRoomSpriteMouseEvent, _arg_2: string): void
     {
         if (!k || !this._eventCache) return;
 
