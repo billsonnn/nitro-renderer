@@ -11,4 +11,6 @@ export * from './asset/visualization/gestures';
 export * from './asset/visualization/postures';
 export * from './common';
 export * from './communication';
+export * from './communication/enums';
+export * from './configuration';
 export * from './events';

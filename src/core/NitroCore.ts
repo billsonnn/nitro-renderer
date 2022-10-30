@@ -1,9 +1,8 @@
-import { IAssetManager, ICommunicationManager } from '../api';
+import { IAssetManager, ICommunicationManager, IConfigurationManager } from '../api';
 import { AssetManager } from './asset/AssetManager';
 import { Disposable } from './common/Disposable';
 import { CommunicationManager } from './communication/CommunicationManager';
 import { ConfigurationManager } from './configuration/ConfigurationManager';
-import { IConfigurationManager } from './configuration/IConfigurationManager';
 import { INitroCore } from './INitroCore';
 import { SayHello } from './utils/SayHello';
 

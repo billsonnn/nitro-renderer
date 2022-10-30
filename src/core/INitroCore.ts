@@ -1,5 +1,4 @@
-import { IAssetManager, ICommunicationManager, IDisposable } from '../api';
-import { IConfigurationManager } from './configuration/IConfigurationManager';
+import { IAssetManager, ICommunicationManager, IConfigurationManager, IDisposable } from '../api';
 
 export interface INitroCore extends IDisposable
 {
