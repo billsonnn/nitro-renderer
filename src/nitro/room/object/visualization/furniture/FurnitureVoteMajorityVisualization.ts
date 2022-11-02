@@ -14,7 +14,7 @@ export class FurnitureVoteMajorityVisualization extends FurnitureAnimatedVisuali
         const result = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_VOTE_MAJORITY_RESULT);
         const tag = this.getLayerTag(scale, this.direction, layerId);
 
-        switch (tag)
+        switch(tag)
         {
             case FurnitureVoteMajorityVisualization.ONES_SPRITE: return (result % 10);
             case FurnitureVoteMajorityVisualization.TENS_SPRITE: return ((result / 10) % 10);
@@ -27,11 +27,11 @@ export class FurnitureVoteMajorityVisualization extends FurnitureAnimatedVisuali
     {
         const result = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_VOTE_MAJORITY_RESULT);
 
-        if (((!(FurnitureVoteMajorityVisualization.HIDE_RESULTS_STATES.indexOf(this.object.getState(0)) === -1)) || (result === FurnitureVoteMajorityVisualization.HIDE_RESULTS_VALUE)))
+        if(((!(FurnitureVoteMajorityVisualization.HIDE_RESULTS_STATES.indexOf(this.object.getState(0)) === -1)) || (result === FurnitureVoteMajorityVisualization.HIDE_RESULTS_VALUE)))
         {
             const tag = this.getLayerTag(scale, direction, layerId);
 
-            switch (tag)
+            switch(tag)
             {
                 case FurnitureVoteMajorityVisualization.ONES_SPRITE:
                 case FurnitureVoteMajorityVisualization.TENS_SPRITE:

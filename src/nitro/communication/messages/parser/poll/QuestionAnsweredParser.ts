@@ -22,7 +22,7 @@ export class QuestionAnsweredParser implements IMessageParser
 
         const count = wrapper.readInt();
 
-        for (let i = 0; i < count; i++)
+        for(let i = 0; i < count; i++)
         {
             const key = wrapper.readString();
             const value = wrapper.readInt();

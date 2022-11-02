@@ -17,7 +17,7 @@ export class CatalogPageWithEarliestExpiryMessageParser implements IMessageParse
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._pageName = wrapper.readString();
         this._Str_5158 = wrapper.readInt();

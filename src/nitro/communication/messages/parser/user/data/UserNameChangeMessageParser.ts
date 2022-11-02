@@ -17,7 +17,7 @@ export class UserNameChangeMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._webId = wrapper.readInt();
         this._id = wrapper.readInt();

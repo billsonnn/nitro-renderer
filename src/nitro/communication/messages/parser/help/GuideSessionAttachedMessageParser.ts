@@ -19,7 +19,7 @@ export class GuideSessionAttachedMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._asGuide = wrapper.readBoolean();
         this._helpRequestType = wrapper.readInt();

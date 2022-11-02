@@ -13,11 +13,11 @@ export class HabboGroupBadgesMessageParser implements IMessageParser
 
     parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         let badgesCount = wrapper.readInt();
 
-        while (badgesCount > 0)
+        while(badgesCount > 0)
         {
             const id = wrapper.readInt();
             const badge = wrapper.readString();

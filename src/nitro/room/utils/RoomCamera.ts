@@ -132,7 +132,7 @@ export class RoomCamera
 
     public set scale(k: number)
     {
-        if (this._scale != k)
+        if(this._scale != k)
         {
             this._scale = k;
             this._scaleChanged = true;
@@ -171,7 +171,7 @@ export class RoomCamera
 
     public get isMoving(): boolean
     {
-        if (((!(this._targetLoc == null)) && (!(this._currentLoc == null))))
+        if(((!(this._targetLoc == null)) && (!(this._currentLoc == null))))
         {
             return true;
         }
@@ -181,11 +181,11 @@ export class RoomCamera
     public set target(k: IVector3D)
     {
         let _local_2: Vector3d;
-        if (this._targetLoc == null)
+        if(this._targetLoc == null)
         {
             this._targetLoc = new Vector3d();
         }
-        if ((((!(this._targetLoc.x == k.x)) || (!(this._targetLoc.y == k.y))) || (!(this._targetLoc.z == k.z))))
+        if((((!(this._targetLoc.x == k.x)) || (!(this._targetLoc.y == k.y))) || (!(this._targetLoc.z == k.z))))
         {
             this._targetLoc.assign(k);
             _local_2 = Vector3d.dif(this._targetLoc, this._currentLoc);
@@ -202,7 +202,7 @@ export class RoomCamera
 
     public initializeLocation(k: IVector3D): void
     {
-        if (this._currentLoc != null)
+        if(this._currentLoc != null)
         {
             return;
         }
@@ -212,7 +212,7 @@ export class RoomCamera
 
     public resetLocation(k: IVector3D): void
     {
-        if (this._currentLoc == null)
+        if(this._currentLoc == null)
         {
             this._currentLoc = new Vector3d();
         }
@@ -226,9 +226,9 @@ export class RoomCamera
         let _local_5: number;
         let _local_6: number;
         let _local_7: number;
-        if ((((this._followDuration > 0) && (!(this._targetLoc == null))) && (!(this._currentLoc == null))))
+        if((((this._followDuration > 0) && (!(this._targetLoc == null))) && (!(this._currentLoc == null))))
         {
-            if (this._scaleChanged)
+            if(this._scaleChanged)
             {
                 this._scaleChanged = false;
                 this._currentLoc = this._targetLoc;
@@ -236,11 +236,11 @@ export class RoomCamera
                 return;
             }
             _local_3 = Vector3d.dif(this._targetLoc, this._currentLoc);
-            if (_local_3.length > this._moveDistance)
+            if(_local_3.length > this._moveDistance)
             {
                 this._moveDistance = _local_3.length;
             }
-            if (_local_3.length <= _arg_2)
+            if(_local_3.length <= _arg_2)
             {
                 this._currentLoc = this._targetLoc;
                 this._targetLoc = null;
@@ -252,12 +252,12 @@ export class RoomCamera
                 _local_5 = (_arg_2 * 0.5);
                 _local_6 = (this._moveDistance / RoomCamera.MOVE_SPEED_DENOMINATOR);
                 _local_7 = (_local_5 + ((_local_6 - _local_5) * _local_4));
-                if (this._maintainPreviousMoveSpeed)
+                if(this._maintainPreviousMoveSpeed)
                 {
-                    if (_local_7 < this._previousMoveSpeed)
+                    if(_local_7 < this._previousMoveSpeed)
                     {
                         _local_7 = this._previousMoveSpeed;
-                        if (_local_7 > _local_3.length)
+                        if(_local_7 > _local_3.length)
                         {
                             _local_7 = _local_3.length;
                         }

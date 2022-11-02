@@ -12,7 +12,7 @@ export class CatalogLocalizationData
 
         let totalImages = wrapper.readInt();
 
-        while (totalImages > 0)
+        while(totalImages > 0)
         {
             this._images.push(wrapper.readString());
 
@@ -21,7 +21,7 @@ export class CatalogLocalizationData
 
         let totalTexts = wrapper.readInt();
 
-        while (totalTexts > 0)
+        while(totalTexts > 0)
         {
             this._texts.push(wrapper.readString());
 

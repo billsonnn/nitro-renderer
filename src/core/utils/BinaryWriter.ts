@@ -61,7 +61,7 @@ export class BinaryWriter implements IBinaryWriter
     {
         const array = new TextEncoder().encode(string);
 
-        if (includeLength)
+        if(includeLength)
         {
             this.writeShort(array.length);
             this.appendArray(array);
@@ -76,7 +76,7 @@ export class BinaryWriter implements IBinaryWriter
 
     private appendArray(array: Uint8Array): void
     {
-        if (!array) return;
+        if(!array) return;
 
         const mergedArray = new Uint8Array(((this.position + array.length) > this._buffer.length) ? (this.position + array.length) : this._buffer.length);
 

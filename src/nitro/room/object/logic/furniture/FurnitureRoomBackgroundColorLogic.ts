@@ -29,13 +29,13 @@ export class FurnitureRoomBackgroundColorLogic extends FurnitureMultiStateLogic
 
     protected onDispose(): void
     {
-        if (this._roomColorUpdated)
+        if(this._roomColorUpdated)
         {
-            if (this.eventDispatcher && this.object)
+            if(this.eventDispatcher && this.object)
             {
                 const realRoomObject = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT);
 
-                if (realRoomObject === 1)
+                if(realRoomObject === 1)
                 {
                     this.eventDispatcher.dispatchEvent(new RoomObjectHSLColorEnableEvent(RoomObjectHSLColorEnableEvent.ROOM_BACKGROUND_COLOR, this.object, false, 0, 0, 0));
                 }
@@ -51,19 +51,19 @@ export class FurnitureRoomBackgroundColorLogic extends FurnitureMultiStateLogic
     {
         super.processUpdateMessage(message);
 
-        if (message instanceof ObjectDataUpdateMessage)
+        if(message instanceof ObjectDataUpdateMessage)
         {
             message.data.writeRoomObjectModel(this.object.model);
 
             const realRoomObject = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT);
 
-            if (realRoomObject === 1) this.processColorUpdate();
+            if(realRoomObject === 1) this.processColorUpdate();
         }
     }
 
     private processColorUpdate(): void
     {
-        if (!this.object || !this.object.model) return;
+        if(!this.object || !this.object.model) return;
 
         const numberData = new NumberDataType();
 
@@ -74,7 +74,7 @@ export class FurnitureRoomBackgroundColorLogic extends FurnitureMultiStateLogic
         const saturation = numberData.getValue(2);
         const lightness = numberData.getValue(3);
 
-        if ((state > -1) && (hue > -1) && (saturation > -1) && (lightness > -1))
+        if((state > -1) && (hue > -1) && (saturation > -1) && (lightness > -1))
         {
             this.object.model.setValue(RoomObjectVariable.FURNITURE_ROOM_BACKGROUND_COLOR_HUE, hue);
             this.object.model.setValue(RoomObjectVariable.FURNITURE_ROOM_BACKGROUND_COLOR_SATURATION, saturation);
@@ -82,7 +82,7 @@ export class FurnitureRoomBackgroundColorLogic extends FurnitureMultiStateLogic
 
             this.object.setState(state, 0);
 
-            if (this.eventDispatcher)
+            if(this.eventDispatcher)
             {
                 this.eventDispatcher.dispatchEvent(new RoomObjectHSLColorEnableEvent(RoomObjectHSLColorEnableEvent.ROOM_BACKGROUND_COLOR, this.object, (state === 1), hue, saturation, lightness));
             }
@@ -93,9 +93,9 @@ export class FurnitureRoomBackgroundColorLogic extends FurnitureMultiStateLogic
 
     public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
     {
-        if (!event || !geometry || !this.object) return;
+        if(!event || !geometry || !this.object) return;
 
-        switch (event.type)
+        switch(event.type)
         {
             case MouseEventType.DOUBLE_CLICK:
                 (this.eventDispatcher && this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.BACKGROUND_COLOR, this.object)));

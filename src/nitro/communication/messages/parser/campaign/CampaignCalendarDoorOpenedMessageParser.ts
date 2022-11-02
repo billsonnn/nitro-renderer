@@ -19,7 +19,7 @@ export class CampaignCalendarDoorOpenedMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._doorOpened = wrapper.readBoolean();
         this._productName = wrapper.readString();

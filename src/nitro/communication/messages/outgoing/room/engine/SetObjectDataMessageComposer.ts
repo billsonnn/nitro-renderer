@@ -8,7 +8,7 @@ export class SetObjectDataMessageComposer implements IMessageComposer<any[]>
     {
         this._data = [objectId, (data.size * 2)];
 
-        for (const [key, value] of data.entries()) this._data.push(key, value);
+        for(const [key, value] of data.entries()) this._data.push(key, value);
     }
 
     public getMessageArray()

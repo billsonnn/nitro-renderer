@@ -23,13 +23,13 @@ export class MarketplaceOffersParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         const count = wrapper.readInt();
 
         let i = 0;
 
-        while (i < count)
+        while(i < count)
         {
             const offerId = wrapper.readInt();
             const status = wrapper.readInt();
@@ -39,19 +39,19 @@ export class MarketplaceOffersParser implements IMessageParser
             let extraData = '';
             let stuffData: IObjectData = null;
 
-            if (furniType === MarketplaceOffersParser.FURNITYPE_STUFF)
+            if(furniType === MarketplaceOffersParser.FURNITYPE_STUFF)
             {
                 furniId = wrapper.readInt();
                 stuffData = FurnitureDataParser.parseObjectData(wrapper);
             }
 
-            else if (furniType === MarketplaceOffersParser.FURNITYPE_WALL)
+            else if(furniType === MarketplaceOffersParser.FURNITYPE_WALL)
             {
                 furniId = wrapper.readInt();
                 extraData = wrapper.readString();
             }
 
-            else if (furniType == MarketplaceOffersParser.FAKE_FURNITYPE_UNIQUE)
+            else if(furniType == MarketplaceOffersParser.FAKE_FURNITYPE_UNIQUE)
             {
                 furniId = wrapper.readInt();
                 stuffData = ObjectDataFactory.getData(LegacyDataType.FORMAT_KEY);
@@ -67,7 +67,7 @@ export class MarketplaceOffersParser implements IMessageParser
 
             const offerItem = new MarketplaceOffer(offerId, furniId, furniType, extraData, stuffData, price, status, timeLeftMinutes, averagePrice, offerCount);
 
-            if (i < this.MAX_LIST_LENGTH) this._offers.push(offerItem);
+            if(i < this.MAX_LIST_LENGTH) this._offers.push(offerItem);
 
             i++;
         }

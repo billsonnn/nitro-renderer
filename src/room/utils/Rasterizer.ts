@@ -65,7 +65,7 @@ export class Rasterizer
 
     public static getFlipHBitmapData(k: Texture<Resource>): Texture<Resource>
     {
-        if (!k) return null;
+        if(!k) return null;
 
         const matrix = new Matrix();
 
@@ -87,7 +87,7 @@ export class Rasterizer
 
     public static getFlipVBitmapData(k: Texture<Resource>): Texture<Resource>
     {
-        if (!k) return null;
+        if(!k) return null;
 
         const matrix = new Matrix();
 
@@ -109,7 +109,7 @@ export class Rasterizer
 
     public static getFlipHVBitmapData(k: Texture<Resource>): Texture<Resource>
     {
-        if (!k) return null;
+        if(!k) return null;
 
         const matrix = new Matrix();
 

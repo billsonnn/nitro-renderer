@@ -30,7 +30,7 @@ export class NitroLogger implements INitroLogger
 
     public printMessage(modus: string, ...message: any[]): void
     {
-        if (!this._print) return;
+        if(!this._print) return;
 
         NitroLogger.log(this._name, modus, ...message);
     }
@@ -39,7 +39,7 @@ export class NitroLogger implements INitroLogger
     {
         const logPrefix = `[Nitro] [${name}]`;
 
-        switch (modus)
+        switch(modus)
         {
             case 'error':
                 console.error(logPrefix, ...message);

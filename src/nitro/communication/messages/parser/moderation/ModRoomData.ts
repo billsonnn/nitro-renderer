@@ -12,7 +12,7 @@ export class ModRoomData implements IDisposable
     {
         this._tags = [];
         this._exists = k.readBoolean();
-        if (!this.exists)
+        if(!this.exists)
         {
             return;
         }
@@ -21,7 +21,7 @@ export class ModRoomData implements IDisposable
 
         const tagCount = k.readInt();
 
-        for (let i = 0; i < tagCount; i++)
+        for(let i = 0; i < tagCount; i++)
         {
             this._tags.push(k.readString());
         }
@@ -54,7 +54,7 @@ export class ModRoomData implements IDisposable
 
     public dispose(): void
     {
-        if (this._disposed)
+        if(this._disposed)
         {
             return;
         }

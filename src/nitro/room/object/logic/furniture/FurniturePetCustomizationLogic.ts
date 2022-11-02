@@ -17,9 +17,9 @@ export class FurniturePetCustomizationLogic extends FurnitureLogic
     {
         super.processUpdateMessage(message);
 
-        if (!this.object) return;
+        if(!this.object) return;
 
-        if (this.object.model.getValue(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) === 1)
+        if(this.object.model.getValue(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) === 1)
         {
             this.object.model.setValue(RoomWidgetEnumItemExtradataParameter.INFOSTAND_EXTRA_PARAM, RoomWidgetEnumItemExtradataParameter.USABLE_PRODUCT);
         }
@@ -27,7 +27,7 @@ export class FurniturePetCustomizationLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if (!this.object || !this.eventDispatcher) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.PET_PRODUCT_MENU, this.object));
     }

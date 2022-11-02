@@ -16,13 +16,13 @@ export class BannedUsersFromRoomParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._roomId = wrapper.readInt();
 
         let totalBans = wrapper.readInt();
 
-        while (totalBans > 0)
+        while(totalBans > 0)
         {
             this._bannedUsers.push(new BannedUserData(wrapper));
 

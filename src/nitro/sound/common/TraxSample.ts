@@ -29,7 +29,7 @@ export class TraxSample
 
         let local5 = 65536;
 
-        switch (sampleFrequency)
+        switch(sampleFrequency)
         {
             case TraxSample.SAMPLE_FREQUENCY_22KHZ:
                 this._sampleRepeats = 2;
@@ -41,7 +41,7 @@ export class TraxSample
                 this._sampleRepeats = 1;
         }
 
-        if (sampleScale === TraxSample.SAMPLE_SCALE_8BIT)
+        if(sampleScale === TraxSample.SAMPLE_SCALE_8BIT)
         {
             this._samplesPerValue = 4;
             local5 = 0x0100;
@@ -63,12 +63,12 @@ export class TraxSample
         let local12: number;
         let local15: number;
 
-        for (let i = 0; i < local10; i++)
+        for(let i = 0; i < local10; i++)
         {
             local12 = reader.readFloat();
             reader.readFloat();
 
-            for (let j = 2; j <= this._sampleRepeats; j++)
+            for(let j = 2; j <= this._sampleRepeats; j++)
             {
                 local15 = reader.readFloat();
                 reader.readFloat();
@@ -76,22 +76,22 @@ export class TraxSample
                 local12 = (((j * (j - 1)) / j) + (local15 / j));
             }
 
-            if (i >= ((local10 - 1) - TraxSample._Str_14308)) local12 = (local12 * (((local10 - 1) - 1) / TraxSample._Str_14308));
+            if(i >= ((local10 - 1) - TraxSample._Str_14308)) local12 = (local12 * (((local10 - 1) - 1) / TraxSample._Str_14308));
 
             let local14 = ((local12 + 1) / local8);
 
-            if (local14 < 0)
+            if(local14 < 0)
             {
                 local14 = 0;
             }
-            else if (local14 >= local5)
+            else if(local14 >= local5)
             {
                 local14 = local5 - 1;
             }
 
             local9 = (local9 * local5) + local14;
 
-            if ((i % this._samplesPerValue) === this._samplesPerValue - 1)
+            if((i % this._samplesPerValue) === this._samplesPerValue - 1)
             {
                 this._sampleData[Math.trunc(i / this._samplesPerValue)] = local9;
             }
@@ -104,31 +104,31 @@ export class TraxSample
         let local9: number;
         let local10: number;
 
-        if (k === null || this._sampleData === null) return arg4;
+        if(k === null || this._sampleData === null) return arg4;
 
         const local5 = this._samplesPerValue * this._sampleRepeats;
         arg4 = arg4 / local5;
 
-        if (arg2 < 0) arg3 = arg3 + arg2;
+        if(arg2 < 0) arg3 = arg3 + arg2;
 
-        if (arg3 > k.length - arg2) arg3 = k.length - arg2;
+        if(arg3 > k.length - arg2) arg3 = k.length - arg2;
 
         let local6 = arg3 / local5;
         let local7: number;
 
-        if (local6 > this._sampleData.length - arg4)
+        if(local6 > this._sampleData.length - arg4)
         {
             local7 = (local6 - this._sampleData.length - arg4) * local5;
             local6 = this._sampleData.length - arg4;
 
-            if (local7 > (k.length - arg2)) local7 = k.length - arg2;
+            if(local7 > (k.length - arg2)) local7 = k.length - arg2;
         }
 
-        if (this._sampleRepeats === 1)
+        if(this._sampleRepeats === 1)
         {
-            if (this._samplesPerValue === 2)
+            if(this._samplesPerValue === 2)
             {
-                while (local6-- > 0)
+                while(local6-- > 0)
                 {
                     local8 = this._sampleData[arg4++];
 
@@ -136,9 +136,9 @@ export class TraxSample
                     k[arg2++] = ((local8 & TraxSample.MASK_16BIT) - TraxSample.OFFSET_16BIT);
                 }
             }
-            else if (this._samplesPerValue === 4)
+            else if(this._samplesPerValue === 4)
             {
-                while (local6-- > 0)
+                while(local6-- > 0)
                 {
                     local8 = this._sampleData[arg4++];
 
@@ -149,20 +149,20 @@ export class TraxSample
                 }
             }
         }
-        else if (this._sampleRepeats >= 2)
+        else if(this._sampleRepeats >= 2)
         {
             local9 = 0;
             local10 = 0;
 
-            if (this._samplesPerValue === 2)
+            if(this._samplesPerValue === 2)
             {
-                while (local6-- > 0)
+                while(local6-- > 0)
                 {
                     local8 = this._sampleData[arg4++];
                     local10 = (((local8 >> 16) & TraxSample.MASK_16BIT) - TraxSample.OFFSET_16BIT);
                     local9 = this._sampleRepeats;
 
-                    while (local9 > 0)
+                    while(local9 > 0)
                     // eslint-disable-next-line no-empty
                     {
 

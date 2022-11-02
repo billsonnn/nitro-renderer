@@ -37,7 +37,7 @@ export class RoomPlaneData
         this._rightSide = new Vector3d();
         this._rightSide.assign(_arg_4);
         this._type = k;
-        if (((!(_arg_3 == null)) && (!(_arg_4 == null))))
+        if(((!(_arg_3 == null)) && (!(_arg_4 == null))))
         {
             this._normal = Vector3d.crossProduct(_arg_3, _arg_4);
             _local_6 = 0;
@@ -45,26 +45,26 @@ export class RoomPlaneData
             _local_8 = 0;
             _local_9 = 0;
             _local_10 = 0;
-            if (((!(this.normal.x == 0)) || (!(this.normal.y == 0))))
+            if(((!(this.normal.x == 0)) || (!(this.normal.y == 0))))
             {
                 _local_9 = this.normal.x;
                 _local_10 = this.normal.y;
                 _local_6 = (360 + ((Math.atan2(_local_10, _local_9) / Math.PI) * 180));
-                if (_local_6 >= 360)
+                if(_local_6 >= 360)
                 {
                     _local_6 = (_local_6 - 360);
                 }
                 _local_9 = Math.sqrt(((this.normal.x * this.normal.x) + (this.normal.y * this.normal.y)));
                 _local_10 = this.normal.z;
                 _local_7 = (360 + ((Math.atan2(_local_10, _local_9) / Math.PI) * 180));
-                if (_local_7 >= 360)
+                if(_local_7 >= 360)
                 {
                     _local_7 = (_local_7 - 360);
                 }
             }
             else
             {
-                if (this.normal.z < 0)
+                if(this.normal.z < 0)
                 {
                     _local_7 = 90;
                 }
@@ -75,13 +75,13 @@ export class RoomPlaneData
             }
             this._normalDirection = new Vector3d(_local_6, _local_7, _local_8);
         }
-        if (((!(_arg_5 == null)) && (_arg_5.length > 0)))
+        if(((!(_arg_5 == null)) && (_arg_5.length > 0)))
         {
             _local_11 = 0;
-            while (_local_11 < _arg_5.length)
+            while(_local_11 < _arg_5.length)
             {
                 _local_12 = _arg_5[_local_11];
-                if (((!(_local_12 == null)) && (_local_12.length > 0)))
+                if(((!(_local_12 == null)) && (_local_12.length > 0)))
                 {
                     _local_13 = new Vector3d();
                     _local_13.assign(_local_12);
@@ -135,7 +135,7 @@ export class RoomPlaneData
 
     public getSecondaryNormal(k: number): IVector3D
     {
-        if (((k < 0) || (k >= this.secondaryNormalCount)))
+        if(((k < 0) || (k >= this.secondaryNormalCount)))
         {
             return null;
         }
@@ -152,7 +152,7 @@ export class RoomPlaneData
 
     private getMask(k: number): RoomPlaneMaskData
     {
-        if (((k < 0) || (k >= this.maskCount)))
+        if(((k < 0) || (k >= this.maskCount)))
         {
             return null;
         }
@@ -162,7 +162,7 @@ export class RoomPlaneData
     public getMaskLeftSideLoc(k: number): number
     {
         const _local_2: RoomPlaneMaskData = this.getMask(k);
-        if (_local_2 != null)
+        if(_local_2 != null)
         {
             return _local_2.leftSideLoc;
         }
@@ -172,7 +172,7 @@ export class RoomPlaneData
     public getMaskRightSideLoc(k: number): number
     {
         const _local_2: RoomPlaneMaskData = this.getMask(k);
-        if (_local_2 != null)
+        if(_local_2 != null)
         {
             return _local_2.rightSideLoc;
         }
@@ -182,7 +182,7 @@ export class RoomPlaneData
     public getMaskLeftSideLength(k: number): number
     {
         const _local_2: RoomPlaneMaskData = this.getMask(k);
-        if (_local_2 != null)
+        if(_local_2 != null)
         {
             return _local_2.leftSideLength;
         }
@@ -192,7 +192,7 @@ export class RoomPlaneData
     public getMaskRightSideLength(k: number): number
     {
         const _local_2: RoomPlaneMaskData = this.getMask(k);
-        if (_local_2 != null)
+        if(_local_2 != null)
         {
             return _local_2.rightSideLength;
         }

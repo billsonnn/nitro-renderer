@@ -18,7 +18,7 @@ export class PlayListMessageParser implements IMessageParser
         this._synchronizationCount = wrapper.readInt();
         const count = wrapper.readInt();
 
-        for (let i = 0; i < count; i++)
+        for(let i = 0; i < count; i++)
         {
             this._playlist.push(new PlayListEntry(
                 wrapper.readInt(), wrapper.readInt(), wrapper.readString(), wrapper.readString()

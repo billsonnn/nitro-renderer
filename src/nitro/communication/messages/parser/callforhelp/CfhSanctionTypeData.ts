@@ -17,9 +17,9 @@ export class CfhSanctionTypeData implements INamed
         this._probationDays = wrapper.readInt();
         this._avatarOnly = wrapper.readBoolean();
 
-        if (wrapper.bytesAvailable) this._tradeLockInfo = wrapper.readString();
+        if(wrapper.bytesAvailable) this._tradeLockInfo = wrapper.readString();
 
-        if (wrapper.bytesAvailable) this._machineBanInfo = wrapper.readString();
+        if(wrapper.bytesAvailable) this._machineBanInfo = wrapper.readString();
     }
 
     public get name(): string

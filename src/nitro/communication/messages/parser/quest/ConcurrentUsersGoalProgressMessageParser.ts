@@ -16,7 +16,7 @@ export class ConcurrentUsersGoalProgressMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._state = wrapper.readInt();
         this._userCount = wrapper.readInt();

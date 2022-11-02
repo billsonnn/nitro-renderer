@@ -17,7 +17,7 @@ export class ActivityPointNotificationParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._amount = wrapper.readInt();
         this._amountChanged = wrapper.readInt();

@@ -14,7 +14,7 @@ export class FurnitureEcotronBoxLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if (!this.object || !this.eventDispatcher) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.ECOTRONBOX, this.object));
     }

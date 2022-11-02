@@ -13,7 +13,7 @@ export class ClubGiftNotificationParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._numGifts = wrapper.readInt();
 

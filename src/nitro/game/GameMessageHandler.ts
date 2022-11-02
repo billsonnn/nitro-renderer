@@ -11,11 +11,11 @@ export class GameMessageHandler
 
     private onLoadGameUrl(event: LoadGameUrlEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         LegacyExternalInterface.callGame('showGame', parser.url);
     }

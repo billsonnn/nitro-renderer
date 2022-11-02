@@ -17,12 +17,12 @@ export class CameraPublishStatusMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._ok = wrapper.readBoolean();
         this._secondsToWait = wrapper.readInt();
 
-        if (this._ok && wrapper.bytesAvailable) this._extraDataId = wrapper.readString();
+        if(this._ok && wrapper.bytesAvailable) this._extraDataId = wrapper.readString();
 
         return true;
     }

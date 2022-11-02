@@ -15,7 +15,7 @@ export class GuideSessionInvitedToGuideRoomMessageParser implements IMessagePars
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._roomId = wrapper.readInt();
         this._roomName = wrapper.readString();

@@ -22,7 +22,7 @@ export class VoteDataType extends ObjectDataBase
 
     public parseWrapper(wrapper: IMessageDataWrapper): void
     {
-        if (!wrapper) return;
+        if(!wrapper) return;
 
         this._state = wrapper.readString();
         this._result = wrapper.readInt();

@@ -9,13 +9,13 @@ export class FurnitureVoteMajorityLogic extends FurnitureMultiStateLogic
     {
         super.processUpdateMessage(message);
 
-        if (!this.object) return;
+        if(!this.object) return;
 
-        if (message instanceof ObjectDataUpdateMessage)
+        if(message instanceof ObjectDataUpdateMessage)
         {
             const data = message.data;
 
-            if (data instanceof VoteDataType) this.object.model.setValue(RoomObjectVariable.FURNITURE_VOTE_MAJORITY_RESULT, data.result);
+            if(data instanceof VoteDataType) this.object.model.setValue(RoomObjectVariable.FURNITURE_VOTE_MAJORITY_RESULT, data.result);
         }
     }
 }

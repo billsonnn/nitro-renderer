@@ -17,12 +17,12 @@ export class InitCameraMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._creditPrice = wrapper.readInt();
         this._ducketPrice = wrapper.readInt();
 
-        if (wrapper.bytesAvailable) this._publishDucketPrice = wrapper.readInt();
+        if(wrapper.bytesAvailable) this._publishDucketPrice = wrapper.readInt();
 
         return true;
     }

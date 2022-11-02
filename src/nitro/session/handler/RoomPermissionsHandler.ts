@@ -15,33 +15,33 @@ export class RoomPermissionsHandler extends BaseHandler
 
     private onRoomRightsEvent(event: RoomRightsEvent): void
     {
-        if (!(event instanceof RoomRightsEvent)) return;
+        if(!(event instanceof RoomRightsEvent)) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         session.setControllerLevel(event.getParser().controllerLevel);
     }
 
     private onRoomRightsClearEvent(event: RoomRightsClearEvent): void
     {
-        if (!(event instanceof RoomRightsClearEvent)) return;
+        if(!(event instanceof RoomRightsClearEvent)) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         session.setControllerLevel(RoomControllerLevel.NONE);
     }
 
     private onRoomRightsOwnerEvent(event: RoomRightsOwnerEvent): void
     {
-        if (!(event instanceof RoomRightsOwnerEvent)) return;
+        if(!(event instanceof RoomRightsOwnerEvent)) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if (!session) return;
+        if(!session) return;
 
         session.setRoomOwner();
     }

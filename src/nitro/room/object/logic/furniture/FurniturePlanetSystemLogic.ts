@@ -7,9 +7,9 @@ export class FurniturePlanetSystemLogic extends FurnitureLogic
     {
         super.initialize(asset);
 
-        if (asset.logic)
+        if(asset.logic)
         {
-            if (asset.logic.planetSystems)
+            if(asset.logic.planetSystems)
             {
                 this.object.model.setValue<IAssetLogicPlanetSystem[]>(RoomObjectVariable.FURNITURE_PLANETSYSTEM_DATA, asset.logic.planetSystems);
             }

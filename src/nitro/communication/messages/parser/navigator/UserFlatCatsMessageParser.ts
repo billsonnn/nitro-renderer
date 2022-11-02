@@ -14,11 +14,11 @@ export class UserFlatCatsMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         let totalCategories = wrapper.readInt();
 
-        while (totalCategories > 0)
+        while(totalCategories > 0)
         {
             this._categories.push(new NavigatorCategoryDataParser(wrapper));
 

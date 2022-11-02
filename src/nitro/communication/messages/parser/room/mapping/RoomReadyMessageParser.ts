@@ -15,7 +15,7 @@ export class RoomReadyMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._name = wrapper.readString();
         this._roomId = wrapper.readInt();

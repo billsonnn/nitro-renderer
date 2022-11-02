@@ -15,7 +15,7 @@ export class RoomUnitHandItemReceivedParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._giverUserId = wrapper.readInt();
         this._handItemType = wrapper.readInt();

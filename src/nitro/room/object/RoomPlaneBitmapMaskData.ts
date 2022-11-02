@@ -23,7 +23,7 @@ export class RoomPlaneBitmapMaskData
 
     public set loc(k: IVector3D)
     {
-        if (!this._loc) this._loc = new Vector3d();
+        if(!this._loc) this._loc = new Vector3d();
 
         this._loc.assign(k);
     }

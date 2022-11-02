@@ -21,7 +21,7 @@ export class FurniturePlaceComposer implements IMessageComposer<string[]>
 
     public getMessageArray()
     {
-        switch (this._category)
+        switch(this._category)
         {
             case RoomObjectCategory.FLOOR:
                 return [`${this._itemId} ${this._x} ${this._y} ${this._direction}`];

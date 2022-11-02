@@ -26,9 +26,9 @@ export class FurniturePresentLogic extends FurnitureLogic
     {
         super.initialize(asset);
 
-        if (asset.logic)
+        if(asset.logic)
         {
-            if (asset.logic.particleSystems && asset.logic.particleSystems.length)
+            if(asset.logic.particleSystems && asset.logic.particleSystems.length)
             {
                 this.object.model.setValue<IParticleSystem[]>(RoomObjectVariable.FURNITURE_FIREWORKS_DATA, asset.logic.particleSystems);
             }
@@ -39,16 +39,16 @@ export class FurniturePresentLogic extends FurnitureLogic
     {
         super.processUpdateMessage(message);
 
-        if (message instanceof ObjectDataUpdateMessage)
+        if(message instanceof ObjectDataUpdateMessage)
         {
             message.data.writeRoomObjectModel(this.object.model);
 
             this.updateStuffData();
         }
 
-        if (message instanceof ObjectModelDataUpdateMessage)
+        if(message instanceof ObjectModelDataUpdateMessage)
         {
-            if (message.numberKey === RoomObjectVariable.FURNITURE_DISABLE_PICKING_ANIMATION)
+            if(message.numberKey === RoomObjectVariable.FURNITURE_DISABLE_PICKING_ANIMATION)
             {
                 this.object.model.setValue(RoomObjectVariable.FURNITURE_DISABLE_PICKING_ANIMATION, message.numberValue);
             }
@@ -57,7 +57,7 @@ export class FurniturePresentLogic extends FurnitureLogic
 
     private updateStuffData(): void
     {
-        if (!this.object || !this.object.model) return;
+        if(!this.object || !this.object.model) return;
 
         const stuffData = new MapDataType();
 
@@ -66,7 +66,7 @@ export class FurniturePresentLogic extends FurnitureLogic
         const message = stuffData.getValue(FurniturePresentLogic.MESSAGE);
         const data = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_DATA);
 
-        if (!message && (typeof data === 'string'))
+        if(!message && (typeof data === 'string'))
         {
             this.object.model.setValue(RoomObjectVariable.FURNITURE_DATA, data.substr(1));
         }
@@ -82,16 +82,16 @@ export class FurniturePresentLogic extends FurnitureLogic
 
     private writeToModel(key: string, value: string): void
     {
-        if (!value) return;
+        if(!value) return;
 
         this.object.model.setValue(key, value);
     }
 
     public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
     {
-        if (!event || !geometry || !this.object) return;
+        if(!event || !geometry || !this.object) return;
 
-        switch (event.type)
+        switch(event.type)
         {
             case MouseEventType.ROLL_OVER:
                 this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.MOUSE_BUTTON, this.object));
@@ -106,7 +106,7 @@ export class FurniturePresentLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if (!this.object || !this.eventDispatcher) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.PRESENT, this.object));
     }

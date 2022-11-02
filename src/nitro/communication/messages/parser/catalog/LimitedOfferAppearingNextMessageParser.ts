@@ -19,7 +19,7 @@ export class LimitedOfferAppearingNextMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._Str_6800 = wrapper.readInt();
         this._pageId = wrapper.readInt();

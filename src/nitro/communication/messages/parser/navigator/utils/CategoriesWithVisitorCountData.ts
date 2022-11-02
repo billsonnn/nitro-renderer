@@ -12,7 +12,7 @@ export class CategoriesWithVisitorCountData
 
         const count = k.readInt();
 
-        for (let i = 0; i < count; i++)
+        for(let i = 0; i < count; i++)
         {
             const _local_4 = k.readInt();
             const _local_5 = k.readInt();

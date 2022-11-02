@@ -14,7 +14,7 @@ export class TraxSongInfoMessageParser implements IMessageParser
     parse(wrapper: IMessageDataWrapper): boolean
     {
         const count = wrapper.readInt();
-        for (let i = 0; i < count; i++)
+        for(let i = 0; i < count; i++)
         {
             const id = wrapper.readInt();
             const _local_3 = wrapper.readString();

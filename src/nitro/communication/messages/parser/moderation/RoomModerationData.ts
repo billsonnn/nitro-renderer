@@ -58,12 +58,12 @@ export class RoomModerationData implements IDisposable
 
     public dispose(): void
     {
-        if (this._disposed)
+        if(this._disposed)
         {
             return;
         }
         this._disposed = true;
-        if (this._room != null)
+        if(this._room != null)
         {
             this._room.dispose();
             this._room = null;

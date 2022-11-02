@@ -47,7 +47,7 @@ export class RoomDataParser
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if (!wrapper) throw new Error('invalid_wrapper');
+        if(!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -89,7 +89,7 @@ export class RoomDataParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._roomId = wrapper.readInt();
         this._roomName = wrapper.readString();
@@ -113,13 +113,13 @@ export class RoomDataParser
 
     private parseTags(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._tags = [];
 
         let totalTags = wrapper.readInt();
 
-        while (totalTags > 0)
+        while(totalTags > 0)
         {
             this._tags.push(wrapper.readString());
 
@@ -131,20 +131,20 @@ export class RoomDataParser
 
     private parseBitMask(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._bitMask = wrapper.readInt();
 
-        if (this._bitMask & RoomDataParser.THUMBNAIL_BITMASK) this._officialRoomPicRef = wrapper.readString();
+        if(this._bitMask & RoomDataParser.THUMBNAIL_BITMASK) this._officialRoomPicRef = wrapper.readString();
 
-        if (this._bitMask & RoomDataParser.GROUPDATA_BITMASK)
+        if(this._bitMask & RoomDataParser.GROUPDATA_BITMASK)
         {
             this._groupId = wrapper.readInt();
             this._groupName = wrapper.readString();
             this._groupBadge = wrapper.readString();
         }
 
-        if (this._bitMask & RoomDataParser.ROOMAD_BITMASK)
+        if(this._bitMask & RoomDataParser.ROOMAD_BITMASK)
         {
             this._adName = wrapper.readString();
             this._adDescription = wrapper.readString();

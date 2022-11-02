@@ -28,11 +28,11 @@ export class FurnitureGuildCustomizedVisualization extends FurnitureAnimatedVisu
     {
         const flag = super.updateModel(scale);
 
-        if (this._badgeAssetNameNormalScale === '')
+        if(this._badgeAssetNameNormalScale === '')
         {
             const assetName = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_ASSET_NAME);
 
-            if (assetName)
+            if(assetName)
             {
                 this._badgeAssetNameNormalScale = assetName;
                 this._badgeAssetNameSmallScale = (this._badgeAssetNameNormalScale + '_32');
@@ -54,7 +54,7 @@ export class FurnitureGuildCustomizedVisualization extends FurnitureAnimatedVisu
     {
         const tag = this.getLayerTag(scale, this._direction, layerId);
 
-        switch (tag)
+        switch(tag)
         {
             case FurnitureGuildCustomizedVisualization.PRIMARY_COLOUR_SPRITE_TAG: return this._color1;
             case FurnitureGuildCustomizedVisualization.SECONDARY_COLOUR_SPRITE_TAG: return this._color2;
@@ -67,9 +67,9 @@ export class FurnitureGuildCustomizedVisualization extends FurnitureAnimatedVisu
     {
         const tag = this.getLayerTag(scale, this._direction, layerId);
 
-        if (tag === FurnitureGuildCustomizedVisualization.BADGE)
+        if(tag === FurnitureGuildCustomizedVisualization.BADGE)
         {
-            if (scale === 32) return this._badgeAssetNameSmallScale;
+            if(scale === 32) return this._badgeAssetNameSmallScale;
 
             return this._badgeAssetNameNormalScale;
         }
@@ -79,7 +79,7 @@ export class FurnitureGuildCustomizedVisualization extends FurnitureAnimatedVisu
 
     protected getLibraryAssetNameForSprite(asset: IGraphicAsset, sprite: IRoomObjectSprite): string
     {
-        if (sprite.tag === FurnitureGuildCustomizedVisualization.BADGE)
+        if(sprite.tag === FurnitureGuildCustomizedVisualization.BADGE)
         {
             return '%group.badge.url%' + sprite.libraryAssetName.replace('badge_', '');
         }

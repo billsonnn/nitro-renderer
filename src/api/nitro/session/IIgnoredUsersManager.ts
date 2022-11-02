@@ -1,4 +1,4 @@
-export interface IIgnoredUsersManager 
+export interface IIgnoredUsersManager
 {
     init(): void;
     requestIgnoredUsers(): void;

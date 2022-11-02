@@ -45,7 +45,7 @@ export class RoomGeometry implements IRoomGeometry
         this.z_scale = 1;
         this.location = new Vector3d(location.x, location.y, location.z);
         this.direction = new Vector3d(direction.x, direction.y, direction.z);
-        if (_arg_4 != null)
+        if(_arg_4 != null)
         {
             this.setDepthVector(_arg_4);
         }
@@ -59,7 +59,7 @@ export class RoomGeometry implements IRoomGeometry
     public static getIntersectionVector(k: IVector3D, _arg_2: IVector3D, _arg_3: IVector3D, _arg_4: IVector3D): IVector3D
     {
         const _local_5: number = Vector3d.dotProduct(_arg_2, _arg_4);
-        if (Math.abs(_local_5) < 1E-5)
+        if(Math.abs(_local_5) < 1E-5)
         {
             return null;
         }
@@ -82,12 +82,12 @@ export class RoomGeometry implements IRoomGeometry
 
     public set scale(k: number)
     {
-        if (k <= 1)
+        if(k <= 1)
         {
             k = 1;
         }
         k = (k * Math.sqrt(0.5));
-        if (k != this._scale)
+        if(k != this._scale)
         {
             this._scale = k;
             this._updateId++;
@@ -110,11 +110,11 @@ export class RoomGeometry implements IRoomGeometry
 
     public set location(k: IVector3D)
     {
-        if (k == null)
+        if(k == null)
         {
             return;
         }
-        if (this._loc == null)
+        if(this._loc == null)
         {
             this._loc = new Vector3d();
         }
@@ -125,7 +125,7 @@ export class RoomGeometry implements IRoomGeometry
         this._loc.x = (this._loc.x / this._x_scale);
         this._loc.y = (this._loc.y / this._y_scale);
         this._loc.z = (this._loc.z / this._z_scale);
-        if ((((!(this._loc.x == _local_2)) || (!(this._loc.y == _local_3))) || (!(this._loc.z == _local_4))))
+        if((((!(this._loc.x == _local_2)) || (!(this._loc.y == _local_3))) || (!(this._loc.z == _local_4))))
         {
             this._updateId++;
         }
@@ -143,11 +143,11 @@ export class RoomGeometry implements IRoomGeometry
         let _local_23: IVector3D;
         let _local_24: IVector3D;
         let _local_25: IVector3D;
-        if (k == null)
+        if(k == null)
         {
             return;
         }
-        if (this._dir == null)
+        if(this._dir == null)
         {
             this._dir = new Vector3d();
         }
@@ -156,7 +156,7 @@ export class RoomGeometry implements IRoomGeometry
         const _local_4: number = this._dir.z;
         this._dir.assign(k);
         this._direction.assign(k);
-        if ((((!(this._dir.x == _local_2)) || (!(this._dir.y == _local_3))) || (!(this._dir.z == _local_4))))
+        if((((!(this._dir.x == _local_2)) || (!(this._dir.y == _local_3))) || (!(this._dir.z == _local_4))))
         {
             this._updateId++;
         }
@@ -176,7 +176,7 @@ export class RoomGeometry implements IRoomGeometry
         const _local_18: IVector3D = new Vector3d(_local_13.x, _local_13.y, _local_13.z);
         const _local_19: IVector3D = Vector3d.sum(Vector3d.product(_local_14, _local_16), Vector3d.product(_local_15, _local_17));
         const _local_20: IVector3D = Vector3d.sum(Vector3d.product(_local_14, -(_local_17)), Vector3d.product(_local_15, _local_16));
-        if (_local_10 != 0)
+        if(_local_10 != 0)
         {
             _local_21 = Math.cos(_local_10);
             _local_22 = Math.sin(_local_10);
@@ -199,7 +199,7 @@ export class RoomGeometry implements IRoomGeometry
 
     public set x_scale(k: number)
     {
-        if (this._x_scale != (k * this._x_scale_internal))
+        if(this._x_scale != (k * this._x_scale_internal))
         {
             this._x_scale = (k * this._x_scale_internal);
             this._updateId++;
@@ -208,7 +208,7 @@ export class RoomGeometry implements IRoomGeometry
 
     public set y_scale(k: number)
     {
-        if (this._y_scale != (k * this._y_scale_internal))
+        if(this._y_scale != (k * this._y_scale_internal))
         {
             this._y_scale = (k * this._y_scale_internal);
             this._updateId++;
@@ -217,7 +217,7 @@ export class RoomGeometry implements IRoomGeometry
 
     public set z_scale(k: number)
     {
-        if (this._z_scale != (k * this._z_scale_internal))
+        if(this._z_scale != (k * this._z_scale_internal))
         {
             this._z_scale = (k * this._z_scale_internal);
             this._updateId++;
@@ -233,7 +233,7 @@ export class RoomGeometry implements IRoomGeometry
         this._dir = null;
         this._directionAxis = null;
         this._location = null;
-        if (this._displacements != null)
+        if(this._displacements != null)
         {
             this._displacements.clear();
             this._displacements = null;
@@ -244,11 +244,11 @@ export class RoomGeometry implements IRoomGeometry
     {
         let _local_3: string;
         let _local_4: IVector3D;
-        if (((k == null) || (_arg_2 == null)))
+        if(((k == null) || (_arg_2 == null)))
         {
             return;
         }
-        if (this._displacements != null)
+        if(this._displacements != null)
         {
             _local_3 = Math.trunc(Math.round(k.x)) + '_' + Math.trunc(Math.round(k.y)) + '_' + Math.trunc(Math.round(k.z));
             this._displacements.delete(_local_3);
@@ -262,7 +262,7 @@ export class RoomGeometry implements IRoomGeometry
     private getDisplacenent(k: IVector3D): IVector3D
     {
         let _local_2: string;
-        if (this._displacements != null)
+        if(this._displacements != null)
         {
             _local_2 = Math.trunc(Math.round(k.x)) + '_' + Math.trunc(Math.round(k.y)) + '_' + Math.trunc(Math.round(k.z));
             return this._displacements.get(_local_2);
@@ -293,7 +293,7 @@ export class RoomGeometry implements IRoomGeometry
         const _local_15: IVector3D = new Vector3d(_local_10.x, _local_10.y, _local_10.z);
         const _local_16: IVector3D = Vector3d.sum(Vector3d.product(_local_11, _local_13), Vector3d.product(_local_12, _local_14));
         const _local_17: IVector3D = Vector3d.sum(Vector3d.product(_local_11, -(_local_14)), Vector3d.product(_local_12, _local_13));
-        if (_local_7 != 0)
+        if(_local_7 != 0)
         {
             _local_18 = Math.cos(_local_7);
             _local_19 = Math.sin(_local_7);
@@ -311,7 +311,7 @@ export class RoomGeometry implements IRoomGeometry
 
     public adjustLocation(k: IVector3D, _arg_2: number): void
     {
-        if (((k == null) || (this._z == null)))
+        if(((k == null) || (this._z == null)))
         {
             return;
         }
@@ -322,7 +322,7 @@ export class RoomGeometry implements IRoomGeometry
 
     public getCoordinatePosition(k: IVector3D): IVector3D
     {
-        if (k == null)
+        if(k == null)
         {
             return null;
         }
@@ -340,7 +340,7 @@ export class RoomGeometry implements IRoomGeometry
         _local_2.y = (_local_2.y * this._y_scale);
         _local_2.z = (_local_2.z * this._z_scale);
         let _local_3: number = Vector3d.scalarProjection(_local_2, this._depth);
-        if (((_local_3 < this._clipNear) || (_local_3 > this._clipFar)))
+        if(((_local_3 < this._clipNear) || (_local_3 > this._clipFar)))
         {
             return null;
         }
@@ -349,7 +349,7 @@ export class RoomGeometry implements IRoomGeometry
         _local_4 = (_local_4 * this._scale);
         _local_5 = (_local_5 * this._scale);
         const _local_6: IVector3D = this.getDisplacenent(k);
-        if (_local_6 != null)
+        if(_local_6 != null)
         {
             _local_2 = Vector3d.dif(k, this._loc);
             _local_2.add(_local_6);
@@ -367,7 +367,7 @@ export class RoomGeometry implements IRoomGeometry
     public getScreenPoint(k: IVector3D): Point
     {
         const _local_2: IVector3D = this.getScreenPosition(k);
-        if (_local_2 == null)
+        if(_local_2 == null)
         {
             return null;
         }
@@ -392,7 +392,7 @@ export class RoomGeometry implements IRoomGeometry
         const _local_13: IVector3D = Vector3d.crossProduct(_local_11, _local_12);
         const _local_14: IVector3D = new Vector3d();
         _local_14.assign(RoomGeometry.getIntersectionVector(_local_8, _local_9, _local_10, _local_13));
-        if (_local_14 != null)
+        if(_local_14 != null)
         {
             _local_14.subtract(_local_10);
             _local_15 = ((Vector3d.scalarProjection(_local_14, _arg_3) / _local_11.length) * _arg_3.length);
@@ -404,7 +404,7 @@ export class RoomGeometry implements IRoomGeometry
 
     public performZoom(): void
     {
-        if (this.isZoomedIn())
+        if(this.isZoomedIn())
         {
             this.scale = RoomGeometry.SCALE_ZOOMED_OUT;
         }

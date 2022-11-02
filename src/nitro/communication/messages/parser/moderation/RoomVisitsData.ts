@@ -14,7 +14,7 @@ export class RoomVisitsData
         this._userName = k.readString();
         const _local_2 = k.readInt();
         let _local_3 = 0;
-        while (_local_3 < _local_2)
+        while(_local_3 < _local_2)
         {
             this._rooms.push(new RoomVisitData(k));
             _local_3++;

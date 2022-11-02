@@ -8,9 +8,9 @@ export class SetActivatedBadgesComposer implements IMessageComposer<any[]>
     {
         const data = [];
 
-        for (let i = 0; i < this._badges.length; i++)
+        for(let i = 0; i < this._badges.length; i++)
         {
-            if (i <= this._badges.length)
+            if(i <= this._badges.length)
             {
                 data.push(i + 1);
                 data.push(this._badges[i]);

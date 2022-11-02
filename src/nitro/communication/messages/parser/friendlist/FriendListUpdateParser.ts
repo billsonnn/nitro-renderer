@@ -21,11 +21,11 @@ export class FriendListUpdateParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         let totalCategories = wrapper.readInt();
 
-        while (totalCategories > 0)
+        while(totalCategories > 0)
         {
             this._categories.push(new FriendCategoryData(wrapper));
 
@@ -34,21 +34,21 @@ export class FriendListUpdateParser implements IMessageParser
 
         let totalUpdates = wrapper.readInt();
 
-        while (totalUpdates > 0)
+        while(totalUpdates > 0)
         {
             const type = wrapper.readInt();
 
-            if (type === -1)
+            if(type === -1)
             {
                 this._removedFriendIds.push(wrapper.readInt());
             }
 
-            else if (type === 0)
+            else if(type === 0)
             {
                 this._updatedFriends.push(new FriendParser(wrapper));
             }
 
-            else if (type === 1)
+            else if(type === 1)
             {
                 this._addedFriends.push(new FriendParser(wrapper));
             }

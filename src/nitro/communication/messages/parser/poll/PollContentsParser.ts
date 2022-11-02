@@ -28,12 +28,12 @@ export class PollContentsParser implements IMessageParser
         this._endMessage = wrapper.readString();
         this._numQuestions = wrapper.readInt();
 
-        for (let i = 0; i < this._numQuestions; i++)
+        for(let i = 0; i < this._numQuestions; i++)
         {
             const question = this.parsePollQuestion(wrapper);
             const childrenCount = wrapper.readInt();
 
-            for (let j = 0; j < childrenCount; j++)
+            for(let j = 0; j < childrenCount; j++)
             {
                 question.children.push(this.parsePollQuestion(wrapper));
             }
@@ -55,9 +55,9 @@ export class PollContentsParser implements IMessageParser
         pollQuestion.questionCategory = k.readInt();
         pollQuestion.questionAnswerType = k.readInt();
         pollQuestion.questionAnswerCount = k.readInt();
-        if (((pollQuestion.questionType == 1) || (pollQuestion.questionType == 2)))
+        if(((pollQuestion.questionType == 1) || (pollQuestion.questionType == 2)))
         {
-            for (let i = 0; i < pollQuestion.questionAnswerCount; i++)
+            for(let i = 0; i < pollQuestion.questionAnswerCount; i++)
             {
                 pollQuestion.questionChoices.push(new PollChoice(k.readString(), k.readString(), k.readInt()));
             }

@@ -15,7 +15,7 @@ export class ApproveNameResultParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._result = wrapper.readInt();
         this._validationInfo = wrapper.readString();

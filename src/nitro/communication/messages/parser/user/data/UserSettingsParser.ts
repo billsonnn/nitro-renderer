@@ -27,7 +27,7 @@ export class UserSettingsParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._volumeSystem = wrapper.readInt();
         this._volumeFurni = wrapper.readInt();

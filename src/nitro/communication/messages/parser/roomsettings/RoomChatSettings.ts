@@ -22,7 +22,7 @@ export class RoomChatSettings
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if (!wrapper) throw new Error('invalid_wrapper');
+        if(!wrapper) throw new Error('invalid_wrapper');
 
         this._mode = wrapper.readInt();
         this._weight = wrapper.readInt();

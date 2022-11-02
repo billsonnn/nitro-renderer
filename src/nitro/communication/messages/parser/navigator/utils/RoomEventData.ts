@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from "../../../../../../api";
+import { IMessageDataWrapper } from '../../../../../../api';
 
 export class RoomEventData
 {
@@ -40,7 +40,7 @@ export class RoomEventData
 
     public dispose(): void
     {
-        if (this._disposed)
+        if(this._disposed)
         {
             return;
         }

@@ -23,7 +23,7 @@ export class ProductDataLoader extends EventDispatcher
 
     public loadProductData(url: string): void
     {
-        if (!url) return;
+        if(!url) return;
 
         fetch(url)
             .then(response => response.json())
@@ -33,7 +33,7 @@ export class ProductDataLoader extends EventDispatcher
 
     private onProductDataLoadedEvent(data: { [index: string]: any }): void
     {
-        if (!data) return;
+        if(!data) return;
 
         this.parseProducts(data.productdata);
 
@@ -42,15 +42,15 @@ export class ProductDataLoader extends EventDispatcher
 
     private onProductDataError(error: Error): void
     {
-        if (!error) return;
+        if(!error) return;
 
         this.dispatchEvent(new NitroEvent(ProductDataLoader.PDP_PRODUCT_DATA_FAILED));
     }
 
     private parseProducts(data: { [index: string]: any }): void
     {
-        if (!data) return;
+        if(!data) return;
 
-        for (const product of data.product) (product && this._products.set(product.code, new ProductData(product.code, product.name, product.description)));
+        for(const product of data.product) (product && this._products.set(product.code, new ProductData(product.code, product.name, product.description)));
     }
 }

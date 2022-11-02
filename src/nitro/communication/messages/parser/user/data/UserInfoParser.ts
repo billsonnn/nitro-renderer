@@ -14,11 +14,11 @@ export class UserInfoParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._userInfo = new UserInfoDataParser(wrapper);
 
-        if (!this._userInfo) return false;
+        if(!this._userInfo) return false;
 
         return true;
     }

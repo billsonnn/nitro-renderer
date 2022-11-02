@@ -22,22 +22,22 @@ export class FurniturePushableLogic extends FurnitureMultiStateLogic
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void
     {
-        if (!message) return;
+        if(!message) return;
 
         const isMoveMessage = (message instanceof ObjectMoveUpdateMessage);
 
-        if (this.object && !isMoveMessage && message.location)
+        if(this.object && !isMoveMessage && message.location)
         {
             const location = this.object.getLocation();
             const difference = Vector3d.dif(message.location, location);
 
-            if (difference)
+            if(difference)
             {
-                if ((Math.abs(difference.x) < 2) && (Math.abs(difference.y) < 2))
+                if((Math.abs(difference.x) < 2) && (Math.abs(difference.y) < 2))
                 {
                     let prevLocation = location;
 
-                    if ((Math.abs(difference.x) > 1) || (Math.abs(difference.y) > 1))
+                    if((Math.abs(difference.x) > 1) || (Math.abs(difference.y) > 1))
                     {
                         prevLocation = Vector3d.sum(location, Vector3d.product(difference, 0.5));
                     }
@@ -49,11 +49,11 @@ export class FurniturePushableLogic extends FurnitureMultiStateLogic
             }
         }
 
-        if (message.location && !isMoveMessage) super.processUpdateMessage(new ObjectMoveUpdateMessage(message.location, message.location, message.direction));
+        if(message.location && !isMoveMessage) super.processUpdateMessage(new ObjectMoveUpdateMessage(message.location, message.location, message.direction));
 
-        if (message instanceof ObjectDataUpdateMessage)
+        if(message instanceof ObjectDataUpdateMessage)
         {
-            if (message.state > 0)
+            if(message.state > 0)
             {
                 this.updateInterval = MovingObjectLogic.DEFAULT_UPDATE_INTERVAL / this.getUpdateIntervalValue(message.state);
             }
@@ -67,7 +67,7 @@ export class FurniturePushableLogic extends FurnitureMultiStateLogic
             return;
         }
 
-        if (isMoveMessage && message.isSlide) this.updateInterval = MovingObjectLogic.DEFAULT_UPDATE_INTERVAL;
+        if(isMoveMessage && message.isSlide) this.updateInterval = MovingObjectLogic.DEFAULT_UPDATE_INTERVAL;
 
         super.processUpdateMessage(message);
     }
@@ -86,7 +86,7 @@ export class FurniturePushableLogic extends FurnitureMultiStateLogic
     {
         const animation = this.getAnimationValue(message.state);
 
-        if (animation !== message.state)
+        if(animation !== message.state)
         {
             const legacyStuff = new LegacyDataType();
 
@@ -100,14 +100,14 @@ export class FurniturePushableLogic extends FurnitureMultiStateLogic
 
     public update(time: number): void
     {
-        if (!this.object) return;
+        if(!this.object) return;
 
         this._oldLocation.assign(this.object.getLocation());
 
         super.update(time);
 
-        if (Vector3d.dif(this.object.getLocation(), this._oldLocation).length !== 0) return;
+        if(Vector3d.dif(this.object.getLocation(), this._oldLocation).length !== 0) return;
 
-        if (this.object.getState(0) !== FurniturePushableLogic.ANIMATION_NOT_MOVING) this.object.setState(FurniturePushableLogic.ANIMATION_NOT_MOVING, 0);
+        if(this.object.getState(0) !== FurniturePushableLogic.ANIMATION_NOT_MOVING) this.object.setState(FurniturePushableLogic.ANIMATION_NOT_MOVING, 0);
     }
 }

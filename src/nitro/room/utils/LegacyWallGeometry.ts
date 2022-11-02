@@ -47,7 +47,7 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
 
     public initialize(width: number, height: number, floorHeight: number): void
     {
-        if ((width <= this._width) && (height <= this._height))
+        if((width <= this._width) && (height <= this._height))
         {
             this._width = width;
             this._height = height;
@@ -60,7 +60,7 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
 
         let y = 0;
 
-        while (y < height)
+        while(y < height)
         {
             const heights: number[] = [];
 
@@ -68,7 +68,7 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
 
             let x = 0;
 
-            while (x < width)
+            while(x < width)
             {
                 heights.push(0);
 
@@ -90,11 +90,11 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
 
     public setHeight(x: number, y: number, height: number): boolean
     {
-        if ((((x < 0) || (x >= this._width)) || (y < 0)) || (y >= this._height)) return false;
+        if((((x < 0) || (x >= this._width)) || (y < 0)) || (y >= this._height)) return false;
 
         const heightMap = this._heightMap[y];
 
-        if (!heightMap) return false;
+        if(!heightMap) return false;
 
         heightMap[x] = height;
 
@@ -103,11 +103,11 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
 
     public getHeight(x: number, y: number): number
     {
-        if ((((x < 0) || (x >= this._width)) || (y < 0)) || (y >= this._height)) return 0;
+        if((((x < 0) || (x >= this._width)) || (y < 0)) || (y >= this._height)) return 0;
 
         const heightMap = this._heightMap[y];
 
-        if (!heightMap) return 0;
+        if(!heightMap) return 0;
 
         return heightMap[x];
     }
@@ -117,22 +117,22 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
         let _local_12: number;
         let _local_6: number;
         let _local_7: number;
-        if (((k == 0) && (_arg_2 == 0)))
+        if(((k == 0) && (_arg_2 == 0)))
         {
             k = this._width;
             _arg_2 = this._height;
             _local_12 = Math.round((this.scale / 10));
-            if (_arg_5 == LegacyWallGeometry.R)
+            if(_arg_5 == LegacyWallGeometry.R)
             {
                 _local_7 = (this._width - 1);
-                while (_local_7 >= 0)
+                while(_local_7 >= 0)
                 {
                     _local_6 = 1;
-                    while (_local_6 < this._height)
+                    while(_local_6 < this._height)
                     {
-                        if (this.getHeight(_local_7, _local_6) <= this._floorHeight)
+                        if(this.getHeight(_local_7, _local_6) <= this._floorHeight)
                         {
-                            if ((_local_6 - 1) < _arg_2)
+                            if((_local_6 - 1) < _arg_2)
                             {
                                 k = _local_7;
                                 _arg_2 = (_local_6 - 1);
@@ -149,14 +149,14 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
             else
             {
                 _local_6 = (this._height - 1);
-                while (_local_6 >= 0)
+                while(_local_6 >= 0)
                 {
                     _local_7 = 1;
-                    while (_local_7 < this._width)
+                    while(_local_7 < this._width)
                     {
-                        if (this.getHeight(_local_7, _local_6) <= this._floorHeight)
+                        if(this.getHeight(_local_7, _local_6) <= this._floorHeight)
                         {
-                            if ((_local_7 - 1) < k)
+                            if((_local_7 - 1) < k)
                             {
                                 k = (_local_7 - 1);
                                 _arg_2 = _local_6;
@@ -174,7 +174,7 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
         let _local_8: number = k;
         let _local_9: number = _arg_2;
         let _local_10: number = this.getHeight(k, _arg_2);
-        if (_arg_5 == LegacyWallGeometry.R)
+        if(_arg_5 == LegacyWallGeometry.R)
         {
             _local_8 = (_local_8 + ((_arg_3 / (this._scale / 2)) - 0.5));
             _local_9 = (_local_9 + 0.5);
@@ -203,11 +203,11 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
         let _local_11: number;
         let _local_12 = 0;
         _local_4 = 0;
-        while (_local_4 < this._width)
+        while(_local_4 < this._width)
         {
-            if (((_local_5 >= 0) && (_local_5 < this._height)))
+            if(((_local_5 >= 0) && (_local_5 < this._height)))
             {
-                if (this.getHeight(_local_4, _local_5) <= this._floorHeight)
+                if(this.getHeight(_local_4, _local_5) <= this._floorHeight)
                 {
                     _local_8 = (_local_4 - 1);
                     _local_9 = _local_5;
@@ -215,7 +215,7 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
                     _arg_3 = LegacyWallGeometry.L;
                     break;
                 }
-                if (this.getHeight(_local_4, (_local_5 + 1)) <= this._floorHeight)
+                if(this.getHeight(_local_4, (_local_5 + 1)) <= this._floorHeight)
                 {
                     _local_8 = _local_4;
                     _local_9 = _local_5;
@@ -232,7 +232,7 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
         _local_13 = (_local_13 + ((((-(_arg_2) * 18) / 32) * this.scale) / 2));
         _local_12 = this.getHeight(_local_8, _local_9);
         _local_11 = (((_local_12 * this.scale) / 2) + _local_13);
-        if (_arg_3 == LegacyWallGeometry.R)
+        if(_arg_3 == LegacyWallGeometry.R)
         {
             _local_11 = (_local_11 + ((_local_6 * this.scale) / 4));
         }
@@ -245,7 +245,7 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
 
     public getOldLocation(k: IVector3D, _arg_2: number): [number, number, number, number, string]
     {
-        if (k == null)
+        if(k == null)
         {
             return null;
         }
@@ -255,7 +255,7 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
         let _local_6 = 0;
         let _local_7 = '';
         let _local_8 = 0;
-        if (_arg_2 == 90)
+        if(_arg_2 == 90)
         {
             _local_3 = Math.floor((k.x - 0.5));
             _local_4 = Math.floor((k.y + 0.5));
@@ -266,7 +266,7 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
         }
         else
         {
-            if (_arg_2 == 180)
+            if(_arg_2 == 180)
             {
                 _local_3 = Math.floor((k.x + 0.5));
                 _local_4 = Math.floor((k.y - 0.5));
@@ -286,7 +286,7 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
     public getOldLocationString(k: IVector3D, _arg_2: number): string
     {
         const _local_3 = this.getOldLocation(k, _arg_2);
-        if (_local_3 == null)
+        if(_local_3 == null)
         {
             return null;
         }
@@ -301,7 +301,7 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
 
     public getDirection(k: string): number
     {
-        if (k == LegacyWallGeometry.R)
+        if(k == LegacyWallGeometry.R)
         {
             return 180;
         }

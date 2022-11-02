@@ -119,7 +119,7 @@ export class ForumData
     {
         this._unreadMessages = (this._totalMessages - k);
 
-        if (this._unreadMessages < 0) this._unreadMessages = 0;
+        if(this._unreadMessages < 0) this._unreadMessages = 0;
     }
 
     public _Str_23783(thread: GuildForumThread): void

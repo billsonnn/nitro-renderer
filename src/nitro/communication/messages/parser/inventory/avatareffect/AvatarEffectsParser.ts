@@ -14,11 +14,11 @@ export class AvatarEffectsParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         let totalEffects = wrapper.readInt();
 
-        while (totalEffects > 0)
+        while(totalEffects > 0)
         {
             const effect = new AvatarEffect();
 

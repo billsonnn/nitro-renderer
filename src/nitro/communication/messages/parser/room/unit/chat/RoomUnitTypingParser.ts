@@ -15,7 +15,7 @@ export class RoomUnitTypingParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._unitId = wrapper.readInt();
         this._isTyping = wrapper.readInt() === 1 ? true : false;

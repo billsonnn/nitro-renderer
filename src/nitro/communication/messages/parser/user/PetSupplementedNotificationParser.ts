@@ -17,7 +17,7 @@ export class PetSupplementedNotificationParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._petId = wrapper.readInt();
         this._userId = wrapper.readInt();

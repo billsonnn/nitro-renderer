@@ -30,7 +30,7 @@ export class CatalogPageMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._pageId = wrapper.readInt();
         this._catalogType = wrapper.readString();
@@ -39,7 +39,7 @@ export class CatalogPageMessageParser implements IMessageParser
 
         let totalOffers = wrapper.readInt();
 
-        while (totalOffers > 0)
+        while(totalOffers > 0)
         {
             this._offers.push(new CatalogPageMessageOfferData(wrapper));
 
@@ -49,11 +49,11 @@ export class CatalogPageMessageParser implements IMessageParser
         this._offerId = wrapper.readInt();
         this._acceptSeasonCurrencyAsCredits = wrapper.readBoolean();
 
-        if (wrapper.bytesAvailable)
+        if(wrapper.bytesAvailable)
         {
             let totalFrontPageItems = wrapper.readInt();
 
-            while (totalFrontPageItems > 0)
+            while(totalFrontPageItems > 0)
             {
                 this._frontPageItems.push(new FrontPageItem(wrapper));
 

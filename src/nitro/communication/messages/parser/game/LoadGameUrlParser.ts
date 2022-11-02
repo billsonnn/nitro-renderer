@@ -17,7 +17,7 @@ export class LoadGameUrlParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._gameTypeId = wrapper.readInt();
         this._gameClientId = wrapper.readString();

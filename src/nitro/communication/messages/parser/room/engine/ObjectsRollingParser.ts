@@ -18,7 +18,7 @@ export class ObjectsRollingParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         const x = wrapper.readInt();
         const y = wrapper.readInt();
@@ -27,7 +27,7 @@ export class ObjectsRollingParser implements IMessageParser
 
         let totalItems = wrapper.readInt();
 
-        while (totalItems > 0)
+        while(totalItems > 0)
         {
             const id = wrapper.readInt();
             const height = parseFloat(wrapper.readString());
@@ -41,14 +41,14 @@ export class ObjectsRollingParser implements IMessageParser
 
         this._rollerId = wrapper.readInt();
 
-        if (!wrapper.bytesAvailable) return true;
+        if(!wrapper.bytesAvailable) return true;
 
         const movementType = wrapper.readInt();
         const unitId = wrapper.readInt();
         const height = parseFloat(wrapper.readString());
         const nextHeight = parseFloat(wrapper.readString());
 
-        switch (movementType)
+        switch(movementType)
         {
             case 0: break;
             case 1:

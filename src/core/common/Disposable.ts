@@ -13,7 +13,7 @@ export class Disposable implements IDisposable
 
     public dispose(): void
     {
-        if (this._isDisposed || this._isDisposing) return;
+        if(this._isDisposed || this._isDisposing) return;
 
         this._isDisposing = true;
 

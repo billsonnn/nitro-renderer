@@ -19,7 +19,7 @@ export class AvatarEffectAddedParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._type = wrapper.readInt();
         this._subType = wrapper.readInt();

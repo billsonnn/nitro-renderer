@@ -14,7 +14,7 @@ export class HabboSearchResultData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if (!wrapper) throw new Error('invalid_wrapper');
+        if(!wrapper) throw new Error('invalid_wrapper');
 
         this._avatarId = wrapper.readInt();
         this._avatarName = wrapper.readString();

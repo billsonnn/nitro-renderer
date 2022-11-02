@@ -39,7 +39,7 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
 
     public dispose(): void
     {
-        for (const k of this._particles) k.dispose();
+        for(const k of this._particles) k.dispose();
 
         this._particles = null;
         this._particleConfigurations = null;
@@ -65,7 +65,7 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
 
     public reset(): void
     {
-        for (const particle of this._particles) particle.dispose();
+        for(const particle of this._particles) particle.dispose();
 
         this._particles = [];
         this._emittedParticles = 0;
@@ -106,24 +106,24 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
     {
         this._hasIgnited = true;
 
-        if (this._emittedParticles < this._maxNumberOfParticles)
+        if(this._emittedParticles < this._maxNumberOfParticles)
         {
-            if (this.age > 1) this.releaseParticles(this, this.direction);
+            if(this.age > 1) this.releaseParticles(this, this.direction);
         }
     }
 
     private releaseParticles(particle: FurnitureParticleSystemParticle, direction: Vector3D = null): void
     {
-        if (!direction) direction = new Vector3D();
+        if(!direction) direction = new Vector3D();
 
         const newDirection = new Vector3D();
         const randomParticle = this.getRandomParticleConfiguration();
 
         let i = 0;
 
-        while (i < this._particlesPerFrame)
+        while(i < this._particlesPerFrame)
         {
-            switch (this._explosionShape)
+            switch(this._explosionShape)
             {
                 case FurnitureParticleSystemEmitter.CONE:
                     newDirection.x = ((this.randomBoolean(0.5)) ? Math.random() : -(Math.random()));
@@ -151,7 +151,7 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
             let fade = false;
             let frames: IGraphicAsset[] = [];
 
-            if (randomParticle)
+            if(randomParticle)
             {
                 lifeTime = Math.floor(((Math.random() * randomParticle.lifeTime) + 10));
                 isEmitter = randomParticle.isEmitter;
@@ -189,15 +189,15 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
         this.verlet();
         this.satisfyConstraints();
 
-        if (!this.isAlive && (this._emittedParticles < this._maxNumberOfParticles))
+        if(!this.isAlive && (this._emittedParticles < this._maxNumberOfParticles))
         {
-            if ((this.age % this._burstPulse) === 0) this.releaseParticles(this, this.direction);
+            if((this.age % this._burstPulse) === 0) this.releaseParticles(this, this.direction);
         }
     }
 
     public verlet(): void
     {
-        if (this.isAlive || (this._emittedParticles < this._maxNumberOfParticles))
+        if(this.isAlive || (this._emittedParticles < this._maxNumberOfParticles))
         {
             const x = this.x;
             const y = this.y;
@@ -213,7 +213,7 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
 
         const particles: FurnitureParticleSystemParticle[] = [];
 
-        for (const particle of this._particles)
+        for(const particle of this._particles)
         {
             particle.update();
 
@@ -227,12 +227,12 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
             particle.lastY = y;
             particle.lastZ = z;
 
-            if ((particle.y > 10) || !particle.isAlive) particles.push(particle);
+            if((particle.y > 10) || !particle.isAlive) particles.push(particle);
         }
 
-        for (const particle of particles)
+        for(const particle of particles)
         {
-            if (particle.isEmitter)
+            if(particle.isEmitter)
             {
                 //
             }
@@ -249,7 +249,7 @@ export class FurnitureParticleSystemEmitter extends FurnitureParticleSystemParti
 
     private accumulateForces(): void
     {
-        for (const k of this._particles)
+        for(const k of this._particles)
         {
             //
         }

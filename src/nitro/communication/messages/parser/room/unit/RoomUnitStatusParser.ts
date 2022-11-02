@@ -15,15 +15,15 @@ export class RoomUnitStatusParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         let totalUnits = wrapper.readInt();
 
-        while (totalUnits > 0)
+        while(totalUnits > 0)
         {
             const status = this.parseStatus(wrapper);
 
-            if (!status)
+            if(!status)
             {
                 totalUnits--;
 
@@ -40,7 +40,7 @@ export class RoomUnitStatusParser implements IMessageParser
 
     public parseStatus(wrapper: IMessageDataWrapper): RoomUnitStatusMessage
     {
-        if (!wrapper) return null;
+        if(!wrapper) return null;
 
         const unitId = wrapper.readInt();
         const x = wrapper.readInt();
@@ -58,25 +58,25 @@ export class RoomUnitStatusParser implements IMessageParser
         let didMove = false;
         const isSlide = false;
 
-        if (actions)
+        if(actions)
         {
             const actionParts = actions.split('/');
             const statusActions: RoomUnitStatusAction[] = [];
 
-            for (const action of actionParts)
+            for(const action of actionParts)
             {
                 const parts = action.split(' ');
 
-                if (parts[0] === '') continue;
+                if(parts[0] === '') continue;
 
-                if (parts.length >= 2)
+                if(parts.length >= 2)
                 {
-                    switch (parts[0])
+                    switch(parts[0])
                     {
                         case 'mv': {
                             const values = parts[1].split(',');
 
-                            if (values.length >= 3)
+                            if(values.length >= 3)
                             {
                                 targetX = parseInt(values[0]);
                                 targetY = parseInt(values[1]);
@@ -89,7 +89,7 @@ export class RoomUnitStatusParser implements IMessageParser
                         case 'sit': {
                             const sitHeight = parseFloat(parts[1]);
 
-                            if (parts.length >= 3) canStandUp = (parts[2] === '1');
+                            if(parts.length >= 3) canStandUp = (parts[2] === '1');
 
                             height = sitHeight;
 

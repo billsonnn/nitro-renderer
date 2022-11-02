@@ -8,7 +8,7 @@ export class NavigatorTopLevelContext
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if (!wrapper) throw new Error('invalid_wrapper');
+        if(!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -24,13 +24,13 @@ export class NavigatorTopLevelContext
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._code = wrapper.readString();
 
         let totalSavedSearches = wrapper.readInt();
 
-        while (totalSavedSearches > 0)
+        while(totalSavedSearches > 0)
         {
             this._savedSearches.push(new NavigatorSavedSearch(wrapper));
 

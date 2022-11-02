@@ -12,7 +12,7 @@ export class NavigatorCategoryDataParser
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if (!wrapper) throw new Error('invalid_wrapper');
+        if(!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -33,7 +33,7 @@ export class NavigatorCategoryDataParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._id = wrapper.readInt();
         this._name = wrapper.readString();

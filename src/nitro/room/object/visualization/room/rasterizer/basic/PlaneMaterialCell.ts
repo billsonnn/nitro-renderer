@@ -20,30 +20,30 @@ export class PlaneMaterialCell
         this._extraItemAssets = [];
         this._extraItemCount = 0;
 
-        if (assets && assets.length && (limit > 0))
+        if(assets && assets.length && (limit > 0))
         {
             let assetIndex = 0;
 
-            while (assetIndex < assets.length)
+            while(assetIndex < assets.length)
             {
                 const graphic = assets[assetIndex];
 
-                if (graphic) this._extraItemAssets.push(graphic);
+                if(graphic) this._extraItemAssets.push(graphic);
 
                 assetIndex++;
             }
 
-            if (this._extraItemAssets.length)
+            if(this._extraItemAssets.length)
             {
-                if (offsetPoints)
+                if(offsetPoints)
                 {
                     let pointIndex = 0;
 
-                    while (pointIndex < offsetPoints.length)
+                    while(pointIndex < offsetPoints.length)
                     {
                         const point = offsetPoints[pointIndex];
 
-                        if (point) this._extraItemOffsets.push(new Point(point.x, point.y));
+                        if(point) this._extraItemOffsets.push(new Point(point.x, point.y));
 
                         pointIndex++;
                     }
@@ -61,14 +61,14 @@ export class PlaneMaterialCell
 
     public dispose(): void
     {
-        if (this._texture)
+        if(this._texture)
         {
             this._texture.dispose();
 
             this._texture = null;
         }
 
-        if (this._cachedSprite)
+        if(this._cachedSprite)
         {
             this._cachedSprite.destroy();
 
@@ -82,7 +82,7 @@ export class PlaneMaterialCell
 
     public clearCache(): void
     {
-        if (this._cachedSprite)
+        if(this._cachedSprite)
         {
             this._cachedSprite.destroy();
 
@@ -92,11 +92,11 @@ export class PlaneMaterialCell
 
     public getHeight(normal: IVector3D): number
     {
-        if (this._texture)
+        if(this._texture)
         {
             const texture = this._texture.getBitmap(normal);
 
-            if (texture) return texture.height;
+            if(texture) return texture.height;
         }
 
         return 0;
@@ -104,43 +104,43 @@ export class PlaneMaterialCell
 
     public render(normal: IVector3D, textureOffsetX: number, textureOffsetY: number): NitroSprite
     {
-        if (!this._texture) return null;
+        if(!this._texture) return null;
 
         const texture = this._texture.getBitmap(normal);
 
-        if (!texture) return null;
+        if(!texture) return null;
 
         const bitmap = new NitroSprite(texture);
 
-        if ((textureOffsetX !== 0) || (textureOffsetY !== 0))
+        if((textureOffsetX !== 0) || (textureOffsetY !== 0))
         {
-            while (textureOffsetX < 0) textureOffsetX += texture.width;
+            while(textureOffsetX < 0) textureOffsetX += texture.width;
 
-            while (textureOffsetY < 0) textureOffsetY += texture.height;
+            while(textureOffsetY < 0) textureOffsetY += texture.height;
 
             bitmap.x = (textureOffsetX % texture.width);
             bitmap.y = (textureOffsetY % texture.height);
 
-            if (textureOffsetX)
+            if(textureOffsetX)
             {
                 bitmap.anchor.x = 1;
                 bitmap.scale.x = -1;
             }
 
-            if (textureOffsetY)
+            if(textureOffsetY)
             {
                 bitmap.anchor.y = 1;
                 bitmap.scale.y = -1;
             }
         }
 
-        if (bitmap)
+        if(bitmap)
         {
-            if (!this.isStatic)
+            if(!this.isStatic)
             {
-                if (this._cachedSprite)
+                if(this._cachedSprite)
                 {
-                    if ((this._cachedSprite.width !== bitmap.width) || (this._cachedSprite.height !== bitmap.height))
+                    if((this._cachedSprite.width !== bitmap.width) || (this._cachedSprite.height !== bitmap.height))
                     {
                         this._cachedSprite.destroy();
 
@@ -148,7 +148,7 @@ export class PlaneMaterialCell
                     }
                 }
 
-                if (!this._cachedSprite)
+                if(!this._cachedSprite)
                 {
                     this._cachedSprite = new NitroSprite(texture);
                 }
@@ -159,16 +159,16 @@ export class PlaneMaterialCell
 
                 let i = 0;
 
-                while (i < limitMin)
+                while(i < limitMin)
                 {
                     const offset = this._extraItemOffsets[offsetIndexes[i]];
                     const item = this._extraItemAssets[(i % this._extraItemAssets.length)];
 
-                    if (offset && item)
+                    if(offset && item)
                     {
                         const assetTexture = item.texture;
 
-                        if (assetTexture)
+                        if(assetTexture)
                         {
                             const offsetFinal = new Point((offset.x + item.offsetX), (offset.y + item.offsetY));
                             const flipMatrix = new Matrix();
@@ -178,13 +178,13 @@ export class PlaneMaterialCell
                             let translateX = 0;
                             let translateY = 0;
 
-                            if (item.flipH)
+                            if(item.flipH)
                             {
                                 x = -1;
                                 translateX = assetTexture.width;
                             }
 
-                            if (item.flipV)
+                            if(item.flipV)
                             {
                                 y = -1;
                                 translateY = assetTexture.height;

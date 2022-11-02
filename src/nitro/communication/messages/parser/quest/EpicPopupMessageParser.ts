@@ -12,7 +12,7 @@ export class EpicPopupMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._imageUri = wrapper.readString();
         return true;

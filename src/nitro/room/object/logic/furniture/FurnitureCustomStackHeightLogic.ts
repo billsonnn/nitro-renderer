@@ -17,12 +17,12 @@ export class FurnitureCustomStackHeightLogic extends FurnitureMultiStateLogic
     {
         super.initialize(asset);
 
-        if (this.object && this.object.model) this.object.model.setValue(RoomObjectVariable.FURNITURE_ALWAYS_STACKABLE, 1);
+        if(this.object && this.object.model) this.object.model.setValue(RoomObjectVariable.FURNITURE_ALWAYS_STACKABLE, 1);
     }
 
     public useObject(): void
     {
-        if (!this.object || !this.eventDispatcher) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.STACK_HEIGHT, this.object));
 

@@ -23,36 +23,36 @@ export class MessageClassManager
 
     public registerMessages(configuration: IMessageConfiguration): void
     {
-        for (const [header, handler] of configuration.events) this.registerMessageEventClass(header, handler);
+        for(const [header, handler] of configuration.events) this.registerMessageEventClass(header, handler);
 
-        for (const [header, handler] of configuration.composers) this.registerMessageComposerClass(header, handler);
+        for(const [header, handler] of configuration.composers) this.registerMessageComposerClass(header, handler);
     }
 
     private registerMessageEventClass(header: number, handler: Function): void
     {
-        if (!header || !handler) return;
+        if(!header || !handler) return;
 
         this._messageIdByEvent.set(handler, header);
     }
 
     private registerMessageComposerClass(header: number, handler: Function): void
     {
-        if (!header || !handler) return;
+        if(!header || !handler) return;
 
         this._messageIdByComposer.set(handler, header);
     }
 
     public registerMessageEvent(event: IMessageEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
         const header = this.getEventId(event);
 
-        if (!header) return;
+        if(!header) return;
 
         let existing = this._messageInstancesById.get(header);
 
-        if (!existing || !existing.length)
+        if(!existing || !existing.length)
         {
             existing = [];
 
@@ -64,25 +64,25 @@ export class MessageClassManager
 
     public removeMessageEvent(event: IMessageEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
         const header = this.getEventId(event);
 
-        if (!header) return;
+        if(!header) return;
 
         const existing = this._messageInstancesById.get(header);
 
-        if (!existing) return;
+        if(!existing) return;
 
-        for (const [index, message] of existing.entries())
+        for(const [index, message] of existing.entries())
         {
-            if (!message) continue;
+            if(!message) continue;
 
-            if (message !== event) continue;
+            if(message !== event) continue;
 
             existing.splice(index, 1);
 
-            if (existing.length === 0) this._messageInstancesById.delete(header);
+            if(existing.length === 0) this._messageInstancesById.delete(header);
 
             message.dispose();
 
@@ -92,36 +92,36 @@ export class MessageClassManager
 
     public getEvents(header: number): IMessageEvent[]
     {
-        if (!header) return;
+        if(!header) return;
 
         const existing = this._messageInstancesById.get(header);
 
-        if (!existing) return;
+        if(!existing) return;
 
         return existing;
     }
 
     public getEventId(event: IMessageEvent): number
     {
-        if (!event) return -1;
+        if(!event) return -1;
 
         //@ts-ignore
         const name = (event instanceof MessageEvent ? event.constructor : event) as Function;
 
         const existing = this._messageIdByEvent.get(name);
 
-        if (!existing) return -1;
+        if(!existing) return -1;
 
         return existing;
     }
 
     public getComposerId(composer: IMessageComposer<unknown[]>): number
     {
-        if (!composer) return -1;
+        if(!composer) return -1;
 
         const existing = this._messageIdByComposer.get(composer.constructor);
 
-        if (!existing) return -1;
+        if(!existing) return -1;
 
         return existing;
     }

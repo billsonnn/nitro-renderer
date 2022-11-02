@@ -84,16 +84,16 @@ export class RoomPlane implements IRoomPlane
         this._rightSide.assign(rightSide);
         this._normal = Vector3d.crossProduct(this._leftSide, this._rightSide);
 
-        if (this._normal.length > 0)
+        if(this._normal.length > 0)
         {
             this._normal.multiply((1 / this._normal.length));
         }
 
-        if (secondaryNormals != null)
+        if(secondaryNormals != null)
         {
-            for (const entry of secondaryNormals)
+            for(const entry of secondaryNormals)
             {
-                if (!entry) continue;
+                if(!entry) continue;
 
                 const vector = new Vector3d();
 
@@ -136,9 +136,9 @@ export class RoomPlane implements IRoomPlane
 
     public set canBeVisible(k: boolean)
     {
-        if (k !== this._canBeVisible)
+        if(k !== this._canBeVisible)
         {
-            if (!this._canBeVisible) this.resetTextureCache();
+            if(!this._canBeVisible) this.resetTextureCache();
 
             this._canBeVisible = k;
         }
@@ -151,11 +151,11 @@ export class RoomPlane implements IRoomPlane
 
     public get bitmapData(): Texture<Resource>
     {
-        if (!this.visible || !this._bitmapData) return null;
+        if(!this.visible || !this._bitmapData) return null;
 
         let texture: RenderTexture = RoomVisualization.getTextureCache(this._bitmapData);
 
-        if (!texture)
+        if(!texture)
         {
             texture = TextureUtils.generateTexture(this._bitmapData, new Rectangle(0, 0, this._width, this._height));
 
@@ -237,7 +237,7 @@ export class RoomPlane implements IRoomPlane
 
     public set id(k: string)
     {
-        if (k === this._id) return;
+        if(k === this._id) return;
 
         this.resetTextureCache();
         this._id = k;
@@ -250,20 +250,20 @@ export class RoomPlane implements IRoomPlane
 
     public dispose(): void
     {
-        if (this._bitmapData)
+        if(this._bitmapData)
         {
             this._bitmapData.destroy();
 
             this._bitmapData = null;
         }
 
-        if (this._textures)
+        if(this._textures)
         {
-            for (const bitmap of this._textures.values())
+            for(const bitmap of this._textures.values())
             {
-                if (!bitmap) continue;
+                if(!bitmap) continue;
 
-                if (bitmap.bitmap) bitmap.bitmap.destroy();
+                if(bitmap.bitmap) bitmap.bitmap.destroy();
 
                 bitmap.dispose();
             }
@@ -285,7 +285,7 @@ export class RoomPlane implements IRoomPlane
         this._bitmapMasks = null;
         this._rectangleMasks = null;
 
-        if (this._maskBitmapData)
+        if(this._maskBitmapData)
         {
             this._maskBitmapData.destroy();
 
@@ -297,9 +297,9 @@ export class RoomPlane implements IRoomPlane
 
     public copyBitmapData(k: Texture<Resource>): Texture<Resource>
     {
-        if (!this.visible || !this._bitmapData || !k) return null;
+        if(!this.visible || !this._bitmapData || !k) return null;
 
-        if ((this._bitmapData.width !== k.width) || (this._bitmapData.height !== k.height)) return null;
+        if((this._bitmapData.width !== k.width) || (this._bitmapData.height !== k.height)) return null;
 
         //k.copyPixels(this._bitmapData, this._bitmapData.rect, RoomPlane.ZERO_POINT);
         return k;
@@ -309,7 +309,7 @@ export class RoomPlane implements IRoomPlane
     {
         const existing = this._textures.get(k);
 
-        if (existing)
+        if(existing)
         {
             this._textures.delete(k);
 
@@ -324,11 +324,11 @@ export class RoomPlane implements IRoomPlane
 
     private resetTextureCache(k: Graphics = null): void
     {
-        if (this._textures && this._textures.size)
+        if(this._textures && this._textures.size)
         {
-            for (const bitmap of this._textures.values())
+            for(const bitmap of this._textures.values())
             {
-                if (!bitmap) continue;
+                if(!bitmap) continue;
 
                 bitmap.dispose();
             }
@@ -341,43 +341,43 @@ export class RoomPlane implements IRoomPlane
 
     private getTextureIdentifier(k: number): string
     {
-        if (this._rasterizer) return this._rasterizer.getTextureIdentifier(k, this.normal);
+        if(this._rasterizer) return this._rasterizer.getTextureIdentifier(k, this.normal);
 
         return k.toString();
     }
 
     private needsNewTexture(k: IRoomGeometry, _arg_2: number): boolean
     {
-        if (!k) return false;
+        if(!k) return false;
 
         let planeBitmap = this._activeTexture;
 
-        if (!planeBitmap)
+        if(!planeBitmap)
         {
             planeBitmap = this._textures.get(this.getTextureIdentifier(k.scale));
         }
 
         this.updateMaskChangeStatus();
 
-        if (this._canBeVisible && ((!planeBitmap || ((planeBitmap.timeStamp >= 0) && (_arg_2 > planeBitmap.timeStamp))) || this._maskChanged)) return true;
+        if(this._canBeVisible && ((!planeBitmap || ((planeBitmap.timeStamp >= 0) && (_arg_2 > planeBitmap.timeStamp))) || this._maskChanged)) return true;
 
         return false;
     }
 
     private getTexture(k: IRoomGeometry, _arg_2: number): Graphics
     {
-        if (!k) return null;
+        if(!k) return null;
 
         let _local_3: PlaneBitmapData = null;
 
-        if (this.needsNewTexture(k, _arg_2))
+        if(this.needsNewTexture(k, _arg_2))
         {
             const _local_4 = this.getTextureIdentifier(k.scale);
             const _local_5 = (this._leftSide.length * k.scale);
             const _local_6 = (this._rightSide.length * k.scale);
             const _local_7 = k.getCoordinatePosition(this._normal);
 
-            if (this._activeTexture)
+            if(this._activeTexture)
             {
                 _local_3 = this._activeTexture;
             }
@@ -388,15 +388,15 @@ export class RoomPlane implements IRoomPlane
 
             let _local_8: Graphics = null;
 
-            if (_local_3) _local_8 = _local_3.bitmap;
+            if(_local_3) _local_8 = _local_3.bitmap;
 
-            if (this._rasterizer)
+            if(this._rasterizer)
             {
                 _local_3 = this._rasterizer.render(_local_8, this._id, _local_5, _local_6, k.scale, _local_7, this._hasTexture, this._textureOffsetX, this._textureOffsetY, this._textureMaxX, this._textureMaxY, _arg_2);
 
-                if (_local_3)
+                if(_local_3)
                 {
-                    if (_local_8 && (_local_3.bitmap !== _local_8)) _local_8.destroy();
+                    if(_local_8 && (_local_3.bitmap !== _local_8)) _local_8.destroy();
                 }
             }
             else
@@ -410,7 +410,7 @@ export class RoomPlane implements IRoomPlane
                 _local_3 = new PlaneBitmapData(_local_9, -1);
             }
 
-            if (_local_3)
+            if(_local_3)
             {
                 this.updateMask(_local_3.bitmap, k);
                 this.cacheTexture(_local_4, _local_3);
@@ -418,7 +418,7 @@ export class RoomPlane implements IRoomPlane
         }
         else
         {
-            if (this._activeTexture)
+            if(this._activeTexture)
             {
                 _local_3 = this._activeTexture;
             }
@@ -428,7 +428,7 @@ export class RoomPlane implements IRoomPlane
             }
         }
 
-        if (_local_3)
+        if(_local_3)
         {
             this._activeTexture = _local_3;
 
@@ -440,30 +440,30 @@ export class RoomPlane implements IRoomPlane
 
     private resolveMasks(k: IRoomGeometry): PlaneDrawingData
     {
-        if (!this._useMask) return null;
+        if(!this._useMask) return null;
 
         const _local_5 = new PlaneDrawingData();
 
         const index = 0;
 
-        while (index < this._bitmapMasks.length)
+        while(index < this._bitmapMasks.length)
         {
             const mask = this._bitmapMasks[index];
 
-            if (mask)
+            if(mask)
             {
                 const planeMask = this._maskManager.getMask(mask.type);
 
-                if (planeMask)
+                if(planeMask)
                 {
                     const assetName = planeMask.getAssetName(k.scale);
 
-                    if (assetName)
+                    if(assetName)
                     {
                         const position = k.getCoordinatePosition(this._normal);
                         const asset = planeMask.getGraphicAsset(k.scale, position);
 
-                        if (asset)
+                        if(asset)
                         {
                             const _local_3 = (this._maskBitmapData.width * (1 - (mask.leftSideLoc / this._leftSide.length)));
                             const _local_4 = (this._maskBitmapData.height * (1 - (mask.rightSideLoc / this._rightSide.length)));
@@ -491,20 +491,20 @@ export class RoomPlane implements IRoomPlane
     {
         const drawingDatas: PlaneDrawingData[] = [];
 
-        if (this._isVisible)
+        if(this._isVisible)
         {
             const maskData = this.resolveMasks(geometry);
             const layers = this._rasterizer.getLayers(this._id);
 
             let i = 0;
 
-            while (i < layers.length)
+            while(i < layers.length)
             {
                 const layer = (layers[i] as PlaneVisualizationLayer);
 
-                if (layer)
+                if(layer)
                 {
-                    if (this._hasTexture && layer.getMaterial())
+                    if(this._hasTexture && layer.getMaterial())
                     {
                         const normal = geometry.getCoordinatePosition(this._normal);
                         const cm = layer.getMaterial().getMaterialCellMatrix(normal);
@@ -513,26 +513,26 @@ export class RoomPlane implements IRoomPlane
 
                         Randomizer.setSeed(this._randomSeed);
 
-                        for (const column of cm.getColumns(this.screenWidth(geometry)))
+                        for(const column of cm.getColumns(this.screenWidth(geometry)))
                         {
                             const assetNames: string[] = [];
 
-                            for (const cell of column.getCells())
+                            for(const cell of column.getCells())
                             {
                                 const name = cell.getAssetName(normal);
 
-                                if (name) assetNames.push(name);
+                                if(name) assetNames.push(name);
                             }
 
-                            if (assetNames.length > 0)
+                            if(assetNames.length > 0)
                             {
-                                if (!column.isRepeated()) assetNames.push('');
+                                if(!column.isRepeated()) assetNames.push('');
 
                                 data.addAssetColumn(assetNames);
                             }
                         }
 
-                        if (data.assetNameColumns.length > 0) drawingDatas.push(data);
+                        if(data.assetNameColumns.length > 0) drawingDatas.push(data);
                     }
                     else
                     {
@@ -546,7 +546,7 @@ export class RoomPlane implements IRoomPlane
                 i++;
             }
 
-            if (!drawingDatas.length) drawingDatas.push(new PlaneDrawingData(maskData, this._color));
+            if(!drawingDatas.length) drawingDatas.push(new PlaneDrawingData(maskData, this._color));
         }
 
         return drawingDatas;
@@ -558,18 +558,18 @@ export class RoomPlane implements IRoomPlane
 
     public update(geometry: IRoomGeometry, timeSinceStartMs: number): boolean
     {
-        if (!geometry || this._disposed) return false;
+        if(!geometry || this._disposed) return false;
 
         let geometryChanged = false;
 
-        if (this._geometryUpdateId != geometry.updateId) geometryChanged = true;
+        if(this._geometryUpdateId != geometry.updateId) geometryChanged = true;
 
-        if (!geometryChanged || !this._canBeVisible)
+        if(!geometryChanged || !this._canBeVisible)
         {
-            if (!this.visible) return false;
+            if(!this.visible) return false;
         }
 
-        if (geometryChanged)
+        if(geometryChanged)
         {
             this._activeTexture = null;
 
@@ -577,9 +577,9 @@ export class RoomPlane implements IRoomPlane
 
             cosAngle = Vector3d.cosAngle(geometry.directionAxis, this.normal);
 
-            if (cosAngle > -0.001)
+            if(cosAngle > -0.001)
             {
-                if (this._isVisible)
+                if(this._isVisible)
                 {
                     this._isVisible = false;
                     return true;
@@ -590,13 +590,13 @@ export class RoomPlane implements IRoomPlane
 
             let i = 0;
 
-            while (i < this._secondaryNormals.length)
+            while(i < this._secondaryNormals.length)
             {
                 cosAngle = Vector3d.cosAngle(geometry.directionAxis, this._secondaryNormals[i]);
 
-                if (cosAngle > -0.001)
+                if(cosAngle > -0.001)
                 {
-                    if (this._isVisible)
+                    if(this._isVisible)
                     {
                         this._isVisible = false;
                         return true;
@@ -615,12 +615,12 @@ export class RoomPlane implements IRoomPlane
 
             let relativeDepth = (Math.max(this._cornerA.z, this._cornerB.z, this._cornerC.z, this._cornerD.z) - originZ);
 
-            if (this._type === RoomPlane.TYPE_FLOOR)
+            if(this._type === RoomPlane.TYPE_FLOOR)
             {
                 relativeDepth = (relativeDepth - ((this._location.z + Math.min(0, this._leftSide.z, this._rightSide.z)) * 8));
             }
 
-            if (this._type === RoomPlane.TYPE_LANDSCAPE)
+            if(this._type === RoomPlane.TYPE_LANDSCAPE)
             {
                 relativeDepth = (relativeDepth + 0.02);
             }
@@ -630,21 +630,21 @@ export class RoomPlane implements IRoomPlane
             this._geometryUpdateId = geometry.updateId;
         }
 
-        if (geometryChanged || this.needsNewTexture(geometry, timeSinceStartMs))
+        if(geometryChanged || this.needsNewTexture(geometry, timeSinceStartMs))
         {
-            if (!this._bitmapData || (this._width !== this._bitmapData.width) || (this._height !== this._bitmapData.height))
+            if(!this._bitmapData || (this._width !== this._bitmapData.width) || (this._height !== this._bitmapData.height))
             {
-                if (this._bitmapData)
+                if(this._bitmapData)
                 {
                     this._bitmapData.destroy();
 
                     this._bitmapData = null;
 
-                    if ((this._width < 1) || (this._height < 1)) return true;
+                    if((this._width < 1) || (this._height < 1)) return true;
                 }
                 else
                 {
-                    if ((this._width < 1) || (this._height < 1)) return false;
+                    if((this._width < 1) || (this._height < 1)) return false;
                 }
 
                 const graphic = new Graphics();
@@ -655,7 +655,7 @@ export class RoomPlane implements IRoomPlane
 
                 this._bitmapData = graphic;
 
-                if (!this._bitmapData) return false;
+                if(!this._bitmapData) return false;
             }
             else
             {
@@ -667,7 +667,7 @@ export class RoomPlane implements IRoomPlane
 
             const texture = this.getTexture(geometry, timeSinceStartMs);
 
-            if (texture)
+            if(texture)
             {
                 this.renderTexture(geometry, texture);
             }
@@ -723,7 +723,7 @@ export class RoomPlane implements IRoomPlane
 
     private renderTexture(k: IRoomGeometry, _arg_2: Graphics): void
     {
-        if (((((((this._cornerA == null) || (this._cornerB == null)) || (this._cornerC == null)) || (this._cornerD == null)) || (_arg_2 == null)) || (this._bitmapData == null)))
+        if(((((((this._cornerA == null) || (this._cornerB == null)) || (this._cornerC == null)) || (this._cornerD == null)) || (_arg_2 == null)) || (this._bitmapData == null)))
         {
             return;
         }
@@ -731,21 +731,21 @@ export class RoomPlane implements IRoomPlane
         let _local_4: number = (this._cornerD.y - this._cornerC.y);
         let _local_5: number = (this._cornerB.x - this._cornerC.x);
         let _local_6: number = (this._cornerB.y - this._cornerC.y);
-        if (((this._type == RoomPlane.TYPE_WALL) || (this._type == RoomPlane.TYPE_LANDSCAPE)))
+        if(((this._type == RoomPlane.TYPE_WALL) || (this._type == RoomPlane.TYPE_LANDSCAPE)))
         {
-            if (Math.abs((_local_5 - _arg_2.width)) <= 1)
+            if(Math.abs((_local_5 - _arg_2.width)) <= 1)
             {
                 _local_5 = _arg_2.width;
             }
-            if (Math.abs((_local_6 - _arg_2.width)) <= 1)
+            if(Math.abs((_local_6 - _arg_2.width)) <= 1)
             {
                 _local_6 = _arg_2.width;
             }
-            if (Math.abs((_local_3 - _arg_2.height)) <= 1)
+            if(Math.abs((_local_3 - _arg_2.height)) <= 1)
             {
                 _local_3 = _arg_2.height;
             }
-            if (Math.abs((_local_4 - _arg_2.height)) <= 1)
+            if(Math.abs((_local_4 - _arg_2.height)) <= 1)
             {
                 _local_4 = _arg_2.height;
             }
@@ -775,7 +775,7 @@ export class RoomPlane implements IRoomPlane
 
     public resetBitmapMasks(): void
     {
-        if (this._disposed || !this._useMask || !this._bitmapMasks.length) return;
+        if(this._disposed || !this._useMask || !this._bitmapMasks.length) return;
 
         this._maskChanged = true;
         this._bitmapMasks = [];
@@ -783,17 +783,17 @@ export class RoomPlane implements IRoomPlane
 
     public addBitmapMask(k: string, _arg_2: number, _arg_3: number): boolean
     {
-        if (!this._useMask) return false;
+        if(!this._useMask) return false;
 
         let _local_5 = 0;
 
-        while (_local_5 < this._bitmapMasks.length)
+        while(_local_5 < this._bitmapMasks.length)
         {
             const mask = this._bitmapMasks[_local_5];
 
-            if (mask)
+            if(mask)
             {
-                if ((((mask.type === k) && (mask.leftSideLoc === _arg_2)) && (mask.rightSideLoc === _arg_3))) return false;
+                if((((mask.type === k) && (mask.leftSideLoc === _arg_2)) && (mask.rightSideLoc === _arg_3))) return false;
             }
 
             _local_5++;
@@ -809,7 +809,7 @@ export class RoomPlane implements IRoomPlane
 
     public resetRectangleMasks(): void
     {
-        if (!this._useMask || !this._rectangleMasks.length) return;
+        if(!this._useMask || !this._rectangleMasks.length) return;
 
         this._maskChanged = true;
         this._rectangleMasks = [];
@@ -817,13 +817,13 @@ export class RoomPlane implements IRoomPlane
 
     public addRectangleMask(k: number, _arg_2: number, _arg_3: number, _arg_4: number): boolean
     {
-        if (this._useMask)
+        if(this._useMask)
         {
-            for (const mask of this._rectangleMasks)
+            for(const mask of this._rectangleMasks)
             {
-                if (!mask) continue;
+                if(!mask) continue;
 
-                if ((((mask.leftSideLoc === k) && (mask.rightSideLoc === _arg_2)) && (mask.leftSideLength === _arg_3)) && (mask.rightSideLength === _arg_4)) return false;
+                if((((mask.leftSideLoc === k) && (mask.rightSideLoc === _arg_2)) && (mask.leftSideLength === _arg_3)) && (mask.rightSideLength === _arg_4)) return false;
             }
 
             const _local_5 = new RoomPlaneRectangleMask(k, _arg_2, _arg_3, _arg_4);
@@ -839,24 +839,24 @@ export class RoomPlane implements IRoomPlane
 
     private updateMaskChangeStatus(): void
     {
-        if (!this._maskChanged) return;
+        if(!this._maskChanged) return;
 
         let _local_3 = true;
         let _local_6: boolean;
 
-        if (this._bitmapMasks.length === this._bitmapMasksOld.length)
+        if(this._bitmapMasks.length === this._bitmapMasksOld.length)
         {
-            for (const mask of this._bitmapMasks)
+            for(const mask of this._bitmapMasks)
             {
-                if (!mask) continue;
+                if(!mask) continue;
 
                 _local_6 = false;
 
-                for (const plane of this._bitmapMasksOld)
+                for(const plane of this._bitmapMasksOld)
                 {
-                    if (!plane) continue;
+                    if(!plane) continue;
 
-                    if (((plane.type === mask.type) && (plane.leftSideLoc === mask.leftSideLoc)) && (plane.rightSideLoc === mask.rightSideLoc))
+                    if(((plane.type === mask.type) && (plane.leftSideLoc === mask.leftSideLoc)) && (plane.rightSideLoc === mask.rightSideLoc))
                     {
                         _local_6 = true;
 
@@ -864,7 +864,7 @@ export class RoomPlane implements IRoomPlane
                     }
                 }
 
-                if (!_local_6)
+                if(!_local_6)
                 {
                     _local_3 = false;
 
@@ -877,25 +877,25 @@ export class RoomPlane implements IRoomPlane
             _local_3 = false;
         }
 
-        if (this._rectangleMasks.length > this._rectangleMasksOld.length) _local_3 = false;
+        if(this._rectangleMasks.length > this._rectangleMasksOld.length) _local_3 = false;
 
-        if (_local_3) this._maskChanged = false;
+        if(_local_3) this._maskChanged = false;
     }
 
     private updateMask(texture: Graphics, geometry: IRoomGeometry): void
     {
-        if (!texture || !geometry) return;
+        if(!texture || !geometry) return;
 
-        if (((!this._useMask) || ((!this._bitmapMasks.length && !this._rectangleMasks.length) && !this._maskChanged)) || !this._maskManager) return;
+        if(((!this._useMask) || ((!this._bitmapMasks.length && !this._rectangleMasks.length) && !this._maskChanged)) || !this._maskManager) return;
 
         const width = texture.width;
         const height = texture.height;
 
         this.updateMaskChangeStatus();
 
-        if (!this._maskBitmapData || (this._maskBitmapData.width !== width) || (this._maskBitmapData.height !== height))
+        if(!this._maskBitmapData || (this._maskBitmapData.width !== width) || (this._maskBitmapData.height !== height))
         {
-            if (this._maskBitmapData)
+            if(this._maskBitmapData)
             {
                 this._maskBitmapData.destroy();
                 this._maskBitmapData = null;
@@ -912,12 +912,12 @@ export class RoomPlane implements IRoomPlane
             this._maskChanged = true;
         }
 
-        if (this._maskChanged)
+        if(this._maskChanged)
         {
             this._bitmapMasksOld = [];
             this._rectangleMasksOld = [];
 
-            if (this._maskBitmapData)
+            if(this._maskBitmapData)
             {
                 this._maskBitmapData
                     .beginFill(0xFFFFFF, 0)
@@ -934,11 +934,11 @@ export class RoomPlane implements IRoomPlane
             let posY = 0;
             let i = 0;
 
-            while (i < this._bitmapMasks.length)
+            while(i < this._bitmapMasks.length)
             {
                 const mask = this._bitmapMasks[i];
 
-                if (mask)
+                if(mask)
                 {
                     type = mask.type;
                     posX = (this._maskBitmapData.width - ((this._maskBitmapData.width * mask.leftSideLoc) / this._leftSide.length));
@@ -953,11 +953,11 @@ export class RoomPlane implements IRoomPlane
 
             i = 0;
 
-            while (i < this._rectangleMasks.length)
+            while(i < this._rectangleMasks.length)
             {
                 const rectMask = this._rectangleMasks[i];
 
-                if (rectMask)
+                if(rectMask)
                 {
                     posX = (this._maskBitmapData.width - ((this._maskBitmapData.width * rectMask.leftSideLoc) / this._leftSide.length));
                     posY = (this._maskBitmapData.height - ((this._maskBitmapData.height * rectMask.rightSideLoc) / this._rightSide.length));
@@ -984,7 +984,7 @@ export class RoomPlane implements IRoomPlane
 
     private combineTextureMask(texture: Graphics, mask: Graphics): void
     {
-        if (!texture || !mask) return;
+        if(!texture || !mask) return;
 
         const maskCanvas = TextureUtils.generateCanvas(mask);
         const textureCanvas = TextureUtils.generateCanvas(texture);
@@ -995,21 +995,21 @@ export class RoomPlane implements IRoomPlane
         const textureImageData = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
         const data = textureImageData.data;
 
-        for (let i = 0; i < data.length; i += 4)
+        for(let i = 0; i < data.length; i += 4)
         {
             const red = data[i];
             const green = data[i + 1];
             const blue = data[i + 2];
             const alpha = data[i + 3];
 
-            if (!red && !green && !blue) data[i + 3] = 0;
+            if(!red && !green && !blue) data[i + 3] = 0;
         }
 
         textureCtx.putImageData(textureImageData, 0, 0);
 
         const newTexture = Texture.from(textureCanvas);
 
-        if (!newTexture) return;
+        if(!newTexture) return;
 
         texture
             .clear()

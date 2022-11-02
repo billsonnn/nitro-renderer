@@ -12,7 +12,7 @@ export class InClientLinkParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._link = wrapper.readString();
         return true;

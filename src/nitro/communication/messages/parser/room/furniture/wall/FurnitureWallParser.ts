@@ -16,21 +16,21 @@ export class FurnitureWallParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
-        if (!this.parseOwners(wrapper)) return false;
+        if(!this.parseOwners(wrapper)) return false;
 
         let totalItems = wrapper.readInt();
 
-        while (totalItems > 0)
+        while(totalItems > 0)
         {
             const item = new FurnitureWallDataParser(wrapper);
 
-            if (!item) continue;
+            if(!item) continue;
 
             const username = this._owners.get(item.userId);
 
-            if (username) item.username = username;
+            if(username) item.username = username;
 
             this._items.push(item);
 
@@ -42,11 +42,11 @@ export class FurnitureWallParser implements IMessageParser
 
     private parseOwners(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         let totalOwners = wrapper.readInt();
 
-        while (totalOwners > 0)
+        while(totalOwners > 0)
         {
             this._owners.set(wrapper.readInt(), wrapper.readString());
 

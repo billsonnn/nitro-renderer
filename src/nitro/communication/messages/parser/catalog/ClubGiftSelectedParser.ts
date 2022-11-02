@@ -16,13 +16,13 @@ export class ClubGiftSelectedParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._productCode = wrapper.readString();
 
         let count = wrapper.readInt();
 
-        while (count > 0)
+        while(count > 0)
         {
             this._products.push(new CatalogPageMessageProductData(wrapper));
 

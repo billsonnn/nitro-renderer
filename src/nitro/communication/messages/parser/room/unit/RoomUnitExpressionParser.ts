@@ -15,7 +15,7 @@ export class RoomUnitExpressionParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._unitId = wrapper.readInt();
         this._expression = wrapper.readInt();

@@ -18,13 +18,13 @@ export class AddDataContainer
 
         const _local_2 = k.blend;
 
-        if (_local_2)
+        if(_local_2)
         {
-            if (_local_2.length > 0)
+            if(_local_2.length > 0)
             {
                 this._blend = parseInt(_local_2);
 
-                if (this._blend > 1) this._blend = (this._blend / 100);
+                if(this._blend > 1) this._blend = (this._blend / 100);
             }
         }
     }

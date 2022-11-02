@@ -15,7 +15,7 @@ export class CompetitionStatusMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._ok = wrapper.readBoolean();
         this._errorReason = wrapper.readString();

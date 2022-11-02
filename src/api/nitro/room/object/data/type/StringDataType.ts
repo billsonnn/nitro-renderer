@@ -22,13 +22,13 @@ export class StringDataType extends ObjectDataBase
 
     public parseWrapper(wrapper: IMessageDataWrapper): void
     {
-        if (!wrapper) return;
+        if(!wrapper) return;
 
         this._data = [];
 
         const totalStrings = wrapper.readInt();
 
-        if (totalStrings) for (let i = 0; i < totalStrings; i++) this._data.push(wrapper.readString());
+        if(totalStrings) for(let i = 0; i < totalStrings; i++) this._data.push(wrapper.readString());
 
         super.parseWrapper(wrapper);
     }
@@ -50,26 +50,26 @@ export class StringDataType extends ObjectDataBase
 
     public getLegacyString(): string
     {
-        if (!this._data || !this._data.length) return '';
+        if(!this._data || !this._data.length) return '';
 
         return this._data[StringDataType.STATE];
     }
 
     public compare(data: IObjectData): boolean
     {
-        if (!(data instanceof StringDataType)) return false;
+        if(!(data instanceof StringDataType)) return false;
 
         let i = 0;
 
-        while (i < this._data.length)
+        while(i < this._data.length)
         {
-            if (i === 0)
+            if(i === 0)
             {
                 //
             }
             else
             {
-                if (this._data[i] !== data.getValue(i)) return false;
+                if(this._data[i] !== data.getValue(i)) return false;
             }
 
             i++;

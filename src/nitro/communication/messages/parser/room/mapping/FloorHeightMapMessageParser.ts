@@ -26,7 +26,7 @@ export class FloorHeightMapMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         const scale = wrapper.readBoolean();
         const wallHeight = wrapper.readInt();
@@ -54,11 +54,11 @@ export class FloorHeightMapMessageParser implements IMessageParser
 
         let iterator = 0;
 
-        while (iterator < modelRows)
+        while(iterator < modelRows)
         {
             const row = model[iterator];
 
-            if (row.length > width)
+            if(row.length > width)
             {
                 width = row.length;
             }
@@ -69,13 +69,13 @@ export class FloorHeightMapMessageParser implements IMessageParser
         this._heightMap = [];
         iterator = 0;
 
-        while (iterator < modelRows)
+        while(iterator < modelRows)
         {
             const heightMap: number[] = [];
 
             let subIterator = 0;
 
-            while (subIterator < width)
+            while(subIterator < width)
             {
                 heightMap.push(FloorHeightMapMessageParser.TILE_BLOCKED);
 
@@ -92,21 +92,21 @@ export class FloorHeightMapMessageParser implements IMessageParser
 
         iterator = 0;
 
-        while (iterator < modelRows)
+        while(iterator < modelRows)
         {
             const heightMap = this._heightMap[iterator];
             const text = model[iterator];
 
-            if (text.length > 0)
+            if(text.length > 0)
             {
                 let subIterator = 0;
 
-                while (subIterator < text.length)
+                while(subIterator < text.length)
                 {
                     const char = text.charAt(subIterator);
                     let height = FloorHeightMapMessageParser.TILE_BLOCKED;
 
-                    if ((char !== 'x') && (char !== 'X')) height = parseInt(char, 36);
+                    if((char !== 'x') && (char !== 'X')) height = parseInt(char, 36);
 
                     heightMap[subIterator] = height;
 
@@ -122,15 +122,15 @@ export class FloorHeightMapMessageParser implements IMessageParser
 
     public getHeight(x: number, y: number): number
     {
-        if ((x < 0) || (x >= this._width) || (y < 0) || (y >= this._height)) return -110;
+        if((x < 0) || (x >= this._width) || (y < 0) || (y >= this._height)) return -110;
 
         const row = this._heightMap[y];
 
-        if (row === undefined) return -110;
+        if(row === undefined) return -110;
 
         const height = row[x];
 
-        if (height === undefined) return -110;
+        if(height === undefined) return -110;
 
         return height;
     }

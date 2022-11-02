@@ -1,7 +1,7 @@
 import { IMessageComposer } from '../../../../../../api';
 
 export class SaveRoomSettingsComposer
-    implements
+implements
     IMessageComposer<
     ConstructorParameters<typeof SaveRoomSettingsComposer>
     >

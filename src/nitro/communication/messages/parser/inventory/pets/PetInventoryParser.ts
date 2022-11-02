@@ -23,7 +23,7 @@ export class PetInventoryParser implements IMessageParser
 
         this._fragment = new Map();
 
-        while (totalCount > 0)
+        while(totalCount > 0)
         {
             const petData = new PetData(wrapper);
 

@@ -60,11 +60,11 @@ export class UserDataManager extends Disposable
     {
         const existing = this._userDataByType.get(type);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         const userData = existing.get(webID);
 
-        if (!userData) return null;
+        if(!userData) return null;
 
         return userData;
     }
@@ -73,16 +73,16 @@ export class UserDataManager extends Disposable
     {
         const existing = this._userDataByRoomIndex.get(roomIndex);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         return existing;
     }
 
     public getUserDataByName(name: string): IRoomUserData
     {
-        for (const userData of this._userDataByRoomIndex.values())
+        for(const userData of this._userDataByRoomIndex.values())
         {
-            if (!userData || (userData.name !== name)) continue;
+            if(!userData || (userData.name !== name)) continue;
 
             return userData;
         }
@@ -92,13 +92,13 @@ export class UserDataManager extends Disposable
 
     public updateUserData(data: IRoomUserData): void
     {
-        if (!data) return;
+        if(!data) return;
 
         this.removeUserData(data.roomIndex);
 
         let existingType = this._userDataByType.get(data.type);
 
-        if (!existingType)
+        if(!existingType)
         {
             existingType = new Map();
 
@@ -114,25 +114,25 @@ export class UserDataManager extends Disposable
     {
         const existing = this.getUserDataByIndex(roomIndex);
 
-        if (!existing) return;
+        if(!existing) return;
 
         this._userDataByRoomIndex.delete(roomIndex);
 
         const existingType = this._userDataByType.get(existing.type);
 
-        if (existingType) existingType.delete(existing.webID);
+        if(existingType) existingType.delete(existing.webID);
     }
 
     public getUserBadges(userId: number): string[]
     {
-        if (this._connection)
+        if(this._connection)
         {
             this._connection.send(new UserCurrentBadgesComposer(userId));
         }
 
         const badges = this._userBadges.get(userId);
 
-        if (!badges) return [];
+        if(!badges) return [];
 
         return badges;
     }
@@ -146,7 +146,7 @@ export class UserDataManager extends Disposable
     {
         const userData = this.getUserDataByIndex(roomIndex);
 
-        if (!userData) return;
+        if(!userData) return;
 
         userData.figure = figure;
         userData.sex = sex;
@@ -158,7 +158,7 @@ export class UserDataManager extends Disposable
     {
         const userData = this.getUserDataByIndex(roomIndex);
 
-        if (!userData) return;
+        if(!userData) return;
 
         userData.name = name;
     }
@@ -167,7 +167,7 @@ export class UserDataManager extends Disposable
     {
         const userData = this.getUserDataByIndex(roomIndex);
 
-        if (!userData) return;
+        if(!userData) return;
 
         userData.custom = custom;
     }
@@ -176,7 +176,7 @@ export class UserDataManager extends Disposable
     {
         const userData = this.getUserDataByIndex(roomIndex);
 
-        if (!userData) return;
+        if(!userData) return;
 
         userData.activityPoints = score;
     }
@@ -185,14 +185,14 @@ export class UserDataManager extends Disposable
     {
         const userData = this.getUserDataByIndex(roomIndex);
 
-        if (userData) userData.petLevel = level;
+        if(userData) userData.petLevel = level;
     }
 
     public updatePetBreedingStatus(roomIndex: number, canBreed: boolean, canHarvest: boolean, canRevive: boolean, hasBreedingPermission: boolean): void
     {
         const userData = this.getUserDataByIndex(roomIndex);
 
-        if (!userData) return;
+        if(!userData) return;
 
         userData.canBreed = canBreed;
         userData.canHarvest = canHarvest;
@@ -202,11 +202,11 @@ export class UserDataManager extends Disposable
 
     public requestPetInfo(id: number): void
     {
-        if (!this._connection) return;
+        if(!this._connection) return;
 
         const petData = this.getPetData(id);
 
-        if (!petData) return;
+        if(!petData) return;
 
         this._connection.send(new RequestPetInfoComposer(id));
     }

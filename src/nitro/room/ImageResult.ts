@@ -10,9 +10,9 @@ export class ImageResult implements IImageResult
 
     public getImage(): HTMLImageElement
     {
-        if (this.image) return this.image;
+        if(this.image) return this.image;
 
-        if (!this.data) return null;
+        if(!this.data) return null;
 
         return TextureUtils.generateImage(this.data);
     }

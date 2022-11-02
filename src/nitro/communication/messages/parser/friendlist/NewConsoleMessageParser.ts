@@ -19,13 +19,13 @@ export class NewConsoleMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._senderId = wrapper.readInt();
         this._messageText = wrapper.readString();
         this._secondsSinceSent = wrapper.readInt();
 
-        if (wrapper.bytesAvailable)
+        if(wrapper.bytesAvailable)
         {
             this._extraData = wrapper.readString();
         }

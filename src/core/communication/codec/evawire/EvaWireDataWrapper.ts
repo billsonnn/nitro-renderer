@@ -13,14 +13,14 @@ export class EvaWireDataWrapper implements IMessageDataWrapper
 
     public readBytes(length: number): IBinaryReader
     {
-        if (!this._buffer) return null;
+        if(!this._buffer) return null;
 
         return this._buffer.readBytes(length);
     }
 
     public readByte(): number
     {
-        if (!this._buffer) return -1;
+        if(!this._buffer) return -1;
 
         return this._buffer.readByte();
     }
@@ -32,28 +32,28 @@ export class EvaWireDataWrapper implements IMessageDataWrapper
 
     public readShort(): number
     {
-        if (!this._buffer) return -1;
+        if(!this._buffer) return -1;
 
         return this._buffer.readShort();
     }
 
     public readInt(): number
     {
-        if (!this._buffer) return -1;
+        if(!this._buffer) return -1;
 
         return this._buffer.readInt();
     }
 
     public readFloat(): number
     {
-        if (!this._buffer) return -1;
+        if(!this._buffer) return -1;
 
         return this._buffer.readFloat();
     }
 
     public readDouble(): number
     {
-        if (!this._buffer) return -1;
+        if(!this._buffer) return -1;
 
         return this._buffer.readDouble();
     }

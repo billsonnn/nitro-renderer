@@ -20,7 +20,7 @@ export class YoutubeDisplayPlaylistsMessageParser implements IMessageParser
         this._furniId = wrapper.readInt();
         const count = wrapper.readInt();
         this._playlists = [];
-        for (let i = 0; i < count; i++)
+        for(let i = 0; i < count; i++)
         {
             this._playlists.push(new YoutubeDisplayPlaylist(wrapper.readString(), wrapper.readString(), wrapper.readString()));
         }

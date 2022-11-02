@@ -41,7 +41,7 @@ export class ModeratorUserInfoData
         this._identityRelatedBanCount = wrapper.readInt();
         this._primaryEmailAddress = wrapper.readString();
         this._userClassification = wrapper.readString();
-        if (wrapper.bytesAvailable)
+        if(wrapper.bytesAvailable)
         {
             this._lastSanctionTime = wrapper.readString();
             this._sanctionAgeHours = wrapper.readInt();

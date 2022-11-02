@@ -28,13 +28,13 @@ export class FurnitureRoomDimmerLogic extends FurnitureLogic
 
     protected onDispose(): void
     {
-        if (this._roomColorUpdated)
+        if(this._roomColorUpdated)
         {
-            if (this.eventDispatcher && this.object)
+            if(this.eventDispatcher && this.object)
             {
                 const realRoomObject = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT);
 
-                if (realRoomObject === 1)
+                if(realRoomObject === 1)
                 {
                     this.eventDispatcher.dispatchEvent(new RoomObjectDimmerStateUpdateEvent(this.object, 0, 1, 1, 0xFFFFFF, 0xFF));
                     this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.WIDGET_REMOVE_DIMMER, this.object));
@@ -49,15 +49,15 @@ export class FurnitureRoomDimmerLogic extends FurnitureLogic
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void
     {
-        if (message instanceof ObjectDataUpdateMessage)
+        if(message instanceof ObjectDataUpdateMessage)
         {
-            if (message.data)
+            if(message.data)
             {
                 const extra = message.data.getLegacyString();
 
                 const realRoomObject = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT);
 
-                if (realRoomObject === 1) this.processDimmerData(extra);
+                if(realRoomObject === 1) this.processDimmerData(extra);
 
                 super.processUpdateMessage(new ObjectDataUpdateMessage(this.getStateFromDimmerData(extra), message.data));
             }
@@ -70,22 +70,22 @@ export class FurnitureRoomDimmerLogic extends FurnitureLogic
 
     private getStateFromDimmerData(data: string): number
     {
-        if (!data) return 0;
+        if(!data) return 0;
 
         const parts = data.split(',');
 
-        if (parts.length >= 5) return (parseInt(parts[0]) - 1);
+        if(parts.length >= 5) return (parseInt(parts[0]) - 1);
 
         return 0;
     }
 
     private processDimmerData(data: string): void
     {
-        if (!data) return;
+        if(!data) return;
 
         const parts = data.split(',');
 
-        if (parts.length >= 5)
+        if(parts.length >= 5)
         {
             const state = this.getStateFromDimmerData(data);
             const presetId = parseInt(parts[1]);
@@ -95,13 +95,13 @@ export class FurnitureRoomDimmerLogic extends FurnitureLogic
             let colorCode = parseInt(color.substr(1), 16);
             let brightness = parseInt(parts[4]);
 
-            if (!state)
+            if(!state)
             {
                 colorCode = 0xFFFFFF;
                 brightness = 0xFF;
             }
 
-            if (this.eventDispatcher && this.object)
+            if(this.eventDispatcher && this.object)
             {
                 this.eventDispatcher.dispatchEvent(new RoomObjectDimmerStateUpdateEvent(this.object, state, presetId, effectId, colorCode, brightness));
 
@@ -112,7 +112,7 @@ export class FurnitureRoomDimmerLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if (!this.object || !this.eventDispatcher) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.DIMMER, this.object));
     }

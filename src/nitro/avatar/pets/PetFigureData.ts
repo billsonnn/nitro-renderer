@@ -29,7 +29,7 @@ export class PetFigureData
 
         let i = 0;
 
-        while (i < this._customLayerIds.length)
+        while(i < this._customLayerIds.length)
         {
             this._customParts.push(new PetCustomPart(this._customLayerIds[i], this._customPartIds[i], this._customPaletteIds[i]));
 
@@ -74,11 +74,11 @@ export class PetFigureData
 
     public getCustomPart(k: number): IPetCustomPart
     {
-        if (this._customParts)
+        if(this._customParts)
         {
-            for (const _local_2 of this._customParts)
+            for(const _local_2 of this._customParts)
             {
-                if (_local_2.layerId === k) return _local_2;
+                if(_local_2.layerId === k) return _local_2;
             }
         }
 
@@ -101,7 +101,7 @@ export class PetFigureData
 
         figure = (figure + (' ' + this.customParts.length));
 
-        for (const _local_2 of this.customParts)
+        for(const _local_2 of this.customParts)
         {
             figure = (figure + (((((' ' + _local_2.layerId) + ' ') + _local_2.partId) + ' ') + _local_2.paletteId));
         }
@@ -113,13 +113,13 @@ export class PetFigureData
     {
         let _local_2: string[] = [];
 
-        if (k)
+        if(k)
         {
             const _local_3 = k.split(' ');
             const _local_4 = ((this._headOnly) ? 1 : 0);
             const _local_5 = (4 + _local_4);
 
-            if (_local_3.length > _local_5)
+            if(_local_3.length > _local_5)
             {
                 const _local_6 = (3 + _local_4);
                 const _local_7 = parseInt(_local_3[_local_6]);
@@ -137,7 +137,7 @@ export class PetFigureData
 
         let i = 0;
 
-        while (i < data.length)
+        while(i < data.length)
         {
             layerIds.push(parseInt(data[(i + 0)]));
 
@@ -153,7 +153,7 @@ export class PetFigureData
 
         let i = 0;
 
-        while (i < data.length)
+        while(i < data.length)
         {
             partIds.push(parseInt(data[(i + 1)]));
 
@@ -169,7 +169,7 @@ export class PetFigureData
 
         let i = 0;
 
-        while (i < data.length)
+        while(i < data.length)
         {
             paletteIds.push(parseInt(data[(i + 2)]));
 
@@ -181,11 +181,11 @@ export class PetFigureData
 
     private getTypeId(data: string): number
     {
-        if (data)
+        if(data)
         {
             const parts = data.split(' ');
 
-            if (parts.length >= 1) return parseInt(parts[0]);
+            if(parts.length >= 1) return parseInt(parts[0]);
         }
 
         return 0;
@@ -193,11 +193,11 @@ export class PetFigureData
 
     private getPaletteId(data: string): number
     {
-        if (data)
+        if(data)
         {
             const parts = data.split(' ');
 
-            if (parts.length >= 2) return parseInt(parts[1]);
+            if(parts.length >= 2) return parseInt(parts[1]);
         }
 
         return 0;
@@ -205,11 +205,11 @@ export class PetFigureData
 
     private getColor(data: string): number
     {
-        if (data)
+        if(data)
         {
             const parts = data.split(' ');
 
-            if (parts.length >= 3) return parseInt(parts[2], 16);
+            if(parts.length >= 3) return parseInt(parts[2], 16);
         }
 
         return 0xFFFFFF;
@@ -217,11 +217,11 @@ export class PetFigureData
 
     private getHeadOnly(data: string): boolean
     {
-        if (data)
+        if(data)
         {
             const parts = data.split(' ');
 
-            if (parts.length >= 4) return parts[3] === 'head';
+            if(parts.length >= 4) return parts[3] === 'head';
         }
 
         return false;

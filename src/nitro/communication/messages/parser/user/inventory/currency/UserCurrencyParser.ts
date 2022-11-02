@@ -13,11 +13,11 @@ export class UserCurrencyParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         let totalCurrencies = wrapper.readInt();
 
-        while (totalCurrencies > 0)
+        while(totalCurrencies > 0)
         {
             this._currencies.set(wrapper.readInt(), wrapper.readInt());
 

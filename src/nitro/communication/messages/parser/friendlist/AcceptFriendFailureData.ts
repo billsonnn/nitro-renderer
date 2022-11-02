@@ -7,7 +7,7 @@ export class AcceptFriendFailerData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if (!wrapper) throw new Error('invalid_wrapper');
+        if(!wrapper) throw new Error('invalid_wrapper');
 
         this._senderId = wrapper.readInt();
         this._errorCode = wrapper.readInt();

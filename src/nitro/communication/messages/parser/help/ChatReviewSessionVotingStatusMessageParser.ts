@@ -23,7 +23,7 @@ export class ChatReviewSessionVotingStatusMessageParser implements IMessageParse
 
         const count = wrapper.readInt();
 
-        for (let i = 0; i < count; i++)
+        for(let i = 0; i < count; i++)
         {
             this._status.push(wrapper.readInt());
         }

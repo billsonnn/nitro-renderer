@@ -19,7 +19,7 @@ export class FriendParser
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if (!wrapper) throw new Error('invalid_wrapper');
+        if(!wrapper) throw new Error('invalid_wrapper');
 
         this._id = wrapper.readInt();
         this._name = wrapper.readString();

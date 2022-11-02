@@ -16,13 +16,13 @@ export class FriendRequestsParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._totalRequests = wrapper.readInt();
 
         let totalRequests = wrapper.readInt();
 
-        while (totalRequests > 0)
+        while(totalRequests > 0)
         {
             this._requests.push(new FriendRequestData(wrapper));
 

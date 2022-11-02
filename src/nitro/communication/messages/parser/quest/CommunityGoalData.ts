@@ -27,7 +27,7 @@ export class CommunityGoalData implements IDisposable
         this._timeRemainingInSeconds = wrapper.readInt();
 
         const count = wrapper.readInt();
-        for (let i = 0; i < count; i++)
+        for(let i = 0; i < count; i++)
         {
             this._rewardUserLimits.push(wrapper.readInt());
         }

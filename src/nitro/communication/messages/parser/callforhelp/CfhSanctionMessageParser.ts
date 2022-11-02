@@ -18,7 +18,7 @@ export class CfhSanctionMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._issueId = wrapper.readInt();
         this._accountId = wrapper.readInt();

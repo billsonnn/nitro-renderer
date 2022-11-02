@@ -34,23 +34,23 @@ export class FloatingHeartAddition extends ExpressionAddition
 
     public update(sprite: IRoomObjectSprite, scale: number): void
     {
-        if (!sprite) return;
+        if(!sprite) return;
 
         this._scale = scale;
 
         let additionScale = 64;
         let offsetX = 0;
 
-        if (scale < 48)
+        if(scale < 48)
         {
             this._asset = this.visualization.getAvatarRenderAsset('avatar_addition_user_blowkiss_small');
 
-            if ((this.visualization.angle === 90) || (this.visualization.angle === 270))
+            if((this.visualization.angle === 90) || (this.visualization.angle === 270))
             {
                 offsetX = 0;
             }
 
-            else if ((this.visualization.angle === 135) || (this.visualization.angle === 180) || (this.visualization.angle === 225))
+            else if((this.visualization.angle === 135) || (this.visualization.angle === 180) || (this.visualization.angle === 225))
             {
                 offsetX = 6;
             }
@@ -65,12 +65,12 @@ export class FloatingHeartAddition extends ExpressionAddition
         {
             this._asset = this.visualization.getAvatarRenderAsset('avatar_addition_user_blowkiss');
 
-            if ((this.visualization.angle === 90) || (this.visualization.angle === 270))
+            if((this.visualization.angle === 90) || (this.visualization.angle === 270))
             {
                 offsetX = -3;
             }
 
-            else if ((this.visualization.angle === 135) || (this.visualization.angle === 180) || (this.visualization.angle === 225))
+            else if((this.visualization.angle === 135) || (this.visualization.angle === 180) || (this.visualization.angle === 225))
             {
                 offsetX = 22;
             }
@@ -80,17 +80,17 @@ export class FloatingHeartAddition extends ExpressionAddition
             this._offsetY = -70;
         }
 
-        if (this.visualization.posture === AvatarAction.POSTURE_SIT)
+        if(this.visualization.posture === AvatarAction.POSTURE_SIT)
         {
             this._offsetY += (additionScale / 2);
         }
 
-        else if (this.visualization.posture === AvatarAction.POSTURE_LAY)
+        else if(this.visualization.posture === AvatarAction.POSTURE_LAY)
         {
             this._offsetY += additionScale;
         }
 
-        if (this._asset)
+        if(this._asset)
         {
             sprite.texture = this._asset;
             sprite.offsetX = offsetX;
@@ -108,13 +108,13 @@ export class FloatingHeartAddition extends ExpressionAddition
 
     public animate(sprite: IRoomObjectSprite): boolean
     {
-        if (!sprite) return false;
+        if(!sprite) return false;
 
-        if (this._asset) sprite.texture = this._asset;
+        if(this._asset) sprite.texture = this._asset;
 
-        if (this._state === FloatingHeartAddition.STATE_DELAY)
+        if(this._state === FloatingHeartAddition.STATE_DELAY)
         {
-            if ((Nitro.instance.time - this._startTime) < FloatingHeartAddition.DELAY_BEFORE_ANIMATION) return false;
+            if((Nitro.instance.time - this._startTime) < FloatingHeartAddition.DELAY_BEFORE_ANIMATION) return false;
 
             this._state = FloatingHeartAddition.STATE_FADE_IN;
 
@@ -126,14 +126,14 @@ export class FloatingHeartAddition extends ExpressionAddition
             return true;
         }
 
-        if (this._state === FloatingHeartAddition.STATE_FADE_IN)
+        if(this._state === FloatingHeartAddition.STATE_FADE_IN)
         {
             this._delta += 0.1;
 
             sprite.offsetY = this._offsetY;
             sprite.alpha = (Math.pow(this._delta, 0.9) * 255);
 
-            if (this._delta >= 1)
+            if(this._delta >= 1)
             {
                 sprite.alpha = 255;
 
@@ -144,7 +144,7 @@ export class FloatingHeartAddition extends ExpressionAddition
             return true;
         }
 
-        if (this._state === FloatingHeartAddition.STATE_FLOAT)
+        if(this._state === FloatingHeartAddition.STATE_FLOAT)
         {
             const alpha = Math.pow(this._delta, 0.9);
 
@@ -155,7 +155,7 @@ export class FloatingHeartAddition extends ExpressionAddition
             sprite.offsetY = (this._offsetY + (((this._delta < 1) ? alpha : 1) * offset));
             sprite.alpha = ((1 - alpha) * 255);
 
-            if (sprite.alpha <= 0)
+            if(sprite.alpha <= 0)
             {
                 sprite.visible = false;
 

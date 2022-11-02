@@ -15,7 +15,7 @@ export class ConfirmBreedingResultParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._breedingNestStuffId = wrapper.readInt();
         this._result = wrapper.readInt();

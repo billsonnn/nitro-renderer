@@ -32,13 +32,13 @@ export class OfficialRoomEntryData
         this._Str_22099 = k.readInt();
         this._userCount = k.readInt();
         this._type = k.readInt();
-        if (this._type == OfficialRoomEntryData._Str_14955)
+        if(this._type == OfficialRoomEntryData._Str_14955)
         {
             this._tag = k.readString();
         }
         else
         {
-            if (this._type == OfficialRoomEntryData._Str_12025)
+            if(this._type == OfficialRoomEntryData._Str_12025)
             {
                 this._Str_2567 = new RoomDataParser(k);
             }
@@ -51,12 +51,12 @@ export class OfficialRoomEntryData
 
     public dispose(): void
     {
-        if (this._disposed)
+        if(this._disposed)
         {
             return;
         }
         this._disposed = true;
-        if (this._Str_2567 != null)
+        if(this._Str_2567 != null)
         {
             this._Str_2567.flush();
             this._Str_2567 = null;
@@ -135,11 +135,11 @@ export class OfficialRoomEntryData
 
     public get _Str_23003(): number
     {
-        if (this.type == OfficialRoomEntryData._Str_14955)
+        if(this.type == OfficialRoomEntryData._Str_14955)
         {
             return 0;
         }
-        if (this.type == OfficialRoomEntryData._Str_12025)
+        if(this.type == OfficialRoomEntryData._Str_12025)
         {
             return this._Str_2567.maxUserCount;
         }

@@ -16,12 +16,12 @@ export class GuestRoomSearchResultData
         this._searchType = k.readInt();
         this._searchParam = k.readString();
         const count = k.readInt();
-        for (let i = 0; i < count; i++)
+        for(let i = 0; i < count; i++)
         {
             this._rooms.push(new RoomDataParser(k));
         }
         const hasAdditional = k.readBoolean();
-        if (hasAdditional)
+        if(hasAdditional)
         {
             this._ad = new OfficialRoomEntryData(k);
         }
@@ -29,19 +29,19 @@ export class GuestRoomSearchResultData
 
     public dispose(): void
     {
-        if (this._disposed)
+        if(this._disposed)
         {
             return;
         }
         this._disposed = true;
-        if (this._rooms != null)
+        if(this._rooms != null)
         {
-            for (const k of this._rooms)
+            for(const k of this._rooms)
             {
                 k.flush();
             }
         }
-        if (this._ad != null)
+        if(this._ad != null)
         {
             this._ad.dispose();
             this._ad = null;

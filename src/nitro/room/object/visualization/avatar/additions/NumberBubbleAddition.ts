@@ -35,7 +35,7 @@ export class NumberBubbleAddition implements IAvatarAddition
 
     public update(sprite: IRoomObjectSprite, scale: number): void
     {
-        if (!sprite) return;
+        if(!sprite) return;
 
         this._scale = scale;
 
@@ -43,9 +43,9 @@ export class NumberBubbleAddition implements IAvatarAddition
         let offsetX = 0;
         let offsetY = 0;
 
-        if (this._number > 0)
+        if(this._number > 0)
         {
-            if (scale < 48)
+            if(scale < 48)
             {
                 this._asset = this._visualization.getAvatarRenderAsset('avatar_addition_number_' + this._number + '_small');
 
@@ -61,17 +61,17 @@ export class NumberBubbleAddition implements IAvatarAddition
                 offsetY = -105;
             }
 
-            if (this._visualization.posture === AvatarAction.POSTURE_SIT)
+            if(this._visualization.posture === AvatarAction.POSTURE_SIT)
             {
                 offsetY += (additionScale / 2);
             }
 
-            else if (this._visualization.posture === AvatarAction.POSTURE_LAY)
+            else if(this._visualization.posture === AvatarAction.POSTURE_LAY)
             {
                 offsetY += scale;
             }
 
-            if (this._asset)
+            if(this._asset)
             {
                 sprite.visible = true;
                 sprite.texture = this._asset;
@@ -91,15 +91,15 @@ export class NumberBubbleAddition implements IAvatarAddition
         }
         else
         {
-            if (sprite.visible) this._numberValueFadeDirection = -1;
+            if(sprite.visible) this._numberValueFadeDirection = -1;
         }
     }
 
     public animate(sprite: IRoomObjectSprite): boolean
     {
-        if (!sprite) return false;
+        if(!sprite) return false;
 
-        if (this._asset)
+        if(this._asset)
         {
             sprite.texture = this._asset;
         }
@@ -107,15 +107,15 @@ export class NumberBubbleAddition implements IAvatarAddition
         let alpha = sprite.alpha;
         let didAnimate = false;
 
-        if (this._numberValueMoving)
+        if(this._numberValueMoving)
         {
             this._numberValueMoveCounter++;
 
-            if (this._numberValueMoveCounter < 10) return false;
+            if(this._numberValueMoveCounter < 10) return false;
 
-            if (this._numberValueFadeDirection < 0)
+            if(this._numberValueFadeDirection < 0)
             {
-                if (this._scale < 48)
+                if(this._scale < 48)
                 {
                     sprite.offsetY -= 2;
                 }
@@ -128,9 +128,9 @@ export class NumberBubbleAddition implements IAvatarAddition
             {
                 let count = 4;
 
-                if (this._scale < 48) count = 8;
+                if(this._scale < 48) count = 8;
 
-                if (!(this._numberValueMoveCounter % count))
+                if(!(this._numberValueMoveCounter % count))
                 {
                     sprite.offsetY--;
 
@@ -139,11 +139,11 @@ export class NumberBubbleAddition implements IAvatarAddition
             }
         }
 
-        if (this._numberValueFadeDirection > 0)
+        if(this._numberValueFadeDirection > 0)
         {
-            if (alpha < 255) alpha += 32;
+            if(alpha < 255) alpha += 32;
 
-            if (alpha >= 255)
+            if(alpha >= 255)
             {
                 alpha = 255;
 
@@ -155,11 +155,11 @@ export class NumberBubbleAddition implements IAvatarAddition
             return true;
         }
 
-        if (this._numberValueFadeDirection < 0)
+        if(this._numberValueFadeDirection < 0)
         {
-            if (alpha >= 0) alpha -= 32;
+            if(alpha >= 0) alpha -= 32;
 
-            if (alpha <= 0)
+            if(alpha <= 0)
             {
                 this._numberValueFadeDirection = 0;
                 this._numberValueMoving = false;

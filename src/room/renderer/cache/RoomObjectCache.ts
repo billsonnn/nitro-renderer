@@ -17,11 +17,11 @@ export class RoomObjectCache
 
     public dispose(): void
     {
-        if (this._data)
+        if(this._data)
         {
-            for (const [key, item] of this._data.entries())
+            for(const [key, item] of this._data.entries())
             {
-                if (!item) continue;
+                if(!item) continue;
 
                 this._data.delete(key);
 
@@ -36,7 +36,7 @@ export class RoomObjectCache
     {
         let existing = this._data.get(k);
 
-        if (!existing)
+        if(!existing)
         {
             existing = new RoomObjectCacheItem(this._roomObjectVariableAccurateZ);
 
@@ -50,7 +50,7 @@ export class RoomObjectCache
     {
         const existing = this._data.get(k);
 
-        if (!existing) return;
+        if(!existing) return;
 
         this._data.delete(k);
 
@@ -61,19 +61,19 @@ export class RoomObjectCache
     {
         const spriteData: RoomObjectSpriteData[] = [];
 
-        for (const item of this._data.values())
+        for(const item of this._data.values())
         {
-            if (!item) continue;
+            if(!item) continue;
 
             const sprites = item.sprites && item.sprites.sprites;
 
-            if (!sprites || !sprites.length) continue;
+            if(!sprites || !sprites.length) continue;
 
-            for (const sprite of sprites)
+            for(const sprite of sprites)
             {
-                if (!sprite) continue;
+                if(!sprite) continue;
 
-                if ((sprite.sprite.spriteType !== RoomObjectSpriteType.ROOM_PLANE) && (sprite.sprite.name !== ''))
+                if((sprite.sprite.spriteType !== RoomObjectSpriteType.ROOM_PLANE) && (sprite.sprite.name !== ''))
                 {
                     const data = new RoomObjectSpriteData();
 
@@ -93,16 +93,16 @@ export class RoomObjectCache
 
                     const isSkewed = this.isSkewedSprite(sprite.sprite);
 
-                    if (isSkewed)
+                    if(isSkewed)
                     {
                         data.skew = (((sprite.sprite.direction % 4) === 0) ? -0.5 : 0.5);
                     }
 
-                    if (((((isSkewed || (sprite.name.indexOf('%image.library.url%') >= 0)) || (sprite.name.indexOf('%group.badge.url%') >= 0)) && (data.width <= RoomObjectCache.MAX_SIZE_FOR_AVG_COLOR)) && (data.height <= RoomObjectCache.MAX_SIZE_FOR_AVG_COLOR)))
+                    if(((((isSkewed || (sprite.name.indexOf('%image.library.url%') >= 0)) || (sprite.name.indexOf('%group.badge.url%') >= 0)) && (data.width <= RoomObjectCache.MAX_SIZE_FOR_AVG_COLOR)) && (data.height <= RoomObjectCache.MAX_SIZE_FOR_AVG_COLOR)))
                     {
                         //data.color = Canvas._Str_23439(sprite.sprite.texture).toString();
 
-                        if (sprite.sprite.name.indexOf('external_image_wallitem') === 0)
+                        if(sprite.sprite.name.indexOf('external_image_wallitem') === 0)
                         {
                             data.frame = true;
                         }
@@ -113,18 +113,18 @@ export class RoomObjectCache
             }
         }
 
-        if (!spriteData || !spriteData.length) return null;
+        if(!spriteData || !spriteData.length) return null;
 
         return spriteData;
     }
 
     private isSkewedSprite(k: IRoomObjectSprite): boolean
     {
-        if (!k.type) return false;
+        if(!k.type) return false;
 
-        if ((k.type.indexOf('external_image_wallitem') === 0) && (k.tag === 'THUMBNAIL')) return true;
+        if((k.type.indexOf('external_image_wallitem') === 0) && (k.tag === 'THUMBNAIL')) return true;
 
-        if ((k.type.indexOf('guild_forum') === 0) && (k.tag === 'THUMBNAIL')) return true;
+        if((k.type.indexOf('guild_forum') === 0) && (k.tag === 'THUMBNAIL')) return true;
 
         return false;
     }
@@ -133,11 +133,11 @@ export class RoomObjectCache
     {
         const sprites: SortableSprite[] = [];
 
-        for (const item of this._data.values())
+        for(const item of this._data.values())
         {
-            for (const sprite of item.sprites.sprites)
+            for(const sprite of item.sprites.sprites)
             {
-                if (sprite.sprite.spriteType === RoomObjectSpriteType.ROOM_PLANE) sprites.push(sprite);
+                if(sprite.sprite.spriteType === RoomObjectSpriteType.ROOM_PLANE) sprites.push(sprite);
             }
         }
 

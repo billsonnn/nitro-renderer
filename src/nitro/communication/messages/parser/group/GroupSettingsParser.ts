@@ -36,11 +36,11 @@ export class GroupSettingsParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         const hasRoomData = wrapper.readInt();
 
-        if (hasRoomData === 1)
+        if(hasRoomData === 1)
         {
             this._roomId = wrapper.readInt();
             this._roomName = wrapper.readString();
@@ -65,7 +65,7 @@ export class GroupSettingsParser implements IMessageParser
 
         const badgePartsCount = wrapper.readInt();
 
-        for (let i = 0; i < badgePartsCount; i++)
+        for(let i = 0; i < badgePartsCount; i++)
         {
             const part = new GroupDataBadgePart(i === 0);
 
@@ -73,7 +73,7 @@ export class GroupSettingsParser implements IMessageParser
             part.color = wrapper.readInt();
             part.position = wrapper.readInt();
 
-            if (part.key === 0)
+            if(part.key === 0)
             {
                 part.position = 4;
             }

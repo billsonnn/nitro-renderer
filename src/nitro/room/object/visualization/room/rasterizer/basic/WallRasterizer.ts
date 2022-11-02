@@ -8,22 +8,22 @@ export class WallRasterizer extends PlaneRasterizer
 {
     protected initializePlanes(): void
     {
-        if (!this.data) return;
+        if(!this.data) return;
 
         const walls = this.data.walls;
 
-        if (walls && walls.length) this.parseWalls(walls);
+        if(walls && walls.length) this.parseWalls(walls);
     }
 
     private parseWalls(k: any): void
     {
-        if (!k) return;
+        if(!k) return;
 
-        for (const wallIndex in k)
+        for(const wallIndex in k)
         {
             const wall = k[wallIndex];
 
-            if (!wall) continue;
+            if(!wall) continue;
 
             const id = wall.id;
             const visualization = wall.visualizations;
@@ -31,7 +31,7 @@ export class WallRasterizer extends PlaneRasterizer
 
             this.parseVisualizations(plane, visualization);
 
-            if (!this.addPlane(id, plane)) plane.dispose();
+            if(!this.addPlane(id, plane)) plane.dispose();
         }
     }
 
@@ -39,11 +39,11 @@ export class WallRasterizer extends PlaneRasterizer
     {
         let plane = this.getPlane(id) as WallPlane;
 
-        if (!plane) plane = this.getPlane(PlaneRasterizer.DEFAULT) as WallPlane;
+        if(!plane) plane = this.getPlane(PlaneRasterizer.DEFAULT) as WallPlane;
 
-        if (!plane) return null;
+        if(!plane) return null;
 
-        if (canvas)
+        if(canvas)
         {
             const rectangle = canvas.getBounds();
 
@@ -54,11 +54,11 @@ export class WallRasterizer extends PlaneRasterizer
 
         let graphic = plane.render(canvas, width, height, scale, normal, useTexture);
 
-        if (graphic && (graphic !== canvas))
+        if(graphic && (graphic !== canvas))
         {
             graphic = graphic.clone();
 
-            if (!graphic) return null;
+            if(!graphic) return null;
         }
 
         return new PlaneBitmapData(graphic, -1);
@@ -66,7 +66,7 @@ export class WallRasterizer extends PlaneRasterizer
 
     public getTextureIdentifier(k: number, normal: IVector3D): string
     {
-        if (normal)
+        if(normal)
         {
             return `${k}_${normal.x}_${normal.y}_${normal.z}`;
         }

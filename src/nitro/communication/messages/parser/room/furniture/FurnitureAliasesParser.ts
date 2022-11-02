@@ -13,11 +13,11 @@ export class FurnitureAliasesParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         let totalCount = wrapper.readInt();
 
-        while (totalCount > 0)
+        while(totalCount > 0)
         {
             this._aliases.set(wrapper.readString(), wrapper.readString());
 

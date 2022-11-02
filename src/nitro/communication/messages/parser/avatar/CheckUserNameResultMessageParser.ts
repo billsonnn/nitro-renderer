@@ -17,14 +17,14 @@ export class CheckUserNameResultMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._resultCode = wrapper.readInt();
         this._name = wrapper.readString();
 
         let totalSuggestions = wrapper.readInt();
 
-        while (totalSuggestions > 0)
+        while(totalSuggestions > 0)
         {
             this._nameSuggestions.push(wrapper.readString());
 

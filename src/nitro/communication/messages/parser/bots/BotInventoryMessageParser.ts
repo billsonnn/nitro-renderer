@@ -18,7 +18,7 @@ export class BotInventoryMessageParser implements IMessageParser
 
         let count = wrapper.readInt();
 
-        while (count > 0)
+        while(count > 0)
         {
             const data = new BotData(wrapper);
 

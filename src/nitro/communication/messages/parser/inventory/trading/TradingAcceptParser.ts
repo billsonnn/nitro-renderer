@@ -15,7 +15,7 @@ export class TradingAcceptParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._userID = wrapper.readInt();
         this._userAccepts = (wrapper.readInt() > 0);

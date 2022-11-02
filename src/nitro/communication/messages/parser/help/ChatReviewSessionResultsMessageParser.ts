@@ -21,7 +21,7 @@ export class ChatReviewSessionResultsMessageParser implements IMessageParser
         this._ownVoteCode = wrapper.readInt();
         const count = wrapper.readInt();
 
-        for (let i = 0; i < count; i++)
+        for(let i = 0; i < count; i++)
         {
             this._finalStatus.push(wrapper.readInt());
         }

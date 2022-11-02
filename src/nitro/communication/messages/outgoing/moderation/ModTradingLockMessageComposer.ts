@@ -9,7 +9,7 @@ export class ModTradingLockMessageComposer implements IMessageComposer<Construct
     {
         this._data = [k, arg2, arg3, arg4];
 
-        if (arg5 != ModBanMessageComposer.NO_ISSUE_ID)
+        if(arg5 != ModBanMessageComposer.NO_ISSUE_ID)
         {
             this._data.push(arg5);
         }

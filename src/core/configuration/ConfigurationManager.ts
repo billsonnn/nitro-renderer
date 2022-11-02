@@ -32,7 +32,7 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
     private loadNextConfiguration(): void
     {
-        if (!this._pendingUrls.length)
+        if(!this._pendingUrls.length)
         {
             this.dispatchConfigurationEvent(ConfigurationEvent.LOADED);
 
@@ -44,7 +44,7 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
     public loadConfigurationFromUrl(url: string): void
     {
-        if (!url || (url === ''))
+        if(!url || (url === ''))
         {
             this.dispatchConfigurationEvent(ConfigurationEvent.FAILED);
 
@@ -59,13 +59,13 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
     private onConfigurationLoaded(data: { [index: string]: any }, url: string): void
     {
-        if (!data) return;
+        if(!data) return;
 
-        if (this.parseConfiguration(data))
+        if(this.parseConfiguration(data))
         {
             const index = this._pendingUrls.indexOf(url);
 
-            if (index >= 0) this._pendingUrls.splice(index, 1);
+            if(index >= 0) this._pendingUrls.splice(index, 1);
 
             this.loadNextConfiguration();
 
@@ -87,21 +87,21 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
     private parseConfiguration(data: { [index: string]: any }, overrides: boolean = false): boolean
     {
-        if (!data) return false;
+        if(!data) return false;
 
         try
         {
             const regex = new RegExp(/\${(.*?)}/g);
 
-            for (const key in data)
+            for(const key in data)
             {
                 let value = data[key];
 
-                if (typeof value === 'string') value = this.interpolate((value as string), regex);
+                if(typeof value === 'string') value = this.interpolate((value as string), regex);
 
-                if (this._definitions.has(key))
+                if(this._definitions.has(key))
                 {
-                    if (overrides) this.setValue(key, value);
+                    if(overrides) this.setValue(key, value);
                 }
                 else
                 {
@@ -122,17 +122,17 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
     public interpolate(value: string, regex: RegExp = null): string
     {
-        if (!regex) regex = new RegExp(/\${(.*?)}/g);
+        if(!regex) regex = new RegExp(/\${(.*?)}/g);
 
         const pieces = value.match(regex);
 
-        if (pieces && pieces.length)
+        if(pieces && pieces.length)
         {
-            for (const piece of pieces)
+            for(const piece of pieces)
             {
                 const existing = (this._definitions.get(this.removeInterpolateKey(piece)) as string);
 
-                if (existing) (value = value.replace(piece, existing));
+                if(existing) (value = value.replace(piece, existing));
             }
         }
 
@@ -148,9 +148,9 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
     {
         let existing = this._definitions.get(key);
 
-        if (existing === undefined)
+        if(existing === undefined)
         {
-            if (this._missingKeys.indexOf(key) >= 0) return value;
+            if(this._missingKeys.indexOf(key) >= 0) return value;
 
             this._missingKeys.push(key);
             this.logger.warn(`Missing configuration key: ${key}`);
@@ -167,13 +167,13 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
         let last = this._config;
 
-        for (let i = 0; i < parts.length; i++)
+        for(let i = 0; i < parts.length; i++)
         {
             const part = parts[i].toString();
 
-            if (i !== (parts.length - 1))
+            if(i !== (parts.length - 1))
             {
-                if (!last[part]) last[part] = {};
+                if(!last[part]) last[part] = {};
 
                 last = last[part];
 

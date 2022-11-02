@@ -15,7 +15,7 @@ export class TriggerDefinition extends Triggerable
 
         let count = wrapper.readInt();
 
-        while (count > 0)
+        while(count > 0)
         {
             this._conflictingActions.push(wrapper.readInt());
 

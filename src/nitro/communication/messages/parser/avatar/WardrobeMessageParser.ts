@@ -16,13 +16,13 @@ export class WardrobeMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._state = wrapper.readInt();
 
         let count = wrapper.readInt();
 
-        while (count > 0)
+        while(count > 0)
         {
             this._outfits.push(new OutfitData(wrapper));
 

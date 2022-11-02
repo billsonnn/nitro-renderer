@@ -17,7 +17,7 @@ export class CatalogPageMessageProductData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if (!wrapper) throw new Error('invalid_wrapper');
+        if(!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -40,7 +40,7 @@ export class CatalogPageMessageProductData
     {
         this._productType = wrapper.readString();
 
-        switch (this._productType)
+        switch(this._productType)
         {
             case CatalogPageMessageProductData.B:
                 this._extraParam = wrapper.readString();
@@ -52,7 +52,7 @@ export class CatalogPageMessageProductData
                 this._productCount = wrapper.readInt();
                 this._uniqueLimitedItem = wrapper.readBoolean();
 
-                if (this._uniqueLimitedItem)
+                if(this._uniqueLimitedItem)
                 {
                     this._uniqueLimitedItemSeriesSize = wrapper.readInt();
                     this._uniqueLimitedItemsLeft = wrapper.readInt();

@@ -14,7 +14,7 @@ export class CampaignCalendarDataMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._calendarData = new CampaignCalendarData();
         this._calendarData.parse(wrapper);

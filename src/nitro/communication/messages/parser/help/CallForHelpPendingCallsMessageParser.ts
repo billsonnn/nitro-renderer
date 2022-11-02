@@ -16,7 +16,7 @@ export class CallForHelpPendingCallsMessageParser implements IMessageParser
 
         const count = wrapper.readInt();
 
-        for (let i = 0; i < count; i++)
+        for(let i = 0; i < count; i++)
         {
             const callId = wrapper.readString();
             const timestamp = wrapper.readString();

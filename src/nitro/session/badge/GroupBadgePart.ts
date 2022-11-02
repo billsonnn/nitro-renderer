@@ -27,7 +27,7 @@ export class GroupBadgePart
 
     public get code(): string
     {
-        if (this.key === 0) return null;
+        if(this.key === 0) return null;
 
         return GroupBadgePart.getCode(this.type, this.key, this.color, this.position);
     }
@@ -44,13 +44,13 @@ export class GroupBadgePart
         let x: number = (((GroupBadgePart.CELL_WIDTH * gridPos.x) + (GroupBadgePart.CELL_WIDTH / 2)) - (asset.width / 2));
         let y: number = (((GroupBadgePart.CELL_HEIGHT * gridPos.y) + (GroupBadgePart.CELL_HEIGHT / 2)) - (asset.height / 2));
 
-        if (x < 0) x = 0;
+        if(x < 0) x = 0;
 
-        if ((x + asset.width) > GroupBadgePart.IMAGE_WIDTH) x = (GroupBadgePart.IMAGE_WIDTH - asset.width);
+        if((x + asset.width) > GroupBadgePart.IMAGE_WIDTH) x = (GroupBadgePart.IMAGE_WIDTH - asset.width);
 
-        if (y < 0) y = 0;
+        if(y < 0) y = 0;
 
-        if ((y + asset.height) > GroupBadgePart.IMAGE_HEIGHT) y = (GroupBadgePart.IMAGE_HEIGHT - asset.height);
+        if((y + asset.height) > GroupBadgePart.IMAGE_HEIGHT) y = (GroupBadgePart.IMAGE_HEIGHT - asset.height);
 
         return new NitroPoint(Math.floor(x), Math.floor(y));
     }

@@ -23,7 +23,7 @@ export class RoomUnitChatParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._roomIndex = wrapper.readInt();
         this._message = wrapper.readString();
@@ -39,13 +39,13 @@ export class RoomUnitChatParser implements IMessageParser
 
     private parseUrls(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._urls = [];
 
         let totalUrls = wrapper.readInt();
 
-        while (totalUrls > 0)
+        while(totalUrls > 0)
         {
             this._urls.push(wrapper.readString());
 

@@ -15,11 +15,11 @@ export class FigureSetIdsMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         let totalSetIds = wrapper.readInt();
 
-        while (totalSetIds > 0)
+        while(totalSetIds > 0)
         {
             this._figureSetIds.push(wrapper.readInt());
 
@@ -28,7 +28,7 @@ export class FigureSetIdsMessageParser implements IMessageParser
 
         let totalFurnitureNames = wrapper.readInt();
 
-        while (totalFurnitureNames > 0)
+        while(totalFurnitureNames > 0)
         {
             this._boundFurnitureNames.push(wrapper.readString());
 

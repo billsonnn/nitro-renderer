@@ -20,15 +20,15 @@ export class RoomRenderer implements IRoomRenderer, IRoomSpriteCanvasContainer
 
     public dispose(): void
     {
-        if (this._disposed) return;
+        if(this._disposed) return;
 
-        if (this._canvases)
+        if(this._canvases)
         {
-            for (const [key, canvas] of this._canvases.entries())
+            for(const [key, canvas] of this._canvases.entries())
             {
                 this._canvases.delete(key);
 
-                if (!canvas) continue;
+                if(!canvas) continue;
 
                 canvas.dispose();
             }
@@ -36,7 +36,7 @@ export class RoomRenderer implements IRoomRenderer, IRoomSpriteCanvasContainer
             this._canvases = null;
         }
 
-        if (this._objects)
+        if(this._objects)
         {
             this._objects = null;
         }
@@ -51,7 +51,7 @@ export class RoomRenderer implements IRoomRenderer, IRoomSpriteCanvasContainer
 
     public getInstanceId(object: IRoomObject): number
     {
-        if (!object) return -1;
+        if(!object) return -1;
 
         return object.instanceId;
     }
@@ -63,7 +63,7 @@ export class RoomRenderer implements IRoomRenderer, IRoomSpriteCanvasContainer
 
     public addObject(object: IRoomObject): void
     {
-        if (!object) return;
+        if(!object) return;
 
         this._objects.set(this.getInstanceId(object), object);
     }
@@ -74,9 +74,9 @@ export class RoomRenderer implements IRoomRenderer, IRoomSpriteCanvasContainer
 
         this._objects.delete(instanceId);
 
-        for (const canvas of this._canvases.values())
+        for(const canvas of this._canvases.values())
         {
-            if (!canvas) continue;
+            if(!canvas) continue;
 
             const spriteCanvas = canvas as RoomSpriteCanvas;
 
@@ -86,25 +86,25 @@ export class RoomRenderer implements IRoomRenderer, IRoomSpriteCanvasContainer
 
     public render(time: number, update: boolean = false): void
     {
-        if (!this._canvases || !this._canvases.size) return;
+        if(!this._canvases || !this._canvases.size) return;
 
-        for (const canvas of this._canvases.values()) canvas && canvas.render(time, update);
+        for(const canvas of this._canvases.values()) canvas && canvas.render(time, update);
     }
 
     public update(time: number, update: boolean = false): void
     {
-        if (!this._canvases || !this._canvases.size) return;
+        if(!this._canvases || !this._canvases.size) return;
 
         this.render(time, update);
 
-        for (const canvas of this._canvases.values()) canvas && canvas.update();
+        for(const canvas of this._canvases.values()) canvas && canvas.update();
     }
 
     public getCanvas(id: number): IRoomRenderingCanvas
     {
         const existing = this._canvases.get(id);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         return existing;
     }
@@ -113,18 +113,18 @@ export class RoomRenderer implements IRoomRenderer, IRoomSpriteCanvasContainer
     {
         const existing = this._canvases.get(id) as IRoomRenderingCanvas;
 
-        if (existing)
+        if(existing)
         {
             existing.initialize(width, height);
 
-            if (existing.geometry) existing.geometry.scale = scale;
+            if(existing.geometry) existing.geometry.scale = scale;
 
             return existing;
         }
 
         const canvas = this.createSpriteCanvas(id, width, height, scale);
 
-        if (!canvas) return;
+        if(!canvas) return;
 
         this._canvases.set(id, canvas);
 
@@ -140,7 +140,7 @@ export class RoomRenderer implements IRoomRenderer, IRoomSpriteCanvasContainer
     {
         const existing = this._canvases.get(id);
 
-        if (!existing) return;
+        if(!existing) return;
 
         this._canvases.delete(id);
 

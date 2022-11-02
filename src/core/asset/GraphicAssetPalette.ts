@@ -11,7 +11,7 @@ export class GraphicAssetPalette
     {
         this._palette = palette;
 
-        while (this._palette.length < 256) this._palette.push([0, 0, 0]);
+        while(this._palette.length < 256) this._palette.push([0, 0, 0]);
 
         this._primaryColor = primaryColor;
         this._secondaryColor = secondaryColor;
@@ -30,11 +30,11 @@ export class GraphicAssetPalette
         const textureImageData = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
         const data = textureImageData.data;
 
-        for (let i = 0; i < data.length; i += 4)
+        for(let i = 0; i < data.length; i += 4)
         {
             let paletteColor = this._palette[data[i + 1]];
 
-            if (paletteColor === undefined) paletteColor = [0, 0, 0];
+            if(paletteColor === undefined) paletteColor = [0, 0, 0];
 
             data[i] = paletteColor[0];
             data[i + 1] = paletteColor[1];

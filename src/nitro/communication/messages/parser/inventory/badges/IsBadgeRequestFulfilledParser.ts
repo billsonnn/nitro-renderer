@@ -12,7 +12,7 @@ export class IsBadgeRequestFulfilledParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._requestCode = wrapper.readString();
         this._fulfilled = wrapper.readBoolean();

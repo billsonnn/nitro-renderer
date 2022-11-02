@@ -16,13 +16,13 @@ export class SellablePetPalettesParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._productCode = wrapper.readString();
 
         let totalPalettes = wrapper.readInt();
 
-        while (totalPalettes > 0)
+        while(totalPalettes > 0)
         {
             this._palettes.push(new SellablePetPaletteData(wrapper));
 

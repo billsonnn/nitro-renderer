@@ -16,7 +16,7 @@ export class RoomSettingsDataParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._roomSettingsData = new RoomSettingsData();
 
@@ -31,7 +31,7 @@ export class RoomSettingsDataParser implements IMessageParser
 
         let totalTags = wrapper.readInt();
 
-        while (totalTags > 0)
+        while(totalTags > 0)
         {
             this._roomSettingsData.tags.push(wrapper.readString());
 

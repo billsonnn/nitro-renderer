@@ -15,7 +15,7 @@ export class MysteryBoxKeysParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._boxColor = wrapper.readString();
         this._keyColor = wrapper.readString();

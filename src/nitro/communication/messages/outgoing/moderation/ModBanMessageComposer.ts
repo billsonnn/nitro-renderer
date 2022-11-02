@@ -9,7 +9,7 @@ export class ModBanMessageComposer implements IMessageComposer<ConstructorParame
     constructor(k: number, arg2: string, arg3: number, arg4: number, arg5: boolean, arg6: number = -1)
     {
         this._data = [k, arg2, arg3, arg4, arg5];
-        if (arg6 != ModBanMessageComposer.NO_ISSUE_ID)
+        if(arg6 != ModBanMessageComposer.NO_ISSUE_ID)
         {
             this._data.push(arg6);
         }

@@ -16,7 +16,7 @@ export class ObjectMoveUpdateMessage extends RoomObjectUpdateMessage
 
     public get targetLocation(): IVector3D
     {
-        if (!this._targetLocation) return this.location;
+        if(!this._targetLocation) return this.location;
 
         return this._targetLocation;
     }

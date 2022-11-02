@@ -12,7 +12,7 @@ export class FavouriteChangedMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._flatId = wrapper.readInt();
         this._added = wrapper.readBoolean();

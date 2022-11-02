@@ -14,11 +14,11 @@ export class NavigatorLiftedParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         let totalRooms = wrapper.readInt();
 
-        while (totalRooms > 0)
+        while(totalRooms > 0)
         {
             this._rooms.push(new NavigatorLiftedDataParser(wrapper));
 

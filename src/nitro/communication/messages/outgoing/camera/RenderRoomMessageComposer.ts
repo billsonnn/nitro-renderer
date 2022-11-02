@@ -25,7 +25,7 @@ export class RenderRoomMessageComposer implements IMessageComposer<ConstructorPa
     {
         const url = TextureUtils.generateImageUrl(texture);
 
-        if (!url) return;
+        if(!url) return;
 
         const base64Data = url.split(',')[1];
         const binaryData = Uint8Array.from(atob(base64Data), c => c.charCodeAt(0));

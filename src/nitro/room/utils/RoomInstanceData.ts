@@ -49,7 +49,7 @@ export class RoomInstanceData
 
     public setSelectedObject(data: ISelectedRoomObjectData): void
     {
-        if (this._selectedObject)
+        if(this._selectedObject)
         {
             this._selectedObject.dispose();
         }
@@ -59,7 +59,7 @@ export class RoomInstanceData
 
     public setPlacedObject(data: ISelectedRoomObjectData): void
     {
-        if (this._placedObject)
+        if(this._placedObject)
         {
             this._placedObject.dispose();
         }
@@ -69,13 +69,13 @@ export class RoomInstanceData
 
     public setFurnitureStackingHeightMap(heightMap: IFurnitureStackingHeightMap): void
     {
-        if (this._furnitureStackingHeightMap) this._furnitureStackingHeightMap.dispose();
+        if(this._furnitureStackingHeightMap) this._furnitureStackingHeightMap.dispose();
 
         this._furnitureStackingHeightMap = heightMap;
 
-        if (this._tileObjectMap) this._tileObjectMap.dispose();
+        if(this._tileObjectMap) this._tileObjectMap.dispose();
 
-        if (this._furnitureStackingHeightMap)
+        if(this._furnitureStackingHeightMap)
         {
             this._tileObjectMap = new TileObjectMap(this._furnitureStackingHeightMap.width, this._furnitureStackingHeightMap.height);
         }
@@ -83,7 +83,7 @@ export class RoomInstanceData
 
     public addPendingFurnitureFloor(data: RoomFurnitureData): void
     {
-        if (!data) return;
+        if(!data) return;
 
         this._floorStack.delete(data.id);
         this._floorStack.set(data.id, data);
@@ -93,7 +93,7 @@ export class RoomInstanceData
     {
         const existing = this._floorStack.get(id);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         this._floorStack.delete(id);
 
@@ -104,7 +104,7 @@ export class RoomInstanceData
     {
         const existing = this._floorStack.get(id);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         this._floorStack.delete(id);
 
@@ -113,7 +113,7 @@ export class RoomInstanceData
 
     public getNextPendingFurnitureFloor(): RoomFurnitureData
     {
-        if (!this._floorStack.size) return null;
+        if(!this._floorStack.size) return null;
 
         const keys = this._floorStack.keys();
 
@@ -122,7 +122,7 @@ export class RoomInstanceData
 
     public addPendingFurnitureWall(data: RoomFurnitureData): void
     {
-        if (!data) return;
+        if(!data) return;
 
         this._wallStack.delete(data.id);
         this._wallStack.set(data.id, data);
@@ -132,7 +132,7 @@ export class RoomInstanceData
     {
         const existing = this._wallStack.get(id);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         this._wallStack.delete(id);
 
@@ -143,7 +143,7 @@ export class RoomInstanceData
     {
         const existing = this._wallStack.get(id);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         this._wallStack.delete(id);
 
@@ -152,7 +152,7 @@ export class RoomInstanceData
 
     public getNextPendingFurnitureWall(): RoomFurnitureData
     {
-        if (!this._wallStack.size) return null;
+        if(!this._wallStack.size) return null;
 
         const keys = this._wallStack.keys();
 
@@ -163,7 +163,7 @@ export class RoomInstanceData
     {
         const _local_2 = this._mouseButtonCursorOwners.indexOf(k);
 
-        if (_local_2 === -1)
+        if(_local_2 === -1)
         {
             this._mouseButtonCursorOwners.push(k);
 
@@ -177,7 +177,7 @@ export class RoomInstanceData
     {
         const _local_2 = this._mouseButtonCursorOwners.indexOf(k);
 
-        if (_local_2 > -1)
+        if(_local_2 > -1)
         {
             this._mouseButtonCursorOwners.splice(_local_2, 1);
 

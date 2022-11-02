@@ -20,7 +20,7 @@ export class LegacyDataType extends ObjectDataBase implements IObjectData
 
     public parseWrapper(wrapper: IMessageDataWrapper): void
     {
-        if (!wrapper) return;
+        if(!wrapper) return;
 
         this._data = wrapper.readString();
 

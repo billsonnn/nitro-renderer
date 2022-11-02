@@ -57,14 +57,14 @@ export class RoomLogic extends RoomObjectLogicBase
     {
         super.dispose();
 
-        if (this._planeParser)
+        if(this._planeParser)
         {
             this._planeParser.dispose();
 
             this._planeParser = null;
         }
 
-        if (this._planeBitmapMaskParser)
+        if(this._planeBitmapMaskParser)
         {
             this._planeBitmapMaskParser.dispose();
 
@@ -74,11 +74,11 @@ export class RoomLogic extends RoomObjectLogicBase
 
     public initialize(roomMap: RoomMapData): void
     {
-        if (!roomMap || !this.object) return;
+        if(!roomMap || !this.object) return;
 
-        if (!(roomMap instanceof RoomMapData)) return;
+        if(!(roomMap instanceof RoomMapData)) return;
 
-        if (!this._planeParser.initializeFromMapData(roomMap)) return;
+        if(!this._planeParser.initializeFromMapData(roomMap)) return;
 
         this.object.model.setValue(RoomObjectVariable.ROOM_MAP_DATA, roomMap);
         this.object.model.setValue(RoomObjectVariable.ROOM_BACKGROUND_COLOR, 0xFFFFFF);
@@ -95,13 +95,13 @@ export class RoomLogic extends RoomObjectLogicBase
 
         this.updateBackgroundColor(time);
 
-        if (this._needsMapUpdate)
+        if(this._needsMapUpdate)
         {
-            if (this._lastHoleUpdate && (time - this._lastHoleUpdate) < 5) return;
+            if(this._lastHoleUpdate && (time - this._lastHoleUpdate) < 5) return;
 
             const model = this.object && this.object.model;
 
-            if (model)
+            if(model)
             {
                 const mapData = this._planeParser.getMapData();
 
@@ -119,12 +119,12 @@ export class RoomLogic extends RoomObjectLogicBase
 
     private updateBackgroundColor(k: number): void
     {
-        if (!this.object || !this._colorChangedTime) return;
+        if(!this.object || !this._colorChangedTime) return;
 
         let color = this._color;
         let newColor = this._light;
 
-        if ((k - this._colorChangedTime) >= this._colorTransitionLength)
+        if((k - this._colorChangedTime) >= this._colorTransitionLength)
         {
             color = this._targetColor;
             newColor = this._targetLight;
@@ -158,60 +158,60 @@ export class RoomLogic extends RoomObjectLogicBase
         _local_5 = ((_local_5 & 0xFFFF00) + newColor);
         color = ColorConverter.hslToRGB(_local_5);
 
-        if (this.object.model) this.object.model.setValue(RoomObjectVariable.ROOM_BACKGROUND_COLOR, color);
+        if(this.object.model) this.object.model.setValue(RoomObjectVariable.ROOM_BACKGROUND_COLOR, color);
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void
     {
-        if (!message || !this.object) return;
+        if(!message || !this.object) return;
 
         const model = this.object.model;
 
-        if (!model) return;
+        if(!model) return;
 
-        if (message instanceof ObjectRoomUpdateMessage)
+        if(message instanceof ObjectRoomUpdateMessage)
         {
             this.onObjectRoomUpdateMessage(message, model);
 
             return;
         }
 
-        if (message instanceof ObjectRoomMaskUpdateMessage)
+        if(message instanceof ObjectRoomMaskUpdateMessage)
         {
             this.onObjectRoomMaskUpdateMessage(message, model);
 
             return;
         }
 
-        if (message instanceof ObjectRoomPlaneVisibilityUpdateMessage)
+        if(message instanceof ObjectRoomPlaneVisibilityUpdateMessage)
         {
             this.onObjectRoomPlaneVisibilityUpdateMessage(message, model);
 
             return;
         }
 
-        if (message instanceof ObjectRoomPlanePropertyUpdateMessage)
+        if(message instanceof ObjectRoomPlanePropertyUpdateMessage)
         {
             this.onObjectRoomPlanePropertyUpdateMessage(message, model);
 
             return;
         }
 
-        if (message instanceof ObjectRoomFloorHoleUpdateMessage)
+        if(message instanceof ObjectRoomFloorHoleUpdateMessage)
         {
             this.onObjectRoomFloorHoleUpdateMessage(message, model);
 
             return;
         }
 
-        if (message instanceof ObjectRoomColorUpdateMessage)
+        if(message instanceof ObjectRoomColorUpdateMessage)
         {
             this.onObjectRoomColorUpdateMessage(message, model);
 
             return;
         }
 
-        if (message instanceof ObjectRoomMapUpdateMessage)
+        if(message instanceof ObjectRoomMapUpdateMessage)
         {
             this.onObjectRoomMapUpdateMessage(message);
         }
@@ -219,7 +219,7 @@ export class RoomLogic extends RoomObjectLogicBase
 
     private onObjectRoomUpdateMessage(message: ObjectRoomUpdateMessage, model: IRoomObjectModel): void
     {
-        switch (message.type)
+        switch(message.type)
         {
             case ObjectRoomUpdateMessage.ROOM_FLOOR_UPDATE:
                 model.setValue(RoomObjectVariable.ROOM_FLOOR_TYPE, message.value);
@@ -238,12 +238,12 @@ export class RoomLogic extends RoomObjectLogicBase
         let maskType: string = null;
         let update = false;
 
-        switch (message.type)
+        switch(message.type)
         {
             case ObjectRoomMaskUpdateMessage.ADD_MASK:
                 maskType = RoomPlaneBitmapMaskData.WINDOW;
 
-                if (message.maskCategory === ObjectRoomMaskUpdateMessage.HOLE) maskType = RoomPlaneBitmapMaskData.HOLE;
+                if(message.maskCategory === ObjectRoomMaskUpdateMessage.HOLE) maskType = RoomPlaneBitmapMaskData.HOLE;
 
                 this._planeBitmapMaskParser.addMask(message.maskId, message.maskType, message.maskLocation, maskType);
 
@@ -255,16 +255,16 @@ export class RoomLogic extends RoomObjectLogicBase
 
         }
 
-        if (update) _arg_2.setValue(RoomObjectVariable.ROOM_PLANE_MASK_XML, this._planeBitmapMaskParser.getXML());
+        if(update) _arg_2.setValue(RoomObjectVariable.ROOM_PLANE_MASK_XML, this._planeBitmapMaskParser.getXML());
     }
 
     private onObjectRoomPlaneVisibilityUpdateMessage(message: ObjectRoomPlaneVisibilityUpdateMessage, model: IRoomObjectModel): void
     {
         let visible = 0;
 
-        if (message.visible) visible = 1;
+        if(message.visible) visible = 1;
 
-        switch (message.type)
+        switch(message.type)
         {
             case ObjectRoomPlaneVisibilityUpdateMessage.FLOOR_VISIBILITY:
                 model.setValue(RoomObjectVariable.ROOM_FLOOR_VISIBILITY, visible);
@@ -278,7 +278,7 @@ export class RoomLogic extends RoomObjectLogicBase
 
     private onObjectRoomPlanePropertyUpdateMessage(message: ObjectRoomPlanePropertyUpdateMessage, model: IRoomObjectModel): void
     {
-        switch (message.type)
+        switch(message.type)
         {
             case ObjectRoomPlanePropertyUpdateMessage.FLOOR_THICKNESS:
                 model.setValue(RoomObjectVariable.ROOM_FLOOR_THICKNESS, message.value);
@@ -291,7 +291,7 @@ export class RoomLogic extends RoomObjectLogicBase
 
     private onObjectRoomFloorHoleUpdateMessage(message: ObjectRoomFloorHoleUpdateMessage, model: IRoomObjectModel): void
     {
-        switch (message.type)
+        switch(message.type)
         {
             case ObjectRoomFloorHoleUpdateMessage.ADD:
                 this._planeParser.addFloorHole(message.id, message.x, message.y, message.width, message.height);
@@ -308,7 +308,7 @@ export class RoomLogic extends RoomObjectLogicBase
 
     private onObjectRoomColorUpdateMessage(message: ObjectRoomColorUpdateMessage, model: IRoomObjectModel): void
     {
-        if (!message || !model) return;
+        if(!message || !model) return;
 
         this._originalColor = this._color;
         this._originalLight = this._light;
@@ -316,7 +316,7 @@ export class RoomLogic extends RoomObjectLogicBase
         this._targetLight = message.light;
         this._colorChangedTime = this.time;
 
-        if (this._skipColorTransition)
+        if(this._skipColorTransition)
             this._colorTransitionLength = 0;
         else
             this._colorTransitionLength = 1500;
@@ -326,7 +326,7 @@ export class RoomLogic extends RoomObjectLogicBase
 
     private onObjectRoomMapUpdateMessage(message: ObjectRoomMapUpdateMessage): void
     {
-        if (!message || !message.mapData) return;
+        if(!message || !message.mapData) return;
 
         this.object.model.setValue(RoomObjectVariable.ROOM_MAP_DATA, message.mapData);
         this.object.model.setValue(RoomObjectVariable.ROOM_FLOOR_HOLE_UPDATE_TIME, this.time);
@@ -336,20 +336,20 @@ export class RoomLogic extends RoomObjectLogicBase
 
     public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
     {
-        if (!event || !geometry || !this.object || !this.object.model) return;
+        if(!event || !geometry || !this.object || !this.object.model) return;
 
         const tag = event.spriteTag;
 
         let planeId = 0;
 
-        if (tag && (tag.indexOf('@') >= 0))
+        if(tag && (tag.indexOf('@') >= 0))
         {
             planeId = parseInt(tag.substr(tag.indexOf('@') + 1));
         }
 
-        if ((planeId < 1) || (planeId > this._planeParser.planeCount))
+        if((planeId < 1) || (planeId > this._planeParser.planeCount))
         {
-            if (event.type === MouseEventType.ROLL_OUT)
+            if(event.type === MouseEventType.ROLL_OUT)
             {
                 this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_PLANE, 0);
             }
@@ -367,12 +367,12 @@ export class RoomLogic extends RoomObjectLogicBase
         const planeNormalDirection = this._planeParser.getPlaneNormalDirection(planeId);
         const planeType = this._planeParser.getPlaneType(planeId);
 
-        if (((((planeLocation == null) || (planeLeftSide == null)) || (planeRightSide == null)) || (planeNormalDirection == null))) return;
+        if(((((planeLocation == null) || (planeLeftSide == null)) || (planeRightSide == null)) || (planeNormalDirection == null))) return;
 
         const leftSideLength = planeLeftSide.length;
         const rightSideLength = planeRightSide.length;
 
-        if (((leftSideLength == 0) || (rightSideLength == 0))) return;
+        if(((leftSideLength == 0) || (rightSideLength == 0))) return;
 
         const screenX = event.screenX;
         const screenY = event.screenY;
@@ -380,7 +380,7 @@ export class RoomLogic extends RoomObjectLogicBase
 
         planePosition = geometry.getPlanePosition(screenPoint, planeLocation, planeLeftSide, planeRightSide);
 
-        if (!planePosition)
+        if(!planePosition)
         {
             this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_PLANE, 0);
 
@@ -396,7 +396,7 @@ export class RoomLogic extends RoomObjectLogicBase
         const tileY = _local_18.y;
         const tileZ = _local_18.z;
 
-        if (((((planePosition.x >= 0) && (planePosition.x < leftSideLength)) && (planePosition.y >= 0)) && (planePosition.y < rightSideLength)))
+        if(((((planePosition.x >= 0) && (planePosition.x < leftSideLength)) && (planePosition.y >= 0)) && (planePosition.y < rightSideLength)))
         {
             this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_X, tileX);
             this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_Y, tileY);
@@ -412,30 +412,30 @@ export class RoomLogic extends RoomObjectLogicBase
 
         let eventType: string = null;
 
-        if ((event.type === MouseEventType.MOUSE_MOVE) || (event.type === MouseEventType.ROLL_OVER)) eventType = RoomObjectMouseEvent.MOUSE_MOVE;
-        else if ((event.type === MouseEventType.MOUSE_CLICK)) eventType = RoomObjectMouseEvent.CLICK;
+        if((event.type === MouseEventType.MOUSE_MOVE) || (event.type === MouseEventType.ROLL_OVER)) eventType = RoomObjectMouseEvent.MOUSE_MOVE;
+        else if((event.type === MouseEventType.MOUSE_CLICK)) eventType = RoomObjectMouseEvent.CLICK;
 
-        switch (event.type)
+        switch(event.type)
         {
             case MouseEventType.MOUSE_MOVE:
             case MouseEventType.ROLL_OVER:
             case MouseEventType.MOUSE_CLICK: {
                 let newEvent: RoomObjectEvent = null;
 
-                if (planeType === RoomPlaneData.PLANE_FLOOR)
+                if(planeType === RoomPlaneData.PLANE_FLOOR)
                 {
                     newEvent = new RoomObjectTileMouseEvent(eventType, this.object, event.eventId, tileX, tileY, tileZ, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
                 }
 
-                else if ((planeType === RoomPlaneData.PLANE_WALL) || (planeType === RoomPlaneData.PLANE_LANDSCAPE))
+                else if((planeType === RoomPlaneData.PLANE_WALL) || (planeType === RoomPlaneData.PLANE_LANDSCAPE))
                 {
                     let direction = 90;
 
-                    if (planeNormalDirection)
+                    if(planeNormalDirection)
                     {
                         direction = (planeNormalDirection.x + 90);
 
-                        if (direction > 360) direction -= 360;
+                        if(direction > 360) direction -= 360;
                     }
 
                     const _local_27 = ((planeLeftSide.length * planePosition.x) / leftSideLength);
@@ -444,7 +444,7 @@ export class RoomLogic extends RoomObjectLogicBase
                     newEvent = new RoomObjectWallMouseEvent(eventType, this.object, event.eventId, planeLocation, planeLeftSide, planeRightSide, _local_27, _local_28, direction, event.altKey, event.ctrlKey, event.shiftKey, event.buttonDown);
                 }
 
-                if (this.eventDispatcher) this.eventDispatcher.dispatchEvent(newEvent);
+                if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(newEvent);
 
                 return;
             }

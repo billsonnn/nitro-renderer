@@ -39,7 +39,7 @@ export class IssueInfoMessageParser implements IMessageParser
         const patternsCount: number = k.readInt();
         const patterns: PatternMatchData[] = [];
 
-        for (let i = 0; i < patternsCount; i++)
+        for(let i = 0; i < patternsCount; i++)
         {
             patterns.push(new PatternMatchData(k));
         }

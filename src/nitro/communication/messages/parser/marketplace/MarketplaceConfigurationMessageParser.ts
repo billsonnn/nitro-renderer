@@ -27,7 +27,7 @@ export class MarketplaceConfigurationMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._enabled = wrapper.readBoolean();
         this._commission = wrapper.readInt();

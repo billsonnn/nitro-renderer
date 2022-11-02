@@ -17,7 +17,7 @@ export class FurnitureMannequinVisualizationData extends FurnitureVisualizationD
     {
         super.dispose();
 
-        if (this._avatarData)
+        if(this._avatarData)
         {
             this._avatarData.dispose();
 

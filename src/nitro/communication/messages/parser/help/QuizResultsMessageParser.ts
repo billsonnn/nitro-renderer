@@ -15,7 +15,7 @@ export class QuizResultsMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._quizCode = wrapper.readString();
 
@@ -23,7 +23,7 @@ export class QuizResultsMessageParser implements IMessageParser
 
         this._questionIdsForWrongAnswers = [];
 
-        for (let i = 0; i < size; i++) this._questionIdsForWrongAnswers.push(wrapper.readInt());
+        for(let i = 0; i < size; i++) this._questionIdsForWrongAnswers.push(wrapper.readInt());
 
         return true;
     }

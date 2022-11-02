@@ -13,13 +13,13 @@ export class UserWardrobePageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         wrapper.readInt();
 
         let totalLooks = wrapper.readInt();
 
-        while (totalLooks > 0)
+        while(totalLooks > 0)
         {
             const slotId = wrapper.readInt();
             const look = wrapper.readString();

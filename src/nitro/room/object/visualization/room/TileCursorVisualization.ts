@@ -14,7 +14,7 @@ export class TileCursorVisualization extends FurnitureAnimatedVisualization
 
     protected getLayerYOffset(scale: number, direction: number, layerId: number): number
     {
-        if (layerId === 1)
+        if(layerId === 1)
         {
             this._tileHeight = this.object.model.getValue<number>(RoomObjectVariable.TILE_CURSOR_HEIGHT);
 

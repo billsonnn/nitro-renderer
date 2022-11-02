@@ -13,7 +13,7 @@ export class RoomChatlogMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._data = new ChatRecordData(wrapper);
 

@@ -22,14 +22,14 @@ export class NitroBundle
 
         let fileCount = binaryReader.readShort();
 
-        while (fileCount > 0)
+        while(fileCount > 0)
         {
             const fileNameLength = binaryReader.readShort();
             const fileName = binaryReader.readBytes(fileNameLength).toString();
             const fileLength = binaryReader.readInt();
             const buffer = binaryReader.readBytes(fileLength);
 
-            if (fileName.endsWith('.json'))
+            if(fileName.endsWith('.json'))
             {
                 const decompressed = inflate((buffer.toArrayBuffer() as Data));
 

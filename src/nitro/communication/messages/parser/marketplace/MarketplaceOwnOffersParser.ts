@@ -17,13 +17,13 @@ export class MarketplaceOwnOffersParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._offers = [];
         this._creditsWaiting = wrapper.readInt(); // SoldPriceTotal
 
         const offerCount = wrapper.readInt();
-        for (let i = 0; i < offerCount; i++)
+        for(let i = 0; i < offerCount; i++)
         {
             const offerId = wrapper.readInt();
             const status = wrapper.readInt();
@@ -32,19 +32,19 @@ export class MarketplaceOwnOffersParser implements IMessageParser
             let furniId;
             let extraData;
             let stuffData: IObjectData;
-            if (furniType == 1)
+            if(furniType == 1)
             {
                 furniId = wrapper.readInt();
                 stuffData = this.getStuffData(wrapper);
             }
             else
             {
-                if (furniType == 2)
+                if(furniType == 2)
                 {
                     furniId = wrapper.readInt();
                     extraData = wrapper.readString();
                 }
-                else if (furniType == 3)
+                else if(furniType == 3)
                 {
                     furniId = wrapper.readInt();
                     stuffData = ObjectDataFactory.getData(LegacyDataType.FORMAT_KEY);
@@ -59,7 +59,7 @@ export class MarketplaceOwnOffersParser implements IMessageParser
             const local10 = wrapper.readInt();
             const local13 = new MarketplaceOffer(offerId, furniId, furniType, extraData, stuffData, price, status, local9, local10);
 
-            if (i < MarketplaceOwnOffersParser.MAX_LIST_LENGTH)
+            if(i < MarketplaceOwnOffersParser.MAX_LIST_LENGTH)
             {
                 this._offers.push(local13);
             }

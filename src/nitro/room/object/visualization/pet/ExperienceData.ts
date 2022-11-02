@@ -20,7 +20,7 @@ export class ExperienceData
 
     public renderBubble(amount: number): RenderTexture
     {
-        if (!this._sprite || (this._amount === amount)) return null;
+        if(!this._sprite || (this._amount === amount)) return null;
 
         const container = new NitroContainer();
 
@@ -40,7 +40,7 @@ export class ExperienceData
 
         container.addChild(text);
 
-        if (!this._texture)
+        if(!this._texture)
         {
             this._texture = TextureUtils.generateTexture(container);
         }

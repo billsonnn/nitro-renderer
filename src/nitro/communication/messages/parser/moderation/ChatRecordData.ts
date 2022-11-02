@@ -23,12 +23,12 @@ export class ChatRecordData
         this._recordType = wrapper.readByte();
         const contextCount = wrapper.readShort();
 
-        for (let i = 0; i < contextCount; i++)
+        for(let i = 0; i < contextCount; i++)
         {
             const key = wrapper.readString();
             const type = wrapper.readByte();
 
-            switch (type)
+            switch(type)
             {
                 case 0:
                     this._context.set(key, wrapper.readBoolean());
@@ -46,7 +46,7 @@ export class ChatRecordData
 
         const chatCount = wrapper.readShort();
 
-        for (let i = 0; i < chatCount; i++)
+        for(let i = 0; i < chatCount; i++)
         {
             const timestamp = wrapper.readString();
             const habboId = wrapper.readInt();
@@ -101,7 +101,7 @@ export class ChatRecordData
     private getInt(k: string): number
     {
         const value = this._context.get(k);
-        if (!value)
+        if(!value)
         {
             return 0;
         }

@@ -19,13 +19,13 @@ export class BuildersClubSubscriptionStatusMessageParser implements IMessagePars
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._Str_16456 = wrapper.readInt();
         this._Str_12494 = wrapper.readInt();
         this._Str_19123 = wrapper.readInt();
 
-        if (wrapper.bytesAvailable) this._Str_17298 = wrapper.readInt();
+        if(wrapper.bytesAvailable) this._Str_17298 = wrapper.readInt();
         else this._Str_17298 = this._Str_16456;
 
         return true;

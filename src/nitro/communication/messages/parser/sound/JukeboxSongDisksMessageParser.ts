@@ -17,7 +17,7 @@ export class JukeboxSongDisksMessageParser implements IMessageParser
         this._maxLength = wrapper.readInt();
         const count = wrapper.readInt();
 
-        for (let i = 0; i < count; i++)
+        for(let i = 0; i < count; i++)
         {
             this._songDisks.set(wrapper.readInt(), wrapper.readInt());
         }

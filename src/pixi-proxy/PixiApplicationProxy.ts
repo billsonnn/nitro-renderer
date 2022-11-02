@@ -8,7 +8,7 @@ export class PixiApplicationProxy extends Application
     {
         super(options);
 
-        if (!PixiApplicationProxy.INSTANCE) PixiApplicationProxy.INSTANCE = this;
+        if(!PixiApplicationProxy.INSTANCE) PixiApplicationProxy.INSTANCE = this;
     }
 
     public static get instance(): Application

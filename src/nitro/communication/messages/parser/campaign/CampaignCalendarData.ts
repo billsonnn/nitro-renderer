@@ -11,7 +11,7 @@ export class CampaignCalendarData
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._campaignName = wrapper.readString();
         this._campaignImage = wrapper.readString();
@@ -21,7 +21,7 @@ export class CampaignCalendarData
 
         let count = wrapper.readInt();
 
-        for (let i = 0; i < count; i++)
+        for(let i = 0; i < count; i++)
         {
             this._openedDays.push(wrapper.readInt());
         }
@@ -30,7 +30,7 @@ export class CampaignCalendarData
 
         count = wrapper.readInt();
 
-        for (let i = 0; i < count; i++)
+        for(let i = 0; i < count; i++)
         {
             this._missedDays.push(wrapper.readInt());
         }

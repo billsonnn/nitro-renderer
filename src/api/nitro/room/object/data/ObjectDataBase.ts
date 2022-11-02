@@ -19,7 +19,7 @@ export class ObjectDataBase implements IObjectData
 
     public parseWrapper(wrapper: IMessageDataWrapper): void
     {
-        if ((this._flags & ObjectDataFlags.UNIQUE_SET) > 0)
+        if((this._flags & ObjectDataFlags.UNIQUE_SET) > 0)
         {
             this._uniqueNumber = wrapper.readInt();
             this._uniqueSeries = wrapper.readInt();
@@ -34,7 +34,7 @@ export class ObjectDataBase implements IObjectData
 
     public writeRoomObjectModel(model: IRoomObjectModel): void
     {
-        if (!model) return;
+        if(!model) return;
 
         model.setValue(RoomObjectVariable.FURNITURE_UNIQUE_SERIAL_NUMBER, this._uniqueNumber);
         model.setValue(RoomObjectVariable.FURNITURE_UNIQUE_EDITION_SIZE, this._uniqueSeries);

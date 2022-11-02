@@ -24,15 +24,15 @@ export class FurniturePartyBeamerVisualization extends FurnitureAnimatedVisualiz
 
     protected updateAnimation(scale: number): number
     {
-        if (!this._animSpeedIndex) this.initItems(scale);
+        if(!this._animSpeedIndex) this.initItems(scale);
 
         let sprite = this.getSprite(2);
 
-        if (sprite) this._animOffsetIndex[0] = this.getNewPoint(scale, 0);
+        if(sprite) this._animOffsetIndex[0] = this.getNewPoint(scale, 0);
 
         sprite = this.getSprite(3);
 
-        if (sprite) this._animOffsetIndex[1] = this.getNewPoint(scale, 1);
+        if(sprite) this._animOffsetIndex[1] = this.getNewPoint(scale, 1);
 
         return super.updateAnimation(scale);
     }
@@ -49,7 +49,7 @@ export class FurniturePartyBeamerVisualization extends FurnitureAnimatedVisualiz
 
         let _local_7 = 1;
 
-        if (scale == 32)
+        if(scale == 32)
         {
             diameter = FurniturePartyBeamerVisualization.AREA_DIAMETER_SMALL;
             _local_7 = 0.5;
@@ -61,9 +61,9 @@ export class FurniturePartyBeamerVisualization extends FurnitureAnimatedVisualiz
 
         const _local_9: number = (animationPhase + (animationDirection * animationSpeed));
 
-        if (Math.abs(_local_9) >= diameter)
+        if(Math.abs(_local_9) >= diameter)
         {
-            if (animationDirection > 0)
+            if(animationDirection > 0)
             {
                 animationPhase = (animationPhase - (_local_9 - diameter));
             }
@@ -81,7 +81,7 @@ export class FurniturePartyBeamerVisualization extends FurnitureAnimatedVisualiz
 
         let _local_11: number = ((animationDirection * Math.sin(Math.abs((animationPhase / 4)))) * _local_10);
 
-        if (animationDirection > 0)
+        if(animationDirection > 0)
         {
             _local_11 = (_local_11 - _local_10);
         }
@@ -94,7 +94,7 @@ export class FurniturePartyBeamerVisualization extends FurnitureAnimatedVisualiz
 
         this._animPhaseIndex[layerId] = animationPhase;
 
-        if (Math.trunc(_local_11) == 0) this._animFactorIndex[layerId] = this.getRandomAmplitudeFactor();
+        if(Math.trunc(_local_11) == 0) this._animFactorIndex[layerId] = this.getRandomAmplitudeFactor();
 
         return new NitroPoint(animationPhase, _local_11);
     }
@@ -103,7 +103,7 @@ export class FurniturePartyBeamerVisualization extends FurnitureAnimatedVisualiz
     {
         let diameter: number;
 
-        if (scale === 32)
+        if(scale === 32)
         {
             diameter = FurniturePartyBeamerVisualization.AREA_DIAMETER_SMALL;
         }
@@ -131,9 +131,9 @@ export class FurniturePartyBeamerVisualization extends FurnitureAnimatedVisualiz
 
     protected getLayerXOffset(scale: number, direction: number, layerId: number): number
     {
-        if ((layerId === 2) || (layerId === 3))
+        if((layerId === 2) || (layerId === 3))
         {
-            if (this._animOffsetIndex.length == 2)
+            if(this._animOffsetIndex.length == 2)
             {
                 return this._animOffsetIndex[(layerId - 2)].x;
             }
@@ -143,9 +143,9 @@ export class FurniturePartyBeamerVisualization extends FurnitureAnimatedVisualiz
 
     protected getLayerYOffset(scale: number, direction: number, layerId: number): number
     {
-        if ((layerId === 2) || (layerId === 3))
+        if((layerId === 2) || (layerId === 3))
         {
-            if (this._animOffsetIndex.length == 2)
+            if(this._animOffsetIndex.length == 2)
             {
                 return this._animOffsetIndex[(layerId - 2)].y;
             }

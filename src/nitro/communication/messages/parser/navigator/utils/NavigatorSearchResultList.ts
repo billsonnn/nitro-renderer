@@ -12,7 +12,7 @@ export class NavigatorSearchResultList
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if (!wrapper) throw new Error('invalid_wrapper');
+        if(!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -32,7 +32,7 @@ export class NavigatorSearchResultList
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._code = wrapper.readString();
         this._data = wrapper.readString();
@@ -42,7 +42,7 @@ export class NavigatorSearchResultList
 
         let totalRooms = wrapper.readInt();
 
-        while (totalRooms > 0)
+        while(totalRooms > 0)
         {
             this._rooms.push(new RoomDataParser(wrapper));
 

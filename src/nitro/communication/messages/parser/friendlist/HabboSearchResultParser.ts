@@ -16,11 +16,11 @@ export class HabboSearchResultParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         let totalFriends = wrapper.readInt();
 
-        while (totalFriends > 0)
+        while(totalFriends > 0)
         {
             this._friends.push(new HabboSearchResultData(wrapper));
 
@@ -29,7 +29,7 @@ export class HabboSearchResultParser implements IMessageParser
 
         let totalOthers = wrapper.readInt();
 
-        while (totalOthers > 0)
+        while(totalOthers > 0)
         {
             this._others.push(new HabboSearchResultData(wrapper));
 

@@ -13,7 +13,7 @@ export class _Str_9021 implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._itemId = wrapper.readInt();
 

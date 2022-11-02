@@ -18,11 +18,11 @@ export class PlaneMaterial
 
     public dispose(): void
     {
-        if (this._planeMaterialItems && this._planeMaterialItems.length)
+        if(this._planeMaterialItems && this._planeMaterialItems.length)
         {
-            for (const item of this._planeMaterialItems)
+            for(const item of this._planeMaterialItems)
             {
-                if (!item) continue;
+                if(!item) continue;
 
                 item.dispose();
             }
@@ -35,13 +35,13 @@ export class PlaneMaterial
 
     public clearCache(): void
     {
-        if (!this._isCached) return;
+        if(!this._isCached) return;
 
-        if (this._planeMaterialItems && this._planeMaterialItems.length)
+        if(this._planeMaterialItems && this._planeMaterialItems.length)
         {
-            for (const item of this._planeMaterialItems)
+            for(const item of this._planeMaterialItems)
             {
-                if (!item) continue;
+                if(!item) continue;
 
                 item.clearCache();
             }
@@ -61,15 +61,15 @@ export class PlaneMaterial
 
     public getMaterialCellMatrix(normal: IVector3D): PlaneMaterialCellMatrix
     {
-        if (!normal) return null;
+        if(!normal) return null;
 
-        if (this._planeMaterialItems && this._planeMaterialItems.length)
+        if(this._planeMaterialItems && this._planeMaterialItems.length)
         {
-            for (const item of this._planeMaterialItems)
+            for(const item of this._planeMaterialItems)
             {
-                if (!item) continue;
+                if(!item) continue;
 
-                if ((((normal.x >= item.normalMinX) && (normal.x <= item.normalMaxX)) && (normal.y >= item.normalMinY)) && (normal.y <= item.normalMaxY)) return item;
+                if((((normal.x >= item.normalMinX) && (normal.x <= item.normalMaxX)) && (normal.y >= item.normalMinY)) && (normal.y <= item.normalMaxY)) return item;
             }
         }
 
@@ -78,13 +78,13 @@ export class PlaneMaterial
 
     public render(canvas: Graphics, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number, topAlign: boolean): Graphics
     {
-        if (width < 1) width = 1;
+        if(width < 1) width = 1;
 
-        if (height < 1) height = 1;
+        if(height < 1) height = 1;
 
         const cellMatrix = this.getMaterialCellMatrix(normal);
 
-        if (!cellMatrix) return null;
+        if(!cellMatrix) return null;
 
         this._isCached = true;
 

@@ -20,7 +20,7 @@ export class GuildForumThreadsParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._groupId = wrapper.readInt();
         this._startIndex = wrapper.readInt();
@@ -29,7 +29,7 @@ export class GuildForumThreadsParser implements IMessageParser
 
         let i = 0;
 
-        while (i < this._amount)
+        while(i < this._amount)
         {
             this._threads.push(GuildForumThread.parse(wrapper));
 

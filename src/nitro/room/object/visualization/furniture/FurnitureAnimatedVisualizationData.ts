@@ -10,15 +10,15 @@ export class FurnitureAnimatedVisualizationData extends FurnitureVisualizationDa
 
     protected processVisualElement(sizeData: SizeData, key: string, data: any): boolean
     {
-        if (!sizeData || !key || !data) return false;
+        if(!sizeData || !key || !data) return false;
 
-        switch (key)
+        switch(key)
         {
             case 'animations':
-                if (!(sizeData instanceof AnimationSizeData) || !sizeData.defineAnimations(data)) return false;
+                if(!(sizeData instanceof AnimationSizeData) || !sizeData.defineAnimations(data)) return false;
                 break;
             default:
-                if (!super.processVisualElement(sizeData, key, data)) return false;
+                if(!super.processVisualElement(sizeData, key, data)) return false;
                 break;
         }
 
@@ -29,7 +29,7 @@ export class FurnitureAnimatedVisualizationData extends FurnitureVisualizationDa
     {
         const size = this.getSizeData(scale) as AnimationSizeData;
 
-        if (!size) return null;
+        if(!size) return null;
 
         return size.hasAnimation(animationId);
     }
@@ -38,7 +38,7 @@ export class FurnitureAnimatedVisualizationData extends FurnitureVisualizationDa
     {
         const size = this.getSizeData(scale) as AnimationSizeData;
 
-        if (!size) return null;
+        if(!size) return null;
 
         return size.getAnimationCount();
     }
@@ -47,7 +47,7 @@ export class FurnitureAnimatedVisualizationData extends FurnitureVisualizationDa
     {
         const size = this.getSizeData(scale) as AnimationSizeData;
 
-        if (!size) return null;
+        if(!size) return null;
 
         return size.getAnimationId(animationId);
     }
@@ -56,7 +56,7 @@ export class FurnitureAnimatedVisualizationData extends FurnitureVisualizationDa
     {
         const size = this.getSizeData(scale) as AnimationSizeData;
 
-        if (!size) return null;
+        if(!size) return null;
 
         return size.isImmediateChange(animationId, _arg_3);
     }
@@ -65,7 +65,7 @@ export class FurnitureAnimatedVisualizationData extends FurnitureVisualizationDa
     {
         const size = this.getSizeData(scale) as AnimationSizeData;
 
-        if (!size) return null;
+        if(!size) return null;
 
         return size.getStartFrame(animationId, direction);
     }
@@ -74,7 +74,7 @@ export class FurnitureAnimatedVisualizationData extends FurnitureVisualizationDa
     {
         const size = this.getSizeData(scale) as AnimationSizeData;
 
-        if (!size) return null;
+        if(!size) return null;
 
         return size.getFrame(animationId, direction, layerId, frameCount);
     }
@@ -83,7 +83,7 @@ export class FurnitureAnimatedVisualizationData extends FurnitureVisualizationDa
     {
         const size = this.getSizeData(scale) as AnimationSizeData;
 
-        if (!size) return null;
+        if(!size) return null;
 
         return size.getFrameFromSequence(animationId, direction, layerId, sequenceId, offset, frameCount);
     }

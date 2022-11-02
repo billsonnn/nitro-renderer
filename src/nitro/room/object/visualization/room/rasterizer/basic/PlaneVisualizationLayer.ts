@@ -54,7 +54,7 @@ export class PlaneVisualizationLayer
 
     public clearCache(): void
     {
-        if (this._bitmapData)
+        if(this._bitmapData)
         {
             this._bitmapData.destroy();
 
@@ -64,17 +64,17 @@ export class PlaneVisualizationLayer
 
     public render(canvas: Graphics, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number): Graphics
     {
-        if (!canvas || (canvas.width !== width) || (canvas.height !== height)) canvas = null;
+        if(!canvas || (canvas.width !== width) || (canvas.height !== height)) canvas = null;
 
         let bitmapData: Graphics = null;
 
-        if (this._material)
+        if(this._material)
         {
             bitmapData = this._material.render(null, width, height, normal, useTexture, offsetX, (offsetY + this.offset), (this.align === PlaneVisualizationLayer.ALIGN_TOP));
 
-            if (bitmapData && (bitmapData !== canvas))
+            if(bitmapData && (bitmapData !== canvas))
             {
-                if (this._bitmapData) this._bitmapData.destroy();
+                if(this._bitmapData) this._bitmapData.destroy();
 
                 this._bitmapData = bitmapData.clone();
 
@@ -83,11 +83,11 @@ export class PlaneVisualizationLayer
         }
         else
         {
-            if (!canvas)
+            if(!canvas)
             {
-                if (this._bitmapData && (this._bitmapData.width === width) && (this._bitmapData.height === height)) return this._bitmapData;
+                if(this._bitmapData && (this._bitmapData.width === width) && (this._bitmapData.height === height)) return this._bitmapData;
 
-                if (this._bitmapData) this._bitmapData.destroy();
+                if(this._bitmapData) this._bitmapData.destroy();
 
                 const graphic = new Graphics()
                     .beginFill(0xFFFFFF)
@@ -109,15 +109,15 @@ export class PlaneVisualizationLayer
             }
         }
 
-        if (bitmapData)
+        if(bitmapData)
         {
             bitmapData.tint = this._color;
 
-            if (canvas && (bitmapData !== canvas))
+            if(canvas && (bitmapData !== canvas))
             {
                 let texture = RoomVisualization.getTextureCache(bitmapData);
 
-                if (!texture)
+                if(!texture)
                 {
                     texture = TextureUtils.generateTexture(bitmapData, new Rectangle(0, 0, width, height));
 

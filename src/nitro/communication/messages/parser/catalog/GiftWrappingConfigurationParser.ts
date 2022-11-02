@@ -22,7 +22,7 @@ export class GiftWrappingConfigurationParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         const giftWrappers = [];
         const boxTypes = [];
@@ -36,7 +36,7 @@ export class GiftWrappingConfigurationParser implements IMessageParser
         let _local_3 = wrapper.readInt();
 
         let i = 0;
-        while (i < _local_3)
+        while(i < _local_3)
         {
             giftWrappers.push(wrapper.readInt());
             i++;
@@ -44,7 +44,7 @@ export class GiftWrappingConfigurationParser implements IMessageParser
 
         _local_3 = wrapper.readInt();
         i = 0;
-        while (i < _local_3)
+        while(i < _local_3)
         {
             boxTypes.push(wrapper.readInt());
             i++;
@@ -52,7 +52,7 @@ export class GiftWrappingConfigurationParser implements IMessageParser
 
         _local_3 = wrapper.readInt();
         i = 0;
-        while (i < _local_3)
+        while(i < _local_3)
         {
             ribbonTypes.push(wrapper.readInt());
             i++;
@@ -60,7 +60,7 @@ export class GiftWrappingConfigurationParser implements IMessageParser
 
         _local_3 = wrapper.readInt();
         i = 0;
-        while (i < _local_3)
+        while(i < _local_3)
         {
             giftFurnis.push(wrapper.readInt());
             i++;

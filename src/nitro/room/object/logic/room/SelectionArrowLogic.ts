@@ -6,7 +6,7 @@ export class SelectionArrowLogic extends RoomObjectLogicBase
 {
     public initialize(data: IAssetData): void
     {
-        if (!this.object) return;
+        if(!this.object) return;
 
         this.object.model.setValue(RoomObjectVariable.FURNITURE_ALPHA_MULTIPLIER, 1);
 
@@ -17,11 +17,11 @@ export class SelectionArrowLogic extends RoomObjectLogicBase
     {
         super.processUpdateMessage(message);
 
-        if (!(message instanceof ObjectVisibilityUpdateMessage)) return;
+        if(!(message instanceof ObjectVisibilityUpdateMessage)) return;
 
-        if (this.object)
+        if(this.object)
         {
-            switch (message.type)
+            switch(message.type)
             {
                 case ObjectVisibilityUpdateMessage.ENABLED:
                     this.object.setState(0, 0);

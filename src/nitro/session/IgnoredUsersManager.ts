@@ -17,24 +17,24 @@ export class IgnoredUsersManager implements IDisposable, IIgnoredUsersManager
 
     public init(): void
     {
-        if (this._sessionDataManager && this._sessionDataManager.communication)
+        if(this._sessionDataManager && this._sessionDataManager.communication)
         {
             this._messages = [
                 new IgnoredUsersEvent(this.onIgnoredUsersEvent.bind(this)),
                 new IgnoreResultEvent(this.onIgnoreResultEvent.bind(this))
             ];
 
-            for (const message of this._messages) this._sessionDataManager.communication.registerMessageEvent(message);
+            for(const message of this._messages) this._sessionDataManager.communication.registerMessageEvent(message);
         }
     }
 
     public dispose(): void
     {
-        if (this.disposed) return;
+        if(this.disposed) return;
 
-        if (this._messages && this._messages.length)
+        if(this._messages && this._messages.length)
         {
-            for (const message of this._messages) this._sessionDataManager.communication.removeMessageEvent(message);
+            for(const message of this._messages) this._sessionDataManager.communication.removeMessageEvent(message);
 
             this._messages = null;
         }
@@ -49,26 +49,26 @@ export class IgnoredUsersManager implements IDisposable, IIgnoredUsersManager
 
     private onIgnoredUsersEvent(event: IgnoredUsersEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         this._ignoredUsers = parser.ignoredUsers;
     }
 
     private onIgnoreResultEvent(event: IgnoreResultEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         const name = parser.name;
 
-        switch (parser.result)
+        switch(parser.result)
         {
             case 0:
                 return;
@@ -87,14 +87,14 @@ export class IgnoredUsersManager implements IDisposable, IIgnoredUsersManager
 
     private addUserToIgnoreList(name: string): void
     {
-        if (this._ignoredUsers.indexOf(name) < 0) this._ignoredUsers.push(name);
+        if(this._ignoredUsers.indexOf(name) < 0) this._ignoredUsers.push(name);
     }
 
     private removeUserFromIgnoreList(name: string): void
     {
         const index = this._ignoredUsers.indexOf(name);
 
-        if (index >= 0) this._ignoredUsers.splice(index, 1);
+        if(index >= 0) this._ignoredUsers.splice(index, 1);
     }
 
     public ignoreUserId(id: number): void

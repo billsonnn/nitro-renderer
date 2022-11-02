@@ -121,14 +121,14 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     {
         this.destroyFurnitureData();
 
-        if (this._ignoredUsersManager)
+        if(this._ignoredUsersManager)
         {
             this._ignoredUsersManager.dispose();
 
             this._ignoredUsersManager = null;
         }
 
-        if (this._groupInformationManager)
+        if(this._groupInformationManager)
         {
             this._groupInformationManager.dispose();
 
@@ -174,7 +174,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     private loadBadgeImageManager(): void
     {
-        if (this._badgeImageManager) return;
+        if(this._badgeImageManager) return;
 
         this._badgeImageManager = new BadgeImageManager(Nitro.instance.core.asset, this);
         this._badgeImageManager.init();
@@ -182,34 +182,34 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     public hasProductData(listener: IProductDataListener): boolean
     {
-        if (this._productsReady) return true;
+        if(this._productsReady) return true;
 
-        if (listener && (this._pendingProductListeners.indexOf(listener) === -1)) this._pendingProductListeners.push(listener);
+        if(listener && (this._pendingProductListeners.indexOf(listener) === -1)) this._pendingProductListeners.push(listener);
 
         return false;
     }
 
     public getAllFurnitureData(listener: IFurnitureDataListener): IFurnitureData[]
     {
-        if (!this._furnitureReady)
+        if(!this._furnitureReady)
         {
-            if (this._pendingFurnitureListeners.indexOf(listener) === -1) this._pendingFurnitureListeners.push(listener);
+            if(this._pendingFurnitureListeners.indexOf(listener) === -1) this._pendingFurnitureListeners.push(listener);
 
             return null;
         }
 
         const furnitureData: IFurnitureData[] = [];
 
-        for (const data of this._floorItems.values())
+        for(const data of this._floorItems.values())
         {
-            if (!data) continue;
+            if(!data) continue;
 
             furnitureData.push(data);
         }
 
-        for (const data of this._wallItems.values())
+        for(const data of this._wallItems.values())
         {
-            if (!data) continue;
+            if(!data) continue;
 
             furnitureData.push(data);
         }
@@ -219,18 +219,18 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     public removePendingFurniDataListener(listener: IFurnitureDataListener): void
     {
-        if (!this._pendingFurnitureListeners) return;
+        if(!this._pendingFurnitureListeners) return;
 
         const index = this._pendingFurnitureListeners.indexOf(listener);
 
-        if (index === -1) return;
+        if(index === -1) return;
 
         this._pendingFurnitureListeners.splice(index, 1);
     }
 
     private onUserFigureEvent(event: FigureUpdateEvent): void
     {
-        if (!event || !event.connection) return;
+        if(!event || !event.connection) return;
 
         this._figure = event.getParser().figure;
         this._gender = event.getParser().gender;
@@ -240,13 +240,13 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     private onUserInfoEvent(event: UserInfoEvent): void
     {
-        if (!event || !event.connection) return;
+        if(!event || !event.connection) return;
 
         this.resetUserInfo();
 
         const userInfo = event.getParser().userInfo;
 
-        if (!userInfo) return;
+        if(!userInfo) return;
 
         this._userId = userInfo.userId;
         this._name = userInfo.username;
@@ -263,7 +263,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     private onUserPermissionsEvent(event: UserPermissionsEvent): void
     {
-        if (!event || !event.connection) return;
+        if(!event || !event.connection) return;
 
         this._clubLevel = event.getParser().clubLevel;
         this._securityLevel = event.getParser().securityLevel;
@@ -272,11 +272,11 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     private onAvailabilityStatusMessageEvent(event: AvailabilityStatusMessageEvent): void
     {
-        if (!event || !event.connection) return;
+        if(!event || !event.connection) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         this._systemOpen = parser.isOpen;
         this._systemShutdown = parser.onShutdown;
@@ -285,13 +285,13 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     private onChangeNameUpdateEvent(event: ChangeUserNameResultMessageEvent): void
     {
-        if (!event || !event.connection) return;
+        if(!event || !event.connection) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
-        if (parser.resultCode !== ChangeUserNameResultMessageEvent.NAME_OK) return;
+        if(parser.resultCode !== ChangeUserNameResultMessageEvent.NAME_OK) return;
 
         this._canChangeName = false;
 
@@ -300,13 +300,13 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     private onUserNameChangeMessageEvent(event: UserNameChangeMessageEvent): void
     {
-        if (!event || !event.connection) return;
+        if(!event || !event.connection) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
-        if (parser.webId !== this.userId) return;
+        if(parser.webId !== this.userId) return;
 
         this._name = parser.newName;
         this._canChangeName = false;
@@ -316,11 +316,11 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     private onRoomModelNameEvent(event: RoomReadyMessageEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         HabboWebTools.roomVisited(parser.roomId);
     }
@@ -331,13 +331,13 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
         this._furnitureReady = true;
 
-        if (!this._furnitureListenersNotified)
+        if(!this._furnitureListenersNotified)
         {
             this._furnitureListenersNotified = true;
 
-            if (this._pendingFurnitureListeners && this._pendingFurnitureListeners.length)
+            if(this._pendingFurnitureListeners && this._pendingFurnitureListeners.length)
             {
-                for (const listener of this._pendingFurnitureListeners) listener && listener.loadFurnitureData();
+                for(const listener of this._pendingFurnitureListeners) listener && listener.loadFurnitureData();
             }
         }
 
@@ -350,29 +350,29 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
         this._productsReady = true;
 
-        for (const listener of this._pendingProductListeners) listener && listener.loadProductData();
+        for(const listener of this._pendingProductListeners) listener && listener.loadProductData();
 
         this._pendingProductListeners = [];
     }
 
     private onInClientLinkEvent(event: InClientLinkEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         Nitro.instance.createLinkEvent(parser.link);
     }
 
     private onMysteryBoxKeysEvent(event: MysteryBoxKeysEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
         const parser = event.getParser();
 
-        if (!parser) return;
+        if(!parser) return;
 
         this.events.dispatchEvent(new MysteryBoxKeysUpdateEvent(parser.boxColor, parser.keyColor));
     }
@@ -381,7 +381,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     {
         this._noobnessLevel = event.getParser().noobnessLevel;
 
-        if (this._noobnessLevel !== NoobnessLevelEnum.OLD_IDENTITY)
+        if(this._noobnessLevel !== NoobnessLevelEnum.OLD_IDENTITY)
         {
             Nitro.instance.core.configuration.setValue<number>('new.identity', 1);
         }
@@ -397,7 +397,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     private destroyFurnitureData(): void
     {
-        if (!this._furnitureData) return;
+        if(!this._furnitureData) return;
 
         this._furnitureData.dispose();
 
@@ -406,7 +406,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     private destroyProductData(): void
     {
-        if (!this._productData) return;
+        if(!this._productData) return;
 
         this._productData.dispose();
 
@@ -417,18 +417,18 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     {
         const existing = this._floorItems.get(id);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         return existing;
     }
 
     public getFloorItemDataByName(name: string): IFurnitureData
     {
-        if (!name || !this._floorItems || !this._floorItems.size) return null;
+        if(!name || !this._floorItems || !this._floorItems.size) return null;
 
-        for (const item of this._floorItems.values())
+        for(const item of this._floorItems.values())
         {
-            if (!item || (item.className !== name)) continue;
+            if(!item || (item.className !== name)) continue;
 
             return item;
         }
@@ -438,18 +438,18 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     {
         const existing = this._wallItems.get(id);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         return existing;
     }
 
     public getWallItemDataByName(name: string): IFurnitureData
     {
-        if (!name || !this._wallItems || !this._wallItems.size) return null;
+        if(!name || !this._wallItems || !this._wallItems.size) return null;
 
-        for (const item of this._wallItems.values())
+        for(const item of this._wallItems.values())
         {
-            if (!item || (item.className !== name)) continue;
+            if(!item || (item.className !== name)) continue;
 
             return item;
         }
@@ -457,7 +457,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     public getProductData(type: string): IProductData
     {
-        if (!this._productsReady) this.loadProductData();
+        if(!this._productsReady) this.loadProductData();
 
         return this._products.get(type);
     }
@@ -499,7 +499,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     public giveRespect(userId: number): void
     {
-        if ((userId < 0) || (this._respectsLeft <= 0)) return;
+        if((userId < 0) || (this._respectsLeft <= 0)) return;
 
         this.send(new UserRespectComposer(userId));
 
@@ -508,7 +508,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
     public givePetRespect(petId: number): void
     {
-        if ((petId < 0) || (this._respectsPetLeft <= 0)) return;
+        if((petId < 0) || (this._respectsPetLeft <= 0)) return;
 
         this.send(new PetRespectComposer(petId));
 

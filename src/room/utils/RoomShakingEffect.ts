@@ -26,13 +26,13 @@ export class RoomShakingEffect
 
     public static turnVisualizationOn(): void
     {
-        if ((this._SafeStr_448 === 0) || (this._SafeStr_448 === 3)) return;
+        if((this._SafeStr_448 === 0) || (this._SafeStr_448 === 3)) return;
 
-        if (!this._SafeStr_4524) this._SafeStr_4524 = setTimeout(() => this.turnVisualizationOff(), this._SafeStr_4516);
+        if(!this._SafeStr_4524) this._SafeStr_4524 = setTimeout(() => this.turnVisualizationOff(), this._SafeStr_4516);
 
         const _local_1 = (PixiApplicationProxy.instance.ticker.lastTime - this._SafeStr_4514);
 
-        if (_local_1 > (this._SafeStr_4515 + this._SafeStr_4516))
+        if(_local_1 > (this._SafeStr_4515 + this._SafeStr_4516))
         {
             this._SafeStr_448 = 3;
 
@@ -41,7 +41,7 @@ export class RoomShakingEffect
 
         this._SafeStr_4512 = true;
 
-        if (_local_1 < this._SafeStr_4515)
+        if(_local_1 < this._SafeStr_4515)
         {
             this._SafeStr_448 = 1;
 
@@ -68,7 +68,7 @@ export class RoomShakingEffect
 
     private static isRunning(): boolean
     {
-        if ((this._SafeStr_448 === 1) || (this._SafeStr_448 === 2)) return true;
+        if((this._SafeStr_448 === 1) || (this._SafeStr_448 === 2)) return true;
 
         return false;
     }

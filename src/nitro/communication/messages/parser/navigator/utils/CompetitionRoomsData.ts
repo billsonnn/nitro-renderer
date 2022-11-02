@@ -11,7 +11,7 @@ export class CompetitionRoomsData
         this._goalId = _arg_2;
         this._pageIndex = _arg_3;
 
-        if (k)
+        if(k)
         {
             this._goalId = k.readInt();
             this._pageIndex = k.readInt();

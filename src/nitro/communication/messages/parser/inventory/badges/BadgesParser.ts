@@ -18,7 +18,7 @@ export class BadgesParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._allBadgeCodes = [];
         this._activeBadgeCodes = new AdvancedMap();
@@ -26,7 +26,7 @@ export class BadgesParser implements IMessageParser
 
         let count = wrapper.readInt();
 
-        while (count > 0)
+        while(count > 0)
         {
             const badgeId = wrapper.readInt();
             const badgeCode = wrapper.readString();
@@ -40,7 +40,7 @@ export class BadgesParser implements IMessageParser
 
         count = wrapper.readInt();
 
-        while (count > 0)
+        while(count > 0)
         {
             const badgeSlot = wrapper.readInt();
             const badgeCode = wrapper.readString();

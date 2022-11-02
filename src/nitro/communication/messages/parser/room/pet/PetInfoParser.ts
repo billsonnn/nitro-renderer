@@ -40,7 +40,7 @@ export class PetInfoParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._id = wrapper.readInt();
         this._name = wrapper.readString();
@@ -62,7 +62,7 @@ export class PetInfoParser implements IMessageParser
 
         let total = wrapper.readInt();
 
-        while (total > 0)
+        while(total > 0)
         {
             this._skillThresholds.push(wrapper.readInt());
 

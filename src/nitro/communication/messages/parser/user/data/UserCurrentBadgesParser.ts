@@ -15,13 +15,13 @@ export class UserCurrentBadgesParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._userId = wrapper.readInt();
 
         let totalBadges = wrapper.readInt();
 
-        while (totalBadges > 0)
+        while(totalBadges > 0)
         {
             const slotId = wrapper.readInt();
             const badgeCode = wrapper.readString();

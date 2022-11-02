@@ -14,9 +14,9 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
     public initializeDimensions(k: number, _arg_2: number): boolean
     {
-        if (k < 0) k = 0;
+        if(k < 0) k = 0;
 
-        if (_arg_2 < 0) _arg_2 = 0;
+        if(_arg_2 < 0) _arg_2 = 0;
 
         this._landscapeWidth = k;
         this._landscapeHeight = _arg_2;
@@ -26,41 +26,41 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
     protected initializePlanes(): void
     {
-        if (!this.data) return;
+        if(!this.data) return;
 
         const landscapes = this.data.landscapes;
 
-        if (landscapes && landscapes.length) this.parseLandscapes(landscapes);
+        if(landscapes && landscapes.length) this.parseLandscapes(landscapes);
     }
 
     private parseLandscapes(k: any): void
     {
-        if (!k) return;
+        if(!k) return;
 
         const randomNumber = Math.trunc((Math.random() * 654321));
 
-        for (const landscapeIndex in k)
+        for(const landscapeIndex in k)
         {
             const landscape = k[landscapeIndex];
 
-            if (!landscape) continue;
+            if(!landscape) continue;
 
             const id = landscape.id;
             const visualizations = landscape.animatedVisualizations;
 
             const plane = new LandscapePlane();
 
-            for (const visualization of visualizations)
+            for(const visualization of visualizations)
             {
-                if (!visualization) continue;
+                if(!visualization) continue;
 
                 const size = visualization.size;
 
                 let horizontalAngle = LandscapePlane.HORIZONTAL_ANGLE_DEFAULT;
                 let verticalAngle = LandscapePlane.VERTICAL_ANGLE_DEFAULT;
 
-                if (visualization.horizontalAngle) horizontalAngle = visualization.horizontalAngle;
-                if (visualization.verticalAngle) verticalAngle = visualization.verticalAngle;
+                if(visualization.horizontalAngle) horizontalAngle = visualization.horizontalAngle;
+                if(visualization.verticalAngle) verticalAngle = visualization.verticalAngle;
 
                 const basicLayers = visualization.layers;
                 const animatedLayers = visualization.animationLayers;
@@ -70,39 +70,39 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
                 const planeVisualization = plane.createPlaneVisualization(size, (totalLayers || 0), this.getGeometry(size, horizontalAngle, verticalAngle));
 
-                if (planeVisualization)
+                if(planeVisualization)
                 {
                     Randomizer.setSeed(randomNumber);
 
                     let layerId = 0;
 
-                    if (totalBasicLayers)
+                    if(totalBasicLayers)
                     {
-                        while (layerId < basicLayers.length)
+                        while(layerId < basicLayers.length)
                         {
                             const layer = basicLayers[layerId];
 
-                            if (layer)
+                            if(layer)
                             {
                                 let material: PlaneMaterial = null;
                                 let align: number = PlaneVisualizationLayer.ALIGN_DEFAULT;
                                 let color: number = LandscapePlane.DEFAULT_COLOR;
                                 let offset: number = PlaneVisualizationLayer.DEFAULT_OFFSET;
 
-                                if (layer.materialId) material = this.getMaterial(layer.materialId);
+                                if(layer.materialId) material = this.getMaterial(layer.materialId);
 
-                                if (layer.color) color = layer.color;
+                                if(layer.color) color = layer.color;
 
-                                if (layer.offset) offset = layer.offset;
+                                if(layer.offset) offset = layer.offset;
 
-                                if (layer.align)
+                                if(layer.align)
                                 {
-                                    if (layer.align === 'bottom')
+                                    if(layer.align === 'bottom')
                                     {
                                         align = PlaneVisualizationLayer.ALIGN_BOTTOM;
                                     }
 
-                                    else if (layer.align === 'top') align = PlaneVisualizationLayer.ALIGN_TOP;
+                                    else if(layer.align === 'top') align = PlaneVisualizationLayer.ALIGN_TOP;
                                 }
 
                                 planeVisualization.setLayer(layerId, material, color, align, offset);
@@ -114,23 +114,23 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
                     layerId = 0;
 
-                    if (totalAnimatedLayers)
+                    if(totalAnimatedLayers)
                     {
                         const animationItems: {}[] = [];
 
-                        while (layerId < animatedLayers.length)
+                        while(layerId < animatedLayers.length)
                         {
                             const layer = animatedLayers[layerId];
 
-                            if (layer)
+                            if(layer)
                             {
                                 const items = layer.animationItems;
 
-                                if (items && items.length)
+                                if(items && items.length)
                                 {
-                                    for (const item of items)
+                                    for(const item of items)
                                     {
-                                        if (item)
+                                        if(item)
                                         {
                                             const id = item.id;
                                             const assetId = item.assetId;
@@ -159,7 +159,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
                 }
             }
 
-            if (!this.addPlane(id, plane)) plane.dispose();
+            if(!this.addPlane(id, plane)) plane.dispose();
         }
     }
 
@@ -167,9 +167,9 @@ export class LandscapeRasterizer extends PlaneRasterizer
     {
         let _local_3 = 0;
 
-        if ((k.length > 0))
+        if((k.length > 0))
         {
-            if (k.charAt((k.length - 1)) === '%')
+            if(k.charAt((k.length - 1)) === '%')
             {
                 k = k.substr(0, (k.length - 1));
 
@@ -177,13 +177,13 @@ export class LandscapeRasterizer extends PlaneRasterizer
             }
         }
 
-        if ((_arg_2.length > 0))
+        if((_arg_2.length > 0))
         {
             const _local_4 = 10000;
             const _local_5 = Randomizer.getValues(1, 0, _local_4);
             const _local_6 = (_local_5[0] / _local_4);
 
-            if (_arg_2.charAt((_arg_2.length - 1)) === '%')
+            if(_arg_2.charAt((_arg_2.length - 1)) === '%')
             {
                 _arg_2 = _arg_2.substr(0, (_arg_2.length - 1));
 
@@ -198,27 +198,27 @@ export class LandscapeRasterizer extends PlaneRasterizer
     {
         let plane = this.getPlane(id) as LandscapePlane;
 
-        if (!plane) plane = this.getPlane(LandscapeRasterizer.DEFAULT) as LandscapePlane;
+        if(!plane) plane = this.getPlane(LandscapeRasterizer.DEFAULT) as LandscapePlane;
 
-        if (!plane) return null;
+        if(!plane) return null;
 
-        if (canvas)
+        if(canvas)
         {
             canvas.clear();
         }
 
         let graphic = plane.render(canvas, width, height, scale, normal, useTexture, offsetX, offsetY, maxX, maxY, timeSinceStartMs);
 
-        if (graphic && (graphic !== canvas))
+        if(graphic && (graphic !== canvas))
         {
             graphic = graphic.clone();
 
-            if (!graphic) return null;
+            if(!graphic) return null;
         }
 
         let planeBitmapData: PlaneBitmapData = null;
 
-        if (!plane.isStatic(scale) && (LandscapeRasterizer.UPDATE_INTERVAL > 0))
+        if(!plane.isStatic(scale) && (LandscapeRasterizer.UPDATE_INTERVAL > 0))
         {
             planeBitmapData = new PlaneBitmapData(graphic, ((Math.round((timeSinceStartMs / LandscapeRasterizer.UPDATE_INTERVAL)) * LandscapeRasterizer.UPDATE_INTERVAL) + LandscapeRasterizer.UPDATE_INTERVAL));
         }
@@ -232,9 +232,9 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
     public getTextureIdentifier(k: number, _arg_2: IVector3D): string
     {
-        if (_arg_2)
+        if(_arg_2)
         {
-            if (_arg_2.x < 0) return (k + '_0');
+            if(_arg_2.x < 0) return (k + '_0');
 
             return (k + '_1');
         }

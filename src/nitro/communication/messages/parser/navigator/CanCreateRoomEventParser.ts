@@ -15,7 +15,7 @@ export class CanCreateRoomEventParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._canCreate = wrapper.readBoolean();
         this._errorCode = wrapper.readInt();

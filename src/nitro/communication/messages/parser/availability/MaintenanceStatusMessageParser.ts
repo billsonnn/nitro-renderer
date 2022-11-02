@@ -17,12 +17,12 @@ export class MaintenanceStatusMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._isInMaintenance = wrapper.readBoolean();
         this._minutesUntilMaintenance = wrapper.readInt();
 
-        if (wrapper.bytesAvailable)
+        if(wrapper.bytesAvailable)
         {
             this._duration = wrapper.readInt();
         }

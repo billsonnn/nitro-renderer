@@ -23,7 +23,7 @@ export class FurnitureScoreLogic extends FurnitureLogic
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void
     {
-        if (message instanceof ObjectDataUpdateMessage) return this.updateScore(message.state);
+        if(message instanceof ObjectDataUpdateMessage) return this.updateScore(message.state);
 
         super.processUpdateMessage(message);
     }
@@ -34,13 +34,13 @@ export class FurnitureScoreLogic extends FurnitureLogic
 
         const currentScore = this.object.getState(0);
 
-        if (this._score !== currentScore)
+        if(this._score !== currentScore)
         {
             let difference = (this._score - currentScore);
 
-            if (difference < 0) difference = -(difference);
+            if(difference < 0) difference = -(difference);
 
-            if ((difference * FurnitureScoreLogic.UPDATE_INTERVAL) > FurnitureScoreLogic.MAX_UPDATE_TIME) this._scoreIncreaser = (FurnitureScoreLogic.MAX_UPDATE_TIME / difference);
+            if((difference * FurnitureScoreLogic.UPDATE_INTERVAL) > FurnitureScoreLogic.MAX_UPDATE_TIME) this._scoreIncreaser = (FurnitureScoreLogic.MAX_UPDATE_TIME / difference);
             else this._scoreIncreaser = FurnitureScoreLogic.UPDATE_INTERVAL;
 
             this._scoreTimer = Nitro.instance.time;
@@ -53,15 +53,15 @@ export class FurnitureScoreLogic extends FurnitureLogic
 
         const currentScore = this.object.getState(0);
 
-        if ((currentScore !== this._score) && (time >= (this._scoreTimer + this._scoreIncreaser)))
+        if((currentScore !== this._score) && (time >= (this._scoreTimer + this._scoreIncreaser)))
         {
             const _local_3 = (time - this._scoreTimer);
             let _local_4 = (_local_3 / this._scoreIncreaser);
             let _local_5 = 1;
 
-            if (this._score < currentScore) _local_5 = -1;
+            if(this._score < currentScore) _local_5 = -1;
 
-            if (_local_4 > (_local_5 * (this._score - currentScore))) _local_4 = (_local_5 * (this._score - currentScore));
+            if(_local_4 > (_local_5 * (this._score - currentScore))) _local_4 = (_local_5 * (this._score - currentScore));
 
             this.object.setState((currentScore + (_local_5 * _local_4)), 0);
 

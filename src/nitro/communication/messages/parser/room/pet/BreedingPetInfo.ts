@@ -10,7 +10,7 @@ export class BreedingPetInfo
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if (!wrapper) throw new Error('invalid_wrapper');
+        if(!wrapper) throw new Error('invalid_wrapper');
 
         this._webId = wrapper.readInt();
         this._name = wrapper.readString();

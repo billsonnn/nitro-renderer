@@ -27,50 +27,50 @@ export class RoomVisualizationData extends Disposable implements IObjectVisualiz
         //@ts-ignore
         const wallData = asset.wallData;
 
-        if (wallData) this._wallRasterizer.initialize(wallData);
+        if(wallData) this._wallRasterizer.initialize(wallData);
 
         //@ts-ignore
         const floorData = asset.floorData;
 
-        if (floorData) this._floorRasterizer.initialize(floorData);
+        if(floorData) this._floorRasterizer.initialize(floorData);
 
         //@ts-ignore
         const landscapeData = asset.landscapeData;
 
-        if (landscapeData) this._landscapeRasterizer.initialize(landscapeData);
+        if(landscapeData) this._landscapeRasterizer.initialize(landscapeData);
 
         //@ts-ignore
         const maskData = asset.maskData;
 
-        if (maskData) this._maskManager.initialize(maskData);
+        if(maskData) this._maskManager.initialize(maskData);
 
         return true;
     }
 
     protected onDispose(): void
     {
-        if (this._wallRasterizer)
+        if(this._wallRasterizer)
         {
             this._wallRasterizer.dispose();
 
             this._wallRasterizer = null;
         }
 
-        if (this._floorRasterizer)
+        if(this._floorRasterizer)
         {
             this._floorRasterizer.dispose();
 
             this._floorRasterizer = null;
         }
 
-        if (this._landscapeRasterizer)
+        if(this._landscapeRasterizer)
         {
             this._landscapeRasterizer.dispose();
 
             this._landscapeRasterizer = null;
         }
 
-        if (this._maskManager)
+        if(this._maskManager)
         {
             this._maskManager.dispose();
 
@@ -82,7 +82,7 @@ export class RoomVisualizationData extends Disposable implements IObjectVisualiz
 
     public setGraphicAssetCollection(collection: IGraphicAssetCollection): void
     {
-        if (this._initialized) return;
+        if(this._initialized) return;
 
         this._wallRasterizer.initializeAssetCollection(collection);
         this._floorRasterizer.initializeAssetCollection(collection);
@@ -94,11 +94,11 @@ export class RoomVisualizationData extends Disposable implements IObjectVisualiz
 
     public clearCache(): void
     {
-        if (this._wallRasterizer) this._wallRasterizer.clearCache();
+        if(this._wallRasterizer) this._wallRasterizer.clearCache();
 
-        if (this._floorRasterizer) this._floorRasterizer.clearCache();
+        if(this._floorRasterizer) this._floorRasterizer.clearCache();
 
-        if (this._landscapeRasterizer) this._landscapeRasterizer.clearCache();
+        if(this._landscapeRasterizer) this._landscapeRasterizer.clearCache();
     }
 
     public get wallRasterizer(): WallRasterizer

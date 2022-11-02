@@ -13,7 +13,7 @@ export class AchievementsScoreParser implements IMessageParser
 
     public parse(k: IMessageDataWrapper): boolean
     {
-        if (!k) return false;
+        if(!k) return false;
 
         this._score = k.readInt();
 

@@ -49,11 +49,11 @@ export class FurnitureParticleSystemParticle
     {
         this._age++;
 
-        if (this._age === this._lifeTime) this.ignite();
+        if(this._age === this._lifeTime) this.ignite();
 
-        if (this._fade)
+        if(this._fade)
         {
-            if ((this._age / this._lifeTime) > this._fadeTime)
+            if((this._age / this._lifeTime) > this._fadeTime)
             {
                 this._alphaMultiplier = ((this._lifeTime - this._age) / (this._lifeTime * (1 - this._fadeTime)));
             }
@@ -62,7 +62,7 @@ export class FurnitureParticleSystemParticle
 
     public getAsset(): IGraphicAsset
     {
-        if (((this._frames) && (this._frames.length > 0)))
+        if(((this._frames) && (this._frames.length > 0)))
         {
             return this._frames[(this._age % this._frames.length)];
         }

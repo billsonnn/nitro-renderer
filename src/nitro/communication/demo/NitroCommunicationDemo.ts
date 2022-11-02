@@ -34,7 +34,7 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
     {
         const connection = this._communication.connection;
 
-        if (connection)
+        if(connection)
         {
             connection.addEventListener(SocketConnectionEvent.CONNECTION_OPENED, this.onConnectionOpenedEvent);
             connection.addEventListener(SocketConnectionEvent.CONNECTION_CLOSED, this.onConnectionClosedEvent);
@@ -49,7 +49,7 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
     {
         const connection = this._communication.connection;
 
-        if (connection)
+        if(connection)
         {
             connection.removeEventListener(SocketConnectionEvent.CONNECTION_OPENED, this.onConnectionOpenedEvent);
             connection.removeEventListener(SocketConnectionEvent.CONNECTION_CLOSED, this.onConnectionClosedEvent);
@@ -67,13 +67,13 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
     {
         const connection = this._communication.connection;
 
-        if (!connection) return;
+        if(!connection) return;
 
         this._didConnect = true;
 
         this.dispatchCommunicationDemoEvent(NitroCommunicationDemoEvent.CONNECTION_ESTABLISHED, connection);
 
-        if (Nitro.instance.getConfiguration<boolean>('system.pong.manually', false)) this.startPonging();
+        if(Nitro.instance.getConfiguration<boolean>('system.pong.manually', false)) this.startPonging();
 
         this.startHandshake(connection);
 
@@ -86,18 +86,18 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
     {
         const connection = this._communication.connection;
 
-        if (!connection) return;
+        if(!connection) return;
 
         this.stopPonging();
 
-        if (this._didConnect) this.dispatchCommunicationDemoEvent(NitroCommunicationDemoEvent.CONNECTION_CLOSED, connection);
+        if(this._didConnect) this.dispatchCommunicationDemoEvent(NitroCommunicationDemoEvent.CONNECTION_CLOSED, connection);
     }
 
     private onConnectionErrorEvent(event: CloseEvent): void
     {
         const connection = this._communication.connection;
 
-        if (!connection) return;
+        if(!connection) return;
 
         this.stopPonging();
 
@@ -106,9 +106,9 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
 
     private tryAuthentication(connection: IConnection): void
     {
-        if (!connection || !this.getSSO())
+        if(!connection || !this.getSSO())
         {
-            if (!this.getSSO())
+            if(!this.getSSO())
             {
                 this.logger.error('Login without an SSO ticket is not supported');
             }
@@ -123,14 +123,14 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
 
     private onClientPingEvent(event: ClientPingEvent): void
     {
-        if (!event || !event.connection) return;
+        if(!event || !event.connection) return;
 
         this.sendPong(event.connection);
     }
 
     private onAuthenticatedEvent(event: AuthenticatedEvent): void
     {
-        if (!event || !event.connection) return;
+        if(!event || !event.connection) return;
 
         this.completeHandshake(event.connection);
 
@@ -162,7 +162,7 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
 
     private stopPonging(): void
     {
-        if (!this._pongInterval) return;
+        if(!this._pongInterval) return;
 
         clearInterval(this._pongInterval);
 
@@ -173,7 +173,7 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
     {
         connection = ((connection || this._communication.connection) || null);
 
-        if (!connection) return;
+        if(!connection) return;
 
         connection.send(new PongMessageComposer());
     }

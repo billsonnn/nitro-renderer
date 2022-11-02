@@ -15,11 +15,11 @@ export class ObjectsDataUpdateParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         let totalObjects = wrapper.readInt();
 
-        while (totalObjects > 0)
+        while(totalObjects > 0)
         {
             const id = wrapper.readInt();
             const stuffData = FurnitureDataParser.parseObjectData(wrapper);

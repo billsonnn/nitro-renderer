@@ -15,7 +15,7 @@ export class FurnitureGiftWrappedVisualization extends FurnitureVisualization
 
     private updatePresentWrap(): void
     {
-        if (!this.object) return;
+        if(!this.object) return;
 
         const extras = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_EXTRAS);
 
@@ -28,7 +28,7 @@ export class FurnitureGiftWrappedVisualization extends FurnitureVisualization
 
     public getFrameNumber(scale: number, layerId: number): number
     {
-        if (layerId <= 1) return this._packetType;
+        if(layerId <= 1) return this._packetType;
 
         return this._ribbonType;
     }
@@ -40,7 +40,7 @@ export class FurnitureGiftWrappedVisualization extends FurnitureVisualization
         let assetName = this._type;
         let layerCode = '';
 
-        if (layerId < (this.spriteCount - 1))
+        if(layerId < (this.spriteCount - 1))
         {
             layerCode = String.fromCharCode(('a'.charCodeAt(0) + layerId));
         }

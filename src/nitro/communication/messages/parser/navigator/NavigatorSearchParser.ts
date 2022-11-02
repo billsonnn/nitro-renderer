@@ -14,7 +14,7 @@ export class NavigatorSearchParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._result = new NavigatorSearchResultSet(wrapper);
 

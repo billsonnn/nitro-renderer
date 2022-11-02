@@ -7,7 +7,7 @@ export class ObjectDataFactory
     {
         let objectData: IObjectData = null;
 
-        switch (flags & 0xFF)
+        switch(flags & 0xFF)
         {
             case CrackableDataType.FORMAT_KEY:
                 objectData = new CrackableDataType();
@@ -35,7 +35,7 @@ export class ObjectDataFactory
                 break;
         }
 
-        if (!objectData) return null;
+        if(!objectData) return null;
 
         objectData.flags = (flags & 0xFF00);
 

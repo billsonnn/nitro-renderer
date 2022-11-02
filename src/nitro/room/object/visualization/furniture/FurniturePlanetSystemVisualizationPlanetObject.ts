@@ -29,7 +29,7 @@ export class FurniturePlanetSystemVisualizationPlanetObject
 
     public dispose(): void
     {
-        while (this._children.length > 0)
+        while(this._children.length > 0)
         {
             const child = this._children.shift();
 
@@ -43,7 +43,7 @@ export class FurniturePlanetSystemVisualizationPlanetObject
 
         offsets[this._index] = this.getPositionVector(rootPosition, scale);
 
-        for (const child of this._children) child.update(offsets, this._positionVector, scale);
+        for(const child of this._children) child.update(offsets, this._positionVector, scale);
     }
 
     public getPositionVector(position: Vector3d, scale: number): Vector3d
@@ -55,14 +55,14 @@ export class FurniturePlanetSystemVisualizationPlanetObject
         this._positionVector.y = ((((sine + cos) * (scale / 2)) * 0.5) - (this._height * (scale / 2)));
         this._positionVector.z = -(Math.trunc(((4 * (cos + sine)) - 0.7)));
 
-        if (position) this._positionVector.add(position);
+        if(position) this._positionVector.add(position);
 
         return this._positionVector;
     }
 
     public addChild(planetObject: FurniturePlanetSystemVisualizationPlanetObject): void
     {
-        if (this._children.indexOf(planetObject) >= 0) return;
+        if(this._children.indexOf(planetObject) >= 0) return;
 
         this._children.push(planetObject);
     }
@@ -74,11 +74,11 @@ export class FurniturePlanetSystemVisualizationPlanetObject
 
     public getChild(name: string): FurniturePlanetSystemVisualizationPlanetObject
     {
-        for (const child of this._children)
+        for(const child of this._children)
         {
-            if (child.name === name) return child;
+            if(child.name === name) return child;
 
-            if (child.hasChild(name)) return child.getChild(name);
+            if(child.hasChild(name)) return child.getChild(name);
         }
 
         return null;

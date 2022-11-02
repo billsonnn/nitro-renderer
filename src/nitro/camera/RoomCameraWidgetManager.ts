@@ -22,20 +22,20 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
 
     public init(): void
     {
-        if (this._isLoaded) return;
+        if(this._isLoaded) return;
 
         this._isLoaded = true;
 
         const imagesUrl = Nitro.instance.getConfiguration<string>('image.library.url') + 'Habbo-Stories/';
         const effects = Nitro.instance.getConfiguration<{ name: string, colorMatrix?: ColorMatrix, minLevel: number, blendMode?: number, enabled: boolean }[]>('camera.available.effects');
 
-        for (const effect of effects)
+        for(const effect of effects)
         {
-            if (!effect.enabled) continue;
+            if(!effect.enabled) continue;
 
             const cameraEffect = new RoomCameraWidgetEffect(effect.name, effect.minLevel);
 
-            if (effect.colorMatrix.length)
+            if(effect.colorMatrix.length)
             {
                 cameraEffect.colorMatrix = effect.colorMatrix;
             }
@@ -58,22 +58,22 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
 
         container.addChild(sprite);
 
-        if (isZoomed) sprite.scale.set(2);
+        if(isZoomed) sprite.scale.set(2);
 
-        for (const selectedEffect of selectedEffects)
+        for(const selectedEffect of selectedEffects)
         {
             const effect = selectedEffect.effect;
 
-            if (!effect) continue;
+            if(!effect) continue;
 
-            if (effect.colorMatrix)
+            if(effect.colorMatrix)
             {
                 const filter = new ColorMatrixFilter();
 
                 filter.matrix = effect.colorMatrix;
                 filter.alpha = selectedEffect.alpha;
 
-                if (!sprite.filters) sprite.filters = [];
+                if(!sprite.filters) sprite.filters = [];
 
                 sprite.filters.push(filter);
             }

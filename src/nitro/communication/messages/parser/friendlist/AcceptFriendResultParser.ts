@@ -14,11 +14,11 @@ export class AcceptFriendResultParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         let totalFailures = wrapper.readInt();
 
-        while (totalFailures > 0)
+        while(totalFailures > 0)
         {
             this._failuers.push(new AcceptFriendFailerData(wrapper));
 

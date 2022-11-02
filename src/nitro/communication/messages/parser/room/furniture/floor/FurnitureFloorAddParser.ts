@@ -14,7 +14,7 @@ export class FurnitureFloorAddParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._item = new FurnitureFloorDataParser(wrapper);
         this._item.username = wrapper.readString();

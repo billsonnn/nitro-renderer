@@ -24,14 +24,14 @@ export class NitroCore extends Disposable implements INitroCore
 
     protected onDispose(): void
     {
-        if (this._asset)
+        if(this._asset)
         {
             this._asset.dispose();
 
             this._asset = null;
         }
 
-        if (this._communication)
+        if(this._communication)
         {
             this._communication.dispose();
 

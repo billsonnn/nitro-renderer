@@ -22,7 +22,7 @@ export class ThreadMessagesMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._groupId = wrapper.readInt();
         this._threadId = wrapper.readInt();
@@ -32,7 +32,7 @@ export class ThreadMessagesMessageParser implements IMessageParser
 
         let i = 0;
 
-        while (i < this._amount)
+        while(i < this._amount)
         {
             const message = MessageData.parse(wrapper);
 

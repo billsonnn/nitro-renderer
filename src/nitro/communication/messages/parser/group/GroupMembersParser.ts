@@ -34,7 +34,7 @@ export class GroupMembersParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._groupId = wrapper.readInt();
         this._groupTitle = wrapper.readString();
@@ -44,7 +44,7 @@ export class GroupMembersParser implements IMessageParser
 
         let resultCount = wrapper.readInt();
 
-        while (resultCount > 0)
+        while(resultCount > 0)
         {
             this._result.push(new GroupMemberParser(wrapper));
 

@@ -15,9 +15,9 @@ export class PlaneMaskVisualization
 
     public dispose(): void
     {
-        for (const mask of this._bitmaps)
+        for(const mask of this._bitmaps)
         {
-            if (!mask) continue;
+            if(!mask) continue;
 
             mask.dispose();
         }
@@ -32,13 +32,13 @@ export class PlaneMaskVisualization
 
     public getAsset(k: IVector3D): IGraphicAsset
     {
-        if (!k) return null;
+        if(!k) return null;
 
-        for (const mask of this._bitmaps)
+        for(const mask of this._bitmaps)
         {
-            if (!mask) continue;
+            if(!mask) continue;
 
-            if ((((k.x >= mask.normalMinX) && (k.x <= mask.normalMaxX)) && (k.y >= mask.normalMinY)) && (k.y <= mask.normalMaxY))
+            if((((k.x >= mask.normalMinX) && (k.x <= mask.normalMaxX)) && (k.y >= mask.normalMinY)) && (k.y <= mask.normalMaxY))
             {
                 return mask.asset;
             }

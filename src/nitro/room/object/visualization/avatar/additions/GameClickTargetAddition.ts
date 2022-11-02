@@ -29,9 +29,9 @@ export class GameClickTargetAddition implements IAvatarAddition
 
     public update(sprite: IRoomObjectSprite, scale: number): void
     {
-        if (!sprite) return;
+        if(!sprite) return;
 
-        if (!this._asset)
+        if(!this._asset)
         {
             const newSprite = new Sprite(Texture.WHITE);
 

@@ -18,7 +18,7 @@ export class RoomPlaneBitmapMaskParser
 
     public dispose(): void
     {
-        if (this._masks)
+        if(this._masks)
         {
             this.reset();
 
@@ -28,19 +28,19 @@ export class RoomPlaneBitmapMaskParser
 
     public initialize(k: RoomMapMaskData): boolean
     {
-        if (!k) return false;
+        if(!k) return false;
 
         this._masks.clear();
 
-        if (k.masks.length)
+        if(k.masks.length)
         {
-            for (const mask of k.masks)
+            for(const mask of k.masks)
             {
-                if (!mask) continue;
+                if(!mask) continue;
 
                 const location = mask.locations.length ? mask.locations[0] : null;
 
-                if (!location) continue;
+                if(!location) continue;
 
                 this._masks.set(mask.id, new RoomPlaneBitmapMaskData(mask.type, location, mask.category));
             }
@@ -51,9 +51,9 @@ export class RoomPlaneBitmapMaskParser
 
     public reset(): void
     {
-        for (const mask of this._masks.values())
+        for(const mask of this._masks.values())
         {
-            if (!mask) continue;
+            if(!mask) continue;
 
             mask.dispose();
         }
@@ -73,7 +73,7 @@ export class RoomPlaneBitmapMaskParser
     {
         const existing = this._masks.get(k);
 
-        if (existing)
+        if(existing)
         {
             this._masks.delete(k);
 
@@ -89,15 +89,15 @@ export class RoomPlaneBitmapMaskParser
     {
         const data = new RoomMapMaskData();
 
-        for (const [key, mask] of this._masks.entries())
+        for(const [key, mask] of this._masks.entries())
         {
-            if (!mask) continue;
+            if(!mask) continue;
 
             const type = this.getMaskType(mask);
             const category = this.getMaskCategory(mask);
             const location = this.getMaskLocation(mask);
 
-            if (type && category && location)
+            if(type && category && location)
             {
                 const newMask: any = {
                     id: key,
@@ -121,21 +121,21 @@ export class RoomPlaneBitmapMaskParser
 
     public getMaskLocation(mask: RoomPlaneBitmapMaskData): IVector3D
     {
-        if (!mask) return null;
+        if(!mask) return null;
 
         return mask.loc;
     }
 
     public getMaskType(mask: RoomPlaneBitmapMaskData): string
     {
-        if (!mask) return null;
+        if(!mask) return null;
 
         return mask.type;
     }
 
     public getMaskCategory(mask: RoomPlaneBitmapMaskData): string
     {
-        if (!mask) return null;
+        if(!mask) return null;
 
         return mask.category;
     }

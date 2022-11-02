@@ -12,7 +12,7 @@ export class ConvertedRoomIdMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._globalId = wrapper.readString();
         this._convertedId = wrapper.readInt();

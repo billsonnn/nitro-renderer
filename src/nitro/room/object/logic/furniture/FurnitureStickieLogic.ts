@@ -24,14 +24,14 @@ export class FurnitureStickieLogic extends FurnitureLogic
 
         this.updateColor();
 
-        if (this.object) this.object.model.setValue(RoomObjectVariable.FURNITURE_IS_STICKIE, '');
+        if(this.object) this.object.model.setValue(RoomObjectVariable.FURNITURE_IS_STICKIE, '');
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void
     {
         super.processUpdateMessage(message);
 
-        if (message instanceof ObjectItemDataUpdateMessage)
+        if(message instanceof ObjectItemDataUpdateMessage)
         {
             this.eventDispatcher && this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.STICKIE, this.object));
         }
@@ -41,20 +41,20 @@ export class FurnitureStickieLogic extends FurnitureLogic
 
     protected updateColor(): void
     {
-        if (!this.object) return;
+        if(!this.object) return;
 
         const furnitureData = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_DATA);
 
         let colorIndex = FurnitureStickieLogic.STICKIE_COLORS.indexOf(furnitureData);
 
-        if (colorIndex < 0) colorIndex = 3;
+        if(colorIndex < 0) colorIndex = 3;
 
         this.object.model.setValue(RoomObjectVariable.FURNITURE_COLOR, (colorIndex + 1));
     }
 
     public useObject(): void
     {
-        if (!this.object || !this.eventDispatcher) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.STICKIE, this.object));
     }

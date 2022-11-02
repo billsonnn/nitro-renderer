@@ -15,7 +15,7 @@ export class CanCreateRoomMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._resultCode = wrapper.readInt();
         this._roomLimit = wrapper.readInt();

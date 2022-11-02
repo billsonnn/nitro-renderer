@@ -33,7 +33,7 @@ export class SanctionStatusMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._isSanctionNew = wrapper.readBoolean();
         this._isSanctionActive = wrapper.readBoolean();
@@ -52,7 +52,7 @@ export class SanctionStatusMessageParser implements IMessageParser
 
         this._hasCustomMute = wrapper.readBoolean();
 
-        if (wrapper.bytesAvailable) this._tradeLockExpiryTime = wrapper.readString();
+        if(wrapper.bytesAvailable) this._tradeLockExpiryTime = wrapper.readString();
 
         return true;
     }

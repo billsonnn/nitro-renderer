@@ -17,7 +17,7 @@ export class InstantMessageErrorParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._errorCode = wrapper.readInt();
         this._userId = wrapper.readInt();

@@ -16,11 +16,11 @@ export class PlaneTexture
 
     public dispose(): void
     {
-        if (this._bitmaps)
+        if(this._bitmaps)
         {
-            for (const bitmap of this._bitmaps)
+            for(const bitmap of this._bitmaps)
             {
-                if (!bitmap) continue;
+                if(!bitmap) continue;
 
                 bitmap.dispose();
             }
@@ -38,20 +38,20 @@ export class PlaneTexture
     {
         const _local_2 = this.getPlaneTextureBitmap(k);
 
-        if (!_local_2) return null;
+        if(!_local_2) return null;
 
         return _local_2.bitmap;
     }
 
     public getPlaneTextureBitmap(k: IVector3D): PlaneTextureBitmap
     {
-        if (!k) return null;
+        if(!k) return null;
 
-        for (const bitmap of this._bitmaps)
+        for(const bitmap of this._bitmaps)
         {
-            if (!bitmap) continue;
+            if(!bitmap) continue;
 
-            if ((((k.x >= bitmap.normalMinX) && (k.x <= bitmap.normalMaxX)) && (k.y >= bitmap.normalMinY)) && (k.y <= bitmap.normalMaxY)) return bitmap;
+            if((((k.x >= bitmap.normalMinX) && (k.x <= bitmap.normalMaxX)) && (k.y >= bitmap.normalMinY)) && (k.y <= bitmap.normalMaxY)) return bitmap;
         }
 
         return null;

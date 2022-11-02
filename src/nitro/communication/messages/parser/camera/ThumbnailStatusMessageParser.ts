@@ -14,9 +14,9 @@ export class ThumbnailStatusMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
-        if (wrapper.bytesAvailable)
+        if(wrapper.bytesAvailable)
         {
             this._ok = wrapper.readBoolean();
             this._renderLimitHit = wrapper.readBoolean();

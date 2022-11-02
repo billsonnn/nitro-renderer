@@ -13,7 +13,7 @@ export class EmptyDataType extends ObjectDataBase implements IObjectData
 
     public parseWrapper(wrapper: IMessageDataWrapper): void
     {
-        if (!wrapper) return;
+        if(!wrapper) return;
 
         this._state = '';
 

@@ -12,7 +12,7 @@ export class NodeData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if (!wrapper) throw new Error('invalid_wrapper');
+        if(!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -33,7 +33,7 @@ export class NodeData
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._visible = wrapper.readBoolean();
         this._icon = wrapper.readInt();
@@ -43,7 +43,7 @@ export class NodeData
 
         let totalOffers = wrapper.readInt();
 
-        while (totalOffers > 0)
+        while(totalOffers > 0)
         {
             this._offerIds.push(wrapper.readInt());
 
@@ -52,7 +52,7 @@ export class NodeData
 
         let totalChildren = wrapper.readInt();
 
-        while (totalChildren > 0)
+        while(totalChildren > 0)
         {
             this._children.push(new NodeData(wrapper));
 

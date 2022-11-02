@@ -32,7 +32,7 @@ export class QuestionParser implements IMessageParser
 
         this._question = { id: questionId, number: questionNumber, type: questionType, content: questionContent };
 
-        if (((this._question.type == 1) || (this._question.type == 2)))
+        if(((this._question.type == 1) || (this._question.type == 2)))
         {
             this._question.selection_min = wrapper.readInt();
             const count = wrapper.readInt();
@@ -41,7 +41,7 @@ export class QuestionParser implements IMessageParser
             this._question.selection_count = count;
             this._question.selection_max = count;
 
-            for (let i = 0; i < count; i++)
+            for(let i = 0; i < count; i++)
             {
                 this._question.selection_values.push(wrapper.readString());
                 this._question.selections.push(wrapper.readString());

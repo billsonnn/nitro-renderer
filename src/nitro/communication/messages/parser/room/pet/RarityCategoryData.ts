@@ -7,14 +7,14 @@ export class RarityCategoryData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if (!wrapper) throw new Error('invalid_wrapper');
+        if(!wrapper) throw new Error('invalid_wrapper');
 
         this._chance = wrapper.readInt();
         this._breeds = [];
 
         let totalCount = wrapper.readInt();
 
-        while (totalCount > 0)
+        while(totalCount > 0)
         {
             this._breeds.push(wrapper.readInt());
 

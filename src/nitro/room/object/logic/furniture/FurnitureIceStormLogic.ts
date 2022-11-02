@@ -19,7 +19,7 @@ export class FurnitureIceStormLogic extends FurnitureMultiStateLogic
 
     public update(totalTimeRunning: number): void
     {
-        if ((this._nextStateTimestamp > 0) && (totalTimeRunning >= this._nextStateTimestamp))
+        if((this._nextStateTimestamp > 0) && (totalTimeRunning >= this._nextStateTimestamp))
         {
             this._nextStateTimestamp = 0;
 
@@ -35,7 +35,7 @@ export class FurnitureIceStormLogic extends FurnitureMultiStateLogic
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void
     {
-        if (message instanceof ObjectDataUpdateMessage)
+        if(message instanceof ObjectDataUpdateMessage)
         {
             this.processUpdate(message);
 
@@ -47,12 +47,12 @@ export class FurnitureIceStormLogic extends FurnitureMultiStateLogic
 
     private processUpdate(message: ObjectDataUpdateMessage): void
     {
-        if (!message) return;
+        if(!message) return;
 
         const state = ~~(message.state / 1000);
         const time = ~~(message.state % 1000);
 
-        if (!time)
+        if(!time)
         {
             this._nextStateTimestamp = 0;
 

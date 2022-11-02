@@ -13,19 +13,19 @@ export class ConfirmBreedingRequestParser implements IMessageParser
     {
         this._nestId = 0;
 
-        if (this._pet1)
+        if(this._pet1)
         {
             this._pet1.dispose();
             this._pet1 = null;
         }
 
-        if (this._pet2)
+        if(this._pet2)
         {
             this._pet2.dispose();
             this._pet2 = null;
         }
 
-        for (const k of this._rarityCategories) k && k.dispose();
+        for(const k of this._rarityCategories) k && k.dispose();
 
         this._rarityCategories = [];
 
@@ -34,7 +34,7 @@ export class ConfirmBreedingRequestParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._nestId = wrapper.readInt();
         this._pet1 = new BreedingPetInfo(wrapper);
@@ -42,7 +42,7 @@ export class ConfirmBreedingRequestParser implements IMessageParser
 
         let totalCount = wrapper.readInt();
 
-        while (totalCount > 0)
+        while(totalCount > 0)
         {
             this._rarityCategories.push(new RarityCategoryData(wrapper));
 

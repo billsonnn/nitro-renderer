@@ -46,7 +46,7 @@ export class RoomWallData
 
     public addWall(k: Point, _arg_2: number, _arg_3: number, _arg_4: boolean, _arg_5: boolean): void
     {
-        if (((this._addDuplicates) || (this.checkIsNotDuplicate(k, _arg_2, _arg_3, _arg_4, _arg_5))))
+        if(((this._addDuplicates) || (this.checkIsNotDuplicate(k, _arg_2, _arg_3, _arg_4, _arg_5))))
         {
             this._corners.push(k);
             this._directions.push(_arg_2);
@@ -64,9 +64,9 @@ export class RoomWallData
     {
         let _local_6 = 0;
 
-        while (_local_6 < this._count)
+        while(_local_6 < this._count)
         {
-            if (((((((this._corners[_local_6].x == k.x) && (this._corners[_local_6].y == k.y)) && (this._directions[_local_6] == _arg_2)) && (this._lengths[_local_6] == _arg_3)) && (this._borders[_local_6] == _arg_4)) && (this._leftTurns[_local_6] == _arg_5)))
+            if(((((((this._corners[_local_6].x == k.x) && (this._corners[_local_6].y == k.y)) && (this._directions[_local_6] == _arg_2)) && (this._lengths[_local_6] == _arg_3)) && (this._borders[_local_6] == _arg_4)) && (this._leftTurns[_local_6] == _arg_5)))
             {
                 return false;
             }
@@ -133,7 +133,7 @@ export class RoomWallData
 
     public setLength(k: number, _arg_2: number): void
     {
-        if (_arg_2 < this._lengths[k])
+        if(_arg_2 < this._lengths[k])
         {
             this._lengths[k] = _arg_2;
             this._manuallyRightCut[k] = true;
@@ -143,7 +143,7 @@ export class RoomWallData
     public moveCorner(k: number, _arg_2: number): void
     {
         let _local_3: IVector3D;
-        if (((_arg_2 > 0) && (_arg_2 < this._lengths[k])))
+        if(((_arg_2 > 0) && (_arg_2 < this._lengths[k])))
         {
             const corner = this._corners[k];
 
@@ -161,11 +161,11 @@ export class RoomWallData
         let _local_3: Point;
         let _local_4: IVector3D;
         let _local_5: number;
-        if (this._endPoints.length != this.count)
+        if(this._endPoints.length != this.count)
         {
             this._endPoints = [];
             k = 0;
-            while (k < this.count)
+            while(k < this.count)
             {
                 _local_2 = this.getCorner(k);
                 _local_3 = new Point(_local_2.x, _local_2.y);

@@ -15,7 +15,7 @@ export class RoomInviteParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._senderId = wrapper.readInt();
         this._messageText = wrapper.readString();

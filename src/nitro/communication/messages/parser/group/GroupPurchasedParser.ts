@@ -15,7 +15,7 @@ export class GroupPurchasedParser implements IMessageParser
 
     parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._roomId = wrapper.readInt();
         this._groupId = wrapper.readInt();

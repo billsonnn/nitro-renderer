@@ -22,11 +22,11 @@ export class PlaneVisualization
         this._isCached = false;
         this._hasAnimationLayers = false;
 
-        if (totalLayers < 0) totalLayers = 0;
+        if(totalLayers < 0) totalLayers = 0;
 
         let index = 0;
 
-        while (index < totalLayers)
+        while(index < totalLayers)
         {
             this._layers.push(null);
 
@@ -46,11 +46,11 @@ export class PlaneVisualization
 
     public dispose(): void
     {
-        if (this._layers && this._layers.length)
+        if(this._layers && this._layers.length)
         {
-            for (const layer of this._layers)
+            for(const layer of this._layers)
             {
-                if (!layer) continue;
+                if(!layer) continue;
 
                 layer.dispose();
             }
@@ -60,37 +60,37 @@ export class PlaneVisualization
 
         this._geometry = null;
 
-        if (this._cachedBitmapData)
+        if(this._cachedBitmapData)
         {
             this._cachedBitmapData.destroy();
 
             this._cachedBitmapData = null;
         }
 
-        if (this._cachedBitmapNormal) this._cachedBitmapNormal = null;
+        if(this._cachedBitmapNormal) this._cachedBitmapNormal = null;
     }
 
     public clearCache(): void
     {
-        if (!this._isCached) return;
+        if(!this._isCached) return;
 
-        if (this._cachedBitmapData)
+        if(this._cachedBitmapData)
         {
             this._cachedBitmapData.destroy();
 
             this._cachedBitmapData = null;
         }
 
-        if (this._cachedBitmapNormal)
+        if(this._cachedBitmapNormal)
         {
             this._cachedBitmapNormal.assign(new Vector3d());
         }
 
-        if (this._layers && this._layers.length)
+        if(this._layers && this._layers.length)
         {
-            for (const layer of this._layers)
+            for(const layer of this._layers)
             {
-                if (!layer) continue;
+                if(!layer) continue;
 
                 const planeLayer = layer as PlaneVisualizationLayer;
 
@@ -103,11 +103,11 @@ export class PlaneVisualization
 
     public setLayer(layerId: number, material: PlaneMaterial, color: number, align: number, offset: number = 0): boolean
     {
-        if ((layerId < 0) || (layerId > this._layers.length)) return false;
+        if((layerId < 0) || (layerId > this._layers.length)) return false;
 
         let layer = this._layers[layerId];
 
-        if (layer) layer.dispose();
+        if(layer) layer.dispose();
 
         layer = new PlaneVisualizationLayer(material, color, align, offset);
 
@@ -118,11 +118,11 @@ export class PlaneVisualization
 
     public setAnimationLayer(layerId: number, animationItems: any, collection: IGraphicAssetCollection): boolean
     {
-        if ((layerId < 0) || (layerId > this._layers.length)) return false;
+        if((layerId < 0) || (layerId > this._layers.length)) return false;
 
         let layer = this._layers[layerId] as IDisposable;
 
-        if (layer) layer.dispose();
+        if(layer) layer.dispose();
 
         layer = new PlaneVisualizationAnimationLayer(animationItems, collection);
 
@@ -139,19 +139,19 @@ export class PlaneVisualization
 
     public render(canvas: Graphics, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, dimensionX: number = 0, dimensionY: number = 0, timeSinceStartMs: number = 0): Graphics
     {
-        if (width < 1) width = 1;
+        if(width < 1) width = 1;
 
-        if (height < 1) height = 1;
+        if(height < 1) height = 1;
 
-        if ((!canvas || (canvas.width !== width)) || (canvas.height !== height)) canvas = null;
+        if((!canvas || (canvas.width !== width)) || (canvas.height !== height)) canvas = null;
 
-        if (this._cachedBitmapData)
+        if(this._cachedBitmapData)
         {
-            if (((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height)) && (Vector3d.isEqual(this._cachedBitmapNormal, normal)))
+            if(((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height)) && (Vector3d.isEqual(this._cachedBitmapNormal, normal)))
             {
-                if (!this.hasAnimationLayers)
+                if(!this.hasAnimationLayers)
                 {
-                    if (canvas)
+                    if(canvas)
                     {
                         canvas.addChild(this._cachedBitmapData);
 
@@ -182,7 +182,7 @@ export class PlaneVisualization
 
         this._isCached = true;
 
-        if (!this._cachedBitmapData)
+        if(!this._cachedBitmapData)
         {
             this._cachedBitmapData = new Graphics()
                 .beginFill(0xFFFFFF)
@@ -197,29 +197,29 @@ export class PlaneVisualization
                 .endFill();
         }
 
-        if (!canvas) canvas = this._cachedBitmapData;
+        if(!canvas) canvas = this._cachedBitmapData;
 
         this._cachedBitmapNormal.assign(normal);
 
-        if (this._layers && this._layers.length)
+        if(this._layers && this._layers.length)
         {
-            for (const layer of this._layers)
+            for(const layer of this._layers)
             {
-                if (!layer) continue;
+                if(!layer) continue;
 
-                if (layer instanceof PlaneVisualizationLayer)
+                if(layer instanceof PlaneVisualizationLayer)
                 {
                     layer.render(canvas, width, height, normal, useTexture, offsetX, offsetY);
                 }
 
-                else if (layer instanceof PlaneVisualizationAnimationLayer)
+                else if(layer instanceof PlaneVisualizationAnimationLayer)
                 {
                     layer.render(canvas, width, height, normal, offsetX, offsetY, maxX, maxY, dimensionX, dimensionY, timeSinceStartMs);
                 }
             }
         }
 
-        if (canvas && (canvas !== this._cachedBitmapData))
+        if(canvas && (canvas !== this._cachedBitmapData))
         {
             this._cachedBitmapData.addChild(canvas.clone());
             // const texture = TextureUtils.generateTexture(canvas, new Rectangle(0, 0, canvas.width, canvas.height));

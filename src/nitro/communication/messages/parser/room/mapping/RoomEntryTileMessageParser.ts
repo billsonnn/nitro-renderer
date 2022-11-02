@@ -17,7 +17,7 @@ export class RoomEntryTileMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._x = wrapper.readInt();
         this._y = wrapper.readInt();

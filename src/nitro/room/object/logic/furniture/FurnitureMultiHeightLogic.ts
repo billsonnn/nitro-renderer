@@ -7,6 +7,6 @@ export class FurnitureMultiHeightLogic extends FurnitureMultiStateLogic
     {
         super.initialize(asset);
 
-        if (this.object && this.object.model) this.object.model.setValue(RoomObjectVariable.FURNITURE_IS_VARIABLE_HEIGHT, 1);
+        if(this.object && this.object.model) this.object.model.setValue(RoomObjectVariable.FURNITURE_IS_VARIABLE_HEIGHT, 1);
     }
 }

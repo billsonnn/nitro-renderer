@@ -27,7 +27,7 @@ export class HighScoreDataType extends ObjectDataBase implements IObjectData
 
     public parseWrapper(wrapper: IMessageDataWrapper): void
     {
-        if (!wrapper) return;
+        if(!wrapper) return;
 
         this._state = wrapper.readString();
         this._scoreType = wrapper.readInt();
@@ -35,7 +35,7 @@ export class HighScoreDataType extends ObjectDataBase implements IObjectData
 
         let totalScores = wrapper.readInt();
 
-        while (totalScores > 0)
+        while(totalScores > 0)
         {
             const data = new HighScoreData();
 
@@ -43,7 +43,7 @@ export class HighScoreDataType extends ObjectDataBase implements IObjectData
 
             let totalUsers = wrapper.readInt();
 
-            while (totalUsers > 0)
+            while(totalUsers > 0)
             {
                 data.addUsername(wrapper.readString());
 
@@ -68,7 +68,7 @@ export class HighScoreDataType extends ObjectDataBase implements IObjectData
 
         let i = 0;
 
-        while (i < totalEntries)
+        while(i < totalEntries)
         {
             const data = new HighScoreData();
 
@@ -91,13 +91,13 @@ export class HighScoreDataType extends ObjectDataBase implements IObjectData
         model.setValue(RoomObjectVariable.FURNITURE_HIGHSCORE_SCORE_TYPE, this._scoreType);
         model.setValue(RoomObjectVariable.FURNITURE_HIGHSCORE_CLEAR_TYPE, this._clearType);
 
-        if (this._entries)
+        if(this._entries)
         {
             model.setValue(RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_COUNT, this._entries.length);
 
             let i = 0;
 
-            while (i < this._entries.length)
+            while(i < this._entries.length)
             {
                 const entry = this._entries[i];
 

@@ -9,7 +9,7 @@ export class TextureUtils
 {
     public static generateTexture(displayObject: DisplayObject, region: Rectangle = null, scaleMode: number = SCALE_MODES.NEAREST, resolution: number = 1): RenderTexture
     {
-        if (!displayObject) return null;
+        if(!displayObject) return null;
 
         return this.getRenderer().generateTexture(displayObject, {
             scaleMode,
@@ -20,28 +20,28 @@ export class TextureUtils
 
     public static generateTextureFromImage(image: HTMLImageElement): Texture<Resource>
     {
-        if (!image) return null;
+        if(!image) return null;
 
         return Texture.from(image);
     }
 
     public static generateImage(target: DisplayObject | RenderTexture): HTMLImageElement
     {
-        if (!target) return null;
+        if(!target) return null;
 
         return this.getExtractor().image(target);
     }
 
     public static generateImageUrl(target: DisplayObject | RenderTexture): string
     {
-        if (!target) return null;
+        if(!target) return null;
 
         return this.getExtractor().base64(target);
     }
 
     public static generateCanvas(target: DisplayObject | RenderTexture): HTMLCanvasElement
     {
-        if (!target) return null;
+        if(!target) return null;
 
         return this.getExtractor().canvas(target);
     }
