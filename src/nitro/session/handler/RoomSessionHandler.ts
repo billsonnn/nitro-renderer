@@ -1,7 +1,7 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
 import { DesktopViewEvent, FlatAccessDeniedMessageEvent, GoToFlatMessageComposer, RoomDoorbellAcceptedEvent, RoomEnterEvent, RoomReadyMessageEvent, YouAreSpectatorMessageEvent } from '../../communication';
-import { RoomSessionDoorbellEvent } from '../events/RoomSessionDoorbellEvent';
-import { RoomSessionSpectatorModeEvent } from './../events/RoomSessionSpectatorModeEvent';
+import { RoomSessionDoorbellEvent } from '../events';
+import { RoomSessionSpectatorModeEvent } from './../events';
 import { BaseHandler } from './BaseHandler';
 
 export class RoomSessionHandler extends BaseHandler

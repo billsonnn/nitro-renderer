@@ -1,6 +1,6 @@
 import { IAssetData, RoomObjectVariable } from '../../../../../api';
 import { RoomObjectUpdateMessage } from '../../../../../room';
-import { RoomObjectSamplePlaybackEvent } from '../../../events/RoomObjectSamplePlaybackEvent';
+import { RoomObjectSamplePlaybackEvent } from '../../../events';
 import { ObjectDataUpdateMessage } from '../../../messages';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 

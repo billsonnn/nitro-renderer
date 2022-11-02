@@ -1,7 +1,7 @@
 ﻿import { Graphics } from '@pixi/graphics';
 import { IVector3D } from '../../../../../../api';
-import { PlaneBitmapData } from '../utils/PlaneBitmapData';
-import { PlaneVisualizationLayer } from './basic/PlaneVisualizationLayer';
+import { PlaneBitmapData } from '../utils';
+import { PlaneVisualizationLayer } from './basic';
 
 export interface IPlaneRasterizer
 {

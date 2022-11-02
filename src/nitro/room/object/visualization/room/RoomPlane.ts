@@ -3,15 +3,13 @@ import { Graphics } from '@pixi/graphics';
 import { Matrix, Point, Rectangle } from '@pixi/math';
 import { IRoomGeometry, IRoomPlane, IVector3D, Vector3d } from '../../../../../api';
 import { NitroRenderTexture, TextureUtils } from '../../../../../pixi-proxy';
-import { PlaneMaskManager } from './mask/PlaneMaskManager';
+import { PlaneMaskManager } from './mask';
 import { PlaneDrawingData } from './PlaneDrawingData';
-import { PlaneVisualizationLayer } from './rasterizer/basic/PlaneVisualizationLayer';
-import { IPlaneRasterizer } from './rasterizer/IPlaneRasterizer';
+import { IPlaneRasterizer, PlaneVisualizationLayer } from './rasterizer';
 import { RoomPlaneBitmapMask } from './RoomPlaneBitmapMask';
 import { RoomPlaneRectangleMask } from './RoomPlaneRectangleMask';
 import { RoomVisualization } from './RoomVisualization';
-import { PlaneBitmapData } from './utils/PlaneBitmapData';
-import { Randomizer } from './utils/Randomizer';
+import { PlaneBitmapData, Randomizer } from './utils';
 
 export class RoomPlane implements IRoomPlane
 {

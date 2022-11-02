@@ -1,8 +1,7 @@
 import { RoomObjectVariable, StringDataType } from '../../../../../api';
 import { PixiApplicationProxy } from '../../../../../pixi-proxy';
 import { RoomObjectUpdateMessage } from '../../../../../room';
-import { RoomObjectBadgeAssetEvent } from '../../../events/RoomObjectBadgeAssetEvent';
-import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
+import { RoomObjectBadgeAssetEvent, RoomObjectWidgetRequestEvent } from '../../../events';
 import { ObjectDataUpdateMessage, ObjectGroupBadgeUpdateMessage } from '../../../messages';
 import { FurnitureLogic } from './FurnitureLogic';
 

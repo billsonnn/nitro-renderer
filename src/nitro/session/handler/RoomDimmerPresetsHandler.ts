@@ -1,6 +1,6 @@
 ﻿import { IConnection, IRoomHandlerListener } from '../../../api';
 import { RoomDimmerPresetsEvent } from '../../communication';
-import { RoomSessionDimmerPresetsEvent } from '../events/RoomSessionDimmerPresetsEvent';
+import { RoomSessionDimmerPresetsEvent } from '../events';
 import { BaseHandler } from './BaseHandler';
 
 export class RoomDimmerPresetsHandler extends BaseHandler

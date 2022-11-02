@@ -1,7 +1,7 @@
 import { IRoomGeometry } from '../../../../../api';
 import { RoomObjectEvent, RoomSpriteMouseEvent } from '../../../../../room';
-import { MouseEventType } from '../../../../ui/MouseEventType';
-import { RoomObjectFurnitureActionEvent } from '../../../events/RoomObjectFurnitureActionEvent';
+import { MouseEventType } from '../../../../ui';
+import { RoomObjectFurnitureActionEvent } from '../../../events';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureDiceLogic extends FurnitureLogic

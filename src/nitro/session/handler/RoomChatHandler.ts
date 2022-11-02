@@ -1,7 +1,7 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
 import { FloodControlEvent, PetRespectNoficationEvent, PetSupplementedNotificationEvent, PetSupplementTypeEnum, RemainingMuteEvent, RespectReceivedEvent, RoomUnitChatEvent, RoomUnitChatShoutEvent, RoomUnitChatWhisperEvent, RoomUnitHandItemReceivedEvent } from '../../communication';
 import { SystemChatStyleEnum } from '../../ui/widget/enums/SystemChatStyleEnum';
-import { RoomSessionChatEvent } from '../events/RoomSessionChatEvent';
+import { RoomSessionChatEvent } from '../events';
 import { BaseHandler } from './BaseHandler';
 
 export class RoomChatHandler extends BaseHandler

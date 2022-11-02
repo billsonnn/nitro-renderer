@@ -1,5 +1,5 @@
 ﻿import { IGraphicAsset } from '../../../../../api';
-import { Vector3D } from '../../../../avatar/geometry/Vector3D';
+import { Vector3D } from '../../../../avatar';
 import { ParticleSystemParticle } from '../data';
 import { FurnitureParticleSystemParticle } from './FurnitureParticleSystemParticle';
 

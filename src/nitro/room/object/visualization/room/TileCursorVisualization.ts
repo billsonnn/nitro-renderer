@@ -1,5 +1,5 @@
 import { RoomObjectVariable } from '../../../../../api';
-import { FurnitureAnimatedVisualization } from '../furniture/FurnitureAnimatedVisualization';
+import { FurnitureAnimatedVisualization } from '../furniture';
 
 export class TileCursorVisualization extends FurnitureAnimatedVisualization
 {

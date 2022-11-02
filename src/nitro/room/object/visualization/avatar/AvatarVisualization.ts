@@ -3,20 +3,8 @@ import { Resource, Texture } from '@pixi/core';
 import { AlphaTolerance, IGraphicAsset, IObjectVisualizationData, IRoomGeometry, IRoomObject, IRoomObjectModel, RoomObjectSpriteType, RoomObjectVariable } from '../../../../../api';
 import { AdvancedMap } from '../../../../../core';
 import { RoomObjectSpriteVisualization } from '../../../../../room';
-import { AvatarAction } from '../../../../avatar/enum/AvatarAction';
-import { AvatarGuideStatus } from '../../../../avatar/enum/AvatarGuideStatus';
-import { AvatarSetType } from '../../../../avatar/enum/AvatarSetType';
-import { IAvatarEffectListener } from '../../../../avatar/IAvatarEffectListener';
-import { IAvatarImage } from '../../../../avatar/IAvatarImage';
-import { IAvatarImageListener } from '../../../../avatar/IAvatarImageListener';
-import { ExpressionAdditionFactory } from './additions/ExpressionAdditionFactory';
-import { FloatingIdleZAddition } from './additions/FloatingIdleZAddition';
-import { GameClickTargetAddition } from './additions/GameClickTargetAddition';
-import { GuideStatusBubbleAddition } from './additions/GuideStatusBubbleAddition';
-import { IAvatarAddition } from './additions/IAvatarAddition';
-import { MutedBubbleAddition } from './additions/MutedBubbleAddition';
-import { NumberBubbleAddition } from './additions/NumberBubbleAddition';
-import { TypingBubbleAddition } from './additions/TypingBubbleAddition';
+import { AvatarAction, AvatarGuideStatus, AvatarSetType, IAvatarEffectListener, IAvatarImage, IAvatarImageListener } from '../../../../avatar';
+import { ExpressionAdditionFactory, FloatingIdleZAddition, GameClickTargetAddition, GuideStatusBubbleAddition, IAvatarAddition, MutedBubbleAddition, NumberBubbleAddition, TypingBubbleAddition } from './additions';
 import { AvatarVisualizationData } from './AvatarVisualizationData';
 
 export class AvatarVisualization extends RoomObjectSpriteVisualization implements IAvatarImageListener, IAvatarEffectListener

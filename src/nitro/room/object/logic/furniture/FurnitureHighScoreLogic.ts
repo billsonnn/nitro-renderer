@@ -1,6 +1,6 @@
 import { RoomObjectVariable } from '../../../../../api';
 import { RoomObjectUpdateMessage } from '../../../../../room';
-import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
+import { RoomObjectWidgetRequestEvent } from '../../../events';
 import { ObjectDataUpdateMessage } from '../../../messages';
 import { FurnitureLogic } from './FurnitureLogic';
 

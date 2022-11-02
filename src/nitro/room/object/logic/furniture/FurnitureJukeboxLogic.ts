@@ -1,9 +1,7 @@
 import { RoomObjectVariable } from '../../../../../api';
 import { RoomObjectUpdateMessage } from '../../../../../room';
 import { RoomWidgetEnumItemExtradataParameter } from '../../../../ui';
-import { RoomObjectStateChangedEvent } from '../../../events';
-import { RoomObjectFurnitureActionEvent } from '../../../events/RoomObjectFurnitureActionEvent';
-import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
+import { RoomObjectFurnitureActionEvent, RoomObjectStateChangedEvent, RoomObjectWidgetRequestEvent } from '../../../events';
 import { ObjectDataUpdateMessage } from '../../../messages';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 

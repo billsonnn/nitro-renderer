@@ -1,13 +1,8 @@
 import { Resource, Texture } from '@pixi/core';
-import { IGraphicAsset, IObjectVisualizationData, IRoomGeometry, RoomObjectVariable } from '../../../../../api';
+import { IGraphicAsset, IObjectVisualizationData, IRoomGeometry, RoomObjectVariable, RoomObjectVisualizationType } from '../../../../../api';
 import { Nitro } from '../../../../Nitro';
-import { RoomObjectVisualizationType } from '../../RoomObjectVisualizationType';
-import { AnimationData } from '../data/AnimationData';
-import { AnimationStateData } from '../data/AnimationStateData';
-import { DirectionData } from '../data/DirectionData';
-import { LayerData } from '../data/LayerData';
-import { FurnitureAnimatedVisualization } from '../furniture/FurnitureAnimatedVisualization';
-import { FurnitureVisualizationData } from '../furniture/FurnitureVisualizationData';
+import { AnimationData, AnimationStateData, DirectionData, LayerData } from '../data';
+import { FurnitureAnimatedVisualization, FurnitureVisualizationData } from '../furniture';
 import { ExperienceData } from './ExperienceData';
 import { PetVisualizationData } from './PetVisualizationData';
 

@@ -1,5 +1,5 @@
 import { IAssetColor, IAssetVisualizationDirection, IAssetVisualizationLayer } from '../../../../../api';
-import { SpriteUtilities } from '../../../../../room/utils/SpriteUtilities';
+import { SpriteUtilities } from '../../../../../room';
 import { ColorData } from './ColorData';
 import { DirectionData } from './DirectionData';
 import { LayerData } from './LayerData';

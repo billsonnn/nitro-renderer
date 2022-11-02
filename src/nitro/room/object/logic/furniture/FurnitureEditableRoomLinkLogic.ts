@@ -1,5 +1,5 @@
 import { IAssetData, RoomObjectVariable } from '../../../../../api';
-import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
+import { RoomObjectWidgetRequestEvent } from '../../../events';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureEditableRoomLinkLogic extends FurnitureLogic

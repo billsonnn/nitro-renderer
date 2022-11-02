@@ -3,8 +3,7 @@ import { EventDispatcher, NitroEvent } from '../../core';
 import { Nitro } from '../Nitro';
 import { AvatarStructure } from './AvatarStructure';
 import { EffectAssetDownloadLibrary } from './EffectAssetDownloadLibrary';
-import { AvatarRenderEffectLibraryEvent } from './events/AvatarRenderEffectLibraryEvent';
-import { AvatarRenderEvent } from './events/AvatarRenderEvent';
+import { AvatarRenderEffectLibraryEvent, AvatarRenderEvent } from './events';
 import { IAvatarEffectListener } from './IAvatarEffectListener';
 
 export class EffectAssetDownloadManager extends EventDispatcher

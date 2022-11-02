@@ -1,6 +1,6 @@
 ﻿import { Graphics } from '@pixi/graphics';
 import { IVector3D } from '../../../../../../../api';
-import { PlaneBitmapData } from '../../utils/PlaneBitmapData';
+import { PlaneBitmapData } from '../../utils';
 import { FloorPlane } from './FloorPlane';
 import { PlaneRasterizer } from './PlaneRasterizer';
 

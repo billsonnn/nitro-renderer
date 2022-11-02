@@ -1,11 +1,8 @@
 ﻿import { Graphics } from '@pixi/graphics';
 import { IVector3D } from '../../../../../../../api';
 import { Nitro } from '../../../../../../Nitro';
-import { PlaneBitmapData } from '../../utils/PlaneBitmapData';
-import { Randomizer } from '../../utils/Randomizer';
-import { PlaneMaterial } from '../basic/PlaneMaterial';
-import { PlaneRasterizer } from '../basic/PlaneRasterizer';
-import { PlaneVisualizationLayer } from '../basic/PlaneVisualizationLayer';
+import { PlaneBitmapData, Randomizer } from '../../utils';
+import { PlaneMaterial, PlaneRasterizer, PlaneVisualizationLayer } from '../basic';
 import { LandscapePlane } from './LandscapePlane';
 
 export class LandscapeRasterizer extends PlaneRasterizer

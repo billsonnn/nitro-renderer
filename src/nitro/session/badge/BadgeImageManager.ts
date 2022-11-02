@@ -3,7 +3,7 @@ import { IAssetManager, IDisposable, IMessageEvent } from '../../../api';
 import { NitroContainer, NitroSprite, NitroTexture, TextureUtils } from '../../../pixi-proxy';
 import { GroupBadgePartsEvent } from '../../communication';
 import { Nitro } from '../../Nitro';
-import { BadgeImageReadyEvent } from '../events/BadgeImageReadyEvent';
+import { BadgeImageReadyEvent } from '../events';
 import { SessionDataManager } from './../SessionDataManager';
 import { BadgeInfo } from './BadgeInfo';
 import { GroupBadge } from './GroupBadge';

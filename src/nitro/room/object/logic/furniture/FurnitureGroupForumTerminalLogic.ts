@@ -1,5 +1,5 @@
 import { RoomObjectVariable } from '../../../../../api';
-import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
+import { RoomObjectWidgetRequestEvent } from '../../../events';
 import { FurnitureGuildCustomizedLogic } from './FurnitureGuildCustomizedLogic';
 
 export class FurnitureGroupForumTerminalLogic extends FurnitureGuildCustomizedLogic

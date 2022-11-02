@@ -1,8 +1,6 @@
-import { AlphaTolerance, IGraphicAsset, IObjectVisualizationData, IRoomGeometry, IRoomObjectSprite, RoomObjectVariable } from '../../../../../api';
+import { AlphaTolerance, IGraphicAsset, IObjectVisualizationData, IRoomGeometry, IRoomObjectSprite, RoomObjectVariable, RoomObjectVisualizationType } from '../../../../../api';
 import { RoomObjectSpriteVisualization } from '../../../../../room';
-import { RoomObjectVisualizationType } from '../../RoomObjectVisualizationType';
-import { ColorData } from '../data/ColorData';
-import { LayerData } from '../data/LayerData';
+import { ColorData, LayerData } from '../data';
 import { FurnitureVisualizationData } from './FurnitureVisualizationData';
 
 export class FurnitureVisualization extends RoomObjectSpriteVisualization

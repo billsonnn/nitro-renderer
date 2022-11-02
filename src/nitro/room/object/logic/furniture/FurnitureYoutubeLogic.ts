@@ -1,6 +1,5 @@
 import { RoomObjectVariable } from '../../../../../api';
-import { RoomObjectWidgetRequestEvent } from '../../../events';
-import { RoomObjectDataRequestEvent } from '../../../events/RoomObjectDataRequestEvent';
+import { RoomObjectDataRequestEvent, RoomObjectWidgetRequestEvent } from '../../../events';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureYoutubeLogic extends FurnitureLogic

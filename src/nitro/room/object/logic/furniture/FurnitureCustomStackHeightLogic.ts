@@ -1,5 +1,5 @@
 import { IAssetData, RoomObjectVariable } from '../../../../../api';
-import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
+import { RoomObjectWidgetRequestEvent } from '../../../events';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureCustomStackHeightLogic extends FurnitureMultiStateLogic

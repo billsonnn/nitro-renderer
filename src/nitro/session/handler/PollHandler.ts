@@ -1,6 +1,6 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
 import { PollContentsEvent, PollErrorEvent, PollOfferEvent } from '../../communication';
-import { RoomSessionPollEvent } from '../events/RoomSessionPollEvent';
+import { RoomSessionPollEvent } from '../events';
 import { BaseHandler } from './BaseHandler';
 
 export class PollHandler extends BaseHandler

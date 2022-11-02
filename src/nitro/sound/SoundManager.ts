@@ -1,6 +1,5 @@
 import { AdvancedMap, NitroEvent, NitroManager } from '../../core';
-import { NitroSettingsEvent } from '../events';
-import { NitroSoundEvent } from '../events/NitroSoundEvent';
+import { NitroSettingsEvent, NitroSoundEvent } from '../events';
 import { Nitro } from '../Nitro';
 import { RoomEngineEvent, RoomEngineObjectEvent, RoomEngineSamplePlaybackEvent } from '../room';
 import { ISoundManager } from './ISoundManager';

@@ -1,5 +1,6 @@
 export * from './BaseHandler';
 export * from './GenericErrorHandler';
+export * from './PollHandler';
 export * from './RoomChatHandler';
 export * from './RoomDataHandler';
 export * from './RoomDimmerPresetsHandler';
@@ -7,3 +8,4 @@ export * from './RoomPermissionsHandler';
 export * from './RoomPresentHandler';
 export * from './RoomSessionHandler';
 export * from './RoomUsersHandler';
+export * from './WordQuizHandler';

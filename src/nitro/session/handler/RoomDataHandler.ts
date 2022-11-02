@@ -1,7 +1,6 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
 import { GetGuestRoomResultEvent } from '../../communication';
-import { RoomSessionEvent } from '../events/RoomSessionEvent';
-import { RoomSessionPropertyUpdateEvent } from '../events/RoomSessionPropertyUpdateEvent';
+import { RoomSessionEvent, RoomSessionPropertyUpdateEvent } from '../events';
 import { BaseHandler } from './BaseHandler';
 
 export class RoomDataHandler extends BaseHandler

@@ -3,8 +3,7 @@ import { EventDispatcher, NitroEvent } from '../../core';
 import { Nitro } from '../Nitro';
 import { AvatarAssetDownloadLibrary } from './AvatarAssetDownloadLibrary';
 import { AvatarStructure } from './AvatarStructure';
-import { AvatarRenderEvent } from './events/AvatarRenderEvent';
-import { AvatarRenderLibraryEvent } from './events/AvatarRenderLibraryEvent';
+import { AvatarRenderEvent, AvatarRenderLibraryEvent } from './events';
 import { IAvatarFigureContainer } from './IAvatarFigureContainer';
 import { IAvatarImageListener } from './IAvatarImageListener';
 

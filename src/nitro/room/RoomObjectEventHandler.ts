@@ -1,36 +1,12 @@
-import { IFurnitureStackingHeightMap, ILegacyWallGeometry, IObjectData, IRoomCanvasMouseListener, IRoomEngineServices, IRoomGeometry, IRoomObject, IRoomObjectController, IRoomObjectEventManager, ISelectedRoomObjectData, IVector3D, RoomObjectCategory, RoomObjectPlacementSource, RoomObjectType, RoomObjectUserType, RoomObjectVariable, Vector3d } from '../../api';
+import { IFurnitureStackingHeightMap, ILegacyWallGeometry, IObjectData, IRoomCanvasMouseListener, IRoomEngineServices, IRoomGeometry, IRoomObject, IRoomObjectController, IRoomObjectEventManager, ISelectedRoomObjectData, IVector3D, RoomObjectCategory, RoomObjectOperationType, RoomObjectPlacementSource, RoomObjectType, RoomObjectUserType, RoomObjectVariable, Vector3d } from '../../api';
 import { Disposable, NitroLogger } from '../../core';
-import { RoomEnterEffect, RoomId } from '../../room';
-import { RoomObjectEvent } from '../../room/events/RoomObjectEvent';
-import { RoomObjectMouseEvent } from '../../room/events/RoomObjectMouseEvent';
-import { RoomSpriteMouseEvent } from '../../room/events/RoomSpriteMouseEvent';
-import { RoomObjectUpdateMessage } from '../../room/messages';
+import { RoomEnterEffect, RoomId, RoomObjectEvent, RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../room';
 import { BotPlaceComposer, FurnitureColorWheelComposer, FurnitureDiceActivateComposer, FurnitureDiceDeactivateComposer, FurnitureFloorUpdateComposer, FurnitureGroupInfoComposer, FurnitureMultiStateComposer, FurnitureOneWayDoorComposer, FurniturePickupComposer, FurniturePlaceComposer, FurniturePostItPlaceComposer, FurnitureRandomStateComposer, FurnitureWallMultiStateComposer, FurnitureWallUpdateComposer, GetItemDataComposer, GetResolutionAchievementsMessageComposer, PetMoveComposer, PetPlaceComposer, RemoveWallItemComposer, RoomUnitLookComposer, RoomUnitWalkComposer, SetItemDataMessageComposer, SetObjectDataMessageComposer } from '../communication';
 import { Nitro } from '../Nitro';
-import { MouseEventType } from '../ui/MouseEventType';
-import { RoomEngineObjectPlaySoundEvent, RoomEngineRoomAdEvent, RoomEngineUseProductEvent, RoomObjectPlaySoundIdEvent, RoomObjectRoomAdEvent, RoomObjectSoundMachineEvent } from './events';
-import { RoomEngineDimmerStateEvent } from './events/RoomEngineDimmerStateEvent';
-import { RoomEngineObjectEvent } from './events/RoomEngineObjectEvent';
-import { RoomEngineObjectPlacedEvent } from './events/RoomEngineObjectPlacedEvent';
-import { RoomEngineObjectPlacedOnUserEvent } from './events/RoomEngineObjectPlacedOnUserEvent';
-import { RoomEngineSamplePlaybackEvent } from './events/RoomEngineSamplePlaybackEvent';
-import { RoomEngineTriggerWidgetEvent } from './events/RoomEngineTriggerWidgetEvent';
-import { RoomObjectBadgeAssetEvent } from './events/RoomObjectBadgeAssetEvent';
-import { RoomObjectDataRequestEvent } from './events/RoomObjectDataRequestEvent';
-import { RoomObjectDimmerStateUpdateEvent } from './events/RoomObjectDimmerStateUpdateEvent';
-import { RoomObjectFloorHoleEvent } from './events/RoomObjectFloorHoleEvent';
-import { RoomObjectFurnitureActionEvent } from './events/RoomObjectFurnitureActionEvent';
-import { RoomObjectHSLColorEnabledEvent } from './events/RoomObjectHSLColorEnabledEvent';
-import { RoomObjectHSLColorEnableEvent } from './events/RoomObjectHSLColorEnableEvent';
-import { RoomObjectMoveEvent } from './events/RoomObjectMoveEvent';
-import { RoomObjectSamplePlaybackEvent } from './events/RoomObjectSamplePlaybackEvent';
-import { RoomObjectStateChangedEvent } from './events/RoomObjectStateChangedEvent';
-import { RoomObjectTileMouseEvent } from './events/RoomObjectTileMouseEvent';
-import { RoomObjectWallMouseEvent } from './events/RoomObjectWallMouseEvent';
-import { RoomObjectWidgetRequestEvent } from './events/RoomObjectWidgetRequestEvent';
+import { MouseEventType } from '../ui';
+import { RoomEngineDimmerStateEvent, RoomEngineObjectEvent, RoomEngineObjectPlacedEvent, RoomEngineObjectPlacedOnUserEvent, RoomEngineObjectPlaySoundEvent, RoomEngineRoomAdEvent, RoomEngineSamplePlaybackEvent, RoomEngineTriggerWidgetEvent, RoomEngineUseProductEvent, RoomObjectBadgeAssetEvent, RoomObjectDataRequestEvent, RoomObjectDimmerStateUpdateEvent, RoomObjectFloorHoleEvent, RoomObjectFurnitureActionEvent, RoomObjectHSLColorEnabledEvent, RoomObjectHSLColorEnableEvent, RoomObjectMoveEvent, RoomObjectPlaySoundIdEvent, RoomObjectRoomAdEvent, RoomObjectSamplePlaybackEvent, RoomObjectSoundMachineEvent, RoomObjectStateChangedEvent, RoomObjectTileMouseEvent, RoomObjectWallMouseEvent, RoomObjectWidgetRequestEvent } from './events';
 import { ObjectAvatarSelectedMessage, ObjectDataUpdateMessage, ObjectSelectedMessage, ObjectTileCursorUpdateMessage, ObjectVisibilityUpdateMessage } from './messages';
-import { RoomObjectOperationType } from './object/RoomObjectOperationType';
-import { SelectedRoomObjectData } from './utils/SelectedRoomObjectData';
+import { SelectedRoomObjectData } from './utils';
 
 export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMouseListener, IRoomObjectEventManager
 {

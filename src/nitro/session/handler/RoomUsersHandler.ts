@@ -1,14 +1,6 @@
 import { IConnection, IRoomHandlerListener, IRoomUserData } from '../../../api';
 import { BotErrorEvent, DoorbellMessageEvent, FavoriteMembershipUpdateMessageEvent, NewFriendRequestEvent, PetFigureUpdateEvent, PetInfoEvent, PetPlacingErrorEvent, PetStatusUpdateEvent, RoomUnitDanceEvent, RoomUnitEvent, RoomUnitInfoEvent, RoomUnitRemoveEvent, UserCurrentBadgesEvent, UserNameChangeMessageEvent } from '../../communication';
-import { RoomSessionPetFigureUpdateEvent, RoomSessionPetStatusUpdateEvent, RoomSessionUserFigureUpdateEvent } from '../events';
-import { RoomSessionDanceEvent } from '../events/RoomSessionDanceEvent';
-import { RoomSessionDoorbellEvent } from '../events/RoomSessionDoorbellEvent';
-import { RoomSessionErrorMessageEvent } from '../events/RoomSessionErrorMessageEvent';
-import { RoomSessionFavoriteGroupUpdateEvent } from '../events/RoomSessionFavoriteGroupUpdateEvent';
-import { RoomSessionFriendRequestEvent } from '../events/RoomSessionFriendRequestEvent';
-import { RoomSessionPetInfoUpdateEvent } from '../events/RoomSessionPetInfoUpdateEvent';
-import { RoomSessionUserBadgesEvent } from '../events/RoomSessionUserBadgesEvent';
-import { RoomSessionUserDataUpdateEvent } from '../events/RoomSessionUserDataUpdateEvent';
+import { RoomSessionDanceEvent, RoomSessionDoorbellEvent, RoomSessionErrorMessageEvent, RoomSessionFavoriteGroupUpdateEvent, RoomSessionFriendRequestEvent, RoomSessionPetFigureUpdateEvent, RoomSessionPetInfoUpdateEvent, RoomSessionPetStatusUpdateEvent, RoomSessionUserBadgesEvent, RoomSessionUserDataUpdateEvent, RoomSessionUserFigureUpdateEvent } from '../events';
 import { RoomPetData } from '../RoomPetData';
 import { RoomUserData } from '../RoomUserData';
 import { BaseHandler } from './BaseHandler';

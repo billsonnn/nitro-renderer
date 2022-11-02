@@ -1,9 +1,7 @@
 import { IAssetData, IGraphicAssetCollection, IObjectVisualizationData } from '../../../../../api';
 import { Disposable } from '../../../../../core';
-import { PlaneMaskManager } from './mask/PlaneMaskManager';
-import { LandscapeRasterizer } from './rasterizer/animated/LandscapeRasterizer';
-import { FloorRasterizer } from './rasterizer/basic/FloorRasterizer';
-import { WallRasterizer } from './rasterizer/basic/WallRasterizer';
+import { PlaneMaskManager } from './mask';
+import { FloorRasterizer, LandscapeRasterizer, WallRasterizer } from './rasterizer';
 
 export class RoomVisualizationData extends Disposable implements IObjectVisualizationData
 {

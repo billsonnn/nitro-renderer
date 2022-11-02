@@ -1,11 +1,10 @@
 
 import { IRoomGeometry, IRoomObjectModel, RoomObjectVariable, Vector3d } from '../../../../../api';
 import { RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
-import { AvatarAction } from '../../../../avatar/enum/AvatarAction';
+import { AvatarAction } from '../../../../avatar';
 import { Nitro } from '../../../../Nitro';
-import { MouseEventType } from '../../../../ui/MouseEventType';
-import { RoomObjectFurnitureActionEvent } from '../../../events/RoomObjectFurnitureActionEvent';
-import { RoomObjectMoveEvent } from '../../../events/RoomObjectMoveEvent';
+import { MouseEventType } from '../../../../ui';
+import { RoomObjectFurnitureActionEvent, RoomObjectMoveEvent } from '../../../events';
 import { ObjectAvatarCarryObjectUpdateMessage, ObjectAvatarChatUpdateMessage, ObjectAvatarDanceUpdateMessage, ObjectAvatarEffectUpdateMessage, ObjectAvatarExpressionUpdateMessage, ObjectAvatarFigureUpdateMessage, ObjectAvatarFlatControlUpdateMessage, ObjectAvatarGestureUpdateMessage, ObjectAvatarMutedUpdateMessage, ObjectAvatarOwnMessage, ObjectAvatarPlayerValueUpdateMessage, ObjectAvatarPlayingGameUpdateMessage, ObjectAvatarPostureUpdateMessage, ObjectAvatarSelectedMessage, ObjectAvatarSignUpdateMessage, ObjectAvatarSleepUpdateMessage, ObjectAvatarTypingUpdateMessage, ObjectAvatarUpdateMessage, ObjectAvatarUseObjectUpdateMessage } from '../../../messages';
 import { MovingObjectLogic } from '../MovingObjectLogic';
 

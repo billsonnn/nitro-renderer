@@ -1,6 +1,6 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
 import { PresentOpenedMessageEvent } from '../../communication';
-import { RoomSessionPresentEvent } from '../events/RoomSessionPresentEvent';
+import { RoomSessionPresentEvent } from '../events';
 import { BaseHandler } from './BaseHandler';
 
 export class RoomPresentHandler extends BaseHandler

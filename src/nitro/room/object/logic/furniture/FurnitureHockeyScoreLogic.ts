@@ -1,7 +1,7 @@
 import { IRoomGeometry } from '../../../../../api';
 import { RoomObjectEvent, RoomSpriteMouseEvent } from '../../../../../room';
-import { MouseEventType } from '../../../../ui/MouseEventType';
-import { RoomObjectStateChangedEvent } from '../../../events/RoomObjectStateChangedEvent';
+import { MouseEventType } from '../../../../ui';
+import { RoomObjectStateChangedEvent } from '../../../events';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureHockeyScoreLogic extends FurnitureLogic

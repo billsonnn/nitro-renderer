@@ -15,7 +15,7 @@ import { GameMessageHandler } from './game/GameMessageHandler';
 import { INitro } from './INitro';
 import { NitroLocalizationManager } from './localization/NitroLocalizationManager';
 import './Plugins';
-import { RoomEngineEvent } from './room/events/RoomEngineEvent';
+import { RoomEngineEvent } from './room';
 import { RoomEngine } from './room/RoomEngine';
 import { RoomSessionManager } from './session/RoomSessionManager';
 import { SessionDataManager } from './session/SessionDataManager';

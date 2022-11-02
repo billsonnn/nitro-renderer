@@ -5,36 +5,23 @@ import { IConnection, IDisposable, IFurnitureStackingHeightMap, IGetImageListene
 import { NitroEvent, NitroManager } from '../../core';
 import { NitroSprite, TextureUtils } from '../../pixi-proxy';
 import { NumberBank, RoomEnterEffect, RoomGeometry, RoomInstance, RoomObjectEvent, RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomRendererFactory } from '../../room';
-import { PetFigureData } from '../avatar/pets/PetFigureData';
+import { PetFigureData } from '../avatar';
 import { RenderRoomMessageComposer, RenderRoomThumbnailMessageComposer } from '../communication';
-import { NitroToolbarAnimateIconEvent } from '../events/NitroToolbarAnimateIconEvent';
+import { NitroToolbarAnimateIconEvent } from '../events';
 import { Nitro } from '../Nitro';
-import { BadgeImageReadyEvent } from '../session/events/BadgeImageReadyEvent';
-import { RoomSessionEvent } from '../session/events/RoomSessionEvent';
-import { MouseEventType } from '../ui/MouseEventType';
-import { FurniId } from '../utils/FurniId';
-import { RoomDragEvent } from './events';
-import { RoomBackgroundColorEvent } from './events/RoomBackgroundColorEvent';
-import { RoomEngineEvent } from './events/RoomEngineEvent';
-import { RoomEngineObjectEvent } from './events/RoomEngineObjectEvent';
-import { RoomObjectFurnitureActionEvent } from './events/RoomObjectFurnitureActionEvent';
-import { RoomToObjectOwnAvatarMoveEvent } from './events/RoomToObjectOwnAvatarMoveEvent';
+import { BadgeImageReadyEvent, RoomSessionEvent } from '../session';
+import { MouseEventType } from '../ui';
+import { FurniId } from '../utils';
+import { RoomBackgroundColorEvent, RoomDragEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomObjectFurnitureActionEvent, RoomToObjectOwnAvatarMoveEvent } from './events';
 import { ImageResult } from './ImageResult';
 import { ObjectAvatarCarryObjectUpdateMessage, ObjectAvatarChatUpdateMessage, ObjectAvatarDanceUpdateMessage, ObjectAvatarEffectUpdateMessage, ObjectAvatarExperienceUpdateMessage, ObjectAvatarExpressionUpdateMessage, ObjectAvatarFigureUpdateMessage, ObjectAvatarFlatControlUpdateMessage, ObjectAvatarGestureUpdateMessage, ObjectAvatarGuideStatusUpdateMessage, ObjectAvatarMutedUpdateMessage, ObjectAvatarOwnMessage, ObjectAvatarPetGestureUpdateMessage, ObjectAvatarPlayerValueUpdateMessage, ObjectAvatarPlayingGameUpdateMessage, ObjectAvatarPostureUpdateMessage, ObjectAvatarSignUpdateMessage, ObjectAvatarSleepUpdateMessage, ObjectAvatarTypingUpdateMessage, ObjectAvatarUpdateMessage, ObjectAvatarUseObjectUpdateMessage, ObjectDataUpdateMessage, ObjectGroupBadgeUpdateMessage, ObjectHeightUpdateMessage, ObjectItemDataUpdateMessage, ObjectModelDataUpdateMessage, ObjectMoveUpdateMessage, ObjectRoomColorUpdateMessage, ObjectRoomFloorHoleUpdateMessage, ObjectRoomMaskUpdateMessage, ObjectRoomPlanePropertyUpdateMessage, ObjectRoomPlaneVisibilityUpdateMessage, ObjectRoomUpdateMessage, ObjectStateUpdateMessage } from './messages';
-import { RoomLogic } from './object/logic/room/RoomLogic';
-import { RoomMapData } from './object/RoomMapData';
-import { RoomObjectVisualizationFactory } from './object/RoomObjectVisualizationFactory';
+import { RoomLogic, RoomMapData, RoomObjectVisualizationFactory } from './object';
 import { RoomContentLoader } from './RoomContentLoader';
 import { RoomMessageHandler } from './RoomMessageHandler';
 import { RoomObjectEventHandler } from './RoomObjectEventHandler';
 import { RoomObjectLogicFactory } from './RoomObjectLogicFactory';
 import { RoomVariableEnum } from './RoomVariableEnum';
-import { RoomCamera } from './utils/RoomCamera';
-import { RoomData } from './utils/RoomData';
-import { RoomFurnitureData } from './utils/RoomFurnitureData';
-import { RoomInstanceData } from './utils/RoomInstanceData';
-import { RoomObjectBadgeImageAssetListener } from './utils/RoomObjectBadgeImageAssetListener';
-import { SpriteDataCollector } from './utils/SpriteDataCollector';
+import { RoomCamera, RoomData, RoomFurnitureData, RoomInstanceData, RoomObjectBadgeImageAssetListener, SpriteDataCollector } from './utils';
 
 export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreator, IRoomEngineServices, IRoomManagerListener, IRoomContentListener, IUpdateReceiver, IDisposable
 {

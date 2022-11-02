@@ -3,7 +3,7 @@ import { Graphics } from '@pixi/graphics';
 import { Point } from '@pixi/math';
 import { IGraphicAsset, IGraphicAssetCollection, IRoomGeometry, IVector3D, Vector3d } from '../../../../../../../api';
 import { Rasterizer, RoomGeometry } from '../../../../../../../room';
-import { PlaneBitmapData } from '../../utils/PlaneBitmapData';
+import { PlaneBitmapData } from '../../utils';
 import { IPlaneRasterizer } from '../IPlaneRasterizer';
 import { FloorPlane } from './FloorPlane';
 import { Plane } from './Plane';

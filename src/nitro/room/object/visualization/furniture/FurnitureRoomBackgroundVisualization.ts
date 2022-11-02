@@ -1,5 +1,5 @@
 import { Resource, Texture } from '@pixi/core';
-import { DirectionalOffsetData } from '../data/DirectionalOffsetData';
+import { DirectionalOffsetData } from '../data';
 import { FurnitureBrandedImageVisualization } from './FurnitureBrandedImageVisualization';
 
 export class FurnitureRoomBackgroundVisualization extends FurnitureBrandedImageVisualization
@@ -10,7 +10,7 @@ export class FurnitureRoomBackgroundVisualization extends FurnitureBrandedImageV
     {
         super.imageReady(texture, imageUrl);
 
-        if(!texture) return;
+        if (!texture) return;
 
         this.setImageOffset(texture.width, texture.height);
     }
@@ -30,11 +30,11 @@ export class FurnitureRoomBackgroundVisualization extends FurnitureBrandedImageV
 
     protected getLayerXOffset(scale: number, direction: number, layerId: number): number
     {
-        if(this._imageOffset)
+        if (this._imageOffset)
         {
             const offset = this._imageOffset.getXOffset(direction, 0);
 
-            if(offset !== undefined) return offset + this._offsetX;
+            if (offset !== undefined) return offset + this._offsetX;
         }
 
         return super.getLayerXOffset(scale, direction, layerId) + this._offsetX;
@@ -42,11 +42,11 @@ export class FurnitureRoomBackgroundVisualization extends FurnitureBrandedImageV
 
     protected getLayerYOffset(scale: number, direction: number, layerId: number): number
     {
-        if(this._imageOffset)
+        if (this._imageOffset)
         {
             const offset = this._imageOffset.getYOffset(direction, 0);
 
-            if(offset !== undefined) return offset + this._offsetY;
+            if (offset !== undefined) return offset + this._offsetY;
         }
 
         return super.getLayerYOffset(scale, direction, layerId) + this._offsetY;

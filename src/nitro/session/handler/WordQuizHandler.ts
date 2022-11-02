@@ -1,6 +1,6 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
 import { QuestionAnsweredEvent, QuestionEvent, QuestionFinishedEvent } from '../../communication';
-import { RoomSessionWordQuizEvent } from '../events/RoomSessionWordQuizEvent';
+import { RoomSessionWordQuizEvent } from '../events';
 import { BaseHandler } from './BaseHandler';
 
 export class WordQuizHandler extends BaseHandler

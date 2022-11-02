@@ -3,7 +3,7 @@ import { Point, Rectangle } from '@pixi/math';
 import { IVector3D, Vector3d } from '../../../../../../../api';
 import { TextureUtils } from '../../../../../../../pixi-proxy';
 import { RoomVisualization } from '../../RoomVisualization';
-import { Randomizer } from '../../utils/Randomizer';
+import { Randomizer } from '../../utils';
 import { PlaneMaterialCell } from './PlaneMaterialCell';
 import { PlaneMaterialCellColumn } from './PlaneMaterialCellColumn';
 

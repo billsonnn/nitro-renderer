@@ -1,8 +1,7 @@
 import { IRoomGeometry, NumberDataType, RoomObjectVariable } from '../../../../../api';
 import { RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
-import { MouseEventType } from '../../../../ui/MouseEventType';
-import { RoomObjectHSLColorEnableEvent } from '../../../events/RoomObjectHSLColorEnableEvent';
-import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
+import { MouseEventType } from '../../../../ui';
+import { RoomObjectHSLColorEnableEvent, RoomObjectWidgetRequestEvent } from '../../../events';
 import { ObjectDataUpdateMessage } from '../../../messages';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 

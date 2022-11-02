@@ -1,6 +1,6 @@
 ﻿import { Graphics } from '@pixi/graphics';
 import { IVector3D, Vector3d } from '../../../../../../../api';
-import { Plane } from '../basic/Plane';
+import { Plane } from '../basic';
 
 export class LandscapePlane extends Plane
 {

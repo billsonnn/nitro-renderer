@@ -1,8 +1,5 @@
-import { IAvatarEffectListener } from '../../../../avatar/IAvatarEffectListener';
-import { IAvatarImage } from '../../../../avatar/IAvatarImage';
-import { IAvatarImageListener } from '../../../../avatar/IAvatarImageListener';
-import { IAvatarRenderManager } from '../../../../avatar/IAvatarRenderManager';
-import { AvatarVisualizationData } from '../avatar/AvatarVisualizationData';
+import { IAvatarEffectListener, IAvatarImage, IAvatarImageListener, IAvatarRenderManager } from '../../../../avatar';
+import { AvatarVisualizationData } from '../avatar';
 import { FurnitureVisualizationData } from './FurnitureVisualizationData';
 
 export class FurnitureMannequinVisualizationData extends FurnitureVisualizationData
@@ -20,7 +17,7 @@ export class FurnitureMannequinVisualizationData extends FurnitureVisualizationD
     {
         super.dispose();
 
-        if(this._avatarData)
+        if (this._avatarData)
         {
             this._avatarData.dispose();
 
@@ -30,7 +27,7 @@ export class FurnitureMannequinVisualizationData extends FurnitureVisualizationD
 
     public createAvatarImage(figure: string, size: number, gender: string = null, avatarListener: IAvatarImageListener = null, effectListener: IAvatarEffectListener = null): IAvatarImage
     {
-        return this._avatarData.createAvatarImage(figure,size, gender, avatarListener, effectListener);
+        return this._avatarData.createAvatarImage(figure, size, gender, avatarListener, effectListener);
     }
 
     public set avatarManager(renderer: IAvatarRenderManager)

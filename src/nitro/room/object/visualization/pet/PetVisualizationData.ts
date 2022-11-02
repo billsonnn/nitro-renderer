@@ -1,8 +1,6 @@
 import { IAssetVisualizationData } from '../../../../../api';
-import { AnimationSizeData } from '../data/AnimationSizeData';
-import { PetSizeData } from '../data/PetSizeData';
-import { SizeData } from '../data/SizeData';
-import { FurnitureAnimatedVisualizationData } from '../furniture/FurnitureAnimatedVisualizationData';
+import { AnimationSizeData, PetSizeData, SizeData } from '../data';
+import { FurnitureAnimatedVisualizationData } from '../furniture';
 
 export class PetVisualizationData extends FurnitureAnimatedVisualizationData
 {

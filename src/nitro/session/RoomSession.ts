@@ -1,7 +1,7 @@
 import { IConnection, IRoomSession, RoomControllerLevel, RoomTradingLevelEnum } from '../../api';
 import { Disposable } from '../../core';
 import { BotRemoveComposer, CompostPlantMessageComposer, FurnitureMultiStateComposer, HarvestPetMessageComposer, MoodlightSettingsComposer, MoodlightSettingsSaveComposer, MoodlightTogggleStateComposer, OpenPresentComposer, PetMountComposer, PetRemoveComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, RoomAmbassadorAlertComposer, RoomBanUserComposer, RoomDoorbellAccessComposer, RoomEnterComposer, RoomGiveRightsComposer, RoomKickUserComposer, RoomModerationSettings, RoomMuteUserComposer, RoomTakeRightsComposer, RoomUnitActionComposer, RoomUnitChatComposer, RoomUnitChatShoutComposer, RoomUnitChatWhisperComposer, RoomUnitDanceComposer, RoomUnitPostureComposer, RoomUnitSignComposer, RoomUnitTypingStartComposer, RoomUnitTypingStopComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer, UserMottoComposer } from '../communication';
-import { RoomSessionEvent } from './events/RoomSessionEvent';
+import { RoomSessionEvent } from './events';
 import { UserDataManager } from './UserDataManager';
 
 export class RoomSession extends Disposable implements IRoomSession
