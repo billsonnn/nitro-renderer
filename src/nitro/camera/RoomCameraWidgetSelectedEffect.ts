@@ -1,4 +1,4 @@
-import { IRoomCameraWidgetEffect } from './IRoomCameraWidgetEffect';
+import { IRoomCameraWidgetEffect } from '../../api';
 
 export class RoomCameraWidgetSelectedEffect
 {

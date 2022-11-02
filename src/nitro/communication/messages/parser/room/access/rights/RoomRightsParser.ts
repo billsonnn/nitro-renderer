@@ -1,5 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../../api';
-import { RoomControllerLevel } from '../../../../../../session/enum/RoomControllerLevel';
+import { IMessageDataWrapper, IMessageParser, RoomControllerLevel } from '../../../../../../../api';
 
 export class RoomRightsParser implements IMessageParser
 {

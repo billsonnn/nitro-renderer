@@ -1,14 +1,11 @@
 import { Texture } from '@pixi/core';
 import { ColorMatrix, ColorMatrixFilter } from '@pixi/filter-color-matrix';
-import { IEventDispatcher } from '../../api';
+import { IEventDispatcher, IRoomCameraWidgetEffect, IRoomCameraWidgetManager, IRoomCameraWidgetSelectedEffect } from '../../api';
 import { EventDispatcher } from '../../core';
 import { NitroContainer, NitroSprite, TextureUtils } from '../../pixi-proxy';
 import { Nitro } from '../Nitro';
-import { RoomCameraWidgetManagerEvent } from './events/RoomCameraWidgetManagerEvent';
-import { IRoomCameraWidgetEffect } from './IRoomCameraWidgetEffect';
-import { IRoomCameraWidgetManager } from './IRoomCameraWidgetManager';
-import { IRoomCameraWidgetSelectedEffect } from './IRoomCameraWidgetSelectedEffect';
 import { RoomCameraWidgetEffect } from './RoomCameraWidgetEffect';
+import { RoomCameraWidgetManagerEvent } from './RoomCameraWidgetManagerEvent';
 
 export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
 {

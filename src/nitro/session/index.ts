@@ -1,5 +1,4 @@
 export * from './badge';
-export * from './enum';
 export * from './events';
 export * from './furniture';
 export * from './HabboClubLevelEnum';

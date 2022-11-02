@@ -1,4 +1,4 @@
-import { NitroEvent } from '../../../core';
+import { NitroEvent } from '../../core';
 
 export class RoomCameraWidgetManagerEvent extends NitroEvent
 {

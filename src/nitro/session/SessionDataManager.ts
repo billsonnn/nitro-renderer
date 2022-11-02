@@ -1,5 +1,5 @@
 import { Resource, Texture } from '@pixi/core';
-import { IFurnitureData, IFurnitureDataListener, IGroupInformationManager, IMessageComposer, INitroCommunicationManager, IProductData, IProductDataListener, ISessionDataManager } from '../../api';
+import { IFurnitureData, IFurnitureDataListener, IGroupInformationManager, IMessageComposer, INitroCommunicationManager, IProductData, IProductDataListener, ISessionDataManager, NoobnessLevelEnum, SecurityLevel } from '../../api';
 import { NitroEvent, NitroManager } from '../../core';
 import { FigureUpdateEvent, MysteryBoxKeysEvent } from '../communication';
 import { AvailabilityStatusMessageEvent } from '../communication/messages/incoming/availability/AvailabilityStatusMessageEvent';
@@ -17,8 +17,6 @@ import { NitroSettingsEvent } from '../events/NitroSettingsEvent';
 import { Nitro } from '../Nitro';
 import { HabboWebTools } from '../utils/HabboWebTools';
 import { BadgeImageManager } from './badge/BadgeImageManager';
-import { NoobnessLevelEnum } from './enum/NoobnessLevelEnum';
-import { SecurityLevel } from './enum/SecurityLevel';
 import { MysteryBoxKeysUpdateEvent } from './events';
 import { SessionDataPreferencesEvent } from './events/SessionDataPreferencesEvent';
 import { UserNameUpdateEvent } from './events/UserNameUpdateEvent';

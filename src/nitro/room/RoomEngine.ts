@@ -2,6 +2,7 @@ import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Container, DisplayObject } from '@pixi/display';
 import { Matrix, Point, Rectangle } from '@pixi/math';
 import { IConnection, IDisposable, IMessageComposer, INitroCommunicationManager, IRoomGeometry, IRoomInstance, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRenderer, IRoomRendererFactory, IRoomRenderingCanvas, IRoomSessionManager, ISessionDataManager, IUpdateReceiver, IVector3D } from '../../api';
+import { RoomControllerLevel } from '../../api/nitro/session/enum/RoomControllerLevel';
 import { NitroEvent, NitroManager } from '../../core';
 import { NitroSprite, TextureUtils } from '../../pixi-proxy';
 import { NumberBank, RoomEnterEffect, RoomGeometry, RoomInstance, RoomObjectEvent, RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomRendererFactory, Vector3d } from '../../room';
@@ -11,7 +12,6 @@ import { RenderRoomMessageComposer, RenderRoomThumbnailMessageComposer } from '.
 import { ToolbarIconEnum } from '../enums/ToolbarIconEnum';
 import { NitroToolbarAnimateIconEvent } from '../events/NitroToolbarAnimateIconEvent';
 import { Nitro } from '../Nitro';
-import { RoomControllerLevel } from '../session/enum/RoomControllerLevel';
 import { BadgeImageReadyEvent } from '../session/events/BadgeImageReadyEvent';
 import { RoomSessionEvent } from '../session/events/RoomSessionEvent';
 import { MouseEventType } from '../ui/MouseEventType';

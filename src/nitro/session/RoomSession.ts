@@ -1,4 +1,4 @@
-import { IConnection, IRoomSession } from '../../api';
+import { IConnection, IRoomSession, RoomControllerLevel, RoomTradingLevelEnum } from '../../api';
 import { Disposable } from '../../core';
 import { CompostPlantMessageComposer, FurnitureMultiStateComposer, HarvestPetMessageComposer, PetMountComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from '../communication';
 import { RoomModerationSettings } from '../communication/messages/incoming/roomsettings/RoomModerationSettings';
@@ -26,8 +26,6 @@ import { RoomUnitDanceComposer } from '../communication/messages/outgoing/room/u
 import { RoomUnitPostureComposer } from '../communication/messages/outgoing/room/unit/RoomUnitPostureComposer';
 import { RoomUnitSignComposer } from '../communication/messages/outgoing/room/unit/RoomUnitSignComposer';
 import { UserMottoComposer } from '../communication/messages/outgoing/user/data/UserMottoComposer';
-import { RoomControllerLevel } from './enum/RoomControllerLevel';
-import { RoomTradingLevelEnum } from './enum/RoomTradingLevelEnum';
 import { RoomSessionEvent } from './events/RoomSessionEvent';
 import { UserDataManager } from './UserDataManager';
 

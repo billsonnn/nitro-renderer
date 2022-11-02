@@ -1,6 +1,6 @@
 import { Resource, Texture } from '@pixi/core';
 import { ColorMatrix } from '@pixi/filter-color-matrix';
-import { IRoomCameraWidgetEffect } from './IRoomCameraWidgetEffect';
+import { IRoomCameraWidgetEffect } from '../../api';
 
 export class RoomCameraWidgetEffect implements IRoomCameraWidgetEffect
 {

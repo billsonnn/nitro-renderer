@@ -1,3 +1,4 @@
+export * from './enum';
 export * from './FurnitureType';
 export * from './IFurnitureData';
 export * from './IFurnitureDataListener';
