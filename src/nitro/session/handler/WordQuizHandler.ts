@@ -1,7 +1,5 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
-import { QuestionAnsweredEvent } from '../../communication/messages/incoming/poll/QuestionAnsweredEvent';
-import { QuestionEvent } from '../../communication/messages/incoming/poll/QuestionEvent';
-import { QuestionFinishedEvent } from '../../communication/messages/incoming/poll/QuestionFinishedEvent';
+import { QuestionAnsweredEvent, QuestionEvent, QuestionFinishedEvent } from '../../communication';
 import { RoomSessionWordQuizEvent } from '../events/RoomSessionWordQuizEvent';
 import { BaseHandler } from './BaseHandler';
 

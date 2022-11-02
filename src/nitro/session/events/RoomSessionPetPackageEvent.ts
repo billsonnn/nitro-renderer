@@ -1,5 +1,5 @@
 ﻿import { IRoomSession } from '../../../api';
-import { PetFigureDataParser } from '../../communication/messages/parser/inventory/pets/PetFigureDataParser';
+import { PetFigureDataParser } from '../../communication';
 import { RoomSessionEvent } from './RoomSessionEvent';
 
 export class RoomSessionPetPackageEvent extends RoomSessionEvent

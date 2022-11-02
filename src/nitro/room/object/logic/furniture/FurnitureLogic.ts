@@ -5,11 +5,7 @@ import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectRoomAdEvent } from '../../../events';
 import { RoomObjectStateChangedEvent } from '../../../events/RoomObjectStateChangedEvent';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
-import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
-import { ObjectHeightUpdateMessage } from '../../../messages/ObjectHeightUpdateMessage';
-import { ObjectItemDataUpdateMessage } from '../../../messages/ObjectItemDataUpdateMessage';
-import { ObjectMoveUpdateMessage } from '../../../messages/ObjectMoveUpdateMessage';
-import { ObjectSelectedMessage } from '../../../messages/ObjectSelectedMessage';
+import { ObjectDataUpdateMessage, ObjectHeightUpdateMessage, ObjectItemDataUpdateMessage, ObjectMoveUpdateMessage, ObjectSelectedMessage } from '../../../messages';
 import { MovingObjectLogic } from '../MovingObjectLogic';
 
 export class FurnitureLogic extends MovingObjectLogic

@@ -1,5 +1,5 @@
 import { IConnection } from '../../api';
-import { LoadGameUrlEvent } from '../communication/messages/incoming/game/LoadGameUrlEvent';
+import { LoadGameUrlEvent } from '../communication';
 import { LegacyExternalInterface } from '../externalInterface/LegacyExternalInterface';
 
 export class GameMessageHandler

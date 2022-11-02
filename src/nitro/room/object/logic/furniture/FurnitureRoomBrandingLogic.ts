@@ -6,8 +6,7 @@ import { Nitro } from '../../../../Nitro';
 import { MouseEventType } from '../../../../ui';
 import { RoomWidgetEnumItemExtradataParameter } from '../../../../ui/widget/enums/RoomWidgetEnumItemExtradataParameter';
 import { RoomObjectRoomAdEvent } from '../../../events';
-import { ObjectAdUpdateMessage } from '../../../messages/ObjectAdUpdateMessage';
-import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
+import { ObjectAdUpdateMessage, ObjectDataUpdateMessage } from '../../../messages';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureRoomBrandingLogic extends FurnitureLogic

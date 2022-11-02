@@ -1,5 +1,5 @@
 import { IObjectData } from '../../../api';
-import { RoomObjectUpdateMessage } from '../../../room/messages/RoomObjectUpdateMessage';
+import { RoomObjectUpdateMessage } from '../../../room';
 
 export class ObjectDataUpdateMessage extends RoomObjectUpdateMessage
 {

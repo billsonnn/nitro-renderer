@@ -1,7 +1,7 @@
 import { RoomObjectVariable, Vector3d } from '../../../../../api';
 import { RoomObjectUpdateMessage } from '../../../../../room';
 import { RoomObjectFloorHoleEvent } from '../../../events/RoomObjectFloorHoleEvent';
-import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
+import { ObjectDataUpdateMessage } from '../../../messages';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic

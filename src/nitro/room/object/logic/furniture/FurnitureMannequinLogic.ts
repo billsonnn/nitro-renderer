@@ -1,7 +1,7 @@
 import { MapDataType, RoomObjectVariable } from '../../../../../api';
 import { RoomObjectUpdateMessage } from '../../../../../room';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
-import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
+import { ObjectDataUpdateMessage } from '../../../messages';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureMannequinLogic extends FurnitureLogic

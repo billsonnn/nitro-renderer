@@ -1,6 +1,6 @@
 import { Texture } from '@pixi/core';
 import { Matrix, Point, Rectangle } from '@pixi/math';
-import { RoomObjectSpriteData } from '../../../api/room/RoomObjectSpriteData';
+import { RoomObjectSpriteData } from '../../../api';
 import { NitroContainer, NitroSprite, PixiApplicationProxy } from '../../../pixi-proxy';
 import { IActiveActionData } from '../actions/IActiveActionData';
 import { AssetAliasCollection } from '../alias/AssetAliasCollection';

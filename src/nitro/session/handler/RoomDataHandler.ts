@@ -1,5 +1,5 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
-import { GetGuestRoomResultEvent } from '../../communication/messages/incoming/navigator/GetGuestRoomResultEvent';
+import { GetGuestRoomResultEvent } from '../../communication';
 import { RoomSessionEvent } from '../events/RoomSessionEvent';
 import { RoomSessionPropertyUpdateEvent } from '../events/RoomSessionPropertyUpdateEvent';
 import { BaseHandler } from './BaseHandler';

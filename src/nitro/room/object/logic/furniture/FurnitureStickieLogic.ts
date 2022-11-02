@@ -2,7 +2,7 @@ import { IAssetData, RoomObjectVariable } from '../../../../../api';
 import { RoomObjectUpdateMessage } from '../../../../../room';
 import { RoomObjectFurnitureActionEvent } from '../../../events/RoomObjectFurnitureActionEvent';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
-import { ObjectItemDataUpdateMessage } from '../../../messages/ObjectItemDataUpdateMessage';
+import { ObjectItemDataUpdateMessage } from '../../../messages';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureStickieLogic extends FurnitureLogic

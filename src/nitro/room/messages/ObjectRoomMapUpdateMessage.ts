@@ -1,5 +1,5 @@
-import { RoomObjectUpdateMessage } from '../../../room/messages/RoomObjectUpdateMessage';
-import { RoomMapData } from '../object/RoomMapData';
+import { RoomObjectUpdateMessage } from '../../../room';
+import { RoomMapData } from '../object';
 
 export class ObjectRoomMapUpdateMessage extends RoomObjectUpdateMessage
 {

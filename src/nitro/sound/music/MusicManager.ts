@@ -1,11 +1,5 @@
 import { NitroEvent, NitroManager } from '../../../core';
-import { SongInfoEntry } from '../../communication';
-import { JukeboxPlayListFullMessageEvent } from '../../communication/messages/incoming/sound/JukeboxPlayListFullMessageEvent';
-import { JukeboxSongDisksMessageEvent } from '../../communication/messages/incoming/sound/JukeboxSongDisksMessageEvent';
-import { NowPlayingMessageEvent } from '../../communication/messages/incoming/sound/NowPlayingMessageEvent';
-import { TraxSongInfoMessageEvent } from '../../communication/messages/incoming/sound/TraxSongInfoMessageEvent';
-import { UserSongDisksInventoryMessageEvent } from '../../communication/messages/incoming/sound/UserSongDisksInventoryMessageEvent';
-import { GetSongInfoMessageComposer } from '../../communication/messages/outgoing/sound/GetSongInfoMessageComposer';
+import { GetSongInfoMessageComposer, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, NowPlayingMessageEvent, SongInfoEntry, TraxSongInfoMessageEvent, UserSongDisksInventoryMessageEvent } from '../../communication';
 import { Nitro } from '../../Nitro';
 import { RoomObjectSoundMachineEvent } from '../../room/events/RoomObjectSoundMachineEvent';
 import { SongStartRequestData } from '../common/SongStartRequestData';

@@ -1,6 +1,6 @@
 import { RoomObjectVariable, VoteDataType } from '../../../../../api';
 import { RoomObjectUpdateMessage } from '../../../../../room';
-import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
+import { ObjectDataUpdateMessage } from '../../../messages';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureVoteMajorityLogic extends FurnitureMultiStateLogic

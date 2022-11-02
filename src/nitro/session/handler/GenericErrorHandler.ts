@@ -1,5 +1,5 @@
 import { GenericErrorEnum, IConnection, IRoomHandlerListener } from '../../../api';
-import { GenericErrorEvent } from '../../communication/messages/incoming/generic/GenericErrorEvent';
+import { GenericErrorEvent } from '../../communication';
 import { RoomSessionErrorMessageEvent } from '../events/RoomSessionErrorMessageEvent';
 import { BaseHandler } from './BaseHandler';
 

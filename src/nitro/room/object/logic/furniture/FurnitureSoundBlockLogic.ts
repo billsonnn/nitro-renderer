@@ -1,7 +1,7 @@
 import { IAssetData, RoomObjectVariable } from '../../../../../api';
 import { RoomObjectUpdateMessage } from '../../../../../room';
 import { RoomObjectSamplePlaybackEvent } from '../../../events/RoomObjectSamplePlaybackEvent';
-import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
+import { ObjectDataUpdateMessage } from '../../../messages';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic

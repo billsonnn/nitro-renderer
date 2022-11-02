@@ -3,7 +3,7 @@ import { RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../ro
 import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectHSLColorEnableEvent } from '../../../events/RoomObjectHSLColorEnableEvent';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
-import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
+import { ObjectDataUpdateMessage } from '../../../messages';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureRoomBackgroundColorLogic extends FurnitureMultiStateLogic

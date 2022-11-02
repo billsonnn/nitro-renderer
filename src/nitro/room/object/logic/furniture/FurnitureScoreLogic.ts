@@ -1,6 +1,6 @@
 import { RoomObjectUpdateMessage } from '../../../../../room';
 import { Nitro } from '../../../../Nitro';
-import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
+import { ObjectDataUpdateMessage } from '../../../messages';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureScoreLogic extends FurnitureLogic

@@ -3,14 +3,7 @@ import { RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent } f
 import { PetFigureData } from '../../../../avatar/pets/PetFigureData';
 import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectMoveEvent } from '../../../events/RoomObjectMoveEvent';
-import { ObjectAvatarExperienceUpdateMessage } from '../../../messages';
-import { ObjectAvatarChatUpdateMessage } from '../../../messages/ObjectAvatarChatUpdateMessage';
-import { ObjectAvatarFigureUpdateMessage } from '../../../messages/ObjectAvatarFigureUpdateMessage';
-import { ObjectAvatarPetGestureUpdateMessage } from '../../../messages/ObjectAvatarPetGestureUpdateMessage';
-import { ObjectAvatarPostureUpdateMessage } from '../../../messages/ObjectAvatarPostureUpdateMessage';
-import { ObjectAvatarSelectedMessage } from '../../../messages/ObjectAvatarSelectedMessage';
-import { ObjectAvatarSleepUpdateMessage } from '../../../messages/ObjectAvatarSleepUpdateMessage';
-import { ObjectAvatarUpdateMessage } from '../../../messages/ObjectAvatarUpdateMessage';
+import { ObjectAvatarChatUpdateMessage, ObjectAvatarExperienceUpdateMessage, ObjectAvatarFigureUpdateMessage, ObjectAvatarPetGestureUpdateMessage, ObjectAvatarPostureUpdateMessage, ObjectAvatarSelectedMessage, ObjectAvatarSleepUpdateMessage, ObjectAvatarUpdateMessage } from '../../../messages';
 import { MovingObjectLogic } from '../MovingObjectLogic';
 
 export class PetLogic extends MovingObjectLogic

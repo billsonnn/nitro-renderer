@@ -1,14 +1,5 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
-import { FloodControlEvent } from '../../communication/messages/incoming/room/unit/chat/FloodControlEvent';
-import { RemainingMuteEvent } from '../../communication/messages/incoming/room/unit/chat/RemainingMuteEvent';
-import { RoomUnitChatEvent } from '../../communication/messages/incoming/room/unit/chat/RoomUnitChatEvent';
-import { RoomUnitChatShoutEvent } from '../../communication/messages/incoming/room/unit/chat/RoomUnitChatShoutEvent';
-import { RoomUnitChatWhisperEvent } from '../../communication/messages/incoming/room/unit/chat/RoomUnitChatWhisperEvent';
-import { RoomUnitHandItemReceivedEvent } from '../../communication/messages/incoming/room/unit/RoomUnitHandItemReceivedEvent';
-import { PetRespectNoficationEvent } from '../../communication/messages/incoming/user/PetRespectNoficationEvent';
-import { PetSupplementedNotificationEvent } from '../../communication/messages/incoming/user/PetSupplementedNotificationEvent';
-import { RespectReceivedEvent } from '../../communication/messages/incoming/user/RespectReceivedEvent';
-import { PetSupplementTypeEnum } from '../../communication/messages/parser/user/PetSupplementTypeEnum';
+import { FloodControlEvent, PetRespectNoficationEvent, PetSupplementedNotificationEvent, PetSupplementTypeEnum, RemainingMuteEvent, RespectReceivedEvent, RoomUnitChatEvent, RoomUnitChatShoutEvent, RoomUnitChatWhisperEvent, RoomUnitHandItemReceivedEvent } from '../../communication';
 import { SystemChatStyleEnum } from '../../ui/widget/enums/SystemChatStyleEnum';
 import { RoomSessionChatEvent } from '../events/RoomSessionChatEvent';
 import { BaseHandler } from './BaseHandler';

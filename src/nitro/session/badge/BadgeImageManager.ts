@@ -1,7 +1,7 @@
 import { Resource, Texture } from '@pixi/core';
 import { IAssetManager, IDisposable, IMessageEvent } from '../../../api';
 import { NitroContainer, NitroSprite, NitroTexture, TextureUtils } from '../../../pixi-proxy';
-import { GroupBadgePartsEvent } from '../../communication/messages/incoming/group/GroupBadgePartsEvent';
+import { GroupBadgePartsEvent } from '../../communication';
 import { Nitro } from '../../Nitro';
 import { BadgeImageReadyEvent } from '../events/BadgeImageReadyEvent';
 import { SessionDataManager } from './../SessionDataManager';

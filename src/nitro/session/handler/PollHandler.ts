@@ -1,7 +1,5 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
-import { PollContentsEvent } from '../../communication/messages/incoming/poll/PollContentsEvent';
-import { PollErrorEvent } from '../../communication/messages/incoming/poll/PollErrorEvent';
-import { PollOfferEvent } from '../../communication/messages/incoming/poll/PollOfferEvent';
+import { PollContentsEvent, PollErrorEvent, PollOfferEvent } from '../../communication';
 import { RoomSessionPollEvent } from '../events/RoomSessionPollEvent';
 import { BaseHandler } from './BaseHandler';
 

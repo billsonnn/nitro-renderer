@@ -1,4 +1,4 @@
-import { RoomObjectEvent } from '../../../room/events/RoomObjectEvent';
+import { RoomObjectEvent } from '../../../room';
 
 export class RoomObjectFurnitureActionEvent extends RoomObjectEvent
 {

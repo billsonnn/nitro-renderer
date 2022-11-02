@@ -1,5 +1,5 @@
 ﻿import { IRoomObject } from '../../../api';
-import { RoomObjectEvent } from '../../../room/events/RoomObjectEvent';
+import { RoomObjectEvent } from '../../../room';
 
 export class RoomObjectDimmerStateUpdateEvent extends RoomObjectEvent
 {

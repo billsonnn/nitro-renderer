@@ -1,5 +1,5 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
-import { PresentOpenedMessageEvent } from '../../communication/messages/incoming/inventory/furni/gifts/PresentOpenedMessageEvent';
+import { PresentOpenedMessageEvent } from '../../communication';
 import { RoomSessionPresentEvent } from '../events/RoomSessionPresentEvent';
 import { BaseHandler } from './BaseHandler';
 

@@ -1,5 +1,5 @@
 ﻿import { IConnection, IRoomHandlerListener } from '../../../api';
-import { RoomDimmerPresetsEvent } from '../../communication/messages/incoming/room/furniture/RoomDimmerPresetsMessageEvent';
+import { RoomDimmerPresetsEvent } from '../../communication';
 import { RoomSessionDimmerPresetsEvent } from '../events/RoomSessionDimmerPresetsEvent';
 import { BaseHandler } from './BaseHandler';
 

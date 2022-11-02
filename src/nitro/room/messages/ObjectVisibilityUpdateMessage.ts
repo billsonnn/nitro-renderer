@@ -1,4 +1,4 @@
-import { RoomObjectUpdateMessage } from '../../../room/messages/RoomObjectUpdateMessage';
+import { RoomObjectUpdateMessage } from '../../../room';
 
 export class ObjectVisibilityUpdateMessage extends RoomObjectUpdateMessage
 {

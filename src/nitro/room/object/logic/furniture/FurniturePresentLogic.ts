@@ -3,8 +3,7 @@ import { RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../ro
 import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectFurnitureActionEvent } from '../../../events/RoomObjectFurnitureActionEvent';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
-import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
-import { ObjectModelDataUpdateMessage } from '../../../messages/ObjectModelDataUpdateMessage';
+import { ObjectDataUpdateMessage, ObjectModelDataUpdateMessage } from '../../../messages';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurniturePresentLogic extends FurnitureLogic
