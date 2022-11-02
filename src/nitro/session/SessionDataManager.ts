@@ -1,8 +1,7 @@
 import { Resource, Texture } from '@pixi/core';
-import { IMessageComposer } from '../../api';
+import { IFurnitureData, IFurnitureDataListener, IGroupInformationManager, IMessageComposer, INitroCommunicationManager, IProductData, IProductDataListener, ISessionDataManager } from '../../api';
 import { NitroEvent, NitroManager } from '../../core';
 import { FigureUpdateEvent, MysteryBoxKeysEvent } from '../communication';
-import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { AvailabilityStatusMessageEvent } from '../communication/messages/incoming/availability/AvailabilityStatusMessageEvent';
 import { ChangeUserNameResultMessageEvent } from '../communication/messages/incoming/avatar/ChangeUserNameResultMessageEvent';
 import { NoobnessLevelMessageEvent } from '../communication/messages/incoming/handshake/NoobnessLevelMessageEvent';
@@ -24,13 +23,8 @@ import { MysteryBoxKeysUpdateEvent } from './events';
 import { SessionDataPreferencesEvent } from './events/SessionDataPreferencesEvent';
 import { UserNameUpdateEvent } from './events/UserNameUpdateEvent';
 import { FurnitureDataLoader } from './furniture/FurnitureDataLoader';
-import { IFurnitureData } from './furniture/IFurnitureData';
-import { IFurnitureDataListener } from './furniture/IFurnitureDataListener';
 import { GroupInformationManager } from './GroupInformationManager';
 import { IgnoredUsersManager } from './IgnoredUsersManager';
-import { ISessionDataManager } from './ISessionDataManager';
-import { IProductData } from './product/IProductData';
-import { IProductDataListener } from './product/IProductDataListener';
 import { ProductDataLoader } from './product/ProductDataLoader';
 
 export class SessionDataManager extends NitroManager implements ISessionDataManager
@@ -48,7 +42,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     private _canChangeName: boolean;
 
     private _ignoredUsersManager: IgnoredUsersManager;
-    private _groupInformationManager: GroupInformationManager;
+    private _groupInformationManager: IGroupInformationManager;
 
     private _clubLevel: number;
     private _securityLevel: number;
@@ -601,7 +595,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         return this._ignoredUsersManager;
     }
 
-    public get groupInformationManager(): GroupInformationManager
+    public get groupInformationManager(): IGroupInformationManager
     {
         return this._groupInformationManager;
     }

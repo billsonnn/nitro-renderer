@@ -1,4 +1,4 @@
-﻿import { IRoomSession } from '../IRoomSession';
+﻿import { IRoomSession } from '../../../api';
 import { RoomPetData } from '../RoomPetData';
 import { RoomSessionEvent } from './RoomSessionEvent';
 
@@ -15,7 +15,7 @@ export class RoomSessionPetInfoUpdateEvent extends RoomSessionEvent
         this._petInfo = _arg_2;
     }
 
-    public get petInfo():RoomPetData
+    public get petInfo(): RoomPetData
     {
         return this._petInfo;
     }

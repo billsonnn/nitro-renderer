@@ -1,4 +1,4 @@
-import { IFurnitureData } from './IFurnitureData';
+import { IFurnitureData } from '../../../api';
 
 export class FurnitureData implements IFurnitureData
 {

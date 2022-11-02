@@ -1,11 +1,11 @@
 import { Resource, Texture } from '@pixi/core';
-import { INitroManager } from '../../api';
-import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
-import { IFurnitureData } from './furniture/IFurnitureData';
-import { IFurnitureDataListener } from './furniture/IFurnitureDataListener';
-import { GroupInformationManager } from './GroupInformationManager';
-import { IgnoredUsersManager } from './IgnoredUsersManager';
-import { IProductData } from './product/IProductData';
+import { INitroManager } from '../../common';
+import { INitroCommunicationManager } from '../communication';
+import { IFurnitureData } from './IFurnitureData';
+import { IFurnitureDataListener } from './IFurnitureDataListener';
+import { IGroupInformationManager } from './IGroupInformationManager';
+import { IIgnoredUsersManager } from './IIgnoredUsersManager';
+import { IProductData } from './IProductData';
 
 export interface ISessionDataManager extends INitroManager
 {
@@ -36,8 +36,8 @@ export interface ISessionDataManager extends INitroManager
     figure: string;
     gender: string;
     realName: string;
-    ignoredUsersManager: IgnoredUsersManager;
-    groupInformationManager: GroupInformationManager;
+    ignoredUsersManager: IIgnoredUsersManager;
+    groupInformationManager: IGroupInformationManager;
     respectsReceived: number;
     respectsLeft: number;
     respectsPetLeft: number;

@@ -1,6 +1,6 @@
-import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageDataWrapper, IRoomModerationSettings } from '../../../../../api';
 
-export class RoomModerationSettings
+export class RoomModerationSettings implements IRoomModerationSettings
 {
     public static MODERATION_LEVEL_NONE: number = 0;
     public static MODERATION_LEVEL_USER_WITH_RIGHTS: number = 1;

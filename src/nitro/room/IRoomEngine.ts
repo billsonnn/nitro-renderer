@@ -1,11 +1,8 @@
 import { RenderTexture } from '@pixi/core';
 import { DisplayObject } from '@pixi/display';
 import { Point, Rectangle } from '@pixi/math';
-import { INitroManager, IRoomGeometry, IRoomManager, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRendererFactory, IRoomRenderingCanvas } from '../../api';
-import { IVector3D } from '../../api/room/IVector3D';
+import { INitroManager, IRoomGeometry, IRoomManager, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRendererFactory, IRoomRenderingCanvas, IRoomSessionManager, ISessionDataManager, IVector3D } from '../../api';
 import { PetCustomPart } from '../avatar/pets/PetCustomPart';
-import { IRoomSessionManager } from '../session/IRoomSessionManager';
-import { ISessionDataManager } from '../session/ISessionDataManager';
 import { IGetImageListener } from './IGetImageListener';
 import { ImageResult } from './ImageResult';
 import { IObjectData } from './object/data/IObjectData';

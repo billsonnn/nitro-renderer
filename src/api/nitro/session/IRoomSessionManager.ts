@@ -1,5 +1,5 @@
-import { INitroManager } from '../../api';
-import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
+import { INitroManager } from '../../common';
+import { INitroCommunicationManager } from '../communication';
 import { IRoomSession } from './IRoomSession';
 
 export interface IRoomSessionManager extends INitroManager

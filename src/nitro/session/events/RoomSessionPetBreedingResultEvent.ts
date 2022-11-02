@@ -1,5 +1,5 @@
-﻿import { PetBreedingResultData } from '../../communication/messages/incoming/room/pet/PetBreedingResultData';
-import { IRoomSession } from '../IRoomSession';
+﻿import { IRoomSession } from '../../../api';
+import { PetBreedingResultData } from '../../communication/messages/incoming/room/pet/PetBreedingResultData';
 import { RoomSessionEvent } from './RoomSessionEvent';
 
 export class RoomSessionPetBreedingResultEvent extends RoomSessionEvent

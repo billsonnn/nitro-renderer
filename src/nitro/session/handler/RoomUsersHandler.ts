@@ -1,4 +1,4 @@
-import { IConnection } from '../../../api';
+import { IConnection, IRoomHandlerListener, IRoomUserData } from '../../../api';
 import { PetFigureUpdateEvent } from '../../communication';
 import { NewFriendRequestEvent } from '../../communication/messages/incoming/friendlist/NewFriendRequestEvent';
 import { DoorbellMessageEvent } from '../../communication/messages/incoming/navigator/DoorbellMessageEvent';
@@ -22,7 +22,6 @@ import { RoomSessionFriendRequestEvent } from '../events/RoomSessionFriendReques
 import { RoomSessionPetInfoUpdateEvent } from '../events/RoomSessionPetInfoUpdateEvent';
 import { RoomSessionUserBadgesEvent } from '../events/RoomSessionUserBadgesEvent';
 import { RoomSessionUserDataUpdateEvent } from '../events/RoomSessionUserDataUpdateEvent';
-import { IRoomHandlerListener } from '../IRoomHandlerListener';
 import { RoomPetData } from '../RoomPetData';
 import { RoomUserData } from '../RoomUserData';
 import { BaseHandler } from './BaseHandler';
@@ -59,7 +58,7 @@ export class RoomUsersHandler extends BaseHandler
 
         const users = event.getParser().users;
 
-        const usersToAdd: RoomUserData[] = [];
+        const usersToAdd: IRoomUserData[] = [];
 
         if (users && users.length)
         {

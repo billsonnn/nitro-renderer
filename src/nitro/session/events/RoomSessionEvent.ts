@@ -1,5 +1,5 @@
+import { IRoomSession } from '../../../api';
 import { NitroEvent } from '../../../core';
-import { IRoomSession } from '../IRoomSession';
 
 export class RoomSessionEvent extends NitroEvent
 {

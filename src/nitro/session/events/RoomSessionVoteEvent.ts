@@ -1,4 +1,4 @@
-import { IRoomSession } from '../IRoomSession';
+import { IRoomSession } from '../../../api';
 import { RoomSessionEvent } from './RoomSessionEvent';
 
 
@@ -12,7 +12,7 @@ export class RoomSessionVoteEvent extends RoomSessionEvent
     private _SafeStr_7651: string[];
     private _SafeStr_7654: number = 0;
 
-    constructor(_arg_1: string, _arg_2: IRoomSession, _arg_3: string, _arg_4: string[], _arg_5: string[]=null, _arg_6: number=0)
+    constructor(_arg_1: string, _arg_2: IRoomSession, _arg_3: string, _arg_4: string[], _arg_5: string[] = null, _arg_6: number = 0)
     {
         super(_arg_1, _arg_2);
 
@@ -21,7 +21,7 @@ export class RoomSessionVoteEvent extends RoomSessionEvent
         this._question = _arg_3;
         this._choices = _arg_4;
         this._SafeStr_7651 = _arg_5;
-        if(this._SafeStr_7651 == null)
+        if (this._SafeStr_7651 == null)
         {
             this._SafeStr_7651 = [];
         }

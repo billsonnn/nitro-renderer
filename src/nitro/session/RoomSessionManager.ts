@@ -1,5 +1,5 @@
+import { INitroCommunicationManager, IRoomHandlerListener, IRoomSession, IRoomSessionManager } from '../../api';
 import { NitroManager } from '../../core';
-import { INitroCommunicationManager } from '../communication/INitroCommunicationManager';
 import { RoomEngineEvent } from '../room/events/RoomEngineEvent';
 import { IRoomEngine } from '../room/IRoomEngine';
 import { RoomSessionEvent } from './events/RoomSessionEvent';
@@ -14,9 +14,6 @@ import { RoomPresentHandler } from './handler/RoomPresentHandler';
 import { RoomSessionHandler } from './handler/RoomSessionHandler';
 import { RoomUsersHandler } from './handler/RoomUsersHandler';
 import { WordQuizHandler } from './handler/WordQuizHandler';
-import { IRoomHandlerListener } from './IRoomHandlerListener';
-import { IRoomSession } from './IRoomSession';
-import { IRoomSessionManager } from './IRoomSessionManager';
 import { RoomSession } from './RoomSession';
 
 export class RoomSessionManager extends NitroManager implements IRoomSessionManager, IRoomHandlerListener

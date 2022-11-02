@@ -1,15 +1,10 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Loader, LoaderResource } from '@pixi/loaders';
 import { Spritesheet } from '@pixi/spritesheet';
-import { IAssetData, IEventDispatcher, IGraphicAssetCollection, INitroLogger, IRoomContentLoader } from '../../api';
-import { IRoomObject } from '../../api/room/object/IRoomObject';
+import { FurnitureType, IAssetData, IEventDispatcher, IFurnitureData, IFurnitureDataListener, IGraphicAssetCollection, INitroLogger, IRoomContentLoader, IRoomObject, ISessionDataManager } from '../../api';
 import { GraphicAssetCollection, GraphicAssetGifCollection, NitroBundle, NitroEvent, NitroLogger } from '../../core';
 import { RoomContentLoadedEvent } from '../../room/events/RoomContentLoadedEvent';
 import { Nitro } from '../Nitro';
-import { FurnitureType } from '../session/furniture/FurnitureType';
-import { IFurnitureData } from '../session/furniture/IFurnitureData';
-import { IFurnitureDataListener } from '../session/furniture/IFurnitureDataListener';
-import { ISessionDataManager } from '../session/ISessionDataManager';
 import { IRoomContentListener } from './IRoomContentListener';
 import { RoomObjectCategory } from './object/RoomObjectCategory';
 import { RoomObjectUserType } from './object/RoomObjectUserType';

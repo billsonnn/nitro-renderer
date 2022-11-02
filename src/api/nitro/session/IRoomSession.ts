@@ -1,6 +1,7 @@
-import { IConnection, IDisposable } from '../../api';
-import { RoomModerationSettings } from '../communication/messages/incoming/roomsettings/RoomModerationSettings';
-import { UserDataManager } from './UserDataManager';
+import { IDisposable } from '../../common';
+import { IConnection } from '../../communication';
+import { IRoomModerationSettings } from './IRoomModerationSettings';
+import { IUserDataManager } from './IUserDataManager';
 
 export interface IRoomSession extends IDisposable
 {
@@ -45,7 +46,7 @@ export interface IRoomSession extends IDisposable
     harvestPet(id: number): void;
     compostPlant(id: number): void;
     connection: IConnection;
-    userDataManager: UserDataManager;
+    userDataManager: IUserDataManager;
     roomId: number;
     state: string;
     tradeMode: number;
@@ -58,5 +59,5 @@ export interface IRoomSession extends IDisposable
     isRoomOwner: boolean;
     isDecorating: boolean;
     isSpectator: boolean;
-    moderationSettings: RoomModerationSettings;
+    moderationSettings: IRoomModerationSettings;
 }

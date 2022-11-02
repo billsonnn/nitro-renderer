@@ -1,5 +1,5 @@
-﻿import { IQuestion } from '../../communication/messages/parser/poll/QuestionParser';
-import { IRoomSession } from '../IRoomSession';
+﻿import { IRoomSession } from '../../../api';
+import { IQuestion } from '../../communication/messages/parser/poll/QuestionParser';
 import { RoomSessionEvent } from './RoomSessionEvent';
 
 export class RoomSessionWordQuizEvent extends RoomSessionEvent

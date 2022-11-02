@@ -1,10 +1,10 @@
-import { IDisposable, IMessageEvent } from '../../api';
+import { IDisposable, IGroupInformationManager, IMessageEvent } from '../../api';
 import { RoomReadyMessageEvent } from '../communication';
 import { HabboGroupBadgesMessageEvent } from '../communication/messages/incoming/user/HabboGroupBadgesMessageEvent';
 import { GetHabboGroupBadgesMessageComposer } from '../communication/messages/outgoing/user/GetHabboGroupBadgesMessageComposer';
 import { SessionDataManager } from './SessionDataManager';
 
-export class GroupInformationManager implements IDisposable
+export class GroupInformationManager implements IDisposable, IGroupInformationManager
 {
     private _sessionDataManager: SessionDataManager;
     private _groupBadges: Map<number, string>;

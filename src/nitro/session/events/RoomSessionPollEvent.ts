@@ -1,5 +1,5 @@
-﻿import { PollQuestion } from '../../communication/messages/parser/poll/PollQuestion';
-import { IRoomSession } from '../IRoomSession';
+﻿import { IRoomSession } from '../../../api';
+import { PollQuestion } from '../../communication/messages/parser/poll/PollQuestion';
 import { RoomSessionEvent } from './RoomSessionEvent';
 
 

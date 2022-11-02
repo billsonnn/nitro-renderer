@@ -1,5 +1,5 @@
-﻿import { PetFigureDataParser } from '../../communication/messages/parser/inventory/pets/PetFigureDataParser';
-import { IRoomSession } from '../IRoomSession';
+﻿import { IRoomSession } from '../../../api';
+import { PetFigureDataParser } from '../../communication/messages/parser/inventory/pets/PetFigureDataParser';
 import { RoomSessionEvent } from './RoomSessionEvent';
 
 export class RoomSessionPetPackageEvent extends RoomSessionEvent
@@ -8,7 +8,7 @@ export class RoomSessionPetPackageEvent extends RoomSessionEvent
     public static RSOPPE_OPEN_PET_PACKAGE_RESULT: string = 'RSOPPE_OPEN_PET_PACKAGE_RESULT';
 
     private _objectId: number = -1;
-    private _figureData:PetFigureDataParser;
+    private _figureData: PetFigureDataParser;
     private _nameValidationStatus: number = 0;
     private _nameValidationInfo: string = null;
 
@@ -26,7 +26,7 @@ export class RoomSessionPetPackageEvent extends RoomSessionEvent
         return this._objectId;
     }
 
-    public get figureData():PetFigureDataParser
+    public get figureData(): PetFigureDataParser
     {
         return this._figureData;
     }

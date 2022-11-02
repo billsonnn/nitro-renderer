@@ -1,4 +1,4 @@
-import { IConnection } from '../../../api';
+import { IConnection, IRoomHandlerListener } from '../../../api';
 import { FloodControlEvent } from '../../communication/messages/incoming/room/unit/chat/FloodControlEvent';
 import { RemainingMuteEvent } from '../../communication/messages/incoming/room/unit/chat/RemainingMuteEvent';
 import { RoomUnitChatEvent } from '../../communication/messages/incoming/room/unit/chat/RoomUnitChatEvent';
@@ -11,7 +11,6 @@ import { PetSupplementTypeEnum } from '../../communication/messages/incoming/use
 import { RespectReceivedEvent } from '../../communication/messages/incoming/user/RespectReceivedEvent';
 import { SystemChatStyleEnum } from '../../ui/widget/enums/SystemChatStyleEnum';
 import { RoomSessionChatEvent } from '../events/RoomSessionChatEvent';
-import { IRoomHandlerListener } from '../IRoomHandlerListener';
 import { BaseHandler } from './BaseHandler';
 
 export class RoomChatHandler extends BaseHandler

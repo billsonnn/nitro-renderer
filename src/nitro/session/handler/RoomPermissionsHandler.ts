@@ -1,9 +1,8 @@
-import { IConnection } from '../../../api';
+import { IConnection, IRoomHandlerListener } from '../../../api';
 import { RoomRightsClearEvent } from '../../communication/messages/incoming/room/access/rights/RoomRightsClearEvent';
 import { RoomRightsEvent } from '../../communication/messages/incoming/room/access/rights/RoomRightsEvent';
 import { RoomRightsOwnerEvent } from '../../communication/messages/incoming/room/access/rights/RoomRightsOwnerEvent';
 import { RoomControllerLevel } from '../enum/RoomControllerLevel';
-import { IRoomHandlerListener } from '../IRoomHandlerListener';
 import { BaseHandler } from './BaseHandler';
 
 export class RoomPermissionsHandler extends BaseHandler

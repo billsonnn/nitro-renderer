@@ -1,4 +1,4 @@
-﻿import { IRoomSession } from '../IRoomSession';
+﻿import { IRoomSession } from '../../../api';
 import { RoomSessionEvent } from './RoomSessionEvent';
 
 export class RoomSessionQueueEvent extends RoomSessionEvent

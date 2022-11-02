@@ -1,4 +1,4 @@
-﻿import { IRoomSession } from '../IRoomSession';
+﻿import { IRoomSession } from '../../../api';
 import { RoomSessionEvent } from './RoomSessionEvent';
 
 export class RoomSessionErrorMessageEvent extends RoomSessionEvent
@@ -18,7 +18,7 @@ export class RoomSessionErrorMessageEvent extends RoomSessionEvent
 
     private _message: string;
 
-    constructor(k: string, _arg_2: IRoomSession, _arg_3: string=null)
+    constructor(k: string, _arg_2: IRoomSession, _arg_3: string = null)
     {
         super(k, _arg_2);
 

@@ -1,4 +1,6 @@
-export class RoomUserData
+import { IRoomUserData } from '../../api';
+
+export class RoomUserData implements IRoomUserData
 {
     private _roomIndex: number = -1;
     private _name: string = '';

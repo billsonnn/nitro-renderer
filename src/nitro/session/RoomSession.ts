@@ -1,4 +1,4 @@
-import { IConnection } from '../../api';
+import { IConnection, IRoomSession } from '../../api';
 import { Disposable } from '../../core';
 import { CompostPlantMessageComposer, FurnitureMultiStateComposer, HarvestPetMessageComposer, PetMountComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from '../communication';
 import { RoomModerationSettings } from '../communication/messages/incoming/roomsettings/RoomModerationSettings';
@@ -29,7 +29,6 @@ import { UserMottoComposer } from '../communication/messages/outgoing/user/data/
 import { RoomControllerLevel } from './enum/RoomControllerLevel';
 import { RoomTradingLevelEnum } from './enum/RoomTradingLevelEnum';
 import { RoomSessionEvent } from './events/RoomSessionEvent';
-import { IRoomSession } from './IRoomSession';
 import { UserDataManager } from './UserDataManager';
 
 export class RoomSession extends Disposable implements IRoomSession

@@ -1,6 +1,4 @@
-import { IRoomInstance, IRoomObjectController, IVector3D } from '../../api';
-import { IRoomSessionManager } from '../session/IRoomSessionManager';
-import { ISessionDataManager } from '../session/ISessionDataManager';
+import { IRoomInstance, IRoomObjectController, IRoomSessionManager, ISessionDataManager, IVector3D } from '../../api';
 import { IObjectData } from './object/data/IObjectData';
 import { RoomMapData } from './object/RoomMapData';
 import { FurnitureStackingHeightMap } from './utils/FurnitureStackingHeightMap';

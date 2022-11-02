@@ -1,5 +1,5 @@
-﻿import { EventDispatcher, NitroEvent } from '../../../core';
-import { IProductData } from './IProductData';
+﻿import { IProductData } from '../../../api';
+import { EventDispatcher, NitroEvent } from '../../../core';
 import { ProductData } from './ProductData';
 
 export class ProductDataLoader extends EventDispatcher

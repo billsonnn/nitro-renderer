@@ -1,9 +1,8 @@
-import { ICommunicationManager, IConnection, IConnectionStateListener, IMessageConfiguration, IMessageEvent } from '../../api';
+import { ICommunicationManager, IConnection, IConnectionStateListener, IMessageConfiguration, IMessageEvent, INitroCommunicationDemo, INitroCommunicationManager } from '../../api';
 import { NitroEvent, NitroManager, SocketConnectionEvent } from '../../core';
 import { Nitro } from '../Nitro';
 import { NitroCommunicationDemo } from './demo/NitroCommunicationDemo';
 import { NitroCommunicationDemoEvent } from './demo/NitroCommunicationDemoEvent';
-import { INitroCommunicationManager } from './INitroCommunicationManager';
 import { NitroMessages } from './NitroMessages';
 
 export class NitroCommunicationManager extends NitroManager implements INitroCommunicationManager, IConnectionStateListener
@@ -12,7 +11,7 @@ export class NitroCommunicationManager extends NitroManager implements INitroCom
     private _connection: IConnection;
     private _messages: IMessageConfiguration;
 
-    private _demo: NitroCommunicationDemo;
+    private _demo: INitroCommunicationDemo;
 
     constructor(communication: ICommunicationManager)
     {
@@ -106,7 +105,7 @@ export class NitroCommunicationManager extends NitroManager implements INitroCom
         this._connection.removeMessageEvent(event);
     }
 
-    public get demo(): NitroCommunicationDemo
+    public get demo(): INitroCommunicationDemo
     {
         return this._demo;
     }

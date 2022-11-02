@@ -1,7 +1,7 @@
-import { IConnection } from '../../../api';
+import { IConnection, INitroCommunicationDemo } from '../../../api';
+import { INitroCommunicationManager } from '../../../api/nitro/communication/INitroCommunicationManager';
 import { NitroManager, SocketConnectionEvent } from '../../../core';
 import { Nitro } from '../../Nitro';
-import { INitroCommunicationManager } from '../INitroCommunicationManager';
 import { ClientPingEvent } from '../messages/incoming/client/ClientPingEvent';
 import { AuthenticatedEvent } from '../messages/incoming/security/AuthenticatedEvent';
 import { ClientHelloMessageComposer } from '../messages/outgoing/handshake/ClientHelloMessageComposer';
@@ -10,7 +10,7 @@ import { PongMessageComposer } from '../messages/outgoing/handshake/PongMessageC
 import { SSOTicketMessageComposer } from '../messages/outgoing/handshake/SSOTicketMessageComposer';
 import { NitroCommunicationDemoEvent } from './NitroCommunicationDemoEvent';
 
-export class NitroCommunicationDemo extends NitroManager
+export class NitroCommunicationDemo extends NitroManager implements INitroCommunicationDemo
 {
     private _communication: INitroCommunicationManager;
 

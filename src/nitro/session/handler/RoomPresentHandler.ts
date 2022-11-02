@@ -1,7 +1,6 @@
-import { IConnection } from '../../../api';
+import { IConnection, IRoomHandlerListener } from '../../../api';
 import { PresentOpenedMessageEvent } from '../../communication/messages/incoming/inventory/furni/gifts/PresentOpenedMessageEvent';
 import { RoomSessionPresentEvent } from '../events/RoomSessionPresentEvent';
-import { IRoomHandlerListener } from '../IRoomHandlerListener';
 import { BaseHandler } from './BaseHandler';
 
 export class RoomPresentHandler extends BaseHandler

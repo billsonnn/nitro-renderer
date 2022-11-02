@@ -1,4 +1,4 @@
-﻿import { IProductData } from './IProductData';
+﻿import { IProductData } from '../../../api';
 
 export class ProductData implements IProductData
 {

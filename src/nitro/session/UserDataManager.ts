@@ -1,8 +1,7 @@
-import { IConnection } from '../../api';
+import { IConnection, IRoomUserData } from '../../api';
 import { Disposable } from '../../core';
 import { RequestPetInfoComposer } from '../communication/messages/outgoing/pet/RequestPetInfoComposer';
 import { UserCurrentBadgesComposer } from '../communication/messages/outgoing/user/data/UserCurrentBadgesComposer';
-import { RoomUserData } from './RoomUserData';
 
 export class UserDataManager extends Disposable
 {
@@ -13,8 +12,8 @@ export class UserDataManager extends Disposable
 
     private _connection: IConnection;
 
-    private _userDataByType: Map<number, Map<number, RoomUserData>>;
-    private _userDataByRoomIndex: Map<number, RoomUserData>;
+    private _userDataByType: Map<number, Map<number, IRoomUserData>>;
+    private _userDataByRoomIndex: Map<number, IRoomUserData>;
     private _userBadges: Map<number, string[]>;
 
     constructor()
@@ -38,27 +37,27 @@ export class UserDataManager extends Disposable
         this._connection = connection;
     }
 
-    public getUserData(webID: number): RoomUserData
+    public getUserData(webID: number): IRoomUserData
     {
         return this.getDataByType(webID, UserDataManager.TYPE_USER);
     }
 
-    public getPetData(webID: number): RoomUserData
+    public getPetData(webID: number): IRoomUserData
     {
         return this.getDataByType(webID, UserDataManager.TYPE_PET);
     }
 
-    public getBotData(webID: number): RoomUserData
+    public getBotData(webID: number): IRoomUserData
     {
         return this.getDataByType(webID, UserDataManager.TYPE_BOT);
     }
 
-    public getRentableBotData(webID: number): RoomUserData
+    public getRentableBotData(webID: number): IRoomUserData
     {
         return this.getDataByType(webID, UserDataManager.TYPE_RENTABLE_BOT);
     }
 
-    public getDataByType(webID: number, type: number): RoomUserData
+    public getDataByType(webID: number, type: number): IRoomUserData
     {
         const existing = this._userDataByType.get(type);
 
@@ -71,7 +70,7 @@ export class UserDataManager extends Disposable
         return userData;
     }
 
-    public getUserDataByIndex(roomIndex: number): RoomUserData
+    public getUserDataByIndex(roomIndex: number): IRoomUserData
     {
         const existing = this._userDataByRoomIndex.get(roomIndex);
 
@@ -80,7 +79,7 @@ export class UserDataManager extends Disposable
         return existing;
     }
 
-    public getUserDataByName(name: string): RoomUserData
+    public getUserDataByName(name: string): IRoomUserData
     {
         for (const userData of this._userDataByRoomIndex.values())
         {
@@ -92,7 +91,7 @@ export class UserDataManager extends Disposable
         return null;
     }
 
-    public updateUserData(data: RoomUserData): void
+    public updateUserData(data: IRoomUserData): void
     {
         if (!data) return;
 

@@ -1,6 +1,5 @@
-import { IConnection } from '../../../api';
+import { IConnection, IRoomHandlerListener } from '../../../api';
 import { Disposable } from '../../../core';
-import { IRoomHandlerListener } from '../IRoomHandlerListener';
 
 export class BaseHandler extends Disposable
 {
