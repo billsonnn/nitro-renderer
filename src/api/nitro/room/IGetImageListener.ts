@@ -1,4 +1,4 @@
-﻿import { NitroRenderTexture } from '../..';
+﻿import { NitroRenderTexture } from '../../../pixi-proxy';
 
 export interface IGetImageListener
 {

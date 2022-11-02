@@ -1,14 +1,17 @@
 import { RenderTexture } from '@pixi/core';
 import { DisplayObject } from '@pixi/display';
 import { Point, Rectangle } from '@pixi/math';
-import { INitroManager, IObjectData, IRoomGeometry, IRoomManager, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRendererFactory, IRoomRenderingCanvas, IRoomSessionManager, ISessionDataManager, IVector3D } from '../../api';
-import { PetCustomPart } from '../avatar/pets/PetCustomPart';
+import { INitroManager } from '../../common';
+import { IRoomGeometry, IRoomManager, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRendererFactory, IRoomRenderingCanvas, IVector3D } from '../../room';
+import { IPetCustomPart } from '../avatar';
+import { IRoomSessionManager, ISessionDataManager } from '../session';
+import { IObjectData } from './data';
 import { IGetImageListener } from './IGetImageListener';
-import { ImageResult } from './ImageResult';
-import { RoomMapData } from './object/RoomMapData';
-import { PetColorResult } from './PetColorResult';
-import { RoomContentLoader } from './RoomContentLoader';
-import { RoomObjectEventHandler } from './RoomObjectEventHandler';
+import { IImageResult } from './IImageResult';
+import { IPetColorResult } from './IPetColorResult';
+import { IRoomContentLoader } from './IRoomContentLoader';
+import { IRoomObjectEventManager } from './IRoomObjectEventManager';
+import { IRoomMapData } from './object';
 
 export interface IRoomEngine extends INitroManager
 {
@@ -16,7 +19,7 @@ export interface IRoomEngine extends INitroManager
     onRoomEngineInitalized(flag: boolean): void;
     disableUpdate(flag: boolean): void;
     runUpdate(): void;
-    createRoomInstance(roomId: number, roomMap: RoomMapData): void;
+    createRoomInstance(roomId: number, roomMap: IRoomMapData): void;
     getRoomInstanceDisplay(roomId: number, id: number, width: number, height: number, scale: number): DisplayObject;
     setRoomInstanceRenderingCanvasScale(roomId: number, canvasId: number, scale: number, point?: Point, offsetPoint?: Point, override?: boolean, asDelta?: boolean): void;
     setRoomInstanceRenderingCanvasMask(roomId: number, canvasId: number, flag: boolean): void;
@@ -41,11 +44,11 @@ export interface IRoomEngine extends INitroManager
     getRoomObjectCount(roomId: number, categoryId: number): number;
     getRoomObjectBoundingRectangle(roomId: number, objectId: number, category: number, canvasId: number): Rectangle;
     getRoomObjectScreenLocation(roomId: number, objectId: number, objectType: number, canvasId?: number): Point;
-    getGenericRoomObjectImage(type: string, value: string, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor?: number, extras?: string, objectData?: IObjectData, state?: number, frameCount?: number, posture?: string, originalId?: number): ImageResult;
+    getGenericRoomObjectImage(type: string, value: string, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor?: number, extras?: string, objectData?: IObjectData, state?: number, frameCount?: number, posture?: string, originalId?: number): IImageResult;
     getFurnitureFloorIconUrl(typeId: number): string;
-    getFurnitureFloorIcon(typeId: number, listener: IGetImageListener, extras?: string, objectData?: IObjectData): ImageResult;
+    getFurnitureFloorIcon(typeId: number, listener: IGetImageListener, extras?: string, objectData?: IObjectData): IImageResult;
     getFurnitureWallIconUrl(typeId: number, extra?: string): string;
-    getFurnitureWallIcon(typeId: number, listener: IGetImageListener, extras?: string): ImageResult;
+    getFurnitureWallIcon(typeId: number, listener: IGetImageListener, extras?: string): IImageResult;
     updateRoomObjectWallLocation(roomId: number, objectId: number, location: IVector3D): boolean;
     addRoomObjectUser(roomId: number, objectId: number, location: IVector3D, direction: IVector3D, headDirection: number, type: number, figure: string): boolean;
     updateRoomObjectUserLocation(roomId: number, objectId: number, location: IVector3D, targetLocation: IVector3D, canStandUp?: boolean, baseY?: number, direction?: IVector3D, headDirection?: number): boolean;
@@ -60,17 +63,17 @@ export interface IRoomEngine extends INitroManager
     updateRoomObjectUserEffect(roomId: number, objectId: number, effectId: number, delay?: number): boolean;
     updateRoomObjectUserGesture(roomId: number, objectId: number, gestureId: number): boolean;
     updateRoomObjectUserPosture(roomId: number, objectId: number, type: string, parameter?: string): boolean;
-    getFurnitureFloorImage(typeId: number, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor?: number, extras?: string, state?: number, frameCount?: number, objectData?: IObjectData): ImageResult;
-    getFurnitureWallImage(typeId: number, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor?: number, extras?: string, state?: number, frameCount?: number): ImageResult;
-    getRoomObjectImage(roomId: number, objectId: number, category: number, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor?: number): ImageResult;
-    getRoomObjectPetImage(typeId: number, paletteId: number, color: number, direction: IVector3D, scale: number, listener: IGetImageListener, headOnly?: boolean, bgColor?: number, customParts?: PetCustomPart[], posture?: string): ImageResult;
+    getFurnitureFloorImage(typeId: number, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor?: number, extras?: string, state?: number, frameCount?: number, objectData?: IObjectData): IImageResult;
+    getFurnitureWallImage(typeId: number, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor?: number, extras?: string, state?: number, frameCount?: number): IImageResult;
+    getRoomObjectImage(roomId: number, objectId: number, category: number, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor?: number): IImageResult;
+    getRoomObjectPetImage(typeId: number, paletteId: number, color: number, direction: IVector3D, scale: number, listener: IGetImageListener, headOnly?: boolean, bgColor?: number, customParts?: IPetCustomPart[], posture?: string): IImageResult;
     getFurnitureFloorName(typeId: number): string;
     getFurnitureWallName(typeId: number, extra?: string): string;
     selectRoomObject(roomId: number, objectId: number, objectCategory: number): void;
     setSelectedAvatar(roomId: number, objectId: number): void;
     cancelRoomObjectInsert(): void;
-    getPetColorResult(petIndex: number, paletteIndex: number): PetColorResult;
-    getPetColorResultsForTag(petIndex: number, tagName: string): PetColorResult[];
+    getPetColorResult(petIndex: number, paletteIndex: number): IPetColorResult;
+    getPetColorResultsForTag(petIndex: number, tagName: string): IPetColorResult[];
     cancelRoomObjectPlacement(): void;
     useRoomObject(objectId: number, category: number): boolean;
     objectInitialized(roomId: string, objectId: number, category: number): void;
@@ -88,11 +91,11 @@ export interface IRoomEngine extends INitroManager
     sessionDataManager: ISessionDataManager;
     roomSessionManager: IRoomSessionManager;
     roomManager: IRoomManager;
-    objectEventHandler: RoomObjectEventHandler;
+    objectEventHandler: IRoomObjectEventManager;
     roomRendererFactory: IRoomRendererFactory;
     visualizationFactory: IRoomObjectVisualizationFactory;
     logicFactory: IRoomObjectLogicFactory;
-    roomContentLoader: RoomContentLoader;
+    roomContentLoader: IRoomContentLoader;
     activeRoomId: number;
     ready: boolean;
     disposed: boolean;

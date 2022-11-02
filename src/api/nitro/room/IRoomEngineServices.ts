@@ -1,8 +1,10 @@
-import { IConnection, IEventDispatcher, IObjectData, IRoomInstance, IRoomObjectController, IRoomRenderingCanvas, IRoomSessionManager, ISessionDataManager, IVector3D } from '../../api';
-import { FurnitureStackingHeightMap } from './utils/FurnitureStackingHeightMap';
-import { LegacyWallGeometry } from './utils/LegacyWallGeometry';
-import { SelectedRoomObjectData } from './utils/SelectedRoomObjectData';
-import { TileObjectMap } from './utils/TileObjectMap';
+import { IEventDispatcher } from '../../common';
+import { IConnection } from '../../communication';
+import { IRoomInstance, IRoomObjectController, IRoomRenderingCanvas, IVector3D } from '../../room';
+import { IRoomSessionManager, ISessionDataManager } from '../session';
+import { IObjectData } from './data';
+import { ISelectedRoomObjectData } from './ISelectedRoomObjectData';
+import { IFurnitureStackingHeightMap, ILegacyWallGeometry, ITileObjectMap } from './utils';
 
 export interface IRoomEngineServices
 {
@@ -10,12 +12,12 @@ export interface IRoomEngineServices
     getActiveRoomInstanceRenderingCanvas(): IRoomRenderingCanvas;
     addRoomInstanceFloorHole(roomId: number, objectId: number): void;
     removeRoomInstanceFloorHole(roomId: number, objectId: number): void;
-    getSelectedRoomObjectData(roomId: number): SelectedRoomObjectData;
-    setSelectedRoomObjectData(roomId: number, data: SelectedRoomObjectData): void;
-    getPlacedRoomObjectData(roomId: number): SelectedRoomObjectData;
-    setPlacedRoomObjectData(roomId: number, data: SelectedRoomObjectData): void;
-    getLegacyWallGeometry(roomId: number): LegacyWallGeometry;
-    getFurnitureStackingHeightMap(roomId: number): FurnitureStackingHeightMap;
+    getSelectedRoomObjectData(roomId: number): ISelectedRoomObjectData;
+    setSelectedRoomObjectData(roomId: number, data: ISelectedRoomObjectData): void;
+    getPlacedRoomObjectData(roomId: number): ISelectedRoomObjectData;
+    setPlacedRoomObjectData(roomId: number, data: ISelectedRoomObjectData): void;
+    getLegacyWallGeometry(roomId: number): ILegacyWallGeometry;
+    getFurnitureStackingHeightMap(roomId: number): IFurnitureStackingHeightMap;
     getRoomObject(roomId: number, objectId: number, category: number): IRoomObjectController;
     getRoomObjectByIndex(roomId: number, index: number, category: number): IRoomObjectController;
     getRoomObjectCategoryForType(type: string): number;
@@ -34,7 +36,7 @@ export interface IRoomEngineServices
     setObjectMoverIconSpriteVisible(k: boolean): void;
     updateMousePointer(type: string, objectId: number, objectType: string): void;
     removeObjectMoverIconSprite(): void;
-    getRoomTileObjectMap(k: number): TileObjectMap;
+    getRoomTileObjectMap(k: number): ITileObjectMap;
     isPlayingGame(): boolean;
     connection: IConnection;
     sessionDataManager: ISessionDataManager;

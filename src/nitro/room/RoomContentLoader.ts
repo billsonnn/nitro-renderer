@@ -1,11 +1,10 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Loader, LoaderResource } from '@pixi/loaders';
 import { Spritesheet } from '@pixi/spritesheet';
-import { FurnitureType, IAssetData, IEventDispatcher, IFurnitureData, IFurnitureDataListener, IGraphicAssetCollection, INitroLogger, IRoomContentLoader, IRoomObject, ISessionDataManager } from '../../api';
+import { FurnitureType, IAssetData, IEventDispatcher, IFurnitureData, IFurnitureDataListener, IGraphicAssetCollection, IGraphicAssetGifCollection, INitroLogger, IPetColorResult, IRoomContentListener, IRoomContentLoader, IRoomObject, ISessionDataManager } from '../../api';
 import { GraphicAssetCollection, GraphicAssetGifCollection, NitroBundle, NitroEvent, NitroLogger } from '../../core';
 import { RoomContentLoadedEvent } from '../../room/events/RoomContentLoadedEvent';
 import { Nitro } from '../Nitro';
-import { IRoomContentListener } from './IRoomContentListener';
 import { RoomObjectCategory } from './object/RoomObjectCategory';
 import { RoomObjectUserType } from './object/RoomObjectUserType';
 import { RoomObjectVariable } from './object/RoomObjectVariable';
@@ -44,7 +43,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     private _wallItemTypeIds: Map<string, number>;
     private _furniRevisions: Map<string, number>;
     private _pets: { [index: string]: number };
-    private _petColors: Map<number, Map<number, PetColorResult>>;
+    private _petColors: Map<number, Map<number, IPetColorResult>>;
     private _objectAliases: Map<string, string>;
     private _objectOriginalNames: Map<string, string>;
 
@@ -255,7 +254,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
         return value;
     }
 
-    public getPetColorResult(petIndex: number, paletteIndex: number): PetColorResult
+    public getPetColorResult(petIndex: number, paletteIndex: number): IPetColorResult
     {
         const colorResults = this._petColors.get(petIndex);
 
@@ -264,10 +263,10 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
         return colorResults.get(paletteIndex);
     }
 
-    public getPetColorResultsForTag(petIndex: number, tagName: string): PetColorResult[]
+    public getPetColorResultsForTag(petIndex: number, tagName: string): IPetColorResult[]
     {
         const colorResults = this._petColors.get(petIndex);
-        const results: PetColorResult[] = [];
+        const results: IPetColorResult[] = [];
 
         if (colorResults)
         {
@@ -303,7 +302,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
         return existing;
     }
 
-    public getGifCollection(name: string): GraphicAssetGifCollection
+    public getGifCollection(name: string): IGraphicAssetGifCollection
     {
         if (!name) return null;
 
@@ -358,7 +357,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
         if (petIndex !== undefined)
         {
             const keys = collection.getPaletteNames();
-            const palettes: Map<number, PetColorResult> = new Map();
+            const palettes: Map<number, IPetColorResult> = new Map();
 
             for (const key of keys)
             {

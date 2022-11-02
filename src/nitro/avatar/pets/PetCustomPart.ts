@@ -1,4 +1,6 @@
-export class PetCustomPart
+import { IPetCustomPart } from '../../../api';
+
+export class PetCustomPart implements IPetCustomPart
 {
     private _layerId: number;
     private _partId: number;

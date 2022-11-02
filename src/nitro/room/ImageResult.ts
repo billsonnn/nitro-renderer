@@ -1,7 +1,8 @@
 ﻿import { RenderTexture } from '@pixi/core';
+import { IImageResult } from '../../api';
 import { TextureUtils } from '../../pixi-proxy';
 
-export class ImageResult
+export class ImageResult implements IImageResult
 {
     public id: number = 0;
     public data: RenderTexture = null;

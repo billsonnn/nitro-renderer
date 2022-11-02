@@ -1,7 +1,6 @@
-import { INitroCommunicationManager, IRoomHandlerListener, IRoomSession, IRoomSessionManager } from '../../api';
+import { INitroCommunicationManager, IRoomEngine, IRoomHandlerListener, IRoomSession, IRoomSessionManager } from '../../api';
 import { NitroManager } from '../../core';
 import { RoomEngineEvent } from '../room/events/RoomEngineEvent';
-import { IRoomEngine } from '../room/IRoomEngine';
 import { RoomSessionEvent } from './events/RoomSessionEvent';
 import { BaseHandler } from './handler/BaseHandler';
 import { GenericErrorHandler } from './handler/GenericErrorHandler';

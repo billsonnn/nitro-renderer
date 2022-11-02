@@ -1,7 +1,8 @@
-import { IObjectData, IRoomInstance, IRoomObjectController, IRoomSessionManager, ISessionDataManager, IVector3D } from '../../api';
-import { RoomMapData } from './object/RoomMapData';
-import { FurnitureStackingHeightMap } from './utils/FurnitureStackingHeightMap';
-import { LegacyWallGeometry } from './utils/LegacyWallGeometry';
+import { IRoomInstance, IRoomObjectController, IVector3D } from '../../room';
+import { IRoomSessionManager, ISessionDataManager } from '../session';
+import { IObjectData } from './data';
+import { IRoomMapData } from './object';
+import { IFurnitureStackingHeightMap, ILegacyWallGeometry } from './utils';
 
 export interface IRoomCreator
 {
@@ -11,12 +12,12 @@ export interface IRoomCreator
     updateRoomInstancePlaneThickness(roomId: number, wallThickness: number, floorThickness: number): boolean;
     updateRoomInstancePlaneType(roomId: number, floorType?: string, wallType?: string, landscapeType?: string, _arg_5?: boolean): boolean;
     removeRoomInstance(roomId: number): void;
-    createRoomInstance(roomId: number, roomMap: RoomMapData): void;
+    createRoomInstance(roomId: number, roomMap: IRoomMapData): void;
     setRoomSessionOwnUser(roomId: number, objectId: number): void;
     setRoomInstanceModelName(roomId: number, name: string): void;
-    getFurnitureStackingHeightMap(roomId: number): FurnitureStackingHeightMap;
-    setFurnitureStackingHeightMap(roomId: number, heightMap: FurnitureStackingHeightMap): void;
-    getLegacyWallGeometry(roomId: number): LegacyWallGeometry;
+    getFurnitureStackingHeightMap(roomId: number): IFurnitureStackingHeightMap;
+    setFurnitureStackingHeightMap(roomId: number, heightMap: IFurnitureStackingHeightMap): void;
+    getLegacyWallGeometry(roomId: number): ILegacyWallGeometry;
     getRoomObject(roomId: number, objectId: number, category: number): IRoomObjectController;
     getRoomObjectByIndex(roomId: number, index: number, category: number): IRoomObjectController;
     getRoomObjectCursor(roomId: number): IRoomObjectController;

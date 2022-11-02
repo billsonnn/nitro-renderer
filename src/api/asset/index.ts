@@ -6,6 +6,7 @@ export * from './IAssetManager';
 export * from './IAssetPalette';
 export * from './IGraphicAsset';
 export * from './IGraphicAssetCollection';
+export * from './IGraphicAssetGifCollection';
 export * from './IGraphicAssetPalette';
 export * from './logic';
 export * from './logic/model';

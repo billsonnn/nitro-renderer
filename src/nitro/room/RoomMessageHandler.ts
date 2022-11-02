@@ -1,4 +1,4 @@
-import { IConnection, IVector3D } from '../../api';
+import { IConnection, IRoomCreator, IVector3D } from '../../api';
 import { Disposable } from '../../core';
 import { Vector3d } from '../../room';
 import { AvatarGuideStatus } from '../avatar/enum/AvatarGuideStatus';
@@ -52,7 +52,6 @@ import { FurnitureFloorDataParser } from '../communication/messages/parser/room/
 import { FurnitureWallDataParser } from '../communication/messages/parser/room/furniture/wall/FurnitureWallDataParser';
 import { RoomEntryTileMessageParser } from '../communication/messages/parser/room/mapping/RoomEntryTileMessageParser';
 import { RoomObjectType } from '../room/object/RoomObjectType';
-import { IRoomCreator } from './IRoomCreator';
 import { LegacyDataType } from './object/data/type/LegacyDataType';
 import { RoomObjectUserType } from './object/RoomObjectUserType';
 import { RoomObjectVariable } from './object/RoomObjectVariable';

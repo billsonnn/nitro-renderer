@@ -1,5 +1,6 @@
+import { IRoomMapData } from '../../../api';
 
-export class RoomMapData
+export class RoomMapData implements IRoomMapData
 {
     private _width: number;
     private _height: number;

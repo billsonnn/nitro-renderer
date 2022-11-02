@@ -1,4 +1,6 @@
-export class PetColorResult
+import { IPetColorResult } from '../../api';
+
+export class PetColorResult implements IPetColorResult
 {
     private static COLOR_TAGS: string[] = ['Null', 'Black', 'White', 'Grey', 'Red', 'Orange', 'Pink', 'Green', 'Lime', 'Blue', 'Light-Blue', 'Dark-Blue', 'Yellow', 'Brown', 'Dark-Brown', 'Beige', 'Cyan', 'Purple', 'Gold'];
 

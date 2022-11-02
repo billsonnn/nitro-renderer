@@ -1,7 +1,7 @@
-import { IVector3D } from '../../../api';
+import { ILegacyWallGeometry, IVector3D } from '../../../api';
 import { Vector3d } from '../../../room';
 
-export class LegacyWallGeometry
+export class LegacyWallGeometry implements ILegacyWallGeometry
 {
     public static DEFAULT_SCALE: number = 32;
 

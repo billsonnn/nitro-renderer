@@ -1,8 +1,7 @@
-import { FurnitureStackingHeightMap } from './FurnitureStackingHeightMap';
+import { IFurnitureStackingHeightMap, ILegacyWallGeometry, ISelectedRoomObjectData, ITileObjectMap } from '../../../api';
 import { LegacyWallGeometry } from './LegacyWallGeometry';
 import { RoomCamera } from './RoomCamera';
 import { RoomFurnitureData } from './RoomFurnitureData';
-import { SelectedRoomObjectData } from './SelectedRoomObjectData';
 import { TileObjectMap } from './TileObjectMap';
 
 export class RoomInstanceData
@@ -10,12 +9,12 @@ export class RoomInstanceData
     private _roomId: number;
 
     private _modelName: string;
-    private _legacyGeometry: LegacyWallGeometry;
-    private _tileObjectMap: TileObjectMap;
+    private _legacyGeometry: ILegacyWallGeometry;
+    private _tileObjectMap: ITileObjectMap;
     private _roomCamera: RoomCamera;
-    private _selectedObject: SelectedRoomObjectData;
-    private _placedObject: SelectedRoomObjectData;
-    private _furnitureStackingHeightMap: FurnitureStackingHeightMap;
+    private _selectedObject: ISelectedRoomObjectData;
+    private _placedObject: ISelectedRoomObjectData;
+    private _furnitureStackingHeightMap: IFurnitureStackingHeightMap;
 
     private _floorStack: Map<number, RoomFurnitureData>;
     private _wallStack: Map<number, RoomFurnitureData>;
@@ -48,9 +47,9 @@ export class RoomInstanceData
         this._modelName = name;
     }
 
-    public setSelectedObject(data: SelectedRoomObjectData): void
+    public setSelectedObject(data: ISelectedRoomObjectData): void
     {
-        if(this._selectedObject)
+        if (this._selectedObject)
         {
             this._selectedObject.dispose();
         }
@@ -58,9 +57,9 @@ export class RoomInstanceData
         this._selectedObject = data;
     }
 
-    public setPlacedObject(data: SelectedRoomObjectData): void
+    public setPlacedObject(data: ISelectedRoomObjectData): void
     {
-        if(this._placedObject)
+        if (this._placedObject)
         {
             this._placedObject.dispose();
         }
@@ -68,15 +67,15 @@ export class RoomInstanceData
         this._placedObject = data;
     }
 
-    public setFurnitureStackingHeightMap(heightMap: FurnitureStackingHeightMap): void
+    public setFurnitureStackingHeightMap(heightMap: IFurnitureStackingHeightMap): void
     {
-        if(this._furnitureStackingHeightMap) this._furnitureStackingHeightMap.dispose();
+        if (this._furnitureStackingHeightMap) this._furnitureStackingHeightMap.dispose();
 
         this._furnitureStackingHeightMap = heightMap;
 
-        if(this._tileObjectMap) this._tileObjectMap.dispose();
+        if (this._tileObjectMap) this._tileObjectMap.dispose();
 
-        if(this._furnitureStackingHeightMap)
+        if (this._furnitureStackingHeightMap)
         {
             this._tileObjectMap = new TileObjectMap(this._furnitureStackingHeightMap.width, this._furnitureStackingHeightMap.height);
         }
@@ -84,7 +83,7 @@ export class RoomInstanceData
 
     public addPendingFurnitureFloor(data: RoomFurnitureData): void
     {
-        if(!data) return;
+        if (!data) return;
 
         this._floorStack.delete(data.id);
         this._floorStack.set(data.id, data);
@@ -94,7 +93,7 @@ export class RoomInstanceData
     {
         const existing = this._floorStack.get(id);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         this._floorStack.delete(id);
 
@@ -105,7 +104,7 @@ export class RoomInstanceData
     {
         const existing = this._floorStack.get(id);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         this._floorStack.delete(id);
 
@@ -114,7 +113,7 @@ export class RoomInstanceData
 
     public getNextPendingFurnitureFloor(): RoomFurnitureData
     {
-        if(!this._floorStack.size) return null;
+        if (!this._floorStack.size) return null;
 
         const keys = this._floorStack.keys();
 
@@ -123,7 +122,7 @@ export class RoomInstanceData
 
     public addPendingFurnitureWall(data: RoomFurnitureData): void
     {
-        if(!data) return;
+        if (!data) return;
 
         this._wallStack.delete(data.id);
         this._wallStack.set(data.id, data);
@@ -133,7 +132,7 @@ export class RoomInstanceData
     {
         const existing = this._wallStack.get(id);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         this._wallStack.delete(id);
 
@@ -144,7 +143,7 @@ export class RoomInstanceData
     {
         const existing = this._wallStack.get(id);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         this._wallStack.delete(id);
 
@@ -153,7 +152,7 @@ export class RoomInstanceData
 
     public getNextPendingFurnitureWall(): RoomFurnitureData
     {
-        if(!this._wallStack.size) return null;
+        if (!this._wallStack.size) return null;
 
         const keys = this._wallStack.keys();
 
@@ -164,7 +163,7 @@ export class RoomInstanceData
     {
         const _local_2 = this._mouseButtonCursorOwners.indexOf(k);
 
-        if(_local_2 === -1)
+        if (_local_2 === -1)
         {
             this._mouseButtonCursorOwners.push(k);
 
@@ -178,7 +177,7 @@ export class RoomInstanceData
     {
         const _local_2 = this._mouseButtonCursorOwners.indexOf(k);
 
-        if(_local_2 > -1)
+        if (_local_2 > -1)
         {
             this._mouseButtonCursorOwners.splice(_local_2, 1);
 
@@ -203,12 +202,12 @@ export class RoomInstanceData
         return this._modelName;
     }
 
-    public get legacyGeometry(): LegacyWallGeometry
+    public get legacyGeometry(): ILegacyWallGeometry
     {
         return this._legacyGeometry;
     }
 
-    public get tileObjectMap(): TileObjectMap
+    public get tileObjectMap(): ITileObjectMap
     {
         return this._tileObjectMap;
     }
@@ -218,17 +217,17 @@ export class RoomInstanceData
         return this._roomCamera;
     }
 
-    public get selectedObject(): SelectedRoomObjectData
+    public get selectedObject(): ISelectedRoomObjectData
     {
         return this._selectedObject;
     }
 
-    public get placedObject(): SelectedRoomObjectData
+    public get placedObject(): ISelectedRoomObjectData
     {
         return this._placedObject;
     }
 
-    public get furnitureStackingHeightMap(): FurnitureStackingHeightMap
+    public get furnitureStackingHeightMap(): IFurnitureStackingHeightMap
     {
         return this._furnitureStackingHeightMap;
     }

@@ -2,7 +2,7 @@ import { RenderTexture, Texture } from '@pixi/core';
 import { Container, DisplayObject } from '@pixi/display';
 import { Point, Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
-import { IObjectData, IRoomObjectController, IRoomRenderingCanvas, IVector3D } from '../../../api';
+import { IGetImageListener, IImageResult, IObjectData, IRoomEngine, IRoomObjectController, IRoomRenderingCanvas, IVector3D } from '../../../api';
 import { NitroSprite } from '../../../pixi-proxy';
 import { RoomId, Vector3d } from '../../../room';
 import { FloorHeightMapMessageParser } from '../../communication/messages/parser/room/mapping/FloorHeightMapMessageParser';
@@ -10,10 +10,6 @@ import { RoomEntryTileMessageParser } from '../../communication/messages/parser/
 import { Nitro } from '../../Nitro';
 import { RoomEngineEvent } from '../events/RoomEngineEvent';
 import { RoomEngineObjectEvent } from '../events/RoomEngineObjectEvent';
-import { IGetImageListener } from '../IGetImageListener';
-import { ImageResult } from '../ImageResult';
-import { IRoomCreator } from '../IRoomCreator';
-import { IRoomEngine } from '../IRoomEngine';
 import { ObjectRoomMapUpdateMessage } from '../messages/ObjectRoomMapUpdateMessage';
 import { LegacyDataType } from '../object/data/type/LegacyDataType';
 import { RoomObjectCategory } from '../object/RoomObjectCategory';
@@ -798,7 +794,7 @@ export class RoomPreviewer
         return renderingCanvas;
     }
 
-    public getGenericRoomObjectImage(type: string, value: string, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor: number = 0, extras: string = null, objectData: IObjectData = null, state: number = -1, frame: number = -1, posture: string = null): ImageResult
+    public getGenericRoomObjectImage(type: string, value: string, direction: IVector3D, scale: number, listener: IGetImageListener, bgColor: number = 0, extras: string = null, objectData: IObjectData = null, state: number = -1, frame: number = -1, posture: string = null): IImageResult
     {
         if (this.isRoomEngineReady)
         {
@@ -808,7 +804,7 @@ export class RoomPreviewer
         return null;
     }
 
-    public getRoomObjectImage(direction: IVector3D, scale: number, listener: IGetImageListener, bgColor: number = 0): ImageResult
+    public getRoomObjectImage(direction: IVector3D, scale: number, listener: IGetImageListener, bgColor: number = 0): IImageResult
     {
         if (this.isRoomEngineReady)
         {

@@ -1,4 +1,4 @@
-import { IObjectData, IRoomCanvasMouseListener, IRoomGeometry, IRoomObject, IRoomObjectController, IVector3D, RoomObjectPlacementSource } from '../../api';
+import { IFurnitureStackingHeightMap, ILegacyWallGeometry, IObjectData, IRoomCanvasMouseListener, IRoomEngineServices, IRoomGeometry, IRoomObject, IRoomObjectController, IRoomObjectEventManager, ISelectedRoomObjectData, IVector3D, RoomObjectPlacementSource } from '../../api';
 import { Disposable, NitroLogger } from '../../core';
 import { RoomEnterEffect, RoomId, Vector3d } from '../../room';
 import { RoomObjectEvent } from '../../room/events/RoomObjectEvent';
@@ -49,7 +49,6 @@ import { RoomObjectStateChangedEvent } from './events/RoomObjectStateChangedEven
 import { RoomObjectTileMouseEvent } from './events/RoomObjectTileMouseEvent';
 import { RoomObjectWallMouseEvent } from './events/RoomObjectWallMouseEvent';
 import { RoomObjectWidgetRequestEvent } from './events/RoomObjectWidgetRequestEvent';
-import { IRoomEngineServices } from './IRoomEngineServices';
 import { ObjectAvatarSelectedMessage } from './messages/ObjectAvatarSelectedMessage';
 import { ObjectDataUpdateMessage } from './messages/ObjectDataUpdateMessage';
 import { ObjectSelectedMessage } from './messages/ObjectSelectedMessage';
@@ -60,11 +59,9 @@ import { RoomObjectOperationType } from './object/RoomObjectOperationType';
 import { RoomObjectType } from './object/RoomObjectType';
 import { RoomObjectUserType } from './object/RoomObjectUserType';
 import { RoomObjectVariable } from './object/RoomObjectVariable';
-import { FurnitureStackingHeightMap } from './utils/FurnitureStackingHeightMap';
-import { LegacyWallGeometry } from './utils/LegacyWallGeometry';
 import { SelectedRoomObjectData } from './utils/SelectedRoomObjectData';
 
-export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMouseListener
+export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMouseListener, IRoomObjectEventManager
 {
     private _roomEngine: IRoomEngineServices;
 
@@ -1299,7 +1296,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         }
     }
 
-    private handleFurnitureMove(roomObject: IRoomObjectController, selectedObjectData: SelectedRoomObjectData, x: number, y: number, stackingHeightMap: FurnitureStackingHeightMap): boolean
+    private handleFurnitureMove(roomObject: IRoomObjectController, selectedObjectData: ISelectedRoomObjectData, x: number, y: number, stackingHeightMap: IFurnitureStackingHeightMap): boolean
     {
         if (!roomObject || !selectedObjectData) return false;
 
@@ -1338,7 +1335,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         return true;
     }
 
-    private handleWallItemMove(k: IRoomObjectController, _arg_2: SelectedRoomObjectData, _arg_3: IVector3D, _arg_4: IVector3D, _arg_5: IVector3D, _arg_6: number, _arg_7: number, _arg_8: number): boolean
+    private handleWallItemMove(k: IRoomObjectController, _arg_2: ISelectedRoomObjectData, _arg_3: IVector3D, _arg_4: IVector3D, _arg_5: IVector3D, _arg_6: number, _arg_7: number, _arg_8: number): boolean
     {
         if (!k || !_arg_2) return false;
 
@@ -1353,7 +1350,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         return true;
     }
 
-    private validateFurnitureLocation(k: IRoomObject, _arg_2: IVector3D, _arg_3: IVector3D, _arg_4: IVector3D, _arg_5: FurnitureStackingHeightMap): Vector3d
+    private validateFurnitureLocation(k: IRoomObject, _arg_2: IVector3D, _arg_3: IVector3D, _arg_4: IVector3D, _arg_5: IFurnitureStackingHeightMap): Vector3d
     {
         if (!k || !k.model || !_arg_2) return null;
 
@@ -1423,7 +1420,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         return null;
     }
 
-    private validateWallItemLocation(k: IRoomObject, _arg_2: IVector3D, _arg_3: IVector3D, _arg_4: IVector3D, _arg_5: number, _arg_6: number, _arg_7: SelectedRoomObjectData): Vector3d
+    private validateWallItemLocation(k: IRoomObject, _arg_2: IVector3D, _arg_3: IVector3D, _arg_4: IVector3D, _arg_5: number, _arg_6: number, _arg_7: ISelectedRoomObjectData): Vector3d
     {
         if ((((((k == null) || (k.model == null)) || (_arg_2 == null)) || (_arg_3 == null)) || (_arg_4 == null)) || (_arg_7 == null)) return null;
 
@@ -1990,7 +1987,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         return direction;
     }
 
-    private isValidLocation(object: IRoomObject, goalDirection: IVector3D, stackingHeightMap: FurnitureStackingHeightMap): boolean
+    private isValidLocation(object: IRoomObject, goalDirection: IVector3D, stackingHeightMap: IFurnitureStackingHeightMap): boolean
     {
         if (!object || !object.model || !goalDirection) return false;
 
@@ -2199,7 +2196,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         }
     }
 
-    private getSelectedRoomObjectData(roomId: number): SelectedRoomObjectData
+    private getSelectedRoomObjectData(roomId: number): ISelectedRoomObjectData
     {
         if (!this._roomEngine) return null;
 
@@ -2245,7 +2242,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         this._roomEngine.setSelectedRoomObjectData(roomId, selectedData);
     }
 
-    private handleUserPlace(roomObject: IRoomObjectController, x: number, y: number, wallGeometry: LegacyWallGeometry): boolean
+    private handleUserPlace(roomObject: IRoomObjectController, x: number, y: number, wallGeometry: ILegacyWallGeometry): boolean
     {
         if (!wallGeometry.isRoomTile(x, y)) return false;
 
