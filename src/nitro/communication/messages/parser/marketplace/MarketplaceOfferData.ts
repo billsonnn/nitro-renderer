@@ -1,4 +1,4 @@
-import { IObjectData } from '../../../../room/object/data/IObjectData';
+import { IObjectData } from '../../../../../api';
 
 export class MarketplaceOfferData
 {

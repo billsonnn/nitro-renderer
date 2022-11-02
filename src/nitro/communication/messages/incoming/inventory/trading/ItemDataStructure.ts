@@ -1,6 +1,5 @@
-﻿import { IMessageDataWrapper } from '../../../../../../api';
+﻿import { IMessageDataWrapper, IObjectData } from '../../../../../../api';
 import { Nitro } from '../../../../../Nitro';
-import { IObjectData } from '../../../../../room/object/data/IObjectData';
 import { FurnitureDataParser } from '../../../parser/room/furniture/FurnitureDataParser';
 import { IFurnitureItemData } from '../furni/IFurnitureItemData';
 

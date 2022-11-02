@@ -1,4 +1,4 @@
-import { IObjectData } from '../../../../../room';
+import { IObjectData } from '../../../../../../api';
 
 export class ObjectData
 {

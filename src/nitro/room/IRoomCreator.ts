@@ -1,5 +1,4 @@
-import { IRoomInstance, IRoomObjectController, IRoomSessionManager, ISessionDataManager, IVector3D } from '../../api';
-import { IObjectData } from './object/data/IObjectData';
+import { IObjectData, IRoomInstance, IRoomObjectController, IRoomSessionManager, ISessionDataManager, IVector3D } from '../../api';
 import { RoomMapData } from './object/RoomMapData';
 import { FurnitureStackingHeightMap } from './utils/FurnitureStackingHeightMap';
 import { LegacyWallGeometry } from './utils/LegacyWallGeometry';

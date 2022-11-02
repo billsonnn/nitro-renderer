@@ -2,7 +2,7 @@ import { Application, IApplicationOptions } from '@pixi/app';
 import { SCALE_MODES } from '@pixi/constants';
 import { settings } from '@pixi/settings';
 import { Ticker } from '@pixi/ticker';
-import { IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, IRoomCameraWidgetManager, IRoomManager, IRoomSessionManager, ISessionDataManager, IWorkerEventTracker } from '../api';
+import { IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomManager, IRoomSessionManager, ISessionDataManager, IWorkerEventTracker } from '../api';
 import { ConfigurationEvent, EventDispatcher, NitroCore, NitroEvent } from '../core';
 import { PixiApplicationProxy } from '../pixi-proxy';
 import { RoomManager } from '../room/RoomManager';
@@ -13,7 +13,6 @@ import { NitroCommunicationManager } from './communication/NitroCommunicationMan
 import { LegacyExternalInterface } from './externalInterface/LegacyExternalInterface';
 import { GameMessageHandler } from './game/GameMessageHandler';
 import { INitro } from './INitro';
-import { INitroLocalizationManager } from './localization/INitroLocalizationManager';
 import { NitroLocalizationManager } from './localization/NitroLocalizationManager';
 import './Plugins';
 import { RoomEngineEvent } from './room/events/RoomEngineEvent';

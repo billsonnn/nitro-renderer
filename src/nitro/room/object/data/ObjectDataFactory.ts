@@ -1,12 +1,5 @@
-import { IObjectData } from './IObjectData';
-import { CrackableDataType } from './type/CrackableDataType';
-import { EmptyDataType } from './type/EmptyDataType';
-import { HighScoreDataType } from './type/HighScoreDataType';
-import { LegacyDataType } from './type/LegacyDataType';
-import { MapDataType } from './type/MapDataType';
-import { NumberDataType } from './type/NumberDataType';
-import { StringDataType } from './type/StringDataType';
-import { VoteDataType } from './type/VoteDataType';
+import { IObjectData } from '../../../../api';
+import { CrackableDataType, EmptyDataType, HighScoreDataType, LegacyDataType, MapDataType, NumberDataType, StringDataType, VoteDataType } from './type';
 
 export class ObjectDataFactory
 {
@@ -14,7 +7,7 @@ export class ObjectDataFactory
     {
         let objectData: IObjectData = null;
 
-        switch(flags & 0xFF)
+        switch (flags & 0xFF)
         {
             case CrackableDataType.FORMAT_KEY:
                 objectData = new CrackableDataType();
@@ -42,7 +35,7 @@ export class ObjectDataFactory
                 break;
         }
 
-        if(!objectData) return null;
+        if (!objectData) return null;
 
         objectData.flags = (flags & 0xFF00);
 

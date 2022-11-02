@@ -1,4 +1,5 @@
-﻿import { INitroManager } from '../../api';
+﻿import { INitroManager } from '../../common';
+
 export interface INitroLocalizationManager extends INitroManager
 {
     getRomanNumeral(number: number): string;

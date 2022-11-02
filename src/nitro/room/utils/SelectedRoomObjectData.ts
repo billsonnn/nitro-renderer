@@ -1,7 +1,6 @@
-import { IVector3D } from '../../../api';
+import { IObjectData, IVector3D } from '../../../api';
 import { Vector3d } from '../../../room';
 import { ISelectedRoomObjectData } from '../ISelectedRoomObjectData';
-import { IObjectData } from '../object';
 
 export class SelectedRoomObjectData implements ISelectedRoomObjectData
 {

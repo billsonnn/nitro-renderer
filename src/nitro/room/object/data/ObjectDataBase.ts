@@ -1,7 +1,5 @@
-import { IMessageDataWrapper, IRoomObjectModel } from '../../../../api';
+import { IMessageDataWrapper, IObjectData, IRoomObjectModel, ObjectDataFlags } from '../../../../api';
 import { RoomObjectVariable } from '../RoomObjectVariable';
-import { IObjectData } from './IObjectData';
-import { ObjectDataFlags } from './ObjectDataFlags';
 
 export class ObjectDataBase implements IObjectData
 {

@@ -1,4 +1,5 @@
-import { IMessageDataWrapper, IRoomObjectModel } from '../../../../api';
+import { IMessageDataWrapper } from '../../../communication';
+import { IRoomObjectModel } from '../../../room';
 
 export interface IObjectData
 {

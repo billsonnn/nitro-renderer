@@ -1,4 +1,4 @@
-import { IRoomCanvasMouseListener, IRoomGeometry, IRoomObject, IRoomObjectController, IVector3D } from '../../api';
+import { IObjectData, IRoomCanvasMouseListener, IRoomGeometry, IRoomObject, IRoomObjectController, IVector3D, RoomObjectPlacementSource } from '../../api';
 import { Disposable, NitroLogger } from '../../core';
 import { RoomEnterEffect, RoomId, Vector3d } from '../../room';
 import { RoomObjectEvent } from '../../room/events/RoomObjectEvent';
@@ -29,7 +29,6 @@ import { RoomUnitLookComposer } from '../communication/messages/outgoing/room/un
 import { RoomUnitWalkComposer } from '../communication/messages/outgoing/room/unit/RoomUnitWalkComposer';
 import { Nitro } from '../Nitro';
 import { MouseEventType } from '../ui/MouseEventType';
-import { RoomObjectPlacementSource } from './enums/RoomObjectPlacementSource';
 import { RoomEngineObjectPlaySoundEvent, RoomEngineRoomAdEvent, RoomEngineUseProductEvent, RoomObjectPlaySoundIdEvent, RoomObjectRoomAdEvent, RoomObjectSoundMachineEvent } from './events';
 import { RoomEngineDimmerStateEvent } from './events/RoomEngineDimmerStateEvent';
 import { RoomEngineObjectEvent } from './events/RoomEngineObjectEvent';
@@ -56,7 +55,6 @@ import { ObjectDataUpdateMessage } from './messages/ObjectDataUpdateMessage';
 import { ObjectSelectedMessage } from './messages/ObjectSelectedMessage';
 import { ObjectTileCursorUpdateMessage } from './messages/ObjectTileCursorUpdateMessage';
 import { ObjectVisibilityUpdateMessage } from './messages/ObjectVisibilityUpdateMessage';
-import { IObjectData } from './object/data/IObjectData';
 import { RoomObjectCategory } from './object/RoomObjectCategory';
 import { RoomObjectOperationType } from './object/RoomObjectOperationType';
 import { RoomObjectType } from './object/RoomObjectType';

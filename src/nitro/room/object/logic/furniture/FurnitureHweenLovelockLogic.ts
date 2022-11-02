@@ -1,4 +1,4 @@
-import { FriendFurniEngravingWidgetType } from '../../../enums';
+import { FriendFurniEngravingWidgetType } from '../../../../../api';
 import { FurnitureFriendFurniLogic } from './FurnitureFriendFurniLogic';
 
 export class FurnitureHweenLovelockLogic extends FurnitureFriendFurniLogic

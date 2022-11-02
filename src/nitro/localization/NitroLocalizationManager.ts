@@ -1,9 +1,8 @@
-﻿import { INitroCommunicationManager } from '../../api/nitro/communication/INitroCommunicationManager';
+﻿import { INitroCommunicationManager, INitroLocalizationManager } from '../../api';
 import { NitroManager } from '../../core';
 import { BadgePointLimitsEvent } from '../communication/messages/incoming/inventory/badges/BadgePointLimitsEvent';
 import { Nitro } from '../Nitro';
 import { BadgeBaseAndLevel } from './BadgeBaseAndLevel';
-import { INitroLocalizationManager } from './INitroLocalizationManager';
 import { NitroLocalizationEvent } from './NitroLocalizationEvent';
 
 export class NitroLocalizationManager extends NitroManager implements INitroLocalizationManager

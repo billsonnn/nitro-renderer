@@ -1,15 +1,13 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Container, DisplayObject } from '@pixi/display';
 import { Matrix, Point, Rectangle } from '@pixi/math';
-import { IConnection, IDisposable, IMessageComposer, INitroCommunicationManager, IRoomGeometry, IRoomInstance, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRenderer, IRoomRendererFactory, IRoomRenderingCanvas, IRoomSessionManager, ISessionDataManager, IUpdateReceiver, IVector3D } from '../../api';
-import { RoomControllerLevel } from '../../api/nitro/session/enum/RoomControllerLevel';
+import { IConnection, IDisposable, IMessageComposer, INitroCommunicationManager, IObjectData, IRoomGeometry, IRoomInstance, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRenderer, IRoomRendererFactory, IRoomRenderingCanvas, IRoomSessionManager, ISessionDataManager, IUpdateReceiver, IVector3D, RoomControllerLevel, ToolbarIconEnum } from '../../api';
 import { NitroEvent, NitroManager } from '../../core';
 import { NitroSprite, TextureUtils } from '../../pixi-proxy';
 import { NumberBank, RoomEnterEffect, RoomGeometry, RoomInstance, RoomObjectEvent, RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomRendererFactory, Vector3d } from '../../room';
 import { PetCustomPart } from '../avatar/pets/PetCustomPart';
 import { PetFigureData } from '../avatar/pets/PetFigureData';
 import { RenderRoomMessageComposer, RenderRoomThumbnailMessageComposer } from '../communication';
-import { ToolbarIconEnum } from '../enums/ToolbarIconEnum';
 import { NitroToolbarAnimateIconEvent } from '../events/NitroToolbarAnimateIconEvent';
 import { Nitro } from '../Nitro';
 import { BadgeImageReadyEvent } from '../session/events/BadgeImageReadyEvent';
@@ -62,7 +60,6 @@ import { ObjectRoomPlanePropertyUpdateMessage } from './messages/ObjectRoomPlane
 import { ObjectRoomPlaneVisibilityUpdateMessage } from './messages/ObjectRoomPlaneVisibilityUpdateMessage';
 import { ObjectRoomUpdateMessage } from './messages/ObjectRoomUpdateMessage';
 import { ObjectStateUpdateMessage } from './messages/ObjectStateUpdateMessage';
-import { IObjectData } from './object/data/IObjectData';
 import { ObjectDataFactory } from './object/data/ObjectDataFactory';
 import { LegacyDataType } from './object/data/type/LegacyDataType';
 import { RoomLogic } from './object/logic/room/RoomLogic';

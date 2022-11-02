@@ -1,4 +1,4 @@
-import { IObjectData } from '../../../../room/object/data/IObjectData';
+import { IObjectData } from '../../../../../api';
 
 export class MarketplaceOffer
 {
@@ -6,14 +6,14 @@ export class MarketplaceOffer
     private readonly _furniId: number;
     private readonly _furniType: number;
     private readonly _extraData: string;
-    private readonly _stuffData:IObjectData;
+    private readonly _stuffData: IObjectData;
     private readonly _price: number;
     private readonly _status: number;
     private readonly _timeLeftMinutes: number = -1;
     private readonly _averagePrice: number;
     private readonly _offerCount: number;
 
-    constructor(offerId: number, furniId: number, furniType: number, extraData: string, stuffData:IObjectData, price: number, status: number, timeLeftMinutes: number, averagePrice: number, offerCount: number=-1)
+    constructor(offerId: number, furniId: number, furniType: number, extraData: string, stuffData: IObjectData, price: number, status: number, timeLeftMinutes: number, averagePrice: number, offerCount: number = -1)
     {
         this._offerId = offerId;
         this._furniId = furniId;
@@ -47,7 +47,7 @@ export class MarketplaceOffer
         return this._extraData;
     }
 
-    public get stuffData():IObjectData
+    public get stuffData(): IObjectData
     {
         return this._stuffData;
     }

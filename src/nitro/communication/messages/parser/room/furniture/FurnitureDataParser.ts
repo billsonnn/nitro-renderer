@@ -1,5 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { IObjectData } from '../../../../../room/object/data/IObjectData';
+import { IMessageDataWrapper, IMessageParser, IObjectData } from '../../../../../../api';
 import { ObjectDataFactory } from '../../../../../room/object/data/ObjectDataFactory';
 
 export class FurnitureDataParser implements IMessageParser

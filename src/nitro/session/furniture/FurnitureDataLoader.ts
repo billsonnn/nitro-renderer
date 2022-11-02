@@ -1,6 +1,5 @@
-import { FurnitureType, IFurnitureData } from '../../../api';
+import { FurnitureType, IFurnitureData, INitroLocalizationManager } from '../../../api';
 import { EventDispatcher, NitroEvent, NitroLogger } from '../../../core';
-import { INitroLocalizationManager } from '../../localization/INitroLocalizationManager';
 import { FurnitureData } from './FurnitureData';
 
 export class FurnitureDataLoader extends EventDispatcher

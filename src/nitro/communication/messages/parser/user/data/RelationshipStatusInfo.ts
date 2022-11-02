@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../../api';
-import { RelationshipStatusEnum } from '../../../../../enums/RelationshipStatusEnum';
+import { IMessageDataWrapper, RelationshipStatusEnum } from '../../../../../../api';
 
 export class RelationshipStatusInfo
 {
