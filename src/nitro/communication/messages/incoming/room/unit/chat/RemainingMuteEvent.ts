@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../../api';
 import { MessageEvent } from '../../../../../../../core';
-import { RemainingMuteParser } from '../../../../parser/room/unit/chat/RemainingMuteParser';
+import { RemainingMuteParser } from '../../../../parser';
 
 export class RemainingMuteEvent extends MessageEvent implements IMessageEvent
 {

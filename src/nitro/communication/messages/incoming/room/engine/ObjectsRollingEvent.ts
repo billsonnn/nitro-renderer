@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { ObjectsRollingParser } from '../../../parser/room/engine/ObjectsRollingParser';
+import { ObjectsRollingParser } from '../../../parser';
 
 export class ObjectsRollingEvent extends MessageEvent implements IMessageEvent
 {

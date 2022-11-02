@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../..';
+import { IMessageDataWrapper } from '../../../../../api';
 import { ChatRecordData } from './ChatRecordData';
 
 export class UserChatlogData
@@ -12,7 +12,7 @@ export class UserChatlogData
         this._userId = wrapper.readInt();
         this._username = wrapper.readString();
         const size = wrapper.readInt();
-        for(let i = 0; i < size; i++)
+        for (let i = 0; i < size; i++)
         {
             this._roomChatlogs.push(new ChatRecordData(wrapper));
         }

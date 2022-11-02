@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../../api';
 import { MessageEvent } from '../../../../../../../core';
-import { UserCurrencyParser } from '../../../../parser/user/inventory/currency/UserCurrencyParser';
+import { UserCurrencyParser } from '../../../../parser';
 
 export class UserCurrencyEvent extends MessageEvent implements IMessageEvent
 {

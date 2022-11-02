@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { HotelMergeNameChangeParser } from '../../parser/help/HotelMergeNameChangeParser';
+import { HotelMergeNameChangeParser } from '../../parser';
 
 export class HotelMergeNameChangeEvent extends MessageEvent implements IMessageEvent
 {

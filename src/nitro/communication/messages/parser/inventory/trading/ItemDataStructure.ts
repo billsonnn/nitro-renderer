@@ -1,7 +1,7 @@
 ﻿import { IMessageDataWrapper, IObjectData } from '../../../../../../api';
-import { Nitro } from '../../../../../Nitro';
-import { FurnitureDataParser } from '../../../parser/room/furniture/FurnitureDataParser';
-import { IFurnitureItemData } from '../furni/IFurnitureItemData';
+import { PixiApplicationProxy } from '../../../../../../pixi-proxy';
+import { FurnitureDataParser } from '../../room';
+import { IFurnitureItemData } from '../furniture';
 
 export class ItemDataStructure implements IFurnitureItemData
 {
@@ -34,7 +34,7 @@ export class ItemDataStructure implements IFurnitureItemData
         this._isGroupable = wrapper.readBoolean();
         this._stuffData = FurnitureDataParser.parseObjectData(wrapper);
         this._secondsToExpiration = -1;
-        this._expirationTimeStamp = Nitro.instance.time;
+        this._expirationTimeStamp = PixiApplicationProxy.instance.ticker.lastTime;
         this._hasRentPeriodStarted = false;
         this._creationDay = wrapper.readInt();
         this._creationMonth = wrapper.readInt();

@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { FlatAccessDeniedMessageParser } from '../../parser/navigator/FlatAccessDeniedMessageParser';
+import { FlatAccessDeniedMessageParser } from '../../parser';
 
 export class FlatAccessDeniedMessageEvent extends MessageEvent implements IMessageEvent
 {

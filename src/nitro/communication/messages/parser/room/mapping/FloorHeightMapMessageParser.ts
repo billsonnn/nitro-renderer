@@ -1,8 +1,9 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { RoomPlaneParser } from '../../../../../room/object/RoomPlaneParser';
 
 export class FloorHeightMapMessageParser implements IMessageParser
 {
+    public static TILE_BLOCKED: number = -110;
+
     private _model: string;
     private _width: number;
     private _height: number;
@@ -76,7 +77,7 @@ export class FloorHeightMapMessageParser implements IMessageParser
 
             while (subIterator < width)
             {
-                heightMap.push(RoomPlaneParser.TILE_BLOCKED);
+                heightMap.push(FloorHeightMapMessageParser.TILE_BLOCKED);
 
                 subIterator++;
             }
@@ -103,7 +104,7 @@ export class FloorHeightMapMessageParser implements IMessageParser
                 while (subIterator < text.length)
                 {
                     const char = text.charAt(subIterator);
-                    let height = RoomPlaneParser.TILE_BLOCKED;
+                    let height = FloorHeightMapMessageParser.TILE_BLOCKED;
 
                     if ((char !== 'x') && (char !== 'X')) height = parseInt(char, 36);
 

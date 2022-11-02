@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { FriendListUpdateParser } from '../../parser/friendlist/FriendListUpdateParser';
+import { FriendListUpdateParser } from '../../parser';
 
 export class FriendListUpdateEvent extends MessageEvent implements IMessageEvent
 {

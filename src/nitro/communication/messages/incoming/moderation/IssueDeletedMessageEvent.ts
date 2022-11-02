@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { IssueDeletedMessageParser } from '../../parser/moderation/IssueDeletedMessageParser';
+import { IssueDeletedMessageParser } from '../../parser';
 
 export class IssueDeletedMessageEvent extends MessageEvent implements IMessageEvent
 {

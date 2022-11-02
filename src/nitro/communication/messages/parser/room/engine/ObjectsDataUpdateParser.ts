@@ -1,6 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { ObjectData } from '../../../incoming/room/engine/ObjectData';
-import { FurnitureDataParser } from '../furniture/FurnitureDataParser';
+import { FurnitureDataParser } from '../furniture';
+import { ObjectData } from './ObjectData';
 
 export class ObjectsDataUpdateParser implements IMessageParser
 {

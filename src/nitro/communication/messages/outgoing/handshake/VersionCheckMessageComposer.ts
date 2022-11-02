@@ -1,10 +1,10 @@
-import { IMessageComposer } from '../../../../..';
+import { IMessageComposer } from '../../../../../api';
 
 export class VersionCheckMessageComposer implements IMessageComposer<ConstructorParameters<typeof VersionCheckMessageComposer>>
 {
     private _data: ConstructorParameters<typeof VersionCheckMessageComposer>;
 
-    constructor(clientID:number, clientURL:string, externalVariablesURL:string)
+    constructor(clientID: number, clientURL: string, externalVariablesURL: string)
     {
         this._data = [clientID, clientURL, externalVariablesURL];
     }

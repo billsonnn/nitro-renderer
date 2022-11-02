@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { GuestRoomSearchResultData } from './utils/GuestRoomSearchResultData';
+import { GuestRoomSearchResultData } from './utils';
 
 export class GuestRoomSearchResultMessageParser implements IMessageParser
 {

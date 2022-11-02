@@ -1,5 +1,4 @@
-import { IGraphicAsset, IRoomObjectSprite } from '../../../../../api';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
+import { IGraphicAsset, IRoomObjectSprite, RoomObjectVariable } from '../../../../../api';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
 
 export class FurnitureGuildCustomizedVisualization extends FurnitureAnimatedVisualization

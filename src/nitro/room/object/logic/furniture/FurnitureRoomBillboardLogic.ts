@@ -1,7 +1,6 @@
-import { IRoomObjectModel } from '../../../../../api';
+import { IRoomObjectModel, RoomObjectVariable } from '../../../../../api';
 import { HabboWebTools } from '../../../../utils';
 import { RoomObjectRoomAdEvent } from '../../../events';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureRoomBrandingLogic } from './FurnitureRoomBrandingLogic';
 
 export class FurnitureRoomBillboardLogic extends FurnitureRoomBrandingLogic

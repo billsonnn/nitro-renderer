@@ -1,8 +1,8 @@
 ﻿import { Resource, Texture } from '@pixi/core';
 import { Graphics } from '@pixi/graphics';
 import { Point } from '@pixi/math';
-import { IGraphicAsset, IGraphicAssetCollection, IRoomGeometry, IVector3D } from '../../../../../../../api';
-import { Rasterizer, RoomGeometry, Vector3d } from '../../../../../../../room';
+import { IGraphicAsset, IGraphicAssetCollection, IRoomGeometry, IVector3D, Vector3d } from '../../../../../../../api';
+import { Rasterizer, RoomGeometry } from '../../../../../../../room';
 import { PlaneBitmapData } from '../../utils/PlaneBitmapData';
 import { IPlaneRasterizer } from '../IPlaneRasterizer';
 import { FloorPlane } from './FloorPlane';

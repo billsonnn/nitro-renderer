@@ -1,7 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { DesktopViewParser } from '../../parser/desktop/DesktopViewParser';
-import { FriendNotificationParser } from '../../parser/friendlist/FriendNotificationParser';
+import { FriendNotificationParser } from '../../parser';
 
 export class FriendNotificationEvent extends MessageEvent implements IMessageEvent
 {
@@ -10,7 +9,7 @@ export class FriendNotificationEvent extends MessageEvent implements IMessageEve
         super(callBack, FriendNotificationParser);
     }
 
-    public getParser(): DesktopViewParser
+    public getParser(): FriendNotificationParser
     {
         return this.parser as FriendNotificationParser;
     }

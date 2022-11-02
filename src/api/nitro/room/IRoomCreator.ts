@@ -1,7 +1,6 @@
 import { IRoomInstance, IRoomObjectController, IVector3D } from '../../room';
 import { IRoomSessionManager, ISessionDataManager } from '../session';
-import { IObjectData } from './data';
-import { IRoomMapData } from './object';
+import { IObjectData, IRoomMapData } from './object';
 import { IFurnitureStackingHeightMap, ILegacyWallGeometry } from './utils';
 
 export interface IRoomCreator

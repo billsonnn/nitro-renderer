@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { CraftingRecipesAvailableMessageParser } from '../../parser/crafting/CraftingRecipesAvailableMessageParser';
+import { CraftingRecipesAvailableMessageParser } from '../../parser';
 
 export class CraftingRecipesAvailableEvent extends MessageEvent implements IMessageEvent
 {

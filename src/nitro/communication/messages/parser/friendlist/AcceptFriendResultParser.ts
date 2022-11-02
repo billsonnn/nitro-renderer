@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { AcceptFriendFailerData } from '../../incoming/friendlist/AcceptFriendFailureData';
+import { AcceptFriendFailerData } from './AcceptFriendFailureData';
 
 export class AcceptFriendResultParser implements IMessageParser
 {

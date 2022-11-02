@@ -1,6 +1,5 @@
 ﻿import { Graphics } from '@pixi/graphics';
-import { IDisposable, IGraphicAssetCollection, IRoomGeometry, IVector3D } from '../../../../../../../api';
-import { Vector3d } from '../../../../../../../room';
+import { IDisposable, IGraphicAssetCollection, IRoomGeometry, IVector3D, Vector3d } from '../../../../../../../api';
 import { PlaneVisualizationAnimationLayer } from '../animated/PlaneVisualizationAnimationLayer';
 import { PlaneMaterial } from './PlaneMaterial';
 import { PlaneVisualizationLayer } from './PlaneVisualizationLayer';

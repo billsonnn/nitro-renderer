@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../../api';
 import { MessageEvent } from '../../../../../../../core';
-import { RoomRightsOwnerParser } from '../../../../parser/room/access/rights/RoomRightsOwnerParser';
+import { RoomRightsOwnerParser } from '../../../../parser';
 
 export class RoomRightsOwnerEvent extends MessageEvent implements IMessageEvent
 {

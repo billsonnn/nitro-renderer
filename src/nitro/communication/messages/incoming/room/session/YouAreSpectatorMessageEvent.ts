@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { YouAreSpectatorMessageParser } from '../../../parser/room/session/YouAreSpectatorMessageParser';
+import { YouAreSpectatorMessageParser } from '../../../parser';
 
 export class YouAreSpectatorMessageEvent extends MessageEvent implements IMessageEvent
 {

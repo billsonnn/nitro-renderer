@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../..';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetForumStatsMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetForumStatsMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class GetForumStatsMessageComposer implements IMessageComposer<Constructo
 
     constructor(k: number)
     {
-        this._data = [ k ];
+        this._data = [k];
     }
 
     public getMessageArray()

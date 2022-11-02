@@ -1,5 +1,5 @@
 ﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { AvatarEffect } from '../../../incoming/inventory/avatareffect/AvatarEffect';
+import { AvatarEffect } from './AvatarEffect';
 
 export class AvatarEffectsParser implements IMessageParser
 {

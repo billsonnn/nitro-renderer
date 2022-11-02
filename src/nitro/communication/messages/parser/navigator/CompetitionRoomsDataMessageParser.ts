@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { CompetitionRoomsData } from './utils/CompetitionRoomsData';
+import { CompetitionRoomsData } from './utils';
 
 export class CompetitionRoomsDataMessageParser implements IMessageParser
 {

@@ -1,6 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../api';
-import { BundleDiscountRuleset } from '../../incoming';
-import { IMessageParser } from './../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { BundleDiscountRuleset } from './BundleDiscountRuleset';
 
 export class BundleDiscountRulesetMessageParser implements IMessageParser
 {

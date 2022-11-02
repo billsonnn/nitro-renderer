@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { CfhChatlogMessageParser } from '../../parser/moderation/CfhChatlogMessageParser';
+import { CfhChatlogMessageParser } from '../../parser';
 
 export class CfhChatlogEvent extends MessageEvent implements IMessageEvent
 {

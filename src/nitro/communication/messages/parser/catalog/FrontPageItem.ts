@@ -1,5 +1,5 @@
 import { IMessageDataWrapper } from '../../../../../api';
-import { Nitro } from '../../../../Nitro';
+import { PixiApplicationProxy } from '../../../../../pixi-proxy';
 
 export class FrontPageItem
 {
@@ -62,7 +62,7 @@ export class FrontPageItem
 
         const time = wrapper.readInt();
 
-        this._expirationTime = ((time > 0) ? ((time * 1000) + Nitro.instance.time) : 0);
+        this._expirationTime = ((time > 0) ? ((time * 1000) + PixiApplicationProxy.instance.ticker.lastTime) : 0);
 
         return true;
     }

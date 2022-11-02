@@ -1,6 +1,6 @@
 import { BLEND_MODES } from '@pixi/constants';
 import { Resource, Texture } from '@pixi/core';
-import { AlphaTolerance, IGraphicAsset, IObjectVisualizationData, IRoomGeometry, IRoomObject, IRoomObjectModel, RoomObjectSpriteType } from '../../../../../api';
+import { AlphaTolerance, IGraphicAsset, IObjectVisualizationData, IRoomGeometry, IRoomObject, IRoomObjectModel, RoomObjectSpriteType, RoomObjectVariable } from '../../../../../api';
 import { AdvancedMap } from '../../../../../core';
 import { RoomObjectSpriteVisualization } from '../../../../../room';
 import { AvatarAction } from '../../../../avatar/enum/AvatarAction';
@@ -9,7 +9,6 @@ import { AvatarSetType } from '../../../../avatar/enum/AvatarSetType';
 import { IAvatarEffectListener } from '../../../../avatar/IAvatarEffectListener';
 import { IAvatarImage } from '../../../../avatar/IAvatarImage';
 import { IAvatarImageListener } from '../../../../avatar/IAvatarImageListener';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { ExpressionAdditionFactory } from './additions/ExpressionAdditionFactory';
 import { FloatingIdleZAddition } from './additions/FloatingIdleZAddition';
 import { GameClickTargetAddition } from './additions/GameClickTargetAddition';

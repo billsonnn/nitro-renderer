@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { OutfitData } from '../../incoming';
+import { OutfitData } from './OutfitData';
 
 export class WardrobeMessageParser implements IMessageParser
 {

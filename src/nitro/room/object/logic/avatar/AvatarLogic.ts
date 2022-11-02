@@ -1,6 +1,6 @@
 
-import { IRoomGeometry, IRoomObjectModel } from '../../../../../api';
-import { RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent, Vector3d } from '../../../../../room';
+import { IRoomGeometry, IRoomObjectModel, RoomObjectVariable, Vector3d } from '../../../../../api';
+import { RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
 import { AvatarAction } from '../../../../avatar/enum/AvatarAction';
 import { Nitro } from '../../../../Nitro';
 import { MouseEventType } from '../../../../ui/MouseEventType';
@@ -25,7 +25,6 @@ import { ObjectAvatarSleepUpdateMessage } from '../../../messages/ObjectAvatarSl
 import { ObjectAvatarTypingUpdateMessage } from '../../../messages/ObjectAvatarTypingUpdateMessage';
 import { ObjectAvatarUpdateMessage } from '../../../messages/ObjectAvatarUpdateMessage';
 import { ObjectAvatarUseObjectUpdateMessage } from '../../../messages/ObjectAvatarUseObjectUpdateMessage';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { MovingObjectLogic } from '../MovingObjectLogic';
 
 export class AvatarLogic extends MovingObjectLogic

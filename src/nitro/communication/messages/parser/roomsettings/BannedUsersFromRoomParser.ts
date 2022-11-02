@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { BannedUserData } from '../../incoming/roomsettings/BannedUserData';
+import { BannedUserData } from './BannedUserData';
 
 export class BannedUsersFromRoomParser implements IMessageParser
 {

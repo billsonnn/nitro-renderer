@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { CompetitionStatusMessageParser } from '../../parser/camera/CompetitionStatusMessageParser';
+import { CompetitionStatusMessageParser } from '../../parser';
 
 export class CompetitionStatusMessageEvent extends MessageEvent implements IMessageEvent
 {

@@ -1,6 +1,5 @@
 import { Point } from '@pixi/math';
-import { IRoomGeometry, IVector3D } from '../../api';
-import { Vector3d } from './Vector3d';
+import { IRoomGeometry, IVector3D, Vector3d } from '../../api';
 
 export class RoomGeometry implements IRoomGeometry
 {

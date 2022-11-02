@@ -1,8 +1,7 @@
 ﻿import { Graphics } from '@pixi/graphics';
 import { Point, Rectangle } from '@pixi/math';
-import { IVector3D } from '../../../../../../../api';
+import { IVector3D, Vector3d } from '../../../../../../../api';
 import { TextureUtils } from '../../../../../../../pixi-proxy';
-import { Vector3d } from '../../../../../../../room';
 import { RoomVisualization } from '../../RoomVisualization';
 import { Randomizer } from '../../utils/Randomizer';
 import { PlaneMaterialCell } from './PlaneMaterialCell';

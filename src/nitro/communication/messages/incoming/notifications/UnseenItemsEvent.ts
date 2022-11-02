@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { UnseenItemsParser } from '../../parser/notifications/UnseenItemsParser';
+import { UnseenItemsParser } from '../../parser';
 
 export class UnseenItemsEvent extends MessageEvent implements IMessageEvent
 {

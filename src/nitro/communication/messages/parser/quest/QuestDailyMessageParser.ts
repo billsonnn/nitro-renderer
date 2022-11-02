@@ -1,6 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../api';
-import { QuestMessageData } from '../../incoming/quest/QuestMessageData';
-import { IMessageParser } from './../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { QuestMessageData } from './QuestMessageData';
 
 export class QuestDailyMessageParser implements IMessageParser
 {

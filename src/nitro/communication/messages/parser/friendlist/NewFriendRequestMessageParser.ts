@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { FriendRequestData } from '../../incoming/friendlist/FriendRequestData';
+import { FriendRequestData } from './FriendRequestData';
 
 export class NewFriendRequestParser implements IMessageParser
 {

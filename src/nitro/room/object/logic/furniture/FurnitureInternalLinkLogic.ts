@@ -1,8 +1,7 @@
-import { IAssetData, IRoomGeometry } from '../../../../../api';
+import { IAssetData, IRoomGeometry, RoomObjectVariable } from '../../../../../api';
 import { RoomSpriteMouseEvent } from '../../../../../room';
 import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureInternalLinkLogic extends FurnitureLogic

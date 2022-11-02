@@ -1,6 +1,6 @@
+import { RoomObjectVariable } from '../../../../../api';
 import { RoomObjectWidgetRequestEvent } from '../../../events';
 import { RoomObjectDataRequestEvent } from '../../../events/RoomObjectDataRequestEvent';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureYoutubeLogic extends FurnitureLogic
@@ -19,7 +19,7 @@ export class FurnitureYoutubeLogic extends FurnitureLogic
     {
         super.update(time);
 
-        if(!this.object.model.getValue<string>(RoomObjectVariable.SESSION_URL_PREFIX))
+        if (!this.object.model.getValue<string>(RoomObjectVariable.SESSION_URL_PREFIX))
         {
             this.eventDispatcher.dispatchEvent(new RoomObjectDataRequestEvent(RoomObjectDataRequestEvent.RODRE_URL_PREFIX, this.object));
         }
@@ -27,7 +27,7 @@ export class FurnitureYoutubeLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if(!this.object || !this.eventDispatcher) return;
+        if (!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.YOUTUBE, this.object));
     }

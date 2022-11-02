@@ -1,7 +1,7 @@
 import { Resource, Texture } from '@pixi/core';
+import { RoomObjectVariable } from '../../../../../api';
 import { GraphicAssetGifCollection } from '../../../../../core';
 import { Nitro } from '../../../../Nitro';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureVisualization } from './FurnitureVisualization';
 
 export class FurnitureBrandedImageVisualization extends FurnitureVisualization

@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { UserEventCatsMessageParser } from '../../parser/navigator/UserEventCatsMessageParser';
+import { UserEventCatsMessageParser } from '../../parser';
 
 export class UserEventCatsEvent extends MessageEvent implements IMessageEvent
 {

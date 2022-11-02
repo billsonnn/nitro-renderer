@@ -7,8 +7,8 @@ import { RoomUnitChatWhisperEvent } from '../../communication/messages/incoming/
 import { RoomUnitHandItemReceivedEvent } from '../../communication/messages/incoming/room/unit/RoomUnitHandItemReceivedEvent';
 import { PetRespectNoficationEvent } from '../../communication/messages/incoming/user/PetRespectNoficationEvent';
 import { PetSupplementedNotificationEvent } from '../../communication/messages/incoming/user/PetSupplementedNotificationEvent';
-import { PetSupplementTypeEnum } from '../../communication/messages/incoming/user/PetSupplementTypeEnum';
 import { RespectReceivedEvent } from '../../communication/messages/incoming/user/RespectReceivedEvent';
+import { PetSupplementTypeEnum } from '../../communication/messages/parser/user/PetSupplementTypeEnum';
 import { SystemChatStyleEnum } from '../../ui/widget/enums/SystemChatStyleEnum';
 import { RoomSessionChatEvent } from '../events/RoomSessionChatEvent';
 import { BaseHandler } from './BaseHandler';

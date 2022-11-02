@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { CampaignCalendarDataMessageParser } from '../../parser/campaign';
+import { CampaignCalendarDataMessageParser } from '../../parser';
 
 export class CampaignCalendarDataMessageEvent extends MessageEvent implements IMessageEvent
 {

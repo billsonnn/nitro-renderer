@@ -1,4 +1,4 @@
-import { IObjectData } from '../../../../api';
+import { IObjectData } from './IObjectData';
 import { CrackableDataType, EmptyDataType, HighScoreDataType, LegacyDataType, MapDataType, NumberDataType, StringDataType, VoteDataType } from './type';
 
 export class ObjectDataFactory

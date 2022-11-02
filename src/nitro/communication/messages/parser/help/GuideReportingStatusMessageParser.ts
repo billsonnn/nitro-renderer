@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { PendingGuideTicketData } from './common/PendingGuideTicketData';
+import { PendingGuideTicketData } from './PendingGuideTicketData';
 
 export class GuideReportingStatusMessageParser implements IMessageParser
 {

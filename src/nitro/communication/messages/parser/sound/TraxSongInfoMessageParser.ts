@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { SongInfoEntry } from '../../incoming/sound/SongInfoEntry';
+import { SongInfoEntry } from './SongInfoEntry';
 
 export class TraxSongInfoMessageParser implements IMessageParser
 {

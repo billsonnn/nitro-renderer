@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { RoomVisualizationSettingsParser } from '../../../parser/room/mapping/RoomVisualizationSettingsParser';
+import { RoomVisualizationSettingsParser } from '../../../parser';
 
 export class RoomVisualizationSettingsEvent extends MessageEvent implements IMessageEvent
 {

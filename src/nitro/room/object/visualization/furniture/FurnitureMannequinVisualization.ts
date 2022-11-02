@@ -1,7 +1,6 @@
-import { IObjectVisualizationData } from '../../../../../api';
+import { IObjectVisualizationData, RoomObjectVariable } from '../../../../../api';
 import { AvatarSetType } from '../../../../avatar/enum/AvatarSetType';
 import { IAvatarImageListener } from '../../../../avatar/IAvatarImageListener';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureMannequinVisualizationData } from './FurnitureMannequinVisualizationData';
 import { FurnitureVisualization } from './FurnitureVisualization';
 

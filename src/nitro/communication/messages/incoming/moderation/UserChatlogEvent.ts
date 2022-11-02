@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { UserChatlogMessageParser } from '../../parser/moderation/UserChatlogMessageParser';
+import { UserChatlogMessageParser } from '../../parser';
 
 export class UserChatlogEvent extends MessageEvent implements IMessageEvent
 {

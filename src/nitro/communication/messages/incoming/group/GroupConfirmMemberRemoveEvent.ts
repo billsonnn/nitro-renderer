@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { GroupConfirmMemberRemoveParser } from '../../parser/group/GroupConfirmMemberRemoveParser';
+import { GroupConfirmMemberRemoveParser } from '../../parser';
 
 export class GroupConfirmMemberRemoveEvent extends MessageEvent implements IMessageEvent
 {

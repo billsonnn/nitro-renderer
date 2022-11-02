@@ -1,4 +1,4 @@
-import { Nitro } from '../../../../Nitro';
+import { PixiApplicationProxy } from '../../../../../pixi-proxy';
 import { PatternMatchData } from './PatternMatchData';
 
 export class IssueMessageData
@@ -29,7 +29,7 @@ export class IssueMessageData
     constructor(issueId: number, state: number, categoryId: number, reportedCategoryId: number,
         issueAgeinMs: number, priority: number, groupingId: number, reporterUserId: number, reporterUsername: string,
         reportedUserId: number, reportedUsername: string, pickerUserId: number, pickerUsername: string, message: string,
-        chatRecordId: number, patterns:PatternMatchData[])
+        chatRecordId: number, patterns: PatternMatchData[])
     {
         this._issueId = issueId;
         this._state = state;
@@ -47,7 +47,7 @@ export class IssueMessageData
         this._message = message;
         this._chatRecordId = chatRecordId;
         this._patterns = patterns;
-        this._creationTimeInMilliseconds = Nitro.instance.time; //getTimer()
+        this._creationTimeInMilliseconds = PixiApplicationProxy.instance.ticker.lastTime; //getTimer()
     }
 
     public get issueId(): number
@@ -133,11 +133,11 @@ export class IssueMessageData
     public dispose(): void
     {
 
-        if(this.disposed)
+        if (this.disposed)
         {
             return;
         }
-        for(const k of this._patterns)
+        for (const k of this._patterns)
         {
             k.dispose();
         }

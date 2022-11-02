@@ -3,12 +3,12 @@ import { Container, DisplayObject } from '@pixi/display';
 import { Graphics } from '@pixi/graphics';
 import { Matrix, Point, Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
-import { IRoomCanvasMouseListener, IRoomGeometry, IRoomObject, IRoomObjectSprite, IRoomObjectSpriteVisualization, IRoomRenderingCanvas, IRoomSpriteCanvasContainer, IRoomSpriteMouseEvent, RoomObjectSpriteData, RoomObjectSpriteType } from '../../api';
+import { IRoomCanvasMouseListener, IRoomGeometry, IRoomObject, IRoomObjectSprite, IRoomObjectSpriteVisualization, IRoomRenderingCanvas, IRoomSpriteCanvasContainer, IRoomSpriteMouseEvent, RoomObjectSpriteData, RoomObjectSpriteType, Vector3d } from '../../api';
 import { Nitro } from '../../nitro/Nitro';
 import { MouseEventType } from '../../nitro/ui/MouseEventType';
 import { NitroContainer, NitroSprite, PixiApplicationProxy } from '../../pixi-proxy';
 import { RoomSpriteMouseEvent } from '../events';
-import { RoomEnterEffect, RoomGeometry, RoomRotatingEffect, RoomShakingEffect, Vector3d } from '../utils';
+import { RoomEnterEffect, RoomGeometry, RoomRotatingEffect, RoomShakingEffect } from '../utils';
 import { RoomObjectCache, RoomObjectCacheItem } from './cache';
 import { ExtendedSprite, ObjectMouseData, SortableSprite } from './utils';
 

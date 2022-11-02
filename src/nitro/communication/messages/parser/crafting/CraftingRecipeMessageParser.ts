@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../api';
-import { IMessageParser } from './../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { CraftingRecipeIngredientParser } from './CraftingRecipeIngredientParser';
 
 export class CraftingRecipeMessageParser implements IMessageParser

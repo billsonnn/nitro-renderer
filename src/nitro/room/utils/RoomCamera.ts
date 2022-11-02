@@ -1,5 +1,4 @@
-﻿import { IVector3D } from '../../../api';
-import { Vector3d } from '../../../room';
+﻿import { IVector3D, Vector3d } from '../../../api';
 
 export class RoomCamera
 {

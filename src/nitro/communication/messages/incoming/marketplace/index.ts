@@ -4,6 +4,5 @@ export * from './MarketplaceCanMakeOfferResult';
 export * from './MarketplaceConfigurationEvent';
 export * from './MarketplaceItemStatsEvent';
 export * from './MarketplaceMakeOfferResult';
-export * from './MarketplaceOffer';
 export * from './MarketplaceOffersEvent';
 export * from './MarketplaceOwnOffersEvent';

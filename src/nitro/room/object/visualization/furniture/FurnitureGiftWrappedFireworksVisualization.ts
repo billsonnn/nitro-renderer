@@ -1,5 +1,4 @@
-import { IRoomGeometry } from '../../../../../api';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
+import { IRoomGeometry, RoomObjectVariable } from '../../../../../api';
 import { FurnitureFireworksVisualization } from './FurnitureFireworksVisualization';
 
 export class FurnitureGiftWrappedFireworksVisualization extends FurnitureFireworksVisualization

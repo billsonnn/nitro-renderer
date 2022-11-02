@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { HotelWillShutdownParser } from '../../parser/notifications/HotelWillShutdownParser';
+import { HotelWillShutdownParser } from '../../parser';
 
 export class HotelWillShutdownEvent extends MessageEvent implements IMessageEvent
 {

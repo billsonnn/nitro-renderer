@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { PostMessageMessageParser } from '../../parser/groupforums/PostMessageMessageParser';
+import { PostMessageMessageParser } from '../../parser';
 
 export class PostMessageMessageEvent extends MessageEvent implements IMessageEvent
 {

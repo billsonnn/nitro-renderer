@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { GuideOnDutyStatusMessageParser } from '../../parser/help/GuideOnDutyStatusMessageParser';
+import { GuideOnDutyStatusMessageParser } from '../../parser';
 
 export class GuideOnDutyStatusMessageEvent extends MessageEvent implements IMessageEvent
 {

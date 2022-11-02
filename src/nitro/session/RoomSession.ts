@@ -1,7 +1,6 @@
 import { IConnection, IRoomSession, RoomControllerLevel, RoomTradingLevelEnum } from '../../api';
 import { Disposable } from '../../core';
-import { CompostPlantMessageComposer, FurnitureMultiStateComposer, HarvestPetMessageComposer, PetMountComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from '../communication';
-import { RoomModerationSettings } from '../communication/messages/incoming/roomsettings/RoomModerationSettings';
+import { CompostPlantMessageComposer, FurnitureMultiStateComposer, HarvestPetMessageComposer, PetMountComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, RoomModerationSettings, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer } from '../communication';
 import { RoomDoorbellAccessComposer } from '../communication/messages/outgoing/room/access/RoomDoorbellAccessComposer';
 import { RoomEnterComposer } from '../communication/messages/outgoing/room/access/RoomEnterComposer';
 import { RoomAmbassadorAlertComposer } from '../communication/messages/outgoing/room/action/RoomAmbassadorAlertComposer';

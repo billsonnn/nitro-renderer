@@ -1,4 +1,3 @@
-export * from './data';
 export * from './enums';
 export * from './IGetImageListener';
 export * from './IImageResult';
@@ -11,4 +10,6 @@ export * from './IRoomEngineServices';
 export * from './IRoomObjectEventManager';
 export * from './ISelectedRoomObjectData';
 export * from './object';
+export * from './object/data';
+export * from './object/data/type';
 export * from './utils';

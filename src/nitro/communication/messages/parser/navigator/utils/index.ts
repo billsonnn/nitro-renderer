@@ -1,5 +1,6 @@
 export * from './CategoriesWithVisitorCountData';
 export * from './CompetitionRoomsData';
+export * from './GuestRoomSearchResultData';
 export * from './NavigatorSavedSearch';
 export * from './NavigatorSearchResultList';
 export * from './NavigatorSearchResultSet';

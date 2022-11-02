@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { QuestMessageData } from '../../incoming/quest/QuestMessageData';
+import { QuestMessageData } from './QuestMessageData';
 
 export class QuestsMessageParser implements IMessageParser
 {

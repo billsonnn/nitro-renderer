@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../..';
+import { IMessageComposer } from '../../../../../api';
 
 export class VoteForRoomMessageComposer implements IMessageComposer<ConstructorParameters<typeof VoteForRoomMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class VoteForRoomMessageComposer implements IMessageComposer<ConstructorP
 
     constructor(k: string)
     {
-        this._data = [ k ];
+        this._data = [k];
     }
 
     public getMessageArray()

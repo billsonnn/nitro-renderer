@@ -1,6 +1,6 @@
 ﻿import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { AvatarEffectExpiredParser } from '../../../parser/inventory/avatareffect/AvatarEffectExpiredParser';
+import { AvatarEffectExpiredParser } from '../../../parser';
 
 export class AvatarEffectExpiredEvent extends MessageEvent implements IMessageEvent
 {

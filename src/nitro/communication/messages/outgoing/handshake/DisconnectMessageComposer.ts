@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../..';
+import { IMessageComposer } from '../../../../../api';
 
 export class DisconnectMessageComposer implements IMessageComposer<ConstructorParameters<typeof DisconnectMessageComposer>>
 {

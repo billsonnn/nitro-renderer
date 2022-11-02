@@ -1,6 +1,4 @@
-import { IAssetLogicPlanetSystem } from '../../../../../api';
-import { Vector3d } from '../../../../../room';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
+import { IAssetLogicPlanetSystem, RoomObjectVariable, Vector3d } from '../../../../../api';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
 import { FurniturePlanetSystemVisualizationPlanetObject } from './FurniturePlanetSystemVisualizationPlanetObject';
 

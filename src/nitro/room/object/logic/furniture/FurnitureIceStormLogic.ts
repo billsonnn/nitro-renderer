@@ -1,6 +1,6 @@
+import { LegacyDataType } from '../../../../../api';
 import { RoomObjectUpdateMessage } from '../../../../../room';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
-import { LegacyDataType } from '../../data/type/LegacyDataType';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureIceStormLogic extends FurnitureMultiStateLogic

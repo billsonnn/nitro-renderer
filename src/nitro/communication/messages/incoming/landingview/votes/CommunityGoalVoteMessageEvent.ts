@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { CommunityVoteReceivedParser } from '../../../parser/landingview/votes/CommunityVoteReceivedParser';
+import { CommunityVoteReceivedParser } from '../../../parser';
 
 export class CommunityGoalVoteMessageEvent extends MessageEvent implements IMessageEvent
 {

@@ -1,4 +1,3 @@
-export * from './AvatarEffect';
 export * from './AvatarEffectActivatedEvent';
 export * from './AvatarEffectAddedEvent';
 export * from './AvatarEffectExpiredEvent';

@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { HabboGroupDeactivatedMessageParser } from '../../parser/group/HabboGroupDeactivatedMessageParser';
+import { HabboGroupDeactivatedMessageParser } from '../../parser';
 
 export class HabboGroupDeactivatedMessageEvent extends MessageEvent implements IMessageEvent
 {

@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { PerkData } from './common/PerkData';
+import { PerkData } from './common';
 
 export class PerkAllowancesMessageParser implements IMessageParser
 {

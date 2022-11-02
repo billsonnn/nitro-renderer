@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { ChangeUserNameResultMessageParser } from '../../parser/avatar/ChangeUserNameResultMessageParser';
+import { ChangeUserNameResultMessageParser } from '../../parser';
 
 export class ChangeUserNameResultMessageEvent extends MessageEvent implements IMessageEvent
 {

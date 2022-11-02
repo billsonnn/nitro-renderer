@@ -1,5 +1,4 @@
-import { ILegacyWallGeometry, IVector3D } from '../../../api';
-import { Vector3d } from '../../../room';
+import { ILegacyWallGeometry, IVector3D, Vector3d } from '../../../api';
 
 export class LegacyWallGeometry implements ILegacyWallGeometry
 {

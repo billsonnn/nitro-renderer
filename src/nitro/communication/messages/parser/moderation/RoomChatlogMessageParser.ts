@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { ChatRecordData } from '../../incoming/moderation/ChatRecordData';
+import { ChatRecordData } from './ChatRecordData';
 
 export class RoomChatlogMessageParser implements IMessageParser
 {

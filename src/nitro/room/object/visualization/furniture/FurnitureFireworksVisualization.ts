@@ -1,6 +1,5 @@
-import { IParticleSystem } from '../../../../../api';
+import { IParticleSystem, RoomObjectVariable } from '../../../../../api';
 import { AdvancedMap, NitroLogger } from '../../../../../core';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
 import { FurnitureParticleSystem } from './FurnitureParticleSystem';
 

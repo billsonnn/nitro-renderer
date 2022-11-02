@@ -1,6 +1,5 @@
-﻿import { IRoomObject, ITileObjectMap } from '../../../api';
+﻿import { IRoomObject, ITileObjectMap, RoomObjectVariable } from '../../../api';
 import { NitroLogger } from '../../../core';
-import { RoomObjectVariable } from '../object/RoomObjectVariable';
 
 export class TileObjectMap implements ITileObjectMap
 {

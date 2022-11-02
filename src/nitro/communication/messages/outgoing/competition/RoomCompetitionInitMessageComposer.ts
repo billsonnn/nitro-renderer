@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../..';
+import { IMessageComposer } from '../../../../../api';
 
 export class RoomCompetitionInitMessageComposer implements IMessageComposer<ConstructorParameters<typeof RoomCompetitionInitMessageComposer>>
 {

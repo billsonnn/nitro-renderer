@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { FriendCategoryData } from '../../incoming/friendlist/FriendCategoryData';
+import { FriendCategoryData } from './FriendCategoryData';
 
 export class MessengerInitParser implements IMessageParser
 {

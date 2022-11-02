@@ -1,7 +1,6 @@
 import { Graphics } from '@pixi/graphics';
-import { IVector3D } from '../../../../../../../api';
+import { IVector3D, Vector3d } from '../../../../../../../api';
 import { NitroRenderTexture } from '../../../../../../../pixi-proxy';
-import { Vector3d } from '../../../../../../../room';
 import { PlaneMaterialCell } from './PlaneMaterialCell';
 
 export class PlaneMaterialCellColumn

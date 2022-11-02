@@ -1,5 +1,4 @@
-import { IObjectVisualizationData } from '../../../../../api';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
+import { IObjectVisualizationData, RoomObjectVariable } from '../../../../../api';
 import { RoomObjectVisualizationType } from '../../RoomObjectVisualizationType';
 import { AnimationData } from '../data/AnimationData';
 import { AnimationFrame } from '../data/AnimationFrame';

@@ -1,4 +1,4 @@
-import { RoomObjectVariable } from '../../RoomObjectVariable';
+import { RoomObjectVariable } from '../../../../../api';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
 
 export class FurnitureBadgeDisplayVisualization extends FurnitureAnimatedVisualization
@@ -27,22 +27,22 @@ export class FurnitureBadgeDisplayVisualization extends FurnitureAnimatedVisuali
         const badgeStatus = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BADGE_IMAGE_STATUS);
         const badgeId = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_BADGE_ASSET_NAME);
 
-        if(badgeStatus === -1)
+        if (badgeStatus === -1)
         {
             this._badgeAssetNameNormalScale = '';
             this._badgeAssetNameSmallScale = '';
         }
 
-        else if((badgeStatus === 1) && (badgeId !== this._badgeId))
+        else if ((badgeStatus === 1) && (badgeId !== this._badgeId))
         {
             this._badgeId = badgeId;
             this._badgeAssetNameNormalScale = this._badgeId;
 
-            if(this._badgeAssetNameSmallScale === '') this._badgeAssetNameSmallScale = this._badgeAssetNameNormalScale + '_32';
+            if (this._badgeAssetNameSmallScale === '') this._badgeAssetNameSmallScale = this._badgeAssetNameNormalScale + '_32';
 
             const visibleInState = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_BADGE_VISIBLE_IN_STATE);
 
-            if(!isNaN(visibleInState)) this._badgeVisibleInState = visibleInState;
+            if (!isNaN(visibleInState)) this._badgeVisibleInState = visibleInState;
 
             updateModel = true;
         }
@@ -54,9 +54,9 @@ export class FurnitureBadgeDisplayVisualization extends FurnitureAnimatedVisuali
     {
         const tag = this.getLayerTag(scale, this.direction, layerId);
 
-        if((tag !== FurnitureBadgeDisplayVisualization.BADGE) || ((this._badgeVisibleInState !== -1) && (this.object.getState(0) !== this._badgeVisibleInState))) return super.getSpriteAssetName(scale, layerId);
+        if ((tag !== FurnitureBadgeDisplayVisualization.BADGE) || ((this._badgeVisibleInState !== -1) && (this.object.getState(0) !== this._badgeVisibleInState))) return super.getSpriteAssetName(scale, layerId);
 
-        if(scale === 32) return this._badgeAssetNameSmallScale;
+        if (scale === 32) return this._badgeAssetNameSmallScale;
 
         return this._badgeAssetNameNormalScale;
     }
@@ -65,13 +65,13 @@ export class FurnitureBadgeDisplayVisualization extends FurnitureAnimatedVisuali
     {
         let offset = super.getLayerXOffset(scale, direction, layerId);
 
-        if(this.getLayerTag(scale, direction, layerId) === FurnitureBadgeDisplayVisualization.BADGE)
+        if (this.getLayerTag(scale, direction, layerId) === FurnitureBadgeDisplayVisualization.BADGE)
         {
             const asset = this.getAsset(((scale === 32) ? this._badgeAssetNameSmallScale : this._badgeAssetNameNormalScale), layerId);
 
-            if(asset)
+            if (asset)
             {
-                if(scale === 64) offset += ((40 - asset.width) / 2);
+                if (scale === 64) offset += ((40 - asset.width) / 2);
                 else offset += ((20 - asset.width) / 2);
             }
         }
@@ -83,13 +83,13 @@ export class FurnitureBadgeDisplayVisualization extends FurnitureAnimatedVisuali
     {
         let offset = super.getLayerYOffset(scale, direction, layerId);
 
-        if(this.getLayerTag(scale, direction, layerId) === FurnitureBadgeDisplayVisualization.BADGE)
+        if (this.getLayerTag(scale, direction, layerId) === FurnitureBadgeDisplayVisualization.BADGE)
         {
             const asset = this.getAsset(((scale === 32) ? this._badgeAssetNameSmallScale : this._badgeAssetNameNormalScale), layerId);
 
-            if(asset)
+            if (asset)
             {
-                if(scale === 64) offset += ((40 - asset.height) / 2);
+                if (scale === 64) offset += ((40 - asset.height) / 2);
                 else offset += ((20 - asset.height) / 2);
             }
         }

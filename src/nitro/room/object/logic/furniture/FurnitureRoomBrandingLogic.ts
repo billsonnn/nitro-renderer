@@ -1,6 +1,6 @@
 import { BaseTexture, Texture } from '@pixi/core';
 import { decompressFrames, parseGIF } from 'gifuct-js';
-import { IAssetData, IRoomGeometry } from '../../../../../api';
+import { IAssetData, IRoomGeometry, MapDataType, RoomObjectVariable } from '../../../../../api';
 import { RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
 import { Nitro } from '../../../../Nitro';
 import { MouseEventType } from '../../../../ui';
@@ -8,8 +8,6 @@ import { RoomWidgetEnumItemExtradataParameter } from '../../../../ui/widget/enum
 import { RoomObjectRoomAdEvent } from '../../../events';
 import { ObjectAdUpdateMessage } from '../../../messages/ObjectAdUpdateMessage';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
-import { MapDataType } from '../../data/type/MapDataType';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureRoomBrandingLogic extends FurnitureLogic

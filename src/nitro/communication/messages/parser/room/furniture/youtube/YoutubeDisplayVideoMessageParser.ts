@@ -1,5 +1,4 @@
-import { IMessageParser } from '../../../../../../..';
-import { IMessageDataWrapper } from '../../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../../api';
 
 export class YoutubeDisplayVideoMessageParser implements IMessageParser
 {

@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { PurchaseOKMessageOfferData } from '../../incoming/catalog/PurchaseOKMessageOfferData';
+import { PurchaseOKMessageOfferData } from './PurchaseOKMessageOfferData';
 
 export class PurchaseOKMessageParser implements IMessageParser
 {

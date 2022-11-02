@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { CatalogPageMessageProductData } from '../../incoming';
+import { CatalogPageMessageProductData } from './CatalogPageMessageProductData';
 
 export class ClubGiftSelectedParser implements IMessageParser
 {

@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { InClientLinkParser } from '../../parser/user/InClientLinkParser';
+import { InClientLinkParser } from '../../parser';
 
 export class InClientLinkEvent extends MessageEvent implements IMessageEvent
 {

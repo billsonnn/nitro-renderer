@@ -1,8 +1,8 @@
+import { RoomObjectVariable } from '../../../../../api';
 import { RoomObjectUpdateMessage } from '../../../../../room';
 import { RoomWidgetEnumItemExtradataParameter } from '../../../../ui';
 import { RoomObjectFurnitureActionEvent } from '../../../events/RoomObjectFurnitureActionEvent';
 import { ObjectDataUpdateMessage } from '../../../messages';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureSoundMachineLogic extends FurnitureMultiStateLogic

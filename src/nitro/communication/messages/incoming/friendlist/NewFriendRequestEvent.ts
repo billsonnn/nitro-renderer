@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { NewFriendRequestParser } from '../../parser/friendlist/NewFriendRequestMessageParser';
+import { NewFriendRequestParser } from '../../parser';
 
 export class NewFriendRequestEvent extends MessageEvent implements IMessageEvent
 {

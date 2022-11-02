@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { ItemDataUpdateMessageParser } from '../../../parser/room/furniture/ItemDataUpdateMessageParser';
+import { ItemDataUpdateMessageParser } from '../../../parser';
 
 export class ItemDataUpdateMessageEvent extends MessageEvent implements IMessageEvent
 {

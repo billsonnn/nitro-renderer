@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { BotCommandConfigurationParser } from '../../../parser/room/bots/BotCommandConfigurationParser';
+import { BotCommandConfigurationParser } from '../../../parser';
 
 export class BotCommandConfigurationEvent extends MessageEvent implements IMessageEvent
 {

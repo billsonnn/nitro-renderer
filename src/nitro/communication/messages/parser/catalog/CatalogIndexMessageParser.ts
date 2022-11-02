@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { NodeData } from '../../incoming/catalog/NodeData';
+import { NodeData } from './NodeData';
 
 export class CatalogIndexMessageParser implements IMessageParser
 {

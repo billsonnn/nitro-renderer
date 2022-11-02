@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { IssueInfoMessageParser } from '../../parser/moderation/IssueInfoMessageParser';
+import { IssueInfoMessageParser } from '../../parser';
 
 export class IssueInfoMessageEvent extends MessageEvent implements IMessageEvent
 {

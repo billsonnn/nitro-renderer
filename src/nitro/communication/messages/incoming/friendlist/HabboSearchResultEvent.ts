@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { HabboSearchResultParser } from '../../parser/friendlist/HabboSearchResultParser';
+import { HabboSearchResultParser } from '../../parser';
 
 export class HabboSearchResultEvent extends MessageEvent implements IMessageEvent
 {

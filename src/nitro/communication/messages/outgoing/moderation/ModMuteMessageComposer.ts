@@ -1,5 +1,5 @@
-import { ModBanMessageComposer } from '.';
 import { IMessageComposer } from '../../../../../api';
+import { ModBanMessageComposer } from './ModBanMessageComposer';
 
 export class ModMuteMessageComposer implements IMessageComposer<ConstructorParameters<typeof ModMuteMessageComposer>>
 {

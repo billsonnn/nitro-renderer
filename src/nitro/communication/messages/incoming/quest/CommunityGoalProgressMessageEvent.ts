@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { CommunityGoalProgressMessageParser } from '../../parser/quest/CommunityGoalProgressMessageParser';
+import { CommunityGoalProgressMessageParser } from '../../parser';
 
 export class CommunityGoalProgressMessageEvent extends MessageEvent implements IMessageEvent
 {

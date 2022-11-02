@@ -1,5 +1,4 @@
-import { IAssetData } from '../../../../../api';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
+import { IAssetData, RoomObjectVariable } from '../../../../../api';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureMultiHeightLogic extends FurnitureMultiStateLogic

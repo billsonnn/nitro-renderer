@@ -1,5 +1,5 @@
 ﻿import { IMessageDataWrapper } from '../../../../../api';
-import { Nitro } from '../../../../Nitro';
+import { PixiApplicationProxy } from '../../../../../pixi-proxy';
 
 export class TargetedOfferData
 {
@@ -31,7 +31,7 @@ export class TargetedOfferData
         this._Str_9772 = wrapper.readInt();
 
         const time = wrapper.readInt();
-        this._expirationTime = ((time > 0) ? ((time * 1000) + Nitro.instance.time) : 0);
+        this._expirationTime = ((time > 0) ? ((time * 1000) + PixiApplicationProxy.instance.ticker.lastTime) : 0);
 
         this._title = wrapper.readString();
         this._Str_1858 = wrapper.readString();

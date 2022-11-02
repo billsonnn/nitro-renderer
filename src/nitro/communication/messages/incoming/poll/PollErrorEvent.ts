@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { PollErrorParser } from '../../parser/poll/PollErrorParser';
+import { PollErrorParser } from '../../parser';
 
 export class PollErrorEvent extends MessageEvent implements IMessageEvent
 {

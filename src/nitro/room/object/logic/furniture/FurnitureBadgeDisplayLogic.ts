@@ -1,11 +1,10 @@
+import { RoomObjectVariable, StringDataType } from '../../../../../api';
 import { PixiApplicationProxy } from '../../../../../pixi-proxy';
 import { RoomObjectUpdateMessage } from '../../../../../room';
 import { RoomObjectBadgeAssetEvent } from '../../../events/RoomObjectBadgeAssetEvent';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
 import { ObjectGroupBadgeUpdateMessage } from '../../../messages/ObjectGroupBadgeUpdateMessage';
-import { StringDataType } from '../../data/type/StringDataType';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureBadgeDisplayLogic extends FurnitureLogic

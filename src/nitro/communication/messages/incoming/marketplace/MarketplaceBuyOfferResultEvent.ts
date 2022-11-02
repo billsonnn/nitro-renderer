@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { MarketplaceBuyOfferResultParser } from '../../parser/marketplace/MarketplaceBuyOfferResultParser';
+import { MarketplaceBuyOfferResultParser } from '../../parser';
 
 
 export class MarketplaceBuyOfferResultEvent extends MessageEvent implements IMessageEvent

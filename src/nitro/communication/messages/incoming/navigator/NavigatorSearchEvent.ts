@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { NavigatorSearchParser } from '../../parser/navigator/NavigatorSearchParser';
+import { NavigatorSearchParser } from '../../parser';
 
 export class NavigatorSearchEvent extends MessageEvent implements IMessageEvent
 {

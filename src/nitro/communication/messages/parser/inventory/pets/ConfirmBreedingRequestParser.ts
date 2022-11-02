@@ -1,6 +1,5 @@
 ﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { BreedingPetInfo } from '../../../incoming/room/pet/BreedingPetInfo';
-import { RarityCategoryData } from '../../../incoming/room/pet/RarityCategoryData';
+import { BreedingPetInfo, RarityCategoryData } from '../../room';
 
 export class ConfirmBreedingRequestParser implements IMessageParser
 {

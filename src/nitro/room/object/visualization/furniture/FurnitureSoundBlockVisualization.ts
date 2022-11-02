@@ -1,4 +1,4 @@
-import { RoomObjectVariable } from '../../RoomObjectVariable';
+import { RoomObjectVariable } from '../../../../../api';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
 
 export class FurnitureSoundBlockVisualization extends FurnitureAnimatedVisualization

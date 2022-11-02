@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { GuideSessionDetachedMessageParser } from '../../parser/help/GuideSessionDetachedMessageParser';
+import { GuideSessionDetachedMessageParser } from '../../parser';
 
 export class GuideSessionDetachedMessageEvent extends MessageEvent implements IMessageEvent
 {

@@ -1,7 +1,7 @@
+import { RoomObjectVariable } from '../../../../../api';
 import { AdvancedMap } from '../../../../../core';
 import { RoomWidgetEnum } from '../../../../ui';
 import { RoomObjectDataRequestEvent } from '../../../events';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureRentableSpaceLogic extends FurnitureLogic
@@ -19,9 +19,9 @@ export class FurnitureRentableSpaceLogic extends FurnitureLogic
     {
         super.update(time);
 
-        if(this.object && this.object.model)
+        if (this.object && this.object.model)
         {
-            if(!this.object.model.getValue<number>(RoomObjectVariable.SESSION_CURRENT_USER_ID))
+            if (!this.object.model.getValue<number>(RoomObjectVariable.SESSION_CURRENT_USER_ID))
             {
                 this.eventDispatcher.dispatchEvent(new RoomObjectDataRequestEvent(RoomObjectDataRequestEvent.RODRE_CURRENT_USER_ID, this.object));
             }
@@ -29,9 +29,9 @@ export class FurnitureRentableSpaceLogic extends FurnitureLogic
             const renterId = this.object.model.getValue<AdvancedMap<string, string>>(RoomObjectVariable.FURNITURE_DATA).getValue('renterId');
             const userId = this.object.model.getValue<number>(RoomObjectVariable.SESSION_CURRENT_USER_ID);
 
-            if(renterId)
+            if (renterId)
             {
-                if(parseInt(renterId) === userId) this.object.setState(2, 0);
+                if (parseInt(renterId) === userId) this.object.setState(2, 0);
                 else this.object.setState(1, 0);
             }
             else

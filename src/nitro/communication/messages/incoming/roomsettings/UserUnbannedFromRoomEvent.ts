@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { UserUnbannedFromRoomParser } from '../../parser/roomsettings/UserUnbannedFromRoomParser';
+import { UserUnbannedFromRoomParser } from '../../parser';
 
 export class UserUnbannedFromRoomEvent extends MessageEvent implements IMessageEvent
 {

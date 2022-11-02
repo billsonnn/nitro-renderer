@@ -1,12 +1,10 @@
-import { IRoomGeometry } from '../../../../../api';
+import { IRoomGeometry, RoomObjectVariable, StringDataType } from '../../../../../api';
 import { PixiApplicationProxy } from '../../../../../pixi-proxy';
 import { RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
 import { MouseEventType } from '../../../../ui';
 import { RoomObjectBadgeAssetEvent, RoomObjectWidgetRequestEvent } from '../../../events';
 import { ObjectGroupBadgeUpdateMessage, ObjectSelectedMessage } from '../../../messages';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
-import { StringDataType } from '../../data/type/StringDataType';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureGuildCustomizedLogic extends FurnitureMultiStateLogic

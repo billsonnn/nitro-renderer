@@ -1,9 +1,8 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Graphics } from '@pixi/graphics';
 import { Matrix, Point, Rectangle } from '@pixi/math';
-import { IRoomGeometry, IRoomPlane, IVector3D } from '../../../../../api';
+import { IRoomGeometry, IRoomPlane, IVector3D, Vector3d } from '../../../../../api';
 import { NitroRenderTexture, TextureUtils } from '../../../../../pixi-proxy';
-import { Vector3d } from '../../../../../room';
 import { PlaneMaskManager } from './mask/PlaneMaskManager';
 import { PlaneDrawingData } from './PlaneDrawingData';
 import { PlaneVisualizationLayer } from './rasterizer/basic/PlaneVisualizationLayer';

@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { CraftableProductsMessageParser } from '../../parser/crafting/CraftableProductsMessageParser';
+import { CraftableProductsMessageParser } from '../../parser';
 
 export class CraftableProductsEvent extends MessageEvent implements IMessageEvent
 {

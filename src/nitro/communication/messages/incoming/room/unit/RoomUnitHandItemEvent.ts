@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { RoomUnitHandItemParser } from '../../../parser/room/unit/RoomUnitHandItemParser';
+import { RoomUnitHandItemParser } from '../../../parser';
 
 export class RoomUnitHandItemEvent extends MessageEvent implements IMessageEvent
 {

@@ -13,3 +13,4 @@ export * from './object/logic';
 export * from './object/visualization';
 export * from './renderer';
 export * from './RoomObjectSpriteData';
+export * from './Vector3d';

@@ -1,4 +1,4 @@
-import { PlayListEntry } from '.';
+import { PlayListEntry } from './PlayListEntry';
 
 export class SongInfoEntry extends PlayListEntry
 {

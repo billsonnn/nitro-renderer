@@ -9,6 +9,7 @@ export * from './ChatReviewSessionResultsMessageEvent';
 export * from './ChatReviewSessionStartedMessageEvent';
 export * from './ChatReviewSessionVotingStatusMessageEvent';
 export * from './GuideOnDutyStatusMessageEvent';
+export * from './GuideReportingStatusMessageEvent';
 export * from './GuideSessionAttachedMessageEvent';
 export * from './GuideSessionDetachedMessageEvent';
 export * from './GuideSessionEndedMessageEvent';

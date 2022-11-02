@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { BotErrorEventParser } from '../../parser/notifications/BotErrorEventParser';
+import { BotErrorEventParser } from '../../parser';
 
 export class BotErrorEvent extends MessageEvent implements IMessageEvent
 {

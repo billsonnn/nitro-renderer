@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { FlatControllerData } from '../../incoming/roomsettings/FlatControllerData';
+import { FlatControllerData } from './FlatControllerData';
 
 export class FlatControllerAddedParser implements IMessageParser
 {

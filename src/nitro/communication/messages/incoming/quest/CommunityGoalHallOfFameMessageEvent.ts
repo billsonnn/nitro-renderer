@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { CommunityGoalHallOfFameMessageParser } from '../../parser/quest/CommunityGoalHallOfFameMessageParser';
+import { CommunityGoalHallOfFameMessageParser } from '../../parser';
 
 export class CommunityGoalHallOfFameMessageEvent extends MessageEvent implements IMessageEvent
 {

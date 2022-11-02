@@ -1,5 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { RoomObjectType } from '../../../../../room/object/RoomObjectType';
+import { IMessageDataWrapper, IMessageParser, RoomObjectType } from '../../../../../../api';
 import { UserMessageData } from './UserMessageData';
 
 export class RoomUnitParser implements IMessageParser

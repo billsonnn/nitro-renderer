@@ -1,5 +1,5 @@
 ﻿import { IVector3D } from '../../room';
-import { IObjectData } from './data';
+import { IObjectData } from './object';
 
 export interface ISelectedRoomObjectData
 {

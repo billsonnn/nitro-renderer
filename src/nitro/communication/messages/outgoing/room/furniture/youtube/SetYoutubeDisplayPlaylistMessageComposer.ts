@@ -1,10 +1,10 @@
-import { IMessageComposer } from '../../../../../../..';
+import { IMessageComposer } from '../../../../../../../api';
 
 export class SetYoutubeDisplayPlaylistMessageComposer implements IMessageComposer<ConstructorParameters<typeof SetYoutubeDisplayPlaylistMessageComposer>>
 {
     private _data: ConstructorParameters<typeof SetYoutubeDisplayPlaylistMessageComposer>;
 
-    constructor(k:number, _arg_2:string)
+    constructor(k: number, _arg_2: string)
     {
         this._data = [k, _arg_2];
     }

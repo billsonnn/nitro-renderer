@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../../api';
 import { MessageEvent } from '../../../../../../../core';
-import { UserSubscriptionParser } from '../../../../parser/user/inventory/subscription/UserSubscriptionParser';
+import { UserSubscriptionParser } from '../../../../parser';
 
 export class UserSubscriptionEvent extends MessageEvent implements IMessageEvent
 {

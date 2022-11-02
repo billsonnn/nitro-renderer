@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { UserFlatCatsMessageParser } from '../../parser/navigator/UserFlatCatsMessageParser';
+import { UserFlatCatsMessageParser } from '../../parser';
 
 export class UserFlatCatsEvent extends MessageEvent implements IMessageEvent
 {

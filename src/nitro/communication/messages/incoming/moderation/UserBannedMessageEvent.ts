@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { UserBannedMessageParser } from '../../parser/moderation';
+import { UserBannedMessageParser } from '../../parser';
 
 export class UserBannedMessageEvent extends MessageEvent implements IMessageEvent
 {

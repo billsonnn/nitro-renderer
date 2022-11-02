@@ -1,3 +1,7 @@
+export * from './ConditionDefinition';
+export * from './Triggerable';
+export * from './TriggerDefinition';
+export * from './WiredActionDefinition';
 export * from './WiredFurniActionParser';
 export * from './WiredFurniConditionParser';
 export * from './WiredFurniTriggerParser';

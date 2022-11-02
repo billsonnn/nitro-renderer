@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { GetGuestRoomResultMessageParser } from '../../parser/navigator/GetGuestRoomResultMessageParser';
+import { GetGuestRoomResultMessageParser } from '../../parser';
 
 export class GetGuestRoomResultEvent extends MessageEvent implements IMessageEvent
 {

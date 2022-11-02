@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { CategoriesWithVisitorCountData } from './utils/CategoriesWithVisitorCountData';
+import { CategoriesWithVisitorCountData } from './utils';
 
 export class CategoriesWithVisitorCountParser implements IMessageParser
 {

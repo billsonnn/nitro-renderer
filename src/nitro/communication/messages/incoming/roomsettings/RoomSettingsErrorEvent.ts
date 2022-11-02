@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { RoomSettingsErrorParser } from '../../parser/roomsettings/RoomSettingsErrorParser';
+import { RoomSettingsErrorParser } from '../../parser';
 
 export class RoomSettingsErrorEvent extends MessageEvent implements IMessageEvent
 {

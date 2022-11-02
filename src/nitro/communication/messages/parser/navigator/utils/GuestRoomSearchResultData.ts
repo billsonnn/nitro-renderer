@@ -1,5 +1,5 @@
 import { IMessageDataWrapper } from '../../../../../../api';
-import { RoomDataParser } from '../../room/data/RoomDataParser';
+import { RoomDataParser } from '../../room';
 import { OfficialRoomEntryData } from './OfficialRoomEntryData';
 
 export class GuestRoomSearchResultData

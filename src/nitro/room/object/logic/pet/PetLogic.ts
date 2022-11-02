@@ -1,7 +1,6 @@
-import { IAssetData, IRoomGeometry, IRoomObjectModel } from '../../../../../api';
-import { RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent, Vector3d } from '../../../../../room';
+import { IAssetData, IRoomGeometry, IRoomObjectModel, PetType, RoomObjectVariable, Vector3d } from '../../../../../api';
+import { RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
 import { PetFigureData } from '../../../../avatar/pets/PetFigureData';
-import { PetType } from '../../../../avatar/pets/PetType';
 import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectMoveEvent } from '../../../events/RoomObjectMoveEvent';
 import { ObjectAvatarExperienceUpdateMessage } from '../../../messages';
@@ -12,7 +11,6 @@ import { ObjectAvatarPostureUpdateMessage } from '../../../messages/ObjectAvatar
 import { ObjectAvatarSelectedMessage } from '../../../messages/ObjectAvatarSelectedMessage';
 import { ObjectAvatarSleepUpdateMessage } from '../../../messages/ObjectAvatarSleepUpdateMessage';
 import { ObjectAvatarUpdateMessage } from '../../../messages/ObjectAvatarUpdateMessage';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { MovingObjectLogic } from '../MovingObjectLogic';
 
 export class PetLogic extends MovingObjectLogic

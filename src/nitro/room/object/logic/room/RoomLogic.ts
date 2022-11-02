@@ -1,6 +1,6 @@
 import { Point } from '@pixi/math';
-import { IRoomGeometry, IRoomObjectModel } from '../../../../../api';
-import { ColorConverter, RoomObjectEvent, RoomObjectLogicBase, RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent, Vector3d } from '../../../../../room';
+import { IRoomGeometry, IRoomObjectModel, RoomObjectVariable, Vector3d } from '../../../../../api';
+import { ColorConverter, RoomObjectEvent, RoomObjectLogicBase, RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
 import { Nitro } from '../../../../Nitro';
 import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectTileMouseEvent } from '../../../events/RoomObjectTileMouseEvent';
@@ -13,7 +13,6 @@ import { ObjectRoomPlanePropertyUpdateMessage } from '../../../messages/ObjectRo
 import { ObjectRoomPlaneVisibilityUpdateMessage } from '../../../messages/ObjectRoomPlaneVisibilityUpdateMessage';
 import { ObjectRoomUpdateMessage } from '../../../messages/ObjectRoomUpdateMessage';
 import { RoomMapData } from '../../RoomMapData';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { RoomPlaneBitmapMaskData } from '../../RoomPlaneBitmapMaskData';
 import { RoomPlaneBitmapMaskParser } from '../../RoomPlaneBitmapMaskParser';
 import { RoomPlaneData } from '../../RoomPlaneData';

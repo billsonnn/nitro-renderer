@@ -1,4 +1,4 @@
-import { RoomObjectVariable } from '../../RoomObjectVariable';
+import { RoomObjectVariable } from '../../../../../api';
 import { FurnitureDynamicThumbnailVisualization } from './FurnitureDynamicThumbnailVisualization';
 
 export class FurnitureExternalImageVisualization extends FurnitureDynamicThumbnailVisualization
@@ -16,15 +16,15 @@ export class FurnitureExternalImageVisualization extends FurnitureDynamicThumbna
 
     protected getThumbnailURL(): string
     {
-        if(!this.object) return null;
+        if (!this.object) return null;
 
-        if(this._url) return this._url;
+        if (this._url) return this._url;
 
         const jsonString = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_DATA);
 
-        if(!jsonString || jsonString === '') return null;
+        if (!jsonString || jsonString === '') return null;
 
-        if(this.object.type.indexOf('') >= 0)
+        if (this.object.type.indexOf('') >= 0)
         {
             this._typePrefix = (this.object.type.indexOf('') >= 0) ? '' : 'postcards/selfie/';
         }
@@ -44,7 +44,7 @@ export class FurnitureExternalImageVisualization extends FurnitureDynamicThumbna
     {
         url = url.replace('.png', '_small.png');
 
-        if(url.indexOf('.png') === -1) url = (url + '_small.png');
+        if (url.indexOf('.png') === -1) url = (url + '_small.png');
 
         return url;
     }

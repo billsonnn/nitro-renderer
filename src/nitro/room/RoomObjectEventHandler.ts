@@ -1,6 +1,6 @@
-import { IFurnitureStackingHeightMap, ILegacyWallGeometry, IObjectData, IRoomCanvasMouseListener, IRoomEngineServices, IRoomGeometry, IRoomObject, IRoomObjectController, IRoomObjectEventManager, ISelectedRoomObjectData, IVector3D, RoomObjectPlacementSource } from '../../api';
+import { IFurnitureStackingHeightMap, ILegacyWallGeometry, IObjectData, IRoomCanvasMouseListener, IRoomEngineServices, IRoomGeometry, IRoomObject, IRoomObjectController, IRoomObjectEventManager, ISelectedRoomObjectData, IVector3D, RoomObjectCategory, RoomObjectPlacementSource, RoomObjectType, RoomObjectUserType, RoomObjectVariable, Vector3d } from '../../api';
 import { Disposable, NitroLogger } from '../../core';
-import { RoomEnterEffect, RoomId, Vector3d } from '../../room';
+import { RoomEnterEffect, RoomId } from '../../room';
 import { RoomObjectEvent } from '../../room/events/RoomObjectEvent';
 import { RoomObjectMouseEvent } from '../../room/events/RoomObjectMouseEvent';
 import { RoomSpriteMouseEvent } from '../../room/events/RoomSpriteMouseEvent';
@@ -54,11 +54,7 @@ import { ObjectDataUpdateMessage } from './messages/ObjectDataUpdateMessage';
 import { ObjectSelectedMessage } from './messages/ObjectSelectedMessage';
 import { ObjectTileCursorUpdateMessage } from './messages/ObjectTileCursorUpdateMessage';
 import { ObjectVisibilityUpdateMessage } from './messages/ObjectVisibilityUpdateMessage';
-import { RoomObjectCategory } from './object/RoomObjectCategory';
 import { RoomObjectOperationType } from './object/RoomObjectOperationType';
-import { RoomObjectType } from './object/RoomObjectType';
-import { RoomObjectUserType } from './object/RoomObjectUserType';
-import { RoomObjectVariable } from './object/RoomObjectVariable';
 import { SelectedRoomObjectData } from './utils/SelectedRoomObjectData';
 
 export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMouseListener, IRoomObjectEventManager

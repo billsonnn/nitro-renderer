@@ -1,6 +1,6 @@
 ﻿import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { BotRemovedFromInventoryParser } from '../../parser/bots/BotRemovedFromInventoryParser';
+import { BotRemovedFromInventoryParser } from '../../parser';
 
 export class BotRemovedFromInventoryEvent extends MessageEvent implements IMessageEvent
 {

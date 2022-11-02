@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { FavoriteMembershipUpdateMessageParser } from '../../../parser/room/engine/FavoriteMembershipUpdateMessageParser';
+import { FavoriteMembershipUpdateMessageParser } from '../../../parser';
 
 export class FavoriteMembershipUpdateMessageEvent extends MessageEvent implements IMessageEvent
 {

@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { CatalogPageMessageOfferData } from '../../incoming';
+import { CatalogPageMessageOfferData } from './CatalogPageMessageOfferData';
 
 export class SeasonalCalendarDailyOfferMessageParser implements IMessageParser
 {

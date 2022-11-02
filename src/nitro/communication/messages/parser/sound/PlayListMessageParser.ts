@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { PlayListEntry } from '../../incoming/sound';
+import { PlayListEntry } from './PlayListEntry';
 
 export class PlayListMessageParser implements IMessageParser
 {

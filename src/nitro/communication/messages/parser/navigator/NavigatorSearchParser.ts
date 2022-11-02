@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { NavigatorSearchResultSet } from './utils/NavigatorSearchResultSet';
+import { NavigatorSearchResultSet } from './utils';
 
 export class NavigatorSearchParser implements IMessageParser
 {

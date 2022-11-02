@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { HabboSearchResultData } from '../../incoming/friendlist/HabboSearchResultData';
+import { HabboSearchResultData } from './HabboSearchResultData';
 
 export class HabboSearchResultParser implements IMessageParser
 {

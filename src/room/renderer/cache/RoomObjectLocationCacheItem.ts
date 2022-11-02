@@ -1,5 +1,4 @@
-﻿import { IRoomGeometry, IRoomObject, IVector3D } from '../../../api';
-import { Vector3d } from '../../utils';
+﻿import { IRoomGeometry, IRoomObject, IVector3D, Vector3d } from '../../../api';
 
 export class RoomObjectLocationCacheItem
 {

@@ -1,9 +1,8 @@
+import { RoomObjectVariable, VoteDataType } from '../../../../../api';
 import { PixiApplicationProxy } from '../../../../../pixi-proxy';
 import { RoomObjectUpdateMessage } from '../../../../../room';
 import { Nitro } from '../../../../Nitro';
 import { ObjectDataUpdateMessage } from '../../../messages/ObjectDataUpdateMessage';
-import { VoteDataType } from '../../data/type/VoteDataType';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureVoteCounterLogic extends FurnitureMultiStateLogic

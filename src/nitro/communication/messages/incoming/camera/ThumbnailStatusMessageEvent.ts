@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { ThumbnailStatusMessageParser } from '../../parser/camera/ThumbnailStatusMessageParser';
+import { ThumbnailStatusMessageParser } from '../../parser';
 
 export class ThumbnailStatusMessageEvent extends MessageEvent implements IMessageEvent
 {

@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { DiceValueMessageParser } from '../../../parser/room/furniture/DiceValueMessageParser';
+import { DiceValueMessageParser } from '../../../parser';
 
 export class DiceValueMessageEvent extends MessageEvent implements IMessageEvent
 {

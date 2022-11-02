@@ -1,6 +1,9 @@
-import { IMessageDataWrapper, IObjectData, IRoomObjectModel, ObjectDataKey } from '../../../../../api';
+import { IMessageDataWrapper } from '../../../../../communication';
+import { IRoomObjectModel } from '../../../../../room';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
+import { IObjectData } from '../IObjectData';
 import { ObjectDataBase } from '../ObjectDataBase';
+import { ObjectDataKey } from '../ObjectDataKey';
 
 export class CrackableDataType extends ObjectDataBase implements IObjectData
 {

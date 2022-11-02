@@ -1,5 +1,4 @@
-import { IMessageDataWrapper } from '../../../../../api';
-import { IMessageParser } from './../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class QuestCancelledMessageParser implements IMessageParser
 {

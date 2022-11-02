@@ -1,11 +1,10 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Rectangle } from '@pixi/math';
-import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType } from '../../../../../api';
+import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable, Vector3d } from '../../../../../api';
 import { AdvancedMap } from '../../../../../core';
-import { RoomObjectSpriteVisualization, Vector3d } from '../../../../../room';
+import { RoomObjectSpriteVisualization } from '../../../../../room';
 import { RoomMapData } from '../../RoomMapData';
 import { RoomMapMaskData } from '../../RoomMapMaskData';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { RoomPlaneBitmapMaskData } from '../../RoomPlaneBitmapMaskData';
 import { RoomPlaneBitmapMaskParser } from '../../RoomPlaneBitmapMaskParser';
 import { RoomPlaneData } from '../../RoomPlaneData';

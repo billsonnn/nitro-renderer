@@ -1,5 +1,5 @@
 ﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { ItemDataStructure } from '../../../incoming/inventory/trading/ItemDataStructure';
+import { ItemDataStructure } from './ItemDataStructure';
 
 export class TradingListItemParser implements IMessageParser
 {

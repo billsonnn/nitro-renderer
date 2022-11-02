@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { HabboBroadcastMessageParser } from '../../parser/notifications/HabboBroadcastMessageParser';
+import { HabboBroadcastMessageParser } from '../../parser';
 
 export class HabboBroadcastMessageEvent extends MessageEvent implements IMessageEvent
 {

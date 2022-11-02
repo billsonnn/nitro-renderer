@@ -1,4 +1,5 @@
 import { NitroEvent, NitroManager } from '../../../core';
+import { SongInfoEntry } from '../../communication';
 import { JukeboxPlayListFullMessageEvent } from '../../communication/messages/incoming/sound/JukeboxPlayListFullMessageEvent';
 import { JukeboxSongDisksMessageEvent } from '../../communication/messages/incoming/sound/JukeboxSongDisksMessageEvent';
 import { NowPlayingMessageEvent } from '../../communication/messages/incoming/sound/NowPlayingMessageEvent';
@@ -9,7 +10,6 @@ import { Nitro } from '../../Nitro';
 import { RoomObjectSoundMachineEvent } from '../../room/events/RoomObjectSoundMachineEvent';
 import { SongStartRequestData } from '../common/SongStartRequestData';
 import { SoundManagerEvent } from '../events/SoundManagerEvent';
-import { SongInfoEntry } from './../../communication/messages/incoming/sound/SongInfoEntry';
 import { IMusicManager } from './IMusicManager';
 import { MusicPriorities } from './MusicPriorities';
 

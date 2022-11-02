@@ -1,4 +1,3 @@
-export * from './AchievementLevelUpData';
 export * from './AchievementNotificationMessageEvent';
 export * from './ActivityPointNotificationMessageEvent';
 export * from './BotErrorEvent';

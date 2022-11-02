@@ -23,5 +23,6 @@ export * from './GuideTicketCreationResultMessageParser';
 export * from './GuideTicketResolutionMessageParser';
 export * from './HotelMergeNameChangeParser';
 export * from './IssueCloseNotificationMessageParser';
+export * from './PendingGuideTicketData';
 export * from './QuizDataMessageParser';
 export * from './QuizResultsMessageParser';

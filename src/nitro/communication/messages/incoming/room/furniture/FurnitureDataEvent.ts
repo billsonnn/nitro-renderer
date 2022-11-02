@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { FurnitureDataParser } from '../../../parser/room/furniture/FurnitureDataParser';
+import { FurnitureDataParser } from '../../../parser';
 
 export class FurnitureDataEvent extends MessageEvent implements IMessageEvent
 {

@@ -1,8 +1,6 @@
-import { IConnection, IRoomCreator, IVector3D } from '../../api';
+import { IConnection, IRoomCreator, IVector3D, LegacyDataType, ObjectRolling, PetType, RoomObjectType, RoomObjectUserType, RoomObjectVariable, Vector3d } from '../../api';
 import { Disposable } from '../../core';
-import { Vector3d } from '../../room';
 import { AvatarGuideStatus } from '../avatar/enum/AvatarGuideStatus';
-import { PetType } from '../avatar/pets/PetType';
 import { ObjectsDataUpdateEvent, PetExperienceEvent } from '../communication';
 import { GuideSessionEndedMessageEvent } from '../communication/messages/incoming/help/GuideSessionEndedMessageEvent';
 import { GuideSessionErrorMessageEvent } from '../communication/messages/incoming/help/GuideSessionErrorMessageEvent';
@@ -51,15 +49,10 @@ import { GetRoomEntryDataMessageComposer } from '../communication/messages/outgo
 import { FurnitureFloorDataParser } from '../communication/messages/parser/room/furniture/floor/FurnitureFloorDataParser';
 import { FurnitureWallDataParser } from '../communication/messages/parser/room/furniture/wall/FurnitureWallDataParser';
 import { RoomEntryTileMessageParser } from '../communication/messages/parser/room/mapping/RoomEntryTileMessageParser';
-import { RoomObjectType } from '../room/object/RoomObjectType';
-import { LegacyDataType } from './object/data/type/LegacyDataType';
-import { RoomObjectUserType } from './object/RoomObjectUserType';
-import { RoomObjectVariable } from './object/RoomObjectVariable';
 import { RoomPlaneParser } from './object/RoomPlaneParser';
 import { RoomVariableEnum } from './RoomVariableEnum';
 import { FurnitureStackingHeightMap } from './utils/FurnitureStackingHeightMap';
 import { LegacyWallGeometry } from './utils/LegacyWallGeometry';
-import { ObjectRolling } from './utils/ObjectRolling';
 
 export class RoomMessageHandler extends Disposable
 {

@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { UserCurrentBadgesParser } from '../../../parser/user/data/UserCurrentBadgesParser';
+import { UserCurrentBadgesParser } from '../../../parser';
 
 export class UserCurrentBadgesEvent extends MessageEvent implements IMessageEvent
 {

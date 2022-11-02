@@ -1,6 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { CatalogPageMessageOfferData } from '../../incoming/catalog/CatalogPageMessageOfferData';
-import { ClubGiftData } from '../../incoming/catalog/ClubGiftData';
+import { CatalogPageMessageOfferData } from './CatalogPageMessageOfferData';
+import { ClubGiftData } from './ClubGiftData';
 
 export class ClubGiftInfoParser implements IMessageParser
 {

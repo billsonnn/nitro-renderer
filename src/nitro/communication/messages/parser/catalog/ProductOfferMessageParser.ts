@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { CatalogPageMessageOfferData } from '../../incoming/catalog/CatalogPageMessageOfferData';
+import { CatalogPageMessageOfferData } from './CatalogPageMessageOfferData';
 
 export class ProductOfferMessageParser implements IMessageParser
 {

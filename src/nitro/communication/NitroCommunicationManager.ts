@@ -1,8 +1,7 @@
 import { ICommunicationManager, IConnection, IConnectionStateListener, IMessageConfiguration, IMessageEvent, INitroCommunicationDemo, INitroCommunicationManager } from '../../api';
 import { NitroEvent, NitroManager, SocketConnectionEvent } from '../../core';
 import { Nitro } from '../Nitro';
-import { NitroCommunicationDemo } from './demo/NitroCommunicationDemo';
-import { NitroCommunicationDemoEvent } from './demo/NitroCommunicationDemoEvent';
+import { NitroCommunicationDemo, NitroCommunicationDemoEvent } from './demo';
 import { NitroMessages } from './NitroMessages';
 
 export class NitroCommunicationManager extends NitroManager implements INitroCommunicationManager, IConnectionStateListener

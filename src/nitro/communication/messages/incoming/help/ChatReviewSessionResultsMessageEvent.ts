@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { ChatReviewSessionResultsMessageParser } from '../../parser/help/ChatReviewSessionResultsMessageParser';
+import { ChatReviewSessionResultsMessageParser } from '../../parser';
 
 export class ChatReviewSessionResultsMessageEvent extends MessageEvent implements IMessageEvent
 {

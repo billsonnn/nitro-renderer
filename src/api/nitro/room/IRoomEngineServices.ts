@@ -2,8 +2,8 @@ import { IEventDispatcher } from '../../common';
 import { IConnection } from '../../communication';
 import { IRoomInstance, IRoomObjectController, IRoomRenderingCanvas, IVector3D } from '../../room';
 import { IRoomSessionManager, ISessionDataManager } from '../session';
-import { IObjectData } from './data';
 import { ISelectedRoomObjectData } from './ISelectedRoomObjectData';
+import { IObjectData } from './object';
 import { IFurnitureStackingHeightMap, ILegacyWallGeometry, ITileObjectMap } from './utils';
 
 export interface IRoomEngineServices

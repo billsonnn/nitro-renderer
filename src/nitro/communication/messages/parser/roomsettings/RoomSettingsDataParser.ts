@@ -1,7 +1,7 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { RoomChatSettings } from '../../incoming/roomsettings/RoomChatSettings';
-import { RoomModerationSettings } from '../../incoming/roomsettings/RoomModerationSettings';
-import { RoomSettingsData } from '../../incoming/roomsettings/RoomSettingsData';
+import { RoomChatSettings } from './RoomChatSettings';
+import { RoomModerationSettings } from './RoomModerationSettings';
+import { RoomSettingsData } from './RoomSettingsData';
 
 export class RoomSettingsDataParser implements IMessageParser
 {

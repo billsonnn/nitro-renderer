@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { RoomVisitsData } from '../../incoming/moderation/RoomVisitsData';
+import { RoomVisitsData } from './RoomVisitsData';
 
 export class RoomVisitsMessageParser implements IMessageParser
 {

@@ -1,4 +1,4 @@
-import { IMessageDataWrapper } from '../../../../..';
+import { IMessageDataWrapper } from '../../../../../api';
 import { ChatlineData } from './ChatlineData';
 
 export class ChatRecordData
@@ -11,9 +11,9 @@ export class ChatRecordData
     public static readonly TYPE_SELFIE = 5;
     public static readonly TYPE_PHOTO = 6;
 
-    private _recordType:number;
-    private _context:Map<string, any>;
-    private _chatlog:ChatlineData[];
+    private _recordType: number;
+    private _context: Map<string, any>;
+    private _chatlog: ChatlineData[];
 
     constructor(wrapper: IMessageDataWrapper)
     {
@@ -23,12 +23,12 @@ export class ChatRecordData
         this._recordType = wrapper.readByte();
         const contextCount = wrapper.readShort();
 
-        for(let i = 0; i < contextCount; i++)
+        for (let i = 0; i < contextCount; i++)
         {
             const key = wrapper.readString();
             const type = wrapper.readByte();
 
-            switch(type)
+            switch (type)
             {
                 case 0:
                     this._context.set(key, wrapper.readBoolean());
@@ -46,7 +46,7 @@ export class ChatRecordData
 
         const chatCount = wrapper.readShort();
 
-        for(let i = 0; i < chatCount; i++)
+        for (let i = 0; i < chatCount; i++)
         {
             const timestamp = wrapper.readString();
             const habboId = wrapper.readInt();
@@ -58,37 +58,37 @@ export class ChatRecordData
         }
     }
 
-    public get recordType():number
+    public get recordType(): number
     {
         return this._recordType;
     }
 
-    public get context():Map<string, any>
+    public get context(): Map<string, any>
     {
         return this._context;
     }
 
-    public get chatlog():ChatlineData[]
+    public get chatlog(): ChatlineData[]
     {
         return this._chatlog;
     }
 
-    public get roomId():number
+    public get roomId(): number
     {
         return this.getInt('roomId');
     }
 
-    public get roomName():string
+    public get roomName(): string
     {
         return this._context.get('roomName') as string;
     }
 
-    public get groupId():number
+    public get groupId(): number
     {
         return this.getInt('groupId');
     }
 
-    public get threadId():number
+    public get threadId(): number
     {
         return this.getInt('threadId');
     }
@@ -98,10 +98,10 @@ export class ChatRecordData
         return this.getInt('messageId');
     }
 
-    private getInt(k:string): number
+    private getInt(k: string): number
     {
         const value = this._context.get(k);
-        if(!value)
+        if (!value)
         {
             return 0;
         }

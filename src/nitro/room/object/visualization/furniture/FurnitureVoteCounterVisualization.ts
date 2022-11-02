@@ -1,4 +1,4 @@
-import { RoomObjectVariable } from '../../RoomObjectVariable';
+import { RoomObjectVariable } from '../../../../../api';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
 
 export class FurnitureVoteCounterVisualization extends FurnitureAnimatedVisualization
@@ -20,7 +20,7 @@ export class FurnitureVoteCounterVisualization extends FurnitureAnimatedVisualiz
         const result = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_VOTE_COUNTER_COUNT);
         const tag = this.getLayerTag(scale, this.direction, layerId);
 
-        switch(tag)
+        switch (tag)
         {
             case FurnitureVoteCounterVisualization.ONES_SPRITE: return (result % 10);
             case FurnitureVoteCounterVisualization.TENS_SPRITE: return ((result / 10) % 10);
@@ -33,11 +33,11 @@ export class FurnitureVoteCounterVisualization extends FurnitureAnimatedVisualiz
     {
         const result = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_VOTE_COUNTER_COUNT);
 
-        if(result === FurnitureVoteCounterVisualization.HIDE_COUNTER_SCORE)
+        if (result === FurnitureVoteCounterVisualization.HIDE_COUNTER_SCORE)
         {
             const tag = this.getLayerTag(scale, direction, layerId);
 
-            switch(tag)
+            switch (tag)
             {
                 case FurnitureVoteCounterVisualization.ONES_SPRITE:
                 case FurnitureVoteCounterVisualization.TENS_SPRITE:

@@ -1,6 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { Vector3d } from '../../../../../../room/utils/Vector3d';
-import { ObjectRolling } from '../../../../../room/utils/ObjectRolling';
+import { IMessageDataWrapper, IMessageParser, ObjectRolling, Vector3d } from '../../../../../../api';
 
 export class ObjectsRollingParser implements IMessageParser
 {

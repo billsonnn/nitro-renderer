@@ -1,7 +1,7 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { CatalogLocalizationData } from '../../incoming/catalog/CatalogLocalizationData';
-import { CatalogPageMessageOfferData } from '../../incoming/catalog/CatalogPageMessageOfferData';
-import { FrontPageItem } from '../../incoming/catalog/FrontPageItem';
+import { CatalogLocalizationData } from './CatalogLocalizationData';
+import { CatalogPageMessageOfferData } from './CatalogPageMessageOfferData';
+import { FrontPageItem } from './FrontPageItem';
 
 export class CatalogPageMessageParser implements IMessageParser
 {

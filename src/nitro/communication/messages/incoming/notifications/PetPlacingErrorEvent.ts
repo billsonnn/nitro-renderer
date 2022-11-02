@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { PetPlacingErrorEventParser } from '../../parser/notifications/PetPlacingErrorEventParser';
+import { PetPlacingErrorEventParser } from '../../parser';
 
 export class PetPlacingErrorEvent extends MessageEvent implements IMessageEvent
 {

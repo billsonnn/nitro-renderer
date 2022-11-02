@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { GroupBuyDataParser } from '../../parser/group/GroupBuyDataParser';
+import { GroupBuyDataParser } from '../../parser';
 
 export class GroupBuyDataEvent extends MessageEvent implements IMessageEvent
 {

@@ -1,10 +1,10 @@
+import { RoomObjectVariable } from '../../../../../api';
 import { RoomObjectUpdateMessage } from '../../../../../room';
 import { RoomWidgetEnumItemExtradataParameter } from '../../../../ui';
 import { RoomObjectStateChangedEvent } from '../../../events';
 import { RoomObjectFurnitureActionEvent } from '../../../events/RoomObjectFurnitureActionEvent';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { ObjectDataUpdateMessage } from '../../../messages';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureJukeboxLogic extends FurnitureMultiStateLogic

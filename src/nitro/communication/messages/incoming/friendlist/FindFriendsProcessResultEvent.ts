@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { FindFriendsProcessResultParser } from '../../parser/friendlist/FindFriendsProcessResultParser';
+import { FindFriendsProcessResultParser } from '../../parser';
 
 export class FindFriendsProcessResultEvent extends MessageEvent implements IMessageEvent
 {

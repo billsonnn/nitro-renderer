@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../..';
+import { IMessageComposer } from '../../../../../api';
 
 export class GetThreadsMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetThreadsMessageComposer>>
 {
@@ -6,7 +6,7 @@ export class GetThreadsMessageComposer implements IMessageComposer<ConstructorPa
 
     constructor(k: number, _arg_2: number, _arg_3: number)
     {
-        this._data = [k, _arg_2, _arg_3 ];
+        this._data = [k, _arg_2, _arg_3];
     }
 
     public getMessageArray()

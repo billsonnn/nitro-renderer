@@ -1,4 +1,4 @@
-﻿import { IVector3D } from '../../api';
+﻿import { IVector3D } from './IVector3D';
 
 export class Vector3d implements IVector3D
 {

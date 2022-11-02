@@ -1,5 +1,4 @@
-import { IGraphicAsset, IRoomObjectSprite } from '../../../../../api';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
+import { IGraphicAsset, IRoomObjectSprite, RoomObjectVariable } from '../../../../../api';
 import { IsometricImageFurniVisualization } from './IsometricImageFurniVisualization';
 
 export class FurnitureGuildIsometricBadgeVisualization extends IsometricImageFurniVisualization

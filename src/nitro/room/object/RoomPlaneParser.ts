@@ -1,6 +1,5 @@
 ﻿import { Point } from '@pixi/math';
-import { IVector3D } from '../../../api';
-import { Vector3d } from '../../../room';
+import { IVector3D, Vector3d } from '../../../api';
 import { RoomFloorHole } from './RoomFloorHole';
 import { RoomMapData } from './RoomMapData';
 import { RoomPlaneData } from './RoomPlaneData';

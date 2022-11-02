@@ -1,6 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../api';
-import { PromoArticleData } from '../../incoming/landingview/PromoArticleData';
-import { IMessageParser } from './../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { PromoArticleData } from './PromoArticleData';
 
 export class PromoArticlesMessageParser implements IMessageParser
 {

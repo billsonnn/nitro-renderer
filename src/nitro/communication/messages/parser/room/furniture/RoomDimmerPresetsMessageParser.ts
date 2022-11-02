@@ -1,5 +1,5 @@
 ﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { RoomDimmerPresetsMessageData } from '../../../incoming/room/furniture/RoomDimmerPresetsMessageData';
+import { RoomDimmerPresetsMessageData } from './RoomDimmerPresetsMessageData';
 
 export class RoomDimmerPresetsMessageParser implements IMessageParser
 {

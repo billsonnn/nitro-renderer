@@ -1,14 +1,17 @@
-import { IMessageDataWrapper, IObjectData, IRoomObjectModel, ObjectDataKey } from '../../../../../api';
+import { IMessageDataWrapper } from '../../../../../communication';
+import { IRoomObjectModel } from '../../../../../room';
 import { RoomObjectVariable } from '../../RoomObjectVariable';
+import { IObjectData } from '../IObjectData';
 import { ObjectDataBase } from '../ObjectDataBase';
+import { ObjectDataKey } from '../ObjectDataKey';
 
-export class NumberDataType extends ObjectDataBase
+export class StringDataType extends ObjectDataBase
 {
-    public static FORMAT_KEY = ObjectDataKey.NUMBER_KEY;
+    public static FORMAT_KEY = ObjectDataKey.STRING_KEY;
 
     private static STATE: number = 0;
 
-    private _data: number[];
+    private _data: string[];
 
     constructor()
     {
@@ -23,9 +26,9 @@ export class NumberDataType extends ObjectDataBase
 
         this._data = [];
 
-        const totalNumbers = wrapper.readInt();
+        const totalStrings = wrapper.readInt();
 
-        if (totalNumbers) for (let i = 0; i < totalNumbers; i++) this._data.push(wrapper.readInt());
+        if (totalStrings) for (let i = 0; i < totalStrings; i++) this._data.push(wrapper.readString());
 
         super.parseWrapper(wrapper);
     }
@@ -34,14 +37,14 @@ export class NumberDataType extends ObjectDataBase
     {
         super.initializeFromRoomObjectModel(model);
 
-        this._data = model.getValue<number[]>(RoomObjectVariable.FURNITURE_DATA);
+        this._data = model.getValue<string[]>(RoomObjectVariable.FURNITURE_DATA);
     }
 
     public writeRoomObjectModel(model: IRoomObjectModel): void
     {
         super.writeRoomObjectModel(model);
 
-        model.setValue(RoomObjectVariable.FURNITURE_DATA_FORMAT, NumberDataType.FORMAT_KEY);
+        model.setValue(RoomObjectVariable.FURNITURE_DATA_FORMAT, StringDataType.FORMAT_KEY);
         model.setValue(RoomObjectVariable.FURNITURE_DATA, this._data);
     }
 
@@ -49,12 +52,12 @@ export class NumberDataType extends ObjectDataBase
     {
         if (!this._data || !this._data.length) return '';
 
-        return this._data[NumberDataType.STATE].toString();
+        return this._data[StringDataType.STATE];
     }
 
     public compare(data: IObjectData): boolean
     {
-        if (!(data instanceof NumberDataType)) return false;
+        if (!(data instanceof StringDataType)) return false;
 
         let i = 0;
 
@@ -75,14 +78,13 @@ export class NumberDataType extends ObjectDataBase
         return true;
     }
 
-    public getValue(index: number): number
+    public getValue(index: number): string
     {
-        if (!this._data || !this._data.length) return -1;
+        return this._data[index] || '';
+    }
 
-        const value = this._data[index];
-
-        if (value === undefined || value === null) return -1;
-
-        return value;
+    public setValue(data: string[]): void
+    {
+        this._data = data;
     }
 }

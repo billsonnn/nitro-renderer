@@ -1,5 +1,4 @@
-import { IMessageComposer } from '../../../../../../api';
-import { RoomObjectCategory } from '../../../../../room/object/RoomObjectCategory';
+import { IMessageComposer, RoomObjectCategory } from '../../../../../../api';
 
 export class FurniturePlaceComposer implements IMessageComposer<string[]>
 {

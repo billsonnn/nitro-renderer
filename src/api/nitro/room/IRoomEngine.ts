@@ -5,13 +5,12 @@ import { INitroManager } from '../../common';
 import { IRoomGeometry, IRoomManager, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRendererFactory, IRoomRenderingCanvas, IVector3D } from '../../room';
 import { IPetCustomPart } from '../avatar';
 import { IRoomSessionManager, ISessionDataManager } from '../session';
-import { IObjectData } from './data';
 import { IGetImageListener } from './IGetImageListener';
 import { IImageResult } from './IImageResult';
 import { IPetColorResult } from './IPetColorResult';
 import { IRoomContentLoader } from './IRoomContentLoader';
 import { IRoomObjectEventManager } from './IRoomObjectEventManager';
-import { IRoomMapData } from './object';
+import { IObjectData, IRoomMapData } from './object';
 
 export interface IRoomEngine extends INitroManager
 {

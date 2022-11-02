@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { MOTDNotificationParser } from '../../parser/notifications/MOTDNotificationParser';
+import { MOTDNotificationParser } from '../../parser';
 
 export class MOTDNotificationEvent extends MessageEvent implements IMessageEvent
 {

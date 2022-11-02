@@ -1,6 +1,5 @@
 export * from './FurnitureStackingHeightMap';
 export * from './LegacyWallGeometry';
-export * from './ObjectRolling';
 export * from './RoomCamera';
 export * from './RoomData';
 export * from './RoomFurnitureData';

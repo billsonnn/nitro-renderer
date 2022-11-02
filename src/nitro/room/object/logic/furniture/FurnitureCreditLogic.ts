@@ -1,6 +1,5 @@
-import { IAssetData } from '../../../../../api';
+import { IAssetData, RoomObjectVariable } from '../../../../../api';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureCreditLogic extends FurnitureLogic

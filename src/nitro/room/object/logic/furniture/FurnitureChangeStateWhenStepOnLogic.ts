@@ -1,6 +1,5 @@
-import { IAssetData } from '../../../../../api';
+import { IAssetData, RoomObjectVariable } from '../../../../../api';
 import { RoomToObjectOwnAvatarMoveEvent } from '../../../events/RoomToObjectOwnAvatarMoveEvent';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureChangeStateWhenStepOnLogic extends FurnitureLogic

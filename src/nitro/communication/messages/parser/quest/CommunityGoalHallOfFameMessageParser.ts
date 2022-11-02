@@ -1,6 +1,5 @@
-import { IMessageDataWrapper } from '../../../../../api';
-import { CommunityGoalHallOfFameData } from '../../incoming/quest/CommunityGoalHallOfFameData';
-import { IMessageParser } from './../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { CommunityGoalHallOfFameData } from './CommunityGoalHallOfFameData';
 
 export class CommunityGoalHallOfFameMessageParser implements IMessageParser
 {

@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { IgnoreResultParser } from '../../parser/user/IgnoreResultParser';
+import { IgnoreResultParser } from '../../parser';
 
 export class IgnoreResultEvent extends MessageEvent implements IMessageEvent
 {

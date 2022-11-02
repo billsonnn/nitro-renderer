@@ -1,8 +1,7 @@
-import { IAssetData, IParticleSystem, IRoomGeometry } from '../../../../../api';
+import { IAssetData, IParticleSystem, IRoomGeometry, RoomObjectVariable } from '../../../../../api';
 import { RoomObjectEvent, RoomSpriteMouseEvent } from '../../../../../room';
 import { MouseEventType } from '../../../../ui/MouseEventType';
 import { RoomObjectStateChangedEvent } from '../../../events/RoomObjectStateChangedEvent';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureFireworksLogic extends FurnitureLogic

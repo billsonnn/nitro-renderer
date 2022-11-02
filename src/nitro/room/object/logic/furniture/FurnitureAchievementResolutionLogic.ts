@@ -1,9 +1,9 @@
+import { RoomObjectVariable } from '../../../../../api';
 import { RoomObjectEvent, RoomObjectUpdateMessage } from '../../../../../room';
 import { RoomObjectBadgeAssetEvent } from '../../../events/RoomObjectBadgeAssetEvent';
 import { RoomObjectWidgetRequestEvent } from '../../../events/RoomObjectWidgetRequestEvent';
 import { ObjectGroupBadgeUpdateMessage } from '../../../messages/ObjectGroupBadgeUpdateMessage';
 import { ObjectSelectedMessage } from '../../../messages/ObjectSelectedMessage';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
 import { FurnitureBadgeDisplayLogic } from './FurnitureBadgeDisplayLogic';
 
 export class FurnitureAchievementResolutionLogic extends FurnitureBadgeDisplayLogic

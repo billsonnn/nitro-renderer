@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { GroupBadgePartsParser } from '../../parser/group/GroupBadgePartsParser';
+import { GroupBadgePartsParser } from '../../parser';
 
 export class GroupBadgePartsEvent extends MessageEvent implements IMessageEvent
 {

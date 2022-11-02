@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { ChatReviewSessionOfferedToGuideMessageParser } from '../../parser/help/ChatReviewSessionOfferedToGuideMessageParser';
+import { ChatReviewSessionOfferedToGuideMessageParser } from '../../parser';
 
 export class ChatReviewSessionOfferedToGuideMessageEvent extends MessageEvent implements IMessageEvent
 {

@@ -1,4 +1,4 @@
-import { IVector3D } from '../../../api';
+import { IVector3D } from '../../../room';
 
 export class ObjectRolling
 {

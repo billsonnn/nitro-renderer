@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { RoomPaintParser } from '../../../parser/room/mapping/RoomPaintParser';
+import { RoomPaintParser } from '../../../parser';
 
 export class RoomPaintEvent extends MessageEvent implements IMessageEvent
 {

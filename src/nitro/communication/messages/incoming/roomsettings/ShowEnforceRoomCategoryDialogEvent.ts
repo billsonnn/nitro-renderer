@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { ShowEnforceRoomCategoryDialogParser } from '../../parser/roomsettings/ShowEnforceRoomCategoryDialogParser';
+import { ShowEnforceRoomCategoryDialogParser } from '../../parser';
 
 export class ShowEnforceRoomCategoryDialogEvent extends MessageEvent implements IMessageEvent
 {

@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../../api';
 import { MessageEvent } from '../../../../../../../core';
-import { UserCreditsParser } from '../../../../parser/user/inventory/currency/UserCreditsParser';
+import { UserCreditsParser } from '../../../../parser';
 
 export class UserCreditsEvent extends MessageEvent implements IMessageEvent
 {

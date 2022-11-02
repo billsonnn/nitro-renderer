@@ -1,4 +1,3 @@
-export * from './ItemDataStructure';
 export * from './TradingAcceptEvent';
 export * from './TradingCloseEvent';
 export * from './TradingCompletedEvent';

@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { TargetedOfferData } from '../../incoming/catalog/TargetedOfferData';
+import { TargetedOfferData } from './TargetedOfferData';
 
 export class TargetedOfferParser implements IMessageParser
 {

@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../api';
 import { MessageEvent } from '../../../../../core';
-import { FlatControllerAddedParser } from '../../parser/roomsettings/FlatControllerAddedParser';
+import { FlatControllerAddedParser } from '../../parser';
 
 export class FlatControllerAddedEvent extends MessageEvent implements IMessageEvent
 {

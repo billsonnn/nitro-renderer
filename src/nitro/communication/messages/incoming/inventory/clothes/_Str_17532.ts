@@ -1,6 +1,6 @@
 ﻿import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { _Str_9021 } from '../../../parser/inventory/clothing/_Str_9021';
+import { _Str_9021 } from '../../../parser';
 
 export class _Str_17532 extends MessageEvent implements IMessageEvent
 {

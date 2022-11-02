@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { GroupFurniContextMenuInfoMessageParser } from '../../../parser/room/furniture/GroupFurniContextMenuInfoMessageParser';
+import { GroupFurniContextMenuInfoMessageParser } from '../../../parser';
 
 export class GroupFurniContextMenuInfoMessageEvent extends MessageEvent implements IMessageEvent
 {
