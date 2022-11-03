@@ -12,6 +12,8 @@ export * from './crafting';
 export * from './desktop';
 export * from './friendlist';
 export * from './game';
+export * from './game/directory';
+export * from './game/lobby';
 export * from './generic';
 export * from './group';
 export * from './groupforums';

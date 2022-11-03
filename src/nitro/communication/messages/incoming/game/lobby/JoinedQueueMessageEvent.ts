@@ -1,6 +1,6 @@
 import { IMessageEvent } from '../../../../../../api';
 import { MessageEvent } from '../../../../../../core';
-import { JoinedQueueMessageParser } from '../../../parser/game/lobby';
+import { JoinedQueueMessageParser } from '../../../parser';
 
 export class JoinedQueueMessageEvent extends MessageEvent implements IMessageEvent
 {
