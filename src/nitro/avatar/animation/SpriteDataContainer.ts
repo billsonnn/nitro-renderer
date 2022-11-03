@@ -1,6 +1,4 @@
-﻿import { IAssetAnimationSprite } from '../../../api';
-import { IAnimation } from './IAnimation';
-import { ISpriteDataContainer } from './ISpriteDataContainer';
+﻿import { IAnimation, IAssetAnimationSprite, ISpriteDataContainer } from '../../../api';
 
 export class SpriteDataContainer implements ISpriteDataContainer
 {
@@ -28,13 +26,13 @@ export class SpriteDataContainer implements ISpriteDataContainer
 
         const directions = _arg_2.directionList;
 
-        if(directions && directions.length)
+        if (directions && directions.length)
         {
-            for(const direction of directions)
+            for (const direction of directions)
             {
                 const id = direction.id;
 
-                if(id === undefined) continue;
+                if (id === undefined) continue;
 
                 this._dx[id] = (direction.dx || 0);
                 this._dy[id] = (direction.dy || 0);
@@ -45,21 +43,21 @@ export class SpriteDataContainer implements ISpriteDataContainer
 
     public getDirectionOffsetX(k: number): number
     {
-        if(k < this._dx.length) return this._dx[k];
+        if (k < this._dx.length) return this._dx[k];
 
         return 0;
     }
 
     public getDirectionOffsetY(k: number): number
     {
-        if(k < this._dy.length) return this._dy[k];
+        if (k < this._dy.length) return this._dy[k];
 
         return 0;
     }
 
     public getDirectionOffsetZ(k: number): number
     {
-        if(k < this._dz.length) return this._dz[k];
+        if (k < this._dz.length) return this._dz[k];
 
         return 0;
     }

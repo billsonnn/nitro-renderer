@@ -1,4 +1,4 @@
-﻿import { Nitro } from '../../Nitro';
+﻿import { GetTickerTime } from '../../../pixi-proxy';
 import { Motion } from './Motion';
 
 export class Wait extends Motion
@@ -23,7 +23,7 @@ export class Wait extends Motion
         super.start();
 
         this._complete = false;
-        this._startTimeMs = Nitro.instance.time;
+        this._startTimeMs = GetTickerTime();
     }
 
     public tick(k: number): void
@@ -32,6 +32,6 @@ export class Wait extends Motion
 
         this._complete = ((k - this._startTimeMs) >= this._waitTimeMs);
 
-        if(this._complete) this.stop();
+        if (this._complete) this.stop();
     }
 }

@@ -1,5 +1,4 @@
-import { IFigureDataPart } from '../../interfaces';
-import { IFigurePart } from './IFigurePart';
+import { IFigureDataPart, IFigurePart } from '../../../../api';
 
 export class FigurePart implements IFigurePart
 {
@@ -12,7 +11,7 @@ export class FigurePart implements IFigurePart
 
     constructor(data: IFigureDataPart)
     {
-        if(!data) throw new Error('invalid_data');
+        if (!data) throw new Error('invalid_data');
 
         this._id = data.id;
         this._type = data.type;

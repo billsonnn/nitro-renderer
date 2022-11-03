@@ -1,8 +1,6 @@
 import { Application } from '@pixi/app';
 import { Ticker } from '@pixi/ticker';
-import { IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, IWorkerEventTracker } from '../api';
-import { IAvatarRenderManager } from './avatar/IAvatarRenderManager';
-import { ISoundManager } from './sound/ISoundManager';
+import { IAvatarRenderManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager, IWorkerEventTracker } from '../api';
 
 export interface INitro
 {

@@ -1,5 +1,5 @@
 ﻿import { Point } from '@pixi/math';
-import { AvatarScaleType } from '../enum/AvatarScaleType';
+import { AvatarScaleType } from '../../../api';
 
 export class AvatarCanvas
 {
@@ -16,7 +16,7 @@ export class AvatarCanvas
         this._height = k.height;
         this._offset = new Point(k.dx, k.dy);
 
-        if(_arg_2 == AvatarScaleType.LARGE) this._regPoint = new Point(((this._width - 64) / 2), 0);
+        if (_arg_2 == AvatarScaleType.LARGE) this._regPoint = new Point(((this._width - 64) / 2), 0);
         else this._regPoint = new Point(((this._width - 32) / 2), 0);
     }
 

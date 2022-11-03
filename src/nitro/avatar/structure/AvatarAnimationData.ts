@@ -1,6 +1,5 @@
-import { IActionDefinition } from '../actions/IActionDefinition';
-import { AnimationAction } from './animation/AnimationAction';
-import { IFigureSetData } from './IFigureSetData';
+import { IActionDefinition, IFigureSetData } from '../../../api';
+import { AnimationAction } from './animation';
 
 export class AvatarAnimationData implements IFigureSetData
 {
@@ -13,11 +12,11 @@ export class AvatarAnimationData implements IFigureSetData
 
     public parse(data: any): boolean
     {
-        if(data && (data.length > 0))
+        if (data && (data.length > 0))
         {
-            for(const animation of data)
+            for (const animation of data)
             {
-                if(!animation) continue;
+                if (!animation) continue;
 
                 const newAnimation = new AnimationAction(animation);
 
@@ -30,7 +29,7 @@ export class AvatarAnimationData implements IFigureSetData
 
     public appendJSON(k: any): boolean
     {
-        for(const _local_2 of k.action)
+        for (const _local_2 of k.action)
         {
             this._actions.set(_local_2.id, new AnimationAction(_local_2));
         }
@@ -42,7 +41,7 @@ export class AvatarAnimationData implements IFigureSetData
     {
         const existing = this._actions.get(action.id);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         return existing;
     }
@@ -51,7 +50,7 @@ export class AvatarAnimationData implements IFigureSetData
     {
         const animationAction = this.getAction(k);
 
-        if(!animationAction) return 0;
+        if (!animationAction) return 0;
 
         return animationAction.frameCount;
     }

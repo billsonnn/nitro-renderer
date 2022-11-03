@@ -1,4 +1,4 @@
-import { Nitro } from './../../Nitro';
+import { GetTickerTime } from '../../../pixi-proxy';
 
 export class SongStartRequestData
 {
@@ -26,9 +26,9 @@ export class SongStartRequestData
 
     public get startPos(): number
     {
-        if(this._startPos < 0) return 0;
+        if (this._startPos < 0) return 0;
 
-        return this._startPos + ((Nitro.instance.time - this._playRequestTime) / 1000);
+        return this._startPos + ((GetTickerTime() - this._playRequestTime) / 1000);
     }
 
     public get playLength(): number

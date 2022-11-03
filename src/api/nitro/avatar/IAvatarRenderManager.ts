@@ -1,11 +1,11 @@
-import { IAssetManager, IGraphicAsset, INitroManager } from '../../api';
-import { AvatarAssetDownloadManager } from './AvatarAssetDownloadManager';
-import { AvatarStructure } from './AvatarStructure';
+import { AvatarAssetDownloadManager, AvatarStructure } from '../../../nitro';
+import { IAssetManager, IGraphicAsset } from '../../asset';
+import { INitroManager } from '../../common';
 import { IAvatarEffectListener } from './IAvatarEffectListener';
 import { IAvatarFigureContainer } from './IAvatarFigureContainer';
 import { IAvatarImage } from './IAvatarImage';
 import { IAvatarImageListener } from './IAvatarImageListener';
-import { IStructureData } from './structure/IStructureData';
+import { IStructureData } from './structure';
 
 export interface IAvatarRenderManager extends INitroManager
 {

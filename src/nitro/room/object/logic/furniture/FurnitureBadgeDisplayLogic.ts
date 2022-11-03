@@ -1,5 +1,5 @@
 import { RoomObjectVariable, StringDataType } from '../../../../../api';
-import { PixiApplicationProxy } from '../../../../../pixi-proxy';
+import { GetTickerTime } from '../../../../../pixi-proxy';
 import { RoomObjectUpdateMessage } from '../../../../../room';
 import { RoomObjectBadgeAssetEvent, RoomObjectWidgetRequestEvent } from '../../../events';
 import { ObjectDataUpdateMessage, ObjectGroupBadgeUpdateMessage } from '../../../messages';
@@ -18,25 +18,25 @@ export class FurnitureBadgeDisplayLogic extends FurnitureLogic
     {
         super.processUpdateMessage(message);
 
-        if(!this.object) return;
+        if (!this.object) return;
 
-        if(message instanceof ObjectDataUpdateMessage)
+        if (message instanceof ObjectDataUpdateMessage)
         {
             const data = message.data;
 
-            if(data instanceof StringDataType) this.updateBadge(data.getValue(1));
+            if (data instanceof StringDataType) this.updateBadge(data.getValue(1));
 
             return;
         }
 
-        if(message instanceof ObjectGroupBadgeUpdateMessage)
+        if (message instanceof ObjectGroupBadgeUpdateMessage)
         {
-            if(message.assetName !== 'loading_icon')
+            if (message.assetName !== 'loading_icon')
             {
                 this.object.model.setValue(RoomObjectVariable.FURNITURE_BADGE_ASSET_NAME, message.assetName);
                 this.object.model.setValue(RoomObjectVariable.FURNITURE_BADGE_IMAGE_STATUS, 1);
 
-                this.update(PixiApplicationProxy.instance.ticker.lastTime);
+                this.update(GetTickerTime());
             }
 
             return;
@@ -45,16 +45,16 @@ export class FurnitureBadgeDisplayLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if(!this.object || !this.eventDispatcher) return;
+        if (!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.BADGE_DISPLAY_ENGRAVING, this.object));
     }
 
     protected updateBadge(badgeId: string): void
     {
-        if(badgeId === '') return;
+        if (badgeId === '') return;
 
-        if(this.eventDispatcher)
+        if (this.eventDispatcher)
         {
             this.object.model.setValue(RoomObjectVariable.FURNITURE_BADGE_IMAGE_STATUS, -1);
 

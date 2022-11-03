@@ -1,4 +1,4 @@
-﻿import { Nitro } from '../../Nitro';
+﻿import { GetTickerTime } from '../../../pixi-proxy';
 import { Motion } from './Motion';
 
 export class Interval extends Motion
@@ -24,7 +24,7 @@ export class Interval extends Motion
         super.start();
 
         this._complete = false;
-        this._startTimeMs = Nitro.instance.time;
+        this._startTimeMs = GetTickerTime();
     }
 
     public tick(time: number): void
@@ -33,7 +33,7 @@ export class Interval extends Motion
 
         const elapsed = ((time - this._startTimeMs) / this._duration);
 
-        if(elapsed < 1)
+        if (elapsed < 1)
         {
             this.update(elapsed);
         }

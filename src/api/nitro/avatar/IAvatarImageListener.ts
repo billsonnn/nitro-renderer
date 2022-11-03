@@ -1,4 +1,4 @@
-import { IDisposable } from '../../api';
+import { IDisposable } from '../../common';
 
 export interface IAvatarImageListener extends IDisposable
 {

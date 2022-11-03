@@ -1,6 +1,5 @@
 import { Resource, Texture } from '@pixi/core';
-import { IRoomObjectSprite } from '../../../../../../api';
-import { AvatarAction, AvatarGuideStatus } from '../../../../../avatar';
+import { AvatarAction, AvatarGuideStatus, IRoomObjectSprite } from '../../../../../../api';
 import { AvatarVisualization } from '../AvatarVisualization';
 import { IAvatarAddition } from './IAvatarAddition';
 
@@ -29,7 +28,7 @@ export class GuideStatusBubbleAddition implements IAvatarAddition
 
     public update(sprite: IRoomObjectSprite, scale: number): void
     {
-        if(!sprite) return;
+        if (!sprite) return;
 
         sprite.visible = true;
         sprite.relativeDepth = this._relativeDepth;
@@ -41,7 +40,7 @@ export class GuideStatusBubbleAddition implements IAvatarAddition
 
         this._asset = this._visualization.getAvatarRenderAsset((this._status === AvatarGuideStatus.GUIDE) ? 'avatar_addition_user_guide_bubble' : 'avatar_addition_user_guide_requester_bubble');
 
-        if(scale < 48)
+        if (scale < 48)
         {
             offsetX = -19;
             offsetY = -80;
@@ -53,17 +52,17 @@ export class GuideStatusBubbleAddition implements IAvatarAddition
             offsetY = -120;
         }
 
-        if(this._visualization.posture === AvatarAction.POSTURE_SIT)
+        if (this._visualization.posture === AvatarAction.POSTURE_SIT)
         {
             offsetY += (additionScale / 2);
         }
 
-        else if(this._visualization.posture === AvatarAction.POSTURE_LAY)
+        else if (this._visualization.posture === AvatarAction.POSTURE_LAY)
         {
             offsetY += scale;
         }
 
-        if(this._asset)
+        if (this._asset)
         {
             sprite.texture = this._asset;
             sprite.offsetX = offsetX;
@@ -74,7 +73,7 @@ export class GuideStatusBubbleAddition implements IAvatarAddition
 
     public animate(sprite: IRoomObjectSprite): boolean
     {
-        if(this._asset && sprite)
+        if (this._asset && sprite)
         {
             sprite.texture = this._asset;
         }

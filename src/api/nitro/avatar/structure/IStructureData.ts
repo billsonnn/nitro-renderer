@@ -1,6 +1,6 @@
-﻿import { IFigurePartSet } from './figure/IFigurePartSet';
-import { IPalette } from './figure/IPalette';
-import { ISetType } from './figure/ISetType';
+﻿import { IFigurePartSet } from './IFigurePartSet';
+import { IPalette } from './IPalette';
+import { ISetType } from './ISetType';
 
 export interface IStructureData
 {

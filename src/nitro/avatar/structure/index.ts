@@ -4,7 +4,5 @@ export * from './AvatarCanvas';
 export * from './AvatarStructureDownload';
 export * from './figure';
 export * from './FigureSetData';
-export * from './IFigureSetData';
-export * from './IStructureData';
 export * from './parts';
 export * from './PartSetsData';

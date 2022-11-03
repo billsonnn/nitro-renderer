@@ -1,5 +1,5 @@
 ﻿import { IMessageDataWrapper } from '../../../../../api';
-import { PixiApplicationProxy } from '../../../../../pixi-proxy';
+import { GetTickerTime } from '../../../../../pixi-proxy';
 
 export class TargetedOfferData
 {
@@ -31,7 +31,7 @@ export class TargetedOfferData
         this._Str_9772 = wrapper.readInt();
 
         const time = wrapper.readInt();
-        this._expirationTime = ((time > 0) ? ((time * 1000) + PixiApplicationProxy.instance.ticker.lastTime) : 0);
+        this._expirationTime = ((time > 0) ? ((time * 1000) + GetTickerTime()) : 0);
 
         this._title = wrapper.readString();
         this._Str_1858 = wrapper.readString();
@@ -42,7 +42,7 @@ export class TargetedOfferData
 
         let count = wrapper.readInt();
 
-        while(count > 0)
+        while (count > 0)
         {
             this._Str_11962.push(wrapper.readString());
 
@@ -53,7 +53,7 @@ export class TargetedOfferData
 
     public populate(offerData: TargetedOfferData)
     {
-        if(!offerData) return;
+        if (!offerData) return;
 
         this._id = offerData.id;
         this._identifier = offerData.identifier;

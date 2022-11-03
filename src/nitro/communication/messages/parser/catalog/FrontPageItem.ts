@@ -1,5 +1,5 @@
 import { IMessageDataWrapper } from '../../../../../api';
-import { PixiApplicationProxy } from '../../../../../pixi-proxy';
+import { GetTickerTime } from '../../../../../pixi-proxy';
 
 export class FrontPageItem
 {
@@ -18,7 +18,7 @@ export class FrontPageItem
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_wrapper');
+        if (!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -40,14 +40,14 @@ export class FrontPageItem
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._position = wrapper.readInt();
         this._itemName = wrapper.readString();
         this._itemPromoImage = wrapper.readString();
         this._type = wrapper.readInt();
 
-        switch(this._type)
+        switch (this._type)
         {
             case FrontPageItem.ITEM_CATALOGUE_PAGE:
                 this._catalogPageLocation = wrapper.readString();
@@ -62,7 +62,7 @@ export class FrontPageItem
 
         const time = wrapper.readInt();
 
-        this._expirationTime = ((time > 0) ? ((time * 1000) + PixiApplicationProxy.instance.ticker.lastTime) : 0);
+        this._expirationTime = ((time > 0) ? ((time * 1000) + GetTickerTime()) : 0);
 
         return true;
     }

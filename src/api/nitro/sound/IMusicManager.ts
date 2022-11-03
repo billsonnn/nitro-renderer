@@ -1,5 +1,4 @@
-import { INitroManager } from '../../../api';
-
+import { INitroManager } from '../../common';
 
 export interface IMusicManager extends INitroManager
 {

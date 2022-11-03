@@ -1,5 +1,5 @@
-﻿import { IAvatarImage } from '../IAvatarImage';
-import { AvatarCanvas } from '../structure/AvatarCanvas';
+﻿import { IAvatarImage } from '../../../api';
+import { AvatarCanvas } from '../structure';
 import { AvatarSet } from './AvatarSet';
 import { GeometryBodyPart } from './GeometryBodyPart';
 import { Matrix4x4 } from './Matrix4x4';
@@ -25,27 +25,27 @@ export class AvatarModelGeometry
 
         const camera = k.camera;
 
-        if(camera)
+        if (camera)
         {
             this._camera.x = parseFloat(camera.x);
             this._camera.y = parseFloat(camera.y);
             this._camera.z = parseFloat(camera.z);
         }
 
-        if(k.canvases && (k.canvases.length > 0))
+        if (k.canvases && (k.canvases.length > 0))
         {
-            for(const canvas of k.canvases)
+            for (const canvas of k.canvases)
             {
-                if(!canvas) continue;
+                if (!canvas) continue;
 
                 const scale = canvas.scale;
                 const geometries = new Map();
 
-                if(canvas.geometries && (canvas.geometries.length > 0))
+                if (canvas.geometries && (canvas.geometries.length > 0))
                 {
-                    for(const geometry of canvas.geometries)
+                    for (const geometry of canvas.geometries)
                     {
-                        if(!geometry) continue;
+                        if (!geometry) continue;
 
                         const avatarCanvas = new AvatarCanvas(geometry, scale);
 
@@ -57,26 +57,26 @@ export class AvatarModelGeometry
             }
         }
 
-        if(k.types && (k.types.length > 0))
+        if (k.types && (k.types.length > 0))
         {
-            for(const type of k.types)
+            for (const type of k.types)
             {
-                if(!type) continue;
+                if (!type) continue;
 
                 const bodyParts: Map<string, GeometryBodyPart> = new Map();
                 const itemIds: Map<string, GeometryBodyPart> = new Map();
 
-                if(type.bodyParts && (type.bodyParts.length > 0))
+                if (type.bodyParts && (type.bodyParts.length > 0))
                 {
-                    for(const bodyPart of type.bodyParts)
+                    for (const bodyPart of type.bodyParts)
                     {
-                        if(!bodyPart) continue;
+                        if (!bodyPart) continue;
 
                         const geometryBodyPart = new GeometryBodyPart(bodyPart);
 
                         bodyParts.set(geometryBodyPart.id, geometryBodyPart);
 
-                        for(const part of geometryBodyPart.getPartIds(null))
+                        for (const part of geometryBodyPart.getPartIds(null))
                         {
                             itemIds.set(part, geometryBodyPart);
                         }
@@ -91,13 +91,13 @@ export class AvatarModelGeometry
 
     public removeDynamicItems(k: IAvatarImage): void
     {
-        for(const geometry of this._geometryTypes.values())
+        for (const geometry of this._geometryTypes.values())
         {
-            if(!geometry) continue;
+            if (!geometry) continue;
 
-            for(const part of geometry.values())
+            for (const part of geometry.values())
             {
-                if(!part) continue;
+                if (!part) continue;
 
                 part.removeDynamicParts(k);
             }
@@ -108,7 +108,7 @@ export class AvatarModelGeometry
     {
         const avatarSet = this._avatarSet.findAvatarSet(k);
 
-        if(!avatarSet) return [];
+        if (!avatarSet) return [];
 
         return avatarSet.getBodyParts();
     }
@@ -117,7 +117,7 @@ export class AvatarModelGeometry
     {
         const avatarSet = this._avatarSet.findAvatarSet(k);
 
-        if(!avatarSet) return false;
+        if (!avatarSet) return false;
 
         return avatarSet.isMain;
     }
@@ -126,7 +126,7 @@ export class AvatarModelGeometry
     {
         const canvas = this._canvases.get(k);
 
-        if(!canvas) return null;
+        if (!canvas) return null;
 
         return (canvas.get(_arg_2) || null);
     }
@@ -135,18 +135,18 @@ export class AvatarModelGeometry
     {
         const existing = this._geometryTypes.get(k);
 
-        if(existing) return true;
+        if (existing) return true;
 
         return false;
     }
 
     private hasBodyPart(k: string, _arg_2: string): boolean
     {
-        if(this.typeExists(k))
+        if (this.typeExists(k))
         {
             const existing = this._geometryTypes.get(k);
 
-            if(existing && existing.get(_arg_2)) return true;
+            if (existing && existing.get(_arg_2)) return true;
         }
 
         return false;
@@ -158,11 +158,11 @@ export class AvatarModelGeometry
 
         const types = [];
 
-        if(parts)
+        if (parts)
         {
-            for(const part of parts.values())
+            for (const part of parts.values())
             {
-                if(!part) continue;
+                if (!part) continue;
 
                 types.push(part.id);
             }
@@ -173,7 +173,7 @@ export class AvatarModelGeometry
 
     private getBodyPartsOfType(k: string): Map<string, GeometryBodyPart>
     {
-        if(this.typeExists(k)) return this._geometryTypes.get(k);
+        if (this.typeExists(k)) return this._geometryTypes.get(k);
 
         return new Map();
     }
@@ -183,25 +183,25 @@ export class AvatarModelGeometry
         return (this.getBodyPartsOfType(k).get(_arg_2) || null);
     }
 
-    public getBodyPartOfItem(k: string, _arg_2: string, _arg_3:IAvatarImage): GeometryBodyPart
+    public getBodyPartOfItem(k: string, _arg_2: string, _arg_3: IAvatarImage): GeometryBodyPart
     {
         const itemIds = this._itemIdToBodyPartMap.get(k);
 
-        if(itemIds)
+        if (itemIds)
         {
             const part = itemIds.get(_arg_2);
 
-            if(part) return part;
+            if (part) return part;
 
             const parts = this.getBodyPartsOfType(k);
 
-            if(parts)
+            if (parts)
             {
-                for(const part of parts.values())
+                for (const part of parts.values())
                 {
-                    if(!part) continue;
+                    if (!part) continue;
 
-                    if(part.hasPart(_arg_2, _arg_3)) return part;
+                    if (part.hasPart(_arg_2, _arg_3)) return part;
                 }
             }
         }
@@ -214,13 +214,13 @@ export class AvatarModelGeometry
         const parts = this.getBodyPartIdsInAvatarSet(_arg_2);
         const geometryParts = [];
 
-        for(const part of parts)
+        for (const part of parts)
         {
-            if(!part) continue;
+            if (!part) continue;
 
             const bodyPart = k.get(part);
 
-            if(bodyPart)
+            if (bodyPart)
             {
                 geometryParts.push(bodyPart);
             }
@@ -231,22 +231,22 @@ export class AvatarModelGeometry
 
     public getBodyPartsAtAngle(k: string, _arg_2: number, _arg_3: string): string[]
     {
-        if(!_arg_3) return [];
+        if (!_arg_3) return [];
 
         const geometryParts = this.getBodyPartsOfType(_arg_3);
         const parts = this.getBodyPartsInAvatarSet(geometryParts, k);
-        const sets: [ number, GeometryBodyPart ][] = [];
+        const sets: [number, GeometryBodyPart][] = [];
         const ids: string[] = [];
 
         this._transformation = Matrix4x4.getYRotationMatrix(_arg_2);
 
-        for(const part of parts.values())
+        for (const part of parts.values())
         {
-            if(!part) continue;
+            if (!part) continue;
 
             part.applyTransform(this._transformation);
 
-            sets.push([ part.getDistance(this._camera), part ]);
+            sets.push([part.getDistance(this._camera), part]);
         }
 
         sets.sort((a, b) =>
@@ -254,16 +254,16 @@ export class AvatarModelGeometry
             const partA = a[0];
             const partB = b[0];
 
-            if(partA < partB) return -1;
+            if (partA < partB) return -1;
 
-            if(partA > partB) return 1;
+            if (partA > partB) return 1;
 
             return 0;
         });
 
-        for(const set of sets)
+        for (const set of sets)
         {
-            if(!set) continue;
+            if (!set) continue;
 
             ids.push(set[1].id);
         }
@@ -271,9 +271,9 @@ export class AvatarModelGeometry
         return ids;
     }
 
-    public getParts(k: string, _arg_2: string, _arg_3: number, _arg_4: any[], _arg_5:IAvatarImage): string[]
+    public getParts(k: string, _arg_2: string, _arg_3: number, _arg_4: any[], _arg_5: IAvatarImage): string[]
     {
-        if(this.hasBodyPart(k, _arg_2))
+        if (this.hasBodyPart(k, _arg_2))
         {
             const part = this.getBodyPartsOfType(k).get(_arg_2);
 

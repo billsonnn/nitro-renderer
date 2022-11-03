@@ -1,4 +1,4 @@
-import { IAvatarEffectListener, IAvatarImage, IAvatarImageListener, IAvatarRenderManager } from '../../../../avatar';
+import { IAvatarEffectListener, IAvatarImage, IAvatarImageListener, IAvatarRenderManager } from '../../../../../api';
 import { AvatarVisualizationData } from '../avatar';
 import { FurnitureVisualizationData } from './FurnitureVisualizationData';
 
@@ -17,7 +17,7 @@ export class FurnitureMannequinVisualizationData extends FurnitureVisualizationD
     {
         super.dispose();
 
-        if(this._avatarData)
+        if (this._avatarData)
         {
             this._avatarData.dispose();
 

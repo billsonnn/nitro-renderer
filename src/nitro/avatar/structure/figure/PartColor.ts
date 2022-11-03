@@ -1,5 +1,4 @@
-import { IFigureDataColor } from '../../interfaces';
-import { IPartColor } from './IPartColor';
+import { IFigureDataColor, IPartColor } from '../../../../api';
 
 export class PartColor implements IPartColor
 {
@@ -11,7 +10,7 @@ export class PartColor implements IPartColor
 
     constructor(data: IFigureDataColor)
     {
-        if(!data) throw new Error('invalid_data');
+        if (!data) throw new Error('invalid_data');
 
         this._id = data.id;
         this._index = data.index;

@@ -1,4 +1,4 @@
-import { IAvatarFigureContainer } from './IAvatarFigureContainer';
+import { IAvatarFigureContainer } from '../../api';
 
 export class AvatarFigureContainer implements IAvatarFigureContainer
 {
@@ -25,7 +25,7 @@ export class AvatarFigureContainer implements IAvatarFigureContainer
     {
         const existing = this.partSets().get(k);
 
-        if(!existing) return 0;
+        if (!existing) return 0;
 
         return existing.get('setid');
     }
@@ -34,7 +34,7 @@ export class AvatarFigureContainer implements IAvatarFigureContainer
     {
         const existing = this.partSets().get(k);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         return existing.get('colorids');
     }
@@ -62,9 +62,9 @@ export class AvatarFigureContainer implements IAvatarFigureContainer
     {
         const parts: string[] = [];
 
-        for(const key of this.partSets().keys())
+        for (const key of this.partSets().keys())
         {
-            if(!key) continue;
+            if (!key) continue;
 
             let setParts = [];
 
@@ -81,20 +81,20 @@ export class AvatarFigureContainer implements IAvatarFigureContainer
 
     private partSets(): Map<string, Map<string, any>>
     {
-        if(!this._parts) this._parts = new Map();
+        if (!this._parts) this._parts = new Map();
 
         return this._parts;
     }
 
     private parseFigure(figure: string): void
     {
-        if(!figure) figure = '';
+        if (!figure) figure = '';
 
-        for(const part of figure.split('.'))
+        for (const part of figure.split('.'))
         {
             const pieces = part.split('-');
 
-            if(pieces.length >= 2)
+            if (pieces.length >= 2)
             {
                 const type = pieces[0];
                 const setId = parseInt(pieces[1]);
@@ -102,7 +102,7 @@ export class AvatarFigureContainer implements IAvatarFigureContainer
 
                 let index = 2;
 
-                while(index < pieces.length)
+                while (index < pieces.length)
                 {
                     colors.push(parseInt(pieces[index]));
 

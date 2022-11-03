@@ -1,4 +1,4 @@
-import { AssetAliasCollection } from './alias/AssetAliasCollection';
+import { AssetAliasCollection } from './alias';
 import { AvatarFigureContainer } from './AvatarFigureContainer';
 import { AvatarImage } from './AvatarImage';
 import { AvatarStructure } from './AvatarStructure';

@@ -1,7 +1,5 @@
-import { IFigureDataSet } from '../../interfaces';
+import { IFigureDataSet, IFigurePart, IFigurePartSet } from '../../../../api';
 import { FigurePart } from './FigurePart';
-import { IFigurePart } from './IFigurePart';
-import { IFigurePartSet } from './IFigurePartSet';
 
 export class FigurePartSet implements IFigurePartSet
 {
@@ -18,7 +16,7 @@ export class FigurePartSet implements IFigurePartSet
 
     constructor(type: string, data: IFigureDataSet)
     {
-        if(!type || !data) throw new Error('invalid_data');
+        if (!type || !data) throw new Error('invalid_data');
 
         this._id = data.id;
         this._type = type;
@@ -31,24 +29,24 @@ export class FigurePartSet implements IFigurePartSet
         this._isPreSelectable = data.preselectable;
         this._isSellable = data.sellable;
 
-        for(const part of data.parts)
+        for (const part of data.parts)
         {
             const newPart = new FigurePart(part);
             const partIndex = this.getPartIndex(newPart);
 
-            if(partIndex !== -1) this._parts.splice(partIndex, 0, newPart);
+            if (partIndex !== -1) this._parts.splice(partIndex, 0, newPart);
             else this._parts.push(newPart);
         }
 
-        if(data.hiddenLayers)
+        if (data.hiddenLayers)
         {
-            for(const hiddenLayer of data.hiddenLayers) this._hiddenLayers.push(hiddenLayer.partType);
+            for (const hiddenLayer of data.hiddenLayers) this._hiddenLayers.push(hiddenLayer.partType);
         }
     }
 
     public dispose(): void
     {
-        for(const part of this._parts)
+        for (const part of this._parts)
         {
             const figurePart = part as FigurePart;
 
@@ -63,15 +61,15 @@ export class FigurePartSet implements IFigurePartSet
     {
         const totalParts = this._parts.length;
 
-        if(!totalParts) return -1;
+        if (!totalParts) return -1;
 
-        for(let i = 0; i < totalParts; i++)
+        for (let i = 0; i < totalParts; i++)
         {
             const existingPart = this._parts[i];
 
-            if(!existingPart) continue;
+            if (!existingPart) continue;
 
-            if(existingPart.type !== part.type || existingPart.index > part.index) continue;
+            if (existingPart.type !== part.type || existingPart.index > part.index) continue;
 
             return i;
         }
@@ -81,9 +79,9 @@ export class FigurePartSet implements IFigurePartSet
 
     public getPart(k: string, _arg_2: number): IFigurePart
     {
-        for(const part of this._parts)
+        for (const part of this._parts)
         {
-            if((part.type !== k) || (part.id !== _arg_2)) continue;
+            if ((part.type !== k) || (part.id !== _arg_2)) continue;
 
             return part;
         }

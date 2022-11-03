@@ -1,7 +1,6 @@
 import { RoomObjectVariable, VoteDataType } from '../../../../../api';
-import { PixiApplicationProxy } from '../../../../../pixi-proxy';
+import { GetTickerTime } from '../../../../../pixi-proxy';
 import { RoomObjectUpdateMessage } from '../../../../../room';
-import { Nitro } from '../../../../Nitro';
 import { ObjectDataUpdateMessage } from '../../../messages';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
@@ -27,11 +26,11 @@ export class FurnitureVoteCounterLogic extends FurnitureMultiStateLogic
     {
         super.processUpdateMessage(message);
 
-        if(message instanceof ObjectDataUpdateMessage)
+        if (message instanceof ObjectDataUpdateMessage)
         {
             const stuffData = (message.data as VoteDataType);
 
-            if(!stuffData) return;
+            if (!stuffData) return;
 
             this.updateTotal(stuffData.result);
         }
@@ -41,20 +40,20 @@ export class FurnitureVoteCounterLogic extends FurnitureMultiStateLogic
     {
         this._total = k;
 
-        if(!this._lastUpdate)
+        if (!this._lastUpdate)
         {
             this.object.model.setValue(RoomObjectVariable.FURNITURE_VOTE_COUNTER_COUNT, k);
 
-            this._lastUpdate = PixiApplicationProxy.instance.ticker.lastTime;
+            this._lastUpdate = GetTickerTime();
 
             return;
         }
 
-        if(this._total !== this.currentTotal)
+        if (this._total !== this.currentTotal)
         {
             const difference = Math.abs((this._total - this.currentTotal));
 
-            if((difference * FurnitureVoteCounterLogic.UPDATE_INTERVAL) > FurnitureVoteCounterLogic.MAX_UPDATE_TIME)
+            if ((difference * FurnitureVoteCounterLogic.UPDATE_INTERVAL) > FurnitureVoteCounterLogic.MAX_UPDATE_TIME)
             {
                 this._interval = (FurnitureVoteCounterLogic.MAX_UPDATE_TIME / difference);
             }
@@ -63,7 +62,7 @@ export class FurnitureVoteCounterLogic extends FurnitureMultiStateLogic
                 this._interval = FurnitureVoteCounterLogic.UPDATE_INTERVAL;
             }
 
-            this._lastUpdate = Nitro.instance.time;
+            this._lastUpdate = GetTickerTime();
         }
     }
 
@@ -71,17 +70,17 @@ export class FurnitureVoteCounterLogic extends FurnitureMultiStateLogic
     {
         super.update(time);
 
-        if(this.object)
+        if (this.object)
         {
-            if((this.currentTotal !== this._total) && (time >= (this._lastUpdate + this._interval)))
+            if ((this.currentTotal !== this._total) && (time >= (this._lastUpdate + this._interval)))
             {
                 const _local_2 = (time - this._lastUpdate);
                 let _local_3 = (_local_2 / this._interval);
                 let _local_4 = 1;
 
-                if(this._total < this.currentTotal) _local_4 = -1;
+                if (this._total < this.currentTotal) _local_4 = -1;
 
-                if(_local_3 > (_local_4 * (this._total - this.currentTotal))) _local_3 = (_local_4 * (this._total - this.currentTotal));
+                if (_local_3 > (_local_4 * (this._total - this.currentTotal))) _local_3 = (_local_4 * (this._total - this.currentTotal));
 
                 this.object.model.setValue(RoomObjectVariable.FURNITURE_VOTE_COUNTER_COUNT, (this.currentTotal + (_local_4 * _local_3)));
 

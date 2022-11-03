@@ -1,4 +1,4 @@
-import { PixiApplicationProxy } from '../../../../../pixi-proxy';
+import { GetTickerTime } from '../../../../../pixi-proxy';
 import { PatternMatchData } from './PatternMatchData';
 
 export class IssueMessageData
@@ -47,7 +47,7 @@ export class IssueMessageData
         this._message = message;
         this._chatRecordId = chatRecordId;
         this._patterns = patterns;
-        this._creationTimeInMilliseconds = PixiApplicationProxy.instance.ticker.lastTime; //getTimer()
+        this._creationTimeInMilliseconds = GetTickerTime(); //getTimer()
     }
 
     public get issueId(): number
@@ -133,11 +133,11 @@ export class IssueMessageData
     public dispose(): void
     {
 
-        if(this.disposed)
+        if (this.disposed)
         {
             return;
         }
-        for(const k of this._patterns)
+        for (const k of this._patterns)
         {
             k.dispose();
         }

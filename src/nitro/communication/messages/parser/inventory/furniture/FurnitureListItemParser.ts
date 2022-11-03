@@ -1,5 +1,5 @@
 import { IMessageDataWrapper, IObjectData } from '../../../../../../api';
-import { PixiApplicationProxy } from '../../../../../../pixi-proxy';
+import { GetTickerTime } from '../../../../../../pixi-proxy';
 import { FurnitureDataParser } from '../../room';
 import { IFurnitureItemData } from './IFurnitureItemData';
 
@@ -30,7 +30,7 @@ export class FurnitureListItemParser implements IFurnitureItemData
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        if(!wrapper) throw new Error('invalid_wrapper');
+        if (!wrapper) throw new Error('invalid_wrapper');
 
         this.flush();
         this.parse(wrapper);
@@ -63,7 +63,7 @@ export class FurnitureListItemParser implements IFurnitureItemData
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._itemId = wrapper.readInt();
         this._furniType = wrapper.readString();
@@ -76,9 +76,9 @@ export class FurnitureListItemParser implements IFurnitureItemData
         this._isGroupable = wrapper.readBoolean();
         this._sellable = wrapper.readBoolean();
         this._secondsToExpiration = wrapper.readInt();
-        this._expirationTimeStamp = PixiApplicationProxy.instance.ticker.lastTime;
+        this._expirationTimeStamp = GetTickerTime();
 
-        if(this.secondsToExpiration > -1)
+        if (this.secondsToExpiration > -1)
         {
             this._rentable = true;
         }
@@ -92,7 +92,7 @@ export class FurnitureListItemParser implements IFurnitureItemData
         this._flatId = wrapper.readInt();
         this._isWallItem = (this._furniType === FurnitureListItemParser.WALL_ITEM);
 
-        if(this._furniType === FurnitureListItemParser.FLOOR_ITEM)
+        if (this._furniType === FurnitureListItemParser.FLOOR_ITEM)
         {
             this._slotId = wrapper.readString();
             this._extra = wrapper.readInt();

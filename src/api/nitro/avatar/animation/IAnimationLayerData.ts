@@ -1,4 +1,4 @@
-﻿import { IActiveActionData } from '../actions/IActiveActionData';
+﻿import { IActiveActionData } from '../actions';
 
 export interface IAnimationLayerData
 {

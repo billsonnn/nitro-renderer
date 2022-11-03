@@ -1,4 +1,4 @@
-﻿import { Nitro } from '../../Nitro';
+﻿import { GetTickerTime } from '../../../pixi-proxy';
 import { AvatarImageDirectionCache } from './AvatarImageDirectionCache';
 
 export class AvatarImageActionCache
@@ -10,18 +10,18 @@ export class AvatarImageActionCache
     {
         this._cache = new Map();
 
-        this.setLastAccessTime(Nitro.instance.time);
+        this.setLastAccessTime(GetTickerTime());
     }
 
     public dispose(): void
     {
         this.debugInfo('[dispose]');
 
-        if(!this._cache) return;
+        if (!this._cache) return;
 
-        for(const direction of this._cache.values())
+        for (const direction of this._cache.values())
         {
-            if(direction) direction.dispose();
+            if (direction) direction.dispose();
         }
 
         this._cache.clear();
@@ -31,7 +31,7 @@ export class AvatarImageActionCache
     {
         const existing = this._cache.get(k.toString());
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         return existing;
     }

@@ -1,11 +1,10 @@
 import { RenderTexture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
-import { IDisposable, IGraphicAsset } from '../../api';
-import { IAnimationLayerData } from './animation/IAnimationLayerData';
-import { IAvatarDataContainer } from './animation/IAvatarDataContainer';
-import { ISpriteDataContainer } from './animation/ISpriteDataContainer';
+import { IGraphicAsset } from '../../asset';
+import { IDisposable } from '../../common';
+import { IAnimationLayerData, IAvatarDataContainer, ISpriteDataContainer } from './animation';
 import { IAvatarFigureContainer } from './IAvatarFigureContainer';
-import { IPartColor } from './structure/figure/IPartColor';
+import { IPartColor } from './structure';
 
 export interface IAvatarImage extends IDisposable
 {

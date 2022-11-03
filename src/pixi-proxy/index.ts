@@ -1,3 +1,4 @@
+export * from './GetTickerTime';
 export * from './INitroPoint';
 export * from './NitroAdjustmentFilter';
 export * from './NitroAlphaFilter';

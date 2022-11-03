@@ -1,5 +1,5 @@
+import { IFigureSetData } from '../../../api';
 import { EventDispatcher, NitroEvent } from '../../../core';
-import { IFigureSetData } from './IFigureSetData';
 
 export class AvatarStructureDownload extends EventDispatcher
 {
@@ -30,9 +30,9 @@ export class AvatarStructureDownload extends EventDispatcher
             {
                 const response = request.responseText;
 
-                if(!response || !response.length) throw new Error('invalid_figure_data');
+                if (!response || !response.length) throw new Error('invalid_figure_data');
 
-                if(this._dataReceiver) this._dataReceiver.appendJSON(JSON.parse(response));
+                if (this._dataReceiver) this._dataReceiver.appendJSON(JSON.parse(response));
 
                 this.dispatchEvent(new NitroEvent(AvatarStructureDownload.AVATAR_STRUCTURE_DONE));
             };

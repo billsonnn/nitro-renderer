@@ -1,5 +1,5 @@
 ﻿import { IMessageDataWrapper, IObjectData } from '../../../../../../api';
-import { PixiApplicationProxy } from '../../../../../../pixi-proxy';
+import { GetTickerTime } from '../../../../../../pixi-proxy';
 import { FurnitureDataParser } from '../../room';
 import { IFurnitureItemData } from '../furniture';
 
@@ -34,7 +34,7 @@ export class ItemDataStructure implements IFurnitureItemData
         this._isGroupable = wrapper.readBoolean();
         this._stuffData = FurnitureDataParser.parseObjectData(wrapper);
         this._secondsToExpiration = -1;
-        this._expirationTimeStamp = PixiApplicationProxy.instance.ticker.lastTime;
+        this._expirationTimeStamp = GetTickerTime();
         this._hasRentPeriodStarted = false;
         this._creationDay = wrapper.readInt();
         this._creationMonth = wrapper.readInt();

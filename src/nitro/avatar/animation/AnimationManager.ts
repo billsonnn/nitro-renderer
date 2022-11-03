@@ -1,9 +1,6 @@
-import { IAssetAnimation } from '../../../api';
+import { IAnimation, IAnimationLayerData, IAnimationManager, IAssetAnimation } from '../../../api';
 import { AvatarStructure } from '../AvatarStructure';
 import { Animation } from './Animation';
-import { IAnimation } from './IAnimation';
-import { IAnimationLayerData } from './IAnimationLayerData';
-import { IAnimationManager } from './IAnimationManager';
 
 export class AnimationManager implements IAnimationManager
 {
@@ -29,7 +26,7 @@ export class AnimationManager implements IAnimationManager
     {
         const existing = this._animations.get(animation);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         return existing;
     }
@@ -38,7 +35,7 @@ export class AnimationManager implements IAnimationManager
     {
         const existing = this.getAnimation(animation);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         return existing.getLayerData(frameCount, spriteId);
     }

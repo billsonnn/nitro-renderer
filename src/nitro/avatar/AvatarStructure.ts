@@ -1,30 +1,12 @@
 import { Point } from '@pixi/math';
-import { IAssetAnimation, IAssetManager } from '../../api';
+import { AvatarDirectionAngle, IActionDefinition, IActiveActionData, IAssetAnimation, IAssetManager, IAvatarFigureContainer, IAvatarImage, IAvatarRenderManager, IFigureData, IFigurePartSet, IPartColor, IStructureData } from '../../api';
 import { EventDispatcher } from '../../core';
-import { ActionDefinition } from './actions/ActionDefinition';
-import { AvatarActionManager } from './actions/AvatarActionManager';
-import { IActionDefinition } from './actions/IActionDefinition';
-import { IActiveActionData } from './actions/IActiveActionData';
-import { Animation } from './animation/Animation';
-import { AnimationManager } from './animation/AnimationManager';
-import { AvatarAnimationLayerData } from './animation/AvatarAnimationLayerData';
+import { ActionDefinition, AvatarActionManager } from './actions';
+import { Animation, AnimationManager, AvatarAnimationLayerData } from './animation';
 import { AvatarImagePartContainer } from './AvatarImagePartContainer';
 import { AvatarRenderManager } from './AvatarRenderManager';
-import { AvatarDirectionAngle } from './enum/AvatarDirectionAngle';
-import { AvatarModelGeometry } from './geometry/AvatarModelGeometry';
-import { IAvatarFigureContainer } from './IAvatarFigureContainer';
-import { IAvatarImage } from './IAvatarImage';
-import { IAvatarRenderManager } from './IAvatarRenderManager';
-import { IFigureData } from './interfaces';
-import { AnimationAction } from './structure/animation/AnimationAction';
-import { AvatarAnimationFrame } from './structure/animation/AvatarAnimationFrame';
-import { AvatarAnimationData } from './structure/AvatarAnimationData';
-import { AvatarCanvas } from './structure/AvatarCanvas';
-import { IFigurePartSet } from './structure/figure/IFigurePartSet';
-import { IPartColor } from './structure/figure/IPartColor';
-import { FigureSetData } from './structure/FigureSetData';
-import { IStructureData } from './structure/IStructureData';
-import { PartSetsData } from './structure/PartSetsData';
+import { AvatarModelGeometry } from './geometry';
+import { AnimationAction, AvatarAnimationData, AvatarAnimationFrame, AvatarCanvas, FigureSetData, PartSetsData } from './structure';
 
 export class AvatarStructure extends EventDispatcher
 {
@@ -60,7 +42,7 @@ export class AvatarStructure extends EventDispatcher
 
     public dispose(): void
     {
-        if(this.disposed) return;
+        if (this.disposed) return;
 
         super.dispose();
 
@@ -73,14 +55,14 @@ export class AvatarStructure extends EventDispatcher
 
     public initGeometry(k: any): void
     {
-        if(!k) return;
+        if (!k) return;
 
         this._geometry = new AvatarModelGeometry(k);
     }
 
     public initActions(k: IAssetManager, _arg_2: any): void
     {
-        if(!_arg_2) return;
+        if (!_arg_2) return;
 
         this._actionManager = new AvatarActionManager(k, _arg_2);
         this._defaultAction = this._actionManager.getDefaultAction();
@@ -95,9 +77,9 @@ export class AvatarStructure extends EventDispatcher
 
     public initPartSets(k: any): boolean
     {
-        if(!k) return false;
+        if (!k) return false;
 
-        if(this._partSetsData.parse(k))
+        if (this._partSetsData.parse(k))
         {
             this._partSetsData.getPartDefinition('ri').appendToFigure = true;
             this._partSetsData.getPartDefinition('li').appendToFigure = true;
@@ -110,14 +92,14 @@ export class AvatarStructure extends EventDispatcher
 
     public initAnimation(k: any): boolean
     {
-        if(!k) return false;
+        if (!k) return false;
 
         return this._animationData.parse(k);
     }
 
     public initFigureData(k: IFigureData): boolean
     {
-        if(!k) return false;
+        if (!k) return false;
 
         return this._figureData.parse(k);
     }
@@ -131,11 +113,11 @@ export class AvatarStructure extends EventDispatcher
     {
         let index = 0;
 
-        while(index < _arg_3)
+        while (index < _arg_3)
         {
             const collection = k.getCollection((_arg_2 + index));
 
-            if(collection)
+            if (collection)
             {
                 const animationData = collection.data;
 
@@ -155,15 +137,15 @@ export class AvatarStructure extends EventDispatcher
     {
         const _local_4 = k.getPartColorIds(_arg_2);
 
-        if((!(_local_4)) || (_local_4.length < _arg_3)) return null;
+        if ((!(_local_4)) || (_local_4.length < _arg_3)) return null;
 
         const _local_5 = this._figureData.getSetType(_arg_2);
 
-        if(_local_5 == null) return null;
+        if (_local_5 == null) return null;
 
         const _local_6 = this._figureData.getPalette(_local_5.paletteID);
 
-        if(!_local_6) return null;
+        if (!_local_6) return null;
 
         return _local_6.getColor(_local_4[_arg_3]);
     }
@@ -202,7 +184,7 @@ export class AvatarStructure extends EventDispatcher
     {
         let _local_2 = 0;
 
-        for(const _local_3 of k)
+        for (const _local_3 of k)
         {
             _local_2 = Math.max(_local_2, this._animationData.getFrameCount(_local_3.definition));
         }
@@ -211,12 +193,12 @@ export class AvatarStructure extends EventDispatcher
 
     public getMandatorySetTypeIds(k: string, _arg_2: number): string[]
     {
-        if(!this._mandatorySetTypeIds[k])
+        if (!this._mandatorySetTypeIds[k])
         {
             this._mandatorySetTypeIds[k] = [];
         }
 
-        if(this._mandatorySetTypeIds[k][_arg_2])
+        if (this._mandatorySetTypeIds[k][_arg_2])
         {
             return this._mandatorySetTypeIds[k][_arg_2];
         }
@@ -253,16 +235,16 @@ export class AvatarStructure extends EventDispatcher
         const _local_4: string[] = [];
         const _local_5 = k.definition.geometryType;
 
-        if(k.definition.isAnimation)
+        if (k.definition.isAnimation)
         {
             const _local_7 = ((k.definition.state + '.') + k.actionParameter);
             const _local_8 = this._animationManager.getAnimation(_local_7);
 
-            if(_local_8)
+            if (_local_8)
             {
                 _local_3 = _local_8.getAnimatedBodyPartIds(0, k.overridingAction);
 
-                if(_local_8.hasAddData())
+                if (_local_8.hasAddData())
                 {
                     const _local_11 = {
                         id: '',
@@ -280,11 +262,11 @@ export class AvatarStructure extends EventDispatcher
                         setType: ''
                     };
 
-                    for(const _local_13 of _local_8.addData)
+                    for (const _local_13 of _local_8.addData)
                     {
                         const _local_6 = this._geometry.getBodyPart(_local_5, _local_13.align);
 
-                        if(_local_6)
+                        if (_local_6)
                         {
                             _local_11.id = _local_13.id;
                             _local_6.addPart(_local_11, _arg_2);
@@ -294,30 +276,30 @@ export class AvatarStructure extends EventDispatcher
                             const _local_10 = this._partSetsData.addPartDefinition(_local_12);
                             _local_10.appendToFigure = true;
 
-                            if(_local_13.base === '') _local_10.staticId = 1;
+                            if (_local_13.base === '') _local_10.staticId = 1;
 
-                            if(_local_4.indexOf(_local_6.id) === -1) _local_4.push(_local_6.id);
+                            if (_local_4.indexOf(_local_6.id) === -1) _local_4.push(_local_6.id);
                         }
                     }
                 }
             }
 
-            for(const _local_9 of _local_3)
+            for (const _local_9 of _local_3)
             {
                 const _local_6 = this._geometry.getBodyPart(_local_5, _local_9);
 
-                if(_local_6 && (_local_4.indexOf(_local_6.id) === -1)) _local_4.push(_local_6.id);
+                if (_local_6 && (_local_4.indexOf(_local_6.id) === -1)) _local_4.push(_local_6.id);
             }
         }
         else
         {
             _local_3 = this._partSetsData.getActiveParts(k.definition);
 
-            for(const _local_14 of _local_3)
+            for (const _local_14 of _local_3)
             {
                 const _local_6 = this._geometry.getBodyPartOfItem(_local_5, _local_14, _arg_2);
 
-                if(_local_6 && (_local_4.indexOf(_local_6.id) === -1)) _local_4.push(_local_6.id);
+                if (_local_6 && (_local_4.indexOf(_local_6.id) === -1)) _local_4.push(_local_6.id);
             }
         }
 
@@ -340,7 +322,7 @@ export class AvatarStructure extends EventDispatcher
     {
         const _local_5 = this._animationData.getAction(k.definition);
 
-        if(_local_5) return _local_5.getFrameBodyPartOffset(_arg_2, _arg_3, _arg_4);
+        if (_local_5) return _local_5.getFrameBodyPartOffset(_arg_2, _arg_3, _arg_4);
 
         return AnimationAction.DEFAULT_OFFSET;
     }
@@ -353,31 +335,31 @@ export class AvatarStructure extends EventDispatcher
         let _local_20: AvatarAnimationFrame[] = [];
         let _local_36: IPartColor = null;
 
-        if(!_arg_3 == null) return [];
+        if (!_arg_3 == null) return [];
 
         const _local_9 = this._partSetsData.getActiveParts(_arg_3.definition);
         const _local_11: AvatarImagePartContainer[] = [];
         let _local_14: any[] = [0];
         const _local_15 = this._animationData.getAction(_arg_3.definition);
 
-        if(_arg_3.definition.isAnimation)
+        if (_arg_3.definition.isAnimation)
         {
             const _local_24 = ((_arg_3.definition.state + '.') + _arg_3.actionParameter);
             const _local_10 = this._animationManager.getAnimation(_local_24);
 
-            if(_local_10)
+            if (_local_10)
             {
                 _local_14 = this.getPopulatedArray(_local_10.frameCount(_arg_3.overridingAction));
 
-                for(const _local_25 of _local_10.getAnimatedBodyPartIds(0, _arg_3.overridingAction))
+                for (const _local_25 of _local_10.getAnimatedBodyPartIds(0, _arg_3.overridingAction))
                 {
-                    if(_local_25 === k)
+                    if (_local_25 === k)
                     {
                         const _local_26 = this._geometry.getBodyPart(_arg_4, _local_25);
 
-                        if(_local_26)
+                        if (_local_26)
                         {
-                            for(const _local_27 of _local_26.getDynamicParts(_arg_7))
+                            for (const _local_27 of _local_26.getDynamicParts(_arg_7))
                             {
                                 _local_9.push(_local_27.id);
                             }
@@ -390,11 +372,11 @@ export class AvatarStructure extends EventDispatcher
         const _local_16 = this._geometry.getParts(_arg_4, k, _arg_5, _local_9, _arg_7);
         const _local_21 = _arg_2.getPartTypeIds();
 
-        for(const _local_17 of _local_21)
+        for (const _local_17 of _local_21)
         {
-            if(_arg_8)
+            if (_arg_8)
             {
-                if(_arg_8.get(_local_17)) continue;
+                if (_arg_8.get(_local_17)) continue;
             }
 
             const _local_28 = _arg_2.getPartSetId(_local_17);
@@ -403,27 +385,27 @@ export class AvatarStructure extends EventDispatcher
 
 
 
-            if(_local_30)
+            if (_local_30)
             {
                 const _local_31 = this._figureData.getPalette(_local_30.paletteID);
 
-                if(_local_31)
+                if (_local_31)
                 {
                     const _local_32 = _local_30.getPartSet(_local_28);
 
-                    if(_local_32)
+                    if (_local_32)
                     {
                         removes = removes.concat(_local_32.hiddenLayers);
 
-                        for(const _local_33 of _local_32.parts)
+                        for (const _local_33 of _local_32.parts)
                         {
-                            if(_local_16.indexOf(_local_33.type) > -1)
+                            if (_local_16.indexOf(_local_33.type) > -1)
                             {
-                                if(_local_15)
+                                if (_local_15)
                                 {
                                     const _local_19 = _local_15.getPart(_local_33.type);
 
-                                    if(_local_19)
+                                    if (_local_19)
                                     {
                                         _local_20 = _local_19.frames;
                                     }
@@ -439,15 +421,15 @@ export class AvatarStructure extends EventDispatcher
 
                                 _local_34 = _arg_3.definition;
 
-                                if(_local_9.indexOf(_local_33.type) === -1) _local_34 = this._defaultAction;
+                                if (_local_9.indexOf(_local_33.type) === -1) _local_34 = this._defaultAction;
 
                                 const _local_13 = this._partSetsData.getPartDefinition(_local_33.type);
 
                                 let _local_35 = (!_local_13) ? _local_33.type : _local_13.flippedSetType;
 
-                                if(!_local_35 || (_local_35 === '')) _local_35 = _local_33.type;
+                                if (!_local_35 || (_local_35 === '')) _local_35 = _local_33.type;
 
-                                if(_local_29 && (_local_29.length > (_local_33.colorLayerIndex - 1)))
+                                if (_local_29 && (_local_29.length > (_local_33.colorLayerIndex - 1)))
                                 {
                                     _local_36 = _local_31.getColor(_local_29[(_local_33.colorLayerIndex - 1)]);
                                 }
@@ -465,18 +447,18 @@ export class AvatarStructure extends EventDispatcher
 
         const _local_22: AvatarImagePartContainer[] = [];
 
-        for(const _local_12 of _local_16)
+        for (const _local_12 of _local_16)
         {
             let _local_39: IPartColor = null;
             let _local_38 = false;
 
             const _local_40 = ((_arg_8) && (_arg_8.get(_local_12)));
 
-            for(const _local_23 of _local_11)
+            for (const _local_23 of _local_11)
             {
-                if(_local_23.partType === _local_12)
+                if (_local_23.partType === _local_12)
                 {
-                    if(_local_40)
+                    if (_local_40)
                     {
                         _local_39 = _local_23.color;
                     }
@@ -484,31 +466,31 @@ export class AvatarStructure extends EventDispatcher
                     {
                         _local_38 = true;
 
-                        if(removes.indexOf(_local_12) === -1) _local_22.push(_local_23);
+                        if (removes.indexOf(_local_12) === -1) _local_22.push(_local_23);
                     }
                 }
             }
 
-            if(!_local_38)
+            if (!_local_38)
             {
-                if(_local_40)
+                if (_local_40)
                 {
                     const _local_41 = _arg_8.get(_local_12);
 
                     let _local_42 = 0;
                     let _local_43 = 0;
 
-                    while(_local_43 < _local_41.length)
+                    while (_local_43 < _local_41.length)
                     {
                         _local_42 = (_local_42 + _local_41.charCodeAt(_local_43));
                         _local_43++;
                     }
 
-                    if(_local_15)
+                    if (_local_15)
                     {
                         const _local_19 = _local_15.getPart(_local_12);
 
-                        if(_local_19)
+                        if (_local_19)
                         {
                             _local_20 = _local_19.frames;
                         }
@@ -528,11 +510,11 @@ export class AvatarStructure extends EventDispatcher
                 }
                 else
                 {
-                    if(_local_9.indexOf(_local_12) > -1)
+                    if (_local_9.indexOf(_local_12) > -1)
                     {
                         const _local_44 = this._geometry.getBodyPartOfItem(_arg_4, _local_12, _arg_7);
 
-                        if(k !== _local_44.id)
+                        if (k !== _local_44.id)
                         {
                             //
                         }
@@ -543,36 +525,36 @@ export class AvatarStructure extends EventDispatcher
                             let _local_45 = false;
                             let _local_46 = 1;
 
-                            if(_local_13.appendToFigure)
+                            if (_local_13.appendToFigure)
                             {
                                 let _local_47 = '1';
 
-                                if(_arg_3.actionParameter !== '')
+                                if (_arg_3.actionParameter !== '')
                                 {
                                     _local_47 = _arg_3.actionParameter;
                                 }
 
-                                if(_local_13.hasStaticId())
+                                if (_local_13.hasStaticId())
                                 {
                                     _local_47 = _local_13.staticId.toString();
                                 }
 
-                                if(_local_10 != null)
+                                if (_local_10 != null)
                                 {
                                     const _local_48 = _local_10.getAddData(_local_12);
 
-                                    if(_local_48)
+                                    if (_local_48)
                                     {
                                         _local_45 = _local_48.isBlended;
                                         _local_46 = _local_48.blend;
                                     }
                                 }
 
-                                if(_local_15)
+                                if (_local_15)
                                 {
                                     const _local_19 = _local_15.getPart(_local_12);
 
-                                    if(_local_19)
+                                    if (_local_19)
                                     {
                                         _local_20 = _local_19.frames;
                                     }
@@ -605,7 +587,7 @@ export class AvatarStructure extends EventDispatcher
 
         let index = 0;
 
-        while(index < k)
+        while (index < k)
         {
             _local_2.push(index);
 
@@ -617,13 +599,13 @@ export class AvatarStructure extends EventDispatcher
 
     public getItemIds(): string[]
     {
-        if(this._actionManager)
+        if (this._actionManager)
         {
             const k = this._actionManager.getActionDefinition('CarryItem').params;
 
             const _local_2 = [];
 
-            for(const _local_3 of k.values()) _local_2.push(_local_3);
+            for (const _local_3 of k.values()) _local_2.push(_local_3);
 
             return _local_2;
         }

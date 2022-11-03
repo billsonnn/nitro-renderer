@@ -1,4 +1,4 @@
-﻿import { IFigureData } from '../interfaces';
+﻿import { IFigureData } from '../figuredata';
 
 export interface IFigureSetData
 {
