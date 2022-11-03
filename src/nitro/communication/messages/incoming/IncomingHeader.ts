@@ -35,6 +35,18 @@ export class IncomingHeader
     public static GAME_CENTER_ACHIEVEMENTS = 2265;
     public static GAME_CENTER_GAME_LIST = 222;
     public static GAME_CENTER_STATUS = 2893;
+    public static GAMESTATUSMESSAGE = 3805;
+    public static GAMEACHIEVEMENTS = 1689;
+    public static GAMEINVITE = 904;
+    public static JOININGQUEUEFAILED = 3035;
+    public static JOINEDQUEUEMESSAGE = 2260;
+    public static LEFTQUEUE = 1477;
+    public static LOAD_GAME_URL = 2624;
+    public static LOADGAME = 3654;
+    public static UNLOADGAME = 1715;
+    public static ACHIEVEMENTRESOLUTIONCOMPLETED = 740;
+    public static ACHIEVEMENTRESOLUTIONPROGRESS = 3370;
+    public static ACHIEVEMENTRESOLUTIONS = 66;
     public static GENERIC_ALERT = 3801;
     public static MODERATOR_MESSAGE = 2030;
     public static GENERIC_ERROR = 1600;
@@ -65,7 +77,6 @@ export class IncomingHeader
     public static ITEM_WALL_ADD = 2187;
     public static ITEM_WALL_REMOVE = 3208;
     public static ITEM_WALL_UPDATE = 2009;
-    public static LOAD_GAME_URL = 2624;
     public static MARKETPLACE_CONFIG = 1823;
     public static MESSENGER_ACCEPT_FRIENDS = 896;
     public static MESSENGER_CHAT = 1587;

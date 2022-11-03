@@ -1,4 +1,4 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '../../../../../../api';
 
 export class GetResolutionAchievementsMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetResolutionAchievementsMessageComposer>>
 {
