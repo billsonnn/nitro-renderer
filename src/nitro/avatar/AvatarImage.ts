@@ -3,7 +3,7 @@ import { Container } from '@pixi/display';
 import { ColorMatrixFilter } from '@pixi/filter-color-matrix';
 import { Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
-import { AvatarAction, AvatarDirectionAngle, AvatarScaleType, AvatarSetType, IActionDefinition, IActiveActionData, IAnimationLayerData, IAvatarDataContainer, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IGraphicAsset, IPartColor, ISpriteDataContainer } from '../../api';
+import { AvatarAction, AvatarDirectionAngle, AvatarScaleType, AvatarSetType, IActionDefinition, IActiveActionData, IAdvancedMap, IAnimationLayerData, IAvatarDataContainer, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IGraphicAsset, IPartColor, ISpriteDataContainer } from '../../api';
 import { AdvancedMap } from '../../core';
 import { GetTickerTime, NitroContainer, NitroSprite, PaletteMapFilter, PixiApplicationProxy, TextureUtils } from '../../pixi-proxy';
 import { ActiveActionData } from './actions';
@@ -51,7 +51,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
     private _sortedActions: IActiveActionData[];
     private _lastActionsString: string;
     private _currentActionsString: string;
-    private _fullImageCache: AdvancedMap<string, RenderTexture>;
+    private _fullImageCache: IAdvancedMap<string, RenderTexture>;
     private _fullImageCacheSize: number = 5;
     protected _isCachedImage: boolean = false;
     private _useFullImageCache: boolean = false;

@@ -6,11 +6,11 @@ export class UserNameUpdateEvent extends NitroEvent
 
     private _name: string;
 
-    constructor(k: string)
+    constructor(name: string)
     {
         super(UserNameUpdateEvent.UNUE_NAME_UPDATED);
 
-        this._name = k;
+        this._name = name;
     }
 
     public get name(): string

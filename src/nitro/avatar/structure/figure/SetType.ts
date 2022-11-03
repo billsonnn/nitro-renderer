@@ -1,4 +1,4 @@
-import { IFigureDataSetType, IFigurePartSet, ISetType } from '../../../../api';
+import { IAdvancedMap, IFigureDataSetType, IFigurePartSet, ISetType } from '../../../../api';
 import { AdvancedMap } from '../../../../core';
 import { FigurePartSet } from './FigurePartSet';
 
@@ -7,7 +7,7 @@ export class SetType implements ISetType
     private _type: string;
     private _paletteId: number;
     private _isMandatory: { [index: string]: boolean[] };
-    private _partSets: AdvancedMap<string, IFigurePartSet>;
+    private _partSets: IAdvancedMap<string, IFigurePartSet>;
 
     constructor(data: IFigureDataSetType)
     {
@@ -97,7 +97,7 @@ export class SetType implements ISetType
         return _local_2.indexOf(false);
     }
 
-    public get partSets(): AdvancedMap<string, IFigurePartSet>
+    public get partSets(): IAdvancedMap<string, IFigurePartSet>
     {
         return this._partSets;
     }

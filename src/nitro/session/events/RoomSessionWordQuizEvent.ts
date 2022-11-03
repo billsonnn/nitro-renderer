@@ -35,9 +35,9 @@ export class RoomSessionWordQuizEvent extends RoomSessionEvent
         return this._pollType;
     }
 
-    public set pollType(k: string)
+    public set pollType(pollType: string)
     {
-        this._pollType = k;
+        this._pollType = pollType;
     }
 
     public get pollId(): number
@@ -95,9 +95,9 @@ export class RoomSessionWordQuizEvent extends RoomSessionEvent
         return this._value;
     }
 
-    public set value(k: string)
+    public set value(value: string)
     {
-        this._value = k;
+        this._value = value;
     }
 
     public get answerCounts(): Map<string, number>

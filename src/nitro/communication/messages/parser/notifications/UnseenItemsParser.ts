@@ -1,9 +1,9 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IAdvancedMap, IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { AdvancedMap } from '../../../../../core';
 
 export class UnseenItemsParser implements IMessageParser
 {
-    private _items: AdvancedMap<number, number[]>;
+    private _items: IAdvancedMap<number, number[]>;
 
     public flush(): boolean
     {
@@ -14,18 +14,18 @@ export class UnseenItemsParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         let totalUnseen = wrapper.readInt();
 
-        while(totalUnseen > 0)
+        while (totalUnseen > 0)
         {
             const category = wrapper.readInt();
 
             let totalItems = wrapper.readInt();
             const itemIds: number[] = [];
 
-            while(totalItems > 0)
+            while (totalItems > 0)
             {
                 itemIds.push(wrapper.readInt());
 

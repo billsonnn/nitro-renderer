@@ -1,11 +1,11 @@
-import { IFigureDataPalette, IPalette, IPartColor } from '../../../../api';
+import { IAdvancedMap, IFigureDataPalette, IPalette, IPartColor } from '../../../../api';
 import { AdvancedMap } from '../../../../core';
 import { PartColor } from './PartColor';
 
 export class Palette implements IPalette
 {
     private _id: number;
-    private _colors: AdvancedMap<string, IPartColor>;
+    private _colors: IAdvancedMap<string, IPartColor>;
 
     constructor(data: IFigureDataPalette)
     {
@@ -39,7 +39,7 @@ export class Palette implements IPalette
         return this._id;
     }
 
-    public get colors(): AdvancedMap<string, IPartColor>
+    public get colors(): IAdvancedMap<string, IPartColor>
     {
         return this._colors;
     }

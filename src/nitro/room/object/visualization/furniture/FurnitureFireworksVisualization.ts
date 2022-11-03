@@ -1,11 +1,11 @@
-import { IParticleSystem, RoomObjectVariable } from '../../../../../api';
+import { IAdvancedMap, IParticleSystem, RoomObjectVariable } from '../../../../../api';
 import { AdvancedMap, NitroLogger } from '../../../../../core';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
 import { FurnitureParticleSystem } from './FurnitureParticleSystem';
 
 export class FurnitureFireworksVisualization extends FurnitureAnimatedVisualization
 {
-    private _particleSystems: AdvancedMap<number, FurnitureParticleSystem>;
+    private _particleSystems: IAdvancedMap<number, FurnitureParticleSystem>;
     private _currentParticleSystem: FurnitureParticleSystem;
 
     public dispose(): void
@@ -14,9 +14,9 @@ export class FurnitureFireworksVisualization extends FurnitureAnimatedVisualizat
 
         this._currentParticleSystem = null;
 
-        if(this._particleSystems)
+        if (this._particleSystems)
         {
-            for(const particleSystem of this._particleSystems.getValues()) particleSystem.dispose();
+            for (const particleSystem of this._particleSystems.getValues()) particleSystem.dispose();
 
             this._particleSystems = null;
         }
@@ -24,25 +24,25 @@ export class FurnitureFireworksVisualization extends FurnitureAnimatedVisualizat
 
     protected updateObject(scale: number, direction: number): boolean
     {
-        if(super.updateObject(scale, direction))
+        if (super.updateObject(scale, direction))
         {
-            if(!this._particleSystems)
+            if (!this._particleSystems)
             {
                 this._Str_18684();
 
-                if(this._particleSystems) this._currentParticleSystem = this._particleSystems.getValue(scale);
+                if (this._particleSystems) this._currentParticleSystem = this._particleSystems.getValue(scale);
 
                 else NitroLogger.log('ERROR Particle systems could not be read!', this.object.type);
             }
             else
             {
-                if((scale !== this._scale) || (this._particleSystems.getValue(scale) !== this._currentParticleSystem))
+                if ((scale !== this._scale) || (this._particleSystems.getValue(scale) !== this._currentParticleSystem))
                 {
                     const particleSystem = this._particleSystems.getValue(scale);
 
                     particleSystem._Str_17988(this._currentParticleSystem);
 
-                    if(this._currentParticleSystem) this._currentParticleSystem.reset();
+                    if (this._currentParticleSystem) this._currentParticleSystem.reset();
 
                     this._currentParticleSystem = particleSystem;
                 }
@@ -58,26 +58,26 @@ export class FurnitureFireworksVisualization extends FurnitureAnimatedVisualizat
     {
         super.updateSprites(scale, update, animation);
 
-        if(this._currentParticleSystem) this._currentParticleSystem.updateSprites();
+        if (this._currentParticleSystem) this._currentParticleSystem.updateSprites();
     }
 
     protected updateAnimation(scale: number): number
     {
-        if(this._currentParticleSystem) this._currentParticleSystem.updateAnimation();
+        if (this._currentParticleSystem) this._currentParticleSystem.updateAnimation();
 
         return super.updateAnimation(scale);
     }
 
     protected setAnimation(id: number): void
     {
-        if(this._currentParticleSystem) this._currentParticleSystem.setAnimation(id);
+        if (this._currentParticleSystem) this._currentParticleSystem.setAnimation(id);
 
         super.setAnimation(id);
     }
 
     protected getLayerYOffset(scale: number, direction: number, layerId: number): number
     {
-        if(this._currentParticleSystem && this._currentParticleSystem.controlsSprite(layerId))
+        if (this._currentParticleSystem && this._currentParticleSystem.controlsSprite(layerId))
         {
             return this._currentParticleSystem.getLayerYOffset(scale, direction, layerId);
         }
@@ -87,15 +87,15 @@ export class FurnitureFireworksVisualization extends FurnitureAnimatedVisualizat
 
     private _Str_18684(): boolean
     {
-        if(!this.object || !this.object.model) return false;
+        if (!this.object || !this.object.model) return false;
 
         const fireworksData = this.object.model.getValue<IParticleSystem[]>(RoomObjectVariable.FURNITURE_FIREWORKS_DATA);
 
-        if(!fireworksData || !fireworksData.length) return false;
+        if (!fireworksData || !fireworksData.length) return false;
 
         this._particleSystems = new AdvancedMap();
 
-        for(const particleData of fireworksData)
+        for (const particleData of fireworksData)
         {
             const size = particleData.size;
             const particleSystem = new FurnitureParticleSystem(this);

@@ -1,11 +1,11 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+﻿import { IAdvancedMap, IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 import { AdvancedMap } from '../../../../../../core';
 
 export class BadgesParser implements IMessageParser
 {
     private _allBadgeCodes: string[];
-    private _activeBadgeCodes: AdvancedMap<string, number>;
-    private _badgeIds: AdvancedMap<string, number>;
+    private _activeBadgeCodes: IAdvancedMap<string, number>;
+    private _badgeIds: IAdvancedMap<string, number>;
 
     public flush(): boolean
     {
@@ -18,7 +18,7 @@ export class BadgesParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._allBadgeCodes = [];
         this._activeBadgeCodes = new AdvancedMap();
@@ -26,7 +26,7 @@ export class BadgesParser implements IMessageParser
 
         let count = wrapper.readInt();
 
-        while(count > 0)
+        while (count > 0)
         {
             const badgeId = wrapper.readInt();
             const badgeCode = wrapper.readString();
@@ -40,7 +40,7 @@ export class BadgesParser implements IMessageParser
 
         count = wrapper.readInt();
 
-        while(count > 0)
+        while (count > 0)
         {
             const badgeSlot = wrapper.readInt();
             const badgeCode = wrapper.readString();

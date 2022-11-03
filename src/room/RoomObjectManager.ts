@@ -1,11 +1,11 @@
-import { IRoomObjectController, IRoomObjectManager } from '../api';
+import { IAdvancedMap, IRoomObjectController, IRoomObjectManager } from '../api';
 import { AdvancedMap } from '../core';
 import { RoomObject } from './object';
 
 export class RoomObjectManager implements IRoomObjectManager
 {
-    private _objects: AdvancedMap<number, IRoomObjectController>;
-    private _objectsPerType: AdvancedMap<string, AdvancedMap<number, IRoomObjectController>>;
+    private _objects: IAdvancedMap<number, IRoomObjectController>;
+    private _objectsPerType: IAdvancedMap<string, AdvancedMap<number, IRoomObjectController>>;
 
     constructor()
     {
@@ -22,7 +22,7 @@ export class RoomObjectManager implements IRoomObjectManager
     {
         const object = this._objects.getValue(id);
 
-        if(!object) return null;
+        if (!object) return null;
 
         return object;
     }
@@ -31,7 +31,7 @@ export class RoomObjectManager implements IRoomObjectManager
     {
         const object = this._objects.getWithIndex(index);
 
-        if(!object) return null;
+        if (!object) return null;
 
         return object;
     }
@@ -45,7 +45,7 @@ export class RoomObjectManager implements IRoomObjectManager
 
     private addObject(id: number, type: string, object: IRoomObjectController): IRoomObjectController
     {
-        if(this._objects.getValue(id))
+        if (this._objects.getValue(id))
         {
             object.dispose();
 
@@ -56,7 +56,7 @@ export class RoomObjectManager implements IRoomObjectManager
 
         const typeMap = this.getTypeMap(type);
 
-        if(typeMap) typeMap.add(id, object);
+        if (typeMap) typeMap.add(id, object);
 
         return object;
     }
@@ -65,11 +65,11 @@ export class RoomObjectManager implements IRoomObjectManager
     {
         const object = this._objects.remove(id);
 
-        if(object)
+        if (object)
         {
             const typeMap = this.getTypeMap(object.type);
 
-            if(typeMap) typeMap.remove(object.id);
+            if (typeMap) typeMap.remove(object.id);
 
             object.dispose();
         }
@@ -79,11 +79,11 @@ export class RoomObjectManager implements IRoomObjectManager
     {
         let i = 0;
 
-        while(i < this._objects.length)
+        while (i < this._objects.length)
         {
             const object = this._objects.getWithIndex(i);
 
-            if(object) object.dispose();
+            if (object) object.dispose();
 
             i++;
         }
@@ -92,11 +92,11 @@ export class RoomObjectManager implements IRoomObjectManager
 
         i = 0;
 
-        while(i < this._objectsPerType.length)
+        while (i < this._objectsPerType.length)
         {
             const typeMap = this._objectsPerType.getWithIndex(i);
 
-            if(typeMap) typeMap.dispose();
+            if (typeMap) typeMap.dispose();
 
             i++;
         }
@@ -104,11 +104,11 @@ export class RoomObjectManager implements IRoomObjectManager
         this._objectsPerType.reset();
     }
 
-    private getTypeMap(k: string, _arg_2: boolean = true): AdvancedMap<number, IRoomObjectController>
+    private getTypeMap(k: string, _arg_2: boolean = true): IAdvancedMap<number, IRoomObjectController>
     {
         let existing = this._objectsPerType.getValue(k);
 
-        if(!existing && _arg_2)
+        if (!existing && _arg_2)
         {
             existing = new AdvancedMap();
 
@@ -118,7 +118,7 @@ export class RoomObjectManager implements IRoomObjectManager
         return existing;
     }
 
-    public get objects(): AdvancedMap<number, IRoomObjectController>
+    public get objects(): IAdvancedMap<number, IRoomObjectController>
     {
         return this._objects;
     }

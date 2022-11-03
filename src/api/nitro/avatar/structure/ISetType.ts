@@ -1,4 +1,4 @@
-import { AdvancedMap } from '../../../../core';
+import { IAdvancedMap } from '../../../IAdvancedMap';
 import { IFigurePartSet } from './IFigurePartSet';
 
 export interface ISetType
@@ -8,5 +8,5 @@ export interface ISetType
     optionalFromClubLevel(_arg_1: string): number;
     type: string;
     paletteID: number;
-    partSets: AdvancedMap<string, IFigurePartSet>;
+    partSets: IAdvancedMap<string, IFigurePartSet>;
 }

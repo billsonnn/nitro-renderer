@@ -1,4 +1,4 @@
-import { IMusicManager, ISoundManager } from '../../api';
+import { IAdvancedMap, IMusicManager, ISoundManager } from '../../api';
 import { AdvancedMap, NitroEvent, NitroManager } from '../../core';
 import { NitroSettingsEvent, NitroSoundEvent } from '../events';
 import { Nitro } from '../Nitro';
@@ -11,9 +11,9 @@ export class SoundManager extends NitroManager implements ISoundManager
     private _volumeFurni: number;
     private _volumeTrax: number;
 
-    private _internalSamples: AdvancedMap<string, HTMLAudioElement>;
-    private _furniSamples: AdvancedMap<number, HTMLAudioElement>;
-    private _furnitureBeingPlayed: AdvancedMap<number, number>;
+    private _internalSamples: IAdvancedMap<string, HTMLAudioElement>;
+    private _furniSamples: IAdvancedMap<number, HTMLAudioElement>;
+    private _furnitureBeingPlayed: IAdvancedMap<number, number>;
 
     private _musicManager: MusicManager;
 

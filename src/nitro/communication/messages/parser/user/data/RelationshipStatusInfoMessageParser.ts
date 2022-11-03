@@ -1,11 +1,11 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IAdvancedMap, IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 import { AdvancedMap } from '../../../../../../core';
 import { RelationshipStatusInfo } from './RelationshipStatusInfo';
 
 export class RelationshipStatusInfoMessageParser implements IMessageParser
 {
     private _userId: number;
-    private _relationshipStatusMap: AdvancedMap<number, RelationshipStatusInfo>;
+    private _relationshipStatusMap: IAdvancedMap<number, RelationshipStatusInfo>;
 
     public flush(): boolean
     {
@@ -17,14 +17,14 @@ export class RelationshipStatusInfoMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if(!wrapper) return false;
+        if (!wrapper) return false;
 
         this._userId = wrapper.readInt();
         this._relationshipStatusMap = new AdvancedMap();
 
         const relationshipsCount = wrapper.readInt();
 
-        for(let i = 0; i < relationshipsCount; i++)
+        for (let i = 0; i < relationshipsCount; i++)
         {
             const relationship = new RelationshipStatusInfo(wrapper);
 
@@ -39,7 +39,7 @@ export class RelationshipStatusInfoMessageParser implements IMessageParser
         return this._userId;
     }
 
-    public get relationshipStatusMap(): AdvancedMap<number, RelationshipStatusInfo>
+    public get relationshipStatusMap(): IAdvancedMap<number, RelationshipStatusInfo>
     {
         return this._relationshipStatusMap;
     }

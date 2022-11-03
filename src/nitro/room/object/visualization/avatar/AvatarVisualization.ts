@@ -1,6 +1,6 @@
 import { BLEND_MODES } from '@pixi/constants';
 import { Resource, Texture } from '@pixi/core';
-import { AlphaTolerance, AvatarAction, AvatarGuideStatus, AvatarSetType, IAvatarEffectListener, IAvatarImage, IAvatarImageListener, IGraphicAsset, IObjectVisualizationData, IRoomGeometry, IRoomObject, IRoomObjectModel, RoomObjectSpriteType, RoomObjectVariable } from '../../../../../api';
+import { AlphaTolerance, AvatarAction, AvatarGuideStatus, AvatarSetType, IAdvancedMap, IAvatarEffectListener, IAvatarImage, IAvatarImageListener, IGraphicAsset, IObjectVisualizationData, IRoomGeometry, IRoomObject, IRoomObjectModel, RoomObjectSpriteType, RoomObjectVariable } from '../../../../../api';
 import { AdvancedMap } from '../../../../../core';
 import { RoomObjectSpriteVisualization } from '../../../../../room';
 import { ExpressionAdditionFactory, FloatingIdleZAddition, GameClickTargetAddition, GuideStatusBubbleAddition, IAvatarAddition, MutedBubbleAddition, NumberBubbleAddition, TypingBubbleAddition } from './additions';
@@ -34,8 +34,8 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
     protected _data: AvatarVisualizationData;
 
     private _avatarImage: IAvatarImage;
-    private _cachedAvatars: AdvancedMap<string, IAvatarImage>;
-    private _cachedAvatarEffects: AdvancedMap<string, IAvatarImage>;
+    private _cachedAvatars: IAdvancedMap<string, IAvatarImage>;
+    private _cachedAvatarEffects: IAdvancedMap<string, IAvatarImage>;
     private _shadow: IGraphicAsset;
     private _lastUpdate: number;
     private _disposed: boolean;

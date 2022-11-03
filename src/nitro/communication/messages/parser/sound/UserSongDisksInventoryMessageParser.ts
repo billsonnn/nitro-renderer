@@ -1,9 +1,9 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IAdvancedMap, IMessageDataWrapper, IMessageParser } from '../../../../../api';
 import { AdvancedMap } from '../../../../../core';
 
 export class UserSongDisksInventoryMessageParser implements IMessageParser
 {
-    private _songDiskInventory: AdvancedMap<number, number> = new AdvancedMap();
+    private _songDiskInventory: IAdvancedMap<number, number> = new AdvancedMap();
 
     flush(): boolean
     {
@@ -15,7 +15,7 @@ export class UserSongDisksInventoryMessageParser implements IMessageParser
     {
         const count = wrapper.readInt();
 
-        for(let i = 0; i < count; i++)
+        for (let i = 0; i < count; i++)
         {
             this._songDiskInventory.add(wrapper.readInt(), wrapper.readInt());
         }
@@ -24,7 +24,7 @@ export class UserSongDisksInventoryMessageParser implements IMessageParser
 
     public getDiskId(k: number): number
     {
-        if(((k >= 0) && (k < this._songDiskInventory.length)))
+        if (((k >= 0) && (k < this._songDiskInventory.length)))
         {
             return this._songDiskInventory.getKey(k);
         }
@@ -33,7 +33,7 @@ export class UserSongDisksInventoryMessageParser implements IMessageParser
 
     public getSongId(k: number): number
     {
-        if(((k >= 0) && (k < this._songDiskInventory.length)))
+        if (((k >= 0) && (k < this._songDiskInventory.length)))
         {
             return this._songDiskInventory.getWithIndex(k);
         }
