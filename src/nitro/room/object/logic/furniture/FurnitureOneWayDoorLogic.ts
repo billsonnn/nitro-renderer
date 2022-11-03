@@ -1,4 +1,4 @@
-import { RoomObjectFurnitureActionEvent } from '../../../events';
+import { RoomObjectFurnitureActionEvent } from '../../../../../events';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureOneWayDoorLogic extends FurnitureLogic
@@ -12,7 +12,7 @@ export class FurnitureOneWayDoorLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if(!this.object || !this.eventDispatcher) return;
+        if (!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.ENTER_ONEWAYDOOR, this.object));
     }

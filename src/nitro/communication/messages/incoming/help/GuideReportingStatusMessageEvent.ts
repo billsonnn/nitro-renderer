@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { GuideReportingStatusMessageParser } from './../../parser';
 
 export class GuideReportingStatusMessageEvent extends MessageEvent implements IMessageEvent

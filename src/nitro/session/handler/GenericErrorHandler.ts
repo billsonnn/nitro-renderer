@@ -1,6 +1,6 @@
 import { GenericErrorEnum, IConnection, IRoomHandlerListener } from '../../../api';
+import { RoomSessionErrorMessageEvent } from '../../../events';
 import { GenericErrorEvent } from '../../communication';
-import { RoomSessionErrorMessageEvent } from '../events';
 import { BaseHandler } from './BaseHandler';
 
 export class GenericErrorHandler extends BaseHandler
@@ -14,19 +14,19 @@ export class GenericErrorHandler extends BaseHandler
 
     private onRoomGenericError(event: GenericErrorEvent): void
     {
-        if(!(event instanceof GenericErrorEvent)) return;
+        if (!(event instanceof GenericErrorEvent)) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         const roomSession = this.listener.getSession(this.roomId);
 
-        if(!roomSession) return;
+        if (!roomSession) return;
 
         let type: string = null;
 
-        switch(parser.errorCode)
+        switch (parser.errorCode)
         {
             case GenericErrorEnum.KICKED_OUT_OF_ROOM:
                 type = RoomSessionErrorMessageEvent.RSEME_KICKED;
@@ -35,7 +35,7 @@ export class GenericErrorHandler extends BaseHandler
                 return;
         }
 
-        if(!type || type.length == 0) return;
+        if (!type || type.length == 0) return;
 
         this.listener.events.dispatchEvent(new RoomSessionErrorMessageEvent(type, roomSession));
     }

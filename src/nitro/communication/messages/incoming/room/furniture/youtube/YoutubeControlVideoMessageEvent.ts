@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../../api';
-import { MessageEvent } from '../../../../../../../core';
+import { MessageEvent } from '../../../../../../../events';
 import { YoutubeControlVideoMessageParser } from '../../../../parser';
 
 export class YoutubeControlVideoMessageEvent extends MessageEvent implements IMessageEvent

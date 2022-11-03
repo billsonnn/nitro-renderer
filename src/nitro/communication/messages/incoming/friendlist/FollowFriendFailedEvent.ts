@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { FollowFriendFailedParser } from '../../parser';
 
 export class FollowFriendFailedEvent extends MessageEvent implements IMessageEvent

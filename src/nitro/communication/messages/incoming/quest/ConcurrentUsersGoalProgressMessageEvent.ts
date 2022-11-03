@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { ConcurrentUsersGoalProgressMessageParser } from '../../parser';
 
 export class ConcurrentUsersGoalProgressMessageEvent extends MessageEvent implements IMessageEvent

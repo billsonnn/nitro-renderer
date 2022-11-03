@@ -1,4 +1,6 @@
-export class PetBreedingResultData
+import { IPetBreedingResultData } from '../../../../../../api';
+
+export class PetBreedingResultData implements IPetBreedingResultData
 {
     private _stuffId: number;
     private _classId: number;

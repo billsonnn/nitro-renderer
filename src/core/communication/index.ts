@@ -3,4 +3,3 @@ export * from './codec/evawire';
 export * from './CommunicationManager';
 export * from './messages';
 export * from './SocketConnection';
-export * from './SocketConnectionEvent';

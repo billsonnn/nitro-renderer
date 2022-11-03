@@ -1,5 +1,5 @@
+import { RoomObjectWidgetRequestEvent } from '../../../../../events';
 import { ContextMenuEnum } from '../../../../ui';
-import { RoomObjectWidgetRequestEvent } from '../../../events';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurniturePurchaseableClothingLogic extends FurnitureMultiStateLogic
@@ -16,7 +16,7 @@ export class FurniturePurchaseableClothingLogic extends FurnitureMultiStateLogic
 
     public useObject(): void
     {
-        if(!this.object || !this.eventDispatcher) return;
+        if (!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.PURCHASABLE_CLOTHING_CONFIRMATION_DIALOG, this.object));
     }

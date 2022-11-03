@@ -1,4 +1,4 @@
-import { RoomObjectWidgetRequestEvent } from '../../../events';
+import { RoomObjectWidgetRequestEvent } from '../../../../../events';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureTrophyLogic extends FurnitureLogic
@@ -12,7 +12,7 @@ export class FurnitureTrophyLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if(!this.object || !this.eventDispatcher) return;
+        if (!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.TROPHY, this.object));
     }

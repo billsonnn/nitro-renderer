@@ -1,4 +1,3 @@
-export * from './events';
 export * from './ImageResult';
 export * from './messages';
 export * from './object';

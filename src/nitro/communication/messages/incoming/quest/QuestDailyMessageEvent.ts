@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { QuestDailyMessageParser } from '../../parser';
 
 export class QuestDailyMessageEvent extends MessageEvent implements IMessageEvent

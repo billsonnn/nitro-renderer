@@ -1,43 +1,45 @@
-export class PollChoice
-{
-    private _value:string;
-    private _choiceText:string;
-    private _choiceType:number;
+import { IPollChoice } from '../../../../../api';
 
-    constructor(k:string, _arg_2:string, _arg_3:number)
+export class PollChoice implements IPollChoice
+{
+    private _value: string;
+    private _choiceText: string;
+    private _choiceType: number;
+
+    constructor(value: string, choiceText: string, choiceType: number)
     {
-        this._value = k;
-        this._choiceText = _arg_2;
-        this._choiceType = _arg_3;
+        this._value = value;
+        this._choiceText = choiceText;
+        this._choiceType = choiceType;
     }
 
-    public get value():string
+    public get value(): string
     {
         return this._value;
     }
 
-    public set value(value:string)
+    public set value(value: string)
     {
         this._value = value;
     }
 
-    public get choiceText():string
+    public get choiceText(): string
     {
         return this._choiceText;
     }
 
-    public set choiceText(choiceText:string)
+    public set choiceText(choiceText: string)
     {
         this._choiceText = choiceText;
     }
 
-    public get choiceType():number
+    public get choiceType(): number
     {
         return this._choiceType;
     }
 
-    public set choiceType(k:number)
+    public set choiceType(choiceType: number)
     {
-        this._choiceType = k;
+        this._choiceType = choiceType;
     }
 }

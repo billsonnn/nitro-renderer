@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { NavigatorSettingsParser } from '../../parser';
 
 export class NavigatorSettingsEvent extends MessageEvent implements IMessageEvent

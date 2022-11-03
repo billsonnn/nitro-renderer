@@ -1,9 +1,9 @@
 
 import { AvatarAction, IRoomGeometry, IRoomObjectModel, RoomObjectVariable, Vector3d } from '../../../../../api';
+import { RoomObjectFurnitureActionEvent, RoomObjectMoveEvent } from '../../../../../events';
 import { GetTickerTime } from '../../../../../pixi-proxy';
 import { RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
 import { MouseEventType } from '../../../../ui';
-import { RoomObjectFurnitureActionEvent, RoomObjectMoveEvent } from '../../../events';
 import { ObjectAvatarCarryObjectUpdateMessage, ObjectAvatarChatUpdateMessage, ObjectAvatarDanceUpdateMessage, ObjectAvatarEffectUpdateMessage, ObjectAvatarExpressionUpdateMessage, ObjectAvatarFigureUpdateMessage, ObjectAvatarFlatControlUpdateMessage, ObjectAvatarGestureUpdateMessage, ObjectAvatarMutedUpdateMessage, ObjectAvatarOwnMessage, ObjectAvatarPlayerValueUpdateMessage, ObjectAvatarPlayingGameUpdateMessage, ObjectAvatarPostureUpdateMessage, ObjectAvatarSelectedMessage, ObjectAvatarSignUpdateMessage, ObjectAvatarSleepUpdateMessage, ObjectAvatarTypingUpdateMessage, ObjectAvatarUpdateMessage, ObjectAvatarUseObjectUpdateMessage } from '../../../messages';
 import { MovingObjectLogic } from '../MovingObjectLogic';
 

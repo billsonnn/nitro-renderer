@@ -1,5 +1,5 @@
 ﻿import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core';
+import { MessageEvent } from '../../../../../../events';
 import { FigureSetIdsMessageParser } from '../../../parser';
 
 export class FigureSetIdsMessageEvent extends MessageEvent implements IMessageEvent

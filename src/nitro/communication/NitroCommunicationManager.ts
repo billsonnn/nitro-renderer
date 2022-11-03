@@ -1,7 +1,8 @@
-import { ICommunicationManager, IConnection, IConnectionStateListener, IMessageConfiguration, IMessageEvent, INitroCommunicationDemo, INitroCommunicationManager } from '../../api';
-import { NitroEvent, NitroManager, SocketConnectionEvent } from '../../core';
+import { ICommunicationManager, IConnection, IConnectionStateListener, IMessageConfiguration, IMessageEvent, INitroCommunicationDemo, INitroCommunicationManager, INitroEvent } from '../../api';
+import { NitroManager } from '../../core';
+import { NitroCommunicationDemoEvent, SocketConnectionEvent } from '../../events';
 import { Nitro } from '../Nitro';
-import { NitroCommunicationDemo, NitroCommunicationDemoEvent } from './demo';
+import { NitroCommunicationDemo } from './NitroCommunicationDemo';
 import { NitroMessages } from './NitroMessages';
 
 export class NitroCommunicationManager extends NitroManager implements INitroCommunicationManager, IConnectionStateListener
@@ -30,7 +31,7 @@ export class NitroCommunicationManager extends NitroManager implements INitroCom
 
     protected onInit(): void
     {
-        if(this._connection) return;
+        if (this._connection) return;
 
         Nitro.instance.events.addEventListener(NitroCommunicationDemoEvent.CONNECTION_AUTHENTICATED, this.onConnectionAuthenticatedEvent);
 
@@ -42,16 +43,16 @@ export class NitroCommunicationManager extends NitroManager implements INitroCom
         this._connection.addEventListener(SocketConnectionEvent.CONNECTION_CLOSED, this.onConnectionClosedEvent);
         this._connection.addEventListener(SocketConnectionEvent.CONNECTION_ERROR, this.onConnectionErrorEvent);
 
-        if(this._demo) this._demo.init();
+        if (this._demo) this._demo.init();
 
         this._connection.init(Nitro.instance.getConfiguration<string>('socket.url'));
     }
 
     protected onDispose(): void
     {
-        if(this._demo) this._demo.dispose();
+        if (this._demo) this._demo.dispose();
 
-        if(this._connection)
+        if (this._connection)
         {
             this._connection.removeEventListener(SocketConnectionEvent.CONNECTION_OPENED, this.onConnectionOpenedEvent);
             this._connection.removeEventListener(SocketConnectionEvent.CONNECTION_CLOSED, this.onConnectionClosedEvent);
@@ -78,11 +79,11 @@ export class NitroCommunicationManager extends NitroManager implements INitroCom
         this.logger.log('Connection Error');
     }
 
-    private onConnectionAuthenticatedEvent(event: NitroEvent): void
+    private onConnectionAuthenticatedEvent(event: INitroEvent): void
     {
         this.logger.log('Connection Authenticated');
 
-        if(this._connection) this._connection.authenticated();
+        if (this._connection) this._connection.authenticated();
     }
 
     public connectionInit(socketUrl: string): void
@@ -92,14 +93,14 @@ export class NitroCommunicationManager extends NitroManager implements INitroCom
 
     public registerMessageEvent(event: IMessageEvent): IMessageEvent
     {
-        if(this._connection) this._connection.addMessageEvent(event);
+        if (this._connection) this._connection.addMessageEvent(event);
 
         return event;
     }
 
     public removeMessageEvent(event: IMessageEvent): void
     {
-        if(!this._connection) return;
+        if (!this._connection) return;
 
         this._connection.removeMessageEvent(event);
     }

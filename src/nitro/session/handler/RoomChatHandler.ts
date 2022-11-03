@@ -1,7 +1,7 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
+import { RoomSessionChatEvent } from '../../../events';
 import { FloodControlEvent, PetRespectNoficationEvent, PetSupplementedNotificationEvent, PetSupplementTypeEnum, RemainingMuteEvent, RespectReceivedEvent, RoomUnitChatEvent, RoomUnitChatShoutEvent, RoomUnitChatWhisperEvent, RoomUnitHandItemReceivedEvent } from '../../communication';
 import { SystemChatStyleEnum } from '../../ui/widget/enums/SystemChatStyleEnum';
-import { RoomSessionChatEvent } from '../events';
 import { BaseHandler } from './BaseHandler';
 
 export class RoomChatHandler extends BaseHandler
@@ -23,20 +23,20 @@ export class RoomChatHandler extends BaseHandler
 
     private onRoomUnitChatEvent(event: RoomUnitChatEvent): void
     {
-        if(!this.listener) return;
+        if (!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if(!session) return;
+        if (!session) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         let chatType: number = RoomSessionChatEvent.CHAT_TYPE_SPEAK;
 
-        if(event instanceof RoomUnitChatShoutEvent) chatType = RoomSessionChatEvent.CHAT_TYPE_SHOUT;
-        else if(event instanceof RoomUnitChatWhisperEvent) chatType = RoomSessionChatEvent.CHAT_TYPE_WHISPER;
+        if (event instanceof RoomUnitChatShoutEvent) chatType = RoomSessionChatEvent.CHAT_TYPE_SHOUT;
+        else if (event instanceof RoomUnitChatWhisperEvent) chatType = RoomSessionChatEvent.CHAT_TYPE_WHISPER;
 
         const chatEvent = new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, parser.roomIndex, parser.message, chatType, parser.bubble);
 
@@ -45,86 +45,86 @@ export class RoomChatHandler extends BaseHandler
 
     private onRoomUnitHandItemReceivedEvent(event: RoomUnitHandItemReceivedEvent): void
     {
-        if(!this.listener) return;
+        if (!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if(!session) return;
+        if (!session) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, parser.giverUserId, '', RoomSessionChatEvent.CHAT_TYPE_HAND_ITEM_RECEIVED, SystemChatStyleEnum.GENERIC, null, parser.handItemType));
     }
 
     private onRespectReceivedEvent(event: RespectReceivedEvent): void
     {
-        if(!this.listener) return;
+        if (!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if(!session) return;
+        if (!session) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         const userData = session.userDataManager.getUserData(parser.userId);
 
-        if(!userData) return;
+        if (!userData) return;
 
         this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, userData.roomIndex, '', RoomSessionChatEvent.CHAT_TYPE_RESPECT, SystemChatStyleEnum.GENERIC));
     }
 
     private onPetRespectNoficationEvent(event: PetRespectNoficationEvent): void
     {
-        if(!this.listener) return;
+        if (!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if(!session) return;
+        if (!session) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         const petData = session.userDataManager.getPetData(parser.petData.id);
 
-        if(!petData) return;
+        if (!petData) return;
 
         let chatType = RoomSessionChatEvent.CHAT_TYPE_PETRESPECT;
 
-        if(parser.isTreat) chatType = RoomSessionChatEvent.CHAT_TYPE_PETTREAT;
+        if (parser.isTreat) chatType = RoomSessionChatEvent.CHAT_TYPE_PETTREAT;
 
         this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, petData.roomIndex, '', chatType, SystemChatStyleEnum.GENERIC));
     }
 
     private onPetSupplementedNotificationEvent(event: PetSupplementedNotificationEvent): void
     {
-        if(!this.listener) return;
+        if (!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if(!session) return;
+        if (!session) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         const petData = session.userDataManager.getPetData(parser.petId);
 
-        if(!petData) return;
+        if (!petData) return;
 
         let userRoomIndex = -1;
 
         const userData = session.userDataManager.getUserData(parser.userId);
 
-        if(userData) userRoomIndex = userData.roomIndex;
+        if (userData) userRoomIndex = userData.roomIndex;
 
         let chatType = RoomSessionChatEvent.CHAT_TYPE_PETREVIVE;
 
-        switch(parser.supplementType)
+        switch (parser.supplementType)
         {
             case PetSupplementTypeEnum.REVIVE:
                 chatType = RoomSessionChatEvent.CHAT_TYPE_PETREVIVE;
@@ -142,15 +142,15 @@ export class RoomChatHandler extends BaseHandler
 
     private onFloodControlEvent(event: FloodControlEvent): void
     {
-        if(!this.listener) return;
+        if (!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if(!session) return;
+        if (!session) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         const seconds = parser.seconds;
 
@@ -159,15 +159,15 @@ export class RoomChatHandler extends BaseHandler
 
     private onRemainingMuteEvent(event: RemainingMuteEvent): void
     {
-        if(!this.listener) return;
+        if (!this.listener) return;
 
         const session = this.listener.getSession(this.roomId);
 
-        if(!session) return;
+        if (!session) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, session.ownRoomIndex, '', RoomSessionChatEvent.CHAT_TYPE_MUTE_REMAINING, SystemChatStyleEnum.GENERIC, null, parser.seconds));
     }

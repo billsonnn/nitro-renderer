@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core';
+import { MessageEvent } from '../../../../../../events';
 import { JoinedQueueMessageParser } from '../../../parser';
 
 export class JoinedQueueMessageEvent extends MessageEvent implements IMessageEvent

@@ -1,6 +1,6 @@
 import { RoomObjectVariable } from '../../../../../api';
+import { RoomObjectBadgeAssetEvent, RoomObjectWidgetRequestEvent } from '../../../../../events';
 import { RoomObjectEvent, RoomObjectUpdateMessage } from '../../../../../room';
-import { RoomObjectBadgeAssetEvent, RoomObjectWidgetRequestEvent } from '../../../events';
 import { ObjectGroupBadgeUpdateMessage, ObjectSelectedMessage } from '../../../messages';
 import { FurnitureBadgeDisplayLogic } from './FurnitureBadgeDisplayLogic';
 
@@ -24,17 +24,17 @@ export class FurnitureAchievementResolutionLogic extends FurnitureBadgeDisplayLo
     {
         super.processUpdateMessage(message);
 
-        if(message instanceof ObjectGroupBadgeUpdateMessage)
+        if (message instanceof ObjectGroupBadgeUpdateMessage)
         {
-            if(message.assetName !== 'loading_icon')
+            if (message.assetName !== 'loading_icon')
             {
                 this.object.model.setValue(RoomObjectVariable.FURNITURE_BADGE_VISIBLE_IN_STATE, FurnitureAchievementResolutionLogic.BADGE_VISIBLE_IN_STATE);
             }
         }
 
-        if(message instanceof ObjectSelectedMessage)
+        if (message instanceof ObjectSelectedMessage)
         {
-            if(!this.eventDispatcher || !this.object) return;
+            if (!this.eventDispatcher || !this.object) return;
 
             this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CLOSE_FURNI_CONTEXT_MENU, this.object));
         }
@@ -42,11 +42,11 @@ export class FurnitureAchievementResolutionLogic extends FurnitureBadgeDisplayLo
 
     public useObject(): void
     {
-        if(!this.object || !this.eventDispatcher) return;
+        if (!this.object || !this.eventDispatcher) return;
 
         let event: RoomObjectEvent = null;
 
-        switch(this.object.getState(0))
+        switch (this.object.getState(0))
         {
             case FurnitureAchievementResolutionLogic.STATE_RESOLUTION_NOT_STARTED:
             case FurnitureAchievementResolutionLogic.STATE_RESOLUTION_IN_PROGRESS:
@@ -60,12 +60,12 @@ export class FurnitureAchievementResolutionLogic extends FurnitureBadgeDisplayLo
                 break;
         }
 
-        if(event) this.eventDispatcher.dispatchEvent(event);
+        if (event) this.eventDispatcher.dispatchEvent(event);
     }
 
     protected updateBadge(badgeId: string): void
     {
-        if(badgeId === FurnitureAchievementResolutionLogic.ACH_NOT_SET) return;
+        if (badgeId === FurnitureAchievementResolutionLogic.ACH_NOT_SET) return;
 
         super.updateBadge(badgeId);
     }

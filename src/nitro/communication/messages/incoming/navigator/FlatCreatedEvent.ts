@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { FlatCreatedMessageParser } from '../../parser';
 
 export class FlatCreatedEvent extends MessageEvent implements IMessageEvent

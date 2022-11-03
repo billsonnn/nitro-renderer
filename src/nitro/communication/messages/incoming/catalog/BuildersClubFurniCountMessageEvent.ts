@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { BuildersClubFurniCountMessageParser } from '../../parser';
 
 export class BuildersClubFurniCountMessageEvent extends MessageEvent implements IMessageEvent

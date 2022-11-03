@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { GenericErrorParser } from '../../parser';
 
 export class GenericErrorEvent extends MessageEvent implements IMessageEvent

@@ -1,5 +1,6 @@
-import { AvatarSetType, IAssetManager, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IAvatarImageListener, IAvatarRenderManager, IFigureData, IFigurePartSet, IFigureSetData, IGraphicAsset, IStructureData } from '../../api';
-import { NitroEvent, NitroManager } from '../../core';
+import { AvatarSetType, IAssetManager, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IAvatarImageListener, IAvatarRenderManager, IFigureData, IFigurePartSet, IFigureSetData, IGraphicAsset, INitroEvent, IStructureData } from '../../api';
+import { NitroManager } from '../../core';
+import { AvatarRenderEvent, NitroEvent } from '../../events';
 import { Nitro } from '../Nitro';
 import { FigureDataContainer } from '../utils';
 import { AssetAliasCollection } from './alias';
@@ -11,7 +12,6 @@ import { HabboAvatarAnimations } from "./data/HabboAvatarAnimations";
 import { HabboAvatarGeometry } from './data/HabboAvatarGeometry';
 import { HabboAvatarPartSets } from './data/HabboAvatarPartSets';
 import { EffectAssetDownloadManager } from './EffectAssetDownloadManager';
-import { AvatarRenderEvent } from './events';
 import { PlaceHolderAvatarImage } from './PlaceHolderAvatarImage';
 import { AvatarStructureDownload } from './structure';
 
@@ -198,7 +198,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         structureDownloader.addEventListener(AvatarStructureDownload.AVATAR_STRUCTURE_DONE, this.onAvatarStructureDownloadDone);
     }
 
-    private onAvatarStructureDownloadDone(event: NitroEvent): void
+    private onAvatarStructureDownloadDone(event: INitroEvent): void
     {
         this._structureReady = true;
 
@@ -207,7 +207,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         this.checkReady();
     }
 
-    private onAvatarAssetDownloaderReady(event: NitroEvent): void
+    private onAvatarAssetDownloaderReady(event: INitroEvent): void
     {
         if (!event) return;
 
@@ -216,14 +216,14 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         this.checkReady();
     }
 
-    private onAvatarAssetDownloaded(event: NitroEvent): void
+    private onAvatarAssetDownloaded(event: INitroEvent): void
     {
         if (!event) return;
 
         this._aliasCollection.reset();
     }
 
-    private onEffectAssetDownloaderReady(event: NitroEvent): void
+    private onEffectAssetDownloaderReady(event: INitroEvent): void
     {
         if (!event) return;
 
@@ -232,7 +232,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         this.checkReady();
     }
 
-    private onEffectAssetDownloaded(event: NitroEvent): void
+    private onEffectAssetDownloaded(event: INitroEvent): void
     {
         if (!event) return;
 

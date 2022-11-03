@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { CameraStorageUrlMessageParser } from '../../parser';
 
 export class CameraStorageUrlMessageEvent extends MessageEvent implements IMessageEvent

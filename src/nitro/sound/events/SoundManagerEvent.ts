@@ -1,4 +1,4 @@
-import { NitroEvent } from '../../../core';
+import { NitroEvent } from '../../../events';
 
 export class SoundManagerEvent extends NitroEvent
 {

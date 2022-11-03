@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { HabboClubExtendOfferMessageParser } from '../../parser';
 
 export class HabboClubExtendOfferMessageEvent extends MessageEvent implements IMessageEvent

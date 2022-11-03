@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core';
+import { MessageEvent } from '../../../../../../events';
 import { AchievementResolutionProgressMessageParser } from '../../../parser';
 
 export class AchievementResolutionProgressMessageEvent extends MessageEvent implements IMessageEvent

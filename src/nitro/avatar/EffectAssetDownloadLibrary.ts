@@ -1,8 +1,8 @@
-import { IAssetAnimation, IAssetManager } from '../../api';
+import { IAssetAnimation, IAssetManager, IEffectAssetDownloadLibrary } from '../../api';
 import { EventDispatcher } from '../../core';
-import { AvatarRenderEffectLibraryEvent } from './events';
+import { AvatarRenderEffectLibraryEvent } from '../../events';
 
-export class EffectAssetDownloadLibrary extends EventDispatcher
+export class EffectAssetDownloadLibrary extends EventDispatcher implements IEffectAssetDownloadLibrary
 {
     public static DOWNLOAD_COMPLETE: string = 'EADL_DOWNLOAD_COMPLETE';
 
@@ -33,16 +33,16 @@ export class EffectAssetDownloadLibrary extends EventDispatcher
 
         const asset = this._assets.getCollection(this._libraryName);
 
-        if(asset) this._state = EffectAssetDownloadLibrary.LOADED;
+        if (asset) this._state = EffectAssetDownloadLibrary.LOADED;
     }
 
     public downloadAsset(): void
     {
-        if(!this._assets || (this._state === EffectAssetDownloadLibrary.LOADING) || (this._state === EffectAssetDownloadLibrary.LOADED)) return;
+        if (!this._assets || (this._state === EffectAssetDownloadLibrary.LOADING) || (this._state === EffectAssetDownloadLibrary.LOADED)) return;
 
         const asset = this._assets.getCollection(this._libraryName);
 
-        if(asset)
+        if (asset)
         {
             this._state = EffectAssetDownloadLibrary.LOADED;
 
@@ -55,13 +55,13 @@ export class EffectAssetDownloadLibrary extends EventDispatcher
 
         this._assets.downloadAsset(this._downloadUrl, (flag: boolean) =>
         {
-            if(flag)
+            if (flag)
             {
                 this._state = EffectAssetDownloadLibrary.LOADED;
 
                 const collection = this._assets.getCollection(this._libraryName);
 
-                if(collection) this._animation = collection.data.animations;
+                if (collection) this._animation = collection.data.animations;
 
                 this.dispatchEvent(new AvatarRenderEffectLibraryEvent(AvatarRenderEffectLibraryEvent.DOWNLOAD_COMPLETE, this));
             }

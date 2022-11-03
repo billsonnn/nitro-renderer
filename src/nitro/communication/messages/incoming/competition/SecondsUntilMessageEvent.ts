@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { SecondsUntilMessageParser } from '../../parser';
 
 export class SecondsUntilMessageEvent extends MessageEvent implements IMessageEvent

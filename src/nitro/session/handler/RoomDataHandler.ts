@@ -1,6 +1,6 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
+import { RoomSessionEvent, RoomSessionPropertyUpdateEvent } from '../../../events';
 import { GetGuestRoomResultEvent } from '../../communication';
-import { RoomSessionEvent, RoomSessionPropertyUpdateEvent } from '../events';
 import { BaseHandler } from './BaseHandler';
 
 export class RoomDataHandler extends BaseHandler
@@ -14,17 +14,17 @@ export class RoomDataHandler extends BaseHandler
 
     private onGetGuestRoomResultEvent(event: GetGuestRoomResultEvent): void
     {
-        if(!(event instanceof GetGuestRoomResultEvent)) return;
+        if (!(event instanceof GetGuestRoomResultEvent)) return;
 
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
-        if(parser.roomForward) return;
+        if (parser.roomForward) return;
 
         const roomSession = this.listener.getSession(this.roomId);
 
-        if(!roomSession) return;
+        if (!roomSession) return;
 
         const roomData = parser.data;
 

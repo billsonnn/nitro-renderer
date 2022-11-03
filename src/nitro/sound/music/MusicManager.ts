@@ -1,8 +1,8 @@
-import { IMusicManager } from '../../../api';
-import { NitroEvent, NitroManager } from '../../../core';
+import { IMusicManager, INitroEvent } from '../../../api';
+import { NitroManager } from '../../../core';
+import { RoomObjectSoundMachineEvent } from '../../../events';
 import { GetSongInfoMessageComposer, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, NowPlayingMessageEvent, SongInfoEntry, TraxSongInfoMessageEvent, UserSongDisksInventoryMessageEvent } from '../../communication';
 import { Nitro } from '../../Nitro';
-import { RoomObjectSoundMachineEvent } from '../../room/events';
 import { SongStartRequestData } from '../common';
 import { SoundManagerEvent } from '../events';
 import { MusicPriorities } from './MusicPriorities';
@@ -75,7 +75,7 @@ export class MusicManager extends NitroManager implements IMusicManager
         this.events.removeEventListener(SoundManagerEvent.TRAX_SONG_COMPLETE, this.onEvent);
     }
 
-    private onEvent(event: NitroEvent): void
+    private onEvent(event: INitroEvent): void
     {
 
     }

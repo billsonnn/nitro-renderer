@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { MessengerInitParser } from '../../parser';
 
 export class MessengerInitEvent extends MessageEvent implements IMessageEvent

@@ -1,7 +1,6 @@
 export * from './avatar';
 export * from './camera';
 export * from './communication';
-export * from './events';
 export * from './externalInterface';
 export * from './game';
 export * from './INitro';

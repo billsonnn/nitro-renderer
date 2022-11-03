@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { SellablePetPalettesParser } from '../../parser';
 
 export class SellablePetPalettesMessageEvent extends MessageEvent implements IMessageEvent

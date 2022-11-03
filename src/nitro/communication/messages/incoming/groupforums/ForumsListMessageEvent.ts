@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { GetForumsListMessageParser } from '../../parser';
 
 export class ForumsListMessageEvent extends MessageEvent implements IMessageEvent

@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core';
+import { MessageEvent } from '../../../../../../events';
 import { Game2AccountGameStatusMessageParser } from '../../../parser';
 
 export class Game2AccountGameStatusMessageEvent extends MessageEvent implements IMessageEvent

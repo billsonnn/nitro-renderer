@@ -1,7 +1,7 @@
 import { IRoomGeometry } from '../../../../../api';
+import { RoomObjectStateChangedEvent } from '../../../../../events';
 import { RoomObjectEvent, RoomSpriteMouseEvent } from '../../../../../room';
 import { MouseEventType } from '../../../../ui';
-import { RoomObjectStateChangedEvent } from '../../../events';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureHockeyScoreLogic extends FurnitureLogic
@@ -15,14 +15,14 @@ export class FurnitureHockeyScoreLogic extends FurnitureLogic
 
     public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
     {
-        if(!event || !geometry || !this.object) return;
+        if (!event || !geometry || !this.object) return;
 
         let objectEvent: RoomObjectEvent = null;
 
-        switch(event.type)
+        switch (event.type)
         {
             case MouseEventType.DOUBLE_CLICK:
-                switch(event.spriteTag)
+                switch (event.spriteTag)
                 {
                     case 'off':
                         objectEvent = new RoomObjectStateChangedEvent(RoomObjectStateChangedEvent.STATE_CHANGE, this.object, 3);
@@ -30,7 +30,7 @@ export class FurnitureHockeyScoreLogic extends FurnitureLogic
                 }
                 break;
             case MouseEventType.MOUSE_CLICK:
-                switch(event.spriteTag)
+                switch (event.spriteTag)
                 {
                     case 'inc':
                         objectEvent = new RoomObjectStateChangedEvent(RoomObjectStateChangedEvent.STATE_CHANGE, this.object, 2);
@@ -42,7 +42,7 @@ export class FurnitureHockeyScoreLogic extends FurnitureLogic
                 break;
         }
 
-        if(this.eventDispatcher && objectEvent)
+        if (this.eventDispatcher && objectEvent)
         {
             this.eventDispatcher.dispatchEvent(objectEvent);
 
@@ -54,7 +54,7 @@ export class FurnitureHockeyScoreLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if(!this.object || !this.eventDispatcher) return;
+        if (!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectStateChangedEvent(RoomObjectStateChangedEvent.STATE_CHANGE, this.object, 3));
     }

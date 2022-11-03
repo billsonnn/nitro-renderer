@@ -1,6 +1,6 @@
 export * from './badge';
-export * from './events';
 export * from './furniture';
+export * from './GroupInformationManager';
 export * from './HabboClubLevelEnum';
 export * from './handler';
 export * from './IgnoredUsersManager';

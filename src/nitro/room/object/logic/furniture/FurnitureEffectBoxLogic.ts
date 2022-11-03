@@ -1,5 +1,5 @@
+import { RoomObjectWidgetRequestEvent } from '../../../../../events';
 import { ContextMenuEnum } from '../../../../ui';
-import { RoomObjectWidgetRequestEvent } from '../../../events';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureEffectBoxLogic extends FurnitureLogic
@@ -15,7 +15,7 @@ export class FurnitureEffectBoxLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if(!this.object || !this.eventDispatcher) return;
+        if (!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.EFFECTBOX_OPEN_DIALOG, this.object));
     }

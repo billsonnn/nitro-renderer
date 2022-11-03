@@ -1,5 +1,5 @@
 ﻿import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core';
+import { MessageEvent } from '../../../../../../events';
 import { BadgePointLimitsParser } from '../../../parser';
 
 export class BadgePointLimitsEvent extends MessageEvent implements IMessageEvent

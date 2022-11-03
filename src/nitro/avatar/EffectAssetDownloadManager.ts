@@ -1,9 +1,9 @@
-import { IAssetManager, IAvatarEffectListener } from '../../api';
-import { EventDispatcher, NitroEvent } from '../../core';
+import { IAssetManager, IAvatarEffectListener, INitroEvent } from '../../api';
+import { EventDispatcher } from '../../core';
+import { AvatarRenderEffectLibraryEvent, AvatarRenderEvent, NitroEvent } from '../../events';
 import { Nitro } from '../Nitro';
 import { AvatarStructure } from './AvatarStructure';
 import { EffectAssetDownloadLibrary } from './EffectAssetDownloadLibrary';
-import { AvatarRenderEffectLibraryEvent, AvatarRenderEvent } from './events';
 
 export class EffectAssetDownloadManager extends EventDispatcher
 {
@@ -157,7 +157,7 @@ export class EffectAssetDownloadManager extends EventDispatcher
         }
     }
 
-    private onAvatarRenderReady(event: NitroEvent): void
+    private onAvatarRenderReady(event: INitroEvent): void
     {
         if (!event) return;
 

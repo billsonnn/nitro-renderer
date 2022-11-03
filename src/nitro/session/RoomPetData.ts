@@ -1,4 +1,6 @@
-﻿export class RoomPetData
+﻿import { IRoomPetData } from '../../api';
+
+export class RoomPetData implements IRoomPetData
 {
     private _id: number;
     private _level: number;

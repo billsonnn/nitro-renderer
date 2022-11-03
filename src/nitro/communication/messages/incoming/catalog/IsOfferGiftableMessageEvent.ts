@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { IsOfferGiftableMessageParser } from '../../parser';
 
 export class IsOfferGiftableMessageEvent extends MessageEvent implements IMessageEvent

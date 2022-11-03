@@ -1,5 +1,5 @@
 ﻿import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core';
+import { MessageEvent } from '../../../../../../events';
 import { ItemDataStructure, TradingListItemParser } from '../../../parser';
 
 export class TradingListItemEvent extends MessageEvent implements IMessageEvent

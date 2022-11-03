@@ -1,7 +1,7 @@
 import { IAssetData, IRoomGeometry, RoomObjectVariable } from '../../../../../api';
+import { RoomObjectWidgetRequestEvent } from '../../../../../events';
 import { RoomSpriteMouseEvent } from '../../../../../room';
 import { MouseEventType } from '../../../../ui';
-import { RoomObjectWidgetRequestEvent } from '../../../events';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureEditableInternalLinkLogic extends FurnitureLogic
@@ -28,11 +28,11 @@ export class FurnitureEditableInternalLinkLogic extends FurnitureLogic
     {
         super.initialize(asset);
 
-        if(asset.logic)
+        if (asset.logic)
         {
-            if(asset.logic.action)
+            if (asset.logic.action)
             {
-                if(asset.logic.action.startState === 1) this._showStateOnceRendered = true;
+                if (asset.logic.action.startState === 1) this._showStateOnceRendered = true;
             }
         }
     }
@@ -41,11 +41,11 @@ export class FurnitureEditableInternalLinkLogic extends FurnitureLogic
     {
         super.update(time);
 
-        if(!this._showStateOnceRendered) return;
+        if (!this._showStateOnceRendered) return;
 
         this._updateCount++;
 
-        if(this._showStateOnceRendered && (this._updateCount > 20))
+        if (this._showStateOnceRendered && (this._updateCount > 20))
         {
             this.setAutomaticStateIndex(1);
 
@@ -55,9 +55,9 @@ export class FurnitureEditableInternalLinkLogic extends FurnitureLogic
 
     private setAutomaticStateIndex(state: number): void
     {
-        if(!this.object) return;
+        if (!this.object) return;
 
-        if(this.object.model)
+        if (this.object.model)
         {
             this.object.model.setValue<number>(RoomObjectVariable.FURNITURE_AUTOMATIC_STATE_INDEX, state);
         }
@@ -65,9 +65,9 @@ export class FurnitureEditableInternalLinkLogic extends FurnitureLogic
 
     public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
     {
-        if(!event || !geometry) return;
+        if (!event || !geometry) return;
 
-        if(event.type === MouseEventType.DOUBLE_CLICK)
+        if (event.type === MouseEventType.DOUBLE_CLICK)
         {
             this.setAutomaticStateIndex(0);
         }
@@ -77,7 +77,7 @@ export class FurnitureEditableInternalLinkLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if(!this.object || !this.eventDispatcher) return;
+        if (!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.INERNAL_LINK, this.object));
     }

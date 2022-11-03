@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { EpicPopupMessageParser } from '../../parser';
 
 export class EpicPopupMessageEvent extends MessageEvent implements IMessageEvent

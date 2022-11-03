@@ -1,6 +1,6 @@
 import { IAssetData, RoomObjectVariable } from '../../../../../api';
+import { RoomObjectWidgetRequestEvent } from '../../../../../events';
 import { RoomObjectUpdateMessage } from '../../../../../room';
-import { RoomObjectWidgetRequestEvent } from '../../../events';
 import { ObjectDataUpdateMessage } from '../../../messages';
 import { FurnitureLogic } from './FurnitureLogic';
 
@@ -26,22 +26,22 @@ export class FurnitureClothingChangeLogic extends FurnitureLogic
     {
         super.processUpdateMessage(message);
 
-        if(message instanceof ObjectDataUpdateMessage) message.data && this.updateClothingData(message.data.getLegacyString());
+        if (message instanceof ObjectDataUpdateMessage) message.data && this.updateClothingData(message.data.getLegacyString());
     }
 
     private updateClothingData(furnitureData: string): void
     {
-        if(!furnitureData || !furnitureData.length) return;
+        if (!furnitureData || !furnitureData.length) return;
 
         const [boyClothing, girlClothing] = furnitureData.split(',');
 
-        if(boyClothing && boyClothing.length) this.object.model.setValue<string>(RoomObjectVariable.FURNITURE_CLOTHING_BOY, boyClothing);
-        if(girlClothing && girlClothing.length) this.object.model.setValue<string>(RoomObjectVariable.FURNITURE_CLOTHING_GIRL, girlClothing);
+        if (boyClothing && boyClothing.length) this.object.model.setValue<string>(RoomObjectVariable.FURNITURE_CLOTHING_BOY, boyClothing);
+        if (girlClothing && girlClothing.length) this.object.model.setValue<string>(RoomObjectVariable.FURNITURE_CLOTHING_GIRL, girlClothing);
     }
 
     public useObject(): void
     {
-        if(!this.object || !this.eventDispatcher) return;
+        if (!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CLOTHING_CHANGE, this.object));
     }

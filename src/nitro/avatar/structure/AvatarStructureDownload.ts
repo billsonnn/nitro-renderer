@@ -1,5 +1,6 @@
 import { IFigureSetData } from '../../../api';
-import { EventDispatcher, NitroEvent } from '../../../core';
+import { EventDispatcher } from '../../../core';
+import { NitroEvent } from '../../../events';
 
 export class AvatarStructureDownload extends EventDispatcher
 {

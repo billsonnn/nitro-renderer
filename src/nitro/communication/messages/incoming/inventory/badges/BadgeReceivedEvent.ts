@@ -1,5 +1,5 @@
 ﻿import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core';
+import { MessageEvent } from '../../../../../../events';
 import { BadgeReceivedParser } from '../../../parser';
 
 export class BadgeReceivedEvent extends MessageEvent implements IMessageEvent

@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../core';
+import { MessageEvent } from '../../../../../../events';
 import { GameInviteMessageParser } from '../../../parser';
 
 export class GameInviteMessageEvent extends MessageEvent implements IMessageEvent

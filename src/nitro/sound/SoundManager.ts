@@ -1,8 +1,7 @@
-import { IAdvancedMap, IMusicManager, ISoundManager } from '../../api';
-import { AdvancedMap, NitroEvent, NitroManager } from '../../core';
-import { NitroSettingsEvent, NitroSoundEvent } from '../events';
+import { IAdvancedMap, IMusicManager, INitroEvent, ISoundManager } from '../../api';
+import { AdvancedMap, NitroManager } from '../../core';
+import { NitroSettingsEvent, NitroSoundEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomEngineSamplePlaybackEvent } from '../../events';
 import { Nitro } from '../Nitro';
-import { RoomEngineEvent, RoomEngineObjectEvent, RoomEngineSamplePlaybackEvent } from '../room';
 import { MusicManager } from './music';
 
 export class SoundManager extends NitroManager implements ISoundManager
@@ -60,7 +59,7 @@ export class SoundManager extends NitroManager implements ISoundManager
         Nitro.instance.events.removeEventListener(NitroSoundEvent.PLAY_SOUND, this.onEvent);
     }
 
-    private onEvent(event: NitroEvent)
+    private onEvent(event: INitroEvent)
     {
         switch (event.type)
         {

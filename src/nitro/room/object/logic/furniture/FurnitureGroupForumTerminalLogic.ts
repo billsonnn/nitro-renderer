@@ -1,5 +1,5 @@
 import { RoomObjectVariable } from '../../../../../api';
-import { RoomObjectWidgetRequestEvent } from '../../../events';
+import { RoomObjectWidgetRequestEvent } from '../../../../../events';
 import { FurnitureGuildCustomizedLogic } from './FurnitureGuildCustomizedLogic';
 
 export class FurnitureGroupForumTerminalLogic extends FurnitureGuildCustomizedLogic
@@ -22,7 +22,7 @@ export class FurnitureGroupForumTerminalLogic extends FurnitureGuildCustomizedLo
 
     public useObject(): void
     {
-        if(!this.object || !this.eventDispatcher) return;
+        if (!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.INERNAL_LINK, this.object));
 

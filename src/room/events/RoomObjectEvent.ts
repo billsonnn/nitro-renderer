@@ -1,5 +1,5 @@
 import { IRoomObject } from '../../api';
-import { NitroEvent } from '../../core';
+import { NitroEvent } from '../../events';
 
 export class RoomObjectEvent extends NitroEvent
 {
@@ -19,14 +19,14 @@ export class RoomObjectEvent extends NitroEvent
 
     public get objectId(): number
     {
-        if(!this._object) return -1;
+        if (!this._object) return -1;
 
         return this._object.id;
     }
 
     public get objectType(): string
     {
-        if(!this._object) return null;
+        if (!this._object) return null;
 
         return this._object.type;
     }

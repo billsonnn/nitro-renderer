@@ -1,8 +1,8 @@
-import { IAssetManager } from '../../api';
+import { IAssetManager, IAvatarAssetDownloadLibrary } from '../../api';
 import { EventDispatcher } from '../../core';
-import { AvatarRenderLibraryEvent } from './events';
+import { AvatarRenderLibraryEvent } from '../../events';
 
-export class AvatarAssetDownloadLibrary extends EventDispatcher
+export class AvatarAssetDownloadLibrary extends EventDispatcher implements IAvatarAssetDownloadLibrary
 {
     public static DOWNLOAD_COMPLETE: string = 'AADL_DOWNLOAD_COMPLETE';
 
@@ -31,16 +31,16 @@ export class AvatarAssetDownloadLibrary extends EventDispatcher
 
         const asset = this._assets.getCollection(this._libraryName);
 
-        if(asset) this._state = AvatarAssetDownloadLibrary.LOADED;
+        if (asset) this._state = AvatarAssetDownloadLibrary.LOADED;
     }
 
     public downloadAsset(): void
     {
-        if(!this._assets || (this._state === AvatarAssetDownloadLibrary.LOADING) || (this._state === AvatarAssetDownloadLibrary.LOADED)) return;
+        if (!this._assets || (this._state === AvatarAssetDownloadLibrary.LOADING) || (this._state === AvatarAssetDownloadLibrary.LOADED)) return;
 
         const asset = this._assets.getCollection(this._libraryName);
 
-        if(asset)
+        if (asset)
         {
             this._state = AvatarAssetDownloadLibrary.LOADED;
 
@@ -53,7 +53,7 @@ export class AvatarAssetDownloadLibrary extends EventDispatcher
 
         this._assets.downloadAsset(this._downloadUrl, (flag: boolean) =>
         {
-            if(flag)
+            if (flag)
             {
                 this._state = AvatarAssetDownloadLibrary.LOADED;
 

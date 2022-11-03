@@ -15,7 +15,6 @@ export * from './data/HabboAvatarGeometry';
 export * from './data/HabboAvatarPartSets';
 export * from './EffectAssetDownloadLibrary';
 export * from './EffectAssetDownloadManager';
-export * from './events';
 export * from './geometry';
 export * from './pets';
 export * from './PlaceHolderAvatarImage';

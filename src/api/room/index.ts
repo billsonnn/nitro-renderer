@@ -1,3 +1,4 @@
+export * from './IPetBreedingResultData';
 export * from './IRoomGeometry';
 export * from './IRoomInstance';
 export * from './IRoomInstanceContainer';

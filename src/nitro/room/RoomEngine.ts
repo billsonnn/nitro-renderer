@@ -1,18 +1,16 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Container, DisplayObject } from '@pixi/display';
 import { Matrix, Point, Rectangle } from '@pixi/math';
-import { IConnection, IDisposable, IFurnitureStackingHeightMap, IGetImageListener, IImageResult, ILegacyWallGeometry, IMessageComposer, INitroCommunicationManager, IObjectData, IPetColorResult, IPetCustomPart, IRoomContentListener, IRoomContentLoader, IRoomCreator, IRoomEngine, IRoomEngineServices, IRoomGeometry, IRoomInstance, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRenderer, IRoomRendererFactory, IRoomRenderingCanvas, IRoomSessionManager, ISelectedRoomObjectData, ISessionDataManager, ITileObjectMap, IUpdateReceiver, IVector3D, LegacyDataType, ObjectDataFactory, RoomControllerLevel, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, ToolbarIconEnum, Vector3d } from '../../api';
-import { NitroEvent, NitroManager } from '../../core';
+import { IConnection, IDisposable, IFurnitureStackingHeightMap, IGetImageListener, IImageResult, ILegacyWallGeometry, IMessageComposer, INitroCommunicationManager, INitroEvent, IObjectData, IPetColorResult, IPetCustomPart, IRoomContentListener, IRoomContentLoader, IRoomCreator, IRoomEngine, IRoomEngineServices, IRoomGeometry, IRoomInstance, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRenderer, IRoomRendererFactory, IRoomRenderingCanvas, IRoomSessionManager, ISelectedRoomObjectData, ISessionDataManager, ITileObjectMap, IUpdateReceiver, IVector3D, LegacyDataType, ObjectDataFactory, RoomControllerLevel, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, ToolbarIconEnum, Vector3d } from '../../api';
+import { NitroManager } from '../../core';
+import { BadgeImageReadyEvent, NitroToolbarAnimateIconEvent, RoomBackgroundColorEvent, RoomDragEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomObjectFurnitureActionEvent, RoomSessionEvent, RoomToObjectOwnAvatarMoveEvent } from '../../events';
 import { GetTickerTime, NitroSprite, TextureUtils } from '../../pixi-proxy';
 import { NumberBank, RoomEnterEffect, RoomGeometry, RoomInstance, RoomObjectEvent, RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomRendererFactory } from '../../room';
 import { PetFigureData } from '../avatar';
 import { RenderRoomMessageComposer, RenderRoomThumbnailMessageComposer } from '../communication';
-import { NitroToolbarAnimateIconEvent } from '../events';
 import { Nitro } from '../Nitro';
-import { BadgeImageReadyEvent, RoomSessionEvent } from '../session';
 import { MouseEventType } from '../ui';
 import { FurniId } from '../utils';
-import { RoomBackgroundColorEvent, RoomDragEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomObjectFurnitureActionEvent, RoomToObjectOwnAvatarMoveEvent } from './events';
 import { ImageResult } from './ImageResult';
 import { ObjectAvatarCarryObjectUpdateMessage, ObjectAvatarChatUpdateMessage, ObjectAvatarDanceUpdateMessage, ObjectAvatarEffectUpdateMessage, ObjectAvatarExperienceUpdateMessage, ObjectAvatarExpressionUpdateMessage, ObjectAvatarFigureUpdateMessage, ObjectAvatarFlatControlUpdateMessage, ObjectAvatarGestureUpdateMessage, ObjectAvatarGuideStatusUpdateMessage, ObjectAvatarMutedUpdateMessage, ObjectAvatarOwnMessage, ObjectAvatarPetGestureUpdateMessage, ObjectAvatarPlayerValueUpdateMessage, ObjectAvatarPlayingGameUpdateMessage, ObjectAvatarPostureUpdateMessage, ObjectAvatarSignUpdateMessage, ObjectAvatarSleepUpdateMessage, ObjectAvatarTypingUpdateMessage, ObjectAvatarUpdateMessage, ObjectAvatarUseObjectUpdateMessage, ObjectDataUpdateMessage, ObjectGroupBadgeUpdateMessage, ObjectHeightUpdateMessage, ObjectItemDataUpdateMessage, ObjectModelDataUpdateMessage, ObjectMoveUpdateMessage, ObjectRoomColorUpdateMessage, ObjectRoomFloorHoleUpdateMessage, ObjectRoomMaskUpdateMessage, ObjectRoomPlanePropertyUpdateMessage, ObjectRoomPlaneVisibilityUpdateMessage, ObjectRoomUpdateMessage, ObjectStateUpdateMessage } from './messages';
 import { RoomLogic, RoomMapData, RoomObjectVisualizationFactory } from './object';
@@ -208,7 +206,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         }
     }
 
-    private onRoomContentLoaderReadyEvent(event: NitroEvent): void
+    private onRoomContentLoaderReadyEvent(event: INitroEvent): void
     {
         this._roomContentLoaderReady = true;
 

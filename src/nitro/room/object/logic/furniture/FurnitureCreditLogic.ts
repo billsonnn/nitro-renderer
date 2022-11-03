@@ -1,5 +1,5 @@
 import { IAssetData, RoomObjectVariable } from '../../../../../api';
-import { RoomObjectWidgetRequestEvent } from '../../../events';
+import { RoomObjectWidgetRequestEvent } from '../../../../../events';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureCreditLogic extends FurnitureLogic
@@ -19,9 +19,9 @@ export class FurnitureCreditLogic extends FurnitureLogic
 
         let creditValue = 0;
 
-        if(asset.logic)
+        if (asset.logic)
         {
-            if(asset.logic.credits && (asset.logic.credits !== '') && (asset.logic.credits.length > 0)) creditValue = parseInt(asset.logic.credits);
+            if (asset.logic.credits && (asset.logic.credits !== '') && (asset.logic.credits.length > 0)) creditValue = parseInt(asset.logic.credits);
         }
 
         this.object.model.setValue(RoomObjectVariable.FURNITURE_CREDIT_VALUE, creditValue);
@@ -29,7 +29,7 @@ export class FurnitureCreditLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if(!this.object || !this.eventDispatcher) return;
+        if (!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CREDITFURNI, this.object));
 

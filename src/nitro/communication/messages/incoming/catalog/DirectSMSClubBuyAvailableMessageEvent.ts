@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { DirectSMSClubBuyAvailableMessageParser } from '../../parser';
 
 export class DirectSMSClubBuyAvailableMessageEvent extends MessageEvent implements IMessageEvent

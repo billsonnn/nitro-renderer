@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { AcceptFriendResultParser } from '../../parser';
 
 export class AcceptFriendResultEvent extends MessageEvent implements IMessageEvent

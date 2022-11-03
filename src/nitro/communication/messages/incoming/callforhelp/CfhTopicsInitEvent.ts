@@ -1,5 +1,5 @@
 import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
+import { MessageEvent } from '../../../../../events';
 import { CfhTopicsInitMessageParser } from '../../parser';
 
 export class CfhTopicsInitEvent extends MessageEvent implements IMessageEvent
