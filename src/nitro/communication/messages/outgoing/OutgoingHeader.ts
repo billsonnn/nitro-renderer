@@ -37,6 +37,16 @@ export class OutgoingHeader
     public static FURNITURE_WALL_UPDATE = 168;
     public static GAMES_INIT = 2914;
     public static GAMES_LIST = 741;
+    public static ACCEPTGAMEINVITE = 3802;
+    public static GAMEUNLOADEDMESSAGE = 3207;
+    public static GETGAMEACHIEVEMENTSMESSAGE = 2399;
+    public static GETGAMESTATUSMESSAGE = 3171;
+    public static GETUSERGAMEACHIEVEMENTSMESSAGE = 389;
+    public static JOINQUEUEMESSAGE = 1458;
+    public static LEAVEQUEUEMESSAGE = 2384;
+    public static RESETRESOLUTIONACHIEVEMENTMESSAGE = 3144;
+    public static GETWEEKLYGAMEREWARDWINNERS = 1054;
+    public static GAME2GETACCOUNTGAMESTATUSMESSAGE = 11;
     public static GET_GIFT_WRAPPING_CONFIG = 418;
     public static GROUP_ADMIN_ADD = 2894;
     public static GROUP_ADMIN_REMOVE = 722;

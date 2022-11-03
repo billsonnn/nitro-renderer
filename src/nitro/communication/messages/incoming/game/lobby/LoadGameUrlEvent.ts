@@ -1,6 +1,6 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../core';
-import { LoadGameUrlParser } from '../../parser';
+import { IMessageEvent } from '../../../../../../api';
+import { MessageEvent } from '../../../../../../core';
+import { LoadGameUrlParser } from '../../../parser';
 
 export class LoadGameUrlEvent extends MessageEvent implements IMessageEvent
 {

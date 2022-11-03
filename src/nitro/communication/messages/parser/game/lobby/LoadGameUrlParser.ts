@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export class LoadGameUrlParser implements IMessageParser
 {
