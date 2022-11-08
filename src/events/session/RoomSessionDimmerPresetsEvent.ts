@@ -23,7 +23,7 @@ export class RoomSessionDimmerPresetsEvent extends RoomSessionEvent
 
     public getPreset(id: number): RoomSessionDimmerPresetsEventPresetItem
     {
-        if ((id < 0) || (id >= this._presets.length)) return null;
+        if((id < 0) || (id >= this._presets.length)) return null;
 
         return this._presets[id];
     }

@@ -19,22 +19,22 @@ export class FigureSetData implements IFigureSetData, IStructureData
 
     public parse(data: IFigureData): boolean
     {
-        if (!data) return false;
+        if(!data) return false;
 
-        for (const palette of data.palettes)
+        for(const palette of data.palettes)
         {
             const newPalette = new Palette(palette);
 
-            if (!newPalette) continue;
+            if(!newPalette) continue;
 
             this._palettes.set(newPalette.id.toString(), newPalette);
         }
 
-        for (const set of data.setTypes)
+        for(const set of data.setTypes)
         {
             const newSet = new SetType(set);
 
-            if (!newSet) continue;
+            if(!newSet) continue;
 
             this._setTypes.set(newSet.type, newSet);
         }
@@ -44,11 +44,11 @@ export class FigureSetData implements IFigureSetData, IStructureData
 
     public injectJSON(data: IFigureData): void
     {
-        for (const setType of data.setTypes)
+        for(const setType of data.setTypes)
         {
             const existingSetType = this._setTypes.get(setType.type);
 
-            if (existingSetType) existingSetType.cleanUp(setType);
+            if(existingSetType) existingSetType.cleanUp(setType);
             else this._setTypes.set(setType.type, new SetType(setType));
         }
 
@@ -57,23 +57,23 @@ export class FigureSetData implements IFigureSetData, IStructureData
 
     public appendJSON(data: IFigureData): boolean
     {
-        if (!data) return false;
+        if(!data) return false;
 
-        for (const palette of data.palettes)
+        for(const palette of data.palettes)
         {
             const id = palette.id.toString();
             const existingPalette = this._palettes.get(id);
 
-            if (!existingPalette) this._palettes.set(id, new Palette(palette));
+            if(!existingPalette) this._palettes.set(id, new Palette(palette));
             else existingPalette.append(palette);
         }
 
-        for (const setType of data.setTypes)
+        for(const setType of data.setTypes)
         {
             const type = setType.type;
             const existingSetType = this._setTypes.get(type);
 
-            if (!existingSetType) this._setTypes.set(type, new SetType(setType));
+            if(!existingSetType) this._setTypes.set(type, new SetType(setType));
             else existingSetType.append(setType);
         }
 
@@ -84,9 +84,9 @@ export class FigureSetData implements IFigureSetData, IStructureData
     {
         const types: string[] = [];
 
-        for (const set of this._setTypes.values())
+        for(const set of this._setTypes.values())
         {
-            if (!set || !set.isMandatory(k, _arg_2)) continue;
+            if(!set || !set.isMandatory(k, _arg_2)) continue;
 
             types.push(set.type);
         }
@@ -98,7 +98,7 @@ export class FigureSetData implements IFigureSetData, IStructureData
     {
         const setType = this._setTypes.get(type);
 
-        if (!setType) return null;
+        if(!setType) return null;
 
         return setType.getDefaultPartSet(gender);
     }
@@ -115,11 +115,11 @@ export class FigureSetData implements IFigureSetData, IStructureData
 
     public getFigurePartSet(k: number): IFigurePartSet
     {
-        for (const set of this._setTypes.values())
+        for(const set of this._setTypes.values())
         {
             const partSet = set.getPartSet(k);
 
-            if (!partSet) continue;
+            if(!partSet) continue;
 
             return partSet;
         }

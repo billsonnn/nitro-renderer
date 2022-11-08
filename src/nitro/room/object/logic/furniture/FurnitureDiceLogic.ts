@@ -25,16 +25,16 @@ export class FurnitureDiceLogic extends FurnitureLogic
 
     public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
     {
-        if (!event || !geometry || !this.object) return;
+        if(!event || !geometry || !this.object) return;
 
         let objectEvent: RoomObjectEvent = null;
 
-        switch (event.type)
+        switch(event.type)
         {
             case MouseEventType.DOUBLE_CLICK:
-                if (this._noTags)
+                if(this._noTags)
                 {
-                    if (((!(this._noTagsLastStateActivate)) || (this.object.getState(0) === 0)) || (this.object.getState(0) === 100))
+                    if(((!(this._noTagsLastStateActivate)) || (this.object.getState(0) === 0)) || (this.object.getState(0) === 100))
                     {
                         objectEvent = new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.DICE_ACTIVATE, this.object);
 
@@ -49,18 +49,18 @@ export class FurnitureDiceLogic extends FurnitureLogic
                 }
                 else
                 {
-                    if (((event.spriteTag === 'activate') || (this.object.getState(0) === 0)) || (this.object.getState(0) === 100))
+                    if(((event.spriteTag === 'activate') || (this.object.getState(0) === 0)) || (this.object.getState(0) === 100))
                     {
                         objectEvent = new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.DICE_ACTIVATE, this.object);
                     }
 
-                    else if (event.spriteTag === 'deactivate')
+                    else if(event.spriteTag === 'deactivate')
                     {
                         objectEvent = new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.DICE_OFF, this.object);
                     }
                 }
 
-                if (objectEvent && this.eventDispatcher) this.eventDispatcher.dispatchEvent(objectEvent);
+                if(objectEvent && this.eventDispatcher) this.eventDispatcher.dispatchEvent(objectEvent);
 
                 return;
         }

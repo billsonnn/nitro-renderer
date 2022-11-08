@@ -16,16 +16,16 @@ export class FurnitureFriendFurniLogic extends FurnitureMultiStateLogic
     {
         super.initialize(asset);
 
-        if (this.object) this.object.model.setValue(RoomObjectVariable.FURNITURE_FRIENDFURNI_ENGRAVING, this.engravingDialogType);
+        if(this.object) this.object.model.setValue(RoomObjectVariable.FURNITURE_FRIENDFURNI_ENGRAVING, this.engravingDialogType);
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void
     {
-        if (message instanceof ObjectDataUpdateMessage)
+        if(message instanceof ObjectDataUpdateMessage)
         {
             const data = (message.data as StringDataType);
 
-            if (data)
+            if(data)
             {
                 this._state = data.state;
             }
@@ -47,9 +47,9 @@ export class FurnitureFriendFurniLogic extends FurnitureMultiStateLogic
 
     public useObject(): void
     {
-        if (!this.object || !this.eventDispatcher) return;
+        if(!this.object || !this.eventDispatcher) return;
 
-        if (this._state === FurnitureFriendFurniLogic.STATE_LOCKED)
+        if(this._state === FurnitureFriendFurniLogic.STATE_LOCKED)
         {
             this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.FRIEND_FURNITURE_ENGRAVING, this.object));
         }

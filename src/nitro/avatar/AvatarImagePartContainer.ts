@@ -30,16 +30,16 @@ export class AvatarImagePartContainer
         this._isBlendable = isBlendable;
         this._blendTransform = null;
 
-        if (this._partType === 'ey') this._isColorable = false;
+        if(this._partType === 'ey') this._isColorable = false;
     }
 
     public getFrameIndex(k: number): number
     {
-        if (!this._frames || !this._frames.length) return 0;
+        if(!this._frames || !this._frames.length) return 0;
 
         const frameNumber = (k % this._frames.length);
 
-        if (this._frames[frameNumber] instanceof AvatarAnimationFrame)
+        if(this._frames[frameNumber] instanceof AvatarAnimationFrame)
         {
             return this._frames[frameNumber].number;
         }
@@ -51,9 +51,9 @@ export class AvatarImagePartContainer
     {
         const frameNumber = (k % this._frames.length);
 
-        if (this._frames && (this._frames.length > frameNumber))
+        if(this._frames && (this._frames.length > frameNumber))
         {
-            if (this._frames[frameNumber] instanceof AvatarAnimationFrame)
+            if(this._frames[frameNumber] instanceof AvatarAnimationFrame)
             {
                 return this._frames[frameNumber];
             }
@@ -66,9 +66,9 @@ export class AvatarImagePartContainer
     {
         const frameNumber = (k % this._frames.length);
 
-        if (this._frames && (this._frames.length > frameNumber))
+        if(this._frames && (this._frames.length > frameNumber))
         {
-            if (this._frames[frameNumber] instanceof AvatarAnimationFrame)
+            if(this._frames[frameNumber] instanceof AvatarAnimationFrame)
             {
                 const frame = this._frames[frameNumber];
 

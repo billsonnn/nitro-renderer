@@ -17,11 +17,11 @@ export class FurnitureEditableRoomLinkLogic extends FurnitureLogic
     {
         super.initialize(asset);
 
-        if (asset.logic)
+        if(asset.logic)
         {
-            if (asset.logic.action)
+            if(asset.logic.action)
             {
-                if (asset.logic.action.link && (asset.logic.action.link !== '') && (asset.logic.action.link.length > 0))
+                if(asset.logic.action.link && (asset.logic.action.link !== '') && (asset.logic.action.link.length > 0))
                 {
                     (this.object && this.object.model && this.object.model.setValue<string>(RoomObjectVariable.FURNITURE_INTERNAL_LINK, asset.logic.action.link));
                 }
@@ -31,7 +31,7 @@ export class FurnitureEditableRoomLinkLogic extends FurnitureLogic
 
     protected onDispose(): void
     {
-        if (this._timer)
+        if(this._timer)
         {
             clearTimeout(this._timer);
 
@@ -43,9 +43,9 @@ export class FurnitureEditableRoomLinkLogic extends FurnitureLogic
 
     private setAutomaticStateIndex(state: number): void
     {
-        if (!this.object) return;
+        if(!this.object) return;
 
-        if (this.object.model)
+        if(this.object.model)
         {
             this.object.model.setValue<number>(RoomObjectVariable.FURNITURE_AUTOMATIC_STATE_INDEX, state);
         }
@@ -55,7 +55,7 @@ export class FurnitureEditableRoomLinkLogic extends FurnitureLogic
     {
         this.setAutomaticStateIndex(1);
 
-        if (this._timer)
+        if(this._timer)
         {
             clearTimeout(this._timer);
 
@@ -69,7 +69,7 @@ export class FurnitureEditableRoomLinkLogic extends FurnitureLogic
             this._timer = null;
         }, 2500);
 
-        if (!this.object || !this.eventDispatcher) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.ROOM_LINK, this.object));
     }

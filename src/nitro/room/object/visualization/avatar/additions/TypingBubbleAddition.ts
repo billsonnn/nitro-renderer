@@ -26,7 +26,7 @@ export class TypingBubbleAddition implements IAvatarAddition
 
     public update(sprite: IRoomObjectSprite, scale: number): void
     {
-        if (!sprite) return;
+        if(!sprite) return;
 
         sprite.visible = true;
         sprite.relativeDepth = this._relativeDepth;
@@ -36,7 +36,7 @@ export class TypingBubbleAddition implements IAvatarAddition
         let offsetX = 0;
         let offsetY = 0;
 
-        if (scale < 48)
+        if(scale < 48)
         {
             this._asset = this._visualization.getAvatarRenderAsset('avatar_addition_user_typing_small');
 
@@ -53,17 +53,17 @@ export class TypingBubbleAddition implements IAvatarAddition
             offsetY = -83;
         }
 
-        if (this._visualization.posture === AvatarAction.POSTURE_SIT)
+        if(this._visualization.posture === AvatarAction.POSTURE_SIT)
         {
             offsetY += (additionScale / 2);
         }
 
-        else if (this._visualization.posture === AvatarAction.POSTURE_LAY)
+        else if(this._visualization.posture === AvatarAction.POSTURE_LAY)
         {
             offsetY += scale;
         }
 
-        if (this._asset)
+        if(this._asset)
         {
             sprite.texture = this._asset;
             sprite.offsetX = offsetX;
@@ -74,7 +74,7 @@ export class TypingBubbleAddition implements IAvatarAddition
 
     public animate(sprite: IRoomObjectSprite): boolean
     {
-        if (this._asset && sprite)
+        if(this._asset && sprite)
         {
             sprite.texture = this._asset;
         }

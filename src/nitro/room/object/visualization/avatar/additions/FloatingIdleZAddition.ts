@@ -41,14 +41,14 @@ export class FloatingIdleZAddition implements IAvatarAddition
     {
         let side = 'left';
 
-        if ((this._visualization.angle === 135) || (this._visualization.angle === 180) || (this._visualization.angle === 225) || (this._visualization.angle === 270)) side = 'right';
+        if((this._visualization.angle === 135) || (this._visualization.angle === 180) || (this._visualization.angle === 225) || (this._visualization.angle === 270)) side = 'right';
 
         return ('avatar_addition_user_idle_' + side + '_' + state + ((this._scale < 48) ? '_small' : ''));
     }
 
     public update(sprite: IRoomObjectSprite, scale: number): void
     {
-        if (!sprite) return;
+        if(!sprite) return;
 
         this._scale = scale;
         this._asset = this._visualization.getAvatarRenderAsset(this.getSpriteAssetName((this._state === FloatingIdleZAddition.STATE_FRAME_A) ? 1 : 2));
@@ -56,9 +56,9 @@ export class FloatingIdleZAddition implements IAvatarAddition
         let additionScale = 64;
         let offsetX = 0;
 
-        if (scale < 48)
+        if(scale < 48)
         {
-            if ((this._visualization.angle === 135) || (this._visualization.angle === 180) || (this._visualization.angle === 225) || (this._visualization.angle === 270))
+            if((this._visualization.angle === 135) || (this._visualization.angle === 180) || (this._visualization.angle === 225) || (this._visualization.angle === 270))
             {
                 offsetX = 10;
             }
@@ -73,7 +73,7 @@ export class FloatingIdleZAddition implements IAvatarAddition
         }
         else
         {
-            if ((this._visualization.angle === 135) || (this._visualization.angle === 180) || (this._visualization.angle === 225) || (this._visualization.angle === 270))
+            if((this._visualization.angle === 135) || (this._visualization.angle === 180) || (this._visualization.angle === 225) || (this._visualization.angle === 270))
             {
                 offsetX = 22;
             }
@@ -85,17 +85,17 @@ export class FloatingIdleZAddition implements IAvatarAddition
             this._offsetY = -70;
         }
 
-        if (this._visualization.posture === AvatarAction.POSTURE_SIT)
+        if(this._visualization.posture === AvatarAction.POSTURE_SIT)
         {
             this._offsetY += (additionScale / 2);
         }
 
-        else if (this._visualization.posture === AvatarAction.POSTURE_LAY)
+        else if(this._visualization.posture === AvatarAction.POSTURE_LAY)
         {
             this._offsetY += (additionScale - (0.3 * additionScale));
         }
 
-        if (this._asset)
+        if(this._asset)
         {
             sprite.texture = this._asset;
             sprite.offsetX = offsetX;
@@ -107,13 +107,13 @@ export class FloatingIdleZAddition implements IAvatarAddition
 
     public animate(sprite: IRoomObjectSprite): boolean
     {
-        if (!sprite) return false;
+        if(!sprite) return false;
 
         const totalTimeRunning = GetTickerTime();
 
-        if (this._state === FloatingIdleZAddition.STATE_DELAY)
+        if(this._state === FloatingIdleZAddition.STATE_DELAY)
         {
-            if ((totalTimeRunning - this._startTime) >= FloatingIdleZAddition.DELAY_BEFORE_ANIMATION)
+            if((totalTimeRunning - this._startTime) >= FloatingIdleZAddition.DELAY_BEFORE_ANIMATION)
             {
                 this._state = FloatingIdleZAddition.STATE_FRAME_A;
                 this._startTime = totalTimeRunning;
@@ -121,9 +121,9 @@ export class FloatingIdleZAddition implements IAvatarAddition
             }
         }
 
-        if (this._state === FloatingIdleZAddition.STATE_FRAME_A)
+        if(this._state === FloatingIdleZAddition.STATE_FRAME_A)
         {
-            if ((totalTimeRunning - this._startTime) >= FloatingIdleZAddition.DELAY_PER_FRAME)
+            if((totalTimeRunning - this._startTime) >= FloatingIdleZAddition.DELAY_PER_FRAME)
             {
                 this._state = FloatingIdleZAddition.STATE_FRAME_B;
                 this._startTime = totalTimeRunning;
@@ -131,9 +131,9 @@ export class FloatingIdleZAddition implements IAvatarAddition
             }
         }
 
-        if (this._state === FloatingIdleZAddition.STATE_FRAME_B)
+        if(this._state === FloatingIdleZAddition.STATE_FRAME_B)
         {
-            if ((totalTimeRunning - this._startTime) >= FloatingIdleZAddition.DELAY_PER_FRAME)
+            if((totalTimeRunning - this._startTime) >= FloatingIdleZAddition.DELAY_PER_FRAME)
             {
                 this._state = FloatingIdleZAddition.STATE_FRAME_A;
                 this._startTime = totalTimeRunning;
@@ -141,7 +141,7 @@ export class FloatingIdleZAddition implements IAvatarAddition
             }
         }
 
-        if (this._asset)
+        if(this._asset)
         {
             sprite.texture = this._asset;
             sprite.alpha = 255;

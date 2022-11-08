@@ -42,7 +42,7 @@ export class TargetedOfferData
 
         let count = wrapper.readInt();
 
-        while (count > 0)
+        while(count > 0)
         {
             this._Str_11962.push(wrapper.readString());
 
@@ -53,7 +53,7 @@ export class TargetedOfferData
 
     public populate(offerData: TargetedOfferData)
     {
-        if (!offerData) return;
+        if(!offerData) return;
 
         this._id = offerData.id;
         this._identifier = offerData.identifier;

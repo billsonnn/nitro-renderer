@@ -76,11 +76,11 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         this._assets = _arg_2;
         this._scale = _arg_4;
         this._effectListener = _arg_6;
-        if (this._scale == null)
+        if(this._scale == null)
         {
             this._scale = AvatarScaleType.LARGE;
         }
-        if (_arg_3 == null)
+        if(_arg_3 == null)
         {
             _arg_3 = new AvatarFigureContainer('hr-893-45.hd-180-2.ch-210-66.lg-270-82.sh-300-91.wa-2007-.ri-1-');
         }
@@ -104,7 +104,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
     public dispose(): void
     {
-        if (this._disposed) return;
+        if(this._disposed) return;
 
         this._structure = null;
         this._assets = null;
@@ -113,22 +113,22 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         this._avatarSpriteData = null;
         this._actions = null;
 
-        if (this._image)
+        if(this._image)
         {
             this._image.destroy();
 
             this._image = null;
         }
 
-        if (this._cache)
+        if(this._cache)
         {
             this._cache.dispose();
             this._cache = null;
         }
 
-        if (this._fullImageCache)
+        if(this._fullImageCache)
         {
-            for (const k of this._fullImageCache.getValues()) (k && k.destroy());
+            for(const k of this._fullImageCache.getValues()) (k && k.destroy());
 
             this._fullImageCache = null;
         }
@@ -162,24 +162,24 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
     {
         _arg_2 = (_arg_2 + this._directionOffset);
 
-        if (_arg_2 < AvatarDirectionAngle.MIN_DIRECTION)
+        if(_arg_2 < AvatarDirectionAngle.MIN_DIRECTION)
         {
             _arg_2 = (AvatarDirectionAngle.MAX_DIRECTION + (_arg_2 + 1));
         }
 
-        if (_arg_2 > AvatarDirectionAngle.MAX_DIRECTION)
+        if(_arg_2 > AvatarDirectionAngle.MAX_DIRECTION)
         {
             _arg_2 = (_arg_2 - (AvatarDirectionAngle.MAX_DIRECTION + 1));
         }
 
-        if (this._structure.isMainAvatarSet(k))
+        if(this._structure.isMainAvatarSet(k))
         {
             this._mainDirection = _arg_2;
         }
 
-        if ((k === AvatarSetType.HEAD) || (k === AvatarSetType.FULL))
+        if((k === AvatarSetType.HEAD) || (k === AvatarSetType.FULL))
         {
-            if ((k === AvatarSetType.HEAD) && (this.isHeadTurnPreventedByAction()))
+            if((k === AvatarSetType.HEAD) && (this.isHeadTurnPreventedByAction()))
             {
                 _arg_2 = this._mainDirection;
             }
@@ -225,34 +225,34 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
     private getFullImageCacheKey(): string
     {
-        if (!this._useFullImageCache) return null;
+        if(!this._useFullImageCache) return null;
 
-        if (((this._sortedActions.length == 1) && (this._mainDirection == this._headDirection)))
+        if(((this._sortedActions.length == 1) && (this._mainDirection == this._headDirection)))
         {
             return (this._mainDirection + this._currentActionsString) + (this._frameCounter % 4);
         }
 
-        if (this._sortedActions.length == 2)
+        if(this._sortedActions.length == 2)
         {
-            for (const k of this._sortedActions)
+            for(const k of this._sortedActions)
             {
-                if (((k.actionType == 'fx') && ((((k.actionParameter == '33') || (k.actionParameter == '34')) || (k.actionParameter == '35')) || (k.actionParameter == '36'))))
+                if(((k.actionType == 'fx') && ((((k.actionParameter == '33') || (k.actionParameter == '34')) || (k.actionParameter == '35')) || (k.actionParameter == '36'))))
                 {
                     return (this._mainDirection + this._currentActionsString) + 0;
                 }
 
-                if (((k.actionType == 'fx') && ((k.actionParameter == '38') || (k.actionParameter == '39'))))
+                if(((k.actionType == 'fx') && ((k.actionParameter == '38') || (k.actionParameter == '39'))))
                 {
                     return (((this._mainDirection + '_') + this._headDirection) + this._currentActionsString) + (this._frameCounter % 11);
                 }
 
-                if ((k.actionType === 'dance') && ((k.actionParameter === '1') || (k.actionParameter === '2') || (k.actionParameter === '3') || (k.actionParameter === '4')))
+                if((k.actionType === 'dance') && ((k.actionParameter === '1') || (k.actionParameter === '2') || (k.actionParameter === '3') || (k.actionParameter === '4')))
                 {
                     let frame = (this._frameCounter % 8);
 
-                    if ((k.actionParameter === '3')) frame = (this._frameCounter % 10);
+                    if((k.actionParameter === '3')) frame = (this._frameCounter % 10);
 
-                    if ((k.actionParameter === '4')) frame = (this._frameCounter % 16);
+                    if((k.actionParameter === '4')) frame = (this._frameCounter % 16);
 
                     return (((this._mainDirection + k.actionType) + k.actionParameter) + frame);
                 }
@@ -264,7 +264,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
     private getBodyParts(k: string, _arg_2: string, _arg_3: number): string[]
     {
-        if ((((!(_arg_3 == this._cachedBodyPartsDirection)) || (!(_arg_2 == this._cachedBodyPartsGeometryType))) || (!(k == this._cachedBodyPartsAvatarSet))))
+        if((((!(_arg_3 == this._cachedBodyPartsDirection)) || (!(_arg_2 == this._cachedBodyPartsGeometryType))) || (!(k == this._cachedBodyPartsAvatarSet))))
         {
             this._cachedBodyPartsDirection = _arg_3;
             this._cachedBodyPartsGeometryType = _arg_2;
@@ -277,18 +277,18 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
     public getAvatarPartsForCamera(k: string): void
     {
         let _local_4: string;
-        if (this._mainAction == null)
+        if(this._mainAction == null)
         {
             return;
         }
         const _local_2 = this._structure.getCanvas(this._scale, this._mainAction.definition.geometryType);
-        if (_local_2 == null)
+        if(_local_2 == null)
         {
             return;
         }
         const _local_3 = this.getBodyParts(k, this._mainAction.definition.geometryType, this._mainDirection);
         let _local_6 = (_local_3.length - 1);
-        while (_local_6 >= 0)
+        while(_local_6 >= 0)
         {
             _local_4 = _local_3[_local_6];
             const _local_5 = this._cache.getImageContainer(_local_4, this._frameCounter, true);
@@ -298,19 +298,19 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
     public getImage(setType: string, hightlight: boolean, scale: number = 1, cache: boolean = true): RenderTexture
     {
-        if (!this._changes) return this._image;
+        if(!this._changes) return this._image;
 
-        if (!this._mainAction) return null;
+        if(!this._mainAction) return null;
 
-        if (!this._actionsSorted) this.endActionAppends();
+        if(!this._actionsSorted) this.endActionAppends();
 
         const avatarCanvas = this._structure.getCanvas(this._scale, this._mainAction.definition.geometryType);
 
-        if (!avatarCanvas) return null;
+        if(!avatarCanvas) return null;
 
-        if (this._image && ((this._image.width !== avatarCanvas.width) || (this._image.height !== avatarCanvas.height)))
+        if(this._image && ((this._image.width !== avatarCanvas.width) || (this._image.height !== avatarCanvas.height)))
         {
-            if (this._reusableTexture)
+            if(this._reusableTexture)
             {
                 this._reusableTexture.destroy(true);
 
@@ -330,16 +330,16 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         let isCachable = true;
         let partCount = (_local_6.length - 1);
 
-        while (partCount >= 0)
+        while(partCount >= 0)
         {
             const set = _local_6[partCount];
             const part = this._cache.getImageContainer(set, this._frameCounter);
 
-            if (part)
+            if(part)
             {
                 const partCacheContainer = part.image;
 
-                if (!partCacheContainer)
+                if(!partCacheContainer)
                 {
                     container.destroy({
                         children: true
@@ -352,7 +352,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
                 const point = part.regPoint.clone();
 
-                if (point)
+                if(point)
                 {
                     point.x += avatarCanvas.offset.x;
                     point.y += avatarCanvas.offset.y;
@@ -364,7 +364,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
                     partContainer.addChild(partCacheContainer);
 
-                    if (partContainer)
+                    if(partContainer)
                     {
                         partContainer.position.set(point.x, point.y);
 
@@ -376,13 +376,13 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             partCount--;
         }
 
-        if (this._avatarSpriteData)
+        if(this._avatarSpriteData)
         {
-            if (!container.filters) container.filters = [];
+            if(!container.filters) container.filters = [];
 
-            if (this._avatarSpriteData.colorTransform) container.filters.push(this._avatarSpriteData.colorTransform);
+            if(this._avatarSpriteData.colorTransform) container.filters.push(this._avatarSpriteData.colorTransform);
 
-            if (this._avatarSpriteData.paletteIsGrayscale)
+            if(this._avatarSpriteData.paletteIsGrayscale)
             {
                 this.convertToGrayscale(container);
 
@@ -390,12 +390,12 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             }
         }
 
-        if (!cache)
+        if(!cache)
         {
             return TextureUtils.generateTexture(container, new Rectangle(0, 0, avatarCanvas.width, avatarCanvas.height));
         }
 
-        if (this._reusableTexture)
+        if(this._reusableTexture)
         {
             PixiApplicationProxy.instance.renderer.render(container, {
                 renderTexture: this._reusableTexture,
@@ -407,7 +407,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             this._reusableTexture = TextureUtils.generateTexture(container, new Rectangle(0, 0, avatarCanvas.width, avatarCanvas.height));
         }
 
-        if (!this._reusableTexture) return null;
+        if(!this._reusableTexture) return null;
 
         /*
         if(this._avatarSpriteData)
@@ -432,31 +432,31 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         const textureImageData = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
         const data = textureImageData.data;
 
-        for (let i = 0; i < data.length; i += 4)
+        for(let i = 0; i < data.length; i += 4)
         {
-            if (reds.length == 256)
+            if(reds.length == 256)
             {
                 let paletteColor = reds[data[i]];
-                if (paletteColor === undefined) paletteColor = 0;
+                if(paletteColor === undefined) paletteColor = 0;
 
                 data[i] = ((paletteColor >> 16) & 0xFF);
                 data[i + 1] = ((paletteColor >> 8) & 0xFF);
                 data[i + 2] = (paletteColor & 0xFF);
             }
 
-            if (greens.length == 256)
+            if(greens.length == 256)
             {
                 let paletteColor = greens[data[i + 1]];
-                if (paletteColor === undefined) paletteColor = 0;
+                if(paletteColor === undefined) paletteColor = 0;
 
                 data[i] = ((paletteColor >> 16) & 0xFF);
                 data[i + 1] = ((paletteColor >> 8) & 0xFF);
                 data[i + 2] = (paletteColor & 0xFF);
             }
-            if (blues.length == 256)
+            if(blues.length == 256)
             {
                 let paletteColor = greens[data[i + 2]];
-                if (paletteColor === undefined) paletteColor = 0;
+                if(paletteColor === undefined) paletteColor = 0;
 
                 data[i] = ((paletteColor >> 16) & 0xFF);
                 data[i + 1] = ((paletteColor >> 8) & 0xFF);
@@ -478,13 +478,13 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
     public getImageAsSprite(setType: string, scale: number = 1): Sprite
     {
-        if (!this._mainAction) return null;
+        if(!this._mainAction) return null;
 
-        if (!this._actionsSorted) this.endActionAppends();
+        if(!this._actionsSorted) this.endActionAppends();
 
         const avatarCanvas = this._structure.getCanvas(this._scale, this._mainAction.definition.geometryType);
 
-        if (!avatarCanvas) return null;
+        if(!avatarCanvas) return null;
 
         const setTypes = this.getBodyParts(setType, this._mainAction.definition.geometryType, this._mainDirection);
         const container = new NitroSprite();
@@ -497,16 +497,16 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         let partCount = (setTypes.length - 1);
 
-        while (partCount >= 0)
+        while(partCount >= 0)
         {
             const set = setTypes[partCount];
             const part = this._cache.getImageContainer(set, this._frameCounter);
 
-            if (part)
+            if(part)
             {
                 const partCacheContainer = part.image;
 
-                if (!partCacheContainer)
+                if(!partCacheContainer)
                 {
                     container.destroy({
                         children: true
@@ -517,7 +517,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
                 const point = part.regPoint.clone();
 
-                if (point)
+                if(point)
                 {
                     point.x += avatarCanvas.offset.x;
                     point.y += avatarCanvas.offset.y;
@@ -543,29 +543,29 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
     public getCroppedImage(setType: string, scale: number = 1): HTMLImageElement
     {
-        if (!this._mainAction) return null;
+        if(!this._mainAction) return null;
 
-        if (!this._actionsSorted) this.endActionAppends();
+        if(!this._actionsSorted) this.endActionAppends();
 
         const avatarCanvas = this._structure.getCanvas(this._scale, this._mainAction.definition.geometryType);
 
-        if (!avatarCanvas) return null;
+        if(!avatarCanvas) return null;
 
         const setTypes = this.getBodyParts(setType, this._mainAction.definition.geometryType, this._mainDirection);
         const container = new NitroContainer();
 
         let partCount = (setTypes.length - 1);
 
-        while (partCount >= 0)
+        while(partCount >= 0)
         {
             const set = setTypes[partCount];
             const part = this._cache.getImageContainer(set, this._frameCounter);
 
-            if (part)
+            if(part)
             {
                 const partCacheContainer = part.image;
 
-                if (!partCacheContainer)
+                if(!partCacheContainer)
                 {
                     container.destroy({
                         children: true
@@ -576,7 +576,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
                 const point = part.regPoint.clone();
 
-                if (point)
+                if(point)
                 {
                     point.x += avatarCanvas.offset.x;
                     point.y += avatarCanvas.offset.y;
@@ -588,7 +588,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
                     partContainer.addChild(partCacheContainer);
 
-                    if (partContainer)
+                    if(partContainer)
                     {
                         partContainer.position.set(point.x, point.y);
 
@@ -604,7 +604,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         const image = TextureUtils.generateImage(texture);
 
-        if (!image) return null;
+        if(!image) return null;
 
         return image;
     }
@@ -613,9 +613,9 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
     {
         const existing = this._fullImageCache.getValue(k);
 
-        if (existing)
+        if(existing)
         {
-            if (!existing.valid)
+            if(!existing.valid)
             {
                 this._fullImageCache.remove(k);
 
@@ -632,18 +632,18 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
     {
         const existing = this._fullImageCache.getValue(k);
 
-        if (existing)
+        if(existing)
         {
             this._fullImageCache.remove(k);
 
             existing.destroy(true);
         }
 
-        if (this._fullImageCache.length === this._fullImageCacheSize)
+        if(this._fullImageCache.length === this._fullImageCacheSize)
         {
             const oldestKey = this._fullImageCache.getKey(0);
 
-            if (oldestKey)
+            if(oldestKey)
             {
                 const removed = this._fullImageCache.remove(oldestKey);
 
@@ -676,13 +676,13 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
     {
         let k: ActiveActionData;
 
-        if (!this.sortActions()) return;
+        if(!this.sortActions()) return;
 
-        for (const k of this._sortedActions)
+        for(const k of this._sortedActions)
         {
-            if (k.actionType === AvatarAction.EFFECT)
+            if(k.actionType === AvatarAction.EFFECT)
             {
-                if (!this._effectManager.isAvatarEffectReady(parseInt(k.actionParameter))) this._effectManager.downloadAvatarEffect(parseInt(k.actionParameter), this);
+                if(!this._effectManager.isAvatarEffectReady(parseInt(k.actionParameter))) this._effectManager.downloadAvatarEffect(parseInt(k.actionParameter), this);
             }
         }
 
@@ -696,14 +696,14 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         this._actionsSorted = false;
 
-        if (_args && (_args.length > 0)) _local_3 = _args[0];
+        if(_args && (_args.length > 0)) _local_3 = _args[0];
 
-        if ((_local_3 !== undefined) && (_local_3 !== null)) _local_3 = _local_3.toString();
+        if((_local_3 !== undefined) && (_local_3 !== null)) _local_3 = _local_3.toString();
 
-        switch (k)
+        switch(k)
         {
             case AvatarAction.POSTURE:
-                switch (_local_3)
+                switch(_local_3)
                 {
                     case AvatarAction.POSTURE_LAY:
                     case AvatarAction.POSTURE_WALK:
@@ -716,11 +716,11 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                     case AvatarAction.SNOWWAR_DIE_BACK:
                     case AvatarAction.SNOWWAR_PICK:
                     case AvatarAction.SNOWWAR_THROW:
-                        if ((_local_3 === AvatarAction.POSTURE_LAY) || (_local_3 === AvatarAction.POSTURE_LAY) || (_local_3 === AvatarAction.POSTURE_LAY))
+                        if((_local_3 === AvatarAction.POSTURE_LAY) || (_local_3 === AvatarAction.POSTURE_LAY) || (_local_3 === AvatarAction.POSTURE_LAY))
                         {
-                            if (_local_3 === AvatarAction.POSTURE_LAY)
+                            if(_local_3 === AvatarAction.POSTURE_LAY)
                             {
-                                if (this._mainDirection == 0)
+                                if(this._mainDirection == 0)
                                 {
                                     this.setDirection(AvatarSetType.FULL, 4);
                                 }
@@ -739,7 +739,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                 }
                 break;
             case AvatarAction.GESTURE:
-                switch (_local_3)
+                switch(_local_3)
                 {
                     case AvatarAction.GESTURE_AGGRAVATED:
                     case AvatarAction.GESTURE_SAD:
@@ -763,9 +763,9 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             case AvatarAction.EXPRESSION_SNOWBOARD_OLLIE:
             case AvatarAction.EXPRESSION_SNOWBORD_360:
             case AvatarAction.EXPRESSION_RIDE_JUMP:
-                if (_local_3 === AvatarAction.EFFECT)
+                if(_local_3 === AvatarAction.EFFECT)
                 {
-                    if ((((((_local_3 === '33') || (_local_3 === '34')) || (_local_3 === '35')) || (_local_3 === '36')) || (_local_3 === '38')) || (_local_3 === '39'))
+                    if((((((_local_3 === '33') || (_local_3 === '34')) || (_local_3 === '35')) || (_local_3 === '36')) || (_local_3 === '38')) || (_local_3 === '39'))
                     {
                         this._useFullImageCache = true;
                     }
@@ -776,7 +776,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             case AvatarAction.CARRY_OBJECT:
             case AvatarAction.USE_OBJECT: {
                 const _local_4 = this._structure.getActionDefinitionWithState(k);
-                if (_local_4) _local_3 = _local_4.getParameterValue(_local_3);
+                if(_local_4) _local_3 = _local_4.getParameterValue(_local_3);
                 this.addActionData(k, _local_3);
                 break;
             }
@@ -788,13 +788,13 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
     protected addActionData(k: string, _arg_2: string = ''): void
     {
         let _local_3: ActiveActionData;
-        if (!this._actions) this._actions = [];
+        if(!this._actions) this._actions = [];
 
         let _local_4 = 0;
-        while (_local_4 < this._actions.length)
+        while(_local_4 < this._actions.length)
         {
             _local_3 = this._actions[_local_4];
-            if (((_local_3.actionType == k) && (_local_3.actionParameter == _arg_2)))
+            if(((_local_3.actionType == k) && (_local_3.actionParameter == _arg_2)))
             {
                 return;
             }
@@ -827,14 +827,14 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         let _local_2: IActionDefinition;
         let _local_3: ActiveActionData;
         let k: boolean;
-        if (this._sortedActions == null)
+        if(this._sortedActions == null)
         {
             return false;
         }
-        for (const _local_3 of this._sortedActions)
+        for(const _local_3 of this._sortedActions)
         {
             _local_2 = this._structure.getActionDefinitionWithState(_local_3.actionType);
-            if (((!(_local_2 == null)) && (_local_2.getPreventHeadTurn(_local_3.actionParameter))))
+            if(((!(_local_2 == null)) && (_local_2.getPreventHeadTurn(_local_3.actionParameter))))
             {
                 k = true;
             }
@@ -854,11 +854,11 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         this._sortedActions = this._structure.sortActions(this._actions);
         this._animationFrameCount = this._structure.maxFrames(this._sortedActions);
 
-        if (!this._sortedActions)
+        if(!this._sortedActions)
         {
             this._canvasOffsets = [0, 0, 0];
 
-            if (this._lastActionsString !== '')
+            if(this._lastActionsString !== '')
             {
                 k = true;
 
@@ -869,15 +869,15 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         {
             this._canvasOffsets = this._structure.getCanvasOffsets(this._sortedActions, this._scale, this._mainDirection);
 
-            for (const _local_4 of this._sortedActions)
+            for(const _local_4 of this._sortedActions)
             {
                 this._currentActionsString = (this._currentActionsString + (_local_4.actionType + _local_4.actionParameter));
 
-                if (_local_4.actionType === AvatarAction.EFFECT)
+                if(_local_4.actionType === AvatarAction.EFFECT)
                 {
                     const _local_5 = parseInt(_local_4.actionParameter);
 
-                    if (this._effectIdInUse !== _local_5) _local_2 = true;
+                    if(this._effectIdInUse !== _local_5) _local_2 = true;
 
                     this._effectIdInUse = _local_5;
 
@@ -885,16 +885,16 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                 }
             }
 
-            if (!_local_3)
+            if(!_local_3)
             {
-                if (this._effectIdInUse > -1) _local_2 = true;
+                if(this._effectIdInUse > -1) _local_2 = true;
 
                 this._effectIdInUse = -1;
             }
 
-            if (_local_2) this._cache.disposeInactiveActions(0);
+            if(_local_2) this._cache.disposeInactiveActions(0);
 
-            if (this._lastActionsString != this._currentActionsString)
+            if(this._lastActionsString != this._currentActionsString)
             {
                 k = true;
 
@@ -909,60 +909,60 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
     private setActionsToParts(): void
     {
-        if (!this._sortedActions == null) return;
+        if(!this._sortedActions == null) return;
 
         const _local_3: number = GetTickerTime();
         const _local_4: string[] = [];
 
-        for (const k of this._sortedActions) _local_4.push(k.actionType);
+        for(const k of this._sortedActions) _local_4.push(k.actionType);
 
-        for (const k of this._sortedActions)
+        for(const k of this._sortedActions)
         {
-            if ((k && k.definition) && k.definition.isAnimation)
+            if((k && k.definition) && k.definition.isAnimation)
             {
                 const _local_2 = this._structure.getAnimation(((k.definition.state + '.') + k.actionParameter));
 
-                if (_local_2 && _local_2.hasOverriddenActions())
+                if(_local_2 && _local_2.hasOverriddenActions())
                 {
                     const _local_5 = _local_2.overriddenActionNames();
 
-                    if (_local_5)
+                    if(_local_5)
                     {
-                        for (const _local_6 of _local_5)
+                        for(const _local_6 of _local_5)
                         {
-                            if (_local_4.indexOf(_local_6) >= 0) k.overridingAction = _local_2.overridingAction(_local_6);
+                            if(_local_4.indexOf(_local_6) >= 0) k.overridingAction = _local_2.overridingAction(_local_6);
                         }
                     }
                 }
 
-                if (_local_2 && _local_2.resetOnToggle)
+                if(_local_2 && _local_2.resetOnToggle)
                 {
                     this._animationHasResetOnToggle = true;
                 }
             }
         }
 
-        for (const k of this._sortedActions)
+        for(const k of this._sortedActions)
         {
-            if (!((!(k)) || (!(k.definition))))
+            if(!((!(k)) || (!(k.definition))))
             {
-                if (k.definition.isAnimation && (k.actionParameter === '')) k.actionParameter = '1';
+                if(k.definition.isAnimation && (k.actionParameter === '')) k.actionParameter = '1';
 
                 this.setActionToParts(k, _local_3);
 
-                if (k.definition.isAnimation)
+                if(k.definition.isAnimation)
                 {
                     this._isAnimating = k.definition.isAnimated(k.actionParameter);
 
                     const _local_2 = this._structure.getAnimation(((k.definition.state + '.') + k.actionParameter));
 
-                    if (_local_2)
+                    if(_local_2)
                     {
                         this._sprites = this._sprites.concat(_local_2.spriteData);
 
-                        if (_local_2.hasDirectionData()) this._directionOffset = _local_2.directionData.offset;
+                        if(_local_2.hasDirectionData()) this._directionOffset = _local_2.directionData.offset;
 
-                        if (_local_2.hasAvatarData()) this._avatarSpriteData = _local_2.avatarData;
+                        if(_local_2.hasAvatarData()) this._avatarSpriteData = _local_2.avatarData;
                     }
                 }
             }
@@ -971,15 +971,15 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
     private setActionToParts(k: IActiveActionData, _arg_2: number): void
     {
-        if (((k == null) || (k.definition == null)))
+        if(((k == null) || (k.definition == null)))
         {
             return;
         }
-        if (k.definition.assetPartDefinition == '')
+        if(k.definition.assetPartDefinition == '')
         {
             return;
         }
-        if (k.definition.isMain)
+        if(k.definition.isMain)
         {
             this._mainAction = k;
             this._cache.setGeometryType(k.definition.geometryType);
@@ -990,11 +990,11 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
     private resetBodyPartCache(k: IActiveActionData): void
     {
-        if (!k) return;
+        if(!k) return;
 
-        if (k.definition.assetPartDefinition === '') return;
+        if(k.definition.assetPartDefinition === '') return;
 
-        if (k.definition.isMain)
+        if(k.definition.isMain)
         {
             this._mainAction = k;
             this._cache.setGeometryType(k.definition.geometryType);
@@ -1016,7 +1016,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         let _local_5 = 0.33;
         const _local_6 = 1;
 
-        switch (channel)
+        switch(channel)
         {
             case AvatarImage.CHANNELS_UNIQUE:
                 _local_3 = 0.3;
@@ -1084,7 +1084,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
     public resetEffect(effect: number): void
     {
-        if (effect === this._effectIdInUse)
+        if(effect === this._effectIdInUse)
         {
             this.resetActions();
             this.setActionsToParts();
@@ -1092,7 +1092,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             this._animationHasResetOnToggle = true;
             this._changes = true;
 
-            if (this._effectListener) this._effectListener.resetEffect(effect);
+            if(this._effectListener) this._effectListener.resetEffect(effect);
         }
     }
 }

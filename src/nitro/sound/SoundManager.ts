@@ -46,7 +46,7 @@ export class SoundManager extends NitroManager implements ISoundManager
 
     public onDispose(): void
     {
-        if (this._musicManager)
+        if(this._musicManager)
         {
             this._musicManager.dispose();
             this._musicManager = null;
@@ -61,7 +61,7 @@ export class SoundManager extends NitroManager implements ISoundManager
 
     private onEvent(event: INitroEvent)
     {
-        switch (event.type)
+        switch(event.type)
         {
             case RoomEngineSamplePlaybackEvent.PLAY_SAMPLE: {
                 const castedEvent = (event as RoomEngineSamplePlaybackEvent);
@@ -91,7 +91,7 @@ export class SoundManager extends NitroManager implements ISoundManager
                 this._volumeFurni = (castedEvent.volumeFurni / 100);
                 this._volumeTrax = (castedEvent.volumeTrax / 100);
 
-                if (volumeFurniUpdated) this.updateFurniSamplesVolume(this._volumeFurni);
+                if(volumeFurniUpdated) this.updateFurniSamplesVolume(this._volumeFurni);
                 return;
             }
             case NitroSoundEvent.PLAY_SOUND: {
@@ -122,7 +122,7 @@ export class SoundManager extends NitroManager implements ISoundManager
     {
         let sample = this._internalSamples.getValue(code);
 
-        if (!sample)
+        if(!sample)
         {
             const sampleUrl = NitroConfiguration.getValue<string>('sounds.url');
 
@@ -137,7 +137,7 @@ export class SoundManager extends NitroManager implements ISoundManager
     {
         let sample = this._furniSamples.getValue(code);
 
-        if (!sample)
+        if(!sample)
         {
             const sampleUrl = NitroConfiguration.getValue<string>('external.samples.url');
 
@@ -145,7 +145,7 @@ export class SoundManager extends NitroManager implements ISoundManager
             this._furniSamples.add(code, sample);
         }
 
-        if (!this._furnitureBeingPlayed.hasKey(objectId)) this._furnitureBeingPlayed.add(objectId, code);
+        if(!this._furnitureBeingPlayed.hasKey(objectId)) this._furnitureBeingPlayed.add(objectId, code);
 
         sample.onended = (event) =>
         {
@@ -169,7 +169,7 @@ export class SoundManager extends NitroManager implements ISoundManager
     {
         const sample = this._internalSamples.getValue(code);
 
-        if (!sample) return;
+        if(!sample) return;
 
         try
         {
@@ -185,13 +185,13 @@ export class SoundManager extends NitroManager implements ISoundManager
     {
         const furnitureBeingPlayed = this._furnitureBeingPlayed.getValue(objectId);
 
-        if (!furnitureBeingPlayed) return;
+        if(!furnitureBeingPlayed) return;
 
         const sample = this._furniSamples.getValue(furnitureBeingPlayed);
 
         this._furnitureBeingPlayed.remove(objectId);
 
-        if (!sample) return;
+        if(!sample) return;
 
         try
         {

@@ -33,7 +33,7 @@ export class Interval extends Motion
 
         const elapsed = ((time - this._startTimeMs) / this._duration);
 
-        if (elapsed < 1)
+        if(elapsed < 1)
         {
             this.update(elapsed);
         }

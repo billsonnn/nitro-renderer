@@ -18,9 +18,9 @@ export class FurnitureCuckooClockLogic extends FurnitureMultiStateLogic
     {
         super.processUpdateMessage(message);
 
-        if (message instanceof ObjectDataUpdateMessage)
+        if(message instanceof ObjectDataUpdateMessage)
         {
-            if ((this._state !== -1) && (message.state !== this._state))
+            if((this._state !== -1) && (message.state !== this._state))
             {
                 this.dispatchSoundEvent(this.object.location.z);
             }

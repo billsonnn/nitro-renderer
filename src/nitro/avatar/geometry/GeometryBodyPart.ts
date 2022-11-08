@@ -20,11 +20,11 @@ export class GeometryBodyPart extends Node3D
         this._parts = new Map();
         this._dynamicParts = new Map();
 
-        if (k.items && (k.items.length > 0))
+        if(k.items && (k.items.length > 0))
         {
-            for (const item of k.items)
+            for(const item of k.items)
             {
-                if (!item) continue;
+                if(!item) continue;
 
                 const geometryItem = new GeometryItem(item);
 
@@ -38,13 +38,13 @@ export class GeometryBodyPart extends Node3D
         const existing = this._dynamicParts.get(k);
         const parts: GeometryItem[] = [];
 
-        if (existing)
+        if(existing)
         {
-            for (const index in existing)
+            for(const index in existing)
             {
                 const item = existing[index];
 
-                if (!item) continue;
+                if(!item) continue;
 
                 parts.push(item);
             }
@@ -57,24 +57,24 @@ export class GeometryBodyPart extends Node3D
     {
         const ids: string[] = [];
 
-        for (const part of this._parts.values())
+        for(const part of this._parts.values())
         {
-            if (!part) continue;
+            if(!part) continue;
 
             ids.push(part.id);
         }
 
-        if (k)
+        if(k)
         {
             const existing = this._dynamicParts.get(k);
 
-            if (existing)
+            if(existing)
             {
-                for (const index in existing)
+                for(const index in existing)
                 {
                     const part = existing[index];
 
-                    if (!part) continue;
+                    if(!part) continue;
 
                     ids.push(part.id);
                 }
@@ -93,11 +93,11 @@ export class GeometryBodyPart extends Node3D
 
     public addPart(k: any, _arg_2: IAvatarImage): boolean
     {
-        if (this.hasPart(k.id, _arg_2)) return false;
+        if(this.hasPart(k.id, _arg_2)) return false;
 
         let existing = this._dynamicParts.get(_arg_2);
 
-        if (!existing)
+        if(!existing)
         {
             existing = {};
 
@@ -113,7 +113,7 @@ export class GeometryBodyPart extends Node3D
     {
         let existingPart = (this._parts.get(k) || null);
 
-        if (!existingPart && (this._dynamicParts.get(_arg_2) !== undefined))
+        if(!existingPart && (this._dynamicParts.get(_arg_2) !== undefined))
         {
             existingPart = (this._dynamicParts.get(_arg_2)[k] || null);
         }
@@ -125,9 +125,9 @@ export class GeometryBodyPart extends Node3D
     {
         const parts: [number, GeometryItem][] = [];
 
-        for (const part of this._parts.values())
+        for(const part of this._parts.values())
         {
-            if (!part) continue;
+            if(!part) continue;
 
             part.applyTransform(k);
 
@@ -136,13 +136,13 @@ export class GeometryBodyPart extends Node3D
 
         const existingDynamic = this._dynamicParts.get(_arg_4);
 
-        if (existingDynamic)
+        if(existingDynamic)
         {
-            for (const index in existingDynamic)
+            for(const index in existingDynamic)
             {
                 const part = existingDynamic[index];
 
-                if (!part) continue;
+                if(!part) continue;
 
                 part.applyTransform(k);
 
@@ -155,18 +155,18 @@ export class GeometryBodyPart extends Node3D
             const partA = a[0];
             const partB = b[0];
 
-            if (partA < partB) return -1;
+            if(partA < partB) return -1;
 
-            if (partA > partB) return 1;
+            if(partA > partB) return 1;
 
             return 0;
         });
 
         const partIds: string[] = [];
 
-        for (const part of parts)
+        for(const part of parts)
         {
-            if (!part) continue;
+            if(!part) continue;
 
             partIds.push(part[1].id);
         }

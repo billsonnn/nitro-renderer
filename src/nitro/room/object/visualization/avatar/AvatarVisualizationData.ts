@@ -25,7 +25,7 @@ export class AvatarVisualizationData extends Disposable implements IObjectVisual
     {
         let avatarImage: IAvatarImage = null;
 
-        if (size > 48) avatarImage = this._avatarRenderer.createAvatarImage(figure, AvatarScaleType.LARGE, gender, avatarListener, effectListener);
+        if(size > 48) avatarImage = this._avatarRenderer.createAvatarImage(figure, AvatarScaleType.LARGE, gender, avatarListener, effectListener);
         else avatarImage = this._avatarRenderer.createAvatarImage(figure, AvatarScaleType.SMALL, gender, avatarListener, effectListener);
 
         return avatarImage;
@@ -33,7 +33,7 @@ export class AvatarVisualizationData extends Disposable implements IObjectVisual
 
     public getAvatarRendererAsset(name: string): Texture<Resource>
     {
-        if (!this._avatarRenderer) return null;
+        if(!this._avatarRenderer) return null;
 
         return this._avatarRenderer.assets.getTexture(name);
     }

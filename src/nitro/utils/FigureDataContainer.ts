@@ -50,13 +50,13 @@
 
     private parseFigureString(k: string): void
     {
-        if (!k) return;
+        if(!k) return;
 
-        for (const set of k.split('.'))
+        for(const set of k.split('.'))
         {
             const _local_3 = set.split('-');
 
-            if (_local_3.length > 0)
+            if(_local_3.length > 0)
             {
                 const part = _local_3[0];
                 const setId = parseInt(_local_3[1]);
@@ -64,14 +64,14 @@
 
                 let i = 2;
 
-                while (i < _local_3.length)
+                while(i < _local_3.length)
                 {
                     colors.push(parseInt(_local_3[i]));
 
                     i++;
                 }
 
-                if (!colors.length) colors.push(0);
+                if(!colors.length) colors.push(0);
 
                 this.savePartSetId(part, setId, false);
                 this.savePartSetColourId(part, colors, false);
@@ -86,14 +86,14 @@
 
     public getPartSetId(k: string): number
     {
-        if (this.hasSetType(k)) return this._data.get(k);
+        if(this.hasSetType(k)) return this._data.get(k);
 
         return -1;
     }
 
     public getColourIds(k: string): number[]
     {
-        if (this._colors.get(k)) return this._colors.get(k);
+        if(this._colors.get(k)) return this._colors.get(k);
 
         return [];
     }
@@ -104,24 +104,24 @@
 
         const sets: string[] = [];
 
-        for (const [key, value] of this._data.entries())
+        for(const [key, value] of this._data.entries())
         {
             let set = ((key + '-') + value);
 
             const colors = this._colors.get(key);
 
-            if (colors) for (const color of colors) set = (set + ('-' + color));
+            if(colors) for(const color of colors) set = (set + ('-' + color));
 
             sets.push(set);
         }
 
         let i = 0;
 
-        while (i < sets.length)
+        while(i < sets.length)
         {
             figure = (figure + sets[i]);
 
-            if (i < (sets.length - 1)) figure = (figure + '.');
+            if(i < (sets.length - 1)) figure = (figure + '.');
 
             i++;
         }
@@ -137,7 +137,7 @@
 
     private savePartSetId(k: string, _arg_2: number, _arg_3: boolean = true): void
     {
-        switch (k)
+        switch(k)
         {
             case FigureDataContainer.HD:
             case FigureDataContainer.HAIR:
@@ -152,7 +152,7 @@
             case FigureDataContainer.TROUSERS:
             case FigureDataContainer.SHOES:
             case FigureDataContainer.TROUSER_ACCESSORIES:
-                if (_arg_2 >= 0)
+                if(_arg_2 >= 0)
                 {
                     this._data.set(k, _arg_2);
                 }
@@ -165,7 +165,7 @@
 
     public savePartSetColourId(k: string, _arg_2: number[], _arg_3: boolean = true): void
     {
-        switch (k)
+        switch(k)
         {
             case FigureDataContainer.HD:
             case FigureDataContainer.HAIR:
@@ -192,23 +192,23 @@
         let figure = '';
         const sets: string[] = [];
 
-        for (const part of partSets)
+        for(const part of partSets)
         {
             const colors = this._colors.get(part);
 
-            if (colors)
+            if(colors)
             {
                 let setId = this._data.get(part);
 
-                if (part === FigureDataContainer.HD) setId = k;
+                if(part === FigureDataContainer.HD) setId = k;
 
                 let set = ((part + '-') + setId);
 
-                if (setId >= 0)
+                if(setId >= 0)
                 {
                     let i = 0;
 
-                    while (i < colors.length)
+                    while(i < colors.length)
                     {
                         set = (set + ('-' + colors[i]));
 
@@ -222,11 +222,11 @@
 
         let i = 0;
 
-        while (i < sets.length)
+        while(i < sets.length)
         {
             figure = (figure + sets[i]);
 
-            if (i < (sets.length - 1)) figure = (figure + '.');
+            if(i < (sets.length - 1)) figure = (figure + '.');
 
             i++;
         }

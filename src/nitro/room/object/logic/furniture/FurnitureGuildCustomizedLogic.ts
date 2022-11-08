@@ -27,11 +27,11 @@ export class FurnitureGuildCustomizedLogic extends FurnitureMultiStateLogic
     {
         super.processUpdateMessage(message);
 
-        if (message instanceof ObjectDataUpdateMessage)
+        if(message instanceof ObjectDataUpdateMessage)
         {
             const data = message.data;
 
-            if (data instanceof StringDataType)
+            if(data instanceof StringDataType)
             {
                 this.updateGroupId(data.getValue(FurnitureGuildCustomizedLogic.GROUPID_KEY));
                 this.updateBadge(data.getValue(FurnitureGuildCustomizedLogic.BADGE_KEY));
@@ -39,9 +39,9 @@ export class FurnitureGuildCustomizedLogic extends FurnitureMultiStateLogic
             }
         }
 
-        else if (message instanceof ObjectGroupBadgeUpdateMessage)
+        else if(message instanceof ObjectGroupBadgeUpdateMessage)
         {
-            if (message.assetName !== 'loading_icon')
+            if(message.assetName !== 'loading_icon')
             {
                 this.object.model.setValue(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_ASSET_NAME, message.assetName);
 
@@ -49,9 +49,9 @@ export class FurnitureGuildCustomizedLogic extends FurnitureMultiStateLogic
             }
         }
 
-        else if (message instanceof ObjectSelectedMessage)
+        else if(message instanceof ObjectSelectedMessage)
         {
-            if (!message.selected)
+            if(!message.selected)
             {
                 this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CLOSE_FURNI_CONTEXT_MENU, this.object));
             }
@@ -76,9 +76,9 @@ export class FurnitureGuildCustomizedLogic extends FurnitureMultiStateLogic
 
     public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
     {
-        if (!event || !geometry || !this.object) return;
+        if(!event || !geometry || !this.object) return;
 
-        switch (event.type)
+        switch(event.type)
         {
             case MouseEventType.MOUSE_CLICK:
                 this.openContextMenu();

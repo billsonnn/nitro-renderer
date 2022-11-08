@@ -25,11 +25,11 @@ export class RoomEnterEffect
 
     public static turnVisualizationOn(): void
     {
-        if ((RoomEnterEffect._state === RoomEnterEffect.STATE_NOT_INITIALIZED) || (RoomEnterEffect._state === RoomEnterEffect.STATE_OVER)) return;
+        if((RoomEnterEffect._state === RoomEnterEffect.STATE_NOT_INITIALIZED) || (RoomEnterEffect._state === RoomEnterEffect.STATE_OVER)) return;
 
         const k = (GetTickerTime() - RoomEnterEffect._initializationTimeMs);
 
-        if (k > (RoomEnterEffect._startDelayMs + RoomEnterEffect._effectDurationMs))
+        if(k > (RoomEnterEffect._startDelayMs + RoomEnterEffect._effectDurationMs))
         {
             RoomEnterEffect._state = RoomEnterEffect.STATE_OVER;
 
@@ -38,7 +38,7 @@ export class RoomEnterEffect
 
         RoomEnterEffect._visualizationOn = true;
 
-        if (k < RoomEnterEffect._startDelayMs)
+        if(k < RoomEnterEffect._startDelayMs)
         {
             RoomEnterEffect._state = RoomEnterEffect.STATE_START_DELAY;
 
@@ -61,7 +61,7 @@ export class RoomEnterEffect
 
     public static isRunning(): boolean
     {
-        if ((RoomEnterEffect._state === RoomEnterEffect.STATE_START_DELAY) || (RoomEnterEffect._state === RoomEnterEffect.STATE_RUNNING)) return true;
+        if((RoomEnterEffect._state === RoomEnterEffect.STATE_START_DELAY) || (RoomEnterEffect._state === RoomEnterEffect.STATE_RUNNING)) return true;
 
         return false;
     }

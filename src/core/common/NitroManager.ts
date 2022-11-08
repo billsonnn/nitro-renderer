@@ -25,7 +25,7 @@ export class NitroManager extends Disposable implements INitroManager
 
     public init(): void
     {
-        if (this._isLoaded || this._isLoading || this.isDisposing) return;
+        if(this._isLoaded || this._isLoading || this.isDisposing) return;
 
         this._isLoading = true;
 
@@ -42,7 +42,7 @@ export class NitroManager extends Disposable implements INitroManager
 
     protected onDispose(): void
     {
-        if (this._events) this._events.dispose();
+        if(this._events) this._events.dispose();
 
         super.onDispose();
     }

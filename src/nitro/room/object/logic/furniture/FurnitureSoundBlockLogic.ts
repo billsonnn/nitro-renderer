@@ -31,9 +31,9 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
     {
         super.initialize(asset);
 
-        if (asset.logic)
+        if(asset.logic)
         {
-            if (asset.logic.soundSample)
+            if(asset.logic.soundSample)
             {
                 this._sampleId = asset.logic.soundSample.id;
                 this._noPitch = asset.logic.soundSample.noPitch;
@@ -45,7 +45,7 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
 
     protected onDispose(): void
     {
-        if (this._state !== FurnitureSoundBlockLogic.STATE_UNINITIALIZED)
+        if(this._state !== FurnitureSoundBlockLogic.STATE_UNINITIALIZED)
         {
             this.eventDispatcher.dispatchEvent(new RoomObjectSamplePlaybackEvent(RoomObjectSamplePlaybackEvent.ROOM_OBJECT_DISPOSED, this.object, this._sampleId));
         }
@@ -57,27 +57,27 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
     {
         super.processUpdateMessage(message);
 
-        if (message instanceof ObjectDataUpdateMessage) this.updateSoundBlockMessage(message);
+        if(message instanceof ObjectDataUpdateMessage) this.updateSoundBlockMessage(message);
     }
 
     private updateSoundBlockMessage(message: ObjectDataUpdateMessage): void
     {
-        if (!message) return;
+        if(!message) return;
 
         const model = this.object && this.object.model;
         const location = this.object && this.object.location;
 
-        if (!model || !location) return;
+        if(!model || !location) return;
 
-        if (this._state === FurnitureSoundBlockLogic.STATE_UNINITIALIZED && model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) === 1)
+        if(this._state === FurnitureSoundBlockLogic.STATE_UNINITIALIZED && model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) === 1)
         {
             this._lastLocZ = location.z;
             this.eventDispatcher.dispatchEvent(new RoomObjectSamplePlaybackEvent(RoomObjectSamplePlaybackEvent.ROOM_OBJECT_INITIALIZED, this.object, this._sampleId, this.getPitchForHeight(location.z)));
         }
 
-        if (this._state !== FurnitureSoundBlockLogic.STATE_UNINITIALIZED && model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) === 1)
+        if(this._state !== FurnitureSoundBlockLogic.STATE_UNINITIALIZED && model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) === 1)
         {
-            if (this._lastLocZ !== location.z)
+            if(this._lastLocZ !== location.z)
             {
                 this._lastLocZ = location.z;
                 this.eventDispatcher.dispatchEvent(new RoomObjectSamplePlaybackEvent(RoomObjectSamplePlaybackEvent.CHANGE_PITCH, this.object, this._sampleId, this.getPitchForHeight(location.z)));
@@ -85,7 +85,7 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
 
         }
 
-        if (this._state !== FurnitureSoundBlockLogic.STATE_UNINITIALIZED && message.state !== this._state)
+        if(this._state !== FurnitureSoundBlockLogic.STATE_UNINITIALIZED && message.state !== this._state)
         {
             this.playSoundAt(location.z);
         }
@@ -95,7 +95,7 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
 
     private playSoundAt(height: number): void
     {
-        if (!this.object) return;
+        if(!this.object) return;
 
         const pitch: number = this.getPitchForHeight(height);
 
@@ -106,11 +106,11 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
 
     private getPitchForHeight(height: number): number
     {
-        if (this._noPitch) return 1;
+        if(this._noPitch) return 1;
 
         let heightScaled: number = (height * 2);
 
-        if (heightScaled > FurnitureSoundBlockLogic.HIGHEST_SEMITONE)
+        if(heightScaled > FurnitureSoundBlockLogic.HIGHEST_SEMITONE)
         {
             heightScaled = Math.min(0, (FurnitureSoundBlockLogic.LOWEST_SEMITONE + ((heightScaled - FurnitureSoundBlockLogic.HIGHEST_SEMITONE) - 1)));
         }

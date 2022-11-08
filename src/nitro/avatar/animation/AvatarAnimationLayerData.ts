@@ -29,13 +29,13 @@ export class AvatarAnimationLayerData implements IAnimationLayerData
         this._base = (k.base || '');
         this._items = new Map();
 
-        if (k.items) for (const _local_4 of k.items) this._items.set(_local_4.id, _local_4.base);
+        if(k.items) for(const _local_4 of k.items) this._items.set(_local_4.id, _local_4.base);
 
         let _local_5 = '';
 
-        if (this._base !== '') _local_5 = this.baseAsInt().toString();
+        if(this._base !== '') _local_5 = this.baseAsInt().toString();
 
-        if (_arg_3)
+        if(_arg_3)
         {
             this._action = new ActiveActionData(_arg_3.state, this.base);
             this._action.definition = _arg_3;
@@ -52,7 +52,7 @@ export class AvatarAnimationLayerData implements IAnimationLayerData
         let k = 0;
         let index = 0;
 
-        while (index < this._base.length)
+        while(index < this._base.length)
         {
             k = (k + this._base.charCodeAt(index));
 

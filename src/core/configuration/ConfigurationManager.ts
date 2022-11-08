@@ -32,7 +32,7 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
     private loadNextConfiguration(): void
     {
-        if (!this._pendingUrls.length)
+        if(!this._pendingUrls.length)
         {
             this.dispatchConfigurationEvent(ConfigurationEvent.LOADED);
 
@@ -44,7 +44,7 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
     public loadConfigurationFromUrl(url: string): void
     {
-        if (!url || (url === ''))
+        if(!url || (url === ''))
         {
             this.dispatchConfigurationEvent(ConfigurationEvent.FAILED);
 
@@ -59,13 +59,13 @@ export class ConfigurationManager extends NitroManager implements IConfiguration
 
     private onConfigurationLoaded(data: { [index: string]: any }, url: string): void
     {
-        if (!data) return;
+        if(!data) return;
 
-        if (NitroConfiguration.parseConfiguration(data))
+        if(NitroConfiguration.parseConfiguration(data))
         {
             const index = this._pendingUrls.indexOf(url);
 
-            if (index >= 0) this._pendingUrls.splice(index, 1);
+            if(index >= 0) this._pendingUrls.splice(index, 1);
 
             this.loadNextConfiguration();
 

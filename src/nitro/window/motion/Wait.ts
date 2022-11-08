@@ -32,6 +32,6 @@ export class Wait extends Motion
 
         this._complete = ((k - this._startTimeMs) >= this._waitTimeMs);
 
-        if (this._complete) this.stop();
+        if(this._complete) this.stop();
     }
 }

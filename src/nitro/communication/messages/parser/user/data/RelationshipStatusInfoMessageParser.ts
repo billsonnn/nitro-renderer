@@ -17,14 +17,14 @@ export class RelationshipStatusInfoMessageParser implements IMessageParser
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        if (!wrapper) return false;
+        if(!wrapper) return false;
 
         this._userId = wrapper.readInt();
         this._relationshipStatusMap = new AdvancedMap();
 
         const relationshipsCount = wrapper.readInt();
 
-        for (let i = 0; i < relationshipsCount; i++)
+        for(let i = 0; i < relationshipsCount; i++)
         {
             const relationship = new RelationshipStatusInfo(wrapper);
 

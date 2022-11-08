@@ -26,7 +26,7 @@ export class ActiveActionData implements IActiveActionData
 
     public get id(): string
     {
-        if (!this._definition) return '';
+        if(!this._definition) return '';
 
         return this._definition.id + '_' + this._actionParameter;
     }

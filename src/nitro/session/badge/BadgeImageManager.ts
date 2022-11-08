@@ -43,21 +43,21 @@ export class BadgeImageManager implements IDisposable
 
     public init(): void
     {
-        if (this._sessionDataManager && this._sessionDataManager.communication)
+        if(this._sessionDataManager && this._sessionDataManager.communication)
         {
             this._messages = [
                 new GroupBadgePartsEvent(this.onGroupBadgePartsEvent.bind(this))
             ];
 
-            for (const message of this._messages) this._sessionDataManager.communication.registerMessageEvent(message);
+            for(const message of this._messages) this._sessionDataManager.communication.registerMessageEvent(message);
         }
     }
 
     public dispose(): void
     {
-        if (this._messages && this._messages.length)
+        if(this._messages && this._messages.length)
         {
-            for (const message of this._messages) this._sessionDataManager.communication.removeMessageEvent(message);
+            for(const message of this._messages) this._sessionDataManager.communication.removeMessageEvent(message);
 
             this._messages = null;
         }
@@ -69,7 +69,7 @@ export class BadgeImageManager implements IDisposable
     {
         let badge = this.getBadgeTexture(badgeName, type);
 
-        if (!badge && load) badge = this.getBadgePlaceholder();
+        if(!badge && load) badge = this.getBadgePlaceholder();
 
         return badge;
     }
@@ -83,7 +83,7 @@ export class BadgeImageManager implements IDisposable
 
     public loadBadgeImage(badgeName: string, type: string = BadgeImageManager.NORMAL_BADGE): string
     {
-        if (this._assets.getTexture(this.getBadgeUrl(badgeName, type))) return badgeName;
+        if(this._assets.getTexture(this.getBadgeUrl(badgeName, type))) return badgeName;
 
         this.getBadgeTexture(badgeName, type);
 
@@ -94,38 +94,38 @@ export class BadgeImageManager implements IDisposable
     {
         const url = this.getBadgeUrl(badgeName, type);
 
-        if (!url || !url.length) return null;
+        if(!url || !url.length) return null;
 
         const existing = this._assets.getTexture(url);
 
-        if (existing) return existing.clone();
+        if(existing) return existing.clone();
 
-        if (type === BadgeImageManager.NORMAL_BADGE)
+        if(type === BadgeImageManager.NORMAL_BADGE)
         {
-            if (this._requestedBadges.get(badgeName)) return null;
+            if(this._requestedBadges.get(badgeName)) return null;
 
             this._requestedBadges.set(badgeName, true);
 
             this._assets.downloadAsset(url, (flag: boolean) =>
             {
-                if (flag)
+                if(flag)
                 {
                     this._requestedBadges.delete(badgeName);
 
                     const texture = this._assets.getTexture(url);
 
-                    if (texture && this._sessionDataManager) this._sessionDataManager.events.dispatchEvent(new BadgeImageReadyEvent(badgeName, texture.clone()));
+                    if(texture && this._sessionDataManager) this._sessionDataManager.events.dispatchEvent(new BadgeImageReadyEvent(badgeName, texture.clone()));
                 }
             });
         }
 
-        else if (type === BadgeImageManager.GROUP_BADGE)
+        else if(type === BadgeImageManager.GROUP_BADGE)
         {
-            if (this._groupBadgesQueue.get(badgeName)) return;
+            if(this._groupBadgesQueue.get(badgeName)) return;
 
             this._groupBadgesQueue.set(badgeName, true);
 
-            if (this._readyToGenerateGroupBadges) this.loadGroupBadge(badgeName);
+            if(this._readyToGenerateGroupBadges) this.loadGroupBadge(badgeName);
         }
 
         return null;
@@ -136,7 +136,7 @@ export class BadgeImageManager implements IDisposable
         const url = (NitroConfiguration.getValue<string>('images.url') + '/loading_icon.png');
         const existing = this._assets.getTexture(url);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         return existing.clone();
     }
@@ -145,7 +145,7 @@ export class BadgeImageManager implements IDisposable
     {
         let url = null;
 
-        switch (type)
+        switch(type)
         {
             case BadgeImageManager.NORMAL_BADGE:
                 url = (NitroConfiguration.getValue<string>('badge.asset.url')).replace('%badgename%', badge);
@@ -163,7 +163,7 @@ export class BadgeImageManager implements IDisposable
         const groupBadge = new GroupBadge(badgeCode);
         const partMatches = [...badgeCode.matchAll(/[b|s][0-9]{4,6}/g)];
 
-        for (const partMatch of partMatches)
+        for(const partMatch of partMatches)
         {
             const partCode = partMatch[0];
             const shortMethod = (partCode.length === 6);
@@ -189,28 +189,28 @@ export class BadgeImageManager implements IDisposable
 
         container.addChild(tempSprite);
 
-        for (const part of groupBadge.parts)
+        for(const part of groupBadge.parts)
         {
             let isFirst = true;
 
             const partNames = ((part.type === 'b') ? this._groupBases.get(part.key) : this._groupSymbols.get(part.key));
 
-            if (partNames)
+            if(partNames)
             {
-                for (const partName of partNames)
+                for(const partName of partNames)
                 {
-                    if (!partName || !partName.length) continue;
+                    if(!partName || !partName.length) continue;
 
                     const texture = this._assets.getTexture(`badgepart_${partName}`);
 
-                    if (!texture) continue;
+                    if(!texture) continue;
 
                     const { x, y } = part.calculatePosition(texture);
                     const sprite = new NitroSprite(texture);
 
                     sprite.position.set(x, y);
 
-                    if (isFirst) sprite.tint = parseInt(this._groupPartColors.get(part.color), 16);
+                    if(isFirst) sprite.tint = parseInt(this._groupPartColors.get(part.color), 16);
 
                     isFirst = false;
 
@@ -225,16 +225,16 @@ export class BadgeImageManager implements IDisposable
         const texture = TextureUtils.generateTexture(container);
         this._assets.setTexture(groupBadge.code, texture);
 
-        if (this._sessionDataManager) this._sessionDataManager.events.dispatchEvent(new BadgeImageReadyEvent(groupBadge.code, texture));
+        if(this._sessionDataManager) this._sessionDataManager.events.dispatchEvent(new BadgeImageReadyEvent(groupBadge.code, texture));
     }
 
     private onGroupBadgePartsEvent(event: GroupBadgePartsEvent): void
     {
-        if (!event) return;
+        if(!event) return;
 
         const data = event.getParser();
 
-        if (!data) return;
+        if(!data) return;
 
         data.bases.forEach((names, id) => this._groupBases.set(id, names.map(val => val.replace('.png', '').replace('.gif', ''))));
 
@@ -243,7 +243,7 @@ export class BadgeImageManager implements IDisposable
         this._groupPartColors = data.partColors;
         this._readyToGenerateGroupBadges = true;
 
-        for (const badgeCode of this._groupBadgesQueue.keys()) this.loadGroupBadge(badgeCode);
+        for(const badgeCode of this._groupBadgesQueue.keys()) this.loadGroupBadge(badgeCode);
     }
 
     public get disposed(): boolean

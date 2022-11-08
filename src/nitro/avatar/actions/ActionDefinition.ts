@@ -41,22 +41,22 @@ export class ActionDefinition implements IActionDefinition
         this._defaultParameterValue = '';
         this._canvasOffsets = null;
 
-        if (data.params && (data.params.length > 0))
+        if(data.params && (data.params.length > 0))
         {
-            for (const param of data.params)
+            for(const param of data.params)
             {
-                if (!param) continue;
+                if(!param) continue;
 
-                if (param.id === 'default') this._defaultParameterValue = param.value;
+                if(param.id === 'default') this._defaultParameterValue = param.value;
                 else this._params.set(param.id, param.value);
             }
         }
 
-        if (data.types && (data.types.length > 0))
+        if(data.types && (data.types.length > 0))
         {
-            for (const type of data.types)
+            for(const type of data.types)
             {
-                if (!type) continue;
+                if(!type) continue;
 
                 const action = new ActionType(type);
 
@@ -67,11 +67,11 @@ export class ActionDefinition implements IActionDefinition
 
     public setOffsets(k: string, _arg_2: number, _arg_3: number[]): void
     {
-        if (!this._canvasOffsets) this._canvasOffsets = new Map();
+        if(!this._canvasOffsets) this._canvasOffsets = new Map();
 
         let existing = this._canvasOffsets.get(k);
 
-        if (!existing)
+        if(!existing)
         {
             existing = new Map();
 
@@ -83,33 +83,33 @@ export class ActionDefinition implements IActionDefinition
 
     public getOffsets(k: string, _arg_2: number): number[]
     {
-        if (!this._canvasOffsets) return null;
+        if(!this._canvasOffsets) return null;
 
         const existing = this._canvasOffsets.get(k);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         return existing.get(_arg_2);
     }
 
     public getType(id: string): ActionType
     {
-        if (!id) return null;
+        if(!id) return null;
 
         const existing = this._types.get(parseInt(id));
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         return existing;
     }
 
     public getParameterValue(id: string): string
     {
-        if (!id) return '';
+        if(!id) return '';
 
         const existing = this._params.get(id);
 
-        if (!existing) return this._defaultParameterValue;
+        if(!existing) return this._defaultParameterValue;
 
         return existing;
     }
@@ -121,33 +121,33 @@ export class ActionDefinition implements IActionDefinition
 
     private getTypePrevents(type: string): string[]
     {
-        if (!type) return [];
+        if(!type) return [];
 
         const existing = this._types.get(parseInt(type));
 
-        if (!existing) return [];
+        if(!existing) return [];
 
         return existing.prevents;
     }
 
     public getPreventHeadTurn(k: string): boolean
     {
-        if (!k) return this._preventHeadTurn;
+        if(!k) return this._preventHeadTurn;
 
         const type = this.getType(k);
 
-        if (!type) return this._preventHeadTurn;
+        if(!type) return this._preventHeadTurn;
 
         return type.preventHeadTurn;
     }
 
     public isAnimated(k: string): boolean
     {
-        if (!k) return true;
+        if(!k) return true;
 
         const type = this.getType(k);
 
-        if (!type) return true;
+        if(!type) return true;
 
         return type.isAnimated;
     }

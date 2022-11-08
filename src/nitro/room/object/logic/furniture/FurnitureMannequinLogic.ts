@@ -21,7 +21,7 @@ export class FurnitureMannequinLogic extends FurnitureLogic
     {
         super.processUpdateMessage(message);
 
-        if (message instanceof ObjectDataUpdateMessage)
+        if(message instanceof ObjectDataUpdateMessage)
         {
             message.data.writeRoomObjectModel(this.object.model);
 
@@ -31,7 +31,7 @@ export class FurnitureMannequinLogic extends FurnitureLogic
 
     private processObjectData(): void
     {
-        if (!this.object || !this.object.model) return;
+        if(!this.object || !this.object.model) return;
 
         const data = new MapDataType();
 
@@ -44,7 +44,7 @@ export class FurnitureMannequinLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if (!this.object || !this.eventDispatcher) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.MANNEQUIN, this.object));
     }

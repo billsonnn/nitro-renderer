@@ -133,11 +133,11 @@ export class IssueMessageData
     public dispose(): void
     {
 
-        if (this.disposed)
+        if(this.disposed)
         {
             return;
         }
-        for (const k of this._patterns)
+        for(const k of this._patterns)
         {
             k.dispose();
         }

@@ -26,7 +26,7 @@ export class AnimationManager implements IAnimationManager
     {
         const existing = this._animations.get(animation);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         return existing;
     }
@@ -35,7 +35,7 @@ export class AnimationManager implements IAnimationManager
     {
         const existing = this.getAnimation(animation);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         return existing.getLayerData(frameCount, spriteId);
     }

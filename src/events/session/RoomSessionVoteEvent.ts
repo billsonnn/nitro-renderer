@@ -21,7 +21,7 @@ export class RoomSessionVoteEvent extends RoomSessionEvent
         this._question = _arg_3;
         this._choices = _arg_4;
         this._SafeStr_7651 = _arg_5;
-        if (this._SafeStr_7651 == null)
+        if(this._SafeStr_7651 == null)
         {
             this._SafeStr_7651 = [];
         }

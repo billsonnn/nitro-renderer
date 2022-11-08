@@ -15,21 +15,21 @@ export class PartSetsData implements IFigureSetData
 
     public parse(data: any): boolean
     {
-        if (data.partSet && (data.partSet.length > 0))
+        if(data.partSet && (data.partSet.length > 0))
         {
-            for (const part of data.partSet)
+            for(const part of data.partSet)
             {
-                if (!part) continue;
+                if(!part) continue;
 
                 this._parts.set(part.setType, new PartDefinition(part));
             }
         }
 
-        if (data.activePartSets && (data.activePartSets.length > 0))
+        if(data.activePartSets && (data.activePartSets.length > 0))
         {
-            for (const activePart of data.activePartSets)
+            for(const activePart of data.activePartSets)
             {
-                if (!activePart) continue;
+                if(!activePart) continue;
 
                 this._activePartSets.set(activePart.id, new ActivePartSet(activePart));
             }
@@ -40,21 +40,21 @@ export class PartSetsData implements IFigureSetData
 
     public appendJSON(data: any): boolean
     {
-        if (data.partSet && (data.partSet.length > 0))
+        if(data.partSet && (data.partSet.length > 0))
         {
-            for (const part of data.partSet)
+            for(const part of data.partSet)
             {
-                if (!part) continue;
+                if(!part) continue;
 
                 this._parts.set(part.setType, new PartDefinition(part));
             }
         }
 
-        if (data.activePartSets && (data.activePartSets.length > 0))
+        if(data.activePartSets && (data.activePartSets.length > 0))
         {
-            for (const activePart of data.activePartSets)
+            for(const activePart of data.activePartSets)
             {
-                if (!activePart) continue;
+                if(!activePart) continue;
 
                 this._activePartSets.set(activePart.id, new ActivePartSet(activePart));
             }
@@ -67,7 +67,7 @@ export class PartSetsData implements IFigureSetData
     {
         const activePartSet = this._activePartSets.get(k.activePartSet);
 
-        if (!activePartSet) return [];
+        if(!activePartSet) return [];
 
         return activePartSet.parts;
     }
@@ -76,7 +76,7 @@ export class PartSetsData implements IFigureSetData
     {
         const existing = this._parts.get(part);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         return existing;
     }
@@ -87,7 +87,7 @@ export class PartSetsData implements IFigureSetData
 
         let existing = this._parts.get(_local_2);
 
-        if (!existing)
+        if(!existing)
         {
             existing = new PartDefinition(k);
 
@@ -101,7 +101,7 @@ export class PartSetsData implements IFigureSetData
     {
         const existing = this._activePartSets.get(k.activePartSet);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         return existing;
     }
