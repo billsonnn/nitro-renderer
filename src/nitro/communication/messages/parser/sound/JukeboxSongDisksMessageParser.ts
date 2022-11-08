@@ -1,13 +1,14 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IAdvancedMap, IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { AdvancedMap } from '../../../../../core';
 
 export class JukeboxSongDisksMessageParser implements IMessageParser
 {
-    private _songDisks: Map<number, number> = new Map();
+    private _songDisks: IAdvancedMap<number, number> = new AdvancedMap();
     private _maxLength: number;
 
     flush(): boolean
     {
-        this._songDisks.clear();
+        this._songDisks.reset();
         this._maxLength = 0;
         return true;
     }
@@ -19,13 +20,13 @@ export class JukeboxSongDisksMessageParser implements IMessageParser
 
         for(let i = 0; i < count; i++)
         {
-            this._songDisks.set(wrapper.readInt(), wrapper.readInt());
+            this._songDisks.add(wrapper.readInt(), wrapper.readInt());
         }
 
         return true;
     }
 
-    public get songDisks(): Map<number, number>
+    public get songDisks(): IAdvancedMap<number, number>
     {
         return this._songDisks;
     }

@@ -229,6 +229,11 @@
   resolved "https://registry.yarnpkg.com/@types/earcut/-/earcut-2.1.1.tgz#573a0af609f17005c751f6f4ffec49cfe358ea51"
   integrity sha512-w8oigUCDjElRHRRrMvn/spybSMyX8MTkKA5Dv+tS1IE/TgmNZPqUYtvYBXGY8cieSE66gm+szeK+bnbxC2xHTQ==
 
+"@types/howler@^2.2.7":
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/@types/howler/-/howler-2.2.7.tgz#5acfbed57f9e1d99b8dabe1b824729e1c1ea1fae"
+  integrity sha512-PEZldwZqJJw1PWRTpupyC7ajVTZA8aHd8nB/Y0n6zRZi5u8ktYDntsHj13ltEiBRqWwF06pASxBEvCTxniG8eA==
+
 "@types/json-schema@^7.0.9":
   version "7.0.9"
   resolved "https://registry.npmjs.org/@types/json-schema/-/json-schema-7.0.9.tgz"
@@ -711,6 +716,11 @@ has-flag@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/has-flag/-/has-flag-4.0.0.tgz"
   integrity sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==
+
+howler@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/howler/-/howler-2.2.3.tgz#a2eff9b08b586798e7a2ee17a602a90df28715da"
+  integrity sha512-QM0FFkw0LRX1PR8pNzJVAY25JhIWvbKMBFM4gqk+QdV+kPXOhleWGCB6AiAF/goGjIHK2e/nIElplvjQwhr0jg==
 
 ignore@^5.2.0:
   version "5.2.0"

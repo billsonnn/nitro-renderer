@@ -21,6 +21,7 @@
     "postinstall": "node ./post-install.js"
   },
   "dependencies": {
+    "howler": "^2.2.3",
     "@pixi/app": "~6.4.2",
     "@pixi/basis": "~6.4.2",
     "@pixi/canvas-display": "~6.4.2",
@@ -58,6 +59,7 @@
   },
   "devDependencies": {
     "@types/pako": "^1.0.3",
+    "@types/howler": "^2.2.7",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
     "eslint": "^8.20.0",

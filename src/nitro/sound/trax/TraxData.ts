@@ -1,5 +1,6 @@
 import { TraxChannel } from './TraxChannel';
 import { TraxChannelItem } from './TraxChannelItem';
+
 export class TraxData
 {
     private _channels: TraxChannel[];
@@ -8,6 +9,8 @@ export class TraxData
     constructor(data: string)
     {
         this._channels = [];
+        this._metaData = new Map<string, string>();
+
         let channelLines: string[] = [];
 
         const lines: string[] = data.split(':');
@@ -75,17 +78,17 @@ export class TraxData
 
     public get hasMetaData(): boolean
     {
-        return this._metaData.get('meta') !== null;
+        return this._metaData.has('meta');
     }
 
     public get metaCutMode(): boolean
     {
-        return this._metaData.get('c') !== null;
+        return this._metaData.has('c');
     }
 
-    public get metaTempo(): number
+    public get metaTempo(): number | null
     {
-        const tempo: string = this._metaData.get('t');
+        const tempo = this._metaData.get('t');
 
         if(!tempo) return null;
 

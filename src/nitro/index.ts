@@ -8,5 +8,6 @@ export * from './localization';
 export * from './Nitro';
 export * from './room';
 export * from './session';
+export * from './sound';
 export * from './utils';
 export * from './window';
