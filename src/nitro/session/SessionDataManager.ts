@@ -1,5 +1,5 @@
 import { Resource, Texture } from '@pixi/core';
-import { IFurnitureData, IFurnitureDataListener, IGroupInformationManager, IMessageComposer, INitroCommunicationManager, INitroEvent, IProductData, IProductDataListener, ISessionDataManager, NoobnessLevelEnum, SecurityLevel } from '../../api';
+import { IFurnitureData, IFurnitureDataListener, IGroupInformationManager, IMessageComposer, INitroCommunicationManager, INitroEvent, IProductData, IProductDataListener, ISessionDataManager, NitroConfiguration, NoobnessLevelEnum, SecurityLevel } from '../../api';
 import { NitroManager } from '../../core';
 import { MysteryBoxKeysUpdateEvent, NitroSettingsEvent, SessionDataPreferencesEvent, UserNameUpdateEvent } from '../../events';
 import { AvailabilityStatusMessageEvent, ChangeUserNameResultMessageEvent, FigureUpdateEvent, InClientLinkEvent, MysteryBoxKeysEvent, NoobnessLevelMessageEvent, PetRespectComposer, RoomReadyMessageEvent, RoomUnitChatComposer, UserInfoEvent, UserNameChangeMessageEvent, UserPermissionsEvent, UserRespectComposer } from '../communication';
@@ -157,7 +157,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
         this._furnitureData.addEventListener(FurnitureDataLoader.FURNITURE_DATA_READY, this.onFurnitureDataReadyEvent);
 
-        this._furnitureData.loadFurnitureData(Nitro.instance.getConfiguration<string>('furnidata.url'));
+        this._furnitureData.loadFurnitureData(NitroConfiguration.getValue<string>('furnidata.url'));
     }
 
     private loadProductData(): void
@@ -168,7 +168,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
         this._productData.addEventListener(ProductDataLoader.PDP_PRODUCT_DATA_READY, this.onProductDataReadyEvent);
 
-        this._productData.loadProductData(Nitro.instance.getConfiguration<string>('productdata.url'));
+        this._productData.loadProductData(NitroConfiguration.getValue<string>('productdata.url'));
     }
 
     private loadBadgeImageManager(): void
@@ -382,7 +382,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
 
         if (this._noobnessLevel !== NoobnessLevelEnum.OLD_IDENTITY)
         {
-            Nitro.instance.core.configuration.setValue<number>('new.identity', 1);
+            NitroConfiguration.setValue<number>('new.identity', 1);
         }
     }
 

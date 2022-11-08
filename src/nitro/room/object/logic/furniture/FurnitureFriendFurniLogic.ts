@@ -1,7 +1,6 @@
-import { IAssetData, RoomObjectVariable, StringDataType } from '../../../../../api';
+import { ContextMenuEnum, IAssetData, RoomObjectVariable, StringDataType } from '../../../../../api';
 import { RoomObjectWidgetRequestEvent } from '../../../../../events';
 import { RoomObjectUpdateMessage } from '../../../../../room';
-import { ContextMenuEnum } from '../../../../ui';
 import { ObjectDataUpdateMessage } from '../../../messages';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 

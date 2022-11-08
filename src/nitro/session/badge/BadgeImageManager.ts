@@ -1,9 +1,8 @@
 import { Resource, Texture } from '@pixi/core';
-import { IAssetManager, IDisposable, IMessageEvent } from '../../../api';
+import { IAssetManager, IDisposable, IMessageEvent, NitroConfiguration } from '../../../api';
 import { BadgeImageReadyEvent } from '../../../events';
 import { NitroContainer, NitroSprite, NitroTexture, TextureUtils } from '../../../pixi-proxy';
 import { GroupBadgePartsEvent } from '../../communication';
-import { Nitro } from '../../Nitro';
 import { SessionDataManager } from './../SessionDataManager';
 import { BadgeInfo } from './BadgeInfo';
 import { GroupBadge } from './GroupBadge';
@@ -134,7 +133,7 @@ export class BadgeImageManager implements IDisposable
 
     private getBadgePlaceholder(): Texture<Resource>
     {
-        const url = (Nitro.instance.getConfiguration<string>('images.url') + '/loading_icon.png');
+        const url = (NitroConfiguration.getValue<string>('images.url') + '/loading_icon.png');
         const existing = this._assets.getTexture(url);
 
         if (!existing) return null;
@@ -149,7 +148,7 @@ export class BadgeImageManager implements IDisposable
         switch (type)
         {
             case BadgeImageManager.NORMAL_BADGE:
-                url = (Nitro.instance.getConfiguration<string>('badge.asset.url')).replace('%badgename%', badge);
+                url = (NitroConfiguration.getValue<string>('badge.asset.url')).replace('%badgename%', badge);
                 break;
             case BadgeImageManager.GROUP_BADGE:
                 url = badge;

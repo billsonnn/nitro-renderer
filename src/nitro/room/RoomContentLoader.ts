@@ -1,8 +1,8 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Loader, LoaderResource } from '@pixi/loaders';
 import { Spritesheet } from '@pixi/spritesheet';
-import { FurnitureType, IAssetData, IEventDispatcher, IFurnitureData, IFurnitureDataListener, IGraphicAssetCollection, IGraphicAssetGifCollection, INitroLogger, IPetColorResult, IRoomContentListener, IRoomContentLoader, IRoomObject, ISessionDataManager, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, RoomObjectVisualizationType } from '../../api';
-import { GraphicAssetCollection, GraphicAssetGifCollection, NitroBundle, NitroLogger } from '../../core';
+import { FurnitureType, IAssetData, IEventDispatcher, IFurnitureData, IFurnitureDataListener, IGraphicAssetCollection, IGraphicAssetGifCollection, IPetColorResult, IRoomContentListener, IRoomContentLoader, IRoomObject, ISessionDataManager, NitroConfiguration, NitroLogger, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, RoomObjectVisualizationType } from '../../api';
+import { GraphicAssetCollection, GraphicAssetGifCollection, NitroBundle } from '../../core';
 import { NitroEvent } from '../../events';
 import { RoomContentLoadedEvent } from '../../room/events/RoomContentLoadedEvent';
 import { Nitro } from '../Nitro';
@@ -21,7 +21,6 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     public static LOADER_READY: string = 'RCL_LOADER_READY';
     public static MANDATORY_LIBRARIES: string[] = [RoomContentLoader.PLACE_HOLDER, RoomContentLoader.PLACE_HOLDER_WALL, RoomContentLoader.PLACE_HOLDER_PET, RoomContentLoader.ROOM, RoomContentLoader.TILE_CURSOR, RoomContentLoader.SELECTION_ARROW];
 
-    private _logger: INitroLogger;
     private _stateEvents: IEventDispatcher;
     private _sessionDataManager: ISessionDataManager;
     private _waitingForSessionDataManager: boolean;
@@ -49,7 +48,6 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
     constructor()
     {
-        this._logger = new NitroLogger(this.constructor.name);
         this._stateEvents = null;
         this._sessionDataManager = null;
         this._waitingForSessionDataManager = false;
@@ -82,7 +80,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
         this.setFurnitureData();
 
-        for (const [index, name] of Nitro.instance.getConfiguration<string[]>('pet.types').entries()) this._pets[name] = index;
+        for (const [index, name] of NitroConfiguration.getValue<string[]>('pet.types').entries()) this._pets[name] = index;
     }
 
     public dispose(): void
@@ -421,7 +419,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
     public getPetNameForType(type: number): string
     {
-        return Nitro.instance.getConfiguration<string[]>('pet.types')[type] || null;
+        return NitroConfiguration.getValue<string[]>('pet.types')[type] || null;
     }
 
     public isLoaderType(type: string): boolean
@@ -474,7 +472,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
             {
                 image.onload = null;
 
-                this._logger.error('Failed to download asset', url);
+                NitroLogger.error('Failed to download asset', url);
 
                 this._iconListener.onRoomContentLoaded(id, [type, param].join('_'), false);
             };
@@ -517,7 +515,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
         {
             if (!status)
             {
-                this._logger.error('Failed to download asset', url);
+                NitroLogger.error('Failed to download asset', url);
 
                 loader.destroy();
 
@@ -704,22 +702,22 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
     private getAssetUrlWithGenericBase(assetName: string): string
     {
-        return (Nitro.instance.getConfiguration<string>('generic.asset.url').replace(/%libname%/gi, assetName));
+        return (NitroConfiguration.getValue<string>('generic.asset.url').replace(/%libname%/gi, assetName));
     }
 
     public getAssetUrlWithFurniBase(assetName: string): string
     {
-        return (Nitro.instance.getConfiguration<string>('furni.asset.url').replace(/%libname%/gi, assetName));
+        return (NitroConfiguration.getValue<string>('furni.asset.url').replace(/%libname%/gi, assetName));
     }
 
     public getAssetUrlWithFurniIconBase(assetName: string): string
     {
-        return (Nitro.instance.getConfiguration<string>('furni.asset.icon.url').replace(/%libname%/gi, assetName));
+        return (NitroConfiguration.getValue<string>('furni.asset.icon.url').replace(/%libname%/gi, assetName));
     }
 
     public getAssetUrlWithPetBase(assetName: string): string
     {
-        return (Nitro.instance.getConfiguration<string>('pet.asset.url').replace(/%libname%/gi, assetName));
+        return (NitroConfiguration.getValue<string>('pet.asset.url').replace(/%libname%/gi, assetName));
     }
 
     public setRoomObjectRoomId(object: IRoomObject, roomId: string): void

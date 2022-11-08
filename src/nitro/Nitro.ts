@@ -2,7 +2,7 @@ import { Application, IApplicationOptions } from '@pixi/app';
 import { SCALE_MODES } from '@pixi/constants';
 import { settings } from '@pixi/settings';
 import { Ticker } from '@pixi/ticker';
-import { IAvatarRenderManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager, IWorkerEventTracker } from '../api';
+import { IAvatarRenderManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager, IWorkerEventTracker, NitroConfiguration } from '../api';
 import { ConfigurationEvent, EventDispatcher, NitroCore } from '../core';
 import { NitroEvent, RoomEngineEvent } from '../events';
 import { PixiApplicationProxy } from '../pixi-proxy';
@@ -199,8 +199,8 @@ export class Nitro implements INitro
 
     private onConfigurationLoadedEvent(event: ConfigurationEvent): void
     {
-        const animationFPS = this.getConfiguration<number>('system.animation.fps', 24);
-        const limitsFPS = this.getConfiguration<boolean>('system.limits.fps', true);
+        const animationFPS = NitroConfiguration.getValue<number>('system.animation.fps', 24);
+        const limitsFPS = NitroConfiguration.getValue<boolean>('system.limits.fps', true);
 
         if (limitsFPS) Nitro.instance.ticker.maxFPS = animationFPS;
     }
@@ -212,7 +212,7 @@ export class Nitro implements INitro
 
     public getConfiguration<T>(key: string, value: T = null): T
     {
-        return this._core.configuration.getValue<T>(key, value);
+        return NitroConfiguration.getValue<T>(key, value);
     }
 
     public getLocalization(key: string): string

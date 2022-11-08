@@ -6,3 +6,4 @@ export * from './INitroLogger';
 export * from './INitroManager';
 export * from './IUpdateReceiver';
 export * from './IWorkerEventTracker';
+export * from './NitroLogger';

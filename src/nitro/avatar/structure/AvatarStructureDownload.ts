@@ -1,4 +1,4 @@
-import { IFigureSetData } from '../../../api';
+import { IFigureSetData, NitroLogger } from '../../../api';
 import { EventDispatcher } from '../../../core';
 import { NitroEvent } from '../../../events';
 
@@ -46,7 +46,7 @@ export class AvatarStructureDownload extends EventDispatcher
 
         catch (e)
         {
-            this.logger.error(e);
+            NitroLogger.error(e);
         }
     }
 }

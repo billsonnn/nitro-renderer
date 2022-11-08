@@ -1,8 +1,6 @@
-import { IAssetData, IRoomGeometry, IRoomObjectController, IRoomObjectModel, IVector3D, RoomObjectVariable, Vector3d } from '../../../../../api';
+import { IAssetData, IRoomGeometry, IRoomObjectController, IRoomObjectModel, IVector3D, MouseEventType, NitroConfiguration, RoomObjectVariable, Vector3d } from '../../../../../api';
 import { RoomObjectRoomAdEvent, RoomObjectStateChangedEvent, RoomObjectWidgetRequestEvent } from '../../../../../events';
 import { RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
-import { Nitro } from '../../../../Nitro';
-import { MouseEventType } from '../../../../ui';
 import { ObjectDataUpdateMessage, ObjectHeightUpdateMessage, ObjectItemDataUpdateMessage, ObjectMoveUpdateMessage, ObjectSelectedMessage } from '../../../messages';
 import { MovingObjectLogic } from '../MovingObjectLogic';
 
@@ -49,12 +47,12 @@ export class FurnitureLogic extends MovingObjectLogic
 
         if (FurnitureLogic.BOUNCING_STEPS === -1)
         {
-            FurnitureLogic.BOUNCING_STEPS = Nitro.instance.getConfiguration<number>('furni.rotation.bounce.steps', 8);
+            FurnitureLogic.BOUNCING_STEPS = NitroConfiguration.getValue<number>('furni.rotation.bounce.steps', 8);
         }
 
         if (FurnitureLogic.BOUNCING_Z === -1)
         {
-            FurnitureLogic.BOUNCING_Z = Nitro.instance.getConfiguration<number>('furni.rotation.bounce.height', 0.0625);
+            FurnitureLogic.BOUNCING_Z = NitroConfiguration.getValue<number>('furni.rotation.bounce.height', 0.0625);
         }
     }
 

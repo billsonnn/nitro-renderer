@@ -1,4 +1,4 @@
-import { IConnection, INitroCommunicationDemo, INitroCommunicationManager } from '../../api';
+import { IConnection, INitroCommunicationDemo, INitroCommunicationManager, NitroConfiguration, NitroLogger } from '../../api';
 import { NitroManager } from '../../core';
 import { NitroCommunicationDemoEvent, SocketConnectionEvent } from '../../events';
 import { GetTickerTime } from '../../pixi-proxy';
@@ -74,7 +74,7 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
 
         this.dispatchCommunicationDemoEvent(NitroCommunicationDemoEvent.CONNECTION_ESTABLISHED, connection);
 
-        if (Nitro.instance.getConfiguration<boolean>('system.pong.manually', false)) this.startPonging();
+        if (NitroConfiguration.getValue<boolean>('system.pong.manually', false)) this.startPonging();
 
         this.startHandshake(connection);
 
@@ -111,7 +111,7 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
         {
             if (!this.getSSO())
             {
-                this.logger.error('Login without an SSO ticket is not supported');
+                NitroLogger.error('Login without an SSO ticket is not supported');
             }
 
             this.dispatchCommunicationDemoEvent(NitroCommunicationDemoEvent.CONNECTION_HANDSHAKE_FAILED, connection);
@@ -158,7 +158,7 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
     {
         this.stopPonging();
 
-        this._pongInterval = setInterval(this.sendPong, Nitro.instance.getConfiguration<number>('system.pong.interval.ms', 20000));
+        this._pongInterval = setInterval(this.sendPong, NitroConfiguration.getValue<number>('system.pong.interval.ms', 20000));
     }
 
     private stopPonging(): void
@@ -186,6 +186,6 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
 
     private getSSO(): string
     {
-        return Nitro.instance.getConfiguration('sso.ticket', null);
+        return NitroConfiguration.getValue('sso.ticket', null);
     }
 }

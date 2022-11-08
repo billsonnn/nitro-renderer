@@ -1,9 +1,7 @@
 import { Point } from '@pixi/math';
-import { IRoomGeometry, IRoomObjectModel, RoomObjectVariable, Vector3d } from '../../../../../api';
+import { IRoomGeometry, IRoomObjectModel, MouseEventType, NitroConfiguration, RoomObjectVariable, Vector3d } from '../../../../../api';
 import { RoomObjectTileMouseEvent, RoomObjectWallMouseEvent } from '../../../../../events';
 import { ColorConverter, RoomObjectEvent, RoomObjectLogicBase, RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
-import { Nitro } from '../../../../Nitro';
-import { MouseEventType } from '../../../../ui';
 import { ObjectRoomColorUpdateMessage, ObjectRoomFloorHoleUpdateMessage, ObjectRoomMapUpdateMessage, ObjectRoomMaskUpdateMessage, ObjectRoomPlanePropertyUpdateMessage, ObjectRoomPlaneVisibilityUpdateMessage, ObjectRoomUpdateMessage } from '../../../messages';
 import { RoomMapData } from '../../RoomMapData';
 import { RoomPlaneBitmapMaskData } from '../../RoomPlaneBitmapMaskData';
@@ -86,7 +84,7 @@ export class RoomLogic extends RoomObjectLogicBase
         this.object.model.setValue(RoomObjectVariable.ROOM_WALL_VISIBILITY, 1);
         this.object.model.setValue(RoomObjectVariable.ROOM_LANDSCAPE_VISIBILITY, 1);
 
-        this._skipColorTransition = (Nitro.instance.getConfiguration<boolean>('room.color.skip.transition') === true);
+        this._skipColorTransition = (NitroConfiguration.getValue<boolean>('room.color.skip.transition') === true);
     }
 
     public update(time: number): void

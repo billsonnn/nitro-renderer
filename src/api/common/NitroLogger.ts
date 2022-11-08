@@ -1,4 +1,4 @@
-import { INitroLogger } from '../../api';
+import { INitroLogger } from './INitroLogger';
 
 export class NitroLogger implements INitroLogger
 {
@@ -30,38 +30,29 @@ export class NitroLogger implements INitroLogger
 
     public printMessage(modus: string, ...message: any[]): void
     {
-        if(!this._print) return;
+        if (!this._print) return;
 
         NitroLogger.log(this._name, modus, ...message);
     }
 
-    public static log(name: string = 'Nitro', modus: string = null, ...message: any[]): void
+    private static logPrefix(): string
     {
-        const logPrefix = `[Nitro] [${name}]`;
-
-        switch(modus)
-        {
-            case 'error':
-                console.error(logPrefix, ...message);
-                break;
-            case 'warn':
-                console.warn(logPrefix, ...message);
-                break;
-            case 'log':
-            default:
-                console.log(logPrefix, ...message);
-                break;
-        }
+        return '[Nitro]';
     }
 
-    public static error(name: string = 'Nitro', ...message: any[]): void
+    public static log(...messages: any[]): void
     {
-        return this.log(name, 'error', ...message);
+        console.log(this.logPrefix(), ...messages);
     }
 
-    public static warn(name: string = 'Nitro', ...message: any[]): void
+    public static error(...messages: any[]): void
     {
-        return this.log(name, 'warn', ...message);
+        console.error(this.logPrefix(), ...messages);
+    }
+
+    public static warn(...messages: any[]): void
+    {
+        console.warn(this.logPrefix(), ...messages);
     }
 
     public get description(): string | number

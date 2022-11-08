@@ -1,4 +1,4 @@
-import { ICodec, ICommunicationManager, IConnection, IConnectionStateListener, IMessageComposer, IMessageConfiguration, IMessageDataWrapper, IMessageEvent, WebSocketEventEnum } from '../../api';
+import { ICodec, ICommunicationManager, IConnection, IConnectionStateListener, IMessageComposer, IMessageConfiguration, IMessageDataWrapper, IMessageEvent, NitroConfiguration, NitroLogger, WebSocketEventEnum } from '../../api';
 import { SocketConnectionEvent } from '../../events';
 import { EventDispatcher } from '../common';
 import { EvaWireFormat } from './codec';
@@ -174,7 +174,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
             if (header === -1)
             {
-                //if (Nitro.instance.getConfiguration<boolean>('system.packet.log')) this.logger.log(`Unknown Composer: ${composer.constructor.name}`);
+                if (NitroConfiguration.getValue<boolean>('system.packet.log')) NitroLogger.log('Unknown Composer', composer.constructor.name);
 
                 continue;
             }
@@ -184,12 +184,12 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
             if (!encoded)
             {
-                //if (Nitro.instance.getConfiguration<boolean>('system.packet.log')) this.logger.log('Encoding Failed', composer.constructor.name);
+                if (NitroConfiguration.getValue<boolean>('system.packet.log')) NitroLogger.log('Encoding Failed', composer.constructor.name);
 
                 continue;
             }
 
-            //if (Nitro.instance.getConfiguration<boolean>('system.packet.log')) this.logger.log('OutgoingComposer', header, composer.constructor.name, message);
+            if (NitroConfiguration.getValue<boolean>('system.packet.log')) NitroLogger.log('OutgoingComposer', header, composer.constructor.name, message);
 
             this.write(encoded.getBuffer());
         }
@@ -213,7 +213,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
         catch (err)
         {
-            this.logger.error(err);
+            NitroLogger.error(err);
         }
     }
 
@@ -247,7 +247,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
             if (!messages || !messages.length) continue;
 
-            //if (Nitro.instance.getConfiguration<boolean>('system.packet.log')) this.logger.log('IncomingMessage', wrapper.header, messages[0].constructor.name, messages[0].parser);
+            if (NitroConfiguration.getValue<boolean>('system.packet.log')) NitroLogger.log('IncomingMessage', wrapper.header, messages[0].constructor.name, messages[0].parser);
 
             this.handleMessages(...messages);
         }
@@ -278,7 +278,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
         if (!events || !events.length)
         {
-            //if (Nitro.instance.getConfiguration<boolean>('system.packet.log')) this.logger.log('IncomingMessage', wrapper.header, 'UNREGISTERED', wrapper);
+            if (NitroConfiguration.getValue<boolean>('system.packet.log')) NitroLogger.log('IncomingMessage', wrapper.header, 'UNREGISTERED', wrapper);
 
             return;
         }
@@ -295,7 +295,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
         catch (e)
         {
-            this.logger.error('Error parsing message', e, events[0].constructor.name);
+            NitroLogger.error('Error parsing message', e, events[0].constructor.name);
 
             return null;
         }

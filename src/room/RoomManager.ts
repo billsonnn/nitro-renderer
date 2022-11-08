@@ -1,4 +1,4 @@
-import { IGraphicAssetCollection, IRoomContentLoader, IRoomInstance, IRoomInstanceContainer, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectManager, IRoomObjectVisualizationFactory } from '../api';
+import { IGraphicAssetCollection, IRoomContentLoader, IRoomInstance, IRoomInstanceContainer, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectManager, IRoomObjectVisualizationFactory, NitroLogger } from '../api';
 import { NitroManager } from '../core';
 import { RoomContentLoader } from '../nitro/room/RoomContentLoader';
 import { RoomContentLoadedEvent } from './events';
@@ -57,15 +57,15 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
 
     public onInit(): void
     {
-        if(this._state >= RoomManager.ROOM_MANAGER_INITIALIZING || !this._contentLoader) return;
+        if (this._state >= RoomManager.ROOM_MANAGER_INITIALIZING || !this._contentLoader) return;
 
         const mandatoryLibraries = RoomContentLoader.MANDATORY_LIBRARIES;
 
-        for(const library of mandatoryLibraries)
+        for (const library of mandatoryLibraries)
         {
-            if(!library) continue;
+            if (!library) continue;
 
-            if(this._initialLoadList.indexOf(library) === -1)
+            if (this._initialLoadList.indexOf(library) === -1)
             {
                 this._contentLoader.downloadAsset(library, this.events);
 
@@ -80,22 +80,22 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
     {
         const existing = this._rooms.get(roomId);
 
-        if(!existing) return null;
+        if (!existing) return null;
 
         return existing;
     }
 
     public createRoomInstance(roomId: string): IRoomInstance
     {
-        if(this._rooms.get(roomId)) return null;
+        if (this._rooms.get(roomId)) return null;
 
         const instance = new RoomInstance(roomId, this);
 
         this._rooms.set(instance.id, instance);
 
-        if(this._updateCategories.length)
+        if (this._updateCategories.length)
         {
-            for(const category of this._updateCategories)
+            for (const category of this._updateCategories)
             {
                 instance.addUpdateCategory(category);
             }
@@ -108,7 +108,7 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
     {
         const existing = this._rooms.get(roomId);
 
-        if(!existing) return false;
+        if (!existing) return false;
 
         this._rooms.delete(roomId);
 
@@ -121,7 +121,7 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
     {
         const instance = this.getRoomInstance(roomId);
 
-        if(!instance) return null;
+        if (!instance) return null;
 
         let visualization = type;
         let logic = type;
@@ -129,11 +129,11 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
         let asset: IGraphicAssetCollection = null;
         let isLoading = false;
 
-        if(this._contentLoader.isLoaderType(type))
+        if (this._contentLoader.isLoaderType(type))
         {
             asset = this._contentLoader.getCollection(type);
 
-            if(!asset)
+            if (!asset)
             {
                 isLoading = true;
 
@@ -142,7 +142,7 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
                 assetName = this._contentLoader.getPlaceholderName(type);
                 asset = this._contentLoader.getCollection(assetName);
 
-                if(!asset) return null;
+                if (!asset) return null;
             }
 
             visualization = asset.data.visualizationType;
@@ -151,13 +151,13 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
 
         const object = (instance.createRoomObject(objectId, 1, type, category) as IRoomObjectController);
 
-        if(!object) return null;
+        if (!object) return null;
 
-        if(this._visualizationFactory)
+        if (this._visualizationFactory)
         {
             const visualizationInstance = this._visualizationFactory.getVisualization(visualization);
 
-            if(!visualizationInstance)
+            if (!visualizationInstance)
             {
                 instance.removeRoomObject(objectId, category);
 
@@ -168,7 +168,7 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
 
             const visualizationData = this._visualizationFactory.getVisualizationData(assetName, visualization, ((asset && asset.data) || null));
 
-            if(!visualizationData || !visualizationInstance.initialize(visualizationData))
+            if (!visualizationData || !visualizationInstance.initialize(visualizationData))
             {
                 instance.removeRoomObject(objectId, category);
 
@@ -178,19 +178,19 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
             object.setVisualization(visualizationInstance);
         }
 
-        if(this._logicFactory)
+        if (this._logicFactory)
         {
             const logicInstance = this._logicFactory.getLogic(logic);
 
             object.setLogic(logicInstance);
 
-            if(logicInstance)
+            if (logicInstance)
             {
                 logicInstance.initialize((asset && asset.data) || null);
             }
         }
 
-        if(!isLoading) object.isReady = true;
+        if (!isLoading) object.isReady = true;
 
         this._contentLoader.setRoomObjectRoomId(object, roomId);
 
@@ -199,35 +199,35 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
 
     private reinitializeRoomObjectsByType(type: string): void
     {
-        if(!type || !this._contentLoader || !this._visualizationFactory || !this._logicFactory) return;
+        if (!type || !this._contentLoader || !this._visualizationFactory || !this._logicFactory) return;
 
         const asset = this._contentLoader.getCollection(type);
 
-        if(!asset) return;
+        if (!asset) return;
 
         const visualization = asset.data.visualizationType;
         const logic = asset.data.logicType;
         const visualizationData = this._visualizationFactory.getVisualizationData(type, visualization, asset.data);
 
-        for(const room of this._rooms.values())
+        for (const room of this._rooms.values())
         {
-            if(!room) continue;
+            if (!room) continue;
 
-            for(const [category, manager] of room.managers.entries())
+            for (const [category, manager] of room.managers.entries())
             {
-                if(!manager) continue;
+                if (!manager) continue;
 
-                for(const object of manager.objects.getValues())
+                for (const object of manager.objects.getValues())
                 {
-                    if(!object || object.type !== type) continue;
+                    if (!object || object.type !== type) continue;
 
                     const visualizationInstance = this._visualizationFactory.getVisualization(visualization);
 
-                    if(visualizationInstance)
+                    if (visualizationInstance)
                     {
                         visualizationInstance.asset = asset;
 
-                        if(!visualizationData || !visualizationInstance.initialize(visualizationData))
+                        if (!visualizationData || !visualizationInstance.initialize(visualizationData))
                         {
                             manager.removeObject(object.id);
                         }
@@ -239,14 +239,14 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
 
                             object.setLogic(logicInstance);
 
-                            if(logicInstance)
+                            if (logicInstance)
                             {
                                 logicInstance.initialize(asset.data);
                             }
 
                             object.isReady = true;
 
-                            if(this._listener) this._listener.objectInitialized(room.id, object.id, category);
+                            if (this._listener) this._listener.objectInitialized(room.id, object.id, category);
                         }
                     }
                     else
@@ -262,15 +262,15 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
     {
         const index = this._updateCategories.indexOf(category);
 
-        if(index >= 0) return;
+        if (index >= 0) return;
 
         this._updateCategories.push(category);
 
-        if(!this._rooms.size) return;
+        if (!this._rooms.size) return;
 
-        for(const room of this._rooms.values())
+        for (const room of this._rooms.values())
         {
-            if(!room) continue;
+            if (!room) continue;
 
             room.addUpdateCategory(category);
         }
@@ -280,15 +280,15 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
     {
         const index = this._updateCategories.indexOf(category);
 
-        if(index === -1) return;
+        if (index === -1) return;
 
         this._updateCategories.splice(index, 1);
 
-        if(!this._rooms.size) return;
+        if (!this._rooms.size) return;
 
-        for(const room of this._rooms.values())
+        for (const room of this._rooms.values())
         {
-            if(!room) continue;
+            if (!room) continue;
 
             room.removeUpdateCategory(category);
         }
@@ -296,63 +296,63 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
 
     public setContentLoader(loader: IRoomContentLoader): void
     {
-        if(this._contentLoader) this._contentLoader.dispose();
+        if (this._contentLoader) this._contentLoader.dispose();
 
         this._contentLoader = loader;
     }
 
     private processPendingContentTypes(time: number): void
     {
-        if(this._skipContentProcessing)
+        if (this._skipContentProcessing)
         {
             this._skipContentProcessing = false;
 
             return;
         }
 
-        while(this._pendingContentTypes.length)
+        while (this._pendingContentTypes.length)
         {
             const type = this._pendingContentTypes.shift();
 
             const collection = this._contentLoader.getCollection(type);
 
-            if(!collection)
+            if (!collection)
             {
-                if(this._listener)
+                if (this._listener)
                 {
                     this._listener.initalizeTemporaryObjectsByType(type, false);
                 }
 
-                this.logger.log(`Invalid Collection: ${type}`);
+                NitroLogger.log('Invalid Collection', type);
 
                 continue;
             }
 
             this.reinitializeRoomObjectsByType(type);
 
-            if(this._listener) this._listener.initalizeTemporaryObjectsByType(type, true);
+            if (this._listener) this._listener.initalizeTemporaryObjectsByType(type, true);
 
-            if(this._initialLoadList.length > 0) this.removeFromInitialLoad(type);
+            if (this._initialLoadList.length > 0) this.removeFromInitialLoad(type);
         }
     }
 
     private removeFromInitialLoad(type: string): void
     {
-        if(!type || this._state === RoomManager.ROOM_MANAGER_ERROR) return;
+        if (!type || this._state === RoomManager.ROOM_MANAGER_ERROR) return;
 
-        if(!this._contentLoader) this._state = RoomManager.ROOM_MANAGER_ERROR;
+        if (!this._contentLoader) this._state = RoomManager.ROOM_MANAGER_ERROR;
 
-        if(this._contentLoader.getCollection(type))
+        if (this._contentLoader.getCollection(type))
         {
             const i = this._initialLoadList.indexOf(type);
 
-            if(i >= 0) this._initialLoadList.splice(i, 1);
+            if (i >= 0) this._initialLoadList.splice(i, 1);
 
-            if(!this._initialLoadList.length)
+            if (!this._initialLoadList.length)
             {
                 this._state = RoomManager.ROOM_MANAGER_INITIALIZED;
 
-                if(this._listener)
+                if (this._listener)
                 {
                     this._listener.onRoomEngineInitalized(true);
                 }
@@ -362,17 +362,17 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
         {
             this._state = RoomManager.ROOM_MANAGER_ERROR;
 
-            if(this._listener) this._listener.onRoomEngineInitalized(false);
+            if (this._listener) this._listener.onRoomEngineInitalized(false);
         }
     }
 
     private onRoomContentLoadedEvent(event: RoomContentLoadedEvent): void
     {
-        if(!this._contentLoader) return;
+        if (!this._contentLoader) return;
 
         const contentType = event.contentType;
 
-        if(this._pendingContentTypes.indexOf(contentType) >= 0) return;
+        if (this._pendingContentTypes.indexOf(contentType) >= 0) return;
 
         this._pendingContentTypes.push(contentType);
     }
@@ -381,9 +381,9 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
     {
         this.processPendingContentTypes(time);
 
-        if(!this._rooms.size) return;
+        if (!this._rooms.size) return;
 
-        for(const room of this._rooms.values()) room && room.update(time, update);
+        for (const room of this._rooms.values()) room && room.update(time, update);
     }
 
     public createRoomObjectManager(category: number): IRoomObjectManager

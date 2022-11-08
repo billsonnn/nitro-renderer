@@ -1,4 +1,4 @@
-import { RoomWidgetEnum } from '../../../../ui';
+import { RoomWidgetEnum } from '../../../../../api';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureCraftingGizmoLogic extends FurnitureLogic

@@ -1,5 +1,5 @@
+import { ContextMenuEnum } from '../../../../../api';
 import { RoomObjectWidgetRequestEvent } from '../../../../../events';
-import { ContextMenuEnum } from '../../../../ui';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureMonsterplantSeedLogic extends FurnitureMultiStateLogic

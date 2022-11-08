@@ -1,7 +1,6 @@
-import { IRoomGeometry } from '../../../../../api';
+import { IRoomGeometry, MouseEventType } from '../../../../../api';
 import { RoomObjectStateChangedEvent } from '../../../../../events';
 import { RoomObjectEvent, RoomSpriteMouseEvent } from '../../../../../room';
-import { MouseEventType } from '../../../../ui';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureCounterClockLogic extends FurnitureLogic

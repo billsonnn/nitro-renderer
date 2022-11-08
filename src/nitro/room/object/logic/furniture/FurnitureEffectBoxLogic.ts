@@ -1,5 +1,5 @@
+import { ContextMenuEnum } from '../../../../../api';
 import { RoomObjectWidgetRequestEvent } from '../../../../../events';
-import { ContextMenuEnum } from '../../../../ui';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurnitureEffectBoxLogic extends FurnitureLogic

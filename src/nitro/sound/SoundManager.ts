@@ -1,4 +1,4 @@
-import { IAdvancedMap, IMusicManager, INitroEvent, ISoundManager } from '../../api';
+import { IAdvancedMap, IMusicManager, INitroEvent, ISoundManager, NitroConfiguration } from '../../api';
 import { AdvancedMap, NitroManager } from '../../core';
 import { NitroSettingsEvent, NitroSoundEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomEngineSamplePlaybackEvent } from '../../events';
 import { Nitro } from '../Nitro';
@@ -124,7 +124,7 @@ export class SoundManager extends NitroManager implements ISoundManager
 
         if (!sample)
         {
-            const sampleUrl = Nitro.instance.getConfiguration<string>('sounds.url');
+            const sampleUrl = NitroConfiguration.getValue<string>('sounds.url');
 
             sample = new Audio(sampleUrl.replace('%sample%', code));
             this._internalSamples.add(code, sample);
@@ -139,7 +139,7 @@ export class SoundManager extends NitroManager implements ISoundManager
 
         if (!sample)
         {
-            const sampleUrl = Nitro.instance.getConfiguration<string>('external.samples.url');
+            const sampleUrl = NitroConfiguration.getValue<string>('external.samples.url');
 
             sample = new Audio(sampleUrl.replace('%sample%', code.toString()));
             this._furniSamples.add(code, sample);

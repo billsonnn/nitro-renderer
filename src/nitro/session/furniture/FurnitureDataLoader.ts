@@ -1,5 +1,5 @@
-import { FurnitureType, IFurnitureData, INitroLocalizationManager } from '../../../api';
-import { EventDispatcher, NitroLogger } from '../../../core';
+import { FurnitureType, IFurnitureData, INitroLocalizationManager, NitroLogger } from '../../../api';
+import { EventDispatcher } from '../../../core';
 import { NitroEvent } from '../../../events';
 import { FurnitureData } from './FurnitureData';
 
@@ -11,7 +11,6 @@ export class FurnitureDataLoader extends EventDispatcher
     private _floorItems: Map<number, IFurnitureData>;
     private _wallItems: Map<number, IFurnitureData>;
     private _localization: INitroLocalizationManager;
-    private _nitroLogger: NitroLogger;
 
     constructor(floorItems: Map<number, IFurnitureData>, wallItems: Map<number, IFurnitureData>, localization: INitroLocalizationManager)
     {
@@ -20,7 +19,6 @@ export class FurnitureDataLoader extends EventDispatcher
         this._floorItems = floorItems;
         this._wallItems = wallItems;
         this._localization = localization;
-        this._nitroLogger = new NitroLogger(this.constructor.name);
     }
 
     public loadFurnitureData(url: string): void
@@ -37,7 +35,7 @@ export class FurnitureDataLoader extends EventDispatcher
     {
         if (!data) return;
 
-        if ((typeof data.roomitemtypes == 'undefined') || (typeof data.wallitemtypes == 'undefined')) this._nitroLogger.warn('Could not find `roomitemtypes` or `wallitemtypes` in furnidata.');
+        if ((typeof data.roomitemtypes == 'undefined') || (typeof data.wallitemtypes == 'undefined')) NitroLogger.warn('Could not find `roomitemtypes` or `wallitemtypes` in furnidata.');
 
         if (data.roomitemtypes) this.parseFloorItems(data.roomitemtypes);
 

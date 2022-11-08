@@ -1,8 +1,7 @@
-import { IRoomGeometry, RoomObjectVariable, StringDataType } from '../../../../../api';
+import { IRoomGeometry, MouseEventType, RoomObjectVariable, StringDataType } from '../../../../../api';
 import { RoomObjectBadgeAssetEvent, RoomObjectWidgetRequestEvent } from '../../../../../events';
 import { GetTickerTime } from '../../../../../pixi-proxy';
 import { RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
-import { MouseEventType } from '../../../../ui';
 import { ObjectDataUpdateMessage, ObjectGroupBadgeUpdateMessage, ObjectSelectedMessage } from '../../../messages';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 

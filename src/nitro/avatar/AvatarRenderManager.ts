@@ -1,4 +1,4 @@
-import { AvatarSetType, IAssetManager, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IAvatarImageListener, IAvatarRenderManager, IFigureData, IFigurePartSet, IFigureSetData, IGraphicAsset, INitroEvent, IStructureData } from '../../api';
+import { AvatarSetType, IAssetManager, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IAvatarImageListener, IAvatarRenderManager, IFigureData, IFigurePartSet, IFigureSetData, IGraphicAsset, INitroEvent, IStructureData, NitroConfiguration, NitroLogger } from '../../api';
 import { NitroManager } from '../../core';
 import { AvatarRenderEvent, NitroEvent } from '../../events';
 import { Nitro } from '../Nitro';
@@ -134,7 +134,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     private loadActions(): void
     {
-        const defaultActions = Nitro.instance.getConfiguration<string>('avatar.default.actions');
+        const defaultActions = NitroConfiguration.getValue<string>('avatar.default.actions');
 
         if (defaultActions) this._structure.initActions(Nitro.instance.core.asset, defaultActions);
 
@@ -142,7 +142,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
         try
         {
-            request.open('GET', Nitro.instance.getConfiguration<string>('avatar.actions.url'));
+            request.open('GET', NitroConfiguration.getValue<string>('avatar.actions.url'));
 
             request.send();
 
@@ -165,7 +165,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
         catch (e)
         {
-            this.logger.error(e);
+            NitroLogger.error(e);
         }
     }
 
@@ -182,18 +182,18 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     private loadFigureData(): void
     {
-        const defaultFigureData = Nitro.instance.getConfiguration<IFigureData>('avatar.default.figuredata');
+        const defaultFigureData = NitroConfiguration.getValue<IFigureData>('avatar.default.figuredata');
 
         if (!defaultFigureData || (typeof defaultFigureData === 'string'))
         {
-            this.logger.error('XML figuredata is no longer supported');
+            NitroLogger.error('XML figuredata is no longer supported');
 
             return;
         }
 
         if (this._structure) this._structure.initFigureData(defaultFigureData);
 
-        const structureDownloader = new AvatarStructureDownload(Nitro.instance.getConfiguration<string>('avatar.figuredata.url'), (this._structure.figureData as IFigureSetData));
+        const structureDownloader = new AvatarStructureDownload(NitroConfiguration.getValue<string>('avatar.figuredata.url'), (this._structure.figureData as IFigureSetData));
 
         structureDownloader.addEventListener(AvatarStructureDownload.AVATAR_STRUCTURE_DONE, this.onAvatarStructureDownloadDone);
     }

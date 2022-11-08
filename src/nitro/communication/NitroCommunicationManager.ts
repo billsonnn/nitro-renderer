@@ -1,4 +1,4 @@
-import { ICommunicationManager, IConnection, IConnectionStateListener, IMessageConfiguration, IMessageEvent, INitroCommunicationDemo, INitroCommunicationManager, INitroEvent } from '../../api';
+import { ICommunicationManager, IConnection, IConnectionStateListener, IMessageConfiguration, IMessageEvent, INitroCommunicationDemo, INitroCommunicationManager, INitroEvent, NitroConfiguration, NitroLogger } from '../../api';
 import { NitroManager } from '../../core';
 import { NitroCommunicationDemoEvent, SocketConnectionEvent } from '../../events';
 import { Nitro } from '../Nitro';
@@ -45,7 +45,7 @@ export class NitroCommunicationManager extends NitroManager implements INitroCom
 
         if (this._demo) this._demo.init();
 
-        this._connection.init(Nitro.instance.getConfiguration<string>('socket.url'));
+        this._connection.init(NitroConfiguration.getValue<string>('socket.url'));
     }
 
     protected onDispose(): void
@@ -66,29 +66,29 @@ export class NitroCommunicationManager extends NitroManager implements INitroCom
 
     private onConnectionOpenedEvent(event: Event): void
     {
-        this.logger.log('Connection Initialized');
+        NitroLogger.log('Connection Initialized');
     }
 
     private onConnectionClosedEvent(event: CloseEvent): void
     {
-        this.logger.log('Connection Closed');
+        NitroLogger.log('Connection Closed');
     }
 
     private onConnectionErrorEvent(event: Event): void
     {
-        this.logger.log('Connection Error');
+        NitroLogger.log('Connection Error');
     }
 
     private onConnectionAuthenticatedEvent(event: INitroEvent): void
     {
-        this.logger.log('Connection Authenticated');
+        NitroLogger.log('Connection Authenticated');
 
         if (this._connection) this._connection.authenticated();
     }
 
     public connectionInit(socketUrl: string): void
     {
-        this.logger.log(`Initializing Connection: ${socketUrl}`);
+        NitroLogger.log('Initializing Connection', socketUrl);
     }
 
     public registerMessageEvent(event: IMessageEvent): IMessageEvent

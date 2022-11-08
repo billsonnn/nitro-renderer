@@ -1,7 +1,6 @@
-import { RoomObjectVariable } from '../../../../../api';
+import { RoomObjectVariable, RoomWidgetEnumItemExtradataParameter } from '../../../../../api';
 import { RoomObjectWidgetRequestEvent } from '../../../../../events';
 import { RoomObjectUpdateMessage } from '../../../../../room';
-import { RoomWidgetEnumItemExtradataParameter } from '../../../../ui';
 import { FurnitureLogic } from './FurnitureLogic';
 
 export class FurniturePetCustomizationLogic extends FurnitureLogic

@@ -1,8 +1,7 @@
-﻿import { INitroCommunicationManager, INitroLocalizationManager } from '../../api';
+﻿import { INitroCommunicationManager, INitroLocalizationManager, NitroConfiguration } from '../../api';
 import { NitroManager } from '../../core';
 import { NitroLocalizationEvent } from '../../events';
 import { BadgePointLimitsEvent } from '../communication';
-import { Nitro } from '../Nitro';
 import { BadgeBaseAndLevel } from './BadgeBaseAndLevel';
 
 export class NitroLocalizationManager extends NitroManager implements INitroLocalizationManager
@@ -30,14 +29,14 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
     {
         this._communication.registerMessageEvent(new BadgePointLimitsEvent(this.onBadgePointLimitsEvent.bind(this)));
 
-        let urls: string[] = Nitro.instance.getConfiguration<string[]>('external.texts.url');
+        let urls: string[] = NitroConfiguration.getValue<string[]>('external.texts.url');
 
         if (!Array.isArray(urls))
         {
-            urls = [Nitro.instance.getConfiguration<string>('external.texts.url')];
+            urls = [NitroConfiguration.getValue<string>('external.texts.url')];
         }
 
-        for (let i = 0; i < urls.length; i++) urls[i] = Nitro.instance.core.configuration.interpolate(urls[i]);
+        for (let i = 0; i < urls.length; i++) urls[i] = NitroConfiguration.interpolate(urls[i]);
 
         this._pendingUrls = urls;
 
@@ -142,7 +141,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
 
         if (!value)
         {
-            value = (Nitro.instance.core.configuration.definitions.get(key) as any);
+            value = (NitroConfiguration.definitions.get(key) as any);
 
             if (value) return value;
         }
