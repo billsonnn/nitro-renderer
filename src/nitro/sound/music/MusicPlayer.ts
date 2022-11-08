@@ -1,4 +1,4 @@
-import { Howl } from 'howler';
+import { Howl, Howler } from 'howler';
 import { Nitro } from '../../Nitro';
 import { SoundManagerEvent } from '../events';
 import { TraxData } from '../trax/TraxData';
@@ -47,6 +47,7 @@ export class MusicPlayer
     {
         this._isPlaying = false;
         //this.emit('paused', this._currentPos);
+
         Howler.stop();
     }
 
@@ -66,7 +67,9 @@ export class MusicPlayer
     {
         this._isPlaying = false;
         clearInterval(this._tickerInterval);
+
         Howler.stop();
+
         this._currentSong = undefined;
         this._startPos = 0;
         this._playLength = 0;
