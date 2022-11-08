@@ -1,4 +1,5 @@
 import { TraxChannelItem } from './TraxChannelItem';
+
 export class TraxChannel
 {
     private _id: number;

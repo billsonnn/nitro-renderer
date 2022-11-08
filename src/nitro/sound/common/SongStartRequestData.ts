@@ -1,4 +1,3 @@
-import { GetTickerTime } from '../../../pixi-proxy';
 
 export class SongStartRequestData
 {
@@ -9,14 +8,14 @@ export class SongStartRequestData
     private _fadeInSeconds: number;
     private _fadeOutSeconds: number;
 
-    constructor(songId: number, startPos: number, playLength: number, playRequestTime: number, fadeInSeconds: number, fadeOutSeconds: number)
+    constructor(songId: number, startPos: number, playLength: number, fadeInSeconds: number, fadeOutSeconds: number)
     {
         this._songId = songId;
         this._startPos = startPos;
         this._playLength = playLength;
-        this._playRequestTime = playRequestTime;
         this._fadeInSeconds = fadeInSeconds;
         this._fadeOutSeconds = fadeOutSeconds;
+        this._playRequestTime = Date.now();
     }
 
     public get songId(): number
@@ -28,7 +27,7 @@ export class SongStartRequestData
     {
         if(this._startPos < 0) return 0;
 
-        return this._startPos + ((GetTickerTime() - this._playRequestTime) / 1000);
+        return this._startPos + ((Date.now() - this._playRequestTime) / 1000);
     }
 
     public get playLength(): number
