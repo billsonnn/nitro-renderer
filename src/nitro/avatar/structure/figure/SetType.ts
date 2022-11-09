@@ -1,5 +1,4 @@
-import { IAdvancedMap, IFigureDataSetType, IFigurePartSet, ISetType } from '../../../../api';
-import { AdvancedMap } from '../../../../core';
+import { AdvancedMap, IAdvancedMap, IFigureDataSetType, IFigurePartSet, ISetType } from '../../../../api';
 import { FigurePartSet } from './FigurePartSet';
 
 export class SetType implements ISetType

@@ -1,5 +1,4 @@
-import { IBinaryWriter, ICodec, IConnection, IMessageDataWrapper } from '../../../../api';
-import { BinaryReader, BinaryWriter } from '../../../utils';
+import { BinaryReader, BinaryWriter, IBinaryWriter, ICodec, IConnection, IMessageDataWrapper } from '../../../../api';
 import { Byte } from '../Byte';
 import { Short } from '../Short';
 import { EvaWireDataWrapper } from './EvaWireDataWrapper';

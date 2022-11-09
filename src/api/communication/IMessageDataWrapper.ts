@@ -1,4 +1,4 @@
-import { IBinaryReader } from './IBinaryReader';
+import { IBinaryReader } from '../utils';
 
 export interface IMessageDataWrapper
 {

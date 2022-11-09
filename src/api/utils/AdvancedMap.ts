@@ -1,4 +1,4 @@
-﻿import { IAdvancedMap } from '../../api';
+﻿import { IAdvancedMap } from './IAdvancedMap';
 
 export class AdvancedMap<T, U> implements IAdvancedMap<T, U>
 {

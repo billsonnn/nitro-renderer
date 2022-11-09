@@ -1,4 +1,4 @@
-import { IBinaryWriter } from './IBinaryWriter';
+import { IBinaryWriter } from '../utils';
 import { IConnection } from './IConnection';
 import { IMessageDataWrapper } from './IMessageDataWrapper';
 

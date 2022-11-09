@@ -1,24 +1,20 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Loader, LoaderResource } from '@pixi/loaders';
 import { Spritesheet } from '@pixi/spritesheet';
-import { IAssetData, IAssetManager, IGraphicAsset, IGraphicAssetCollection, NitroLogger } from '../../api';
-import { Disposable } from '../common';
-import { ArrayBufferToBase64 } from '../utils';
+import { NitroLogger } from '../common';
+import { ArrayBufferToBase64, NitroBundle } from '../utils';
 import { GraphicAssetCollection } from './GraphicAssetCollection';
-import { NitroBundle } from './NitroBundle';
+import { IAssetData } from './IAssetData';
+import { IAssetManager } from './IAssetManager';
+import { IGraphicAsset } from './IGraphicAsset';
+import { IGraphicAssetCollection } from './IGraphicAssetCollection';
 
-export class AssetManager extends Disposable implements IAssetManager
+export class AssetManager implements IAssetManager
 {
-    private _textures: Map<string, Texture<Resource>>;
-    private _collections: Map<string, IGraphicAssetCollection>;
+    public static _INSTANCE: IAssetManager = new AssetManager();
 
-    constructor()
-    {
-        super();
-
-        this._textures = new Map();
-        this._collections = new Map();
-    }
+    private _textures: Map<string, Texture<Resource>> = new Map();
+    private _collections: Map<string, IGraphicAssetCollection> = new Map();
 
     public getTexture(name: string): Texture<Resource>
     {

@@ -1,5 +1,4 @@
-import { IAdvancedMap, IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { AdvancedMap } from '../../../../../core';
+import { AdvancedMap, IAdvancedMap, IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class JukeboxSongDisksMessageParser implements IMessageParser
 {

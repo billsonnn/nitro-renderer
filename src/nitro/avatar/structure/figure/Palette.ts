@@ -1,5 +1,4 @@
-import { IAdvancedMap, IFigureDataPalette, IPalette, IPartColor } from '../../../../api';
-import { AdvancedMap } from '../../../../core';
+import { AdvancedMap, IAdvancedMap, IFigureDataPalette, IPalette, IPartColor } from '../../../../api';
 import { PartColor } from './PartColor';
 
 export class Palette implements IPalette

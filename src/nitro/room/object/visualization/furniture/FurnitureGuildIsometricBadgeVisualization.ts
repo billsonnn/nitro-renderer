@@ -1,4 +1,7 @@
+import { RenderTexture, Resource, Texture } from '@pixi/core';
+import { Matrix } from '@pixi/math';
 import { IGraphicAsset, IRoomObjectSprite, RoomObjectVariable } from '../../../../../api';
+import { NitroSprite, PixiApplicationProxy } from '../../../../../pixi-proxy';
 import { IsometricImageFurniVisualization } from './IsometricImageFurniVisualization';
 
 export class FurnitureGuildIsometricBadgeVisualization extends IsometricImageFurniVisualization
@@ -31,6 +34,58 @@ export class FurnitureGuildIsometricBadgeVisualization extends IsometricImageFur
         this._color2 = color2 ? color2 : FurnitureGuildIsometricBadgeVisualization.DEFAULT_COLOR_2;
 
         return flag;
+    }
+
+    protected generateTransformedThumbnail(texture: Texture<Resource>, asset: IGraphicAsset): Texture<Resource>
+    {
+        const scale = 1.1;
+        const matrix = new Matrix();
+        const difference = (asset.width / texture.width);
+
+        console.log(((0.5 * difference) * texture.width));
+
+        switch(this.direction)
+        {
+            case 2:
+                matrix.a = difference;
+                matrix.b = (-0.5 * difference);
+                matrix.c = 0;
+                matrix.d = (difference * scale);
+                matrix.tx = 0;
+                matrix.ty = 20;
+                break;
+            case 0:
+            case 4:
+                matrix.a = difference;
+                matrix.b = (0.5 * difference);
+                matrix.c = 0;
+                matrix.d = (difference * scale);
+                matrix.tx = 0;
+                matrix.ty = 0;
+                break;
+            default:
+                matrix.a = difference;
+                matrix.b = 0;
+                matrix.c = 0;
+                matrix.d = difference;
+                matrix.tx = 0;
+                matrix.ty = 0;
+        }
+
+        const sprite = new NitroSprite(texture);
+
+        const renderTexture = RenderTexture.create({
+            width: (asset.width + matrix.tx),
+            height: (asset.height + matrix.ty)
+        });
+
+        PixiApplicationProxy.instance.renderer.render(sprite, {
+            renderTexture,
+            clear: true,
+            transform: matrix
+        });
+
+        return renderTexture;
     }
 
     protected getLayerColor(scale: number, layerId: number, colorId: number): number

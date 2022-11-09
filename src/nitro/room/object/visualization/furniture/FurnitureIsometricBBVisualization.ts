@@ -1,8 +1,7 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Matrix } from '@pixi/math';
-import { IGraphicAsset } from '../../../../../api';
+import { GetAssetManager, IGraphicAsset } from '../../../../../api';
 import { NitroSprite, PixiApplicationProxy } from '../../../../../pixi-proxy';
-import { Nitro } from '../../../../Nitro';
 import { FurnitureBBVisualization } from './FurnitureBBVisualization';
 import { FurnitureBrandedImageVisualization } from './FurnitureBrandedImageVisualization';
 
@@ -154,7 +153,7 @@ export class FurnitureIsometricBBVisualization extends FurnitureBBVisualization
                 }
                 else
                 {
-                    this.generateTransformedImage(Nitro.instance.core.asset.getTexture(this._imageUrl), this.getAsset(super.getSpriteAssetName(scale, layerId)));
+                    this.generateTransformedImage(GetAssetManager().getTexture(this._imageUrl), this.getAsset(super.getSpriteAssetName(scale, layerId)));
                 }
             }
 

@@ -1,5 +1,5 @@
-import { IAdvancedMap, IMusicController, INitroEvent, ISoundManager, NitroConfiguration } from '../../api';
-import { AdvancedMap, NitroManager } from '../../core';
+import { AdvancedMap, IAdvancedMap, IMusicController, INitroEvent, ISoundManager, NitroConfiguration } from '../../api';
+import { NitroManager } from '../../core';
 import { NitroSettingsEvent, NitroSoundEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomEngineSamplePlaybackEvent } from '../../events';
 import { Nitro } from '../Nitro';
 import { MusicController } from './music/MusicController';

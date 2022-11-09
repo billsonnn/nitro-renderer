@@ -1,4 +1,4 @@
-import { IBinaryWriter } from '../../api';
+import { IBinaryWriter } from './IBinaryWriter';
 
 export class BinaryWriter implements IBinaryWriter
 {

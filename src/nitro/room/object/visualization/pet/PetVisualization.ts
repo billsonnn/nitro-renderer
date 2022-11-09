@@ -1,6 +1,5 @@
 import { Resource, Texture } from '@pixi/core';
-import { IGraphicAsset, IObjectVisualizationData, IRoomGeometry, RoomObjectVariable, RoomObjectVisualizationType } from '../../../../../api';
-import { Nitro } from '../../../../Nitro';
+import { GetAssetManager, IGraphicAsset, IObjectVisualizationData, IRoomGeometry, RoomObjectVariable, RoomObjectVisualizationType } from '../../../../../api';
 import { AnimationData, AnimationStateData, DirectionData, LayerData } from '../data';
 import { FurnitureAnimatedVisualization, FurnitureVisualizationData } from '../furniture';
 import { ExperienceData } from './ExperienceData';
@@ -594,6 +593,6 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     public getPetAdditionAsset(name: string): Texture<Resource>
     {
-        return Nitro.instance.core.asset.getTexture(name);
+        return GetAssetManager().getTexture(name);
     }
 }

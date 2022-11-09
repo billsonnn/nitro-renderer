@@ -1,10 +1,14 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Spritesheet } from '@pixi/spritesheet';
 import { Dict } from '@pixi/utils';
-import { IAsset, IAssetData, IAssetPalette, IGraphicAsset, IGraphicAssetCollection } from '../../api';
 import { GetTickerTime } from '../../pixi-proxy';
 import { GraphicAsset } from './GraphicAsset';
 import { GraphicAssetPalette } from './GraphicAssetPalette';
+import { IAsset } from './IAsset';
+import { IAssetData } from './IAssetData';
+import { IAssetPalette } from './IAssetPalette';
+import { IGraphicAsset } from './IGraphicAsset';
+import { IGraphicAssetCollection } from './IGraphicAssetCollection';
 
 export class GraphicAssetCollection implements IGraphicAssetCollection
 {

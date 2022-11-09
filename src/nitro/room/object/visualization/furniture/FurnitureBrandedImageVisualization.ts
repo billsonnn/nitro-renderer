@@ -1,6 +1,5 @@
 import { Resource, Texture } from '@pixi/core';
-import { RoomObjectVariable } from '../../../../../api';
-import { GraphicAssetGifCollection } from '../../../../../core';
+import { GetAssetManager, GraphicAssetGifCollection, RoomObjectVariable } from '../../../../../api';
 import { Nitro } from '../../../../Nitro';
 import { FurnitureVisualization } from './FurnitureVisualization';
 
@@ -147,7 +146,7 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
             }
             else
             {
-                texture = Nitro.instance.core.asset.getTexture(imageUrl);
+                texture = GetAssetManager().getTexture(imageUrl);
             }
 
             if(!texture) return false;
@@ -183,7 +182,7 @@ export class FurnitureBrandedImageVisualization extends FurnitureVisualization
 
         if(!this._imageUrl) return;
 
-        const texture = Nitro.instance.core.asset.getTexture(this._imageUrl);
+        const texture = GetAssetManager().getTexture(this._imageUrl);
 
         if(!texture) return;
 
