@@ -444,7 +444,7 @@ export class MusicController implements IMusicController
         {
             this.notifySongPlaying(songData);
         }
-        this._musicPlayer.play(songData.songData, startPos, playLength);
+        this._musicPlayer.play(songData.songData, songData.id, startPos, playLength);
         if(priority > MusicPriorities.PRIORITY_ROOM_PLAYLIST)
         {
             Nitro.instance.soundManager.events.dispatchEvent(new NowPlayingEvent(NowPlayingEvent.NPE_USER_PLAY_SONG, priority, songData.id, -1));

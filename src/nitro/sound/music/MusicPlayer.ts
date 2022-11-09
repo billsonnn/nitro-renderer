@@ -6,6 +6,7 @@ import { TraxData } from '../trax/TraxData';
 export class MusicPlayer
 {
     private _currentSong: TraxData | undefined;
+    private _currentSongId: number;
     private _startPos: number;
     private _playLength: number;
     private _isPlaying: boolean;
@@ -27,7 +28,7 @@ export class MusicPlayer
         this._cache = new Map<number, Howl>();
     }
 
-    public async play(song: string, startPos: number = 0, playLength: number = -1): Promise<void>
+    public async play(song: string, currentSongId: number, startPos: number = 0, playLength: number = -1): Promise<void>
     {
         this.reset();
 
@@ -35,6 +36,7 @@ export class MusicPlayer
         this._startPos = Math.trunc(startPos);
         this._playLength = playLength;
         this._currentPos = this._startPos;
+        this._currentSongId = currentSongId;
         //this.emit('loading');
         await this.preload();
         this._isPlaying = true;
@@ -174,7 +176,7 @@ export class MusicPlayer
     {
         if(this._currentPos > this._playLength - 1)
         {
-            Nitro.instance.soundManager.events.dispatchEvent(new SoundManagerEvent(SoundManagerEvent.TRAX_SONG_COMPLETE, Nitro.instance.soundManager.musicController.getRoomItemPlaylist().nowPlayingSongId));
+            Nitro.instance.soundManager.events.dispatchEvent(new SoundManagerEvent(SoundManagerEvent.TRAX_SONG_COMPLETE, this._currentSongId));
             this.stop();
         }
 
