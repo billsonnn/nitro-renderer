@@ -194,6 +194,13 @@ export class MusicPlayer
     {
         if(!this._currentSong || !this._sequence) return;
 
+        //@ts-ignore
+        if(!Howler._audioUnlocked)
+        {
+            //console.log('skipping due to locked audio');
+            return;
+        }
+
         for(const sequencyEntry of this._sequence)
         {
             const entry = sequencyEntry[pos];
