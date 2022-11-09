@@ -11,7 +11,7 @@ export interface IMusicController
     getSongInfo(_arg_1:number):ISongInfo;
     getSongIdPlayingAtPriority(_arg_1:number):number;
     playSong(songId:number, priority:number, startPos?:number, playLength?:number, fadeInSeconds?:number, fadeOutSeconds?:number):boolean;
-    stop(_arg_1:number):void;
+    stop(priority:number):void;
     addSongInfoRequest(_arg_1:number):void;
     requestSongInfoWithoutSamples(_arg_1:number):void;
     requestUserSongDisks():void;

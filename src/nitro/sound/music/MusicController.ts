@@ -113,7 +113,7 @@ export class MusicController implements IMusicController
     public getSongInfo(k: number): ISongInfo
     {
         const _local_2:SongDataEntry = this.getSongDataEntry(k);
-        if(_local_2 == null)
+        if(!_local_2)
         {
             this.requestSongInfoWithoutSamples(k);
         }
@@ -173,7 +173,7 @@ export class MusicController implements IMusicController
         if(this._timerInstance)
         {
             clearInterval(this._timerInstance);
-            this._timerInstance = null;
+            this._timerInstance = undefined;
         }
 
         this._messageEvents.forEach(event => Nitro.instance.communication.connection.removeMessageEvent(event));
@@ -192,7 +192,7 @@ export class MusicController implements IMusicController
         let k = [];
         for(let i = 0; i < this._songRequestsPerPriority.length; i++)
         {
-            if(this._songRequestsPerPriority[i] != null)
+            if(this._songRequestsPerPriority[i])
             {
                 _local_3 = this._songRequestsPerPriority[i];
                 _local_4 = this._availableSongs.get(_local_3.songId);
@@ -386,11 +386,11 @@ export class MusicController implements IMusicController
         {
             return false;
         }
-        const _local_3 = false;
-        // if(this.stopSongAtPriority(this._priorityPlaying))
-        // {
-        //     _local_3 = true;
-        // }
+        let _local_3 = false;
+        if(this.stopSongAtPriority(this._priorityPlaying))
+        {
+            _local_3 = true;
+        }
         const songData:SongDataEntry = this.getSongDataEntry(songId);
         if(!songData)
         {
@@ -400,7 +400,7 @@ export class MusicController implements IMusicController
         if(_local_3)
         {
             console.log(('Waiting previous song to stop before playing song ' + songId));
-            return true;
+            //return true;
         }
         this._musicPlayer.setVolume(Nitro.instance.soundManager.traxVolume);
         let startPos = MusicController.SKIP_POSITION_SET;
@@ -480,7 +480,7 @@ export class MusicController implements IMusicController
     private getSongDataEntry(k:number):SongDataEntry
     {
         let entry:SongDataEntry;
-        if(this._availableSongs != null)
+        if(this._availableSongs)
         {
             entry = (this._availableSongs.get(k));
         }
@@ -534,11 +534,11 @@ export class MusicController implements IMusicController
         }
     }
 
-    private resetSongStartRequest(k:number):void
+    private resetSongStartRequest(priority:number):void
     {
-        if(((k >= 0) && (k < MusicPriorities.PRIORITY_COUNT)))
+        if(((priority >= 0) && (priority < MusicPriorities.PRIORITY_COUNT)))
         {
-            this._songRequestsPerPriority[k] = null;
+            this._songRequestsPerPriority[priority] = undefined;
         }
     }
 
@@ -558,6 +558,7 @@ export class MusicController implements IMusicController
                 //this.stopSongDataEntry(_local_3);
                 console.log('stopping song ' + songIdAtPriority);
                 this._musicPlayer.stop();
+                this._priorityPlaying = -1; // TODO: remove this; hack to fix blocking
                 return true;
             }
         }
@@ -590,10 +591,10 @@ export class MusicController implements IMusicController
 
     private disposeRoomPlaylist():void
     {
-        if(this._roomItemPlaylist != null)
+        if(this._roomItemPlaylist)
         {
             this._roomItemPlaylist.dispose();
-            this._roomItemPlaylist = null;
+            this._roomItemPlaylist = undefined;
         }
     }
 }
