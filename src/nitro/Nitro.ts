@@ -1,11 +1,10 @@
 import { Application, IApplicationOptions } from '@pixi/app';
 import { SCALE_MODES } from '@pixi/constants';
 import { settings } from '@pixi/settings';
-import { Ticker } from '@pixi/ticker';
 import { IAvatarRenderManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager, IWorkerEventTracker, NitroConfiguration } from '../api';
 import { ConfigurationEvent, EventDispatcher, NitroCore } from '../core';
 import { NitroEvent, RoomEngineEvent } from '../events';
-import { PixiApplicationProxy } from '../pixi-proxy';
+import { GetTicker, PixiApplicationProxy } from '../pixi-proxy';
 import { RoomManager } from '../room';
 import { AvatarRenderManager } from './avatar';
 import { RoomCameraWidgetManager } from './camera';
@@ -200,9 +199,9 @@ export class Nitro implements INitro
     private onConfigurationLoadedEvent(event: ConfigurationEvent): void
     {
         const animationFPS = NitroConfiguration.getValue<number>('system.animation.fps', 24);
-        const limitsFPS = NitroConfiguration.getValue<boolean>('system.limits.fps', true);
+        const limitsFPS = NitroConfiguration.getValue<boolean>('system.limits.fps', false);
 
-        if(limitsFPS) Nitro.instance.ticker.maxFPS = animationFPS;
+        if(limitsFPS) GetTicker().maxFPS = animationFPS;
     }
 
     private onRoomEngineReady(event: RoomEngineEvent): void
@@ -390,16 +389,6 @@ export class Nitro implements INitro
     public get height(): number
     {
         return this._application.renderer.height;
-    }
-
-    public get ticker(): Ticker
-    {
-        return Ticker.shared;
-    }
-
-    public get time(): number
-    {
-        return this.ticker.lastTime;
     }
 
     public get isReady(): boolean

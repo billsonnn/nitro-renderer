@@ -1,5 +1,4 @@
 import { Application } from '@pixi/app';
-import { Ticker } from '@pixi/ticker';
 import { IAvatarRenderManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager, IWorkerEventTracker } from '../api';
 
 export interface INitro
@@ -32,8 +31,6 @@ export interface INitro
     soundManager: ISoundManager;
     width: number;
     height: number;
-    ticker: Ticker;
-    time: number;
     isReady: boolean;
     isDisposed: boolean;
 }

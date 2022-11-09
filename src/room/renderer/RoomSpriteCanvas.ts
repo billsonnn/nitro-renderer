@@ -5,7 +5,7 @@ import { Matrix, Point, Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
 import { IRoomCanvasMouseListener, IRoomGeometry, IRoomObject, IRoomObjectSprite, IRoomObjectSpriteVisualization, IRoomRenderingCanvas, IRoomSpriteCanvasContainer, IRoomSpriteMouseEvent, MouseEventType, RoomObjectSpriteData, RoomObjectSpriteType, Vector3d } from '../../api';
 import { Nitro } from '../../nitro/Nitro';
-import { NitroContainer, NitroSprite, PixiApplicationProxy } from '../../pixi-proxy';
+import { GetTickerTime, NitroContainer, NitroSprite, PixiApplicationProxy } from '../../pixi-proxy';
 import { RoomSpriteMouseEvent } from '../events';
 import { RoomEnterEffect, RoomGeometry, RoomRotatingEffect, RoomShakingEffect } from '../utils';
 import { RoomObjectCache, RoomObjectCacheItem } from './cache';
@@ -322,7 +322,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         this._canvasUpdated = false;
 
-        this._totalTimeRunning += PixiApplicationProxy.instance.ticker.deltaTime;
+        this._totalTimeRunning = GetTickerTime();
 
         if(this._totalTimeRunning === this._renderTimestamp) return;
 
@@ -334,8 +334,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if((this._display.x !== this._screenOffsetX) || (this._display.y !== this._screenOffsetY))
         {
-            this._display.x = this._screenOffsetX;
-            this._display.y = this._screenOffsetY;
+            this._display.position.set(this._screenOffsetX, this._screenOffsetY);
 
             update = true;
         }
@@ -374,15 +373,9 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             }
         }
 
-        this._sortableSprites.sort((a, b) =>
-        {
-            return b.z - a.z;
-        });
+        this._sortableSprites.sort((a, b) => (b.z - a.z));
 
-        if(spriteCount < this._sortableSprites.length)
-        {
-            this._sortableSprites.splice(spriteCount);
-        }
+        if(spriteCount < this._sortableSprites.length) this._sortableSprites.splice(spriteCount);
 
         let iterator = 0;
 
