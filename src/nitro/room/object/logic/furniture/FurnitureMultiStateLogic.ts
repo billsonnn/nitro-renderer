@@ -13,9 +13,9 @@ export class FurnitureMultiStateLogic extends FurnitureLogic
 
     public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
     {
-        if (!event || !geometry || !this.object) return;
+        if(!event || !geometry || !this.object) return;
 
-        switch (event.type)
+        switch(event.type)
         {
             case MouseEventType.ROLL_OVER:
                 this.eventDispatcher && this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.MOUSE_BUTTON, this.object));

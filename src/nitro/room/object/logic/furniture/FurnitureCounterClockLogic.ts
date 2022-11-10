@@ -13,14 +13,14 @@ export class FurnitureCounterClockLogic extends FurnitureLogic
 
     public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
     {
-        if (!event || !geometry || !this.object) return;
+        if(!event || !geometry || !this.object) return;
 
         let objectEvent: RoomObjectEvent = null;
 
-        switch (event.type)
+        switch(event.type)
         {
             case MouseEventType.DOUBLE_CLICK:
-                switch (event.spriteTag)
+                switch(event.spriteTag)
                 {
                     case 'start_stop':
                         objectEvent = new RoomObjectStateChangedEvent(RoomObjectStateChangedEvent.STATE_CHANGE, this.object, 1);
@@ -30,7 +30,7 @@ export class FurnitureCounterClockLogic extends FurnitureLogic
                         break;
                 }
 
-                if (this.eventDispatcher && objectEvent)
+                if(this.eventDispatcher && objectEvent)
                 {
                     this.eventDispatcher.dispatchEvent(objectEvent);
 
@@ -44,7 +44,7 @@ export class FurnitureCounterClockLogic extends FurnitureLogic
 
     public useObject(): void
     {
-        if (!this.object || !this.eventDispatcher) return;
+        if(!this.object || !this.eventDispatcher) return;
 
         this.eventDispatcher.dispatchEvent(new RoomObjectStateChangedEvent(RoomObjectStateChangedEvent.STATE_CHANGE, this.object, 1));
     }

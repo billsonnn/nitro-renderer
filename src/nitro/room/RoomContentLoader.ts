@@ -78,7 +78,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
         this.setFurnitureData();
 
-        for (const [index, name] of NitroConfiguration.getValue<string[]>('pet.types').entries()) this._pets[name] = index;
+        for(const [index, name] of NitroConfiguration.getValue<string[]>('pet.types').entries()) this._pets[name] = index;
     }
 
     public dispose(): void
@@ -90,7 +90,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         this._sessionDataManager = sessionData;
 
-        if (this._waitingForSessionDataManager)
+        if(this._waitingForSessionDataManager)
         {
             this._waitingForSessionDataManager = false;
 
@@ -105,7 +105,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
     private setFurnitureData(): void
     {
-        if (!this._sessionDataManager)
+        if(!this._sessionDataManager)
         {
             this._waitingForSessionDataManager = true;
 
@@ -114,7 +114,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
         const furnitureData = this._sessionDataManager.getAllFurnitureData(this);
 
-        if (!furnitureData) return;
+        if(!furnitureData) return;
 
         this._sessionDataManager.removePendingFurniDataListener(this);
 
@@ -125,42 +125,42 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
     private processFurnitureData(furnitureData: IFurnitureData[]): void
     {
-        if (!furnitureData) return;
+        if(!furnitureData) return;
 
-        for (const furniture of furnitureData)
+        for(const furniture of furnitureData)
         {
-            if (!furniture) continue;
+            if(!furniture) continue;
 
             const id = furniture.id;
 
             let className = furniture.className;
 
-            if (furniture.hasIndexedColor) className = ((className + '*') + furniture.colorIndex);
+            if(furniture.hasIndexedColor) className = ((className + '*') + furniture.colorIndex);
 
             const revision = furniture.revision;
             const adUrl = furniture.adUrl;
 
-            if (adUrl && adUrl.length > 0) this._objectTypeAdUrls.set(className, adUrl);
+            if(adUrl && adUrl.length > 0) this._objectTypeAdUrls.set(className, adUrl);
 
             let name = furniture.className;
 
-            if (furniture.type === FurnitureType.FLOOR)
+            if(furniture.type === FurnitureType.FLOOR)
             {
                 this._activeObjectTypes.set(id, className);
                 this._activeObjectTypeIds.set(className, id);
 
-                if (!this._activeObjects[name]) this._activeObjects[name] = 1;
+                if(!this._activeObjects[name]) this._activeObjects[name] = 1;
             }
 
-            else if (furniture.type === FurnitureType.WALL)
+            else if(furniture.type === FurnitureType.WALL)
             {
-                if (name === 'post.it')
+                if(name === 'post.it')
                 {
                     className = 'post_it';
                     name = 'post_it';
                 }
 
-                if (name === 'post.it.vd')
+                if(name === 'post.it.vd')
                 {
                     className = 'post_it_vd';
                     name = 'post_id_vd';
@@ -169,12 +169,12 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
                 this._wallItemTypes.set(id, className);
                 this._wallItemTypeIds.set(className, id);
 
-                if (!this._wallItems[name]) this._wallItems[name] = 1;
+                if(!this._wallItems[name]) this._wallItems[name] = 1;
             }
 
             const existingRevision = this._furniRevisions.get(name);
 
-            if (revision > existingRevision)
+            if(revision > existingRevision)
             {
                 this._furniRevisions.delete(name);
                 this._furniRevisions.set(name, revision);
@@ -193,7 +193,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         let type = this._wallItemTypes.get(typeId);
 
-        if ((type === 'poster') && (extra !== null)) type = (type + extra);
+        if((type === 'poster') && (extra !== null)) type = (type + extra);
 
         return this.removeColorIndex(type);
     }
@@ -202,7 +202,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         const type = this._activeObjectTypes.get(typeId);
 
-        if (!type) return -1;
+        if(!type) return -1;
 
         return this.getColorIndexFromName(type);
     }
@@ -211,29 +211,29 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         const type = this._wallItemTypes.get(typeId);
 
-        if (!type) return -1;
+        if(!type) return -1;
 
         return this.getColorIndexFromName(type);
     }
 
     private getColorIndexFromName(name: string): number
     {
-        if (!name) return -1;
+        if(!name) return -1;
 
         const index = name.indexOf('*');
 
-        if (index === -1) return 0;
+        if(index === -1) return 0;
 
         return parseInt(name.substr(index + 1));
     }
 
     private removeColorIndex(name: string): string
     {
-        if (!name) return null;
+        if(!name) return null;
 
         const index = name.indexOf('*');
 
-        if (index === -1) return name;
+        if(index === -1) return name;
 
         return name.substr(0, index);
     }
@@ -242,7 +242,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         const value = this._objectTypeAdUrls.get(type);
 
-        if (!value) return '';
+        if(!value) return '';
 
         return value;
     }
@@ -251,7 +251,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         const colorResults = this._petColors.get(petIndex);
 
-        if (!colorResults) return null;
+        if(!colorResults) return null;
 
         return colorResults.get(paletteIndex);
     }
@@ -261,11 +261,11 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
         const colorResults = this._petColors.get(petIndex);
         const results: IPetColorResult[] = [];
 
-        if (colorResults)
+        if(colorResults)
         {
-            for (const result of colorResults.values())
+            for(const result of colorResults.values())
             {
-                if (result.tag === tagName) results.push(result);
+                if(result.tag === tagName) results.push(result);
             }
         }
 
@@ -274,15 +274,15 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
     public getCollection(name: string): IGraphicAssetCollection
     {
-        if (!name) return null;
+        if(!name) return null;
 
         const existing = this._collections.get(name);
 
-        if (!existing)
+        if(!existing)
         {
             const globalCollection = GetAssetManager().getCollection(name);
 
-            if (globalCollection)
+            if(globalCollection)
             {
                 this._collections.set(name, globalCollection);
 
@@ -297,18 +297,18 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
     public getGifCollection(name: string): IGraphicAssetGifCollection
     {
-        if (!name) return null;
+        if(!name) return null;
 
         return this._gifCollections.get(name) || null;
     }
 
     public getImage(name: string): HTMLImageElement
     {
-        if (!name) return null;
+        if(!name) return null;
 
         const existing = this._images.get(name);
 
-        if (!existing) return null;
+        if(!existing) return null;
 
         const image = new Image();
 
@@ -321,14 +321,14 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         const collection = this.getCollection(collectionName);
 
-        if (!collection) return false;
+        if(!collection) return false;
 
         return collection.addAsset(assetName, texture, override, 0, 0, false, false);
     }
 
     public createGifCollection(collectionName: string, textures: Texture<Resource>[], durations: number[]): GraphicAssetGifCollection
     {
-        if (!collectionName || !textures || !durations) return null;
+        if(!collectionName || !textures || !durations) return null;
 
         const collection = new GraphicAssetGifCollection(collectionName, textures, durations);
 
@@ -339,7 +339,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
     private createCollection(data: IAssetData, spritesheet: Spritesheet): GraphicAssetCollection
     {
-        if (!data || !spritesheet) return null;
+        if(!data || !spritesheet) return null;
 
         const collection = new GraphicAssetCollection(data, spritesheet);
 
@@ -347,12 +347,12 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
         const petIndex = this._pets[collection.name];
 
-        if (petIndex !== undefined)
+        if(petIndex !== undefined)
         {
             const keys = collection.getPaletteNames();
             const palettes: Map<number, IPetColorResult> = new Map();
 
-            for (const key of keys)
+            for(const key of keys)
             {
                 const palette = collection.getPalette(key);
                 const paletteData = data.palettes[key];
@@ -375,14 +375,14 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         const category = this.getCategoryForType(type);
 
-        switch (category)
+        switch(category)
         {
             case RoomObjectCategory.FLOOR:
                 return RoomContentLoader.PLACE_HOLDER;
             case RoomObjectCategory.WALL:
                 return RoomContentLoader.PLACE_HOLDER_WALL;
             default:
-                if (this._pets[type] !== undefined) return RoomContentLoader.PLACE_HOLDER_PET;
+                if(this._pets[type] !== undefined) return RoomContentLoader.PLACE_HOLDER_PET;
 
                 return RoomContentLoader.PLACE_HOLDER_DEFAULT;
         }
@@ -390,27 +390,27 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
     public getCategoryForType(type: string): number
     {
-        if (!type) return RoomObjectCategory.MINIMUM;
+        if(!type) return RoomObjectCategory.MINIMUM;
 
-        if (this._activeObjects[type] !== undefined) return RoomObjectCategory.FLOOR;
+        if(this._activeObjects[type] !== undefined) return RoomObjectCategory.FLOOR;
 
-        if (this._wallItems[type] !== undefined) return RoomObjectCategory.WALL;
+        if(this._wallItems[type] !== undefined) return RoomObjectCategory.WALL;
 
-        if (this._pets[type] !== undefined) return RoomObjectCategory.UNIT;
+        if(this._pets[type] !== undefined) return RoomObjectCategory.UNIT;
 
-        if (type.indexOf('poster') === 0) return RoomObjectCategory.WALL;
+        if(type.indexOf('poster') === 0) return RoomObjectCategory.WALL;
 
-        if (type === 'room') return RoomObjectCategory.ROOM;
+        if(type === 'room') return RoomObjectCategory.ROOM;
 
-        if (type === RoomObjectUserType.USER) return RoomObjectCategory.UNIT;
+        if(type === RoomObjectUserType.USER) return RoomObjectCategory.UNIT;
 
-        if (type === RoomObjectUserType.PET) return RoomObjectCategory.UNIT;
+        if(type === RoomObjectUserType.PET) return RoomObjectCategory.UNIT;
 
-        if (type === RoomObjectUserType.BOT) return RoomObjectCategory.UNIT;
+        if(type === RoomObjectUserType.BOT) return RoomObjectCategory.UNIT;
 
-        if (type === RoomObjectUserType.RENTABLE_BOT) return RoomObjectCategory.UNIT;
+        if(type === RoomObjectUserType.RENTABLE_BOT) return RoomObjectCategory.UNIT;
 
-        if ((type === RoomContentLoader.TILE_CURSOR) || (type === RoomContentLoader.SELECTION_ARROW)) return RoomObjectCategory.CURSOR;
+        if((type === RoomContentLoader.TILE_CURSOR) || (type === RoomContentLoader.SELECTION_ARROW)) return RoomObjectCategory.CURSOR;
 
         return RoomObjectCategory.MINIMUM;
     }
@@ -424,7 +424,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         type = RoomObjectUserType.getRealType(type);
 
-        if (type === RoomObjectVisualizationType.USER) return false;
+        if(type === RoomObjectVisualizationType.USER) return false;
 
         return true;
     }
@@ -434,13 +434,13 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
         let typeName: string = null;
         let assetUrls: string[] = [];
 
-        if (type && (type.indexOf(',') >= 0))
+        if(type && (type.indexOf(',') >= 0))
         {
             typeName = type;
             type = typeName.split(',')[0];
         }
 
-        if (typeName)
+        if(typeName)
         {
             assetUrls = this.getAssetUrls(typeName, param, true);
         }
@@ -449,7 +449,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
             assetUrls = this.getAssetUrls(type, param, true);
         }
 
-        if (assetUrls && assetUrls.length)
+        if(assetUrls && assetUrls.length)
         {
             const url = assetUrls[0];
 
@@ -485,18 +485,18 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         const assetUrls: string[] = this.getAssetUrls(type);
 
-        if (!assetUrls || !assetUrls.length) return;
+        if(!assetUrls || !assetUrls.length) return;
 
-        if ((this._pendingContentTypes.indexOf(type) >= 0) || this.getOrRemoveEventDispatcher(type)) return;
+        if((this._pendingContentTypes.indexOf(type) >= 0) || this.getOrRemoveEventDispatcher(type)) return;
 
         this._pendingContentTypes.push(type);
         this._events.set(type, events);
 
         const loader = new Loader();
 
-        for (const url of assetUrls)
+        for(const url of assetUrls)
         {
-            if (!url || !url.length) continue;
+            if(!url || !url.length) continue;
 
             loader
                 .add({
@@ -511,7 +511,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
         const onDownloaded = (status: boolean, url: string) =>
         {
-            if (!status)
+            if(!status)
             {
                 NitroLogger.error('Failed to download asset', url);
 
@@ -524,13 +524,13 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
             remaining--;
 
-            if (!remaining)
+            if(!remaining)
             {
                 loader.destroy();
 
                 const events = this._events.get(type);
 
-                if (!events) return;
+                if(!events) return;
 
                 events.dispatchEvent(new RoomContentLoadedEvent(RoomContentLoadedEvent.RCLE_SUCCESS, type));
 
@@ -540,11 +540,11 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
         loader.load((loader, resources) =>
         {
-            for (const key in resources)
+            for(const key in resources)
             {
                 const resource = resources[key];
 
-                if (!resource || resource.error || !resource.xhr)
+                if(!resource || resource.error || !resource.xhr)
                 {
                     onDownloaded(false, resource.url);
 
@@ -553,7 +553,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
                 const resourceType = (resource.xhr.getResponseHeader('Content-Type') || 'application/octet-stream');
 
-                if (resourceType === 'application/octet-stream')
+                if(resourceType === 'application/octet-stream')
                 {
                     const nitroBundle = new NitroBundle(resource.data);
 
@@ -572,7 +572,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         const spritesheetData = data.spritesheet;
 
-        if (!baseTexture || !spritesheetData || !Object.keys(spritesheetData).length)
+        if(!baseTexture || !spritesheetData || !Object.keys(spritesheetData).length)
         {
             this.createCollection(data, null);
 
@@ -593,7 +593,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
             });
         };
 
-        if (baseTexture.valid)
+        if(baseTexture.valid)
         {
             createAsset();
         }
@@ -613,7 +613,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         const existing = this._objectAliases.get(name);
 
-        if (!existing) return name;
+        if(!existing) return name;
 
         return existing;
     }
@@ -622,14 +622,14 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         const existing = this._objectOriginalNames.get(name);
 
-        if (!existing) return name;
+        if(!existing) return name;
 
         return existing;
     }
 
     public getAssetUrls(type: string, param: string = null, icon: boolean = false): string[]
     {
-        switch (type)
+        switch(type)
         {
             case RoomContentLoader.PLACE_HOLDER:
                 return [this.getAssetUrlWithGenericBase(RoomContentLoader.PLACE_HOLDER)];
@@ -646,13 +646,13 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
             default: {
                 const category = this.getCategoryForType(type);
 
-                if ((category === RoomObjectCategory.FLOOR) || (category === RoomObjectCategory.WALL))
+                if((category === RoomObjectCategory.FLOOR) || (category === RoomObjectCategory.WALL))
                 {
                     const name = this.getAssetAliasName(type);
 
                     let assetUrl = (icon ? this.getAssetUrlWithFurniIconBase(name) : this.getAssetUrlWithFurniBase(type));
 
-                    if (icon)
+                    if(icon)
                     {
                         const active = (param && (param !== '') && (this._activeObjectTypeIds.has((name + '*' + param))));
 
@@ -662,7 +662,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
                     return [assetUrl];
                 }
 
-                if (category === RoomObjectCategory.UNIT)
+                if(category === RoomObjectCategory.UNIT)
                 {
                     return [this.getAssetUrlWithPetBase(type)];
                 }
@@ -677,14 +677,14 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
         let assetName: string = null;
         let assetUrls: string[] = [];
 
-        if (type && (type.indexOf(',') >= 0))
+        if(type && (type.indexOf(',') >= 0))
         {
             assetName = type;
 
             type = assetName.split(',')[0];
         }
 
-        if (assetName)
+        if(assetName)
         {
             assetUrls = this.getAssetUrls(assetName, colorIndex, true);
         }
@@ -693,7 +693,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
             assetUrls = this.getAssetUrls(type, colorIndex, true);
         }
 
-        if (assetUrls && assetUrls.length) return assetUrls[0];
+        if(assetUrls && assetUrls.length) return assetUrls[0];
 
         return null;
     }
@@ -722,7 +722,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         const model = object && object.model;
 
-        if (!model) return;
+        if(!model) return;
 
         model.setValue(RoomObjectVariable.OBJECT_ROOM_ID, roomId);
     }
@@ -731,7 +731,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     {
         const existing = this._events.get(type);
 
-        if (remove) this._events.delete(type);
+        if(remove) this._events.delete(type);
 
         return existing;
     }
