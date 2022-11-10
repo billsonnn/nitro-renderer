@@ -1,6 +1,6 @@
 import { IEventDispatcher, IRoomGeometry, IRoomObjectController, IRoomObjectEventHandler, IRoomObjectUpdateMessage } from '../../../api';
 import { Disposable } from '../../../core';
-import { RoomSpriteMouseEvent } from '../../events';
+import { RoomSpriteMouseEvent } from '../../../events';
 
 export class RoomObjectLogicBase extends Disposable implements IRoomObjectEventHandler
 {
@@ -38,7 +38,7 @@ export class RoomObjectLogicBase extends Disposable implements IRoomObjectEventH
 
     public processUpdateMessage(message: IRoomObjectUpdateMessage): void
     {
-        if(!message || !this._object) return;
+        if (!message || !this._object) return;
 
         this._object.setLocation(message.location);
         this._object.setDirection(message.direction);
@@ -53,9 +53,9 @@ export class RoomObjectLogicBase extends Disposable implements IRoomObjectEventH
     {
         const types = k.concat();
 
-        for(const type of _arg_2)
+        for (const type of _arg_2)
         {
-            if(!type || (types.indexOf(type) >= 0)) continue;
+            if (!type || (types.indexOf(type) >= 0)) continue;
 
             types.push(type);
         }
@@ -75,14 +75,14 @@ export class RoomObjectLogicBase extends Disposable implements IRoomObjectEventH
 
     public setObject(object: IRoomObjectController): void
     {
-        if(this._object === object) return;
+        if (this._object === object) return;
 
-        if(this._object)
+        if (this._object)
         {
             this._object.setLogic(null);
         }
 
-        if(!object)
+        if (!object)
         {
             this.dispose();
 

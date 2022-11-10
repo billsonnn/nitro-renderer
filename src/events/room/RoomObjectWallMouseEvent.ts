@@ -1,5 +1,5 @@
 ﻿import { IRoomObject, IVector3D, Vector3d } from '../../api';
-import { RoomObjectMouseEvent } from '../../room';
+import { RoomObjectMouseEvent } from './RoomObjectMouseEvent';
 
 export class RoomObjectWallMouseEvent extends RoomObjectMouseEvent
 {
