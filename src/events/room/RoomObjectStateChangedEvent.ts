@@ -1,5 +1,5 @@
 import { IRoomObject } from '../../api';
-import { RoomObjectEvent } from '../../room';
+import { RoomObjectEvent } from './RoomObjectEvent';
 
 export class RoomObjectStateChangedEvent extends RoomObjectEvent
 {

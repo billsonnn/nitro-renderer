@@ -1,4 +1,4 @@
-import { IAdvancedMap } from '../../../IAdvancedMap';
+import { IAdvancedMap } from '../../../utils';
 import { IFigurePartSet } from './IFigurePartSet';
 
 export interface ISetType

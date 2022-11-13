@@ -1,5 +1,4 @@
-﻿import { GetTickerTime } from '../../../pixi-proxy';
-import { Nitro } from '../../Nitro';
+﻿import { GetTickerFPS, GetTickerTime } from '../../../pixi-proxy';
 import { Motion } from './Motion';
 
 export class Motions
@@ -12,7 +11,7 @@ export class Motions
 
     public static get TIMER_TIME(): number
     {
-        return (1000 / Nitro.instance.ticker.FPS);
+        return (1000 / GetTickerFPS());
     }
 
     public static runMotion(k: Motion): Motion

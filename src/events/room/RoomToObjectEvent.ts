@@ -1,4 +1,4 @@
-﻿import { NitroEvent } from '../../events';
+﻿import { NitroEvent } from '../core';
 
 export class RoomToObjectEvent extends NitroEvent
 {

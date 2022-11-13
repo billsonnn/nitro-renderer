@@ -1,6 +1,6 @@
 import { IEventDispatcher, IRoomGeometry, IRoomObjectController, IRoomObjectEventHandler, IRoomObjectUpdateMessage } from '../../../api';
 import { Disposable } from '../../../core';
-import { RoomSpriteMouseEvent } from '../../events';
+import { RoomSpriteMouseEvent } from '../../../events';
 
 export class RoomObjectLogicBase extends Disposable implements IRoomObjectEventHandler
 {

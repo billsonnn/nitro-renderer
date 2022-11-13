@@ -1,6 +1,5 @@
 import { IRoomGeometry, MouseEventType } from '../../../../../api';
-import { RoomObjectStateChangedEvent } from '../../../../../events';
-import { RoomSpriteMouseEvent } from '../../../../../room';
+import { RoomObjectStateChangedEvent, RoomSpriteMouseEvent } from '../../../../../events';
 import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
 
 export class FurnitureWelcomeGiftLogic extends FurnitureMultiStateLogic

@@ -3,12 +3,11 @@ import { Container, DisplayObject } from '@pixi/display';
 import { Matrix, Point, Rectangle } from '@pixi/math';
 import { IConnection, IDisposable, IFurnitureStackingHeightMap, IGetImageListener, IImageResult, ILegacyWallGeometry, IMessageComposer, INitroCommunicationManager, INitroEvent, IObjectData, IPetColorResult, IPetCustomPart, IRoomContentListener, IRoomContentLoader, IRoomCreator, IRoomEngine, IRoomEngineServices, IRoomGeometry, IRoomInstance, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRenderer, IRoomRendererFactory, IRoomRenderingCanvas, IRoomSessionManager, ISelectedRoomObjectData, ISessionDataManager, ITileObjectMap, IUpdateReceiver, IVector3D, LegacyDataType, MouseEventType, NitroConfiguration, NitroLogger, ObjectDataFactory, RoomControllerLevel, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, ToolbarIconEnum, Vector3d } from '../../api';
 import { NitroManager } from '../../core';
-import { BadgeImageReadyEvent, NitroToolbarAnimateIconEvent, RoomBackgroundColorEvent, RoomDragEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomObjectFurnitureActionEvent, RoomSessionEvent, RoomToObjectOwnAvatarMoveEvent } from '../../events';
-import { GetTickerTime, NitroSprite, TextureUtils } from '../../pixi-proxy';
-import { NumberBank, RoomEnterEffect, RoomGeometry, RoomInstance, RoomObjectEvent, RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomRendererFactory } from '../../room';
+import { BadgeImageReadyEvent, NitroToolbarAnimateIconEvent, RoomBackgroundColorEvent, RoomDragEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomObjectEvent, RoomObjectFurnitureActionEvent, RoomObjectMouseEvent, RoomSessionEvent, RoomToObjectOwnAvatarMoveEvent } from '../../events';
+import { GetTicker, GetTickerTime, NitroSprite, TextureUtils } from '../../pixi-proxy';
+import { NumberBank, RoomEnterEffect, RoomGeometry, RoomInstance, RoomObjectUpdateMessage, RoomRendererFactory } from '../../room';
 import { PetFigureData } from '../avatar';
 import { RenderRoomMessageComposer, RenderRoomThumbnailMessageComposer } from '../communication';
-import { Nitro } from '../Nitro';
 import { FurniId } from '../utils';
 import { ImageResult } from './ImageResult';
 import { ObjectAvatarCarryObjectUpdateMessage, ObjectAvatarChatUpdateMessage, ObjectAvatarDanceUpdateMessage, ObjectAvatarEffectUpdateMessage, ObjectAvatarExperienceUpdateMessage, ObjectAvatarExpressionUpdateMessage, ObjectAvatarFigureUpdateMessage, ObjectAvatarFlatControlUpdateMessage, ObjectAvatarGestureUpdateMessage, ObjectAvatarGuideStatusUpdateMessage, ObjectAvatarMutedUpdateMessage, ObjectAvatarOwnMessage, ObjectAvatarPetGestureUpdateMessage, ObjectAvatarPlayerValueUpdateMessage, ObjectAvatarPlayingGameUpdateMessage, ObjectAvatarPostureUpdateMessage, ObjectAvatarSignUpdateMessage, ObjectAvatarSleepUpdateMessage, ObjectAvatarTypingUpdateMessage, ObjectAvatarUpdateMessage, ObjectAvatarUseObjectUpdateMessage, ObjectDataUpdateMessage, ObjectGroupBadgeUpdateMessage, ObjectHeightUpdateMessage, ObjectItemDataUpdateMessage, ObjectModelDataUpdateMessage, ObjectMoveUpdateMessage, ObjectRoomColorUpdateMessage, ObjectRoomFloorHoleUpdateMessage, ObjectRoomMaskUpdateMessage, ObjectRoomPlanePropertyUpdateMessage, ObjectRoomPlaneVisibilityUpdateMessage, ObjectRoomUpdateMessage, ObjectStateUpdateMessage } from './messages';
@@ -151,7 +150,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         this.events.addEventListener(RoomContentLoader.LOADER_READY, this.onRoomContentLoaderReadyEvent);
 
-        Nitro.instance.ticker.add(this.update, this);
+        GetTicker().add(this.update, this);
 
         document.addEventListener('visibilitychange', this.runVisibilityUpdate);
     }
@@ -167,7 +166,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
         document.removeEventListener('visibilitychange', this.runVisibilityUpdate);
 
-        Nitro.instance.ticker.remove(this.update, this);
+        GetTicker().remove(this.update, this);
 
         if(this._roomObjectEventHandler) this._roomObjectEventHandler.dispose();
 
@@ -787,12 +786,12 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
     {
         if(flag)
         {
-            Nitro.instance.ticker.remove(this.update, this);
+            GetTicker().remove(this.update, this);
         }
         else
         {
-            Nitro.instance.ticker.remove(this.update, this);
-            Nitro.instance.ticker.add(this.update, this);
+            GetTicker().remove(this.update, this);
+            GetTicker().add(this.update, this);
         }
     }
 

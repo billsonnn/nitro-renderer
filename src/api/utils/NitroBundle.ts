@@ -1,6 +1,7 @@
 import { BaseTexture } from '@pixi/core';
 import { Data, inflate } from 'pako';
-import { ArrayBufferToBase64, BinaryReader } from '../utils';
+import { ArrayBufferToBase64 } from './ArrayBufferToBase64';
+import { BinaryReader } from './BinaryReader';
 
 export class NitroBundle
 {

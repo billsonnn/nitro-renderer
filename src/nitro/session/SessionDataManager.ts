@@ -1,5 +1,5 @@
 import { Resource, Texture } from '@pixi/core';
-import { IFurnitureData, IFurnitureDataListener, IGroupInformationManager, IMessageComposer, INitroCommunicationManager, INitroEvent, IProductData, IProductDataListener, ISessionDataManager, NitroConfiguration, NoobnessLevelEnum, SecurityLevel } from '../../api';
+import { GetAssetManager, IFurnitureData, IFurnitureDataListener, IGroupInformationManager, IMessageComposer, INitroCommunicationManager, INitroEvent, IProductData, IProductDataListener, ISessionDataManager, NitroConfiguration, NoobnessLevelEnum, SecurityLevel } from '../../api';
 import { NitroManager } from '../../core';
 import { MysteryBoxKeysUpdateEvent, NitroSettingsEvent, SessionDataPreferencesEvent, UserNameUpdateEvent } from '../../events';
 import { AvailabilityStatusMessageEvent, ChangeUserNameResultMessageEvent, FigureUpdateEvent, InClientLinkEvent, MysteryBoxKeysEvent, NoobnessLevelMessageEvent, PetRespectComposer, RoomReadyMessageEvent, RoomUnitChatComposer, UserInfoEvent, UserNameChangeMessageEvent, UserPermissionsEvent, UserRespectComposer } from '../communication';
@@ -175,7 +175,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     {
         if(this._badgeImageManager) return;
 
-        this._badgeImageManager = new BadgeImageManager(Nitro.instance.core.asset, this);
+        this._badgeImageManager = new BadgeImageManager(GetAssetManager(), this);
         this._badgeImageManager.init();
     }
 

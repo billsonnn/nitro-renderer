@@ -1,7 +1,6 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Rectangle } from '@pixi/math';
-import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable, Vector3d } from '../../../../../api';
-import { AdvancedMap } from '../../../../../core';
+import { AdvancedMap, AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable, Vector3d } from '../../../../../api';
 import { RoomObjectSpriteVisualization } from '../../../../../room';
 import { RoomMapData } from '../../RoomMapData';
 import { RoomMapMaskData } from '../../RoomMapMaskData';

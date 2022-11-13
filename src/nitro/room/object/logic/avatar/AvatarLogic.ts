@@ -1,8 +1,8 @@
 
 import { AvatarAction, IRoomGeometry, IRoomObjectModel, MouseEventType, RoomObjectVariable, Vector3d } from '../../../../../api';
-import { RoomObjectFurnitureActionEvent, RoomObjectMoveEvent } from '../../../../../events';
+import { RoomObjectFurnitureActionEvent, RoomObjectMouseEvent, RoomObjectMoveEvent, RoomSpriteMouseEvent } from '../../../../../events';
 import { GetTickerTime } from '../../../../../pixi-proxy';
-import { RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
+import { RoomObjectUpdateMessage } from '../../../../../room';
 import { ObjectAvatarCarryObjectUpdateMessage, ObjectAvatarChatUpdateMessage, ObjectAvatarDanceUpdateMessage, ObjectAvatarEffectUpdateMessage, ObjectAvatarExpressionUpdateMessage, ObjectAvatarFigureUpdateMessage, ObjectAvatarFlatControlUpdateMessage, ObjectAvatarGestureUpdateMessage, ObjectAvatarMutedUpdateMessage, ObjectAvatarOwnMessage, ObjectAvatarPlayerValueUpdateMessage, ObjectAvatarPlayingGameUpdateMessage, ObjectAvatarPostureUpdateMessage, ObjectAvatarSelectedMessage, ObjectAvatarSignUpdateMessage, ObjectAvatarSleepUpdateMessage, ObjectAvatarTypingUpdateMessage, ObjectAvatarUpdateMessage, ObjectAvatarUseObjectUpdateMessage } from '../../../messages';
 import { MovingObjectLogic } from '../MovingObjectLogic';
 
@@ -57,7 +57,7 @@ export class AvatarLogic extends MovingObjectLogic
 
     public getEventTypes(): string[]
     {
-        const types = [RoomObjectMouseEvent.CLICK, RoomObjectMoveEvent.POSITION_CHANGED, RoomObjectMouseEvent.MOUSE_ENTER, RoomObjectMouseEvent.MOUSE_LEAVE, RoomObjectFurnitureActionEvent.MOUSE_BUTTON, RoomObjectFurnitureActionEvent.MOUSE_ARROW];
+        const types = [RoomObjectMouseEvent.CLICK, RoomObjectMouseEvent.DOUBLE_CLICK, RoomObjectMoveEvent.POSITION_CHANGED, RoomObjectMouseEvent.MOUSE_ENTER, RoomObjectMouseEvent.MOUSE_LEAVE, RoomObjectFurnitureActionEvent.MOUSE_BUTTON, RoomObjectFurnitureActionEvent.MOUSE_ARROW];
 
         return this.mergeTypes(super.getEventTypes(), types);
     }
@@ -460,6 +460,9 @@ export class AvatarLogic extends MovingObjectLogic
         {
             case MouseEventType.MOUSE_CLICK:
                 eventType = RoomObjectMouseEvent.CLICK;
+                break;
+            case MouseEventType.DOUBLE_CLICK:
+                eventType = RoomObjectMouseEvent.DOUBLE_CLICK;
                 break;
             case MouseEventType.ROLL_OVER:
                 eventType = RoomObjectMouseEvent.MOUSE_ENTER;

@@ -1,5 +1,4 @@
-import { RoomObjectVariable, RoomWidgetEnum } from '../../../../../api';
-import { AdvancedMap } from '../../../../../core';
+import { AdvancedMap, RoomObjectVariable, RoomWidgetEnum } from '../../../../../api';
 import { RoomObjectDataRequestEvent } from '../../../../../events';
 import { FurnitureLogic } from './FurnitureLogic';
 

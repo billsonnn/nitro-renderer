@@ -1,3 +1,3 @@
-import { PixiApplicationProxy } from './PixiApplicationProxy';
+import { GetTicker } from './GetTicker';
 
-export const GetTickerTime = () => (PixiApplicationProxy.instance?.ticker?.lastTime || 0);
+export const GetTickerTime = () => (GetTicker()?.lastTime || 0);

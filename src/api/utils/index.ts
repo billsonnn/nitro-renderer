@@ -2,4 +2,7 @@ export * from './AdvancedMap';
 export * from './ArrayBufferToBase64';
 export * from './BinaryReader';
 export * from './BinaryWriter';
-export * from './SayHello';
+export * from './IAdvancedMap';
+export * from './IBinaryReader';
+export * from './IBinaryWriter';
+export * from './NitroBundle';

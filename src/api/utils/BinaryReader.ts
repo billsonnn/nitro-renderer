@@ -1,4 +1,4 @@
-import { IBinaryReader } from '../../api';
+import { IBinaryReader } from './IBinaryReader';
 
 export class BinaryReader implements IBinaryReader
 {

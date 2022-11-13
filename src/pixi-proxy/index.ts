@@ -1,3 +1,5 @@
+export * from './GetTicker';
+export * from './GetTickerFPS';
 export * from './GetTickerTime';
 export * from './INitroPoint';
 export * from './NitroAdjustmentFilter';

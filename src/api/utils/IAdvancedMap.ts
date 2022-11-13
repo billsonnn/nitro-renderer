@@ -1,4 +1,4 @@
-import { IDisposable } from './common';
+import { IDisposable } from '../common';
 
 export interface IAdvancedMap<T = any, U = any> extends IDisposable
 {

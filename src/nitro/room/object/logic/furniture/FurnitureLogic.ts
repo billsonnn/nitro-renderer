@@ -1,6 +1,6 @@
 import { IAssetData, IRoomGeometry, IRoomObjectController, IRoomObjectModel, IVector3D, MouseEventType, NitroConfiguration, RoomObjectVariable, Vector3d } from '../../../../../api';
-import { RoomObjectRoomAdEvent, RoomObjectStateChangedEvent, RoomObjectWidgetRequestEvent } from '../../../../../events';
-import { RoomObjectMouseEvent, RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
+import { RoomObjectMouseEvent, RoomObjectRoomAdEvent, RoomObjectStateChangedEvent, RoomObjectWidgetRequestEvent, RoomSpriteMouseEvent } from '../../../../../events';
+import { RoomObjectUpdateMessage } from '../../../../../room';
 import { ObjectDataUpdateMessage, ObjectHeightUpdateMessage, ObjectItemDataUpdateMessage, ObjectMoveUpdateMessage, ObjectSelectedMessage } from '../../../messages';
 import { MovingObjectLogic } from '../MovingObjectLogic';
 

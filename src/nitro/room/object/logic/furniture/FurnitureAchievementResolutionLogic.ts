@@ -1,6 +1,6 @@
 import { RoomObjectVariable } from '../../../../../api';
-import { RoomObjectBadgeAssetEvent, RoomObjectWidgetRequestEvent } from '../../../../../events';
-import { RoomObjectEvent, RoomObjectUpdateMessage } from '../../../../../room';
+import { RoomObjectBadgeAssetEvent, RoomObjectEvent, RoomObjectWidgetRequestEvent } from '../../../../../events';
+import { RoomObjectUpdateMessage } from '../../../../../room';
 import { ObjectGroupBadgeUpdateMessage, ObjectSelectedMessage } from '../../../messages';
 import { FurnitureBadgeDisplayLogic } from './FurnitureBadgeDisplayLogic';
 

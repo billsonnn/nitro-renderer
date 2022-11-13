@@ -1,6 +1,4 @@
 export * from './enums';
-export * from './IBinaryReader';
-export * from './IBinaryWriter';
 export * from './ICodec';
 export * from './ICommunicationManager';
 export * from './IConnection';

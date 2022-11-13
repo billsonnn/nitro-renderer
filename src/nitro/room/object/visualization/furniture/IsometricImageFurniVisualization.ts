@@ -91,7 +91,7 @@ export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualiza
         }
     }
 
-    private generateTransformedThumbnail(texture: Texture<Resource>, asset: IGraphicAsset): Texture<Resource>
+    protected generateTransformedThumbnail(texture: Texture<Resource>, asset: IGraphicAsset): Texture<Resource>
     {
         if(this._hasOutline)
         {

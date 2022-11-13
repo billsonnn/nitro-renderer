@@ -1,6 +1,4 @@
-import { IAdvancedMap, IMessageEvent, IMusicController, IPlaylistController } from '../../../api';
-import { ISongInfo } from '../../../api/nitro/sound/common/ISongInfo';
-import { AdvancedMap } from '../../../core';
+import { AdvancedMap, IAdvancedMap, IMessageEvent, IMusicController, IPlaylistController, ISongInfo } from '../../../api';
 import { RoomObjectSoundMachineEvent } from '../../../events';
 import { GetNowPlayingMessageComposer, GetSongInfoMessageComposer, GetUserSongDisksMessageComposer, TraxSongInfoMessageEvent, UserSongDisksInventoryMessageEvent } from '../../communication';
 import { Nitro } from '../../Nitro';
@@ -22,10 +20,10 @@ export class MusicController implements IMusicController
     private _requestedSongs: Map<number, boolean>;
     private _availableSongs: Map<number, SongDataEntry>;
     private _songRequestsPerPriority: SongStartRequestData[];
-    private _songRequestCountsPerPriority:number[];
+    private _songRequestCountsPerPriority: number[];
     private _diskInventoryMissingData: number[];
     private _songDiskInventory: IAdvancedMap<number, number>;
-    private _priorityPlaying:number = -1;
+    private _priorityPlaying: number = -1;
     private _requestNumberPlaying: number = -1;
     private _messageEvents: IMessageEvent[];
     private _roomItemPlaylist: IPlaylistController;
@@ -112,7 +110,7 @@ export class MusicController implements IMusicController
 
     public getSongInfo(k: number): ISongInfo
     {
-        const _local_2:SongDataEntry = this.getSongDataEntry(k);
+        const _local_2: SongDataEntry = this.getSongDataEntry(k);
         if(!_local_2)
         {
             this.requestSongInfoWithoutSamples(k);
@@ -187,8 +185,8 @@ export class MusicController implements IMusicController
 
     public get samplesIdsInUse(): number[]
     {
-        let _local_3:SongStartRequestData;
-        let _local_4:SongDataEntry;
+        let _local_3: SongStartRequestData;
+        let _local_4: SongDataEntry;
         let k = [];
         for(let i = 0; i < this._songRequestsPerPriority.length; i++)
         {
@@ -229,7 +227,7 @@ export class MusicController implements IMusicController
         throw new Error('Method not implemented.');
     }
 
-    protected onTraxSongComplete(k:SoundManagerEvent):void
+    protected onTraxSongComplete(k: SoundManagerEvent): void
     {
         console.log((('Song ' + k.id) + ' finished playing'));
         if(this.getSongIdPlayingAtPriority(this._priorityPlaying) === k.id)
@@ -329,7 +327,7 @@ export class MusicController implements IMusicController
         }
     }
 
-    private areSamplesRequested(k:number):boolean
+    private areSamplesRequested(k: number): boolean
     {
         if(!this._requestedSongs.get(k))
         {
@@ -338,9 +336,9 @@ export class MusicController implements IMusicController
         return this._requestedSongs.get(k);
     }
 
-    private processSongEntryForPlaying(k:number, _arg_2:boolean=true):boolean
+    private processSongEntryForPlaying(k: number, _arg_2: boolean = true): boolean
     {
-        const songData:SongDataEntry = this.getSongDataEntry(k);
+        const songData: SongDataEntry = this.getSongDataEntry(k);
         if(!songData)
         {
             this.addSongInfoRequest(k);
@@ -380,7 +378,7 @@ export class MusicController implements IMusicController
         return true;
     }
 
-    private playSongObject(priority:number, songId:number):boolean
+    private playSongObject(priority: number, songId: number): boolean
     {
         if((((songId === -1) || (priority < 0)) || (priority >= MusicPriorities.PRIORITY_COUNT)))
         {
@@ -391,7 +389,7 @@ export class MusicController implements IMusicController
         {
             _local_3 = true;
         }
-        const songData:SongDataEntry = this.getSongDataEntry(songId);
+        const songData: SongDataEntry = this.getSongDataEntry(songId);
         if(!songData)
         {
             console.log((('WARNING: Unable to find song entry id ' + songId) + ' that was supposed to be loaded.'));
@@ -408,7 +406,7 @@ export class MusicController implements IMusicController
         let fadeInSeconds = 2;
         let fadeOutSeconds = 1;
 
-        const songRequestData:SongStartRequestData = this.getSongStartRequest(priority);
+        const songRequestData: SongStartRequestData = this.getSongStartRequest(priority);
 
         console.log(songRequestData);
 
@@ -452,7 +450,7 @@ export class MusicController implements IMusicController
         return true;
     }
 
-    private notifySongPlaying(k:SongDataEntry):void
+    private notifySongPlaying(k: SongDataEntry): void
     {
         const _local_2 = 8000;
         const timeNow = Date.now();
@@ -464,7 +462,7 @@ export class MusicController implements IMusicController
         }
     }
 
-    private addSongStartRequest(priority:number, songId:number, startPos:number, playLength:number, fadeInSeconds:number, fadeOutSeconds:number):boolean
+    private addSongStartRequest(priority: number, songId: number, startPos: number, playLength: number, fadeInSeconds: number, fadeOutSeconds: number): boolean
     {
         if(((priority < 0) || (priority >= MusicPriorities.PRIORITY_COUNT)))
         {
@@ -476,9 +474,9 @@ export class MusicController implements IMusicController
         return true;
     }
 
-    private getSongDataEntry(k:number):SongDataEntry
+    private getSongDataEntry(k: number): SongDataEntry
     {
-        let entry:SongDataEntry;
+        let entry: SongDataEntry;
         if(this._availableSongs)
         {
             entry = (this._availableSongs.get(k));
@@ -486,7 +484,7 @@ export class MusicController implements IMusicController
         return entry;
     }
 
-    private getSongStartRequest(k:number):SongStartRequestData
+    private getSongStartRequest(k: number): SongStartRequestData
     {
         return this._songRequestsPerPriority[k];
     }
@@ -505,7 +503,7 @@ export class MusicController implements IMusicController
         return this._songRequestsPerPriority[priorityIndex].songId;
     }
 
-    private getSongRequestCountAtPriority(k:number):number
+    private getSongRequestCountAtPriority(k: number): number
     {
         if(((k < 0) || (k >= MusicPriorities.PRIORITY_COUNT)))
         {
@@ -514,9 +512,9 @@ export class MusicController implements IMusicController
         return this._songRequestCountsPerPriority[k];
     }
 
-    private playSongWithHighestPriority():void
+    private playSongWithHighestPriority(): void
     {
-        let _local_3:number;
+        let _local_3: number;
         this._priorityPlaying = -1;
         this._songIdPlaying = -1;
         this._requestNumberPlaying = -1;
@@ -533,7 +531,7 @@ export class MusicController implements IMusicController
         }
     }
 
-    private resetSongStartRequest(priority:number):void
+    private resetSongStartRequest(priority: number): void
     {
         if(((priority >= 0) && (priority < MusicPriorities.PRIORITY_COUNT)))
         {
@@ -541,12 +539,12 @@ export class MusicController implements IMusicController
         }
     }
 
-    private reRequestSongAtPriority(k:number):void
+    private reRequestSongAtPriority(k: number): void
     {
         this._songRequestCountsPerPriority[k] = (this._songRequestCountsPerPriority[k] + 1);
     }
 
-    private stopSongAtPriority(priority:number):boolean
+    private stopSongAtPriority(priority: number): boolean
     {
         if(((priority === this._priorityPlaying) && (this._priorityPlaying >= 0)))
         {
@@ -563,18 +561,18 @@ export class MusicController implements IMusicController
         return false;
     }
 
-    private onSoundMachineInit(k:Event):void
+    private onSoundMachineInit(k: Event): void
     {
         this.disposeRoomPlaylist();
         //this._roomItemPlaylist = (new SoundMachinePlayListController(this._soundManager, this, this._events) as IPlaylistController);
     }
 
-    private onSoundMachineDispose(k:Event):void
+    private onSoundMachineDispose(k: Event): void
     {
         this.disposeRoomPlaylist();
     }
 
-    private onJukeboxInit(k:Event):void
+    private onJukeboxInit(k: Event): void
     {
         this.disposeRoomPlaylist();
         this._roomItemPlaylist = (new JukeboxPlaylistController() as IPlaylistController);
@@ -582,12 +580,12 @@ export class MusicController implements IMusicController
         Nitro.instance.communication.connection.send(new GetNowPlayingMessageComposer());
     }
 
-    private onJukeboxDispose(k:Event):void
+    private onJukeboxDispose(k: Event): void
     {
         this.disposeRoomPlaylist();
     }
 
-    private disposeRoomPlaylist():void
+    private disposeRoomPlaylist(): void
     {
         if(this._roomItemPlaylist)
         {

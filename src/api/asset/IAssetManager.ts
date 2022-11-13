@@ -7,7 +7,6 @@ import { IGraphicAssetCollection } from './IGraphicAssetCollection';
 
 export interface IAssetManager
 {
-    dispose(): void;
     getTexture(name: string): Texture<Resource>;
     setTexture(name: string, texture: Texture<Resource>): void;
     getAsset(name: string): IGraphicAsset;

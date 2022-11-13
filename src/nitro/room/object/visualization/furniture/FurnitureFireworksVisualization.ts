@@ -1,5 +1,4 @@
-import { IAdvancedMap, IParticleSystem, NitroLogger, RoomObjectVariable } from '../../../../../api';
-import { AdvancedMap } from '../../../../../core';
+import { AdvancedMap, IAdvancedMap, IParticleSystem, NitroLogger, RoomObjectVariable } from '../../../../../api';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
 import { FurnitureParticleSystem } from './FurnitureParticleSystem';
 

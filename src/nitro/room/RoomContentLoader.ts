@@ -1,11 +1,9 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Loader, LoaderResource } from '@pixi/loaders';
 import { Spritesheet } from '@pixi/spritesheet';
-import { FurnitureType, IAssetData, IEventDispatcher, IFurnitureData, IFurnitureDataListener, IGraphicAssetCollection, IGraphicAssetGifCollection, IPetColorResult, IRoomContentListener, IRoomContentLoader, IRoomObject, ISessionDataManager, NitroConfiguration, NitroLogger, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, RoomObjectVisualizationType } from '../../api';
-import { GraphicAssetCollection, GraphicAssetGifCollection, NitroBundle } from '../../core';
+import { FurnitureType, GetAssetManager, GraphicAssetCollection, GraphicAssetGifCollection, IAssetData, IEventDispatcher, IFurnitureData, IFurnitureDataListener, IGraphicAssetCollection, IGraphicAssetGifCollection, IPetColorResult, IRoomContentListener, IRoomContentLoader, IRoomObject, ISessionDataManager, NitroBundle, NitroConfiguration, NitroLogger, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, RoomObjectVisualizationType } from '../../api';
 import { NitroEvent } from '../../events';
-import { RoomContentLoadedEvent } from '../../room/events/RoomContentLoadedEvent';
-import { Nitro } from '../Nitro';
+import { RoomContentLoadedEvent } from '../../events/room/RoomContentLoadedEvent';
 import { PetColorResult } from './PetColorResult';
 
 export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLoader
@@ -282,7 +280,7 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
 
         if(!existing)
         {
-            const globalCollection = Nitro.instance.core.asset.getCollection(name);
+            const globalCollection = GetAssetManager().getCollection(name);
 
             if(globalCollection)
             {

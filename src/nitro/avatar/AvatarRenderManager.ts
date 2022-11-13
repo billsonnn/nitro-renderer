@@ -1,7 +1,6 @@
-import { AvatarSetType, IAssetManager, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IAvatarImageListener, IAvatarRenderManager, IFigureData, IFigurePartSet, IFigureSetData, IGraphicAsset, INitroEvent, IStructureData, NitroConfiguration, NitroLogger } from '../../api';
+import { AvatarSetType, GetAssetManager, IAssetManager, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IAvatarImageListener, IAvatarRenderManager, IFigureData, IFigurePartSet, IFigureSetData, IGraphicAsset, INitroEvent, IStructureData, NitroConfiguration, NitroLogger } from '../../api';
 import { NitroManager } from '../../core';
 import { AvatarRenderEvent, NitroEvent } from '../../events';
-import { Nitro } from '../Nitro';
 import { FigureDataContainer } from '../utils';
 import { AssetAliasCollection } from './alias';
 import { AvatarAssetDownloadManager } from './AvatarAssetDownloadManager';
@@ -70,13 +69,13 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
         this.loadAnimations();
         this.loadFigureData();
 
-        this._aliasCollection = new AssetAliasCollection(this, Nitro.instance.core.asset);
+        this._aliasCollection = new AssetAliasCollection(this, GetAssetManager());
 
         this._aliasCollection.init();
 
         if(!this._avatarAssetDownloadManager)
         {
-            this._avatarAssetDownloadManager = new AvatarAssetDownloadManager(Nitro.instance.core.asset, this._structure);
+            this._avatarAssetDownloadManager = new AvatarAssetDownloadManager(GetAssetManager(), this._structure);
 
             this._avatarAssetDownloadManager.addEventListener(AvatarAssetDownloadManager.DOWNLOADER_READY, this.onAvatarAssetDownloaderReady);
             this._avatarAssetDownloadManager.addEventListener(AvatarAssetDownloadManager.LIBRARY_LOADED, this.onAvatarAssetDownloaded);
@@ -84,7 +83,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
         if(!this._effectAssetDownloadManager)
         {
-            this._effectAssetDownloadManager = new EffectAssetDownloadManager(Nitro.instance.core.asset, this._structure);
+            this._effectAssetDownloadManager = new EffectAssetDownloadManager(GetAssetManager(), this._structure);
 
             this._effectAssetDownloadManager.addEventListener(EffectAssetDownloadManager.DOWNLOADER_READY, this.onEffectAssetDownloaderReady);
             this._effectAssetDownloadManager.addEventListener(EffectAssetDownloadManager.LIBRARY_LOADED, this.onEffectAssetDownloaded);
@@ -136,7 +135,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
     {
         const defaultActions = NitroConfiguration.getValue<string>('avatar.default.actions');
 
-        if(defaultActions) this._structure.initActions(Nitro.instance.core.asset, defaultActions);
+        if(defaultActions) this._structure.initActions(GetAssetManager(), defaultActions);
 
         const request = new XMLHttpRequest();
 
@@ -442,7 +441,7 @@ export class AvatarRenderManager extends NitroManager implements IAvatarRenderMa
 
     public get assets(): IAssetManager
     {
-        return Nitro.instance.core.asset;
+        return GetAssetManager();
     }
 
     public get isReady(): boolean

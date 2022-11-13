@@ -1,6 +1,6 @@
 import { IAssetData, IParticleSystem, IRoomGeometry, MapDataType, MouseEventType, RoomObjectVariable } from '../../../../../api';
-import { RoomObjectFurnitureActionEvent, RoomObjectWidgetRequestEvent } from '../../../../../events';
-import { RoomObjectUpdateMessage, RoomSpriteMouseEvent } from '../../../../../room';
+import { RoomObjectFurnitureActionEvent, RoomObjectWidgetRequestEvent, RoomSpriteMouseEvent } from '../../../../../events';
+import { RoomObjectUpdateMessage } from '../../../../../room';
 import { ObjectDataUpdateMessage, ObjectModelDataUpdateMessage } from '../../../messages';
 import { FurnitureLogic } from './FurnitureLogic';
 
