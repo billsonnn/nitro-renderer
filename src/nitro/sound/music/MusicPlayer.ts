@@ -45,6 +45,21 @@ export class MusicPlayer
         this._tickerInterval = window.setInterval(() => this.tick(), 1000);
     }
 
+    private reset(): void
+    {
+        this._isPlaying = false;
+        window.clearInterval(this._tickerInterval);
+
+        Howler.stop();
+        this._currentSongId = -1;
+        this._currentSong = undefined;
+        this._tickerInterval = undefined;
+        this._startPos = 0;
+        this._playLength = 0;
+        this._sequence = [];
+        this._currentPos = 0;
+    }
+
     public pause(): void
     {
         this._isPlaying = false;
@@ -61,22 +76,10 @@ export class MusicPlayer
 
     public stop(): void
     {
+        const songId = this._currentSongId;
         this.reset();
+        Nitro.instance.soundManager.events.dispatchEvent(new SoundManagerEvent(SoundManagerEvent.TRAX_SONG_COMPLETE, songId));
         //this.emit('stopped');
-    }
-
-    private reset(): void
-    {
-        this._isPlaying = false;
-        clearInterval(this._tickerInterval);
-
-        Howler.stop();
-
-        this._currentSong = undefined;
-        this._startPos = 0;
-        this._playLength = 0;
-        this._sequence = [];
-        this._currentPos = 0;
     }
 
     /**
@@ -176,7 +179,6 @@ export class MusicPlayer
     {
         if(this._currentPos > this._playLength - 1)
         {
-            Nitro.instance.soundManager.events.dispatchEvent(new SoundManagerEvent(SoundManagerEvent.TRAX_SONG_COMPLETE, this._currentSongId));
             this.stop();
         }
 

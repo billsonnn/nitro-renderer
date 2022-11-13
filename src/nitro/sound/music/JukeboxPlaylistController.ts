@@ -106,7 +106,7 @@ export class JukeboxPlaylistController implements IPlaylistController
         for(let i = 0; i < this.length; i++)
         {
             const songData = this._entries[i];
-            if(songData.id == songInfoEvent.id)
+            if(songData.id === songInfoEvent.id)
             {
                 const diskId = songData.diskId;
                 const updatedSongData = Nitro.instance.soundManager.musicController.getSongInfo(songInfoEvent.id);

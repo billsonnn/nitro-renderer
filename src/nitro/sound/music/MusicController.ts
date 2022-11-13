@@ -120,9 +120,9 @@ export class MusicController implements IMusicController
         return _local_2;
     }
 
-    public getSongIdPlayingAtPriority(k: number): number
+    public getSongIdPlayingAtPriority(priority: number): number
     {
-        if(k != this._priorityPlaying)
+        if(priority !== this._priorityPlaying)
         {
             return -1;
         }
@@ -232,9 +232,9 @@ export class MusicController implements IMusicController
     protected onTraxSongComplete(k:SoundManagerEvent):void
     {
         console.log((('Song ' + k.id) + ' finished playing'));
-        if(this.getSongIdPlayingAtPriority(this._priorityPlaying) == k.id)
+        if(this.getSongIdPlayingAtPriority(this._priorityPlaying) === k.id)
         {
-            if(((this.getTopRequestPriority() == this._priorityPlaying) && (this.getSongRequestCountAtPriority(this._priorityPlaying) == this._requestNumberPlaying)))
+            if(((this.getTopRequestPriority() === this._priorityPlaying) && (this.getSongRequestCountAtPriority(this._priorityPlaying) == this._requestNumberPlaying)))
             {
                 this.resetSongStartRequest(this._priorityPlaying);
             }
@@ -382,7 +382,7 @@ export class MusicController implements IMusicController
 
     private playSongObject(priority:number, songId:number):boolean
     {
-        if((((songId == -1) || (priority < 0)) || (priority >= MusicPriorities.PRIORITY_COUNT)))
+        if((((songId === -1) || (priority < 0)) || (priority >= MusicPriorities.PRIORITY_COUNT)))
         {
             return false;
         }
@@ -400,7 +400,7 @@ export class MusicController implements IMusicController
         if(_local_3)
         {
             console.log(('Waiting previous song to stop before playing song ' + songId));
-            //return true;
+            return true;
         }
         this._musicPlayer.setVolume(Nitro.instance.soundManager.traxVolume);
         let startPos = MusicController.SKIP_POSITION_SET;
@@ -421,7 +421,6 @@ export class MusicController implements IMusicController
         }
         if(startPos >= (songData.length / 1000))
         {
-            console.log('start position is too far');
             return false;
         }
         if(startPos <= MusicController.SKIP_POSITION_SET)
@@ -549,7 +548,7 @@ export class MusicController implements IMusicController
 
     private stopSongAtPriority(priority:number):boolean
     {
-        if(((priority == this._priorityPlaying) && (this._priorityPlaying >= 0)))
+        if(((priority === this._priorityPlaying) && (this._priorityPlaying >= 0)))
         {
             const songIdAtPriority = this.getSongIdPlayingAtPriority(priority);
             if(songIdAtPriority >= 0)
@@ -558,7 +557,6 @@ export class MusicController implements IMusicController
                 //this.stopSongDataEntry(_local_3);
                 console.log('stopping song ' + songIdAtPriority);
                 this._musicPlayer.stop();
-                this._priorityPlaying = -1; // TODO: remove this; hack to fix blocking
                 return true;
             }
         }
