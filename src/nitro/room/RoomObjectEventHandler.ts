@@ -296,6 +296,9 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             case RoomObjectMouseEvent.CLICK:
                 this.handleRoomObjectMouseClickEvent(event, roomId);
                 return;
+            case RoomObjectMouseEvent.DOUBLE_CLICK:
+                this.handleRoomObjectMouseDoubleClickEvent(event, roomId);
+                return;
             case RoomObjectMouseEvent.MOUSE_MOVE:
                 this.handleRoomObjectMouseMoveEvent(event, roomId);
                 return;
@@ -488,6 +491,18 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
                 this.setSelectedAvatar(roomId, 0, false);
             }
+        }
+    }
+
+    private handleRoomObjectMouseDoubleClickEvent(event: RoomObjectMouseEvent, roomId: number): void
+    {
+        const id = event.objectId;
+        const type = event.objectType;
+        const category = this._roomEngine.getRoomObjectCategoryForType(type);
+
+        if(this._roomEngine.events)
+        {
+            this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.DOUBLE_CLICK, roomId, id, category));
         }
     }
 
