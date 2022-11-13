@@ -1,7 +1,7 @@
 {
   "name": "@nitrots/nitro-renderer",
   "description": "Javascript library for rendering Nitro in the browser using PixiJS",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "publishConfig": {
     "access": "public"
   },
@@ -17,8 +17,7 @@
   "type": "module",
   "scripts": {
     "compile": "tsc --project ./tsconfig.json",
-    "eslint": "eslint ./src --fix",
-    "postinstall": "node ./post-install.js"
+    "eslint": "eslint ./src --fix"
   },
   "dependencies": {
     "howler": "^2.2.3",
