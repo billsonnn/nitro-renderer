@@ -268,8 +268,7 @@ export class MusicController implements IMusicController
                 const songId: number = this.getSongIdRequestedAtPriority(topRequestPriotityIndex);
                 if(song.id === songId)
                 {
-                    this._musicPlayer.preloadSamplesForSong(song.data).then(() => this.onSongLoaded(song.id));
-                    //this.playSongObject(topRequestPriotityIndex, songId);
+                    this.playSongObject(topRequestPriotityIndex, songId);
                 }
                 Nitro.instance.soundManager.events.dispatchEvent(new SongInfoReceivedEvent(SongInfoReceivedEvent.SIR_TRAX_SONG_INFO_RECEIVED, song.id));
                 while(this._diskInventoryMissingData.indexOf(song.id) != -1)
@@ -441,7 +440,7 @@ export class MusicController implements IMusicController
         {
             this.notifySongPlaying(songData);
         }
-        this._musicPlayer.play(songData.songData, songData.id, startPos, playLength);
+        this._musicPlayer.preloadSamplesForSong(songData.songData).then(() => this._musicPlayer.play(songData.songData, songData.id, startPos, playLength));
         if(priority > MusicPriorities.PRIORITY_ROOM_PLAYLIST)
         {
             Nitro.instance.soundManager.events.dispatchEvent(new NowPlayingEvent(NowPlayingEvent.NPE_USER_PLAY_SONG, priority, songData.id, -1));
