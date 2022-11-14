@@ -12,7 +12,7 @@ export interface IAssetManager
     getAsset(name: string): IGraphicAsset;
     getCollection(name: string): IGraphicAssetCollection;
     createCollection(data: IAssetData, spritesheet: Spritesheet): IGraphicAssetCollection;
-    downloadAssets(urls: string[], cb: Function): void;
-    downloadAsset(url: string, cb: Function): void;
+    downloadAssets(urls: string[]): Promise<boolean>;
+    downloadAsset(url: string): Promise<boolean>;
     collections: Map<string, IGraphicAssetCollection>;
 }

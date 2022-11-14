@@ -34,7 +34,7 @@ export class AvatarAssetDownloadLibrary extends EventDispatcher implements IAvat
         if(asset) this._state = AvatarAssetDownloadLibrary.LOADED;
     }
 
-    public downloadAsset(): void
+    public async downloadAsset(): Promise<void>
     {
         if(!this._assets || (this._state === AvatarAssetDownloadLibrary.LOADING) || (this._state === AvatarAssetDownloadLibrary.LOADED)) return;
 
@@ -51,15 +51,13 @@ export class AvatarAssetDownloadLibrary extends EventDispatcher implements IAvat
 
         this._state = AvatarAssetDownloadLibrary.LOADING;
 
-        this._assets.downloadAsset(this._downloadUrl, (flag: boolean) =>
-        {
-            if(flag)
-            {
-                this._state = AvatarAssetDownloadLibrary.LOADED;
+        const status = await this._assets.downloadAsset(this._downloadUrl);
 
-                this.dispatchEvent(new AvatarRenderLibraryEvent(AvatarRenderLibraryEvent.DOWNLOAD_COMPLETE, this));
-            }
-        });
+        if(!status) return;
+
+        this._state = AvatarAssetDownloadLibrary.LOADED;
+
+        this.dispatchEvent(new AvatarRenderLibraryEvent(AvatarRenderLibraryEvent.DOWNLOAD_COMPLETE, this));
     }
 
     public get libraryName(): string

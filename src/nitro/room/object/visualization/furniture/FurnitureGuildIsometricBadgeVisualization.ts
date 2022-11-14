@@ -1,7 +1,7 @@
-import { RenderTexture, Resource, Texture } from '@pixi/core';
+import { Resource, Texture } from '@pixi/core';
 import { Matrix } from '@pixi/math';
 import { IGraphicAsset, IRoomObjectSprite, RoomObjectVariable } from '../../../../../api';
-import { NitroSprite, PixiApplicationProxy } from '../../../../../pixi-proxy';
+import { NitroSprite, TextureUtils } from '../../../../../pixi-proxy';
 import { IsometricImageFurniVisualization } from './IsometricImageFurniVisualization';
 
 export class FurnitureGuildIsometricBadgeVisualization extends IsometricImageFurniVisualization
@@ -42,8 +42,6 @@ export class FurnitureGuildIsometricBadgeVisualization extends IsometricImageFur
         const matrix = new Matrix();
         const difference = (asset.width / texture.width);
 
-        console.log(((0.5 * difference) * texture.width));
-
         switch(this.direction)
         {
             case 2:
@@ -52,7 +50,7 @@ export class FurnitureGuildIsometricBadgeVisualization extends IsometricImageFur
                 matrix.c = 0;
                 matrix.d = (difference * scale);
                 matrix.tx = 0;
-                matrix.ty = 20;
+                matrix.ty = ((0.5 * difference) * texture.width);
                 break;
             case 0:
             case 4:
@@ -74,10 +72,32 @@ export class FurnitureGuildIsometricBadgeVisualization extends IsometricImageFur
 
         const sprite = new NitroSprite(texture);
 
+        sprite.transform.setFromMatrix(matrix);
+
+        sprite.position.set(0);
+
+        return TextureUtils.generateTexture(sprite);
+
+        /* const renderTexture = RenderTexture.create({
+            width: asset.width,
+            height: asset.height
+        });
+
+        PixiApplicationProxy.instance.renderer.render(sprite, {
+            renderTexture,
+            clear: true,
+        });
+
+        return renderTexture; */
+
+        /* const sprite = new NitroSprite(texture);
+
         const renderTexture = RenderTexture.create({
             width: (asset.width + matrix.tx),
             height: (asset.height + matrix.ty)
         });
+
+        sprite.position.set(0)
 
         PixiApplicationProxy.instance.renderer.render(sprite, {
             renderTexture,
@@ -85,7 +105,7 @@ export class FurnitureGuildIsometricBadgeVisualization extends IsometricImageFur
             transform: matrix
         });
 
-        return renderTexture;
+        return renderTexture; */
     }
 
     protected getLayerColor(scale: number, layerId: number, colorId: number): number

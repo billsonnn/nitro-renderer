@@ -134,7 +134,7 @@ export class FurnitureRoomBrandingLogic extends FurnitureLogic
         super.mouseEvent(event, geometry);
     }
 
-    private downloadBackground(): void
+    private async downloadBackground(): Promise<void>
     {
         const model = this.object && this.object.model;
 
@@ -216,17 +216,16 @@ export class FurnitureRoomBrandingLogic extends FurnitureLogic
 
             if(!texture)
             {
-                asset.downloadAsset(imageUrl, (flag: boolean) =>
+                const status = await asset.downloadAsset(imageUrl);
+
+                if(!status)
                 {
-                    if(flag)
-                    {
-                        this.processUpdateMessage(new ObjectAdUpdateMessage(ObjectAdUpdateMessage.IMAGE_LOADED));
-                    }
-                    else
-                    {
-                        this.processUpdateMessage(new ObjectAdUpdateMessage(ObjectAdUpdateMessage.IMAGE_LOADING_FAILED));
-                    }
-                });
+                    this.processUpdateMessage(new ObjectAdUpdateMessage(ObjectAdUpdateMessage.IMAGE_LOADING_FAILED));
+                }
+                else
+                {
+                    this.processUpdateMessage(new ObjectAdUpdateMessage(ObjectAdUpdateMessage.IMAGE_LOADED));
+                }
 
                 return;
             }

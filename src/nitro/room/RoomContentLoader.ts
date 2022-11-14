@@ -1,5 +1,4 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
-import { Loader, LoaderResource } from '@pixi/loaders';
 import { Spritesheet } from '@pixi/spritesheet';
 import { FurnitureType, GetAssetManager, GraphicAssetCollection, GraphicAssetGifCollection, IAssetData, IEventDispatcher, IFurnitureData, IFurnitureDataListener, IGraphicAssetCollection, IGraphicAssetGifCollection, IPetColorResult, IRoomContentListener, IRoomContentLoader, IRoomObject, ISessionDataManager, NitroBundle, NitroConfiguration, NitroLogger, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, RoomObjectVisualizationType } from '../../api';
 import { NitroEvent } from '../../events';
@@ -481,94 +480,48 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
         return false;
     }
 
-    public downloadAsset(type: string, events: IEventDispatcher): void
+    public async downloadAsset(type: string, events: IEventDispatcher): Promise<void>
     {
-        const assetUrls: string[] = this.getAssetUrls(type);
+        const assetUrl: string = this.getAssetUrls(type)?.[0];
 
-        if(!assetUrls || !assetUrls.length) return;
+        if(!assetUrl || !assetUrl.length) return;
 
         if((this._pendingContentTypes.indexOf(type) >= 0) || this.getOrRemoveEventDispatcher(type)) return;
 
         this._pendingContentTypes.push(type);
         this._events.set(type, events);
 
-        const loader = new Loader();
-
-        for(const url of assetUrls)
+        try
         {
-            if(!url || !url.length) continue;
+            const response = await fetch(assetUrl);
+            const contentType = response.headers.get('Content-Type');
 
-            loader
-                .add({
-                    url,
-                    crossOrigin: 'anonymous',
-                    loadType: LoaderResource.LOAD_TYPE.XHR,
-                    xhrType: LoaderResource.XHR_RESPONSE_TYPE.BUFFER
-                });
+            switch(contentType)
+            {
+                case 'application/octet-stream': {
+                    const nitroBundle = new NitroBundle(await response.arrayBuffer());
+
+                    await this.processAsset(nitroBundle.baseTexture, (nitroBundle.jsonFile as IAssetData));
+
+                    const events = this._events.get(type);
+
+                    if(!events) return;
+
+                    events.dispatchEvent(new RoomContentLoadedEvent(RoomContentLoadedEvent.RCLE_SUCCESS, type));
+                    break;
+                }
+                default:
+                    throw new Error();
+            }
         }
 
-        let remaining = assetUrls.length;
-
-        const onDownloaded = (status: boolean, url: string) =>
+        catch (err)
         {
-            if(!status)
-            {
-                NitroLogger.error('Failed to download asset', url);
-
-                loader.destroy();
-
-                events.dispatchEvent(new RoomContentLoadedEvent(RoomContentLoadedEvent.RCLE_FAILURE, type));
-
-                return;
-            }
-
-            remaining--;
-
-            if(!remaining)
-            {
-                loader.destroy();
-
-                const events = this._events.get(type);
-
-                if(!events) return;
-
-                events.dispatchEvent(new RoomContentLoadedEvent(RoomContentLoadedEvent.RCLE_SUCCESS, type));
-
-                return;
-            }
-        };
-
-        loader.load((loader, resources) =>
-        {
-            for(const key in resources)
-            {
-                const resource = resources[key];
-
-                if(!resource || resource.error || !resource.xhr)
-                {
-                    onDownloaded(false, resource.url);
-
-                    return;
-                }
-
-                const resourceType = (resource.xhr.getResponseHeader('Content-Type') || 'application/octet-stream');
-
-                if(resourceType === 'application/octet-stream')
-                {
-                    const nitroBundle = new NitroBundle(resource.data);
-
-                    this.processAsset(nitroBundle.baseTexture, (nitroBundle.jsonFile as IAssetData), status =>
-                    {
-                        onDownloaded(status, resource.url);
-                    });
-
-                    continue;
-                }
-            }
-        });
+            events.dispatchEvent(new RoomContentLoadedEvent(RoomContentLoadedEvent.RCLE_FAILURE, type));
+        }
     }
 
-    private processAsset(baseTexture: BaseTexture, data: IAssetData, onDownloaded: (status: boolean) => void): void
+    private async processAsset(baseTexture: BaseTexture, data: IAssetData): Promise<void>
     {
         const spritesheetData = data.spritesheet;
 
@@ -576,30 +529,39 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
         {
             this.createCollection(data, null);
 
-            onDownloaded(true);
-
             return;
         }
 
-        const createAsset = () =>
+        const createAsset = async () =>
         {
             const spritesheet = new Spritesheet(baseTexture, spritesheetData);
 
-            spritesheet.parse(() =>
+            return new Promise<void>((resolve, reject) =>
             {
-                this.createCollection(data, spritesheet);
+                spritesheet.parse(() =>
+                {
+                    this.createCollection(data, spritesheet);
 
-                onDownloaded(true);
+                    return resolve();
+                });
             });
         };
 
         if(baseTexture.valid)
         {
-            createAsset();
+            await createAsset();
         }
         else
         {
-            baseTexture.once('update', () => createAsset());
+            await new Promise<void>((resolve, reject) =>
+            {
+                baseTexture.once('update', async () =>
+                {
+                    await createAsset();
+
+                    return resolve();
+                });
+            });
         }
     }
 

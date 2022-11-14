@@ -36,7 +36,7 @@ export class EffectAssetDownloadLibrary extends EventDispatcher implements IEffe
         if(asset) this._state = EffectAssetDownloadLibrary.LOADED;
     }
 
-    public downloadAsset(): void
+    public async downloadAsset(): Promise<void>
     {
         if(!this._assets || (this._state === EffectAssetDownloadLibrary.LOADING) || (this._state === EffectAssetDownloadLibrary.LOADED)) return;
 
@@ -53,19 +53,17 @@ export class EffectAssetDownloadLibrary extends EventDispatcher implements IEffe
 
         this._state = EffectAssetDownloadLibrary.LOADING;
 
-        this._assets.downloadAsset(this._downloadUrl, (flag: boolean) =>
-        {
-            if(flag)
-            {
-                this._state = EffectAssetDownloadLibrary.LOADED;
+        const status = await this._assets.downloadAsset(this._downloadUrl);
 
-                const collection = this._assets.getCollection(this._libraryName);
+        if(!status) return;
 
-                if(collection) this._animation = collection.data.animations;
+        this._state = EffectAssetDownloadLibrary.LOADED;
 
-                this.dispatchEvent(new AvatarRenderEffectLibraryEvent(AvatarRenderEffectLibraryEvent.DOWNLOAD_COMPLETE, this));
-            }
-        });
+        const collection = this._assets.getCollection(this._libraryName);
+
+        if(collection) this._animation = collection.data.animations;
+
+        this.dispatchEvent(new AvatarRenderEffectLibraryEvent(AvatarRenderEffectLibraryEvent.DOWNLOAD_COMPLETE, this));
     }
 
     public get libraryName(): string

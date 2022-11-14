@@ -106,17 +106,22 @@ export class BadgeImageManager implements IDisposable
 
             this._requestedBadges.set(badgeName, true);
 
-            this._assets.downloadAsset(url, (flag: boolean) =>
-            {
-                if(flag)
+            this._assets
+                .downloadAsset(url)
+                .then(status =>
                 {
+                    if(!status) return;
+
                     this._requestedBadges.delete(badgeName);
 
                     const texture = this._assets.getTexture(url);
 
                     if(texture && this._sessionDataManager) this._sessionDataManager.events.dispatchEvent(new BadgeImageReadyEvent(badgeName, texture.clone()));
-                }
-            });
+                })
+                .catch(err =>
+                {
+
+                });
         }
 
         else if(type === BadgeImageManager.GROUP_BADGE)

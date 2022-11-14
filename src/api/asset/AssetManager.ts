@@ -1,7 +1,5 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
-import { Loader, LoaderResource } from '@pixi/loaders';
 import { Spritesheet } from '@pixi/spritesheet';
-import { NitroLogger } from '../common';
 import { ArrayBufferToBase64, NitroBundle } from '../utils';
 import { GraphicAssetCollection } from './GraphicAssetCollection';
 import { IAssetData } from './IAssetData';
@@ -79,123 +77,77 @@ export class AssetManager implements IAssetManager
         return collection;
     }
 
-    public downloadAsset(assetUrl: string, cb: (status: boolean) => void): void
+    public async downloadAsset(url: string): Promise<boolean>
     {
-        this.downloadAssets([assetUrl], cb);
+        return await this.downloadAssets([url]);
     }
 
-    public downloadAssets(assetUrls: string[], cb: (status: boolean) => void): void
+    public async downloadAssets(urls: string[]): Promise<boolean>
     {
-        if(!assetUrls || !assetUrls.length)
+        if(!urls || !urls.length) return true;
+
+        const responses = await Promise.all(urls.map(url => fetch(url)));
+
+        if(!responses || !responses.length) return false;
+
+        try
         {
-            cb(true);
-
-            return;
-        }
-
-        const loader = new Loader();
-
-        for(const url of assetUrls)
-        {
-            if(!url) continue;
-
-            loader
-                .add({
-                    url,
-                    crossOrigin: 'anonymous',
-                    loadType: LoaderResource.LOAD_TYPE.XHR,
-                    xhrType: LoaderResource.XHR_RESPONSE_TYPE.BUFFER
-                });
-        }
-
-        let remaining = assetUrls.length;
-
-        const onDownloaded = (status: boolean, url: string) =>
-        {
-            if(!status)
+            for(const response of responses)
             {
-                NitroLogger.error('Failed to download asset', url);
+                const contentType = response.headers.get('Content-Type');
 
-                loader.destroy();
-
-                cb(false);
-
-                return;
-            }
-
-            remaining--;
-
-            if(!remaining)
-            {
-                loader.destroy();
-
-                cb(true);
-
-                return;
-            }
-        };
-
-        loader.load((loader, resources) =>
-        {
-            for(const key in resources)
-            {
-                const resource = resources[key];
-
-                if(!resource || resource.error || !resource.xhr)
+                switch(contentType)
                 {
-                    onDownloaded(false, resource.url);
+                    case 'application/octet-stream': {
+                        const nitroBundle = new NitroBundle(await response.arrayBuffer());
 
-                    return;
-                }
-
-                const resourceType = (resource.xhr.getResponseHeader('Content-Type') || 'application/octet-stream');
-
-                if(resourceType === 'application/octet-stream')
-                {
-                    const nitroBundle = new NitroBundle(resource.data);
-
-                    this.processAsset(nitroBundle.baseTexture, (nitroBundle.jsonFile as IAssetData), status =>
-                    {
-                        onDownloaded(status, resource.url);
-                    });
-
-                    continue;
-                }
-
-                if((resourceType === 'image/png') || (resourceType === 'image/jpeg') || (resourceType === 'image/gif'))
-                {
-                    const base64 = ArrayBufferToBase64(resource.data);
-                    const baseTexture = new BaseTexture(`data:${resourceType};base64,${base64}`);
-
-                    if(baseTexture.valid)
-                    {
-                        const texture = new Texture(baseTexture);
-
-                        this.setTexture(resource.name, texture);
-
-                        onDownloaded(true, resource.url);
+                        await this.processAsset(nitroBundle.baseTexture, (nitroBundle.jsonFile as IAssetData));
+                        break;
                     }
-                    else
-                    {
-                        baseTexture.once('update', () =>
+                    case 'image/png':
+                    case 'image/jpeg':
+                    case 'image/gif': {
+                        const base64 = ArrayBufferToBase64(await response.arrayBuffer());
+                        const baseTexture = BaseTexture.from(`data:${contentType};base64,${base64}`);
+
+                        const createAsset = async () =>
                         {
                             const texture = new Texture(baseTexture);
 
-                            this.setTexture(resource.name, texture);
+                            this.setTexture(response.url, texture);
+                        };
 
-                            onDownloaded(true, resource.url);
-                        });
+                        if(baseTexture.valid)
+                        {
+                            await createAsset();
+                        }
+                        else
+                        {
+                            await new Promise<void>((resolve, reject) =>
+                            {
+                                baseTexture.once('update', async () =>
+                                {
+                                    await createAsset();
+
+                                    return resolve();
+                                });
+                            });
+                        }
+                        break;
                     }
-
-                    continue;
                 }
-
-                onDownloaded(false, resource.url);
             }
-        });
+        }
+
+        catch (err)
+        {
+            console.error(err);
+        }
+
+        return true;
     }
 
-    private processAsset(baseTexture: BaseTexture, data: IAssetData, onDownloaded: (status: boolean) => void): void
+    private async processAsset(baseTexture: BaseTexture, data: IAssetData): Promise<void>
     {
         const spritesheetData = data.spritesheet;
 
@@ -203,30 +155,39 @@ export class AssetManager implements IAssetManager
         {
             this.createCollection(data, null);
 
-            onDownloaded(true);
-
             return;
         }
 
-        const createAsset = () =>
+        const createAsset = async () =>
         {
             const spritesheet = new Spritesheet(baseTexture, spritesheetData);
 
-            spritesheet.parse(() =>
+            return new Promise<void>((resolve, reject) =>
             {
-                this.createCollection(data, spritesheet);
+                spritesheet.parse(() =>
+                {
+                    this.createCollection(data, spritesheet);
 
-                onDownloaded(true);
+                    return resolve();
+                });
             });
         };
 
         if(baseTexture.valid)
         {
-            createAsset();
+            await createAsset();
         }
         else
         {
-            baseTexture.once('update', () => createAsset());
+            await new Promise<void>((resolve, reject) =>
+            {
+                baseTexture.once('update', async () =>
+                {
+                    await createAsset();
+
+                    return resolve();
+                });
+            });
         }
     }
 
