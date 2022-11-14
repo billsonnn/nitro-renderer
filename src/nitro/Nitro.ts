@@ -1,7 +1,7 @@
 import { Application, IApplicationOptions } from '@pixi/app';
 import { SCALE_MODES } from '@pixi/constants';
 import { settings } from '@pixi/settings';
-import { IAvatarRenderManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager, IWorkerEventTracker, NitroConfiguration } from '../api';
+import { IAvatarRenderManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager, NitroConfiguration } from '../api';
 import { ConfigurationEvent, EventDispatcher, NitroCore } from '../core';
 import { NitroEvent, RoomEngineEvent } from '../events';
 import { GetTicker, PixiApplicationProxy } from '../pixi-proxy';
@@ -32,7 +32,6 @@ export class Nitro implements INitro
 
     private static INSTANCE: INitro = null;
 
-    private _worker: Worker;
     private _application: Application;
     private _core: INitroCore;
     private _events: IEventDispatcher;
@@ -46,7 +45,6 @@ export class Nitro implements INitro
     private _cameraManager: IRoomCameraWidgetManager;
     private _soundManager: ISoundManager;
     private _linkTrackers: ILinkEventTracker[];
-    private _workerTrackers: IWorkerEventTracker[];
 
     private _isReady: boolean;
     private _isDisposed: boolean;
@@ -55,7 +53,6 @@ export class Nitro implements INitro
     {
         if(!Nitro.INSTANCE) Nitro.INSTANCE = this;
 
-        this._worker = null;
         this._application = new PixiApplicationProxy(options);
         this._core = core;
         this._events = new EventDispatcher();
@@ -69,15 +66,12 @@ export class Nitro implements INitro
         this._cameraManager = new RoomCameraWidgetManager();
         this._soundManager = new SoundManager();
         this._linkTrackers = [];
-        this._workerTrackers = [];
 
         this._isReady = false;
         this._isDisposed = false;
 
         this._core.configuration.events.addEventListener(ConfigurationEvent.LOADED, this.onConfigurationLoadedEvent.bind(this));
         this._roomEngine.events.addEventListener(RoomEngineEvent.ENGINE_INITIALIZED, this.onRoomEngineReady.bind(this));
-
-        if(this._worker) this._worker.onmessage = this.createWorkerEvent.bind(this);
     }
 
     public static bootstrap(): void
@@ -229,43 +223,6 @@ export class Nitro implements INitro
         return this._localization.getValueWithParameters(key, parameters, replacements);
     }
 
-    public addWorkerEventTracker(tracker: IWorkerEventTracker): void
-    {
-        if(this._workerTrackers.indexOf(tracker) >= 0) return;
-
-        this._workerTrackers.push(tracker);
-    }
-
-    public removeWorkerEventTracker(tracker: IWorkerEventTracker): void
-    {
-        const index = this._workerTrackers.indexOf(tracker);
-
-        if(index === -1) return;
-
-        this._workerTrackers.splice(index, 1);
-    }
-
-    public createWorkerEvent(message: MessageEvent): void
-    {
-        if(!message) return;
-
-        const data: { [index: string]: any } = message.data;
-
-        for(const tracker of this._workerTrackers)
-        {
-            if(!tracker) continue;
-
-            tracker.workerMessageReceived(data);
-        }
-    }
-
-    public sendWorkerEvent(message: { [index: string]: any }): void
-    {
-        if(!message || !this._worker) return;
-
-        this._worker.postMessage(message);
-    }
-
     public addLinkEventTracker(tracker: ILinkEventTracker): void
     {
         if(this._linkTrackers.indexOf(tracker) >= 0) return;
@@ -313,12 +270,6 @@ export class Nitro implements INitro
     private sendHeartBeat(): void
     {
         HabboWebTools.sendHeartBeat();
-    }
-
-    public setWorker(val: Worker): void
-    {
-        this._worker = val;
-        this._worker.onmessage = this.createWorkerEvent.bind(this);
     }
 
     public get application(): Application
