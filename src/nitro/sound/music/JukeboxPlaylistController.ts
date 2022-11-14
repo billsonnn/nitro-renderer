@@ -8,9 +8,9 @@ import { MusicPriorities } from './MusicPriorities';
 export class JukeboxPlaylistController implements IPlaylistController
 {
     private _isPlaying = false;
-    private _entries:ISongInfo[];
+    private _entries: ISongInfo[];
     private _currentEntryId: number;
-    private _missingSongInfo:number[];
+    private _missingSongInfo: number[];
     private _playPosition: number;
     private _disposed: boolean = false;
 
@@ -46,7 +46,6 @@ export class JukeboxPlaylistController implements IPlaylistController
     {
         const parser = event.getParser();
 
-        console.log(((((('Received Now Playing message with: ' + parser.currentSongId) + ', ') + parser.nextSongId) + ', ') + parser.syncCount));
         this._isPlaying = (parser.currentSongId !== -1);
 
         if(parser.currentSongId >= 0)
@@ -70,7 +69,6 @@ export class JukeboxPlaylistController implements IPlaylistController
     {
         const parser = event.getParser();
 
-        console.log(('Received Jukebox song disks (=playlist) message, length of playlist: ' + parser.songDisks.length));
         this._entries = [];
         for(let i = 0; i < parser.songDisks.length; i++)
         {
@@ -97,11 +95,10 @@ export class JukeboxPlaylistController implements IPlaylistController
 
     private onJukeboxPlayListFullMessageEvent(event: JukeboxPlayListFullMessageEvent): void
     {
-        console.log('Received jukebox playlist full message.');
         Nitro.instance.soundManager.events.dispatchEvent(new PlayListStatusEvent(PlayListStatusEvent.PLUE_PLAY_LIST_FULL));
     }
 
-    private onSongInfoReceivedEvent(songInfoEvent:SongInfoReceivedEvent):void
+    private onSongInfoReceivedEvent(songInfoEvent: SongInfoReceivedEvent): void
     {
         for(let i = 0; i < this.length; i++)
         {
@@ -129,7 +126,7 @@ export class JukeboxPlaylistController implements IPlaylistController
         }
     }
 
-    public stopPlaying():void
+    public stopPlaying(): void
     {
         Nitro.instance.soundManager.musicController.stop(this.priority);
         this._currentEntryId = -1;

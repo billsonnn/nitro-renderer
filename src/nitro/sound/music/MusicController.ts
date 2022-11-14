@@ -210,7 +210,6 @@ export class MusicController implements IMusicController
 
     public onSongLoaded(songId: number): void
     {
-        console.log(('Song loaded : ' + songId));
         const priority = this.getTopRequestPriority();
         if(priority >= 0)
         {
@@ -229,7 +228,6 @@ export class MusicController implements IMusicController
 
     protected onTraxSongComplete(k: SoundManagerEvent): void
     {
-        console.log((('Song ' + k.id) + ' finished playing'));
         if(this.getSongIdPlayingAtPriority(this._priorityPlaying) === k.id)
         {
             if(((this.getTopRequestPriority() === this._priorityPlaying) && (this.getSongRequestCountAtPriority(this._priorityPlaying) == this._requestNumberPlaying)))
@@ -279,7 +277,6 @@ export class MusicController implements IMusicController
                         Nitro.instance.soundManager.events.dispatchEvent(new SongDiskInventoryReceivedEvent(SongDiskInventoryReceivedEvent.SDIR_SONG_DISK_INVENTORY_RECEIVENT_EVENT));
                     }
                 }
-                console.log(('Received song info : ' + song.id));
 
             }
         }
@@ -313,7 +310,6 @@ export class MusicController implements IMusicController
         if(this._songRequestList.length === 0) return;
 
         Nitro.instance.communication.connection.send(new GetSongInfoMessageComposer(...this._songRequestList));
-        console.log(('Requested song info\'s : ' + this._songRequestList));
         this._songRequestList = [];
     }
 
@@ -357,7 +353,6 @@ export class MusicController implements IMusicController
 
     public playSong(songId: number, priority: number, startPos: number = 0, playLength: number = 0, fadeInSeconds: number = 0.5, fadeOutSeconds: number = 0.5): boolean
     {
-        console.log(('Requesting ' + songId + ' for playing'));
         if(!this.addSongStartRequest(priority, songId, startPos, playLength, fadeInSeconds, fadeOutSeconds))
         {
             return false;
@@ -369,10 +364,6 @@ export class MusicController implements IMusicController
         if(priority >= this._priorityPlaying)
         {
             this.playSongObject(priority, songId);
-        }
-        else
-        {
-            console.log(((('Higher priority song blocked playing. Stored song ' + songId) + ' for priority ') + priority));
         }
         return true;
     }
@@ -391,12 +382,10 @@ export class MusicController implements IMusicController
         const songData: SongDataEntry = this.getSongDataEntry(songId);
         if(!songData)
         {
-            console.log((('WARNING: Unable to find song entry id ' + songId) + ' that was supposed to be loaded.'));
             return false;
         }
         if(_local_3)
         {
-            console.log(('Waiting previous song to stop before playing song ' + songId));
             return true;
         }
         this._musicPlayer.setVolume(Nitro.instance.soundManager.traxVolume);
@@ -406,8 +395,6 @@ export class MusicController implements IMusicController
         let fadeOutSeconds = 1;
 
         const songRequestData: SongStartRequestData = this.getSongStartRequest(priority);
-
-        console.log(songRequestData);
 
         if(songRequestData)
         {
@@ -445,7 +432,6 @@ export class MusicController implements IMusicController
         {
             Nitro.instance.soundManager.events.dispatchEvent(new NowPlayingEvent(NowPlayingEvent.NPE_USER_PLAY_SONG, priority, songData.id, -1));
         }
-        console.log(((((((((('Started playing song ' + songId) + ' at position ') + startPos) + ' for ') + playLength) + ' seconds (length ') + (songData.length / 1000)) + ') with priority ') + priority));
         return true;
     }
 
@@ -552,7 +538,6 @@ export class MusicController implements IMusicController
             {
                 const songData = this.getSongDataEntry(songIdAtPriority);
                 //this.stopSongDataEntry(_local_3);
-                console.log('stopping song ' + songIdAtPriority);
                 this._musicPlayer.stop();
                 return true;
             }
