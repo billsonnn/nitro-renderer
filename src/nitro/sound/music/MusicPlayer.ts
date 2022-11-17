@@ -1,4 +1,5 @@
 import { Howl, Howler } from 'howler';
+import { NitroLogger } from '../../../api';
 import { Nitro } from '../../Nitro';
 import { SoundManagerEvent } from '../events';
 import { TraxData } from '../trax/TraxData';
@@ -127,7 +128,7 @@ export class MusicPlayer
             {
                 const sampleSound = await this.getSample(sample.id);
 
-                const sampleCount = Math.ceil( (sample.length * 2) / Math.ceil(sampleSound.duration()));
+                const sampleCount = Math.ceil((sample.length * 2) / Math.ceil(sampleSound.duration()));
 
                 for(let i = 0; i < sampleCount; i++)
                 {
@@ -141,7 +142,7 @@ export class MusicPlayer
             this._sequence.push(sequenceEntryArray);
         }
 
-        if(this._playLength <= 0) this._playLength = Math.max(...this._sequence.map( (value: ISequenceEntry[] ) => value.length));
+        if(this._playLength <= 0) this._playLength = Math.max(...this._sequence.map((value: ISequenceEntry[]) => value.length));
     }
 
     public async preloadSamplesForSong(song: string): Promise<void>
@@ -153,7 +154,7 @@ export class MusicPlayer
 
     private async loadSong(songId: number): Promise<Howl>
     {
-        return new Promise <Howl>((resolve, reject) =>
+        return new Promise<Howl>((resolve, reject) =>
         {
             const sample = new Howl({
                 src: [this._sampleUrl.replace('%sample%', songId.toString())],
@@ -168,7 +169,7 @@ export class MusicPlayer
 
             sample.once('loaderror', () =>
             {
-                console.log('failed to load sample ' + songId);
+                NitroLogger.error('failed to load sample ' + songId);
                 reject('failed to load sample ' + songId);
             });
         });

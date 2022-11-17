@@ -1,21 +1,17 @@
-import { IEventDispatcher, INitroLogger, INitroManager, NitroLogger } from '../../api';
+import { IEventDispatcher, INitroManager } from '../../api';
 import { Disposable } from './Disposable';
 import { EventDispatcher } from './EventDispatcher';
 
 export class NitroManager extends Disposable implements INitroManager
 {
-    private _logger: INitroLogger;
-
     private _events: IEventDispatcher;
 
     private _isLoaded: boolean;
     private _isLoading: boolean;
 
-    constructor(logger: INitroLogger = null)
+    constructor()
     {
         super();
-
-        this._logger = logger instanceof NitroLogger ? logger : new NitroLogger(this.constructor.name);
 
         this._events = new EventDispatcher();
 
@@ -51,11 +47,6 @@ export class NitroManager extends Disposable implements INitroManager
     {
         this.dispose();
         this.init();
-    }
-
-    public get logger(): INitroLogger
-    {
-        return this._logger;
     }
 
     public get events(): IEventDispatcher

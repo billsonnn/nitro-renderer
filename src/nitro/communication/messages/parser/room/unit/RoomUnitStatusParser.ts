@@ -108,52 +108,6 @@ export class RoomUnitStatusParser implements IMessageParser
                 }
             }
 
-            // const totalActions = actionParts.length;
-
-            // if(totalActions)
-            // {
-            //     for(let i = 0; i < totalActions; i++)
-            //     {
-            //         const action = actionParts[i];
-
-            //         if(!action) continue;
-
-            //         console.log(action);
-
-            //         const [ key, value, extra ] = action.split(' ');
-
-            //         if(!key || !value) continue;
-
-            //         switch(key)
-            //         {
-            //             case 'mv':
-            //                 [ targetX, targetY, targetZ ] = value.split(',').map(a => parseFloat(a));
-
-            //                 didMove = true;
-
-            //                 break;
-            //             case 'sit': {
-            //                 const sitHeight = parseFloat(value);
-
-            //                 if(extra !== undefined) canStandUp = value === '1';
-
-            //                 height = sitHeight;
-
-            //                 break;
-            //             }
-            //             case 'lay': {
-            //                 const layHeight = parseFloat(value);
-
-            //                 height = layHeight;
-
-            //                 break;
-            //             }
-            //         }
-
-            //         statusActions.push(new RoomUnitStatusAction(key, value));
-            //     }
-            // }
-
             this._statuses.push(new RoomUnitStatusMessage(unitId, x, y, z, height, headDirection, direction, targetX, targetY, targetZ, didMove, canStandUp, statusActions));
         }
     }

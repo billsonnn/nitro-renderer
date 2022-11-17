@@ -1,6 +1,5 @@
 import { IDisposable } from './IDisposable';
 import { INitroEvent } from './INitroEvent';
-import { INitroLogger } from './INitroLogger';
 
 export interface IEventDispatcher extends IDisposable
 {
@@ -8,5 +7,4 @@ export interface IEventDispatcher extends IDisposable
     removeEventListener(type: string, callback: Function): void;
     removeAllListeners(): void;
     dispatchEvent(event: INitroEvent): boolean;
-    logger: INitroLogger;
 }

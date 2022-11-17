@@ -13,6 +13,8 @@ export class AnimationManager implements IAnimationManager
 
     public registerAnimation(structure: AvatarStructure, _arg_2: { [index: string]: IAssetAnimation }): boolean
     {
+        if(!_arg_2) return false;
+
         const animationData = _arg_2[Object.keys(_arg_2)[0]];
 
         const animation = new Animation(structure, animationData);

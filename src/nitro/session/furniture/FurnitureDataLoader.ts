@@ -48,7 +48,7 @@ export class FurnitureDataLoader extends EventDispatcher
     {
         if(!error) return;
 
-        console.error(error);
+        NitroLogger.error(error);
 
         this.dispatchEvent(new NitroEvent(FurnitureDataLoader.FURNITURE_DATA_ERROR));
     }

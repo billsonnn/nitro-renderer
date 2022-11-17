@@ -1,4 +1,4 @@
-import { AdvancedMap, IAdvancedMap, IMusicController, INitroEvent, ISoundManager, NitroConfiguration } from '../../api';
+import { AdvancedMap, IAdvancedMap, IMusicController, INitroEvent, ISoundManager, NitroConfiguration, NitroLogger } from '../../api';
 import { NitroManager } from '../../core';
 import { NitroSettingsEvent, NitroSoundEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomEngineSamplePlaybackEvent } from '../../events';
 import { Nitro } from '../Nitro';
@@ -117,7 +117,7 @@ export class SoundManager extends NitroManager implements ISoundManager
         }
         catch (e)
         {
-            console.log(e);
+            NitroLogger.error(e);
         }
     }
 
@@ -180,7 +180,7 @@ export class SoundManager extends NitroManager implements ISoundManager
         }
         catch (e)
         {
-            console.log(e);
+            NitroLogger.error(e);
         }
     }
 
@@ -202,7 +202,7 @@ export class SoundManager extends NitroManager implements ISoundManager
         }
         catch (e)
         {
-            console.log(e);
+            NitroLogger.error(e);
         }
     }
 

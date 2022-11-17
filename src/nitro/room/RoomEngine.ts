@@ -3366,7 +3366,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
             //return new RenderRoomThumbnailMessageComposer(_local_12, _local_10, _local_11, this._activeRoomId, this._sessionDataManager._Str_8500);
         }
 
-        console.log(_local_10, _local_11, _local_12);
+        NitroLogger.log(_local_10, _local_11, _local_12);
 
         //return new RenderRoomMessageComposer(_local_12, _local_10, _local_11, this._activeRoomId, this._sessionDataManager._Str_8500);
 

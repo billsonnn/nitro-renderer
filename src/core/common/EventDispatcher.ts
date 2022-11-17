@@ -1,16 +1,14 @@
-import { IDisposable, IEventDispatcher, INitroEvent, INitroLogger, NitroConfiguration, NitroLogger } from '../../api';
+import { IDisposable, IEventDispatcher, INitroEvent, NitroConfiguration, NitroLogger } from '../../api';
 import { Disposable } from './Disposable';
 
 export class EventDispatcher extends Disposable implements IEventDispatcher, IDisposable
 {
-    private _logger: INitroLogger;
     private _listeners: Map<string, Function[]>;
 
     constructor()
     {
         super();
 
-        this._logger = new NitroLogger(this.constructor.name);
         this._listeners = new Map();
     }
 
@@ -61,7 +59,7 @@ export class EventDispatcher extends Disposable implements IEventDispatcher, IDi
     {
         if(!event) return false;
 
-        if(NitroConfiguration.getValue<boolean>('system.dispatcher.log')) this._logger.log('Dispatched Event', event.type);
+        if(NitroConfiguration.getValue<boolean>('system.dispatcher.log')) NitroLogger.log('Dispatched Event', event.type);
 
         this.processEvent(event);
 
@@ -94,7 +92,7 @@ export class EventDispatcher extends Disposable implements IEventDispatcher, IDi
 
             catch (err)
             {
-                this._logger.error(err.stack);
+                NitroLogger.error(err.stack);
 
                 return;
             }
@@ -104,10 +102,5 @@ export class EventDispatcher extends Disposable implements IEventDispatcher, IDi
     public removeAllListeners(): void
     {
         this._listeners.clear();
-    }
-
-    public get logger(): INitroLogger
-    {
-        return this._logger;
     }
 }

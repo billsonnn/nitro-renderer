@@ -1,5 +1,6 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Spritesheet } from '@pixi/spritesheet';
+import { NitroLogger } from '../common';
 import { ArrayBufferToBase64, NitroBundle } from '../utils';
 import { GraphicAssetCollection } from './GraphicAssetCollection';
 import { IAssetData } from './IAssetData';
@@ -86,14 +87,11 @@ export class AssetManager implements IAssetManager
     {
         if(!urls || !urls.length) return true;
 
-        const responses = await Promise.all(urls.map(url => fetch(url)));
-
-        if(!responses || !responses.length) return false;
-
         try
         {
-            for(const response of responses)
+            for await (const url of urls)
             {
+                const response = await fetch(url);
                 const contentType = response.headers.get('Content-Type');
 
                 switch(contentType)
@@ -137,14 +135,16 @@ export class AssetManager implements IAssetManager
                     }
                 }
             }
+
+            return true;
         }
 
         catch (err)
         {
-            console.error(err);
-        }
+            NitroLogger.error(err);
 
-        return true;
+            return false;
+        }
     }
 
     private async processAsset(baseTexture: BaseTexture, data: IAssetData): Promise<void>
