@@ -1,7 +1,7 @@
 import { Application, IApplicationOptions } from '@pixi/app';
 import { SCALE_MODES } from '@pixi/constants';
 import { settings } from '@pixi/settings';
-import { IAvatarRenderManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager, NitroConfiguration } from '../api';
+import { IAvatarRenderManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager, NitroConfiguration, NitroLogger } from '../api';
 import { ConfigurationEvent, EventDispatcher, NitroCore } from '../core';
 import { NitroEvent, RoomEngineEvent } from '../events';
 import { GetTicker, PixiApplicationProxy } from '../pixi-proxy';
@@ -196,6 +196,12 @@ export class Nitro implements INitro
         const limitsFPS = NitroConfiguration.getValue<boolean>('system.limits.fps', false);
 
         if(limitsFPS) GetTicker().maxFPS = animationFPS;
+
+        NitroLogger.LOG_DEBUG = NitroConfiguration.getValue<boolean>('system.log.debug', true);
+        NitroLogger.LOG_WARN = NitroConfiguration.getValue<boolean>('system.log.warn', false);
+        NitroLogger.LOG_ERROR = NitroConfiguration.getValue<boolean>('system.log.error', false);
+        NitroLogger.LOG_EVENTS = NitroConfiguration.getValue<boolean>('system.log.events', false);
+        NitroLogger.LOG_PACKETS = NitroConfiguration.getValue<boolean>('system.log.packets', false);
     }
 
     private onRoomEngineReady(event: RoomEngineEvent): void
