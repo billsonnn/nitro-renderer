@@ -1,7 +1,7 @@
 {
   "name": "@nitrots/nitro-renderer",
   "description": "Javascript library for rendering Nitro in the browser using PixiJS",
-  "version": "1.4.8",
+  "version": "1.4.9",
   "publishConfig": {
     "access": "public"
   },
@@ -20,7 +20,6 @@
     "eslint": "eslint ./src --fix"
   },
   "dependencies": {
-    "howler": "^2.2.3",
     "@pixi/app": "~6.4.2",
     "@pixi/basis": "~6.4.2",
     "@pixi/canvas-display": "~6.4.2",
@@ -37,7 +36,6 @@
     "@pixi/graphics": "~6.4.2",
     "@pixi/graphics-extras": "~6.4.2",
     "@pixi/interaction": "~6.4.2",
-    "@pixi/loaders": "~6.4.2",
     "@pixi/math": "~6.4.2",
     "@pixi/math-extras": "~6.4.2",
     "@pixi/mixin-cache-as-bitmap": "~6.4.2",
@@ -54,11 +52,12 @@
     "@pixi/tilemap": "^3.2.2",
     "@pixi/utils": "~6.4.2",
     "gifuct-js": "^2.1.2",
+    "howler": "^2.2.3",
     "pako": "^2.0.4"
   },
   "devDependencies": {
-    "@types/pako": "^1.0.3",
     "@types/howler": "^2.2.7",
+    "@types/pako": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
     "eslint": "^8.20.0",
