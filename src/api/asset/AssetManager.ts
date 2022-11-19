@@ -85,19 +85,28 @@ export class AssetManager implements IAssetManager
 
     public async downloadAssets(urls: string[]): Promise<boolean>
     {
-        if(!urls || !urls.length) return true;
+        if(!urls || !urls.length) return Promise.resolve(true);
+
+        const responses = await Promise.allSettled(urls.map(url => fetch(url)));
 
         try
         {
-            for await (const url of urls)
+            for(const response of responses)
             {
-                const response = await fetch(url);
-                const contentType = response.headers.get('Content-Type');
+                if(response.status === 'rejected') continue;
+
+                let contentType = 'application/octet-stream';
+
+                if(response.value.headers.has('Content-Type'))
+                {
+                    contentType = response.value.headers.get('Content-Type');
+                }
 
                 switch(contentType)
                 {
                     case 'application/octet-stream': {
-                        const nitroBundle = new NitroBundle(await response.arrayBuffer());
+                        const buffer = await response.value.arrayBuffer();
+                        const nitroBundle = new NitroBundle(buffer);
 
                         await this.processAsset(nitroBundle.baseTexture, (nitroBundle.jsonFile as IAssetData));
                         break;
@@ -105,14 +114,15 @@ export class AssetManager implements IAssetManager
                     case 'image/png':
                     case 'image/jpeg':
                     case 'image/gif': {
-                        const base64 = ArrayBufferToBase64(await response.arrayBuffer());
+                        const buffer = await response.value.arrayBuffer();
+                        const base64 = ArrayBufferToBase64(buffer);
                         const baseTexture = BaseTexture.from(`data:${contentType};base64,${base64}`);
 
                         const createAsset = async () =>
                         {
                             const texture = new Texture(baseTexture);
 
-                            this.setTexture(response.url, texture);
+                            this.setTexture(response.value.url, texture);
                         };
 
                         if(baseTexture.valid)
@@ -136,14 +146,14 @@ export class AssetManager implements IAssetManager
                 }
             }
 
-            return true;
+            return Promise.resolve(true);
         }
 
         catch (err)
         {
             NitroLogger.error(err);
 
-            return false;
+            return Promise.resolve(false);
         }
     }
 

@@ -494,7 +494,12 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
         try
         {
             const response = await fetch(assetUrl);
-            const contentType = response.headers.get('Content-Type');
+            let contentType = 'application/octet-stream';
+
+            if(response.headers.has('Content-Type'))
+            {
+                contentType = response.headers.get('Content-Type');
+            }
 
             switch(contentType)
             {
