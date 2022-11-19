@@ -17,6 +17,5 @@ export * from './NitroTexture';
 export * from './PaletteMapFilter';
 export * from './PixiApplicationProxy';
 export * from './PixiInteractionEventProxy';
-export * from './PixiLoaderProxy';
 export * from './TextureUtils';
 export * from './tilemap';
