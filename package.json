@@ -36,6 +36,7 @@
     "@pixi/graphics": "~6.4.2",
     "@pixi/graphics-extras": "~6.4.2",
     "@pixi/interaction": "~6.4.2",
+    "@pixi/loaders": "~6.4.2",
     "@pixi/math": "~6.4.2",
     "@pixi/math-extras": "~6.4.2",
     "@pixi/mixin-cache-as-bitmap": "~6.4.2",
