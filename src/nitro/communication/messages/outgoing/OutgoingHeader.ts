@@ -89,7 +89,9 @@ export class OutgoingHeader
     public static GROUP_SAVE_COLORS = 1764;
     public static GROUP_SAVE_PREFERENCES = 3435;
     public static GROUP_BADGES = 21;
-    public static INVENTORY_UNKNOWN = 1371;
+    public static GET_BADGE_POINTS_LIMITS = 1371;
+    public static REQUESTABADGE = 3077;
+    public static GETISBADGEREQUESTFULFILLED = 1364;
     public static ITEM_CLOTHING_REDEEM = 3374;
     public static ITEM_COLOR_WHEEL_CLICK = 2144;
     public static ITEM_DICE_CLICK = 1990;
@@ -191,6 +193,7 @@ export class OutgoingHeader
     public static ROOM_SETTINGS = 3129;
     public static ROOM_SETTINGS_SAVE = 1969;
     public static ROOM_STAFF_PICK = 1918;
+    public static MYSTERYBOXWAITINGCANCELEDMESSAGE = 2012;
     public static SECURITY_MACHINE = 2490;
     public static SECURITY_TICKET = 2419;
     public static TRADE = 1481;
@@ -224,7 +227,7 @@ export class OutgoingHeader
     public static USER_EFFECT_ENABLE = 1752;
     public static USER_FIGURE = 2730;
     public static USER_FURNITURE = 3150; // sent when in room
-    public static USER_FURNITURE2 = 3500; // sent when not in room
+    public static REQUESTFURNIINVENTORYWHENNOTINROOM = 3500; // sent when not in room
     public static USER_HOME_ROOM = 1740;
     public static USER_INFO = 357;
     public static USER_MOTTO = 2228;

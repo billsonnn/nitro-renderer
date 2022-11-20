@@ -754,14 +754,14 @@ export class RoomPlane implements IRoomPlane
         const _local_8: number = (_local_6 / _arg_2.width);
         const _local_9: number = (_local_3 / _arg_2.height);
         const _local_10: number = (_local_4 / _arg_2.height);
-        const _local_11 = new Matrix();
-        _local_11.a = _local_7;
-        _local_11.b = _local_8;
-        _local_11.c = _local_9;
-        _local_11.d = _local_10;
-        _local_11.translate(this._cornerC.x, this._cornerC.y);
+        const matrix = new Matrix();
+        matrix.a = _local_7;
+        matrix.b = _local_8;
+        matrix.c = _local_9;
+        matrix.d = _local_10;
+        matrix.translate(this._cornerC.x, this._cornerC.y);
 
-        this.draw(_arg_2, _local_11);
+        this.draw(_arg_2, matrix);
     }
 
     private draw(k: Graphics, matrix: Matrix): void

@@ -1,3 +1,4 @@
+export * from './avatareffect';
 export * from './badges';
 export * from './bots';
 export * from './furni';

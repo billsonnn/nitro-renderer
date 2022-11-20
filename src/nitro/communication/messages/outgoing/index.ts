@@ -30,6 +30,7 @@ export * from './landingview';
 export * from './landingview/votes';
 export * from './marketplace';
 export * from './moderation';
+export * from './mysterybox';
 export * from './navigator';
 export * from './OutgoingHeader';
 export * from './pet';
