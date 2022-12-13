@@ -1,5 +1,4 @@
 ﻿import { IMessageDataWrapper } from '../../../../../api';
-import { GetTickerTime } from '../../../../../pixi-proxy';
 
 export class TargetedOfferData
 {
@@ -7,44 +6,44 @@ export class TargetedOfferData
     protected _identifier: string;
     protected _type: number;
     protected _title: string;
-    protected _Str_1858: string;
-    protected _Str_2991: string;
-    protected _Str_18782: string;
+    protected _description: string;
+    protected _imageUrl: string;
+    protected _iconImageUrl: string;
     protected _productCode: string;
-    protected _Str_9772: number;
+    protected _purchaseLimit: number;
     protected _expirationTime: number;
-    protected _Str_3594: number;
-    protected _Str_3539: number;
-    protected _Str_2956: number;
-    protected _Str_11962: string[];
-    protected _Str_9163: number;
+    protected _priceInCredits: number;
+    protected _priceInActivityPoints: number;
+    protected _activityPointType: number;
+    protected _subProductCodes: string[];
+    protected _trackingState: number;
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        this._Str_9163 = wrapper.readInt();
+        this._trackingState = wrapper.readInt();
         this._id = wrapper.readInt();
         this._identifier = wrapper.readString();
         this._productCode = wrapper.readString();
-        this._Str_3594 = wrapper.readInt();
-        this._Str_3539 = wrapper.readInt();
-        this._Str_2956 = wrapper.readInt();
-        this._Str_9772 = wrapper.readInt();
+        this._priceInCredits = wrapper.readInt();
+        this._priceInActivityPoints = wrapper.readInt();
+        this._activityPointType = wrapper.readInt();
+        this._purchaseLimit = wrapper.readInt();
 
         const time = wrapper.readInt();
-        this._expirationTime = ((time > 0) ? ((time * 1000) + GetTickerTime()) : 0);
+        this._expirationTime = ((time > 0) ? ((time * 1000) + Date.now()) : 0);
 
         this._title = wrapper.readString();
-        this._Str_1858 = wrapper.readString();
-        this._Str_2991 = wrapper.readString();
-        this._Str_18782 = wrapper.readString();
+        this._description = wrapper.readString();
+        this._imageUrl = wrapper.readString();
+        this._iconImageUrl = wrapper.readString();
         this._type = wrapper.readInt();
-        this._Str_11962 = [];
+        this._subProductCodes = [];
 
         let count = wrapper.readInt();
 
         while(count > 0)
         {
-            this._Str_11962.push(wrapper.readString());
+            this._subProductCodes.push(wrapper.readString());
 
             count--;
         }
@@ -59,22 +58,22 @@ export class TargetedOfferData
         this._identifier = offerData.identifier;
         this._type = offerData.type;
         this._title = offerData.title;
-        this._Str_1858 = offerData.description;
-        this._Str_2991 = offerData.imageUrl;
-        this._Str_18782 = offerData._Str_13452;
+        this._description = offerData.description;
+        this._imageUrl = offerData.imageUrl;
+        this._iconImageUrl = offerData.iconImageUrl;
         this._productCode = offerData.productCode;
-        this._Str_9772 = offerData.purchaseLimit;
+        this._purchaseLimit = offerData.purchaseLimit;
         this._expirationTime = offerData.expirationTime;
-        this._Str_3594 = offerData.priceInCredits;
-        this._Str_3539 = offerData.priceInActivityPoints;
-        this._Str_2956 = offerData.activityPointType;
-        this._Str_11962 = offerData._Str_24978;
-        this._Str_9163 = offerData._Str_11180;
+        this._priceInCredits = offerData.priceInCredits;
+        this._priceInActivityPoints = offerData.priceInActivityPoints;
+        this._activityPointType = offerData.activityPointType;
+        this._subProductCodes = offerData.subProductCodes;
+        this._trackingState = offerData.trackingState;
     }
 
-    public _Str_24338(k: number): void
+    public purchase(k: number): void
     {
-        this._Str_9772 = (this._Str_9772 - k);
+        this._purchaseLimit = (this._purchaseLimit - k);
     }
 
     public get id(): number
@@ -99,17 +98,17 @@ export class TargetedOfferData
 
     public get description(): string
     {
-        return this._Str_1858;
+        return this._description;
     }
 
     public get imageUrl(): string
     {
-        return this._Str_2991;
+        return this._imageUrl;
     }
 
-    public get _Str_13452(): string
+    public get iconImageUrl(): string
     {
-        return this._Str_18782;
+        return this._iconImageUrl;
     }
 
     public get productCode(): string
@@ -119,7 +118,7 @@ export class TargetedOfferData
 
     public get purchaseLimit(): number
     {
-        return this._Str_9772;
+        return this._purchaseLimit;
     }
 
     public get expirationTime(): number
@@ -129,26 +128,26 @@ export class TargetedOfferData
 
     public get priceInCredits(): number
     {
-        return this._Str_3594;
+        return this._priceInCredits;
     }
 
     public get priceInActivityPoints(): number
     {
-        return this._Str_3539;
+        return this._priceInActivityPoints;
     }
 
     public get activityPointType(): number
     {
-        return this._Str_2956;
+        return this._activityPointType;
     }
 
-    public get _Str_24978(): string[]
+    public get subProductCodes(): string[]
     {
-        return this._Str_11962;
+        return this._subProductCodes;
     }
 
-    public get _Str_11180(): number
+    public get trackingState(): number
     {
-        return this._Str_9163;
+        return this._trackingState;
     }
 }
