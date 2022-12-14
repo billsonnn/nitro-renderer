@@ -2,14 +2,14 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class LimitedOfferAppearingNextMessageParser implements IMessageParser
 {
-    private _Str_6800: number;
+    private _appearsInSeconds: number;
     private _pageId: number;
     private _offerId: number;
     private _productType: string;
 
     public flush(): boolean
     {
-        this._Str_6800 = -1;
+        this._appearsInSeconds = -1;
         this._pageId = -1;
         this._offerId = -1;
         this._productType = '';
@@ -21,7 +21,7 @@ export class LimitedOfferAppearingNextMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._Str_6800 = wrapper.readInt();
+        this._appearsInSeconds = wrapper.readInt();
         this._pageId = wrapper.readInt();
         this._offerId = wrapper.readInt();
         this._productType = wrapper.readString();
@@ -29,9 +29,9 @@ export class LimitedOfferAppearingNextMessageParser implements IMessageParser
         return true;
     }
 
-    public get _Str_23051(): number
+    public get appearsInSeconds(): number
     {
-        return this._Str_6800;
+        return this._appearsInSeconds;
     }
 
     public get pageId(): number

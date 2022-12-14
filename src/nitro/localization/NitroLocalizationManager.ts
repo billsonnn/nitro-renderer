@@ -302,7 +302,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
         const badge = new BadgeBaseAndLevel(key);
         const keys = ['badge_name_' + key, 'badge_name_' + badge.base];
 
-        let name = this._Str_2103(this.getExistingKey(keys));
+        let name = this.fixBadLocalization(this.getExistingKey(keys));
 
         name = name.replace('%roman%', this.getRomanNumeral(badge.level));
 
@@ -314,7 +314,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
         const badge = new BadgeBaseAndLevel(key);
         const keys = ['badge_desc_' + key, 'badge_desc_' + badge.base];
 
-        let desc = this._Str_2103(this.getExistingKey(keys));
+        let desc = this.fixBadLocalization(this.getExistingKey(keys));
 
         const limit = this.getBadgePointLimit(key);
 
@@ -336,7 +336,7 @@ export class NitroLocalizationManager extends NitroManager implements INitroLoca
         return '';
     }
 
-    private _Str_2103(k: string): string
+    private fixBadLocalization(k: string): string
     {
         return k.replace('${', '$')
             .replace('{', '$')

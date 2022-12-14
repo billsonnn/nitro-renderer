@@ -3,13 +3,13 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 export class CatalogPageWithEarliestExpiryMessageParser implements IMessageParser
 {
     private _pageName: string;
-    private _Str_5158: number;
+    private _secondsToExpiry: number;
     private _image: string;
 
     public flush(): boolean
     {
         this._pageName = null;
-        this._Str_5158 = 0;
+        this._secondsToExpiry = 0;
         this._image = null;
 
         return true;
@@ -20,7 +20,7 @@ export class CatalogPageWithEarliestExpiryMessageParser implements IMessageParse
         if(!wrapper) return false;
 
         this._pageName = wrapper.readString();
-        this._Str_5158 = wrapper.readInt();
+        this._secondsToExpiry = wrapper.readInt();
         this._image = wrapper.readString();
 
         return true;
@@ -31,9 +31,9 @@ export class CatalogPageWithEarliestExpiryMessageParser implements IMessageParse
         return this._pageName;
     }
 
-    public get _Str_17123(): number
+    public get secondsToExpiry(): number
     {
-        return this._Str_5158;
+        return this._secondsToExpiry;
     }
 
     public get image(): string

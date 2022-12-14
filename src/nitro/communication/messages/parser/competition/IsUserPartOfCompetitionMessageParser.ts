@@ -2,32 +2,32 @@
 
 export class IsUserPartOfCompetitionMessageParser implements IMessageParser
 {
-    private _Str_8579: boolean;
-    private _Str_6987: number;
+    private _isPartOf: boolean;
+    private _targetId: number;
 
     public flush(): boolean
     {
-        this._Str_8579 = false;
-        this._Str_6987 = 0;
+        this._isPartOf = false;
+        this._targetId = 0;
 
         return true;
     }
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        this._Str_8579 = wrapper.readBoolean();
-        this._Str_6987 = wrapper.readInt();
+        this._isPartOf = wrapper.readBoolean();
+        this._targetId = wrapper.readInt();
 
         return true;
     }
 
-    public get _Str_25348(): boolean
+    public get isPartOf(): boolean
     {
-        return this._Str_8579;
+        return this._isPartOf;
     }
 
-    public get _Str_10760(): number
+    public get targetId(): number
     {
-        return this._Str_6987;
+        return this._targetId;
     }
 }

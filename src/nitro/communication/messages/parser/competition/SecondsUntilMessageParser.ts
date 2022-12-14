@@ -2,32 +2,32 @@
 
 export class SecondsUntilMessageParser implements IMessageParser
 {
-    private _Str_8997: string;
-    private _Str_21095: number;
+    private _timeStr: string;
+    private _secondsUntil: number;
 
     public flush(): boolean
     {
-        this._Str_8997 = null;
-        this._Str_21095 = 0;
+        this._timeStr = null;
+        this._secondsUntil = 0;
 
         return true;
     }
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        this._Str_8997 = wrapper.readString();
-        this._Str_21095 = wrapper.readInt();
+        this._timeStr = wrapper.readString();
+        this._secondsUntil = wrapper.readInt();
 
         return true;
     }
 
-    public get _Str_23288(): string
+    public get timeStr(): string
     {
-        return this._Str_8997;
+        return this._timeStr;
     }
 
-    public get _Str_25497(): number
+    public get secondsUntil(): number
     {
-        return this._Str_21095;
+        return this._secondsUntil;
     }
 }

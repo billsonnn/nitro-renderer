@@ -290,7 +290,7 @@ export class FurnitureParticleSystem
         }
     }
 
-    public _Str_17988(particleSystem: FurnitureParticleSystem): void
+    public copyStateFrom(particleSystem: FurnitureParticleSystem): void
     {
         let emitterId = 0;
 

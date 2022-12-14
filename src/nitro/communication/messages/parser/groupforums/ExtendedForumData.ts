@@ -61,7 +61,7 @@ export class ExtendedForumData extends ForumData
         return (this._readPermissionError.length === 0);
     }
 
-    public get _Str_21331(): boolean
+    public get canReport(): boolean
     {
         return true;
     }

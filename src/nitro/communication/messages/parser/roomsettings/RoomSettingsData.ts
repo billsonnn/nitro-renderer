@@ -69,23 +69,23 @@ export class RoomSettingsData
         return instance;
     }
 
-    // public static _Str_26097(k: number): string
-    // {
-    //     switch (k)
-    //     {
-    //         case RoomSettingsData.DOORMODE_OPEN:
-    //             return "${navigator.door.mode.open}";
-    //         case RoomSettingsData.DOORMODE_CLOSED:
-    //             return "${navigator.door.mode.closed}";
-    //         case RoomSettingsData.DOORMODE_PASSWORD:
-    //             return "${navigator.door.mode.password}";
-    //         case RoomSettingsData.DOORMODE_INVISIBLE:
-    //             return "${navigator.door.mode.invisible}";
-    //         case RoomSettingsData.DOORMODE_NOOBS_ONLY:
-    //             return "${navigator.door.mode.noobs_only}";
-    //     }
-    //     return "";
-    // }
+    public static getDoorModeLocalizationKey(k: number): string
+    {
+        switch(k)
+        {
+            case RoomSettingsData.DOORMODE_OPEN:
+                return '${navigator.door.mode.open}';
+            case RoomSettingsData.DOORMODE_CLOSED:
+                return '${navigator.door.mode.closed}';
+            case RoomSettingsData.DOORMODE_PASSWORD:
+                return '${navigator.door.mode.password}';
+            case RoomSettingsData.DOORMODE_INVISIBLE:
+                return '${navigator.door.mode.invisible}';
+            case RoomSettingsData.DOORMODE_NOOBS_ONLY:
+                return '${navigator.door.mode.noobs_only}';
+        }
+        return '';
+    }
 
     public get tradeMode(): number
     {
@@ -237,7 +237,7 @@ export class RoomSettingsData
         this._tags = tags;
     }
 
-    public _Str_17474(id: number, data: FlatControllerData): void
+    public setFlatController(id: number, data: FlatControllerData): void
     {
         this._controllersById.set(id, data);
 
@@ -284,7 +284,7 @@ export class RoomSettingsData
         return this._highlightedUserId;
     }
 
-    public _Str_22019(id: number, data: BannedUserData): void
+    public setBannedUser(id: number, data: BannedUserData): void
     {
         this._bannedUsersById.set(id, data);
 

@@ -21,7 +21,7 @@
         return this._roomName;
     }
 
-    public get _Str_22776(): boolean
+    public get hasControllers(): boolean
     {
         return this._hasControllers;
     }

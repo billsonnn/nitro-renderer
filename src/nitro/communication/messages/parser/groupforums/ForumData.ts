@@ -99,7 +99,7 @@ export class ForumData
         return this._lastMessageTimeAsSecondsAgo;
     }
 
-    public _Str_25309(forum: ForumData): void
+    public updateFrom(forum: ForumData): void
     {
         this._totalThreads = forum._totalThreads;
         this._totalMessages = forum._totalMessages;
@@ -110,19 +110,19 @@ export class ForumData
         this._lastMessageTimeAsSecondsAgo = forum._lastMessageTimeAsSecondsAgo;
     }
 
-    public get _Str_12786(): number
+    public get lastReadMessageId(): number
     {
         return (this._totalMessages - this._unreadMessages);
     }
 
-    public set _Str_12786(k: number)
+    public set lastReadMessageId(k: number)
     {
         this._unreadMessages = (this._totalMessages - k);
 
         if(this._unreadMessages < 0) this._unreadMessages = 0;
     }
 
-    public _Str_23783(thread: GuildForumThread): void
+    public addNewThread(thread: GuildForumThread): void
     {
         this._lastMessageAuthorId = thread.lastUserId;
         this._lastMessageAuthorName = thread.lastUserName;

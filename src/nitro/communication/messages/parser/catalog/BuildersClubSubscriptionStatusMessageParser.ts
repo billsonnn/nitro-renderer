@@ -2,17 +2,17 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class BuildersClubSubscriptionStatusMessageParser implements IMessageParser
 {
-    private _Str_16456: number;
-    private _Str_12494: number;
-    private _Str_19123: number;
-    private _Str_17298: number;
+    private _secondsLeft: number;
+    private _furniLimit: number;
+    private _maxFurniLimit: number;
+    private _secondsLeftWithGrace: number;
 
     public flush(): boolean
     {
-        this._Str_16456 = 0;
-        this._Str_12494 = 0;
-        this._Str_19123 = 0;
-        this._Str_17298 = 0;
+        this._secondsLeft = 0;
+        this._furniLimit = 0;
+        this._maxFurniLimit = 0;
+        this._secondsLeftWithGrace = 0;
 
         return true;
     }
@@ -21,33 +21,33 @@ export class BuildersClubSubscriptionStatusMessageParser implements IMessagePars
     {
         if(!wrapper) return false;
 
-        this._Str_16456 = wrapper.readInt();
-        this._Str_12494 = wrapper.readInt();
-        this._Str_19123 = wrapper.readInt();
+        this._secondsLeft = wrapper.readInt();
+        this._furniLimit = wrapper.readInt();
+        this._maxFurniLimit = wrapper.readInt();
 
-        if(wrapper.bytesAvailable) this._Str_17298 = wrapper.readInt();
-        else this._Str_17298 = this._Str_16456;
+        if(wrapper.bytesAvailable) this._secondsLeftWithGrace = wrapper.readInt();
+        else this._secondsLeftWithGrace = this._secondsLeft;
 
         return true;
     }
 
-    public get _Str_3709(): number
+    public get secondsLeft(): number
     {
-        return this._Str_16456;
+        return this._secondsLeft;
     }
 
-    public get _Str_15864(): number
+    public get furniLimit(): number
     {
-        return this._Str_12494;
+        return this._furniLimit;
     }
 
-    public get _Str_24094(): number
+    public get maxFurniLimit(): number
     {
-        return this._Str_19123;
+        return this._maxFurniLimit;
     }
 
-    public get _Str_24379(): number
+    public get secondsLeftWithGrace(): number
     {
-        return this._Str_17298;
+        return this._secondsLeftWithGrace;
     }
 }

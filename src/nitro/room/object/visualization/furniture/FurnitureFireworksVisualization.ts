@@ -27,7 +27,7 @@ export class FurnitureFireworksVisualization extends FurnitureAnimatedVisualizat
         {
             if(!this._particleSystems)
             {
-                this._Str_18684();
+                this.readDefinition();
 
                 if(this._particleSystems) this._currentParticleSystem = this._particleSystems.getValue(scale);
 
@@ -39,7 +39,7 @@ export class FurnitureFireworksVisualization extends FurnitureAnimatedVisualizat
                 {
                     const particleSystem = this._particleSystems.getValue(scale);
 
-                    particleSystem._Str_17988(this._currentParticleSystem);
+                    particleSystem.copyStateFrom(this._currentParticleSystem);
 
                     if(this._currentParticleSystem) this._currentParticleSystem.reset();
 
@@ -84,7 +84,7 @@ export class FurnitureFireworksVisualization extends FurnitureAnimatedVisualizat
         return super.getLayerYOffset(scale, direction, layerId);
     }
 
-    private _Str_18684(): boolean
+    private readDefinition(): boolean
     {
         if(!this.object || !this.object.model) return false;
 

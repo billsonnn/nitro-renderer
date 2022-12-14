@@ -3,12 +3,12 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 export class IsOfferGiftableMessageParser implements IMessageParser
 {
     private _offerId: number;
-    private _Str_21271: boolean;
+    private _isGiftable: boolean;
 
     public flush(): boolean
     {
         this._offerId = 0;
-        this._Str_21271 = false;
+        this._isGiftable = false;
 
         return true;
     }
@@ -18,7 +18,7 @@ export class IsOfferGiftableMessageParser implements IMessageParser
         if(!wrapper) return false;
 
         this._offerId = wrapper.readInt();
-        this._Str_21271 = wrapper.readBoolean();
+        this._isGiftable = wrapper.readBoolean();
 
         return true;
     }
@@ -28,8 +28,8 @@ export class IsOfferGiftableMessageParser implements IMessageParser
         return this._offerId;
     }
 
-    public get _Str_18028(): boolean
+    public get isGiftable(): boolean
     {
-        return this._Str_21271;
+        return this._isGiftable;
     }
 }

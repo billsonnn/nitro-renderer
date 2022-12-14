@@ -3,16 +3,16 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 export class DirectSMSClubBuyAvailableMessageParser implements IMessageParser
 {
     private _available: boolean;
-    private _Str_16515: string;
-    private _Str_22121: string;
-    private _Str_21897: number;
+    private _pricePointUrl: string;
+    private _market: string;
+    private _lengthInDays: number;
 
     public flush(): boolean
     {
         this._available = false;
-        this._Str_16515 = null;
-        this._Str_22121 = null;
-        this._Str_21897 = 0;
+        this._pricePointUrl = null;
+        this._market = null;
+        this._lengthInDays = 0;
 
         return true;
     }
@@ -21,12 +21,12 @@ export class DirectSMSClubBuyAvailableMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._Str_16515 = wrapper.readString();
+        this._pricePointUrl = wrapper.readString();
 
-        if(this._Str_16515 !== '') this._available = true;
+        if(this._pricePointUrl !== '') this._available = true;
 
-        this._Str_22121 = wrapper.readString();
-        this._Str_21897 = wrapper.readInt();
+        this._market = wrapper.readString();
+        this._lengthInDays = wrapper.readInt();
 
         return true;
     }
@@ -36,18 +36,18 @@ export class DirectSMSClubBuyAvailableMessageParser implements IMessageParser
         return this._available;
     }
 
-    public get _Str_26301(): string
+    public get pricePointUrl(): string
     {
-        return this._Str_16515;
+        return this._pricePointUrl;
     }
 
-    public get _Str_26118(): string
+    public get market(): string
     {
-        return this._Str_22121;
+        return this._market;
     }
 
-    public get _Str_26380(): number
+    public get lengthInDays(): number
     {
-        return this._Str_21897;
+        return this._lengthInDays;
     }
 }

@@ -59,7 +59,7 @@ export class GuestRoomSearchResultData
         return this._searchType;
     }
 
-    public get _Str_25185(): string
+    public get searchParam(): string
     {
         return this._searchParam;
     }

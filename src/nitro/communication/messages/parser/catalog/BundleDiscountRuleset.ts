@@ -2,52 +2,52 @@
 
 export class BundleDiscountRuleset
 {
-    private _Str_20535: number;
-    private _Str_19937: number;
-    private _Str_20951: number;
-    private _Str_20460: number;
-    private _Str_16144: number[];
+    private _maxPurchaseSize: number;
+    private _bundleSize: number;
+    private _bundleDiscountSize: number;
+    private _bonusThreshold: number;
+    private _additionalBonusDiscountThresholdQuantities: number[];
 
     constructor(wrapper: IMessageDataWrapper)
     {
-        this._Str_20535 = wrapper.readInt();
-        this._Str_19937 = wrapper.readInt();
-        this._Str_20951 = wrapper.readInt();
-        this._Str_20460 = wrapper.readInt();
-        this._Str_16144 = [];
+        this._maxPurchaseSize = wrapper.readInt();
+        this._bundleSize = wrapper.readInt();
+        this._bundleDiscountSize = wrapper.readInt();
+        this._bonusThreshold = wrapper.readInt();
+        this._additionalBonusDiscountThresholdQuantities = [];
 
         let count = wrapper.readInt();
 
         while(count > 0)
         {
-            this._Str_16144.push(wrapper.readInt());
+            this._additionalBonusDiscountThresholdQuantities.push(wrapper.readInt());
 
             count--;
         }
     }
 
-    public get _Str_22802(): number
+    public get maxPurchaseSize(): number
     {
-        return this._Str_20535;
+        return this._maxPurchaseSize;
     }
 
-    public get _Str_9227(): number
+    public get bundleSize(): number
     {
-        return this._Str_19937;
+        return this._bundleSize;
     }
 
-    public get _Str_23802(): number
+    public get bundleDiscountSize(): number
     {
-        return this._Str_20951;
+        return this._bundleDiscountSize;
     }
 
-    public get _Str_21500(): number
+    public get bonusThreshold(): number
     {
-        return this._Str_20460;
+        return this._bonusThreshold;
     }
 
-    public get _Str_25155(): number[]
+    public get additionalBonusDiscountThresholdQuantities(): number[]
     {
-        return this._Str_16144;
+        return this._additionalBonusDiscountThresholdQuantities;
     }
 }

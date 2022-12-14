@@ -4,14 +4,14 @@ export class CatalogPageExpirationParser implements IMessageParser
 {
     private _pageName: string;
     private _pageId: number;
-    private _Str_5158: number;
+    private _secondsToExpiry: number;
     private _image: string;
 
     public flush(): boolean
     {
         this._pageName = null;
         this._pageId = 0;
-        this._Str_5158 = 0;
+        this._secondsToExpiry = 0;
         this._image = null;
 
         return true;
@@ -23,7 +23,7 @@ export class CatalogPageExpirationParser implements IMessageParser
 
         this._pageId = wrapper.readInt();
         this._pageName = wrapper.readString();
-        this._Str_5158 = wrapper.readInt();
+        this._secondsToExpiry = wrapper.readInt();
         this._image = wrapper.readString();
 
         return true;
@@ -39,9 +39,9 @@ export class CatalogPageExpirationParser implements IMessageParser
         return this._pageId;
     }
 
-    public get _Str_17123(): number
+    public get secondsToExpiry(): number
     {
-        return this._Str_5158;
+        return this._secondsToExpiry;
     }
 
     public get image(): string

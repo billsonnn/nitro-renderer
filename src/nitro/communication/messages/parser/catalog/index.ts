@@ -15,7 +15,7 @@ export * from './ClubGiftData';
 export * from './ClubGiftInfoParser';
 export * from './ClubGiftSelectedParser';
 export * from './ClubOfferData';
-export * from './ClubOfferExtendedData';
+export * from './ClubOfferExtendData';
 export * from './DirectSMSClubBuyAvailableMessageParser';
 export * from './FrontPageItem';
 export * from './GiftReceiverNotFoundParser';

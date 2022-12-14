@@ -2,14 +2,14 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class NotEnoughBalanceMessageParser implements IMessageParser
 {
-    private _Str_17433: boolean = false;
-    private _Str_19031: boolean = false;
+    private _notEnoughCredits: boolean = false;
+    private _notEnoughActivityPoints: boolean = false;
     private _activityPointType: number = 0;
 
     public flush(): boolean
     {
-        this._Str_17433 = false;
-        this._Str_19031 = false;
+        this._notEnoughCredits = false;
+        this._notEnoughActivityPoints = false;
         this._activityPointType = 0;
 
         return true;
@@ -19,8 +19,8 @@ export class NotEnoughBalanceMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._Str_17433 = wrapper.readBoolean();
-        this._Str_19031 = wrapper.readBoolean();
+        this._notEnoughCredits = wrapper.readBoolean();
+        this._notEnoughActivityPoints = wrapper.readBoolean();
 
         if(wrapper.bytesAvailable) this._activityPointType = wrapper.readInt();
 
@@ -29,12 +29,12 @@ export class NotEnoughBalanceMessageParser implements IMessageParser
 
     public get notEnoughCredits(): boolean
     {
-        return this._Str_17433;
+        return this._notEnoughCredits;
     }
 
-    public get _Str_24352(): boolean
+    public get notEnoughActivityPoints(): boolean
     {
-        return this._Str_19031;
+        return this._notEnoughActivityPoints;
     }
 
     public get activityPointType(): number
