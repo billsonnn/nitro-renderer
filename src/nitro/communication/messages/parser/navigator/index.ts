@@ -23,6 +23,7 @@ export * from './NavigatorSearchParser';
 export * from './NavigatorSettingsParser';
 export * from './RoomEventCancelMessageParser';
 export * from './RoomEventMessageParser';
+export * from './RoomGetFilterWordsMessageParser';
 export * from './RoomSettingsUpdatedParser';
 export * from './RoomThumbnailUpdateResultMessageParser';
 export * from './UserEventCatsMessageParser';

@@ -36,6 +36,8 @@ export * from './RemoveOwnRoomRightsRoomMessageComposer';
 export * from './RoomAdEventTabAdClickedComposer';
 export * from './RoomAdEventTabViewedComposer';
 export * from './RoomAdSearchMessageComposer';
+export * from './RoomFilterWordsMessageComposer';
+export * from './RoomFilterWordsModifyMessageComposer';
 export * from './RoomsWhereMyFriendsAreSearchMessageComposer';
 export * from './RoomsWithHighestScoreSearchMessageComposer';
 export * from './RoomTextSearchMessageComposer';
