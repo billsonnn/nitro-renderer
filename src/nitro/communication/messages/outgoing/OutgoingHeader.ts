@@ -193,6 +193,8 @@ export class OutgoingHeader
     public static ROOM_SETTINGS = 3129;
     public static ROOM_SETTINGS_SAVE = 1969;
     public static ROOM_STAFF_PICK = 1918;
+    public static ROOM_FILTER_WORDS = 1911;
+    public static ROOM_FILTER_WORDS_MODIFY = 3001;
     public static MYSTERYBOXWAITINGCANCELEDMESSAGE = 2012;
     public static SECURITY_MACHINE = 2490;
     public static SECURITY_TICKET = 2419;
