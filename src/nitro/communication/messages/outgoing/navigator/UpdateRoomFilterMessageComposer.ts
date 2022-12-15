@@ -1,8 +1,8 @@
 import { IMessageComposer } from '../../../../../api';
 
-export class RoomFilterWordsModifyMessageComposer implements IMessageComposer<ConstructorParameters<typeof RoomFilterWordsModifyMessageComposer>>
+export class UpdateRoomFilterMessageComposer implements IMessageComposer<ConstructorParameters<typeof UpdateRoomFilterMessageComposer>>
 {
-    private _data: ConstructorParameters<typeof RoomFilterWordsModifyMessageComposer>;
+    private _data: ConstructorParameters<typeof UpdateRoomFilterMessageComposer>;
 
     constructor(roomId: number, isAddingWord: boolean, word: string)
     {

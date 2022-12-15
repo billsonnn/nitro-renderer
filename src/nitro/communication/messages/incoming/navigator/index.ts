@@ -20,7 +20,7 @@ export * from './NavigatorSearchEvent';
 export * from './NavigatorSettingsEvent';
 export * from './RoomEventCancelEvent';
 export * from './RoomEventEvent';
-export * from './RoomGetFilterWordsMessageEvent';
+export * from './RoomFilterSettingsMessageEvent';
 export * from './RoomSettingsUpdatedEvent';
 export * from './RoomThumbnailUpdateResultEvent';
 export * from './UserEventCatsEvent';

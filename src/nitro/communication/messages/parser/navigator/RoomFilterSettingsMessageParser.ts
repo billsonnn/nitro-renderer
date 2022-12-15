@@ -1,6 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
-export class RoomGetFilterWordsMessageParser implements IMessageParser
+export class RoomFilterSettingsMessageParser implements IMessageParser
 {
     private _words: string[];
 
