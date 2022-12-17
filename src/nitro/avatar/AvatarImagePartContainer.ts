@@ -1,5 +1,5 @@
-﻿import { AdjustmentFilter } from '@pixi/filter-adjustment';
-import { IActionDefinition, IPartColor } from '../../api';
+﻿import { IActionDefinition, IPartColor } from '../../api';
+import { AdjustmentFilter } from '../../pixi-proxy';
 import { AvatarAnimationFrame } from './structure';
 
 export class AvatarImagePartContainer

@@ -1,8 +1,8 @@
+export * from './adjustment-filter';
 export * from './GetTicker';
 export * from './GetTickerFPS';
 export * from './GetTickerTime';
 export * from './INitroPoint';
-export * from './NitroAdjustmentFilter';
 export * from './NitroAlphaFilter';
 export * from './NitroBaseTexture';
 export * from './NitroContainer';
@@ -18,4 +18,3 @@ export * from './PaletteMapFilter';
 export * from './PixiApplicationProxy';
 export * from './PixiInteractionEventProxy';
 export * from './TextureUtils';
-export * from './tilemap';

@@ -13,7 +13,6 @@ import '@pixi/polyfill';
 import { TilingSpriteRenderer } from '@pixi/sprite-tiling';
 import { SpritesheetLoader } from '@pixi/spritesheet';
 import { TickerPlugin } from '@pixi/ticker';
-import { TileRenderer } from '@pixi/tilemap';
 import * as utils from '@pixi/utils';
 export * from '@pixi/app';
 export * from '@pixi/canvas-renderer';
@@ -36,7 +35,6 @@ export { utils };
 Renderer.registerPlugin('batch', BatchRenderer);
 Renderer.registerPlugin('extract', Extract);
 Renderer.registerPlugin('tilingSprite', TilingSpriteRenderer);
-Renderer.registerPlugin('tilemap', TileRenderer);
 Renderer.registerPlugin('interaction', InteractionManager);
 
 Loader.registerPlugin(SpritesheetLoader);
