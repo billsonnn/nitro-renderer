@@ -6,8 +6,6 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
 {
     private static AVATAR_IMAGE_SPRITE_TAG: string = 'avatar_image';
 
-    protected _data: FurnitureMannequinVisualizationData;
-
     private _mannequinScale: number;
     private _figure: string;
     private _gender: string;
@@ -101,7 +99,7 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
     {
         if(!this.avatarExists() || forceUpdate)
         {
-            const avatarImage = this._data.createAvatarImage(this._figure, this._mannequinScale, this._gender, this);
+            const avatarImage = this.data.createAvatarImage(this._figure, this._mannequinScale, this._gender, this);
 
             if(avatarImage)
             {
@@ -167,5 +165,10 @@ export class FurnitureMannequinVisualization extends FurnitureVisualization impl
     public get disposed(): boolean
     {
         return this._disposed;
+    }
+
+    protected get data(): FurnitureMannequinVisualizationData
+    {
+        return this._data as FurnitureMannequinVisualizationData;
     }
 }

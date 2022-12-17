@@ -19,8 +19,6 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     private static GESTURE_ANIMATION_INDEX: number = 1;
     private static ANIMATION_INDEX_COUNT: number = 2;
 
-    protected _data: PetVisualizationData;
-
     private _posture: string;
     private _gesture: string;
     private _isSleeping: boolean;
@@ -47,8 +45,6 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     constructor()
     {
         super();
-
-        this._data = null;
 
         this._posture = '';
         this._gesture = '';
@@ -195,7 +191,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
         const headDirection = model.getValue<number>(RoomObjectVariable.HEAD_DIRECTION);
 
-        if(!isNaN(headDirection) && this._data.isAllowedToTurnHead)
+        if(!isNaN(headDirection) && this.data.isAllowedToTurnHead)
         {
             this._headDirection = headDirection;
         }
@@ -253,22 +249,22 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     protected setPostureAndGesture(posture: string, gesture: string): void
     {
-        if(!this._data) return;
+        if(!this.data) return;
 
         if(posture !== this._posture)
         {
             this._posture = posture;
 
-            this.setAnimationForIndex(PetVisualization.POSTURE_ANIMATION_INDEX, this._data.postureToAnimation(this._scale, posture));
+            this.setAnimationForIndex(PetVisualization.POSTURE_ANIMATION_INDEX, this.data.postureToAnimation(this._scale, posture));
         }
 
-        if(this._data.getGestureDisabled(this._scale, posture)) gesture = null;
+        if(this.data.getGestureDisabled(this._scale, posture)) gesture = null;
 
         if(gesture !== this._gesture)
         {
             this._gesture = gesture;
 
-            this.setAnimationForIndex(PetVisualization.GESTURE_ANIMATION_INDEX, this._data.gestureToAnimation(this._scale, gesture));
+            this.setAnimationForIndex(PetVisualization.GESTURE_ANIMATION_INDEX, this.data.gestureToAnimation(this._scale, gesture));
         }
     }
 
@@ -431,16 +427,16 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
     protected getLayerZOffset(scale: number, direction: number, layerId: number): number
     {
-        if(!this._data) return LayerData.DEFAULT_ZOFFSET;
+        if(!this.data) return LayerData.DEFAULT_ZOFFSET;
 
-        return this._data.getLayerZOffset(scale, this.getDirection(scale, layerId), layerId);
+        return this.data.getLayerZOffset(scale, this.getDirection(scale, layerId), layerId);
     }
 
     private getDirection(scale: number, layerId: number): number
     {
         if(!this.isHeadSprite(layerId)) return this._direction;
 
-        return this._data.getValidDirection(scale, this._headDirection);
+        return this.data.getValidDirection(scale, this._headDirection);
     }
 
     protected getFrameNumber(scale: number, layerId: number): number
@@ -468,8 +464,8 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     {
         if(this._headSprites[layerId] === undefined)
         {
-            const isHead = (this._data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId) === PetVisualization.HEAD);
-            const isHair = (this._data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId) === PetVisualization.HAIR);
+            const isHead = (this.data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId) === PetVisualization.HEAD);
+            const isHair = (this.data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId) === PetVisualization.HAIR);
 
             if(isHead || isHair) this._headSprites[layerId] = true;
             else this._headSprites[layerId] = false;
@@ -484,7 +480,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
         {
             if(layerId < (this.totalSprites - (1 + PetVisualization.ADDITIONAL_SPRITE_COUNT)))
             {
-                const tag = this._data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId);
+                const tag = this.data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId);
 
                 if(((tag && (tag.length > 0)) && (tag !== PetVisualization.HEAD)) && (tag !== PetVisualization.HAIR))
                 {
@@ -508,7 +504,7 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     {
         if(this._saddleSprites[layerId] === undefined)
         {
-            if(this._data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId) === PetVisualization.SADDLE)
+            if(this.data.getLayerTag(this._scale, DirectionData.USE_DEFAULT_DIRECTION, layerId) === PetVisualization.SADDLE)
             {
                 this._saddleSprites[layerId] = true;
             }
@@ -583,9 +579,9 @@ export class PetVisualization extends FurnitureAnimatedVisualization
 
             part = part.split('@')[0];
 
-            posture = this._data.animationToPosture(scale, (parseInt(part) / 100), false);
+            posture = this.data.animationToPosture(scale, (parseInt(part) / 100), false);
 
-            if(!posture) posture = this._data.getGestureForAnimationId(scale, (parseInt(part) / 100));
+            if(!posture) posture = this.data.getGestureForAnimationId(scale, (parseInt(part) / 100));
         }
 
         return posture;
@@ -594,5 +590,10 @@ export class PetVisualization extends FurnitureAnimatedVisualization
     public getPetAdditionAsset(name: string): Texture<Resource>
     {
         return GetAssetManager().getTexture(name);
+    }
+
+    protected get data(): PetVisualizationData
+    {
+        return this._data as PetVisualizationData;
     }
 }

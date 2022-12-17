@@ -16,8 +16,6 @@ export class ExtendedSprite extends Sprite
     private _pairedSpriteId: number;
     private _pairedSpriteUpdateCounter: number;
 
-    public name: string;
-
     constructor(texture: Texture<Resource> = null)
     {
         super(texture);
