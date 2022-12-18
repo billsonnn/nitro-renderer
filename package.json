@@ -51,6 +51,7 @@
     "@pixi/spritesheet": "~6.5.0",
     "@pixi/text": "~6.5.0",
     "@pixi/ticker": "~6.5.0",
+    "@pixi/tilemap": "^3.2.2",
     "@pixi/utils": "~6.5.0",
     "gifuct-js": "^2.1.2",
     "howler": "^2.2.3",
