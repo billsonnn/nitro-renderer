@@ -1,6 +1,8 @@
-﻿import { Graphics } from '@pixi/graphics';
+﻿import { RenderTexture } from '@pixi/core';
 import { Matrix, Point } from '@pixi/math';
+import { Sprite } from '@pixi/sprite';
 import { IGraphicAssetCollection, IVector3D } from '../../../../../../api';
+import { PixiApplicationProxy } from '../../../../../../pixi-proxy';
 import { PlaneMask } from './PlaneMask';
 import { PlaneMaskVisualization } from './PlaneMaskVisualization';
 
@@ -141,13 +143,13 @@ export class PlaneMaskManager
         return graphicName;
     }
 
-    public updateMask(k: Graphics, _arg_2: string, _arg_3: number, _arg_4: IVector3D, _arg_5: number, _arg_6: number): boolean
+    public updateMask(canvas: RenderTexture, type: string, scale: number, normal: IVector3D, posX: number, posY: number): boolean
     {
-        const mask = this._masks.get(_arg_2);
+        const mask = this._masks.get(type);
 
         if(!mask) return true;
 
-        const asset = mask.getGraphicAsset(_arg_3, _arg_4);
+        const asset = mask.getGraphicAsset(scale, normal);
 
         if(!asset) return true;
 
@@ -155,7 +157,7 @@ export class PlaneMaskManager
 
         if(!texture) return true;
 
-        const point = new Point((_arg_5 + asset.offsetX), (_arg_6 + asset.offsetY));
+        const point = new Point((posX + asset.offsetX), (posY + asset.offsetY));
 
         const matrix = new Matrix();
 
@@ -179,10 +181,11 @@ export class PlaneMaskManager
         matrix.scale(a, b);
         matrix.translate((point.x + c), (point.y + d));
 
-        k
-            .beginTextureFill({ texture, matrix })
-            .drawRect(matrix.tx, matrix.ty, texture.width, texture.height)
-            .endFill();
+        PixiApplicationProxy.instance.renderer.render(new Sprite(texture), {
+            renderTexture: canvas,
+            clear: true,
+            transform: matrix
+        });
 
         return true;
     }

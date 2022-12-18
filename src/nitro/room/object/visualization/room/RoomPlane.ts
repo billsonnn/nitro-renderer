@@ -51,7 +51,7 @@ export class RoomPlane implements IRoomPlane
     private _bitmapMasks: RoomPlaneBitmapMask[];
     private _rectangleMasks: RoomPlaneRectangleMask[];
     private _maskChanged: boolean;
-    private _maskBitmapData: Graphics;
+    private _maskBitmapData: RenderTexture;
     private _bitmapMasksOld: RoomPlaneBitmapMask[];
     private _rectangleMasksOld: RoomPlaneRectangleMask[];
     private _cornerA: Vector3d;
@@ -901,12 +901,10 @@ export class RoomPlane implements IRoomPlane
                 this._maskBitmapData = null;
             }
 
-            const graphic = new Graphics();
-
-            graphic
-                .beginFill(0xFFFFFF, 0)
-                .drawRect(0, 0, width, height)
-                .endFill();
+            const graphic = RenderTexture.create({
+                width,
+                height
+            });
 
             this._maskBitmapData = graphic;
             this._maskChanged = true;
@@ -919,10 +917,10 @@ export class RoomPlane implements IRoomPlane
 
             if(this._maskBitmapData)
             {
-                this._maskBitmapData
-                    .beginFill(0xFFFFFF, 0)
-                    .drawRect(0, 0, width, height)
-                    .endFill();
+                this._maskBitmapData = RenderTexture.create({
+                    width,
+                    height
+                });
             }
 
             this.resetTextureCache(texture);
@@ -965,10 +963,10 @@ export class RoomPlane implements IRoomPlane
                     const wd = ((this._maskBitmapData.width * rectMask.leftSideLength) / this._leftSide.length);
                     const ht = ((this._maskBitmapData.height * rectMask.rightSideLength) / this._rightSide.length);
 
-                    this._maskBitmapData
+                    /* this._maskBitmapData
                         .beginFill(0xFF0000)
                         .drawRect((posX - wd), (posY - ht), wd, ht)
-                        .endFill();
+                        .endFill(); */
 
                     this._rectangleMasksOld.push(new RoomPlaneRectangleMask(rectMask.leftSideLength, rectMask.rightSideLoc, rectMask.leftSideLength, rectMask.rightSideLength));
                 }
@@ -982,7 +980,7 @@ export class RoomPlane implements IRoomPlane
         this.combineTextureMask(texture, this._maskBitmapData);
     }
 
-    private combineTextureMask(texture: Graphics, mask: Graphics): void
+    private combineTextureMask(texture: Graphics, mask: RenderTexture): void
     {
         if(!texture || !mask) return;
 
