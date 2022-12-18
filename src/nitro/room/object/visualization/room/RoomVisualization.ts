@@ -909,12 +909,12 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                             {
                                 if(plane.leftSide && plane.rightSide)
                                 {
-                                    const _local_16 = Vector3d.scalarProjection(_local_14, plane.leftSide);
-                                    const _local_17 = Vector3d.scalarProjection(_local_14, plane.rightSide);
+                                    const leftSideLoc = Vector3d.scalarProjection(_local_14, plane.leftSide);
+                                    const rightSideLoc = Vector3d.scalarProjection(_local_14, plane.rightSide);
 
                                     if((plane.type === RoomPlane.TYPE_WALL) || ((plane.type === RoomPlane.TYPE_LANDSCAPE) && (maskCategory === RoomPlaneBitmapMaskData.HOLE)))
                                     {
-                                        plane.addBitmapMask(maskType, _local_16, _local_17);
+                                        plane.addBitmapMask(maskType, leftSideLoc, rightSideLoc);
                                     }
                                     else
                                     {

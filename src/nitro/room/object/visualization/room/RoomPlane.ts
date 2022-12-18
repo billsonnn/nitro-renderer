@@ -781,7 +781,7 @@ export class RoomPlane implements IRoomPlane
         this._bitmapMasks = [];
     }
 
-    public addBitmapMask(k: string, _arg_2: number, _arg_3: number): boolean
+    public addBitmapMask(maskType: string, leftSideLoc: number, rightSideLoc: number): boolean
     {
         if(!this._useMask) return false;
 
@@ -793,13 +793,13 @@ export class RoomPlane implements IRoomPlane
 
             if(mask)
             {
-                if((((mask.type === k) && (mask.leftSideLoc === _arg_2)) && (mask.rightSideLoc === _arg_3))) return false;
+                if((((mask.type === maskType) && (mask.leftSideLoc === leftSideLoc)) && (mask.rightSideLoc === rightSideLoc))) return false;
             }
 
             _local_5++;
         }
 
-        const mask = new RoomPlaneBitmapMask(k, _arg_2, _arg_3);
+        const mask = new RoomPlaneBitmapMask(maskType, leftSideLoc, rightSideLoc);
 
         this._bitmapMasks.push(mask);
         this._maskChanged = true;
