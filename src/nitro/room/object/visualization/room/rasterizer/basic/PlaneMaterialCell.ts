@@ -1,12 +1,12 @@
 ﻿import { Matrix, Point } from '@pixi/math';
+import { Sprite } from '@pixi/sprite';
 import { IGraphicAsset, IVector3D } from '../../../../../../../api';
-import { NitroSprite } from '../../../../../../../pixi-proxy';
 import { Randomizer } from '../../utils';
 import { PlaneTexture } from './PlaneTexture';
 
 export class PlaneMaterialCell
 {
-    private _cachedSprite: NitroSprite;
+    private _cachedSprite: Sprite;
     private _texture: PlaneTexture;
     private _extraItemOffsets: Point[];
     private _extraItemAssets: IGraphicAsset[];
@@ -56,7 +56,7 @@ export class PlaneMaterialCell
 
     public get isStatic(): boolean
     {
-        return this._extraItemCount == 0;
+        return this._extraItemCount === 0;
     }
 
     public dispose(): void
@@ -102,7 +102,7 @@ export class PlaneMaterialCell
         return 0;
     }
 
-    public render(normal: IVector3D, textureOffsetX: number, textureOffsetY: number): NitroSprite
+    public render(normal: IVector3D, textureOffsetX: number, textureOffsetY: number): Sprite
     {
         if(!this._texture) return null;
 
@@ -110,7 +110,7 @@ export class PlaneMaterialCell
 
         if(!texture) return null;
 
-        const bitmap = new NitroSprite(texture);
+        const bitmap = new Sprite(texture);
 
         if((textureOffsetX !== 0) || (textureOffsetY !== 0))
         {
@@ -148,10 +148,7 @@ export class PlaneMaterialCell
                     }
                 }
 
-                if(!this._cachedSprite)
-                {
-                    this._cachedSprite = new NitroSprite(texture);
-                }
+                if(!this._cachedSprite) this._cachedSprite = new Sprite(texture);
 
                 const limitMin = Math.min(this._extraItemCount, this._extraItemOffsets.length);
                 const limitMax = Math.max(this._extraItemCount, this._extraItemOffsets.length);
@@ -196,7 +193,7 @@ export class PlaneMaterialCell
                             flipMatrix.scale(x, y);
                             flipMatrix.translate(offsetX, (offsetFinal.y + translateY));
 
-                            const sprite = new NitroSprite(assetTexture);
+                            const sprite = new Sprite(assetTexture);
 
                             sprite.transform.setFromMatrix(flipMatrix);
 

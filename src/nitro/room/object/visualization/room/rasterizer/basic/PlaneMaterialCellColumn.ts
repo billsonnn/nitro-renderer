@@ -1,6 +1,7 @@
-import { Graphics } from '@pixi/graphics';
+import { RenderTexture, Texture } from '@pixi/core';
+import { Sprite } from '@pixi/sprite';
 import { IVector3D, NitroLogger, Vector3d } from '../../../../../../../api';
-import { NitroRenderTexture } from '../../../../../../../pixi-proxy';
+import { TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneMaterialCell } from './PlaneMaterialCell';
 
 export class PlaneMaterialCellColumn
@@ -15,8 +16,7 @@ export class PlaneMaterialCellColumn
     private _cells: PlaneMaterialCell[];
     private _repeatMode: number;
     private _width: number;
-    private _cachedTexture: NitroRenderTexture;
-    private _cachedBitmapData: Graphics;
+    private _cachedBitmapData: RenderTexture;
     private _cachedBitmapNormal: Vector3d;
     private _cachedBitmapDataOffsetX: number;
     private _cachedBitmapDataOffsetY: number;
@@ -125,15 +125,9 @@ export class PlaneMaterialCellColumn
         this._isCached = false;
     }
 
-    public render(height: number, normal: IVector3D, offsetX: number, offsetY: number): Graphics
+    public render(height: number, normal: IVector3D, offsetX: number, offsetY: number): RenderTexture
     {
-        let ht = 0;
-
-        if(this._repeatMode == PlaneMaterialCellColumn.REPEAT_MODE_NONE)
-        {
-            ht = this.getCellsHeight(this._cells, normal);
-            height = ht;
-        }
+        if(this._repeatMode === PlaneMaterialCellColumn.REPEAT_MODE_NONE) height = this.getCellsHeight(this._cells, normal);
 
         if(!this._cachedBitmapNormal) this._cachedBitmapNormal = new Vector3d();
 
@@ -157,10 +151,12 @@ export class PlaneMaterialCellColumn
             {
                 if(this._cachedBitmapData.height === height)
                 {
-                    this._cachedBitmapData
-                        .beginFill(0xFFFFFF)
-                        .drawRect(0, 0, this._cachedBitmapData.width, height)
-                        .endFill();
+                    const sprite = new Sprite(Texture.WHITE);
+
+                    sprite.width = this._cachedBitmapData.width;
+                    sprite.height = height;
+
+                    TextureUtils.writeToRenderTexture(sprite, this._cachedBitmapData);
                 }
                 else
                 {
@@ -175,10 +171,7 @@ export class PlaneMaterialCellColumn
 
         if(!this._cachedBitmapData)
         {
-            this._cachedBitmapData = new Graphics()
-                .beginFill(0xFFFFFF)
-                .drawRect(0, 0, this._width, height)
-                .endFill();
+            this._cachedBitmapData = TextureUtils.createAndFillRenderTexture(this._width, height);
         }
 
         this._cachedBitmapNormal.assign(normal);
@@ -264,7 +257,7 @@ export class PlaneMaterialCellColumn
 
                     graphic.y = index;
 
-                    this._cachedBitmapData.addChild(graphic);
+                    TextureUtils.writeToRenderTexture(graphic, this._cachedBitmapData, false);
 
                     if(flag) index = (index + graphic.height);
 

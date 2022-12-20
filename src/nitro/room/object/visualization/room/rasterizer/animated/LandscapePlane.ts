@@ -1,4 +1,4 @@
-﻿import { Graphics } from '@pixi/graphics';
+﻿import { RenderTexture } from '@pixi/core';
 import { IVector3D, Vector3d } from '../../../../../../../api';
 import { Plane } from '../basic';
 
@@ -11,31 +11,31 @@ export class LandscapePlane extends Plane
     private _width: number = 0;
     private _height: number = 0;
 
-    public isStatic(k: number): boolean
+    public isStatic(scale: number): boolean
     {
-        const _local_2 = this.getPlaneVisualization(k);
+        const visualization = this.getPlaneVisualization(scale);
 
-        if(_local_2) return !(_local_2.hasAnimationLayers);
+        if(visualization) return !visualization.hasAnimationLayers;
 
-        return super.isStatic(k);
+        return super.isStatic(scale);
     }
 
-    public initializeDimensions(k: number, _arg_2: number): void
+    public initializeDimensions(width: number, height: number): void
     {
-        if(k < 0) k = 0;
+        if(width < 0) width = 0;
 
-        if(_arg_2 < 0) _arg_2 = 0;
+        if(height < 0) height = 0;
 
-        if((k !== this._width) || (_arg_2 !== this._height))
+        if((width !== this._width) || (height !== this._height))
         {
-            this._width = k;
-            this._height = _arg_2;
+            this._width = width;
+            this._height = height;
         }
     }
 
-    public render(k: Graphics, _arg_2: number, _arg_3: number, _arg_4: number, _arg_5: IVector3D, _arg_6: boolean, _arg_7: number, _arg_8: number, _arg_9: number, _arg_10: number, _arg_11: number): Graphics
+    public render(canvas: RenderTexture, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number, maxX: number, maxY: number, timeSinceStartMs: number): RenderTexture
     {
-        const visualization = this.getPlaneVisualization(_arg_4);
+        const visualization = this.getPlaneVisualization(scale);
 
         if(!visualization || !visualization.geometry) return null;
 
@@ -45,15 +45,15 @@ export class LandscapePlane extends Plane
 
         if(_local_13 && _local_14 && _local_15)
         {
-            _arg_2 = Math.round(Math.abs((((_local_13.x - _local_15.x) * _arg_2) / visualization.geometry.scale)));
-            _arg_3 = Math.round(Math.abs((((_local_13.y - _local_14.y) * _arg_3) / visualization.geometry.scale)));
+            width = Math.round(Math.abs((((_local_13.x - _local_15.x) * width) / visualization.geometry.scale)));
+            height = Math.round(Math.abs((((_local_13.y - _local_14.y) * height) / visualization.geometry.scale)));
 
-            const _local_16 = (_arg_7 * Math.abs((_local_13.x - _local_15.x)));
-            const _local_17 = (_arg_8 * Math.abs((_local_13.y - _local_14.y)));
-            const _local_18 = (_arg_9 * Math.abs((_local_13.x - _local_15.x)));
-            const _local_19 = (_arg_10 * Math.abs((_local_13.y - _local_14.y)));
+            const renderOffsetX = (offsetX * Math.abs((_local_13.x - _local_15.x)));
+            const renderOffsetY = (offsetY * Math.abs((_local_13.y - _local_14.y)));
+            const renderMaxX = (maxX * Math.abs((_local_13.x - _local_15.x)));
+            const renderMaxY = (maxY * Math.abs((_local_13.y - _local_14.y)));
 
-            return visualization.render(k, _arg_2, _arg_3, _arg_5, _arg_6, _local_16, _local_17, _local_18, _local_19, _arg_9, _arg_10, _arg_11);
+            return visualization.render(canvas, width, height, normal, useTexture, renderOffsetX, renderOffsetY, renderMaxX, renderMaxY, maxX, maxY, timeSinceStartMs);
         }
 
         return null;

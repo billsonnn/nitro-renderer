@@ -7,15 +7,15 @@ export class AnimationItem
     private _y: number;
     private _speedX: number;
     private _speedY: number;
-    private _bitmapData: IGraphicAsset;
+    private _asset: IGraphicAsset;
 
-    constructor(k: number, _arg_2: number, _arg_3: number, _arg_4: number, _arg_5: IGraphicAsset)
+    constructor(x: number, y: number, speedX: number, speedY: number, asset: IGraphicAsset)
     {
-        this._x = k;
-        this._y = _arg_2;
-        this._speedX = _arg_3;
-        this._speedY = _arg_4;
-        this._bitmapData = _arg_5;
+        this._x = x;
+        this._y = y;
+        this._speedX = speedX;
+        this._speedY = speedY;
+        this._asset = asset;
 
         if(isNaN(this._x)) this._x = 0;
 
@@ -28,25 +28,25 @@ export class AnimationItem
 
     public get bitmapData(): IGraphicAsset
     {
-        return this._bitmapData;
+        return this._asset;
     }
 
     public dispose(): void
     {
-        this._bitmapData = null;
+        this._asset = null;
     }
 
-    public getPosition(k: number, _arg_2: number, _arg_3: number, _arg_4: number, _arg_5: number): Point
+    public getPosition(maxX: number, maxY: number, dimensionX: number, dimensionY: number, timeSinceStartMs: number): Point
     {
-        let _local_6 = this._x;
-        let _local_7 = this._y;
+        let x = this._x;
+        let y = this._y;
 
-        if(_arg_3 > 0) _local_6 = (_local_6 + (((this._speedX / _arg_3) * _arg_5) / 1000));
+        if(dimensionX > 0) x = (x + (((this._speedX / dimensionX) * timeSinceStartMs) / 1000));
 
-        if(_arg_4 > 0) _local_7 = (_local_7 + (((this._speedY / _arg_4) * _arg_5) / 1000));
+        if(dimensionY > 0) y = (y + (((this._speedY / dimensionY) * timeSinceStartMs) / 1000));
 
-        const _local_8 = ((_local_6 % 1) * k);
-        const _local_9 = ((_local_7 % 1) * _arg_2);
+        const _local_8 = ((x % 1) * maxX);
+        const _local_9 = ((y % 1) * maxY);
 
         return new Point(_local_8, _local_9);
     }

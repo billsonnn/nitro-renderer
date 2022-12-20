@@ -1,8 +1,7 @@
-﻿import { Graphics } from '@pixi/graphics';
-import { Rectangle } from '@pixi/math';
+﻿import { RenderTexture } from '@pixi/core';
+import { Sprite } from '@pixi/sprite';
 import { IVector3D } from '../../../../../../../api';
 import { TextureUtils } from '../../../../../../../pixi-proxy';
-import { RoomVisualization } from '../../RoomVisualization';
 import { PlaneMaterial } from './PlaneMaterial';
 
 export class PlaneVisualizationLayer
@@ -16,7 +15,7 @@ export class PlaneVisualizationLayer
     private _color: number;
     private _offset: number;
     private _align: number;
-    private _bitmapData: Graphics;
+    private _bitmapData: RenderTexture;
     private _isDisposed: boolean;
 
     constructor(material: PlaneMaterial, color: number, align: number, offset: number = 0)
@@ -62,11 +61,11 @@ export class PlaneVisualizationLayer
         }
     }
 
-    public render(canvas: Graphics, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number): Graphics
+    public render(canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number): RenderTexture
     {
         if(!canvas || (canvas.width !== width) || (canvas.height !== height)) canvas = null;
 
-        let bitmapData: Graphics = null;
+        let bitmapData: RenderTexture = null;
 
         if(this._material)
         {
@@ -76,7 +75,7 @@ export class PlaneVisualizationLayer
             {
                 if(this._bitmapData) this._bitmapData.destroy();
 
-                this._bitmapData = bitmapData.clone();
+                this._bitmapData = new RenderTexture(bitmapData.baseTexture);
 
                 bitmapData = this._bitmapData;
             }
@@ -88,22 +87,13 @@ export class PlaneVisualizationLayer
                 if(this._bitmapData && (this._bitmapData.width === width) && (this._bitmapData.height === height)) return this._bitmapData;
 
                 if(this._bitmapData) this._bitmapData.destroy();
-
-                const graphic = new Graphics()
-                    .beginFill(0xFFFFFF)
-                    .drawRect(0, 0, width, height)
-                    .endFill();
-
-                this._bitmapData = graphic;
+                this._bitmapData = TextureUtils.createAndFillRenderTexture(width, height);
 
                 bitmapData = this._bitmapData;
             }
             else
             {
-                canvas
-                    .beginFill(0xFFFFFF)
-                    .drawRect(0, 0, width, height)
-                    .endFill();
+                TextureUtils.clearRenderTexture(canvas);
 
                 bitmapData = canvas;
             }
@@ -111,23 +101,13 @@ export class PlaneVisualizationLayer
 
         if(bitmapData)
         {
-            bitmapData.tint = this._color;
-
             if(canvas && (bitmapData !== canvas))
             {
-                let texture = RoomVisualization.getTextureCache(bitmapData);
+                const sprite = new Sprite(bitmapData);
 
-                if(!texture)
-                {
-                    texture = TextureUtils.generateTexture(bitmapData, new Rectangle(0, 0, width, height));
+                sprite.tint = this._color;
 
-                    RoomVisualization.addTextureCache(bitmapData, texture);
-                }
-
-                canvas
-                    .beginTextureFill({ texture })
-                    .drawRect(0, 0, width, height)
-                    .endFill();
+                TextureUtils.writeToRenderTexture(sprite, canvas, true);
 
                 bitmapData = canvas;
             }

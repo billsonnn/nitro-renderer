@@ -161,29 +161,35 @@ export class PlaneMaskManager
 
         const matrix = new Matrix();
 
-        let a = 1;
-        let b = 1;
-        let c = 0;
-        let d = 0;
+        let xScale = 1;
+        let ySkew = 1;
+        let xSkew = 0;
+        let yScale = 0;
+        let tx = (point.x + xSkew);
+        let ty = (point.y + yScale);
 
         if(asset.flipH)
         {
-            a = -1;
-            c = -(texture.width);
+            xScale = -1;
+            xSkew = texture.width;
+
+            tx = ((point.x + xSkew) - texture.width);
         }
 
         if(asset.flipV)
         {
-            b = -1;
-            d = -(texture.height);
+            ySkew = -1;
+            yScale = texture.height;
+
+            ty = ((point.y + yScale) - texture.height);
         }
 
-        matrix.scale(a, b);
-        matrix.translate((point.x + c), (point.y + d));
+        matrix.scale(xScale, ySkew);
+        matrix.translate(tx, ty);
 
         PixiApplicationProxy.instance.renderer.render(new Sprite(texture), {
             renderTexture: canvas,
-            clear: true,
+            clear: false,
             transform: matrix
         });
 

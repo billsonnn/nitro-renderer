@@ -1,4 +1,4 @@
-﻿import { Graphics } from '@pixi/graphics';
+﻿import { RenderTexture } from '@pixi/core';
 import { IVector3D, Vector3d } from '../../../../../../../api';
 import { Plane } from './Plane';
 
@@ -8,7 +8,7 @@ export class FloorPlane extends Plane
     public static HORIZONTAL_ANGLE_DEFAULT: number = 45;
     public static VERTICAL_ANGLE_DEFAULT: number = 30;
 
-    public render(canvas: Graphics, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number): Graphics
+    public render(canvas: RenderTexture, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number): RenderTexture
     {
         const visualization = this.getPlaneVisualization(scale);
 

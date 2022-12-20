@@ -1,5 +1,6 @@
-﻿import { Graphics } from '@pixi/graphics';
+﻿import { RenderTexture } from '@pixi/core';
 import { IVector3D, NitroConfiguration } from '../../../../../../../api';
+import { TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneBitmapData, Randomizer } from '../../utils';
 import { PlaneMaterial, PlaneRasterizer, PlaneVisualizationLayer } from '../basic';
 import { LandscapePlane } from './LandscapePlane';
@@ -193,7 +194,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
         return _local_3;
     }
 
-    public render(canvas: Graphics, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
+    public render(canvas: RenderTexture, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
     {
         let plane = this.getPlane(id) as LandscapePlane;
 
@@ -201,16 +202,13 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
         if(!plane) return null;
 
-        if(canvas)
-        {
-            canvas.clear();
-        }
+        if(canvas) TextureUtils.clearRenderTexture(canvas);
 
         let graphic = plane.render(canvas, width, height, scale, normal, useTexture, offsetX, offsetY, maxX, maxY, timeSinceStartMs);
 
         if(graphic && (graphic !== canvas))
         {
-            graphic = graphic.clone();
+            graphic = new RenderTexture(graphic.baseTexture);
 
             if(!graphic) return null;
         }

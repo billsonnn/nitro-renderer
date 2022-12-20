@@ -3,6 +3,7 @@ import { AbstractRenderer, Renderer, RenderTexture, Resource, Texture } from '@p
 import { DisplayObject } from '@pixi/display';
 import { Extract } from '@pixi/extract';
 import { Rectangle } from '@pixi/math';
+import { Sprite } from '@pixi/sprite';
 import { PixiApplicationProxy } from './PixiApplicationProxy';
 
 export class TextureUtils
@@ -44,6 +45,61 @@ export class TextureUtils
         if(!target) return null;
 
         return this.getExtractor().canvas(target);
+    }
+
+    public static clearRenderTexture(renderTexture: RenderTexture): RenderTexture
+    {
+        if(!renderTexture) return null;
+
+        return this.writeToRenderTexture(new Sprite(Texture.EMPTY), renderTexture);
+    }
+
+    public static createRenderTexture(width: number, height: number): RenderTexture
+    {
+        if((width < 0) || (height < 0)) return null;
+
+        return RenderTexture.create({
+            width,
+            height
+        });
+    }
+
+    public static createAndFillRenderTexture(width: number, height: number): RenderTexture
+    {
+        if((width < 0) || (height < 0)) return null;
+
+        const renderTexture = this.createRenderTexture(width, height);
+
+        return this.clearAndFillRenderTexture(renderTexture);
+    }
+
+    public static clearAndFillRenderTexture(renderTexture: RenderTexture): RenderTexture
+    {
+        if(!renderTexture) return null;
+
+        const sprite = new Sprite(Texture.WHITE);
+
+        sprite.width = renderTexture.width;
+        sprite.height = renderTexture.height;
+
+        return this.writeToRenderTexture(sprite, renderTexture);
+    }
+
+    public static writeToRenderTexture(displayObject: DisplayObject, renderTexture: RenderTexture, clear: boolean = true): RenderTexture
+    {
+        if(!displayObject || !renderTexture) return null;
+
+        this.getRenderer().render(displayObject, {
+            renderTexture,
+            clear
+        });
+
+        return renderTexture;
+    }
+
+    public static getPixels(displayObject: DisplayObject | RenderTexture, frame: Rectangle = null): Uint8Array
+    {
+        return this.getExtractor().pixels(displayObject);
     }
 
     public static getRenderer(): Renderer | AbstractRenderer
