@@ -1,3 +1,4 @@
+export * from './GetPetCommandsComposer';
 export * from './PetMountComposer';
 export * from './PetRespectComposer';
 export * from './PetSupplementComposer';
