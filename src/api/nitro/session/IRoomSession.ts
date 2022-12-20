@@ -45,6 +45,7 @@ export interface IRoomSession extends IDisposable
     useMultistateItem(id: number): void;
     harvestPet(id: number): void;
     compostPlant(id: number): void;
+    requestPetCommands(id: number): void;
     connection: IConnection;
     userDataManager: IUserDataManager;
     roomId: number;

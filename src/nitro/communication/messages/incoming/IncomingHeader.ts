@@ -119,6 +119,7 @@ export class IncomingHeader
     public static NOTIFICATION_LIST = 1992;
     public static PET_FIGURE_UPDATE = 1924;
     public static PET_INFO = 2901;
+    public static PET_TRAINING_PANEL = 1164;
     public static RECYCLER_PRIZES = 3164;
     public static ROOM_BAN_LIST = 1869;
     public static ROOM_BAN_REMOVE = 3429;
