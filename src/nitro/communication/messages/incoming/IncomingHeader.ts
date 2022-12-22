@@ -227,6 +227,7 @@ export class IncomingHeader
     public static USER_SETTINGS = 513;
     public static USER_SUBSCRIPTION = 954;
     public static USER_WARDROBE_PAGE = 3315;
+    public static GET_USER_TAGS = 1255;
     public static WIRED_ACTION = 1434;
     public static WIRED_CONDITION = 1108;
     public static WIRED_ERROR = 156;

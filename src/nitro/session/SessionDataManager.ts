@@ -2,7 +2,7 @@ import { Resource, Texture } from '@pixi/core';
 import { GetAssetManager, IFurnitureData, IFurnitureDataListener, IGroupInformationManager, IMessageComposer, INitroCommunicationManager, INitroEvent, IProductData, IProductDataListener, ISessionDataManager, NitroConfiguration, NoobnessLevelEnum, SecurityLevel } from '../../api';
 import { NitroManager } from '../../core';
 import { MysteryBoxKeysUpdateEvent, NitroSettingsEvent, SessionDataPreferencesEvent, UserNameUpdateEvent } from '../../events';
-import { AvailabilityStatusMessageEvent, ChangeUserNameResultMessageEvent, FigureUpdateEvent, InClientLinkEvent, MysteryBoxKeysEvent, NoobnessLevelMessageEvent, PetRespectComposer, RoomReadyMessageEvent, RoomUnitChatComposer, UserInfoEvent, UserNameChangeMessageEvent, UserPermissionsEvent, UserRespectComposer } from '../communication';
+import { AvailabilityStatusMessageEvent, ChangeUserNameResultMessageEvent, FigureUpdateEvent, GetUserTagsComposer, InClientLinkEvent, MysteryBoxKeysEvent, NoobnessLevelMessageEvent, PetRespectComposer, RoomReadyMessageEvent, RoomUnitChatComposer, UserInfoEvent, UserNameChangeMessageEvent, UserPermissionsEvent, UserRespectComposer, UserTagsMessageEvent } from '../communication';
 import { Nitro } from '../Nitro';
 import { HabboWebTools } from '../utils/HabboWebTools';
 import { BadgeImageManager } from './badge/BadgeImageManager';
@@ -50,6 +50,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     private _furnitureListenersNotified: boolean;
     private _pendingFurnitureListeners: IFurnitureDataListener[];
     private _pendingProductListeners: IProductDataListener[];
+    private _tags: string[];
 
     private _badgeImageManager: BadgeImageManager;
 
@@ -85,6 +86,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._furnitureListenersNotified = false;
         this._pendingFurnitureListeners = [];
         this._pendingProductListeners = [];
+        this._tags = [];
 
         this._badgeImageManager = null;
 
@@ -108,6 +110,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._communication.registerMessageEvent(new AvailabilityStatusMessageEvent(this.onAvailabilityStatusMessageEvent.bind(this)));
         this._communication.registerMessageEvent(new ChangeUserNameResultMessageEvent(this.onChangeNameUpdateEvent.bind(this)));
         this._communication.registerMessageEvent(new UserNameChangeMessageEvent(this.onUserNameChangeMessageEvent.bind(this)));
+        this._communication.registerMessageEvent(new UserTagsMessageEvent(this.onUserTags.bind(this)));
         this._communication.registerMessageEvent(new RoomReadyMessageEvent(this.onRoomModelNameEvent.bind(this)));
         this._communication.registerMessageEvent(new InClientLinkEvent(this.onInClientLinkEvent.bind(this)));
         this._communication.registerMessageEvent(new MysteryBoxKeysEvent(this.onMysteryBoxKeysEvent.bind(this)));
@@ -313,6 +316,17 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this.events.dispatchEvent(new UserNameUpdateEvent(this._name));
     }
 
+    private onUserTags(event: UserTagsMessageEvent): void
+    {
+        if(!event || !event.connection) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        this._tags = parser.tags;
+    }
+
     private onRoomModelNameEvent(event: RoomReadyMessageEvent): void
     {
         if(!event) return;
@@ -479,6 +493,13 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     public getGroupBadgeImage(name: string): Texture<Resource>
     {
         return this._badgeImageManager.getBadgeImage(name, BadgeImageManager.GROUP_BADGE);
+    }
+
+    public getUserTags(roomUnitId: number): string[]
+    {
+        if(roomUnitId < 0) return;
+
+        this.send(new GetUserTagsComposer(roomUnitId));
     }
 
     public loadBadgeImage(name: string): string
@@ -657,5 +678,10 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     public get uiFlags(): number
     {
         return this._uiFlags;
+    }
+
+    public get tags(): string[]
+    {
+        return this._tags;
     }
 }
