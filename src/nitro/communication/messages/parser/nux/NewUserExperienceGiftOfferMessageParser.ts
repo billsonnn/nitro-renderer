@@ -14,14 +14,14 @@ export class NewUserExperienceGiftOfferMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        const _local_2 = wrapper.readInt();
+        const count = wrapper.readInt();
         this._giftOptions = [];
-        let _local_3:number;
+        let index = 0;
 
-        while(_local_3 < _local_2)
+        while(index < count)
         {
             this._giftOptions.push(new NewUserExperienceGiftOptions(wrapper));
-            _local_3++;
+            index++;
         }
 
         return true;

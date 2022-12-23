@@ -13,13 +13,13 @@ export class NewUserExperienceGiftOptions
         this._stepIndex = wrapper.readInt();
         this._options = [];
 
-        const _local_2:number = wrapper.readInt();
-        let _local_3:number;
+        const count:number = wrapper.readInt();
+        let index = 0;
 
-        while(_local_3 < _local_2)
+        while(index < count)
         {
             this._options.push(new NewUserExperienceGift(wrapper));
-            _local_3++;
+            index++;
         }
     }
 

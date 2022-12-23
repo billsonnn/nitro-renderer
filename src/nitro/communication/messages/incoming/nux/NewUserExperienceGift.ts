@@ -16,12 +16,12 @@ export class NewUserExperienceGift
 
         this._productOfferList = [];
         const count:number = wrapper.readInt();
-        let totalOffers:number;
+        let index = 0;
 
-        while(totalOffers < count)
+        while(index < count)
         {
             this._productOfferList.push(new ProductOffer(wrapper));
-            totalOffers++;
+            index++;
         }
     }
 
