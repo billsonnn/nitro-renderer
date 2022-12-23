@@ -36,6 +36,7 @@ export * from './moderation';
 export * from './mysterybox';
 export * from './navigator';
 export * from './notifications';
+export * from './nux';
 export * from './perk';
 export * from './pet';
 export * from './poll';
