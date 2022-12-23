@@ -2,7 +2,7 @@ import { Resource, Texture } from '@pixi/core';
 import { GetAssetManager, IFurnitureData, IFurnitureDataListener, IGroupInformationManager, IMessageComposer, INitroCommunicationManager, INitroEvent, IProductData, IProductDataListener, ISessionDataManager, NitroConfiguration, NoobnessLevelEnum, SecurityLevel } from '../../api';
 import { NitroManager } from '../../core';
 import { MysteryBoxKeysUpdateEvent, NitroSettingsEvent, SessionDataPreferencesEvent, UserNameUpdateEvent } from '../../events';
-import { AvailabilityStatusMessageEvent, ChangeUserNameResultMessageEvent, FigureUpdateEvent, GetUserTagsComposer, InClientLinkEvent, MysteryBoxKeysEvent, NoobnessLevelMessageEvent, PetRespectComposer, RoomReadyMessageEvent, RoomUnitChatComposer, UserInfoEvent, UserNameChangeMessageEvent, UserPermissionsEvent, UserRespectComposer, UserTagsMessageEvent } from '../communication';
+import { AvailabilityStatusMessageEvent, ChangeUserNameResultMessageEvent, FigureUpdateEvent, GetUserTagsComposer, InClientLinkEvent, MysteryBoxKeysEvent, NoobnessLevelMessageEvent, PetRespectComposer, PetScratchFailedMessageEvent, RoomReadyMessageEvent, RoomUnitChatComposer, UserInfoEvent, UserNameChangeMessageEvent, UserPermissionsEvent, UserRespectComposer, UserTagsMessageEvent } from '../communication';
 import { Nitro } from '../Nitro';
 import { HabboWebTools } from '../utils/HabboWebTools';
 import { BadgeImageManager } from './badge/BadgeImageManager';
@@ -108,6 +108,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._communication.registerMessageEvent(new UserInfoEvent(this.onUserInfoEvent.bind(this)));
         this._communication.registerMessageEvent(new UserPermissionsEvent(this.onUserPermissionsEvent.bind(this)));
         this._communication.registerMessageEvent(new AvailabilityStatusMessageEvent(this.onAvailabilityStatusMessageEvent.bind(this)));
+        this._communication.registerMessageEvent(new PetScratchFailedMessageEvent(this.onPetRespectFailed.bind(this)));
         this._communication.registerMessageEvent(new ChangeUserNameResultMessageEvent(this.onChangeNameUpdateEvent.bind(this)));
         this._communication.registerMessageEvent(new UserNameChangeMessageEvent(this.onUserNameChangeMessageEvent.bind(this)));
         this._communication.registerMessageEvent(new UserTagsMessageEvent(this.onUserTags.bind(this)));
@@ -283,6 +284,13 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._systemOpen = parser.isOpen;
         this._systemShutdown = parser.onShutdown;
         this._isAuthenticHabbo = parser.isAuthenticUser;
+    }
+
+    private onPetRespectFailed(event: PetScratchFailedMessageEvent): void
+    {
+        if(!event || !event.connection) return;
+
+        this._respectsPetLeft++;
     }
 
     private onChangeNameUpdateEvent(event: ChangeUserNameResultMessageEvent): void
