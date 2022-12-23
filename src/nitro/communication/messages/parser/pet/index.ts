@@ -1,4 +1,3 @@
-export * from './breeding';
 export * from './OpenPetPackageRequestedMessageParser';
 export * from './OpenPetPackageResultMessageParser';
 export * from './PetLevelUpdateMessageParser';
