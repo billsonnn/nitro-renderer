@@ -1,7 +1,7 @@
 import { INitroCommunicationManager, IRoomEngine, IRoomHandlerListener, IRoomSession, IRoomSessionManager } from '../../api';
 import { NitroManager } from '../../core';
 import { RoomEngineEvent, RoomSessionEvent } from '../../events';
-import { BaseHandler, GenericErrorHandler, PollHandler, RoomChatHandler, RoomDataHandler, RoomDimmerPresetsHandler, RoomPermissionsHandler, RoomPresentHandler, RoomSessionHandler, RoomUsersHandler, WordQuizHandler } from './handler';
+import { BaseHandler, GenericErrorHandler, PetPackageHandler, PollHandler, RoomChatHandler, RoomDataHandler, RoomDimmerPresetsHandler, RoomPermissionsHandler, RoomPresentHandler, RoomSessionHandler, RoomUsersHandler, WordQuizHandler } from './handler';
 import { RoomSession } from './RoomSession';
 
 export class RoomSessionManager extends NitroManager implements IRoomSessionManager, IRoomHandlerListener
@@ -66,6 +66,7 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
             new GenericErrorHandler(connection, this),
             new WordQuizHandler(connection, this),
             new PollHandler(connection, this),
+            new PetPackageHandler(connection, this),
         );
     }
 
