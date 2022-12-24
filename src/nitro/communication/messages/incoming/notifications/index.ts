@@ -9,4 +9,5 @@ export * from './MOTDNotificationEvent';
 export * from './NotificationDialogMessageEvent';
 export * from './PetLevelNotificationEvent';
 export * from './PetPlacingErrorEvent';
+export * from './RestoreClientMessageEvent';
 export * from './UnseenItemsEvent';
