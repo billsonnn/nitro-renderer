@@ -1,6 +1,7 @@
 export * from './access';
 export * from './ApproveNameMessageEvent';
 export * from './data';
+export * from './GuildMemberMgmtFailedMessageEvent';
 export * from './GuildMembershipsMessageEvent';
 export * from './HabboGroupBadgesMessageEvent';
 export * from './IgnoredUsersEvent';
