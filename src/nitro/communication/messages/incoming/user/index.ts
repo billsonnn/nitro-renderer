@@ -3,6 +3,7 @@ export * from './ApproveNameMessageEvent';
 export * from './data';
 export * from './GuildMembershipsMessageEvent';
 export * from './HabboGroupBadgesMessageEvent';
+export * from './HabboGroupJoinFailedMessageEvent';
 export * from './IgnoredUsersEvent';
 export * from './IgnoreResultEvent';
 export * from './InClientLinkEvent';
