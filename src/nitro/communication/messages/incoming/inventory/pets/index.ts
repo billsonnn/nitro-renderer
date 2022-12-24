@@ -1,3 +1,4 @@
+export * from './ConfirmBreedingRequestEvent';
 export * from './ConfirmBreedingResultEvent';
 export * from './GoToBreedingNestFailureEvent';
 export * from './NestBreedingSuccessEvent';
