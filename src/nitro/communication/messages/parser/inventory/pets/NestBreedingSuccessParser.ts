@@ -13,10 +13,10 @@ export class NestBreedingSuccessParser implements IMessageParser
         return true;
     }
 
-    public parse(k: IMessageDataWrapper): boolean
+    public parse(wrapper: IMessageDataWrapper): boolean
     {
-        this._petId = k.readInt();
-        this._rarityCategory = k.readInt();
+        this._petId = wrapper.readInt();
+        this._rarityCategory = wrapper.readInt();
 
         return true;
     }
