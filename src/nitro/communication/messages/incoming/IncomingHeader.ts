@@ -124,6 +124,7 @@ export class IncomingHeader
     public static PET_SCRATCH_FAILED = 1130;
     public static PET_OPEN_PACKAGE_REQUESTED = 2380;
     public static PET_OPEN_PACKAGE_RESULT = 546;
+    public static PET_CONFIRM_BREEDING_REQUEST = 634;
     public static RECYCLER_PRIZES = 3164;
     public static ROOM_BAN_LIST = 1869;
     public static ROOM_BAN_REMOVE = 3429;
