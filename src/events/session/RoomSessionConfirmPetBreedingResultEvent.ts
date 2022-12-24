@@ -8,12 +8,12 @@ export class RoomSessionConfirmPetBreedingResultEvent extends RoomSessionEvent
     private _breedingNestStuffId: number;
     private _result: number;
 
-    constructor(k: IRoomSession, _arg_2: number, _arg_3: number)
+    constructor(session: IRoomSession, breedingNestStuffId: number, result: number)
     {
-        super(RoomSessionConfirmPetBreedingResultEvent.RSPFUE_CONFIRM_PET_BREEDING_RESULT, k);
+        super(RoomSessionConfirmPetBreedingResultEvent.RSPFUE_CONFIRM_PET_BREEDING_RESULT, session);
 
-        this._breedingNestStuffId = _arg_2;
-        this._result = _arg_3;
+        this._breedingNestStuffId = breedingNestStuffId;
+        this._result = result;
     }
 
     public get breedingNestStuffId(): number
