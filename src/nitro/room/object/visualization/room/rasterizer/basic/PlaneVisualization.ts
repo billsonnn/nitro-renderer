@@ -174,16 +174,7 @@ export class PlaneVisualization
             }
             else
             {
-                this._cachedBitmapData.destroy();
-
                 this._cachedBitmapData = null;
-            /* if((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height)) TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
-            else
-            {
-                this._cachedBitmapData.destroy();
-
-                this._cachedBitmapData = null;
-            } */
             }
         }
 
@@ -191,8 +182,18 @@ export class PlaneVisualization
 
         if(!this._cachedBitmapData)
         {
-            // hereeee
-            this._cachedBitmapData = TextureUtils.createAndFillRenderTexture(width, height);
+            this._cachedBitmapData = this._texturePool.get(`${width}:${height}`);
+
+            if(!this._cachedBitmapData)
+            {
+                this._cachedBitmapData = TextureUtils.createAndFillRenderTexture(width, height);
+
+                this._texturePool.set(`${width}:${height}`, this._cachedBitmapData);
+            }
+            else
+            {
+                TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
+            }
         }
         else
         {

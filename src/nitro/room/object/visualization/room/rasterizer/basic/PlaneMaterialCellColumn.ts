@@ -139,18 +139,19 @@ export class PlaneMaterialCellColumn
                 {
                     return this._cachedBitmapData;
                 }
-
-                this._cachedBitmapData.destroy();
-
-                this._cachedBitmapData = null;
-
-                /* if(this._cachedBitmapData.height === height) TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
                 else
                 {
-                    this._cachedBitmapData.destroy();
+                    if(this._cachedBitmapData.height === height)
+                    {
+                        TextureUtils.clearRenderTexture(this._cachedBitmapData);
+                    }
+                    else
+                    {
+                        this._cachedBitmapData.destroy();
 
-                    this._cachedBitmapData = null;
-                } */
+                        this._cachedBitmapData = null;
+                    }
+                }
             }
         }
         else

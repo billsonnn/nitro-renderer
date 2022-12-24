@@ -190,46 +190,12 @@ export class PlaneMaterialCellMatrix
 
                     return this._cachedBitmapData;
                 }
-
-                this._cachedBitmapData.destroy();
-
                 this._cachedBitmapData = null;
-
-                /*                 if((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height)) TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
-                else
-                {
-                    this._cachedBitmapData.destroy();
-
-                    this._cachedBitmapData = null;
-                } */
             }
         }
         else
         {
-            if(this._cachedBitmapData)
-            {
-                if((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height)) TextureUtils.clearRenderTexture(this._cachedBitmapData);
-                else
-                {
-                    this._cachedBitmapData.destroy();
-
-                    this._cachedBitmapData = null;
-                    /* this._texturePool.set(`${ this._cachedBitmapData.width }:${ this._cachedBitmapData.height }`, this._cachedBitmapData);
-
-                    const existingTexture = this._texturePool.get(`${ width }:${ height }`);
-
-                    if(existingTexture)
-                    {
-                        TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
-
-                        this._cachedBitmapData = existingTexture;
-                    }
-                    else
-                    {
-                        this._cachedBitmapData = null;
-                    } */
-                }
-            }
+            this._cachedBitmapData = null;
         }
 
         this._isCached = true;
@@ -241,7 +207,18 @@ export class PlaneMaterialCellMatrix
 
             if(!this._cachedBitmapData)
             {
-                this._cachedBitmapData = TextureUtils.createAndFillRenderTexture(width, height);
+                this._cachedBitmapData = this._texturePool.get(`${width}:${height}`);
+
+                if(!this._cachedBitmapData)
+                {
+                    this._cachedBitmapData = TextureUtils.createAndFillRenderTexture(width, height);
+
+                    this._texturePool.set(`${width}:${height}`, this._cachedBitmapData);
+                }
+                else
+                {
+                    TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
+                }
             }
             else
             {
@@ -262,7 +239,18 @@ export class PlaneMaterialCellMatrix
         {
             this._cachedBitmapHeight = height;
 
-            this._cachedBitmapData = TextureUtils.createRenderTexture(width, height);
+            this._cachedBitmapData = this._texturePool.get(`${width}:${height}`);
+
+            if(!this._cachedBitmapData)
+            {
+                this._cachedBitmapData = TextureUtils.createRenderTexture(width, height);
+
+                this._texturePool.set(`${width}:${height}`, this._cachedBitmapData);
+            }
+            else
+            {
+                TextureUtils.clearRenderTexture(this._cachedBitmapData);
+            }
         }
 
         const columns: RenderTexture[] = [];
