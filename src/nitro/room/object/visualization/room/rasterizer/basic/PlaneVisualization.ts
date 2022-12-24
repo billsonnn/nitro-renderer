@@ -14,6 +14,7 @@ export class PlaneVisualization
     private _cachedBitmapNormal: Vector3d;
     private _isCached: boolean;
     private _hasAnimationLayers: boolean;
+    private _texturePool: Map<string, RenderTexture>;
 
     constructor(size: number, totalLayers: number, geometry: IRoomGeometry)
     {
@@ -23,6 +24,7 @@ export class PlaneVisualization
         this._cachedBitmapNormal = new Vector3d();
         this._isCached = false;
         this._hasAnimationLayers = false;
+        this._texturePool = new Map();
 
         if(totalLayers < 0) totalLayers = 0;
 
@@ -100,6 +102,13 @@ export class PlaneVisualization
             }
         }
 
+        if(this._texturePool && this._texturePool.size)
+        {
+            this._texturePool.forEach(texture => texture.destroy());
+
+            this._texturePool.clear();
+        }
+
         this._isCached = false;
     }
 
@@ -149,7 +158,7 @@ export class PlaneVisualization
 
         if(this._cachedBitmapData)
         {
-            if(((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height)) && (Vector3d.isEqual(this._cachedBitmapNormal, normal)))
+            if((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height) && (Vector3d.isEqual(this._cachedBitmapNormal, normal)))
             {
                 if(!this.hasAnimationLayers)
                 {
@@ -165,21 +174,16 @@ export class PlaneVisualization
             }
             else
             {
-                /* if((this._cachedBitmapData.width !== width) && this._cachedBitmapData.height !== height)
-                {
-                    this._cachedBitmapData.destroy();
-
-                    this._cachedBitmapData = null;
-                    console.log('no match');
-                }
-                else
-                {
-                    console.log('sizes match');
-                } */
-
                 this._cachedBitmapData.destroy();
 
                 this._cachedBitmapData = null;
+            /* if((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height)) TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
+            else
+            {
+                this._cachedBitmapData.destroy();
+
+                this._cachedBitmapData = null;
+            } */
             }
         }
 
@@ -187,6 +191,7 @@ export class PlaneVisualization
 
         if(!this._cachedBitmapData)
         {
+            // hereeee
             this._cachedBitmapData = TextureUtils.createAndFillRenderTexture(width, height);
         }
         else

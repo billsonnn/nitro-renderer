@@ -78,11 +78,11 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
             {
                 if(this._bitmapData) this._bitmapData.destroy();
 
-                this._bitmapData = TextureUtils.createAndFillRenderTexture(width, height);
+                this._bitmapData = TextureUtils.createRenderTexture(width, height);
             }
             else
             {
-                TextureUtils.clearAndFillRenderTexture(this._bitmapData);
+                TextureUtils.clearRenderTexture(this._bitmapData);
             }
 
             canvas = this._bitmapData;
@@ -132,7 +132,7 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
                             TextureUtils.writeToRenderTexture(sprite, canvas, false);
                         }
 
-                        if((((((point.x - maxX) > -(item.bitmapData.width)) && ((point.x - maxX) < canvas.width)) && ((point.y - maxY) > -(item.bitmapData.height))) && ((point.y - maxY) < canvas.height)))
+                        if(((point.x - maxX) > -(item.bitmapData.width)) && ((point.x - maxX) < canvas.width) && ((point.y - maxY) > -(item.bitmapData.height)) && ((point.y - maxY) < canvas.height))
                         {
                             const sprite = new Sprite(item.bitmapData.texture);
 

@@ -1,6 +1,6 @@
 ﻿import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Point } from '@pixi/math';
-import { IGraphicAsset, IGraphicAssetCollection, IRoomGeometry, IVector3D, Vector3d } from '../../../../../../../api';
+import { IAssetPlaneMaterial, IAssetPlaneMaterialCellColumn, IAssetPlaneTexture, IAssetPlaneVisualization, IAssetPlaneVisualizationData, IAssetPlaneVisualizationLayer, IGraphicAsset, IGraphicAssetCollection, IRoomGeometry, IVector3D, Vector3d } from '../../../../../../../api';
 import { Rasterizer, RoomGeometry } from '../../../../../../../room';
 import { PlaneBitmapData } from '../../utils';
 import { IPlaneRasterizer } from '../IPlaneRasterizer';
@@ -22,7 +22,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
     private _textures: Map<string, PlaneTexture>;
     private _planes: Map<string, Plane>;
     private _geometries: Map<string, RoomGeometry>;
-    private _data: any;
+    private _data: IAssetPlaneVisualizationData;
 
     constructor()
     {
@@ -34,7 +34,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         this._data = null;
     }
 
-    protected get data(): any
+    protected get data(): IAssetPlaneVisualizationData
     {
         return this._data;
     }
@@ -110,7 +110,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         }
     }
 
-    public initialize(data: any): void
+    public initialize(data: IAssetPlaneVisualizationData): void
     {
         this._data = data;
     }
@@ -198,7 +198,6 @@ export class PlaneRasterizer implements IPlaneRasterizer
     private initializeTexturesAndMaterials(): void
     {
         if(this._data.textures && this._data.textures.length) this.parseTextures(this._data.textures, this.assetCollection);
-        console.log(this._data);
         if(this._data.materials && this._data.materials.length) this.parsePlaneMaterials(this._data.materials);
     }
 
@@ -206,7 +205,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
     {
     }
 
-    private parseTextures(textures: any, collection: IGraphicAssetCollection): void
+    private parseTextures(textures: IAssetPlaneTexture[], collection: IGraphicAssetCollection): void
     {
         if(!textures || !collection) return;
 
@@ -254,6 +253,10 @@ export class PlaneRasterizer implements IPlaneRasterizer
                                     {
                                         newTexture = Rasterizer.getFlipHBitmapData(texture);
                                     }
+                                    else
+                                    {
+                                        newTexture = newTexture.clone();
+                                    }
 
                                     plane.addBitmap(newTexture, normalMinX, normalMaxX, normalMinY, normalMaxY, assetName);
                                 }
@@ -267,7 +270,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         }
     }
 
-    private parsePlaneMaterials(materials: any): void
+    private parsePlaneMaterials(materials: IAssetPlaneMaterial[]): void
     {
         if(!materials || !materials.length) return;
 
@@ -284,14 +287,14 @@ export class PlaneRasterizer implements IPlaneRasterizer
                 {
                     if(!matrix) continue;
 
-                    let repeatMode = matrix.repeatMode;
-                    let align = matrix.align;
+                    let repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_DEFAULT;
+                    let align = PlaneMaterialCellMatrix.ALIGN_DEFAULT;
                     const normalMinX = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE;
                     const normalMaxX = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE;
                     const normalMinY = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE;
                     const normalMaxY = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE;
 
-                    switch(repeatMode)
+                    switch(matrix.repeatMode)
                     {
                         case 'borders':
                             repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_BORDERS;
@@ -313,7 +316,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
                             break;
                     }
 
-                    switch(align)
+                    switch(matrix.align)
                     {
                         case 'top':
                             align = PlaneMaterialCellMatrix.ALIGN_TOP;
@@ -348,7 +351,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         }
     }
 
-    private parsePlaneMaterialCellColumn(column: { repeatMode: string, width: number }, cellMatrix: PlaneMaterialCellMatrix, index: number): void
+    private parsePlaneMaterialCellColumn(column: IAssetPlaneMaterialCellColumn, cellMatrix: PlaneMaterialCellMatrix, index: number): void
     {
         if(!column || !cellMatrix) return;
 
@@ -383,7 +386,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         cellMatrix.createColumn(index, width, cells, repeatMode);
     }
 
-    private parsePlaneMaterialCells(column: any): PlaneMaterialCell[]
+    private parsePlaneMaterialCells(column: IAssetPlaneMaterialCellColumn): PlaneMaterialCell[]
     {
         if(!column || !column.cells || !column.cells.length) return null;
 
@@ -404,24 +407,20 @@ export class PlaneRasterizer implements IPlaneRasterizer
                 let graphics: IGraphicAsset[] = null;
                 let limit = 0;
 
-                if(cell.extras && cell.extras.length)
+                if(cell.extraData)
                 {
-                    const extra = cell.extras[0];
-                    const types = extra.types;
-                    const offsets = extra.offsets;
+                    const types = cell.extraData.extraItemTypes;
+                    const offsets = cell.extraData.offsets;
 
                     if(types && offsets)
                     {
                         if(types.length && offsets.length)
                         {
-                            const type = types[0];
-                            const offset = offsets[0];
-
-                            assetNames = this.parseExtraItemTypes(type);
-                            offsetPoints = this.parseExtraItemOffsets(offset);
+                            assetNames = this.parseExtraItemTypes(types);
+                            offsetPoints = this.parseExtraItemOffsets(offsets);
                             limit = offsetPoints.length;
 
-                            if(extra.limitMax) limit = extra.limitMax;
+                            if(cell.extraData.limitMax) limit = cell.extraData.limitMax;
                         }
                     }
                 }
@@ -456,21 +455,19 @@ export class PlaneRasterizer implements IPlaneRasterizer
         return cells;
     }
 
-    private parseExtraItemTypes(k: any): string[]
+    private parseExtraItemTypes(k: string[]): string[]
     {
         const assetNames: string[] = [];
 
-        if(k && k.types && k.types.length)
+        if(k && k.length)
         {
             let index = 0;
 
-            while(index < k.types.length)
+            while(index < k.length)
             {
-                const type = k.types[index];
+                const type = k[index];
 
-                const assetName = type.assetName;
-
-                if(assetName) assetNames.push(assetName);
+                if(type) assetNames.push(type);
 
                 index++;
             }
@@ -479,20 +476,17 @@ export class PlaneRasterizer implements IPlaneRasterizer
         return assetNames;
     }
 
-    private parseExtraItemOffsets(k: any): Point[]
+    private parseExtraItemOffsets(k: [ number, number][]): Point[]
     {
         const offsets: Point[] = [];
 
-        if(k && k.offsets && k.offsets.length)
+        if(k && k.length)
         {
             let index = 0;
 
-            while(index < k.offsets.length)
+            while(index < k.length)
             {
-                const offset = k.offsets[index];
-
-                const x = offset.x;
-                const y = offset.y;
+                const [ x, y ] = k[index];
 
                 offsets.push(new Point(x, y));
 
@@ -524,7 +518,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         return geometry;
     }
 
-    protected parseVisualizations(plane: Plane, visualizations: any): void
+    protected parseVisualizations(plane: Plane, visualizations: IAssetPlaneVisualization[]): void
     {
         if(!plane || !visualizations) return;
 
@@ -542,7 +536,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
                 if(visualization.horizontalAngle) horizontalAngle = visualization.horizontalAngle;
                 if(visualization.verticalAngle) verticalAngle = visualization.verticalAngle;
 
-                const layers = visualization.layers;
+                const layers = visualization.allLayers as IAssetPlaneVisualizationLayer[];
 
                 const planeVisualization = plane.createPlaneVisualization(size, ((layers && layers.length) || 0), this.getGeometry(size, horizontalAngle, verticalAngle));
 

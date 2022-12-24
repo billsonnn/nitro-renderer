@@ -1,5 +1,5 @@
 ﻿import { RenderTexture } from '@pixi/core';
-import { IVector3D } from '../../../../../../../api';
+import { IAssetPlane, IVector3D } from '../../../../../../../api';
 import { TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneBitmapData } from '../../utils';
 import { FloorPlane } from './FloorPlane';
@@ -11,12 +11,12 @@ export class FloorRasterizer extends PlaneRasterizer
     {
         if(!this.data) return;
 
-        const floors = this.data.floors;
+        const floors = this.data.planes;
 
         if(floors && floors.length) this.parseFloors(floors);
     }
 
-    private parseFloors(k: any): void
+    private parseFloors(k: IAssetPlane[]): void
     {
         if(!k) return;
 
@@ -44,7 +44,7 @@ export class FloorRasterizer extends PlaneRasterizer
 
         if(!plane) return null;
 
-        if(canvas) TextureUtils.clearAndFillRenderTexture(canvas);
+        if(canvas) TextureUtils.clearRenderTexture(canvas);
 
         let graphic = plane.render(canvas, width, height, scale, normal, useTexture, offsetX, offsetY);
 

@@ -1,7 +1,8 @@
-import { RenderTexture, Resource, Texture } from '@pixi/core';
+import { Resource, Texture } from '@pixi/core';
 import { Rectangle } from '@pixi/math';
-import { AdvancedMap, AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable, Vector3d } from '../../../../../api';
+import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable, Vector3d } from '../../../../../api';
 import { RoomObjectSpriteVisualization } from '../../../../../room';
+import { ToInt32 } from '../../../../utils';
 import { RoomMapData } from '../../RoomMapData';
 import { RoomMapMaskData } from '../../RoomMapMaskData';
 import { RoomPlaneBitmapMaskData } from '../../RoomPlaneBitmapMaskData';
@@ -13,10 +14,6 @@ import { RoomVisualizationData } from './RoomVisualizationData';
 
 export class RoomVisualization extends RoomObjectSpriteVisualization implements IPlaneVisualization
 {
-    public static LAST_VISUALIZATION: RoomVisualization = null;
-
-    public static RENDER_TEXTURE_CACHE: Map<RoomVisualization, AdvancedMap<any, RenderTexture>> = new Map();
-
     public static FLOOR_COLOR: number = 0xFFFFFF;
     public static FLOOR_COLOR_LEFT: number = 0xDDDDDD;
     public static FLOOR_COLOR_RIGHT: number = 0xBBBBBB;
@@ -102,31 +99,6 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         this._typeVisibility[RoomPlane.TYPE_LANDSCAPE] = true;
     }
 
-    public static getTextureCache(key: any): RenderTexture
-    {
-        const existing = RoomVisualization.RENDER_TEXTURE_CACHE.get(RoomVisualization.LAST_VISUALIZATION);
-
-        if(!existing) return null;
-
-        return existing.getValue(key);
-    }
-
-    public static addTextureCache(key: any, value: RenderTexture): void
-    {
-        if(!RoomVisualization.LAST_VISUALIZATION) return;
-
-        let existing = RoomVisualization.RENDER_TEXTURE_CACHE.get(RoomVisualization.LAST_VISUALIZATION);
-
-        if(!existing)
-        {
-            existing = new AdvancedMap();
-
-            RoomVisualization.RENDER_TEXTURE_CACHE.set(RoomVisualization.LAST_VISUALIZATION, existing);
-        }
-
-        existing.add(key, value);
-    }
-
     public initialize(data: IObjectVisualizationData): boolean
     {
         if(!(data instanceof RoomVisualizationData)) return false;
@@ -170,20 +142,6 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
             this._data = null;
         }
-
-        const existingTextureCache = RoomVisualization.RENDER_TEXTURE_CACHE.get(this);
-
-        if(existingTextureCache)
-        {
-            for(const texture of existingTextureCache.getValues())
-            {
-                texture.destroy(true);
-            }
-
-            existingTextureCache.dispose();
-
-            RoomVisualization.RENDER_TEXTURE_CACHE.delete(this);
-        }
     }
 
     protected reset(): void
@@ -202,14 +160,6 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
     {
         if(!this.object || !geometry) return;
 
-        RoomVisualization.LAST_VISUALIZATION = this;
-
-        let removeCount = 0;
-
-        const existing = RoomVisualization.RENDER_TEXTURE_CACHE.get(RoomVisualization.LAST_VISUALIZATION);
-
-        if(existing) removeCount = existing.length;
-
         const geometryUpdate = this.updateGeometry(geometry);
         const objectModel = this.object.model;
 
@@ -219,28 +169,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(this.updateHole(objectModel)) needsUpdate = true;
 
-        if(this.initializeRoomPlanes())
-        {
-            if(existing && removeCount)
-            {
-                setTimeout(() =>
-                {
-                    while(removeCount)
-                    {
-                        const texture = existing.getWithIndex(0);
-
-                        if(texture)
-                        {
-                            texture.destroy(true);
-
-                            existing.remove(existing.getKey(0));
-                        }
-
-                        removeCount--;
-                    }
-                }, 0);
-            }
-        }
+        this.initializeRoomPlanes();
 
         needsUpdate = this.updateMasks(objectModel);
 
@@ -436,9 +365,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         this.reset();
     }
 
-    protected initializeRoomPlanes(): boolean
+    protected initializeRoomPlanes(): void
     {
-        if(!this.object || this._isPlaneSet) return false;
+        if(!this.object || this._isPlaneSet) return;
 
         if(!isNaN(this._floorThickness)) this._roomPlaneParser.floorThicknessMultiplier = this._floorThickness;
         if(!isNaN(this._wallThickness)) this._roomPlaneParser.wallThicknessMultiplier = this._wallThickness;
@@ -447,8 +376,8 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(!this._roomPlaneParser.initializeFromMapData(mapData)) return;
 
-        const _local_3 = this.getLandscapeWidth();
-        const _local_4 = this.getLandscapeHeight();
+        const maxX = this.getLandscapeWidth();
+        const maxY = this.getLandscapeHeight();
 
         let _local_5 = 0;
         let randomSeed = this.object.model.getValue<number>(RoomObjectVariable.ROOM_RANDOM_SEED);
@@ -468,7 +397,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
             {
                 const _local_14 = Vector3d.crossProduct(leftSide, rightSide);
 
-                randomSeed = ((randomSeed * 7613) + 517);
+                randomSeed = ToInt32(Math.trunc((randomSeed * 7613) + 517) >>> 0);
                 plane = null;
 
                 if(planeType === RoomPlaneData.PLANE_FLOOR)
@@ -529,7 +458,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                 else if(planeType === RoomPlaneData.PLANE_LANDSCAPE)
                 {
-                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_LANDSCAPE, true, secondaryNormals, randomSeed, _local_5, 0, _local_3, _local_4);
+                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_LANDSCAPE, true, secondaryNormals, randomSeed, _local_5, 0, maxX, maxY);
 
                     if(_local_14.y > 0)
                     {
@@ -619,8 +548,6 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         this._isPlaneSet = true;
         this.defineSprites();
-
-        return true;
     }
 
     protected defineSprites(): void
@@ -782,15 +709,15 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         const _local_8 = (this._visiblePlanes.length > 0);
 
-        let _local_6 = this._visiblePlanes;
+        let visiblePlanes = this._visiblePlanes;
 
-        if(!this._visiblePlanes.length) _local_6 = this._planes;
+        if(!this._visiblePlanes.length) visiblePlanes = this._planes;
 
         let depth = 0;
         let updated = false;
         let index = 0;
 
-        while(index < _local_6.length)
+        while(index < visiblePlanes.length)
         {
             let _local_10 = index;
 
@@ -800,7 +727,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
             if(_local_11)
             {
-                const _local_12 = _local_6[index];
+                const _local_12 = visiblePlanes[index];
 
                 if(_local_12)
                 {
@@ -828,6 +755,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                         }
                         updated = true;
                     }
+
                     if(_local_11.visible != ((_local_12.visible) && (this._typeVisibility[_local_12.type])))
                     {
                         _local_11.visible = (!(_local_11.visible));

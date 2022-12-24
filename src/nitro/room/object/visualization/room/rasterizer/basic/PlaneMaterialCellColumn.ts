@@ -1,6 +1,6 @@
 import { RenderTexture, Texture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
-import { IVector3D, NitroLogger, Vector3d } from '../../../../../../../api';
+import { IVector3D, Vector3d } from '../../../../../../../api';
 import { TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneMaterialCell } from './PlaneMaterialCell';
 
@@ -143,6 +143,14 @@ export class PlaneMaterialCellColumn
                 this._cachedBitmapData.destroy();
 
                 this._cachedBitmapData = null;
+
+                /* if(this._cachedBitmapData.height === height) TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
+                else
+                {
+                    this._cachedBitmapData.destroy();
+
+                    this._cachedBitmapData = null;
+                } */
             }
         }
         else
@@ -151,7 +159,7 @@ export class PlaneMaterialCellColumn
             {
                 if(this._cachedBitmapData.height === height)
                 {
-                    const sprite = new Sprite(Texture.WHITE);
+                    const sprite = new Sprite(Texture.EMPTY);
 
                     sprite.width = this._cachedBitmapData.width;
                     sprite.height = height;
@@ -171,7 +179,7 @@ export class PlaneMaterialCellColumn
 
         if(!this._cachedBitmapData)
         {
-            this._cachedBitmapData = TextureUtils.createAndFillRenderTexture(this._width, height);
+            this._cachedBitmapData = TextureUtils.createRenderTexture(this._width, height);
         }
 
         this._cachedBitmapNormal.assign(normal);
@@ -186,20 +194,16 @@ export class PlaneMaterialCellColumn
                 this.renderRepeatNone(normal);
                 break;
             case PlaneMaterialCellColumn.REPEAT_MODE_BORDERS:
-                NitroLogger.log('REPEAT_MODE_BORDERS');
-                //     this.renderRepeatBorders(normal);
+                this.renderRepeatBorders(normal);
                 break;
             case PlaneMaterialCellColumn.REPEAT_MODE_CENTER:
-                NitroLogger.log('REPEAT_MODE_CENTER');
-                //     this.renderRepeatCenter(normal);
+                this.renderRepeatCenter(normal);
                 break;
             case PlaneMaterialCellColumn.REPEAT_MODE_FIRST:
-                NitroLogger.log('REPEAT_MODE_FIRST');
-                //     this.renderRepeatFirst(normal);
+                this.renderRepeatFirst(normal);
                 break;
             case PlaneMaterialCellColumn.REPEAT_MODE_LAST:
-                NitroLogger.log('REPEAT_MODE_LAST');
-                //     this.renderRepeatLast(normal);
+                this.renderRepeatLast(normal);
                 break;
             default:
                 this.renderRepeatAll(normal, offsetX, offsetY);
@@ -292,190 +296,195 @@ export class PlaneMaterialCellColumn
         }
     }
 
-    // private renderRepeatBorders(k:IVector3D): void
-    // {
-    //     if (((this._cells.length == 0) || (this._cachedBitmapData == null)))
-    //     {
-    //         return;
-    //     }
-    //     var _local_2:PlaneMaterialCell;
-    //     var _local_3:BitmapData;
-    //     var _local_4:Array = [];
-    //     var _local_5: number;
-    //     var _local_6: number;
-    //     var _local_7: number;
-    //     _local_7 = 1;
-    //     while (_local_7 < (this._cells.length - 1))
-    //     {
-    //         _local_2 = (this._cells[_local_7] as PlaneMaterialCell);
-    //         if (_local_2 != null)
-    //         {
-    //             _local_6 = _local_2.getHeight(k);
-    //             if (_local_6 > 0)
-    //             {
-    //                 _local_5 = (_local_5 + _local_6);
-    //                 _local_4.push(_local_2);
-    //             }
-    //         }
-    //         _local_7++;
-    //     }
-    //     if (this._cells.length == 1)
-    //     {
-    //         _local_2 = (this._cells[0] as PlaneMaterialCell);
-    //         if (_local_2 != null)
-    //         {
-    //             _local_6 = _local_2.getHeight(k);
-    //             if (_local_6 > 0)
-    //             {
-    //                 _local_5 = (_local_5 + _local_6);
-    //                 _local_4.push(_local_2);
-    //             }
-    //         }
-    //     }
-    //     var _local_8:* = ((this._cachedBitmapData.height - _local_5) >> 1);
-    //     var _local_9: number = this.renderCells(_local_4, _local_8, true, k);
-    //     _local_2 = (this._cells[0] as PlaneMaterialCell);
-    //     if (_local_2 != null)
-    //     {
-    //         _local_4 = [_local_2];
-    //         while (_local_8 >= 0)
-    //         {
-    //             _local_8 = this.renderCells(_local_4, _local_8, false, k);
-    //         }
-    //     }
-    //     _local_2 = (this._cells[(this._cells.length - 1)] as PlaneMaterialCell);
-    //     if (_local_2 != null)
-    //     {
-    //         _local_4 = [_local_2];
-    //         while (_local_9 < this._cachedBitmapData.height)
-    //         {
-    //             _local_9 = this.renderCells(_local_4, _local_9, true, k);
-    //         }
-    //     }
-    // }
+    private renderRepeatBorders(k:IVector3D): void
+    {
+        if(!this._cells.length || !this._cachedBitmapData) return;
 
-    // private renderRepeatCenter(k:IVector3D): void
-    // {
-    //     var _local_13: number;
-    //     var _local_14: number;
-    //     var _local_15: number;
-    //     var _local_16:Array;
-    //     if (((this._cells.length == 0) || (this._cachedBitmapData == null)))
-    //     {
-    //         return;
-    //     }
-    //     var _local_2:PlaneMaterialCell;
-    //     var _local_3:BitmapData;
-    //     var _local_4:Array = [];
-    //     var _local_5:Array = [];
-    //     var _local_6: number;
-    //     var _local_7: number;
-    //     var _local_8: number;
-    //     var _local_9: number;
-    //     _local_9 = 0;
-    //     while (_local_9 < (this._cells.length >> 1))
-    //     {
-    //         _local_2 = (this._cells[_local_9] as PlaneMaterialCell);
-    //         if (_local_2 != null)
-    //         {
-    //             _local_8 = _local_2.getHeight(k);
-    //             if (_local_8 > 0)
-    //             {
-    //                 _local_6 = (_local_6 + _local_8);
-    //                 _local_4.push(_local_2);
-    //             }
-    //         }
-    //         _local_9++;
-    //     }
-    //     _local_9 = ((this._cells.length >> 1) + 1);
-    //     while (_local_9 < this._cells.length)
-    //     {
-    //         _local_2 = (this._cells[_local_9] as PlaneMaterialCell);
-    //         if (_local_2 != null)
-    //         {
-    //             _local_8 = _local_2.getHeight(k);
-    //             if (_local_8 > 0)
-    //             {
-    //                 _local_7 = (_local_7 + _local_8);
-    //                 _local_5.push(_local_2);
-    //             }
-    //         }
-    //         _local_9++;
-    //     }
-    //     var _local_10: number;
-    //     var _local_11: number;
-    //     var _local_12: number = this._cachedBitmapData.height;
-    //     if ((_local_6 + _local_7) > this._cachedBitmapData.height)
-    //     {
-    //         _local_10 = ((_local_6 + _local_7) - this._cachedBitmapData.height);
-    //         _local_11 = (_local_11 - (_local_10 >> 1));
-    //         _local_12 = (_local_12 + (_local_10 - (_local_10 >> 1)));
-    //     }
-    //     if (_local_10 == 0)
-    //     {
-    //         _local_2 = (this._cells[(this._cells.length >> 1)] as PlaneMaterialCell);
-    //         if (_local_2 != null)
-    //         {
-    //             _local_8 = _local_2.getHeight(k);
-    //             if (_local_8 > 0)
-    //             {
-    //                 _local_13 = (this._cachedBitmapData.height - (_local_6 + _local_7));
-    //                 _local_14 = (Math.ceil((_local_13 / _local_8)) * _local_8);
-    //                 _local_11 = (_local_6 - ((_local_14 - _local_13) >> 1));
-    //                 _local_15 = (_local_11 + _local_14);
-    //                 _local_16 = [_local_2];
-    //                 while (_local_11 < _local_15)
-    //                 {
-    //                     _local_11 = this.renderCells(_local_16, _local_11, true, k);
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     _local_11 = 0;
-    //     this.renderCells(_local_4, _local_11, true, k);
-    //     this.renderCells(_local_5, _local_12, false, k);
-    // }
+        const _local_4: PlaneMaterialCell[] = [];
 
-    // private renderRepeatFirst(k:IVector3D): void
-    // {
-    //     var _local_4:Array;
-    //     if (((this._cells.length == 0) || (this._cachedBitmapData == null)))
-    //     {
-    //         return;
-    //     }
-    //     var _local_2:PlaneMaterialCell;
-    //     var _local_3: number = this._cachedBitmapData.height;
-    //     _local_3 = this.renderCells(this._cells, _local_3, false, k);
-    //     _local_2 = (this._cells[0] as PlaneMaterialCell);
-    //     if (_local_2 != null)
-    //     {
-    //         _local_4 = [_local_2];
-    //         while (_local_3 >= 0)
-    //         {
-    //             _local_3 = this.renderCells(_local_4, _local_3, false, k);
-    //         }
-    //     }
-    // }
+        let _local_5 = 0;
+        let _local_7 = 1;
 
-    // private renderRepeatLast(k: IVector3D): void
-    // {
-    //     if(!this._cells.length || !this._cachedBitmapData) return;
+        while(_local_7 < (this._cells.length - 1))
+        {
+            const cell = (this._cells[_local_7] as PlaneMaterialCell);
 
+            if(cell)
+            {
+                const height = cell.getHeight(k);
 
-    //     var _local_4:Array;
-    //     var _local_2:PlaneMaterialCell;
-    //     var _local_3: number;
-    //     _local_3 = this.renderCells(this._cells, _local_3, true, k);
-    //     _local_2 = (this._cells[(this._cells.length - 1)] as PlaneMaterialCell);
-    //     if (_local_2 != null)
-    //     {
-    //         _local_4 = [_local_2];
-    //         while (_local_3 < this._cachedBitmapData.height)
-    //         {
-    //             _local_3 = this.renderCells(_local_4, _local_3, true, k);
-    //         }
-    //     }
-    // }
+                if(height > 0)
+                {
+                    _local_5 = (_local_5 + height);
+
+                    _local_4.push(cell);
+                }
+            }
+
+            _local_7++;
+        }
+
+        if(this._cells.length == 1)
+        {
+            const cell = this._cells[0];
+
+            if(cell)
+            {
+                const height = cell.getHeight(k);
+
+                if(height > 0)
+                {
+                    _local_5 = (_local_5 + height);
+
+                    _local_4.push(cell);
+                }
+            }
+        }
+
+        let _local_8 = ((this._cachedBitmapData.height - _local_5) >> 1);
+        let index: number = this.renderCells(_local_4, _local_8, true, k);
+
+        let cell = this._cells[0];
+
+        if(cell)
+        {
+            const cells = [cell];
+
+            while(_local_8 >= 0) _local_8 = this.renderCells(cells, _local_8, false, k);
+        }
+
+        cell = this._cells[(this._cells.length - 1)];
+
+        if(cell)
+        {
+            const cells = [cell];
+
+            while(index < this._cachedBitmapData.height) index = this.renderCells(cells, index, true, k);
+        }
+    }
+
+    private renderRepeatCenter(k:IVector3D): void
+    {
+        if(!this._cells.length || !this._cachedBitmapData) return;
+
+        const _local_4: PlaneMaterialCell[] = [];
+        const _local_5: PlaneMaterialCell[] = [];
+
+        let _local_6 = 0;
+        let _local_7 = 0;
+
+        let _local_9 = 0;
+
+        while(_local_9 < (this._cells.length >> 1))
+        {
+            const cell = this._cells[_local_9];
+
+            if(cell)
+            {
+                const height = cell.getHeight(k);
+
+                if(height > 0)
+                {
+                    _local_6 = (_local_6 + height);
+
+                    _local_4.push(cell);
+                }
+            }
+
+            _local_9++;
+        }
+
+        _local_9 = ((this._cells.length >> 1) + 1);
+
+        while(_local_9 < this._cells.length)
+        {
+            const cell = this._cells[_local_9];
+
+            if(cell)
+            {
+                const height = cell.getHeight(k);
+
+                if(height > 0)
+                {
+                    _local_7 = (_local_7 + height);
+
+                    _local_5.push(cell);
+                }
+            }
+
+            _local_9++;
+        }
+
+        let _local_10 = 0;
+        let _local_11: number;
+        let _local_12 = this._cachedBitmapData.height;
+
+        if((_local_6 + _local_7) > this._cachedBitmapData.height)
+        {
+            _local_10 = ((_local_6 + _local_7) - this._cachedBitmapData.height);
+            _local_11 = (_local_11 - (_local_10 >> 1));
+            _local_12 = (_local_12 + (_local_10 - (_local_10 >> 1)));
+        }
+
+        if(_local_10 == 0)
+        {
+            const cell = this._cells[(this._cells.length >> 1)];
+
+            if(cell)
+            {
+                const height = cell.getHeight(k);
+
+                if(height > 0)
+                {
+                    const _local_13 = (this._cachedBitmapData.height - (_local_6 + _local_7));
+                    const _local_14 = (Math.ceil((_local_13 / height)) * height);
+
+                    let _local_11 = (_local_6 - ((_local_14 - _local_13) >> 1));
+
+                    const _local_15 = (_local_11 + _local_14);
+                    const _local_16 = [cell];
+
+                    while(_local_11 < _local_15) _local_11 = this.renderCells(_local_16, _local_11, true, k);
+                }
+            }
+        }
+
+        this.renderCells(_local_4, 0, true, k);
+        this.renderCells(_local_5, _local_12, false, k);
+    }
+
+    private renderRepeatFirst(k:IVector3D): void
+    {
+        if(!this._cells.length || !this._cachedBitmapData) return;
+
+        let index = this.renderCells(this._cells, this._cachedBitmapData.height, false, k);
+
+        const cell = (this._cells[0] as PlaneMaterialCell);
+
+        if(!cell) return;
+
+        const cells = [ cell ];
+
+        while(index >= 0) index = this.renderCells(cells, index, false, k);
+    }
+
+    private renderRepeatLast(normal: IVector3D): void
+    {
+        if(!this._cells.length || !this._cachedBitmapData) return;
+
+        let index = this.renderCells(this._cells, 0, true, normal);
+
+        const cell = (this._cells[(this._cells.length - 1)] as PlaneMaterialCell);
+
+        if(!cell) return;
+
+        const cells = [cell];
+
+        while(index < this._cachedBitmapData.height)
+        {
+            index = this.renderCells(cells, index, true, normal);
+        }
+    }
 
     public getCells(): PlaneMaterialCell[]
     {

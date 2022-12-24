@@ -1,5 +1,5 @@
 ﻿import { RenderTexture } from '@pixi/core';
-import { IVector3D, NitroConfiguration } from '../../../../../../../api';
+import { IAssetPlane, IAssetPlaneVisualizationAnimatedLayer, IAssetPlaneVisualizationLayer, IVector3D } from '../../../../../../../api';
 import { TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneBitmapData, Randomizer } from '../../utils';
 import { PlaneMaterial, PlaneRasterizer, PlaneVisualizationLayer } from '../basic';
@@ -28,12 +28,12 @@ export class LandscapeRasterizer extends PlaneRasterizer
     {
         if(!this.data) return;
 
-        const landscapes = this.data.landscapes;
+        const landscapes = this.data.planes;
 
         if(landscapes && landscapes.length) this.parseLandscapes(landscapes);
     }
 
-    private parseLandscapes(k: any): void
+    private parseLandscapes(k: IAssetPlane[]): void
     {
         if(!k) return;
 
@@ -46,7 +46,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
             if(!landscape) continue;
 
             const id = landscape.id;
-            const visualizations = landscape.animatedVisualizations;
+            const visualizations = landscape.animatedVisualization;
 
             const plane = new LandscapePlane();
 
@@ -62,11 +62,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
                 if(visualization.horizontalAngle) horizontalAngle = visualization.horizontalAngle;
                 if(visualization.verticalAngle) verticalAngle = visualization.verticalAngle;
 
-                const basicLayers = visualization.layers;
-                const animatedLayers = visualization.animationLayers;
-                const totalBasicLayers = ((basicLayers && basicLayers.length) || 0);
-                const totalAnimatedLayers = ((animatedLayers && animatedLayers.length) || 0);
-                const totalLayers = (totalBasicLayers + totalAnimatedLayers);
+                const totalLayers = (visualization.allLayers.length ?? 0);
 
                 const planeVisualization = plane.createPlaneVisualization(size, (totalLayers || 0), this.getGeometry(size, horizontalAngle, verticalAngle));
 
@@ -76,55 +72,45 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
                     let layerId = 0;
 
-                    if(totalBasicLayers)
+                    while(layerId < totalLayers)
                     {
-                        while(layerId < basicLayers.length)
-                        {
-                            const layer = basicLayers[layerId];
+                        const layer = visualization.allLayers[layerId];
 
-                            if(layer)
+                        if(layer)
+                        {
+                            if((layer as IAssetPlaneVisualizationAnimatedLayer).items === undefined)
                             {
+                                const basicLayer = (layer as IAssetPlaneVisualizationLayer);
+
                                 let material: PlaneMaterial = null;
                                 let align: number = PlaneVisualizationLayer.ALIGN_DEFAULT;
                                 let color: number = LandscapePlane.DEFAULT_COLOR;
                                 let offset: number = PlaneVisualizationLayer.DEFAULT_OFFSET;
 
-                                if(layer.materialId) material = this.getMaterial(layer.materialId);
+                                if(basicLayer.materialId) material = this.getMaterial(basicLayer.materialId);
 
-                                if(layer.color) color = layer.color;
+                                if(basicLayer.color) color = basicLayer.color;
 
-                                if(layer.offset) offset = layer.offset;
+                                if(basicLayer.offset) offset = basicLayer.offset;
 
-                                if(layer.align)
+                                if(basicLayer.align)
                                 {
-                                    if(layer.align === 'bottom')
+                                    if(basicLayer.align === 'bottom')
                                     {
                                         align = PlaneVisualizationLayer.ALIGN_BOTTOM;
                                     }
 
-                                    else if(layer.align === 'top') align = PlaneVisualizationLayer.ALIGN_TOP;
+                                    else if(basicLayer.align === 'top') align = PlaneVisualizationLayer.ALIGN_TOP;
                                 }
 
                                 planeVisualization.setLayer(layerId, material, color, align, offset);
                             }
-
-                            layerId++;
-                        }
-                    }
-
-                    layerId = 0;
-
-                    if(totalAnimatedLayers)
-                    {
-                        const animationItems: {}[] = [];
-
-                        while(layerId < animatedLayers.length)
-                        {
-                            const layer = animatedLayers[layerId];
-
-                            if(layer)
+                            else
                             {
-                                const items = layer.animationItems;
+                                const animatedLayer = (layer as IAssetPlaneVisualizationAnimatedLayer);
+
+                                const items = animatedLayer.items;
+                                const animationItems: {}[] = [];
 
                                 if(items && items.length)
                                 {
@@ -136,8 +122,8 @@ export class LandscapeRasterizer extends PlaneRasterizer
                                             const assetId = item.assetId;
                                             const x = this.getCoordinateValue(item.x || '', item.randomX || '');
                                             const y = this.getCoordinateValue(item.y || '', item.randomY || '');
-                                            const speedX = item.speedX ? item.speedX / NitroConfiguration.getValue<number>('system.animation.fps', 24) : 0;
-                                            const speedY = item.speedY ? item.speedY / NitroConfiguration.getValue<number>('system.animation.fps', 24) : 0;
+                                            const speedX = item.speedX;
+                                            const speedY = item.speedY;
 
                                             animationItems.push({
                                                 asset: assetId,
@@ -149,12 +135,12 @@ export class LandscapeRasterizer extends PlaneRasterizer
                                         }
                                     }
                                 }
+
+                                planeVisualization.setAnimationLayer(layerId, animationItems, this.assetCollection);
                             }
 
                             layerId++;
                         }
-
-                        planeVisualization.setAnimationLayer(layerId, animationItems, this.assetCollection);
                     }
                 }
             }
@@ -163,31 +149,31 @@ export class LandscapeRasterizer extends PlaneRasterizer
         }
     }
 
-    private getCoordinateValue(k: string, _arg_2: string): number
+    private getCoordinateValue(x: string, randomX: string): number
     {
         let _local_3 = 0;
 
-        if((k.length > 0))
+        if((x.length > 0))
         {
-            if(k.charAt((k.length - 1)) === '%')
+            if(x.charAt((x.length - 1)) === '%')
             {
-                k = k.substr(0, (k.length - 1));
+                x = x.substr(0, (x.length - 1));
 
-                _local_3 = (parseFloat(k) / 100);
+                _local_3 = (parseFloat(x) / 100);
             }
         }
 
-        if((_arg_2.length > 0))
+        if((randomX.length > 0))
         {
             const _local_4 = 10000;
             const _local_5 = Randomizer.getValues(1, 0, _local_4);
             const _local_6 = (_local_5[0] / _local_4);
 
-            if(_arg_2.charAt((_arg_2.length - 1)) === '%')
+            if(randomX.charAt((randomX.length - 1)) === '%')
             {
-                _arg_2 = _arg_2.substr(0, (_arg_2.length - 1));
+                randomX = randomX.substr(0, (randomX.length - 1));
 
-                _local_3 = (_local_3 + ((_local_6 * parseFloat(_arg_2)) / 100));
+                _local_3 = (_local_3 + ((_local_6 * parseFloat(randomX)) / 100));
             }
         }
 

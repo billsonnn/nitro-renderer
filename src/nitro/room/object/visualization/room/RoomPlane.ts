@@ -653,7 +653,7 @@ export class RoomPlane implements IRoomPlane
             }
             else
             {
-                TextureUtils.clearAndFillRenderTexture(this._bitmapData);
+                TextureUtils.clearRenderTexture(this._bitmapData);
             }
 
             Randomizer.setSeed(this._randomSeed);
@@ -966,34 +966,21 @@ export class RoomPlane implements IRoomPlane
     {
         if(!canvas || !mask) return;
 
+        const canvasPixels = TextureUtils.getPixels(canvas);
         const maskPixels = TextureUtils.getPixels(mask);
 
-        const textureCanvas = TextureUtils.generateCanvas(canvas);
-        const textureCtx = textureCanvas.getContext('2d');
-
-        const textureImageData = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
-        const textureData = textureImageData.data;
-
-        for(let i = 0; i < textureData.length; i += 4)
+        for(let i = 0; i < canvasPixels.length; i += 4)
         {
-            const textureRed = textureData[i];
-            const textureGreen = textureData[i + 1];
-            const textureBlue = textureData[i + 2];
-            const textureAlpha = textureData[i + 3];
-
             const maskRed = maskPixels[i];
             const maskGreen = maskPixels[i + 1];
             const maskBlue = maskPixels[i + 2];
             const maskAlpha = maskPixels[i + 3];
 
-            if(!maskRed && !maskGreen && !maskBlue) textureData[i + 3] = 0;
+            if(!maskRed && !maskGreen && !maskBlue) canvasPixels[i + 3] = 0;
         }
 
-        textureCtx.putImageData(textureImageData, 0, 0);
+        const texture = Texture.fromBuffer(canvasPixels, canvas.width, canvas.height);
 
-        const newTexture = Texture.from(textureCanvas);
-        const sprite = new Sprite(newTexture);
-
-        TextureUtils.writeToRenderTexture(sprite, canvas);
+        TextureUtils.writeToRenderTexture(new Sprite(texture), canvas);
     }
 }

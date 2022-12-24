@@ -65,11 +65,19 @@ export class PlaneVisualizationLayer
     {
         if(!canvas || (canvas.width !== width) || (canvas.height !== height)) canvas = null;
 
+        const r = (this._color >> 16);
+        const g = ((this._color >> 8) & 0xFF);
+        const b = (this._color & 0xFF);
+
+        let hasColor = false;
+
+        if(((r < 0xFF) || (g < 0xFF))|| (b < 0xFF)) hasColor = true;
+
         let bitmapData: RenderTexture = null;
 
         if(this._material)
         {
-            bitmapData = this._material.render(null, width, height, normal, useTexture, offsetX, (offsetY + this.offset), (this.align === PlaneVisualizationLayer.ALIGN_TOP));
+            bitmapData = this._material.render(hasColor ? null : canvas, width, height, normal, useTexture, offsetX, (offsetY + this.offset), (this.align === PlaneVisualizationLayer.ALIGN_TOP));
 
             if(bitmapData && (bitmapData !== canvas))
             {
@@ -87,7 +95,8 @@ export class PlaneVisualizationLayer
                 if(this._bitmapData && (this._bitmapData.width === width) && (this._bitmapData.height === height)) return this._bitmapData;
 
                 if(this._bitmapData) this._bitmapData.destroy();
-                this._bitmapData = TextureUtils.createAndFillRenderTexture(width, height);
+
+                this._bitmapData = TextureUtils.createRenderTexture(width, height);
 
                 bitmapData = this._bitmapData;
             }
@@ -99,18 +108,15 @@ export class PlaneVisualizationLayer
             }
         }
 
-        if(bitmapData)
+        if(bitmapData && hasColor)
         {
-            if(canvas && (bitmapData !== canvas))
-            {
-                const sprite = new Sprite(bitmapData);
+            const sprite = new Sprite(bitmapData);
 
-                sprite.tint = this._color;
+            sprite.tint = this._color;
 
-                TextureUtils.writeToRenderTexture(sprite, canvas, true);
+            TextureUtils.writeToRenderTexture(sprite, canvas, false);
 
-                bitmapData = canvas;
-            }
+            bitmapData = canvas;
         }
 
         return bitmapData;

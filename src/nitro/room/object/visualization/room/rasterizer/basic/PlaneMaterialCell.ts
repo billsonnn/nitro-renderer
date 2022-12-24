@@ -134,86 +134,81 @@ export class PlaneMaterialCell
             }
         }
 
-        if(bitmap)
+        if(!this.isStatic)
         {
-            if(!this.isStatic)
+            if(this._cachedSprite)
             {
-                if(this._cachedSprite)
+                if((this._cachedSprite.width !== bitmap.width) || (this._cachedSprite.height !== bitmap.height))
                 {
-                    if((this._cachedSprite.width !== bitmap.width) || (this._cachedSprite.height !== bitmap.height))
-                    {
-                        this._cachedSprite.destroy();
+                    this._cachedSprite.destroy();
 
-                        this._cachedSprite = null;
-                    }
+                    this._cachedSprite = null;
                 }
-
-                if(!this._cachedSprite) this._cachedSprite = new Sprite(texture);
-
-                const limitMin = Math.min(this._extraItemCount, this._extraItemOffsets.length);
-                const limitMax = Math.max(this._extraItemCount, this._extraItemOffsets.length);
-                const offsetIndexes = Randomizer.getArray(this._extraItemCount, limitMax);
-
-                let i = 0;
-
-                while(i < limitMin)
-                {
-                    const offset = this._extraItemOffsets[offsetIndexes[i]];
-                    const item = this._extraItemAssets[(i % this._extraItemAssets.length)];
-
-                    if(offset && item)
-                    {
-                        const assetTexture = item.texture;
-
-                        if(assetTexture)
-                        {
-                            const offsetFinal = new Point((offset.x + item.offsetX), (offset.y + item.offsetY));
-                            const flipMatrix = new Matrix();
-
-                            let x = 1;
-                            let y = 1;
-                            let translateX = 0;
-                            let translateY = 0;
-
-                            if(item.flipH)
-                            {
-                                x = -1;
-                                translateX = assetTexture.width;
-                            }
-
-                            if(item.flipV)
-                            {
-                                y = -1;
-                                translateY = assetTexture.height;
-                            }
-
-                            let offsetX = (offsetFinal.x + translateX);
-                            offsetX = ((offsetX >> 1) << 1);
-
-                            flipMatrix.scale(x, y);
-                            flipMatrix.translate(offsetX, (offsetFinal.y + translateY));
-
-                            const sprite = new Sprite(assetTexture);
-
-                            sprite.transform.setFromMatrix(flipMatrix);
-
-                            sprite.x = flipMatrix.tx;
-                            sprite.y = flipMatrix.ty;
-
-                            this._cachedSprite.addChild(sprite);
-                        }
-                    }
-
-                    i++;
-                }
-
-                return this._cachedSprite;
             }
 
-            return bitmap;
+            this._cachedSprite = new Sprite(texture);
+
+            const limitMin = Math.min(this._extraItemCount, this._extraItemOffsets.length);
+            const limitMax = Math.max(this._extraItemCount, this._extraItemOffsets.length);
+            const offsetIndexes = Randomizer.getArray(this._extraItemCount, limitMax);
+
+            let i = 0;
+
+            while(i < limitMin)
+            {
+                const offset = this._extraItemOffsets[offsetIndexes[i]];
+                const item = this._extraItemAssets[(i % this._extraItemAssets.length)];
+
+                if(offset && item)
+                {
+                    const assetTexture = item.texture;
+
+                    if(assetTexture)
+                    {
+                        const offsetFinal = new Point((offset.x + item.offsetX), (offset.y + item.offsetY));
+                        const flipMatrix = new Matrix();
+
+                        let x = 1;
+                        let y = 1;
+                        let translateX = 0;
+                        let translateY = 0;
+
+                        if(item.flipH)
+                        {
+                            x = -1;
+                            translateX = assetTexture.width;
+                        }
+
+                        if(item.flipV)
+                        {
+                            y = -1;
+                            translateY = assetTexture.height;
+                        }
+
+                        let offsetX = (offsetFinal.x + translateX);
+                        offsetX = ((offsetX >> 1) << 1);
+
+                        flipMatrix.scale(x, y);
+                        flipMatrix.translate(offsetX, (offsetFinal.y + translateY));
+
+                        const sprite = new Sprite(assetTexture);
+
+                        sprite.transform.setFromMatrix(flipMatrix);
+
+                        sprite.x = flipMatrix.tx;
+                        sprite.y = flipMatrix.ty;
+
+                        this._cachedSprite.addChild(sprite);
+                    }
+                }
+
+                i++;
+            }
+
+            return this._cachedSprite;
         }
 
-        return null;
+        return bitmap;
     }
 
     public getAssetName(normal: IVector3D): string
