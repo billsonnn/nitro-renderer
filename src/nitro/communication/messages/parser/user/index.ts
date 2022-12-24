@@ -1,4 +1,5 @@
 export * from './access';
+export * from './AccountSafetyLockStatusChangeParser';
 export * from './ApproveNameResultParser';
 export * from './data';
 export * from './GuildMembershipsMessageParser';
