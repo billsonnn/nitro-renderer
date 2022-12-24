@@ -119,6 +119,16 @@ export class IncomingHeader
     public static NOTIFICATION_LIST = 1992;
     public static PET_FIGURE_UPDATE = 1924;
     public static PET_INFO = 2901;
+    public static PET_TRAINING_PANEL = 1164;
+    public static PET_LEVEL_UPDATE = 2824;
+    public static PET_SCRATCH_FAILED = 1130;
+    public static PET_OPEN_PACKAGE_REQUESTED = 2380;
+    public static PET_OPEN_PACKAGE_RESULT = 546;
+    public static PET_BREEDING = 1746;
+    public static PET_CONFIRM_BREEDING_RESULT = 1625;
+    public static PET_GO_TO_BREEDING_NEST_FAILURE = 2621;
+    public static PET_NEST_BREEDING_SUCCESS = 2527;
+    public static PET_CONFIRM_BREEDING_REQUEST = 634;
     public static RECYCLER_PRIZES = 3164;
     public static ROOM_BAN_LIST = 1869;
     public static ROOM_BAN_REMOVE = 3429;
@@ -228,6 +238,7 @@ export class IncomingHeader
     public static USER_SETTINGS = 513;
     public static USER_SUBSCRIPTION = 954;
     public static USER_WARDROBE_PAGE = 3315;
+    public static GET_USER_TAGS = 1255;
     public static WIRED_ACTION = 1434;
     public static WIRED_CONDITION = 1108;
     public static WIRED_ERROR = 156;
@@ -402,4 +413,5 @@ export class IncomingHeader
     public static ROOM_SETTINGS_ERROR = 2897;
     public static SHOW_ENFORCE_ROOM_CATEGORY = 3896;
     public static CUSTOM_USER_NOTIFICATION = 909;
+    public static NEW_USER_EXPERIENCE_GIFT_OFFER = 3575;
 }

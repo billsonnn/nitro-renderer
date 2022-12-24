@@ -136,6 +136,7 @@ export class OutgoingHeader
     public static PET_RESPECT = 3202;
     public static PET_RIDE = 1036;
     public static PET_MOVE = 3449;
+    public static GET_PET_TRAINING_PANEL = 2161;
     public static RECYCLER_PRIZES = 398;
     public static RELEASE_VERSION = 4000;
     public static CALL_FOR_HELP = 1691;
@@ -432,4 +433,5 @@ export class OutgoingHeader
     public static COMPOST_PLANT = 3835;
     public static HARVEST_PET = 1521;
     public static GROUP_UNFAVORITE = 1820;
+    public static NEW_USER_EXPERIENCE_GET_GIFTS = 1822;
 }

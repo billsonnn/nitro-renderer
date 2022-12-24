@@ -8,12 +8,12 @@ export class RoomSessionPetLevelUpdateEvent extends RoomSessionEvent
     private _petId: number;
     private _level: number;
 
-    constructor(k: IRoomSession, _arg_2: number, _arg_3: number)
+    constructor(session: IRoomSession, petId: number, level: number)
     {
-        super(RoomSessionPetLevelUpdateEvent.PET_LEVEL_UPDATE, k);
+        super(RoomSessionPetLevelUpdateEvent.PET_LEVEL_UPDATE, session);
 
-        this._petId = _arg_2;
-        this._level = _arg_3;
+        this._petId = petId;
+        this._level = level;
     }
 
     public get petId(): number

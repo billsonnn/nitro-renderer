@@ -1,5 +1,6 @@
 export * from './GetExtendedProfileByNameMessageComposer';
 export * from './GetIgnoredUsersComposer';
+export * from './GetUserTagsComposer';
 export * from './IgnoreUserComposer';
 export * from './IgnoreUserIdComposer';
 export * from './UnignoreUserComposer';
