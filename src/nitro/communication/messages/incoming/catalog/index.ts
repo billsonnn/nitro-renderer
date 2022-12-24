@@ -10,6 +10,7 @@ export * from './CatalogPublishedMessageEvent';
 export * from './ClubGiftInfoEvent';
 export * from './ClubGiftSelectedEvent';
 export * from './DirectSMSClubBuyAvailableMessageEvent';
+export * from './FireworkChargeDataEvent';
 export * from './GiftReceiverNotFoundEvent';
 export * from './GiftWrappingConfigurationEvent';
 export * from './HabboClubExtendOfferMessageEvent';
