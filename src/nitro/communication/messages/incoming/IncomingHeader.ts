@@ -312,6 +312,7 @@ export class IncomingHeader
     public static CAMERA_PUBLISH_STATUS = 2057;
     public static CAMERA_PURCHASE_OK = 2783;
     public static CAMERA_STORAGE_URL = 3696;
+    public static CAMERA_SNAPSHOT = 463;
     public static COMPETITION_STATUS = 133;
     public static INIT_CAMERA = 3878;
     public static THUMBNAIL_STATUS = 3595;
