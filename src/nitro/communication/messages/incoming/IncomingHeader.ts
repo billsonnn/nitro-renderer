@@ -414,4 +414,7 @@ export class IncomingHeader
     public static SHOW_ENFORCE_ROOM_CATEGORY = 3896;
     public static CUSTOM_USER_NOTIFICATION = 909;
     public static NEW_USER_EXPERIENCE_GIFT_OFFER = 3575;
+    public static PHONE_COLLECTION_STATE = 2890;
+    public static PHONE_TRY_NUMBER_RESULT = 800;
+    public static PHONE_TRY_VERIFICATION_CODE_RESULT = 91;
 }
