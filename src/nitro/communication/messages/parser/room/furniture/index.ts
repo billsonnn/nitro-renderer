@@ -10,6 +10,7 @@ export * from './LoveLockFurniFinishedParser';
 export * from './LoveLockFurniFriendConfirmedParser';
 export * from './LoveLockFurniStartParser';
 export * from './OneWayDoorStatusMessageParser';
+export * from './RentableSpaceStatusMessageParser';
 export * from './RequestSpamWallPostItMessageParser';
 export * from './RoomDimmerPresetsMessageData';
 export * from './RoomDimmerPresetsMessageParser';
