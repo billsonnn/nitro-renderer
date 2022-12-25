@@ -10,6 +10,7 @@ export * from './LoveLockFurniFinishedEvent';
 export * from './LoveLockFurniFriendConfirmedEvent';
 export * from './LoveLockFurniStartEvent';
 export * from './OneWayDoorStatusMessageEvent';
+export * from './RentableSpaceRentFailedMessageEvent';
 export * from './RequestSpamWallPostItMessageEvent';
 export * from './RoomDimmerPresetsMessageEvent';
 export * from './wall';
