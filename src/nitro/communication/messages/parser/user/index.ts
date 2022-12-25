@@ -1,5 +1,6 @@
 export * from './access';
 export * from './ApproveNameResultParser';
+export * from './ChangeEmailResultParser';
 export * from './data';
 export * from './GuildMembershipsMessageParser';
 export * from './HabboGroupBadgesMessageParser';
