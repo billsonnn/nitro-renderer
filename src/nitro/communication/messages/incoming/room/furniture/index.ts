@@ -1,6 +1,7 @@
 export * from './CustomUserNotificationMessageEvent';
 export * from './DiceValueMessageEvent';
 export * from './floor';
+export * from './FurniRentOrBuyoutOfferMessageEvent';
 export * from './FurnitureAliasesEvent';
 export * from './FurnitureDataEvent';
 export * from './FurnitureStackHeightEvent';

@@ -414,4 +414,5 @@ export class IncomingHeader
     public static SHOW_ENFORCE_ROOM_CATEGORY = 3896;
     public static CUSTOM_USER_NOTIFICATION = 909;
     public static NEW_USER_EXPERIENCE_GIFT_OFFER = 3575;
+    public static RENTABLE_FURNI_RENT_OR_BUYOUT_OFFER = 35;
 }

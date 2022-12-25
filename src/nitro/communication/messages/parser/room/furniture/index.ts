@@ -1,6 +1,7 @@
 export * from './CustomUserNotificationMessageParser';
 export * from './DiceValueMessageParser';
 export * from './floor';
+export * from './FurniRentOrBuyoutOfferMessageParser';
 export * from './FurnitureAliasesParser';
 export * from './FurnitureDataParser';
 export * from './FurnitureStackHeightParser';
