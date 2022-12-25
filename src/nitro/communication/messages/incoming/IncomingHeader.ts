@@ -228,6 +228,7 @@ export class IncomingHeader
     public static USER_INFO = 2725;
     public static USER_OUTFITS = 3315;
     public static USER_PERKS = 2586;
+    public static PERK_CITIZENSHIP_VIP_OFFER_PROMO_ENABLED = 2278;
     public static USER_PERMISSIONS = 411;
     public static USER_PET_ADD = 2101;
     public static USER_PET_REMOVE = 3253;
