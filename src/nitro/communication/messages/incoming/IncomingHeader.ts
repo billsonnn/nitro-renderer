@@ -277,6 +277,7 @@ export class IncomingHeader
     public static REDEEM_VOUCHER_OK = 3336;
     public static IN_CLIENT_LINK = 2023;
     public static BOT_COMMAND_CONFIGURATION = 1618;
+    public static BOT_SKILL_LIST_UPDATE = 69;
     public static HAND_ITEM_RECEIVED = 354;
     public static PET_PLACING_ERROR = 2913;
     public static BOT_ERROR = 639;
