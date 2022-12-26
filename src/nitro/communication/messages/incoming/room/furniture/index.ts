@@ -1,3 +1,4 @@
+export * from './CustomStackingHeightUpdateMessageEvent';
 export * from './CustomUserNotificationMessageEvent';
 export * from './DiceValueMessageEvent';
 export * from './floor';

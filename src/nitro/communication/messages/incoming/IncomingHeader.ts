@@ -423,6 +423,7 @@ export class IncomingHeader
     public static ROOM_SETTINGS_ERROR = 2897;
     public static SHOW_ENFORCE_ROOM_CATEGORY = 3896;
     public static CUSTOM_USER_NOTIFICATION = 909;
+    public static CUSTOM_STACKING_HEIGHT_UPDATE = 0x0B00;
     public static NEW_USER_EXPERIENCE_GIFT_OFFER = 3575;
     public static CONNECTION_ERROR = 1004;
     public static ACCOUNT_SAFETY_LOCK_STATUS_CHANGE = 1243;

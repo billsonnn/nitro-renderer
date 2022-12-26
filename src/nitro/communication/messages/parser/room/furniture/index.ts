@@ -1,3 +1,4 @@
+export * from './CustomStackingHeightUpdateMessageParser';
 export * from './CustomUserNotificationMessageParser';
 export * from './DiceValueMessageParser';
 export * from './floor';
