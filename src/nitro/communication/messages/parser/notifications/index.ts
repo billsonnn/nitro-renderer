@@ -3,6 +3,7 @@ export * from './AchievementNotificationMessageParser';
 export * from './ActivityPointNotificationParser';
 export * from './BotErrorEventParser';
 export * from './ClubGiftNotificationParser';
+export * from './ConnectionErrorMessageParser';
 export * from './HabboBroadcastMessageParser';
 export * from './HotelWillShutdownParser';
 export * from './InfoFeedEnableMessageParser';
