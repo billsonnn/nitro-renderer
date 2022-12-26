@@ -9,6 +9,7 @@ export * from './FurniturePlacePaintComposer';
 export * from './FurniturePostItPlaceComposer';
 export * from './logic';
 export * from './mannequin';
+export * from './OpenPetPackageMessageComposer';
 export * from './presents';
 export * from './toner';
 export * from './wall';
