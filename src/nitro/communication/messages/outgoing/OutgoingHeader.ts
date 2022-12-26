@@ -136,6 +136,7 @@ export class OutgoingHeader
     public static PET_RESPECT = 3202;
     public static PET_RIDE = 1036;
     public static PET_MOVE = 3449;
+    public static PET_OPEN_PACKAGE = 3698;
     public static GET_PET_TRAINING_PANEL = 2161;
     public static RECYCLER_PRIZES = 398;
     public static RELEASE_VERSION = 4000;

@@ -10,6 +10,7 @@ export * from './FurniturePostItPlaceComposer';
 export * from './logic';
 export * from './mannequin';
 export * from './OpenMysteryTrophyMessageComposer';
+export * from './OpenPetPackageMessageComposer';
 export * from './presents';
 export * from './toner';
 export * from './wall';
