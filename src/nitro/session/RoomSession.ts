@@ -1,7 +1,7 @@
 import { IConnection, IRoomSession, RoomControllerLevel, RoomTradingLevelEnum } from '../../api';
 import { Disposable } from '../../core';
 import { RoomSessionEvent } from '../../events';
-import { BotRemoveComposer, CompostPlantMessageComposer, FurnitureMultiStateComposer, GetPetCommandsComposer, HarvestPetMessageComposer, MoodlightSettingsComposer, MoodlightSettingsSaveComposer, MoodlightTogggleStateComposer, OpenPresentComposer, PetMountComposer, PetRemoveComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, RoomAmbassadorAlertComposer, RoomBanUserComposer, RoomDoorbellAccessComposer, RoomEnterComposer, RoomGiveRightsComposer, RoomKickUserComposer, RoomModerationSettings, RoomMuteUserComposer, RoomTakeRightsComposer, RoomUnitActionComposer, RoomUnitChatComposer, RoomUnitChatShoutComposer, RoomUnitChatWhisperComposer, RoomUnitDanceComposer, RoomUnitPostureComposer, RoomUnitSignComposer, RoomUnitTypingStartComposer, RoomUnitTypingStopComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer, UserMottoComposer } from '../communication';
+import { BotRemoveComposer, ChangeQueueMessageComposer, CompostPlantMessageComposer, FurnitureMultiStateComposer, GetPetCommandsComposer, HarvestPetMessageComposer, MoodlightSettingsComposer, MoodlightSettingsSaveComposer, MoodlightTogggleStateComposer, OpenPresentComposer, PetMountComposer, PetRemoveComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, RoomAmbassadorAlertComposer, RoomBanUserComposer, RoomDoorbellAccessComposer, RoomEnterComposer, RoomGiveRightsComposer, RoomKickUserComposer, RoomModerationSettings, RoomMuteUserComposer, RoomTakeRightsComposer, RoomUnitActionComposer, RoomUnitChatComposer, RoomUnitChatShoutComposer, RoomUnitChatWhisperComposer, RoomUnitDanceComposer, RoomUnitPostureComposer, RoomUnitSignComposer, RoomUnitTypingStartComposer, RoomUnitTypingStopComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer, UserMottoComposer } from '../communication';
 import { UserDataManager } from './UserDataManager';
 
 export class RoomSession extends Disposable implements IRoomSession
@@ -299,6 +299,13 @@ export class RoomSession extends Disposable implements IRoomSession
     public requestPetCommands(id: number):void
     {
         this._connection.send(new GetPetCommandsComposer(id));
+    }
+
+    public changeQueue(targetQueue: number): void
+    {
+        if(!this._connection) return;
+
+        this._connection.send(new ChangeQueueMessageComposer(targetQueue));
     }
 
     public get connection(): IConnection

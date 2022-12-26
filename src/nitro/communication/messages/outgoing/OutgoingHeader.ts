@@ -396,6 +396,7 @@ export class OutgoingHeader
     public static GET_YOUTUBE_DISPLAY_STATUS = 336;
     public static SET_YOUTUBE_DISPLAY_PLAYLIST = 2069;
     public static GO_TO_FLAT = 685;
+    public static CHANGE_QUEUE = 3093;
     public static CALL_FOR_HELP_FROM_FORUM_MESSAGE = 1412;
     public static CALL_FOR_HELP_FROM_FORUM_THREAD = 534;
     public static CALL_FOR_HELP_FROM_IM = 2950;
