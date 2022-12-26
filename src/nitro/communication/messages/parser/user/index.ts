@@ -4,6 +4,7 @@ export * from './data';
 export * from './GroupDetailsChangedMessageParser';
 export * from './GroupMembershipRequestedMessageParser';
 export * from './GuildEditFailedMessageParser';
+export * from './GuildMemberMgmtFailedMessageParser';
 export * from './GuildMembershipsMessageParser';
 export * from './HabboGroupBadgesMessageParser';
 export * from './HabboGroupEntryData';
