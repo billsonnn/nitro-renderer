@@ -249,6 +249,7 @@ export class OutgoingHeader
     public static GET_WARDROBE = 2742;
     public static SAVE_WARDROBE_OUTFIT = 800;
     public static USER_TAGS = 17;
+    public static USER_CLASSIFICATION = 2285;
     public static VISIT_USER = 2970;
     public static WIRED_ACTION_SAVE = 2281;
     public static WIRED_APPLY_SNAPSHOT = 3373;
