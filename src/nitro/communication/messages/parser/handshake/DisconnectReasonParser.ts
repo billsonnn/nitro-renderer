@@ -15,6 +15,8 @@ export class DisconnectReasonParser implements IMessageParser
     {
         if(!wrapper) return false;
 
+        this._reason = 0;
+
         if(wrapper.bytesAvailable)
         {
             this._reason = wrapper.readInt();
