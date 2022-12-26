@@ -45,6 +45,7 @@ export * from './room';
 export * from './room/access';
 export * from './room/access/doorbell';
 export * from './room/access/rights';
+export * from './room/action';
 export * from './room/bots';
 export * from './room/data';
 export * from './room/engine';
