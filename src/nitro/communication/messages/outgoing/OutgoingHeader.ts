@@ -423,6 +423,7 @@ export class OutgoingHeader
     public static GUIDE_SESSION_REPORT = 3969;
     public static GUIDE_SESSION_REQUESTER_CANCELS = 291;
     public static GUIDE_SESSION_RESOLVED = 887;
+    public static GUIDE_ADVERTISEMENT_READ = 2455;
     public static POST_QUIZ_ANSWERS = 3720;
     public static SEARCH_FAQS = 2031;
     public static POLL_ANSWER = 3505;
