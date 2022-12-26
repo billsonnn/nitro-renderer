@@ -174,6 +174,7 @@ export class IncomingHeader
     public static ROOM_SPECTATOR = 1033;
     public static ROOM_THICKNESS = 3547;
     public static ROOM_GET_FILTER_WORDS = 2937;
+    public static ROOM_MESSAGE_NOTIFICATION = 1634;
     public static INFO_FEED_ENABLE = 3284;
     public static SECURITY_MACHINE = 1488;
     public static MYSTERY_BOX_KEYS = 2833;
