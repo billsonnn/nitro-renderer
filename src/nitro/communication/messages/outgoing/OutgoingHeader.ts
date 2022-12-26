@@ -434,4 +434,6 @@ export class OutgoingHeader
     public static HARVEST_PET = 1521;
     public static GROUP_UNFAVORITE = 1820;
     public static NEW_USER_EXPERIENCE_GET_GIFTS = 1822;
+    public static WELCOME_OPEN_GIFT = 2638;
+    public static WELCOME_GIFT_CHANGE_EMAIL = 66;
 }
