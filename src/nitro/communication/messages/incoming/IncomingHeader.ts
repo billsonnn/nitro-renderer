@@ -73,6 +73,7 @@ export class IncomingHeader
     public static GROUP_BADGE_PARTS = 2238;
     public static GROUP_MEMBERSHIP_REQUESTED = 1180;
     public static GROUP_DETAILS_CHANGED = 1459;
+    public static GROUP_HABBO_JOIN_FAILED = 762;
     public static ITEM_DIMMER_SETTINGS = 2710;
     public static ITEM_STACK_HELPER = 2816;
     public static ITEM_WALL = 1369;

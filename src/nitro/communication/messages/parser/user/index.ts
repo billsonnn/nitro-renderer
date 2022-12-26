@@ -6,6 +6,7 @@ export * from './GroupMembershipRequestedMessageParser';
 export * from './GuildMembershipsMessageParser';
 export * from './HabboGroupBadgesMessageParser';
 export * from './HabboGroupEntryData';
+export * from './HabboGroupJoinFailedMessageParser';
 export * from './IgnoredUsersParser';
 export * from './IgnoreResultParser';
 export * from './InClientLinkParser';

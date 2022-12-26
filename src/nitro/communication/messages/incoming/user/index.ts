@@ -5,6 +5,7 @@ export * from './GroupDetailsChangedMessageEvent';
 export * from './GroupMembershipRequestedMessageEvent';
 export * from './GuildMembershipsMessageEvent';
 export * from './HabboGroupBadgesMessageEvent';
+export * from './HabboGroupJoinFailedMessageEvent';
 export * from './IgnoredUsersEvent';
 export * from './IgnoreResultEvent';
 export * from './InClientLinkEvent';
