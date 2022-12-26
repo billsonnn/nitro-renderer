@@ -432,6 +432,7 @@ export class OutgoingHeader
     public static SCR_GET_KICKBACK_INFO = 869;
     public static COMPOST_PLANT = 3835;
     public static HARVEST_PET = 1521;
+    public static SET_CLOTHING_CHANGE_DATA = 924;
     public static GROUP_UNFAVORITE = 1820;
     public static NEW_USER_EXPERIENCE_GET_GIFTS = 1822;
 }
