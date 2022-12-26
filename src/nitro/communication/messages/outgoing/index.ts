@@ -37,6 +37,7 @@ export * from './OutgoingHeader';
 export * from './pet';
 export * from './poll';
 export * from './quest';
+export * from './recycler';
 export * from './room';
 export * from './room/access';
 export * from './room/action';
