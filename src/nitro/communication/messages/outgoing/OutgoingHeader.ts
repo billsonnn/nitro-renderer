@@ -220,6 +220,7 @@ export class OutgoingHeader
     public static UNIT_SIGN = 1975;
     public static UNIT_TYPING = 1597;
     public static UNIT_TYPING_STOP = 1474;
+    public static WHISPER_GROUP = 1118;
     public static UNIT_WALK = 3320;
     public static USER_BADGES = 2769;
     public static USER_BADGES_CURRENT = 2091;

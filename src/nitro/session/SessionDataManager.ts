@@ -2,7 +2,7 @@ import { Resource, Texture } from '@pixi/core';
 import { GetAssetManager, IFurnitureData, IFurnitureDataListener, IGroupInformationManager, IMessageComposer, INitroCommunicationManager, INitroEvent, IProductData, IProductDataListener, ISessionDataManager, NitroConfiguration, NoobnessLevelEnum, SecurityLevel } from '../../api';
 import { NitroManager } from '../../core';
 import { MysteryBoxKeysUpdateEvent, NitroSettingsEvent, SessionDataPreferencesEvent, UserNameUpdateEvent } from '../../events';
-import { AccountSafetyLockStatusChangeMessageEvent, AccountSafetyLockStatusChangeParser, AvailabilityStatusMessageEvent, ChangeUserNameResultMessageEvent, FigureUpdateEvent, GetUserTagsComposer, InClientLinkEvent, MysteryBoxKeysEvent, NoobnessLevelMessageEvent, PetRespectComposer, PetScratchFailedMessageEvent, RoomReadyMessageEvent, RoomUnitChatComposer, UserInfoEvent, UserNameChangeMessageEvent, UserPermissionsEvent, UserRespectComposer, UserTagsMessageEvent } from '../communication';
+import { AccountSafetyLockStatusChangeMessageEvent, AccountSafetyLockStatusChangeParser, AvailabilityStatusMessageEvent, ChangeUserNameResultMessageEvent, FigureUpdateEvent, GetUserTagsComposer, InClientLinkEvent, MysteryBoxKeysEvent, NoobnessLevelMessageEvent, PetRespectComposer, PetScratchFailedMessageEvent, RoomReadyMessageEvent, RoomUnitChatComposer, UserInfoEvent, UserNameChangeMessageEvent, UserPermissionsEvent, UserRespectComposer, UserTagsMessageEvent, WhiperGroupComposer } from '../communication';
 import { Nitro } from '../Nitro';
 import { HabboWebTools } from '../utils/HabboWebTools';
 import { BadgeImageManager } from './badge/BadgeImageManager';
@@ -561,6 +561,11 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     public sendSpecialCommandMessage(text: string, styleId: number = 0): void
     {
         this.send(new RoomUnitChatComposer(text));
+    }
+
+    public whiperGroup(name: string): void
+    {
+        this.send(new WhiperGroupComposer(name));
     }
 
     public ignoreUser(name: string): void
