@@ -11,4 +11,5 @@ export * from './MOTDNotificationParser';
 export * from './NotificationDialogMessageParser';
 export * from './PetLevelNotificationParser';
 export * from './PetPlacingErrorEventParser';
+export * from './SimpleAlertMessageParser';
 export * from './UnseenItemsParser';
