@@ -434,4 +434,7 @@ export class OutgoingHeader
     public static HARVEST_PET = 1521;
     public static GROUP_UNFAVORITE = 1820;
     public static NEW_USER_EXPERIENCE_GET_GIFTS = 1822;
+    public static RENTABLE_SPACE_CANCEL_RENT = 1667;
+    public static RENTABLE_SPACE_RENT = 2946;
+    public static RENTABLE_SPACE_STATUS = 872;
 }
