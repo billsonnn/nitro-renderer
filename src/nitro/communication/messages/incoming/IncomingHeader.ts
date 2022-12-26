@@ -191,6 +191,7 @@ export class IncomingHeader
     public static TRADE_OPEN_FAILED = 217;
     public static TRADE_OTHER_NOT_ALLOWED = 1254;
     public static TRADE_YOU_NOT_ALLOWED = 3058;
+    public static TRADE_NO_SUCH_ITEM = 2873;
     public static UNIT = 374;
     public static UNIT_CHANGE_NAME = 2182;
     public static UNIT_CHAT = 1446;
