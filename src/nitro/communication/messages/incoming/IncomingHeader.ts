@@ -367,6 +367,7 @@ export class IncomingHeader
     public static BADGE_REQUEST_FULFILLED = 2998;
     public static HELPER_TALENT_TRACK = 3406;
     public static TALENT_TRACK_LEVEL = 1203;
+    public static TALENT_TRACK_LEVEL_UP = 638;
     public static USER_BANNED = 1683;
     public static BOT_RECEIVED = 3684;
     public static PET_LEVEL_NOTIFICATION = 859;
