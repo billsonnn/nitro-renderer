@@ -434,4 +434,7 @@ export class OutgoingHeader
     public static HARVEST_PET = 1521;
     public static GROUP_UNFAVORITE = 1820;
     public static NEW_USER_EXPERIENCE_GET_GIFTS = 1822;
+    public static RENTABLE_EXTEND_RENT_OR_BUYOUT_STRIP_ITEM = 2115;
+    public static RENTABLE_EXTEND_RENT_OR_BUYOUT_FURNI = 1071;
+    public static RENTABLE_GET_RENT_OR_BUYOUT_OFFER = 2518;
 }
