@@ -75,6 +75,7 @@ export class IncomingHeader
     public static GROUP_DETAILS_CHANGED = 1459;
     public static GROUP_HABBO_JOIN_FAILED = 762;
     public static GUILD_EDIT_FAILED = 3988;
+    public static GUILD_MEMBER_MGMT_FAILED = 818;
     public static ITEM_DIMMER_SETTINGS = 2710;
     public static ITEM_STACK_HELPER = 2816;
     public static ITEM_WALL = 1369;
