@@ -2,6 +2,7 @@ export * from './access';
 export * from './AccountSafetyLockStatusChangeMessageEvent';
 export * from './ApproveNameMessageEvent';
 export * from './data';
+export * from './ExtendedProfileChangedMessageEvent';
 export * from './GroupDetailsChangedMessageEvent';
 export * from './GroupMembershipRequestedMessageEvent';
 export * from './GuildEditFailedMessageEvent';

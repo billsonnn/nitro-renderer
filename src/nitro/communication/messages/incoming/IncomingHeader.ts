@@ -430,4 +430,5 @@ export class IncomingHeader
     public static PHONE_COLLECTION_STATE = 2890;
     public static PHONE_TRY_NUMBER_RESULT = 800;
     public static PHONE_TRY_VERIFICATION_CODE_RESULT = 91;
+    public static EXTENDED_PROFILE_CHANGED = 876;
 }
