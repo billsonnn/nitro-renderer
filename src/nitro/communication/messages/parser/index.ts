@@ -16,6 +16,7 @@ export * from './game/directory';
 export * from './game/lobby';
 export * from './game/score';
 export * from './generic';
+export * from './gifts';
 export * from './group';
 export * from './group/utils';
 export * from './groupforums';
