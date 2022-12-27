@@ -71,6 +71,11 @@ export class IncomingHeader
     public static GROUP_PURCHASED = 2808;
     public static GROUP_SETTINGS = 3965;
     public static GROUP_BADGE_PARTS = 2238;
+    public static GROUP_MEMBERSHIP_REQUESTED = 1180;
+    public static GROUP_DETAILS_CHANGED = 1459;
+    public static GROUP_HABBO_JOIN_FAILED = 762;
+    public static GUILD_EDIT_FAILED = 3988;
+    public static GUILD_MEMBER_MGMT_FAILED = 818;
     public static ITEM_DIMMER_SETTINGS = 2710;
     public static ITEM_STACK_HELPER = 2816;
     public static ITEM_WALL = 1369;
@@ -117,6 +122,7 @@ export class IncomingHeader
     public static CONVERTED_ROOM_ID = 1331;
     public static GUEST_ROOM_SEARCH_RESULT = 52;
     public static NOTIFICATION_LIST = 1992;
+    public static NOTIFICATION_SIMPLE_ALERT = 5100;
     public static PET_FIGURE_UPDATE = 1924;
     public static PET_INFO = 2901;
     public static PET_TRAINING_PANEL = 1164;
@@ -168,6 +174,8 @@ export class IncomingHeader
     public static ROOM_SPECTATOR = 1033;
     public static ROOM_THICKNESS = 3547;
     public static ROOM_GET_FILTER_WORDS = 2937;
+    public static ROOM_MESSAGE_NOTIFICATION = 1634;
+    public static ROOM_POPULAR_TAGS_RESULT = 2012;
     public static INFO_FEED_ENABLE = 3284;
     public static SECURITY_MACHINE = 1488;
     public static MYSTERY_BOX_KEYS = 2833;
@@ -182,8 +190,9 @@ export class IncomingHeader
     public static TRADE_NOT_OPEN = 3128;
     public static TRADE_OPEN = 2505;
     public static TRADE_OPEN_FAILED = 217;
-    public static TRADE_OTHER_NOT_ALLOWED = 2154;
+    public static TRADE_OTHER_NOT_ALLOWED = 1254;
     public static TRADE_YOU_NOT_ALLOWED = 3058;
+    public static TRADE_NO_SUCH_ITEM = 2873;
     public static UNIT = 374;
     public static UNIT_CHANGE_NAME = 2182;
     public static UNIT_CHAT = 1446;
@@ -277,6 +286,8 @@ export class IncomingHeader
     public static REDEEM_VOUCHER_OK = 3336;
     public static IN_CLIENT_LINK = 2023;
     public static BOT_COMMAND_CONFIGURATION = 1618;
+    public static BOT_SKILL_LIST_UPDATE = 69;
+    public static BOT_FORCE_OPEN_CONTEXT_MENU = 296;
     public static HAND_ITEM_RECEIVED = 354;
     public static PET_PLACING_ERROR = 2913;
     public static BOT_ERROR = 639;
@@ -361,6 +372,8 @@ export class IncomingHeader
     public static BADGE_POINT_LIMITS = 2501;
     public static BADGE_REQUEST_FULFILLED = 2998;
     public static HELPER_TALENT_TRACK = 3406;
+    public static TALENT_TRACK_LEVEL = 1203;
+    public static TALENT_TRACK_LEVEL_UP = 638;
     public static USER_BANNED = 1683;
     public static BOT_RECEIVED = 3684;
     public static PET_LEVEL_NOTIFICATION = 859;
@@ -407,6 +420,7 @@ export class IncomingHeader
     public static PET_RESPECTED = 2788;
     public static PET_SUPPLEMENT = 3441;
     public static NOOBNESS_LEVEL = 3738;
+    public static DISCONNECT_REASON = 4000;
     public static CAN_CREATE_ROOM_EVENT = 2599;
     public static FAVORITE_GROUP_UDPATE = 3403;
     public static NO_SUCH_FLAT = 84;
@@ -414,4 +428,14 @@ export class IncomingHeader
     public static SHOW_ENFORCE_ROOM_CATEGORY = 3896;
     public static CUSTOM_USER_NOTIFICATION = 909;
     public static NEW_USER_EXPERIENCE_GIFT_OFFER = 3575;
+    public static CONNECTION_ERROR = 1004;
+    public static ACCOUNT_SAFETY_LOCK_STATUS_CHANGE = 1243;
+    public static PHONE_COLLECTION_STATE = 2890;
+    public static PHONE_TRY_NUMBER_RESULT = 800;
+    public static PHONE_TRY_VERIFICATION_CODE_RESULT = 91;
+    public static EXTENDED_PROFILE_CHANGED = 876;
+    public static WELCOME_GIFT_CHANGE_EMAIL_RESULT = 2293;
+    public static WELCOME_GIFT_STATUS = 2707;
+    public static HANDSHAKE_INIT_DIFFIE = 1347;
+    public static HANDSHAKE_COMPLETE_DIFFIE = 3885;
 }

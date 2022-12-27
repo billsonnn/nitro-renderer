@@ -136,6 +136,11 @@ export class OutgoingHeader
     public static PET_RESPECT = 3202;
     public static PET_RIDE = 1036;
     public static PET_MOVE = 3449;
+    public static PET_OPEN_PACKAGE = 3698;
+    public static PET_SELECTED = 549;
+    public static PETS_BREED = 1638;
+    public static PET_CANCEL_BREEDING = 2713;
+    public static PET_CONFIRM_BREEDING = 3382;
     public static GET_PET_TRAINING_PANEL = 2161;
     public static RECYCLER_PRIZES = 398;
     public static RELEASE_VERSION = 4000;
@@ -197,6 +202,7 @@ export class OutgoingHeader
     public static ROOM_FILTER_WORDS = 1911;
     public static ROOM_FILTER_WORDS_MODIFY = 3001;
     public static MYSTERYBOXWAITINGCANCELEDMESSAGE = 2012;
+    public static MYSTERYBOX_OPEN_TROPHY = 3074;
     public static SECURITY_MACHINE = 2490;
     public static SECURITY_TICKET = 2419;
     public static TRADE = 1481;
@@ -434,4 +440,10 @@ export class OutgoingHeader
     public static HARVEST_PET = 1521;
     public static GROUP_UNFAVORITE = 1820;
     public static NEW_USER_EXPERIENCE_GET_GIFTS = 1822;
+    public static HANDSHAKE_INIT_DIFFIE = 3110;
+    public static HANDSHAKE_COMPLETE_DIFFIE = 773;
+    public static WELCOME_OPEN_GIFT = 2638;
+    public static WELCOME_GIFT_CHANGE_EMAIL = 66;
+    public static EMAIL_GET_STATUS = 2557;
+    public static EMAIL_CHANGE = 3965;
 }
