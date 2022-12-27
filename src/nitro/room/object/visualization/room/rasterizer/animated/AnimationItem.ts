@@ -45,8 +45,8 @@ export class AnimationItem
 
         if(dimensionY > 0) y = (y + (((this._speedY / dimensionY) * timeSinceStartMs) / 1000));
 
-        const _local_8 = ((x % 1) * maxX);
-        const _local_9 = ((y % 1) * maxY);
+        const _local_8 = Math.trunc((x % 1) * maxX);
+        const _local_9 = Math.trunc((y % 1) * maxY);
 
         return new Point(_local_8, _local_9);
     }

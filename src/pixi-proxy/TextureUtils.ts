@@ -1,16 +1,18 @@
-import { SCALE_MODES } from '@pixi/constants';
 import { AbstractRenderer, Renderer, RenderTexture, Resource, Texture } from '@pixi/core';
 import { DisplayObject } from '@pixi/display';
 import { Extract } from '@pixi/extract';
-import { Rectangle } from '@pixi/math';
+import { Matrix, Rectangle } from '@pixi/math';
+import { settings } from '@pixi/settings';
 import { Sprite } from '@pixi/sprite';
 import { PixiApplicationProxy } from './PixiApplicationProxy';
 
 export class TextureUtils
 {
-    public static generateTexture(displayObject: DisplayObject, region: Rectangle = null, scaleMode: number = SCALE_MODES.NEAREST, resolution: number = 1): RenderTexture
+    public static generateTexture(displayObject: DisplayObject, region: Rectangle = null, scaleMode: number = null, resolution: number = 1): RenderTexture
     {
         if(!displayObject) return null;
+
+        if(scaleMode === null) scaleMode = settings.SCALE_MODE;
 
         return this.getRenderer().generateTexture(displayObject, {
             scaleMode,
@@ -85,13 +87,14 @@ export class TextureUtils
         return this.writeToRenderTexture(sprite, renderTexture);
     }
 
-    public static writeToRenderTexture(displayObject: DisplayObject, renderTexture: RenderTexture, clear: boolean = true): RenderTexture
+    public static writeToRenderTexture(displayObject: DisplayObject, renderTexture: RenderTexture, clear: boolean = true, transform: Matrix = null): RenderTexture
     {
         if(!displayObject || !renderTexture) return null;
 
         this.getRenderer().render(displayObject, {
             renderTexture,
-            clear
+            clear,
+            transform
         });
 
         return renderTexture;

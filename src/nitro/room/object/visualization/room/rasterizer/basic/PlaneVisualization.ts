@@ -164,7 +164,7 @@ export class PlaneVisualization
                 {
                     if(canvas)
                     {
-                        TextureUtils.writeToRenderTexture(new Sprite(this._cachedBitmapData), canvas, false);
+                        TextureUtils.writeToRenderTexture(new Sprite(this._cachedBitmapData), canvas, true);
 
                         return canvas;
                     }
@@ -174,6 +174,7 @@ export class PlaneVisualization
             }
             else
             {
+                this._cachedBitmapData.destroy();
                 this._cachedBitmapData = null;
             }
         }
@@ -182,7 +183,10 @@ export class PlaneVisualization
 
         if(!this._cachedBitmapData)
         {
-            this._cachedBitmapData = this._texturePool.get(`${width}:${height}`);
+            // hereeee
+            this._cachedBitmapData = TextureUtils.createAndFillRenderTexture(width, height);
+
+            /* this._cachedBitmapData = this._texturePool.get(`${width}:${height}`);
 
             if(!this._cachedBitmapData)
             {
@@ -193,7 +197,7 @@ export class PlaneVisualization
             else
             {
                 TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
-            }
+            } */
         }
         else
         {

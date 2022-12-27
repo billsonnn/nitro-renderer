@@ -87,9 +87,9 @@ export class Nitro implements INitro
 
         const instance = new this(new NitroCore(), {
             autoDensity: false,
-            resolution: window.devicePixelRatio,
             width: window.innerWidth,
             height: window.innerHeight,
+            resolution: window.devicePixelRatio,
             view: canvas
         });
 

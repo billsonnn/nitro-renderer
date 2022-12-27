@@ -1,11 +1,13 @@
-import { RenderTexture, Resource, Texture } from '@pixi/core';
+import { MIPMAP_MODES, SCALE_MODES } from '@pixi/constants';
+import { Renderer, RenderTexture, Resource, Texture } from '@pixi/core';
 import { Matrix, Point } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
 import { IRoomGeometry, IRoomPlane, IVector3D, Vector3d } from '../../../../../api';
-import { TextureUtils } from '../../../../../pixi-proxy';
+import { PixiApplicationProxy, TextureUtils } from '../../../../../pixi-proxy';
+import { ColorConverter } from '../../../../../room';
 import { PlaneMaskManager } from './mask';
 import { PlaneDrawingData } from './PlaneDrawingData';
-import { IPlaneRasterizer, PlaneVisualizationLayer } from './rasterizer';
+import { IPlaneRasterizer } from './rasterizer';
 import { RoomPlaneBitmapMask } from './RoomPlaneBitmapMask';
 import { RoomPlaneRectangleMask } from './RoomPlaneRectangleMask';
 import { PlaneBitmapData, Randomizer } from './utils';
@@ -126,10 +128,9 @@ export class RoomPlane implements IRoomPlane
         this._uniqueId = ++RoomPlane._uniqueIdCounter;
     }
 
-    private static blend(k: number, _arg_2: number): number
+    private static blend(a: number, b: number): number
     {
-        return 0;
-        //return Canvas.colorize(_arg_2, (k | 0xFF000000)) & 0xFFFFFF;
+        return ColorConverter.colorize(b, (a | 0xFF000000)) & 0xFFFFFF;
     }
 
     public set canBeVisible(k: boolean)
@@ -478,54 +479,43 @@ export class RoomPlane implements IRoomPlane
             const maskData = this.resolveMasks(geometry);
             const layers = this._rasterizer.getLayers(this._id);
 
-            let i = 0;
-
-            while(i < layers.length)
+            for(const layer of layers)
             {
-                const layer = (layers[i] as PlaneVisualizationLayer);
-
-                if(layer)
+                if(this._hasTexture && layer.getMaterial())
                 {
-                    if(this._hasTexture && layer.getMaterial())
+                    const normal = geometry.getCoordinatePosition(this._normal);
+                    const cellMatrix = layer.getMaterial().getMaterialCellMatrix(normal);
+                    const data = new PlaneDrawingData(maskData, RoomPlane.blend(this._color, layer.getColor()), cellMatrix.isBottomAligned());
+
+                    Randomizer.setSeed(this._randomSeed);
+
+                    for(const column of cellMatrix.getColumns(this.screenWidth(geometry)))
                     {
-                        const normal = geometry.getCoordinatePosition(this._normal);
-                        const cm = layer.getMaterial().getMaterialCellMatrix(normal);
-                        //const data      = new PlaneDrawingData(maskData, blend(this._color, layer.getColor()), cm.isBottomAligned());
-                        const data = new PlaneDrawingData(maskData, this._color, cm.isBottomAligned());
+                        const assetNames: string[] = [];
 
-                        Randomizer.setSeed(this._randomSeed);
-
-                        for(const column of cm.getColumns(this.screenWidth(geometry)))
+                        for(const cell of column.getCells())
                         {
-                            const assetNames: string[] = [];
+                            const name = cell.getAssetName(normal);
 
-                            for(const cell of column.getCells())
-                            {
-                                const name = cell.getAssetName(normal);
-
-                                if(name) assetNames.push(name);
-                            }
-
-                            if(assetNames.length > 0)
-                            {
-                                if(!column.isRepeated()) assetNames.push('');
-
-                                data.addAssetColumn(assetNames);
-                            }
+                            if(name) assetNames.push(name);
                         }
 
-                        if(data.assetNameColumns.length > 0) drawingDatas.push(data);
-                    }
-                    else
-                    {
-                        //data = new PlaneDrawingData(maskData, blend(this._color, layer.getColor()));
-                        const data = new PlaneDrawingData(maskData, this._color);
+                        if(assetNames.length > 0)
+                        {
+                            if(!column.isRepeated()) assetNames.push('');
 
-                        drawingDatas.push(data);
+                            data.addAssetColumn(assetNames);
+                        }
                     }
+
+                    if(data.assetNameColumns.length > 0) drawingDatas.push(data);
                 }
+                else
+                {
+                    const data = new PlaneDrawingData(maskData, RoomPlane.blend(this._color, layer.getColor()));
 
-                i++;
+                    drawingDatas.push(data);
+                }
             }
 
             if(!drawingDatas.length) drawingDatas.push(new PlaneDrawingData(maskData, this._color));
@@ -714,7 +704,7 @@ export class RoomPlane implements IRoomPlane
         this._height = _local_5;
     }
 
-    private renderTexture(k: IRoomGeometry, _arg_2: RenderTexture): void
+    private renderTexture(geometry: IRoomGeometry, _arg_2: RenderTexture): void
     {
         if(((((((this._cornerA == null) || (this._cornerB == null)) || (this._cornerC == null)) || (this._cornerD == null)) || (_arg_2 == null)) || (this._bitmapData == null)))
         {
@@ -724,7 +714,8 @@ export class RoomPlane implements IRoomPlane
         let _local_4: number = (this._cornerD.y - this._cornerC.y);
         let _local_5: number = (this._cornerB.x - this._cornerC.x);
         let _local_6: number = (this._cornerB.y - this._cornerC.y);
-        if(((this._type == RoomPlane.TYPE_WALL) || (this._type == RoomPlane.TYPE_LANDSCAPE)))
+
+        if((this._type === RoomPlane.TYPE_WALL) || (this._type === RoomPlane.TYPE_LANDSCAPE))
         {
             if(Math.abs((_local_5 - _arg_2.width)) <= 1)
             {
@@ -743,15 +734,15 @@ export class RoomPlane implements IRoomPlane
                 _local_4 = _arg_2.height;
             }
         }
-        const _local_7: number = (_local_5 / _arg_2.width);
-        const _local_8: number = (_local_6 / _arg_2.width);
-        const _local_9: number = (_local_3 / _arg_2.height);
-        const _local_10: number = (_local_4 / _arg_2.height);
+        const xScale: number = (_local_5 / _arg_2.width);
+        const ySkew: number = (_local_6 / _arg_2.width);
+        const xSkew: number = (_local_3 / _arg_2.height);
+        const yScale: number = (_local_4 / _arg_2.height);
         const matrix = new Matrix();
-        matrix.a = _local_7;
-        matrix.b = _local_8;
-        matrix.c = _local_9;
-        matrix.d = _local_10;
+        matrix.a = xScale;
+        matrix.b = ySkew;
+        matrix.c = xSkew;
+        matrix.d = yScale;
         matrix.translate(this._cornerC.x, this._cornerC.y);
 
         this.draw(_arg_2, matrix);
@@ -759,11 +750,10 @@ export class RoomPlane implements IRoomPlane
 
     private draw(k: RenderTexture, matrix: Matrix): void
     {
-        const sprite = new Sprite(k);
+        k.baseTexture.mipmap = MIPMAP_MODES.OFF;
+        k.baseTexture.scaleMode = SCALE_MODES.LINEAR;
 
-        sprite.transform.setFromMatrix(matrix);
-
-        TextureUtils.writeToRenderTexture(sprite, this._bitmapData);
+        TextureUtils.writeToRenderTexture(new Sprite(k), this._bitmapData, true, matrix);
     }
 
     public resetBitmapMasks(): void
@@ -979,8 +969,12 @@ export class RoomPlane implements IRoomPlane
             if(!maskRed && !maskGreen && !maskBlue) canvasPixels[i + 3] = 0;
         }
 
-        const texture = Texture.fromBuffer(canvasPixels, canvas.width, canvas.height);
+        const canvaGLTexture = canvas.baseTexture._glTextures['1']?.texture;
+        const gl = (PixiApplicationProxy.instance.renderer as Renderer)?.gl;
 
-        TextureUtils.writeToRenderTexture(new Sprite(texture), canvas);
+        if(!canvaGLTexture || !gl) return;
+
+        gl.bindTexture(gl.TEXTURE_2D, canvaGLTexture);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, canvas.width, canvas.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, canvasPixels);
     }
 }

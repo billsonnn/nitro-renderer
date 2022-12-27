@@ -195,9 +195,6 @@ export class PlaneMaterialCell
 
                         sprite.transform.setFromMatrix(flipMatrix);
 
-                        sprite.x = flipMatrix.tx;
-                        sprite.y = flipMatrix.ty;
-
                         this._cachedSprite.addChild(sprite);
                     }
                 }
