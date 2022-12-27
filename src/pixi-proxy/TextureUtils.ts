@@ -66,20 +66,22 @@ export class TextureUtils
         });
     }
 
-    public static createAndFillRenderTexture(width: number, height: number): RenderTexture
+    public static createAndFillRenderTexture(width: number, height: number, color: number = 16777215): RenderTexture
     {
         if((width < 0) || (height < 0)) return null;
 
         const renderTexture = this.createRenderTexture(width, height);
 
-        return this.clearAndFillRenderTexture(renderTexture);
+        return this.clearAndFillRenderTexture(renderTexture, color);
     }
 
-    public static clearAndFillRenderTexture(renderTexture: RenderTexture): RenderTexture
+    public static clearAndFillRenderTexture(renderTexture: RenderTexture, color: number = 16777215): RenderTexture
     {
         if(!renderTexture) return null;
 
         const sprite = new Sprite(Texture.WHITE);
+
+        sprite.tint = color;
 
         sprite.width = renderTexture.width;
         sprite.height = renderTexture.height;

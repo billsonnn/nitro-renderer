@@ -14,7 +14,7 @@ import { GameMessageHandler } from './game';
 import { INitro } from './INitro';
 import { NitroLocalizationManager } from './localization';
 import './Plugins';
-import { RoomEngine } from './room';
+import { LandscapeRasterizer, RoomEngine } from './room';
 import { RoomSessionManager, SessionDataManager } from './session';
 import { SoundManager } from './sound';
 import { HabboWebTools } from './utils/HabboWebTools';
@@ -202,6 +202,8 @@ export class Nitro implements INitro
         NitroLogger.LOG_ERROR = NitroConfiguration.getValue<boolean>('system.log.error', false);
         NitroLogger.LOG_EVENTS = NitroConfiguration.getValue<boolean>('system.log.events', false);
         NitroLogger.LOG_PACKETS = NitroConfiguration.getValue<boolean>('system.log.packets', false);
+
+        LandscapeRasterizer.LANDSCAPES_ENABLED = NitroConfiguration.getValue<boolean>('room.landscapes.enabled', true);
     }
 
     private onRoomEngineReady(event: RoomEngineEvent): void

@@ -1,5 +1,6 @@
 export { POINT_STRUCT_SIZE } from '@pixi/tilemap';
 export * from './adjustment-filter';
+export * from './CopyChannelFilter';
 export * from './GetTicker';
 export * from './GetTickerFPS';
 export * from './GetTickerTime';

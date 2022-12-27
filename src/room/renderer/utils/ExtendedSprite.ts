@@ -1,8 +1,9 @@
 import { BLEND_MODES } from '@pixi/constants';
-import { BaseTexture, RenderTexture, Resource, Texture } from '@pixi/core';
+import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Point } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
-import { NitroSprite, TextureUtils } from '../../../pixi-proxy';
+import { AlphaTolerance } from '../../../api';
+import { TextureUtils } from '../../../pixi-proxy';
 
 export class ExtendedSprite extends Sprite
 {
@@ -89,26 +90,7 @@ export class ExtendedSprite extends Sprite
         //@ts-ignore
         if(!baseTexture.hitMap)
         {
-            let canvas: HTMLCanvasElement = null;
-
-            if(!baseTexture.resource)
-            {
-                //@ts-ignore
-                if(!texture.getLocalBounds)
-                {
-                    const tempSprite = new NitroSprite(texture);
-
-                    canvas = TextureUtils.generateCanvas(tempSprite);
-
-                    tempSprite.destroy();
-                }
-                else
-                {
-                    canvas = TextureUtils.generateCanvas(texture as RenderTexture);
-                }
-            }
-
-            if(!ExtendedSprite.generateHitMap(baseTexture, canvas)) return false;
+            if(!ExtendedSprite.generateHitMap(baseTexture)) return false;
         }
 
         //@ts-ignore
@@ -133,64 +115,31 @@ export class ExtendedSprite extends Sprite
         return (hitMap[ind2] & (1 << ind1)) !== 0;
     }
 
-    private static generateHitMap(baseTexture: BaseTexture, tempCanvas: HTMLCanvasElement = null): boolean
+    private static generateHitMap(baseTexture: BaseTexture): boolean
     {
-        let canvas: HTMLCanvasElement = null;
-        let context: CanvasRenderingContext2D = null;
+        if(!baseTexture) return false;
 
-        if(tempCanvas)
-        {
-            canvas = tempCanvas;
-            context = canvas.getContext('2d');
-        }
-        else
-        {
-            if(!baseTexture.resource) return false;
-
-            //@ts-ignore
-            const source = baseTexture.resource.source as HTMLCanvasElement;
-
-            if(!source) return false;
-
-            if(source.getContext)
-            {
-                canvas = source;
-                context = canvas.getContext('2d');
-            }
-
-            else if(source instanceof Image)
-            {
-                canvas = document.createElement('canvas');
-                canvas.width = source.width;
-                canvas.height = source.height;
-                context = canvas.getContext('2d');
-
-                context.drawImage(source, 0, 0);
-            }
-
-            else return false;
-        }
-
-        const width = canvas.width;
-        const height = canvas.height;
-        const imageData = context.getImageData(0, 0, width, height);
-
+        const texture = new Texture(baseTexture);
+        const sprite = new Sprite(texture);
+        const pixels = TextureUtils.getPixels(sprite);
+        const width = baseTexture.width;
+        const height = baseTexture.height;
         const hitmap = new Uint32Array(Math.ceil(width * height / 32));
-        const threshold = 128;
+        const threshold = AlphaTolerance.MATCH_OPAQUE_PIXELS;
 
         for(let i = 0; i < width * height; i++)
         {
             const ind1 = i % 32;
             const ind2 = i / 32 | 0;
 
-            if(imageData.data[i * 4 + 3] >= threshold)
-            {
-                hitmap[ind2] = hitmap[ind2] | (1 << ind1);
-            }
+            if(pixels[i * 4 + 3] >= threshold) hitmap[ind2] = hitmap[ind2] | (1 << ind1);
         }
 
         //@ts-ignore
         baseTexture.hitMap = hitmap;
+
+        sprite.destroy();
+        texture.destroy();
 
         return true;
     }
