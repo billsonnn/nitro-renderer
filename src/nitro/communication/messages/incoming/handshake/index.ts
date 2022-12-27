@@ -1,3 +1,4 @@
+export * from './CompleteDiffieHandshakeEvent';
 export * from './DisconnectReasonEnum';
 export * from './DisconnectReasonEvent';
 export * from './InitDiffieHandshakeEvent';
