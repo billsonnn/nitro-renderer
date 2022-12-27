@@ -139,6 +139,7 @@ export class OutgoingHeader
     public static PET_OPEN_PACKAGE = 3698;
     public static PET_SELECTED = 549;
     public static PETS_BREED = 1638;
+    public static PET_CANCEL_BREEDING = 2713;
     public static GET_PET_TRAINING_PANEL = 2161;
     public static RECYCLER_PRIZES = 398;
     public static RELEASE_VERSION = 4000;
