@@ -437,4 +437,5 @@ export class IncomingHeader
     public static WELCOME_GIFT_CHANGE_EMAIL_RESULT = 2293;
     public static WELCOME_GIFT_STATUS = 2707;
     public static HANDSHAKE_INIT_DIFFIE = 1347;
+    public static HANDSHAKE_COMPLETE_DIFFIE = 3885;
 }
