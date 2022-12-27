@@ -289,10 +289,16 @@ export class PlaneRasterizer implements IPlaneRasterizer
 
                     let repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_DEFAULT;
                     let align = PlaneMaterialCellMatrix.ALIGN_DEFAULT;
-                    const normalMinX = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE;
-                    const normalMaxX = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE;
-                    const normalMinY = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE;
-                    const normalMaxY = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE;
+
+                    let normalMinX = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE;
+                    let normalMaxX = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE;
+                    let normalMinY = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE;
+                    let normalMaxY = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE;
+
+                    if(matrix.normalMinX !== undefined) normalMinX = matrix.normalMinX;
+                    if(matrix.normalMaxX !== undefined) normalMaxX = matrix.normalMaxX;
+                    if(matrix.normalMinY !== undefined) normalMinY = matrix.normalMinY;
+                    if(matrix.normalMaxY !== undefined) normalMaxY = matrix.normalMaxY;
 
                     switch(matrix.repeatMode)
                     {

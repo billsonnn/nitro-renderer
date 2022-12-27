@@ -155,6 +155,13 @@ export class RoomPlane implements IRoomPlane
         return this._bitmapData;
     }
 
+    public get maskBitmapData(): RenderTexture
+    {
+        if(!this.visible || !this._maskBitmapData) return null;
+
+        return this._maskBitmapData;
+    }
+
     public get visible(): boolean
     {
         return (this._isVisible && this._canBeVisible);
@@ -704,12 +711,8 @@ export class RoomPlane implements IRoomPlane
         this._height = _local_5;
     }
 
-    private renderTexture(geometry: IRoomGeometry, _arg_2: RenderTexture): void
+    private getMatrixForTexture(texture: RenderTexture): Matrix
     {
-        if(((((((this._cornerA == null) || (this._cornerB == null)) || (this._cornerC == null)) || (this._cornerD == null)) || (_arg_2 == null)) || (this._bitmapData == null)))
-        {
-            return;
-        }
         let _local_3: number = (this._cornerD.x - this._cornerC.x);
         let _local_4: number = (this._cornerD.y - this._cornerC.y);
         let _local_5: number = (this._cornerB.x - this._cornerC.x);
@@ -717,35 +720,44 @@ export class RoomPlane implements IRoomPlane
 
         if((this._type === RoomPlane.TYPE_WALL) || (this._type === RoomPlane.TYPE_LANDSCAPE))
         {
-            if(Math.abs((_local_5 - _arg_2.width)) <= 1)
+            if(Math.abs((_local_5 - texture.width)) <= 1)
             {
-                _local_5 = _arg_2.width;
+                _local_5 = texture.width;
             }
-            if(Math.abs((_local_6 - _arg_2.width)) <= 1)
+            if(Math.abs((_local_6 - texture.width)) <= 1)
             {
-                _local_6 = _arg_2.width;
+                _local_6 = texture.width;
             }
-            if(Math.abs((_local_3 - _arg_2.height)) <= 1)
+            if(Math.abs((_local_3 - texture.height)) <= 1)
             {
-                _local_3 = _arg_2.height;
+                _local_3 = texture.height;
             }
-            if(Math.abs((_local_4 - _arg_2.height)) <= 1)
+            if(Math.abs((_local_4 - texture.height)) <= 1)
             {
-                _local_4 = _arg_2.height;
+                _local_4 = texture.height;
             }
         }
-        const xScale: number = (_local_5 / _arg_2.width);
-        const ySkew: number = (_local_6 / _arg_2.width);
-        const xSkew: number = (_local_3 / _arg_2.height);
-        const yScale: number = (_local_4 / _arg_2.height);
-        const matrix = new Matrix();
-        matrix.a = xScale;
-        matrix.b = ySkew;
-        matrix.c = xSkew;
-        matrix.d = yScale;
+
+        const xScale: number = (_local_5 / texture.width);
+        const ySkew: number = (_local_6 / texture.width);
+        const xSkew: number = (_local_3 / texture.height);
+        const yScale: number = (_local_4 / texture.height);
+
+        const matrix = new Matrix(xScale, ySkew, xSkew, yScale);
+
         matrix.translate(this._cornerC.x, this._cornerC.y);
 
-        this.draw(_arg_2, matrix);
+        return matrix;
+    }
+
+    private renderTexture(geometry: IRoomGeometry, _arg_2: RenderTexture): void
+    {
+        if(((((((this._cornerA == null) || (this._cornerB == null)) || (this._cornerC == null)) || (this._cornerD == null)) || (_arg_2 == null)) || (this._bitmapData == null)))
+        {
+            return;
+        }
+
+        this.draw(_arg_2, this.getMatrixForTexture(_arg_2));
     }
 
     private draw(k: RenderTexture, matrix: Matrix): void

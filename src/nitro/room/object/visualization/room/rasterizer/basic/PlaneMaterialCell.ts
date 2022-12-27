@@ -165,8 +165,8 @@ export class PlaneMaterialCell
 
                     if(assetTexture)
                     {
-                        const offsetFinal = new Point((offset.x + item.offsetX), (offset.y + item.offsetY));
-                        const flipMatrix = new Matrix();
+                        let itemOffsetX = item.offsetX;
+                        let itemOffsetY = item.offsetY;
 
                         let x = 1;
                         let y = 1;
@@ -177,13 +177,18 @@ export class PlaneMaterialCell
                         {
                             x = -1;
                             translateX = assetTexture.width;
+                            itemOffsetX = -(item.width + item.x);
                         }
 
                         if(item.flipV)
                         {
                             y = -1;
                             translateY = assetTexture.height;
+                            itemOffsetY = -(item.height + item.y);
                         }
+
+                        const offsetFinal = new Point((offset.x + itemOffsetX), (offset.y + itemOffsetY));
+                        const flipMatrix = new Matrix();
 
                         let offsetX = (offsetFinal.x + translateX);
                         offsetX = ((offsetX >> 1) << 1);
