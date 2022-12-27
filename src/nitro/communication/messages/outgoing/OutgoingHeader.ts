@@ -444,4 +444,6 @@ export class OutgoingHeader
     public static HANDSHAKE_COMPLETE_DIFFIE = 773;
     public static WELCOME_OPEN_GIFT = 2638;
     public static WELCOME_GIFT_CHANGE_EMAIL = 66;
+    public static EMAIL_GET_STATUS = 2557;
+    public static EMAIL_CHANGE = 3965;
 }
