@@ -25,3 +25,4 @@ export * from './RoomEntryData';
 export * from './ScrKickbackData';
 export * from './ScrSendKickbackInfoMessageParser';
 export * from './wardrobe';
+export * from './WelcomeGiftChangeEmailResultParser';
