@@ -8,3 +8,4 @@ export * from './inventory/subscription';
 export * from './ScrGetKickbackInfoMessageComposer';
 export * from './settings';
 export * from './UserRespectComposer';
+export * from './WelcomeGiftChangeEmailComposer';

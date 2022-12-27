@@ -438,4 +438,6 @@ export class OutgoingHeader
     public static NEW_USER_EXPERIENCE_GET_GIFTS = 1822;
     public static HANDSHAKE_INIT_DIFFIE = 3110;
     public static HANDSHAKE_COMPLETE_DIFFIE = 773;
+    public static WELCOME_OPEN_GIFT = 2638;
+    public static WELCOME_GIFT_CHANGE_EMAIL = 66;
 }
