@@ -190,6 +190,7 @@ export class PlaneMaterialCellMatrix
 
                     return this._cachedBitmapData;
                 }
+
                 this._cachedBitmapData = null;
             }
         }

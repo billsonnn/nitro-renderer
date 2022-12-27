@@ -1,5 +1,6 @@
 ﻿import { Matrix, Point } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
+import { TilingSprite } from '@pixi/sprite-tiling';
 import { IGraphicAsset, IVector3D } from '../../../../../../../api';
 import { Randomizer } from '../../utils';
 import { PlaneTexture } from './PlaneTexture';
@@ -110,7 +111,7 @@ export class PlaneMaterialCell
 
         if(!texture) return null;
 
-        const bitmap = new Sprite(texture);
+        const bitmap = new TilingSprite(texture, texture.width, texture.height);
 
         if((textureOffsetX !== 0) || (textureOffsetY !== 0))
         {
@@ -118,8 +119,9 @@ export class PlaneMaterialCell
 
             while(textureOffsetY < 0) textureOffsetY += texture.height;
 
-            bitmap.x = (textureOffsetX % texture.width);
-            bitmap.y = (textureOffsetY % texture.height);
+            bitmap.tilePosition.set((textureOffsetX % texture.width), (textureOffsetY % texture.height));
+
+            bitmap.uvRespectAnchor = true;
 
             if(textureOffsetX)
             {
@@ -138,7 +140,7 @@ export class PlaneMaterialCell
         {
             if(this._cachedSprite) this._cachedSprite.destroy();
 
-            this._cachedSprite = new Sprite(texture);
+            this._cachedSprite = bitmap;
 
             const limitMin = Math.min(this._extraItemCount, this._extraItemOffsets.length);
             const limitMax = Math.max(this._extraItemCount, this._extraItemOffsets.length);
