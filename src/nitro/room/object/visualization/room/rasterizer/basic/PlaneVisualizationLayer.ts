@@ -87,6 +87,17 @@ export class PlaneVisualizationLayer
 
                 bitmapData = this._bitmapData;
             }
+
+            if(bitmapData && hasColor)
+            {
+                const sprite = new Sprite(bitmapData);
+
+                sprite.tint = this._color;
+
+                TextureUtils.writeToRenderTexture(sprite, canvas, false);
+
+                bitmapData = canvas;
+            }
         }
         else
         {
@@ -96,27 +107,16 @@ export class PlaneVisualizationLayer
 
                 if(this._bitmapData) this._bitmapData.destroy();
 
-                this._bitmapData = TextureUtils.createRenderTexture(width, height);
+                this._bitmapData = TextureUtils.createAndFillRenderTexture(width, height, this._color);
 
                 bitmapData = this._bitmapData;
             }
             else
             {
-                TextureUtils.clearRenderTexture(canvas);
+                TextureUtils.clearAndFillRenderTexture(canvas, this._color);
 
                 bitmapData = canvas;
             }
-        }
-
-        if(bitmapData && hasColor)
-        {
-            const sprite = new Sprite(bitmapData);
-
-            sprite.tint = this._color;
-
-            TextureUtils.writeToRenderTexture(sprite, canvas, false);
-
-            bitmapData = canvas;
         }
 
         return bitmapData;

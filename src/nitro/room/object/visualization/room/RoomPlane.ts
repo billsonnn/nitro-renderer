@@ -650,7 +650,7 @@ export class RoomPlane implements IRoomPlane
             }
             else
             {
-                TextureUtils.clearRenderTexture(this._bitmapData);
+                TextureUtils.clearAndFillRenderTexture(this._bitmapData);
             }
 
             Randomizer.setSeed(this._randomSeed);

@@ -1,5 +1,5 @@
 ﻿import { RenderTexture } from '@pixi/core';
-import { IAssetPlane, IAssetPlaneVisualizationAnimatedLayer, IAssetPlaneVisualizationLayer, IVector3D } from '../../../../../../../api';
+import { IAssetPlane, IAssetPlaneVisualizationAnimatedLayer, IAssetPlaneVisualizationLayer, IVector3D, Vector3d } from '../../../../../../../api';
 import { TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneBitmapData, Randomizer } from '../../utils';
 import { PlaneMaterial, PlaneRasterizer, PlaneVisualizationLayer } from '../basic';
@@ -7,10 +7,14 @@ import { LandscapePlane } from './LandscapePlane';
 
 export class LandscapeRasterizer extends PlaneRasterizer
 {
+    public static LANDSCAPES_ENABLED: boolean = true;
+    public static LANDSCAPE_DEFAULT_COLOR: number = 8828617;
+
     private static UPDATE_INTERVAL: number = 500;
 
     private _landscapeWidth: number = 0;
     private _landscapeHeight: number = 0;
+    private _cachedBitmap: RenderTexture = null;
 
     public initializeDimensions(k: number, _arg_2: number): boolean
     {
@@ -59,8 +63,8 @@ export class LandscapeRasterizer extends PlaneRasterizer
                 let horizontalAngle = LandscapePlane.HORIZONTAL_ANGLE_DEFAULT;
                 let verticalAngle = LandscapePlane.VERTICAL_ANGLE_DEFAULT;
 
-                if(visualization.horizontalAngle) horizontalAngle = visualization.horizontalAngle;
-                if(visualization.verticalAngle) verticalAngle = visualization.verticalAngle;
+                if(visualization.horizontalAngle !== undefined) horizontalAngle = visualization.horizontalAngle;
+                if(visualization.verticalAngle !== undefined) verticalAngle = visualization.verticalAngle;
 
                 const totalLayers = (visualization.allLayers.length ?? 0);
 
@@ -187,6 +191,39 @@ export class LandscapeRasterizer extends PlaneRasterizer
         if(!plane) plane = this.getPlane(LandscapeRasterizer.DEFAULT) as LandscapePlane;
 
         if(!plane) return null;
+
+        if(canvas) TextureUtils.clearRenderTexture(canvas);
+
+        if(!LandscapeRasterizer.LANDSCAPES_ENABLED)
+        {
+            const visualization = plane.getPlaneVisualization(scale);
+
+            if(!visualization || !visualization.geometry) return null;
+
+            const _local_13 = visualization.geometry.getScreenPoint(new Vector3d(0, 0, 0));
+            const _local_14 = visualization.geometry.getScreenPoint(new Vector3d(0, 0, 1));
+            const _local_15 = visualization.geometry.getScreenPoint(new Vector3d(0, 1, 0));
+
+            if(_local_13 && _local_14 && _local_15)
+            {
+                width = Math.round(Math.abs((((_local_13.x - _local_15.x) * width) / visualization.geometry.scale)));
+                height = Math.round(Math.abs((((_local_13.y - _local_14.y) * height) / visualization.geometry.scale)));
+            }
+
+            if(!this._cachedBitmap || (this._cachedBitmap.width !== width ) || (this._cachedBitmap.height !== height))
+            {
+                if(this._cachedBitmap)
+                {
+                    this._cachedBitmap.destroy();
+
+                    this._cachedBitmap = null;
+                }
+
+                this._cachedBitmap = TextureUtils.createAndFillRenderTexture(width, height, LandscapeRasterizer.LANDSCAPE_DEFAULT_COLOR);
+            }
+
+            return new PlaneBitmapData(this._cachedBitmap, -1);
+        }
 
         if(canvas) TextureUtils.clearRenderTexture(canvas);
 

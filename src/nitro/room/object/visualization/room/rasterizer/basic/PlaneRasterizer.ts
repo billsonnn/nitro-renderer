@@ -426,7 +426,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
                             offsetPoints = this.parseExtraItemOffsets(offsets);
                             limit = offsetPoints.length;
 
-                            if(cell.extraData.limitMax) limit = cell.extraData.limitMax;
+                            if(cell.extraData.limitMax !== undefined) limit = cell.extraData.limitMax;
                         }
                     }
                 }
@@ -539,8 +539,8 @@ export class PlaneRasterizer implements IPlaneRasterizer
                 let horizontalAngle = FloorPlane.HORIZONTAL_ANGLE_DEFAULT;
                 let verticalAngle = FloorPlane.VERTICAL_ANGLE_DEFAULT;
 
-                if(visualization.horizontalAngle) horizontalAngle = visualization.horizontalAngle;
-                if(visualization.verticalAngle) verticalAngle = visualization.verticalAngle;
+                if(visualization.horizontalAngle !== undefined) horizontalAngle = visualization.horizontalAngle;
+                if(visualization.verticalAngle !== undefined) verticalAngle = visualization.verticalAngle;
 
                 const layers = visualization.allLayers as IAssetPlaneVisualizationLayer[];
 

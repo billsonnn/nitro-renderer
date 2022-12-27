@@ -136,15 +136,7 @@ export class PlaneMaterialCell
 
         if(!this.isStatic)
         {
-            if(this._cachedSprite)
-            {
-                if((this._cachedSprite.width !== bitmap.width) || (this._cachedSprite.height !== bitmap.height))
-                {
-                    this._cachedSprite.destroy();
-
-                    this._cachedSprite = null;
-                }
-            }
+            if(this._cachedSprite) this._cachedSprite.destroy();
 
             this._cachedSprite = new Sprite(texture);
 
