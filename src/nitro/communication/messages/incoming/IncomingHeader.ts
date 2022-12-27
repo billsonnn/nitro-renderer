@@ -433,4 +433,5 @@ export class IncomingHeader
     public static EXTENDED_PROFILE_CHANGED = 876;
     public static WELCOME_GIFT_CHANGE_EMAIL_RESULT = 2293;
     public static WELCOME_GIFT_STATUS = 2707;
+    public static HANDSHAKE_INIT_DIFFIE = 1347;
 }
