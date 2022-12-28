@@ -55,7 +55,7 @@ export class PlaneVisualizationLayer
     {
         if(this._bitmapData)
         {
-            this._bitmapData.destroy();
+            this._bitmapData.destroy(true);
 
             this._bitmapData = null;
         }

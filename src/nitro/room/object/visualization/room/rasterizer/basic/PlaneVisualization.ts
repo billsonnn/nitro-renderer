@@ -66,7 +66,7 @@ export class PlaneVisualization
 
         if(this._cachedBitmapData)
         {
-            this._cachedBitmapData.destroy();
+            this._cachedBitmapData.destroy(true);
 
             this._cachedBitmapData = null;
         }
@@ -80,7 +80,7 @@ export class PlaneVisualization
 
         if(this._cachedBitmapData)
         {
-            this._cachedBitmapData.destroy();
+            this._cachedBitmapData.destroy(true);
 
             this._cachedBitmapData = null;
         }
@@ -104,7 +104,7 @@ export class PlaneVisualization
 
         if(this._texturePool && this._texturePool.size)
         {
-            this._texturePool.forEach(texture => texture.destroy());
+            this._texturePool.forEach(texture => texture.destroy(true));
 
             this._texturePool.clear();
         }
