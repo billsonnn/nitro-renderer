@@ -389,7 +389,7 @@ export class RoomPlane implements IRoomPlane
 
             if(this._rasterizer)
             {
-                bitmapData = this._rasterizer.render(texture, this._id, width, height, geometry.scale, normal, this._hasTexture, this._textureOffsetX, this._textureOffsetY, this._textureMaxX, this._textureMaxY, timeSinceStartMs);
+                bitmapData = this._rasterizer.render(this._uniqueId.toString(), texture, this._id, width, height, geometry.scale, normal, this._hasTexture, this._textureOffsetX, this._textureOffsetY, this._textureMaxX, this._textureMaxY, timeSinceStartMs);
 
                 if(bitmapData && texture && (bitmapData?.texture !== texture)) texture.destroy();
             }

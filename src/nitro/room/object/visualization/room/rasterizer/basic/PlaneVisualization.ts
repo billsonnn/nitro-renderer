@@ -148,7 +148,7 @@ export class PlaneVisualization
         return this._layers as PlaneVisualizationLayer[];
     }
 
-    public render(canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, dimensionX: number = 0, dimensionY: number = 0, timeSinceStartMs: number = 0): RenderTexture
+    public render(planeId: string, canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, dimensionX: number = 0, dimensionY: number = 0, timeSinceStartMs: number = 0): RenderTexture
     {
         if(width < 1) width = 1;
 
@@ -174,7 +174,6 @@ export class PlaneVisualization
             }
             else
             {
-                this._cachedBitmapData.destroy();
                 this._cachedBitmapData = null;
             }
         }
@@ -183,21 +182,33 @@ export class PlaneVisualization
 
         if(!this._cachedBitmapData)
         {
-            // hereeee
-            this._cachedBitmapData = TextureUtils.createAndFillRenderTexture(width, height);
+            let cache = this._texturePool.get(planeId);
+            let swapCache = this._texturePool.get(planeId + '-swap');
 
-            /* this._cachedBitmapData = this._texturePool.get(`${width}:${height}`);
-
-            if(!this._cachedBitmapData)
+            if(!swapCache)
             {
-                this._cachedBitmapData = TextureUtils.createAndFillRenderTexture(width, height);
+                swapCache = TextureUtils.createAndFillRenderTexture(width, height);
 
-                this._texturePool.set(`${width}:${height}`, this._cachedBitmapData);
+                this._texturePool.set(planeId + '-swap', swapCache);
             }
             else
             {
-                TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
-            } */
+                if(cache)
+                {
+                    [ cache, swapCache ] = [ swapCache, cache ];
+                }
+            }
+
+            if(!cache)
+            {
+                cache = TextureUtils.createAndFillRenderTexture(width, height);
+
+                this._texturePool.set(planeId, cache);
+            }
+
+            this._cachedBitmapData = swapCache;
+
+            TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
         }
         else
         {

@@ -33,7 +33,7 @@ export class LandscapePlane extends Plane
         }
     }
 
-    public render(canvas: RenderTexture, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number, maxX: number, maxY: number, timeSinceStartMs: number): RenderTexture
+    public render(planeId: string, canvas: RenderTexture, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number, maxX: number, maxY: number, timeSinceStartMs: number): RenderTexture
     {
         const visualization = this.getPlaneVisualization(scale);
 
@@ -53,7 +53,7 @@ export class LandscapePlane extends Plane
             const renderMaxX = (maxX * Math.abs((_local_13.x - _local_15.x)));
             const renderMaxY = (maxY * Math.abs((_local_13.y - _local_14.y)));
 
-            return visualization.render(canvas, width, height, normal, useTexture, renderOffsetX, renderOffsetY, renderMaxX, renderMaxY, maxX, maxY, timeSinceStartMs);
+            return visualization.render(planeId, canvas, width, height, normal, useTexture, renderOffsetX, renderOffsetY, renderMaxX, renderMaxY, maxX, maxY, timeSinceStartMs);
         }
 
         return null;

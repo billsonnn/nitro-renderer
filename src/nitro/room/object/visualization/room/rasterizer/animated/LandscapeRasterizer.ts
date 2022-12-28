@@ -184,7 +184,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
         return _local_3;
     }
 
-    public render(canvas: RenderTexture, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
+    public render(planeId: string, canvas: RenderTexture, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
     {
         let plane = this.getPlane(id) as LandscapePlane;
 
@@ -227,7 +227,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
         if(canvas) TextureUtils.clearRenderTexture(canvas);
 
-        let graphic = plane.render(canvas, width, height, scale, normal, useTexture, offsetX, offsetY, maxX, maxY, timeSinceStartMs);
+        let graphic = plane.render(planeId, canvas, width, height, scale, normal, useTexture, offsetX, offsetY, maxX, maxY, timeSinceStartMs);
 
         if(graphic && (graphic !== canvas))
         {
