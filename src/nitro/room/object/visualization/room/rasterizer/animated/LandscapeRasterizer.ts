@@ -1,6 +1,6 @@
 ﻿import { RenderTexture } from '@pixi/core';
 import { IAssetPlane, IAssetPlaneVisualizationAnimatedLayer, IAssetPlaneVisualizationLayer, IVector3D, Vector3d } from '../../../../../../../api';
-import { TextureUtils } from '../../../../../../../pixi-proxy';
+import { RoomTextureUtils, TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneBitmapData, Randomizer } from '../../utils';
 import { PlaneMaterial, PlaneRasterizer, PlaneVisualizationLayer } from '../basic';
 import { LandscapePlane } from './LandscapePlane';
@@ -219,7 +219,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
                     this._cachedBitmap = null;
                 }
 
-                this._cachedBitmap = TextureUtils.createAndFillRenderTexture(width, height, LandscapeRasterizer.LANDSCAPE_DEFAULT_COLOR);
+                this._cachedBitmap = RoomTextureUtils.createAndFillRenderTexture(width, height, LandscapeRasterizer.LANDSCAPE_DEFAULT_COLOR);
             }
 
             return new PlaneBitmapData(this._cachedBitmap, -1);

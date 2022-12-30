@@ -3,7 +3,7 @@ import { Renderer, RenderTexture, Resource, Texture } from '@pixi/core';
 import { Matrix, Point } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
 import { IRoomGeometry, IRoomPlane, IVector3D, Vector3d } from '../../../../../api';
-import { PixiApplicationProxy, TextureUtils } from '../../../../../pixi-proxy';
+import { PixiApplicationProxy, RoomTextureUtils, TextureUtils } from '../../../../../pixi-proxy';
 import { ColorConverter } from '../../../../../room';
 import { PlaneMaskManager } from './mask';
 import { PlaneDrawingData } from './PlaneDrawingData';
@@ -395,7 +395,7 @@ export class RoomPlane implements IRoomPlane
             }
             else
             {
-                const renderTexture = TextureUtils.createAndFillRenderTexture(width, height);
+                const renderTexture = RoomTextureUtils.createAndFillRenderTexture(width, height);
 
                 bitmapData = new PlaneBitmapData(renderTexture, -1);
             }
@@ -623,7 +623,7 @@ export class RoomPlane implements IRoomPlane
 
                         if((this._width < 1) || (this._height < 1)) return true;
 
-                        this._bitmapData = TextureUtils.createAndFillRenderTexture(this._width, this._height);
+                        this._bitmapData = RoomTextureUtils.createAndFillRenderTexture(this._width, this._height);
                     }
                     else
                     {
@@ -643,7 +643,7 @@ export class RoomPlane implements IRoomPlane
                 {
                     if((this._width < 1) || (this._height < 1)) return false;
 
-                    this._bitmapData = TextureUtils.createAndFillRenderTexture(this._width, this._height);
+                    this._bitmapData = RoomTextureUtils.createAndFillRenderTexture(this._width, this._height);
                 }
 
                 if(!this._bitmapData) return false;
@@ -896,7 +896,7 @@ export class RoomPlane implements IRoomPlane
                 this._maskBitmapData = null;
             }
 
-            this._maskBitmapData = TextureUtils.createAndFillRenderTexture(width, height);
+            this._maskBitmapData = RoomTextureUtils.createAndFillRenderTexture(width, height);
             this._maskChanged = true;
         }
 

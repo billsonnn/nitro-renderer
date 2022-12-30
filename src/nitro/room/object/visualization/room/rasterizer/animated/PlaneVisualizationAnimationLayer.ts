@@ -1,7 +1,7 @@
 ﻿import { RenderTexture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { IDisposable, IGraphicAssetCollection, IVector3D } from '../../../../../../../api';
-import { TextureUtils } from '../../../../../../../pixi-proxy';
+import { RoomTextureUtils, TextureUtils } from '../../../../../../../pixi-proxy';
 import { AnimationItem } from './AnimationItem';
 
 export class PlaneVisualizationAnimationLayer implements IDisposable
@@ -78,7 +78,7 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
             {
                 if(this._bitmapData) this._bitmapData.destroy(true);
 
-                this._bitmapData = TextureUtils.createRenderTexture(width, height);
+                this._bitmapData = RoomTextureUtils.createRenderTexture(width, height);
             }
             else
             {

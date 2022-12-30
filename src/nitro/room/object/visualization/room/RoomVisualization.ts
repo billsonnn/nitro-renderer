@@ -1,6 +1,7 @@
 import { Resource, Texture } from '@pixi/core';
 import { Rectangle } from '@pixi/math';
 import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable, Vector3d } from '../../../../../api';
+import { RoomTextureUtils } from '../../../../../pixi-proxy';
 import { RoomObjectSpriteVisualization } from '../../../../../room';
 import { ToInt32 } from '../../../../utils';
 import { RoomMapData } from '../../RoomMapData';
@@ -142,6 +143,8 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
             this._data = null;
         }
+
+        RoomTextureUtils.clearCache();
     }
 
     protected reset(): void

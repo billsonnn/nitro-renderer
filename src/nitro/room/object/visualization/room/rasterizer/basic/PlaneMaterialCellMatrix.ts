@@ -2,7 +2,7 @@
 import { Point, Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
 import { IVector3D, NitroLogger, Vector3d } from '../../../../../../../api';
-import { TextureUtils } from '../../../../../../../pixi-proxy';
+import { RoomTextureUtils, TextureUtils } from '../../../../../../../pixi-proxy';
 import { Randomizer } from '../../utils';
 import { PlaneMaterialCell } from './PlaneMaterialCell';
 import { PlaneMaterialCellColumn } from './PlaneMaterialCellColumn';
@@ -212,7 +212,7 @@ export class PlaneMaterialCellMatrix
 
                 if(!this._cachedBitmapData)
                 {
-                    this._cachedBitmapData = TextureUtils.createAndFillRenderTexture(width, height);
+                    this._cachedBitmapData = RoomTextureUtils.createAndFillRenderTexture(width, height);
 
                     this._texturePool.set(`${width}:${height}`, this._cachedBitmapData);
                 }
@@ -244,7 +244,7 @@ export class PlaneMaterialCellMatrix
 
             if(!this._cachedBitmapData)
             {
-                this._cachedBitmapData = TextureUtils.createRenderTexture(width, height);
+                this._cachedBitmapData = RoomTextureUtils.createRenderTexture(width, height);
 
                 this._texturePool.set(`${width}:${height}`, this._cachedBitmapData);
             }

@@ -23,6 +23,7 @@ LegacyExternalInterface.available;
 
 settings.SCALE_MODE = (!(window.devicePixelRatio % 1)) ? SCALE_MODES.NEAREST : SCALE_MODES.LINEAR;
 settings.ROUND_PIXELS = true;
+settings.GC_MAX_IDLE = 120;
 
 export class Nitro implements INitro
 {

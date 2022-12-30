@@ -1,7 +1,7 @@
 import { RenderTexture, Texture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { IVector3D, Vector3d } from '../../../../../../../api';
-import { TextureUtils } from '../../../../../../../pixi-proxy';
+import { RoomTextureUtils, TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneMaterialCell } from './PlaneMaterialCell';
 
 export class PlaneMaterialCellColumn
@@ -180,7 +180,7 @@ export class PlaneMaterialCellColumn
 
         if(!this._cachedBitmapData)
         {
-            this._cachedBitmapData = TextureUtils.createRenderTexture(this._width, height);
+            this._cachedBitmapData = RoomTextureUtils.createRenderTexture(this._width, height);
         }
 
         this._cachedBitmapNormal.assign(normal);

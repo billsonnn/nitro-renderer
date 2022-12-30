@@ -1,7 +1,7 @@
 ﻿import { RenderTexture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { IDisposable, IGraphicAssetCollection, IRoomGeometry, IVector3D, Vector3d } from '../../../../../../../api';
-import { TextureUtils } from '../../../../../../../pixi-proxy';
+import { RoomTextureUtils, TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneVisualizationAnimationLayer } from '../animated';
 import { PlaneMaterial } from './PlaneMaterial';
 import { PlaneVisualizationLayer } from './PlaneVisualizationLayer';
@@ -187,7 +187,7 @@ export class PlaneVisualization
 
             if(!swapCache)
             {
-                swapCache = TextureUtils.createAndFillRenderTexture(width, height);
+                swapCache = RoomTextureUtils.createAndFillRenderTexture(width, height);
 
                 this._texturePool.set(planeId + '-swap', swapCache);
             }
@@ -201,7 +201,7 @@ export class PlaneVisualization
 
             if(!cache)
             {
-                cache = TextureUtils.createAndFillRenderTexture(width, height);
+                cache = RoomTextureUtils.createAndFillRenderTexture(width, height);
 
                 this._texturePool.set(planeId, cache);
             }

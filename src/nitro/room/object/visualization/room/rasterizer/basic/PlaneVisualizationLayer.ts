@@ -1,7 +1,7 @@
 ﻿import { RenderTexture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { IVector3D } from '../../../../../../../api';
-import { TextureUtils } from '../../../../../../../pixi-proxy';
+import { RoomTextureUtils, TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneMaterial } from './PlaneMaterial';
 
 export class PlaneVisualizationLayer
@@ -107,7 +107,7 @@ export class PlaneVisualizationLayer
 
                 if(this._bitmapData) this._bitmapData.destroy();
 
-                this._bitmapData = TextureUtils.createAndFillRenderTexture(width, height, this._color);
+                this._bitmapData = RoomTextureUtils.createAndFillRenderTexture(width, height, this._color);
 
                 bitmapData = this._bitmapData;
             }
