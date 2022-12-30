@@ -66,7 +66,7 @@ export class PlaneVisualization
 
         if(this._cachedBitmapData)
         {
-            this._cachedBitmapData.destroy(true);
+            this._cachedBitmapData.destroy();
 
             this._cachedBitmapData = null;
         }
@@ -80,7 +80,7 @@ export class PlaneVisualization
 
         if(this._cachedBitmapData)
         {
-            this._cachedBitmapData.destroy(true);
+            this._cachedBitmapData.destroy();
 
             this._cachedBitmapData = null;
         }

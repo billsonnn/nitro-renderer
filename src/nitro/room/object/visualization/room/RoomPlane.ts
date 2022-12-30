@@ -284,7 +284,7 @@ export class RoomPlane implements IRoomPlane
 
         if(this._maskBitmapData)
         {
-            this._maskBitmapData.destroy();
+            this._maskBitmapData.destroy(true);
 
             this._maskBitmapData = null;
         }
@@ -391,7 +391,7 @@ export class RoomPlane implements IRoomPlane
             {
                 bitmapData = this._rasterizer.render(this._uniqueId.toString(), texture, this._id, width, height, geometry.scale, normal, this._hasTexture, this._textureOffsetX, this._textureOffsetY, this._textureMaxX, this._textureMaxY, timeSinceStartMs);
 
-                if(bitmapData && texture && (bitmapData?.texture !== texture)) texture.destroy();
+                if(bitmapData && texture && (bitmapData?.texture !== texture)) texture.destroy(true);
             }
             else
             {
@@ -892,7 +892,7 @@ export class RoomPlane implements IRoomPlane
         {
             if(this._maskBitmapData)
             {
-                this._maskBitmapData.destroy();
+                this._maskBitmapData.destroy(true);
                 this._maskBitmapData = null;
             }
 
