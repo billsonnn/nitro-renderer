@@ -27,21 +27,19 @@ export class UserClassificationMessageParser implements IMessageParser
         let _local_4: string;
         let _local_5: string;
 
-        const _local_2: number = wrapper.readInt();
+        let count: number = wrapper.readInt();
 
         this._classifiedUsersNames = new Map();
         this._classifiedUsersClass = new Map();
 
-        let _local_6: number;
-
-        while(_local_6 < _local_2)
+        while(count > 0)
         {
             _local_3 = wrapper.readInt();
             _local_4 = wrapper.readString();
             _local_5 = wrapper.readString();
             this._classifiedUsersNames.set(_local_3, _local_4);
             this._classifiedUsersClass.set(_local_3, _local_5);
-            _local_6++;
+            count--;
         }
 
         return true;
