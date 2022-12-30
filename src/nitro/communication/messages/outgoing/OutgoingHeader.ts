@@ -446,4 +446,5 @@ export class OutgoingHeader
     public static WELCOME_GIFT_CHANGE_EMAIL = 66;
     public static EMAIL_GET_STATUS = 2557;
     public static EMAIL_CHANGE = 3965;
+    public static APPROVE_ALL_MEMBERSHIP_REQUESTS = 882;
 }
