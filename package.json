@@ -16,6 +16,7 @@
   "homepage": "https://git.krews.org/nitro/nitro-renderer",
   "type": "module",
   "scripts": {
+    "build": "vite build",
     "compile": "tsc --project ./tsconfig.json --noEmit false",
     "eslint": "eslint ./src --fix"
   },
@@ -58,12 +59,15 @@
     "pako": "^2.0.4"
   },
   "devDependencies": {
+    "@rollup/plugin-typescript": "^10.0.1",
     "@types/howler": "^2.2.7",
     "@types/pako": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
     "eslint": "^8.20.0",
     "tslib": "^2.3.1",
-    "typescript": "~4.4.4"
+    "typescript": "~4.4.4",
+    "vite": "^4.0.2",
+    "vite-plugin-minify": "^1.5.2"
   }
 }
