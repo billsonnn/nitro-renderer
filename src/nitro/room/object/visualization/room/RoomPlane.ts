@@ -1,4 +1,4 @@
-import { MIPMAP_MODES, SCALE_MODES } from '@pixi/constants';
+import { MIPMAP_MODES } from '@pixi/constants';
 import { Renderer, RenderTexture, Resource, Texture } from '@pixi/core';
 import { Matrix, Point } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
@@ -249,7 +249,7 @@ export class RoomPlane implements IRoomPlane
     {
         if(this._bitmapData)
         {
-            this._bitmapData.destroy();
+            this._bitmapData.destroy(true);
 
             this._bitmapData = null;
         }
@@ -763,7 +763,7 @@ export class RoomPlane implements IRoomPlane
     private draw(k: RenderTexture, matrix: Matrix): void
     {
         k.baseTexture.mipmap = MIPMAP_MODES.OFF;
-        k.baseTexture.scaleMode = SCALE_MODES.LINEAR;
+        //k.baseTexture.scaleMode = SCALE_MODES.LINEAR;
 
         TextureUtils.writeToRenderTexture(new Sprite(k), this._bitmapData, true, matrix);
     }

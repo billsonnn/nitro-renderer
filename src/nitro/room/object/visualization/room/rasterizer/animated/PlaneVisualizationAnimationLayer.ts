@@ -64,7 +64,7 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
     {
         if(this._bitmapData)
         {
-            this._bitmapData.destroy();
+            this._bitmapData.destroy(true);
 
             this._bitmapData = null;
         }
@@ -76,7 +76,7 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
         {
             if(!this._bitmapData || (this._bitmapData.width !== width) || (this._bitmapData.height !== height))
             {
-                if(this._bitmapData) this._bitmapData.destroy();
+                if(this._bitmapData) this._bitmapData.destroy(true);
 
                 this._bitmapData = TextureUtils.createRenderTexture(width, height);
             }

@@ -214,7 +214,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
             {
                 if(this._cachedBitmap)
                 {
-                    this._cachedBitmap.destroy();
+                    this._cachedBitmap.destroy(true);
 
                     this._cachedBitmap = null;
                 }

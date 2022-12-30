@@ -103,7 +103,7 @@ export class PlaneMaterialCellMatrix
     {
         if(this._cachedBitmapData)
         {
-            this._cachedBitmapData.destroy();
+            this._cachedBitmapData.destroy(true);
 
             this._cachedBitmapData = null;
         }
