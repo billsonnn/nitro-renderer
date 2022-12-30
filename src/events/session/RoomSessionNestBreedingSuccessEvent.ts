@@ -8,12 +8,12 @@ export class RoomSessionNestBreedingSuccessEvent extends RoomSessionEvent
     private _rarityCategory: number;
     private _petId: number;
 
-    constructor(k: IRoomSession, _arg_2: number, _arg_3: number)
+    constructor(session: IRoomSession, petId: number, rarityCategory: number)
     {
-        super(RoomSessionNestBreedingSuccessEvent.NEST_BREEDING_SUCCESS, k);
+        super(RoomSessionNestBreedingSuccessEvent.NEST_BREEDING_SUCCESS, session);
 
-        this._petId = _arg_2;
-        this._rarityCategory = _arg_3;
+        this._petId = petId;
+        this._rarityCategory = rarityCategory;
     }
 
     public get rarityCategory(): number

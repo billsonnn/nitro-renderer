@@ -9,13 +9,13 @@ export class RoomSessionPetBreedingEvent extends RoomSessionEvent
     private _ownPetId: number;
     private _otherPetId: number;
 
-    constructor(k: IRoomSession, _arg_2: number, _arg_3: number, _arg_4: number)
+    constructor(session: IRoomSession, state: number, ownPetId: number, otherPetId: number)
     {
-        super(RoomSessionPetBreedingEvent.PET_BREEDING, k);
+        super(RoomSessionPetBreedingEvent.PET_BREEDING, session);
 
-        this._state = _arg_2;
-        this._ownPetId = _arg_3;
-        this._otherPetId = _arg_4;
+        this._state = state;
+        this._ownPetId = ownPetId;
+        this._otherPetId = otherPetId;
     }
 
     public get state(): number

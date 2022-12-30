@@ -12,5 +12,7 @@ export * from './LoveLockFurniStartEvent';
 export * from './OneWayDoorStatusMessageEvent';
 export * from './RequestSpamWallPostItMessageEvent';
 export * from './RoomDimmerPresetsMessageEvent';
+export * from './RoomMessageNotificationMessageEvent';
 export * from './wall';
+export * from './WelcomeGiftStatusEvent';
 export * from './youtube';

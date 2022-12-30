@@ -1,6 +1,6 @@
 import { IConnection, IRoomHandlerListener, IRoomUserData } from '../../../api';
-import { RoomSessionDanceEvent, RoomSessionDoorbellEvent, RoomSessionErrorMessageEvent, RoomSessionFavoriteGroupUpdateEvent, RoomSessionFriendRequestEvent, RoomSessionPetFigureUpdateEvent, RoomSessionPetInfoUpdateEvent, RoomSessionPetStatusUpdateEvent, RoomSessionUserBadgesEvent, RoomSessionUserDataUpdateEvent, RoomSessionUserFigureUpdateEvent } from '../../../events';
-import { BotErrorEvent, DoorbellMessageEvent, FavoriteMembershipUpdateMessageEvent, NewFriendRequestEvent, PetFigureUpdateEvent, PetInfoEvent, PetPlacingErrorEvent, PetStatusUpdateEvent, RoomUnitDanceEvent, RoomUnitEvent, RoomUnitInfoEvent, RoomUnitRemoveEvent, UserCurrentBadgesEvent, UserNameChangeMessageEvent } from '../../communication';
+import { RoomSessionConfirmPetBreedingEvent, RoomSessionConfirmPetBreedingResultEvent, RoomSessionDanceEvent, RoomSessionDoorbellEvent, RoomSessionErrorMessageEvent, RoomSessionFavoriteGroupUpdateEvent, RoomSessionFriendRequestEvent, RoomSessionNestBreedingSuccessEvent, RoomSessionPetBreedingEvent, RoomSessionPetFigureUpdateEvent, RoomSessionPetInfoUpdateEvent, RoomSessionPetLevelUpdateEvent, RoomSessionPetStatusUpdateEvent, RoomSessionUserBadgesEvent, RoomSessionUserDataUpdateEvent, RoomSessionUserFigureUpdateEvent } from '../../../events';
+import { BotErrorEvent, ConfirmBreedingRequestEvent, ConfirmBreedingResultEvent, DoorbellMessageEvent, FavoriteMembershipUpdateMessageEvent, NestBreedingSuccessEvent, NewFriendRequestEvent, PetBreedingMessageEvent, PetFigureUpdateEvent, PetInfoEvent, PetLevelUpdateMessageEvent, PetPlacingErrorEvent, PetStatusUpdateEvent, RoomUnitDanceEvent, RoomUnitEvent, RoomUnitInfoEvent, RoomUnitRemoveEvent, UserCurrentBadgesEvent, UserNameChangeMessageEvent } from '../../communication';
 import { RoomPetData } from '../RoomPetData';
 import { RoomUserData } from '../RoomUserData';
 import { BaseHandler } from './BaseHandler';
@@ -21,6 +21,11 @@ export class RoomUsersHandler extends BaseHandler
         connection.addMessageEvent(new NewFriendRequestEvent(this.onNewFriendRequestEvent.bind(this)));
         connection.addMessageEvent(new PetInfoEvent(this.onPetInfoEvent.bind(this)));
         connection.addMessageEvent(new PetStatusUpdateEvent(this.onPetStatusUpdateEvent.bind(this)));
+        connection.addMessageEvent(new PetBreedingMessageEvent(this.onPetBreedingMessageEvent.bind(this)));
+        connection.addMessageEvent(new PetLevelUpdateMessageEvent(this.onPetLevelUpdateMessageEvent.bind(this)));
+        connection.addMessageEvent(new ConfirmBreedingResultEvent(this.onConfirmBreedingResultEvent.bind(this)));
+        connection.addMessageEvent(new NestBreedingSuccessEvent(this.onNestBreedingSuccessEvent.bind(this)));
+        connection.addMessageEvent(new ConfirmBreedingRequestEvent(this.onConfirmBreedingRequestEvent.bind(this)));
         connection.addMessageEvent(new PetFigureUpdateEvent(this.onPetFigureUpdateEvent.bind(this)));
         connection.addMessageEvent(new PetPlacingErrorEvent(this.onPetPlacingError.bind(this)));
         connection.addMessageEvent(new BotErrorEvent(this.onBotError.bind(this)));
@@ -252,6 +257,83 @@ export class RoomUsersHandler extends BaseHandler
         session.userDataManager.updatePetBreedingStatus(parser.roomIndex, parser.canBreed, parser.canHarvest, parser.canRevive, parser.hasBreedingPermission);
 
         this.listener.events.dispatchEvent(new RoomSessionPetStatusUpdateEvent(session, parser.petId, parser.canBreed, parser.canHarvest, parser.canRevive, parser.hasBreedingPermission));
+    }
+
+    private onPetBreedingMessageEvent(event: PetBreedingMessageEvent): void
+    {
+        if(!this.listener) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        const session = this.listener.getSession(this.roomId);
+
+        if(!session) return;
+
+        this.listener.events.dispatchEvent(new RoomSessionPetBreedingEvent(session, parser.state, parser.ownPetId, parser.otherPetId));
+    }
+
+    private onPetLevelUpdateMessageEvent(event: PetLevelUpdateMessageEvent): void
+    {
+        if(!this.listener) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        const session = this.listener.getSession(this.roomId);
+
+        if(!session) return;
+
+        session.userDataManager.updatePetLevel(parser.roomIndex, parser.level);
+
+        this.listener.events.dispatchEvent(new RoomSessionPetLevelUpdateEvent(session, parser.petId, parser.level));
+    }
+
+    private onConfirmBreedingResultEvent(event: ConfirmBreedingResultEvent): void
+    {
+        if(!this.listener) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        const session = this.listener.getSession(this.roomId);
+
+        if(!session) return;
+
+        this.listener.events.dispatchEvent(new RoomSessionConfirmPetBreedingResultEvent(session, parser.breedingNestStuffId, parser.result));
+    }
+
+    private onNestBreedingSuccessEvent(event: NestBreedingSuccessEvent): void
+    {
+        if(!this.listener) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        const session = this.listener.getSession(this.roomId);
+
+        if(!session) return;
+
+        this.listener.events.dispatchEvent(new RoomSessionNestBreedingSuccessEvent(session, parser.petId, parser.rarityCategory));
+    }
+
+    private onConfirmBreedingRequestEvent(event: ConfirmBreedingRequestEvent): void
+    {
+        if(!this.listener) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        const session = this.listener.getSession(this.roomId);
+
+        if(!session) return;
+
+        this.listener.events.dispatchEvent(new RoomSessionConfirmPetBreedingEvent(session, parser.nestId, parser.pet1, parser.pet2, parser.rarityCategories, parser.resultPetType));
     }
 
     private onPetFigureUpdateEvent(event: PetFigureUpdateEvent): void

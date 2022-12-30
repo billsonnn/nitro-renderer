@@ -2,7 +2,7 @@ import { Resource, Texture } from '@pixi/core';
 import { GetAssetManager, IFurnitureData, IFurnitureDataListener, IGroupInformationManager, IMessageComposer, INitroCommunicationManager, INitroEvent, IProductData, IProductDataListener, ISessionDataManager, NitroConfiguration, NoobnessLevelEnum, SecurityLevel } from '../../api';
 import { NitroManager } from '../../core';
 import { MysteryBoxKeysUpdateEvent, NitroSettingsEvent, SessionDataPreferencesEvent, UserNameUpdateEvent } from '../../events';
-import { AvailabilityStatusMessageEvent, ChangeUserNameResultMessageEvent, FigureUpdateEvent, InClientLinkEvent, MysteryBoxKeysEvent, NoobnessLevelMessageEvent, PetRespectComposer, RoomReadyMessageEvent, RoomUnitChatComposer, UserInfoEvent, UserNameChangeMessageEvent, UserPermissionsEvent, UserRespectComposer } from '../communication';
+import { AccountSafetyLockStatusChangeMessageEvent, AccountSafetyLockStatusChangeParser, AvailabilityStatusMessageEvent, ChangeUserNameResultMessageEvent, FigureUpdateEvent, GetUserTagsComposer, InClientLinkEvent, MysteryBoxKeysEvent, NoobnessLevelMessageEvent, PetRespectComposer, PetScratchFailedMessageEvent, RoomReadyMessageEvent, RoomUnitChatComposer, UserInfoEvent, UserNameChangeMessageEvent, UserPermissionsEvent, UserRespectComposer, UserTagsMessageEvent } from '../communication';
 import { Nitro } from '../Nitro';
 import { HabboWebTools } from '../utils/HabboWebTools';
 import { BadgeImageManager } from './badge/BadgeImageManager';
@@ -24,6 +24,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     private _respectsLeft: number;
     private _respectsPetLeft: number;
     private _canChangeName: boolean;
+    private _safetyLocked: boolean;
 
     private _ignoredUsersManager: IgnoredUsersManager;
     private _groupInformationManager: IGroupInformationManager;
@@ -50,6 +51,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     private _furnitureListenersNotified: boolean;
     private _pendingFurnitureListeners: IFurnitureDataListener[];
     private _pendingProductListeners: IProductDataListener[];
+    private _tags: string[];
 
     private _badgeImageManager: BadgeImageManager;
 
@@ -85,6 +87,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._furnitureListenersNotified = false;
         this._pendingFurnitureListeners = [];
         this._pendingProductListeners = [];
+        this._tags = [];
 
         this._badgeImageManager = null;
 
@@ -106,12 +109,15 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._communication.registerMessageEvent(new UserInfoEvent(this.onUserInfoEvent.bind(this)));
         this._communication.registerMessageEvent(new UserPermissionsEvent(this.onUserPermissionsEvent.bind(this)));
         this._communication.registerMessageEvent(new AvailabilityStatusMessageEvent(this.onAvailabilityStatusMessageEvent.bind(this)));
+        this._communication.registerMessageEvent(new PetScratchFailedMessageEvent(this.onPetRespectFailed.bind(this)));
         this._communication.registerMessageEvent(new ChangeUserNameResultMessageEvent(this.onChangeNameUpdateEvent.bind(this)));
         this._communication.registerMessageEvent(new UserNameChangeMessageEvent(this.onUserNameChangeMessageEvent.bind(this)));
+        this._communication.registerMessageEvent(new UserTagsMessageEvent(this.onUserTags.bind(this)));
         this._communication.registerMessageEvent(new RoomReadyMessageEvent(this.onRoomModelNameEvent.bind(this)));
         this._communication.registerMessageEvent(new InClientLinkEvent(this.onInClientLinkEvent.bind(this)));
         this._communication.registerMessageEvent(new MysteryBoxKeysEvent(this.onMysteryBoxKeysEvent.bind(this)));
         this._communication.registerMessageEvent(new NoobnessLevelMessageEvent(this.onNoobnessLevelMessageEvent.bind(this)));
+        this._communication.registerMessageEvent(new AccountSafetyLockStatusChangeMessageEvent(this.onAccountSafetyLockStatusChangeMessageEvent.bind(this)));
 
         Nitro.instance.events.addEventListener(NitroSettingsEvent.SETTINGS_UPDATED, this.onNitroSettingsEvent);
     }
@@ -147,6 +153,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._gender = null;
         this._realName = null;
         this._canChangeName = false;
+        this._safetyLocked = false;
     }
 
     private loadFurnitureData(): void
@@ -256,6 +263,7 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._respectsLeft = userInfo.respectsRemaining;
         this._respectsPetLeft = userInfo.respectsPetRemaining;
         this._canChangeName = userInfo.canChangeName;
+        this._safetyLocked = userInfo.safetyLocked;
 
         (this._ignoredUsersManager && this._ignoredUsersManager.requestIgnoredUsers());
     }
@@ -280,6 +288,13 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._systemOpen = parser.isOpen;
         this._systemShutdown = parser.onShutdown;
         this._isAuthenticHabbo = parser.isAuthenticUser;
+    }
+
+    private onPetRespectFailed(event: PetScratchFailedMessageEvent): void
+    {
+        if(!event || !event.connection) return;
+
+        this._respectsPetLeft++;
     }
 
     private onChangeNameUpdateEvent(event: ChangeUserNameResultMessageEvent): void
@@ -311,6 +326,17 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         this._canChangeName = false;
 
         this.events.dispatchEvent(new UserNameUpdateEvent(this._name));
+    }
+
+    private onUserTags(event: UserTagsMessageEvent): void
+    {
+        if(!event || !event.connection) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        this._tags = parser.tags;
     }
 
     private onRoomModelNameEvent(event: RoomReadyMessageEvent): void
@@ -384,6 +410,17 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
         {
             NitroConfiguration.setValue<number>('new.identity', 1);
         }
+    }
+
+    private onAccountSafetyLockStatusChangeMessageEvent(event: AccountSafetyLockStatusChangeMessageEvent): void
+    {
+        if(!event) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        this._safetyLocked = (parser.status == AccountSafetyLockStatusChangeParser.SAFETY_LOCK_STATUS_LOCKED);
     }
 
     private onNitroSettingsEvent(event: NitroSettingsEvent): void
@@ -479,6 +516,13 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     public getGroupBadgeImage(name: string): Texture<Resource>
     {
         return this._badgeImageManager.getBadgeImage(name, BadgeImageManager.GROUP_BADGE);
+    }
+
+    public getUserTags(roomUnitId: number): string[]
+    {
+        if(roomUnitId < 0) return;
+
+        this.send(new GetUserTagsComposer(roomUnitId));
     }
 
     public loadBadgeImage(name: string): string
@@ -657,5 +701,10 @@ export class SessionDataManager extends NitroManager implements ISessionDataMana
     public get uiFlags(): number
     {
         return this._uiFlags;
+    }
+
+    public get tags(): string[]
+    {
+        return this._tags;
     }
 }

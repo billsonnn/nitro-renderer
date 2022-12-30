@@ -13,5 +13,7 @@ export * from './OneWayDoorStatusMessageParser';
 export * from './RequestSpamWallPostItMessageParser';
 export * from './RoomDimmerPresetsMessageData';
 export * from './RoomDimmerPresetsMessageParser';
+export * from './RoomMessageNotificationMessageParser';
 export * from './wall';
+export * from './WelcomeGiftStatusParser';
 export * from './youtube';

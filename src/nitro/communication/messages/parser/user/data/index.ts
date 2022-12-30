@@ -7,3 +7,4 @@ export * from './UserInfoParser';
 export * from './UserNameChangeMessageParser';
 export * from './UserProfileParser';
 export * from './UserSettingsParser';
+export * from './UserTagsParser';

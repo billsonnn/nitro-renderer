@@ -1,5 +1,6 @@
 export * from './BaseHandler';
 export * from './GenericErrorHandler';
+export * from './PetPackageHandler';
 export * from './PollHandler';
 export * from './RoomChatHandler';
 export * from './RoomDataHandler';
