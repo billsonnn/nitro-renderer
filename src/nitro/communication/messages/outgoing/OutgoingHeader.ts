@@ -130,6 +130,7 @@ export class OutgoingHeader
     public static GET_USER_EVENT_CATS = 1782;
     public static NAVIGATOR_SETTINGS_SAVE = 3159;
     public static NAVIGATOR_CATEGORY_LIST_MODE = 1202;
+    public static NAVIGATOR_DELETE_SAVED_SEARCH = 1954;
     public static PET_INFO = 2934;
     public static PET_PICKUP = 1581;
     public static PET_PLACE = 2647;
