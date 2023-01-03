@@ -1,4 +1,3 @@
-import { Resource, Texture } from '@pixi/core';
 import { Rectangle } from '@pixi/math';
 import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable, Vector3d } from '../../../../../api';
 import { RoomTextureUtils } from '../../../../../pixi-proxy';
@@ -698,19 +697,19 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         this._visiblePlaneSpriteNumbers = [];
     }
 
-    protected updatePlanes(k: IRoomGeometry, _arg_2: boolean, _arg_3: number): boolean
+    protected updatePlanes(geometry: IRoomGeometry, geometryUpdate: boolean, timeSinceStartMs: number): boolean
     {
-        if(!k || !this.object) return;
+        if(!geometry || !this.object) return;
 
         this._assetUpdateCounter++;
 
-        if(_arg_2)
+        if(geometryUpdate)
         {
             this._visiblePlanes = [];
             this._visiblePlaneSpriteNumbers = [];
         }
 
-        const _local_8 = (this._visiblePlanes.length > 0);
+        const hasVisiblePlanes = (this._visiblePlanes.length > 0);
 
         let visiblePlanes = this._visiblePlanes;
 
@@ -722,67 +721,69 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         while(index < visiblePlanes.length)
         {
-            let _local_10 = index;
+            let id = index;
 
-            if(_local_8) _local_10 = this._visiblePlaneSpriteNumbers[index];
+            if(hasVisiblePlanes) id = this._visiblePlaneSpriteNumbers[index];
 
-            const _local_11 = this.getSprite(_local_10);
+            const sprite = this.getSprite(id);
 
-            if(_local_11)
+            if(sprite)
             {
-                const _local_12 = visiblePlanes[index];
+                const plane = visiblePlanes[index];
 
-                if(_local_12)
+                if(plane)
                 {
-                    _local_11.id = _local_12.uniqueId;
+                    sprite.id = plane.uniqueId;
 
-                    if(_local_12.update(k, _arg_3))
+                    if(plane.update(geometry, timeSinceStartMs))
                     {
-                        if(_local_12.visible)
+                        if(plane.visible)
                         {
-                            depth = ((_local_12.relativeDepth + this.floorRelativeDepth) + (_local_10 / 1000));
+                            depth = ((plane.relativeDepth + this.floorRelativeDepth) + (id / 1000));
 
-                            if(_local_12.type !== RoomPlane.TYPE_FLOOR)
+                            if(plane.type !== RoomPlane.TYPE_FLOOR)
                             {
-                                depth = ((_local_12.relativeDepth + this.wallRelativeDepth) + (_local_10 / 1000));
+                                depth = ((plane.relativeDepth + this.wallRelativeDepth) + (id / 1000));
 
-                                if((_local_12.leftSide.length < 1) || (_local_12.rightSide.length < 1))
+                                if((plane.leftSide.length < 1) || (plane.rightSide.length < 1))
                                 {
                                     depth = (depth + (RoomVisualization.ROOM_DEPTH_OFFSET * 0.5));
                                 }
                             }
 
-                            const _local_14 = ((('plane ' + _local_10) + ' ') + k.scale);
-
-                            this.updateSprite(_local_11, _local_12, _local_14, depth);
+                            this.updateSprite(sprite, geometry, plane, `plane ${ id } ${ geometry.scale }`, depth);
                         }
+
                         updated = true;
                     }
 
-                    if(_local_11.visible != ((_local_12.visible) && (this._typeVisibility[_local_12.type])))
+                    if(sprite.visible != ((plane.visible) && (this._typeVisibility[plane.type])))
                     {
-                        _local_11.visible = (!(_local_11.visible));
+                        sprite.visible = (!(sprite.visible));
                         updated = true;
                     }
-                    if(_local_11.visible)
+
+                    if(sprite.visible)
                     {
-                        if(!_local_8)
+                        if(!hasVisiblePlanes)
                         {
-                            this._visiblePlanes.push(_local_12);
+                            this._visiblePlanes.push(plane);
                             this._visiblePlaneSpriteNumbers.push(index);
                         }
                     }
                 }
                 else
                 {
-                    _local_11.id = 0;
-                    if(_local_11.visible)
+                    sprite.id = 0;
+
+                    if(sprite.visible)
                     {
-                        _local_11.visible = false;
+                        sprite.visible = false;
                         updated = true;
                     }
                 }
             }
+
             index++;
         }
 
@@ -892,21 +893,16 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         }
     }
 
-    private updateSprite(k: IRoomObjectSprite, _arg_2: RoomPlane, _arg_3: string, _arg_4: number): void
+    private updateSprite(sprite: IRoomObjectSprite, geometry: IRoomGeometry, plane: RoomPlane, _arg_3: string, relativeDepth: number): void
     {
-        const offset = _arg_2.offset;
+        const offset = plane.offset;
 
-        k.offsetX = -(offset.x);
-        k.offsetY = -(offset.y);
-        k.relativeDepth = _arg_4;
-        k.color = _arg_2.color;
-        k.texture = this.getPlaneBitmap(_arg_2, _arg_3);
-        k.name = ((_arg_3 + '_') + this._assetUpdateCounter);
-    }
-
-    private getPlaneBitmap(k: RoomPlane, _arg_2: string): Texture<Resource>
-    {
-        return k.bitmapData;
+        sprite.offsetX = -(offset.x);
+        sprite.offsetY = -(offset.y);
+        sprite.relativeDepth = relativeDepth;
+        sprite.color = plane.color;
+        sprite.texture = plane.bitmapData;
+        sprite.name = ((_arg_3 + '_') + this._assetUpdateCounter);
     }
 
     public getBoundingRectangle(): Rectangle

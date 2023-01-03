@@ -48,10 +48,10 @@ export class LandscapePlane extends Plane
             width = Math.round(Math.abs((((_local_13.x - _local_15.x) * width) / visualization.geometry.scale)));
             height = Math.round(Math.abs((((_local_13.y - _local_14.y) * height) / visualization.geometry.scale)));
 
-            const renderOffsetX = (offsetX * Math.abs((_local_13.x - _local_15.x)));
-            const renderOffsetY = (offsetY * Math.abs((_local_13.y - _local_14.y)));
-            const renderMaxX = (maxX * Math.abs((_local_13.x - _local_15.x)));
-            const renderMaxY = (maxY * Math.abs((_local_13.y - _local_14.y)));
+            const renderOffsetX = Math.trunc(offsetX * Math.abs((_local_13.x - _local_15.x)));
+            const renderOffsetY = Math.trunc(offsetY * Math.abs((_local_13.y - _local_14.y)));
+            const renderMaxX = Math.trunc(maxX * Math.abs((_local_13.x - _local_15.x)));
+            const renderMaxY = Math.trunc(maxY * Math.abs((_local_13.y - _local_14.y)));
 
             return visualization.render(planeId, canvas, width, height, normal, useTexture, renderOffsetX, renderOffsetY, renderMaxX, renderMaxY, maxX, maxY, timeSinceStartMs);
         }

@@ -100,8 +100,8 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
                 {
                     const point = item.getPosition(maxX, maxY, dimensionX, dimensionY, timeSinceStartMs);
 
-                    point.x = (point.x - offsetX);
-                    point.y = (point.y - offsetY);
+                    point.x = Math.trunc(point.x - offsetX);
+                    point.y = Math.trunc(point.y - offsetY);
 
                     if(item.bitmapData)
                     {

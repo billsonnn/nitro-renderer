@@ -46,6 +46,15 @@ export class RoomTextureUtils
         return this.clearAndFillRenderTexture(renderTexture, color);
     }
 
+    public static createAndWriteRenderTexture(width: number, height: number, displayObject: DisplayObject, transform: Matrix = null): RenderTexture
+    {
+        if((width < 0) || (height < 0)) return null;
+
+        const renderTexture = this.createRenderTexture(width, height);
+
+        return this.writeToRenderTexture(displayObject, renderTexture, true, transform);
+    }
+
     public static clearAndFillRenderTexture(renderTexture: RenderTexture, color: number = 16777215): RenderTexture
     {
         if(!renderTexture) return null;
