@@ -1,6 +1,7 @@
 export * from './access';
 export * from './AccountSafetyLockStatusChangeParser';
 export * from './ApproveNameResultParser';
+export * from './ChangeEmailResultParser';
 export * from './data';
 export * from './EmailStatusParser';
 export * from './ExtendedProfileChangedMessageParser';
