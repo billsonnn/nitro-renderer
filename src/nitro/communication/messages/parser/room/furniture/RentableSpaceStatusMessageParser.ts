@@ -2,22 +2,22 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export class RentableSpaceStatusMessageParser implements IMessageParser
 {
-    private _Str_16670: boolean;
+    private _rented: boolean;
     private _renterId: number;
-    private _Str_18360: string;
-    private _Str_20575: boolean;
-    private _Str_16491: number;
-    private _Str_22009: number;
+    private _renterName: string;
+    private _canRent: boolean;
+    private _canRentErrorCode: number;
+    private _timeRemaining: number;
     private _price: number;
 
     public flush(): boolean
     {
-        this._Str_16670 = false;
+        this._rented = false;
         this._renterId = -1;
-        this._Str_18360 = null;
-        this._Str_20575 = false;
-        this._Str_16491 = -1;
-        this._Str_22009 = -1;
+        this._renterName = null;
+        this._canRent = false;
+        this._canRentErrorCode = -1;
+        this._timeRemaining = -1;
         this._price = -1;
 
         return true;
@@ -27,26 +27,26 @@ export class RentableSpaceStatusMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-        this._Str_16670 = wrapper.readBoolean();
-        this._Str_16491 = wrapper.readInt();
-        this._Str_20575 = (this._Str_16491 === 0);
+        this._rented = wrapper.readBoolean();
+        this._canRentErrorCode = wrapper.readInt();
+        this._canRent = (this._canRentErrorCode === 0);
         this._renterId = wrapper.readInt();
-        this._Str_18360 = wrapper.readString();
-        this._Str_22009 = wrapper.readInt();
+        this._renterName = wrapper.readString();
+        this._timeRemaining = wrapper.readInt();
         this._price = wrapper.readInt();
 
-        if(!this._Str_16670)
+        if(!this._rented)
         {
             this._renterId = -1;
-            this._Str_18360 = '';
+            this._renterName = '';
         }
 
         return true;
     }
 
-    public get _Str_22736(): boolean
+    public get rented(): boolean
     {
-        return this._Str_16670;
+        return this._rented;
     }
 
     public get renterId(): number
@@ -54,14 +54,14 @@ export class RentableSpaceStatusMessageParser implements IMessageParser
         return this._renterId;
     }
 
-    public get _Str_23275(): string
+    public get renterName(): string
     {
-        return this._Str_18360;
+        return this._renterName;
     }
 
-    public get _Str_23603(): boolean
+    public get canRent(): boolean
     {
-        return this._Str_20575;
+        return this._canRent;
     }
 
     public get price(): number
@@ -69,13 +69,13 @@ export class RentableSpaceStatusMessageParser implements IMessageParser
         return this._price;
     }
 
-    public get _Str_24083(): number
+    public get timeRemaining(): number
     {
-        return this._Str_22009;
+        return this._timeRemaining;
     }
 
-    public get _Str_25070(): number
+    public get canRentErrorCode(): number
     {
-        return this._Str_16491;
+        return this._canRentErrorCode;
     }
 }
