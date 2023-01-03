@@ -431,6 +431,7 @@ export class IncomingHeader
     public static SHOW_ENFORCE_ROOM_CATEGORY = 3896;
     public static CUSTOM_USER_NOTIFICATION = 909;
     public static NEW_USER_EXPERIENCE_GIFT_OFFER = 3575;
+    public static NEW_USER_EXPERIENCE_NOT_COMPLETE = 3639;
     public static CONNECTION_ERROR = 1004;
     public static ACCOUNT_SAFETY_LOCK_STATUS_CHANGE = 1243;
     public static PHONE_COLLECTION_STATE = 2890;
