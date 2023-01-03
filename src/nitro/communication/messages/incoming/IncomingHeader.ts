@@ -35,6 +35,7 @@ export class IncomingHeader
     public static GAME_CENTER_ACHIEVEMENTS = 2265;
     public static GAME_CENTER_GAME_LIST = 222;
     public static GAME_CENTER_STATUS = 2893;
+    public static GAME_CENTER_USER_LEFT_GAME = 3138;
     public static GAMESTATUSMESSAGE = 3805;
     public static GAMEACHIEVEMENTS = 1689;
     public static GAMEINVITE = 904;
