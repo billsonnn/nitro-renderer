@@ -11,6 +11,7 @@ export * from './LoveLockFurniFriendConfirmedEvent';
 export * from './LoveLockFurniStartEvent';
 export * from './OneWayDoorStatusMessageEvent';
 export * from './RentableSpaceRentOkMessageEvent';
+export * from './RentableSpaceStatusMessageEvent';
 export * from './RequestSpamWallPostItMessageEvent';
 export * from './RoomDimmerPresetsMessageEvent';
 export * from './RoomMessageNotificationMessageEvent';

@@ -440,4 +440,5 @@ export class IncomingHeader
     public static HANDSHAKE_INIT_DIFFIE = 1347;
     public static HANDSHAKE_COMPLETE_DIFFIE = 3885;
     public static RENTABLE_SPACE_RENT_OK = 2046;
+    public static RENTABLE_SPACE_STATUS = 3559;
 }
