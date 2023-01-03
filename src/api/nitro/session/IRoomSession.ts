@@ -46,6 +46,7 @@ export interface IRoomSession extends IDisposable
     harvestPet(id: number): void;
     compostPlant(id: number): void;
     requestPetCommands(id: number): void;
+    sendScriptProceed(): void;
     connection: IConnection;
     userDataManager: IUserDataManager;
     roomId: number;
