@@ -1,6 +1,6 @@
 ﻿import { RenderTexture } from '@pixi/core';
 import { IAssetPlane, IAssetPlaneVisualizationAnimatedLayer, IAssetPlaneVisualizationLayer, IVector3D, Vector3d } from '../../../../../../../api';
-import { RoomTextureUtils, TextureUtils } from '../../../../../../../pixi-proxy';
+import { RoomTextureCache } from '../../../../../../../pixi-proxy';
 import { PlaneBitmapData, Randomizer } from '../../utils';
 import { PlaneMaterial, PlaneRasterizer, PlaneVisualizationLayer } from '../basic';
 import { LandscapePlane } from './LandscapePlane';
@@ -184,7 +184,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
         return _local_3;
     }
 
-    public render(planeId: string, canvas: RenderTexture, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
+    public render(planeId: string, textureCache: RoomTextureCache, canvas: RenderTexture, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
     {
         let plane = this.getPlane(id) as LandscapePlane;
 
@@ -192,7 +192,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
         if(!plane) return null;
 
-        if(canvas) TextureUtils.clearRenderTexture(canvas);
+        if(canvas) textureCache.clearRenderTexture(canvas);
 
         if(!LandscapeRasterizer.LANDSCAPES_ENABLED)
         {
@@ -219,15 +219,15 @@ export class LandscapeRasterizer extends PlaneRasterizer
                     this._cachedBitmap = null;
                 }
 
-                this._cachedBitmap = RoomTextureUtils.createAndFillRenderTexture(width, height, LandscapeRasterizer.LANDSCAPE_DEFAULT_COLOR);
+                this._cachedBitmap = textureCache.createAndFillRenderTexture(width, height, LandscapeRasterizer.LANDSCAPE_DEFAULT_COLOR);
             }
 
             return new PlaneBitmapData(this._cachedBitmap, -1);
         }
 
-        if(canvas) TextureUtils.clearRenderTexture(canvas);
+        if(canvas) textureCache.clearRenderTexture(canvas);
 
-        let graphic = plane.render(planeId, canvas, width, height, scale, normal, useTexture, offsetX, offsetY, maxX, maxY, timeSinceStartMs);
+        let graphic = plane.render(planeId,textureCache, canvas, width, height, scale, normal, useTexture, offsetX, offsetY, maxX, maxY, timeSinceStartMs);
 
         if(graphic && (graphic !== canvas))
         {

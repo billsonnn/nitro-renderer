@@ -1,7 +1,7 @@
 ﻿import { RenderTexture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { IVector3D } from '../../../../../../../api';
-import { RoomTextureUtils, TextureUtils } from '../../../../../../../pixi-proxy';
+import { RoomTextureCache } from '../../../../../../../pixi-proxy';
 import { PlaneMaterial } from './PlaneMaterial';
 
 export class PlaneVisualizationLayer
@@ -61,7 +61,7 @@ export class PlaneVisualizationLayer
         }
     }
 
-    public render(canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number): RenderTexture
+    public render(textureCache: RoomTextureCache, canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number): RenderTexture
     {
         if(!canvas || (canvas.width !== width) || (canvas.height !== height)) canvas = null;
 
@@ -77,7 +77,7 @@ export class PlaneVisualizationLayer
 
         if(this._material)
         {
-            bitmapData = this._material.render(hasColor ? null : canvas, width, height, normal, useTexture, offsetX, (offsetY + this.offset), (this.align === PlaneVisualizationLayer.ALIGN_TOP));
+            bitmapData = this._material.render(textureCache, hasColor ? null : canvas, width, height, normal, useTexture, offsetX, (offsetY + this.offset), (this.align === PlaneVisualizationLayer.ALIGN_TOP));
 
             if(bitmapData && (bitmapData !== canvas))
             {
@@ -94,7 +94,7 @@ export class PlaneVisualizationLayer
 
                 sprite.tint = this._color;
 
-                TextureUtils.writeToRenderTexture(sprite, canvas, false);
+                textureCache.writeToRenderTexture(sprite, canvas, false);
 
                 bitmapData = canvas;
             }
@@ -107,13 +107,13 @@ export class PlaneVisualizationLayer
 
                 if(this._bitmapData) this._bitmapData.destroy();
 
-                this._bitmapData = RoomTextureUtils.createAndFillRenderTexture(width, height, this._color);
+                this._bitmapData = textureCache.createAndFillRenderTexture(width, height, this._color);
 
                 bitmapData = this._bitmapData;
             }
             else
             {
-                TextureUtils.clearAndFillRenderTexture(canvas, this._color);
+                textureCache.clearAndFillRenderTexture(canvas, this._color);
 
                 bitmapData = canvas;
             }

@@ -1,6 +1,6 @@
 ﻿import { RenderTexture } from '@pixi/core';
 import { IAssetPlane, IVector3D } from '../../../../../../../api';
-import { TextureUtils } from '../../../../../../../pixi-proxy';
+import { RoomTextureCache } from '../../../../../../../pixi-proxy';
 import { PlaneBitmapData } from '../../utils';
 import { PlaneRasterizer } from './PlaneRasterizer';
 import { WallPlane } from './WallPlane';
@@ -36,7 +36,7 @@ export class WallRasterizer extends PlaneRasterizer
         }
     }
 
-    public render(planeId: string, canvas: RenderTexture, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
+    public render(planeId: string, textureCache: RoomTextureCache, canvas: RenderTexture, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
     {
         let plane = this.getPlane(id) as WallPlane;
 
@@ -44,9 +44,9 @@ export class WallRasterizer extends PlaneRasterizer
 
         if(!plane) return null;
 
-        if(canvas) TextureUtils.clearAndFillRenderTexture(canvas);
+        if(canvas) textureCache.clearAndFillRenderTexture(canvas);
 
-        let graphic = plane.render(planeId, canvas, width, height, scale, normal, useTexture);
+        let graphic = plane.render(planeId, textureCache, canvas, width, height, scale, normal, useTexture);
 
         if(graphic && (graphic !== canvas))
         {

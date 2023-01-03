@@ -2,7 +2,7 @@
 import { Point, Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
 import { IVector3D, NitroLogger, Vector3d } from '../../../../../../../api';
-import { RoomTextureUtils, TextureUtils } from '../../../../../../../pixi-proxy';
+import { RoomTextureCache, TextureUtils } from '../../../../../../../pixi-proxy';
 import { Randomizer } from '../../utils';
 import { PlaneMaterialCell } from './PlaneMaterialCell';
 import { PlaneMaterialCellColumn } from './PlaneMaterialCellColumn';
@@ -165,7 +165,7 @@ export class PlaneMaterialCellMatrix
         return true;
     }
 
-    public render(canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number, topAlign: boolean): RenderTexture
+    public render(textureCache: RoomTextureCache, canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number, topAlign: boolean): RenderTexture
     {
         if(width < 1) width = 1;
 
@@ -212,18 +212,18 @@ export class PlaneMaterialCellMatrix
 
                 if(!this._cachedBitmapData)
                 {
-                    this._cachedBitmapData = RoomTextureUtils.createAndFillRenderTexture(width, height);
+                    this._cachedBitmapData = textureCache.createAndFillRenderTexture(width, height);
 
                     this._texturePool.set(`${width}:${height}`, this._cachedBitmapData);
                 }
                 else
                 {
-                    TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
+                    textureCache.clearAndFillRenderTexture(this._cachedBitmapData);
                 }
             }
             else
             {
-                TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
+                textureCache.clearAndFillRenderTexture(this._cachedBitmapData);
             }
 
             if(canvas)
@@ -244,13 +244,13 @@ export class PlaneMaterialCellMatrix
 
             if(!this._cachedBitmapData)
             {
-                this._cachedBitmapData = RoomTextureUtils.createRenderTexture(width, height);
+                this._cachedBitmapData = textureCache.createRenderTexture(width, height);
 
                 this._texturePool.set(`${width}:${height}`, this._cachedBitmapData);
             }
             else
             {
-                TextureUtils.clearRenderTexture(this._cachedBitmapData);
+                textureCache.clearRenderTexture(this._cachedBitmapData);
             }
         }
 
@@ -264,7 +264,7 @@ export class PlaneMaterialCellMatrix
 
             if(column)
             {
-                const columnBitmapData = column.render(height, normal, offsetX, offsetY);
+                const columnBitmapData = column.render(textureCache, height, normal, offsetX, offsetY);
 
                 if(columnBitmapData) columns.push(columnBitmapData);
             }

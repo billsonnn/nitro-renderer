@@ -1,7 +1,7 @@
 ﻿import { RenderTexture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { IDisposable, IGraphicAssetCollection, IRoomGeometry, IVector3D, Vector3d } from '../../../../../../../api';
-import { RoomTextureUtils, TextureUtils } from '../../../../../../../pixi-proxy';
+import { RoomTextureCache } from '../../../../../../../pixi-proxy';
 import { PlaneVisualizationAnimationLayer } from '../animated';
 import { PlaneMaterial } from './PlaneMaterial';
 import { PlaneVisualizationLayer } from './PlaneVisualizationLayer';
@@ -148,7 +148,7 @@ export class PlaneVisualization
         return this._layers as PlaneVisualizationLayer[];
     }
 
-    public render(planeId: string, canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, dimensionX: number = 0, dimensionY: number = 0, timeSinceStartMs: number = 0): RenderTexture
+    public render(planeId: string, textureCache: RoomTextureCache, canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, dimensionX: number = 0, dimensionY: number = 0, timeSinceStartMs: number = 0): RenderTexture
     {
         if(width < 1) width = 1;
 
@@ -164,7 +164,7 @@ export class PlaneVisualization
                 {
                     if(canvas)
                     {
-                        TextureUtils.writeToRenderTexture(new Sprite(this._cachedBitmapData), canvas, true);
+                        textureCache.writeToRenderTexture(new Sprite(this._cachedBitmapData), canvas, true);
 
                         return canvas;
                     }
@@ -187,7 +187,7 @@ export class PlaneVisualization
 
             if(!swapCache)
             {
-                swapCache = RoomTextureUtils.createAndFillRenderTexture(width, height);
+                swapCache = textureCache.createAndFillRenderTexture(width, height);
 
                 this._texturePool.set(planeId + '-swap', swapCache);
             }
@@ -201,18 +201,18 @@ export class PlaneVisualization
 
             if(!cache)
             {
-                cache = RoomTextureUtils.createAndFillRenderTexture(width, height);
+                cache = textureCache.createAndFillRenderTexture(width, height);
 
                 this._texturePool.set(planeId, cache);
             }
 
             this._cachedBitmapData = swapCache;
 
-            TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
+            textureCache.clearAndFillRenderTexture(this._cachedBitmapData);
         }
         else
         {
-            TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
+            textureCache.clearAndFillRenderTexture(this._cachedBitmapData);
         }
 
         if(!canvas) canvas = this._cachedBitmapData;
@@ -227,19 +227,19 @@ export class PlaneVisualization
 
                 if(layer instanceof PlaneVisualizationLayer)
                 {
-                    layer.render(canvas, width, height, normal, useTexture, offsetX, offsetY);
+                    layer.render(textureCache, canvas, width, height, normal, useTexture, offsetX, offsetY);
                 }
 
                 else if(layer instanceof PlaneVisualizationAnimationLayer)
                 {
-                    layer.render(canvas, width, height, normal, offsetX, offsetY, maxX, maxY, dimensionX, dimensionY, timeSinceStartMs);
+                    layer.render(textureCache, canvas, width, height, normal, offsetX, offsetY, maxX, maxY, dimensionX, dimensionY, timeSinceStartMs);
                 }
             }
         }
 
         if(canvas && (canvas !== this._cachedBitmapData))
         {
-            TextureUtils.writeToRenderTexture(new Sprite(canvas), this._cachedBitmapData, false);
+            textureCache.writeToRenderTexture(new Sprite(canvas), this._cachedBitmapData, false);
 
             return canvas;
         }

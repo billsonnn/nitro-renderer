@@ -1,7 +1,7 @@
 import { RenderTexture, Texture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { IVector3D, Vector3d } from '../../../../../../../api';
-import { RoomTextureUtils, TextureUtils } from '../../../../../../../pixi-proxy';
+import { RoomTextureCache, TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneMaterialCell } from './PlaneMaterialCell';
 
 export class PlaneMaterialCellColumn
@@ -125,7 +125,7 @@ export class PlaneMaterialCellColumn
         this._isCached = false;
     }
 
-    public render(height: number, normal: IVector3D, offsetX: number, offsetY: number): RenderTexture
+    public render(textureCache: RoomTextureCache, height: number, normal: IVector3D, offsetX: number, offsetY: number): RenderTexture
     {
         if(this._repeatMode === PlaneMaterialCellColumn.REPEAT_MODE_NONE) height = this.getCellsHeight(this._cells, normal);
 
@@ -143,7 +143,7 @@ export class PlaneMaterialCellColumn
                 {
                     if(this._cachedBitmapData.height === height)
                     {
-                        TextureUtils.clearRenderTexture(this._cachedBitmapData);
+                        textureCache.clearRenderTexture(this._cachedBitmapData);
                     }
                     else
                     {
@@ -165,7 +165,7 @@ export class PlaneMaterialCellColumn
                     sprite.width = this._cachedBitmapData.width;
                     sprite.height = height;
 
-                    TextureUtils.writeToRenderTexture(sprite, this._cachedBitmapData);
+                    textureCache.writeToRenderTexture(sprite, this._cachedBitmapData);
                 }
                 else
                 {
@@ -180,7 +180,7 @@ export class PlaneMaterialCellColumn
 
         if(!this._cachedBitmapData)
         {
-            this._cachedBitmapData = RoomTextureUtils.createRenderTexture(this._width, height);
+            this._cachedBitmapData = textureCache.createRenderTexture(this._width, height);
         }
 
         this._cachedBitmapNormal.assign(normal);

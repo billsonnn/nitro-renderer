@@ -1,5 +1,6 @@
 ﻿import { RenderTexture } from '@pixi/core';
 import { IVector3D, Vector3d } from '../../../../../../../api';
+import { RoomTextureCache } from '../../../../../../../pixi-proxy';
 import { Plane } from '../basic';
 
 export class LandscapePlane extends Plane
@@ -33,7 +34,7 @@ export class LandscapePlane extends Plane
         }
     }
 
-    public render(planeId: string, canvas: RenderTexture, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number, maxX: number, maxY: number, timeSinceStartMs: number): RenderTexture
+    public render(planeId: string, textureCache: RoomTextureCache, canvas: RenderTexture, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number, maxX: number, maxY: number, timeSinceStartMs: number): RenderTexture
     {
         const visualization = this.getPlaneVisualization(scale);
 
@@ -53,7 +54,7 @@ export class LandscapePlane extends Plane
             const renderMaxX = Math.trunc(maxX * Math.abs((_local_13.x - _local_15.x)));
             const renderMaxY = Math.trunc(maxY * Math.abs((_local_13.y - _local_14.y)));
 
-            return visualization.render(planeId, canvas, width, height, normal, useTexture, renderOffsetX, renderOffsetY, renderMaxX, renderMaxY, maxX, maxY, timeSinceStartMs);
+            return visualization.render(planeId, textureCache, canvas, width, height, normal, useTexture, renderOffsetX, renderOffsetY, renderMaxX, renderMaxY, maxX, maxY, timeSinceStartMs);
         }
 
         return null;
