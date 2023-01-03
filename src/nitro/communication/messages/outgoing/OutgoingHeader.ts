@@ -440,6 +440,7 @@ export class OutgoingHeader
     public static POLL_ANSWER = 3505;
     public static POLL_REJECT = 1773;
     public static POLL_START = 109;
+    public static POLL_VOTE_COUNTER = 6200;
     public static DISCONNECT = 2445;
     public static SCR_GET_KICKBACK_INFO = 869;
     public static COMPOST_PLANT = 3835;
