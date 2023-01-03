@@ -11,6 +11,7 @@ export * from './LoveLockFurniFriendConfirmedParser';
 export * from './LoveLockFurniStartParser';
 export * from './OneWayDoorStatusMessageParser';
 export * from './RentableSpaceRentOkMessageParser';
+export * from './RentableSpaceStatusMessageParser';
 export * from './RequestSpamWallPostItMessageParser';
 export * from './RoomDimmerPresetsMessageData';
 export * from './RoomDimmerPresetsMessageParser';
