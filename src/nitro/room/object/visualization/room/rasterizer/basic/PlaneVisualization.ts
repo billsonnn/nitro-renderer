@@ -1,5 +1,7 @@
-﻿import { Graphics } from '@pixi/graphics';
+﻿import { RenderTexture } from '@pixi/core';
+import { Sprite } from '@pixi/sprite';
 import { IDisposable, IGraphicAssetCollection, IRoomGeometry, IVector3D, Vector3d } from '../../../../../../../api';
+import { RoomTextureUtils, TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneVisualizationAnimationLayer } from '../animated';
 import { PlaneMaterial } from './PlaneMaterial';
 import { PlaneVisualizationLayer } from './PlaneVisualizationLayer';
@@ -8,10 +10,11 @@ export class PlaneVisualization
 {
     private _layers: IDisposable[];
     private _geometry: IRoomGeometry;
-    private _cachedBitmapData: Graphics;
+    private _cachedBitmapData: RenderTexture;
     private _cachedBitmapNormal: Vector3d;
     private _isCached: boolean;
     private _hasAnimationLayers: boolean;
+    private _texturePool: Map<string, RenderTexture>;
 
     constructor(size: number, totalLayers: number, geometry: IRoomGeometry)
     {
@@ -21,6 +24,7 @@ export class PlaneVisualization
         this._cachedBitmapNormal = new Vector3d();
         this._isCached = false;
         this._hasAnimationLayers = false;
+        this._texturePool = new Map();
 
         if(totalLayers < 0) totalLayers = 0;
 
@@ -98,6 +102,13 @@ export class PlaneVisualization
             }
         }
 
+        if(this._texturePool && this._texturePool.size)
+        {
+            this._texturePool.forEach(texture => texture.destroy(true));
+
+            this._texturePool.clear();
+        }
+
         this._isCached = false;
     }
 
@@ -137,7 +148,7 @@ export class PlaneVisualization
         return this._layers as PlaneVisualizationLayer[];
     }
 
-    public render(canvas: Graphics, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, dimensionX: number = 0, dimensionY: number = 0, timeSinceStartMs: number = 0): Graphics
+    public render(planeId: string, canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, dimensionX: number = 0, dimensionY: number = 0, timeSinceStartMs: number = 0): RenderTexture
     {
         if(width < 1) width = 1;
 
@@ -147,26 +158,15 @@ export class PlaneVisualization
 
         if(this._cachedBitmapData)
         {
-            if(((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height)) && (Vector3d.isEqual(this._cachedBitmapNormal, normal)))
+            if((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height) && (Vector3d.isEqual(this._cachedBitmapNormal, normal)))
             {
                 if(!this.hasAnimationLayers)
                 {
                     if(canvas)
                     {
-                        canvas.addChild(this._cachedBitmapData);
+                        TextureUtils.writeToRenderTexture(new Sprite(this._cachedBitmapData), canvas, true);
 
                         return canvas;
-                        // const texture = TextureUtils.generateTexture(this._cachedBitmapData, new Rectangle(0, 0, width, height));
-
-                        // if(texture)
-                        // {
-                        //     canvas
-                        //         .beginTextureFill({ texture })
-                        //         .drawRect(0, 0, texture.width, texture.height)
-                        //         .endFill();
-
-                        //     return canvas;
-                        // }
                     }
 
                     return this._cachedBitmapData;
@@ -174,8 +174,6 @@ export class PlaneVisualization
             }
             else
             {
-                this._cachedBitmapData.destroy();
-
                 this._cachedBitmapData = null;
             }
         }
@@ -184,17 +182,37 @@ export class PlaneVisualization
 
         if(!this._cachedBitmapData)
         {
-            this._cachedBitmapData = new Graphics()
-                .beginFill(0xFFFFFF)
-                .drawRect(0, 0, width, height)
-                .endFill();
+            let cache = this._texturePool.get(planeId);
+            let swapCache = this._texturePool.get(planeId + '-swap');
+
+            if(!swapCache)
+            {
+                swapCache = RoomTextureUtils.createAndFillRenderTexture(width, height);
+
+                this._texturePool.set(planeId + '-swap', swapCache);
+            }
+            else
+            {
+                if(cache)
+                {
+                    [ cache, swapCache ] = [ swapCache, cache ];
+                }
+            }
+
+            if(!cache)
+            {
+                cache = RoomTextureUtils.createAndFillRenderTexture(width, height);
+
+                this._texturePool.set(planeId, cache);
+            }
+
+            this._cachedBitmapData = swapCache;
+
+            TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
         }
         else
         {
-            this._cachedBitmapData
-                .beginFill(0xFFFFFF)
-                .drawRect(0, 0, width, height)
-                .endFill();
+            TextureUtils.clearAndFillRenderTexture(this._cachedBitmapData);
         }
 
         if(!canvas) canvas = this._cachedBitmapData;
@@ -221,13 +239,7 @@ export class PlaneVisualization
 
         if(canvas && (canvas !== this._cachedBitmapData))
         {
-            this._cachedBitmapData.addChild(canvas.clone());
-            // const texture = TextureUtils.generateTexture(canvas, new Rectangle(0, 0, canvas.width, canvas.height));
-
-            // this._cachedBitmapData
-            //     .beginTextureFill({ texture })
-            //     .drawRect(0, 0, canvas.width, canvas.height)
-            //     .endFill();
+            TextureUtils.writeToRenderTexture(new Sprite(canvas), this._cachedBitmapData, false);
 
             return canvas;
         }

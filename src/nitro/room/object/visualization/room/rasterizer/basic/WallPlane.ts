@@ -1,4 +1,4 @@
-﻿import { Graphics } from '@pixi/graphics';
+﻿import { RenderTexture } from '@pixi/core';
 import { IVector3D, Vector3d } from '../../../../../../../api';
 import { Plane } from './Plane';
 
@@ -8,7 +8,7 @@ export class WallPlane extends Plane
     public static HORIZONTAL_ANGLE_DEFAULT: number = 45;
     public static VERTICAL_ANGLE_DEFAULT: number = 30;
 
-    public render(canvas: Graphics, width: number, height: number, size: number, normal: IVector3D, useTexture: boolean): Graphics
+    public render(planeId: string, canvas: RenderTexture, width: number, height: number, size: number, normal: IVector3D, useTexture: boolean): RenderTexture
     {
         const visualization = this.getPlaneVisualization(size);
 
@@ -24,6 +24,6 @@ export class WallPlane extends Plane
             height = Math.round(Math.abs((_local_8.y - _local_9.y)));
         }
 
-        return visualization.render(canvas, width, height, normal, useTexture);
+        return visualization.render(planeId, canvas, width, height, normal, useTexture);
     }
 }

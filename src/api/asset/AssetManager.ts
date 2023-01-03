@@ -175,15 +175,9 @@ export class AssetManager implements IAssetManager
         {
             const spritesheet = new Spritesheet(baseTexture, spritesheetData);
 
-            return new Promise<void>((resolve, reject) =>
-            {
-                spritesheet.parse(() =>
-                {
-                    this.createCollection(data, spritesheet);
+            await spritesheet.parse();
 
-                    return resolve();
-                });
-            });
+            this.createCollection(data, spritesheet);
         };
 
         if(baseTexture.valid)

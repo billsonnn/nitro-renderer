@@ -1,4 +1,4 @@
-﻿import { Graphics } from '@pixi/graphics';
+﻿import { RenderTexture } from '@pixi/core';
 import { IVector3D } from '../../../../../../../api';
 import { PlaneMaterialCellMatrix } from './PlaneMaterialCellMatrix';
 
@@ -76,7 +76,7 @@ export class PlaneMaterial
         return null;
     }
 
-    public render(canvas: Graphics, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number, topAlign: boolean): Graphics
+    public render(canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number, topAlign: boolean): RenderTexture
     {
         if(width < 1) width = 1;
 

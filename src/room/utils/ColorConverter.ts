@@ -335,4 +335,19 @@ export class ColorConverter
     {
         return ColorConverter.xyz2CieLab(ColorConverter.rgb2xyz(k));
     }
+
+    public static colorize(colorA: number, colorB: number): number
+    {
+        if(colorB === 0xFFFFFFFF) return colorA;
+
+        let r = ((colorB >> 16) & 0xFF);
+        let g = ((colorB >> 8) & 0xFF);
+        let b = (colorB & 0xFF);
+
+        r = ((((colorA >> 16) & 0xFF) * r) / 0xFF);
+        g = ((((colorA >> 8) & 0xFF) * g) / 0xFF);
+        b = (((colorA & 0xFF) * b) / 0xFF);
+
+        return ((colorA && 0xFF000000) | (r << 16) | (g << 8) | b);
+    }
 }

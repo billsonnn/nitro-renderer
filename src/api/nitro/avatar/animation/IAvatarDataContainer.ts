@@ -1,4 +1,4 @@
-﻿import { AdjustmentFilter } from '@pixi/filter-adjustment';
+﻿import { AdjustmentFilter } from '../../../../pixi-proxy';
 
 export interface IAvatarDataContainer
 {

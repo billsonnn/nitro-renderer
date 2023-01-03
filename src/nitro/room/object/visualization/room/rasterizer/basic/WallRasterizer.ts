@@ -1,5 +1,6 @@
-﻿import { Graphics } from '@pixi/graphics';
-import { IVector3D } from '../../../../../../../api';
+﻿import { RenderTexture } from '@pixi/core';
+import { IAssetPlane, IVector3D } from '../../../../../../../api';
+import { TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneBitmapData } from '../../utils';
 import { PlaneRasterizer } from './PlaneRasterizer';
 import { WallPlane } from './WallPlane';
@@ -10,12 +11,12 @@ export class WallRasterizer extends PlaneRasterizer
     {
         if(!this.data) return;
 
-        const walls = this.data.walls;
+        const walls = this.data.planes;
 
         if(walls && walls.length) this.parseWalls(walls);
     }
 
-    private parseWalls(k: any): void
+    private parseWalls(k: IAssetPlane[]): void
     {
         if(!k) return;
 
@@ -35,7 +36,7 @@ export class WallRasterizer extends PlaneRasterizer
         }
     }
 
-    public render(canvas: Graphics, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
+    public render(planeId: string, canvas: RenderTexture, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
     {
         let plane = this.getPlane(id) as WallPlane;
 
@@ -43,20 +44,13 @@ export class WallRasterizer extends PlaneRasterizer
 
         if(!plane) return null;
 
-        if(canvas)
-        {
-            const rectangle = canvas.getBounds();
+        if(canvas) TextureUtils.clearAndFillRenderTexture(canvas);
 
-            canvas.clear();
-
-            canvas.drawRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-        }
-
-        let graphic = plane.render(canvas, width, height, scale, normal, useTexture);
+        let graphic = plane.render(planeId, canvas, width, height, scale, normal, useTexture);
 
         if(graphic && (graphic !== canvas))
         {
-            graphic = graphic.clone();
+            graphic = new RenderTexture(graphic.baseTexture);
 
             if(!graphic) return null;
         }

@@ -1,7 +1,8 @@
-import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Rectangle } from '@pixi/math';
-import { AdvancedMap, AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable, Vector3d } from '../../../../../api';
+import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable, Vector3d } from '../../../../../api';
+import { RoomTextureUtils } from '../../../../../pixi-proxy';
 import { RoomObjectSpriteVisualization } from '../../../../../room';
+import { ToInt32 } from '../../../../utils';
 import { RoomMapData } from '../../RoomMapData';
 import { RoomMapMaskData } from '../../RoomMapMaskData';
 import { RoomPlaneBitmapMaskData } from '../../RoomPlaneBitmapMaskData';
@@ -13,10 +14,6 @@ import { RoomVisualizationData } from './RoomVisualizationData';
 
 export class RoomVisualization extends RoomObjectSpriteVisualization implements IPlaneVisualization
 {
-    public static LAST_VISUALIZATION: RoomVisualization = null;
-
-    public static RENDER_TEXTURE_CACHE: Map<RoomVisualization, AdvancedMap<any, RenderTexture>> = new Map();
-
     public static FLOOR_COLOR: number = 0xFFFFFF;
     public static FLOOR_COLOR_LEFT: number = 0xDDDDDD;
     public static FLOOR_COLOR_RIGHT: number = 0xBBBBBB;
@@ -102,31 +99,6 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         this._typeVisibility[RoomPlane.TYPE_LANDSCAPE] = true;
     }
 
-    public static getTextureCache(key: any): RenderTexture
-    {
-        const existing = RoomVisualization.RENDER_TEXTURE_CACHE.get(RoomVisualization.LAST_VISUALIZATION);
-
-        if(!existing) return null;
-
-        return existing.getValue(key);
-    }
-
-    public static addTextureCache(key: any, value: RenderTexture): void
-    {
-        if(!RoomVisualization.LAST_VISUALIZATION) return;
-
-        let existing = RoomVisualization.RENDER_TEXTURE_CACHE.get(RoomVisualization.LAST_VISUALIZATION);
-
-        if(!existing)
-        {
-            existing = new AdvancedMap();
-
-            RoomVisualization.RENDER_TEXTURE_CACHE.set(RoomVisualization.LAST_VISUALIZATION, existing);
-        }
-
-        existing.add(key, value);
-    }
-
     public initialize(data: IObjectVisualizationData): boolean
     {
         if(!(data instanceof RoomVisualizationData)) return false;
@@ -171,19 +143,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
             this._data = null;
         }
 
-        const existingTextureCache = RoomVisualization.RENDER_TEXTURE_CACHE.get(this);
-
-        if(existingTextureCache)
-        {
-            for(const texture of existingTextureCache.getValues())
-            {
-                texture.destroy(true);
-            }
-
-            existingTextureCache.dispose();
-
-            RoomVisualization.RENDER_TEXTURE_CACHE.delete(this);
-        }
+        RoomTextureUtils.clearCache();
     }
 
     protected reset(): void
@@ -202,14 +162,6 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
     {
         if(!this.object || !geometry) return;
 
-        RoomVisualization.LAST_VISUALIZATION = this;
-
-        let removeCount = 0;
-
-        const existing = RoomVisualization.RENDER_TEXTURE_CACHE.get(RoomVisualization.LAST_VISUALIZATION);
-
-        if(existing) removeCount = existing.length;
-
         const geometryUpdate = this.updateGeometry(geometry);
         const objectModel = this.object.model;
 
@@ -219,28 +171,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(this.updateHole(objectModel)) needsUpdate = true;
 
-        if(this.initializeRoomPlanes())
-        {
-            if(existing && removeCount)
-            {
-                setTimeout(() =>
-                {
-                    while(removeCount)
-                    {
-                        const texture = existing.getWithIndex(0);
-
-                        if(texture)
-                        {
-                            texture.destroy(true);
-
-                            existing.remove(existing.getKey(0));
-                        }
-
-                        removeCount--;
-                    }
-                }, 0);
-            }
-        }
+        this.initializeRoomPlanes();
 
         needsUpdate = this.updateMasks(objectModel);
 
@@ -436,9 +367,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         this.reset();
     }
 
-    protected initializeRoomPlanes(): boolean
+    protected initializeRoomPlanes(): void
     {
-        if(!this.object || this._isPlaneSet) return false;
+        if(!this.object || this._isPlaneSet) return;
 
         if(!isNaN(this._floorThickness)) this._roomPlaneParser.floorThicknessMultiplier = this._floorThickness;
         if(!isNaN(this._wallThickness)) this._roomPlaneParser.wallThicknessMultiplier = this._wallThickness;
@@ -447,8 +378,8 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(!this._roomPlaneParser.initializeFromMapData(mapData)) return;
 
-        const _local_3 = this.getLandscapeWidth();
-        const _local_4 = this.getLandscapeHeight();
+        const maxX = this.getLandscapeWidth();
+        const maxY = this.getLandscapeHeight();
 
         let _local_5 = 0;
         let randomSeed = this.object.model.getValue<number>(RoomObjectVariable.ROOM_RANDOM_SEED);
@@ -468,7 +399,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
             {
                 const _local_14 = Vector3d.crossProduct(leftSide, rightSide);
 
-                randomSeed = ((randomSeed * 7613) + 517);
+                randomSeed = ToInt32(Math.trunc((randomSeed * 7613) + 517) >>> 0);
                 plane = null;
 
                 if(planeType === RoomPlaneData.PLANE_FLOOR)
@@ -529,7 +460,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                 else if(planeType === RoomPlaneData.PLANE_LANDSCAPE)
                 {
-                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_LANDSCAPE, true, secondaryNormals, randomSeed, _local_5, 0, _local_3, _local_4);
+                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_LANDSCAPE, true, secondaryNormals, randomSeed, _local_5, 0, maxX, maxY);
 
                     if(_local_14.y > 0)
                     {
@@ -619,8 +550,6 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         this._isPlaneSet = true;
         this.defineSprites();
-
-        return true;
     }
 
     protected defineSprites(): void
@@ -768,90 +697,93 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         this._visiblePlaneSpriteNumbers = [];
     }
 
-    protected updatePlanes(k: IRoomGeometry, _arg_2: boolean, _arg_3: number): boolean
+    protected updatePlanes(geometry: IRoomGeometry, geometryUpdate: boolean, timeSinceStartMs: number): boolean
     {
-        if(!k || !this.object) return;
+        if(!geometry || !this.object) return;
 
         this._assetUpdateCounter++;
 
-        if(_arg_2)
+        if(geometryUpdate)
         {
             this._visiblePlanes = [];
             this._visiblePlaneSpriteNumbers = [];
         }
 
-        const _local_8 = (this._visiblePlanes.length > 0);
+        const hasVisiblePlanes = (this._visiblePlanes.length > 0);
 
-        let _local_6 = this._visiblePlanes;
+        let visiblePlanes = this._visiblePlanes;
 
-        if(!this._visiblePlanes.length) _local_6 = this._planes;
+        if(!this._visiblePlanes.length) visiblePlanes = this._planes;
 
         let depth = 0;
         let updated = false;
         let index = 0;
 
-        while(index < _local_6.length)
+        while(index < visiblePlanes.length)
         {
-            let _local_10 = index;
+            let id = index;
 
-            if(_local_8) _local_10 = this._visiblePlaneSpriteNumbers[index];
+            if(hasVisiblePlanes) id = this._visiblePlaneSpriteNumbers[index];
 
-            const _local_11 = this.getSprite(_local_10);
+            const sprite = this.getSprite(id);
 
-            if(_local_11)
+            if(sprite)
             {
-                const _local_12 = _local_6[index];
+                const plane = visiblePlanes[index];
 
-                if(_local_12)
+                if(plane)
                 {
-                    _local_11.id = _local_12.uniqueId;
+                    sprite.id = plane.uniqueId;
 
-                    if(_local_12.update(k, _arg_3))
+                    if(plane.update(geometry, timeSinceStartMs))
                     {
-                        if(_local_12.visible)
+                        if(plane.visible)
                         {
-                            depth = ((_local_12.relativeDepth + this.floorRelativeDepth) + (_local_10 / 1000));
+                            depth = ((plane.relativeDepth + this.floorRelativeDepth) + (id / 1000));
 
-                            if(_local_12.type !== RoomPlane.TYPE_FLOOR)
+                            if(plane.type !== RoomPlane.TYPE_FLOOR)
                             {
-                                depth = ((_local_12.relativeDepth + this.wallRelativeDepth) + (_local_10 / 1000));
+                                depth = ((plane.relativeDepth + this.wallRelativeDepth) + (id / 1000));
 
-                                if((_local_12.leftSide.length < 1) || (_local_12.rightSide.length < 1))
+                                if((plane.leftSide.length < 1) || (plane.rightSide.length < 1))
                                 {
                                     depth = (depth + (RoomVisualization.ROOM_DEPTH_OFFSET * 0.5));
                                 }
                             }
 
-                            const _local_14 = ((('plane ' + _local_10) + ' ') + k.scale);
-
-                            this.updateSprite(_local_11, _local_12, _local_14, depth);
+                            this.updateSprite(sprite, geometry, plane, `plane ${ id } ${ geometry.scale }`, depth);
                         }
+
                         updated = true;
                     }
-                    if(_local_11.visible != ((_local_12.visible) && (this._typeVisibility[_local_12.type])))
+
+                    if(sprite.visible != ((plane.visible) && (this._typeVisibility[plane.type])))
                     {
-                        _local_11.visible = (!(_local_11.visible));
+                        sprite.visible = (!(sprite.visible));
                         updated = true;
                     }
-                    if(_local_11.visible)
+
+                    if(sprite.visible)
                     {
-                        if(!_local_8)
+                        if(!hasVisiblePlanes)
                         {
-                            this._visiblePlanes.push(_local_12);
+                            this._visiblePlanes.push(plane);
                             this._visiblePlaneSpriteNumbers.push(index);
                         }
                     }
                 }
                 else
                 {
-                    _local_11.id = 0;
-                    if(_local_11.visible)
+                    sprite.id = 0;
+
+                    if(sprite.visible)
                     {
-                        _local_11.visible = false;
+                        sprite.visible = false;
                         updated = true;
                     }
                 }
             }
+
             index++;
         }
 
@@ -909,12 +841,12 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                             {
                                 if(plane.leftSide && plane.rightSide)
                                 {
-                                    const _local_16 = Vector3d.scalarProjection(_local_14, plane.leftSide);
-                                    const _local_17 = Vector3d.scalarProjection(_local_14, plane.rightSide);
+                                    const leftSideLoc = Vector3d.scalarProjection(_local_14, plane.leftSide);
+                                    const rightSideLoc = Vector3d.scalarProjection(_local_14, plane.rightSide);
 
                                     if((plane.type === RoomPlane.TYPE_WALL) || ((plane.type === RoomPlane.TYPE_LANDSCAPE) && (maskCategory === RoomPlaneBitmapMaskData.HOLE)))
                                     {
-                                        plane.addBitmapMask(maskType, _local_16, _local_17);
+                                        plane.addBitmapMask(maskType, leftSideLoc, rightSideLoc);
                                     }
                                     else
                                     {
@@ -961,21 +893,16 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         }
     }
 
-    private updateSprite(k: IRoomObjectSprite, _arg_2: RoomPlane, _arg_3: string, _arg_4: number): void
+    private updateSprite(sprite: IRoomObjectSprite, geometry: IRoomGeometry, plane: RoomPlane, _arg_3: string, relativeDepth: number): void
     {
-        const offset = _arg_2.offset;
+        const offset = plane.offset;
 
-        k.offsetX = -(offset.x);
-        k.offsetY = -(offset.y);
-        k.relativeDepth = _arg_4;
-        k.color = _arg_2.color;
-        k.texture = this.getPlaneBitmap(_arg_2, _arg_3);
-        k.name = ((_arg_3 + '_') + this._assetUpdateCounter);
-    }
-
-    private getPlaneBitmap(k: RoomPlane, _arg_2: string): Texture<Resource>
-    {
-        return k.bitmapData;
+        sprite.offsetX = -(offset.x);
+        sprite.offsetY = -(offset.y);
+        sprite.relativeDepth = relativeDepth;
+        sprite.color = plane.color;
+        sprite.texture = plane.bitmapData;
+        sprite.name = ((_arg_3 + '_') + this._assetUpdateCounter);
     }
 
     public getBoundingRectangle(): Rectangle

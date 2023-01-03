@@ -1,10 +1,9 @@
-import { Application } from '@pixi/app';
 import '@pixi/canvas-display';
-import { BatchRenderer, Renderer } from '@pixi/core';
+import { BatchRenderer, extensions } from '@pixi/core';
 import { Extract } from '@pixi/extract';
 import '@pixi/graphics-extras';
 import { InteractionManager } from '@pixi/interaction';
-import { AppLoaderPlugin, Loader } from '@pixi/loaders';
+import { AppLoaderPlugin } from '@pixi/loaders';
 import '@pixi/math-extras';
 import '@pixi/mixin-cache-as-bitmap';
 import '@pixi/mixin-get-child-by-name';
@@ -13,33 +12,12 @@ import '@pixi/polyfill';
 import { TilingSpriteRenderer } from '@pixi/sprite-tiling';
 import { SpritesheetLoader } from '@pixi/spritesheet';
 import { TickerPlugin } from '@pixi/ticker';
-import { TileRenderer } from '@pixi/tilemap';
-import * as utils from '@pixi/utils';
-export * from '@pixi/app';
-export * from '@pixi/canvas-renderer';
-export * from '@pixi/constants';
-export * from '@pixi/core';
-export * from '@pixi/display';
-export * from '@pixi/events';
-export * from '@pixi/extract';
-export * from '@pixi/graphics';
-export * from '@pixi/loaders';
-export * from '@pixi/math';
-export * from '@pixi/runner';
-export * from '@pixi/settings';
-export * from '@pixi/sprite';
-export * from '@pixi/spritesheet';
-export * from '@pixi/text';
-export * from '@pixi/ticker';
-export { utils };
 
-Renderer.registerPlugin('batch', BatchRenderer);
-Renderer.registerPlugin('extract', Extract);
-Renderer.registerPlugin('tilingSprite', TilingSpriteRenderer);
-Renderer.registerPlugin('tilemap', TileRenderer);
-Renderer.registerPlugin('interaction', InteractionManager);
-
-Loader.registerPlugin(SpritesheetLoader);
-
-Application.registerPlugin(AppLoaderPlugin);
-Application.registerPlugin(TickerPlugin);
+extensions.add(
+    BatchRenderer,
+    Extract,
+    TilingSpriteRenderer,
+    InteractionManager,
+    SpritesheetLoader,
+    AppLoaderPlugin,
+    TickerPlugin);

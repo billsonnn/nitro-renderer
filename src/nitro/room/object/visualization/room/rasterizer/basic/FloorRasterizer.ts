@@ -1,5 +1,6 @@
-﻿import { Graphics } from '@pixi/graphics';
-import { IVector3D } from '../../../../../../../api';
+﻿import { RenderTexture } from '@pixi/core';
+import { IAssetPlane, IVector3D } from '../../../../../../../api';
+import { TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneBitmapData } from '../../utils';
 import { FloorPlane } from './FloorPlane';
 import { PlaneRasterizer } from './PlaneRasterizer';
@@ -10,12 +11,12 @@ export class FloorRasterizer extends PlaneRasterizer
     {
         if(!this.data) return;
 
-        const floors = this.data.floors;
+        const floors = this.data.planes;
 
         if(floors && floors.length) this.parseFloors(floors);
     }
 
-    private parseFloors(k: any): void
+    private parseFloors(k: IAssetPlane[]): void
     {
         if(!k) return;
 
@@ -35,7 +36,7 @@ export class FloorRasterizer extends PlaneRasterizer
         }
     }
 
-    public render(canvas: Graphics, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
+    public render(planeId: string, canvas: RenderTexture, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
     {
         let plane = this.getPlane(id) as FloorPlane;
 
@@ -43,13 +44,13 @@ export class FloorRasterizer extends PlaneRasterizer
 
         if(!plane) return null;
 
-        if(canvas) canvas.clear();
+        if(canvas) TextureUtils.clearAndFillRenderTexture(canvas);
 
-        let graphic = plane.render(canvas, width, height, scale, normal, useTexture, offsetX, offsetY);
+        let graphic = plane.render(planeId, canvas, width, height, scale, normal, useTexture, offsetX, offsetY);
 
         if(graphic && (graphic !== canvas))
         {
-            graphic = graphic.clone();
+            graphic = new RenderTexture(graphic.baseTexture);
 
             if(!graphic) return null;
         }
