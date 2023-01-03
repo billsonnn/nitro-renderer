@@ -448,4 +448,7 @@ export class OutgoingHeader
     public static EMAIL_GET_STATUS = 2557;
     public static EMAIL_CHANGE = 3965;
     public static APPROVE_ALL_MEMBERSHIP_REQUESTS = 882;
+    public static RENTABLE_SPACE_CANCEL_RENT = 1667;
+    public static RENTABLE_SPACE_RENT = 2946;
+    public static RENTABLE_SPACE_STATUS = 872;
 }
