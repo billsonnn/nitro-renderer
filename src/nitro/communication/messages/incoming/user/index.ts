@@ -1,6 +1,7 @@
 export * from './access';
 export * from './AccountSafetyLockStatusChangeMessageEvent';
 export * from './ApproveNameMessageEvent';
+export * from './ChangeEmailResultEvent';
 export * from './data';
 export * from './EmailStatusResultEvent';
 export * from './ExtendedProfileChangedMessageEvent';
