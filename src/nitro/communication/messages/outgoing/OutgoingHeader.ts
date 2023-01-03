@@ -89,6 +89,7 @@ export class OutgoingHeader
     public static GROUP_SAVE_COLORS = 1764;
     public static GROUP_SAVE_PREFERENCES = 3435;
     public static GROUP_BADGES = 21;
+    public static GROUP_UNBLOCK_MEMBER = 2864;
     public static GET_BADGE_POINTS_LIMITS = 1371;
     public static REQUESTABADGE = 3077;
     public static GETISBADGEREQUESTFULFILLED = 1364;
