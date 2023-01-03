@@ -386,6 +386,7 @@ export class OutgoingHeader
     public static SET_TARGETTED_OFFER_STATE = 2041;
     public static SHOP_TARGETED_OFFER_VIEWED = 3483;
     public static HELPER_TALENT_TRACK = 196;
+    public static TALENT_TRACK_GET_LEVEL = 2127;
     public static FORWARD_TO_A_COMPETITION_ROOM = 172;
     public static FORWARD_TO_A_SUBMITTABLE_ROOM = 1450;
     public static FORWARD_TO_RANDOM_COMPETITION_ROOM = 865;
