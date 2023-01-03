@@ -144,6 +144,8 @@ export class OutgoingHeader
     public static PET_CONFIRM_BREEDING = 3382;
     public static GET_PET_TRAINING_PANEL = 2161;
     public static RECYCLER_PRIZES = 398;
+    public static RECYCLER_STATUS = 1342;
+    public static RECYCLER_ITEMS = 2771;
     public static RELEASE_VERSION = 4000;
     public static CALL_FOR_HELP = 1691;
     public static ROOM_AMBASSADOR_ALERT = 2996;
