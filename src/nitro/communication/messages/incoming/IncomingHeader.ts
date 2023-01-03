@@ -444,4 +444,5 @@ export class IncomingHeader
     public static RENTABLE_SPACE_RENT_OK = 2046;
     public static RENTABLE_SPACE_STATUS = 3559;
     public static RENTABLE_SPACE_RENT_FAILED = 1868;
+    public static EMAIL_STATUS = 612;
 }
