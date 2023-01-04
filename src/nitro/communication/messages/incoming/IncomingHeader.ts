@@ -39,6 +39,7 @@ export class IncomingHeader
     public static GAME_CENTER_STOP_COUNTER = 3191;
     public static GAME_CENTER_USER_LEFT_GAME = 3138;
     public static GAME_CENTER_DIRECTORY_STATUS = 2246;
+    public static GAME_CENTER_STARTING_GAME_FAILED = 2142;
     public static GAMESTATUSMESSAGE = 3805;
     public static GAMEACHIEVEMENTS = 1689;
     public static GAMEINVITE = 904;
