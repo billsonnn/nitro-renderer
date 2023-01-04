@@ -3,6 +3,7 @@ export * from './ActivityPointNotificationMessageEvent';
 export * from './BotErrorEvent';
 export * from './ClubGiftNotificationEvent';
 export * from './ConnectionErrorEvent';
+export * from './ElementPointerMessageEvent';
 export * from './HabboBroadcastMessageEvent';
 export * from './HotelWillShutdownEvent';
 export * from './InfoFeedEnableMessageEvent';
