@@ -202,6 +202,7 @@ export class OutgoingHeader
     public static ROOM_RIGHTS_REMOVE_OWN = 3182;
     public static ROOM_SETTINGS = 3129;
     public static ROOM_SETTINGS_SAVE = 1969;
+    public static ROOM_SETTINGS_UPDATE_ROOM_CATEGORY_AND_TRADE = 1265;
     public static ROOM_STAFF_PICK = 1918;
     public static ROOM_FILTER_WORDS = 1911;
     public static ROOM_FILTER_WORDS_MODIFY = 3001;
