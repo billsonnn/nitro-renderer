@@ -448,4 +448,10 @@ export class IncomingHeader
     public static RENTABLE_SPACE_RENT_FAILED = 1868;
     public static EMAIL_STATUS = 612;
     public static CHANGE_EMAIL_RESULT = 1815;
+    public static WEEKLY_GAME_REWARD = 2641;
+    public static WEEKLY_GAME_REWARD_WINNERS = 3097;
+    public static WEEKLY_COMPETITIVE_LEADERBOARD = 3512;
+    public static WEEKLY_COMPETITIVE_FRIENDS_LEADERBOARD = 3560;
+    public static WEEKLY_GAME2_FRIENDS_LEADERBOARD = 2270;
+    public static WEEKLY_GAME2_LEADERBOARD = 2196;
 }
