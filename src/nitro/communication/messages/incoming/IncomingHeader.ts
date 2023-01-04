@@ -135,6 +135,7 @@ export class IncomingHeader
     public static PET_GO_TO_BREEDING_NEST_FAILURE = 2621;
     public static PET_NEST_BREEDING_SUCCESS = 2527;
     public static PET_CONFIRM_BREEDING_REQUEST = 634;
+    public static PET_BREEDING_RESULT = 1553;
     public static RECYCLER_PRIZES = 3164;
     public static RECYCLER_STATUS = 3433;
     public static RECYCLER_FINISHED = 468;

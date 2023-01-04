@@ -8,12 +8,12 @@ export class RoomSessionPetBreedingResultEvent extends RoomSessionEvent
     private _resultData: IPetBreedingResultData;
     private _otherResultData: IPetBreedingResultData;
 
-    constructor(k: IRoomSession, _arg_2: IPetBreedingResultData, _arg_3: IPetBreedingResultData)
+    constructor(session: IRoomSession, resultData: IPetBreedingResultData, otherResultData: IPetBreedingResultData)
     {
-        super(RoomSessionPetBreedingResultEvent.PET_BREEDING_RESULT, k);
+        super(RoomSessionPetBreedingResultEvent.PET_BREEDING_RESULT, session);
 
-        this._resultData = _arg_2;
-        this._otherResultData = _arg_3;
+        this._resultData = resultData;
+        this._otherResultData = otherResultData;
     }
 
     public get resultData(): IPetBreedingResultData
