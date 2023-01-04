@@ -458,4 +458,6 @@ export class OutgoingHeader
     public static RENTABLE_SPACE_CANCEL_RENT = 1667;
     public static RENTABLE_SPACE_RENT = 2946;
     public static RENTABLE_SPACE_STATUS = 872;
+    public static TRACKING_PERFORMANCE_LOG = 3230;
+    public static TRACKING_LAG_WARNING_REPORT = 3847;
 }
