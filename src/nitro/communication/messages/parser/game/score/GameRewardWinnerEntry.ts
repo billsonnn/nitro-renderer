@@ -2,42 +2,42 @@ import { IMessageDataWrapper } from '../../../../../../api';
 
 export class GameRewardWinnerEntry
 {
-    private _name:string;
-    private _figure:string;
-    private _gender:string;
-    private _rank:number;
-    private _score:number;
+    private _name: string;
+    private _figure: string;
+    private _gender: string;
+    private _rank: number;
+    private _score: number;
 
-    constructor(k:IMessageDataWrapper)
+    constructor(wrapper: IMessageDataWrapper)
     {
-        this._name = k.readString();
-        this._figure = k.readString();
-        this._gender = k.readString();
-        this._rank = k.readInt();
-        this._score = k.readInt();
+        this._name = wrapper.readString();
+        this._figure = wrapper.readString();
+        this._gender = wrapper.readString();
+        this._rank = wrapper.readInt();
+        this._score = wrapper.readInt();
     }
 
-    public get name():string
+    public get name(): string
     {
         return this._name;
     }
 
-    public get figure():string
+    public get figure(): string
     {
         return this._figure;
     }
 
-    public get gender():string
+    public get gender(): string
     {
         return this._gender;
     }
 
-    public get rank():number
+    public get rank(): number
     {
         return this._rank;
     }
 
-    public get score():number
+    public get score(): number
     {
         return this._score;
     }
