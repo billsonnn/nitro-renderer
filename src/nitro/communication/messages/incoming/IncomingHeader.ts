@@ -292,6 +292,7 @@ export class IncomingHeader
     public static USER_EFFECT_LIST_ADD = 2867;
     public static USER_EFFECT_LIST_REMOVE = 2228;
     public static USER_EFFECT_ACTIVATE = 1959;
+    public static AVATAR_EFFECT_SELECTED = 3473;
     public static CLUB_GIFT_INFO = 619;
     public static REDEEM_VOUCHER_ERROR = 714;
     public static REDEEM_VOUCHER_OK = 3336;
