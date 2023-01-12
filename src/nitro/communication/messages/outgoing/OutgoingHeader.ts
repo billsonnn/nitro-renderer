@@ -449,6 +449,7 @@ export class OutgoingHeader
     public static SET_CLOTHING_CHANGE_DATA = 924;
     public static GROUP_UNFAVORITE = 1820;
     public static NEW_USER_EXPERIENCE_GET_GIFTS = 1822;
+    public static NEW_USER_EXPERIENCE_SCRIPT_PROCEED = 1299;
     public static HANDSHAKE_INIT_DIFFIE = 3110;
     public static HANDSHAKE_COMPLETE_DIFFIE = 773;
     public static WELCOME_OPEN_GIFT = 2638;
