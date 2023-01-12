@@ -460,4 +460,5 @@ export class OutgoingHeader
     public static RENTABLE_SPACE_STATUS = 872;
     public static TRACKING_PERFORMANCE_LOG = 3230;
     public static TRACKING_LAG_WARNING_REPORT = 3847;
+    public static ROOM_DIRECTORY_ROOM_NETWORK_OPEN_CONNECTION = 3736;
 }

@@ -58,6 +58,7 @@ export * from './room/pets';
 export * from './room/session';
 export * from './room/unit';
 export * from './room/unit/chat';
+export * from './roomdirectory';
 export * from './roomevents';
 export * from './roomsettings';
 export * from './sound';
