@@ -461,4 +461,5 @@ export class IncomingHeader
     public static WEEKLY_COMPETITIVE_FRIENDS_LEADERBOARD = 3560;
     public static WEEKLY_GAME2_FRIENDS_LEADERBOARD = 2270;
     public static WEEKLY_GAME2_LEADERBOARD = 2196;
+    public static RENTABLE_FURNI_RENT_OR_BUYOUT_OFFER = 35;
 }
