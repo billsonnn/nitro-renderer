@@ -1,6 +1,6 @@
 import { Rectangle } from '@pixi/math';
 import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable, Vector3d } from '../../../../../api';
-import { RoomTextureCache } from '../../../../../pixi-proxy';
+import { PlaneTextureCache } from '../../../../../pixi-proxy';
 import { RoomObjectSpriteVisualization } from '../../../../../room';
 import { ToInt32 } from '../../../../utils';
 import { RoomMapData } from '../../RoomMapData';
@@ -57,7 +57,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
     private _assetUpdateCounter: number;
     private _maskData: RoomMapMaskData;
     private _isPlaneSet: boolean;
-    private _textureCache: RoomTextureCache;
+    private _textureCache: PlaneTextureCache;
 
     constructor()
     {
@@ -93,7 +93,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         this._assetUpdateCounter = 0;
         this._maskData = null;
         this._isPlaneSet = false;
-        this._textureCache = new RoomTextureCache();
+        this._textureCache = new PlaneTextureCache();
 
         this._typeVisibility[RoomPlane.TYPE_UNDEFINED] = false;
         this._typeVisibility[RoomPlane.TYPE_FLOOR] = true;
@@ -147,7 +147,6 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(this._textureCache)
         {
-            console.log('clear it');
             this._textureCache.clearCache();
         }
     }
@@ -183,7 +182,10 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(((time < (this._lastUpdateTime + this._updateIntervalTime)) && (!geometryUpdate)) && (!needsUpdate)) return;
 
-        if(this.updatePlaneTexturesAndVisibilities(objectModel)) needsUpdate = true;
+        if(this.updatePlaneTexturesAndVisibilities(objectModel))
+        {
+            needsUpdate = true;
+        }
 
         if(this.updatePlanes(geometry, geometryUpdate, time)) needsUpdate = true;
 
@@ -339,15 +341,11 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         const wallType = model.getValue<string>(RoomObjectVariable.ROOM_WALL_TYPE);
         const landscapeType = model.getValue<string>(RoomObjectVariable.ROOM_LANDSCAPE_TYPE);
 
-        this.updatePlaneTypes(floorType, wallType, landscapeType);
-
         const floorVisibility = (model.getValue<number>(RoomObjectVariable.ROOM_FLOOR_VISIBILITY) === 1);
         const wallVisibility = (model.getValue<number>(RoomObjectVariable.ROOM_WALL_VISIBILITY) === 1);
         const landscapeVisibility = (model.getValue<number>(RoomObjectVariable.ROOM_LANDSCAPE_VISIBILITY) === 1);
 
-        this.updatePlaneVisibility(floorVisibility, wallVisibility, landscapeVisibility);
-
-        return true;
+        return (this.updatePlaneTypes(floorType, wallType, landscapeType) || this.updatePlaneVisibility(floorVisibility, wallVisibility, landscapeVisibility));
     }
 
     private clearPlanes(): void
@@ -691,9 +689,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         return true;
     }
 
-    private updatePlaneVisibility(k: boolean, _arg_2: boolean, _arg_3: boolean): void
+    private updatePlaneVisibility(k: boolean, _arg_2: boolean, _arg_3: boolean): boolean
     {
-        if((k === this._typeVisibility[RoomPlane.TYPE_FLOOR]) && (_arg_2 === this._typeVisibility[RoomPlane.TYPE_WALL]) && (_arg_3 === this._typeVisibility[RoomPlane.TYPE_LANDSCAPE])) return;
+        if((k === this._typeVisibility[RoomPlane.TYPE_FLOOR]) && (_arg_2 === this._typeVisibility[RoomPlane.TYPE_WALL]) && (_arg_3 === this._typeVisibility[RoomPlane.TYPE_LANDSCAPE])) return false;
 
         this._typeVisibility[RoomPlane.TYPE_FLOOR] = k;
         this._typeVisibility[RoomPlane.TYPE_WALL] = _arg_2;
@@ -701,11 +699,13 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         this._visiblePlanes = [];
         this._visiblePlaneSpriteNumbers = [];
+
+        return true;
     }
 
     protected updatePlanes(geometry: IRoomGeometry, geometryUpdate: boolean, timeSinceStartMs: number): boolean
     {
-        if(!geometry || !this.object) return;
+        if(!geometry || !this.object) return false;
 
         this._assetUpdateCounter++;
 

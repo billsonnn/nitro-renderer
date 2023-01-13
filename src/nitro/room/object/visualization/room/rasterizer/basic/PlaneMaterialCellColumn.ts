@@ -1,7 +1,6 @@
-import { RenderTexture, Texture } from '@pixi/core';
-import { Sprite } from '@pixi/sprite';
+import { RenderTexture } from '@pixi/core';
 import { IVector3D, Vector3d } from '../../../../../../../api';
-import { RoomTextureCache, TextureUtils } from '../../../../../../../pixi-proxy';
+import { PlaneTextureCache, TextureUtils } from '../../../../../../../pixi-proxy';
 import { PlaneMaterialCell } from './PlaneMaterialCell';
 
 export class PlaneMaterialCellColumn
@@ -125,7 +124,7 @@ export class PlaneMaterialCellColumn
         this._isCached = false;
     }
 
-    public render(textureCache: RoomTextureCache, height: number, normal: IVector3D, offsetX: number, offsetY: number): RenderTexture
+    public render(planeId: string, textureCache: PlaneTextureCache, height: number, normal: IVector3D, offsetX: number, offsetY: number): RenderTexture
     {
         if(this._repeatMode === PlaneMaterialCellColumn.REPEAT_MODE_NONE) height = this.getCellsHeight(this._cells, normal);
 
@@ -141,46 +140,20 @@ export class PlaneMaterialCellColumn
                 }
                 else
                 {
-                    if(this._cachedBitmapData.height === height)
-                    {
-                        textureCache.clearRenderTexture(this._cachedBitmapData);
-                    }
-                    else
-                    {
-                        this._cachedBitmapData.destroy(true);
-
-                        this._cachedBitmapData = null;
-                    }
+                    this._cachedBitmapData = null;
                 }
             }
         }
         else
         {
-            if(this._cachedBitmapData)
-            {
-                if(this._cachedBitmapData.height === height)
-                {
-                    const sprite = new Sprite(Texture.EMPTY);
-
-                    sprite.width = this._cachedBitmapData.width;
-                    sprite.height = height;
-
-                    textureCache.writeToRenderTexture(sprite, this._cachedBitmapData);
-                }
-                else
-                {
-                    this._cachedBitmapData.destroy(true);
-
-                    this._cachedBitmapData = null;
-                }
-            }
+            this._cachedBitmapData = null;
         }
 
         this._isCached = true;
 
         if(!this._cachedBitmapData)
         {
-            this._cachedBitmapData = textureCache.createRenderTexture(this._width, height);
+            this._cachedBitmapData = textureCache.createRenderTexture(this._width, height, `${ planeId }:column`);
         }
 
         this._cachedBitmapNormal.assign(normal);

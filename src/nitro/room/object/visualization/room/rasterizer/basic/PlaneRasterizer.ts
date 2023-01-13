@@ -1,7 +1,7 @@
 ﻿import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Point } from '@pixi/math';
 import { IAssetPlaneMaterial, IAssetPlaneMaterialCellColumn, IAssetPlaneTexture, IAssetPlaneVisualization, IAssetPlaneVisualizationData, IAssetPlaneVisualizationLayer, IGraphicAsset, IGraphicAssetCollection, IRoomGeometry, IVector3D, Vector3d } from '../../../../../../../api';
-import { RoomTextureCache } from '../../../../../../../pixi-proxy';
+import { PlaneTextureCache } from '../../../../../../../pixi-proxy';
 import { Rasterizer, RoomGeometry } from '../../../../../../../room';
 import { PlaneBitmapData } from '../../utils';
 import { IPlaneRasterizer } from '../IPlaneRasterizer';
@@ -585,7 +585,7 @@ export class PlaneRasterizer implements IPlaneRasterizer
         }
     }
 
-    public render(planeId: string, textureCache: RoomTextureCache, canvas: RenderTexture, id: string, width: number, height: number, size: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
+    public render(planeId: string, textureCache: PlaneTextureCache, canvas: RenderTexture, id: string, width: number, height: number, size: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
     {
         return null;
     }

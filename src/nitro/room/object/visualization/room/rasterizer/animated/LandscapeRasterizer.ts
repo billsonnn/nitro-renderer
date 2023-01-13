@@ -1,6 +1,6 @@
 ﻿import { RenderTexture } from '@pixi/core';
-import { IAssetPlane, IAssetPlaneVisualizationAnimatedLayer, IAssetPlaneVisualizationLayer, IVector3D, Vector3d } from '../../../../../../../api';
-import { RoomTextureCache } from '../../../../../../../pixi-proxy';
+import { IAssetPlane, IAssetPlaneVisualizationAnimatedLayer, IAssetPlaneVisualizationLayer, IVector3D } from '../../../../../../../api';
+import { PlaneTextureCache } from '../../../../../../../pixi-proxy';
 import { PlaneBitmapData, Randomizer } from '../../utils';
 import { PlaneMaterial, PlaneRasterizer, PlaneVisualizationLayer } from '../basic';
 import { LandscapePlane } from './LandscapePlane';
@@ -184,46 +184,13 @@ export class LandscapeRasterizer extends PlaneRasterizer
         return _local_3;
     }
 
-    public render(planeId: string, textureCache: RoomTextureCache, canvas: RenderTexture, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
+    public render(planeId: string, textureCache: PlaneTextureCache, canvas: RenderTexture, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
     {
         let plane = this.getPlane(id) as LandscapePlane;
 
         if(!plane) plane = this.getPlane(LandscapeRasterizer.DEFAULT) as LandscapePlane;
 
         if(!plane) return null;
-
-        if(canvas) textureCache.clearRenderTexture(canvas);
-
-        if(!LandscapeRasterizer.LANDSCAPES_ENABLED)
-        {
-            const visualization = plane.getPlaneVisualization(scale);
-
-            if(!visualization || !visualization.geometry) return null;
-
-            const _local_13 = visualization.geometry.getScreenPoint(new Vector3d(0, 0, 0));
-            const _local_14 = visualization.geometry.getScreenPoint(new Vector3d(0, 0, 1));
-            const _local_15 = visualization.geometry.getScreenPoint(new Vector3d(0, 1, 0));
-
-            if(_local_13 && _local_14 && _local_15)
-            {
-                width = Math.round(Math.abs((((_local_13.x - _local_15.x) * width) / visualization.geometry.scale)));
-                height = Math.round(Math.abs((((_local_13.y - _local_14.y) * height) / visualization.geometry.scale)));
-            }
-
-            if(!this._cachedBitmap || (this._cachedBitmap.width !== width ) || (this._cachedBitmap.height !== height))
-            {
-                if(this._cachedBitmap)
-                {
-                    this._cachedBitmap.destroy(true);
-
-                    this._cachedBitmap = null;
-                }
-
-                this._cachedBitmap = textureCache.createAndFillRenderTexture(width, height, LandscapeRasterizer.LANDSCAPE_DEFAULT_COLOR);
-            }
-
-            return new PlaneBitmapData(this._cachedBitmap, -1);
-        }
 
         if(canvas) textureCache.clearRenderTexture(canvas);
 

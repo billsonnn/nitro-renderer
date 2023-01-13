@@ -1,6 +1,6 @@
 ﻿import { RenderTexture } from '@pixi/core';
 import { IVector3D, Vector3d } from '../../../../../../../api';
-import { RoomTextureCache } from '../../../../../../../pixi-proxy';
+import { PlaneTextureCache } from '../../../../../../../pixi-proxy';
 import { Plane } from './Plane';
 
 export class WallPlane extends Plane
@@ -9,7 +9,7 @@ export class WallPlane extends Plane
     public static HORIZONTAL_ANGLE_DEFAULT: number = 45;
     public static VERTICAL_ANGLE_DEFAULT: number = 30;
 
-    public render(planeId: string, textureCache: RoomTextureCache, canvas: RenderTexture, width: number, height: number, size: number, normal: IVector3D, useTexture: boolean): RenderTexture
+    public render(planeId: string, textureCache: PlaneTextureCache, canvas: RenderTexture, width: number, height: number, size: number, normal: IVector3D, useTexture: boolean): RenderTexture
     {
         const visualization = this.getPlaneVisualization(size);
 

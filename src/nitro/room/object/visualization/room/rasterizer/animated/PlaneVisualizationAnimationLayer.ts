@@ -1,7 +1,7 @@
 ﻿import { RenderTexture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { IDisposable, IGraphicAssetCollection, IVector3D } from '../../../../../../../api';
-import { RoomTextureCache } from '../../../../../../../pixi-proxy';
+import { PlaneTextureCache } from '../../../../../../../pixi-proxy';
 import { AnimationItem } from './AnimationItem';
 
 export class PlaneVisualizationAnimationLayer implements IDisposable
@@ -70,9 +70,9 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
         }
     }
 
-    public render(textureCache: RoomTextureCache, canvas: RenderTexture, width: number, height: number, normal: IVector3D, offsetX: number, offsetY: number, maxX: number, maxY: number, dimensionX: number, dimensionY: number, timeSinceStartMs: number): RenderTexture
+    public render(textureCache: PlaneTextureCache, canvas: RenderTexture, width: number, height: number, normal: IVector3D, offsetX: number, offsetY: number, maxX: number, maxY: number, dimensionX: number, dimensionY: number, timeSinceStartMs: number): RenderTexture
     {
-        if(!canvas || (canvas.width !== width) || (canvas.height !== height))
+        /* if(!canvas || (canvas.width !== width) || (canvas.height !== height))
         {
             if(!this._bitmapData || (this._bitmapData.width !== width) || (this._bitmapData.height !== height))
             {
@@ -86,7 +86,7 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
             }
 
             canvas = this._bitmapData;
-        }
+        } */
 
         if(((maxX > 0) && (maxY > 0)))
         {

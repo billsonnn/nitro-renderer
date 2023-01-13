@@ -1,6 +1,6 @@
 ﻿import { RenderTexture } from '@pixi/core';
 import { IVector3D } from '../../../../../../../api';
-import { RoomTextureCache } from '../../../../../../../pixi-proxy';
+import { PlaneTextureCache } from '../../../../../../../pixi-proxy';
 import { PlaneMaterialCellMatrix } from './PlaneMaterialCellMatrix';
 
 export class PlaneMaterial
@@ -77,7 +77,7 @@ export class PlaneMaterial
         return null;
     }
 
-    public render(textureCache: RoomTextureCache, canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number, topAlign: boolean): RenderTexture
+    public render(planeId: string, textureCache: PlaneTextureCache, canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number, topAlign: boolean): RenderTexture
     {
         if(width < 1) width = 1;
 
@@ -89,6 +89,6 @@ export class PlaneMaterial
 
         this._isCached = true;
 
-        return cellMatrix.render(textureCache, canvas, width, height, normal, useTexture, offsetX, offsetY, topAlign);
+        return cellMatrix.render(planeId, textureCache, canvas, width, height, normal, useTexture, offsetX, offsetY, topAlign);
     }
 }
