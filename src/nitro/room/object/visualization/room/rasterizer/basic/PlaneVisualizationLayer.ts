@@ -68,15 +68,24 @@ export class PlaneVisualizationLayer
         const b = (this._color & 0xFF);
         const hasColor = ((r < 0xFF) || (g < 0xFF) || (b < 0xFF));
 
-        const bitmapData = this._material.render(planeId, textureCache, hasColor ? null : canvas, width, height, normal, useTexture, offsetX, (offsetY + this.offset), (this.align === PlaneVisualizationLayer.ALIGN_TOP));
-
-        if(bitmapData && hasColor)
+        if(this._material)
         {
-            const sprite = new Sprite(bitmapData);
+            const bitmapData = this._material.render(planeId, textureCache, hasColor ? null : canvas, width, height, normal, useTexture, offsetX, (offsetY + this.offset), (this.align === PlaneVisualizationLayer.ALIGN_TOP));
 
-            if(hasColor) sprite.tint = this._color;
+            if(bitmapData && hasColor)
+            {
+                const sprite = new Sprite(bitmapData);
 
-            textureCache.writeToRenderTexture(sprite, canvas, false);
+                if(hasColor) sprite.tint = this._color;
+
+                textureCache.writeToRenderTexture(sprite, canvas, false);
+            }
+        }
+        else
+        {
+            const bitmapData = textureCache.createAndFillRenderTexture(width, height, planeId, this._color);
+
+            textureCache.writeToRenderTexture(new Sprite(bitmapData), canvas, false);
         }
 
         return canvas;
