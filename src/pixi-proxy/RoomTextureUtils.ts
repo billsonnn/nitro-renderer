@@ -63,25 +63,6 @@ export class PlaneTextureCache
 
             this.RENDER_TEXTURE_POOL.set(planeId, renderTexture);
         }
-        /* else
-        {
-            renderTexture = this.RENDER_TEXTURE_POOL.get(planeId + '-swap');
-
-            if(!renderTexture)
-            {
-                renderTexture = RenderTexture.create({
-                    width,
-                    height
-                });
-
-                this.RENDER_TEXTURE_CACHE.push(renderTexture);
-
-                this.RENDER_TEXTURE_POOL.set(planeId + '-swap', renderTexture);
-            }
-
-            this.RENDER_TEXTURE_POOL.set(planeId + '-swap', this.RENDER_TEXTURE_POOL.get(planeId));
-            this.RENDER_TEXTURE_POOL.set(planeId, renderTexture);
-        } */
 
         return renderTexture;
     }
