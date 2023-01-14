@@ -83,12 +83,7 @@ export class PlaneMaterialCellColumn
             this._cells = null;
         }
 
-        if(this._cachedBitmapData)
-        {
-            this._cachedBitmapData.destroy(true);
-
-            this._cachedBitmapData = null;
-        }
+        this._cachedBitmapData = null;
 
         if(this._cachedBitmapNormal) this._cachedBitmapNormal = null;
     }
@@ -97,12 +92,7 @@ export class PlaneMaterialCellColumn
     {
         if(!this._isCached) return;
 
-        if(this._cachedBitmapData)
-        {
-            this._cachedBitmapData.destroy(true);
-
-            this._cachedBitmapData = null;
-        }
+        if(this._cachedBitmapData) this._cachedBitmapData = null;
 
         if(this._cachedBitmapNormal)
         {

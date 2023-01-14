@@ -14,12 +14,7 @@ export class PlaneTextureCache
 
     public clearCache(): void
     {
-        const previousTextures = this.RENDER_TEXTURE_CACHE.slice();
-
-        setTimeout(() =>
-        {
-            previousTextures.forEach(renderTexture => renderTexture?.destroy(true));
-        }, 1000);
+        this.RENDER_TEXTURE_POOL.forEach(renderTexture => renderTexture?.destroy(true));
 
         this.RENDER_TEXTURE_POOL.clear();
         this.RENDER_TEXTURE_CACHE = [];

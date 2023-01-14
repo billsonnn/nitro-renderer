@@ -7,7 +7,6 @@ import { PlaneTexture } from './PlaneTexture';
 
 export class PlaneMaterialCell
 {
-    private _cachedSprite: Sprite;
     private _texture: PlaneTexture;
     private _extraItemOffsets: Point[];
     private _extraItemAssets: IGraphicAsset[];
@@ -15,7 +14,6 @@ export class PlaneMaterialCell
 
     constructor(texture: PlaneTexture, assets: IGraphicAsset[] = null, offsetPoints: Point[] = null, limit: number = 0)
     {
-        this._cachedSprite = null;
         this._texture = texture;
         this._extraItemOffsets = [];
         this._extraItemAssets = [];
@@ -69,13 +67,6 @@ export class PlaneMaterialCell
             this._texture = null;
         }
 
-        if(this._cachedSprite)
-        {
-            this._cachedSprite.destroy();
-
-            this._cachedSprite = null;
-        }
-
         this._extraItemAssets = null;
         this._extraItemOffsets = null;
         this._extraItemCount = 0;
@@ -83,12 +74,6 @@ export class PlaneMaterialCell
 
     public clearCache(): void
     {
-        if(this._cachedSprite)
-        {
-            this._cachedSprite.destroy();
-
-            this._cachedSprite = null;
-        }
     }
 
     public getHeight(normal: IVector3D): number
@@ -138,10 +123,6 @@ export class PlaneMaterialCell
 
         if(!this.isStatic)
         {
-            if(this._cachedSprite) this._cachedSprite.destroy();
-
-            this._cachedSprite = bitmap;
-
             const limitMin = Math.min(this._extraItemCount, this._extraItemOffsets.length);
             const limitMax = Math.max(this._extraItemCount, this._extraItemOffsets.length);
             const offsetIndexes = Randomizer.getArray(this._extraItemCount, limitMax);
@@ -194,14 +175,12 @@ export class PlaneMaterialCell
 
                         sprite.transform.setFromMatrix(flipMatrix);
 
-                        this._cachedSprite.addChild(sprite);
+                        bitmap.addChild(sprite);
                     }
                 }
 
                 i++;
             }
-
-            return this._cachedSprite;
         }
 
         return bitmap;

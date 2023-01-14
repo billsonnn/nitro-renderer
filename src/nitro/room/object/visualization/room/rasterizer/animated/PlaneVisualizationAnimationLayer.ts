@@ -7,14 +7,12 @@ import { AnimationItem } from './AnimationItem';
 export class PlaneVisualizationAnimationLayer implements IDisposable
 {
     private _color: number = 0;
-    private _bitmapData: RenderTexture = null;
     private _isDisposed: boolean = false;
     private _items: AnimationItem[];
 
     constructor(k: any, assets: IGraphicAssetCollection)
     {
         this._color = 0;
-        this._bitmapData = null;
         this._isDisposed = false;
         this._items = [];
 
@@ -45,13 +43,6 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
     {
         this._isDisposed = true;
 
-        if(this._bitmapData)
-        {
-            this._bitmapData.destroy();
-
-            this._bitmapData = null;
-        }
-
         if(this._items)
         {
             for(const item of this._items) item && item.dispose();
@@ -62,32 +53,10 @@ export class PlaneVisualizationAnimationLayer implements IDisposable
 
     public clearCache(): void
     {
-        if(this._bitmapData)
-        {
-            this._bitmapData.destroy(true);
-
-            this._bitmapData = null;
-        }
     }
 
     public render(textureCache: PlaneTextureCache, canvas: RenderTexture, width: number, height: number, normal: IVector3D, offsetX: number, offsetY: number, maxX: number, maxY: number, dimensionX: number, dimensionY: number, timeSinceStartMs: number): RenderTexture
     {
-        /* if(!canvas || (canvas.width !== width) || (canvas.height !== height))
-        {
-            if(!this._bitmapData || (this._bitmapData.width !== width) || (this._bitmapData.height !== height))
-            {
-                if(this._bitmapData) this._bitmapData.destroy(true);
-
-                this._bitmapData = textureCache.createRenderTexture(width, height);
-            }
-            else
-            {
-                textureCache.clearRenderTexture(this._bitmapData);
-            }
-
-            canvas = this._bitmapData;
-        } */
-
         if(((maxX > 0) && (maxY > 0)))
         {
             let index = 0;

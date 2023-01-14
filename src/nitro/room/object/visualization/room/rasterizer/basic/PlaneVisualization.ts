@@ -9,7 +9,6 @@ export class PlaneVisualization
 {
     private _layers: IDisposable[];
     private _geometry: IRoomGeometry;
-    private _cachedBitmapData: RenderTexture;
     private _cachedBitmapNormal: Vector3d;
     private _isCached: boolean;
     private _hasAnimationLayers: boolean;
@@ -18,7 +17,6 @@ export class PlaneVisualization
     {
         this._layers = [];
         this._geometry = geometry;
-        this._cachedBitmapData = null;
         this._cachedBitmapNormal = new Vector3d();
         this._isCached = false;
         this._hasAnimationLayers = false;
@@ -61,26 +59,12 @@ export class PlaneVisualization
 
         this._geometry = null;
 
-        if(this._cachedBitmapData)
-        {
-            this._cachedBitmapData.destroy();
-
-            this._cachedBitmapData = null;
-        }
-
         if(this._cachedBitmapNormal) this._cachedBitmapNormal = null;
     }
 
     public clearCache(): void
     {
         if(!this._isCached) return;
-
-        if(this._cachedBitmapData)
-        {
-            this._cachedBitmapData.destroy();
-
-            this._cachedBitmapData = null;
-        }
 
         if(this._cachedBitmapNormal)
         {
@@ -146,31 +130,9 @@ export class PlaneVisualization
 
         if((!canvas || (canvas.width !== width)) || (canvas.height !== height)) canvas = null;
 
-        /* if(this._cachedBitmapData)
-        {
-            if((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height) && (Vector3d.isEqual(this._cachedBitmapNormal, normal)))
-            {
-                if(!this.hasAnimationLayers)
-                {
-                    if(canvas)
-                    {
-                        textureCache.writeToRenderTexture(new Sprite(this._cachedBitmapData), canvas, true);
-
-                        return canvas;
-                    }
-
-                    return this._cachedBitmapData;
-                }
-            }
-            else
-            {
-                this._cachedBitmapData = null;
-            }
-        } */
-
         this._isCached = true;
 
-        this._cachedBitmapData = textureCache.createAndFillRenderTexture(width, height, planeId);
+        const bitmap = textureCache.createAndFillRenderTexture(width, height, planeId);
 
         this._cachedBitmapNormal.assign(normal);
 
@@ -182,16 +144,16 @@ export class PlaneVisualization
 
                 if(layer instanceof PlaneVisualizationLayer)
                 {
-                    layer.render(planeId, textureCache, this._cachedBitmapData, width, height, normal, useTexture, offsetX, offsetY);
+                    layer.render(`${ planeId }:${ this._layers.indexOf(layer) }`, textureCache, bitmap, width, height, normal, useTexture, offsetX, offsetY);
                 }
 
                 else if(layer instanceof PlaneVisualizationAnimationLayer)
                 {
-                    layer.render(textureCache, this._cachedBitmapData, width, height, normal, offsetX, offsetY, maxX, maxY, dimensionX, dimensionY, timeSinceStartMs);
+                    layer.render(textureCache, bitmap, width, height, normal, offsetX, offsetY, maxX, maxY, dimensionX, dimensionY, timeSinceStartMs);
                 }
             }
         }
 
-        return this._cachedBitmapData;
+        return bitmap;
     }
 }

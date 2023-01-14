@@ -247,13 +247,6 @@ export class RoomPlane implements IRoomPlane
 
     public dispose(): void
     {
-        if(this._bitmapData)
-        {
-            this._bitmapData.destroy(true);
-
-            this._bitmapData = null;
-        }
-
         this._activeTexture = null;
         this._location = null;
         this._origin = null;
@@ -801,7 +794,7 @@ export class RoomPlane implements IRoomPlane
                 this._maskBitmapData = null;
             }
 
-            this._maskBitmapData = this._textureCache.createAndFillRenderTexture(width, height);
+            this._maskBitmapData = this._textureCache.createAndFillRenderTexture(width, height, 'mask');
             this._maskChanged = true;
         }
 

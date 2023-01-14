@@ -15,7 +15,6 @@ export class PlaneVisualizationLayer
     private _color: number;
     private _offset: number;
     private _align: number;
-    private _bitmapData: RenderTexture;
     private _isDisposed: boolean;
 
     constructor(material: PlaneMaterial, color: number, align: number, offset: number = 0)
@@ -24,7 +23,6 @@ export class PlaneVisualizationLayer
         this._offset = offset;
         this._align = align;
         this._color = color;
-        this._bitmapData = null;
         this._isDisposed = false;
     }
 
@@ -53,12 +51,6 @@ export class PlaneVisualizationLayer
 
     public clearCache(): void
     {
-        if(this._bitmapData)
-        {
-            this._bitmapData.destroy(true);
-
-            this._bitmapData = null;
-        }
     }
 
     public render(planeId: string, textureCache: PlaneTextureCache, canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number): RenderTexture

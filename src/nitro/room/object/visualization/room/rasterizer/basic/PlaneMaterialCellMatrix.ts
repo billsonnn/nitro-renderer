@@ -99,26 +99,12 @@ export class PlaneMaterialCellMatrix
 
     public dispose(): void
     {
-        if(this._cachedBitmapData)
-        {
-            this._cachedBitmapData.destroy(true);
-
-            this._cachedBitmapData = null;
-        }
-
         if(this._cachedBitmapNormal) this._cachedBitmapNormal = null;
     }
 
     public clearCache(): void
     {
         if(!this._isCached) return;
-
-        if(this._cachedBitmapData)
-        {
-            this._cachedBitmapData.destroy();
-
-            this._cachedBitmapData = null;
-        }
 
         if(this._cachedBitmapNormal)
         {
@@ -168,7 +154,7 @@ export class PlaneMaterialCellMatrix
         {
             if(this._cachedBitmapData)
             {
-                if((this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height) && Vector3d.isEqual(this._cachedBitmapNormal, normal))
+                if(this._cachedBitmapData.baseTexture && (this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height) && Vector3d.isEqual(this._cachedBitmapNormal, normal))
                 {
                     if(canvas)
                     {
