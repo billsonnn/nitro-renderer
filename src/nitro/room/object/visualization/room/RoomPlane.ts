@@ -779,7 +779,7 @@ export class RoomPlane implements IRoomPlane
     {
         if(!canvas || !geometry) return;
 
-        if(((!this._useMask) || ((!this._bitmapMasks.length && !this._rectangleMasks.length) && !this._maskChanged)) || !this._maskManager) return;
+        if(!this._useMask || ((!this._bitmapMasks.length && !this._rectangleMasks.length) && !this._maskChanged) || !this._maskManager) return;
 
         const width = canvas.width;
         const height = canvas.height;
@@ -788,12 +788,6 @@ export class RoomPlane implements IRoomPlane
 
         if(!this._maskBitmapData || (this._maskBitmapData.width !== width) || (this._maskBitmapData.height !== height))
         {
-            if(this._maskBitmapData)
-            {
-                this._maskBitmapData.destroy(true);
-                this._maskBitmapData = null;
-            }
-
             this._maskBitmapData = this._textureCache.createAndFillRenderTexture(width, height, 'mask');
             this._maskChanged = true;
         }
@@ -845,10 +839,14 @@ export class RoomPlane implements IRoomPlane
                     const wd = ((this._maskBitmapData.width * rectMask.leftSideLength) / this._leftSide.length);
                     const ht = ((this._maskBitmapData.height * rectMask.rightSideLength) / this._rightSide.length);
 
-                    /* this._maskBitmapData
-                        .beginFill(0xFF0000)
-                        .drawRect((posX - wd), (posY - ht), wd, ht)
-                        .endFill(); */
+                    const sprite = new Sprite(Texture.WHITE);
+
+                    sprite.tint = 0x000000;
+                    sprite.width = wd;
+                    sprite.height = ht;
+                    sprite.position.set((posX - wd), (posY - ht));
+
+                    this._textureCache.writeToRenderTexture(sprite, this._maskBitmapData, false);
 
                     this._rectangleMasksOld.push(new RoomPlaneRectangleMask(rectMask.leftSideLength, rectMask.rightSideLoc, rectMask.leftSideLength, rectMask.rightSideLength));
                 }
