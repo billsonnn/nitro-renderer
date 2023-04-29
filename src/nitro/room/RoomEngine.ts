@@ -350,7 +350,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                 instance.model.setValue(RoomVariableEnum.ROOM_MIN_Y, minY);
                 instance.model.setValue(RoomVariableEnum.ROOM_MAX_Y, maxY);
 
-                const seed = ((((minX * 423) + (maxX * 671)) + (minY * 913)) + (maxY * 7509));
+                const seed = Math.trunc((minX * 423) + (maxX * 671) + (minY * 913) + (maxY * 7509));
 
                 if(roomObject && roomObject.model) roomObject.model.setValue(RoomObjectVariable.ROOM_RANDOM_SEED, seed);
             }

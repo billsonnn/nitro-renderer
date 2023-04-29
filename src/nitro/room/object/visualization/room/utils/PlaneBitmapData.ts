@@ -1,24 +1,24 @@
-﻿import { Graphics } from '@pixi/graphics';
+﻿import { RenderTexture } from '@pixi/core';
 
 export class PlaneBitmapData
 {
-    private _bitmap: Graphics;
+    private _texture: RenderTexture;
     private _timeStamp: number;
 
-    constructor(k: Graphics, _arg_2: number)
+    constructor(texture: RenderTexture, timestamp: number)
     {
-        this._bitmap = k;
-        this._timeStamp = _arg_2;
+        this._texture = texture;
+        this._timeStamp = timestamp;
     }
 
     public dispose(): void
     {
-        this._bitmap = null;
+        this._texture = null;
     }
 
-    public get bitmap(): Graphics
+    public get texture(): RenderTexture
     {
-        return this._bitmap;
+        return this._texture;
     }
 
     public get timeStamp(): number

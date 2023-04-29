@@ -55,7 +55,7 @@ export class PlaneMask
     private getSizeIndex(k: number): number
     {
         let sizeIndex = 0;
-        const index = 1;
+        let index = 1;
 
         while(index < this._sizes.length)
         {
@@ -67,6 +67,8 @@ export class PlaneMask
             }
 
             sizeIndex = index;
+
+            index++;
         }
 
         return sizeIndex;

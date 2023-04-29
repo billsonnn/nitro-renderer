@@ -9,5 +9,6 @@ export * from './PetMoveComposer';
 export * from './PetPlaceComposer';
 export * from './PetRemoveComposer';
 export * from './RemoveWallItemComposer';
+export * from './SetClothingChangeDataMessageComposer';
 export * from './SetItemDataMessageComposer';
 export * from './SetObjectDataMessageComposer';

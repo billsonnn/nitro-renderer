@@ -1,12 +1,12 @@
 ﻿import { Matrix, Point } from '@pixi/math';
+import { Sprite } from '@pixi/sprite';
+import { TilingSprite } from '@pixi/sprite-tiling';
 import { IGraphicAsset, IVector3D } from '../../../../../../../api';
-import { NitroSprite } from '../../../../../../../pixi-proxy';
 import { Randomizer } from '../../utils';
 import { PlaneTexture } from './PlaneTexture';
 
 export class PlaneMaterialCell
 {
-    private _cachedSprite: NitroSprite;
     private _texture: PlaneTexture;
     private _extraItemOffsets: Point[];
     private _extraItemAssets: IGraphicAsset[];
@@ -14,7 +14,6 @@ export class PlaneMaterialCell
 
     constructor(texture: PlaneTexture, assets: IGraphicAsset[] = null, offsetPoints: Point[] = null, limit: number = 0)
     {
-        this._cachedSprite = null;
         this._texture = texture;
         this._extraItemOffsets = [];
         this._extraItemAssets = [];
@@ -56,7 +55,7 @@ export class PlaneMaterialCell
 
     public get isStatic(): boolean
     {
-        return this._extraItemCount == 0;
+        return this._extraItemCount === 0;
     }
 
     public dispose(): void
@@ -68,13 +67,6 @@ export class PlaneMaterialCell
             this._texture = null;
         }
 
-        if(this._cachedSprite)
-        {
-            this._cachedSprite.destroy();
-
-            this._cachedSprite = null;
-        }
-
         this._extraItemAssets = null;
         this._extraItemOffsets = null;
         this._extraItemCount = 0;
@@ -82,12 +74,6 @@ export class PlaneMaterialCell
 
     public clearCache(): void
     {
-        if(this._cachedSprite)
-        {
-            this._cachedSprite.destroy();
-
-            this._cachedSprite = null;
-        }
     }
 
     public getHeight(normal: IVector3D): number
@@ -102,7 +88,7 @@ export class PlaneMaterialCell
         return 0;
     }
 
-    public render(normal: IVector3D, textureOffsetX: number, textureOffsetY: number): NitroSprite
+    public render(normal: IVector3D, textureOffsetX: number, textureOffsetY: number): Sprite
     {
         if(!this._texture) return null;
 
@@ -110,7 +96,7 @@ export class PlaneMaterialCell
 
         if(!texture) return null;
 
-        const bitmap = new NitroSprite(texture);
+        const bitmap = new TilingSprite(texture, texture.width, texture.height);
 
         if((textureOffsetX !== 0) || (textureOffsetY !== 0))
         {
@@ -118,8 +104,9 @@ export class PlaneMaterialCell
 
             while(textureOffsetY < 0) textureOffsetY += texture.height;
 
-            bitmap.x = (textureOffsetX % texture.width);
-            bitmap.y = (textureOffsetY % texture.height);
+            bitmap.tilePosition.set((textureOffsetX % texture.width), (textureOffsetY % texture.height));
+
+            bitmap.uvRespectAnchor = true;
 
             if(textureOffsetX)
             {
@@ -134,89 +121,69 @@ export class PlaneMaterialCell
             }
         }
 
-        if(bitmap)
+        if(!this.isStatic)
         {
-            if(!this.isStatic)
+            const limitMin = Math.min(this._extraItemCount, this._extraItemOffsets.length);
+            const limitMax = Math.max(this._extraItemCount, this._extraItemOffsets.length);
+            const offsetIndexes = Randomizer.getArray(this._extraItemCount, limitMax);
+
+            let i = 0;
+
+            while(i < limitMin)
             {
-                if(this._cachedSprite)
+                const offset = this._extraItemOffsets[offsetIndexes[i]];
+                const item = this._extraItemAssets[(i % this._extraItemAssets.length)];
+
+                if(offset && item)
                 {
-                    if((this._cachedSprite.width !== bitmap.width) || (this._cachedSprite.height !== bitmap.height))
+                    const assetTexture = item.texture;
+
+                    if(assetTexture)
                     {
-                        this._cachedSprite.destroy();
+                        let itemOffsetX = item.offsetX;
+                        let itemOffsetY = item.offsetY;
 
-                        this._cachedSprite = null;
-                    }
-                }
+                        let x = 1;
+                        let y = 1;
+                        let translateX = 0;
+                        let translateY = 0;
 
-                if(!this._cachedSprite)
-                {
-                    this._cachedSprite = new NitroSprite(texture);
-                }
-
-                const limitMin = Math.min(this._extraItemCount, this._extraItemOffsets.length);
-                const limitMax = Math.max(this._extraItemCount, this._extraItemOffsets.length);
-                const offsetIndexes = Randomizer.getArray(this._extraItemCount, limitMax);
-
-                let i = 0;
-
-                while(i < limitMin)
-                {
-                    const offset = this._extraItemOffsets[offsetIndexes[i]];
-                    const item = this._extraItemAssets[(i % this._extraItemAssets.length)];
-
-                    if(offset && item)
-                    {
-                        const assetTexture = item.texture;
-
-                        if(assetTexture)
+                        if(item.flipH)
                         {
-                            const offsetFinal = new Point((offset.x + item.offsetX), (offset.y + item.offsetY));
-                            const flipMatrix = new Matrix();
-
-                            let x = 1;
-                            let y = 1;
-                            let translateX = 0;
-                            let translateY = 0;
-
-                            if(item.flipH)
-                            {
-                                x = -1;
-                                translateX = assetTexture.width;
-                            }
-
-                            if(item.flipV)
-                            {
-                                y = -1;
-                                translateY = assetTexture.height;
-                            }
-
-                            let offsetX = (offsetFinal.x + translateX);
-                            offsetX = ((offsetX >> 1) << 1);
-
-                            flipMatrix.scale(x, y);
-                            flipMatrix.translate(offsetX, (offsetFinal.y + translateY));
-
-                            const sprite = new NitroSprite(assetTexture);
-
-                            sprite.transform.setFromMatrix(flipMatrix);
-
-                            sprite.x = flipMatrix.tx;
-                            sprite.y = flipMatrix.ty;
-
-                            this._cachedSprite.addChild(sprite);
+                            x = -1;
+                            translateX = assetTexture.width;
+                            itemOffsetX = -(item.width + item.x);
                         }
-                    }
 
-                    i++;
+                        if(item.flipV)
+                        {
+                            y = -1;
+                            translateY = assetTexture.height;
+                            itemOffsetY = -(item.height + item.y);
+                        }
+
+                        const offsetFinal = new Point((offset.x + itemOffsetX), (offset.y + itemOffsetY));
+                        const flipMatrix = new Matrix();
+
+                        let offsetX = (offsetFinal.x + translateX);
+                        offsetX = ((offsetX >> 1) << 1);
+
+                        flipMatrix.scale(x, y);
+                        flipMatrix.translate(offsetX, (offsetFinal.y + translateY));
+
+                        const sprite = new Sprite(assetTexture);
+
+                        sprite.transform.setFromMatrix(flipMatrix);
+
+                        bitmap.addChild(sprite);
+                    }
                 }
 
-                return this._cachedSprite;
+                i++;
             }
-
-            return bitmap;
         }
 
-        return null;
+        return bitmap;
     }
 
     public getAssetName(normal: IVector3D): string

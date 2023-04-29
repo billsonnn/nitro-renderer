@@ -24,23 +24,21 @@ export class RoomVisualizationData extends Disposable implements IObjectVisualiz
 
     public initialize(asset: IAssetData): boolean
     {
-        //@ts-ignore
-        const wallData = asset.wallData;
+        if(!asset.roomVisualization) return false;
+
+        const wallData = asset.roomVisualization.wallData;
 
         if(wallData) this._wallRasterizer.initialize(wallData);
 
-        //@ts-ignore
-        const floorData = asset.floorData;
+        const floorData = asset.roomVisualization.floorData;
 
         if(floorData) this._floorRasterizer.initialize(floorData);
 
-        //@ts-ignore
-        const landscapeData = asset.landscapeData;
+        const landscapeData = asset.roomVisualization.landscapeData;
 
         if(landscapeData) this._landscapeRasterizer.initialize(landscapeData);
 
-        //@ts-ignore
-        const maskData = asset.maskData;
+        const maskData = asset.roomVisualization.maskData;
 
         if(maskData) this._maskManager.initialize(maskData);
 

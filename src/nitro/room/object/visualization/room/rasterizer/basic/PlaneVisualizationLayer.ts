@@ -1,8 +1,7 @@
-﻿import { Graphics } from '@pixi/graphics';
-import { Rectangle } from '@pixi/math';
+﻿import { RenderTexture } from '@pixi/core';
+import { Sprite } from '@pixi/sprite';
 import { IVector3D } from '../../../../../../../api';
-import { TextureUtils } from '../../../../../../../pixi-proxy';
-import { RoomVisualization } from '../../RoomVisualization';
+import { PlaneTextureCache } from '../../../../../../../pixi-proxy';
 import { PlaneMaterial } from './PlaneMaterial';
 
 export class PlaneVisualizationLayer
@@ -16,7 +15,6 @@ export class PlaneVisualizationLayer
     private _color: number;
     private _offset: number;
     private _align: number;
-    private _bitmapData: Graphics;
     private _isDisposed: boolean;
 
     constructor(material: PlaneMaterial, color: number, align: number, offset: number = 0)
@@ -25,7 +23,6 @@ export class PlaneVisualizationLayer
         this._offset = offset;
         this._align = align;
         this._color = color;
-        this._bitmapData = null;
         this._isDisposed = false;
     }
 
@@ -54,86 +51,36 @@ export class PlaneVisualizationLayer
 
     public clearCache(): void
     {
-        if(this._bitmapData)
-        {
-            this._bitmapData.destroy();
-
-            this._bitmapData = null;
-        }
     }
 
-    public render(canvas: Graphics, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number): Graphics
+    public render(planeId: string, textureCache: PlaneTextureCache, canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number): RenderTexture
     {
-        if(!canvas || (canvas.width !== width) || (canvas.height !== height)) canvas = null;
-
-        let bitmapData: Graphics = null;
+        const r = (this._color >> 16);
+        const g = ((this._color >> 8) & 0xFF);
+        const b = (this._color & 0xFF);
+        const hasColor = ((r < 0xFF) || (g < 0xFF) || (b < 0xFF));
 
         if(this._material)
         {
-            bitmapData = this._material.render(null, width, height, normal, useTexture, offsetX, (offsetY + this.offset), (this.align === PlaneVisualizationLayer.ALIGN_TOP));
+            const bitmapData = this._material.render(planeId, textureCache, hasColor ? null : canvas, width, height, normal, useTexture, offsetX, (offsetY + this.offset), (this.align === PlaneVisualizationLayer.ALIGN_TOP));
 
-            if(bitmapData && (bitmapData !== canvas))
+            if(bitmapData && hasColor)
             {
-                if(this._bitmapData) this._bitmapData.destroy();
+                const sprite = new Sprite(bitmapData);
 
-                this._bitmapData = bitmapData.clone();
+                if(hasColor) sprite.tint = this._color;
 
-                bitmapData = this._bitmapData;
+                textureCache.writeToRenderTexture(sprite, canvas, false);
             }
         }
         else
         {
-            if(!canvas)
-            {
-                if(this._bitmapData && (this._bitmapData.width === width) && (this._bitmapData.height === height)) return this._bitmapData;
+            const bitmapData = textureCache.createAndFillRenderTexture(width, height, planeId, this._color);
 
-                if(this._bitmapData) this._bitmapData.destroy();
-
-                const graphic = new Graphics()
-                    .beginFill(0xFFFFFF)
-                    .drawRect(0, 0, width, height)
-                    .endFill();
-
-                this._bitmapData = graphic;
-
-                bitmapData = this._bitmapData;
-            }
-            else
-            {
-                canvas
-                    .beginFill(0xFFFFFF)
-                    .drawRect(0, 0, width, height)
-                    .endFill();
-
-                bitmapData = canvas;
-            }
+            textureCache.writeToRenderTexture(new Sprite(bitmapData), canvas, false);
         }
 
-        if(bitmapData)
-        {
-            bitmapData.tint = this._color;
-
-            if(canvas && (bitmapData !== canvas))
-            {
-                let texture = RoomVisualization.getTextureCache(bitmapData);
-
-                if(!texture)
-                {
-                    texture = TextureUtils.generateTexture(bitmapData, new Rectangle(0, 0, width, height));
-
-                    RoomVisualization.addTextureCache(bitmapData, texture);
-                }
-
-                canvas
-                    .beginTextureFill({ texture })
-                    .drawRect(0, 0, width, height)
-                    .endFill();
-
-                bitmapData = canvas;
-            }
-        }
-
-        return bitmapData;
+        return canvas;
     }
 
     public getMaterial(): PlaneMaterial
