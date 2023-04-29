@@ -112,30 +112,28 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
         return heightMap[x];
     }
 
-    public getLocation(k: number, _arg_2: number, _arg_3: number, _arg_4: number, _arg_5: string): IVector3D
+    public getLocation(width: number, height: number, localX: number, localY: number, direction: string): IVector3D
     {
-        let _local_12: number;
-        let _local_6: number;
         let _local_7: number;
-        if(((k == 0) && (_arg_2 == 0)))
+        if(((width == 0) && (height == 0)))
         {
-            k = this._width;
-            _arg_2 = this._height;
-            _local_12 = Math.round((this.scale / 10));
-            if(_arg_5 == LegacyWallGeometry.R)
+            width = this._width;
+            height = this._height;
+            const _local_12 = Math.round((this.scale / 10));
+            if(direction == LegacyWallGeometry.R)
             {
-                _local_7 = (this._width - 1);
+                let _local_7 = (this._width - 1);
                 while(_local_7 >= 0)
                 {
-                    _local_6 = 1;
+                    let _local_6 = 1;
                     while(_local_6 < this._height)
                     {
                         if(this.getHeight(_local_7, _local_6) <= this._floorHeight)
                         {
-                            if((_local_6 - 1) < _arg_2)
+                            if((_local_6 - 1) < height)
                             {
-                                k = _local_7;
-                                _arg_2 = (_local_6 - 1);
+                                width = _local_7;
+                                height = (_local_6 - 1);
                             }
                             break;
                         }
@@ -143,23 +141,23 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
                     }
                     _local_7--;
                 }
-                _arg_4 = (_arg_4 + ((this.scale / 4) - (_local_12 / 2)));
-                _arg_3 = (_arg_3 + (this.scale / 2));
+                localY = (localY + ((this.scale / 4) - (_local_12 / 2)));
+                localX = (localX + (this.scale / 2));
             }
             else
             {
-                _local_6 = (this._height - 1);
+                let _local_6 = (this._height - 1);
                 while(_local_6 >= 0)
                 {
-                    _local_7 = 1;
+                    let _local_7 = 1;
                     while(_local_7 < this._width)
                     {
                         if(this.getHeight(_local_7, _local_6) <= this._floorHeight)
                         {
-                            if((_local_7 - 1) < k)
+                            if((_local_7 - 1) < width)
                             {
-                                k = (_local_7 - 1);
-                                _arg_2 = _local_6;
+                                width = (_local_7 - 1);
+                                height = _local_6;
                             }
                             break;
                         }
@@ -167,24 +165,24 @@ export class LegacyWallGeometry implements ILegacyWallGeometry
                     }
                     _local_6--;
                 }
-                _arg_4 = (_arg_4 + ((this.scale / 4) - (_local_12 / 2)));
-                _arg_3 = (_arg_3 - _local_12);
+                localY = (localY + ((this.scale / 4) - (_local_12 / 2)));
+                localX = (localX - _local_12);
             }
         }
-        let _local_8: number = k;
-        let _local_9: number = _arg_2;
-        let _local_10: number = this.getHeight(k, _arg_2);
-        if(_arg_5 == LegacyWallGeometry.R)
+        let _local_8: number = width;
+        let _local_9: number = height;
+        let _local_10: number = this.getHeight(width, height);
+        if(direction == LegacyWallGeometry.R)
         {
-            _local_8 = (_local_8 + ((_arg_3 / (this._scale / 2)) - 0.5));
+            _local_8 = (_local_8 + ((localX / (this._scale / 2)) - 0.5));
             _local_9 = (_local_9 + 0.5);
-            _local_10 = (_local_10 - ((_arg_4 - (_arg_3 / 2)) / (this._scale / 2)));
+            _local_10 = (_local_10 - ((localY - (localX / 2)) / (this._scale / 2)));
         }
         else
         {
-            _local_9 = (_local_9 + ((((this._scale / 2) - _arg_3) / (this._scale / 2)) - 0.5));
+            _local_9 = (_local_9 + ((((this._scale / 2) - localX) / (this._scale / 2)) - 0.5));
             _local_8 = (_local_8 + 0.5);
-            _local_10 = (_local_10 - ((_arg_4 - (((this._scale / 2) - _arg_3) / 2)) / (this._scale / 2)));
+            _local_10 = (_local_10 - ((localY - (((this._scale / 2) - localX) / 2)) / (this._scale / 2)));
         }
         const _local_11: Vector3d = new Vector3d(_local_8, _local_9, _local_10);
         return _local_11;

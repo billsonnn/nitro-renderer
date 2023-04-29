@@ -3,6 +3,7 @@ import { IAsset } from './IAsset';
 import { IAssetAlias } from './IAssetAlias';
 import { IAssetPalette } from './IAssetPalette';
 import { IAssetLogicData } from './logic';
+import { IAssetRoomVisualizationData } from './room-visualization';
 import { ISpritesheetData } from './spritesheet';
 import { IAssetVisualizationData } from './visualization';
 
@@ -18,4 +19,5 @@ export interface IAssetData {
     animations?: { [index: string]: IAssetAnimation };
     palettes?: { [index: string]: IAssetPalette };
     visualizations?: IAssetVisualizationData[];
+    roomVisualization?: IAssetRoomVisualizationData;
 }

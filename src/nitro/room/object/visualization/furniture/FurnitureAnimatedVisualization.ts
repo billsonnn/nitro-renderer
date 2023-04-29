@@ -8,8 +8,6 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
     public static TYPE: string = RoomObjectVisualizationType.FURNITURE_ANIMATED;
     public static DEFAULT_ANIMATION_ID: number = 0;
 
-    protected _data: FurnitureAnimatedVisualizationData;
-
     protected _state: number;
     protected _frameIncrease: number;
     private _animationData: AnimationStateData;
@@ -62,7 +60,7 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
 
     protected getAnimationId(animationData: AnimationStateData): number
     {
-        if((this.animationId !== FurnitureAnimatedVisualization.DEFAULT_ANIMATION_ID) && this._data.hasAnimation(this._animationScale, this.animationId)) return this.animationId;
+        if((this.animationId !== FurnitureAnimatedVisualization.DEFAULT_ANIMATION_ID) && this.data.hasAnimation(this._animationScale, this.animationId)) return this.animationId;
 
         return FurnitureAnimatedVisualization.DEFAULT_ANIMATION_ID;
     }
@@ -108,7 +106,7 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
 
             if(!isNaN(state))
             {
-                const animationId = this._data.getAnimationId(this._animationScale, state);
+                const animationId = this.data.getAnimationId(this._animationScale, state);
 
                 this.setAnimation(animationId);
             }
@@ -141,7 +139,7 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
 
     protected setAnimation(animationId: number): void
     {
-        if(!this._data) return;
+        if(!this.data) return;
 
         this.setSubAnimation(this._animationData, animationId, (this._state >= 0));
     }
@@ -158,11 +156,11 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
 
             if(animationId !== state)
             {
-                if(!this._data.isImmediateChange(this._animationScale, animationId, state))
+                if(!this.data.isImmediateChange(this._animationScale, animationId, state))
                 {
                     let transition = AnimationData.getTransitionFromAnimationId(state);
 
-                    if(this._data.hasAnimation(this._animationScale, transition))
+                    if(this.data.hasAnimation(this._animationScale, transition))
                     {
                         animationData.animationAfterTransitionId = animationId;
                         animationId = transition;
@@ -171,7 +169,7 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
                     {
                         transition = AnimationData.getTransitionToAnimationId(animationId);
 
-                        if(this._data.hasAnimation(this._animationScale, transition))
+                        if(this.data.hasAnimation(this._animationScale, transition))
                         {
                             animationData.animationAfterTransitionId = animationId;
                             animationId = transition;
@@ -185,7 +183,7 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
                 {
                     const transition = AnimationData.getTransitionToAnimationId(animationId);
 
-                    if(this._data.hasAnimation(this._animationScale, transition))
+                    if(this.data.hasAnimation(this._animationScale, transition))
                     {
                         animationData.animationAfterTransitionId = animationId;
                         animationId = transition;
@@ -198,7 +196,7 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
                     {
                         const transition = AnimationData.getTransitionFromAnimationId(state);
 
-                        if(this._data.hasAnimation(this._animationScale, transition))
+                        if(this.data.hasAnimation(this._animationScale, transition))
                         {
                             animationData.animationAfterTransitionId = animationId;
                             animationId = transition;
@@ -207,7 +205,7 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
                         {
                             const transition = AnimationData.getTransitionToAnimationId(animationId);
 
-                            if(this._data.hasAnimation(this._animationScale, transition))
+                            if(this.data.hasAnimation(this._animationScale, transition))
                             {
                                 animationData.animationAfterTransitionId = animationId;
                                 animationId = transition;
@@ -242,12 +240,12 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
 
     protected updateAnimation(scale: number): number
     {
-        if(!this._data) return 0;
+        if(!this.data) return 0;
 
         if(scale !== this._animationScale)
         {
             this._animationScale = scale;
-            this._animatedLayerCount = this._data.getLayerCount(scale);
+            this._animatedLayerCount = this.data.getLayerCount(scale);
 
             this.resetAllAnimationFrames();
         }
@@ -284,7 +282,7 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
         const animationId = this.getAnimationId(animationData);
         let frameCount = animationData.frameCounter;
 
-        if(!frameCount) frameCount = this._data.getStartFrame(scale, animationId, this._direction);
+        if(!frameCount) frameCount = this.data.getStartFrame(scale, animationId, this._direction);
 
         frameCount += this.frameIncrease;
         animationData.frameCounter = frameCount;
@@ -322,11 +320,11 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
 
                     if(sequenceId === AnimationFrame.SEQUENCE_NOT_DEFINED)
                     {
-                        frame = this._data.getFrame(scale, animationId, this._direction, layerId, frameCount);
+                        frame = this.data.getFrame(scale, animationId, this._direction, layerId, frameCount);
                     }
                     else
                     {
-                        frame = this._data.getFrameFromSequence(scale, animationId, this._direction, layerId, sequenceId, (frame.activeSequenceOffset + frame.repeats), frameCount);
+                        frame = this.data.getFrameFromSequence(scale, animationId, this._direction, layerId, sequenceId, (frame.activeSequenceOffset + frame.repeats), frameCount);
                     }
 
                     animationData.setFrame(layerId, frame);
@@ -404,5 +402,10 @@ export class FurnitureAnimatedVisualization extends FurnitureVisualization
     protected get frameIncrease(): number
     {
         return this._frameIncrease;
+    }
+
+    protected get data(): FurnitureAnimatedVisualizationData
+    {
+        return this._data as FurnitureAnimatedVisualizationData;
     }
 }

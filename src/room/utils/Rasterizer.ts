@@ -1,7 +1,8 @@
 ﻿import { Resource, Texture } from '@pixi/core';
 import { Graphics } from '@pixi/graphics';
 import { Matrix } from '@pixi/math';
-import { TextureUtils } from '../../pixi-proxy';
+import { Sprite } from '@pixi/sprite';
+import { PixiApplicationProxy, TextureUtils } from '../../pixi-proxy';
 
 export class Rasterizer
 {
@@ -67,22 +68,20 @@ export class Rasterizer
     {
         if(!k) return null;
 
+        const renderTexture = TextureUtils.createRenderTexture(k.width, k.height);
+
         const matrix = new Matrix();
 
         matrix.scale(-1, 1);
         matrix.translate(k.width, 0);
 
-        const graphic = new Graphics();
+        PixiApplicationProxy.instance.renderer.render(new Sprite(k), {
+            renderTexture,
+            clear: true,
+            transform: matrix
+        });
 
-        graphic
-            .beginTextureFill({
-                texture: k,
-                matrix
-            })
-            .drawRect(0, 0, k.width, k.height)
-            .endFill();
-
-        return TextureUtils.generateTexture(graphic);
+        return renderTexture;
     }
 
     public static getFlipVBitmapData(k: Texture<Resource>): Texture<Resource>
