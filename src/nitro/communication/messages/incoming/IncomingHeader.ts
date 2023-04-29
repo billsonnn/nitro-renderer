@@ -399,6 +399,7 @@ export class IncomingHeader
     public static POLL_CONTENTS = 2997;
     public static POLL_ERROR = 662;
     public static POLL_OFFER = 3785;
+    public static POLL_START_ROOM = 5200;
     public static QUESTION_ANSWERED = 2589;
     public static QUESTION_FINISHED = 1066;
     public static CFH_PENDING_CALLS = 1121;
