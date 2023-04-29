@@ -61,6 +61,7 @@ export * from './room/unit/chat';
 export * from './roomdirectory';
 export * from './roomevents';
 export * from './roomsettings';
+export * from './snowwar';
 export * from './sound';
 export * from './talent';
 export * from './tracking';
