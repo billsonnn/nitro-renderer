@@ -4,13 +4,29 @@
     "typescript.preferences.quoteStyle": "single",
     "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
     "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "editor.wordWrap": "on",
     "editor.codeActionsOnSave": {
-        "source.fixAll": true,
-        "source.organizeImports": true,
+        "source.fixAll.eslint": true,
+        "source.fixAll.sortJSON": false,
+        "source.organizeImports": true
     },
-    "emmet.showExpandedAbbreviation": "never",
-	"git.ignoreLimitWarning": true,
+    "editor.formatOnSave": false,
+    "git.ignoreLimitWarning": true,
     "files.eol": "\n",
     "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true
+    "files.trimFinalNewlines": true,
+    "emmet.showExpandedAbbreviation": "never",
+    "eslint.format.enable": true,
+    "eslint.validate": [
+        "javascript",
+        "typescript"
+    ],
+    "eslint.workingDirectories": [
+        {
+            "pattern": "./src"
+        }
+    ],
+    "javascript.format.enable": false,
+    "thunder-client.saveToWorkspace": false,
+    "thunder-client.workspaceRelativePath": "."
 }

@@ -315,7 +315,7 @@ export class MusicController implements IMusicController
 
     private requestSong(songId: number, arg2: boolean): void
     {
-        if(!this._requestedSongs.get(songId))
+        if(this._requestedSongs.get(songId) === undefined)
         {
             this._requestedSongs.set(songId, arg2);
             this._songRequestList.push(songId);

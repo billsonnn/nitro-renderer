@@ -17,6 +17,7 @@ export * from './IGraphicAssetPalette';
 export * from './logic';
 export * from './logic/model';
 export * from './logic/particlesystem';
+export * from './room-visualization';
 export * from './spritesheet';
 export * from './visualization';
 export * from './visualization/animation';

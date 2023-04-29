@@ -1,4 +1,4 @@
-import { IPetBreedingResultData } from '../../../../../../api';
+import { IMessageDataWrapper, IPetBreedingResultData } from '../../../../../../api';
 
 export class PetBreedingResultData implements IPetBreedingResultData
 {
@@ -10,15 +10,15 @@ export class PetBreedingResultData implements IPetBreedingResultData
     private _rarityLevel: number;
     private _hasMutation: boolean;
 
-    constructor(stuffId: number, classId: number, productCode: string, userId: number, userName: string, rarityLevel: number, hasMutation: boolean)
+    constructor(wrapper: IMessageDataWrapper)
     {
-        this._stuffId = stuffId;
-        this._classId = classId;
-        this._productCode = productCode;
-        this._userId = userId;
-        this._userName = userName;
-        this._rarityLevel = rarityLevel;
-        this._hasMutation = hasMutation;
+        this._stuffId = wrapper.readInt();
+        this._classId = wrapper.readInt();
+        this._productCode = wrapper.readString();
+        this._userId = wrapper.readInt();
+        this._userName = wrapper.readString();
+        this._rarityLevel = wrapper.readInt();
+        this._hasMutation = wrapper.readBoolean();
     }
 
     public get stuffId(): number

@@ -6,7 +6,7 @@
     "sourceMap": false,
     "declaration": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
     "importHelpers": true,
     "isolatedModules": true,
@@ -16,13 +16,13 @@
     "allowJs": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "target": "es5",
+    "target": "ES6",
     "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
     ],
-    "module": "esnext",
+    "module": "ES6",
     "paths": {
       "mini-signals": [
         "node_modules/mini-signals/index.js"

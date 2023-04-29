@@ -14,7 +14,7 @@ import { GameMessageHandler } from './game';
 import { INitro } from './INitro';
 import { NitroLocalizationManager } from './localization';
 import './Plugins';
-import { RoomEngine } from './room';
+import { LandscapeRasterizer, RoomEngine } from './room';
 import { RoomSessionManager, SessionDataManager } from './session';
 import { SoundManager } from './sound';
 import { HabboWebTools } from './utils/HabboWebTools';
@@ -23,6 +23,7 @@ LegacyExternalInterface.available;
 
 settings.SCALE_MODE = (!(window.devicePixelRatio % 1)) ? SCALE_MODES.NEAREST : SCALE_MODES.LINEAR;
 settings.ROUND_PIXELS = true;
+settings.GC_MAX_IDLE = 120;
 
 export class Nitro implements INitro
 {
@@ -87,9 +88,9 @@ export class Nitro implements INitro
 
         const instance = new this(new NitroCore(), {
             autoDensity: false,
-            resolution: window.devicePixelRatio,
             width: window.innerWidth,
             height: window.innerHeight,
+            resolution: window.devicePixelRatio,
             view: canvas
         });
 
@@ -192,16 +193,15 @@ export class Nitro implements INitro
 
     private onConfigurationLoadedEvent(event: ConfigurationEvent): void
     {
-        const animationFPS = NitroConfiguration.getValue<number>('system.animation.fps', 24);
-        const limitsFPS = NitroConfiguration.getValue<boolean>('system.limits.fps', false);
-
-        if(limitsFPS) GetTicker().maxFPS = animationFPS;
+        GetTicker().maxFPS = NitroConfiguration.getValue<number>('system.fps.max', 24);
 
         NitroLogger.LOG_DEBUG = NitroConfiguration.getValue<boolean>('system.log.debug', true);
         NitroLogger.LOG_WARN = NitroConfiguration.getValue<boolean>('system.log.warn', false);
         NitroLogger.LOG_ERROR = NitroConfiguration.getValue<boolean>('system.log.error', false);
         NitroLogger.LOG_EVENTS = NitroConfiguration.getValue<boolean>('system.log.events', false);
         NitroLogger.LOG_PACKETS = NitroConfiguration.getValue<boolean>('system.log.packets', false);
+
+        LandscapeRasterizer.LANDSCAPES_ENABLED = NitroConfiguration.getValue<boolean>('room.landscapes.enabled', true);
     }
 
     private onRoomEngineReady(event: RoomEngineEvent): void
