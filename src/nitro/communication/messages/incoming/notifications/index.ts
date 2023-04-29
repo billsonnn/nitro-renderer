@@ -9,6 +9,7 @@ export * from './HotelWillShutdownEvent';
 export * from './InfoFeedEnableMessageEvent';
 export * from './MOTDNotificationEvent';
 export * from './NotificationDialogMessageEvent';
+export * from './OfferRewardDeliveredMessageEvent';
 export * from './PetLevelNotificationEvent';
 export * from './PetPlacingErrorEvent';
 export * from './SimpleAlertMessageEvent';

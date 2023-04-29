@@ -128,6 +128,7 @@ export class IncomingHeader
     public static CONVERTED_ROOM_ID = 1331;
     public static GUEST_ROOM_SEARCH_RESULT = 52;
     public static NOTIFICATION_LIST = 1992;
+    public static NOTIFICATION_OFFER_REWARD_DELIVERED = 2125;
     public static NOTIFICATION_SIMPLE_ALERT = 5100;
     public static NOTIFICATION_ELEMENT_POINTER = 1787;
     public static PET_FIGURE_UPDATE = 1924;

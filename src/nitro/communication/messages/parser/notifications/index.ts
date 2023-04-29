@@ -10,6 +10,7 @@ export * from './HotelWillShutdownParser';
 export * from './InfoFeedEnableMessageParser';
 export * from './MOTDNotificationParser';
 export * from './NotificationDialogMessageParser';
+export * from './OfferRewardDeliveredMessageParser';
 export * from './PetLevelNotificationParser';
 export * from './PetPlacingErrorEventParser';
 export * from './SimpleAlertMessageParser';
