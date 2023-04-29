@@ -580,4 +580,9 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
     {
         return this._direction;
     }
+
+    protected get data(): FurnitureVisualizationData
+    {
+        return this._data;
+    }
 }

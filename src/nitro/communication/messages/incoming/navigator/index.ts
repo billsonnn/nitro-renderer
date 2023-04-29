@@ -18,6 +18,7 @@ export * from './NavigatorOpenRoomCreatorEvent';
 export * from './NavigatorSearchesEvent';
 export * from './NavigatorSearchEvent';
 export * from './NavigatorSettingsEvent';
+export * from './PopularRoomTagsResultEvent';
 export * from './RoomEventCancelEvent';
 export * from './RoomEventEvent';
 export * from './RoomFilterSettingsMessageEvent';

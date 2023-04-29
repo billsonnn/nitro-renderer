@@ -1,4 +1,6 @@
-﻿export class Randomizer
+﻿import { ToInt32 } from '../../../../../utils';
+
+export class Randomizer
 {
     public static DEFAULT_SEED: number = 1;
     public static DEFAULT_MODULUS: number = 16777216;
@@ -102,7 +104,7 @@
 
     private iterate(): number
     {
-        let k: number = ((this._multiplier * this._seed) + this._increment);
+        let k: number = ToInt32(Math.trunc(this._multiplier * this._seed) + this._increment);
 
         if(k < 0) k = -(k);
 
@@ -119,7 +121,7 @@
 
         if(_arg_2 < 1) return k;
 
-        _local_3 = (k + ((_local_3 / this._modulus) * _arg_2));
+        _local_3 = Math.trunc(k + ((_local_3 / this._modulus) * _arg_2));
 
         return _local_3;
     }

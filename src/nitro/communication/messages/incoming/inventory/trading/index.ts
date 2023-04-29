@@ -3,6 +3,7 @@ export * from './TradingCloseEvent';
 export * from './TradingCompletedEvent';
 export * from './TradingConfirmationEvent';
 export * from './TradingListItemEvent';
+export * from './TradingNoSuchItemEvent';
 export * from './TradingNotOpenEvent';
 export * from './TradingOpenEvent';
 export * from './TradingOpenFailedEvent';

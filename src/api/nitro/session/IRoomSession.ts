@@ -31,6 +31,8 @@ export interface IRoomSession extends IDisposable
     sendPollStartMessage(pollId: number): void;
     sendPollRejectMessage(pollId: number): void;
     sendPollAnswerMessage(pollId: number, questionId: number, answers: string[]): void;
+    sendPeerUsersClassificationMessage(userClassType: string): void;
+    sendRoomUsersClassificationMessage(userClassType: string): void;
     updateMoodlightData(id: number, effectId: number, color: number, brightness: number, apply: boolean): void;
     toggleMoodlightState(): void;
     pickupPet(id: number): void;
@@ -46,6 +48,7 @@ export interface IRoomSession extends IDisposable
     harvestPet(id: number): void;
     compostPlant(id: number): void;
     requestPetCommands(id: number): void;
+    sendScriptProceed(): void;
     connection: IConnection;
     userDataManager: IUserDataManager;
     roomId: number;
