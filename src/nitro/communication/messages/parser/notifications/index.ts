@@ -13,5 +13,6 @@ export * from './NotificationDialogMessageParser';
 export * from './OfferRewardDeliveredMessageParser';
 export * from './PetLevelNotificationParser';
 export * from './PetPlacingErrorEventParser';
+export * from './RestoreClientMessageParser';
 export * from './SimpleAlertMessageParser';
 export * from './UnseenItemsParser';

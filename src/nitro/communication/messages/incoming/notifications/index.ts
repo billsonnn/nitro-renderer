@@ -12,5 +12,6 @@ export * from './NotificationDialogMessageEvent';
 export * from './OfferRewardDeliveredMessageEvent';
 export * from './PetLevelNotificationEvent';
 export * from './PetPlacingErrorEvent';
+export * from './RestoreClientMessageEvent';
 export * from './SimpleAlertMessageEvent';
 export * from './UnseenItemsEvent';
