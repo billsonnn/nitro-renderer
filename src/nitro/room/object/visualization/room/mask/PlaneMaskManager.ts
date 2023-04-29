@@ -1,6 +1,8 @@
-﻿import { Graphics } from '@pixi/graphics';
+﻿import { RenderTexture } from '@pixi/core';
 import { Matrix, Point } from '@pixi/math';
-import { IGraphicAssetCollection, IVector3D } from '../../../../../../api';
+import { Sprite } from '@pixi/sprite';
+import { IAssetPlaneMaskData, IAssetPlaneTextureBitmap, IGraphicAssetCollection, IVector3D } from '../../../../../../api';
+import { PixiApplicationProxy } from '../../../../../../pixi-proxy';
 import { PlaneMask } from './PlaneMask';
 import { PlaneMaskVisualization } from './PlaneMaskVisualization';
 
@@ -8,7 +10,7 @@ export class PlaneMaskManager
 {
     private _assetCollection: IGraphicAssetCollection;
     private _masks: Map<string, PlaneMask>;
-    private _data: any;
+    private _data: IAssetPlaneMaskData;
 
     constructor()
     {
@@ -17,7 +19,7 @@ export class PlaneMaskManager
         this._data = null;
     }
 
-    public get data(): any
+    public get data(): IAssetPlaneMaskData
     {
         return this._data;
     }
@@ -40,7 +42,7 @@ export class PlaneMaskManager
         }
     }
 
-    public initialize(k: any): void
+    public initialize(k: IAssetPlaneMaskData): void
     {
         this._data = k;
     }
@@ -54,17 +56,17 @@ export class PlaneMaskManager
         this.parseMasks(this.data, k);
     }
 
-    private parseMasks(k: any, _arg_2: IGraphicAssetCollection): void
+    private parseMasks(maskData: IAssetPlaneMaskData, _arg_2: IGraphicAssetCollection): void
     {
-        if(!k || !_arg_2) return;
+        if(!maskData || !_arg_2) return;
 
-        if(k.masks && k.masks.length)
+        if(maskData.masks && maskData.masks.length)
         {
             let index = 0;
 
-            while(index < k.masks.length)
+            while(index < maskData.masks.length)
             {
-                const mask = k.masks[index];
+                const mask = maskData.masks[index];
 
                 if(mask)
                 {
@@ -85,7 +87,7 @@ export class PlaneMaskManager
 
                             if(visualization)
                             {
-                                const size = visualization.size as number;
+                                const size = visualization.size;
                                 const maskVisualization = newMask.createMaskVisualization(size);
 
                                 if(maskVisualization)
@@ -108,18 +110,18 @@ export class PlaneMaskManager
         }
     }
 
-    private parseMaskBitmaps(k: any, _arg_2: PlaneMaskVisualization, _arg_3: IGraphicAssetCollection): string
+    private parseMaskBitmaps(bitmaps: IAssetPlaneTextureBitmap[], maskVisualization: PlaneMaskVisualization, assetCollection: IGraphicAssetCollection): string
     {
-        if(!k || !k.length) return null;
+        if(!bitmaps || !bitmaps.length) return null;
 
         let graphicName: string = null;
 
-        for(const bitmap of k)
+        for(const bitmap of bitmaps)
         {
             if(!bitmap) continue;
 
             const assetName = bitmap.assetName;
-            const asset = _arg_3.getAsset(assetName);
+            const asset = assetCollection.getAsset(assetName);
 
             if(!asset) continue;
 
@@ -135,19 +137,19 @@ export class PlaneMaskManager
 
             if(!asset.flipH) graphicName = assetName;
 
-            _arg_2.addBitmap(asset, normalMinX, normalMaxX, normalMinY, normalMaxY);
+            maskVisualization.addBitmap(asset, normalMinX, normalMaxX, normalMinY, normalMaxY);
         }
 
         return graphicName;
     }
 
-    public updateMask(k: Graphics, _arg_2: string, _arg_3: number, _arg_4: IVector3D, _arg_5: number, _arg_6: number): boolean
+    public updateMask(canvas: RenderTexture, type: string, scale: number, normal: IVector3D, posX: number, posY: number): boolean
     {
-        const mask = this._masks.get(_arg_2);
+        const mask = this._masks.get(type);
 
         if(!mask) return true;
 
-        const asset = mask.getGraphicAsset(_arg_3, _arg_4);
+        const asset = mask.getGraphicAsset(scale, normal);
 
         if(!asset) return true;
 
@@ -155,34 +157,41 @@ export class PlaneMaskManager
 
         if(!texture) return true;
 
-        const point = new Point((_arg_5 + asset.offsetX), (_arg_6 + asset.offsetY));
+        const point = new Point((posX + asset.offsetX), (posY + asset.offsetY));
 
         const matrix = new Matrix();
 
-        let a = 1;
-        let b = 1;
-        let c = 0;
-        let d = 0;
+        let xScale = 1;
+        let ySkew = 1;
+        let xSkew = 0;
+        let yScale = 0;
+        let tx = (point.x + xSkew);
+        let ty = (point.y + yScale);
 
         if(asset.flipH)
         {
-            a = -1;
-            c = -(texture.width);
+            xScale = -1;
+            xSkew = texture.width;
+
+            tx = ((point.x + xSkew) - texture.width);
         }
 
         if(asset.flipV)
         {
-            b = -1;
-            d = -(texture.height);
+            ySkew = -1;
+            yScale = texture.height;
+
+            ty = ((point.y + yScale) - texture.height);
         }
 
-        matrix.scale(a, b);
-        matrix.translate((point.x + c), (point.y + d));
+        matrix.scale(xScale, ySkew);
+        matrix.translate(tx, ty);
 
-        k
-            .beginTextureFill({ texture, matrix })
-            .drawRect(matrix.tx, matrix.ty, texture.width, texture.height)
-            .endFill();
+        PixiApplicationProxy.instance.renderer.render(new Sprite(texture), {
+            renderTexture: canvas,
+            clear: false,
+            transform: matrix
+        });
 
         return true;
     }

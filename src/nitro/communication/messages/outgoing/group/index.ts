@@ -1,3 +1,4 @@
+export * from './ApproveAllMembershipRequestsMessageComposer';
 export * from './GroupAdminGiveComposer';
 export * from './GroupAdminTakeComposer';
 export * from './GroupBadgePartsComposer';

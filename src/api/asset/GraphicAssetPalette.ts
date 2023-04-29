@@ -1,5 +1,6 @@
-import { Resource, Texture } from '@pixi/core';
-import { NitroSprite, TextureUtils } from '../../pixi-proxy';
+import { Renderer, Resource, Texture } from '@pixi/core';
+import { Sprite } from '@pixi/sprite';
+import { PixiApplicationProxy, TextureUtils } from '../../pixi-proxy';
 
 export class GraphicAssetPalette
 {
@@ -24,26 +25,28 @@ export class GraphicAssetPalette
 
     public applyPalette(texture: Texture<Resource>): Texture<Resource>
     {
-        const sprite = new NitroSprite(texture);
-        const textureCanvas = TextureUtils.generateCanvas(sprite);
-        const textureCtx = textureCanvas.getContext('2d');
-        const textureImageData = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
-        const data = textureImageData.data;
+        const renderTexture = TextureUtils.createAndWriteRenderTexture(texture.width, texture.height, new Sprite(texture));
+        const pixels = TextureUtils.getPixels(renderTexture);
 
-        for(let i = 0; i < data.length; i += 4)
+        for(let i = 0; i < pixels.length; i += 4)
         {
-            let paletteColor = this._palette[data[i + 1]];
+            let paletteColor = this._palette[pixels[i + 1]];
 
             if(paletteColor === undefined) paletteColor = [0, 0, 0];
 
-            data[i] = paletteColor[0];
-            data[i + 1] = paletteColor[1];
-            data[i + 2] = paletteColor[2];
+            pixels[i] = paletteColor[0];
+            pixels[i + 1] = paletteColor[1];
+            pixels[i + 2] = paletteColor[2];
         }
 
-        textureCtx.putImageData(textureImageData, 0, 0);
+        const canvaGLTexture = renderTexture.baseTexture._glTextures['1']?.texture;
+        const gl = (PixiApplicationProxy.instance.renderer as Renderer)?.gl;
 
-        return Texture.from(textureCanvas);
+        gl.bindTexture(gl.TEXTURE_2D, canvaGLTexture);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, renderTexture.width, renderTexture.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+        gl.bindTexture(gl.TEXTURE_2D, null);
+
+        return renderTexture;
     }
 
     public get primaryColor(): number

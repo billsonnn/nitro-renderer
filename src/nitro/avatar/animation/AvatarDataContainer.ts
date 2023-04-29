@@ -1,5 +1,5 @@
-﻿import { AdjustmentFilter } from '@pixi/filter-adjustment';
-import { IAssetAnimationAvatar, IAvatarDataContainer } from '../../../api';
+﻿import { IAssetAnimationAvatar, IAvatarDataContainer } from '../../../api';
+import { AdjustmentFilter } from '../../../pixi-proxy';
 
 export class AvatarDataContainer implements IAvatarDataContainer
 {
