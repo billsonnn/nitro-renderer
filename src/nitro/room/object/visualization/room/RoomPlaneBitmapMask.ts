@@ -4,11 +4,11 @@
     private _leftSideLoc: number;
     private _rightSideLoc: number;
 
-    constructor(k: string, _arg_2: number, _arg_3: number)
+    constructor(maskType: string, leftSideLoc: number, rightSideLoc: number)
     {
-        this._type = k;
-        this._leftSideLoc = _arg_2;
-        this._rightSideLoc = _arg_3;
+        this._type = maskType;
+        this._leftSideLoc = leftSideLoc;
+        this._rightSideLoc = rightSideLoc;
     }
 
     public get type(): string

@@ -400,6 +400,9 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                 renderTexture: this._reusableTexture,
                 clear: true
             });
+
+            //@ts-ignore
+            this._reusableTexture.baseTexture.hitMap = null;
         }
         else
         {
