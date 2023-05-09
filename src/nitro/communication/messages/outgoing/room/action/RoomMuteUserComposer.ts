@@ -6,7 +6,7 @@ export class RoomMuteUserComposer implements IMessageComposer<ConstructorParamet
 
     constructor(userId: number, minutes: number, roomId: number = 0)
     {
-        this._data = [userId, minutes, roomId];
+        this._data = [userId, roomId, minutes];
     }
 
     public getMessageArray()

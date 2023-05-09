@@ -17,6 +17,8 @@ export * from './ClubGiftSelectedParser';
 export * from './ClubOfferData';
 export * from './ClubOfferExtendData';
 export * from './DirectSMSClubBuyAvailableMessageParser';
+export * from './FireworkChargeData';
+export * from './FireworkChargeDataParser';
 export * from './FrontPageItem';
 export * from './GiftReceiverNotFoundParser';
 export * from './GiftWrappingConfigurationParser';

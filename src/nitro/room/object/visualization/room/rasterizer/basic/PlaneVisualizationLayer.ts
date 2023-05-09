@@ -1,7 +1,7 @@
 ﻿import { RenderTexture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { IVector3D } from '../../../../../../../api';
-import { RoomTextureUtils, TextureUtils } from '../../../../../../../pixi-proxy';
+import { PlaneTextureCache } from '../../../../../../../pixi-proxy';
 import { PlaneMaterial } from './PlaneMaterial';
 
 export class PlaneVisualizationLayer
@@ -15,7 +15,6 @@ export class PlaneVisualizationLayer
     private _color: number;
     private _offset: number;
     private _align: number;
-    private _bitmapData: RenderTexture;
     private _isDisposed: boolean;
 
     constructor(material: PlaneMaterial, color: number, align: number, offset: number = 0)
@@ -24,7 +23,6 @@ export class PlaneVisualizationLayer
         this._offset = offset;
         this._align = align;
         this._color = color;
-        this._bitmapData = null;
         this._isDisposed = false;
     }
 
@@ -53,73 +51,36 @@ export class PlaneVisualizationLayer
 
     public clearCache(): void
     {
-        if(this._bitmapData)
-        {
-            this._bitmapData.destroy(true);
-
-            this._bitmapData = null;
-        }
     }
 
-    public render(canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number): RenderTexture
+    public render(planeId: string, textureCache: PlaneTextureCache, canvas: RenderTexture, width: number, height: number, normal: IVector3D, useTexture: boolean, offsetX: number, offsetY: number): RenderTexture
     {
-        if(!canvas || (canvas.width !== width) || (canvas.height !== height)) canvas = null;
-
         const r = (this._color >> 16);
         const g = ((this._color >> 8) & 0xFF);
         const b = (this._color & 0xFF);
-
-        let hasColor = false;
-
-        if(((r < 0xFF) || (g < 0xFF))|| (b < 0xFF)) hasColor = true;
-
-        let bitmapData: RenderTexture = null;
+        const hasColor = ((r < 0xFF) || (g < 0xFF) || (b < 0xFF));
 
         if(this._material)
         {
-            bitmapData = this._material.render(hasColor ? null : canvas, width, height, normal, useTexture, offsetX, (offsetY + this.offset), (this.align === PlaneVisualizationLayer.ALIGN_TOP));
-
-            if(bitmapData && (bitmapData !== canvas))
-            {
-                if(this._bitmapData) this._bitmapData.destroy();
-
-                this._bitmapData = new RenderTexture(bitmapData.baseTexture);
-
-                bitmapData = this._bitmapData;
-            }
+            const bitmapData = this._material.render(planeId, textureCache, hasColor ? null : canvas, width, height, normal, useTexture, offsetX, (offsetY + this.offset), (this.align === PlaneVisualizationLayer.ALIGN_TOP));
 
             if(bitmapData && hasColor)
             {
                 const sprite = new Sprite(bitmapData);
 
-                sprite.tint = this._color;
+                if(hasColor) sprite.tint = this._color;
 
-                TextureUtils.writeToRenderTexture(sprite, canvas, false);
-
-                bitmapData = canvas;
+                textureCache.writeToRenderTexture(sprite, canvas, false);
             }
         }
         else
         {
-            if(!canvas)
-            {
-                if(this._bitmapData && (this._bitmapData.width === width) && (this._bitmapData.height === height)) return this._bitmapData;
+            const bitmapData = textureCache.createAndFillRenderTexture(width, height, planeId, this._color);
 
-                if(this._bitmapData) this._bitmapData.destroy();
-
-                this._bitmapData = RoomTextureUtils.createAndFillRenderTexture(width, height, this._color);
-
-                bitmapData = this._bitmapData;
-            }
-            else
-            {
-                TextureUtils.clearAndFillRenderTexture(canvas, this._color);
-
-                bitmapData = canvas;
-            }
+            textureCache.writeToRenderTexture(new Sprite(bitmapData), canvas, false);
         }
 
-        return bitmapData;
+        return canvas;
     }
 
     public getMaterial(): PlaneMaterial

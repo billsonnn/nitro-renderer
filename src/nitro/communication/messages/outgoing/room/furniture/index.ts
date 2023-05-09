@@ -1,5 +1,7 @@
 export * from './AddSpamWallPostItMessageComposer';
 export * from './dimmer';
+export * from './ExtendRentOrBuyoutFurniMessageComposer';
+export * from './ExtendRentOrBuyoutStripItemMessageComposer';
 export * from './floor';
 export * from './FurnitureAliasesComposer';
 export * from './FurnitureGroupInfoComposer';
@@ -7,6 +9,7 @@ export * from './FurniturePickupComposer';
 export * from './FurniturePlaceComposer';
 export * from './FurniturePlacePaintComposer';
 export * from './FurniturePostItPlaceComposer';
+export * from './GetRentOrBuyoutOfferMessageComposer';
 export * from './logic';
 export * from './mannequin';
 export * from './OpenMysteryTrophyMessageComposer';

@@ -2,6 +2,17 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export class RentableSpaceStatusMessageParser implements IMessageParser
 {
+    public static readonly SPACE_ALREADY_RENTED = 100;
+    public static readonly SPACE_EXTEND_NOT_RENTED = 101;
+    public static readonly SPACE_EXTEND_NOT_RENTED_BY_YOU = 102;
+    public static readonly CAN_RENT_ONLY_ONE_SPACE = 103;
+    public static readonly NOT_ENOUGH_CREDITS = 200;
+    public static readonly NOT_ENOUGH_PIXELS = 201;
+    public static readonly CANT_RENT_NO_PERMISSION = 202;
+    public static readonly CANT_RENT_NO_HABBO_CLUB = 203;
+    public static readonly CANT_RENT = 300;
+    public static readonly CANT_RENT_GENERIC = 400;
+
     private _rented: boolean;
     private _renterId: number;
     private _renterName: string;

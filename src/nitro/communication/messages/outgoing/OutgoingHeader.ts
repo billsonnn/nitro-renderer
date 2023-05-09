@@ -202,6 +202,7 @@ export class OutgoingHeader
     public static ROOM_RIGHTS_REMOVE_OWN = 3182;
     public static ROOM_SETTINGS = 3129;
     public static ROOM_SETTINGS_SAVE = 1969;
+    public static ROOM_SETTINGS_UPDATE_ROOM_CATEGORY_AND_TRADE = 1265;
     public static ROOM_STAFF_PICK = 1918;
     public static ROOM_FILTER_WORDS = 1911;
     public static ROOM_FILTER_WORDS_MODIFY = 3001;
@@ -259,6 +260,8 @@ export class OutgoingHeader
     public static GET_WARDROBE = 2742;
     public static SAVE_WARDROBE_OUTFIT = 800;
     public static USER_TAGS = 17;
+    public static PEER_USERS_CLASSIFICATION = 1160;
+    public static USER_CLASSIFICATION = 2285;
     public static VISIT_USER = 2970;
     public static WIRED_ACTION_SAVE = 2281;
     public static WIRED_APPLY_SNAPSHOT = 3373;
@@ -448,6 +451,7 @@ export class OutgoingHeader
     public static SET_CLOTHING_CHANGE_DATA = 924;
     public static GROUP_UNFAVORITE = 1820;
     public static NEW_USER_EXPERIENCE_GET_GIFTS = 1822;
+    public static NEW_USER_EXPERIENCE_SCRIPT_PROCEED = 1299;
     public static HANDSHAKE_INIT_DIFFIE = 3110;
     public static HANDSHAKE_COMPLETE_DIFFIE = 773;
     public static WELCOME_OPEN_GIFT = 2638;
@@ -458,4 +462,10 @@ export class OutgoingHeader
     public static RENTABLE_SPACE_CANCEL_RENT = 1667;
     public static RENTABLE_SPACE_RENT = 2946;
     public static RENTABLE_SPACE_STATUS = 872;
+    public static TRACKING_PERFORMANCE_LOG = 3230;
+    public static TRACKING_LAG_WARNING_REPORT = 3847;
+    public static ROOM_DIRECTORY_ROOM_NETWORK_OPEN_CONNECTION = 3736;
+    public static RENTABLE_EXTEND_RENT_OR_BUYOUT_STRIP_ITEM = 2115;
+    public static RENTABLE_EXTEND_RENT_OR_BUYOUT_FURNI = 1071;
+    public static RENTABLE_GET_RENT_OR_BUYOUT_OFFER = 2518;
 }

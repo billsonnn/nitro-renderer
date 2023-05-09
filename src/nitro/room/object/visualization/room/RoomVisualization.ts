@@ -1,6 +1,6 @@
 import { Rectangle } from '@pixi/math';
 import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable, Vector3d } from '../../../../../api';
-import { RoomTextureUtils } from '../../../../../pixi-proxy';
+import { PlaneTextureCache } from '../../../../../pixi-proxy';
 import { RoomObjectSpriteVisualization } from '../../../../../room';
 import { ToInt32 } from '../../../../utils';
 import { RoomMapData } from '../../RoomMapData';
@@ -57,6 +57,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
     private _assetUpdateCounter: number;
     private _maskData: RoomMapMaskData;
     private _isPlaneSet: boolean;
+    private _textureCache: PlaneTextureCache;
 
     constructor()
     {
@@ -92,6 +93,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         this._assetUpdateCounter = 0;
         this._maskData = null;
         this._isPlaneSet = false;
+        this._textureCache = new PlaneTextureCache();
 
         this._typeVisibility[RoomPlane.TYPE_UNDEFINED] = false;
         this._typeVisibility[RoomPlane.TYPE_FLOOR] = true;
@@ -143,7 +145,10 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
             this._data = null;
         }
 
-        RoomTextureUtils.clearCache();
+        if(this._textureCache)
+        {
+            this._textureCache.clearCache();
+        }
     }
 
     protected reset(): void
@@ -177,7 +182,10 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(((time < (this._lastUpdateTime + this._updateIntervalTime)) && (!geometryUpdate)) && (!needsUpdate)) return;
 
-        if(this.updatePlaneTexturesAndVisibilities(objectModel)) needsUpdate = true;
+        if(this.updatePlaneTexturesAndVisibilities(objectModel))
+        {
+            needsUpdate = true;
+        }
 
         if(this.updatePlanes(geometry, geometryUpdate, time)) needsUpdate = true;
 
@@ -333,15 +341,11 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         const wallType = model.getValue<string>(RoomObjectVariable.ROOM_WALL_TYPE);
         const landscapeType = model.getValue<string>(RoomObjectVariable.ROOM_LANDSCAPE_TYPE);
 
-        this.updatePlaneTypes(floorType, wallType, landscapeType);
-
         const floorVisibility = (model.getValue<number>(RoomObjectVariable.ROOM_FLOOR_VISIBILITY) === 1);
         const wallVisibility = (model.getValue<number>(RoomObjectVariable.ROOM_WALL_VISIBILITY) === 1);
         const landscapeVisibility = (model.getValue<number>(RoomObjectVariable.ROOM_LANDSCAPE_VISIBILITY) === 1);
 
-        this.updatePlaneVisibility(floorVisibility, wallVisibility, landscapeVisibility);
-
-        return true;
+        return (this.updatePlaneTypes(floorType, wallType, landscapeType) || this.updatePlaneVisibility(floorVisibility, wallVisibility, landscapeVisibility));
     }
 
     private clearPlanes(): void
@@ -409,7 +413,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                     const textureOffsetX = (Math.trunc(_local_15) - _local_15);
                     const textureOffsetY = (Math.trunc(_local_16) - _local_16);
 
-                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_FLOOR, true, secondaryNormals, randomSeed, -(textureOffsetX), -(textureOffsetY));
+                    plane = new RoomPlane(this._textureCache, this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_FLOOR, true, secondaryNormals, randomSeed, -(textureOffsetX), -(textureOffsetY));
 
                     if(_local_14.z !== 0)
                     {
@@ -425,7 +429,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                 else if(planeType === RoomPlaneData.PLANE_WALL)
                 {
-                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_WALL, true, secondaryNormals, randomSeed);
+                    plane = new RoomPlane(this._textureCache, this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_WALL, true, secondaryNormals, randomSeed);
 
                     if((leftSide.length < 1) || (rightSide.length < 1))
                     {
@@ -460,7 +464,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                 else if(planeType === RoomPlaneData.PLANE_LANDSCAPE)
                 {
-                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_LANDSCAPE, true, secondaryNormals, randomSeed, _local_5, 0, maxX, maxY);
+                    plane = new RoomPlane(this._textureCache, this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_LANDSCAPE, true, secondaryNormals, randomSeed, _local_5, 0, maxX, maxY);
 
                     if(_local_14.y > 0)
                     {
@@ -485,7 +489,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                 else if(planeType == RoomPlaneData.PLANE_BILLBOARD)
                 {
-                    plane = new RoomPlane(this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_WALL, true, secondaryNormals, randomSeed);
+                    plane = new RoomPlane(this._textureCache, this.object.getLocation(), location, leftSide, rightSide, RoomPlane.TYPE_WALL, true, secondaryNormals, randomSeed);
                     if(((leftSide.length < 1) || (rightSide.length < 1)))
                     {
                         plane.hasTexture = false;
@@ -685,9 +689,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         return true;
     }
 
-    private updatePlaneVisibility(k: boolean, _arg_2: boolean, _arg_3: boolean): void
+    private updatePlaneVisibility(k: boolean, _arg_2: boolean, _arg_3: boolean): boolean
     {
-        if((k === this._typeVisibility[RoomPlane.TYPE_FLOOR]) && (_arg_2 === this._typeVisibility[RoomPlane.TYPE_WALL]) && (_arg_3 === this._typeVisibility[RoomPlane.TYPE_LANDSCAPE])) return;
+        if((k === this._typeVisibility[RoomPlane.TYPE_FLOOR]) && (_arg_2 === this._typeVisibility[RoomPlane.TYPE_WALL]) && (_arg_3 === this._typeVisibility[RoomPlane.TYPE_LANDSCAPE])) return false;
 
         this._typeVisibility[RoomPlane.TYPE_FLOOR] = k;
         this._typeVisibility[RoomPlane.TYPE_WALL] = _arg_2;
@@ -695,11 +699,13 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         this._visiblePlanes = [];
         this._visiblePlaneSpriteNumbers = [];
+
+        return true;
     }
 
     protected updatePlanes(geometry: IRoomGeometry, geometryUpdate: boolean, timeSinceStartMs: number): boolean
     {
-        if(!geometry || !this.object) return;
+        if(!geometry || !this.object) return false;
 
         this._assetUpdateCounter++;
 
