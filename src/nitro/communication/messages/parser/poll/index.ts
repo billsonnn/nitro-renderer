@@ -6,4 +6,5 @@ export * from './PollQuestion';
 export * from './QuestionAnsweredParser';
 export * from './QuestionFinishedParser';
 export * from './QuestionParser';
+export * from './RoomPollResultParser';
 export * from './RoomPollDataParser';

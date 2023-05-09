@@ -1,6 +1,6 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
 import { RoomSessionPollEvent, RoomSessionVoteEvent } from '../../../events';
-import { PollContentsEvent, PollErrorEvent, PollOfferEvent, StartRoomPollEvent } from '../../communication';
+import { PollContentsEvent, PollErrorEvent, PollOfferEvent, StartRoomPollEvent, RoomPollResultEvent } from '../../communication';
 import { BaseHandler } from './BaseHandler';
 
 export class PollHandler extends BaseHandler
@@ -13,6 +13,7 @@ export class PollHandler extends BaseHandler
         connection.addMessageEvent(new PollOfferEvent(this.onPollOfferEvent.bind(this)));
         connection.addMessageEvent(new PollErrorEvent(this.onPollErrorEvent.bind(this)));
         connection.addMessageEvent(new StartRoomPollEvent(this.onStartRoomPollEvent.bind(this)));
+        connection.addMessageEvent(new RoomPollResultEvent(this.onRoomPollResultEvent.bind(this)));
     }
 
     private onPollContentsEvent(event: PollContentsEvent): void
@@ -90,6 +91,23 @@ export class PollHandler extends BaseHandler
         if(!parser) return;
 
         const pollEvent = new RoomSessionVoteEvent(RoomSessionVoteEvent.VOTE_QUESTION, session, parser.question, parser.choices);
+
+        this.listener.events.dispatchEvent(pollEvent);
+    }
+
+    private onRoomPollResultEvent(event: RoomPollResultEvent): void
+    {
+        if(!this.listener) return;
+
+        const session = this.listener.getSession(this.roomId);
+
+        if(!session) return;
+
+        const parser = event.getParser();
+
+        if(!parser) return;
+
+        const pollEvent = new RoomSessionVoteEvent(RoomSessionVoteEvent.VOTE_RESULT, session, parser.question, parser.choices, parser.SafeStr_7651, parser.SafeStr_7654);
 
         this.listener.events.dispatchEvent(pollEvent);
     }
