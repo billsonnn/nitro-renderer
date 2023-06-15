@@ -109,18 +109,13 @@ export class Nitro implements INitro {
   }
 
   public init(): void {
-    console.log('test')
     if (this._isReady || this._isDisposed) return
-    console.log('test2')
 
     if (this._avatar) this._avatar.init()
-    console.log('test3')
 
     if (this._soundManager) this._soundManager.init()
-    console.log('test4')
 
     if (this._roomEngine) {
-      console.log('test5')
       this._roomEngine.sessionDataManager = this._sessionDataManager
       this._roomEngine.roomSessionManager = this._roomSessionManager
       this._roomEngine.roomManager = this._roomManager
@@ -130,18 +125,14 @@ export class Nitro implements INitro {
 
       this._roomEngine.init()
     }
-    console.log('test6')
 
     if (!this._communication.connection) {
       throw new Error('No connection found')
     }
-    console.log('test7')
 
     new GameMessageHandler(this._communication.connection)
-    console.log('test8')
 
     this._isReady = true
-    console.log('test9')
   }
 
   public dispose(): void {
