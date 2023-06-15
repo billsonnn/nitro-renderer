@@ -21,18 +21,22 @@ import { ConfigurationEvent, EventDispatcher, NitroCore } from '@/core'
 import { NitroEvent, RoomEngineEvent } from '@/events'
 import { GetTicker, PixiApplicationProxy } from '@/pixi-proxy'
 import { RoomManager } from '@/room'
-import { AvatarRenderManager } from './avatar'
-import { RoomCameraWidgetManager } from './camera'
-import { NitroCommunicationManager } from './communication'
-import { LegacyExternalInterface } from './externalInterface'
-import { GameMessageHandler } from './game'
-import { INitro } from './INitro'
-import { NitroLocalizationManager } from './localization'
+import {
+  AvatarRenderManager,
+  GameMessageHandler,
+  HabboWebTools,
+  INitro,
+  LandscapeRasterizer,
+  LegacyExternalInterface,
+  NitroCommunicationManager,
+  NitroLocalizationManager,
+  RoomCameraWidgetManager,
+  RoomEngine,
+  RoomSessionManager,
+  SessionDataManager,
+  SoundManager
+} from '@/nitro'
 import './Plugins'
-import { LandscapeRasterizer, RoomEngine } from './room'
-import { RoomSessionManager, SessionDataManager } from './session'
-import { SoundManager } from './sound'
-import { HabboWebTools } from '@/nitro/utils'
 
 LegacyExternalInterface.available
 
