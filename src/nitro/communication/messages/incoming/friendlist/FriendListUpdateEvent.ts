@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { FriendListUpdateParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { FriendListUpdateParser } from '@/nitro'
 
-export class FriendListUpdateEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, FriendListUpdateParser);
-    }
+export class FriendListUpdateEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, FriendListUpdateParser)
+  }
 
-    public getParser(): FriendListUpdateParser
-    {
-        return this.parser as FriendListUpdateParser;
-    }
+  public getParser(): FriendListUpdateParser {
+    return this.parser as FriendListUpdateParser
+  }
 }

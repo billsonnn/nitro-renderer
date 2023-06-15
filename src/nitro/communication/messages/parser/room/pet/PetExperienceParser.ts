@@ -1,42 +1,38 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class PetExperienceParser implements IMessageParser
-{
-    private _petId: number;
-    private _roomIndex: number;
-    private _gainedExperience: number;
+export class PetExperienceParser implements IMessageParser {
+  private _petId: number
 
-    public flush(): boolean
-    {
-        this._petId = -1;
-        this._roomIndex = -1;
-        this._gainedExperience = 0;
-        return true;
-    }
+  public get petId(): number {
+    return this._petId
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _roomIndex: number
 
-        this._petId = wrapper.readInt();
-        this._roomIndex = wrapper.readInt();
-        this._gainedExperience = wrapper.readInt();
+  public get roomIndex(): number {
+    return this._roomIndex
+  }
 
-        return true;
-    }
+  private _gainedExperience: number
 
-    public get petId(): number
-    {
-        return this._petId;
-    }
+  public get gainedExperience(): number {
+    return this._gainedExperience
+  }
 
-    public get roomIndex(): number
-    {
-        return this._roomIndex;
-    }
+  public flush(): boolean {
+    this._petId = -1
+    this._roomIndex = -1
+    this._gainedExperience = 0
+    return true
+  }
 
-    public get gainedExperience(): number
-    {
-        return this._gainedExperience;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._petId = wrapper.readInt()
+    this._roomIndex = wrapper.readInt()
+    this._gainedExperience = wrapper.readInt()
+
+    return true
+  }
 }

@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class ApproveNameResultParser implements IMessageParser
-{
-    private _result: number;
-    private _validationInfo: string;
+export class ApproveNameResultParser implements IMessageParser {
+  private _result: number
 
-    public flush(): boolean
-    {
-        this._result = -1;
-        this._validationInfo = '';
+  public get result(): number {
+    return this._result
+  }
 
-        return true;
-    }
+  private _validationInfo: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get validationInfo(): string {
+    return this._validationInfo
+  }
 
-        this._result = wrapper.readInt();
-        this._validationInfo = wrapper.readString();
+  public flush(): boolean {
+    this._result = -1
+    this._validationInfo = ''
 
-        return true;
-    }
+    return true
+  }
 
-    public get result(): number
-    {
-        return this._result;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get validationInfo(): string
-    {
-        return this._validationInfo;
-    }
+    this._result = wrapper.readInt()
+    this._validationInfo = wrapper.readString()
+
+    return true
+  }
 }

@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GetNowPlayingMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetNowPlayingMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof GetNowPlayingMessageComposer>;
+export class GetNowPlayingMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetNowPlayingMessageComposer>> {
+  private _data: ConstructorParameters<typeof GetNowPlayingMessageComposer>
 
-    constructor()
-    {
-        this._data = [];
-    }
+  constructor() {
+    this._data = []
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

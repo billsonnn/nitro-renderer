@@ -1,25 +1,21 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class UserCreditsMessageParser implements IMessageParser
-{
-    private _balance: number;
+export class UserCreditsMessageParser implements IMessageParser {
+  private _balance: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get balance(): number {
+    return this._balance
+  }
 
-        this._balance = parseFloat(wrapper.readString());
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._balance = parseFloat(wrapper.readString())
 
-    public flush(): boolean
-    {
-        return true;
-    }
+    return true
+  }
 
-    public get balance(): number
-    {
-        return this._balance;
-    }
+  public flush(): boolean {
+    return true
+  }
 }

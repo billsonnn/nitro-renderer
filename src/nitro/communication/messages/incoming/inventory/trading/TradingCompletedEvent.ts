@@ -1,16 +1,13 @@
-﻿import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { TradingCompletedParser } from '../../../parser';
+﻿import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { TradingCompletedParser } from '@/nitro'
 
-export class TradingCompletedEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, TradingCompletedParser);
-    }
+export class TradingCompletedEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, TradingCompletedParser)
+  }
 
-    public getParser(): TradingCompletedParser
-    {
-        return this.parser as TradingCompletedParser;
-    }
+  public getParser(): TradingCompletedParser {
+    return this.parser as TradingCompletedParser
+  }
 }

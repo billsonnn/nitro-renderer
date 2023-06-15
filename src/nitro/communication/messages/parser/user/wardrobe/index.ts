@@ -1,1 +1,1 @@
-export * from './UserWardrobePageParser';
+export * from './UserWardrobePageParser'

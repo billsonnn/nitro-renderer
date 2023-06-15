@@ -1,1 +1,1 @@
-export * from './FriendFurniConfirmLockMessageComposer';
+export * from './FriendFurniConfirmLockMessageComposer'

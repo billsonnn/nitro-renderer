@@ -1,41 +1,37 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class PhoneCollectionStateParser implements IMessageParser
-{
-    private _phoneStatusCode: number;
-    private _collectionStatusCode: number;
-    private _millisecondsToAllowProcessReset: number;
+export class PhoneCollectionStateParser implements IMessageParser {
+  private _phoneStatusCode: number
 
-    public flush(): boolean
-    {
-        this._phoneStatusCode = -1;
-        this._millisecondsToAllowProcessReset = -1;
-        return true;
-    }
+  public get phoneStatusCode(): number {
+    return this._phoneStatusCode
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _collectionStatusCode: number
 
-        this._phoneStatusCode = wrapper.readInt();
-        this._collectionStatusCode = wrapper.readInt();
-        this._millisecondsToAllowProcessReset = wrapper.readInt();
+  public get collectionStatusCode(): number {
+    return this._collectionStatusCode
+  }
 
-        return true;
-    }
+  private _millisecondsToAllowProcessReset: number
 
-    public get phoneStatusCode(): number
-    {
-        return this._phoneStatusCode;
-    }
+  public get millisecondsToAllowProcessReset(): number {
+    return this._millisecondsToAllowProcessReset
+  }
 
-    public get collectionStatusCode(): number
-    {
-        return this._collectionStatusCode;
-    }
+  public flush(): boolean {
+    this._phoneStatusCode = -1
+    this._millisecondsToAllowProcessReset = -1
+    return true
+  }
 
-    public get millisecondsToAllowProcessReset(): number
-    {
-        return this._millisecondsToAllowProcessReset;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._phoneStatusCode = wrapper.readInt()
+    this._collectionStatusCode = wrapper.readInt()
+    this._millisecondsToAllowProcessReset = wrapper.readInt()
+
+    return true
+  }
 }

@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { MiniMailNewMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { MiniMailNewMessageParser } from '@/nitro'
 
-export class MiniMailNewMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, MiniMailNewMessageParser);
-    }
+export class MiniMailNewMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, MiniMailNewMessageParser)
+  }
 
-    public getParser(): MiniMailNewMessageParser
-    {
-        return this.parser as MiniMailNewMessageParser;
-    }
+  public getParser(): MiniMailNewMessageParser {
+    return this.parser as MiniMailNewMessageParser
+  }
 }

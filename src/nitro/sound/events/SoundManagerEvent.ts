@@ -1,19 +1,16 @@
-import { NitroEvent } from '../../../events';
+import { NitroEvent } from '@/events'
 
-export class SoundManagerEvent extends NitroEvent
-{
-    public static TRAX_SONG_COMPLETE: string = 'SME_TRAX_SONG_COMPLETE';
+export class SoundManagerEvent extends NitroEvent {
+  public static TRAX_SONG_COMPLETE: string = 'SME_TRAX_SONG_COMPLETE'
 
-    private _id: number;
+  constructor(type: string, id: number) {
+    super(type)
+    this._id = id
+  }
 
-    constructor(type: string, id: number)
-    {
-        super(type);
-        this._id = id;
-    }
+  private _id: number
 
-    public get id(): number
-    {
-        return this._id;
-    }
+  public get id(): number {
+    return this._id
+  }
 }

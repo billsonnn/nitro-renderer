@@ -1,16 +1,13 @@
-﻿import { IAssetAnimationDirection } from '../../../api';
+﻿import { IAssetAnimationDirection } from '@/api'
 
-export class DirectionDataContainer
-{
-    private _offset: number;
+export class DirectionDataContainer {
+  constructor(k: IAssetAnimationDirection) {
+    this._offset = k.offset
+  }
 
-    constructor(k: IAssetAnimationDirection)
-    {
-        this._offset = k.offset;
-    }
+  private _offset: number
 
-    public get offset(): number
-    {
-        return this._offset;
-    }
+  public get offset(): number {
+    return this._offset
+  }
 }

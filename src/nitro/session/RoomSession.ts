@@ -1,463 +1,441 @@
-import { IConnection, IRoomSession, RoomControllerLevel, RoomTradingLevelEnum } from '../../api';
-import { Disposable } from '../../core';
-import { RoomSessionEvent } from '../../events';
-import { BotRemoveComposer, ChangeQueueMessageComposer, CompostPlantMessageComposer, FurnitureMultiStateComposer, GetPetCommandsComposer, HarvestPetMessageComposer, MoodlightSettingsComposer, MoodlightSettingsSaveComposer, MoodlightTogggleStateComposer, NewUserExperienceScriptProceedComposer, OpenPetPackageMessageComposer, OpenPresentComposer, PeerUsersClassificationMessageComposer, PetMountComposer, PetRemoveComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, RoomAmbassadorAlertComposer, RoomBanUserComposer, RoomDoorbellAccessComposer, RoomEnterComposer, RoomGiveRightsComposer, RoomKickUserComposer, RoomModerationSettings, RoomMuteUserComposer, RoomTakeRightsComposer, RoomUnitActionComposer, RoomUnitChatComposer, RoomUnitChatShoutComposer, RoomUnitChatWhisperComposer, RoomUnitDanceComposer, RoomUnitPostureComposer, RoomUnitSignComposer, RoomUnitTypingStartComposer, RoomUnitTypingStopComposer, RoomUsersClassificationMessageComposer, SetClothingChangeDataMessageComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer, UserMottoComposer, VotePollCounterMessageComposer } from '../communication';
-import { UserDataManager } from './UserDataManager';
-
-export class RoomSession extends Disposable implements IRoomSession
-{
-    private _connection: IConnection;
-    private _userData: UserDataManager;
-
-    private _roomId: number;
-    private _password: string;
-    private _state: string;
-    private _tradeMode: number;
-    private _doorMode: number;
-    private _allowPets: boolean;
-    private _controllerLevel: number;
-    private _ownRoomIndex: number;
-    private _isGuildRoom: boolean;
-    private _isRoomOwner: boolean;
-    private _isDecorating: boolean;
-    private _isSpectator: boolean;
-
-    private _moderationSettings: RoomModerationSettings;
-
-    constructor()
-    {
-        super();
-
-        this._connection = null;
-        this._userData = new UserDataManager();
-
-        this._roomId = 0;
-        this._password = null;
-        this._state = RoomSessionEvent.CREATED;
-        this._tradeMode = RoomTradingLevelEnum.NO_TRADING;
-        this._doorMode = 0;
-        this._controllerLevel = RoomControllerLevel.NONE;
-        this._ownRoomIndex = -1;
-        this._isGuildRoom = false;
-        this._isRoomOwner = false;
-        this._isDecorating = false;
-        this._isSpectator = false;
-
-        this._moderationSettings = null;
-    }
+import { IConnection, IRoomSession, RoomControllerLevel, RoomTradingLevelEnum } from '@/api'
+import { Disposable } from '@/core'
+import { RoomSessionEvent } from '@/events'
+import {
+  BotRemoveComposer,
+  ChangeQueueMessageComposer,
+  CompostPlantMessageComposer,
+  FurnitureMultiStateComposer,
+  GetPetCommandsComposer,
+  HarvestPetMessageComposer,
+  MoodlightSettingsComposer,
+  MoodlightSettingsSaveComposer,
+  MoodlightTogggleStateComposer,
+  NewUserExperienceScriptProceedComposer,
+  OpenPetPackageMessageComposer,
+  OpenPresentComposer,
+  PeerUsersClassificationMessageComposer,
+  PetMountComposer,
+  PetRemoveComposer,
+  PollAnswerComposer,
+  PollRejectComposer,
+  PollStartComposer,
+  RemovePetSaddleComposer,
+  RoomAmbassadorAlertComposer,
+  RoomBanUserComposer,
+  RoomDoorbellAccessComposer,
+  RoomEnterComposer,
+  RoomGiveRightsComposer,
+  RoomKickUserComposer,
+  RoomModerationSettings,
+  RoomMuteUserComposer,
+  RoomTakeRightsComposer,
+  RoomUnitActionComposer,
+  RoomUnitChatComposer,
+  RoomUnitChatShoutComposer,
+  RoomUnitChatWhisperComposer,
+  RoomUnitDanceComposer,
+  RoomUnitPostureComposer,
+  RoomUnitSignComposer,
+  RoomUnitTypingStartComposer,
+  RoomUnitTypingStopComposer,
+  RoomUsersClassificationMessageComposer,
+  SetClothingChangeDataMessageComposer,
+  TogglePetBreedingComposer,
+  TogglePetRidingComposer,
+  UsePetProductComposer,
+  UserMottoComposer,
+  VotePollCounterMessageComposer
+} from '@/nitro'
+import { UserDataManager } from '@/nitro'
+
+export class RoomSession extends Disposable implements IRoomSession {
+  private _userData: UserDataManager
+
+  constructor() {
+    super()
+
+    this._connection = null
+    this._userData = new UserDataManager()
+
+    this._roomId = 0
+    this._password = null
+    this._state = RoomSessionEvent.CREATED
+    this._tradeMode = RoomTradingLevelEnum.NO_TRADING
+    this._doorMode = 0
+    this._controllerLevel = RoomControllerLevel.NONE
+    this._ownRoomIndex = -1
+    this._isGuildRoom = false
+    this._isRoomOwner = false
+    this._isDecorating = false
+    this._isSpectator = false
+
+    this._moderationSettings = null
+  }
+
+  private _connection: IConnection
+
+  public get connection(): IConnection {
+    return this._connection
+  }
+
+  private _roomId: number
+
+  public get roomId(): number {
+    return this._roomId
+  }
+
+  public set roomId(roomId: number) {
+    this._roomId = roomId
+  }
+
+  private _password: string
+
+  public get password(): string {
+    return this._password
+  }
+
+  public set password(password: string) {
+    this._password = password
+  }
+
+  private _state: string
 
-    protected onDispose(): void
-    {
-        if(this._userData)
-        {
-            this._userData.dispose();
+  public get state(): string {
+    return this._state
+  }
 
-            this._userData = null;
-        }
+  private _tradeMode: number
 
-        this._connection = null;
-    }
+  public get tradeMode(): number {
+    return this._tradeMode
+  }
 
-    public setConnection(connection: IConnection): void
-    {
-        if(this._connection || !connection) return;
+  public set tradeMode(mode: number) {
+    this._tradeMode = mode
+  }
 
-        this._connection = connection;
+  private _doorMode: number
 
-        if(this._userData) this._userData.setConnection(connection);
-    }
+  public get doorMode(): number {
+    return this._doorMode
+  }
 
-    public setControllerLevel(level: number): void
-    {
-        if((level >= RoomControllerLevel.NONE) && (level <= RoomControllerLevel.MODERATOR))
-        {
-            this._controllerLevel = level;
+  public set doorMode(mode: number) {
+    this._doorMode = mode
+  }
 
-            return;
-        }
+  private _allowPets: boolean
 
-        this._controllerLevel = RoomControllerLevel.NONE;
-    }
+  public get allowPets(): boolean {
+    return this._allowPets
+  }
 
-    public setOwnRoomIndex(roomIndex: number): void
-    {
-        this._ownRoomIndex = roomIndex;
-    }
+  public set allowPets(flag: boolean) {
+    this._allowPets = flag
+  }
 
-    public setRoomOwner(): void
-    {
-        this._isRoomOwner = true;
-    }
+  private _controllerLevel: number
 
-    public start(): boolean
-    {
-        if(this._state !== RoomSessionEvent.CREATED || !this._connection) return false;
+  public get controllerLevel(): number {
+    return this._controllerLevel
+  }
 
-        this._state = RoomSessionEvent.STARTED;
+  private _ownRoomIndex: number
 
-        return this.enterRoom();
-    }
+  public get ownRoomIndex(): number {
+    return this._ownRoomIndex
+  }
 
-    private enterRoom(): boolean
-    {
-        if(!this._connection) return false;
+  private _isGuildRoom: boolean
 
-        this._connection.send(new RoomEnterComposer(this._roomId, this._password));
+  public get isGuildRoom(): boolean {
+    return this._isGuildRoom
+  }
 
-        return true;
-    }
+  public set isGuildRoom(flag: boolean) {
+    this._isGuildRoom = flag
+  }
 
-    public reset(roomId: number): void
-    {
-        if(roomId === this._roomId) return;
+  private _isRoomOwner: boolean
 
-        this._roomId = roomId;
-    }
+  public get isRoomOwner(): boolean {
+    return this._isRoomOwner
+  }
 
-    public sendChatMessage(text: string, styleId: number): void
-    {
-        this._connection.send(new RoomUnitChatComposer(text, styleId));
-    }
+  private _isDecorating: boolean
 
-    public sendShoutMessage(text: string, styleId: number): void
-    {
-        this._connection.send(new RoomUnitChatShoutComposer(text, styleId));
-    }
+  public get isDecorating(): boolean {
+    return this._isDecorating
+  }
 
-    public sendWhisperMessage(recipientName: string, text: string, styleId: number): void
-    {
-        this._connection.send(new RoomUnitChatWhisperComposer(recipientName, text, styleId));
-    }
+  public set isDecorating(flag: boolean) {
+    this._isDecorating = flag
+  }
 
-    public sendChatTypingMessage(isTyping: boolean): void
-    {
-        if(isTyping) this._connection.send(new RoomUnitTypingStartComposer());
-        else this._connection.send(new RoomUnitTypingStopComposer());
-    }
+  private _isSpectator: boolean
 
-    public sendMottoMessage(motto: string): void
-    {
-        this._connection.send(new UserMottoComposer(motto));
-    }
+  public get isSpectator(): boolean {
+    return this._isSpectator
+  }
 
-    public sendDanceMessage(danceId: number): void
-    {
-        this._connection.send(new RoomUnitDanceComposer(danceId));
-    }
+  public set isSpectator(flag: boolean) {
+    this._isSpectator = flag
+  }
 
-    public sendExpressionMessage(expression: number): void
-    {
-        this._connection.send(new RoomUnitActionComposer(expression));
-    }
+  private _moderationSettings: RoomModerationSettings
 
-    public sendSignMessage(sign: number): void
-    {
-        if((sign < 0) || (sign > 17)) return;
+  public get moderationSettings(): RoomModerationSettings {
+    return this._moderationSettings
+  }
 
-        this._connection.send(new RoomUnitSignComposer(sign));
-    }
+  public set moderationSettings(parser: RoomModerationSettings) {
+    this._moderationSettings = parser
+  }
 
-    public sendPostureMessage(posture: number): void
-    {
-        this._connection.send(new RoomUnitPostureComposer(posture));
-    }
+  public get userDataManager(): UserDataManager {
+    return this._userData
+  }
 
-    public sendDoorbellApprovalMessage(userName: string, flag: boolean): void
-    {
-        this._connection.send(new RoomDoorbellAccessComposer(userName, flag));
-    }
+  public get isPrivateRoom(): boolean {
+    return true
+  }
 
-    public sendAmbassadorAlertMessage(userId: number): void
-    {
-        this._connection.send(new RoomAmbassadorAlertComposer(userId));
-    }
+  public setConnection(connection: IConnection): void {
+    if (this._connection || !connection) return
 
-    public sendKickMessage(userId: number): void
-    {
-        this._connection.send(new RoomKickUserComposer(userId));
-    }
+    this._connection = connection
 
-    public sendMuteMessage(userId: number, minutes: number): void
-    {
-        this._connection.send(new RoomMuteUserComposer(userId, minutes, this._roomId));
-    }
+    if (this._userData) this._userData.setConnection(connection)
+  }
 
-    public sendBanMessage(userId: number, type: string): void
-    {
-        this._connection.send(new RoomBanUserComposer(userId, this._roomId, type));
-    }
+  public setControllerLevel(level: number): void {
+    if ((level >= RoomControllerLevel.NONE) && (level <= RoomControllerLevel.MODERATOR)) {
+      this._controllerLevel = level
 
-    public sendGiveRightsMessage(userId: number): void
-    {
-        this._connection.send(new RoomGiveRightsComposer(userId));
+      return
     }
 
-    public sendTakeRightsMessage(userId: number): void
-    {
-        this._connection.send(new RoomTakeRightsComposer(userId));
-    }
+    this._controllerLevel = RoomControllerLevel.NONE
+  }
 
-    public sendPollStartMessage(pollId: number): void
-    {
-        this._connection.send(new PollStartComposer(pollId));
-    }
+  public setOwnRoomIndex(roomIndex: number): void {
+    this._ownRoomIndex = roomIndex
+  }
 
-    public sendPollRejectMessage(pollId: number): void
-    {
-        this._connection.send(new PollRejectComposer(pollId));
-    }
+  public setRoomOwner(): void {
+    this._isRoomOwner = true
+  }
 
-    public sendPollAnswerMessage(pollId: number, questionId: number, answers: string[]): void
-    {
-        this._connection.send(new PollAnswerComposer(pollId, questionId, answers));
-    }
+  public start(): boolean {
+    if (this._state !== RoomSessionEvent.CREATED || !this._connection) return false
 
-    public sendPeerUsersClassificationMessage(userClassType: string): void
-    {
-        this._connection.send(new PeerUsersClassificationMessageComposer(userClassType));
-    }
+    this._state = RoomSessionEvent.STARTED
 
-    public sendOpenPetPackageMessage(objectId: number, petName: string): void
-    {
-        this._connection.send(new OpenPetPackageMessageComposer(objectId, petName));
-    }
+    return this.enterRoom()
+  }
 
-    public sendRoomUsersClassificationMessage(userClassType: string): void
-    {
-        this._connection.send(new RoomUsersClassificationMessageComposer(userClassType));
-    }
+  public reset(roomId: number): void {
+    if (roomId === this._roomId) return
 
-    public updateMoodlightData(id: number, effectId: number, color: number, brightness: number, apply: boolean): void
-    {
-        let colorString = '000000' + color.toString(16).toUpperCase();
-        colorString = '#' + colorString.substring((colorString.length - 6));
+    this._roomId = roomId
+  }
 
-        this.connection.send(new MoodlightSettingsSaveComposer(id, effectId, colorString, brightness, apply));
-    }
+  public sendChatMessage(text: string, styleId: number): void {
+    this._connection.send(new RoomUnitChatComposer(text, styleId))
+  }
 
-    public toggleMoodlightState(): void
-    {
-        this.connection.send(new MoodlightTogggleStateComposer());
-    }
+  public sendShoutMessage(text: string, styleId: number): void {
+    this._connection.send(new RoomUnitChatShoutComposer(text, styleId))
+  }
 
-    public pickupPet(id: number): void
-    {
-        if(!this._connection) return;
+  public sendWhisperMessage(recipientName: string, text: string, styleId: number): void {
+    this._connection.send(new RoomUnitChatWhisperComposer(recipientName, text, styleId))
+  }
 
-        this._connection.send(new PetRemoveComposer(id));
-    }
+  public sendChatTypingMessage(isTyping: boolean): void {
+    if (isTyping) this._connection.send(new RoomUnitTypingStartComposer())
+    else this._connection.send(new RoomUnitTypingStopComposer())
+  }
 
-    public pickupBot(id: number): void
-    {
-        if(!this._connection) return;
+  public sendMottoMessage(motto: string): void {
+    this._connection.send(new UserMottoComposer(motto))
+  }
 
-        this._connection.send(new BotRemoveComposer(id));
-    }
+  public sendDanceMessage(danceId: number): void {
+    this._connection.send(new RoomUnitDanceComposer(danceId))
+  }
 
-    public requestMoodlightSettings(): void
-    {
-        if(!this._connection) return;
+  public sendExpressionMessage(expression: number): void {
+    this._connection.send(new RoomUnitActionComposer(expression))
+  }
 
-        this._connection.send(new MoodlightSettingsComposer());
-    }
+  public sendSignMessage(sign: number): void {
+    if ((sign < 0) || (sign > 17)) return
 
-    public openGift(objectId: number): void
-    {
-        this._connection.send(new OpenPresentComposer(objectId));
-    }
+    this._connection.send(new RoomUnitSignComposer(sign))
+  }
 
-    public mountPet(id: number): void
-    {
-        this._connection.send(new PetMountComposer(id, true));
-    }
+  public sendPostureMessage(posture: number): void {
+    this._connection.send(new RoomUnitPostureComposer(posture))
+  }
 
-    public dismountPet(id: number): void
-    {
-        this._connection.send(new PetMountComposer(id, false));
-    }
+  public sendDoorbellApprovalMessage(userName: string, flag: boolean): void {
+    this._connection.send(new RoomDoorbellAccessComposer(userName, flag))
+  }
 
-    public usePetProduct(itemId: number, petId: number): void
-    {
-        this._connection.send(new UsePetProductComposer(itemId, petId));
-    }
+  public sendAmbassadorAlertMessage(userId: number): void {
+    this._connection.send(new RoomAmbassadorAlertComposer(userId))
+  }
 
-    public removePetSaddle(id: number): void
-    {
-        this._connection.send(new RemovePetSaddleComposer(id));
-    }
+  public sendKickMessage(userId: number): void {
+    this._connection.send(new RoomKickUserComposer(userId))
+  }
 
-    public togglePetBreeding(id: number): void
-    {
-        this._connection.send(new TogglePetBreedingComposer(id));
-    }
+  public sendMuteMessage(userId: number, minutes: number): void {
+    this._connection.send(new RoomMuteUserComposer(userId, minutes, this._roomId))
+  }
 
-    public togglePetRiding(id: number): void
-    {
-        this._connection.send(new TogglePetRidingComposer(id));
-    }
+  public sendBanMessage(userId: number, type: string): void {
+    this._connection.send(new RoomBanUserComposer(userId, this._roomId, type))
+  }
 
-    public useMultistateItem(id: number): void
-    {
-        this._connection.send(new FurnitureMultiStateComposer(id));
-    }
+  public sendGiveRightsMessage(userId: number): void {
+    this._connection.send(new RoomGiveRightsComposer(userId))
+  }
 
-    public harvestPet(id: number): void
-    {
-        this._connection.send(new HarvestPetMessageComposer(id));
-    }
+  public sendTakeRightsMessage(userId: number): void {
+    this._connection.send(new RoomTakeRightsComposer(userId))
+  }
 
-    public compostPlant(id: number): void
-    {
-        this._connection.send(new CompostPlantMessageComposer(id));
-    }
+  public sendPollStartMessage(pollId: number): void {
+    this._connection.send(new PollStartComposer(pollId))
+  }
 
-    public requestPetCommands(id: number):void
-    {
-        this._connection.send(new GetPetCommandsComposer(id));
-    }
+  public sendPollRejectMessage(pollId: number): void {
+    this._connection.send(new PollRejectComposer(pollId))
+  }
 
-    public sendScriptProceed(): void
-    {
-        this._connection.send(new NewUserExperienceScriptProceedComposer());
-    }
+  public sendPollAnswerMessage(pollId: number, questionId: number, answers: string[]): void {
+    this._connection.send(new PollAnswerComposer(pollId, questionId, answers))
+  }
 
-    public sendUpdateClothingChangeFurniture(objectId: number, gender: string, look: string):void
-    {
-        this._connection.send(new SetClothingChangeDataMessageComposer(objectId, gender, look));
-    }
+  public sendPeerUsersClassificationMessage(userClassType: string): void {
+    this._connection.send(new PeerUsersClassificationMessageComposer(userClassType))
+  }
 
-    public changeQueue(targetQueue: number): void
-    {
-        this._connection.send(new ChangeQueueMessageComposer(targetQueue));
-    }
+  public sendOpenPetPackageMessage(objectId: number, petName: string): void {
+    this._connection.send(new OpenPetPackageMessageComposer(objectId, petName))
+  }
 
-    public votePoll(counter: number): void
-    {
-        this._connection.send(new VotePollCounterMessageComposer(counter));
-    }
+  public sendRoomUsersClassificationMessage(userClassType: string): void {
+    this._connection.send(new RoomUsersClassificationMessageComposer(userClassType))
+  }
 
-    public get connection(): IConnection
-    {
-        return this._connection;
-    }
+  public updateMoodlightData(id: number, effectId: number, color: number, brightness: number, apply: boolean): void {
+    let colorString = '000000' + color.toString(16).toUpperCase()
+    colorString = '#' + colorString.substring((colorString.length - 6))
 
-    public get userDataManager(): UserDataManager
-    {
-        return this._userData;
-    }
+    this.connection.send(new MoodlightSettingsSaveComposer(id, effectId, colorString, brightness, apply))
+  }
 
-    public get roomId(): number
-    {
-        return this._roomId;
-    }
+  public toggleMoodlightState(): void {
+    this.connection.send(new MoodlightTogggleStateComposer())
+  }
 
-    public set roomId(roomId: number)
-    {
-        this._roomId = roomId;
-    }
+  public pickupPet(id: number): void {
+    if (!this._connection) return
 
-    public get password(): string
-    {
-        return this._password;
-    }
+    this._connection.send(new PetRemoveComposer(id))
+  }
 
-    public set password(password: string)
-    {
-        this._password = password;
-    }
+  public pickupBot(id: number): void {
+    if (!this._connection) return
 
-    public get state(): string
-    {
-        return this._state;
-    }
+    this._connection.send(new BotRemoveComposer(id))
+  }
 
-    public get isPrivateRoom(): boolean
-    {
-        return true;
-    }
+  public requestMoodlightSettings(): void {
+    if (!this._connection) return
 
-    public get tradeMode(): number
-    {
-        return this._tradeMode;
-    }
+    this._connection.send(new MoodlightSettingsComposer())
+  }
 
-    public set tradeMode(mode: number)
-    {
-        this._tradeMode = mode;
-    }
+  public openGift(objectId: number): void {
+    this._connection.send(new OpenPresentComposer(objectId))
+  }
 
-    public get doorMode(): number
-    {
-        return this._doorMode;
-    }
+  public mountPet(id: number): void {
+    this._connection.send(new PetMountComposer(id, true))
+  }
 
-    public set doorMode(mode: number)
-    {
-        this._doorMode = mode;
-    }
+  public dismountPet(id: number): void {
+    this._connection.send(new PetMountComposer(id, false))
+  }
 
-    public get allowPets(): boolean
-    {
-        return this._allowPets;
-    }
+  public usePetProduct(itemId: number, petId: number): void {
+    this._connection.send(new UsePetProductComposer(itemId, petId))
+  }
 
-    public set allowPets(flag: boolean)
-    {
-        this._allowPets = flag;
-    }
+  public removePetSaddle(id: number): void {
+    this._connection.send(new RemovePetSaddleComposer(id))
+  }
 
-    public get controllerLevel(): number
-    {
-        return this._controllerLevel;
-    }
+  public togglePetBreeding(id: number): void {
+    this._connection.send(new TogglePetBreedingComposer(id))
+  }
 
-    public get ownRoomIndex(): number
-    {
-        return this._ownRoomIndex;
-    }
+  public togglePetRiding(id: number): void {
+    this._connection.send(new TogglePetRidingComposer(id))
+  }
 
-    public get isGuildRoom(): boolean
-    {
-        return this._isGuildRoom;
-    }
+  public useMultistateItem(id: number): void {
+    this._connection.send(new FurnitureMultiStateComposer(id))
+  }
 
-    public set isGuildRoom(flag: boolean)
-    {
-        this._isGuildRoom = flag;
-    }
+  public harvestPet(id: number): void {
+    this._connection.send(new HarvestPetMessageComposer(id))
+  }
 
-    public get isRoomOwner(): boolean
-    {
-        return this._isRoomOwner;
-    }
+  public compostPlant(id: number): void {
+    this._connection.send(new CompostPlantMessageComposer(id))
+  }
 
-    public get isDecorating(): boolean
-    {
-        return this._isDecorating;
-    }
+  public requestPetCommands(id: number): void {
+    this._connection.send(new GetPetCommandsComposer(id))
+  }
 
-    public set isDecorating(flag: boolean)
-    {
-        this._isDecorating = flag;
-    }
+  public sendScriptProceed(): void {
+    this._connection.send(new NewUserExperienceScriptProceedComposer())
+  }
 
-    public get isSpectator(): boolean
-    {
-        return this._isSpectator;
-    }
+  public sendUpdateClothingChangeFurniture(objectId: number, gender: string, look: string): void {
+    this._connection.send(new SetClothingChangeDataMessageComposer(objectId, gender, look))
+  }
 
-    public set isSpectator(flag: boolean)
-    {
-        this._isSpectator = flag;
-    }
+  public changeQueue(targetQueue: number): void {
+    this._connection.send(new ChangeQueueMessageComposer(targetQueue))
+  }
 
-    public get moderationSettings(): RoomModerationSettings
-    {
-        return this._moderationSettings;
-    }
+  public votePoll(counter: number): void {
+    this._connection.send(new VotePollCounterMessageComposer(counter))
+  }
 
-    public set moderationSettings(parser: RoomModerationSettings)
-    {
-        this._moderationSettings = parser;
+  protected onDispose(): void {
+    if (this._userData) {
+      this._userData.dispose()
+
+      this._userData = null
     }
+
+    this._connection = null
+  }
+
+  private enterRoom(): boolean {
+    if (!this._connection) return false
+
+    this._connection.send(new RoomEnterComposer(this._roomId, this._password))
+
+    return true
+  }
 }

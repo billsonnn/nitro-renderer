@@ -1,36 +1,32 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { MemberData } from '../../incoming';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { MemberData } from '@/nitro'
 
-export class GroupMembershipRequestedMessageParser implements IMessageParser
-{
-    private _groupId: number;
-    private _requester: MemberData;
+export class GroupMembershipRequestedMessageParser implements IMessageParser {
+  private _groupId: number
 
-    public flush(): boolean
-    {
-        this._groupId = -1;
-        this._requester = null;
+  public get groupId(): number {
+    return this._groupId
+  }
 
-        return true;
-    }
+  private _requester: MemberData
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get requester(): MemberData {
+    return this._requester
+  }
 
-        this._groupId = wrapper.readInt();
-        this._requester = new MemberData(wrapper);
+  public flush(): boolean {
+    this._groupId = -1
+    this._requester = null
 
-        return true;
-    }
+    return true
+  }
 
-    public get groupId(): number
-    {
-        return this._groupId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get requester(): MemberData
-    {
-        return this._requester;
-    }
+    this._groupId = wrapper.readInt()
+    this._requester = new MemberData(wrapper)
+
+    return true
+  }
 }

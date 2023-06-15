@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { DiceValueMessageParser } from '../../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { DiceValueMessageParser } from '@/nitro'
 
-export class DiceValueMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, DiceValueMessageParser);
-    }
+export class DiceValueMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, DiceValueMessageParser)
+  }
 
-    public getParser(): DiceValueMessageParser
-    {
-        return this.parser as DiceValueMessageParser;
-    }
+  public getParser(): DiceValueMessageParser {
+    return this.parser as DiceValueMessageParser
+  }
 }

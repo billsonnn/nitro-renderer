@@ -1,105 +1,101 @@
-import { IMessageDataWrapper } from '../../../../../api';
-import { CatalogPageMessageProductData } from './CatalogPageMessageProductData';
+import { IMessageDataWrapper } from '@/api'
+import { CatalogPageMessageProductData } from '@/nitro'
 
-export class CatalogPageMessageOfferData
-{
-    private _offerId: number;
-    private _localizationId: string;
-    private _rent: boolean;
-    private _priceCredits: number;
-    private _priceActivityPoints: number;
-    private _priceActivityPointsType: number;
-    private _clubLevel: number;
-    private _giftable: boolean;
-    private _bundlePurchaseAllowed: boolean;
-    private _isPet: boolean;
-    private _previewImage: string;
-    private _products: CatalogPageMessageProductData[];
+export class CatalogPageMessageOfferData {
+  constructor(wrapper: IMessageDataWrapper) {
+    this._offerId = wrapper.readInt()
+    this._localizationId = wrapper.readString()
+    this._rent = wrapper.readBoolean()
+    this._priceCredits = wrapper.readInt()
+    this._priceActivityPoints = wrapper.readInt()
+    this._priceActivityPointsType = wrapper.readInt()
+    this._giftable = wrapper.readBoolean()
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        this._offerId = wrapper.readInt();
-        this._localizationId = wrapper.readString();
-        this._rent = wrapper.readBoolean();
-        this._priceCredits = wrapper.readInt();
-        this._priceActivityPoints = wrapper.readInt();
-        this._priceActivityPointsType = wrapper.readInt();
-        this._giftable = wrapper.readBoolean();
+    this._products = []
 
-        this._products = [];
+    let totalProducts = wrapper.readInt()
 
-        let totalProducts = wrapper.readInt();
+    while (totalProducts > 0) {
+      this._products.push(new CatalogPageMessageProductData(wrapper))
 
-        while(totalProducts > 0)
-        {
-            this._products.push(new CatalogPageMessageProductData(wrapper));
-
-            totalProducts--;
-        }
-
-        this._clubLevel = wrapper.readInt();
-        this._bundlePurchaseAllowed = wrapper.readBoolean();
-        this._isPet = wrapper.readBoolean();
-        this._previewImage = wrapper.readString();
+      totalProducts--
     }
 
-    public get offerId(): number
-    {
-        return this._offerId;
-    }
+    this._clubLevel = wrapper.readInt()
+    this._bundlePurchaseAllowed = wrapper.readBoolean()
+    this._isPet = wrapper.readBoolean()
+    this._previewImage = wrapper.readString()
+  }
 
-    public get localizationId(): string
-    {
-        return this._localizationId;
-    }
+  private _offerId: number
 
-    public get rent(): boolean
-    {
-        return this._rent;
-    }
+  public get offerId(): number {
+    return this._offerId
+  }
 
-    public get priceCredits(): number
-    {
-        return this._priceCredits;
-    }
+  private _localizationId: string
 
-    public get priceActivityPoints(): number
-    {
-        return this._priceActivityPoints;
-    }
+  public get localizationId(): string {
+    return this._localizationId
+  }
 
-    public get priceActivityPointsType(): number
-    {
-        return this._priceActivityPointsType;
-    }
+  private _rent: boolean
 
-    public get clubLevel(): number
-    {
-        return this._clubLevel;
-    }
+  public get rent(): boolean {
+    return this._rent
+  }
 
-    public get giftable(): boolean
-    {
-        return this._giftable;
-    }
+  private _priceCredits: number
 
-    public get bundlePurchaseAllowed(): boolean
-    {
-        return this._bundlePurchaseAllowed;
-    }
+  public get priceCredits(): number {
+    return this._priceCredits
+  }
 
-    public get isPet(): boolean
-    {
-        return this._isPet;
-    }
+  private _priceActivityPoints: number
 
-    public get previewImage(): string
-    {
-        return this._previewImage;
-    }
+  public get priceActivityPoints(): number {
+    return this._priceActivityPoints
+  }
 
-    public get products(): CatalogPageMessageProductData[]
-    {
-        return this._products;
-    }
+  private _priceActivityPointsType: number
+
+  public get priceActivityPointsType(): number {
+    return this._priceActivityPointsType
+  }
+
+  private _clubLevel: number
+
+  public get clubLevel(): number {
+    return this._clubLevel
+  }
+
+  private _giftable: boolean
+
+  public get giftable(): boolean {
+    return this._giftable
+  }
+
+  private _bundlePurchaseAllowed: boolean
+
+  public get bundlePurchaseAllowed(): boolean {
+    return this._bundlePurchaseAllowed
+  }
+
+  private _isPet: boolean
+
+  public get isPet(): boolean {
+    return this._isPet
+  }
+
+  private _previewImage: string
+
+  public get previewImage(): string {
+    return this._previewImage
+  }
+
+  private _products: CatalogPageMessageProductData[]
+
+  public get products(): CatalogPageMessageProductData[] {
+    return this._products
+  }
 }

@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class RoomUnitGiveHandItemComposer implements IMessageComposer<ConstructorParameters<typeof RoomUnitGiveHandItemComposer>>
-{
-    private _data: ConstructorParameters<typeof RoomUnitGiveHandItemComposer>;
+export class RoomUnitGiveHandItemComposer implements IMessageComposer<ConstructorParameters<typeof RoomUnitGiveHandItemComposer>> {
+  private _data: ConstructorParameters<typeof RoomUnitGiveHandItemComposer>
 
-    constructor(unitId: number)
-    {
-        this._data = [unitId];
-    }
+  constructor(unitId: number) {
+    this._data = [unitId]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

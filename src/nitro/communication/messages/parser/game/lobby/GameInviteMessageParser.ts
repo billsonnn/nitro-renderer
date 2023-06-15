@@ -1,32 +1,28 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GameInviteMessageParser implements IMessageParser
-{
-    private _gameTypeId:number;
-    private _inviterId:number;
+export class GameInviteMessageParser implements IMessageParser {
+  private _gameTypeId: number
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get gameTypeId(): number {
+    return this._gameTypeId
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _inviterId: number
 
-        this._gameTypeId = wrapper.readInt();
-        this._inviterId = wrapper.readInt();
+  public get inviterId(): number {
+    return this._inviterId
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    return true
+  }
 
-    public get gameTypeId():number
-    {
-        return this._gameTypeId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get inviterId():number
-    {
-        return this._inviterId;
-    }
+    this._gameTypeId = wrapper.readInt()
+    this._inviterId = wrapper.readInt()
+
+    return true
+  }
 }

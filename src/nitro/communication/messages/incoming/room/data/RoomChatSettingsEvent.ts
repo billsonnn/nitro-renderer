@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { RoomChatSettingsParser } from '../../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { RoomChatSettingsParser } from '@/nitro'
 
-export class RoomChatSettingsEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, RoomChatSettingsParser);
-    }
+export class RoomChatSettingsEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, RoomChatSettingsParser)
+  }
 
-    public getParser(): RoomChatSettingsParser
-    {
-        return this.parser as RoomChatSettingsParser;
-    }
+  public getParser(): RoomChatSettingsParser {
+    return this.parser as RoomChatSettingsParser
+  }
 }

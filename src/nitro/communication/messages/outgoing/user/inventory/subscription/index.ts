@@ -1,1 +1,1 @@
-export * from './UserSubscriptionComposer';
+export * from './UserSubscriptionComposer'

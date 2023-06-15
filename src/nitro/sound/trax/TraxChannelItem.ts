@@ -1,21 +1,18 @@
-export class TraxChannelItem
-{
-    private _id: number;
-    private _length: number;
+export class TraxChannelItem {
+  constructor(id: number, length: number) {
+    this._id = id
+    this._length = length
+  }
 
-    constructor(id: number, length: number)
-    {
-        this._id = id;
-        this._length = length;
-    }
+  private _id: number
 
-    public get id(): number
-    {
-        return this._id;
-    }
+  public get id(): number {
+    return this._id
+  }
 
-    public get length(): number
-    {
-        return this._length;
-    }
+  private _length: number
+
+  public get length(): number {
+    return this._length
+  }
 }

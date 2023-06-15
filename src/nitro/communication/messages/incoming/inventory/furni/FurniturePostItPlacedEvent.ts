@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { FurniturePostItPlacedParser } from '../../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { FurniturePostItPlacedParser } from '@/nitro'
 
-export class FurniturePostItPlacedEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, FurniturePostItPlacedParser);
-    }
+export class FurniturePostItPlacedEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, FurniturePostItPlacedParser)
+  }
 
-    public getParser(): FurniturePostItPlacedParser
-    {
-        return this.parser as FurniturePostItPlacedParser;
-    }
+  public getParser(): FurniturePostItPlacedParser {
+    return this.parser as FurniturePostItPlacedParser
+  }
 }

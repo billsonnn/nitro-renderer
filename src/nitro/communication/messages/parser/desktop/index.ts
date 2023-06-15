@@ -1,1 +1,1 @@
-export * from './DesktopViewParser';
+export * from './DesktopViewParser'

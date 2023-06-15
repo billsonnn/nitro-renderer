@@ -1,8 +1,7 @@
-import { IRoomObjectManager } from './IRoomObjectManager';
-import { IRoomObject } from './object';
+import { IRoomObject, IRoomObjectManager } from '@/api'
 
-export interface IRoomInstanceContainer
-{
-    createRoomObjectAndInitalize(roomId: string, objectId: number, type: string, category: number): IRoomObject;
-    createRoomObjectManager(category: number): IRoomObjectManager;
+export interface IRoomInstanceContainer {
+  createRoomObjectAndInitalize(roomId: string, objectId: number, type: string, category: number): IRoomObject;
+
+  createRoomObjectManager(category: number): IRoomObjectManager;
 }

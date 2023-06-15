@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { UserBannedMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { UserBannedMessageParser } from '@/nitro'
 
-export class UserBannedMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, UserBannedMessageParser);
-    }
+export class UserBannedMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, UserBannedMessageParser)
+  }
 
-    public getParser(): UserBannedMessageParser
-    {
-        return this.parser as UserBannedMessageParser;
-    }
+  public getParser(): UserBannedMessageParser {
+    return this.parser as UserBannedMessageParser
+  }
 }

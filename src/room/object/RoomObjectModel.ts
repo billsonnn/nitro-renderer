@@ -1,53 +1,46 @@
-import { IRoomObjectModel } from '../../api';
+import { IRoomObjectModel } from '@/api'
 
-export class RoomObjectModel implements IRoomObjectModel
-{
-    private _map: Map<string, unknown>;
-    private _updateCounter: number;
+export class RoomObjectModel implements IRoomObjectModel {
+  private _map: Map<string, unknown>
 
-    constructor()
-    {
-        this._map = new Map();
-        this._updateCounter = 0;
+  constructor() {
+    this._map = new Map()
+    this._updateCounter = 0
+  }
+
+  private _updateCounter: number
+
+  public get updateCounter(): number {
+    return this._updateCounter
+  }
+
+  public dispose(): void {
+    this._map.clear()
+
+    this._updateCounter = 0
+  }
+
+  public getValue<T>(key: string): T {
+    const existing = this._map.get(key)
+
+    return (existing as T)
+  }
+
+  public setValue<T>(key: string, value: T): void {
+    if (this._map.has(key)) {
+      if (this._map.get(key) === value) return
     }
 
-    public dispose(): void
-    {
-        this._map.clear();
+    this._map.set(key, (value as T))
 
-        this._updateCounter = 0;
-    }
+    this._updateCounter++
+  }
 
-    public getValue<T>(key: string): T
-    {
-        const existing = this._map.get(key);
+  public removeKey(key: string): void {
+    if (!key) return
 
-        return (existing as T);
-    }
+    this._map.delete(key)
 
-    public setValue<T>(key: string, value: T): void
-    {
-        if(this._map.has(key))
-        {
-            if(this._map.get(key) === value) return;
-        }
-
-        this._map.set(key, (value as T));
-
-        this._updateCounter++;
-    }
-
-    public removeKey(key: string): void
-    {
-        if(!key) return;
-
-        this._map.delete(key);
-
-        this._updateCounter++;
-    }
-
-    public get updateCounter(): number
-    {
-        return this._updateCounter;
-    }
+    this._updateCounter++
+  }
 }

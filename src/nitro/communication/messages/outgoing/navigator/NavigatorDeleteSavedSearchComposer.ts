@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class NavigatorDeleteSavedSearchComposer implements IMessageComposer<ConstructorParameters<typeof NavigatorDeleteSavedSearchComposer>>
-{
-    private _data: ConstructorParameters<typeof NavigatorDeleteSavedSearchComposer>;
+export class NavigatorDeleteSavedSearchComposer implements IMessageComposer<ConstructorParameters<typeof NavigatorDeleteSavedSearchComposer>> {
+  private _data: ConstructorParameters<typeof NavigatorDeleteSavedSearchComposer>
 
-    constructor(searchId: number)
-    {
-        this._data = [searchId];
-    }
+  constructor(searchId: number) {
+    this._data = [searchId]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

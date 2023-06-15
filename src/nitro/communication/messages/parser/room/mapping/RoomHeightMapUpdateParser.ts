@@ -1,75 +1,67 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { RoomHeightMapParser } from './RoomHeightMapParser';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { RoomHeightMapParser } from '@/nitro'
 
-export class RoomHeightMapUpdateParser implements IMessageParser
-{
-    private _wrapper: IMessageDataWrapper;
-    private _count: number;
-    private _x: number;
-    private _y: number;
-    private _value: number;
+export class RoomHeightMapUpdateParser implements IMessageParser {
+  private _wrapper: IMessageDataWrapper
+  private _count: number
+  private _value: number
 
-    public flush(): boolean
-    {
-        this._wrapper = null;
-        this._count = 0;
-        this._x = 0;
-        this._y = 0;
-        this._value = 0;
+  private _x: number
 
-        return true;
-    }
+  public get x(): number {
+    return this._x
+  }
 
-    public tileHeight(): number
-    {
-        return RoomHeightMapParser.decodeTileHeight(this._value);
-    }
+  private _y: number
 
-    public isStackingBlocked(): boolean
-    {
-        return RoomHeightMapParser.decodeIsStackingBlocked(this._value);
-    }
+  public get y(): number {
+    return this._y
+  }
 
-    public isRoomTile(): boolean
-    {
-        return RoomHeightMapParser.decodeIsRoomTile(this._value);
-    }
+  public get height(): number {
+    return this._value
+  }
 
-    public next(): boolean
-    {
-        if(!this._count) return false;
+  public flush(): boolean {
+    this._wrapper = null
+    this._count = 0
+    this._x = 0
+    this._y = 0
+    this._value = 0
 
-        this._count--;
+    return true
+  }
 
-        this._x = this._wrapper.readByte();
-        this._y = this._wrapper.readByte();
-        this._value = this._wrapper.readShort();
+  public tileHeight(): number {
+    return RoomHeightMapParser.decodeTileHeight(this._value)
+  }
 
-        return true;
-    }
+  public isStackingBlocked(): boolean {
+    return RoomHeightMapParser.decodeIsStackingBlocked(this._value)
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public isRoomTile(): boolean {
+    return RoomHeightMapParser.decodeIsRoomTile(this._value)
+  }
 
-        this._wrapper = wrapper;
-        this._count = wrapper.readByte();
+  public next(): boolean {
+    if (!this._count) return false
 
-        return true;
-    }
+    this._count--
 
-    public get x(): number
-    {
-        return this._x;
-    }
+    this._x = this._wrapper.readByte()
+    this._y = this._wrapper.readByte()
+    this._value = this._wrapper.readShort()
 
-    public get y(): number
-    {
-        return this._y;
-    }
+    return true
+  }
 
-    public get height(): number
-    {
-        return this._value;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._wrapper = wrapper
+    this._count = wrapper.readByte()
+
+    return true
+  }
 }

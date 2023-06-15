@@ -1,28 +1,25 @@
-﻿export class RoomEntryData
-{
-    private _roomId: number;
-    private _roomName: string;
-    private _hasControllers: boolean = false;
+﻿export class RoomEntryData {
+  constructor(roomId: number, roomName: string, hasControllers: boolean) {
+    this._roomId = roomId
+    this._roomName = roomName
+    this._hasControllers = hasControllers
+  }
 
-    constructor(roomId: number, roomName: string, hasControllers: boolean)
-    {
-        this._roomId = roomId;
-        this._roomName = roomName;
-        this._hasControllers = hasControllers;
-    }
+  private _roomId: number
 
-    public get roomId(): number
-    {
-        return this._roomId;
-    }
+  public get roomId(): number {
+    return this._roomId
+  }
 
-    public get roomName(): string
-    {
-        return this._roomName;
-    }
+  private _roomName: string
 
-    public get hasControllers(): boolean
-    {
-        return this._hasControllers;
-    }
+  public get roomName(): string {
+    return this._roomName
+  }
+
+  private _hasControllers: boolean = false
+
+  public get hasControllers(): boolean {
+    return this._hasControllers
+  }
 }

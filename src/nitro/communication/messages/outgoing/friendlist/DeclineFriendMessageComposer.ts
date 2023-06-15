@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class DeclineFriendMessageComposer implements IMessageComposer<ConstructorParameters<typeof DeclineFriendMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof DeclineFriendMessageComposer>;
+export class DeclineFriendMessageComposer implements IMessageComposer<ConstructorParameters<typeof DeclineFriendMessageComposer>> {
+  private _data: ConstructorParameters<typeof DeclineFriendMessageComposer>
 
-    constructor(removeAll: boolean, ...userIds: number[])
-    {
-        this._data = [removeAll, userIds.length, ...userIds];
-    }
+  constructor(removeAll: boolean, ...userIds: number[]) {
+    this._data = [removeAll, userIds.length, ...userIds]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

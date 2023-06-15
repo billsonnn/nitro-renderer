@@ -1,6 +1,5 @@
-import { IAssetPlaneMask } from './IAssetPlaneMask';
+import { IAssetPlaneMask } from '@/api'
 
-export interface IAssetPlaneMaskData
-{
-    masks?: IAssetPlaneMask[];
+export interface IAssetPlaneMaskData {
+  masks?: IAssetPlaneMask[];
 }

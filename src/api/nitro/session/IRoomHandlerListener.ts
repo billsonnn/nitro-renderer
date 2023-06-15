@@ -1,10 +1,11 @@
-import { IEventDispatcher } from '../../common';
-import { IRoomSession } from './IRoomSession';
+import { IEventDispatcher, IRoomSession } from '@/api'
 
-export interface IRoomHandlerListener
-{
-    getSession(id: number): IRoomSession;
-    sessionUpdate(id: number, type: string): void;
-    sessionReinitialize(fromRoomId: number, toRoomId: number): void;
-    events: IEventDispatcher;
+export interface IRoomHandlerListener {
+  events: IEventDispatcher;
+
+  getSession(id: number): IRoomSession;
+
+  sessionUpdate(id: number, type: string): void;
+
+  sessionReinitialize(fromRoomId: number, toRoomId: number): void;
 }

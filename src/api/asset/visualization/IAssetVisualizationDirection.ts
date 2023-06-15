@@ -1,6 +1,5 @@
-import { IAssetVisualizationLayer } from './IAssetVisualizationLayer';
+import { IAssetVisualizationLayer } from '@/api'
 
-export interface IAssetVisualizationDirection
-{
-    layers?: { [index: string]: IAssetVisualizationLayer };
+export interface IAssetVisualizationDirection {
+  layers?: { [index: string]: IAssetVisualizationLayer };
 }

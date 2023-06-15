@@ -1,3 +1,3 @@
-export * from './RoomRightsClearEvent';
-export * from './RoomRightsEvent';
-export * from './RoomRightsOwnerEvent';
+export * from './RoomRightsClearEvent'
+export * from './RoomRightsEvent'
+export * from './RoomRightsOwnerEvent'

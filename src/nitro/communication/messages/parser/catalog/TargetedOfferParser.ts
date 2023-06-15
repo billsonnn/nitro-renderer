@@ -1,28 +1,24 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { TargetedOfferData } from './TargetedOfferData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { TargetedOfferData } from '@/nitro'
 
-export class TargetedOfferParser implements IMessageParser
-{
-    private _data: TargetedOfferData;
+export class TargetedOfferParser implements IMessageParser {
+  private _data: TargetedOfferData
 
-    public flush(): boolean
-    {
-        this._data = null;
+  public get data(): TargetedOfferData {
+    return this._data
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._data = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._data = new TargetedOfferData(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._data = new TargetedOfferData(wrapper)
 
-    public get data(): TargetedOfferData
-    {
-        return this._data;
-    }
+    return true
+  }
 }

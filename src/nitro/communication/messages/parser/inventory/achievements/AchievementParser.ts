@@ -1,28 +1,24 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { AchievementData } from './AchievementData';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { AchievementData } from '@/nitro'
 
-export class AchievementParser implements IMessageParser
-{
-    private _achievement: AchievementData;
+export class AchievementParser implements IMessageParser {
+  private _achievement: AchievementData
 
-    public flush(): boolean
-    {
-        this._achievement = null;
+  public get achievement(): AchievementData {
+    return this._achievement
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._achievement = null
 
-    public parse(k: IMessageDataWrapper): boolean
-    {
-        if(!k) return false;
+    return true
+  }
 
-        this._achievement = new AchievementData(k);
+  public parse(k: IMessageDataWrapper): boolean {
+    if (!k) return false
 
-        return true;
-    }
+    this._achievement = new AchievementData(k)
 
-    public get achievement(): AchievementData
-    {
-        return this._achievement;
-    }
+    return true
+  }
 }

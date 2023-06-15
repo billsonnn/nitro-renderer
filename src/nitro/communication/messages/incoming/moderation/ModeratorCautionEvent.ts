@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { ModerationCautionParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { ModerationCautionParser } from '@/nitro'
 
-export class ModeratorCautionEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, ModerationCautionParser);
-    }
+export class ModeratorCautionEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, ModerationCautionParser)
+  }
 
-    public getParser(): ModerationCautionParser
-    {
-        return this.parser as ModerationCautionParser;
-    }
+  public getParser(): ModerationCautionParser {
+    return this.parser as ModerationCautionParser
+  }
 }

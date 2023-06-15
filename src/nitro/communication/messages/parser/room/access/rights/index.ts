@@ -1,3 +1,3 @@
-export * from './RoomRightsClearParser';
-export * from './RoomRightsOwnerParser';
-export * from './RoomRightsParser';
+export * from './RoomRightsClearParser'
+export * from './RoomRightsOwnerParser'
+export * from './RoomRightsParser'

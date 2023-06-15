@@ -1,30 +1,26 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class RoomThumbnailUpdateResultMessageParser implements IMessageParser
-{
-    private _flatId: number;
-    private _resultCode: number;
+export class RoomThumbnailUpdateResultMessageParser implements IMessageParser {
+  private _flatId: number
 
-    flush(): boolean
-    {
-        return true;
-    }
+  public get flatId(): number {
+    return this._flatId
+  }
 
-    parse(wrapper: IMessageDataWrapper): boolean
-    {
-        this._flatId = wrapper.readInt();
-        this._resultCode = wrapper.readInt();
-        return true;
-    }
+  private _resultCode: number
 
-    public get flatId(): number
-    {
-        return this._flatId;
-    }
+  public get resultCode(): number {
+    return this._resultCode
+  }
 
-    public get resultCode(): number
-    {
-        return this._resultCode;
-    }
+  flush(): boolean {
+    return true
+  }
+
+  parse(wrapper: IMessageDataWrapper): boolean {
+    this._flatId = wrapper.readInt()
+    this._resultCode = wrapper.readInt()
+    return true
+  }
 
 }

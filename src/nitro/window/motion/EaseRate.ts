@@ -1,14 +1,12 @@
-﻿import { Ease } from './Ease';
-import { Interval } from './Interval';
+﻿import { Ease } from './Ease'
+import { Interval } from '@/nitro'
 
-export class EaseRate extends Ease
-{
-    protected _rate: number;
+export class EaseRate extends Ease {
+  protected _rate: number
 
-    constructor(k: Interval, _arg_2: number)
-    {
-        super(k);
+  constructor(k: Interval, _arg_2: number) {
+    super(k)
 
-        this._rate = _arg_2;
-    }
+    this._rate = _arg_2
+  }
 }

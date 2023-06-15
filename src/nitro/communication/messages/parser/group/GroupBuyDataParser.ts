@@ -1,45 +1,40 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GroupBuyDataParser implements IMessageParser
-{
-    private _groupCost: number;
-    private _availableRooms: Map<number, string>;
+export class GroupBuyDataParser implements IMessageParser {
+  private _groupCost: number
 
-    flush(): boolean
-    {
-        this._groupCost = 0;
-        this._availableRooms = new Map();
+  public get groupCost(): number {
+    return this._groupCost
+  }
 
-        return true;
+  private _availableRooms: Map<number, string>
+
+  public get availableRooms(): Map<number, string> {
+    return this._availableRooms
+  }
+
+  flush(): boolean {
+    this._groupCost = 0
+    this._availableRooms = new Map()
+
+    return true
+  }
+
+  parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._groupCost = wrapper.readInt()
+    let availableRoomsCount = wrapper.readInt()
+
+    while (availableRoomsCount > 0) {
+      const roomId = wrapper.readInt()
+      const roomName = wrapper.readString()
+      wrapper.readBoolean()
+
+      this._availableRooms.set(roomId, roomName)
+
+      availableRoomsCount--
     }
-
-    parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
-
-        this._groupCost = wrapper.readInt();
-        let availableRoomsCount = wrapper.readInt();
-
-        while(availableRoomsCount > 0)
-        {
-            const roomId = wrapper.readInt();
-            const roomName = wrapper.readString();
-            wrapper.readBoolean();
-
-            this._availableRooms.set(roomId, roomName);
-
-            availableRoomsCount--;
-        }
-        return true;
-    }
-
-    public get groupCost(): number
-    {
-        return this._groupCost;
-    }
-
-    public get availableRooms(): Map<number, string>
-    {
-        return this._availableRooms;
-    }
+    return true
+  }
 }

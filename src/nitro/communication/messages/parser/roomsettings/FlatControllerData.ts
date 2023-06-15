@@ -1,35 +1,31 @@
-import { IMessageDataWrapper } from '../../../../../api';
-import { IFlatUser } from './IFlatUser';
+import { IMessageDataWrapper } from '@/api'
+import { IFlatUser } from '@/nitro'
 
-export class FlatControllerData implements IFlatUser
-{
-    private _userId: number;
-    private _userName: string;
-    private _selected: boolean;
+export class FlatControllerData implements IFlatUser {
+  constructor(wrapper: IMessageDataWrapper) {
+    this._userId = wrapper.readInt()
+    this._userName = wrapper.readString()
+  }
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        this._userId = wrapper.readInt();
-        this._userName = wrapper.readString();
-    }
+  private _userId: number
 
-    public get userId(): number
-    {
-        return this._userId;
-    }
+  public get userId(): number {
+    return this._userId
+  }
 
-    public get userName(): string
-    {
-        return this._userName;
-    }
+  private _userName: string
 
-    public get selected(): boolean
-    {
-        return this._selected;
-    }
+  public get userName(): string {
+    return this._userName
+  }
 
-    public set selected(selected: boolean)
-    {
-        this._selected = selected;
-    }
+  private _selected: boolean
+
+  public get selected(): boolean {
+    return this._selected
+  }
+
+  public set selected(selected: boolean) {
+    this._selected = selected
+  }
 }

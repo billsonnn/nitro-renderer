@@ -1,40 +1,35 @@
-﻿import { IMessageDataWrapper } from '../../../../../../api';
+﻿import { IMessageDataWrapper } from '@/api'
 
-export class RarityCategoryData
-{
-    private _chance: number;
-    private _breeds: number[];
+export class RarityCategoryData {
+  constructor(wrapper: IMessageDataWrapper) {
+    if (!wrapper) throw new Error('invalid_wrapper')
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        if(!wrapper) throw new Error('invalid_wrapper');
+    this._chance = wrapper.readInt()
+    this._breeds = []
 
-        this._chance = wrapper.readInt();
-        this._breeds = [];
+    let totalCount = wrapper.readInt()
 
-        let totalCount = wrapper.readInt();
+    while (totalCount > 0) {
+      this._breeds.push(wrapper.readInt())
 
-        while(totalCount > 0)
-        {
-            this._breeds.push(wrapper.readInt());
-
-            totalCount--;
-        }
+      totalCount--
     }
+  }
 
-    public dispose(): void
-    {
-        this._chance = -1;
-        this._breeds = [];
-    }
+  private _chance: number
 
-    public get chance(): number
-    {
-        return this._chance;
-    }
+  public get chance(): number {
+    return this._chance
+  }
 
-    public get breeds(): number[]
-    {
-        return this._breeds;
-    }
+  private _breeds: number[]
+
+  public get breeds(): number[] {
+    return this._breeds
+  }
+
+  public dispose(): void {
+    this._chance = -1
+    this._breeds = []
+  }
 }

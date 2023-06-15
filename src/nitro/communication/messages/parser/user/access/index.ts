@@ -1,1 +1,1 @@
-export * from './UserPermissionsParser';
+export * from './UserPermissionsParser'

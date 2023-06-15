@@ -1,23 +1,20 @@
-import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageDataWrapper } from '@/api'
 
-export class PopularTagData
-{
-    private _tagName: string;
-    private _userCount: number;
+export class PopularTagData {
+  constructor(wrapper: IMessageDataWrapper) {
+    this._tagName = wrapper.readString()
+    this._userCount = wrapper.readInt()
+  }
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        this._tagName = wrapper.readString();
-        this._userCount = wrapper.readInt();
-    }
+  private _tagName: string
 
-    public get tagName(): string
-    {
-        return this._tagName;
-    }
+  public get tagName(): string {
+    return this._tagName
+  }
 
-    public get userCount(): number
-    {
-        return this._userCount;
-    }
+  private _userCount: number
+
+  public get userCount(): number {
+    return this._userCount
+  }
 }

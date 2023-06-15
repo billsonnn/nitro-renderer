@@ -1,2 +1,2 @@
-export * from './PeerUsersClassificationMessageComposer';
-export * from './RoomUsersClassificationMessageComposer';
+export * from './PeerUsersClassificationMessageComposer'
+export * from './RoomUsersClassificationMessageComposer'

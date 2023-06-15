@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { NestBreedingSuccessParser } from '../../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { NestBreedingSuccessParser } from '@/nitro'
 
-export class NestBreedingSuccessEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, NestBreedingSuccessParser);
-    }
+export class NestBreedingSuccessEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, NestBreedingSuccessParser)
+  }
 
-    public getParser(): NestBreedingSuccessParser
-    {
-        return this.parser as NestBreedingSuccessParser;
-    }
+  public getParser(): NestBreedingSuccessParser {
+    return this.parser as NestBreedingSuccessParser
+  }
 }

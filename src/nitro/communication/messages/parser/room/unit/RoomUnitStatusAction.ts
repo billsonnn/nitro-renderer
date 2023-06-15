@@ -1,21 +1,18 @@
-export class RoomUnitStatusAction
-{
-    private _action: string;
-    private _value: string;
+export class RoomUnitStatusAction {
+  constructor(action: string, value: string) {
+    this._action = action
+    this._value = value
+  }
 
-    constructor(action: string, value: string)
-    {
-        this._action = action;
-        this._value = value;
-    }
+  private _action: string
 
-    public get action(): string
-    {
-        return this._action;
-    }
+  public get action(): string {
+    return this._action
+  }
 
-    public get value(): string
-    {
-        return this._value;
-    }
+  private _value: string
+
+  public get value(): string {
+    return this._value
+  }
 }

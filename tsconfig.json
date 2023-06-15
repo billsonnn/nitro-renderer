@@ -24,6 +24,7 @@
     ],
     "module": "ES6",
     "paths": {
+      "@/*": ["../src/*"],
       "mini-signals": [
         "node_modules/mini-signals/index.js"
       ]

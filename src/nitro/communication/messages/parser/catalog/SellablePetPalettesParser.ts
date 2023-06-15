@@ -1,44 +1,39 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { SellablePetPaletteData } from './SellablePetPaletteData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { SellablePetPaletteData } from '@/nitro'
 
-export class SellablePetPalettesParser implements IMessageParser
-{
-    private _productCode: string;
-    private _palettes: SellablePetPaletteData[];
+export class SellablePetPalettesParser implements IMessageParser {
+  private _productCode: string
 
-    public flush(): boolean
-    {
-        this._productCode = '';
-        this._palettes = [];
+  public get productCode(): string {
+    return this._productCode
+  }
 
-        return true;
+  private _palettes: SellablePetPaletteData[]
+
+  public get palettes(): SellablePetPaletteData[] {
+    return this._palettes
+  }
+
+  public flush(): boolean {
+    this._productCode = ''
+    this._palettes = []
+
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._productCode = wrapper.readString()
+
+    let totalPalettes = wrapper.readInt()
+
+    while (totalPalettes > 0) {
+      this._palettes.push(new SellablePetPaletteData(wrapper))
+
+      totalPalettes--
     }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
-
-        this._productCode = wrapper.readString();
-
-        let totalPalettes = wrapper.readInt();
-
-        while(totalPalettes > 0)
-        {
-            this._palettes.push(new SellablePetPaletteData(wrapper));
-
-            totalPalettes--;
-        }
-
-        return true;
-    }
-
-    public get productCode(): string
-    {
-        return this._productCode;
-    }
-
-    public get palettes(): SellablePetPaletteData[]
-    {
-        return this._palettes;
-    }
+    return true
+  }
 }

@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { BotForceOpenContextMenuParser } from '../../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { BotForceOpenContextMenuParser } from '@/nitro'
 
-export class BotForceOpenContextMenuEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, BotForceOpenContextMenuParser);
-    }
+export class BotForceOpenContextMenuEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, BotForceOpenContextMenuParser)
+  }
 
-    public getParser(): BotForceOpenContextMenuParser
-    {
-        return this.parser as BotForceOpenContextMenuParser;
-    }
+  public getParser(): BotForceOpenContextMenuParser {
+    return this.parser as BotForceOpenContextMenuParser
+  }
 }

@@ -1,1 +1,1 @@
-export * from './RoomDoorbellAcceptedEvent';
+export * from './RoomDoorbellAcceptedEvent'

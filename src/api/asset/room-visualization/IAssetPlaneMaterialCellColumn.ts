@@ -1,8 +1,7 @@
-import { IAssetPlaneMaterialCell } from './IAssetPlaneMaterialCell';
+import { IAssetPlaneMaterialCell } from '@/api'
 
-export interface IAssetPlaneMaterialCellColumn
-{
-    repeatMode?: string;
-    width?: number;
-    cells?: IAssetPlaneMaterialCell[];
+export interface IAssetPlaneMaterialCellColumn {
+  repeatMode?: string;
+  width?: number;
+  cells?: IAssetPlaneMaterialCell[];
 }

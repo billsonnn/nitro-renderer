@@ -1,33 +1,29 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class PetScratchFailedMessageParser implements IMessageParser
-{
-    private _currentAge: number;
-    private _requiredAge: number;
+export class PetScratchFailedMessageParser implements IMessageParser {
+  private _currentAge: number
 
-    flush(): boolean
-    {
-        this._currentAge = -1;
-        this._requiredAge = -1;
+  public get currentAge(): number {
+    return this._currentAge
+  }
 
-        return true;
-    }
+  private _requiredAge: number
 
-    parse(wrapper: IMessageDataWrapper): boolean
-    {
-        this._currentAge = wrapper.readInt();
-        this._requiredAge = wrapper.readInt();
+  public get requiredAge(): number {
+    return this._requiredAge
+  }
 
-        return true;
-    }
+  flush(): boolean {
+    this._currentAge = -1
+    this._requiredAge = -1
 
-    public get currentAge(): number
-    {
-        return this._currentAge;
-    }
+    return true
+  }
 
-    public get requiredAge(): number
-    {
-        return this._requiredAge;
-    }
+  parse(wrapper: IMessageDataWrapper): boolean {
+    this._currentAge = wrapper.readInt()
+    this._requiredAge = wrapper.readInt()
+
+    return true
+  }
 }

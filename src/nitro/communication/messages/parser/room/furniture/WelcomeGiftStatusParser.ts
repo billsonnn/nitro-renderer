@@ -1,59 +1,55 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class WelcomeGiftStatusParser implements IMessageParser
-{
-    private _email: string;
-    private _isVerified: boolean;
-    private _allowChange: boolean;
-    private _furniId: number;
-    private _requestedByUser: boolean;
+export class WelcomeGiftStatusParser implements IMessageParser {
+  private _email: string
 
-    public flush(): boolean
-    {
-        this._email = null;
-        this._isVerified = false;
-        this._allowChange = false;
-        this._furniId = -1;
-        this._requestedByUser = false;
+  public get email(): string {
+    return this._email
+  }
 
-        return true;
-    }
+  private _isVerified: boolean
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get isVerified(): boolean {
+    return this._isVerified
+  }
 
-        this._email = wrapper.readString();
-        this._isVerified = wrapper.readBoolean();
-        this._allowChange = wrapper.readBoolean();
-        this._furniId = wrapper.readInt();
-        this._requestedByUser = wrapper.readBoolean();
+  private _allowChange: boolean
 
-        return true;
-    }
+  public get allowChange(): boolean {
+    return this._allowChange
+  }
 
-    public get email(): string
-    {
-        return this._email;
-    }
+  private _furniId: number
 
-    public get isVerified(): boolean
-    {
-        return this._isVerified;
-    }
+  public get furniId(): number {
+    return this._furniId
+  }
 
-    public get allowChange(): boolean
-    {
-        return this._allowChange;
-    }
+  private _requestedByUser: boolean
 
-    public get furniId(): number
-    {
-        return this._furniId;
-    }
+  public get requestedByUser(): boolean {
+    return this._requestedByUser
+  }
 
-    public get requestedByUser(): boolean
-    {
-        return this._requestedByUser;
-    }
+  public flush(): boolean {
+    this._email = null
+    this._isVerified = false
+    this._allowChange = false
+    this._furniId = -1
+    this._requestedByUser = false
+
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._email = wrapper.readString()
+    this._isVerified = wrapper.readBoolean()
+    this._allowChange = wrapper.readBoolean()
+    this._furniId = wrapper.readInt()
+    this._requestedByUser = wrapper.readBoolean()
+
+    return true
+  }
 }

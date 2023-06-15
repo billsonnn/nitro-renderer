@@ -1,4 +1,3 @@
-export interface INitroEvent
-{
-    type: string;
+export interface INitroEvent {
+  type: string;
 }

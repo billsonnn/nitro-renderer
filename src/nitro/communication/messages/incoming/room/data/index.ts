@@ -1,3 +1,3 @@
-export * from './RoomChatSettingsEvent';
-export * from './RoomEntryInfoMessageEvent';
-export * from './RoomScoreEvent';
+export * from './RoomChatSettingsEvent'
+export * from './RoomEntryInfoMessageEvent'
+export * from './RoomScoreEvent'

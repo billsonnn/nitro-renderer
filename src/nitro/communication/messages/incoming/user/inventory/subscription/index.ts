@@ -1,1 +1,1 @@
-export * from './UserSubscriptionEvent';
+export * from './UserSubscriptionEvent'

@@ -1,25 +1,21 @@
-import { ContextMenuEnum } from '../../../../../api';
-import { RoomObjectWidgetRequestEvent } from '../../../../../events';
-import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
+import { ContextMenuEnum } from '@/api'
+import { RoomObjectWidgetRequestEvent } from '@/events'
+import { FurnitureMultiStateLogic } from '@/nitro'
 
-export class FurnitureMonsterplantSeedLogic extends FurnitureMultiStateLogic
-{
-    public getEventTypes(): string[]
-    {
-        const types = [RoomObjectWidgetRequestEvent.MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG];
+export class FurnitureMonsterplantSeedLogic extends FurnitureMultiStateLogic {
+  public get contextMenu(): string {
+    return ContextMenuEnum.MONSTERPLANT_SEED
+  }
 
-        return this.mergeTypes(super.getEventTypes(), types);
-    }
+  public getEventTypes(): string[] {
+    const types = [RoomObjectWidgetRequestEvent.MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG]
 
-    public useObject(): void
-    {
-        if(!this.object || !this.eventDispatcher) return;
+    return this.mergeTypes(super.getEventTypes(), types)
+  }
 
-        this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG, this.object));
-    }
+  public useObject(): void {
+    if (!this.object || !this.eventDispatcher) return
 
-    public get contextMenu(): string
-    {
-        return ContextMenuEnum.MONSTERPLANT_SEED;
-    }
+    this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG, this.object))
+  }
 }

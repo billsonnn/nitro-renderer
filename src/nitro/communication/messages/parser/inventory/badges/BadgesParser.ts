@@ -1,68 +1,61 @@
-﻿import { AdvancedMap, IAdvancedMap, IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+﻿import { AdvancedMap, IAdvancedMap, IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class BadgesParser implements IMessageParser
-{
-    private _allBadgeCodes: string[];
-    private _activeBadgeCodes: string[];
-    private _badgeIds: IAdvancedMap<string, number>;
+export class BadgesParser implements IMessageParser {
+  private _allBadgeCodes: string[]
+  private _activeBadgeCodes: string[]
+  private _badgeIds: IAdvancedMap<string, number>
 
-    public flush(): boolean
-    {
-        this._allBadgeCodes = [];
-        this._activeBadgeCodes = null;
-        this._badgeIds = null;
+  public flush(): boolean {
+    this._allBadgeCodes = []
+    this._activeBadgeCodes = null
+    this._badgeIds = null
 
-        return true;
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._allBadgeCodes = []
+    this._activeBadgeCodes = []
+    this._badgeIds = new AdvancedMap()
+
+    let count = wrapper.readInt()
+
+    while (count > 0) {
+      const badgeId = wrapper.readInt()
+      const badgeCode = wrapper.readString()
+
+      this._badgeIds.add(badgeCode, badgeId)
+
+      this._allBadgeCodes.push(badgeCode)
+
+      count--
     }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    count = wrapper.readInt()
 
-        this._allBadgeCodes = [];
-        this._activeBadgeCodes = [];
-        this._badgeIds = new AdvancedMap();
+    while (count > 0) {
+      const badgeSlot = wrapper.readInt()
+      const badgeCode = wrapper.readString()
 
-        let count = wrapper.readInt();
+      this._activeBadgeCodes.push(badgeCode)
 
-        while(count > 0)
-        {
-            const badgeId = wrapper.readInt();
-            const badgeCode = wrapper.readString();
-
-            this._badgeIds.add(badgeCode, badgeId);
-
-            this._allBadgeCodes.push(badgeCode);
-
-            count--;
-        }
-
-        count = wrapper.readInt();
-
-        while(count > 0)
-        {
-            const badgeSlot = wrapper.readInt();
-            const badgeCode = wrapper.readString();
-
-            this._activeBadgeCodes.push(badgeCode);
-
-            count--;
-        }
-
-        return true;
+      count--
     }
 
-    public getBadgeId(code: string): number
-    {
-        return this._badgeIds.getValue(code);
-    }
-    public getAllBadgeCodes(): string[]
-    {
-        return this._allBadgeCodes;
-    }
+    return true
+  }
 
-    public getActiveBadgeCodes(): string[]
-    {
-        return this._activeBadgeCodes;
-    }
+  public getBadgeId(code: string): number {
+    return this._badgeIds.getValue(code)
+  }
+
+  public getAllBadgeCodes(): string[] {
+    return this._allBadgeCodes
+  }
+
+  public getActiveBadgeCodes(): string[] {
+    return this._activeBadgeCodes
+  }
 }

@@ -1,11 +1,10 @@
-import { INitroManager } from '../../common';
-import { IConnection, IMessageEvent } from '../../communication';
-import { INitroCommunicationDemo } from './INitroCommunicationDemo';
+import { IConnection, IMessageEvent, INitroCommunicationDemo, INitroManager } from '@/api'
 
-export interface INitroCommunicationManager extends INitroManager
-{
-    registerMessageEvent(event: IMessageEvent): IMessageEvent;
-    removeMessageEvent(event: IMessageEvent): void;
-    demo: INitroCommunicationDemo;
-    connection: IConnection;
+export interface INitroCommunicationManager extends INitroManager {
+  demo: INitroCommunicationDemo;
+  connection: IConnection;
+
+  registerMessageEvent(event: IMessageEvent): IMessageEvent;
+
+  removeMessageEvent(event: IMessageEvent): void;
 }

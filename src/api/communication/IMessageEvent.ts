@@ -1,11 +1,10 @@
-import { IConnection } from './IConnection';
-import { IMessageParser } from './IMessageParser';
+import { IConnection, IMessageParser } from '@/api'
 
-export interface IMessageEvent
-{
-    dispose(): void;
-    callBack: Function;
-    parserClass: Function;
-    parser: IMessageParser;
-    connection: IConnection;
+export interface IMessageEvent {
+  callBack: Function;
+  parserClass: Function;
+  parser: IMessageParser;
+  connection: IConnection;
+
+  dispose(): void;
 }

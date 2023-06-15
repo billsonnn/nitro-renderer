@@ -1,44 +1,40 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class CameraPublishStatusMessageParser implements IMessageParser
-{
-    private _ok: boolean = false;
-    private _secondsToWait: number = 0;
-    private _extraDataId: string;
+export class CameraPublishStatusMessageParser implements IMessageParser {
+  private _ok: boolean = false
 
-    public flush(): boolean
-    {
-        this._ok = false;
-        this._secondsToWait = 0;
-        this._extraDataId = null;
+  public get ok(): boolean {
+    return this._ok
+  }
 
-        return true;
-    }
+  private _secondsToWait: number = 0
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get secondsToWait(): number {
+    return this._secondsToWait
+  }
 
-        this._ok = wrapper.readBoolean();
-        this._secondsToWait = wrapper.readInt();
+  private _extraDataId: string
 
-        if(this._ok && wrapper.bytesAvailable) this._extraDataId = wrapper.readString();
+  public get extraDataId(): string {
+    return this._extraDataId
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._ok = false
+    this._secondsToWait = 0
+    this._extraDataId = null
 
-    public get ok(): boolean
-    {
-        return this._ok;
-    }
+    return true
+  }
 
-    public get secondsToWait(): number
-    {
-        return this._secondsToWait;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get extraDataId(): string
-    {
-        return this._extraDataId;
-    }
+    this._ok = wrapper.readBoolean()
+    this._secondsToWait = wrapper.readInt()
+
+    if (this._ok && wrapper.bytesAvailable) this._extraDataId = wrapper.readString()
+
+    return true
+  }
 }

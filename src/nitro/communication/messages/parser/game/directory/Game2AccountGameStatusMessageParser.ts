@@ -1,45 +1,40 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class Game2AccountGameStatusMessageParser implements IMessageParser
-{
-    private _gameTypeId:number;
-    private _freeGamesLeft:number;
-    private _gamesPlayedTotal:number;
+export class Game2AccountGameStatusMessageParser implements IMessageParser {
+  private _gameTypeId: number
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get gameTypeId(): number {
+    return this._gameTypeId
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _freeGamesLeft: number
 
-        this._gameTypeId = wrapper.readInt();
-        this._freeGamesLeft = wrapper.readInt();
-        this._gamesPlayedTotal = wrapper.readInt();
+  public get freeGamesLeft(): number {
+    return this._freeGamesLeft
+  }
 
-        return true;
-    }
+  private _gamesPlayedTotal: number
 
-    public get gameTypeId():number
-    {
-        return this._gameTypeId;
-    }
+  public get gamesPlayedTotal(): number {
+    return this._gamesPlayedTotal
+  }
 
-    public get freeGamesLeft():number
-    {
-        return this._freeGamesLeft;
-    }
+  public get hasUnlimitedGames(): boolean {
+    return this._freeGamesLeft == -1
+  }
 
-    public get gamesPlayedTotal():number
-    {
-        return this._gamesPlayedTotal;
-    }
+  public flush(): boolean {
+    return true
+  }
 
-    public get hasUnlimitedGames():boolean
-    {
-        return this._freeGamesLeft == -1;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._gameTypeId = wrapper.readInt()
+    this._freeGamesLeft = wrapper.readInt()
+    this._gamesPlayedTotal = wrapper.readInt()
+
+    return true
+  }
 
 }

@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class IgnoreResultParser implements IMessageParser
-{
-    private _result: number;
-    private _name: string;
+export class IgnoreResultParser implements IMessageParser {
+  private _result: number
 
-    public flush(): boolean
-    {
-        this._result = -1;
-        this._name = null;
+  public get result(): number {
+    return this._result
+  }
 
-        return true;
-    }
+  private _name: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get name(): string {
+    return this._name
+  }
 
-        this._result = wrapper.readInt();
-        this._name = wrapper.readString();
+  public flush(): boolean {
+    this._result = -1
+    this._name = null
 
-        return true;
-    }
+    return true
+  }
 
-    public get result(): number
-    {
-        return this._result;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get name(): string
-    {
-        return this._name;
-    }
+    this._result = wrapper.readInt()
+    this._name = wrapper.readString()
+
+    return true
+  }
 }

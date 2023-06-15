@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { ProductOfferMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { ProductOfferMessageParser } from '@/nitro'
 
-export class ProductOfferEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, ProductOfferMessageParser);
-    }
+export class ProductOfferEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, ProductOfferMessageParser)
+  }
 
-    public getParser(): ProductOfferMessageParser
-    {
-        return this.parser as ProductOfferMessageParser;
-    }
+  public getParser(): ProductOfferMessageParser {
+    return this.parser as ProductOfferMessageParser
+  }
 }

@@ -1,25 +1,21 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class InClientLinkParser implements IMessageParser
-{
-    private _link: string;
+export class InClientLinkParser implements IMessageParser {
+  private _link: string
 
-    public flush(): boolean
-    {
-        this._link = null;
-        return true;
-    }
+  public get link(): string {
+    return this._link
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public flush(): boolean {
+    this._link = null
+    return true
+  }
 
-        this._link = wrapper.readString();
-        return true;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get link(): string
-    {
-        return this._link;
-    }
+    this._link = wrapper.readString()
+    return true
+  }
 }

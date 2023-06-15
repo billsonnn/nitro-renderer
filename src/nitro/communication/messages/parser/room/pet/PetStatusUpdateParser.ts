@@ -1,67 +1,63 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class PetStatusUpdateParser implements IMessageParser
-{
-    private _roomIndex: number;
-    private _petId: number;
-    private _canBreed: boolean;
-    private _canHarvest: boolean;
-    private _canRevive: boolean;
-    private _hasBreedingPermission: boolean;
+export class PetStatusUpdateParser implements IMessageParser {
+  private _roomIndex: number
 
-    public flush(): boolean
-    {
-        this._roomIndex = -1;
-        this._petId = -1;
-        this._canBreed = false;
-        this._canHarvest = false;
-        this._canRevive = false;
-        this._hasBreedingPermission = false;
+  public get roomIndex(): number {
+    return this._roomIndex
+  }
 
-        return true;
-    }
+  private _petId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get petId(): number {
+    return this._petId
+  }
 
-        this._roomIndex = wrapper.readInt();
-        this._petId = wrapper.readInt();
-        this._canBreed = wrapper.readBoolean();
-        this._canHarvest = wrapper.readBoolean();
-        this._canRevive = wrapper.readBoolean();
-        this._hasBreedingPermission = wrapper.readBoolean();
+  private _canBreed: boolean
 
-        return true;
-    }
+  public get canBreed(): boolean {
+    return this._canBreed
+  }
 
-    public get roomIndex(): number
-    {
-        return this._roomIndex;
-    }
+  private _canHarvest: boolean
 
-    public get petId(): number
-    {
-        return this._petId;
-    }
+  public get canHarvest(): boolean {
+    return this._canHarvest
+  }
 
-    public get canBreed(): boolean
-    {
-        return this._canBreed;
-    }
+  private _canRevive: boolean
 
-    public get canHarvest(): boolean
-    {
-        return this._canHarvest;
-    }
+  public get canRevive(): boolean {
+    return this._canRevive
+  }
 
-    public get canRevive(): boolean
-    {
-        return this._canRevive;
-    }
+  private _hasBreedingPermission: boolean
 
-    public get hasBreedingPermission(): boolean
-    {
-        return this._hasBreedingPermission;
-    }
+  public get hasBreedingPermission(): boolean {
+    return this._hasBreedingPermission
+  }
+
+  public flush(): boolean {
+    this._roomIndex = -1
+    this._petId = -1
+    this._canBreed = false
+    this._canHarvest = false
+    this._canRevive = false
+    this._hasBreedingPermission = false
+
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._roomIndex = wrapper.readInt()
+    this._petId = wrapper.readInt()
+    this._canBreed = wrapper.readBoolean()
+    this._canHarvest = wrapper.readBoolean()
+    this._canRevive = wrapper.readBoolean()
+    this._hasBreedingPermission = wrapper.readBoolean()
+
+    return true
+  }
 }

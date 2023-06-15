@@ -1,8 +1,8 @@
-import { IRoomObject } from '../object';
+import { IRoomObject } from '@/api'
 
-export interface IRoomSpriteCanvasContainer
-{
-    getRoomObject(instanceId: number): IRoomObject;
-    objects: Map<number, IRoomObject>;
-    roomObjectVariableAccurateZ: string;
+export interface IRoomSpriteCanvasContainer {
+  objects: Map<number, IRoomObject>;
+  roomObjectVariableAccurateZ: string;
+
+  getRoomObject(instanceId: number): IRoomObject;
 }

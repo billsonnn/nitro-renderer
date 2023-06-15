@@ -1,41 +1,37 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class PetLevelUpdateMessageParser implements IMessageParser
-{
-    private _roomIndex: number;
-    private _petId: number;
-    private _level: number;
+export class PetLevelUpdateMessageParser implements IMessageParser {
+  private _roomIndex: number
 
-    flush(): boolean
-    {
-        this._roomIndex = -1;
-        this._petId = -1;
-        this._level = -1;
+  public get roomIndex(): number {
+    return this._roomIndex
+  }
 
-        return true;
-    }
+  private _petId: number
 
-    parse(wrapper: IMessageDataWrapper): boolean
-    {
-        this._roomIndex = wrapper.readInt();
-        this._petId = wrapper.readInt();
-        this._level = wrapper.readInt();
+  public get petId(): number {
+    return this._petId
+  }
 
-        return true;
-    }
+  private _level: number
 
-    public get roomIndex(): number
-    {
-        return this._roomIndex;
-    }
+  public get level(): number {
+    return this._level
+  }
 
-    public get petId(): number
-    {
-        return this._petId;
-    }
+  flush(): boolean {
+    this._roomIndex = -1
+    this._petId = -1
+    this._level = -1
 
-    public get level(): number
-    {
-        return this._level;
-    }
+    return true
+  }
+
+  parse(wrapper: IMessageDataWrapper): boolean {
+    this._roomIndex = wrapper.readInt()
+    this._petId = wrapper.readInt()
+    this._level = wrapper.readInt()
+
+    return true
+  }
 }

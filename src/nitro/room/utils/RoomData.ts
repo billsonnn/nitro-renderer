@@ -1,59 +1,53 @@
-import { RoomMapData } from '../object';
+import { RoomMapData } from '@/nitro'
 
-export class RoomData
-{
-    private _roomId: number;
-    private _data: RoomMapData;
-    private _floorType: string;
-    private _wallType: string;
-    private _landscapeType: string;
+export class RoomData {
+  constructor(roomId: number, data: RoomMapData) {
+    this._roomId = roomId
+    this._data = data
+    this._floorType = null
+    this._wallType = null
+    this._landscapeType = null
+  }
 
-    constructor(roomId: number, data: RoomMapData)
-    {
-        this._roomId = roomId;
-        this._data = data;
-        this._floorType = null;
-        this._wallType = null;
-        this._landscapeType = null;
-    }
+  private _roomId: number
 
-    public get roomId(): number
-    {
-        return this._roomId;
-    }
+  public get roomId(): number {
+    return this._roomId
+  }
 
-    public get data(): RoomMapData
-    {
-        return this._data;
-    }
+  private _data: RoomMapData
 
-    public get floorType(): string
-    {
-        return this._floorType;
-    }
+  public get data(): RoomMapData {
+    return this._data
+  }
 
-    public set floorType(k: string)
-    {
-        this._floorType = k;
-    }
+  private _floorType: string
 
-    public get wallType(): string
-    {
-        return this._wallType;
-    }
+  public get floorType(): string {
+    return this._floorType
+  }
 
-    public set wallType(k: string)
-    {
-        this._wallType = k;
-    }
+  public set floorType(k: string) {
+    this._floorType = k
+  }
 
-    public get landscapeType(): string
-    {
-        return this._landscapeType;
-    }
+  private _wallType: string
 
-    public set landscapeType(k: string)
-    {
-        this._landscapeType = k;
-    }
+  public get wallType(): string {
+    return this._wallType
+  }
+
+  public set wallType(k: string) {
+    this._wallType = k
+  }
+
+  private _landscapeType: string
+
+  public get landscapeType(): string {
+    return this._landscapeType
+  }
+
+  public set landscapeType(k: string) {
+    this._landscapeType = k
+  }
 }

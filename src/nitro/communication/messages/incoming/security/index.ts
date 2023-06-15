@@ -1,1 +1,1 @@
-export * from './AuthenticatedEvent';
+export * from './AuthenticatedEvent'

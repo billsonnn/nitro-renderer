@@ -1,16 +1,14 @@
-import { RoomObjectVariable } from '../../../../../api';
-import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
+import { RoomObjectVariable } from '@/api'
+import { FurnitureAnimatedVisualization } from '@/nitro'
 
-export class FurnitureSoundBlockVisualization extends FurnitureAnimatedVisualization
-{
-    private _internalFrameIncreaseCounter: number = 0;
+export class FurnitureSoundBlockVisualization extends FurnitureAnimatedVisualization {
+  private _internalFrameIncreaseCounter: number = 0
 
-    protected updateAnimations(scale: number): number
-    {
-        this._internalFrameIncreaseCounter = (this._internalFrameIncreaseCounter + this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_SOUNDBLOCK_RELATIVE_ANIMATION_SPEED));
-        this._frameIncrease = this._internalFrameIncreaseCounter;
-        this._internalFrameIncreaseCounter = (this._internalFrameIncreaseCounter - this._frameIncrease);
+  protected updateAnimations(scale: number): number {
+    this._internalFrameIncreaseCounter = (this._internalFrameIncreaseCounter + this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_SOUNDBLOCK_RELATIVE_ANIMATION_SPEED))
+    this._frameIncrease = this._internalFrameIncreaseCounter
+    this._internalFrameIncreaseCounter = (this._internalFrameIncreaseCounter - this._frameIncrease)
 
-        return super.updateAnimations(scale);
-    }
+    return super.updateAnimations(scale)
+  }
 }

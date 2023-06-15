@@ -1,294 +1,272 @@
-import { IRoomInstance, IRoomInstanceContainer, IRoomObject, IRoomObjectController, IRoomObjectManager, IRoomObjectModel, IRoomRendererBase } from '../api';
-import { Disposable } from '../core';
-import { RoomObjectModel } from './object';
+import {
+  IRoomInstance,
+  IRoomInstanceContainer,
+  IRoomObject,
+  IRoomObjectController,
+  IRoomObjectManager,
+  IRoomObjectModel,
+  IRoomRendererBase
+} from '@/api'
+import { Disposable } from '@/core'
+import { RoomObjectModel } from '@/room'
 
-export class RoomInstance extends Disposable implements IRoomInstance
-{
-    private _id: string;
-    private _container: IRoomInstanceContainer;
-    private _renderer: IRoomRendererBase;
-    private _managers: Map<number, IRoomObjectManager>;
-    private _updateCategories: number[];
-    private _model: IRoomObjectModel;
+export class RoomInstance extends Disposable implements IRoomInstance {
+  private _updateCategories: number[]
 
-    constructor(id: string, container: IRoomInstanceContainer)
-    {
-        super();
+  constructor(id: string, container: IRoomInstanceContainer) {
+    super()
 
-        this._id = id;
-        this._container = container;
-        this._renderer = null;
-        this._managers = new Map();
-        this._updateCategories = [];
-        this._model = new RoomObjectModel();
-    }
+    this._id = id
+    this._container = container
+    this._renderer = null
+    this._managers = new Map()
+    this._updateCategories = []
+    this._model = new RoomObjectModel()
+  }
 
-    protected onDispose(): void
-    {
-        this.removeAllManagers();
+  private _id: string
 
-        this.destroyRenderer();
+  public get id(): string {
+    return this._id
+  }
 
-        this._container = null;
+  private _container: IRoomInstanceContainer
 
-        this._model.dispose();
-    }
+  public get container(): IRoomInstanceContainer {
+    return this._container
+  }
 
-    public setRenderer(renderer: IRoomRendererBase): void
-    {
-        if(renderer === this._renderer) return;
+  private _renderer: IRoomRendererBase
 
-        if(this._renderer) this.destroyRenderer();
+  public get renderer(): IRoomRendererBase {
+    return this._renderer
+  }
 
-        this._renderer = renderer;
+  private _managers: Map<number, IRoomObjectManager>
 
-        if(!this._renderer) return;
+  public get managers(): Map<number, IRoomObjectManager> {
+    return this._managers
+  }
 
-        this._renderer.reset();
+  private _model: IRoomObjectModel
 
-        if(this._managers.size)
-        {
-            for(const manager of this._managers.values())
-            {
-                if(!manager) continue;
+  public get model(): IRoomObjectModel {
+    return this._model
+  }
 
-                const objects = manager.objects;
+  public setRenderer(renderer: IRoomRendererBase): void {
+    if (renderer === this._renderer) return
 
-                if(!objects.length) continue;
+    if (this._renderer) this.destroyRenderer()
 
-                for(const object of objects.getValues())
-                {
-                    if(!object) continue;
+    this._renderer = renderer
 
-                    this._renderer.addObject(object);
-                }
-            }
+    if (!this._renderer) return
+
+    this._renderer.reset()
+
+    if (this._managers.size) {
+      for (const manager of this._managers.values()) {
+        if (!manager) continue
+
+        const objects = manager.objects
+
+        if (!objects.length) continue
+
+        for (const object of objects.getValues()) {
+          if (!object) continue
+
+          this._renderer.addObject(object)
         }
+      }
     }
+  }
 
-    private destroyRenderer(): void
-    {
-        if(!this._renderer) return;
+  public getManager(category: number): IRoomObjectManager {
+    const manager = this._managers.get(category)
 
-        this._renderer.dispose();
+    if (!manager) return null
 
-        this._renderer = null;
-    }
+    return manager
+  }
 
-    public getManager(category: number): IRoomObjectManager
-    {
-        const manager = this._managers.get(category);
+  public getTotalObjectsForManager(category: number): number {
+    const manager = this.getManager(category)
 
-        if(!manager) return null;
+    if (!manager) return 0
 
-        return manager;
-    }
+    return manager.totalObjects
+  }
 
-    private getManagerOrCreate(category: number): IRoomObjectManager
-    {
-        let manager = this.getManager(category);
+  public getRoomObject(id: number, category: number): IRoomObject {
+    const manager = this.getManager(category)
 
-        if(manager) return manager;
+    if (!manager) return null
 
-        manager = this._container.createRoomObjectManager(category);
+    const object = manager.getObject(id)
 
-        if(!manager) return null;
+    if (!object) return null
 
-        this._managers.set(category, manager);
+    return object
+  }
 
-        return manager;
-    }
+  public getRoomObjectsForCategory(category: number): IRoomObject[] {
+    const manager = this.getManager(category)
 
-    public getTotalObjectsForManager(category: number): number
-    {
-        const manager = this.getManager(category);
+    return (manager ? manager.objects.getValues() : [])
+  }
 
-        if(!manager) return 0;
+  public getRoomObjectByIndex(index: number, category: number): IRoomObject {
+    const manager = this.getManager(category)
 
-        return manager.totalObjects;
-    }
+    if (!manager) return null
 
-    public getRoomObject(id: number, category: number): IRoomObject
-    {
-        const manager = this.getManager(category);
+    const object = manager.getObjectByIndex(index)
 
-        if(!manager) return null;
+    if (!object) return null
 
-        const object = manager.getObject(id);
+    return object
+  }
 
-        if(!object) return null;
+  public createRoomObject(id: number, stateCount: number, type: string, category: number): IRoomObjectController {
+    const manager = this.getManagerOrCreate(category)
 
-        return object;
-    }
+    if (!manager) return null
 
-    public getRoomObjectsForCategory(category: number): IRoomObject[]
-    {
-        const manager = this.getManager(category);
+    const object = manager.createObject(id, stateCount, type)
 
-        return (manager ? manager.objects.getValues() : []);
-    }
+    if (!object) return null
 
-    public getRoomObjectByIndex(index: number, category: number): IRoomObject
-    {
-        const manager = this.getManager(category);
+    if (this._renderer) this._renderer.addObject(object)
 
-        if(!manager) return null;
+    return object
+  }
 
-        const object = manager.getObjectByIndex(index);
+  public createRoomObjectAndInitalize(objectId: number, type: string, category: number): IRoomObject {
+    if (!this._container) return null
 
-        if(!object) return null;
+    return this._container.createRoomObjectAndInitalize(this._id, objectId, type, category)
+  }
 
-        return object;
-    }
+  public removeRoomObject(id: number, category: number): void {
+    const manager = this.getManager(category)
 
-    public createRoomObject(id: number, stateCount: number, type: string, category: number): IRoomObjectController
-    {
-        const manager = this.getManagerOrCreate(category);
+    if (!manager) return
 
-        if(!manager) return null;
+    const object = manager.getObject(id)
 
-        const object = manager.createObject(id, stateCount, type);
+    if (!object) return
 
-        if(!object) return null;
+    object.tearDown()
 
-        if(this._renderer) this._renderer.addObject(object);
+    if (this._renderer) this._renderer.removeObject(object)
 
-        return object;
-    }
+    manager.removeObject(id)
+  }
 
-    public createRoomObjectAndInitalize(objectId: number, type: string, category: number): IRoomObject
-    {
-        if(!this._container) return null;
+  public removeAllManagers(): void {
+    for (const manager of this._managers.values()) {
+      if (!manager) continue
 
-        return this._container.createRoomObjectAndInitalize(this._id, objectId, type, category);
-    }
+      if (this._renderer) {
+        const objects = manager.objects
 
-    public removeRoomObject(id: number, category: number): void
-    {
-        const manager = this.getManager(category);
+        if (objects.length) {
+          for (const object of objects.getValues()) {
+            if (!object) continue
 
-        if(!manager) return;
-
-        const object = manager.getObject(id);
-
-        if(!object) return;
-
-        object.tearDown();
-
-        if(this._renderer) this._renderer.removeObject(object);
-
-        manager.removeObject(id);
-    }
-
-    public removeAllManagers(): void
-    {
-        for(const manager of this._managers.values())
-        {
-            if(!manager) continue;
-
-            if(this._renderer)
-            {
-                const objects = manager.objects;
-
-                if(objects.length)
-                {
-                    for(const object of objects.getValues())
-                    {
-                        if(!object) continue;
-
-                        this._renderer.removeObject(object);
-                    }
-                }
-            }
-
-            manager.dispose();
+            this._renderer.removeObject(object)
+          }
         }
+      }
 
-        this._managers.clear();
+      manager.dispose()
     }
 
-    public addUpdateCategory(category: number): void
-    {
-        const index = this._updateCategories.indexOf(category);
+    this._managers.clear()
+  }
 
-        if(index >= 0) return;
+  public addUpdateCategory(category: number): void {
+    const index = this._updateCategories.indexOf(category)
 
-        this._updateCategories.push(category);
+    if (index >= 0) return
+
+    this._updateCategories.push(category)
+  }
+
+  public removeUpdateCategory(category: number): void {
+    const index = this._updateCategories.indexOf(category)
+
+    if (index === -1) return
+
+    this._updateCategories.splice(index, 1)
+  }
+
+  public update(time: number, update: boolean = false): void {
+    for (const category of this._updateCategories) {
+      const manager = this.getManager(category)
+
+      if (!manager) continue
+
+      const objects = manager.objects
+
+      if (!objects.length) continue
+
+      for (const object of objects.getValues()) {
+        if (!object) continue
+
+        const logic = object.logic;
+
+        (logic && logic.update(time))
+      }
     }
 
-    public removeUpdateCategory(category: number): void
-    {
-        const index = this._updateCategories.indexOf(category);
+    this._renderer && this._renderer.update(time, update)
+  }
 
-        if(index === -1) return;
+  public hasUninitializedObjects(): boolean {
+    for (const manager of this._managers.values()) {
+      if (!manager) continue
 
-        this._updateCategories.splice(index, 1);
+      for (const object of manager.objects.getValues()) {
+        if (!object) continue
+
+        if (!object.isReady) return true
+      }
     }
 
-    public update(time: number, update: boolean = false): void
-    {
-        for(const category of this._updateCategories)
-        {
-            const manager = this.getManager(category);
+    return false
+  }
 
-            if(!manager) continue;
+  protected onDispose(): void {
+    this.removeAllManagers()
 
-            const objects = manager.objects;
+    this.destroyRenderer()
 
-            if(!objects.length) continue;
+    this._container = null
 
-            for(const object of objects.getValues())
-            {
-                if(!object) continue;
+    this._model.dispose()
+  }
 
-                const logic = object.logic;
+  private destroyRenderer(): void {
+    if (!this._renderer) return
 
-                (logic && logic.update(time));
-            }
-        }
+    this._renderer.dispose()
 
-        this._renderer && this._renderer.update(time, update);
-    }
+    this._renderer = null
+  }
 
-    public hasUninitializedObjects(): boolean
-    {
-        for(const manager of this._managers.values())
-        {
-            if(!manager) continue;
+  private getManagerOrCreate(category: number): IRoomObjectManager {
+    let manager = this.getManager(category)
 
-            for(const object of manager.objects.getValues())
-            {
-                if(!object) continue;
+    if (manager) return manager
 
-                if(!object.isReady) return true;
-            }
-        }
+    manager = this._container.createRoomObjectManager(category)
 
-        return false;
-    }
+    if (!manager) return null
 
-    public get id(): string
-    {
-        return this._id;
-    }
+    this._managers.set(category, manager)
 
-    public get container(): IRoomInstanceContainer
-    {
-        return this._container;
-    }
-
-    public get renderer(): IRoomRendererBase
-    {
-        return this._renderer;
-    }
-
-    public get managers(): Map<number, IRoomObjectManager>
-    {
-        return this._managers;
-    }
-
-    public get model(): IRoomObjectModel
-    {
-        return this._model;
-    }
+    return manager
+  }
 }

@@ -1,196 +1,174 @@
-import { LayerData } from './LayerData';
+import { LayerData } from '@/nitro'
 
-export class DirectionData
-{
-    public static USE_DEFAULT_DIRECTION: number = -1;
+export class DirectionData {
+  public static USE_DEFAULT_DIRECTION: number = -1
 
-    private _layers: LayerData[];
+  private _layers: LayerData[]
 
-    constructor(layerCount: number)
-    {
-        this._layers = [];
+  constructor(layerCount: number) {
+    this._layers = []
 
-        this.createLayers(layerCount);
+    this.createLayers(layerCount)
+  }
+
+  public get layerCount(): number {
+    return this._layers.length
+  }
+
+  public dispose(): void {
+    this._layers = []
+  }
+
+  public setFromDirection(directionData: DirectionData): void {
+    if (!directionData) return
+
+    const totalLayers = this.layerCount
+
+    if (totalLayers !== directionData.layerCount) return
+
+    for (let i = 0; i < totalLayers; i++) {
+      const localLayer = this.getLayer(i)
+      const directionLayer = directionData.getLayer(i)
+
+      if (!localLayer) continue
+
+      localLayer.setFromLayer(directionLayer)
     }
+  }
 
-    private createLayers(count: number): void
-    {
-        if(!count) return;
+  public getLayer(layerId: number): LayerData {
+    const existing = this._layers[layerId]
 
-        for(let i = 0; i < count; i++) this._layers.push(new LayerData());
-    }
+    if (!existing) return null
 
-    public dispose(): void
-    {
-        this._layers = [];
-    }
+    return existing
+  }
 
-    public setFromDirection(directionData: DirectionData): void
-    {
-        if(!directionData) return;
+  public getLayerTag(layerId: number): string {
+    const existing = this.getLayer(layerId)
 
-        const totalLayers = this.layerCount;
+    if (!existing) return LayerData.DEFAULT_TAG
 
-        if(totalLayers !== directionData.layerCount) return;
+    return existing.tag
+  }
 
-        for(let i = 0; i < totalLayers; i++)
-        {
-            const localLayer = this.getLayer(i);
-            const directionLayer = directionData.getLayer(i);
+  public setLayerTag(layerId: number, tag: string): void {
+    const existing = this.getLayer(layerId)
 
-            if(!localLayer) continue;
+    if (!existing) return
 
-            localLayer.setFromLayer(directionLayer);
-        }
-    }
+    existing.tag = tag
+  }
 
-    public getLayer(layerId: number): LayerData
-    {
-        const existing = this._layers[layerId];
+  public getLayerInk(layerId: number): number {
+    const existing = this.getLayer(layerId)
 
-        if(!existing) return null;
+    if (!existing) return LayerData.DEFAULT_INK
 
-        return existing;
-    }
+    return existing.ink
+  }
 
-    public getLayerTag(layerId: number): string
-    {
-        const existing = this.getLayer(layerId);
+  public setLayerInk(layerId: number, ink: number): void {
+    const existing = this.getLayer(layerId)
 
-        if(!existing) return LayerData.DEFAULT_TAG;
+    if (!existing) return
 
-        return existing.tag;
-    }
+    if (isNaN(ink)) return
 
-    public setLayerTag(layerId: number, tag: string): void
-    {
-        const existing = this.getLayer(layerId);
+    existing.ink = ink
+  }
 
-        if(!existing) return;
+  public getLayerAlpha(layerId: number): number {
+    const existing = this.getLayer(layerId)
 
-        existing.tag = tag;
-    }
+    if (!existing) return LayerData.DEFAULT_ALPHA
 
-    public getLayerInk(layerId: number): number
-    {
-        const existing = this.getLayer(layerId);
+    return existing.alpha
+  }
 
-        if(!existing) return LayerData.DEFAULT_INK;
+  public setLayerAlpha(layerId: number, alpha: number): void {
+    const existing = this.getLayer(layerId)
 
-        return existing.ink;
-    }
+    if (!existing) return
 
-    public setLayerInk(layerId: number, ink: number): void
-    {
-        const existing = this.getLayer(layerId);
+    if (isNaN(alpha)) return
 
-        if(!existing) return;
+    existing.alpha = alpha
+  }
 
-        if(isNaN(ink)) return;
+  public getLayerIgnoreMouse(layerId: number): boolean {
+    const existing = this.getLayer(layerId)
 
-        existing.ink = ink;
-    }
+    if (!existing) return LayerData.DEFAULT_IGNORE_MOUSE
 
-    public getLayerAlpha(layerId: number): number
-    {
-        const existing = this.getLayer(layerId);
+    return existing.ignoreMouse
+  }
 
-        if(!existing) return LayerData.DEFAULT_ALPHA;
+  public setLayerIgnoreMouse(layerId: number, flag: boolean): void {
+    const existing = this.getLayer(layerId)
 
-        return existing.alpha;
-    }
+    if (!existing) return
 
-    public setLayerAlpha(layerId: number, alpha: number): void
-    {
-        const existing = this.getLayer(layerId);
+    existing.ignoreMouse = flag || false
+  }
 
-        if(!existing) return;
+  public getLayerXOffset(layerId: number): number {
+    const existing = this.getLayer(layerId)
 
-        if(isNaN(alpha)) return;
+    if (!existing) return LayerData.DEFAULT_XOFFSET
 
-        existing.alpha = alpha;
-    }
+    return existing.xOffset
+  }
 
-    public getLayerIgnoreMouse(layerId: number): boolean
-    {
-        const existing = this.getLayer(layerId);
+  public setLayerXOffset(layerId: number, offset: number): void {
+    const existing = this.getLayer(layerId)
 
-        if(!existing) return LayerData.DEFAULT_IGNORE_MOUSE;
+    if (!existing) return
 
-        return existing.ignoreMouse;
-    }
+    if (isNaN(offset)) return
 
-    public setLayerIgnoreMouse(layerId: number, flag: boolean): void
-    {
-        const existing = this.getLayer(layerId);
+    existing.xOffset = offset
+  }
 
-        if(!existing) return;
+  public getLayerYOffset(layerId: number): number {
+    const existing = this.getLayer(layerId)
 
-        existing.ignoreMouse = flag || false;
-    }
+    if (!existing) return LayerData.DEFAULT_YOFFSET
 
-    public getLayerXOffset(layerId: number): number
-    {
-        const existing = this.getLayer(layerId);
+    return existing.yOffset
+  }
 
-        if(!existing) return LayerData.DEFAULT_XOFFSET;
+  public setLayerYOffset(layerId: number, offset: number): void {
+    const existing = this.getLayer(layerId)
 
-        return existing.xOffset;
-    }
+    if (!existing) return
 
-    public setLayerXOffset(layerId: number, offset: number): void
-    {
-        const existing = this.getLayer(layerId);
+    if (isNaN(offset)) return
 
-        if(!existing) return;
+    existing.yOffset = offset
+  }
 
-        if(isNaN(offset)) return;
+  public getLayerZOffset(layerId: number): number {
+    const existing = this.getLayer(layerId)
 
-        existing.xOffset = offset;
-    }
+    if (!existing) return LayerData.DEFAULT_ZOFFSET
 
-    public getLayerYOffset(layerId: number): number
-    {
-        const existing = this.getLayer(layerId);
+    return existing.zOffset
+  }
 
-        if(!existing) return LayerData.DEFAULT_YOFFSET;
+  public setLayerZOffset(layerId: number, offset: number): void {
+    const existing = this.getLayer(layerId)
 
-        return existing.yOffset;
-    }
+    if (!existing) return
 
-    public setLayerYOffset(layerId: number, offset: number): void
-    {
-        const existing = this.getLayer(layerId);
+    if (isNaN(offset)) return
 
-        if(!existing) return;
+    existing.zOffset = offset
+  }
 
-        if(isNaN(offset)) return;
+  private createLayers(count: number): void {
+    if (!count) return
 
-        existing.yOffset = offset;
-    }
-
-    public getLayerZOffset(layerId: number): number
-    {
-        const existing = this.getLayer(layerId);
-
-        if(!existing) return LayerData.DEFAULT_ZOFFSET;
-
-        return existing.zOffset;
-    }
-
-    public setLayerZOffset(layerId: number, offset: number): void
-    {
-        const existing = this.getLayer(layerId);
-
-        if(!existing) return;
-
-        if(isNaN(offset)) return;
-
-        existing.zOffset = offset;
-    }
-
-    public get layerCount(): number
-    {
-        return this._layers.length;
-    }
+    for (let i = 0; i < count; i++) this._layers.push(new LayerData())
+  }
 }

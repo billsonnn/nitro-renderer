@@ -1,2 +1,2 @@
-export * from './IPetCustomPart';
-export * from './PetType';
+export * from './IPetCustomPart'
+export * from './PetType'

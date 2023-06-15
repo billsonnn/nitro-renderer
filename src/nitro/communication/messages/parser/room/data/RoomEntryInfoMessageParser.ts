@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class RoomEntryInfoMessageParser implements IMessageParser
-{
-    private _roomId: number;
-    private _isOwner: boolean;
+export class RoomEntryInfoMessageParser implements IMessageParser {
+  private _roomId: number
 
-    public flush(): boolean
-    {
-        this._roomId = 0;
-        this._isOwner = false;
+  public get roomId(): number {
+    return this._roomId
+  }
 
-        return true;
-    }
+  private _isOwner: boolean
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get isOwner(): boolean {
+    return this._isOwner
+  }
 
-        this._roomId = wrapper.readInt();
-        this._isOwner = wrapper.readBoolean();
+  public flush(): boolean {
+    this._roomId = 0
+    this._isOwner = false
 
-        return true;
-    }
+    return true
+  }
 
-    public get roomId(): number
-    {
-        return this._roomId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get isOwner(): boolean
-    {
-        return this._isOwner;
-    }
+    this._roomId = wrapper.readInt()
+    this._isOwner = wrapper.readBoolean()
+
+    return true
+  }
 }

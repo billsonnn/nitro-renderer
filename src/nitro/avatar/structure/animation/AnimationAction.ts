@@ -1,138 +1,123 @@
-import { Point } from '@pixi/math';
-import { AnimationActionPart } from './AnimationActionPart';
+import { Point } from '@pixi/math'
+import { AnimationActionPart } from '@/nitro'
 
-export class AnimationAction
-{
-    public static DEFAULT_OFFSET: Point = new Point(0, 0);
+export class AnimationAction {
+  public static DEFAULT_OFFSET: Point = new Point(0, 0)
+  private _actionParts: Map<string, AnimationActionPart>
+  private _bodyPartOffsets: Map<number, Map<number, Map<string, Point>>>
+  private _frameIndexes: number[]
 
-    private _id: string;
-    private _actionParts: Map<string, AnimationActionPart>;
-    private _bodyPartOffsets: Map<number, Map<number, Map<string, Point>>>;
-    private _frameCount: number;
-    private _frameIndexes: number[];
+  constructor(data: any) {
+    this._id = data.id
+    this._actionParts = new Map()
+    this._bodyPartOffsets = new Map()
+    this._frameCount = 0
+    this._frameIndexes = []
 
-    constructor(data: any)
-    {
-        this._id = data.id;
-        this._actionParts = new Map();
-        this._bodyPartOffsets = new Map();
-        this._frameCount = 0;
-        this._frameIndexes = [];
+    if (data.parts && (data.parts.length > 0)) {
+      for (const part of data.parts) {
+        if (!part) continue
 
-        if(data.parts && (data.parts.length > 0))
-        {
-            for(const part of data.parts)
-            {
-                if(!part) continue;
+        const newPart = new AnimationActionPart(part)
 
-                const newPart = new AnimationActionPart(part);
+        this._actionParts.set(part.setType, newPart)
 
-                this._actionParts.set(part.setType, newPart);
+        this._frameCount = Math.max(this._frameCount, newPart.frames.length)
+      }
+    }
 
-                this._frameCount = Math.max(this._frameCount, newPart.frames.length);
+    if (data.offsets && data.offsets.frames && (data.offsets.frames.length > 0)) {
+      for (const frame of data.offsets.frames) {
+        if (!frame) continue
+
+        const frameId = frame.id
+
+        this._frameCount = Math.max(this._frameCount, frameId)
+
+        const directions: Map<number, Map<string, Point>> = new Map()
+
+        this._bodyPartOffsets.set(frameId, directions)
+
+        if (frame.directions && (frame.directions.length > 0)) {
+          for (const direction of frame.directions) {
+            if (!direction) continue
+
+            const directionId = direction.id
+
+            const offsets: Map<string, Point> = new Map()
+
+            directions.set(directionId, offsets)
+
+            if (direction.bodyParts && (direction.bodyParts.length > 0)) {
+              for (const part of direction.bodyParts) {
+                if (!part) continue
+
+                const partId = part.id
+
+                let dx = 0
+                let dy = 0
+
+                if (part.dx !== undefined) dx = part.dx
+                if (part.dy !== undefined) dy = part.dy
+
+                offsets.set(partId, new Point(dx, dy))
+              }
             }
+          }
         }
 
-        if(data.offsets && data.offsets.frames && (data.offsets.frames.length > 0))
-        {
-            for(const frame of data.offsets.frames)
-            {
-                if(!frame) continue;
+        this._frameIndexes.push(frameId)
 
-                const frameId = frame.id;
+        if (frame.repeats !== undefined) {
+          let repeats = frame.repeats || 0
 
-                this._frameCount = Math.max(this._frameCount, frameId);
-
-                const directions: Map<number, Map<string, Point>> = new Map();
-
-                this._bodyPartOffsets.set(frameId, directions);
-
-                if(frame.directions && (frame.directions.length > 0))
-                {
-                    for(const direction of frame.directions)
-                    {
-                        if(!direction) continue;
-
-                        const directionId = direction.id;
-
-                        const offsets: Map<string, Point> = new Map();
-
-                        directions.set(directionId, offsets);
-
-                        if(direction.bodyParts && (direction.bodyParts.length > 0))
-                        {
-                            for(const part of direction.bodyParts)
-                            {
-                                if(!part) continue;
-
-                                const partId = part.id;
-
-                                let dx = 0;
-                                let dy = 0;
-
-                                if(part.dx !== undefined) dx = part.dx;
-                                if(part.dy !== undefined) dy = part.dy;
-
-                                offsets.set(partId, new Point(dx, dy));
-                            }
-                        }
-                    }
-                }
-
-                this._frameIndexes.push(frameId);
-
-                if(frame.repeats !== undefined)
-                {
-                    let repeats = frame.repeats || 0;
-
-                    if(repeats > 1) while(--repeats > 0) this._frameIndexes.push(frameId);
-                }
-            }
+          if (repeats > 1) while (--repeats > 0) this._frameIndexes.push(frameId)
         }
+      }
     }
+  }
 
-    public getPart(type: string): AnimationActionPart
-    {
-        if(!type) return null;
+  private _id: string
 
-        const existing = this._actionParts.get(type);
+  public get id(): string {
+    return this._id
+  }
 
-        if(!existing) return null;
+  private _frameCount: number
 
-        return existing;
-    }
+  public get frameCount(): number {
+    return this._frameCount
+  }
 
-    public getFrameBodyPartOffset(frameId: number, frameCount: number, partId: string): Point
-    {
-        const frameIndex = (frameCount % this._frameIndexes.length);
-        const frameNumber = this._frameIndexes[frameIndex];
-        const offsets = this._bodyPartOffsets.get(frameNumber);
+  public get parts(): Map<string, AnimationActionPart> {
+    return this._actionParts
+  }
 
-        if(!offsets) return AnimationAction.DEFAULT_OFFSET;
+  public getPart(type: string): AnimationActionPart {
+    if (!type) return null
 
-        const frameOffset = offsets.get(frameId);
+    const existing = this._actionParts.get(type)
 
-        if(!frameOffset) return AnimationAction.DEFAULT_OFFSET;
+    if (!existing) return null
 
-        const offset = frameOffset.get(partId);
+    return existing
+  }
 
-        if(!offset) return AnimationAction.DEFAULT_OFFSET;
+  public getFrameBodyPartOffset(frameId: number, frameCount: number, partId: string): Point {
+    const frameIndex = (frameCount % this._frameIndexes.length)
+    const frameNumber = this._frameIndexes[frameIndex]
+    const offsets = this._bodyPartOffsets.get(frameNumber)
 
-        return offset;
-    }
+    if (!offsets) return AnimationAction.DEFAULT_OFFSET
 
-    public get id(): string
-    {
-        return this._id;
-    }
+    const frameOffset = offsets.get(frameId)
 
-    public get parts(): Map<string, AnimationActionPart>
-    {
-        return this._actionParts;
-    }
+    if (!frameOffset) return AnimationAction.DEFAULT_OFFSET
 
-    public get frameCount(): number
-    {
-        return this._frameCount;
-    }
+    const offset = frameOffset.get(partId)
+
+    if (!offset) return AnimationAction.DEFAULT_OFFSET
+
+    return offset
+  }
 }

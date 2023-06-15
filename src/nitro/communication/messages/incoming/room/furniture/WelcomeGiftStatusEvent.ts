@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { WelcomeGiftStatusParser } from '../../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { WelcomeGiftStatusParser } from '@/nitro'
 
-export class WelcomeGiftStatusEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, WelcomeGiftStatusParser);
-    }
+export class WelcomeGiftStatusEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, WelcomeGiftStatusParser)
+  }
 
-    public getParser(): WelcomeGiftStatusParser
-    {
-        return this.parser as WelcomeGiftStatusParser;
-    }
+  public getParser(): WelcomeGiftStatusParser {
+    return this.parser as WelcomeGiftStatusParser
+  }
 }

@@ -1,2 +1,2 @@
-export * from './YouArePlayingGameParser';
-export * from './YouAreSpectatorMessageParser';
+export * from './YouArePlayingGameParser'
+export * from './YouAreSpectatorMessageParser'

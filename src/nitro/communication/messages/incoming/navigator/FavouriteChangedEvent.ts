@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { FavouriteChangedMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { FavouriteChangedMessageParser } from '@/nitro'
 
-export class FavouriteChangedEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, FavouriteChangedMessageParser);
-    }
+export class FavouriteChangedEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, FavouriteChangedMessageParser)
+  }
 
-    public getParser(): FavouriteChangedMessageParser
-    {
-        return this.parser as FavouriteChangedMessageParser;
-    }
+  public getParser(): FavouriteChangedMessageParser {
+    return this.parser as FavouriteChangedMessageParser
+  }
 }

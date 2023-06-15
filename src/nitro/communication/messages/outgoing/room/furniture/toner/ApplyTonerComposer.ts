@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class ApplyTonerComposer implements IMessageComposer<ConstructorParameters<typeof ApplyTonerComposer>>
-{
-    private _data: ConstructorParameters<typeof ApplyTonerComposer>;
+export class ApplyTonerComposer implements IMessageComposer<ConstructorParameters<typeof ApplyTonerComposer>> {
+  private _data: ConstructorParameters<typeof ApplyTonerComposer>
 
-    constructor(k: number, arg2: number, arg3: number, arg4: number)
-    {
-        this._data = [k, arg2, arg3, arg4];
-    }
+  constructor(k: number, arg2: number, arg3: number, arg4: number) {
+    this._data = [k, arg2, arg3, arg4]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

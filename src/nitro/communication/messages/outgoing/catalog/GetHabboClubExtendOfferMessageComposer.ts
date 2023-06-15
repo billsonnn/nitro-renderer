@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GetHabboClubExtendOfferMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetHabboClubExtendOfferMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof GetHabboClubExtendOfferMessageComposer>;
+export class GetHabboClubExtendOfferMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetHabboClubExtendOfferMessageComposer>> {
+  private _data: ConstructorParameters<typeof GetHabboClubExtendOfferMessageComposer>
 
-    constructor()
-    {
-        this._data = [];
-    }
+  constructor() {
+    this._data = []
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        this._data = null;
-    }
+  public dispose(): void {
+    this._data = null
+  }
 }

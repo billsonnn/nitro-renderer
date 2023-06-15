@@ -1,40 +1,34 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GameStatusMessageParser implements IMessageParser
-{
-    private static readonly OK = 0;
-    private static readonly MAINTENANCE = 1;
+export class GameStatusMessageParser implements IMessageParser {
+  private static readonly OK = 0
+  private static readonly MAINTENANCE = 1
+  private _status: number
 
-    private _gameTypeId:number;
-    private _status:number;
+  private _gameTypeId: number
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get gameTypeId(): number {
+    return this._gameTypeId
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get isOk(): boolean {
+    return this._status == GameStatusMessageParser.OK
+  }
 
-        this._gameTypeId = wrapper.readInt();
-        this._status = wrapper.readInt();
+  public get isInMaintenance(): boolean {
+    return this._status == GameStatusMessageParser.MAINTENANCE
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    return true
+  }
 
-    public get gameTypeId():number
-    {
-        return this._gameTypeId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get isOk():boolean
-    {
-        return this._status == GameStatusMessageParser.OK;
-    }
+    this._gameTypeId = wrapper.readInt()
+    this._status = wrapper.readInt()
 
-    public get isInMaintenance():boolean
-    {
-        return this._status == GameStatusMessageParser.MAINTENANCE;
-    }
+    return true
+  }
 }

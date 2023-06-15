@@ -1,35 +1,30 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class ItemDataUpdateMessageParser implements IMessageParser
-{
-    private _itemId: number;
-    private _data: string;
+export class ItemDataUpdateMessageParser implements IMessageParser {
+  private _itemId: number
+  private _data: string
 
-    public flush(): boolean
-    {
-        this._itemId = 0;
-        this._data = '';
+  public get data(): string {
+    return this._data
+  }
 
-        return true;
-    }
+  public get furnitureId(): number {
+    return this._itemId
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public flush(): boolean {
+    this._itemId = 0
+    this._data = ''
 
-        this._itemId = parseInt(wrapper.readString());
-        this._data = wrapper.readString();
+    return true
+  }
 
-        return true;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get furnitureId(): number
-    {
-        return this._itemId;
-    }
+    this._itemId = parseInt(wrapper.readString())
+    this._data = wrapper.readString()
 
-    public get data(): string
-    {
-        return this._data;
-    }
+    return true
+  }
 }

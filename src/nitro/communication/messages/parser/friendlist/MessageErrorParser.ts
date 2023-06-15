@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class MessageErrorParser implements IMessageParser
-{
-    private _clientMessageId: number;
-    private _errorCode: number;
+export class MessageErrorParser implements IMessageParser {
+  private _clientMessageId: number
 
-    public flush(): boolean
-    {
-        this._clientMessageId = 0;
-        this._errorCode = 0;
+  public get clientMessageId(): number {
+    return this._clientMessageId
+  }
 
-        return true;
-    }
+  private _errorCode: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get errorCode(): number {
+    return this._errorCode
+  }
 
-        this._clientMessageId = wrapper.readInt();
-        this._errorCode = wrapper.readInt();
+  public flush(): boolean {
+    this._clientMessageId = 0
+    this._errorCode = 0
 
-        return true;
-    }
+    return true
+  }
 
-    public get clientMessageId(): number
-    {
-        return this._clientMessageId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get errorCode(): number
-    {
-        return this._errorCode;
-    }
+    this._clientMessageId = wrapper.readInt()
+    this._errorCode = wrapper.readInt()
+
+    return true
+  }
 }

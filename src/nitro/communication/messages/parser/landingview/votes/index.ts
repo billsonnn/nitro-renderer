@@ -1,1 +1,1 @@
-export * from './CommunityVoteReceivedParser';
+export * from './CommunityVoteReceivedParser'

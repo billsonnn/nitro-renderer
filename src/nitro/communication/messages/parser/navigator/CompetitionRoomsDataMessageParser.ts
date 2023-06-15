@@ -1,26 +1,22 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { CompetitionRoomsData } from './utils';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { CompetitionRoomsData } from './utils'
 
-export class CompetitionRoomsDataMessageParser implements IMessageParser
-{
-    private _data: CompetitionRoomsData;
+export class CompetitionRoomsDataMessageParser implements IMessageParser {
+  private _data: CompetitionRoomsData
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get data(): CompetitionRoomsData {
+    return this._data
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public flush(): boolean {
+    return true
+  }
 
-        this._data = new CompetitionRoomsData(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._data = new CompetitionRoomsData(wrapper)
 
-    public get data(): CompetitionRoomsData
-    {
-        return this._data;
-    }
+    return true
+  }
 }

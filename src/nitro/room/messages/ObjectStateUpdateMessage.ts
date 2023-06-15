@@ -1,9 +1,7 @@
-import { RoomObjectUpdateMessage } from '../../../room';
+import { RoomObjectUpdateMessage } from '@/room'
 
-export class ObjectStateUpdateMessage extends RoomObjectUpdateMessage
-{
-    constructor()
-    {
-        super(null, null);
-    }
+export class ObjectStateUpdateMessage extends RoomObjectUpdateMessage {
+  constructor() {
+    super(null, null)
+  }
 }

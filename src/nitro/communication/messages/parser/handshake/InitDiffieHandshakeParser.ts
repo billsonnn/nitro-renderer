@@ -1,32 +1,28 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class InitDiffieHandshakeParser implements IMessageParser
-{
-    private _encryptedPrime: string;
-    private _encryptedGenerator: string;
+export class InitDiffieHandshakeParser implements IMessageParser {
+  private _encryptedPrime: string
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get encryptedPrime(): string {
+    return this._encryptedPrime
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _encryptedGenerator: string
 
-        this._encryptedPrime = wrapper.readString();
-        this._encryptedGenerator = wrapper.readString();
+  public get encryptedGenerator(): string {
+    return this._encryptedGenerator
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    return true
+  }
 
-    public get encryptedPrime(): string
-    {
-        return this._encryptedPrime;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get encryptedGenerator(): string
-    {
-        return this._encryptedGenerator;
-    }
+    this._encryptedPrime = wrapper.readString()
+    this._encryptedGenerator = wrapper.readString()
+
+    return true
+  }
 }

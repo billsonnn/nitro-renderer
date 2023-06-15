@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class RoomAdEventTabViewedComposer implements IMessageComposer<ConstructorParameters<typeof RoomAdEventTabViewedComposer>>
-{
-    private _data: ConstructorParameters<typeof RoomAdEventTabViewedComposer>;
+export class RoomAdEventTabViewedComposer implements IMessageComposer<ConstructorParameters<typeof RoomAdEventTabViewedComposer>> {
+  private _data: ConstructorParameters<typeof RoomAdEventTabViewedComposer>
 
-    constructor()
-    {
-        this._data = [];
-    }
+  constructor() {
+    this._data = []
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

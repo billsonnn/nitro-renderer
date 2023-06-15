@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { HotelMergeNameChangeParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { HotelMergeNameChangeParser } from '@/nitro'
 
-export class HotelMergeNameChangeEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, HotelMergeNameChangeParser);
-    }
+export class HotelMergeNameChangeEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, HotelMergeNameChangeParser)
+  }
 
-    public getParser(): HotelMergeNameChangeParser
-    {
-        return this.parser as HotelMergeNameChangeParser;
-    }
+  public getParser(): HotelMergeNameChangeParser {
+    return this.parser as HotelMergeNameChangeParser
+  }
 }

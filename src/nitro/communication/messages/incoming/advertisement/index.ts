@@ -1,2 +1,2 @@
-export * from './InterstitialMessageEvent';
-export * from './RoomAdErrorEvent';
+export * from './InterstitialMessageEvent'
+export * from './RoomAdErrorEvent'

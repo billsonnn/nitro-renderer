@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { WiredFurniTriggerParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { WiredFurniTriggerParser } from '@/nitro'
 
-export class WiredFurniTriggerEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, WiredFurniTriggerParser);
-    }
+export class WiredFurniTriggerEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, WiredFurniTriggerParser)
+  }
 
-    public getParser(): WiredFurniTriggerParser
-    {
-        return this.parser as WiredFurniTriggerParser;
-    }
+  public getParser(): WiredFurniTriggerParser {
+    return this.parser as WiredFurniTriggerParser
+  }
 }

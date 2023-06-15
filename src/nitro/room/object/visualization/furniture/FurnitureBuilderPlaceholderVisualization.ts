@@ -1,6 +1,5 @@
-import { FurnitureVisualization } from './FurnitureVisualization';
+import { FurnitureVisualization } from '@/nitro'
 
-export class FurnitureBuilderPlaceholderVisualization extends FurnitureVisualization
-{
+export class FurnitureBuilderPlaceholderVisualization extends FurnitureVisualization {
 
 }

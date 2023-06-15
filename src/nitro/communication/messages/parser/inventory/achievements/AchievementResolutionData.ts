@@ -1,59 +1,54 @@
-﻿import { IMessageDataWrapper } from '../../../../../../api';
+﻿import { IMessageDataWrapper } from '@/api'
 
-export class AchievementResolutionData
-{
-    public static STATE_SELECTABLE: number = 0;
+export class AchievementResolutionData {
+  public static STATE_SELECTABLE: number = 0
 
-    private _achievementId: number;
-    private _level: number;
-    private _badgeId: string;
-    private _requiredLevel: number;
-    private _state: number;
+  constructor(wrapper: IMessageDataWrapper) {
+    this._achievementId = wrapper.readInt()
+    this._level = wrapper.readInt()
+    this._badgeId = wrapper.readString()
+    this._requiredLevel = wrapper.readInt()
+    this._state = wrapper.readInt()
+  }
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        this._achievementId = wrapper.readInt();
-        this._level = wrapper.readInt();
-        this._badgeId = wrapper.readString();
-        this._requiredLevel = wrapper.readInt();
-        this._state = wrapper.readInt();
-    }
+  private _achievementId: number
 
-    public dispose(): void
-    {
-        this._achievementId = 0;
-        this._level = 0;
-        this._badgeId = '';
-        this._requiredLevel = 0;
-    }
+  public get achievementId(): number {
+    return this._achievementId
+  }
 
-    public get achievementId(): number
-    {
-        return this._achievementId;
-    }
+  private _level: number
 
-    public get level(): number
-    {
-        return this._level;
-    }
+  public get level(): number {
+    return this._level
+  }
 
-    public get badgeId(): string
-    {
-        return this._badgeId;
-    }
+  private _badgeId: string
 
-    public get requiredLevel(): number
-    {
-        return this._requiredLevel;
-    }
+  public get badgeId(): string {
+    return this._badgeId
+  }
 
-    public get enabled(): boolean
-    {
-        return (this._state === AchievementResolutionData.STATE_SELECTABLE);
-    }
+  private _requiredLevel: number
 
-    public get state(): number
-    {
-        return this._state;
-    }
+  public get requiredLevel(): number {
+    return this._requiredLevel
+  }
+
+  private _state: number
+
+  public get state(): number {
+    return this._state
+  }
+
+  public get enabled(): boolean {
+    return (this._state === AchievementResolutionData.STATE_SELECTABLE)
+  }
+
+  public dispose(): void {
+    this._achievementId = 0
+    this._level = 0
+    this._badgeId = ''
+    this._requiredLevel = 0
+  }
 }

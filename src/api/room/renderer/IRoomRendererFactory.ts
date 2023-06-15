@@ -1,6 +1,5 @@
-import { IRoomRenderer } from './IRoomRenderer';
+import { IRoomRenderer } from '@/api'
 
-export interface IRoomRendererFactory
-{
-    createRenderer(): IRoomRenderer;
+export interface IRoomRendererFactory {
+  createRenderer(): IRoomRenderer;
 }

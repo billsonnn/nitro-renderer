@@ -1,26 +1,22 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { CategoriesWithVisitorCountData } from './utils';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { CategoriesWithVisitorCountData } from './utils'
 
-export class CategoriesWithVisitorCountParser implements IMessageParser
-{
-    private _data: CategoriesWithVisitorCountData;
+export class CategoriesWithVisitorCountParser implements IMessageParser {
+  private _data: CategoriesWithVisitorCountData
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get data(): CategoriesWithVisitorCountData {
+    return this._data
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public flush(): boolean {
+    return true
+  }
 
-        this._data = new CategoriesWithVisitorCountData(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._data = new CategoriesWithVisitorCountData(wrapper)
 
-    public get data(): CategoriesWithVisitorCountData
-    {
-        return this._data;
-    }
+    return true
+  }
 }

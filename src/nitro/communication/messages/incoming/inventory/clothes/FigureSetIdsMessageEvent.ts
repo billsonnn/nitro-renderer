@@ -1,16 +1,13 @@
-﻿import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { FigureSetIdsMessageParser } from '../../../parser';
+﻿import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { FigureSetIdsMessageParser } from '@/nitro'
 
-export class FigureSetIdsMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, FigureSetIdsMessageParser);
-    }
+export class FigureSetIdsMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, FigureSetIdsMessageParser)
+  }
 
-    public getParser(): FigureSetIdsMessageParser
-    {
-        return this.parser as FigureSetIdsMessageParser;
-    }
+  public getParser(): FigureSetIdsMessageParser {
+    return this.parser as FigureSetIdsMessageParser
+  }
 }

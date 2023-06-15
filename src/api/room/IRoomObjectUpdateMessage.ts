@@ -1,7 +1,6 @@
-import { IVector3D } from './IVector3D';
+import { IVector3D } from '@/api'
 
-export interface IRoomObjectUpdateMessage
-{
-    readonly location: IVector3D;
-    readonly direction: IVector3D;
+export interface IRoomObjectUpdateMessage {
+  readonly location: IVector3D;
+  readonly direction: IVector3D;
 }

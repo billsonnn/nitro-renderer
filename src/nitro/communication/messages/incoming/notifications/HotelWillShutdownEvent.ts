@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { HotelWillShutdownParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { HotelWillShutdownParser } from '@/nitro'
 
-export class HotelWillShutdownEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, HotelWillShutdownParser);
-    }
+export class HotelWillShutdownEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, HotelWillShutdownParser)
+  }
 
-    public getParser(): HotelWillShutdownParser
-    {
-        return this.parser as HotelWillShutdownParser;
-    }
+  public getParser(): HotelWillShutdownParser {
+    return this.parser as HotelWillShutdownParser
+  }
 }

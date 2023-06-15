@@ -1,44 +1,40 @@
-import { IDisposable, IMessageDataWrapper } from '../../../../../api';
+import { IDisposable, IMessageDataWrapper } from '@/api'
 
-export class PatternMatchData implements IDisposable
-{
-    private _pattern: string;
-    private _startIndex: number;
-    private _endIndex: number;
-    private _disposed: boolean = false;
+export class PatternMatchData implements IDisposable {
+  constructor(k: IMessageDataWrapper) {
+    this._pattern = k.readString()
+    this._startIndex = k.readInt()
+    this._endIndex = k.readInt()
+  }
 
-    constructor(k: IMessageDataWrapper)
-    {
-        this._pattern = k.readString();
-        this._startIndex = k.readInt();
-        this._endIndex = k.readInt();
-    }
+  private _pattern: string
 
-    public dispose(): void
-    {
-        this._disposed = true;
-        this._pattern = '';
-        this._startIndex = -1;
-        this._endIndex = -1;
-    }
+  public get pattern(): string {
+    return this._pattern
+  }
 
-    public get disposed(): boolean
-    {
-        return this._disposed;
-    }
+  private _startIndex: number
 
-    public get pattern(): string
-    {
-        return this._pattern;
-    }
+  public get startIndex(): number {
+    return this._startIndex
+  }
 
-    public get startIndex(): number
-    {
-        return this._startIndex;
-    }
+  private _endIndex: number
 
-    public get endIndex(): number
-    {
-        return this._endIndex;
-    }
+  public get endIndex(): number {
+    return this._endIndex
+  }
+
+  private _disposed: boolean = false
+
+  public get disposed(): boolean {
+    return this._disposed
+  }
+
+  public dispose(): void {
+    this._disposed = true
+    this._pattern = ''
+    this._startIndex = -1
+    this._endIndex = -1
+  }
 }

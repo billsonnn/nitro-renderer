@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GetCfhStatusMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetCfhStatusMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof GetCfhStatusMessageComposer>;
+export class GetCfhStatusMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetCfhStatusMessageComposer>> {
+  private _data: ConstructorParameters<typeof GetCfhStatusMessageComposer>
 
-    constructor(k: boolean)
-    {
-        this._data = [k];
-    }
+  constructor(k: boolean) {
+    this._data = [k]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

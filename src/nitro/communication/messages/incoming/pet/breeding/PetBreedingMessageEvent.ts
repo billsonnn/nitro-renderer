@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { PetBreedingMessageParser } from './../../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { PetBreedingMessageParser } from '@/nitro'
 
-export class PetBreedingMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, PetBreedingMessageParser);
-    }
+export class PetBreedingMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, PetBreedingMessageParser)
+  }
 
-    public getParser(): PetBreedingMessageParser
-    {
-        return this.parser as PetBreedingMessageParser;
-    }
+  public getParser(): PetBreedingMessageParser {
+    return this.parser as PetBreedingMessageParser
+  }
 }

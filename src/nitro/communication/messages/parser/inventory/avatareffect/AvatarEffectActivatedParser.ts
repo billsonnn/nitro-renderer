@@ -1,43 +1,39 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class AvatarEffectActivatedParser implements IMessageParser
-{
-    private _type: number;
-    private _duration: number;
-    private _isPermanent: boolean;
+export class AvatarEffectActivatedParser implements IMessageParser {
+  private _type: number
 
-    public flush(): boolean
-    {
-        this._type = 0;
-        this._duration = 0;
-        this._isPermanent = false;
+  public get type(): number {
+    return this._type
+  }
 
-        return true;
-    }
+  private _duration: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get duration(): number {
+    return this._duration
+  }
 
-        this._type = wrapper.readInt();
-        this._duration = wrapper.readInt();
-        this._isPermanent = wrapper.readBoolean();
+  private _isPermanent: boolean
 
-        return true;
-    }
+  public get isPermanent(): boolean {
+    return this._isPermanent
+  }
 
-    public get type(): number
-    {
-        return this._type;
-    }
+  public flush(): boolean {
+    this._type = 0
+    this._duration = 0
+    this._isPermanent = false
 
-    public get duration(): number
-    {
-        return this._duration;
-    }
+    return true
+  }
 
-    public get isPermanent(): boolean
-    {
-        return this._isPermanent;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._type = wrapper.readInt()
+    this._duration = wrapper.readInt()
+    this._isPermanent = wrapper.readBoolean()
+
+    return true
+  }
 }

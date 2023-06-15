@@ -1,118 +1,110 @@
-﻿import { IMessageDataWrapper } from '../../../../../api';
-import { ForumData } from './ForumData';
+﻿import { IMessageDataWrapper } from '@/api'
+import { ForumData } from '@/nitro'
 
-export class ExtendedForumData extends ForumData
-{
-    private _readPermissions: number;
-    private _postMessagePermissions: number;
-    private _postThreadPermissions: number;
-    private _moderatePermissions: number;
-    private _readPermissionError: string;
-    private _postMessagePermissionError: string;
-    private _postThreadPermissionError: string;
-    private _moderatePermissionError: string;
-    private _reportPermissionError: string;
-    private _canChangeSettings: boolean;
-    private _isStaff: boolean;
+export class ExtendedForumData extends ForumData {
+  private _isStaff: boolean
 
-    public static parse(wrapper: IMessageDataWrapper): ExtendedForumData
-    {
-        const extendedForumData: ExtendedForumData = new ExtendedForumData();
+  private _readPermissions: number
 
-        ForumData.fillFromMessage(extendedForumData, wrapper);
+  public get readPermissions(): number {
+    return this._readPermissions
+  }
 
-        extendedForumData._readPermissions = wrapper.readInt();
-        extendedForumData._postMessagePermissions = wrapper.readInt();
-        extendedForumData._postThreadPermissions = wrapper.readInt();
-        extendedForumData._moderatePermissions = wrapper.readInt();
-        extendedForumData._readPermissionError = wrapper.readString();
-        extendedForumData._postMessagePermissionError = wrapper.readString();
-        extendedForumData._postThreadPermissionError = wrapper.readString();
-        extendedForumData._moderatePermissionError = wrapper.readString();
-        extendedForumData._reportPermissionError = wrapper.readString();
-        extendedForumData._canChangeSettings = wrapper.readBoolean();
-        extendedForumData._isStaff = wrapper.readBoolean();
+  private _postMessagePermissions: number
 
-        return extendedForumData;
-    }
+  public get postMessagePermissions(): number {
+    return this._postMessagePermissions
+  }
 
-    public get readPermissions(): number
-    {
-        return this._readPermissions;
-    }
+  private _postThreadPermissions: number
 
-    public get postMessagePermissions(): number
-    {
-        return this._postMessagePermissions;
-    }
+  public get postThreadPermissions(): number {
+    return this._postThreadPermissions
+  }
 
-    public get postThreadPermissions(): number
-    {
-        return this._postThreadPermissions;
-    }
+  private _moderatePermissions: number
 
-    public get moderatePermissions(): number
-    {
-        return this._moderatePermissions;
-    }
+  public get moderatePermissions(): number {
+    return this._moderatePermissions
+  }
 
-    public get hasReadPermissionError(): boolean
-    {
-        return (this._readPermissionError.length === 0);
-    }
+  private _readPermissionError: string
 
-    public get canReport(): boolean
-    {
-        return true;
-    }
+  public get readPermissionError(): string {
+    return this._readPermissionError
+  }
 
-    public get hasPostMessagePermissionError(): boolean
-    {
-        return (this._postMessagePermissionError.length === 0);
-    }
+  private _postMessagePermissionError: string
 
-    public get hasPostThreadPermissionError(): boolean
-    {
-        return (this._postThreadPermissionError.length === 0);
-    }
+  public get postMessagePermissionError(): string {
+    return this._postMessagePermissionError
+  }
 
-    public get hasModeratePermissionError(): boolean
-    {
-        return (this._moderatePermissionError.length === 0);
-    }
+  private _postThreadPermissionError: string
 
-    public get canChangeSettings(): boolean
-    {
-        return this._canChangeSettings;
-    }
+  public get postThreadPermissionError(): string {
+    return this._postThreadPermissionError
+  }
 
-    public get isStaf(): boolean
-    {
-        return this._isStaff;
-    }
+  private _moderatePermissionError: string
 
-    public get readPermissionError(): string
-    {
-        return this._readPermissionError;
-    }
+  public get moderatePermissionError(): string {
+    return this._moderatePermissionError
+  }
 
-    public get postMessagePermissionError(): string
-    {
-        return this._postMessagePermissionError;
-    }
+  private _reportPermissionError: string
 
-    public get postThreadPermissionError(): string
-    {
-        return this._postThreadPermissionError;
-    }
+  public get reportPermissionError(): string {
+    return this._reportPermissionError
+  }
 
-    public get moderatePermissionError(): string
-    {
-        return this._moderatePermissionError;
-    }
+  private _canChangeSettings: boolean
 
-    public get reportPermissionError(): string
-    {
-        return this._reportPermissionError;
-    }
+  public get canChangeSettings(): boolean {
+    return this._canChangeSettings
+  }
+
+  public get hasReadPermissionError(): boolean {
+    return (this._readPermissionError.length === 0)
+  }
+
+  public get canReport(): boolean {
+    return true
+  }
+
+  public get hasPostMessagePermissionError(): boolean {
+    return (this._postMessagePermissionError.length === 0)
+  }
+
+  public get hasPostThreadPermissionError(): boolean {
+    return (this._postThreadPermissionError.length === 0)
+  }
+
+  public get hasModeratePermissionError(): boolean {
+    return (this._moderatePermissionError.length === 0)
+  }
+
+  public get isStaf(): boolean {
+    return this._isStaff
+  }
+
+  public static parse(wrapper: IMessageDataWrapper): ExtendedForumData {
+    const extendedForumData: ExtendedForumData = new ExtendedForumData()
+
+    ForumData.fillFromMessage(extendedForumData, wrapper)
+
+    extendedForumData._readPermissions = wrapper.readInt()
+    extendedForumData._postMessagePermissions = wrapper.readInt()
+    extendedForumData._postThreadPermissions = wrapper.readInt()
+    extendedForumData._moderatePermissions = wrapper.readInt()
+    extendedForumData._readPermissionError = wrapper.readString()
+    extendedForumData._postMessagePermissionError = wrapper.readString()
+    extendedForumData._postThreadPermissionError = wrapper.readString()
+    extendedForumData._moderatePermissionError = wrapper.readString()
+    extendedForumData._reportPermissionError = wrapper.readString()
+    extendedForumData._canChangeSettings = wrapper.readBoolean()
+    extendedForumData._isStaff = wrapper.readBoolean()
+
+    return extendedForumData
+  }
 }

@@ -1,267 +1,241 @@
-export class SaveableRoomSettingsData
-{
-    private _roomId: number;
-    private _name: string;
-    private _description: string;
-    private _doorMode: number;
-    private _password: string;
-    private _categoryId: number;
-    private _maximumVisitors: number;
-    private _tags: string[];
-    private _tradeMode: number;
-    private _allowPets: boolean;
-    private _allowFoodConsume: boolean;
-    private _allowWalkThrough: boolean;
-    private _allowNavigatorDynCats: boolean;
-    private _hideWalls: boolean;
-    private _wallThickness: number;
-    private _floorThickness: number;
-    private _whoCanMute: number;
-    private _whoCanKick: number;
-    private _whoCanBan: number;
-    private _chatMode: number;
-    private _chatBubbleSize: number;
-    private _chatScrollUpFrequency: number;
-    private _chatFullHearRange: number;
-    private _chatFloodSensitivity: number;
+export class SaveableRoomSettingsData {
+  private _roomId: number
 
-    public get tradeMode(): number
-    {
-        return this._tradeMode;
-    }
+  public get roomId(): number {
+    return this._roomId
+  }
 
-    public set tradeMode(mode: number)
-    {
-        this._tradeMode = mode;
-    }
+  public set roomId(id: number) {
+    this._roomId = id
+  }
 
-    public get allowPets(): boolean
-    {
-        return this._allowPets;
-    }
+  private _name: string
 
-    public set allowPets(flag: boolean)
-    {
-        this._allowPets = flag;
-    }
+  public get name(): string {
+    return this._name
+  }
 
-    public get allowFoodConsume(): boolean
-    {
-        return this._allowFoodConsume;
-    }
+  public set name(name: string) {
+    this._name = name
+  }
 
-    public set allowFoodConsume(flag: boolean)
-    {
-        this._allowFoodConsume = flag;
-    }
+  private _description: string
 
-    public get allowWalkThrough(): boolean
-    {
-        return this._allowWalkThrough;
-    }
+  public get description(): string {
+    return this._description
+  }
 
-    public set allowWalkThrough(flag: boolean)
-    {
-        this._allowWalkThrough = flag;
-    }
+  public set description(description: string) {
+    this._description = description
+  }
 
-    public get hideWalls(): boolean
-    {
-        return this._hideWalls;
-    }
+  private _doorMode: number
 
-    public set hideWalls(flag: boolean)
-    {
-        this._hideWalls = flag;
-    }
+  public get doorMode(): number {
+    return this._doorMode
+  }
 
-    public get wallThickness(): number
-    {
-        return this._wallThickness;
-    }
+  public set doorMode(mode: number) {
+    this._doorMode = mode
+  }
 
-    public set wallThickness(thickness: number)
-    {
-        this._wallThickness = thickness;
-    }
+  private _password: string
 
-    public get floorThickness(): number
-    {
-        return this._floorThickness;
-    }
+  public get password(): string {
+    return this._password
+  }
 
-    public set floorThickness(thickness: number)
-    {
-        this._floorThickness = thickness;
-    }
+  public set password(password: string) {
+    this._password = password
+  }
 
-    public get roomId(): number
-    {
-        return this._roomId;
-    }
+  private _categoryId: number
 
-    public set roomId(id: number)
-    {
-        this._roomId = id;
-    }
+  public get categoryId(): number {
+    return this._categoryId
+  }
 
-    public get name(): string
-    {
-        return this._name;
-    }
+  public set categoryId(id: number) {
+    this._categoryId = id
+  }
 
-    public set name(name: string)
-    {
-        this._name = name;
-    }
+  private _maximumVisitors: number
 
-    public get description(): string
-    {
-        return this._description;
-    }
+  public get maximumVisitors(): number {
+    return this._maximumVisitors
+  }
 
-    public set description(description: string)
-    {
-        this._description = description;
-    }
+  public set maximumVisitors(max: number) {
+    this._maximumVisitors = max
+  }
 
-    public get doorMode(): number
-    {
-        return this._doorMode;
-    }
+  private _tags: string[]
 
-    public set doorMode(mode: number)
-    {
-        this._doorMode = mode;
-    }
+  public get tags(): string[] {
+    return this._tags
+  }
 
-    public get password(): string
-    {
-        return this._password;
-    }
+  public set tags(tags: string[]) {
+    this._tags = tags
+  }
 
-    public set password(password: string)
-    {
-        this._password = password;
-    }
+  private _tradeMode: number
 
-    public get categoryId(): number
-    {
-        return this._categoryId;
-    }
+  public get tradeMode(): number {
+    return this._tradeMode
+  }
 
-    public set categoryId(id: number)
-    {
-        this._categoryId = id;
-    }
+  public set tradeMode(mode: number) {
+    this._tradeMode = mode
+  }
 
-    public get maximumVisitors(): number
-    {
-        return this._maximumVisitors;
-    }
+  private _allowPets: boolean
 
-    public set maximumVisitors(max: number)
-    {
-        this._maximumVisitors = max;
-    }
+  public get allowPets(): boolean {
+    return this._allowPets
+  }
 
-    public get tags(): string[]
-    {
-        return this._tags;
-    }
+  public set allowPets(flag: boolean) {
+    this._allowPets = flag
+  }
 
-    public set tags(tags: string[])
-    {
-        this._tags = tags;
-    }
+  private _allowFoodConsume: boolean
 
-    public get whoCanMute(): number
-    {
-        return this._whoCanMute;
-    }
+  public get allowFoodConsume(): boolean {
+    return this._allowFoodConsume
+  }
 
-    public set whoCanMute(mute: number)
-    {
-        this._whoCanMute = mute;
-    }
+  public set allowFoodConsume(flag: boolean) {
+    this._allowFoodConsume = flag
+  }
 
-    public get whoCanKick(): number
-    {
-        return this._whoCanKick;
-    }
+  private _allowWalkThrough: boolean
 
-    public set whoCanKick(kick: number)
-    {
-        this._whoCanKick = kick;
-    }
+  public get allowWalkThrough(): boolean {
+    return this._allowWalkThrough
+  }
 
-    public get whoCanBan(): number
-    {
-        return this._whoCanBan;
-    }
+  public set allowWalkThrough(flag: boolean) {
+    this._allowWalkThrough = flag
+  }
 
-    public set whoCanBan(ban: number)
-    {
-        this._whoCanBan = ban;
-    }
+  private _allowNavigatorDynCats: boolean
 
-    public get chatMode(): number
-    {
-        return this._chatMode;
-    }
+  public get allowNavigatorDynCats(): boolean {
+    return this._allowNavigatorDynCats
+  }
 
-    public set chatMode(mode: number)
-    {
-        this._chatMode = mode;
-    }
+  public set allowNavigatorDynCats(flag: boolean) {
+    this._allowNavigatorDynCats = flag
+  }
 
-    public get chatBubbleSize(): number
-    {
-        return this._chatBubbleSize;
-    }
+  private _hideWalls: boolean
 
-    public set chatBubbleSize(size: number)
-    {
-        this._chatBubbleSize = size;
-    }
+  public get hideWalls(): boolean {
+    return this._hideWalls
+  }
 
-    public get chatScrollUpFrequency(): number
-    {
-        return this._chatScrollUpFrequency;
-    }
+  public set hideWalls(flag: boolean) {
+    this._hideWalls = flag
+  }
 
-    public set chatScrollUpFrequency(frequency: number)
-    {
-        this._chatScrollUpFrequency = frequency;
-    }
+  private _wallThickness: number
 
-    public get chatFullHearRange(): number
-    {
-        return this._chatFullHearRange;
-    }
+  public get wallThickness(): number {
+    return this._wallThickness
+  }
 
-    public set chatFullHearRange(range: number)
-    {
-        this._chatFullHearRange = range;
-    }
+  public set wallThickness(thickness: number) {
+    this._wallThickness = thickness
+  }
 
-    public get chatFloodSensitivity(): number
-    {
-        return this._chatFloodSensitivity;
-    }
+  private _floorThickness: number
 
-    public set chatFloodSensitivity(sensitivity: number)
-    {
-        this._chatFloodSensitivity = sensitivity;
-    }
+  public get floorThickness(): number {
+    return this._floorThickness
+  }
 
-    public get allowNavigatorDynCats(): boolean
-    {
-        return this._allowNavigatorDynCats;
-    }
+  public set floorThickness(thickness: number) {
+    this._floorThickness = thickness
+  }
 
-    public set allowNavigatorDynCats(flag: boolean)
-    {
-        this._allowNavigatorDynCats = flag;
-    }
+  private _whoCanMute: number
+
+  public get whoCanMute(): number {
+    return this._whoCanMute
+  }
+
+  public set whoCanMute(mute: number) {
+    this._whoCanMute = mute
+  }
+
+  private _whoCanKick: number
+
+  public get whoCanKick(): number {
+    return this._whoCanKick
+  }
+
+  public set whoCanKick(kick: number) {
+    this._whoCanKick = kick
+  }
+
+  private _whoCanBan: number
+
+  public get whoCanBan(): number {
+    return this._whoCanBan
+  }
+
+  public set whoCanBan(ban: number) {
+    this._whoCanBan = ban
+  }
+
+  private _chatMode: number
+
+  public get chatMode(): number {
+    return this._chatMode
+  }
+
+  public set chatMode(mode: number) {
+    this._chatMode = mode
+  }
+
+  private _chatBubbleSize: number
+
+  public get chatBubbleSize(): number {
+    return this._chatBubbleSize
+  }
+
+  public set chatBubbleSize(size: number) {
+    this._chatBubbleSize = size
+  }
+
+  private _chatScrollUpFrequency: number
+
+  public get chatScrollUpFrequency(): number {
+    return this._chatScrollUpFrequency
+  }
+
+  public set chatScrollUpFrequency(frequency: number) {
+    this._chatScrollUpFrequency = frequency
+  }
+
+  private _chatFullHearRange: number
+
+  public get chatFullHearRange(): number {
+    return this._chatFullHearRange
+  }
+
+  public set chatFullHearRange(range: number) {
+    this._chatFullHearRange = range
+  }
+
+  private _chatFloodSensitivity: number
+
+  public get chatFloodSensitivity(): number {
+    return this._chatFloodSensitivity
+  }
+
+  public set chatFloodSensitivity(sensitivity: number) {
+    this._chatFloodSensitivity = sensitivity
+  }
 }

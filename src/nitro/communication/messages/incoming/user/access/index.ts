@@ -1,1 +1,1 @@
-export * from './UserPermissionsEvent';
+export * from './UserPermissionsEvent'

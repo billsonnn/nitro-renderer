@@ -1,24 +1,20 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { PlayListEntry } from './PlayListEntry';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { PlayListEntry } from '@/nitro'
 
-export class PlayListSongAddedMessageParser implements IMessageParser
-{
-    private _entry: PlayListEntry;
+export class PlayListSongAddedMessageParser implements IMessageParser {
+  private _entry: PlayListEntry
 
-    flush(): boolean
-    {
-        this._entry = null;
-        return true;
-    }
+  public get entry(): PlayListEntry {
+    return this._entry
+  }
 
-    parse(wrapper: IMessageDataWrapper): boolean
-    {
-        this._entry = new PlayListEntry(wrapper.readInt(), wrapper.readInt(), wrapper.readString(), wrapper.readString());
-        return true;
-    }
+  flush(): boolean {
+    this._entry = null
+    return true
+  }
 
-    public get entry(): PlayListEntry
-    {
-        return this._entry;
-    }
+  parse(wrapper: IMessageDataWrapper): boolean {
+    this._entry = new PlayListEntry(wrapper.readInt(), wrapper.readInt(), wrapper.readString(), wrapper.readString())
+    return true
+  }
 }

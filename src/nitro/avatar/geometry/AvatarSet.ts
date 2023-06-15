@@ -1,92 +1,81 @@
-﻿export class AvatarSet
-{
-    private _id: string;
-    private _isMain: boolean;
-    private _avatarSets: Map<string, AvatarSet>;
-    private _bodyParts: string[];
-    private _allBodyParts: string[];
+﻿export class AvatarSet {
+  private _avatarSets: Map<string, AvatarSet>
+  private _bodyParts: string[]
+  private _allBodyParts: string[]
 
-    constructor(k: any)
-    {
-        this._id = k.id;
-        this._isMain = k.main || false;
-        this._avatarSets = new Map();
-        this._bodyParts = [];
-        this._allBodyParts = [];
+  constructor(k: any) {
+    this._id = k.id
+    this._isMain = k.main || false
+    this._avatarSets = new Map()
+    this._bodyParts = []
+    this._allBodyParts = []
 
-        if(k.avatarSets && (k.avatarSets.length > 0))
-        {
-            for(const avatarSet of k.avatarSets)
-            {
-                if(!avatarSet) continue;
+    if (k.avatarSets && (k.avatarSets.length > 0)) {
+      for (const avatarSet of k.avatarSets) {
+        if (!avatarSet) continue
 
-                const set = new AvatarSet(avatarSet);
+        const set = new AvatarSet(avatarSet)
 
-                this._avatarSets.set(set.id, set);
-            }
-        }
-
-        if(k.bodyParts && (k.bodyParts.length > 0))
-        {
-            for(const bodyPart of k.bodyParts)
-            {
-                if(!bodyPart) continue;
-
-                this._bodyParts.push(bodyPart.id);
-            }
-        }
-
-        let bodyParts = this._bodyParts.concat();
-
-        for(const avatarSet of this._avatarSets.values())
-        {
-            if(!avatarSet) continue;
-
-            bodyParts = bodyParts.concat(avatarSet.getBodyParts());
-        }
-
-        this._allBodyParts = bodyParts;
+        this._avatarSets.set(set.id, set)
+      }
     }
 
-    public findAvatarSet(k: string): AvatarSet
-    {
-        if(k === this._id) return this;
+    if (k.bodyParts && (k.bodyParts.length > 0)) {
+      for (const bodyPart of k.bodyParts) {
+        if (!bodyPart) continue
 
-        for(const avatarSet of this._avatarSets.values())
-        {
-            if(!avatarSet) continue;
-
-            if(!avatarSet.findAvatarSet(k)) continue;
-
-            return avatarSet;
-        }
-
-        return null;
+        this._bodyParts.push(bodyPart.id)
+      }
     }
 
-    public getBodyParts(): string[]
-    {
-        return this._allBodyParts.concat();
+    let bodyParts = this._bodyParts.concat()
+
+    for (const avatarSet of this._avatarSets.values()) {
+      if (!avatarSet) continue
+
+      bodyParts = bodyParts.concat(avatarSet.getBodyParts())
     }
 
-    public get id(): string
-    {
-        return this._id;
+    this._allBodyParts = bodyParts
+  }
+
+  private _id: string
+
+  public get id(): string {
+    return this._id
+  }
+
+  private _isMain: boolean
+
+  public get isMain(): boolean {
+    if (this._isMain) return true
+
+    for (const avatarSet of this._avatarSets.values()) {
+      if (!avatarSet) continue
+
+      if (!avatarSet.isMain) continue
+
+      return true
     }
 
-    public get isMain(): boolean
-    {
-        if(this._isMain) return true;
+    return false
+  }
 
-        for(const avatarSet of this._avatarSets.values())
-        {
-            if(!avatarSet) continue;
+  public findAvatarSet(k: string): AvatarSet {
+    if (k === this._id) return this
 
-            if(!avatarSet.isMain) continue;
+    for (const avatarSet of this._avatarSets.values()) {
+      if (!avatarSet) continue
 
-            return true;
-        }
+      if (!avatarSet.findAvatarSet(k)) continue
 
-        return false;
+      return avatarSet
     }
+
+    return null
+  }
+
+  public getBodyParts(): string[] {
+    return this._allBodyParts.concat()
+  }
 }

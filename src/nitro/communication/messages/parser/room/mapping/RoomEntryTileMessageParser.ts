@@ -1,43 +1,39 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class RoomEntryTileMessageParser implements IMessageParser
-{
-    private _x: number;
-    private _y: number;
-    private _direction: number;
+export class RoomEntryTileMessageParser implements IMessageParser {
+  private _x: number
 
-    public flush(): boolean
-    {
-        this._x = 0;
-        this._y = 0;
-        this._direction = 0;
+  public get x(): number {
+    return this._x
+  }
 
-        return true;
-    }
+  private _y: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get y(): number {
+    return this._y
+  }
 
-        this._x = wrapper.readInt();
-        this._y = wrapper.readInt();
-        this._direction = wrapper.readInt();
+  private _direction: number
 
-        return true;
-    }
+  public get direction(): number {
+    return this._direction
+  }
 
-    public get x(): number
-    {
-        return this._x;
-    }
+  public flush(): boolean {
+    this._x = 0
+    this._y = 0
+    this._direction = 0
 
-    public get y(): number
-    {
-        return this._y;
-    }
+    return true
+  }
 
-    public get direction(): number
-    {
-        return this._direction;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._x = wrapper.readInt()
+    this._y = wrapper.readInt()
+    this._direction = wrapper.readInt()
+
+    return true
+  }
 }

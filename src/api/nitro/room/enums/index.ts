@@ -1,2 +1,2 @@
-export * from './FriendFurniEngravingWidgetType';
-export * from './RoomObjectPlacementSource';
+export * from './FriendFurniEngravingWidgetType'
+export * from './RoomObjectPlacementSource'

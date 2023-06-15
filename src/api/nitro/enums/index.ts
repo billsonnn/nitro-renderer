@@ -1,2 +1,2 @@
-export * from './RelationshipStatusEnum';
-export * from './ToolbarIconEnum';
+export * from './RelationshipStatusEnum'
+export * from './ToolbarIconEnum'

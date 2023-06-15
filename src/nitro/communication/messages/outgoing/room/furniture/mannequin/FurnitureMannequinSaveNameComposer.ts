@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class FurnitureMannequinSaveNameComposer implements IMessageComposer<ConstructorParameters<typeof FurnitureMannequinSaveNameComposer>>
-{
-    private _data: ConstructorParameters<typeof FurnitureMannequinSaveNameComposer>;
+export class FurnitureMannequinSaveNameComposer implements IMessageComposer<ConstructorParameters<typeof FurnitureMannequinSaveNameComposer>> {
+  private _data: ConstructorParameters<typeof FurnitureMannequinSaveNameComposer>
 
-    constructor(itemId: number, name: string)
-    {
-        this._data = [itemId, name];
-    }
+  constructor(itemId: number, name: string) {
+    this._data = [itemId, name]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

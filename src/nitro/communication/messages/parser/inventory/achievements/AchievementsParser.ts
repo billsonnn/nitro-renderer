@@ -1,46 +1,41 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { AchievementData } from './AchievementData';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { AchievementData } from '@/nitro'
 
-export class AchievementsParser implements IMessageParser
-{
-    private _achievements: AchievementData[];
-    private _defaultCategory: string;
+export class AchievementsParser implements IMessageParser {
+  private _achievements: AchievementData[]
 
-    public flush(): boolean
-    {
-        this._achievements = [];
-        this._defaultCategory = null;
+  public get achievements(): AchievementData[] {
+    return this._achievements
+  }
 
-        return true;
+  private _defaultCategory: string
+
+  public get defaultCategory(): string {
+    return this._defaultCategory
+  }
+
+  public flush(): boolean {
+    this._achievements = []
+    this._defaultCategory = null
+
+    return true
+  }
+
+  public parse(k: IMessageDataWrapper): boolean {
+    if (!k) return false
+
+    this._achievements = []
+
+    let totalCount = k.readInt()
+
+    while (totalCount > 0) {
+      this._achievements.push(new AchievementData(k))
+
+      totalCount--
     }
 
-    public parse(k: IMessageDataWrapper): boolean
-    {
-        if(!k) return false;
+    this._defaultCategory = k.readString()
 
-        this._achievements = [];
-
-        let totalCount = k.readInt();
-
-        while(totalCount > 0)
-        {
-            this._achievements.push(new AchievementData(k));
-
-            totalCount--;
-        }
-
-        this._defaultCategory = k.readString();
-
-        return true;
-    }
-
-    public get achievements(): AchievementData[]
-    {
-        return this._achievements;
-    }
-
-    public get defaultCategory(): string
-    {
-        return this._defaultCategory;
-    }
+    return true
+  }
 }

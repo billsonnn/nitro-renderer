@@ -1,23 +1,20 @@
-import { GroupBadgePart } from './GroupBadgePart';
+import { GroupBadgePart } from '@/nitro'
 
-export class GroupBadge
-{
-    private _code: string;
-    private _parts: GroupBadgePart[];
+export class GroupBadge {
+  constructor(code: string) {
+    this._code = code
+    this._parts = []
+  }
 
-    constructor(code: string)
-    {
-        this._code = code;
-        this._parts = [];
-    }
+  private _code: string
 
-    public get code(): string
-    {
-        return this._code;
-    }
+  public get code(): string {
+    return this._code
+  }
 
-    public get parts(): GroupBadgePart[]
-    {
-        return this._parts;
-    }
+  private _parts: GroupBadgePart[]
+
+  public get parts(): GroupBadgePart[] {
+    return this._parts
+  }
 }

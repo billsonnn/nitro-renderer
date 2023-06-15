@@ -1,17 +1,14 @@
-import { PlayListEntry } from './PlayListEntry';
+import { PlayListEntry } from '@/nitro'
 
-export class SongInfoEntry extends PlayListEntry
-{
-    private _data: string = '';
+export class SongInfoEntry extends PlayListEntry {
+  constructor(id: number, length: number, name: string, creator: string, data: string) {
+    super(id, length, name, creator)
+    this._data = data
+  }
 
-    constructor(id: number, length: number, name: string, creator: string, data: string)
-    {
-        super(id, length, name, creator);
-        this._data = data;
-    }
+  private _data: string = ''
 
-    public get data(): string
-    {
-        return this._data;
-    }
+  public get data(): string {
+    return this._data
+  }
 }

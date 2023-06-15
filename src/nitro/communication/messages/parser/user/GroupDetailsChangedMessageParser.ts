@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GroupDetailsChangedMessageParser implements IMessageParser
-{
-    private _groupId: number;
+export class GroupDetailsChangedMessageParser implements IMessageParser {
+  private _groupId: number
 
-    public flush(): boolean
-    {
-        this._groupId = -1;
+  public get groupId(): number {
+    return this._groupId
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._groupId = -1
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._groupId = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._groupId = wrapper.readInt()
 
-    public get groupId(): number
-    {
-        return this._groupId;
-    }
+    return true
+  }
 }

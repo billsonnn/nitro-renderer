@@ -1,3 +1,3 @@
-export * from './AchievementEvent';
-export * from './AchievementsEvent';
-export * from './AchievementsScoreEvent';
+export * from './AchievementEvent'
+export * from './AchievementsEvent'
+export * from './AchievementsScoreEvent'

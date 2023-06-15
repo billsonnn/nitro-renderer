@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GetCatalogPageExpirationComposer implements IMessageComposer<ConstructorParameters<typeof GetCatalogPageExpirationComposer>>
-{
-    private _data: ConstructorParameters<typeof GetCatalogPageExpirationComposer>;
+export class GetCatalogPageExpirationComposer implements IMessageComposer<ConstructorParameters<typeof GetCatalogPageExpirationComposer>> {
+  private _data: ConstructorParameters<typeof GetCatalogPageExpirationComposer>
 
-    constructor(k: string)
-    {
-        this._data = [k];
-    }
+  constructor(k: string) {
+    this._data = [k]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

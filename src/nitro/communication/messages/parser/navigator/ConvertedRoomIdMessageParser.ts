@@ -1,32 +1,28 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class ConvertedRoomIdMessageParser implements IMessageParser
-{
-    private _globalId: string;
-    private _convertedId: number;
+export class ConvertedRoomIdMessageParser implements IMessageParser {
+  private _globalId: string
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get globalId(): string {
+    return this._globalId
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _convertedId: number
 
-        this._globalId = wrapper.readString();
-        this._convertedId = wrapper.readInt();
+  public get convertedId(): number {
+    return this._convertedId
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    return true
+  }
 
-    public get globalId(): string
-    {
-        return this._globalId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get convertedId(): number
-    {
-        return this._convertedId;
-    }
+    this._globalId = wrapper.readString()
+    this._convertedId = wrapper.readInt()
+
+    return true
+  }
 }

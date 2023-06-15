@@ -1,49 +1,45 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { PendingGuideTicketData } from './PendingGuideTicketData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { PendingGuideTicketData } from '@/nitro'
 
-export class GuideReportingStatusMessageParser implements IMessageParser
-{
-    public static readonly GUIDE_REPORTING_STATUS_OK: number = 0;
-    public static readonly GUIDE_REPORTING_STATUS_PENDING_TICKET: number = 1;
-    public static readonly GUIDE_REPORTING_STATUS_ABUSIVE: number = 2;
-    public static readonly GUIDE_REPORTING_STATUS_REPORTING_TOO_QUICKLY: number = 3;
+export class GuideReportingStatusMessageParser implements IMessageParser {
+  public static readonly GUIDE_REPORTING_STATUS_OK: number = 0
+  public static readonly GUIDE_REPORTING_STATUS_PENDING_TICKET: number = 1
+  public static readonly GUIDE_REPORTING_STATUS_ABUSIVE: number = 2
+  public static readonly GUIDE_REPORTING_STATUS_REPORTING_TOO_QUICKLY: number = 3
 
-    private _statusCode: number;
-    private _pendingTicket: PendingGuideTicketData;
+  private _statusCode: number
 
-    public flush(): boolean
-    {
-        this._statusCode = 0;
-        this._pendingTicket = null;
+  public get statusCode(): number {
+    return this._statusCode
+  }
 
-        return true;
-    }
+  private _pendingTicket: PendingGuideTicketData
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get pendingTicket(): PendingGuideTicketData {
+    return this._pendingTicket
+  }
 
-        this._statusCode = wrapper.readInt();
-        this._pendingTicket = new PendingGuideTicketData(
-            wrapper.readInt(),
-            wrapper.readInt(),
-            wrapper.readBoolean(),
-            wrapper.readString(),
-            wrapper.readString(),
-            wrapper.readString(),
-            wrapper.readString()
-        );
+  public flush(): boolean {
+    this._statusCode = 0
+    this._pendingTicket = null
 
-        return true;
-    }
+    return true
+  }
 
-    public get statusCode(): number
-    {
-        return this._statusCode;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get pendingTicket(): PendingGuideTicketData
-    {
-        return this._pendingTicket;
-    }
+    this._statusCode = wrapper.readInt()
+    this._pendingTicket = new PendingGuideTicketData(
+      wrapper.readInt(),
+      wrapper.readInt(),
+      wrapper.readBoolean(),
+      wrapper.readString(),
+      wrapper.readString(),
+      wrapper.readString(),
+      wrapper.readString()
+    )
+
+    return true
+  }
 }

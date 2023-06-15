@@ -1,100 +1,97 @@
-import { RoomUnitStatusAction } from './RoomUnitStatusAction';
+import { RoomUnitStatusAction } from '@/nitro'
 
-export class RoomUnitStatusMessage
-{
-    private _id: number;
-    private _x: number;
-    private _y: number;
-    private _z: number;
-    private _height: number;
-    private _headDirection: number;
-    private _direction: number;
-    private _targetX: number;
-    private _targetY: number;
-    private _targetZ: number;
-    private _didMove: boolean;
-    private _canStandUp: boolean;
-    private _actions: RoomUnitStatusAction[];
+export class RoomUnitStatusMessage {
+  constructor(id: number, x: number, y: number, z: number, height: number, headDirection: number, direction: number, targetX: number = 0, targetY: number = 0, targetZ: number = 0, didMove: boolean, canStandUp: boolean, actions: RoomUnitStatusAction[]) {
+    this._id = id
+    this._x = x
+    this._y = y
+    this._z = z
+    this._height = height
+    this._headDirection = headDirection
+    this._direction = direction
+    this._targetX = targetX
+    this._targetY = targetY
+    this._targetZ = targetZ
+    this._didMove = didMove
+    this._canStandUp = canStandUp
+    this._actions = actions || []
+  }
 
-    constructor(id: number, x: number, y: number, z: number, height: number, headDirection: number, direction: number, targetX: number = 0, targetY: number = 0, targetZ: number = 0, didMove: boolean, canStandUp: boolean, actions: RoomUnitStatusAction[])
-    {
-        this._id = id;
-        this._x = x;
-        this._y = y;
-        this._z = z;
-        this._height = height;
-        this._headDirection = headDirection;
-        this._direction = direction;
-        this._targetX = targetX;
-        this._targetY = targetY;
-        this._targetZ = targetZ;
-        this._didMove = didMove;
-        this._canStandUp = canStandUp;
-        this._actions = actions || [];
-    }
+  private _id: number
 
-    public get id(): number
-    {
-        return this._id;
-    }
+  public get id(): number {
+    return this._id
+  }
 
-    public get x(): number
-    {
-        return this._x;
-    }
+  private _x: number
 
-    public get y(): number
-    {
-        return this._y;
-    }
+  public get x(): number {
+    return this._x
+  }
 
-    public get z(): number
-    {
-        return this._z;
-    }
+  private _y: number
 
-    public get height(): number
-    {
-        return this._height;
-    }
+  public get y(): number {
+    return this._y
+  }
 
-    public get headDirection(): number
-    {
-        return this._headDirection;
-    }
+  private _z: number
 
-    public get direction(): number
-    {
-        return this._direction;
-    }
+  public get z(): number {
+    return this._z
+  }
 
-    public get targetX(): number
-    {
-        return this._targetX;
-    }
+  private _height: number
 
-    public get targetY(): number
-    {
-        return this._targetY;
-    }
+  public get height(): number {
+    return this._height
+  }
 
-    public get targetZ(): number
-    {
-        return this._targetZ;
-    }
+  private _headDirection: number
 
-    public get didMove(): boolean
-    {
-        return this._didMove;
-    }
+  public get headDirection(): number {
+    return this._headDirection
+  }
 
-    public get canStandUp(): boolean
-    {
-        return this._canStandUp;
-    }
+  private _direction: number
 
-    public get actions(): RoomUnitStatusAction[]
-    {
-        return this._actions;
-    }
+  public get direction(): number {
+    return this._direction
+  }
+
+  private _targetX: number
+
+  public get targetX(): number {
+    return this._targetX
+  }
+
+  private _targetY: number
+
+  public get targetY(): number {
+    return this._targetY
+  }
+
+  private _targetZ: number
+
+  public get targetZ(): number {
+    return this._targetZ
+  }
+
+  private _didMove: boolean
+
+  public get didMove(): boolean {
+    return this._didMove
+  }
+
+  private _canStandUp: boolean
+
+  public get canStandUp(): boolean {
+    return this._canStandUp
+  }
+
+  private _actions: RoomUnitStatusAction[]
+
+  public get actions(): RoomUnitStatusAction[] {
+    return this._actions
+  }
 }

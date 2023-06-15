@@ -1,109 +1,88 @@
-import { RoomObjectVariable, Vector3d } from '../../../../../api';
-import { RoomObjectFloorHoleEvent } from '../../../../../events';
-import { RoomObjectUpdateMessage } from '../../../../../room';
-import { ObjectDataUpdateMessage } from '../../../messages';
-import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
+import { RoomObjectVariable, Vector3d } from '@/api'
+import { RoomObjectFloorHoleEvent } from '@/events'
+import { RoomObjectUpdateMessage } from '@/room'
+import { FurnitureMultiStateLogic, ObjectDataUpdateMessage } from '@/nitro'
 
-export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic
-{
-    private static STATE_HOLE: number = 0;
+export class FurnitureFloorHoleLogic extends FurnitureMultiStateLogic {
+  private static STATE_HOLE: number = 0
 
-    private _currentState: number;
-    private _currentLocation: Vector3d;
+  private _currentState: number
+  private _currentLocation: Vector3d
 
-    constructor()
-    {
-        super();
+  constructor() {
+    super()
 
-        this._currentState = -1;
-        this._currentLocation = null;
+    this._currentState = -1
+    this._currentLocation = null
+  }
+
+  public getEventTypes(): string[] {
+    const types = [RoomObjectFloorHoleEvent.ADD_HOLE, RoomObjectFloorHoleEvent.REMOVE_HOLE]
+
+    return this.mergeTypes(super.getEventTypes(), types)
+  }
+
+  public update(time: number): void {
+    super.update(time)
+
+    this.handleAutomaticStateUpdate()
+  }
+
+  public processUpdateMessage(message: RoomObjectUpdateMessage): void {
+    super.processUpdateMessage(message)
+
+    if (!this.object) return
+
+    if (message instanceof ObjectDataUpdateMessage) {
+      this.handleStateUpdate(this.object.getState(0))
     }
 
-    public getEventTypes(): string[]
-    {
-        const types = [RoomObjectFloorHoleEvent.ADD_HOLE, RoomObjectFloorHoleEvent.REMOVE_HOLE];
+    const location = this.object.getLocation()
 
-        return this.mergeTypes(super.getEventTypes(), types);
-    }
-
-    protected onDispose(): void
-    {
-        if(this._currentState === FurnitureFloorHoleLogic.STATE_HOLE)
-        {
-            this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.REMOVE_HOLE, this.object));
+    if (!this._currentLocation) {
+      this._currentLocation = new Vector3d()
+    } else {
+      if ((location.x !== this._currentLocation.x) || (location.y !== this._currentLocation.y)) {
+        if (this._currentState === FurnitureFloorHoleLogic.STATE_HOLE) {
+          if (this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.ADD_HOLE, this.object))
         }
-
-        super.onDispose();
+      }
     }
 
-    public update(time: number): void
-    {
-        super.update(time);
+    this._currentLocation.assign(location)
+  }
 
-        this.handleAutomaticStateUpdate();
+  protected onDispose(): void {
+    if (this._currentState === FurnitureFloorHoleLogic.STATE_HOLE) {
+      this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.REMOVE_HOLE, this.object))
     }
 
-    public processUpdateMessage(message: RoomObjectUpdateMessage): void
-    {
-        super.processUpdateMessage(message);
+    super.onDispose()
+  }
 
-        if(!this.object) return;
+  private handleStateUpdate(state: number): void {
+    if (state === this._currentState) return
 
-        if(message instanceof ObjectDataUpdateMessage)
-        {
-            this.handleStateUpdate(this.object.getState(0));
-        }
-
-        const location = this.object.getLocation();
-
-        if(!this._currentLocation)
-        {
-            this._currentLocation = new Vector3d();
-        }
-        else
-        {
-            if((location.x !== this._currentLocation.x) || (location.y !== this._currentLocation.y))
-            {
-                if(this._currentState === FurnitureFloorHoleLogic.STATE_HOLE)
-                {
-                    if(this.eventDispatcher) this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.ADD_HOLE, this.object));
-                }
-            }
-        }
-
-        this._currentLocation.assign(location);
+    if (this.eventDispatcher) {
+      if (state === FurnitureFloorHoleLogic.STATE_HOLE) {
+        this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.ADD_HOLE, this.object))
+      } else if (this._currentState === FurnitureFloorHoleLogic.STATE_HOLE) {
+        this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.REMOVE_HOLE, this.object))
+      }
     }
 
-    private handleStateUpdate(state: number): void
-    {
-        if(state === this._currentState) return;
+    this._currentState = state
+  }
 
-        if(this.eventDispatcher)
-        {
-            if(state === FurnitureFloorHoleLogic.STATE_HOLE)
-            {
-                this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.ADD_HOLE, this.object));
-            }
+  private handleAutomaticStateUpdate(): void {
+    if (!this.object) return
 
-            else if(this._currentState === FurnitureFloorHoleLogic.STATE_HOLE)
-            {
-                this.eventDispatcher.dispatchEvent(new RoomObjectFloorHoleEvent(RoomObjectFloorHoleEvent.REMOVE_HOLE, this.object));
-            }
-        }
+    const model = this.object.model
 
-        this._currentState = state;
-    }
+    if (!model) return
 
-    private handleAutomaticStateUpdate(): void
-    {
-        if(!this.object) return;
+    const stateIndex = model.getValue<number>(RoomObjectVariable.FURNITURE_AUTOMATIC_STATE_INDEX)
 
-        const model = this.object.model;
-
-        if(!model) return;
-
-        const stateIndex = model.getValue<number>(RoomObjectVariable.FURNITURE_AUTOMATIC_STATE_INDEX);
-
-        if(!isNaN(stateIndex)) this.handleStateUpdate((stateIndex % 2));
-    }
+    if (!isNaN(stateIndex)) this.handleStateUpdate((stateIndex % 2))
+  }
 }

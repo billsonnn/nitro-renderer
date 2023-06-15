@@ -1,25 +1,21 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class LeftQueueMessageParser implements IMessageParser
-{
-    private _gameTypeId:number;
+export class LeftQueueMessageParser implements IMessageParser {
+  private _gameTypeId: number
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get gameTypeId(): number {
+    return this._gameTypeId
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public flush(): boolean {
+    return true
+  }
 
-        this._gameTypeId = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._gameTypeId = wrapper.readInt()
 
-    public get gameTypeId():number
-    {
-        return this._gameTypeId;
-    }
+    return true
+  }
 }

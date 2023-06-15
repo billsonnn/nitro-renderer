@@ -1,64 +1,57 @@
-export class PartDefinition
-{
-    private _setType: string;
-    private _flippedSetType: string;
-    private _removeSetType: string;
-    private _appendToFigure: boolean;
-    private _staticId: number;
+export class PartDefinition {
+  constructor(data: any) {
+    if (!data) throw new Error('invalid_data')
 
-    constructor(data: any)
-    {
-        if(!data) throw new Error('invalid_data');
+    this._setType = data.setType
+    this._flippedSetType = data.flippedSetType || null
+    this._removeSetType = data.removeSetType || null
+    this._appendToFigure = false
+    this._staticId = -1
+  }
 
-        this._setType = data.setType;
-        this._flippedSetType = data.flippedSetType || null;
-        this._removeSetType = data.removeSetType || null;
-        this._appendToFigure = false;
-        this._staticId = -1;
-    }
+  private _setType: string
 
-    public hasStaticId(): boolean
-    {
-        return this._staticId >= 0;
-    }
+  public get setType(): string {
+    return this._setType
+  }
 
-    public get staticId(): number
-    {
-        return this._staticId;
-    }
+  private _flippedSetType: string
 
-    public set staticId(k: number)
-    {
-        this._staticId = k;
-    }
+  public get flippedSetType(): string {
+    return this._flippedSetType
+  }
 
-    public get setType(): string
-    {
-        return this._setType;
-    }
+  public set flippedSetType(type: string) {
+    this._flippedSetType = type
+  }
 
-    public get flippedSetType(): string
-    {
-        return this._flippedSetType;
-    }
+  private _removeSetType: string
 
-    public set flippedSetType(type: string)
-    {
-        this._flippedSetType = type;
-    }
+  public get removeSetType(): string {
+    return this._removeSetType
+  }
 
-    public get removeSetType(): string
-    {
-        return this._removeSetType;
-    }
+  private _appendToFigure: boolean
 
-    public get appendToFigure(): boolean
-    {
-        return this._appendToFigure;
-    }
+  public get appendToFigure(): boolean {
+    return this._appendToFigure
+  }
 
-    public set appendToFigure(flag: boolean)
-    {
-        this._appendToFigure = flag;
-    }
+  public set appendToFigure(flag: boolean) {
+    this._appendToFigure = flag
+  }
+
+  private _staticId: number
+
+  public get staticId(): number {
+    return this._staticId
+  }
+
+  public set staticId(k: number) {
+    this._staticId = k
+  }
+
+  public hasStaticId(): boolean {
+    return this._staticId >= 0
+  }
 }

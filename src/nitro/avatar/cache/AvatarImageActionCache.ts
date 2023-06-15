@@ -1,57 +1,48 @@
-﻿import { GetTickerTime } from '../../../pixi-proxy';
-import { AvatarImageDirectionCache } from './AvatarImageDirectionCache';
+﻿import { GetTickerTime } from '@/pixi-proxy'
+import { AvatarImageDirectionCache } from '@/nitro'
 
-export class AvatarImageActionCache
-{
-    private _cache: Map<string, AvatarImageDirectionCache>;
-    private _lastAccessTime: number;
+export class AvatarImageActionCache {
+  private _cache: Map<string, AvatarImageDirectionCache>
+  private _lastAccessTime: number
 
-    constructor()
-    {
-        this._cache = new Map();
+  constructor() {
+    this._cache = new Map()
 
-        this.setLastAccessTime(GetTickerTime());
+    this.setLastAccessTime(GetTickerTime())
+  }
+
+  public dispose(): void {
+    this.debugInfo('[dispose]')
+
+    if (!this._cache) return
+
+    for (const direction of this._cache.values()) {
+      if (direction) direction.dispose()
     }
 
-    public dispose(): void
-    {
-        this.debugInfo('[dispose]');
+    this._cache.clear()
+  }
 
-        if(!this._cache) return;
+  public getDirectionCache(k: number): AvatarImageDirectionCache {
+    const existing = this._cache.get(k.toString())
 
-        for(const direction of this._cache.values())
-        {
-            if(direction) direction.dispose();
-        }
+    if (!existing) return null
 
-        this._cache.clear();
-    }
+    return existing
+  }
 
-    public getDirectionCache(k: number): AvatarImageDirectionCache
-    {
-        const existing = this._cache.get(k.toString());
+  public updateDirectionCache(k: number, _arg_2: AvatarImageDirectionCache): void {
+    this._cache.set(k.toString(), _arg_2)
+  }
 
-        if(!existing) return null;
+  public setLastAccessTime(k: number): void {
+    this._lastAccessTime = k
+  }
 
-        return existing;
-    }
+  public getLastAccessTime(): number {
+    return this._lastAccessTime
+  }
 
-    public updateDirectionCache(k: number, _arg_2: AvatarImageDirectionCache): void
-    {
-        this._cache.set(k.toString(), _arg_2);
-    }
-
-    public setLastAccessTime(k: number): void
-    {
-        this._lastAccessTime = k;
-    }
-
-    public getLastAccessTime(): number
-    {
-        return this._lastAccessTime;
-    }
-
-    private debugInfo(k: string): void
-    {
-    }
+  private debugInfo(k: string): void {
+  }
 }

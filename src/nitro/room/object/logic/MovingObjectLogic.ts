@@ -1,147 +1,128 @@
-import { IRoomObjectController, IRoomObjectUpdateMessage, IVector3D, RoomObjectVariable, Vector3d } from '../../../../api';
-import { RoomObjectLogicBase } from '../../../../room';
-import { ObjectMoveUpdateMessage } from '../../messages';
+import { IRoomObjectController, IRoomObjectUpdateMessage, IVector3D, RoomObjectVariable, Vector3d } from '@/api'
+import { RoomObjectLogicBase } from '@/room'
+import { ObjectMoveUpdateMessage } from '@/nitro'
 
-export class MovingObjectLogic extends RoomObjectLogicBase
-{
-    public static DEFAULT_UPDATE_INTERVAL: number = 500;
-    private static TEMP_VECTOR: Vector3d = new Vector3d();
+export class MovingObjectLogic extends RoomObjectLogicBase {
+  public static DEFAULT_UPDATE_INTERVAL: number = 500
+  private static TEMP_VECTOR: Vector3d = new Vector3d()
 
-    private _liftAmount: number;
+  private _liftAmount: number
 
-    private _location: Vector3d;
-    private _locationDelta: Vector3d;
-    private _lastUpdateTime: number;
-    private _changeTime: number;
-    private _updateInterval: number;
+  private _location: Vector3d
+  private _locationDelta: Vector3d
+  private _changeTime: number
 
-    constructor()
-    {
-        super();
+  constructor() {
+    super()
 
-        this._liftAmount = 0;
+    this._liftAmount = 0
 
-        this._location = new Vector3d();
-        this._locationDelta = new Vector3d();
-        this._lastUpdateTime = 0;
-        this._changeTime = 0;
-        this._updateInterval = MovingObjectLogic.DEFAULT_UPDATE_INTERVAL;
-    }
+    this._location = new Vector3d()
+    this._locationDelta = new Vector3d()
+    this._lastUpdateTime = 0
+    this._changeTime = 0
+    this._updateInterval = MovingObjectLogic.DEFAULT_UPDATE_INTERVAL
+  }
 
-    protected onDispose(): void
-    {
-        this._liftAmount = 0;
+  private _lastUpdateTime: number
 
-        super.onDispose();
-    }
+  protected get lastUpdateTime(): number {
+    return this._lastUpdateTime
+  }
 
-    public update(time: number): void
-    {
-        super.update(time);
+  private _updateInterval: number
 
-        const locationOffset = this.getLocationOffset();
-        const model = this.object && this.object.model;
+  protected set updateInterval(interval: number) {
+    if (interval <= 0) interval = 1
 
-        if(model)
-        {
-            if(locationOffset)
-            {
-                if(this._liftAmount !== locationOffset.z)
-                {
-                    this._liftAmount = locationOffset.z;
+    this._updateInterval = interval
+  }
 
-                    model.setValue(RoomObjectVariable.FURNITURE_LIFT_AMOUNT, this._liftAmount);
-                }
-            }
-            else
-            {
-                if(this._liftAmount !== 0)
-                {
-                    this._liftAmount = 0;
+  public update(time: number): void {
+    super.update(time)
 
-                    model.setValue(RoomObjectVariable.FURNITURE_LIFT_AMOUNT, this._liftAmount);
-                }
-            }
+    const locationOffset = this.getLocationOffset()
+    const model = this.object && this.object.model
+
+    if (model) {
+      if (locationOffset) {
+        if (this._liftAmount !== locationOffset.z) {
+          this._liftAmount = locationOffset.z
+
+          model.setValue(RoomObjectVariable.FURNITURE_LIFT_AMOUNT, this._liftAmount)
         }
+      } else {
+        if (this._liftAmount !== 0) {
+          this._liftAmount = 0
 
-        if((this._locationDelta.length > 0) || locationOffset)
-        {
-            const vector = MovingObjectLogic.TEMP_VECTOR;
-
-            let difference = (this.time - this._changeTime);
-
-            if(difference === (this._updateInterval >> 1)) difference++;
-
-            if(difference > this._updateInterval) difference = this._updateInterval;
-
-            if(this._locationDelta.length > 0)
-            {
-                vector.assign(this._locationDelta);
-                vector.multiply((difference / this._updateInterval));
-                vector.add(this._location);
-            }
-            else
-            {
-                vector.assign(this._location);
-            }
-
-            if(locationOffset) vector.add(locationOffset);
-
-            this.object.setLocation(vector);
-
-            if(difference === this._updateInterval)
-            {
-                this._locationDelta.x = 0;
-                this._locationDelta.y = 0;
-                this._locationDelta.z = 0;
-            }
+          model.setValue(RoomObjectVariable.FURNITURE_LIFT_AMOUNT, this._liftAmount)
         }
-
-        this._lastUpdateTime = this.time;
+      }
     }
 
-    public setObject(object: IRoomObjectController): void
-    {
-        super.setObject(object);
+    if ((this._locationDelta.length > 0) || locationOffset) {
+      const vector = MovingObjectLogic.TEMP_VECTOR
 
-        if(object) this._location.assign(object.getLocation());
+      let difference = (this.time - this._changeTime)
+
+      if (difference === (this._updateInterval >> 1)) difference++
+
+      if (difference > this._updateInterval) difference = this._updateInterval
+
+      if (this._locationDelta.length > 0) {
+        vector.assign(this._locationDelta)
+        vector.multiply((difference / this._updateInterval))
+        vector.add(this._location)
+      } else {
+        vector.assign(this._location)
+      }
+
+      if (locationOffset) vector.add(locationOffset)
+
+      this.object.setLocation(vector)
+
+      if (difference === this._updateInterval) {
+        this._locationDelta.x = 0
+        this._locationDelta.y = 0
+        this._locationDelta.z = 0
+      }
     }
 
-    public processUpdateMessage(message: IRoomObjectUpdateMessage): void
-    {
-        if(!message) return;
+    this._lastUpdateTime = this.time
+  }
 
-        super.processUpdateMessage(message);
+  public setObject(object: IRoomObjectController): void {
+    super.setObject(object)
 
-        if(message.location) this._location.assign(message.location);
+    if (object) this._location.assign(object.getLocation())
+  }
 
-        if(message instanceof ObjectMoveUpdateMessage) return this.processMoveMessage(message);
-    }
+  public processUpdateMessage(message: IRoomObjectUpdateMessage): void {
+    if (!message) return
 
-    private processMoveMessage(message: ObjectMoveUpdateMessage): void
-    {
-        if(!message || !this.object || !message.location) return;
+    super.processUpdateMessage(message)
 
-        this._changeTime = this._lastUpdateTime;
+    if (message.location) this._location.assign(message.location)
 
-        this._locationDelta.assign(message.targetLocation);
-        this._locationDelta.subtract(this._location);
-    }
+    if (message instanceof ObjectMoveUpdateMessage) return this.processMoveMessage(message)
+  }
 
-    protected getLocationOffset(): IVector3D
-    {
-        return null;
-    }
+  protected onDispose(): void {
+    this._liftAmount = 0
 
-    protected get lastUpdateTime(): number
-    {
-        return this._lastUpdateTime;
-    }
+    super.onDispose()
+  }
 
-    protected set updateInterval(interval: number)
-    {
-        if(interval <= 0) interval = 1;
+  protected getLocationOffset(): IVector3D {
+    return null
+  }
 
-        this._updateInterval = interval;
-    }
+  private processMoveMessage(message: ObjectMoveUpdateMessage): void {
+    if (!message || !this.object || !message.location) return
+
+    this._changeTime = this._lastUpdateTime
+
+    this._locationDelta.assign(message.targetLocation)
+    this._locationDelta.subtract(this._location)
+  }
 }

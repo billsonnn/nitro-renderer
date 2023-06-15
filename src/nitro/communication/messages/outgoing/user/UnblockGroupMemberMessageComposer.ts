@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class UnblockGroupMemberMessageComposer implements IMessageComposer<ConstructorParameters<typeof UnblockGroupMemberMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof UnblockGroupMemberMessageComposer>;
+export class UnblockGroupMemberMessageComposer implements IMessageComposer<ConstructorParameters<typeof UnblockGroupMemberMessageComposer>> {
+  private _data: ConstructorParameters<typeof UnblockGroupMemberMessageComposer>
 
-    constructor(groupId: number, userId: number)
-    {
-        this._data = [groupId, userId];
-    }
+  constructor(groupId: number, userId: number) {
+    this._data = [groupId, userId]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

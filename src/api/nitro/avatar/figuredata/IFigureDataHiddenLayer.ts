@@ -1,4 +1,3 @@
-export interface IFigureDataHiddenLayer
-{
-    partType?: string;
+export interface IFigureDataHiddenLayer {
+  partType?: string;
 }

@@ -1,27 +1,23 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class BotRemovedFromInventoryParser implements IMessageParser
-{
-    private _itemId: number;
+export class BotRemovedFromInventoryParser implements IMessageParser {
+  private _itemId: number
 
-    public flush(): boolean
-    {
-        this._itemId = 0;
+  public get itemId(): number {
+    return this._itemId
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._itemId = 0
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._itemId = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._itemId = wrapper.readInt()
 
-    public get itemId(): number
-    {
-        return this._itemId;
-    }
+    return true
+  }
 }

@@ -1,131 +1,122 @@
-import { IMessageDataWrapper } from '../../../../../communication';
-import { IRoomObjectModel } from '../../../../../room';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
-import { IObjectData } from '../IObjectData';
-import { ObjectDataBase } from '../ObjectDataBase';
-import { ObjectDataKey } from '../ObjectDataKey';
-import { HighScoreData } from './HighScoreData';
+import {
+  HighScoreData,
+  IMessageDataWrapper,
+  IObjectData,
+  IRoomObjectModel,
+  ObjectDataBase,
+  ObjectDataKey,
+  RoomObjectVariable
+} from '@/api'
 
-export class HighScoreDataType extends ObjectDataBase implements IObjectData
-{
-    public static FORMAT_KEY = ObjectDataKey.HIGHSCORE_KEY;
+export class HighScoreDataType extends ObjectDataBase implements IObjectData {
+  public static FORMAT_KEY = ObjectDataKey.HIGHSCORE_KEY
 
-    private _state: string;
-    private _scoreType: number;
-    private _clearType: number;
-    private _entries: HighScoreData[];
+  private _state: string
 
-    constructor()
-    {
-        super();
+  constructor() {
+    super()
 
-        this._state = '';
-        this._scoreType = -1;
-        this._clearType = -1;
-        this._entries = [];
+    this._state = ''
+    this._scoreType = -1
+    this._clearType = -1
+    this._entries = []
+  }
+
+  private _scoreType: number
+
+  public get scoreType(): number {
+    return this._scoreType
+  }
+
+  private _clearType: number
+
+  public get clearType(): number {
+    return this._clearType
+  }
+
+  private _entries: HighScoreData[]
+
+  public get entries(): HighScoreData[] {
+    return this._entries
+  }
+
+  public parseWrapper(wrapper: IMessageDataWrapper): void {
+    if (!wrapper) return
+
+    this._state = wrapper.readString()
+    this._scoreType = wrapper.readInt()
+    this._clearType = wrapper.readInt()
+
+    let totalScores = wrapper.readInt()
+
+    while (totalScores > 0) {
+      const data = new HighScoreData()
+
+      data.score = wrapper.readInt()
+
+      let totalUsers = wrapper.readInt()
+
+      while (totalUsers > 0) {
+        data.addUsername(wrapper.readString())
+
+        totalUsers--
+      }
+
+      this._entries.push(data)
+
+      totalScores--
     }
 
-    public parseWrapper(wrapper: IMessageDataWrapper): void
-    {
-        if(!wrapper) return;
+    super.parseWrapper(wrapper)
+  }
 
-        this._state = wrapper.readString();
-        this._scoreType = wrapper.readInt();
-        this._clearType = wrapper.readInt();
+  public initializeFromRoomObjectModel(model: IRoomObjectModel): void {
+    this._scoreType = model.getValue<number>(RoomObjectVariable.FURNITURE_HIGHSCORE_SCORE_TYPE)
+    this._clearType = model.getValue<number>(RoomObjectVariable.FURNITURE_HIGHSCORE_CLEAR_TYPE)
+    this._entries = []
 
-        let totalScores = wrapper.readInt();
+    const totalEntries = model.getValue<number>(RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_COUNT)
 
-        while(totalScores > 0)
-        {
-            const data = new HighScoreData();
+    let i = 0
 
-            data.score = wrapper.readInt();
+    while (i < totalEntries) {
+      const data = new HighScoreData()
 
-            let totalUsers = wrapper.readInt();
+      data.score = model.getValue<number>(RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_BASE_SCORE_ + i)
+      data.users = model.getValue<string[]>(RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_BASE_USERS_ + i)
 
-            while(totalUsers > 0)
-            {
-                data.addUsername(wrapper.readString());
+      this._entries.push(data)
 
-                totalUsers--;
-            }
-
-            this._entries.push(data);
-
-            totalScores--;
-        }
-
-        super.parseWrapper(wrapper);
+      i++
     }
 
-    public initializeFromRoomObjectModel(model: IRoomObjectModel): void
-    {
-        this._scoreType = model.getValue<number>(RoomObjectVariable.FURNITURE_HIGHSCORE_SCORE_TYPE);
-        this._clearType = model.getValue<number>(RoomObjectVariable.FURNITURE_HIGHSCORE_CLEAR_TYPE);
-        this._entries = [];
+    super.initializeFromRoomObjectModel(model)
+  }
 
-        const totalEntries = model.getValue<number>(RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_COUNT);
+  public writeRoomObjectModel(model: IRoomObjectModel): void {
+    super.writeRoomObjectModel(model)
 
-        let i = 0;
+    model.setValue(RoomObjectVariable.FURNITURE_DATA_FORMAT, HighScoreDataType.FORMAT_KEY)
+    model.setValue(RoomObjectVariable.FURNITURE_HIGHSCORE_SCORE_TYPE, this._scoreType)
+    model.setValue(RoomObjectVariable.FURNITURE_HIGHSCORE_CLEAR_TYPE, this._clearType)
 
-        while(i < totalEntries)
-        {
-            const data = new HighScoreData();
+    if (this._entries) {
+      model.setValue(RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_COUNT, this._entries.length)
 
-            data.score = model.getValue<number>(RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_BASE_SCORE_ + i);
-            data.users = model.getValue<string[]>(RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_BASE_USERS_ + i);
+      let i = 0
 
-            this._entries.push(data);
+      while (i < this._entries.length) {
+        const entry = this._entries[i]
 
-            i++;
-        }
+        model.setValue((RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_BASE_SCORE_ + i), entry.score)
+        model.setValue((RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_BASE_USERS_ + i), entry.users)
 
-        super.initializeFromRoomObjectModel(model);
+        i++
+      }
     }
+  }
 
-    public writeRoomObjectModel(model: IRoomObjectModel): void
-    {
-        super.writeRoomObjectModel(model);
-
-        model.setValue(RoomObjectVariable.FURNITURE_DATA_FORMAT, HighScoreDataType.FORMAT_KEY);
-        model.setValue(RoomObjectVariable.FURNITURE_HIGHSCORE_SCORE_TYPE, this._scoreType);
-        model.setValue(RoomObjectVariable.FURNITURE_HIGHSCORE_CLEAR_TYPE, this._clearType);
-
-        if(this._entries)
-        {
-            model.setValue(RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_COUNT, this._entries.length);
-
-            let i = 0;
-
-            while(i < this._entries.length)
-            {
-                const entry = this._entries[i];
-
-                model.setValue((RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_BASE_SCORE_ + i), entry.score);
-                model.setValue((RoomObjectVariable.FURNITURE_HIGHSCORE_DATA_ENTRY_BASE_USERS_ + i), entry.users);
-
-                i++;
-            }
-        }
-    }
-
-    public getLegacyString(): string
-    {
-        return this._state;
-    }
-
-    public get entries(): HighScoreData[]
-    {
-        return this._entries;
-    }
-
-    public get clearType(): number
-    {
-        return this._clearType;
-    }
-
-    public get scoreType(): number
-    {
-        return this._scoreType;
-    }
+  public getLegacyString(): string {
+    return this._state
+  }
 }

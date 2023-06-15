@@ -1,74 +1,69 @@
-import { IMessageDataWrapper } from '../../../../../communication';
-import { IRoomObjectModel } from '../../../../../room';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
-import { IObjectData } from '../IObjectData';
-import { ObjectDataBase } from '../ObjectDataBase';
-import { ObjectDataKey } from '../ObjectDataKey';
+import {
+  IMessageDataWrapper,
+  IObjectData,
+  IRoomObjectModel,
+  ObjectDataBase,
+  ObjectDataKey,
+  RoomObjectVariable
+} from '@/api'
 
-export class CrackableDataType extends ObjectDataBase implements IObjectData
-{
-    public static FORMAT_KEY = ObjectDataKey.CRACKABLE_KEY;
+export class CrackableDataType extends ObjectDataBase implements IObjectData {
+  public static FORMAT_KEY = ObjectDataKey.CRACKABLE_KEY
 
-    private _state: string;
-    private _hits: number;
-    private _target: number;
+  private _state: string
 
-    constructor()
-    {
-        super();
+  constructor() {
+    super()
 
-        this._state = '';
-        this._hits = 0;
-        this._target = 0;
-    }
+    this._state = ''
+    this._hits = 0
+    this._target = 0
+  }
 
-    public parseWrapper(wrapper: IMessageDataWrapper): void
-    {
-        if(!wrapper) return;
+  private _hits: number
 
-        this._state = wrapper.readString();
-        this._hits = wrapper.readInt();
-        this._target = wrapper.readInt();
+  public get hits(): number {
+    return this._hits
+  }
 
-        super.parseWrapper(wrapper);
-    }
+  private _target: number
 
-    public initializeFromRoomObjectModel(model: IRoomObjectModel): void
-    {
-        super.initializeFromRoomObjectModel(model);
+  public get target(): number {
+    return this._target
+  }
 
-        this._state = model.getValue<string>(RoomObjectVariable.FURNITURE_CRACKABLE_STATE);
-        this._hits = model.getValue<number>(RoomObjectVariable.FURNITURE_CRACKABLE_HITS);
-        this._target = model.getValue<number>(RoomObjectVariable.FURNITURE_CRACKABLE_TARGET);
-    }
+  public parseWrapper(wrapper: IMessageDataWrapper): void {
+    if (!wrapper) return
 
-    public writeRoomObjectModel(model: IRoomObjectModel): void
-    {
-        super.writeRoomObjectModel(model);
+    this._state = wrapper.readString()
+    this._hits = wrapper.readInt()
+    this._target = wrapper.readInt()
 
-        model.setValue(RoomObjectVariable.FURNITURE_DATA_FORMAT, CrackableDataType.FORMAT_KEY);
-        model.setValue(RoomObjectVariable.FURNITURE_CRACKABLE_STATE, this._state);
-        model.setValue(RoomObjectVariable.FURNITURE_CRACKABLE_HITS, this._hits);
-        model.setValue(RoomObjectVariable.FURNITURE_CRACKABLE_TARGET, this._target);
-    }
+    super.parseWrapper(wrapper)
+  }
 
-    public getLegacyString(): string
-    {
-        return this._state;
-    }
+  public initializeFromRoomObjectModel(model: IRoomObjectModel): void {
+    super.initializeFromRoomObjectModel(model)
 
-    public compare(data: IObjectData): boolean
-    {
-        return true;
-    }
+    this._state = model.getValue<string>(RoomObjectVariable.FURNITURE_CRACKABLE_STATE)
+    this._hits = model.getValue<number>(RoomObjectVariable.FURNITURE_CRACKABLE_HITS)
+    this._target = model.getValue<number>(RoomObjectVariable.FURNITURE_CRACKABLE_TARGET)
+  }
 
-    public get hits(): number
-    {
-        return this._hits;
-    }
+  public writeRoomObjectModel(model: IRoomObjectModel): void {
+    super.writeRoomObjectModel(model)
 
-    public get target(): number
-    {
-        return this._target;
-    }
+    model.setValue(RoomObjectVariable.FURNITURE_DATA_FORMAT, CrackableDataType.FORMAT_KEY)
+    model.setValue(RoomObjectVariable.FURNITURE_CRACKABLE_STATE, this._state)
+    model.setValue(RoomObjectVariable.FURNITURE_CRACKABLE_HITS, this._hits)
+    model.setValue(RoomObjectVariable.FURNITURE_CRACKABLE_TARGET, this._target)
+  }
+
+  public getLegacyString(): string {
+    return this._state
+  }
+
+  public compare(data: IObjectData): boolean {
+    return true
+  }
 }

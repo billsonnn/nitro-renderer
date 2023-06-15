@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class SetRelationshipStatusComposer implements IMessageComposer<ConstructorParameters<typeof SetRelationshipStatusComposer>>
-{
-    private _data: ConstructorParameters<typeof SetRelationshipStatusComposer>;
+export class SetRelationshipStatusComposer implements IMessageComposer<ConstructorParameters<typeof SetRelationshipStatusComposer>> {
+  private _data: ConstructorParameters<typeof SetRelationshipStatusComposer>
 
-    constructor(userId: number, relationship: number)
-    {
-        this._data = [userId, relationship];
-    }
+  constructor(userId: number, relationship: number) {
+    this._data = [userId, relationship]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

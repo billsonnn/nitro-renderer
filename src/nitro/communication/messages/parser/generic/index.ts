@@ -1,1 +1,1 @@
-export * from './GenericErrorParser';
+export * from './GenericErrorParser'

@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GroupSaveBadgeComposer implements IMessageComposer<any[]>
-{
-    private _data: any[];
+export class GroupSaveBadgeComposer implements IMessageComposer<any[]> {
+  private _data: any[]
 
-    constructor(groupId: number, badge: number[])
-    {
-        this._data = [groupId, badge.length, ...badge];
-    }
+  constructor(groupId: number, badge: number[]) {
+    this._data = [groupId, badge.length, ...badge]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

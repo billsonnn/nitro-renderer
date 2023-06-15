@@ -1,4 +1,4 @@
-﻿import { RoomEngineEvent } from './RoomEngineEvent';
+﻿import { RoomEngineEvent } from '@/events';
 
 export class RoomEngineDimmerStateEvent extends RoomEngineEvent
 {

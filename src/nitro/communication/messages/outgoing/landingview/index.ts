@@ -1,2 +1,2 @@
-export * from './GetPromoArticlesComposer';
-export * from './votes';
+export * from './GetPromoArticlesComposer'
+export * from './votes'

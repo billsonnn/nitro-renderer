@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GetIsOfferGiftableComposer implements IMessageComposer<ConstructorParameters<typeof GetIsOfferGiftableComposer>>
-{
-    private _data: ConstructorParameters<typeof GetIsOfferGiftableComposer>;
+export class GetIsOfferGiftableComposer implements IMessageComposer<ConstructorParameters<typeof GetIsOfferGiftableComposer>> {
+  private _data: ConstructorParameters<typeof GetIsOfferGiftableComposer>
 
-    constructor(k: number)
-    {
-        this._data = [k];
-    }
+  constructor(k: number) {
+    this._data = [k]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        this._data = null;
-    }
+  public dispose(): void {
+    this._data = null
+  }
 }

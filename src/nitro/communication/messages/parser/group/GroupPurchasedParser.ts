@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GroupPurchasedParser implements IMessageParser
-{
-    private _roomId: number;
-    private _groupId: number;
+export class GroupPurchasedParser implements IMessageParser {
+  private _groupId: number
 
-    flush(): boolean
-    {
-        this._roomId = 0;
-        this._groupId = 0;
+  private _roomId: number
 
-        return true;
-    }
+  public get roomId(): number {
+    return this._roomId
+  }
 
-    parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get guildId(): number {
+    return this._groupId
+  }
 
-        this._roomId = wrapper.readInt();
-        this._groupId = wrapper.readInt();
+  flush(): boolean {
+    this._roomId = 0
+    this._groupId = 0
 
-        return true;
-    }
+    return true
+  }
 
-    public get roomId(): number
-    {
-        return this._roomId;
-    }
+  parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get guildId(): number
-    {
-        return this._groupId;
-    }
+    this._roomId = wrapper.readInt()
+    this._groupId = wrapper.readInt()
+
+    return true
+  }
 }

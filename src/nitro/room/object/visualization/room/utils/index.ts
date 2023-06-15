@@ -1,2 +1,2 @@
-export * from './PlaneBitmapData';
-export * from './Randomizer';
+export * from './PlaneBitmapData'
+export * from './Randomizer'

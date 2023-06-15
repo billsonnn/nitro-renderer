@@ -1,16 +1,13 @@
-﻿import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { BadgePointLimitsParser } from '../../../parser';
+﻿import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { BadgePointLimitsParser } from '@/nitro'
 
-export class BadgePointLimitsEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, BadgePointLimitsParser);
-    }
+export class BadgePointLimitsEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, BadgePointLimitsParser)
+  }
 
-    public getParser(): BadgePointLimitsParser
-    {
-        return this.parser as BadgePointLimitsParser;
-    }
+  public getParser(): BadgePointLimitsParser {
+    return this.parser as BadgePointLimitsParser
+  }
 }

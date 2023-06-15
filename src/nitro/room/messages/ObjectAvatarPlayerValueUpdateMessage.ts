@@ -1,18 +1,15 @@
-import { ObjectStateUpdateMessage } from './ObjectStateUpdateMessage';
+import { ObjectStateUpdateMessage } from '@/nitro'
 
-export class ObjectAvatarPlayerValueUpdateMessage extends ObjectStateUpdateMessage
-{
-    private _value: number;
+export class ObjectAvatarPlayerValueUpdateMessage extends ObjectStateUpdateMessage {
+  constructor(value: number) {
+    super()
 
-    constructor(value: number)
-    {
-        super();
+    this._value = value
+  }
 
-        this._value = value;
-    }
+  private _value: number
 
-    public get value(): number
-    {
-        return this._value;
-    }
+  public get value(): number {
+    return this._value
+  }
 }

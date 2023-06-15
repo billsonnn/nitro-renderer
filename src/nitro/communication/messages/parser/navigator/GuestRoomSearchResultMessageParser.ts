@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { GuestRoomSearchResultData } from './utils';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { GuestRoomSearchResultData } from './utils'
 
-export class GuestRoomSearchResultMessageParser implements IMessageParser
-{
-    _data: GuestRoomSearchResultData;
+export class GuestRoomSearchResultMessageParser implements IMessageParser {
+  _data: GuestRoomSearchResultData
 
-    public flush(): boolean
-    {
+  public get data(): GuestRoomSearchResultData {
+    return this._data
+  }
 
-        return true;
-    }
+  public flush(): boolean {
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._data = new GuestRoomSearchResultData(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._data = new GuestRoomSearchResultData(wrapper)
 
-    public get data(): GuestRoomSearchResultData
-    {
-        return this._data;
-    }
+    return true
+  }
 }

@@ -1,2 +1,2 @@
-export * from './IActionDefinition';
-export * from './IActiveActionData';
+export * from './IActionDefinition'
+export * from './IActiveActionData'

@@ -1,72 +1,62 @@
-import { RoomObjectVariable } from '../../../../../api';
-import { RoomObjectBadgeAssetEvent, RoomObjectEvent, RoomObjectWidgetRequestEvent } from '../../../../../events';
-import { RoomObjectUpdateMessage } from '../../../../../room';
-import { ObjectGroupBadgeUpdateMessage, ObjectSelectedMessage } from '../../../messages';
-import { FurnitureBadgeDisplayLogic } from './FurnitureBadgeDisplayLogic';
+import { RoomObjectVariable } from '@/api'
+import { RoomObjectBadgeAssetEvent, RoomObjectEvent, RoomObjectWidgetRequestEvent } from '@/events'
+import { RoomObjectUpdateMessage } from '@/room'
+import { FurnitureBadgeDisplayLogic, ObjectGroupBadgeUpdateMessage, ObjectSelectedMessage } from '@/nitro'
 
-export class FurnitureAchievementResolutionLogic extends FurnitureBadgeDisplayLogic
-{
-    public static STATE_RESOLUTION_NOT_STARTED: number = 0;
-    public static STATE_RESOLUTION_IN_PROGRESS: number = 1;
-    public static STATE_RESOLUTION_ACHIEVED: number = 2;
-    public static STATE_RESOLUTION_FAILED: number = 3;
-    private static ACH_NOT_SET: string = 'ach_0';
-    private static BADGE_VISIBLE_IN_STATE: number = 2;
+export class FurnitureAchievementResolutionLogic extends FurnitureBadgeDisplayLogic {
+  public static STATE_RESOLUTION_NOT_STARTED: number = 0
+  public static STATE_RESOLUTION_IN_PROGRESS: number = 1
+  public static STATE_RESOLUTION_ACHIEVED: number = 2
+  public static STATE_RESOLUTION_FAILED: number = 3
+  private static ACH_NOT_SET: string = 'ach_0'
+  private static BADGE_VISIBLE_IN_STATE: number = 2
 
-    public getEventTypes(): string[]
-    {
-        const types = [RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_OPEN, RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_ENGRAVING, RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_FAILED, RoomObjectBadgeAssetEvent.LOAD_BADGE];
+  public getEventTypes(): string[] {
+    const types = [RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_OPEN, RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_ENGRAVING, RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_FAILED, RoomObjectBadgeAssetEvent.LOAD_BADGE]
 
-        return this.mergeTypes(super.getEventTypes(), types);
+    return this.mergeTypes(super.getEventTypes(), types)
+  }
+
+  public processUpdateMessage(message: RoomObjectUpdateMessage): void {
+    super.processUpdateMessage(message)
+
+    if (message instanceof ObjectGroupBadgeUpdateMessage) {
+      if (message.assetName !== 'loading_icon') {
+        this.object.model.setValue(RoomObjectVariable.FURNITURE_BADGE_VISIBLE_IN_STATE, FurnitureAchievementResolutionLogic.BADGE_VISIBLE_IN_STATE)
+      }
     }
 
-    public processUpdateMessage(message: RoomObjectUpdateMessage): void
-    {
-        super.processUpdateMessage(message);
+    if (message instanceof ObjectSelectedMessage) {
+      if (!this.eventDispatcher || !this.object) return
 
-        if(message instanceof ObjectGroupBadgeUpdateMessage)
-        {
-            if(message.assetName !== 'loading_icon')
-            {
-                this.object.model.setValue(RoomObjectVariable.FURNITURE_BADGE_VISIBLE_IN_STATE, FurnitureAchievementResolutionLogic.BADGE_VISIBLE_IN_STATE);
-            }
-        }
+      this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CLOSE_FURNI_CONTEXT_MENU, this.object))
+    }
+  }
 
-        if(message instanceof ObjectSelectedMessage)
-        {
-            if(!this.eventDispatcher || !this.object) return;
+  public useObject(): void {
+    if (!this.object || !this.eventDispatcher) return
 
-            this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CLOSE_FURNI_CONTEXT_MENU, this.object));
-        }
+    let event: RoomObjectEvent = null
+
+    switch (this.object.getState(0)) {
+      case FurnitureAchievementResolutionLogic.STATE_RESOLUTION_NOT_STARTED:
+      case FurnitureAchievementResolutionLogic.STATE_RESOLUTION_IN_PROGRESS:
+        event = new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_OPEN, this.object)
+        break
+      case FurnitureAchievementResolutionLogic.STATE_RESOLUTION_ACHIEVED:
+        event = new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_ENGRAVING, this.object)
+        break
+      case FurnitureAchievementResolutionLogic.STATE_RESOLUTION_FAILED:
+        event = new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_FAILED, this.object)
+        break
     }
 
-    public useObject(): void
-    {
-        if(!this.object || !this.eventDispatcher) return;
+    if (event) this.eventDispatcher.dispatchEvent(event)
+  }
 
-        let event: RoomObjectEvent = null;
+  protected updateBadge(badgeId: string): void {
+    if (badgeId === FurnitureAchievementResolutionLogic.ACH_NOT_SET) return
 
-        switch(this.object.getState(0))
-        {
-            case FurnitureAchievementResolutionLogic.STATE_RESOLUTION_NOT_STARTED:
-            case FurnitureAchievementResolutionLogic.STATE_RESOLUTION_IN_PROGRESS:
-                event = new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_OPEN, this.object);
-                break;
-            case FurnitureAchievementResolutionLogic.STATE_RESOLUTION_ACHIEVED:
-                event = new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_ENGRAVING, this.object);
-                break;
-            case FurnitureAchievementResolutionLogic.STATE_RESOLUTION_FAILED:
-                event = new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_FAILED, this.object);
-                break;
-        }
-
-        if(event) this.eventDispatcher.dispatchEvent(event);
-    }
-
-    protected updateBadge(badgeId: string): void
-    {
-        if(badgeId === FurnitureAchievementResolutionLogic.ACH_NOT_SET) return;
-
-        super.updateBadge(badgeId);
-    }
+    super.updateBadge(badgeId)
+  }
 }

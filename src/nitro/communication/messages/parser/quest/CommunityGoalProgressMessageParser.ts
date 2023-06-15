@@ -1,26 +1,22 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { CommunityGoalData } from './CommunityGoalData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { CommunityGoalData } from '@/nitro'
 
-export class CommunityGoalProgressMessageParser implements IMessageParser
-{
-    private _data: CommunityGoalData;
+export class CommunityGoalProgressMessageParser implements IMessageParser {
+  private _data: CommunityGoalData
 
-    public flush(): boolean
-    {
-        this._data = null;
-        return true;
-    }
+  public get data(): CommunityGoalData {
+    return this._data
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public flush(): boolean {
+    this._data = null
+    return true
+  }
 
-        this._data = new CommunityGoalData(wrapper);
-        return true;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get data(): CommunityGoalData
-    {
-        return this._data;
-    }
+    this._data = new CommunityGoalData(wrapper)
+    return true
+  }
 }

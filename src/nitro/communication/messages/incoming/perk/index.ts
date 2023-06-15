@@ -1,1 +1,1 @@
-export * from './PerkAllowancesMessageEvent';
+export * from './PerkAllowancesMessageEvent'

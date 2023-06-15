@@ -1,18 +1,15 @@
-import { ObjectStateUpdateMessage } from './ObjectStateUpdateMessage';
+import { ObjectStateUpdateMessage } from '@/nitro'
 
-export class ObjectAvatarSleepUpdateMessage extends ObjectStateUpdateMessage
-{
-    private _isSleeping: boolean;
+export class ObjectAvatarSleepUpdateMessage extends ObjectStateUpdateMessage {
+  constructor(isSleeping: boolean = false) {
+    super()
 
-    constructor(isSleeping: boolean = false)
-    {
-        super();
+    this._isSleeping = isSleeping
+  }
 
-        this._isSleeping = isSleeping;
-    }
+  private _isSleeping: boolean
 
-    public get isSleeping(): boolean
-    {
-        return this._isSleeping;
-    }
+  public get isSleeping(): boolean {
+    return this._isSleeping
+  }
 }

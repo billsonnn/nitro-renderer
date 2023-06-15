@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class BotForceOpenContextMenuParser implements IMessageParser
-{
-    private _botId: number;
+export class BotForceOpenContextMenuParser implements IMessageParser {
+  private _botId: number
 
-    public flush(): boolean
-    {
-        this._botId = -1;
+  public get botId(): number {
+    return this._botId
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._botId = -1
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._botId = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._botId = wrapper.readInt()
 
-    public get botId(): number
-    {
-        return this._botId;
-    }
+    return true
+  }
 }

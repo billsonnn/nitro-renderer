@@ -1,57 +1,48 @@
-import { IActionDefinition, IFigureSetData } from '../../../api';
-import { AnimationAction } from './animation';
+import { IActionDefinition, IFigureSetData } from '@/api'
+import { AnimationAction } from '@/nitro'
 
-export class AvatarAnimationData implements IFigureSetData
-{
-    private _actions: Map<string, AnimationAction>;
+export class AvatarAnimationData implements IFigureSetData {
+  private _actions: Map<string, AnimationAction>
 
-    constructor()
-    {
-        this._actions = new Map();
+  constructor() {
+    this._actions = new Map()
+  }
+
+  public parse(data: any): boolean {
+    if (data && (data.length > 0)) {
+      for (const animation of data) {
+        if (!animation) continue
+
+        const newAnimation = new AnimationAction(animation)
+
+        this._actions.set(newAnimation.id, newAnimation)
+      }
     }
 
-    public parse(data: any): boolean
-    {
-        if(data && (data.length > 0))
-        {
-            for(const animation of data)
-            {
-                if(!animation) continue;
+    return true
+  }
 
-                const newAnimation = new AnimationAction(animation);
-
-                this._actions.set(newAnimation.id, newAnimation);
-            }
-        }
-
-        return true;
+  public appendJSON(k: any): boolean {
+    for (const _local_2 of k.action) {
+      this._actions.set(_local_2.id, new AnimationAction(_local_2))
     }
 
-    public appendJSON(k: any): boolean
-    {
-        for(const _local_2 of k.action)
-        {
-            this._actions.set(_local_2.id, new AnimationAction(_local_2));
-        }
+    return true
+  }
 
-        return true;
-    }
+  public getAction(action: IActionDefinition): AnimationAction {
+    const existing = this._actions.get(action.id)
 
-    public getAction(action: IActionDefinition): AnimationAction
-    {
-        const existing = this._actions.get(action.id);
+    if (!existing) return null
 
-        if(!existing) return null;
+    return existing
+  }
 
-        return existing;
-    }
+  public getFrameCount(k: IActionDefinition): number {
+    const animationAction = this.getAction(k)
 
-    public getFrameCount(k: IActionDefinition): number
-    {
-        const animationAction = this.getAction(k);
+    if (!animationAction) return 0
 
-        if(!animationAction) return 0;
-
-        return animationAction.frameCount;
-    }
+    return animationAction.frameCount
+  }
 }

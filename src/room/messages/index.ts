@@ -1,1 +1,1 @@
-export * from './RoomObjectUpdateMessage';
+export * from './RoomObjectUpdateMessage'

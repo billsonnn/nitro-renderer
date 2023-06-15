@@ -1,18 +1,15 @@
-import { ObjectStateUpdateMessage } from './ObjectStateUpdateMessage';
+import { ObjectStateUpdateMessage } from '@/nitro'
 
-export class ObjectAvatarChatUpdateMessage extends ObjectStateUpdateMessage
-{
-    private _numberOfWords: number;
+export class ObjectAvatarChatUpdateMessage extends ObjectStateUpdateMessage {
+  constructor(numberOfWords: number = 0) {
+    super()
 
-    constructor(numberOfWords: number = 0)
-    {
-        super();
+    this._numberOfWords = numberOfWords
+  }
 
-        this._numberOfWords = numberOfWords;
-    }
+  private _numberOfWords: number
 
-    public get numberOfWords(): number
-    {
-        return this._numberOfWords;
-    }
+  public get numberOfWords(): number {
+    return this._numberOfWords
+  }
 }

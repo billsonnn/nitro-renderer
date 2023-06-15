@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { MarketplaceItemStatsParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { MarketplaceItemStatsParser } from '@/nitro'
 
-export class MarketplaceItemStatsEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, MarketplaceItemStatsParser);
-    }
+export class MarketplaceItemStatsEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, MarketplaceItemStatsParser)
+  }
 
-    public getParser(): MarketplaceItemStatsParser
-    {
-        return this.parser as MarketplaceItemStatsParser;
-    }
+  public getParser(): MarketplaceItemStatsParser {
+    return this.parser as MarketplaceItemStatsParser
+  }
 }

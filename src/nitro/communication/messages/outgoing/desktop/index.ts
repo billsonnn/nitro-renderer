@@ -1,1 +1,1 @@
-export * from './DesktopViewComposer';
+export * from './DesktopViewComposer'

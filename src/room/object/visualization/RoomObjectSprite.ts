@@ -1,422 +1,389 @@
-import { BLEND_MODES } from '@pixi/constants';
-import { Filter, Resource, Texture } from '@pixi/core';
-import { Container } from '@pixi/display';
-import { AlphaTolerance, IRoomObjectSprite, RoomObjectSpriteType } from '../../../api';
+import { BLEND_MODES } from '@pixi/constants'
+import { Filter, Resource, Texture } from '@pixi/core'
+import { Container } from '@pixi/display'
+import { AlphaTolerance, IRoomObjectSprite, RoomObjectSpriteType } from '@/api'
 
-export class RoomObjectSprite implements IRoomObjectSprite
-{
-    private static SPRITE_COUNTER: number = 0;
+export class RoomObjectSprite implements IRoomObjectSprite {
+  private static SPRITE_COUNTER: number = 0
 
-    private _id: number;
-    private _name: string;
-    private _type: string;
-    private _spriteType: number;
-    private _texture: Texture<Resource>;
-    private _container: Container;
+  constructor() {
+    this._id = RoomObjectSprite.SPRITE_COUNTER++
+    this._name = ''
+    this._type = ''
+    this._spriteType = RoomObjectSpriteType.DEFAULT
+    this._texture = null
+    this._container = null
 
-    private _width: number;
-    private _height: number;
-    private _offsetX: number;
-    private _offsetY: number;
-    private _flipH: boolean;
-    private _flipV: boolean;
-    private _direction: number;
+    this._width = 0
+    this._height = 0
+    this._offsetX = 0
+    this._offsetY = 0
+    this._flipH = false
+    this._flipV = false
+    this._direction = 0
 
-    private _alpha: number;
-    private _blendMode: number;
-    private _color: number;
-    private _relativeDepth: number;
-    private _varyingDepth: boolean;
-    private _libraryAssetName: string;
-    private _clickHandling: boolean;
-    private _visible: boolean;
-    private _tag: string;
-    private _posture: string;
-    private _alphaTolerance: number;
-    private _filters: Filter[];
+    this._alpha = 255
+    this._blendMode = BLEND_MODES.NORMAL
+    this._color = 0xFFFFFF
+    this._relativeDepth = 0
+    this._varyingDepth = false
+    this._libraryAssetName = ''
+    this._clickHandling = false
+    this._visible = true
+    this._tag = ''
+    this._posture = null
+    this._alphaTolerance = AlphaTolerance.MATCH_OPAQUE_PIXELS
+    this._filters = []
 
-    private _updateCounter: number;
-    private _updateContainer: boolean;
+    this._updateCounter = 0
+    this._updateContainer = false
+  }
 
-    constructor()
-    {
-        this._id = RoomObjectSprite.SPRITE_COUNTER++;
-        this._name = '';
-        this._type = '';
-        this._spriteType = RoomObjectSpriteType.DEFAULT;
-        this._texture = null;
-        this._container = null;
+  private _id: number
 
-        this._width = 0;
-        this._height = 0;
-        this._offsetX = 0;
-        this._offsetY = 0;
-        this._flipH = false;
-        this._flipV = false;
-        this._direction = 0;
+  public get id(): number {
+    return this._id
+  }
 
-        this._alpha = 255;
-        this._blendMode = BLEND_MODES.NORMAL;
-        this._color = 0xFFFFFF;
-        this._relativeDepth = 0;
-        this._varyingDepth = false;
-        this._libraryAssetName = '';
-        this._clickHandling = false;
-        this._visible = true;
-        this._tag = '';
-        this._posture = null;
-        this._alphaTolerance = AlphaTolerance.MATCH_OPAQUE_PIXELS;
-        this._filters = [];
+  public set id(id: number) {
+    this._id = id
+  }
 
-        this._updateCounter = 0;
-        this._updateContainer = false;
+  private _name: string
+
+  public get name(): string {
+    return this._name
+  }
+
+  public set name(name: string) {
+    if (this._name === name) return
+
+    this._name = name
+
+    this._updateCounter++
+  }
+
+  private _type: string
+
+  public get type(): string {
+    return this._type
+  }
+
+  public set type(type: string) {
+    this._type = type
+  }
+
+  private _spriteType: number
+
+  public get spriteType(): number {
+    return this._spriteType
+  }
+
+  public set spriteType(type: number) {
+    this._spriteType = type
+  }
+
+  private _texture: Texture<Resource>
+
+  public get texture(): Texture<Resource> {
+    return this._texture
+  }
+
+  public set texture(texture: Texture<Resource>) {
+    if (this._texture === texture) return
+
+    if (texture) {
+      this._width = texture.width
+      this._height = texture.height
     }
 
-    public dispose(): void
-    {
-        this._texture = null;
-        this._width = 0;
-        this._height = 0;
+    this._texture = texture
+
+    this._updateCounter++
+  }
+
+  private _container: Container
+
+  public get container(): Container {
+    return this._container
+  }
+
+  public set container(container: Container) {
+    if (this._container === container) return
+
+    this.texture = Texture.EMPTY
+
+    if (container) {
+      this._width = container.width
+      this._height = container.height
     }
 
-    public get id(): number
-    {
-        return this._id;
-    }
-
-    public set id(id: number)
-    {
-        this._id = id;
-    }
-
-    public get name(): string
-    {
-        return this._name;
-    }
-
-    public set name(name: string)
-    {
-        if(this._name === name) return;
-
-        this._name = name;
-
-        this._updateCounter++;
-    }
+    this._container = container
 
-    public get type(): string
-    {
-        return this._type;
-    }
+    this._updateCounter++
 
-    public set type(type: string)
-    {
-        this._type = type;
-    }
-
-    public get spriteType(): number
-    {
-        return this._spriteType;
-    }
+    this._updateContainer = true
+  }
 
-    public set spriteType(type: number)
-    {
-        this._spriteType = type;
-    }
+  private _width: number
 
-    public get texture(): Texture<Resource>
-    {
-        return this._texture;
-    }
+  public get width(): number {
+    return this._width
+  }
 
-    public set texture(texture: Texture<Resource>)
-    {
-        if(this._texture === texture) return;
+  private _height: number
 
-        if(texture)
-        {
-            this._width = texture.width;
-            this._height = texture.height;
-        }
+  public get height(): number {
+    return this._height
+  }
 
-        this._texture = texture;
+  private _offsetX: number
 
-        this._updateCounter++;
-    }
+  public get offsetX(): number {
+    return this._offsetX
+  }
 
-    public get container(): Container
-    {
-        return this._container;
-    }
+  public set offsetX(x: number) {
+    if (this._offsetX === x) return
 
-    public set container(container: Container)
-    {
-        if(this._container === container) return;
+    this._offsetX = x
 
-        this.texture = Texture.EMPTY;
+    this._updateCounter++
+  }
 
-        if(container)
-        {
-            this._width = container.width;
-            this._height = container.height;
-        }
+  private _offsetY: number
 
-        this._container = container;
+  public get offsetY(): number {
+    return this._offsetY
+  }
 
-        this._updateCounter++;
+  public set offsetY(y: number) {
+    if (this._offsetY === y) return
 
-        this._updateContainer = true;
-    }
+    this._offsetY = y
 
-    public get width(): number
-    {
-        return this._width;
-    }
+    this._updateCounter++
+  }
 
-    public get height(): number
-    {
-        return this._height;
-    }
+  private _flipH: boolean
 
-    public get offsetX(): number
-    {
-        return this._offsetX;
-    }
+  public get flipH(): boolean {
+    return this._flipH
+  }
 
-    public set offsetX(x: number)
-    {
-        if(this._offsetX === x) return;
+  public set flipH(flip: boolean) {
+    if (this._flipH === flip) return
 
-        this._offsetX = x;
+    this._flipH = flip
 
-        this._updateCounter++;
-    }
+    this._updateCounter++
+  }
 
-    public get offsetY(): number
-    {
-        return this._offsetY;
-    }
+  private _flipV: boolean
 
-    public set offsetY(y: number)
-    {
-        if(this._offsetY === y) return;
+  public get flipV(): boolean {
+    return this._flipV
+  }
 
-        this._offsetY = y;
+  public set flipV(flip: boolean) {
+    if (this._flipV === flip) return
 
-        this._updateCounter++;
-    }
+    this._flipV = flip
 
-    public get flipH(): boolean
-    {
-        return this._flipH;
-    }
+    this._updateCounter++
+  }
 
-    public set flipH(flip: boolean)
-    {
-        if(this._flipH === flip) return;
+  private _direction: number
 
-        this._flipH = flip;
+  public get direction(): number {
+    return this._direction
+  }
 
-        this._updateCounter++;
-    }
+  public set direction(direction: number) {
+    this._direction = direction
+  }
 
-    public get flipV(): boolean
-    {
-        return this._flipV;
-    }
+  private _alpha: number
 
-    public set flipV(flip: boolean)
-    {
-        if(this._flipV === flip) return;
+  public get alpha(): number {
+    return this._alpha
+  }
 
-        this._flipV = flip;
+  public set alpha(alpha: number) {
+    alpha = (alpha & 0xFF)
 
-        this._updateCounter++;
-    }
+    if (this._alpha === alpha) return
 
-    public get direction(): number
-    {
-        return this._direction;
-    }
+    this._alpha = alpha
 
-    public set direction(direction: number)
-    {
-        this._direction = direction;
-    }
+    this._updateCounter++
+  }
 
-    public get alpha(): number
-    {
-        return this._alpha;
-    }
+  private _blendMode: number
 
-    public set alpha(alpha: number)
-    {
-        alpha = (alpha & 0xFF);
+  public get blendMode(): number {
+    return this._blendMode
+  }
 
-        if(this._alpha === alpha) return;
+  public set blendMode(blend: number) {
+    if (this._blendMode === blend) return
 
-        this._alpha = alpha;
+    this._blendMode = blend
 
-        this._updateCounter++;
-    }
+    this._updateCounter++
+  }
 
-    public get blendMode(): number
-    {
-        return this._blendMode;
-    }
+  private _color: number
 
-    public set blendMode(blend: number)
-    {
-        if(this._blendMode === blend) return;
+  public get color(): number {
+    return this._color
+  }
 
-        this._blendMode = blend;
+  public set color(color: number) {
+    color = (color & 0xFFFFFF)
 
-        this._updateCounter++;
-    }
+    if (this._color === color) return
 
-    public get color(): number
-    {
-        return this._color;
-    }
+    this._color = color
 
-    public set color(color: number)
-    {
-        color = (color & 0xFFFFFF);
+    this._updateCounter++
+  }
 
-        if(this._color === color) return;
+  private _relativeDepth: number
 
-        this._color = color;
+  public get relativeDepth(): number {
+    return this._relativeDepth
+  }
 
-        this._updateCounter++;
-    }
+  public set relativeDepth(depth: number) {
+    if (this._relativeDepth === depth) return
 
-    public get relativeDepth(): number
-    {
-        return this._relativeDepth;
-    }
+    this._relativeDepth = depth
 
-    public set relativeDepth(depth: number)
-    {
-        if(this._relativeDepth === depth) return;
+    this._updateCounter++
+  }
 
-        this._relativeDepth = depth;
+  private _varyingDepth: boolean
 
-        this._updateCounter++;
-    }
+  public get varyingDepth(): boolean {
+    return this._varyingDepth
+  }
 
-    public get varyingDepth(): boolean
-    {
-        return this._varyingDepth;
-    }
+  public set varyingDepth(flag: boolean) {
+    if (flag === this._varyingDepth) return
 
-    public set varyingDepth(flag: boolean)
-    {
-        if(flag === this._varyingDepth) return;
+    this._varyingDepth = flag
 
-        this._varyingDepth = flag;
+    this._updateCounter++
+  }
 
-        this._updateCounter++;
-    }
+  private _libraryAssetName: string
 
-    public get libraryAssetName(): string
-    {
-        return this._libraryAssetName;
-    }
+  public get libraryAssetName(): string {
+    return this._libraryAssetName
+  }
 
-    public set libraryAssetName(value: string)
-    {
-        this._libraryAssetName = value;
-    }
+  public set libraryAssetName(value: string) {
+    this._libraryAssetName = value
+  }
 
-    public get clickHandling(): boolean
-    {
-        return this._clickHandling;
-    }
+  private _clickHandling: boolean
 
-    public set clickHandling(flag: boolean)
-    {
-        this._clickHandling = flag;
-    }
+  public get clickHandling(): boolean {
+    return this._clickHandling
+  }
 
-    public get visible(): boolean
-    {
-        return this._visible;
-    }
+  public set clickHandling(flag: boolean) {
+    this._clickHandling = flag
+  }
 
-    public set visible(visible: boolean)
-    {
-        if(this._visible === visible) return;
+  private _visible: boolean
 
-        this._visible = visible;
+  public get visible(): boolean {
+    return this._visible
+  }
 
-        this._updateCounter++;
-    }
+  public set visible(visible: boolean) {
+    if (this._visible === visible) return
 
-    public get tag(): string
-    {
-        return this._tag;
-    }
+    this._visible = visible
 
-    public set tag(tag: string)
-    {
-        if(this._tag === tag) return;
+    this._updateCounter++
+  }
 
-        this._tag = tag;
+  private _tag: string
 
-        this._updateCounter++;
-    }
+  public get tag(): string {
+    return this._tag
+  }
 
-    public get posture(): string
-    {
-        return this._posture;
-    }
+  public set tag(tag: string) {
+    if (this._tag === tag) return
 
-    public set posture(posture: string)
-    {
-        if(this._posture === posture) return;
+    this._tag = tag
 
-        this._posture = posture;
+    this._updateCounter++
+  }
 
-        this._updateCounter++;
-    }
+  private _posture: string
 
-    public get alphaTolerance(): number
-    {
-        return this._alphaTolerance;
-    }
+  public get posture(): string {
+    return this._posture
+  }
 
-    public set alphaTolerance(tolerance: number)
-    {
-        if(this._alphaTolerance === tolerance) return;
+  public set posture(posture: string) {
+    if (this._posture === posture) return
 
-        this._alphaTolerance = tolerance;
+    this._posture = posture
 
-        this._updateCounter++;
-    }
+    this._updateCounter++
+  }
 
-    public get filters(): Filter[]
-    {
-        return this._filters;
-    }
+  private _alphaTolerance: number
 
-    public set filters(filters: Filter[])
-    {
-        this._filters = filters;
+  public get alphaTolerance(): number {
+    return this._alphaTolerance
+  }
 
-        this._updateCounter++;
-    }
+  public set alphaTolerance(tolerance: number) {
+    if (this._alphaTolerance === tolerance) return
 
-    public get updateCounter(): number
-    {
-        return this._updateCounter;
-    }
+    this._alphaTolerance = tolerance
 
-    public get updateContainer(): boolean
-    {
-        return this._updateContainer;
-    }
+    this._updateCounter++
+  }
 
-    public set updateContainer(flag: boolean)
-    {
-        this._updateContainer = flag;
-    }
+  private _filters: Filter[]
+
+  public get filters(): Filter[] {
+    return this._filters
+  }
+
+  public set filters(filters: Filter[]) {
+    this._filters = filters
+
+    this._updateCounter++
+  }
+
+  private _updateCounter: number
+
+  public get updateCounter(): number {
+    return this._updateCounter
+  }
+
+  private _updateContainer: boolean
+
+  public get updateContainer(): boolean {
+    return this._updateContainer
+  }
+
+  public set updateContainer(flag: boolean) {
+    this._updateContainer = flag
+  }
+
+  public dispose(): void {
+    this._texture = null
+    this._width = 0
+    this._height = 0
+  }
 }

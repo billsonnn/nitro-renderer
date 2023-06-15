@@ -1,6 +1,5 @@
-import { IDisposable } from '../../common';
+import { IDisposable } from '@/api'
 
-export interface IAvatarImageListener extends IDisposable
-{
-    resetFigure(figure: string): void;
+export interface IAvatarImageListener extends IDisposable {
+  resetFigure(figure: string): void;
 }

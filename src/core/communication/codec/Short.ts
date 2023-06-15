@@ -1,14 +1,11 @@
-export class Short
-{
-    private _value: number;
+export class Short {
+  constructor(value: number) {
+    this._value = value
+  }
 
-    constructor(value: number)
-    {
-        this._value = value;
-    }
+  private _value: number
 
-    public get value(): number
-    {
-        return this._value;
-    }
+  public get value(): number {
+    return this._value
+  }
 }

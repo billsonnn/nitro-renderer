@@ -1,218 +1,191 @@
-import { IConnection, IRoomUserData } from '../../api';
-import { Disposable } from '../../core';
-import { RequestPetInfoComposer, UserCurrentBadgesComposer } from '../communication';
+import { IConnection, IRoomUserData } from '@/api'
+import { Disposable } from '@/core'
+import { RequestPetInfoComposer, UserCurrentBadgesComposer } from '@/nitro'
 
-export class UserDataManager extends Disposable
-{
-    private static TYPE_USER: number = 1;
-    private static TYPE_PET: number = 2;
-    private static TYPE_BOT: number = 3;
-    private static TYPE_RENTABLE_BOT: number = 4;
+export class UserDataManager extends Disposable {
+  private static TYPE_USER: number = 1
+  private static TYPE_PET: number = 2
+  private static TYPE_BOT: number = 3
+  private static TYPE_RENTABLE_BOT: number = 4
+  private _userDataByType: Map<number, Map<number, IRoomUserData>>
+  private _userDataByRoomIndex: Map<number, IRoomUserData>
+  private _userBadges: Map<number, string[]>
 
-    private _connection: IConnection;
+  constructor() {
+    super()
 
-    private _userDataByType: Map<number, Map<number, IRoomUserData>>;
-    private _userDataByRoomIndex: Map<number, IRoomUserData>;
-    private _userBadges: Map<number, string[]>;
+    this._connection = null
 
-    constructor()
-    {
-        super();
+    this._userDataByType = new Map()
+    this._userDataByRoomIndex = new Map()
+    this._userBadges = new Map()
+  }
 
-        this._connection = null;
+  private _connection: IConnection
 
-        this._userDataByType = new Map();
-        this._userDataByRoomIndex = new Map();
-        this._userBadges = new Map();
+  public get connection(): IConnection {
+    return this._connection
+  }
+
+  public setConnection(connection: IConnection): void {
+    this._connection = connection
+  }
+
+  public getUserData(webID: number): IRoomUserData {
+    return this.getDataByType(webID, UserDataManager.TYPE_USER)
+  }
+
+  public getPetData(webID: number): IRoomUserData {
+    return this.getDataByType(webID, UserDataManager.TYPE_PET)
+  }
+
+  public getBotData(webID: number): IRoomUserData {
+    return this.getDataByType(webID, UserDataManager.TYPE_BOT)
+  }
+
+  public getRentableBotData(webID: number): IRoomUserData {
+    return this.getDataByType(webID, UserDataManager.TYPE_RENTABLE_BOT)
+  }
+
+  public getDataByType(webID: number, type: number): IRoomUserData {
+    const existing = this._userDataByType.get(type)
+
+    if (!existing) return null
+
+    const userData = existing.get(webID)
+
+    if (!userData) return null
+
+    return userData
+  }
+
+  public getUserDataByIndex(roomIndex: number): IRoomUserData {
+    const existing = this._userDataByRoomIndex.get(roomIndex)
+
+    if (!existing) return null
+
+    return existing
+  }
+
+  public getUserDataByName(name: string): IRoomUserData {
+    for (const userData of this._userDataByRoomIndex.values()) {
+      if (!userData || (userData.name !== name)) continue
+
+      return userData
     }
 
-    protected onDispose(): void
-    {
-        this._connection = null;
+    return null
+  }
+
+  public updateUserData(data: IRoomUserData): void {
+    if (!data) return
+
+    this.removeUserData(data.roomIndex)
+
+    let existingType = this._userDataByType.get(data.type)
+
+    if (!existingType) {
+      existingType = new Map()
+
+      this._userDataByType.set(data.type, existingType)
     }
 
-    public setConnection(connection: IConnection): void
-    {
-        this._connection = connection;
+    existingType.set(data.webID, data)
+
+    this._userDataByRoomIndex.set(data.roomIndex, data)
+  }
+
+  public removeUserData(roomIndex: number): void {
+    const existing = this.getUserDataByIndex(roomIndex)
+
+    if (!existing) return
+
+    this._userDataByRoomIndex.delete(roomIndex)
+
+    const existingType = this._userDataByType.get(existing.type)
+
+    if (existingType) existingType.delete(existing.webID)
+  }
+
+  public getUserBadges(userId: number): string[] {
+    if (this._connection) {
+      this._connection.send(new UserCurrentBadgesComposer(userId))
     }
 
-    public getUserData(webID: number): IRoomUserData
-    {
-        return this.getDataByType(webID, UserDataManager.TYPE_USER);
-    }
+    const badges = this._userBadges.get(userId)
 
-    public getPetData(webID: number): IRoomUserData
-    {
-        return this.getDataByType(webID, UserDataManager.TYPE_PET);
-    }
+    if (!badges) return []
 
-    public getBotData(webID: number): IRoomUserData
-    {
-        return this.getDataByType(webID, UserDataManager.TYPE_BOT);
-    }
+    return badges
+  }
 
-    public getRentableBotData(webID: number): IRoomUserData
-    {
-        return this.getDataByType(webID, UserDataManager.TYPE_RENTABLE_BOT);
-    }
+  public setUserBadges(userId: number, badges: string[]): void {
+    this._userBadges.set(userId, badges)
+  }
 
-    public getDataByType(webID: number, type: number): IRoomUserData
-    {
-        const existing = this._userDataByType.get(type);
+  public updateFigure(roomIndex: number, figure: string, sex: string, hasSaddle: boolean, isRiding: boolean): void {
+    const userData = this.getUserDataByIndex(roomIndex)
 
-        if(!existing) return null;
+    if (!userData) return
 
-        const userData = existing.get(webID);
+    userData.figure = figure
+    userData.sex = sex
+    userData.hasSaddle = hasSaddle
+    userData.isRiding = isRiding
+  }
 
-        if(!userData) return null;
+  public updateName(roomIndex: number, name: string): void {
+    const userData = this.getUserDataByIndex(roomIndex)
 
-        return userData;
-    }
+    if (!userData) return
 
-    public getUserDataByIndex(roomIndex: number): IRoomUserData
-    {
-        const existing = this._userDataByRoomIndex.get(roomIndex);
+    userData.name = name
+  }
 
-        if(!existing) return null;
+  public updateMotto(roomIndex: number, custom: string): void {
+    const userData = this.getUserDataByIndex(roomIndex)
 
-        return existing;
-    }
+    if (!userData) return
 
-    public getUserDataByName(name: string): IRoomUserData
-    {
-        for(const userData of this._userDataByRoomIndex.values())
-        {
-            if(!userData || (userData.name !== name)) continue;
+    userData.custom = custom
+  }
 
-            return userData;
-        }
+  public updateAchievementScore(roomIndex: number, score: number): void {
+    const userData = this.getUserDataByIndex(roomIndex)
 
-        return null;
-    }
+    if (!userData) return
 
-    public updateUserData(data: IRoomUserData): void
-    {
-        if(!data) return;
+    userData.activityPoints = score
+  }
 
-        this.removeUserData(data.roomIndex);
+  public updatePetLevel(roomIndex: number, level: number): void {
+    const userData = this.getUserDataByIndex(roomIndex)
 
-        let existingType = this._userDataByType.get(data.type);
+    if (userData) userData.petLevel = level
+  }
 
-        if(!existingType)
-        {
-            existingType = new Map();
+  public updatePetBreedingStatus(roomIndex: number, canBreed: boolean, canHarvest: boolean, canRevive: boolean, hasBreedingPermission: boolean): void {
+    const userData = this.getUserDataByIndex(roomIndex)
 
-            this._userDataByType.set(data.type, existingType);
-        }
+    if (!userData) return
 
-        existingType.set(data.webID, data);
+    userData.canBreed = canBreed
+    userData.canHarvest = canHarvest
+    userData.canRevive = canRevive
+    userData.hasBreedingPermission = hasBreedingPermission
+  }
 
-        this._userDataByRoomIndex.set(data.roomIndex, data);
-    }
+  public requestPetInfo(id: number): void {
+    if (!this._connection) return
 
-    public removeUserData(roomIndex: number): void
-    {
-        const existing = this.getUserDataByIndex(roomIndex);
+    const petData = this.getPetData(id)
 
-        if(!existing) return;
+    if (!petData) return
 
-        this._userDataByRoomIndex.delete(roomIndex);
+    this._connection.send(new RequestPetInfoComposer(id))
+  }
 
-        const existingType = this._userDataByType.get(existing.type);
-
-        if(existingType) existingType.delete(existing.webID);
-    }
-
-    public getUserBadges(userId: number): string[]
-    {
-        if(this._connection)
-        {
-            this._connection.send(new UserCurrentBadgesComposer(userId));
-        }
-
-        const badges = this._userBadges.get(userId);
-
-        if(!badges) return [];
-
-        return badges;
-    }
-
-    public setUserBadges(userId: number, badges: string[]): void
-    {
-        this._userBadges.set(userId, badges);
-    }
-
-    public updateFigure(roomIndex: number, figure: string, sex: string, hasSaddle: boolean, isRiding: boolean): void
-    {
-        const userData = this.getUserDataByIndex(roomIndex);
-
-        if(!userData) return;
-
-        userData.figure = figure;
-        userData.sex = sex;
-        userData.hasSaddle = hasSaddle;
-        userData.isRiding = isRiding;
-    }
-
-    public updateName(roomIndex: number, name: string): void
-    {
-        const userData = this.getUserDataByIndex(roomIndex);
-
-        if(!userData) return;
-
-        userData.name = name;
-    }
-
-    public updateMotto(roomIndex: number, custom: string): void
-    {
-        const userData = this.getUserDataByIndex(roomIndex);
-
-        if(!userData) return;
-
-        userData.custom = custom;
-    }
-
-    public updateAchievementScore(roomIndex: number, score: number): void
-    {
-        const userData = this.getUserDataByIndex(roomIndex);
-
-        if(!userData) return;
-
-        userData.activityPoints = score;
-    }
-
-    public updatePetLevel(roomIndex: number, level: number): void
-    {
-        const userData = this.getUserDataByIndex(roomIndex);
-
-        if(userData) userData.petLevel = level;
-    }
-
-    public updatePetBreedingStatus(roomIndex: number, canBreed: boolean, canHarvest: boolean, canRevive: boolean, hasBreedingPermission: boolean): void
-    {
-        const userData = this.getUserDataByIndex(roomIndex);
-
-        if(!userData) return;
-
-        userData.canBreed = canBreed;
-        userData.canHarvest = canHarvest;
-        userData.canRevive = canRevive;
-        userData.hasBreedingPermission = hasBreedingPermission;
-    }
-
-    public requestPetInfo(id: number): void
-    {
-        if(!this._connection) return;
-
-        const petData = this.getPetData(id);
-
-        if(!petData) return;
-
-        this._connection.send(new RequestPetInfoComposer(id));
-    }
-
-    public get connection(): IConnection
-    {
-        return this._connection;
-    }
+  protected onDispose(): void {
+    this._connection = null
+  }
 }

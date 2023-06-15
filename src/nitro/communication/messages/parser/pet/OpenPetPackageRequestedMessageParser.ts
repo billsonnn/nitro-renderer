@@ -1,37 +1,33 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { PetFigureData } from '../../../../avatar';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { PetFigureData } from '@/nitro'
 
-export class OpenPetPackageRequestedMessageParser implements IMessageParser
-{
-    private _objectId: number;
-    private _figureData: PetFigureData;
+export class OpenPetPackageRequestedMessageParser implements IMessageParser {
+  private _objectId: number
 
-    flush(): boolean
-    {
-        this._objectId = -1;
-        this._figureData = null;
+  public get objectId(): number {
+    return this._objectId
+  }
 
-        return true;
-    }
+  private _figureData: PetFigureData
 
-    parse(wrapper: IMessageDataWrapper): boolean
-    {
-        this._objectId = wrapper.readInt();
+  public get figureData(): PetFigureData {
+    return this._figureData
+  }
 
-        if(!wrapper.bytesAvailable) return true;
+  flush(): boolean {
+    this._objectId = -1
+    this._figureData = null
 
-        this._figureData = new PetFigureData(wrapper.readString());
+    return true
+  }
 
-        return true;
-    }
+  parse(wrapper: IMessageDataWrapper): boolean {
+    this._objectId = wrapper.readInt()
 
-    public get objectId(): number
-    {
-        return this._objectId;
-    }
+    if (!wrapper.bytesAvailable) return true
 
-    public get figureData(): PetFigureData
-    {
-        return this._figureData;
-    }
+    this._figureData = new PetFigureData(wrapper.readString())
+
+    return true
+  }
 }

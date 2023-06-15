@@ -1,109 +1,92 @@
-import { AdvancedMap, IAdvancedMap, IParticleSystem, NitroLogger, RoomObjectVariable } from '../../../../../api';
-import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
-import { FurnitureParticleSystem } from './FurnitureParticleSystem';
+import { AdvancedMap, IAdvancedMap, IParticleSystem, NitroLogger, RoomObjectVariable } from '@/api'
+import { FurnitureAnimatedVisualization, FurnitureParticleSystem } from '@/nitro'
 
-export class FurnitureFireworksVisualization extends FurnitureAnimatedVisualization
-{
-    private _particleSystems: IAdvancedMap<number, FurnitureParticleSystem>;
-    private _currentParticleSystem: FurnitureParticleSystem;
+export class FurnitureFireworksVisualization extends FurnitureAnimatedVisualization {
+  private _particleSystems: IAdvancedMap<number, FurnitureParticleSystem>
+  private _currentParticleSystem: FurnitureParticleSystem
 
-    public dispose(): void
-    {
-        super.dispose();
+  public dispose(): void {
+    super.dispose()
 
-        this._currentParticleSystem = null;
+    this._currentParticleSystem = null
 
-        if(this._particleSystems)
-        {
-            for(const particleSystem of this._particleSystems.getValues()) particleSystem.dispose();
+    if (this._particleSystems) {
+      for (const particleSystem of this._particleSystems.getValues()) particleSystem.dispose()
 
-            this._particleSystems = null;
+      this._particleSystems = null
+    }
+  }
+
+  protected updateObject(scale: number, direction: number): boolean {
+    if (super.updateObject(scale, direction)) {
+      if (!this._particleSystems) {
+        this.readDefinition()
+
+        if (this._particleSystems) this._currentParticleSystem = this._particleSystems.getValue(scale)
+
+        else NitroLogger.log('ERROR Particle systems could not be read!', this.object.type)
+      } else {
+        if ((scale !== this._scale) || (this._particleSystems.getValue(scale) !== this._currentParticleSystem)) {
+          const particleSystem = this._particleSystems.getValue(scale)
+
+          particleSystem.copyStateFrom(this._currentParticleSystem)
+
+          if (this._currentParticleSystem) this._currentParticleSystem.reset()
+
+          this._currentParticleSystem = particleSystem
         }
+      }
+
+      return true
     }
 
-    protected updateObject(scale: number, direction: number): boolean
-    {
-        if(super.updateObject(scale, direction))
-        {
-            if(!this._particleSystems)
-            {
-                this.readDefinition();
+    return false
+  }
 
-                if(this._particleSystems) this._currentParticleSystem = this._particleSystems.getValue(scale);
+  protected updateSprites(scale: number, update: boolean, animation: number): void {
+    super.updateSprites(scale, update, animation)
 
-                else NitroLogger.log('ERROR Particle systems could not be read!', this.object.type);
-            }
-            else
-            {
-                if((scale !== this._scale) || (this._particleSystems.getValue(scale) !== this._currentParticleSystem))
-                {
-                    const particleSystem = this._particleSystems.getValue(scale);
+    if (this._currentParticleSystem) this._currentParticleSystem.updateSprites()
+  }
 
-                    particleSystem.copyStateFrom(this._currentParticleSystem);
+  protected updateAnimation(scale: number): number {
+    if (this._currentParticleSystem) this._currentParticleSystem.updateAnimation()
 
-                    if(this._currentParticleSystem) this._currentParticleSystem.reset();
+    return super.updateAnimation(scale)
+  }
 
-                    this._currentParticleSystem = particleSystem;
-                }
-            }
+  protected setAnimation(id: number): void {
+    if (this._currentParticleSystem) this._currentParticleSystem.setAnimation(id)
 
-            return true;
-        }
+    super.setAnimation(id)
+  }
 
-        return false;
+  protected getLayerYOffset(scale: number, direction: number, layerId: number): number {
+    if (this._currentParticleSystem && this._currentParticleSystem.controlsSprite(layerId)) {
+      return this._currentParticleSystem.getLayerYOffset(scale, direction, layerId)
     }
 
-    protected updateSprites(scale: number, update: boolean, animation: number): void
-    {
-        super.updateSprites(scale, update, animation);
+    return super.getLayerYOffset(scale, direction, layerId)
+  }
 
-        if(this._currentParticleSystem) this._currentParticleSystem.updateSprites();
+  private readDefinition(): boolean {
+    if (!this.object || !this.object.model) return false
+
+    const fireworksData = this.object.model.getValue<IParticleSystem[]>(RoomObjectVariable.FURNITURE_FIREWORKS_DATA)
+
+    if (!fireworksData || !fireworksData.length) return false
+
+    this._particleSystems = new AdvancedMap()
+
+    for (const particleData of fireworksData) {
+      const size = particleData.size
+      const particleSystem = new FurnitureParticleSystem(this)
+
+      particleSystem.parseData(particleData)
+
+      this._particleSystems.add(size, particleSystem)
     }
 
-    protected updateAnimation(scale: number): number
-    {
-        if(this._currentParticleSystem) this._currentParticleSystem.updateAnimation();
-
-        return super.updateAnimation(scale);
-    }
-
-    protected setAnimation(id: number): void
-    {
-        if(this._currentParticleSystem) this._currentParticleSystem.setAnimation(id);
-
-        super.setAnimation(id);
-    }
-
-    protected getLayerYOffset(scale: number, direction: number, layerId: number): number
-    {
-        if(this._currentParticleSystem && this._currentParticleSystem.controlsSprite(layerId))
-        {
-            return this._currentParticleSystem.getLayerYOffset(scale, direction, layerId);
-        }
-
-        return super.getLayerYOffset(scale, direction, layerId);
-    }
-
-    private readDefinition(): boolean
-    {
-        if(!this.object || !this.object.model) return false;
-
-        const fireworksData = this.object.model.getValue<IParticleSystem[]>(RoomObjectVariable.FURNITURE_FIREWORKS_DATA);
-
-        if(!fireworksData || !fireworksData.length) return false;
-
-        this._particleSystems = new AdvancedMap();
-
-        for(const particleData of fireworksData)
-        {
-            const size = particleData.size;
-            const particleSystem = new FurnitureParticleSystem(this);
-
-            particleSystem.parseData(particleData);
-
-            this._particleSystems.add(size, particleSystem);
-        }
-
-        return true;
-    }
+    return true
+  }
 }

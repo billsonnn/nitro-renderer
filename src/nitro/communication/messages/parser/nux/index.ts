@@ -1,2 +1,2 @@
-export * from './NewUserExperienceGiftOfferMessageParser';
-export * from './NewUserExperienceNotCompleteParser';
+export * from './NewUserExperienceGiftOfferMessageParser'
+export * from './NewUserExperienceNotCompleteParser'

@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { InterstitialMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { InterstitialMessageParser } from '@/nitro'
 
-export class InterstitialMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, InterstitialMessageParser);
-    }
+export class InterstitialMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, InterstitialMessageParser)
+  }
 
-    public getParser(): InterstitialMessageParser
-    {
-        return this.parser as InterstitialMessageParser;
-    }
+  public getParser(): InterstitialMessageParser {
+    return this.parser as InterstitialMessageParser
+  }
 }

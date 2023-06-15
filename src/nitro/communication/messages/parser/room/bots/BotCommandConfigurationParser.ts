@@ -1,42 +1,39 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class BotCommandConfigurationParser implements IMessageParser
-{
-    private _botId: number;
-    private _commandId: number;
-    private _data: string;
+export class BotCommandConfigurationParser implements IMessageParser {
+  private _botId: number
 
-    public flush(): boolean
-    {
-        this._botId = -1;
-        this._commandId = -1;
-        this._data = '';
+  public get botId(): number {
+    return this._botId
+  }
 
-        return true;
-    }
+  private _commandId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get commandId(): number {
+    return this._commandId
+  }
 
-        this._botId = wrapper.readInt();
-        this._commandId = wrapper.readInt();
-        this._data = wrapper.readString();
+  private _data: string
 
-        return true;
-    }
+  public get data(): string {
+    return this._data
+  }
 
-    public get botId(): number
-    {
-        return this._botId;
-    }
-    public get commandId(): number
-    {
-        return this._commandId;
-    }
+  public flush(): boolean {
+    this._botId = -1
+    this._commandId = -1
+    this._data = ''
 
-    public get data(): string
-    {
-        return this._data;
-    }
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._botId = wrapper.readInt()
+    this._commandId = wrapper.readInt()
+    this._data = wrapper.readString()
+
+    return true
+  }
 }

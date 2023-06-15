@@ -1,4 +1,3 @@
-export interface IAssetColorLayer
-{
-    color?: number;
+export interface IAssetColorLayer {
+  color?: number;
 }

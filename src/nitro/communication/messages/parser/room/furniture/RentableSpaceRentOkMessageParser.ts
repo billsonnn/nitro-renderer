@@ -1,25 +1,21 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class RentableSpaceRentOkMessageParser implements IMessageParser
-{
-    private _expiryTime: number;
+export class RentableSpaceRentOkMessageParser implements IMessageParser {
+  private _expiryTime: number
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get expiryTime(): number {
+    return this._expiryTime
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public flush(): boolean {
+    return true
+  }
 
-        this._expiryTime = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._expiryTime = wrapper.readInt()
 
-    public get expiryTime(): number
-    {
-        return this._expiryTime;
-    }
+    return true
+  }
 }

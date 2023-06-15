@@ -1,258 +1,233 @@
-import { IRoomUserData } from '../../api';
+import { IRoomUserData } from '@/api'
 
-export class RoomUserData implements IRoomUserData
-{
-    private _roomIndex: number = -1;
-    private _name: string = '';
-    private _type: number = 0;
-    private _sex: string = '';
-    private _figure: string = '';
-    private _custom: string = '';
-    private _activityPoints: number;
-    private _webID: number = 0;
-    private _groupID: number = 0;
-    private _groupStatus: number = 0;
-    private _groupName: string = '';
-    private _ownerId: number = 0;
-    private _ownerName: string = '';
-    private _petLevel: number = 0;
-    private _rarityLevel: number = 0;
-    private _hasSaddle: boolean;
-    private _isRiding: boolean;
-    private _canBreed: boolean;
-    private _canHarvest: boolean;
-    private _canRevive: boolean;
-    private _hasBreedingPermission: boolean;
-    private _botSkills: number[];
-    private _isModerator: boolean;
+export class RoomUserData implements IRoomUserData {
+  private _groupID: number = 0
 
-    constructor(k: number)
-    {
-        this._roomIndex = k;
-    }
+  constructor(k: number) {
+    this._roomIndex = k
+  }
 
-    public get roomIndex(): number
-    {
-        return this._roomIndex;
-    }
+  private _roomIndex: number = -1
 
-    public get activityPoints(): number
-    {
-        return this._activityPoints;
-    }
+  public get roomIndex(): number {
+    return this._roomIndex
+  }
 
-    public set activityPoints(k: number)
-    {
-        this._activityPoints = k;
-    }
+  private _name: string = ''
 
-    public get name(): string
-    {
-        return this._name;
-    }
+  public get name(): string {
+    return this._name
+  }
 
-    public set name(k: string)
-    {
-        this._name = k;
-    }
+  public set name(k: string) {
+    this._name = k
+  }
 
-    public get type(): number
-    {
-        return this._type;
-    }
+  private _type: number = 0
 
-    public set type(k: number)
-    {
-        this._type = k;
-    }
+  public get type(): number {
+    return this._type
+  }
 
-    public get sex(): string
-    {
-        return this._sex;
-    }
+  public set type(k: number) {
+    this._type = k
+  }
 
-    public set sex(k: string)
-    {
-        this._sex = k;
-    }
+  private _sex: string = ''
 
-    public get figure(): string
-    {
-        return this._figure;
-    }
+  public get sex(): string {
+    return this._sex
+  }
 
-    public set figure(k: string)
-    {
-        this._figure = k;
-    }
+  public set sex(k: string) {
+    this._sex = k
+  }
 
-    public get custom(): string
-    {
-        return this._custom;
-    }
+  private _figure: string = ''
 
-    public set custom(k: string)
-    {
-        this._custom = k;
-    }
+  public get figure(): string {
+    return this._figure
+  }
 
-    public get webID(): number
-    {
-        return this._webID;
-    }
+  public set figure(k: string) {
+    this._figure = k
+  }
 
-    public set webID(k: number)
-    {
-        this._webID = k;
-    }
+  private _custom: string = ''
 
-    public get groupId(): number
-    {
-        return this._groupID;
-    }
+  public get custom(): string {
+    return this._custom
+  }
 
-    public set groupId(groupId: number)
-    {
-        this._groupID = groupId;
-    }
+  public set custom(k: string) {
+    this._custom = k
+  }
 
-    public get groupName(): string
-    {
-        return this._groupName;
-    }
+  private _activityPoints: number
 
-    public set groupName(k: string)
-    {
-        this._groupName = k;
-    }
+  public get activityPoints(): number {
+    return this._activityPoints
+  }
 
-    public get groupStatus(): number
-    {
-        return this._groupStatus;
-    }
+  public set activityPoints(k: number) {
+    this._activityPoints = k
+  }
 
-    public set groupStatus(k: number)
-    {
-        this._groupStatus = k;
-    }
+  private _webID: number = 0
 
-    public get ownerId(): number
-    {
-        return this._ownerId;
-    }
+  public get webID(): number {
+    return this._webID
+  }
 
-    public set ownerId(k: number)
-    {
-        this._ownerId = k;
-    }
+  public set webID(k: number) {
+    this._webID = k
+  }
 
-    public get ownerName(): string
-    {
-        return this._ownerName;
-    }
+  private _groupStatus: number = 0
 
-    public set ownerName(k: string)
-    {
-        this._ownerName = k;
-    }
+  public get groupStatus(): number {
+    return this._groupStatus
+  }
 
-    public get rarityLevel(): number
-    {
-        return this._rarityLevel;
-    }
+  public set groupStatus(k: number) {
+    this._groupStatus = k
+  }
 
-    public set rarityLevel(k: number)
-    {
-        this._rarityLevel = k;
-    }
+  private _groupName: string = ''
 
-    public get hasSaddle(): boolean
-    {
-        return this._hasSaddle;
-    }
+  public get groupName(): string {
+    return this._groupName
+  }
 
-    public set hasSaddle(k: boolean)
-    {
-        this._hasSaddle = k;
-    }
+  public set groupName(k: string) {
+    this._groupName = k
+  }
 
-    public get isRiding(): boolean
-    {
-        return this._isRiding;
-    }
+  private _ownerId: number = 0
 
-    public set isRiding(k: boolean)
-    {
-        this._isRiding = k;
-    }
+  public get ownerId(): number {
+    return this._ownerId
+  }
 
-    public get canBreed(): boolean
-    {
-        return this._canBreed;
-    }
+  public set ownerId(k: number) {
+    this._ownerId = k
+  }
 
-    public set canBreed(k: boolean)
-    {
-        this._canBreed = k;
-    }
+  private _ownerName: string = ''
 
-    public get canHarvest(): boolean
-    {
-        return this._canHarvest;
-    }
+  public get ownerName(): string {
+    return this._ownerName
+  }
 
-    public set canHarvest(k: boolean)
-    {
-        this._canHarvest = k;
-    }
+  public set ownerName(k: string) {
+    this._ownerName = k
+  }
 
-    public get canRevive(): boolean
-    {
-        return this._canRevive;
-    }
+  private _petLevel: number = 0
 
-    public set canRevive(k: boolean)
-    {
-        this._canRevive = k;
-    }
+  public get petLevel(): number {
+    return this._petLevel
+  }
 
-    public get hasBreedingPermission(): boolean
-    {
-        return this._hasBreedingPermission;
-    }
+  public set petLevel(k: number) {
+    this._petLevel = k
+  }
 
-    public set hasBreedingPermission(k: boolean)
-    {
-        this._hasBreedingPermission = k;
-    }
+  private _rarityLevel: number = 0
 
-    public get petLevel(): number
-    {
-        return this._petLevel;
-    }
+  public get rarityLevel(): number {
+    return this._rarityLevel
+  }
 
-    public set petLevel(k: number)
-    {
-        this._petLevel = k;
-    }
+  public set rarityLevel(k: number) {
+    this._rarityLevel = k
+  }
 
-    public get botSkills(): number[]
-    {
-        return this._botSkills;
-    }
+  private _hasSaddle: boolean
 
-    public set botSkills(k: number[])
-    {
-        this._botSkills = k;
-    }
+  public get hasSaddle(): boolean {
+    return this._hasSaddle
+  }
 
-    public get isModerator(): boolean
-    {
-        return this._isModerator;
-    }
+  public set hasSaddle(k: boolean) {
+    this._hasSaddle = k
+  }
 
-    public set isModerator(k: boolean)
-    {
-        this._isModerator = k;
-    }
+  private _isRiding: boolean
+
+  public get isRiding(): boolean {
+    return this._isRiding
+  }
+
+  public set isRiding(k: boolean) {
+    this._isRiding = k
+  }
+
+  private _canBreed: boolean
+
+  public get canBreed(): boolean {
+    return this._canBreed
+  }
+
+  public set canBreed(k: boolean) {
+    this._canBreed = k
+  }
+
+  private _canHarvest: boolean
+
+  public get canHarvest(): boolean {
+    return this._canHarvest
+  }
+
+  public set canHarvest(k: boolean) {
+    this._canHarvest = k
+  }
+
+  private _canRevive: boolean
+
+  public get canRevive(): boolean {
+    return this._canRevive
+  }
+
+  public set canRevive(k: boolean) {
+    this._canRevive = k
+  }
+
+  private _hasBreedingPermission: boolean
+
+  public get hasBreedingPermission(): boolean {
+    return this._hasBreedingPermission
+  }
+
+  public set hasBreedingPermission(k: boolean) {
+    this._hasBreedingPermission = k
+  }
+
+  private _botSkills: number[]
+
+  public get botSkills(): number[] {
+    return this._botSkills
+  }
+
+  public set botSkills(k: number[]) {
+    this._botSkills = k
+  }
+
+  private _isModerator: boolean
+
+  public get isModerator(): boolean {
+    return this._isModerator
+  }
+
+  public set isModerator(k: boolean) {
+    this._isModerator = k
+  }
+
+  public get groupId(): number {
+    return this._groupID
+  }
+
+  public set groupId(groupId: number) {
+    this._groupID = groupId
+  }
 }

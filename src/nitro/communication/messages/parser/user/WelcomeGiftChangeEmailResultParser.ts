@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class WelcomeGiftChangeEmailResultParser implements IMessageParser
-{
-    private _result: number;
+export class WelcomeGiftChangeEmailResultParser implements IMessageParser {
+  private _result: number
 
-    public flush(): boolean
-    {
-        this._result = -1;
+  public get result(): number {
+    return this._result
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._result = -1
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._result = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._result = wrapper.readInt()
 
-    public get result(): number
-    {
-        return this._result;
-    }
+    return true
+  }
 }

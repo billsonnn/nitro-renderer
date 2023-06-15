@@ -1,59 +1,55 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class RoomUnitInfoParser implements IMessageParser
-{
-    private _unitId: number;
-    private _figure: string;
-    private _gender: string;
-    private _motto: string;
-    private _achievementScore: number;
+export class RoomUnitInfoParser implements IMessageParser {
+  private _unitId: number
 
-    public flush(): boolean
-    {
-        this._unitId = null;
-        this._figure = null;
-        this._gender = 'M';
-        this._motto = null;
-        this._achievementScore = 0;
+  public get unitId(): number {
+    return this._unitId
+  }
 
-        return true;
-    }
+  private _figure: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get figure(): string {
+    return this._figure
+  }
 
-        this._unitId = wrapper.readInt();
-        this._figure = wrapper.readString();
-        this._gender = wrapper.readString().toLocaleUpperCase();
-        this._motto = wrapper.readString();
-        this._achievementScore = wrapper.readInt();
+  private _gender: string
 
-        return true;
-    }
+  public get gender(): string {
+    return this._gender
+  }
 
-    public get unitId(): number
-    {
-        return this._unitId;
-    }
+  private _motto: string
 
-    public get figure(): string
-    {
-        return this._figure;
-    }
+  public get motto(): string {
+    return this._motto
+  }
 
-    public get gender(): string
-    {
-        return this._gender;
-    }
+  private _achievementScore: number
 
-    public get motto(): string
-    {
-        return this._motto;
-    }
+  public get achievementScore(): number {
+    return this._achievementScore
+  }
 
-    public get achievementScore(): number
-    {
-        return this._achievementScore;
-    }
+  public flush(): boolean {
+    this._unitId = null
+    this._figure = null
+    this._gender = 'M'
+    this._motto = null
+    this._achievementScore = 0
+
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._unitId = wrapper.readInt()
+    this._figure = wrapper.readString()
+    this._gender = wrapper.readString().toLocaleUpperCase()
+    this._motto = wrapper.readString()
+    this._achievementScore = wrapper.readInt()
+
+    return true
+  }
 }

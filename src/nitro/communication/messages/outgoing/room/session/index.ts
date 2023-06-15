@@ -1,2 +1,2 @@
-export * from './ChangeQueueMessageComposer';
-export * from './GoToFlatMessageComposer';
+export * from './ChangeQueueMessageComposer'
+export * from './GoToFlatMessageComposer'

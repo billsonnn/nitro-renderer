@@ -1,23 +1,20 @@
-import { IRoomCameraWidgetEffect } from '../../api';
+import { IRoomCameraWidgetEffect } from '@/api'
 
-export class RoomCameraWidgetSelectedEffect
-{
-    private _effect: IRoomCameraWidgetEffect;
-    private _alpha: number;
+export class RoomCameraWidgetSelectedEffect {
+  constructor(effect: IRoomCameraWidgetEffect, alpha: number) {
+    this._effect = effect
+    this._alpha = alpha
+  }
 
-    constructor(effect: IRoomCameraWidgetEffect, alpha: number)
-    {
-        this._effect = effect;
-        this._alpha = alpha;
-    }
+  private _effect: IRoomCameraWidgetEffect
 
-    public get effect(): IRoomCameraWidgetEffect
-    {
-        return this._effect;
-    }
+  public get effect(): IRoomCameraWidgetEffect {
+    return this._effect
+  }
 
-    public get alpha(): number
-    {
-        return this._alpha;
-    }
+  private _alpha: number
+
+  public get alpha(): number {
+    return this._alpha
+  }
 }

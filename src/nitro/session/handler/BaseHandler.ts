@@ -1,44 +1,39 @@
-import { IConnection, IRoomHandlerListener } from '../../../api';
-import { Disposable } from '../../../core';
+import { IConnection, IRoomHandlerListener } from '@/api'
+import { Disposable } from '@/core'
 
-export class BaseHandler extends Disposable
-{
-    private _connection: IConnection;
-    private _listener: IRoomHandlerListener;
-    private _roomId: number;
+export class BaseHandler extends Disposable {
+  constructor(connection: IConnection, listener: IRoomHandlerListener) {
+    super()
 
-    constructor(connection: IConnection, listener: IRoomHandlerListener)
-    {
-        super();
+    this._connection = connection
+    this._listener = listener
+    this._roomId = 0
+  }
 
-        this._connection = connection;
-        this._listener = listener;
-        this._roomId = 0;
-    }
+  private _connection: IConnection
 
-    protected onDispose(): void
-    {
-        this._connection = null;
-        this._listener = null;
-    }
+  public get connection(): IConnection {
+    return this._connection
+  }
 
-    public setRoomId(id: number): void
-    {
-        this._roomId = id;
-    }
+  private _listener: IRoomHandlerListener
 
-    public get connection(): IConnection
-    {
-        return this._connection;
-    }
+  public get listener(): IRoomHandlerListener {
+    return this._listener
+  }
 
-    public get listener(): IRoomHandlerListener
-    {
-        return this._listener;
-    }
+  private _roomId: number
 
-    public get roomId(): number
-    {
-        return this._roomId;
-    }
+  public get roomId(): number {
+    return this._roomId
+  }
+
+  public setRoomId(id: number): void {
+    this._roomId = id
+  }
+
+  protected onDispose(): void {
+    this._connection = null
+    this._listener = null
+  }
 }

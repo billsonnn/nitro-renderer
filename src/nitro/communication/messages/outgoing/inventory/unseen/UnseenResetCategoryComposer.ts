@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class UnseenResetCategoryComposer implements IMessageComposer<ConstructorParameters<typeof UnseenResetCategoryComposer>>
-{
-    private _data: ConstructorParameters<typeof UnseenResetCategoryComposer>;
+export class UnseenResetCategoryComposer implements IMessageComposer<ConstructorParameters<typeof UnseenResetCategoryComposer>> {
+  private _data: ConstructorParameters<typeof UnseenResetCategoryComposer>
 
-    constructor(category: number)
-    {
-        this._data = [category];
-    }
+  constructor(category: number) {
+    this._data = [category]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

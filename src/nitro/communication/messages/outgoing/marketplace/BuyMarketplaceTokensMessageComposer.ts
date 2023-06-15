@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class BuyMarketplaceTokensMessageComposer implements IMessageComposer<ConstructorParameters<typeof BuyMarketplaceTokensMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof BuyMarketplaceTokensMessageComposer>;
+export class BuyMarketplaceTokensMessageComposer implements IMessageComposer<ConstructorParameters<typeof BuyMarketplaceTokensMessageComposer>> {
+  private _data: ConstructorParameters<typeof BuyMarketplaceTokensMessageComposer>
 
-    constructor()
-    {
-        this._data = [];
-    }
+  constructor() {
+    this._data = []
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        this._data = null;
-    }
+  public dispose(): void {
+    this._data = null
+  }
 }

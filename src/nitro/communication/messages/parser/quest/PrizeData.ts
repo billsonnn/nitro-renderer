@@ -1,51 +1,48 @@
-import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageDataWrapper } from '@/api'
 
-export class PrizeData
-{
-    private _communityGoalId: number;
-    private _communityGoalCode: string;
-    private _userRank: number;
-    private _rewardCode: string;
-    private _badge: boolean;
-    private _localizedName: string;
+export class PrizeData {
+  constructor(k: IMessageDataWrapper) {
+    this._communityGoalId = k.readInt()
+    this._communityGoalCode = k.readString()
+    this._userRank = k.readInt()
+    this._rewardCode = k.readString()
+    this._badge = k.readBoolean()
+    this._localizedName = k.readString()
+  }
 
-    constructor(k: IMessageDataWrapper)
-    {
-        this._communityGoalId = k.readInt();
-        this._communityGoalCode = k.readString();
-        this._userRank = k.readInt();
-        this._rewardCode = k.readString();
-        this._badge = k.readBoolean();
-        this._localizedName = k.readString();
-    }
+  private _communityGoalId: number
 
-    public get communityGoalId(): number
-    {
-        return this._communityGoalId;
-    }
+  public get communityGoalId(): number {
+    return this._communityGoalId
+  }
 
-    public get communityGoalCode(): string
-    {
-        return this._communityGoalCode;
-    }
+  private _communityGoalCode: string
 
-    public get userRank(): number
-    {
-        return this._userRank;
-    }
+  public get communityGoalCode(): string {
+    return this._communityGoalCode
+  }
 
-    public get rewardCode(): string
-    {
-        return this._rewardCode;
-    }
+  private _userRank: number
 
-    public get badge(): boolean
-    {
-        return this._badge;
-    }
+  public get userRank(): number {
+    return this._userRank
+  }
 
-    public get localizedName(): string
-    {
-        return this._localizedName;
-    }
+  private _rewardCode: string
+
+  public get rewardCode(): string {
+    return this._rewardCode
+  }
+
+  private _badge: boolean
+
+  public get badge(): boolean {
+    return this._badge
+  }
+
+  private _localizedName: string
+
+  public get localizedName(): string {
+    return this._localizedName
+  }
 }

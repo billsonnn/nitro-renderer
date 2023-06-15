@@ -1,23 +1,19 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class LoveLockFurniFinishedParser implements IMessageParser
-{
-    private _furniId: number;
+export class LoveLockFurniFinishedParser implements IMessageParser {
+  private _furniId: number
 
-    public get furniId(): number
-    {
-        return this._furniId;
-    }
+  public get furniId(): number {
+    return this._furniId
+  }
 
-    public flush(): boolean
-    {
-        this._furniId = -1;
-        return true;
-    }
+  public flush(): boolean {
+    this._furniId = -1
+    return true
+  }
 
-    public parse(packet: IMessageDataWrapper): boolean
-    {
-        this._furniId = packet.readInt();
-        return true;
-    }
+  public parse(packet: IMessageDataWrapper): boolean {
+    this._furniId = packet.readInt()
+    return true
+  }
 }

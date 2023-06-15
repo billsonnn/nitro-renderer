@@ -1,43 +1,39 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class UserNameChangeMessageParser implements IMessageParser
-{
-    private _webId: number;
-    private _id: number;
-    private _newName: string;
+export class UserNameChangeMessageParser implements IMessageParser {
+  private _webId: number
 
-    public flush(): boolean
-    {
-        this._webId = -1;
-        this._id = -1;
-        this._newName = '';
+  public get webId(): number {
+    return this._webId
+  }
 
-        return true;
-    }
+  private _id: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get id(): number {
+    return this._id
+  }
 
-        this._webId = wrapper.readInt();
-        this._id = wrapper.readInt();
-        this._newName = wrapper.readString();
+  private _newName: string
 
-        return true;
-    }
+  public get newName(): string {
+    return this._newName
+  }
 
-    public get webId(): number
-    {
-        return this._webId;
-    }
+  public flush(): boolean {
+    this._webId = -1
+    this._id = -1
+    this._newName = ''
 
-    public get id(): number
-    {
-        return this._id;
-    }
+    return true
+  }
 
-    public get newName(): string
-    {
-        return this._newName;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._webId = wrapper.readInt()
+    this._id = wrapper.readInt()
+    this._newName = wrapper.readString()
+
+    return true
+  }
 }

@@ -1,21 +1,18 @@
-export class AvatarAnimationFrame
-{
-    private _number: number;
-    private _assetPartDefinition: string;
+export class AvatarAnimationFrame {
+  constructor(data: any) {
+    this._number = data.number
+    this._assetPartDefinition = data.assetPartDefinition || null
+  }
 
-    constructor(data: any)
-    {
-        this._number = data.number;
-        this._assetPartDefinition = data.assetPartDefinition || null;
-    }
+  private _number: number
 
-    public get number(): number
-    {
-        return this._number;
-    }
+  public get number(): number {
+    return this._number
+  }
 
-    public get assetPartDefinition(): string
-    {
-        return this._assetPartDefinition;
-    }
+  private _assetPartDefinition: string
+
+  public get assetPartDefinition(): string {
+    return this._assetPartDefinition
+  }
 }

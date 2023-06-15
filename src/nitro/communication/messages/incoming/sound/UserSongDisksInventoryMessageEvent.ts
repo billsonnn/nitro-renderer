@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { UserSongDisksInventoryMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { UserSongDisksInventoryMessageParser } from '@/nitro'
 
-export class UserSongDisksInventoryMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, UserSongDisksInventoryMessageParser);
-    }
+export class UserSongDisksInventoryMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, UserSongDisksInventoryMessageParser)
+  }
 
-    public getParser(): UserSongDisksInventoryMessageParser
-    {
-        return this.parser as UserSongDisksInventoryMessageParser;
-    }
+  public getParser(): UserSongDisksInventoryMessageParser {
+    return this.parser as UserSongDisksInventoryMessageParser
+  }
 }

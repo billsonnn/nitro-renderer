@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { GroupBadgePartsParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { GroupBadgePartsParser } from '@/nitro'
 
-export class GroupBadgePartsEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, GroupBadgePartsParser);
-    }
+export class GroupBadgePartsEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, GroupBadgePartsParser)
+  }
 
-    public getParser(): GroupBadgePartsParser
-    {
-        return this.parser as GroupBadgePartsParser;
-    }
+  public getParser(): GroupBadgePartsParser {
+    return this.parser as GroupBadgePartsParser
+  }
 }

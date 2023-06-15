@@ -1,4 +1,4 @@
-﻿import { RoomEngineObjectEvent } from './RoomEngineObjectEvent';
+﻿import { RoomEngineObjectEvent } from '@/events';
 
 export class RoomEngineTriggerWidgetEvent extends RoomEngineObjectEvent
 {

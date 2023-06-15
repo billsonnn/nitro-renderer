@@ -1,33 +1,29 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GuideSessionErrorMessageParser implements IMessageParser
-{
-    public static readonly ERROR_GENERIC: number = 0;
-    public static readonly ERROR_GUIDES_REJECT: number = 1;
-    public static readonly ERROR_NOT_ENOUGH_GUIDES: number = 2;
-    public static readonly ERROR_NOT_ENOUGH_VOTES: number = 3;
-    public static readonly ERROR_NO_CHATLOG_FOUND: number = 4;
+export class GuideSessionErrorMessageParser implements IMessageParser {
+  public static readonly ERROR_GENERIC: number = 0
+  public static readonly ERROR_GUIDES_REJECT: number = 1
+  public static readonly ERROR_NOT_ENOUGH_GUIDES: number = 2
+  public static readonly ERROR_NOT_ENOUGH_VOTES: number = 3
+  public static readonly ERROR_NO_CHATLOG_FOUND: number = 4
 
-    private _errorCode: number;
+  private _errorCode: number
 
-    public flush(): boolean
-    {
-        this._errorCode = 0;
+  public get errorCode(): number {
+    return this._errorCode
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._errorCode = 0
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._errorCode = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._errorCode = wrapper.readInt()
 
-    public get errorCode(): number
-    {
-        return this._errorCode;
-    }
+    return true
+  }
 }

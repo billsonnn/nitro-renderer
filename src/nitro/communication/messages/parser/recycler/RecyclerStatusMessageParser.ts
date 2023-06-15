@@ -1,34 +1,30 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class RecyclerStatusMessageParser implements IMessageParser
-{
-    private _recyclerStatus: number;
-    private _recyclerTimeoutSeconds: number;
+export class RecyclerStatusMessageParser implements IMessageParser {
+  private _recyclerStatus: number
 
-    public flush(): boolean
-    {
-        this._recyclerStatus = -1;
-        this._recyclerTimeoutSeconds = 0;
-        return true;
-    }
+  public get recyclerStatus(): number {
+    return this._recyclerStatus
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _recyclerTimeoutSeconds: number
 
-        this._recyclerStatus = wrapper.readInt();
-        this._recyclerTimeoutSeconds = wrapper.readInt();
+  public get recyclerTimeoutSeconds(): number {
+    return this._recyclerTimeoutSeconds
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._recyclerStatus = -1
+    this._recyclerTimeoutSeconds = 0
+    return true
+  }
 
-    public get recyclerStatus(): number
-    {
-        return this._recyclerStatus;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get recyclerTimeoutSeconds(): number
-    {
-        return this._recyclerTimeoutSeconds;
-    }
+    this._recyclerStatus = wrapper.readInt()
+    this._recyclerTimeoutSeconds = wrapper.readInt()
+
+    return true
+  }
 }

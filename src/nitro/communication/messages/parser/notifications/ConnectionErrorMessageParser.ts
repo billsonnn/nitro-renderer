@@ -1,43 +1,39 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class ConnectionErrorMessageParser implements IMessageParser
-{
-    private _errorCode: number;
-    private _messageId: number;
-    private _timestamp: string;
+export class ConnectionErrorMessageParser implements IMessageParser {
+  private _errorCode: number
 
-    public flush(): boolean
-    {
-        this._errorCode = 0;
-        this._messageId = 0;
-        this._timestamp = null;
+  public get errorCode(): number {
+    return this._errorCode
+  }
 
-        return true;
-    }
+  private _messageId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get messageId(): number {
+    return this._messageId
+  }
 
-        this._messageId = wrapper.readInt();
-        this._errorCode = wrapper.readInt();
-        this._timestamp = wrapper.readString();
+  private _timestamp: string
 
-        return true;
-    }
+  public get timestamp(): string {
+    return this._timestamp
+  }
 
-    public get errorCode(): number
-    {
-        return this._errorCode;
-    }
+  public flush(): boolean {
+    this._errorCode = 0
+    this._messageId = 0
+    this._timestamp = null
 
-    public get messageId(): number
-    {
-        return this._messageId;
-    }
+    return true
+  }
 
-    public get timestamp(): string
-    {
-        return this._timestamp;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._messageId = wrapper.readInt()
+    this._errorCode = wrapper.readInt()
+    this._timestamp = wrapper.readString()
+
+    return true
+  }
 }

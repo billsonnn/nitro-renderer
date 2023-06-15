@@ -1,4 +1,4 @@
-import { IEffectAssetDownloadLibrary } from '../../api';
+import { IEffectAssetDownloadLibrary } from '@/api';
 import { NitroEvent } from '../core';
 
 export class AvatarRenderEffectLibraryEvent extends NitroEvent

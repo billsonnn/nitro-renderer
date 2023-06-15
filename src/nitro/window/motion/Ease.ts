@@ -1,34 +1,29 @@
-﻿import { Interval } from './Interval';
+﻿import { Interval } from '@/nitro'
 
-export class Ease extends Interval
-{
-    protected _interval: Interval;
+export class Ease extends Interval {
+  protected _interval: Interval
 
-    constructor(k: Interval)
-    {
-        super(k.target, k.duration);
+  constructor(k: Interval) {
+    super(k.target, k.duration)
 
-        this._interval = k;
-    }
+    this._interval = k
+  }
 
-    public start(): void
-    {
-        super.start();
+  public start(): void {
+    super.start()
 
-        this._interval.start();
-    }
+    this._interval.start()
+  }
 
-    public update(k: number): void
-    {
-        super.update(k);
+  public update(k: number): void {
+    super.update(k)
 
-        this._interval.update(k);
-    }
+    this._interval.update(k)
+  }
 
-    public stop(): void
-    {
-        super.stop();
+  public stop(): void {
+    super.stop()
 
-        this._interval.stop();
-    }
+    this._interval.stop()
+  }
 }

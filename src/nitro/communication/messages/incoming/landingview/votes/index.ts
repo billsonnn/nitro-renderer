@@ -1,1 +1,1 @@
-export * from './CommunityGoalVoteMessageEvent';
+export * from './CommunityGoalVoteMessageEvent'

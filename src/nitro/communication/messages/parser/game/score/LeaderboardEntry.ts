@@ -1,51 +1,48 @@
-import { IMessageDataWrapper } from '../../../../../../api';
+import { IMessageDataWrapper } from '@/api'
 
-export class LeaderboardEntry
-{
-    private _userId:number;
-    private _score:number;
-    private _rank:number;
-    private _name:string;
-    private _figure:string;
-    private _gender:string;
+export class LeaderboardEntry {
+  constructor(k: IMessageDataWrapper) {
+    this._userId = k.readInt()
+    this._score = k.readInt()
+    this._rank = k.readInt()
+    this._name = k.readString()
+    this._figure = k.readString()
+    this._gender = k.readString()
+  }
 
-    constructor(k:IMessageDataWrapper)
-    {
-        this._userId = k.readInt();
-        this._score = k.readInt();
-        this._rank = k.readInt();
-        this._name = k.readString();
-        this._figure = k.readString();
-        this._gender = k.readString();
-    }
+  private _userId: number
 
-    public get userId():number
-    {
-        return this._userId;
-    }
+  public get userId(): number {
+    return this._userId
+  }
 
-    public get score():number
-    {
-        return this._score;
-    }
+  private _score: number
 
-    public get rank():number
-    {
-        return this._rank;
-    }
+  public get score(): number {
+    return this._score
+  }
 
-    public get figure():string
-    {
-        return this._figure;
-    }
+  private _rank: number
 
-    public get gender():string
-    {
-        return this._gender;
-    }
+  public get rank(): number {
+    return this._rank
+  }
 
-    public get name():string
-    {
-        return this._name;
-    }
+  private _name: string
+
+  public get name(): string {
+    return this._name
+  }
+
+  private _figure: string
+
+  public get figure(): string {
+    return this._figure
+  }
+
+  private _gender: string
+
+  public get gender(): string {
+    return this._gender
+  }
 }

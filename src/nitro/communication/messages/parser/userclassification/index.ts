@@ -1,1 +1,1 @@
-export * from './UserClassificationMessageParser';
+export * from './UserClassificationMessageParser'

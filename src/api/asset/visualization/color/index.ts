@@ -1,2 +1,2 @@
-export * from './IAssetColor';
-export * from './IAssetColorLayer';
+export * from './IAssetColor'
+export * from './IAssetColorLayer'

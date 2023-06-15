@@ -1,28 +1,24 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { CatalogPageMessageOfferData } from './CatalogPageMessageOfferData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { CatalogPageMessageOfferData } from '@/nitro'
 
-export class ProductOfferMessageParser implements IMessageParser
-{
-    private _offer: CatalogPageMessageOfferData;
+export class ProductOfferMessageParser implements IMessageParser {
+  private _offer: CatalogPageMessageOfferData
 
-    public flush(): boolean
-    {
-        this._offer = null;
+  public get offer(): CatalogPageMessageOfferData {
+    return this._offer
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._offer = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._offer = new CatalogPageMessageOfferData(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._offer = new CatalogPageMessageOfferData(wrapper)
 
-    public get offer(): CatalogPageMessageOfferData
-    {
-        return this._offer;
-    }
+    return true
+  }
 }

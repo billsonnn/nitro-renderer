@@ -1,26 +1,22 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class BotErrorEventParser implements IMessageParser
-{
-    private _errorCode: number;
+export class BotErrorEventParser implements IMessageParser {
+  private _errorCode: number
 
-    public flush(): boolean
-    {
-        this._errorCode = -1;
-        return true;
-    }
+  public get errorCode(): number {
+    return this._errorCode
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public flush(): boolean {
+    this._errorCode = -1
+    return true
+  }
 
-        this._errorCode = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._errorCode = wrapper.readInt()
 
-    public get errorCode(): number
-    {
-        return this._errorCode;
-    }
+    return true
+  }
 }

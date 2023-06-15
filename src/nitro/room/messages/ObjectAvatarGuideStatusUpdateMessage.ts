@@ -1,18 +1,15 @@
-import { ObjectStateUpdateMessage } from './ObjectStateUpdateMessage';
+import { ObjectStateUpdateMessage } from '@/nitro'
 
-export class ObjectAvatarGuideStatusUpdateMessage extends ObjectStateUpdateMessage
-{
-    private _guideStatus: number;
+export class ObjectAvatarGuideStatusUpdateMessage extends ObjectStateUpdateMessage {
+  constructor(value: number) {
+    super()
 
-    constructor(value: number)
-    {
-        super();
+    this._guideStatus = value
+  }
 
-        this._guideStatus = value;
-    }
+  private _guideStatus: number
 
-    public get guideStatus(): number
-    {
-        return this._guideStatus;
-    }
+  public get guideStatus(): number {
+    return this._guideStatus
+  }
 }

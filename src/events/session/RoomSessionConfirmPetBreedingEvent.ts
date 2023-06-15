@@ -1,6 +1,6 @@
-﻿import { IRoomSession } from '../../api';
-import { BreedingPetInfo, RarityCategoryData } from '../../nitro';
-import { RoomSessionEvent } from './RoomSessionEvent';
+﻿import { IRoomSession } from '@/api';
+import { BreedingPetInfo, RarityCategoryData } from '@/nitro';
+import { RoomSessionEvent } from '@/events';
 
 export class RoomSessionConfirmPetBreedingEvent extends RoomSessionEvent
 {

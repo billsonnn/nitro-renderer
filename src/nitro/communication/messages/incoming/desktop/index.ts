@@ -1,1 +1,1 @@
-export * from './DesktopViewEvent';
+export * from './DesktopViewEvent'

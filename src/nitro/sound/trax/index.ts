@@ -1,3 +1,3 @@
-export * from './TraxChannel';
-export * from './TraxChannelItem';
-export * from './TraxData';
+export * from './TraxChannel'
+export * from './TraxChannelItem'
+export * from './TraxData'

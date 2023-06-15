@@ -1,18 +1,15 @@
-import { ObjectStateUpdateMessage } from './ObjectStateUpdateMessage';
+import { ObjectStateUpdateMessage } from '@/nitro'
 
-export class ObjectAvatarTypingUpdateMessage extends ObjectStateUpdateMessage
-{
-    private _isTyping: boolean;
+export class ObjectAvatarTypingUpdateMessage extends ObjectStateUpdateMessage {
+  constructor(isTyping: boolean = false) {
+    super()
 
-    constructor(isTyping: boolean = false)
-    {
-        super();
+    this._isTyping = isTyping
+  }
 
-        this._isTyping = isTyping;
-    }
+  private _isTyping: boolean
 
-    public get isTyping(): boolean
-    {
-        return this._isTyping;
-    }
+  public get isTyping(): boolean {
+    return this._isTyping
+  }
 }

@@ -1,2 +1,2 @@
-export * from './YouArePlayingGameEvent';
-export * from './YouAreSpectatorMessageEvent';
+export * from './YouArePlayingGameEvent'
+export * from './YouAreSpectatorMessageEvent'

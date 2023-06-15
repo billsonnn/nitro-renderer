@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class HotelClosedAndOpensMessageParser implements IMessageParser
-{
-    private _openHour: number;
-    private _openMinute: number;
+export class HotelClosedAndOpensMessageParser implements IMessageParser {
+  private _openHour: number
 
-    public flush(): boolean
-    {
-        this._openHour = 0;
-        this._openMinute = 0;
+  public get openHour(): number {
+    return this._openHour
+  }
 
-        return true;
-    }
+  private _openMinute: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get openMinute(): number {
+    return this._openMinute
+  }
 
-        this._openHour = wrapper.readInt();
-        this._openMinute = wrapper.readInt();
+  public flush(): boolean {
+    this._openHour = 0
+    this._openMinute = 0
 
-        return true;
-    }
+    return true
+  }
 
-    public get openHour(): number
-    {
-        return this._openHour;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get openMinute(): number
-    {
-        return this._openMinute;
-    }
+    this._openHour = wrapper.readInt()
+    this._openMinute = wrapper.readInt()
+
+    return true
+  }
 }

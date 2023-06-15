@@ -1,2 +1,2 @@
-export * from './UnseenResetCategoryComposer';
-export * from './UnseenResetItemsComposer';
+export * from './UnseenResetCategoryComposer'
+export * from './UnseenResetItemsComposer'

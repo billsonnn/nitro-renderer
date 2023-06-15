@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { TraxSongInfoMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { TraxSongInfoMessageParser } from '@/nitro'
 
-export class TraxSongInfoMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, TraxSongInfoMessageParser);
-    }
+export class TraxSongInfoMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, TraxSongInfoMessageParser)
+  }
 
-    public getParser(): TraxSongInfoMessageParser
-    {
-        return this.parser as TraxSongInfoMessageParser;
-    }
+  public getParser(): TraxSongInfoMessageParser {
+    return this.parser as TraxSongInfoMessageParser
+  }
 }

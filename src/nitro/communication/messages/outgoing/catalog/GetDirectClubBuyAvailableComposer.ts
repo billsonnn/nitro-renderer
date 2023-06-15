@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GetDirectClubBuyAvailableComposer implements IMessageComposer<ConstructorParameters<typeof GetDirectClubBuyAvailableComposer>>
-{
-    private _data: ConstructorParameters<typeof GetDirectClubBuyAvailableComposer>;
+export class GetDirectClubBuyAvailableComposer implements IMessageComposer<ConstructorParameters<typeof GetDirectClubBuyAvailableComposer>> {
+  private _data: ConstructorParameters<typeof GetDirectClubBuyAvailableComposer>
 
-    constructor(days: number)
-    {
-        this._data = [days];
-    }
+  constructor(days: number) {
+    this._data = [days]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        this._data = null;
-    }
+  public dispose(): void {
+    this._data = null
+  }
 }

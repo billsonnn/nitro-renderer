@@ -1,28 +1,24 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { CfhChatlogData } from './CfhChatlogData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { CfhChatlogData } from '@/nitro'
 
-export class CfhChatlogMessageParser implements IMessageParser
-{
-    private _data: CfhChatlogData;
+export class CfhChatlogMessageParser implements IMessageParser {
+  private _data: CfhChatlogData
 
-    public flush(): boolean
-    {
-        this._data = null;
+  public get data(): CfhChatlogData {
+    return this._data
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._data = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._data = new CfhChatlogData(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._data = new CfhChatlogData(wrapper)
 
-    public get data(): CfhChatlogData
-    {
-        return this._data;
-    }
+    return true
+  }
 }

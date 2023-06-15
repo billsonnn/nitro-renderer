@@ -1,43 +1,39 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class RoomMessageNotificationMessageParser implements IMessageParser
-{
-    private _roomId: number;
-    private _roomName: string;
-    private _messageCount: number;
+export class RoomMessageNotificationMessageParser implements IMessageParser {
+  private _roomId: number
 
-    public flush(): boolean
-    {
-        this._roomId = -1;
-        this._roomName = null;
-        this._messageCount = -1;
+  public get roomId(): number {
+    return this._roomId
+  }
 
-        return true;
-    }
+  private _roomName: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get roomName(): string {
+    return this._roomName
+  }
 
-        this._roomId = wrapper.readInt();
-        this._roomName = wrapper.readString();
-        this._messageCount = wrapper.readInt();
+  private _messageCount: number
 
-        return true;
-    }
+  public get messageCount(): number {
+    return this._messageCount
+  }
 
-    public get roomId(): number
-    {
-        return this._roomId;
-    }
+  public flush(): boolean {
+    this._roomId = -1
+    this._roomName = null
+    this._messageCount = -1
 
-    public get roomName(): string
-    {
-        return this._roomName;
-    }
+    return true
+  }
 
-    public get messageCount(): number
-    {
-        return this._messageCount;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._roomId = wrapper.readInt()
+    this._roomName = wrapper.readString()
+    this._messageCount = wrapper.readInt()
+
+    return true
+  }
 }

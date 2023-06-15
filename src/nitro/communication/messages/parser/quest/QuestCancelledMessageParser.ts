@@ -1,24 +1,20 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class QuestCancelledMessageParser implements IMessageParser
-{
-    private _expired: boolean;
+export class QuestCancelledMessageParser implements IMessageParser {
+  private _expired: boolean
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get expired(): boolean {
+    return this._expired
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public flush(): boolean {
+    return true
+  }
 
-        this._expired = wrapper.readBoolean();
-        return true;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get expired(): boolean
-    {
-        return this._expired;
-    }
+    this._expired = wrapper.readBoolean()
+    return true
+  }
 }

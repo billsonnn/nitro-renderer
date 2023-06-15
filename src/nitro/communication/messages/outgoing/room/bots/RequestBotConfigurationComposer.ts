@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class RequestBotCommandConfigurationComposer implements IMessageComposer<ConstructorParameters<typeof RequestBotCommandConfigurationComposer>>
-{
-    private _data: ConstructorParameters<typeof RequestBotCommandConfigurationComposer>;
+export class RequestBotCommandConfigurationComposer implements IMessageComposer<ConstructorParameters<typeof RequestBotCommandConfigurationComposer>> {
+  private _data: ConstructorParameters<typeof RequestBotCommandConfigurationComposer>
 
-    constructor(botId: number, skillId: number)
-    {
-        this._data = [botId, skillId];
-    }
+  constructor(botId: number, skillId: number) {
+    this._data = [botId, skillId]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

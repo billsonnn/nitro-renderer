@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class IsOfferGiftableMessageParser implements IMessageParser
-{
-    private _offerId: number;
-    private _isGiftable: boolean;
+export class IsOfferGiftableMessageParser implements IMessageParser {
+  private _offerId: number
 
-    public flush(): boolean
-    {
-        this._offerId = 0;
-        this._isGiftable = false;
+  public get offerId(): number {
+    return this._offerId
+  }
 
-        return true;
-    }
+  private _isGiftable: boolean
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get isGiftable(): boolean {
+    return this._isGiftable
+  }
 
-        this._offerId = wrapper.readInt();
-        this._isGiftable = wrapper.readBoolean();
+  public flush(): boolean {
+    this._offerId = 0
+    this._isGiftable = false
 
-        return true;
-    }
+    return true
+  }
 
-    public get offerId(): number
-    {
-        return this._offerId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get isGiftable(): boolean
-    {
-        return this._isGiftable;
-    }
+    this._offerId = wrapper.readInt()
+    this._isGiftable = wrapper.readBoolean()
+
+    return true
+  }
 }

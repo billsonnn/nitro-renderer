@@ -1,2 +1,2 @@
-export * from './RoomObjectSprite';
-export * from './RoomObjectSpriteVisualization';
+export * from './RoomObjectSprite'
+export * from './RoomObjectSpriteVisualization'

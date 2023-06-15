@@ -1,53 +1,49 @@
-﻿import { IMessageDataWrapper } from '../../../../../api';
+﻿import { IMessageDataWrapper } from '@/api'
 
-export class BundleDiscountRuleset
-{
-    private _maxPurchaseSize: number;
-    private _bundleSize: number;
-    private _bundleDiscountSize: number;
-    private _bonusThreshold: number;
-    private _additionalBonusDiscountThresholdQuantities: number[];
+export class BundleDiscountRuleset {
+  constructor(wrapper: IMessageDataWrapper) {
+    this._maxPurchaseSize = wrapper.readInt()
+    this._bundleSize = wrapper.readInt()
+    this._bundleDiscountSize = wrapper.readInt()
+    this._bonusThreshold = wrapper.readInt()
+    this._additionalBonusDiscountThresholdQuantities = []
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        this._maxPurchaseSize = wrapper.readInt();
-        this._bundleSize = wrapper.readInt();
-        this._bundleDiscountSize = wrapper.readInt();
-        this._bonusThreshold = wrapper.readInt();
-        this._additionalBonusDiscountThresholdQuantities = [];
+    let count = wrapper.readInt()
 
-        let count = wrapper.readInt();
+    while (count > 0) {
+      this._additionalBonusDiscountThresholdQuantities.push(wrapper.readInt())
 
-        while(count > 0)
-        {
-            this._additionalBonusDiscountThresholdQuantities.push(wrapper.readInt());
-
-            count--;
-        }
+      count--
     }
+  }
 
-    public get maxPurchaseSize(): number
-    {
-        return this._maxPurchaseSize;
-    }
+  private _maxPurchaseSize: number
 
-    public get bundleSize(): number
-    {
-        return this._bundleSize;
-    }
+  public get maxPurchaseSize(): number {
+    return this._maxPurchaseSize
+  }
 
-    public get bundleDiscountSize(): number
-    {
-        return this._bundleDiscountSize;
-    }
+  private _bundleSize: number
 
-    public get bonusThreshold(): number
-    {
-        return this._bonusThreshold;
-    }
+  public get bundleSize(): number {
+    return this._bundleSize
+  }
 
-    public get additionalBonusDiscountThresholdQuantities(): number[]
-    {
-        return this._additionalBonusDiscountThresholdQuantities;
-    }
+  private _bundleDiscountSize: number
+
+  public get bundleDiscountSize(): number {
+    return this._bundleDiscountSize
+  }
+
+  private _bonusThreshold: number
+
+  public get bonusThreshold(): number {
+    return this._bonusThreshold
+  }
+
+  private _additionalBonusDiscountThresholdQuantities: number[]
+
+  public get additionalBonusDiscountThresholdQuantities(): number[] {
+    return this._additionalBonusDiscountThresholdQuantities
+  }
 }

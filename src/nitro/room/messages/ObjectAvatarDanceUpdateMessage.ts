@@ -1,18 +1,15 @@
-import { ObjectStateUpdateMessage } from './ObjectStateUpdateMessage';
+import { ObjectStateUpdateMessage } from '@/nitro'
 
-export class ObjectAvatarDanceUpdateMessage extends ObjectStateUpdateMessage
-{
-    private _danceStyle: number;
+export class ObjectAvatarDanceUpdateMessage extends ObjectStateUpdateMessage {
+  constructor(danceStyle: number = 0) {
+    super()
 
-    constructor(danceStyle: number = 0)
-    {
-        super();
+    this._danceStyle = danceStyle
+  }
 
-        this._danceStyle = danceStyle;
-    }
+  private _danceStyle: number
 
-    public get danceStyle(): number
-    {
-        return this._danceStyle;
-    }
+  public get danceStyle(): number {
+    return this._danceStyle
+  }
 }

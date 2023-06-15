@@ -1,28 +1,24 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { WiredActionDefinition } from './WiredActionDefinition';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { WiredActionDefinition } from '@/nitro'
 
-export class WiredFurniActionParser implements IMessageParser
-{
-    private _definition: WiredActionDefinition;
+export class WiredFurniActionParser implements IMessageParser {
+  private _definition: WiredActionDefinition
 
-    public flush(): boolean
-    {
-        this._definition = null;
+  public get definition(): WiredActionDefinition {
+    return this._definition
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._definition = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._definition = new WiredActionDefinition(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._definition = new WiredActionDefinition(wrapper)
 
-    public get definition(): WiredActionDefinition
-    {
-        return this._definition;
-    }
+    return true
+  }
 }

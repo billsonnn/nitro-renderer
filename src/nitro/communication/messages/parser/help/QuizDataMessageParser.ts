@@ -1,40 +1,36 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class QuizDataMessageParser implements IMessageParser
-{
-    private _quizCode: string;
-    private _questionIds: number[];
+export class QuizDataMessageParser implements IMessageParser {
+  private _quizCode: string
 
-    public flush(): boolean
-    {
-        this._quizCode = null;
-        this._questionIds = [];
+  public get quizCode(): string {
+    return this._quizCode
+  }
 
-        return true;
-    }
+  private _questionIds: number[]
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get questionIds(): number[] {
+    return this._questionIds
+  }
 
-        this._quizCode = wrapper.readString();
+  public flush(): boolean {
+    this._quizCode = null
+    this._questionIds = []
 
-        const size = wrapper.readInt();
+    return true
+  }
 
-        this._questionIds = [];
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        for(let i = 0; i < size; i++) this._questionIds.push(wrapper.readInt());
+    this._quizCode = wrapper.readString()
 
-        return true;
-    }
+    const size = wrapper.readInt()
 
-    public get quizCode(): string
-    {
-        return this._quizCode;
-    }
+    this._questionIds = []
 
-    public get questionIds(): number[]
-    {
-        return this._questionIds;
-    }
+    for (let i = 0; i < size; i++) this._questionIds.push(wrapper.readInt())
+
+    return true
+  }
 }

@@ -1,8 +1,5 @@
-import { IRoomGeometry } from '../IRoomGeometry';
-import { IRoomSpriteMouseEvent } from '../IRoomSpriteMouseEvent';
-import { IRoomObject } from '../object';
+import { IRoomGeometry, IRoomObject, IRoomSpriteMouseEvent } from '@/api'
 
-export interface IRoomCanvasMouseListener
-{
-    processRoomCanvasMouseEvent(event: IRoomSpriteMouseEvent, object: IRoomObject, geometry: IRoomGeometry): void
+export interface IRoomCanvasMouseListener {
+  processRoomCanvasMouseEvent(event: IRoomSpriteMouseEvent, object: IRoomObject, geometry: IRoomGeometry): void
 }

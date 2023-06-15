@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class PurchaseVipMembershipExtensionComposer implements IMessageComposer<ConstructorParameters<typeof PurchaseVipMembershipExtensionComposer>>
-{
-    private _data: ConstructorParameters<typeof PurchaseVipMembershipExtensionComposer>;
+export class PurchaseVipMembershipExtensionComposer implements IMessageComposer<ConstructorParameters<typeof PurchaseVipMembershipExtensionComposer>> {
+  private _data: ConstructorParameters<typeof PurchaseVipMembershipExtensionComposer>
 
-    constructor(k: number)
-    {
-        this._data = [k];
-    }
+  constructor(k: number) {
+    this._data = [k]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

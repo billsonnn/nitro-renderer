@@ -1,49 +1,42 @@
-import { IAnimation, IAnimationLayerData, IAnimationManager, IAssetAnimation } from '../../../api';
-import { AvatarStructure } from '../AvatarStructure';
-import { Animation } from './Animation';
+import { IAnimation, IAnimationLayerData, IAnimationManager, IAssetAnimation } from '@/api'
+import { Animation, AvatarStructure } from '@/nitro'
 
-export class AnimationManager implements IAnimationManager
-{
-    private _animations: Map<string, Animation>;
+export class AnimationManager implements IAnimationManager {
+  constructor() {
+    this._animations = new Map()
+  }
 
-    constructor()
-    {
-        this._animations = new Map();
-    }
+  private _animations: Map<string, Animation>
 
-    public registerAnimation(structure: AvatarStructure, _arg_2: { [index: string]: IAssetAnimation }): boolean
-    {
-        if(!_arg_2) return false;
+  public get animations(): Map<string, IAnimation> {
+    return this._animations
+  }
 
-        const animationData = _arg_2[Object.keys(_arg_2)[0]];
+  public registerAnimation(structure: AvatarStructure, _arg_2: { [index: string]: IAssetAnimation }): boolean {
+    if (!_arg_2) return false
 
-        const animation = new Animation(structure, animationData);
+    const animationData = _arg_2[Object.keys(_arg_2)[0]]
 
-        this._animations.set(animationData.name, animation);
+    const animation = new Animation(structure, animationData)
 
-        return true;
-    }
+    this._animations.set(animationData.name, animation)
 
-    public getAnimation(animation: string): Animation
-    {
-        const existing = this._animations.get(animation);
+    return true
+  }
 
-        if(!existing) return null;
+  public getAnimation(animation: string): Animation {
+    const existing = this._animations.get(animation)
 
-        return existing;
-    }
+    if (!existing) return null
 
-    public getLayerData(animation: string, frameCount: number, spriteId: string): IAnimationLayerData
-    {
-        const existing = this.getAnimation(animation);
+    return existing
+  }
 
-        if(!existing) return null;
+  public getLayerData(animation: string, frameCount: number, spriteId: string): IAnimationLayerData {
+    const existing = this.getAnimation(animation)
 
-        return existing.getLayerData(frameCount, spriteId);
-    }
+    if (!existing) return null
 
-    public get animations(): Map<string, IAnimation>
-    {
-        return this._animations;
-    }
+    return existing.getLayerData(frameCount, spriteId)
+  }
 }

@@ -1,24 +1,21 @@
-import { IMessageDataWrapper } from '../../../../../api';
-import { IFlatUser } from './IFlatUser';
+import { IMessageDataWrapper } from '@/api'
+import { IFlatUser } from '@/nitro'
 
-export class BannedUserData implements IFlatUser
-{
-    private _userId: number;
-    private _userName: string;
+export class BannedUserData implements IFlatUser {
+  constructor(wrapper: IMessageDataWrapper) {
+    this._userId = wrapper.readInt()
+    this._userName = wrapper.readString()
+  }
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        this._userId = wrapper.readInt();
-        this._userName = wrapper.readString();
-    }
+  private _userId: number
 
-    public get userId(): number
-    {
-        return this._userId;
-    }
+  public get userId(): number {
+    return this._userId
+  }
 
-    public get userName(): string
-    {
-        return this._userName;
-    }
+  private _userName: string
+
+  public get userName(): string {
+    return this._userName
+  }
 }

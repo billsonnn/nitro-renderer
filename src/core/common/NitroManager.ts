@@ -1,66 +1,57 @@
-import { IEventDispatcher, INitroManager } from '../../api';
-import { Disposable } from './Disposable';
-import { EventDispatcher } from './EventDispatcher';
+import { IEventDispatcher, INitroManager } from '@/api'
+import { Disposable, EventDispatcher } from '@/core'
 
-export class NitroManager extends Disposable implements INitroManager
-{
-    private _events: IEventDispatcher;
+export class NitroManager extends Disposable implements INitroManager {
+  constructor() {
+    super()
 
-    private _isLoaded: boolean;
-    private _isLoading: boolean;
+    this._events = new EventDispatcher()
 
-    constructor()
-    {
-        super();
+    this._isLoaded = false
+    this._isLoading = false
+  }
 
-        this._events = new EventDispatcher();
+  private _events: IEventDispatcher
 
-        this._isLoaded = false;
-        this._isLoading = false;
-    }
+  public get events(): IEventDispatcher {
+    return this._events
+  }
 
-    public init(): void
-    {
-        if(this._isLoaded || this._isLoading || this.isDisposing) return;
+  private _isLoaded: boolean
 
-        this._isLoading = true;
+  public get isLoaded(): boolean {
+    return this._isLoaded
+  }
 
-        this.onInit();
+  private _isLoading: boolean
 
-        this._isLoaded = true;
-        this._isLoading = false;
-    }
+  public get isLoading(): boolean {
+    return this._isLoading
+  }
 
-    protected onInit(): void
-    {
-        return;
-    }
+  public init(): void {
+    if (this._isLoaded || this._isLoading || this.isDisposing) return
 
-    protected onDispose(): void
-    {
-        if(this._events) this._events.dispose();
+    this._isLoading = true
 
-        super.onDispose();
-    }
+    this.onInit()
 
-    public reload(): void
-    {
-        this.dispose();
-        this.init();
-    }
+    this._isLoaded = true
+    this._isLoading = false
+  }
 
-    public get events(): IEventDispatcher
-    {
-        return this._events;
-    }
+  public reload(): void {
+    this.dispose()
+    this.init()
+  }
 
-    public get isLoaded(): boolean
-    {
-        return this._isLoaded;
-    }
+  protected onInit(): void {
+    return
+  }
 
-    public get isLoading(): boolean
-    {
-        return this._isLoading;
-    }
+  protected onDispose(): void {
+    if (this._events) this._events.dispose()
+
+    super.onDispose()
+  }
 }

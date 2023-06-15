@@ -1,106 +1,91 @@
-import { IRoomGeometry, MouseEventType, NumberDataType, RoomObjectVariable } from '../../../../../api';
-import { RoomObjectHSLColorEnableEvent, RoomObjectWidgetRequestEvent, RoomSpriteMouseEvent } from '../../../../../events';
-import { RoomObjectUpdateMessage } from '../../../../../room';
-import { ObjectDataUpdateMessage } from '../../../messages';
-import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
+import { IRoomGeometry, MouseEventType, NumberDataType, RoomObjectVariable } from '@/api'
+import { RoomObjectHSLColorEnableEvent, RoomObjectWidgetRequestEvent, RoomSpriteMouseEvent } from '@/events'
+import { RoomObjectUpdateMessage } from '@/room'
+import { FurnitureMultiStateLogic, ObjectDataUpdateMessage } from '@/nitro'
 
-export class FurnitureRoomBackgroundColorLogic extends FurnitureMultiStateLogic
-{
+export class FurnitureRoomBackgroundColorLogic extends FurnitureMultiStateLogic {
 
-    private _roomColorUpdated: boolean;
+  private _roomColorUpdated: boolean
 
-    constructor()
-    {
-        super();
+  constructor() {
+    super()
 
-        this._roomColorUpdated = false;
+    this._roomColorUpdated = false
+  }
+
+  public getEventTypes(): string[] {
+    const types = [
+      RoomObjectWidgetRequestEvent.BACKGROUND_COLOR,
+      RoomObjectHSLColorEnableEvent.ROOM_BACKGROUND_COLOR
+    ]
+
+    return this.mergeTypes(super.getEventTypes(), types)
+  }
+
+  public processUpdateMessage(message: RoomObjectUpdateMessage): void {
+    super.processUpdateMessage(message)
+
+    if (message instanceof ObjectDataUpdateMessage) {
+      message.data.writeRoomObjectModel(this.object.model)
+
+      const realRoomObject = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT)
+
+      if (realRoomObject === 1) this.processColorUpdate()
+    }
+  }
+
+  public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void {
+    if (!event || !geometry || !this.object) return
+
+    switch (event.type) {
+      case MouseEventType.DOUBLE_CLICK:
+        (this.eventDispatcher && this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.BACKGROUND_COLOR, this.object)))
+        return
     }
 
-    public getEventTypes(): string[]
-    {
-        const types = [
-            RoomObjectWidgetRequestEvent.BACKGROUND_COLOR,
-            RoomObjectHSLColorEnableEvent.ROOM_BACKGROUND_COLOR
-        ];
+    super.mouseEvent(event, geometry)
+  }
 
-        return this.mergeTypes(super.getEventTypes(), types);
-    }
+  protected onDispose(): void {
+    if (this._roomColorUpdated) {
+      if (this.eventDispatcher && this.object) {
+        const realRoomObject = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT)
 
-    protected onDispose(): void
-    {
-        if(this._roomColorUpdated)
-        {
-            if(this.eventDispatcher && this.object)
-            {
-                const realRoomObject = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT);
-
-                if(realRoomObject === 1)
-                {
-                    this.eventDispatcher.dispatchEvent(new RoomObjectHSLColorEnableEvent(RoomObjectHSLColorEnableEvent.ROOM_BACKGROUND_COLOR, this.object, false, 0, 0, 0));
-                }
-            }
-
-            this._roomColorUpdated = false;
+        if (realRoomObject === 1) {
+          this.eventDispatcher.dispatchEvent(new RoomObjectHSLColorEnableEvent(RoomObjectHSLColorEnableEvent.ROOM_BACKGROUND_COLOR, this.object, false, 0, 0, 0))
         }
+      }
 
-        super.onDispose();
+      this._roomColorUpdated = false
     }
 
-    public processUpdateMessage(message: RoomObjectUpdateMessage): void
-    {
-        super.processUpdateMessage(message);
+    super.onDispose()
+  }
 
-        if(message instanceof ObjectDataUpdateMessage)
-        {
-            message.data.writeRoomObjectModel(this.object.model);
+  private processColorUpdate(): void {
+    if (!this.object || !this.object.model) return
 
-            const realRoomObject = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT);
+    const numberData = new NumberDataType()
 
-            if(realRoomObject === 1) this.processColorUpdate();
-        }
+    numberData.initializeFromRoomObjectModel(this.object.model)
+
+    const state = numberData.getValue(0)
+    const hue = numberData.getValue(1)
+    const saturation = numberData.getValue(2)
+    const lightness = numberData.getValue(3)
+
+    if ((state > -1) && (hue > -1) && (saturation > -1) && (lightness > -1)) {
+      this.object.model.setValue(RoomObjectVariable.FURNITURE_ROOM_BACKGROUND_COLOR_HUE, hue)
+      this.object.model.setValue(RoomObjectVariable.FURNITURE_ROOM_BACKGROUND_COLOR_SATURATION, saturation)
+      this.object.model.setValue(RoomObjectVariable.FURNITURE_ROOM_BACKGROUND_COLOR_LIGHTNESS, lightness)
+
+      this.object.setState(state, 0)
+
+      if (this.eventDispatcher) {
+        this.eventDispatcher.dispatchEvent(new RoomObjectHSLColorEnableEvent(RoomObjectHSLColorEnableEvent.ROOM_BACKGROUND_COLOR, this.object, (state === 1), hue, saturation, lightness))
+      }
+
+      this._roomColorUpdated = true
     }
-
-    private processColorUpdate(): void
-    {
-        if(!this.object || !this.object.model) return;
-
-        const numberData = new NumberDataType();
-
-        numberData.initializeFromRoomObjectModel(this.object.model);
-
-        const state = numberData.getValue(0);
-        const hue = numberData.getValue(1);
-        const saturation = numberData.getValue(2);
-        const lightness = numberData.getValue(3);
-
-        if((state > -1) && (hue > -1) && (saturation > -1) && (lightness > -1))
-        {
-            this.object.model.setValue(RoomObjectVariable.FURNITURE_ROOM_BACKGROUND_COLOR_HUE, hue);
-            this.object.model.setValue(RoomObjectVariable.FURNITURE_ROOM_BACKGROUND_COLOR_SATURATION, saturation);
-            this.object.model.setValue(RoomObjectVariable.FURNITURE_ROOM_BACKGROUND_COLOR_LIGHTNESS, lightness);
-
-            this.object.setState(state, 0);
-
-            if(this.eventDispatcher)
-            {
-                this.eventDispatcher.dispatchEvent(new RoomObjectHSLColorEnableEvent(RoomObjectHSLColorEnableEvent.ROOM_BACKGROUND_COLOR, this.object, (state === 1), hue, saturation, lightness));
-            }
-
-            this._roomColorUpdated = true;
-        }
-    }
-
-    public mouseEvent(event: RoomSpriteMouseEvent, geometry: IRoomGeometry): void
-    {
-        if(!event || !geometry || !this.object) return;
-
-        switch(event.type)
-        {
-            case MouseEventType.DOUBLE_CLICK:
-                (this.eventDispatcher && this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.BACKGROUND_COLOR, this.object)));
-                return;
-        }
-
-        super.mouseEvent(event, geometry);
-    }
+  }
 }

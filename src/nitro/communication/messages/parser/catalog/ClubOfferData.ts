@@ -1,105 +1,102 @@
-import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageDataWrapper } from '@/api'
 
-export class ClubOfferData
-{
-    private _offerId: number;
-    private _productCode: string;
-    private _priceCredits: number;
-    private _priceActivityPoints: number;
-    private _priceActivityPointsType: number;
-    private _vip: boolean;
-    private _months: number;
-    private _extraDays: number;
-    private _daysLeftAfterPurchase: number;
-    private _year: number;
-    private _month: number;
-    private _day: number;
-    private _giftable: boolean;
+export class ClubOfferData {
+  constructor(wrapper: IMessageDataWrapper) {
+    if (!wrapper) throw new Error('invalid_wrapper')
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        if(!wrapper) throw new Error('invalid_wrapper');
+    this._offerId = wrapper.readInt()
+    this._productCode = wrapper.readString()
 
-        this._offerId = wrapper.readInt();
-        this._productCode = wrapper.readString();
+    wrapper.readBoolean()
 
-        wrapper.readBoolean();
+    this._priceCredits = wrapper.readInt()
+    this._priceActivityPoints = wrapper.readInt()
+    this._priceActivityPointsType = wrapper.readInt()
+    this._vip = wrapper.readBoolean()
+    this._months = wrapper.readInt()
+    this._extraDays = wrapper.readInt()
+    this._giftable = wrapper.readBoolean()
+    this._daysLeftAfterPurchase = wrapper.readInt()
+    this._year = wrapper.readInt()
+    this._month = wrapper.readInt()
+    this._day = wrapper.readInt()
+  }
 
-        this._priceCredits = wrapper.readInt();
-        this._priceActivityPoints = wrapper.readInt();
-        this._priceActivityPointsType = wrapper.readInt();
-        this._vip = wrapper.readBoolean();
-        this._months = wrapper.readInt();
-        this._extraDays = wrapper.readInt();
-        this._giftable = wrapper.readBoolean();
-        this._daysLeftAfterPurchase = wrapper.readInt();
-        this._year = wrapper.readInt();
-        this._month = wrapper.readInt();
-        this._day = wrapper.readInt();
-    }
+  private _offerId: number
 
-    public get offerId(): number
-    {
-        return this._offerId;
-    }
+  public get offerId(): number {
+    return this._offerId
+  }
 
-    public get productCode(): string
-    {
-        return this._productCode;
-    }
+  private _productCode: string
 
-    public get priceCredits(): number
-    {
-        return this._priceCredits;
-    }
+  public get productCode(): string {
+    return this._productCode
+  }
 
-    public get priceActivityPoints(): number
-    {
-        return this._priceActivityPoints;
-    }
+  private _priceCredits: number
 
-    public get priceActivityPointsType(): number
-    {
-        return this._priceActivityPointsType;
-    }
+  public get priceCredits(): number {
+    return this._priceCredits
+  }
 
-    public get vip(): boolean
-    {
-        return this._vip;
-    }
+  private _priceActivityPoints: number
 
-    public get months(): number
-    {
-        return this._months;
-    }
+  public get priceActivityPoints(): number {
+    return this._priceActivityPoints
+  }
 
-    public get extraDays(): number
-    {
-        return this._extraDays;
-    }
+  private _priceActivityPointsType: number
 
-    public get daysLeftAfterPurchase(): number
-    {
-        return this._daysLeftAfterPurchase;
-    }
+  public get priceActivityPointsType(): number {
+    return this._priceActivityPointsType
+  }
 
-    public get year(): number
-    {
-        return this._year;
-    }
+  private _vip: boolean
 
-    public get month(): number
-    {
-        return this._month;
-    }
+  public get vip(): boolean {
+    return this._vip
+  }
 
-    public get day(): number
-    {
-        return this._day;
-    }
+  private _months: number
 
-    public get giftable(): boolean
-    {
-        return this._giftable;
-    }
+  public get months(): number {
+    return this._months
+  }
+
+  private _extraDays: number
+
+  public get extraDays(): number {
+    return this._extraDays
+  }
+
+  private _daysLeftAfterPurchase: number
+
+  public get daysLeftAfterPurchase(): number {
+    return this._daysLeftAfterPurchase
+  }
+
+  private _year: number
+
+  public get year(): number {
+    return this._year
+  }
+
+  private _month: number
+
+  public get month(): number {
+    return this._month
+  }
+
+  private _day: number
+
+  public get day(): number {
+    return this._day
+  }
+
+  private _giftable: boolean
+
+  public get giftable(): boolean {
+    return this._giftable
+  }
 }

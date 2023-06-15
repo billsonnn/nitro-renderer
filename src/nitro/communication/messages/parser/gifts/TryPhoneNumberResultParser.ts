@@ -1,33 +1,29 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class TryPhoneNumberResultParser implements IMessageParser
-{
-    private _resultCode: number;
-    private _millisToAllowProcessReset: number;
+export class TryPhoneNumberResultParser implements IMessageParser {
+  private _resultCode: number
 
-    public flush(): boolean
-    {
-        this._resultCode = -1;
-        return true;
-    }
+  public get resultCode(): number {
+    return this._resultCode
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _millisToAllowProcessReset: number
 
-        this._resultCode = wrapper.readInt();
-        this._millisToAllowProcessReset = wrapper.readInt();
+  public get millisToAllowProcessReset(): number {
+    return this._millisToAllowProcessReset
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._resultCode = -1
+    return true
+  }
 
-    public get resultCode(): number
-    {
-        return this._resultCode;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get millisToAllowProcessReset(): number
-    {
-        return this._millisToAllowProcessReset;
-    }
+    this._resultCode = wrapper.readInt()
+    this._millisToAllowProcessReset = wrapper.readInt()
+
+    return true
+  }
 }

@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GetBadgePointLimitsComposer implements IMessageComposer<ConstructorParameters<typeof GetBadgePointLimitsComposer>>
-{
-    private _data: ConstructorParameters<typeof GetBadgePointLimitsComposer>;
+export class GetBadgePointLimitsComposer implements IMessageComposer<ConstructorParameters<typeof GetBadgePointLimitsComposer>> {
+  private _data: ConstructorParameters<typeof GetBadgePointLimitsComposer>
 
-    constructor()
-    {
-        this._data = [ ];
-    }
+  constructor() {
+    this._data = []
+  }
 
-    dispose(): void
-    {
-        this._data = null;
-    }
+  dispose(): void {
+    this._data = null
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 }

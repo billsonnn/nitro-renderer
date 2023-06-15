@@ -1,59 +1,55 @@
-import { Resource, Texture } from '@pixi/core';
+import { Resource, Texture } from '@pixi/core'
 
-export class PlaneTextureBitmap
-{
-    public static MIN_NORMAL_COORDINATE_VALUE: number = -1;
-    public static MAX_NORMAL_COORDINATE_VALUE: number = 1;
+export class PlaneTextureBitmap {
+  public static MIN_NORMAL_COORDINATE_VALUE: number = -1
+  public static MAX_NORMAL_COORDINATE_VALUE: number = 1
 
-    private _bitmap: Texture<Resource>;
-    private _normalMinX: number;
-    private _normalMaxX: number;
-    private _normalMinY: number;
-    private _normalMaxY: number;
-    private _assetName: string;
+  constructor(bitmap: Texture<Resource>, normalMinX: number = -1, normalMaxX: number = 1, normalMinY: number = -1, normalMaxY: number = 1, assetName: string = null) {
+    this._bitmap = bitmap
+    this._normalMinX = normalMinX
+    this._normalMaxX = normalMaxX
+    this._normalMinY = normalMinY
+    this._normalMaxY = normalMaxY
+    this._assetName = assetName
+  }
 
-    constructor(bitmap: Texture<Resource>, normalMinX: number = -1, normalMaxX: number = 1, normalMinY: number = -1, normalMaxY: number = 1, assetName: string = null)
-    {
-        this._bitmap = bitmap;
-        this._normalMinX = normalMinX;
-        this._normalMaxX = normalMaxX;
-        this._normalMinY = normalMinY;
-        this._normalMaxY = normalMaxY;
-        this._assetName = assetName;
-    }
+  private _bitmap: Texture<Resource>
 
-    public get bitmap(): Texture<Resource>
-    {
-        return this._bitmap;
-    }
+  public get bitmap(): Texture<Resource> {
+    return this._bitmap
+  }
 
-    public get normalMinX(): number
-    {
-        return this._normalMinX;
-    }
+  private _normalMinX: number
 
-    public get normalMaxX(): number
-    {
-        return this._normalMaxX;
-    }
+  public get normalMinX(): number {
+    return this._normalMinX
+  }
 
-    public get normalMinY(): number
-    {
-        return this._normalMinY;
-    }
+  private _normalMaxX: number
 
-    public get normalMaxY(): number
-    {
-        return this._normalMaxY;
-    }
+  public get normalMaxX(): number {
+    return this._normalMaxX
+  }
 
-    public get assetName(): string
-    {
-        return this._assetName;
-    }
+  private _normalMinY: number
 
-    public dispose(): void
-    {
-        this._bitmap = null;
-    }
+  public get normalMinY(): number {
+    return this._normalMinY
+  }
+
+  private _normalMaxY: number
+
+  public get normalMaxY(): number {
+    return this._normalMaxY
+  }
+
+  private _assetName: string
+
+  public get assetName(): string {
+    return this._assetName
+  }
+
+  public dispose(): void {
+    this._bitmap = null
+  }
 }

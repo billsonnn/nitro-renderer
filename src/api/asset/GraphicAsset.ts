@@ -1,148 +1,137 @@
-import { Resource, Texture } from '@pixi/core';
-import { Rectangle } from '@pixi/math';
-import { Sprite } from '@pixi/sprite';
-import { TextureUtils } from '../../pixi-proxy';
-import { IGraphicAsset } from './IGraphicAsset';
+import { Resource, Texture } from '@pixi/core'
+import { Rectangle } from '@pixi/math'
+import { Sprite } from '@pixi/sprite'
+import { TextureUtils } from '@/pixi-proxy'
+import { IGraphicAsset } from '@/api'
 
-export class GraphicAsset implements IGraphicAsset
-{
-    private static GRAPHIC_POOL: GraphicAsset[] = [];
+export class GraphicAsset implements IGraphicAsset {
+  private static GRAPHIC_POOL: GraphicAsset[] = []
+  private _initialized: boolean
 
-    private _name: string;
-    private _source: string;
-    private _texture: Texture<Resource>;
-    private _usesPalette: boolean;
-    private _x: number;
-    private _y: number;
-    private _width: number;
-    private _height: number;
-    private _flipH: boolean;
-    private _flipV: boolean;
-    private _rectangle: Rectangle;
-    private _initialized: boolean;
+  private _name: string
 
-    public static createAsset(name: string, source: string, texture: Texture<Resource>, x: number, y: number, flipH: boolean = false, flipV: boolean = false, usesPalette: boolean = false): GraphicAsset
-    {
-        const graphicAsset = (GraphicAsset.GRAPHIC_POOL.length ? GraphicAsset.GRAPHIC_POOL.pop() : new GraphicAsset());
+  public get name(): string {
+    return this._name
+  }
 
-        graphicAsset._name = name;
-        graphicAsset._source = source || null;
+  private _source: string
 
-        if(texture)
-        {
-            graphicAsset._texture = texture;
-            graphicAsset._initialized = false;
-        }
-        else
-        {
-            graphicAsset._texture = null;
-            graphicAsset._initialized = true;
-        }
+  public get source(): string {
+    return this._source
+  }
 
-        graphicAsset._usesPalette = usesPalette;
-        graphicAsset._x = x;
-        graphicAsset._y = y;
-        graphicAsset._flipH = flipH;
-        graphicAsset._flipV = flipV;
-        graphicAsset._rectangle = null;
+  private _texture: Texture<Resource>
 
-        return graphicAsset;
+  public get texture(): Texture<Resource> {
+    return this._texture
+  }
+
+  private _usesPalette: boolean
+
+  public get usesPalette(): boolean {
+    return this._usesPalette
+  }
+
+  private _x: number
+
+  public get x(): number {
+    return this._x
+  }
+
+  private _y: number
+
+  public get y(): number {
+    return this._y
+  }
+
+  private _width: number
+
+  public get width(): number {
+    this.initialize()
+
+    return this._width
+  }
+
+  private _height: number
+
+  public get height(): number {
+    this.initialize()
+
+    return this._height
+  }
+
+  private _flipH: boolean
+
+  public get flipH(): boolean {
+    return this._flipH
+  }
+
+  private _flipV: boolean
+
+  public get flipV(): boolean {
+    return this._flipV
+  }
+
+  private _rectangle: Rectangle
+
+  public get rectangle(): Rectangle {
+    if (!this._rectangle) this._rectangle = new Rectangle(0, 0, this.width, this.height)
+
+    return this._rectangle
+  }
+
+  public get offsetX(): number {
+    if (!this._flipH) return this._x
+
+    return (-(this._x))
+  }
+
+  public get offsetY(): number {
+    if (!this._flipV) return this._y
+
+    return (-(this._y))
+  }
+
+  public static createAsset(name: string, source: string, texture: Texture<Resource>, x: number, y: number, flipH: boolean = false, flipV: boolean = false, usesPalette: boolean = false): GraphicAsset {
+    const graphicAsset = (GraphicAsset.GRAPHIC_POOL.length ? GraphicAsset.GRAPHIC_POOL.pop() : new GraphicAsset())
+
+    graphicAsset._name = name
+    graphicAsset._source = source || null
+
+    if (texture) {
+      graphicAsset._texture = texture
+      graphicAsset._initialized = false
+    } else {
+      graphicAsset._texture = null
+      graphicAsset._initialized = true
     }
 
-    public recycle(): void
-    {
-        this._texture = null;
+    graphicAsset._usesPalette = usesPalette
+    graphicAsset._x = x
+    graphicAsset._y = y
+    graphicAsset._flipH = flipH
+    graphicAsset._flipV = flipV
+    graphicAsset._rectangle = null
 
-        GraphicAsset.GRAPHIC_POOL.push(this);
-    }
+    return graphicAsset
+  }
 
-    private initialize(): void
-    {
-        if(this._initialized || !this._texture) return;
+  public recycle(): void {
+    this._texture = null
 
-        this._width = this._texture.width;
-        this._height = this._texture.height;
+    GraphicAsset.GRAPHIC_POOL.push(this)
+  }
 
-        this._initialized = true;
-    }
+  public getImageUrl(): string {
+    return TextureUtils.generateImageUrl(new Sprite(this._texture))
+  }
 
-    public getImageUrl(): string
-    {
-        return TextureUtils.generateImageUrl(new Sprite(this._texture));
-    }
+  private initialize(): void {
+    if (this._initialized || !this._texture) return
 
-    public get name(): string
-    {
-        return this._name;
-    }
+    this._width = this._texture.width
+    this._height = this._texture.height
 
-    public get source(): string
-    {
-        return this._source;
-    }
-
-    public get texture(): Texture<Resource>
-    {
-        return this._texture;
-    }
-
-    public get usesPalette(): boolean
-    {
-        return this._usesPalette;
-    }
-
-    public get x(): number
-    {
-        return this._x;
-    }
-
-    public get y(): number
-    {
-        return this._y;
-    }
-
-    public get width(): number
-    {
-        this.initialize();
-
-        return this._width;
-    }
-
-    public get height(): number
-    {
-        this.initialize();
-
-        return this._height;
-    }
-
-    public get offsetX(): number
-    {
-        if(!this._flipH) return this._x;
-
-        return (-(this._x));
-    }
-
-    public get offsetY(): number
-    {
-        if(!this._flipV) return this._y;
-
-        return (-(this._y));
-    }
-
-    public get flipH(): boolean
-    {
-        return this._flipH;
-    }
-
-    public get flipV(): boolean
-    {
-        return this._flipV;
-    }
-
-    public get rectangle(): Rectangle
-    {
-        if(!this._rectangle) this._rectangle = new Rectangle(0, 0, this.width, this.height);
-
-        return this._rectangle;
-    }
+    this._initialized = true
+  }
 }

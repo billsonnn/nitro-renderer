@@ -1,41 +1,37 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class ConcurrentUsersGoalProgressMessageParser implements IMessageParser
-{
-    private _state: number;
-    private _userCount: number;
-    private _userCountGoal: number;
+export class ConcurrentUsersGoalProgressMessageParser implements IMessageParser {
+  private _state: number
 
-    public flush(): boolean
-    {
-        this._state = -1;
-        this._userCount = -1;
-        this._userCountGoal = -1;
-        return true;
-    }
+  public get state(): number {
+    return this._state
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _userCount: number
 
-        this._state = wrapper.readInt();
-        this._userCount = wrapper.readInt();
-        this._userCountGoal = wrapper.readInt();
-        return true;
-    }
+  public get userCount(): number {
+    return this._userCount
+  }
 
-    public get state(): number
-    {
-        return this._state;
-    }
+  private _userCountGoal: number
 
-    public get userCount(): number
-    {
-        return this._userCount;
-    }
+  public get userCountGoal(): number {
+    return this._userCountGoal
+  }
 
-    public get userCountGoal(): number
-    {
-        return this._userCountGoal;
-    }
+  public flush(): boolean {
+    this._state = -1
+    this._userCount = -1
+    this._userCountGoal = -1
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._state = wrapper.readInt()
+    this._userCount = wrapper.readInt()
+    this._userCountGoal = wrapper.readInt()
+    return true
+  }
 }

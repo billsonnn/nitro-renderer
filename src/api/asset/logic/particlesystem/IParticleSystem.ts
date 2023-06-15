@@ -1,11 +1,10 @@
-import { IParticleSystemEmitter } from './IParticleSystemEmitter';
+import { IParticleSystemEmitter } from '@/api'
 
-export interface IParticleSystem
-{
-    size?: number;
-    canvasId?: number;
-    offsetY?: number;
-    blend?: number;
-    bgColor?: string;
-    emitters?: IParticleSystemEmitter[];
+export interface IParticleSystem {
+  size?: number;
+  canvasId?: number;
+  offsetY?: number;
+  blend?: number;
+  bgColor?: string;
+  emitters?: IParticleSystemEmitter[];
 }

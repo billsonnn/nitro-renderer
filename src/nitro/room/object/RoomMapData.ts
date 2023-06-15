@@ -1,126 +1,116 @@
-import { IRoomMapData } from '../../../api';
+import { IRoomMapData } from '@/api'
 
-export class RoomMapData implements IRoomMapData
-{
-    private _width: number;
-    private _height: number;
-    private _wallHeight: number;
-    private _fixedWallsHeight: number;
-    private _tileMap: { height: number }[][];
-    private _holeMap: { id: number, x: number, y: number, width: number, height: number }[];
-    private _doors: { x: number, y: number, z: number, dir: number }[];
-    private _dimensions: { minX: number, maxX: number, minY: number, maxY: number };
-    private _restrictsDragging: boolean;
-    private _restrictsScaling: boolean;
-    private _restrictedScale: number;
-
-    constructor()
-    {
-        this._width = 0;
-        this._height = 0;
-        this._wallHeight = 0;
-        this._fixedWallsHeight = 0;
-        this._tileMap = [];
-        this._holeMap = [];
-        this._doors = [];
-        this._dimensions = {
-            minX: 0,
-            maxX: 0,
-            minY: 0,
-            maxY: 0
-        };
-        this._restrictsDragging = false;
-        this._restrictedScale = 1;
-        this._restrictsScaling = false;
+export class RoomMapData implements IRoomMapData {
+  constructor() {
+    this._width = 0
+    this._height = 0
+    this._wallHeight = 0
+    this._fixedWallsHeight = 0
+    this._tileMap = []
+    this._holeMap = []
+    this._doors = []
+    this._dimensions = {
+      minX: 0,
+      maxX: 0,
+      minY: 0,
+      maxY: 0
     }
+    this._restrictsDragging = false
+    this._restrictedScale = 1
+    this._restrictsScaling = false
+  }
 
-    public get width(): number
-    {
-        return this._width;
-    }
+  private _width: number
 
-    public set width(width: number)
-    {
-        this._width = width;
-    }
+  public get width(): number {
+    return this._width
+  }
 
-    public get height(): number
-    {
-        return this._height;
-    }
+  public set width(width: number) {
+    this._width = width
+  }
 
-    public set height(height: number)
-    {
-        this._height = height;
-    }
+  private _height: number
 
-    public get wallHeight(): number
-    {
-        return this._wallHeight;
-    }
+  public get height(): number {
+    return this._height
+  }
 
-    public set wallHeight(wallHeight: number)
-    {
-        this._wallHeight = wallHeight;
-    }
+  public set height(height: number) {
+    this._height = height
+  }
 
-    public get fixedWallsHeight(): number
-    {
-        return this._fixedWallsHeight;
-    }
+  private _wallHeight: number
 
-    public set fixedWallsHeight(fixedWallsHeight: number)
-    {
-        this._fixedWallsHeight = fixedWallsHeight;
-    }
+  public get wallHeight(): number {
+    return this._wallHeight
+  }
 
-    public get tileMap(): { height: number }[][]
-    {
-        return this._tileMap;
-    }
+  public set wallHeight(wallHeight: number) {
+    this._wallHeight = wallHeight
+  }
 
-    public get holeMap(): { id: number, x: number, y: number, width: number, height: number }[]
-    {
-        return this._holeMap;
-    }
+  private _fixedWallsHeight: number
 
-    public get doors(): { x: number, y: number, z: number, dir: number }[]
-    {
-        return this._doors;
-    }
+  public get fixedWallsHeight(): number {
+    return this._fixedWallsHeight
+  }
 
-    public get dimensions(): { minX: number, maxX: number, minY: number, maxY: number }
-    {
-        return this._dimensions;
-    }
+  public set fixedWallsHeight(fixedWallsHeight: number) {
+    this._fixedWallsHeight = fixedWallsHeight
+  }
 
-    public get restrictsDragging(): boolean
-    {
-        return this._restrictsDragging;
-    }
+  private _tileMap: { height: number }[][]
 
-    public set restrictsDragging(flag: boolean)
-    {
-        this._restrictsDragging = flag;
-    }
+  public get tileMap(): { height: number }[][] {
+    return this._tileMap
+  }
 
-    public get restrictsScaling(): boolean
-    {
-        return this._restrictsScaling;
-    }
+  private _holeMap: { id: number, x: number, y: number, width: number, height: number }[]
 
-    public set restrictsScaling(flag: boolean)
-    {
-        this._restrictsScaling = flag;
-    }
+  public get holeMap(): { id: number, x: number, y: number, width: number, height: number }[] {
+    return this._holeMap
+  }
 
-    public get restrictedScale(): number
-    {
-        return this._restrictedScale;
-    }
+  private _doors: { x: number, y: number, z: number, dir: number }[]
 
-    public set restrictedScale(scale: number)
-    {
-        this._restrictedScale = scale;
-    }
+  public get doors(): { x: number, y: number, z: number, dir: number }[] {
+    return this._doors
+  }
+
+  private _dimensions: { minX: number, maxX: number, minY: number, maxY: number }
+
+  public get dimensions(): { minX: number, maxX: number, minY: number, maxY: number } {
+    return this._dimensions
+  }
+
+  private _restrictsDragging: boolean
+
+  public get restrictsDragging(): boolean {
+    return this._restrictsDragging
+  }
+
+  public set restrictsDragging(flag: boolean) {
+    this._restrictsDragging = flag
+  }
+
+  private _restrictsScaling: boolean
+
+  public get restrictsScaling(): boolean {
+    return this._restrictsScaling
+  }
+
+  public set restrictsScaling(flag: boolean) {
+    this._restrictsScaling = flag
+  }
+
+  private _restrictedScale: number
+
+  public get restrictedScale(): number {
+    return this._restrictedScale
+  }
+
+  public set restrictedScale(scale: number) {
+    this._restrictedScale = scale
+  }
 }

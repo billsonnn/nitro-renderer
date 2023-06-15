@@ -1,2 +1,2 @@
-export * from './SaveableRoomSettingsData';
-export * from './UpdateRoomCategoryAndTradeSettingsComposer';
+export * from './SaveableRoomSettingsData'
+export * from './UpdateRoomCategoryAndTradeSettingsComposer'

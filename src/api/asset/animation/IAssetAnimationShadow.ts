@@ -1,4 +1,3 @@
-export interface IAssetAnimationShadow
-{
-    id?: string;
+export interface IAssetAnimationShadow {
+  id?: string;
 }

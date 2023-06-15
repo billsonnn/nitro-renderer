@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class RoomScoreParser implements IMessageParser
-{
-    private _totalLikes: number;
-    private _canLike: boolean;
+export class RoomScoreParser implements IMessageParser {
+  private _totalLikes: number
 
-    public flush(): boolean
-    {
-        this._totalLikes = 0;
-        this._canLike = false;
+  public get totalLikes(): number {
+    return this._totalLikes
+  }
 
-        return true;
-    }
+  private _canLike: boolean
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get canLike(): boolean {
+    return this._canLike
+  }
 
-        this._totalLikes = wrapper.readInt();
-        this._canLike = wrapper.readBoolean();
+  public flush(): boolean {
+    this._totalLikes = 0
+    this._canLike = false
 
-        return true;
-    }
+    return true
+  }
 
-    public get totalLikes(): number
-    {
-        return this._totalLikes;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get canLike(): boolean
-    {
-        return this._canLike;
-    }
+    this._totalLikes = wrapper.readInt()
+    this._canLike = wrapper.readBoolean()
+
+    return true
+  }
 }

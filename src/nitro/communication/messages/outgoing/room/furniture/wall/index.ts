@@ -1,1 +1,1 @@
-export * from './FurnitureWallUpdateComposer';
+export * from './FurnitureWallUpdateComposer'

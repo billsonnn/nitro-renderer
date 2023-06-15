@@ -1,32 +1,28 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class ModeratorActionResultMessageParser implements IMessageParser
-{
-    private _userId: number;
-    private _success: boolean;
+export class ModeratorActionResultMessageParser implements IMessageParser {
+  private _userId: number
 
-    public flush(): boolean
-    {
-        this._userId = -1;
-        this._success = false;
+  public get userId(): number {
+    return this._userId
+  }
 
-        return true;
-    }
+  private _success: boolean
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        this._userId = wrapper.readInt();
-        this._success = wrapper.readBoolean();
-        return true;
-    }
+  public get success(): boolean {
+    return this._success
+  }
 
-    public get userId(): number
-    {
-        return this._userId;
-    }
+  public flush(): boolean {
+    this._userId = -1
+    this._success = false
 
-    public get success(): boolean
-    {
-        return this._success;
-    }
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    this._userId = wrapper.readInt()
+    this._success = wrapper.readBoolean()
+    return true
+  }
 }

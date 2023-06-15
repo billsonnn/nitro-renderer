@@ -1,3 +1,3 @@
-export * from './PhoneCollectionStateMessageEvent';
-export * from './TryPhoneNumberResultMessageEvent';
-export * from './TryVerificationCodeResultMessageEvent';
+export * from './PhoneCollectionStateMessageEvent'
+export * from './TryPhoneNumberResultMessageEvent'
+export * from './TryVerificationCodeResultMessageEvent'

@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class ConvertGlobalRoomIdMessageComposer implements IMessageComposer<ConstructorParameters<typeof ConvertGlobalRoomIdMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof ConvertGlobalRoomIdMessageComposer>;
+export class ConvertGlobalRoomIdMessageComposer implements IMessageComposer<ConstructorParameters<typeof ConvertGlobalRoomIdMessageComposer>> {
+  private _data: ConstructorParameters<typeof ConvertGlobalRoomIdMessageComposer>
 
-    constructor(flatId: string)
-    {
-        this._data = [flatId];
-    }
+  constructor(flatId: string) {
+    this._data = [flatId]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

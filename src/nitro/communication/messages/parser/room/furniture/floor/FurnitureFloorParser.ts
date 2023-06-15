@@ -1,68 +1,61 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../../api';
-import { FurnitureFloorDataParser } from './FurnitureFloorDataParser';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { FurnitureFloorDataParser } from '@/nitro'
 
-export class FurnitureFloorParser implements IMessageParser
-{
-    private _owners: Map<number, string>;
-    private _items: FurnitureFloorDataParser[];
+export class FurnitureFloorParser implements IMessageParser {
+  private _owners: Map<number, string>
 
-    public flush(): boolean
-    {
-        this._owners = new Map();
-        this._items = [];
+  public get owners(): Map<number, string> {
+    return this._owners
+  }
 
-        return true;
+  private _items: FurnitureFloorDataParser[]
+
+  public get items(): FurnitureFloorDataParser[] {
+    return this._items
+  }
+
+  public flush(): boolean {
+    this._owners = new Map()
+    this._items = []
+
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    if (!this.parseOwners(wrapper)) return false
+
+    let totalItems = wrapper.readInt()
+
+    while (totalItems > 0) {
+      const item = new FurnitureFloorDataParser(wrapper)
+
+      if (!item) continue
+
+      const username = this._owners.get(item.userId)
+
+      if (username) item.username = username
+
+      this._items.push(item)
+
+      totalItems--
     }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        if(!this.parseOwners(wrapper)) return false;
+  private parseOwners(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        let totalItems = wrapper.readInt();
+    let totalOwners = wrapper.readInt()
 
-        while(totalItems > 0)
-        {
-            const item = new FurnitureFloorDataParser(wrapper);
+    while (totalOwners > 0) {
+      this._owners.set(wrapper.readInt(), wrapper.readString())
 
-            if(!item) continue;
-
-            const username = this._owners.get(item.userId);
-
-            if(username) item.username = username;
-
-            this._items.push(item);
-
-            totalItems--;
-        }
-
-        return true;
+      totalOwners--
     }
 
-    private parseOwners(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
-
-        let totalOwners = wrapper.readInt();
-
-        while(totalOwners > 0)
-        {
-            this._owners.set(wrapper.readInt(), wrapper.readString());
-
-            totalOwners--;
-        }
-
-        return true;
-    }
-
-    public get owners(): Map<number, string>
-    {
-        return this._owners;
-    }
-
-    public get items(): FurnitureFloorDataParser[]
-    {
-        return this._items;
-    }
+    return true
+  }
 }

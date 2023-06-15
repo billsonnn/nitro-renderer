@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { UserTagsParser } from '../../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { UserTagsParser } from '@/nitro'
 
-export class UserTagsMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, UserTagsParser);
-    }
+export class UserTagsMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, UserTagsParser)
+  }
 
-    public getParser(): UserTagsParser
-    {
-        return this.parser as UserTagsParser;
-    }
+  public getParser(): UserTagsParser {
+    return this.parser as UserTagsParser
+  }
 }

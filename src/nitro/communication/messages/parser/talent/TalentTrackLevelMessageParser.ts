@@ -1,43 +1,39 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class TalentTrackLevelMessageParser implements IMessageParser
-{
-    private _talentTrackName: string;
-    private _level: number;
-    private _maxLevel: number;
+export class TalentTrackLevelMessageParser implements IMessageParser {
+  private _talentTrackName: string
 
-    public flush(): boolean
-    {
-        this._talentTrackName = null;
-        this._level = -1;
-        this._maxLevel = -1;
+  public get talentTrackName(): string {
+    return this._talentTrackName
+  }
 
-        return true;
-    }
+  private _level: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get level(): number {
+    return this._level
+  }
 
-        this._talentTrackName = wrapper.readString();
-        this._level = wrapper.readInt();
-        this._maxLevel = wrapper.readInt();
+  private _maxLevel: number
 
-        return true;
-    }
+  public get maxLevel(): number {
+    return this._maxLevel
+  }
 
-    public get talentTrackName(): string
-    {
-        return this._talentTrackName;
-    }
+  public flush(): boolean {
+    this._talentTrackName = null
+    this._level = -1
+    this._maxLevel = -1
 
-    public get level(): number
-    {
-        return this._level;
-    }
+    return true
+  }
 
-    public get maxLevel(): number
-    {
-        return this._maxLevel;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._talentTrackName = wrapper.readString()
+    this._level = wrapper.readInt()
+    this._maxLevel = wrapper.readInt()
+
+    return true
+  }
 }

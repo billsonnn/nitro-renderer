@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class FurnitureStackHeightParser implements IMessageParser
-{
-    private _furniId: number;
-    private _height: number;
+export class FurnitureStackHeightParser implements IMessageParser {
+  private _furniId: number
 
-    public flush(): boolean
-    {
-        this._furniId = -1;
-        this._height = 0;
+  public get furniId(): number {
+    return this._furniId
+  }
 
-        return true;
-    }
+  private _height: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get height(): number {
+    return this._height
+  }
 
-        this._furniId = wrapper.readInt();
-        this._height = (wrapper.readInt() / 100);
+  public flush(): boolean {
+    this._furniId = -1
+    this._height = 0
 
-        return true;
-    }
+    return true
+  }
 
-    public get furniId(): number
-    {
-        return this._furniId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get height(): number
-    {
-        return this._height;
-    }
+    this._furniId = wrapper.readInt()
+    this._height = (wrapper.readInt() / 100)
+
+    return true
+  }
 }

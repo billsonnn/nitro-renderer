@@ -1,14 +1,11 @@
-export class Byte
-{
-    private _value: number;
+export class Byte {
+  constructor(value: number) {
+    this._value = value
+  }
 
-    constructor(value: number)
-    {
-        this._value = value;
-    }
+  private _value: number
 
-    public get value(): number
-    {
-        return this._value;
-    }
+  public get value(): number {
+    return this._value
+  }
 }

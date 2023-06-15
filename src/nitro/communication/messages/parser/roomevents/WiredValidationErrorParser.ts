@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class WiredValidationErrorParser implements IMessageParser
-{
-    private _info: string;
+export class WiredValidationErrorParser implements IMessageParser {
+  private _info: string
 
-    public flush(): boolean
-    {
-        this._info = null;
+  public get info(): string {
+    return this._info
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._info = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._info = wrapper.readString();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._info = wrapper.readString()
 
-    public get info(): string
-    {
-        return this._info;
-    }
+    return true
+  }
 }

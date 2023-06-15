@@ -1,35 +1,31 @@
-import { IMessageDataWrapper } from '../../../../../api';
-import { ChatRecordData } from './ChatRecordData';
+import { IMessageDataWrapper } from '@/api'
+import { ChatRecordData } from '@/nitro'
 
-export class UserChatlogData
-{
-    private _userId: number;
-    private _username: string;
-    private _roomChatlogs: ChatRecordData[] = [];
-
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        this._userId = wrapper.readInt();
-        this._username = wrapper.readString();
-        const size = wrapper.readInt();
-        for(let i = 0; i < size; i++)
-        {
-            this._roomChatlogs.push(new ChatRecordData(wrapper));
-        }
+export class UserChatlogData {
+  constructor(wrapper: IMessageDataWrapper) {
+    this._userId = wrapper.readInt()
+    this._username = wrapper.readString()
+    const size = wrapper.readInt()
+    for (let i = 0; i < size; i++) {
+      this._roomChatlogs.push(new ChatRecordData(wrapper))
     }
+  }
 
-    public get userId(): number
-    {
-        return this._userId;
-    }
+  private _userId: number
 
-    public get username(): string
-    {
-        return this._username;
-    }
+  public get userId(): number {
+    return this._userId
+  }
 
-    public get roomChatlogs(): ChatRecordData[]
-    {
-        return this._roomChatlogs;
-    }
+  private _username: string
+
+  public get username(): string {
+    return this._username
+  }
+
+  private _roomChatlogs: ChatRecordData[] = []
+
+  public get roomChatlogs(): ChatRecordData[] {
+    return this._roomChatlogs
+  }
 }

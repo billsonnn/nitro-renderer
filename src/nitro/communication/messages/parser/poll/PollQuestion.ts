@@ -1,111 +1,99 @@
-import { IPollQuestion } from '../../../../../api';
-import { PollChoice } from './PollChoice';
+import { IPollQuestion } from '@/api'
+import { PollChoice } from '@/nitro'
 
-export class PollQuestion implements IPollQuestion
-{
-    private _questionId: number;
-    private _questionType: number;
-    private _sortOrder: number;
-    private _questionCategory: number;
-    private _questionText: string;
-    private _questionAnswerType: number;
-    private _questionAnswerCount: number;
-    private _children: PollQuestion[];
-    private _questionChoices: PollChoice[];
+export class PollQuestion implements IPollQuestion {
+  constructor() {
+    this._children = []
+    this._questionChoices = []
+  }
 
-    constructor()
-    {
-        this._children = [];
-        this._questionChoices = [];
-    }
+  private _questionId: number
 
-    public get questionId(): number
-    {
-        return this._questionId;
-    }
+  public get questionId(): number {
+    return this._questionId
+  }
 
-    public set questionId(questionId: number)
-    {
-        this._questionId = questionId;
-    }
+  public set questionId(questionId: number) {
+    this._questionId = questionId
+  }
 
-    public get questionType(): number
-    {
-        return this._questionType;
-    }
+  private _questionType: number
 
-    public set questionType(questionType: number)
-    {
-        this._questionType = questionType;
-    }
+  public get questionType(): number {
+    return this._questionType
+  }
 
-    public get sortOrder(): number
-    {
-        return this._sortOrder;
-    }
+  public set questionType(questionType: number) {
+    this._questionType = questionType
+  }
 
-    public set sortOrder(sortOrder: number)
-    {
-        this._sortOrder = sortOrder;
-    }
+  private _sortOrder: number
 
-    public get questionText(): string
-    {
-        return this._questionText;
-    }
+  public get sortOrder(): number {
+    return this._sortOrder
+  }
 
-    public set questionText(questionText: string)
-    {
-        this._questionText = questionText;
-    }
+  public set sortOrder(sortOrder: number) {
+    this._sortOrder = sortOrder
+  }
 
-    public get questionCategory(): number
-    {
-        return this._questionCategory;
-    }
+  private _questionCategory: number
 
-    public set questionCategory(questionCategory: number)
-    {
-        this._questionCategory = questionCategory;
-    }
+  public get questionCategory(): number {
+    return this._questionCategory
+  }
 
-    public get questionAnswerType(): number
-    {
-        return this._questionAnswerType;
-    }
+  public set questionCategory(questionCategory: number) {
+    this._questionCategory = questionCategory
+  }
 
-    public set questionAnswerType(answerType: number)
-    {
-        this._questionAnswerType = answerType;
-    }
+  private _questionText: string
 
-    public get questionAnswerCount(): number
-    {
-        return this._questionAnswerCount;
-    }
+  public get questionText(): string {
+    return this._questionText
+  }
 
-    public set questionAnswerCount(k: number)
-    {
-        this._questionAnswerCount = k;
-    }
+  public set questionText(questionText: string) {
+    this._questionText = questionText
+  }
 
-    public get children(): PollQuestion[]
-    {
-        return this._children;
-    }
+  private _questionAnswerType: number
 
-    public set children(children: PollQuestion[])
-    {
-        this._children = children;
-    }
+  public get questionAnswerType(): number {
+    return this._questionAnswerType
+  }
 
-    public get questionChoices(): PollChoice[]
-    {
-        return this._questionChoices;
-    }
+  public set questionAnswerType(answerType: number) {
+    this._questionAnswerType = answerType
+  }
 
-    public set questionChoices(k: PollChoice[])
-    {
-        this._questionChoices = k;
-    }
+  private _questionAnswerCount: number
+
+  public get questionAnswerCount(): number {
+    return this._questionAnswerCount
+  }
+
+  public set questionAnswerCount(k: number) {
+    this._questionAnswerCount = k
+  }
+
+  private _children: PollQuestion[]
+
+  public get children(): PollQuestion[] {
+    return this._children
+  }
+
+  public set children(children: PollQuestion[]) {
+    this._children = children
+  }
+
+  private _questionChoices: PollChoice[]
+
+  public get questionChoices(): PollChoice[] {
+    return this._questionChoices
+  }
+
+  public set questionChoices(k: PollChoice[]) {
+    this._questionChoices = k
+  }
 }

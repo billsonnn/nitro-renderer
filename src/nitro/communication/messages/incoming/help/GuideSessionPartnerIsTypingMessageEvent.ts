@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { GuideSessionPartnerIsTypingMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { GuideSessionPartnerIsTypingMessageParser } from '@/nitro'
 
-export class GuideSessionPartnerIsTypingMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, GuideSessionPartnerIsTypingMessageParser);
-    }
+export class GuideSessionPartnerIsTypingMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, GuideSessionPartnerIsTypingMessageParser)
+  }
 
-    public getParser(): GuideSessionPartnerIsTypingMessageParser
-    {
-        return this.parser as GuideSessionPartnerIsTypingMessageParser;
-    }
+  public getParser(): GuideSessionPartnerIsTypingMessageParser {
+    return this.parser as GuideSessionPartnerIsTypingMessageParser
+  }
 }

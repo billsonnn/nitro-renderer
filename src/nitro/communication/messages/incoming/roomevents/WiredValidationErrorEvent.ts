@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { WiredValidationErrorParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { WiredValidationErrorParser } from '@/nitro'
 
-export class WiredValidationErrorEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, WiredValidationErrorParser);
-    }
+export class WiredValidationErrorEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, WiredValidationErrorParser)
+  }
 
-    public getParser(): WiredValidationErrorParser
-    {
-        return this.parser as WiredValidationErrorParser;
-    }
+  public getParser(): WiredValidationErrorParser {
+    return this.parser as WiredValidationErrorParser
+  }
 }

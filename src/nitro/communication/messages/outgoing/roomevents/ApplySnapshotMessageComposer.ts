@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class ApplySnapshotMessageComposer implements IMessageComposer<ConstructorParameters<typeof ApplySnapshotMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof ApplySnapshotMessageComposer>;
+export class ApplySnapshotMessageComposer implements IMessageComposer<ConstructorParameters<typeof ApplySnapshotMessageComposer>> {
+  private _data: ConstructorParameters<typeof ApplySnapshotMessageComposer>
 
-    constructor(id: number)
-    {
-        this._data = [id];
-    }
+  constructor(id: number) {
+    this._data = [id]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

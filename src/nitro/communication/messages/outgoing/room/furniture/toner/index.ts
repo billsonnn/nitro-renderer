@@ -1,1 +1,1 @@
-export * from './ApplyTonerComposer';
+export * from './ApplyTonerComposer'

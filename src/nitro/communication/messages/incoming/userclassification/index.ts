@@ -1,1 +1,1 @@
-export * from './UserClassificationMessageEvent';
+export * from './UserClassificationMessageEvent'

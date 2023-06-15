@@ -1,10 +1,9 @@
-import { IAssetAnimation } from '../../asset';
-import { IEventDispatcher } from '../../common';
+import { IAssetAnimation, IEventDispatcher } from '@/api'
 
-export interface IEffectAssetDownloadLibrary extends IEventDispatcher
-{
-    downloadAsset(): void;
-    readonly libraryName: string;
-    readonly animation: { [index: string]: IAssetAnimation };
-    readonly isLoaded: boolean;
+export interface IEffectAssetDownloadLibrary extends IEventDispatcher {
+  readonly libraryName: string;
+  readonly animation: { [index: string]: IAssetAnimation };
+  readonly isLoaded: boolean;
+
+  downloadAsset(): void;
 }

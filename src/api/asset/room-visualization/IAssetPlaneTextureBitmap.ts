@@ -1,8 +1,7 @@
-export interface IAssetPlaneTextureBitmap
-{
-    assetName?: string;
-    normalMinX?: number;
-    normalMaxX?: number;
-    normalMinY?: number;
-    normalMaxY?: number;
+export interface IAssetPlaneTextureBitmap {
+  assetName?: string;
+  normalMinX?: number;
+  normalMaxX?: number;
+  normalMinY?: number;
+  normalMaxY?: number;
 }

@@ -1,43 +1,38 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class UserTagsParser implements IMessageParser
-{
-    private _roomUnitId: number;
-    private _tags: string[];
+export class UserTagsParser implements IMessageParser {
+  private _roomUnitId: number
 
-    public flush(): boolean
-    {
-        this._roomUnitId = -1;
-        this._tags = [];
+  public get roomUnitId(): number {
+    return this._roomUnitId
+  }
 
-        return true;
+  private _tags: string[]
+
+  public get tags(): string[] {
+    return this._tags
+  }
+
+  public flush(): boolean {
+    this._roomUnitId = -1
+    this._tags = []
+
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._roomUnitId = wrapper.readInt()
+
+    let totalTags = wrapper.readInt()
+
+    while (totalTags > 0) {
+      this._tags.push(wrapper.readString())
+
+      totalTags--
     }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
-
-        this._roomUnitId = wrapper.readInt();
-
-        let totalTags = wrapper.readInt();
-
-        while(totalTags > 0)
-        {
-            this._tags.push(wrapper.readString());
-
-            totalTags--;
-        }
-
-        return true;
-    }
-
-    public get roomUnitId(): number
-    {
-        return this._roomUnitId;
-    }
-
-    public get tags(): string[]
-    {
-        return this._tags;
-    }
+    return true
+  }
 }

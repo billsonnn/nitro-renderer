@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GetRecyclerStatusMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetRecyclerStatusMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof GetRecyclerStatusMessageComposer>;
+export class GetRecyclerStatusMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetRecyclerStatusMessageComposer>> {
+  private _data: ConstructorParameters<typeof GetRecyclerStatusMessageComposer>
 
-    constructor()
-    {
-        this._data = [];
-    }
+  constructor() {
+    this._data = []
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

@@ -1,51 +1,47 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GuideSessionAttachedMessageParser implements IMessageParser
-{
-    private _asGuide: boolean;
-    private _helpRequestType: number;
-    private _helpRequestDescription: string;
-    private _roleSpecificWaitTime: number;
+export class GuideSessionAttachedMessageParser implements IMessageParser {
+  private _asGuide: boolean
 
-    public flush(): boolean
-    {
-        this._asGuide = false;
-        this._helpRequestType = 0;
-        this._helpRequestDescription = null;
-        this._roleSpecificWaitTime = 0;
+  public get asGuide(): boolean {
+    return this._asGuide
+  }
 
-        return true;
-    }
+  private _helpRequestType: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get helpRequestType(): number {
+    return this._helpRequestType
+  }
 
-        this._asGuide = wrapper.readBoolean();
-        this._helpRequestType = wrapper.readInt();
-        this._helpRequestDescription = wrapper.readString();
-        this._roleSpecificWaitTime = wrapper.readInt();
+  private _helpRequestDescription: string
 
-        return true;
-    }
+  public get helpRequestDescription(): string {
+    return this._helpRequestDescription
+  }
 
-    public get asGuide(): boolean
-    {
-        return this._asGuide;
-    }
+  private _roleSpecificWaitTime: number
 
-    public get helpRequestType(): number
-    {
-        return this._helpRequestType;
-    }
+  public get roleSpecificWaitTime(): number {
+    return this._roleSpecificWaitTime
+  }
 
-    public get helpRequestDescription(): string
-    {
-        return this._helpRequestDescription;
-    }
+  public flush(): boolean {
+    this._asGuide = false
+    this._helpRequestType = 0
+    this._helpRequestDescription = null
+    this._roleSpecificWaitTime = 0
 
-    public get roleSpecificWaitTime(): number
-    {
-        return this._roleSpecificWaitTime;
-    }
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._asGuide = wrapper.readBoolean()
+    this._helpRequestType = wrapper.readInt()
+    this._helpRequestDescription = wrapper.readString()
+    this._roleSpecificWaitTime = wrapper.readInt()
+
+    return true
+  }
 }

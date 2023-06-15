@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class CatalogGroupsComposer implements IMessageComposer<ConstructorParameters<typeof CatalogGroupsComposer>>
-{
-    private _data: ConstructorParameters<typeof CatalogGroupsComposer>;
+export class CatalogGroupsComposer implements IMessageComposer<ConstructorParameters<typeof CatalogGroupsComposer>> {
+  private _data: ConstructorParameters<typeof CatalogGroupsComposer>
 
-    constructor()
-    {
-        this._data = [];
-    }
+  constructor() {
+    this._data = []
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

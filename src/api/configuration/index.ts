@@ -1,2 +1,2 @@
-export * from './IConfigurationManager';
-export * from './NitroConfiguration';
+export * from './IConfigurationManager'
+export * from './NitroConfiguration'

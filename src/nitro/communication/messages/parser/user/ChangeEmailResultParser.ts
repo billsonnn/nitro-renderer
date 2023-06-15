@@ -1,29 +1,25 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class ChangeEmailResultParser implements IMessageParser
-{
-    public static readonly EMAIL_STATUS_OK: number = 0;
+export class ChangeEmailResultParser implements IMessageParser {
+  public static readonly EMAIL_STATUS_OK: number = 0
 
-    private _result: number;
+  private _result: number
 
-    public flush(): boolean
-    {
-        this._result = -1;
+  public get result(): number {
+    return this._result
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._result = -1
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._result = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._result = wrapper.readInt()
 
-    public get result(): number
-    {
-        return this._result;
-    }
+    return true
+  }
 }

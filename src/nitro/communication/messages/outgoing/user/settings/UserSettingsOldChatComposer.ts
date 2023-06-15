@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class UserSettingsOldChatComposer implements IMessageComposer<ConstructorParameters<typeof UserSettingsOldChatComposer>>
-{
-    private _data: ConstructorParameters<typeof UserSettingsOldChatComposer>;
+export class UserSettingsOldChatComposer implements IMessageComposer<ConstructorParameters<typeof UserSettingsOldChatComposer>> {
+  private _data: ConstructorParameters<typeof UserSettingsOldChatComposer>
 
-    constructor(value: boolean)
-    {
-        this._data = [value];
-    }
+  constructor(value: boolean) {
+    this._data = [value]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

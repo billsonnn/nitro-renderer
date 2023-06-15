@@ -19,20 +19,13 @@
     "rules": {
         "indent": [
             "error",
-            4,
+            2,
             {
                 "SwitchCase": 1
             }
         ],
         "no-multi-spaces": [
             "error"
-        ],
-        "no-trailing-spaces": [
-           "error",
-            {
-                "skipBlankLines": false,
-                "ignoreComments": true
-            }
         ],
         "linebreak-style": [
             "off"
@@ -43,11 +36,11 @@
         ],
         "semi": [
             "error",
-            "always"
+            "never"
         ],
         "brace-style": [
             "error",
-            "allman"
+            "1tbs"
         ],
         "object-curly-spacing": [
             "error",
@@ -56,23 +49,18 @@
         "keyword-spacing": [
             "error",
             {
-                "overrides":
-                {
-                    "if":
-                    {
-                        "after": false
+                "overrides": {
+                    "if": {
+                        "after": true
                     },
-                    "for":
-                    {
-                        "after": false
+                    "for": {
+                        "after": true
                     },
-                    "while":
-                    {
-                        "after": false
+                    "while": {
+                        "after": true
                     },
-                    "switch":
-                    {
-                        "after": false
+                    "switch": {
+                        "after": true
                     }
                 }
             }
@@ -117,8 +105,7 @@
         "@typescript-eslint/ban-types": [
             "error",
             {
-                "types":
-                {
+                "types": {
                     "String": true,
                     "Boolean": true,
                     "Number": true,

@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class InterstitialMessageParser implements IMessageParser
-{
-    private _canShowInterstitial: boolean;
+export class InterstitialMessageParser implements IMessageParser {
+  private _canShowInterstitial: boolean
 
-    public flush(): boolean
-    {
-        this._canShowInterstitial = false;
+  public get canShowInterstitial(): boolean {
+    return this._canShowInterstitial
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._canShowInterstitial = false
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._canShowInterstitial = wrapper.readBoolean();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._canShowInterstitial = wrapper.readBoolean()
 
-    public get canShowInterstitial(): boolean
-    {
-        return this._canShowInterstitial;
-    }
+    return true
+  }
 }

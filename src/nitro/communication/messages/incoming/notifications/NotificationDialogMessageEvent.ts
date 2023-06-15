@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { NotificationDialogMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { NotificationDialogMessageParser } from '@/nitro'
 
-export class NotificationDialogMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, NotificationDialogMessageParser);
-    }
+export class NotificationDialogMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, NotificationDialogMessageParser)
+  }
 
-    public getParser(): NotificationDialogMessageParser
-    {
-        return this.parser as NotificationDialogMessageParser;
-    }
+  public getParser(): NotificationDialogMessageParser {
+    return this.parser as NotificationDialogMessageParser
+  }
 }

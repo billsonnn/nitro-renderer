@@ -1,18 +1,15 @@
-import { ObjectStateUpdateMessage } from './ObjectStateUpdateMessage';
+import { ObjectStateUpdateMessage } from '@/nitro'
 
-export class ObjectAvatarPlayingGameUpdateMessage extends ObjectStateUpdateMessage
-{
-    private _isPlayingGame: boolean;
+export class ObjectAvatarPlayingGameUpdateMessage extends ObjectStateUpdateMessage {
+  constructor(flag: boolean) {
+    super()
 
-    constructor(flag: boolean)
-    {
-        super();
+    this._isPlayingGame = flag
+  }
 
-        this._isPlayingGame = flag;
-    }
+  private _isPlayingGame: boolean
 
-    public get isPlayingGame(): boolean
-    {
-        return this._isPlayingGame;
-    }
+  public get isPlayingGame(): boolean {
+    return this._isPlayingGame
+  }
 }

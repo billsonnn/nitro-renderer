@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { RentableSpaceStatusMessageParser } from '../../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { RentableSpaceStatusMessageParser } from '@/nitro'
 
-export class RentableSpaceStatusMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, RentableSpaceStatusMessageParser);
-    }
+export class RentableSpaceStatusMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, RentableSpaceStatusMessageParser)
+  }
 
-    public getParser(): RentableSpaceStatusMessageParser
-    {
-        return this.parser as RentableSpaceStatusMessageParser;
-    }
+  public getParser(): RentableSpaceStatusMessageParser {
+    return this.parser as RentableSpaceStatusMessageParser
+  }
 }

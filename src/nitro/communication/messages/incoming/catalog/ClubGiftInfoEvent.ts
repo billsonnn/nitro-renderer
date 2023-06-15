@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { ClubGiftInfoParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { ClubGiftInfoParser } from '@/nitro'
 
-export class ClubGiftInfoEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, ClubGiftInfoParser);
-    }
+export class ClubGiftInfoEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, ClubGiftInfoParser)
+  }
 
-    public getParser(): ClubGiftInfoParser
-    {
-        return this.parser as ClubGiftInfoParser;
-    }
+  public getParser(): ClubGiftInfoParser {
+    return this.parser as ClubGiftInfoParser
+  }
 }

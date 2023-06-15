@@ -1,36 +1,32 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { FlatControllerData } from './FlatControllerData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { FlatControllerData } from '@/nitro'
 
-export class FlatControllerAddedParser implements IMessageParser
-{
-    private _roomId: number;
-    private _data: FlatControllerData;
+export class FlatControllerAddedParser implements IMessageParser {
+  private _roomId: number
 
-    public flush(): boolean
-    {
-        this._roomId = 0;
-        this._data = null;
+  public get roomId(): number {
+    return this._roomId
+  }
 
-        return true;
-    }
+  private _data: FlatControllerData
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get data(): FlatControllerData {
+    return this._data
+  }
 
-        this._roomId = wrapper.readInt();
-        this._data = new FlatControllerData(wrapper);
+  public flush(): boolean {
+    this._roomId = 0
+    this._data = null
 
-        return true;
-    }
+    return true
+  }
 
-    public get roomId(): number
-    {
-        return this._roomId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get data(): FlatControllerData
-    {
-        return this._data;
-    }
+    this._roomId = wrapper.readInt()
+    this._data = new FlatControllerData(wrapper)
+
+    return true
+  }
 }

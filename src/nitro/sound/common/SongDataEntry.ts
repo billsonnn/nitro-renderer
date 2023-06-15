@@ -1,54 +1,45 @@
-import { ISongInfo } from '../../../api';
-import { PlayListEntry } from '../../communication/messages/parser/sound/PlayListEntry';
+import { ISongInfo } from '@/api'
+import { PlayListEntry } from '@/nitro'
 
-export class SongDataEntry extends PlayListEntry implements ISongInfo
-{
-    private _songData:string;
-    private _jukeboxDiskId:number = -1;
+export class SongDataEntry extends PlayListEntry implements ISongInfo {
+  private _jukeboxDiskId: number = -1
 
-    constructor(id:number, length:number, name:string, creator:string, songData: string = '')
-    {
-        super(id, length, name, creator);
-        this._songData = songData;
-    }
+  constructor(id: number, length: number, name: string, creator: string, songData: string = '') {
+    super(id, length, name, creator)
+    this._songData = songData
+  }
 
-    public override get id():number
-    {
-        return this._id;
-    }
+  private _songData: string
 
-    public override get length():number
-    {
-        return this._length;
-    }
+  public get songData(): string {
+    return this._songData
+  }
 
-    public override get name():string
-    {
-        return this._name;
-    }
+  public set songData(k: string) {
+    this._songData = k
+  }
 
-    public override get creator():string
-    {
-        return this._creator;
-    }
+  public override get id(): number {
+    return this._id
+  }
 
-    public get songData():string
-    {
-        return this._songData;
-    }
+  public override get length(): number {
+    return this._length
+  }
 
-    public set songData(k:string)
-    {
-        this._songData = k;
-    }
+  public override get name(): string {
+    return this._name
+  }
 
-    public get diskId():number
-    {
-        return this._jukeboxDiskId;
-    }
+  public override get creator(): string {
+    return this._creator
+  }
 
-    public set diskId(k:number)
-    {
-        this._jukeboxDiskId = k;
-    }
+  public get diskId(): number {
+    return this._jukeboxDiskId
+  }
+
+  public set diskId(k: number) {
+    this._jukeboxDiskId = k
+  }
 }

@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { FlatControllerAddedParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { FlatControllerAddedParser } from '@/nitro'
 
-export class FlatControllerAddedEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, FlatControllerAddedParser);
-    }
+export class FlatControllerAddedEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, FlatControllerAddedParser)
+  }
 
-    public getParser(): FlatControllerAddedParser
-    {
-        return this.parser as FlatControllerAddedParser;
-    }
+  public getParser(): FlatControllerAddedParser {
+    return this.parser as FlatControllerAddedParser
+  }
 }

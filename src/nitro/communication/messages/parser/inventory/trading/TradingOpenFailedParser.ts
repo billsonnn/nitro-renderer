@@ -1,35 +1,31 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class TradingOpenFailedParser implements IMessageParser
-{
-    public static REASON_YOU_ARE_ALREADY_TRADING: number = 7;
-    public static REASON_OTHER_USER_ALREADY_TRADING: number = 8;
+export class TradingOpenFailedParser implements IMessageParser {
+  public static REASON_YOU_ARE_ALREADY_TRADING: number = 7
+  public static REASON_OTHER_USER_ALREADY_TRADING: number = 8
 
-    private _reason: number;
-    private _otherUserName: string;
+  private _reason: number
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get reason(): number {
+    return this._reason
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _otherUserName: string
 
-        this._reason = wrapper.readInt();
-        this._otherUserName = wrapper.readString();
+  public get otherUserName(): string {
+    return this._otherUserName
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    return true
+  }
 
-    public get reason(): number
-    {
-        return this._reason;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get otherUserName(): string
-    {
-        return this._otherUserName;
-    }
+    this._reason = wrapper.readInt()
+    this._otherUserName = wrapper.readString()
+
+    return true
+  }
 }

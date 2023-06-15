@@ -1,50 +1,45 @@
-import { IMessageDataWrapper } from '../../../../../api';
-import { ClubOfferData } from './ClubOfferData';
+import { IMessageDataWrapper } from '@/api'
+import { ClubOfferData } from '@/nitro'
 
-export class ClubOfferExtendData extends ClubOfferData
-{
-    private _originalPrice: number;
-    private _originalActivityPointPrice: number;
-    private _originalActivityPointType: number;
-    private _subscriptionDaysLeft: number;
+export class ClubOfferExtendData extends ClubOfferData {
+  constructor(wrapper: IMessageDataWrapper) {
+    super(wrapper)
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        super(wrapper);
+    this._originalPrice = wrapper.readInt()
+    this._originalActivityPointPrice = wrapper.readInt()
+    this._originalActivityPointType = wrapper.readInt()
+    this._subscriptionDaysLeft = wrapper.readInt()
+  }
 
-        this._originalPrice = wrapper.readInt();
-        this._originalActivityPointPrice = wrapper.readInt();
-        this._originalActivityPointType = wrapper.readInt();
-        this._subscriptionDaysLeft = wrapper.readInt();
-    }
+  private _originalPrice: number
 
-    public get originalPrice(): number
-    {
-        return this._originalPrice * this.months;
-    }
+  public get originalPrice(): number {
+    return this._originalPrice * this.months
+  }
 
-    public get originalActivityPointPrice(): number
-    {
-        return this._originalActivityPointPrice * this.months;
-    }
+  private _originalActivityPointPrice: number
 
-    public get originalActivityPointType(): number
-    {
-        return this._originalActivityPointType;
-    }
+  public get originalActivityPointPrice(): number {
+    return this._originalActivityPointPrice * this.months
+  }
 
-    public get discountCreditAmount(): number
-    {
-        return (this._originalPrice * this.months) - this.priceCredits;
-    }
+  private _originalActivityPointType: number
 
-    public get discountActivityPointAmount(): number
-    {
-        return (this.originalActivityPointPrice * this.months) - this.priceActivityPoints;
-    }
+  public get originalActivityPointType(): number {
+    return this._originalActivityPointType
+  }
 
-    public get subscriptionDaysLeft(): number
-    {
-        return this._subscriptionDaysLeft;
-    }
+  private _subscriptionDaysLeft: number
+
+  public get subscriptionDaysLeft(): number {
+    return this._subscriptionDaysLeft
+  }
+
+  public get discountCreditAmount(): number {
+    return (this._originalPrice * this.months) - this.priceCredits
+  }
+
+  public get discountActivityPointAmount(): number {
+    return (this.originalActivityPointPrice * this.months) - this.priceActivityPoints
+  }
 }

@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class PollRejectComposer implements IMessageComposer<ConstructorParameters<typeof PollRejectComposer>>
-{
-    private _data: ConstructorParameters<typeof PollRejectComposer>;
+export class PollRejectComposer implements IMessageComposer<ConstructorParameters<typeof PollRejectComposer>> {
+  private _data: ConstructorParameters<typeof PollRejectComposer>
 
-    constructor(k: number)
-    {
-        this._data = [k];
-    }
+  constructor(k: number) {
+    this._data = [k]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

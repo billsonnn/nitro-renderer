@@ -1,28 +1,24 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { FriendRequestData } from './FriendRequestData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { FriendRequestData } from '@/nitro'
 
-export class NewFriendRequestParser implements IMessageParser
-{
-    private _request: FriendRequestData;
+export class NewFriendRequestParser implements IMessageParser {
+  private _request: FriendRequestData
 
-    public flush(): boolean
-    {
-        this._request = null;
+  public get request(): FriendRequestData {
+    return this._request
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._request = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._request = new FriendRequestData(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._request = new FriendRequestData(wrapper)
 
-    public get request(): FriendRequestData
-    {
-        return this._request;
-    }
+    return true
+  }
 }

@@ -1,9 +1,8 @@
-import { IAdvancedMap } from '../../../utils';
-import { IPartColor } from './IPartColor';
+import { IAdvancedMap, IPartColor } from '@/api'
 
-export interface IPalette
-{
-    getColor(id: number): IPartColor;
-    id: number;
-    colors: IAdvancedMap<string, IPartColor>;
+export interface IPalette {
+  id: number;
+  colors: IAdvancedMap<string, IPartColor>;
+
+  getColor(id: number): IPartColor;
 }

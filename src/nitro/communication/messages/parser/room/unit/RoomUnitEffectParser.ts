@@ -1,43 +1,39 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class RoomUnitEffectParser implements IMessageParser
-{
-    private _unitId: number;
-    private _effectId: number;
-    private _delay: number;
+export class RoomUnitEffectParser implements IMessageParser {
+  private _unitId: number
 
-    public flush(): boolean
-    {
-        this._unitId = null;
-        this._effectId = 0;
-        this._delay = 0;
+  public get unitId(): number {
+    return this._unitId
+  }
 
-        return true;
-    }
+  private _effectId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get effectId(): number {
+    return this._effectId
+  }
 
-        this._unitId = wrapper.readInt();
-        this._effectId = wrapper.readInt();
-        this._delay = wrapper.readInt();
+  private _delay: number
 
-        return true;
-    }
+  public get delay(): number {
+    return this._delay
+  }
 
-    public get unitId(): number
-    {
-        return this._unitId;
-    }
+  public flush(): boolean {
+    this._unitId = null
+    this._effectId = 0
+    this._delay = 0
 
-    public get effectId(): number
-    {
-        return this._effectId;
-    }
+    return true
+  }
 
-    public get delay(): number
-    {
-        return this._delay;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._unitId = wrapper.readInt()
+    this._effectId = wrapper.readInt()
+    this._delay = wrapper.readInt()
+
+    return true
+  }
 }

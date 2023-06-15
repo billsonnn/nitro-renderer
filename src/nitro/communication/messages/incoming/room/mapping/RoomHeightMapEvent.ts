@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { RoomHeightMapParser } from '../../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { RoomHeightMapParser } from '@/nitro'
 
-export class RoomHeightMapEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, RoomHeightMapParser);
-    }
+export class RoomHeightMapEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, RoomHeightMapParser)
+  }
 
-    public getParser(): RoomHeightMapParser
-    {
-        return this.parser as RoomHeightMapParser;
-    }
+  public getParser(): RoomHeightMapParser {
+    return this.parser as RoomHeightMapParser
+  }
 }

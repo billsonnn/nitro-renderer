@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class UserSubscriptionComposer implements IMessageComposer<ConstructorParameters<typeof UserSubscriptionComposer>>
-{
-    private _data: ConstructorParameters<typeof UserSubscriptionComposer>;
+export class UserSubscriptionComposer implements IMessageComposer<ConstructorParameters<typeof UserSubscriptionComposer>> {
+  private _data: ConstructorParameters<typeof UserSubscriptionComposer>
 
-    constructor(type: string)
-    {
-        this._data = [type];
-    }
+  constructor(type: string) {
+    this._data = [type]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

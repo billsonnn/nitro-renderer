@@ -1,45 +1,42 @@
-import { IMessageDataWrapper } from '../../../../../api';
-import { ILandingPageUserEntry } from './ILandingPageUserEntry';
+import { IMessageDataWrapper } from '@/api'
+import { ILandingPageUserEntry } from '@/nitro'
 
-export class HallOfFameEntryData implements ILandingPageUserEntry
-{
-    private _userId: number;
-    private _userName: string;
-    private _figure: string;
-    private _rank: number;
-    private _currentScore: number;
+export class HallOfFameEntryData implements ILandingPageUserEntry {
+  constructor(wrapper: IMessageDataWrapper) {
+    this._userId = wrapper.readInt()
+    this._userName = wrapper.readString()
+    this._figure = wrapper.readString()
+    this._rank = wrapper.readInt()
+    this._currentScore = wrapper.readInt()
+  }
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        this._userId = wrapper.readInt();
-        this._userName = wrapper.readString();
-        this._figure = wrapper.readString();
-        this._rank = wrapper.readInt();
-        this._currentScore = wrapper.readInt();
-    }
+  private _userId: number
 
-    public get userId(): number
-    {
-        return this._userId;
-    }
+  public get userId(): number {
+    return this._userId
+  }
 
-    public get userName(): string
-    {
-        return this._userName;
-    }
+  private _userName: string
 
-    public get figure(): string
-    {
-        return this._figure;
-    }
+  public get userName(): string {
+    return this._userName
+  }
 
-    public get rank(): number
-    {
-        return this._rank;
-    }
+  private _figure: string
 
-    public get currentScore(): number
-    {
-        return this._currentScore;
-    }
+  public get figure(): string {
+    return this._figure
+  }
+
+  private _rank: number
+
+  public get rank(): number {
+    return this._rank
+  }
+
+  private _currentScore: number
+
+  public get currentScore(): number {
+    return this._currentScore
+  }
 }

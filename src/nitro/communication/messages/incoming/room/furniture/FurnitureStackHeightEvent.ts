@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { FurnitureStackHeightParser } from '../../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { FurnitureStackHeightParser } from '@/nitro'
 
-export class FurnitureStackHeightEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, FurnitureStackHeightParser);
-    }
+export class FurnitureStackHeightEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, FurnitureStackHeightParser)
+  }
 
-    public getParser(): FurnitureStackHeightParser
-    {
-        return this.parser as FurnitureStackHeightParser;
-    }
+  public getParser(): FurnitureStackHeightParser {
+    return this.parser as FurnitureStackHeightParser
+  }
 }

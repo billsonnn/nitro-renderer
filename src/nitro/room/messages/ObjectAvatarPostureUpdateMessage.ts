@@ -1,25 +1,22 @@
-import { ObjectStateUpdateMessage } from './ObjectStateUpdateMessage';
+import { ObjectStateUpdateMessage } from '@/nitro'
 
-export class ObjectAvatarPostureUpdateMessage extends ObjectStateUpdateMessage
-{
-    private _postureType: string;
-    private _parameter: string;
+export class ObjectAvatarPostureUpdateMessage extends ObjectStateUpdateMessage {
+  constructor(postureType: string, parameter: string = '') {
+    super()
 
-    constructor(postureType: string, parameter: string = '')
-    {
-        super();
+    this._postureType = postureType
+    this._parameter = parameter
+  }
 
-        this._postureType = postureType;
-        this._parameter = parameter;
-    }
+  private _postureType: string
 
-    public get postureType(): string
-    {
-        return this._postureType;
-    }
+  public get postureType(): string {
+    return this._postureType
+  }
 
-    public get parameter(): string
-    {
-        return this._parameter;
-    }
+  private _parameter: string
+
+  public get parameter(): string {
+    return this._parameter
+  }
 }

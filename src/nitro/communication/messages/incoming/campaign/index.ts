@@ -1,2 +1,2 @@
-export * from './CampaignCalendarDataMessageEvent';
-export * from './CampaignCalendarDoorOpenedMessageEvent';
+export * from './CampaignCalendarDataMessageEvent'
+export * from './CampaignCalendarDoorOpenedMessageEvent'

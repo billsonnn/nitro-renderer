@@ -1,5 +1,4 @@
-export interface IAssetAnimationFramePartItem
-{
-    id?: string;
-    base?: string;
+export interface IAssetAnimationFramePartItem {
+  id?: string;
+  base?: string;
 }

@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { InitDiffieHandshakeParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { InitDiffieHandshakeParser } from '@/nitro'
 
-export class InitDiffieHandshakeEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, InitDiffieHandshakeParser);
-    }
+export class InitDiffieHandshakeEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, InitDiffieHandshakeParser)
+  }
 
-    public getParser(): InitDiffieHandshakeParser
-    {
-        return this.parser as InitDiffieHandshakeParser;
-    }
+  public getParser(): InitDiffieHandshakeParser {
+    return this.parser as InitDiffieHandshakeParser
+  }
 }

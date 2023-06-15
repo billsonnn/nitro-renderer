@@ -1,2 +1,2 @@
-export * from './LagWarningReportMessageComposer';
-export * from './PerformanceLogMessageComposer';
+export * from './LagWarningReportMessageComposer'
+export * from './PerformanceLogMessageComposer'

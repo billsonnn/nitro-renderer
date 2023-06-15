@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GetRoomChatlogMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetRoomChatlogMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof GetRoomChatlogMessageComposer>;
+export class GetRoomChatlogMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetRoomChatlogMessageComposer>> {
+  private _data: ConstructorParameters<typeof GetRoomChatlogMessageComposer>
 
-    constructor(roomId: number, useless: number = 0)
-    {
-        this._data = [useless, roomId];
-    }
+  constructor(roomId: number, useless: number = 0) {
+    this._data = [useless, roomId]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

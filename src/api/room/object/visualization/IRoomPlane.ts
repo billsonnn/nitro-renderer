@@ -1,13 +1,11 @@
-﻿import { IRoomGeometry } from '../../IRoomGeometry';
-import { IVector3D } from '../../IVector3D';
-import { IPlaneDrawingData } from './IPlaneDrawingData';
+﻿import { IPlaneDrawingData, IRoomGeometry, IVector3D } from '@/api'
 
-export interface IRoomPlane
-{
-    uniqueId: number;
-    location: IVector3D;
-    leftSide: IVector3D;
-    rightSide: IVector3D;
-    color: number;
-    getDrawingDatas(_arg_1: IRoomGeometry): IPlaneDrawingData[];
+export interface IRoomPlane {
+  uniqueId: number;
+  location: IVector3D;
+  leftSide: IVector3D;
+  rightSide: IVector3D;
+  color: number;
+
+  getDrawingDatas(_arg_1: IRoomGeometry): IPlaneDrawingData[];
 }

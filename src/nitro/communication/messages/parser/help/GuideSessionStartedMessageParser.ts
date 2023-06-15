@@ -1,67 +1,63 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GuideSessionStartedMessageParser implements IMessageParser
-{
-    private _requesterUserId: number;
-    private _requesterName: string;
-    private _requesterFigure: string;
-    private _guideUserId: number;
-    private _guideName: string;
-    private _guideFigure: string;
+export class GuideSessionStartedMessageParser implements IMessageParser {
+  private _requesterUserId: number
 
-    public flush(): boolean
-    {
-        this._requesterUserId = 0;
-        this._requesterName = null;
-        this._requesterFigure = null;
-        this._guideUserId = 0;
-        this._guideName = null;
-        this._guideFigure = null;
+  public get requesterUserId(): number {
+    return this._requesterUserId
+  }
 
-        return true;
-    }
+  private _requesterName: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get requesterName(): string {
+    return this._requesterName
+  }
 
-        this._requesterUserId = wrapper.readInt();
-        this._requesterName = wrapper.readString();
-        this._requesterFigure = wrapper.readString();
-        this._guideUserId = wrapper.readInt();
-        this._guideName = wrapper.readString();
-        this._guideFigure = wrapper.readString();
+  private _requesterFigure: string
 
-        return true;
-    }
+  public get requesterFigure(): string {
+    return this._requesterFigure
+  }
 
-    public get requesterUserId(): number
-    {
-        return this._requesterUserId;
-    }
+  private _guideUserId: number
 
-    public get requesterName(): string
-    {
-        return this._requesterName;
-    }
+  public get guideUserId(): number {
+    return this._guideUserId
+  }
 
-    public get requesterFigure(): string
-    {
-        return this._requesterFigure;
-    }
+  private _guideName: string
 
-    public get guideUserId(): number
-    {
-        return this._guideUserId;
-    }
+  public get guideName(): string {
+    return this._guideName
+  }
 
-    public get guideName(): string
-    {
-        return this._guideName;
-    }
+  private _guideFigure: string
 
-    public get guideFigure(): string
-    {
-        return this._guideFigure;
-    }
+  public get guideFigure(): string {
+    return this._guideFigure
+  }
+
+  public flush(): boolean {
+    this._requesterUserId = 0
+    this._requesterName = null
+    this._requesterFigure = null
+    this._guideUserId = 0
+    this._guideName = null
+    this._guideFigure = null
+
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._requesterUserId = wrapper.readInt()
+    this._requesterName = wrapper.readString()
+    this._requesterFigure = wrapper.readString()
+    this._guideUserId = wrapper.readInt()
+    this._guideName = wrapper.readString()
+    this._guideFigure = wrapper.readString()
+
+    return true
+  }
 }

@@ -1,27 +1,23 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class AchievementsScoreParser implements IMessageParser
-{
-    private _score: number;
+export class AchievementsScoreParser implements IMessageParser {
+  private _score: number
 
-    public flush(): boolean
-    {
-        this._score = 0;
+  public get score(): number {
+    return this._score
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._score = 0
 
-    public parse(k: IMessageDataWrapper): boolean
-    {
-        if(!k) return false;
+    return true
+  }
 
-        this._score = k.readInt();
+  public parse(k: IMessageDataWrapper): boolean {
+    if (!k) return false
 
-        return true;
-    }
+    this._score = k.readInt()
 
-    public get score(): number
-    {
-        return this._score;
-    }
+    return true
+  }
 }

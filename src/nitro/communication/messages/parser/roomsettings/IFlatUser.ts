@@ -1,5 +1,4 @@
-export interface IFlatUser
-{
-    userId: number;
-    userName: string;
+export interface IFlatUser {
+  userId: number;
+  userName: string;
 }

@@ -1,33 +1,29 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class CurrentTimingCodeMessageParser implements IMessageParser
-{
-    private _schedulingStr: string;
-    private _code: string;
+export class CurrentTimingCodeMessageParser implements IMessageParser {
+  private _schedulingStr: string
 
-    public flush(): boolean
-    {
-        this._schedulingStr = null;
-        this._code = null;
+  public get schedulingStr(): string {
+    return this._schedulingStr
+  }
 
-        return true;
-    }
+  private _code: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        this._schedulingStr = wrapper.readString();
-        this._code = wrapper.readString();
+  public get code(): string {
+    return this._code
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._schedulingStr = null
+    this._code = null
 
-    public get schedulingStr(): string
-    {
-        return this._schedulingStr;
-    }
+    return true
+  }
 
-    public get code(): string
-    {
-        return this._code;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    this._schedulingStr = wrapper.readString()
+    this._code = wrapper.readString()
+
+    return true
+  }
 }

@@ -1,5 +1,5 @@
-import { IRoomSession, IRoomUserData } from '../../api';
-import { RoomSessionEvent } from './RoomSessionEvent';
+import { IRoomSession, IRoomUserData } from '@/api';
+import { RoomSessionEvent } from '@/events';
 
 export class RoomSessionUserDataUpdateEvent extends RoomSessionEvent
 {

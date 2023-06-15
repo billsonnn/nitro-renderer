@@ -1,1 +1,1 @@
-export * from './Game2RequestFullStatusUpdateMessageComposer';
+export * from './Game2RequestFullStatusUpdateMessageComposer'

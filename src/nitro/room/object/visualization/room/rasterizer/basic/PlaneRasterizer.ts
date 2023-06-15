@@ -1,606 +1,545 @@
-﻿import { RenderTexture, Resource, Texture } from '@pixi/core';
-import { Point } from '@pixi/math';
-import { IAssetPlaneMaterial, IAssetPlaneMaterialCellColumn, IAssetPlaneTexture, IAssetPlaneVisualization, IAssetPlaneVisualizationData, IAssetPlaneVisualizationLayer, IGraphicAsset, IGraphicAssetCollection, IRoomGeometry, IVector3D, Vector3d } from '../../../../../../../api';
-import { PlaneTextureCache } from '../../../../../../../pixi-proxy';
-import { Rasterizer, RoomGeometry } from '../../../../../../../room';
-import { PlaneBitmapData } from '../../utils';
-import { IPlaneRasterizer } from '../IPlaneRasterizer';
-import { FloorPlane } from './FloorPlane';
-import { Plane } from './Plane';
-import { PlaneMaterial } from './PlaneMaterial';
-import { PlaneMaterialCell } from './PlaneMaterialCell';
-import { PlaneMaterialCellColumn } from './PlaneMaterialCellColumn';
-import { PlaneMaterialCellMatrix } from './PlaneMaterialCellMatrix';
-import { PlaneTexture } from './PlaneTexture';
-import { PlaneVisualizationLayer } from './PlaneVisualizationLayer';
+﻿import { RenderTexture, Resource, Texture } from '@pixi/core'
+import { Point } from '@pixi/math'
+import {
+  IAssetPlaneMaterial,
+  IAssetPlaneMaterialCellColumn,
+  IAssetPlaneTexture,
+  IAssetPlaneVisualization,
+  IAssetPlaneVisualizationData,
+  IAssetPlaneVisualizationLayer,
+  IGraphicAsset,
+  IGraphicAssetCollection,
+  IRoomGeometry,
+  IVector3D,
+  Vector3d
+} from '@/api'
+import { PlaneTextureCache } from '@/pixi-proxy'
+import { Rasterizer, RoomGeometry } from '@/room'
+import {
+  FloorPlane,
+  IPlaneRasterizer,
+  Plane,
+  PlaneBitmapData,
+  PlaneMaterial,
+  PlaneMaterialCell,
+  PlaneMaterialCellColumn,
+  PlaneMaterialCellMatrix,
+  PlaneTexture,
+  PlaneVisualizationLayer
+} from '@/nitro'
 
-export class PlaneRasterizer implements IPlaneRasterizer
-{
-    protected static DEFAULT: string = 'default';
+export class PlaneRasterizer implements IPlaneRasterizer {
+  protected static DEFAULT: string = 'default'
+  private _materials: Map<string, PlaneMaterial>
+  private _textures: Map<string, PlaneTexture>
+  private _planes: Map<string, Plane>
+  private _geometries: Map<string, RoomGeometry>
 
-    private _assetCollection: IGraphicAssetCollection;
-    private _materials: Map<string, PlaneMaterial>;
-    private _textures: Map<string, PlaneTexture>;
-    private _planes: Map<string, Plane>;
-    private _geometries: Map<string, RoomGeometry>;
-    private _data: IAssetPlaneVisualizationData;
+  constructor() {
+    this._assetCollection = null
+    this._textures = new Map()
+    this._materials = new Map()
+    this._planes = new Map()
+    this._geometries = new Map()
+    this._data = null
+  }
 
-    constructor()
-    {
-        this._assetCollection = null;
-        this._textures = new Map();
-        this._materials = new Map();
-        this._planes = new Map();
-        this._geometries = new Map();
-        this._data = null;
+  private _assetCollection: IGraphicAssetCollection
+
+  protected get assetCollection(): IGraphicAssetCollection {
+    return this._assetCollection
+  }
+
+  private _data: IAssetPlaneVisualizationData
+
+  protected get data(): IAssetPlaneVisualizationData {
+    return this._data
+  }
+
+  public initializeDimensions(k: number, _arg_2: number): boolean {
+    return true
+  }
+
+  public dispose(): void {
+    if (this._planes) {
+      for (const plane of this._planes.values()) {
+        if (!plane) continue
+
+        plane.dispose()
+      }
+
+      this._planes = null
     }
 
-    protected get data(): IAssetPlaneVisualizationData
-    {
-        return this._data;
+    if (this._materials) {
+      this.resetMaterials()
+
+      this._materials = null
     }
 
-    protected get assetCollection(): IGraphicAssetCollection
-    {
-        return this._assetCollection;
+    if (this._textures) {
+      this.resetTextures()
+
+      this._textures = null
     }
 
-    public initializeDimensions(k: number, _arg_2: number): boolean
-    {
-        return true;
+    if (this._geometries) {
+      for (const geometry of this._geometries.values()) {
+        if (!geometry) continue
+
+        geometry.dispose()
+      }
+
+      this._geometries = null
     }
 
-    public dispose(): void
-    {
-        if(this._planes)
-        {
-            for(const plane of this._planes.values())
-            {
-                if(!plane) continue;
+    this._data = null
+    this._assetCollection = null
+  }
 
-                plane.dispose();
+  public clearCache(): void {
+    for (const plane of this._planes.values()) {
+      if (!plane) continue
+
+      plane.clearCache()
+    }
+
+    for (const material of this._materials.values()) {
+      if (!material) continue
+
+      material.clearCache()
+    }
+  }
+
+  public initialize(data: IAssetPlaneVisualizationData): void {
+    this._data = data
+  }
+
+  public reinitialize(): void {
+    this.resetTextures()
+    this.resetMaterials()
+    this.initializeAll()
+  }
+
+  public initializeAssetCollection(collection: IGraphicAssetCollection): void {
+    if (!this._data) return
+
+    this._assetCollection = collection
+
+    this.initializeAll()
+  }
+
+  public render(planeId: string, textureCache: PlaneTextureCache, canvas: RenderTexture, id: string, width: number, height: number, size: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData {
+    return null
+  }
+
+  public getTextureIdentifier(k: number, normal: IVector3D): string {
+    return k.toString()
+  }
+
+  public getLayers(id: string): PlaneVisualizationLayer[] {
+    let planes = this.getPlane(id)
+
+    if (!planes) planes = this.getPlane(PlaneRasterizer.DEFAULT)
+
+    return planes.getLayers()
+  }
+
+  protected getTexture(textureId: string): PlaneTexture {
+    return this._textures.get(textureId)
+  }
+
+  protected getMaterial(materialId: string): PlaneMaterial {
+    return this._materials.get(materialId)
+  }
+
+  protected getPlane(planeId: string): Plane {
+    return this._planes.get(planeId)
+  }
+
+  protected addPlane(id: string, plane: Plane): boolean {
+    if (!plane) return false
+
+    const existing = this._planes.get(id)
+
+    if (!existing) {
+      this._planes.set(id, plane)
+
+      return true
+    }
+
+    return false
+  }
+
+  protected initializePlanes(): void {
+  }
+
+  protected getGeometry(size: number, horizontalAngle: number, verticalAngle: number): IRoomGeometry {
+    horizontalAngle = Math.abs(horizontalAngle)
+    if (horizontalAngle > 90) horizontalAngle = 90
+
+    verticalAngle = Math.abs(verticalAngle)
+    if (verticalAngle > 90) verticalAngle = 90
+
+    const identifier = `${ size }_${ Math.round(horizontalAngle) }_${ Math.round(verticalAngle) }`
+
+    let geometry = this._geometries.get(identifier)
+
+    if (geometry) return geometry
+
+    geometry = new RoomGeometry(size, new Vector3d(horizontalAngle, verticalAngle), new Vector3d(-10, 0, 0))
+
+    this._geometries.set(identifier, geometry)
+
+    return geometry
+  }
+
+  protected parseVisualizations(plane: Plane, visualizations: IAssetPlaneVisualization[]): void {
+    if (!plane || !visualizations) return
+
+    if (visualizations && visualizations.length) {
+      for (const visualization of visualizations) {
+        if (!visualization) continue
+
+        const size = visualization.size
+
+        let horizontalAngle = FloorPlane.HORIZONTAL_ANGLE_DEFAULT
+        let verticalAngle = FloorPlane.VERTICAL_ANGLE_DEFAULT
+
+        if (visualization.horizontalAngle !== undefined) horizontalAngle = visualization.horizontalAngle
+        if (visualization.verticalAngle !== undefined) verticalAngle = visualization.verticalAngle
+
+        const layers = visualization.allLayers as IAssetPlaneVisualizationLayer[]
+
+        const planeVisualization = plane.createPlaneVisualization(size, ((layers && layers.length) || 0), this.getGeometry(size, horizontalAngle, verticalAngle))
+
+        if (planeVisualization && (layers && layers.length)) {
+          let layerId = 0
+
+          while (layerId < layers.length) {
+            const layer = layers[layerId]
+
+            if (layer) {
+              let material: PlaneMaterial = null
+              let align: number = PlaneVisualizationLayer.ALIGN_DEFAULT
+              let color: number = FloorPlane.DEFAULT_COLOR
+              let offset: number = PlaneVisualizationLayer.DEFAULT_OFFSET
+
+              if (layer.materialId) material = this.getMaterial(layer.materialId)
+
+              if (layer.color) color = layer.color
+
+              if (layer.offset) offset = layer.offset
+
+              if (layer.align) {
+                if (layer.align === 'bottom') align = PlaneVisualizationLayer.ALIGN_BOTTOM
+
+                else if (layer.align == 'top') align = PlaneVisualizationLayer.ALIGN_TOP
+              }
+
+              planeVisualization.setLayer(layerId, material, color, align, offset)
             }
 
-            this._planes = null;
+            layerId++
+          }
         }
+      }
+    }
+  }
 
-        if(this._materials)
-        {
-            this.resetMaterials();
+  private resetMaterials(): void {
+    for (const material of this._materials.values()) {
+      if (!material) continue
 
-            this._materials = null;
-        }
-
-        if(this._textures)
-        {
-            this.resetTextures();
-
-            this._textures = null;
-        }
-
-        if(this._geometries)
-        {
-            for(const geometry of this._geometries.values())
-            {
-                if(!geometry) continue;
-
-                geometry.dispose();
-            }
-
-            this._geometries = null;
-        }
-
-        this._data = null;
-        this._assetCollection = null;
+      material.dispose()
     }
 
-    public clearCache(): void
-    {
-        for(const plane of this._planes.values())
-        {
-            if(!plane) continue;
+    this._materials.clear()
+  }
 
-            plane.clearCache();
-        }
+  private resetTextures(): void {
+    for (const texture of this._textures.values()) {
+      if (!texture) continue
 
-        for(const material of this._materials.values())
-        {
-            if(!material) continue;
-
-            material.clearCache();
-        }
+      texture.dispose()
     }
 
-    public initialize(data: IAssetPlaneVisualizationData): void
-    {
-        this._data = data;
-    }
+    this._textures.clear()
+  }
 
-    public reinitialize(): void
-    {
-        this.resetTextures();
-        this.resetMaterials();
-        this.initializeAll();
-    }
+  private initializeAll(): void {
+    if (!this._data) return
 
-    private resetMaterials(): void
-    {
-        for(const material of this._materials.values())
-        {
-            if(!material) continue;
+    this.initializeTexturesAndMaterials()
 
-            material.dispose();
-        }
+    this.initializePlanes()
+  }
 
-        this._materials.clear();
-    }
+  private initializeTexturesAndMaterials(): void {
+    if (this._data.textures && this._data.textures.length) this.parseTextures(this._data.textures, this.assetCollection)
+    if (this._data.materials && this._data.materials.length) this.parsePlaneMaterials(this._data.materials)
+  }
 
-    private resetTextures(): void
-    {
-        for(const texture of this._textures.values())
-        {
-            if(!texture) continue;
+  private parseTextures(textures: IAssetPlaneTexture[], collection: IGraphicAssetCollection): void {
+    if (!textures || !collection) return
 
-            texture.dispose();
-        }
+    if (textures.length) {
+      for (const texture of textures) {
+        if (!texture) continue
 
-        this._textures.clear();
-    }
+        const id = texture.id
 
-    protected getTexture(textureId: string): PlaneTexture
-    {
-        return this._textures.get(textureId);
-    }
+        if (!this._textures.get(id)) {
+          const plane = new PlaneTexture()
 
-    protected getMaterial(materialId: string): PlaneMaterial
-    {
-        return this._materials.get(materialId);
-    }
+          if (texture.bitmaps && texture.bitmaps.length) {
+            for (const bitmap of texture.bitmaps) {
+              if (!bitmap) continue
 
-    protected getPlane(planeId: string): Plane
-    {
-        return this._planes.get(planeId);
-    }
+              const assetName = bitmap.assetName
 
-    protected addPlane(id: string, plane: Plane): boolean
-    {
-        if(!plane) return false;
+              let normalMinX = PlaneTexture.MIN_NORMAL_COORDINATE_VALUE
+              let normalMaxX = PlaneTexture.MAX_NORMAL_COORDINATE_VALUE
+              let normalMinY = PlaneTexture.MIN_NORMAL_COORDINATE_VALUE
+              let normalMaxY = PlaneTexture.MAX_NORMAL_COORDINATE_VALUE
 
-        const existing = this._planes.get(id);
+              if (bitmap.normalMinX !== undefined) normalMinX = bitmap.normalMinX
+              if (bitmap.normalMaxX !== undefined) normalMaxX = bitmap.normalMaxX
+              if (bitmap.normalMinY !== undefined) normalMinY = bitmap.normalMinY
+              if (bitmap.normalMaxY !== undefined) normalMaxY = bitmap.normalMaxY
 
-        if(!existing)
-        {
-            this._planes.set(id, plane);
+              const asset = collection.getAsset(assetName)
 
-            return true;
-        }
+              if (asset) {
+                const texture = asset.texture
 
-        return false;
-    }
+                if (texture) {
+                  let newTexture: Texture<Resource> = texture
 
-    public initializeAssetCollection(collection: IGraphicAssetCollection): void
-    {
-        if(!this._data) return;
+                  if (asset.flipH) {
+                    newTexture = Rasterizer.getFlipHBitmapData(texture)
+                  } else {
+                    newTexture = newTexture.clone()
+                  }
 
-        this._assetCollection = collection;
-
-        this.initializeAll();
-    }
-
-    private initializeAll(): void
-    {
-        if(!this._data) return;
-
-        this.initializeTexturesAndMaterials();
-
-        this.initializePlanes();
-    }
-
-    private initializeTexturesAndMaterials(): void
-    {
-        if(this._data.textures && this._data.textures.length) this.parseTextures(this._data.textures, this.assetCollection);
-        if(this._data.materials && this._data.materials.length) this.parsePlaneMaterials(this._data.materials);
-    }
-
-    protected initializePlanes(): void
-    {
-    }
-
-    private parseTextures(textures: IAssetPlaneTexture[], collection: IGraphicAssetCollection): void
-    {
-        if(!textures || !collection) return;
-
-        if(textures.length)
-        {
-            for(const texture of textures)
-            {
-                if(!texture) continue;
-
-                const id = texture.id;
-
-                if(!this._textures.get(id))
-                {
-                    const plane = new PlaneTexture();
-
-                    if(texture.bitmaps && texture.bitmaps.length)
-                    {
-                        for(const bitmap of texture.bitmaps)
-                        {
-                            if(!bitmap) continue;
-
-                            const assetName = bitmap.assetName;
-
-                            let normalMinX = PlaneTexture.MIN_NORMAL_COORDINATE_VALUE;
-                            let normalMaxX = PlaneTexture.MAX_NORMAL_COORDINATE_VALUE;
-                            let normalMinY = PlaneTexture.MIN_NORMAL_COORDINATE_VALUE;
-                            let normalMaxY = PlaneTexture.MAX_NORMAL_COORDINATE_VALUE;
-
-                            if(bitmap.normalMinX !== undefined) normalMinX = bitmap.normalMinX;
-                            if(bitmap.normalMaxX !== undefined) normalMaxX = bitmap.normalMaxX;
-                            if(bitmap.normalMinY !== undefined) normalMinY = bitmap.normalMinY;
-                            if(bitmap.normalMaxY !== undefined) normalMaxY = bitmap.normalMaxY;
-
-                            const asset = collection.getAsset(assetName);
-
-                            if(asset)
-                            {
-                                const texture = asset.texture;
-
-                                if(texture)
-                                {
-                                    let newTexture: Texture<Resource> = texture;
-
-                                    if(asset.flipH)
-                                    {
-                                        newTexture = Rasterizer.getFlipHBitmapData(texture);
-                                    }
-                                    else
-                                    {
-                                        newTexture = newTexture.clone();
-                                    }
-
-                                    plane.addBitmap(newTexture, normalMinX, normalMaxX, normalMinY, normalMaxY, assetName);
-                                }
-                            }
-                        }
-                    }
-
-                    this._textures.set(id, plane);
+                  plane.addBitmap(newTexture, normalMinX, normalMaxX, normalMinY, normalMaxY, assetName)
                 }
+              }
             }
+          }
+
+          this._textures.set(id, plane)
         }
+      }
     }
+  }
 
-    private parsePlaneMaterials(materials: IAssetPlaneMaterial[]): void
-    {
-        if(!materials || !materials.length) return;
+  private parsePlaneMaterials(materials: IAssetPlaneMaterial[]): void {
+    if (!materials || !materials.length) return
 
-        for(const material of materials)
-        {
-            if(!material) continue;
+    for (const material of materials) {
+      if (!material) continue
 
-            const id = material.id;
-            const newMaterial = new PlaneMaterial();
+      const id = material.id
+      const newMaterial = new PlaneMaterial()
 
-            if(material.matrices && material.matrices.length)
-            {
-                for(const matrix of material.matrices)
-                {
-                    if(!matrix) continue;
+      if (material.matrices && material.matrices.length) {
+        for (const matrix of material.matrices) {
+          if (!matrix) continue
 
-                    let repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_DEFAULT;
-                    let align = PlaneMaterialCellMatrix.ALIGN_DEFAULT;
+          let repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_DEFAULT
+          let align = PlaneMaterialCellMatrix.ALIGN_DEFAULT
 
-                    let normalMinX = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE;
-                    let normalMaxX = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE;
-                    let normalMinY = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE;
-                    let normalMaxY = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE;
+          let normalMinX = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE
+          let normalMaxX = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE
+          let normalMinY = PlaneMaterialCellMatrix.MIN_NORMAL_COORDINATE_VALUE
+          let normalMaxY = PlaneMaterialCellMatrix.MAX_NORMAL_COORDINATE_VALUE
 
-                    if(matrix.normalMinX !== undefined) normalMinX = matrix.normalMinX;
-                    if(matrix.normalMaxX !== undefined) normalMaxX = matrix.normalMaxX;
-                    if(matrix.normalMinY !== undefined) normalMinY = matrix.normalMinY;
-                    if(matrix.normalMaxY !== undefined) normalMaxY = matrix.normalMaxY;
+          if (matrix.normalMinX !== undefined) normalMinX = matrix.normalMinX
+          if (matrix.normalMaxX !== undefined) normalMaxX = matrix.normalMaxX
+          if (matrix.normalMinY !== undefined) normalMinY = matrix.normalMinY
+          if (matrix.normalMaxY !== undefined) normalMaxY = matrix.normalMaxY
 
-                    switch(matrix.repeatMode)
-                    {
-                        case 'borders':
-                            repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_BORDERS;
-                            break;
-                        case 'center':
-                            repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_CENTER;
-                            break;
-                        case 'first':
-                            repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_FIRST;
-                            break;
-                        case 'last':
-                            repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_LAST;
-                            break;
-                        case 'random':
-                            repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_RANDOM;
-                            break;
-                        default:
-                            repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_DEFAULT;
-                            break;
-                    }
-
-                    switch(matrix.align)
-                    {
-                        case 'top':
-                            align = PlaneMaterialCellMatrix.ALIGN_TOP;
-                            break;
-                        case 'bottom':
-                            align = PlaneMaterialCellMatrix.ALIGN_BOTTOM;
-                            break;
-                        default:
-                            align = PlaneMaterialCellMatrix.ALIGN_DEFAULT;
-                            break;
-                    }
-
-                    if(matrix.columns && matrix.columns.length)
-                    {
-                        const cellMatrix = newMaterial.addMaterialCellMatrix(matrix.columns.length, repeatMode, align, normalMinX, normalMaxX, normalMinY, normalMaxY);
-
-                        let index = 0;
-
-                        while(index < matrix.columns.length)
-                        {
-                            const column = matrix.columns[index];
-
-                            if(column) this.parsePlaneMaterialCellColumn(column, cellMatrix, index);
-
-                            index++;
-                        }
-                    }
-                }
-            }
-
-            this._materials.set(id, newMaterial);
-        }
-    }
-
-    private parsePlaneMaterialCellColumn(column: IAssetPlaneMaterialCellColumn, cellMatrix: PlaneMaterialCellMatrix, index: number): void
-    {
-        if(!column || !cellMatrix) return;
-
-        let repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_ALL;
-
-        const width = column.width;
-
-        const cells = this.parsePlaneMaterialCells(column);
-
-        switch(column.repeatMode)
-        {
+          switch (matrix.repeatMode) {
             case 'borders':
-                repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_BORDERS;
-                break;
+              repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_BORDERS
+              break
             case 'center':
-                repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_CENTER;
-                break;
+              repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_CENTER
+              break
             case 'first':
-                repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_FIRST;
-                break;
+              repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_FIRST
+              break
             case 'last':
-                repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_LAST;
-                break;
-            case 'none':
-                repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_NONE;
-                break;
+              repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_LAST
+              break
+            case 'random':
+              repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_RANDOM
+              break
             default:
-                repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_ALL;
-                break;
-        }
+              repeatMode = PlaneMaterialCellMatrix.REPEAT_MODE_DEFAULT
+              break
+          }
 
-        cellMatrix.createColumn(index, width, cells, repeatMode);
-    }
+          switch (matrix.align) {
+            case 'top':
+              align = PlaneMaterialCellMatrix.ALIGN_TOP
+              break
+            case 'bottom':
+              align = PlaneMaterialCellMatrix.ALIGN_BOTTOM
+              break
+            default:
+              align = PlaneMaterialCellMatrix.ALIGN_DEFAULT
+              break
+          }
 
-    private parsePlaneMaterialCells(column: IAssetPlaneMaterialCellColumn): PlaneMaterialCell[]
-    {
-        if(!column || !column.cells || !column.cells.length) return null;
+          if (matrix.columns && matrix.columns.length) {
+            const cellMatrix = newMaterial.addMaterialCellMatrix(matrix.columns.length, repeatMode, align, normalMinX, normalMaxX, normalMinY, normalMaxY)
 
-        const cells: PlaneMaterialCell[] = [];
+            let index = 0
 
-        let index = 0;
+            while (index < matrix.columns.length) {
+              const column = matrix.columns[index]
 
-        while(index < column.cells.length)
-        {
-            const cell = column.cells[index];
+              if (column) this.parsePlaneMaterialCellColumn(column, cellMatrix, index)
 
-            if(cell)
-            {
-                const textureId = cell.textureId;
-
-                let assetNames: string[] = null;
-                let offsetPoints: Point[] = null;
-                let graphics: IGraphicAsset[] = null;
-                let limit = 0;
-
-                if(cell.extraData)
-                {
-                    const types = cell.extraData.extraItemTypes;
-                    const offsets = cell.extraData.offsets;
-
-                    if(types && offsets)
-                    {
-                        if(types.length && offsets.length)
-                        {
-                            assetNames = this.parseExtraItemTypes(types);
-                            offsetPoints = this.parseExtraItemOffsets(offsets);
-                            limit = offsetPoints.length;
-
-                            if(cell.extraData.limitMax !== undefined) limit = cell.extraData.limitMax;
-                        }
-                    }
-                }
-
-                if(assetNames && assetNames.length)
-                {
-                    graphics = [];
-
-                    for(const assetName of assetNames)
-                    {
-                        if(!assetName) continue;
-
-                        const asset = this._assetCollection.getAsset(assetName);
-
-                        if(!asset) continue;
-
-                        graphics.push(asset);
-                    }
-                }
-
-                const texture = this.getTexture(textureId);
-                const newCell = new PlaneMaterialCell(texture, graphics, offsetPoints, limit);
-
-                cells.push(newCell);
+              index++
             }
-
-            index++;
+          }
         }
+      }
 
-        if(!cells || !cells.length) return null;
+      this._materials.set(id, newMaterial)
+    }
+  }
 
-        return cells;
+  private parsePlaneMaterialCellColumn(column: IAssetPlaneMaterialCellColumn, cellMatrix: PlaneMaterialCellMatrix, index: number): void {
+    if (!column || !cellMatrix) return
+
+    let repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_ALL
+
+    const width = column.width
+
+    const cells = this.parsePlaneMaterialCells(column)
+
+    switch (column.repeatMode) {
+      case 'borders':
+        repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_BORDERS
+        break
+      case 'center':
+        repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_CENTER
+        break
+      case 'first':
+        repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_FIRST
+        break
+      case 'last':
+        repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_LAST
+        break
+      case 'none':
+        repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_NONE
+        break
+      default:
+        repeatMode = PlaneMaterialCellColumn.REPEAT_MODE_ALL
+        break
     }
 
-    private parseExtraItemTypes(k: string[]): string[]
-    {
-        const assetNames: string[] = [];
+    cellMatrix.createColumn(index, width, cells, repeatMode)
+  }
 
-        if(k && k.length)
-        {
-            let index = 0;
+  private parsePlaneMaterialCells(column: IAssetPlaneMaterialCellColumn): PlaneMaterialCell[] {
+    if (!column || !column.cells || !column.cells.length) return null
 
-            while(index < k.length)
-            {
-                const type = k[index];
+    const cells: PlaneMaterialCell[] = []
 
-                if(type) assetNames.push(type);
+    let index = 0
 
-                index++;
+    while (index < column.cells.length) {
+      const cell = column.cells[index]
+
+      if (cell) {
+        const textureId = cell.textureId
+
+        let assetNames: string[] = null
+        let offsetPoints: Point[] = null
+        let graphics: IGraphicAsset[] = null
+        let limit = 0
+
+        if (cell.extraData) {
+          const types = cell.extraData.extraItemTypes
+          const offsets = cell.extraData.offsets
+
+          if (types && offsets) {
+            if (types.length && offsets.length) {
+              assetNames = this.parseExtraItemTypes(types)
+              offsetPoints = this.parseExtraItemOffsets(offsets)
+              limit = offsetPoints.length
+
+              if (cell.extraData.limitMax !== undefined) limit = cell.extraData.limitMax
             }
+          }
         }
 
-        return assetNames;
-    }
+        if (assetNames && assetNames.length) {
+          graphics = []
 
-    private parseExtraItemOffsets(k: [ number, number][]): Point[]
-    {
-        const offsets: Point[] = [];
+          for (const assetName of assetNames) {
+            if (!assetName) continue
 
-        if(k && k.length)
-        {
-            let index = 0;
+            const asset = this._assetCollection.getAsset(assetName)
 
-            while(index < k.length)
-            {
-                const [ x, y ] = k[index];
+            if (!asset) continue
 
-                offsets.push(new Point(x, y));
-
-                index++;
-            }
+            graphics.push(asset)
+          }
         }
 
-        return offsets;
+        const texture = this.getTexture(textureId)
+        const newCell = new PlaneMaterialCell(texture, graphics, offsetPoints, limit)
+
+        cells.push(newCell)
+      }
+
+      index++
     }
 
-    protected getGeometry(size: number, horizontalAngle: number, verticalAngle: number): IRoomGeometry
-    {
-        horizontalAngle = Math.abs(horizontalAngle);
-        if(horizontalAngle > 90) horizontalAngle = 90;
+    if (!cells || !cells.length) return null
 
-        verticalAngle = Math.abs(verticalAngle);
-        if(verticalAngle > 90) verticalAngle = 90;
+    return cells
+  }
 
-        const identifier = `${size}_${Math.round(horizontalAngle)}_${Math.round(verticalAngle)}`;
+  private parseExtraItemTypes(k: string[]): string[] {
+    const assetNames: string[] = []
 
-        let geometry = this._geometries.get(identifier);
+    if (k && k.length) {
+      let index = 0
 
-        if(geometry) return geometry;
+      while (index < k.length) {
+        const type = k[index]
 
-        geometry = new RoomGeometry(size, new Vector3d(horizontalAngle, verticalAngle), new Vector3d(-10, 0, 0));
+        if (type) assetNames.push(type)
 
-        this._geometries.set(identifier, geometry);
-
-        return geometry;
+        index++
+      }
     }
 
-    protected parseVisualizations(plane: Plane, visualizations: IAssetPlaneVisualization[]): void
-    {
-        if(!plane || !visualizations) return;
+    return assetNames
+  }
 
-        if(visualizations && visualizations.length)
-        {
-            for(const visualization of visualizations)
-            {
-                if(!visualization) continue;
+  private parseExtraItemOffsets(k: [number, number][]): Point[] {
+    const offsets: Point[] = []
 
-                const size = visualization.size;
+    if (k && k.length) {
+      let index = 0
 
-                let horizontalAngle = FloorPlane.HORIZONTAL_ANGLE_DEFAULT;
-                let verticalAngle = FloorPlane.VERTICAL_ANGLE_DEFAULT;
+      while (index < k.length) {
+        const [x, y] = k[index]
 
-                if(visualization.horizontalAngle !== undefined) horizontalAngle = visualization.horizontalAngle;
-                if(visualization.verticalAngle !== undefined) verticalAngle = visualization.verticalAngle;
+        offsets.push(new Point(x, y))
 
-                const layers = visualization.allLayers as IAssetPlaneVisualizationLayer[];
-
-                const planeVisualization = plane.createPlaneVisualization(size, ((layers && layers.length) || 0), this.getGeometry(size, horizontalAngle, verticalAngle));
-
-                if(planeVisualization && (layers && layers.length))
-                {
-                    let layerId = 0;
-
-                    while(layerId < layers.length)
-                    {
-                        const layer = layers[layerId];
-
-                        if(layer)
-                        {
-                            let material: PlaneMaterial = null;
-                            let align: number = PlaneVisualizationLayer.ALIGN_DEFAULT;
-                            let color: number = FloorPlane.DEFAULT_COLOR;
-                            let offset: number = PlaneVisualizationLayer.DEFAULT_OFFSET;
-
-                            if(layer.materialId) material = this.getMaterial(layer.materialId);
-
-                            if(layer.color) color = layer.color;
-
-                            if(layer.offset) offset = layer.offset;
-
-                            if(layer.align)
-                            {
-                                if(layer.align === 'bottom') align = PlaneVisualizationLayer.ALIGN_BOTTOM;
-
-                                else if(layer.align == 'top') align = PlaneVisualizationLayer.ALIGN_TOP;
-                            }
-
-                            planeVisualization.setLayer(layerId, material, color, align, offset);
-                        }
-
-                        layerId++;
-                    }
-                }
-            }
-        }
+        index++
+      }
     }
 
-    public render(planeId: string, textureCache: PlaneTextureCache, canvas: RenderTexture, id: string, width: number, height: number, size: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
-    {
-        return null;
-    }
-
-    public getTextureIdentifier(k: number, normal: IVector3D): string
-    {
-        return k.toString();
-    }
-
-    public getLayers(id: string): PlaneVisualizationLayer[]
-    {
-        let planes = this.getPlane(id);
-
-        if(!planes) planes = this.getPlane(PlaneRasterizer.DEFAULT);
-
-        return planes.getLayers();
-    }
+    return offsets
+  }
 }

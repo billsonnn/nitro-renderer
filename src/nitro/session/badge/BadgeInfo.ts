@@ -1,23 +1,20 @@
-import { Resource, Texture } from '@pixi/core';
+import { Resource, Texture } from '@pixi/core'
 
-export class BadgeInfo
-{
-    private _image: Texture<Resource>;
-    private _placeHolder: boolean;
+export class BadgeInfo {
+  constructor(image: Texture<Resource>, placeHolder: boolean) {
+    this._image = image
+    this._placeHolder = placeHolder
+  }
 
-    constructor(image: Texture<Resource>, placeHolder: boolean)
-    {
-        this._image = image;
-        this._placeHolder = placeHolder;
-    }
+  private _image: Texture<Resource>
 
-    public get image(): Texture<Resource>
-    {
-        return this._image;
-    }
+  public get image(): Texture<Resource> {
+    return this._image
+  }
 
-    public get placeHolder(): boolean
-    {
-        return this._placeHolder;
-    }
+  private _placeHolder: boolean
+
+  public get placeHolder(): boolean {
+    return this._placeHolder
+  }
 }

@@ -1,91 +1,81 @@
-export class PendingGuideTicketData
-{
-    private _type: number;
-    private _secondsAgo: number;
-    private _isGuide: boolean;
-    private _otherPartyName: string;
-    private _otherPartyFigure: string;
-    private _description: string;
-    private _roomName: string;
+export class PendingGuideTicketData {
+  constructor(type: number, secondsAgo: number, isGuide: boolean, otherPartyName: string, otherPartyFigure: string, description: string, roomName: string) {
+    this._type = type
+    this._secondsAgo = secondsAgo
+    this._isGuide = isGuide
+    this._otherPartyName = otherPartyName
+    this._otherPartyFigure = otherPartyFigure
+    this._description = description
+    this._roomName = roomName
+  }
 
-    constructor(type: number, secondsAgo: number, isGuide: boolean, otherPartyName: string, otherPartyFigure: string, description: string, roomName: string)
-    {
-        this._type = type;
-        this._secondsAgo = secondsAgo;
-        this._isGuide = isGuide;
-        this._otherPartyName = otherPartyName;
-        this._otherPartyFigure = otherPartyFigure;
-        this._description = description;
-        this._roomName = roomName;
-    }
+  private _type: number
 
-    public get type(): number
-    {
-        return this._type;
-    }
+  public get type(): number {
+    return this._type
+  }
 
-    public set type(value: number)
-    {
-        this._type = value;
-    }
+  public set type(value: number) {
+    this._type = value
+  }
 
-    public get secondsAgo(): number
-    {
-        return this._secondsAgo;
-    }
+  private _secondsAgo: number
 
-    public set secondsAgo(value: number)
-    {
-        this._secondsAgo = value;
-    }
+  public get secondsAgo(): number {
+    return this._secondsAgo
+  }
 
-    public get isGuide(): boolean
-    {
-        return this._isGuide;
-    }
+  public set secondsAgo(value: number) {
+    this._secondsAgo = value
+  }
 
-    public set isGuide(value: boolean)
-    {
-        this._isGuide = value;
-    }
+  private _isGuide: boolean
 
-    public get otherPartyName(): string
-    {
-        return this._otherPartyName;
-    }
+  public get isGuide(): boolean {
+    return this._isGuide
+  }
 
-    public set otherPartyName(value: string)
-    {
-        this._otherPartyName = value;
-    }
+  public set isGuide(value: boolean) {
+    this._isGuide = value
+  }
 
-    public get otherPartyFigure(): string
-    {
-        return this._otherPartyFigure;
-    }
+  private _otherPartyName: string
 
-    public set otherPartyFigure(value: string)
-    {
-        this._otherPartyFigure = value;
-    }
+  public get otherPartyName(): string {
+    return this._otherPartyName
+  }
 
-    public get description(): string
-    {
-        return this._description;
-    }
+  public set otherPartyName(value: string) {
+    this._otherPartyName = value
+  }
 
-    public set description(value: string)
-    {
-        this._description = value;
-    }
+  private _otherPartyFigure: string
 
-    public get roomName(): string
-    {
-        return this._roomName;
-    }
+  public get otherPartyFigure(): string {
+    return this._otherPartyFigure
+  }
 
-    public set roomName(value: string)
-    {
-        this._roomName = value;
-    }
+  public set otherPartyFigure(value: string) {
+    this._otherPartyFigure = value
+  }
+
+  private _description: string
+
+  public get description(): string {
+    return this._description
+  }
+
+  public set description(value: string) {
+    this._description = value
+  }
+
+  private _roomName: string
+
+  public get roomName(): string {
+    return this._roomName
+  }
+
+  public set roomName(value: string) {
+    this._roomName = value
+  }
 }

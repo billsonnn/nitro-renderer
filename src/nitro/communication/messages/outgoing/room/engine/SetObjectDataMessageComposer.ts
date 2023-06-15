@@ -1,23 +1,19 @@
-import { IMessageComposer } from '../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class SetObjectDataMessageComposer implements IMessageComposer<any[]>
-{
-    private _data: any[];
+export class SetObjectDataMessageComposer implements IMessageComposer<any[]> {
+  private _data: any[]
 
-    constructor(objectId: number, data: Map<string, string>)
-    {
-        this._data = [objectId, (data.size * 2)];
+  constructor(objectId: number, data: Map<string, string>) {
+    this._data = [objectId, (data.size * 2)]
 
-        for(const [key, value] of data.entries()) this._data.push(key, value);
-    }
+    for (const [key, value] of data.entries()) this._data.push(key, value)
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

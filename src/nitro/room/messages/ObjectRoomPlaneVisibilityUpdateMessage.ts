@@ -1,28 +1,25 @@
-import { RoomObjectUpdateMessage } from '../../../room';
+import { RoomObjectUpdateMessage } from '@/room'
 
-export class ObjectRoomPlaneVisibilityUpdateMessage extends RoomObjectUpdateMessage
-{
-    public static WALL_VISIBILITY: string = 'RORPVUM_WALL_VISIBILITY';
-    public static FLOOR_VISIBILITY: string = 'RORPVUM_FLOOR_VISIBILITY';
+export class ObjectRoomPlaneVisibilityUpdateMessage extends RoomObjectUpdateMessage {
+  public static WALL_VISIBILITY: string = 'RORPVUM_WALL_VISIBILITY'
+  public static FLOOR_VISIBILITY: string = 'RORPVUM_FLOOR_VISIBILITY'
 
-    private _type: string;
-    private _visible: boolean;
+  constructor(type: string, visible: boolean) {
+    super(null, null)
 
-    constructor(type: string, visible: boolean)
-    {
-        super(null, null);
+    this._type = type
+    this._visible = visible
+  }
 
-        this._type = type;
-        this._visible = visible;
-    }
+  private _type: string
 
-    public get type(): string
-    {
-        return this._type;
-    }
+  public get type(): string {
+    return this._type
+  }
 
-    public get visible(): boolean
-    {
-        return this._visible;
-    }
+  private _visible: boolean
+
+  public get visible(): boolean {
+    return this._visible
+  }
 }

@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { BotErrorEventParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { BotErrorEventParser } from '@/nitro'
 
-export class BotErrorEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, BotErrorEventParser);
-    }
+export class BotErrorEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, BotErrorEventParser)
+  }
 
-    public getParser(): BotErrorEventParser
-    {
-        return this.parser as BotErrorEventParser;
-    }
+  public getParser(): BotErrorEventParser {
+    return this.parser as BotErrorEventParser
+  }
 }

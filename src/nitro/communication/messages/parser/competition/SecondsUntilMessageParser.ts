@@ -1,33 +1,29 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class SecondsUntilMessageParser implements IMessageParser
-{
-    private _timeStr: string;
-    private _secondsUntil: number;
+export class SecondsUntilMessageParser implements IMessageParser {
+  private _timeStr: string
 
-    public flush(): boolean
-    {
-        this._timeStr = null;
-        this._secondsUntil = 0;
+  public get timeStr(): string {
+    return this._timeStr
+  }
 
-        return true;
-    }
+  private _secondsUntil: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        this._timeStr = wrapper.readString();
-        this._secondsUntil = wrapper.readInt();
+  public get secondsUntil(): number {
+    return this._secondsUntil
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._timeStr = null
+    this._secondsUntil = 0
 
-    public get timeStr(): string
-    {
-        return this._timeStr;
-    }
+    return true
+  }
 
-    public get secondsUntil(): number
-    {
-        return this._secondsUntil;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    this._timeStr = wrapper.readString()
+    this._secondsUntil = wrapper.readInt()
+
+    return true
+  }
 }

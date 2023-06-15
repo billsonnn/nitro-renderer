@@ -1,16 +1,13 @@
-﻿import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { AchievementsParser } from '../../../parser';
+﻿import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { AchievementsParser } from '@/nitro'
 
-export class AchievementsEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, AchievementsParser);
-    }
+export class AchievementsEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, AchievementsParser)
+  }
 
-    public getParser(): AchievementsParser
-    {
-        return this.parser as AchievementsParser;
-    }
+  public getParser(): AchievementsParser {
+    return this.parser as AchievementsParser
+  }
 }

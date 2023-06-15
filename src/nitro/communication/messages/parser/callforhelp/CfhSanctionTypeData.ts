@@ -1,49 +1,47 @@
-import { IMessageDataWrapper } from '../../../../../api';
-import { INamed } from '../moderation';
+import { IMessageDataWrapper } from '@/api'
+import { INamed } from '@/nitro'
 
-export class CfhSanctionTypeData implements INamed
-{
-    private _name: string;
-    private _sanctionLengthInHours: number;
-    private _probationDays: number;
-    private _avatarOnly: boolean;
-    private _tradeLockInfo: string = '';
-    private _machineBanInfo: string = '';
+export class CfhSanctionTypeData implements INamed {
+  private _probationDays: number
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        this._name = wrapper.readString();
-        this._sanctionLengthInHours = wrapper.readInt();
-        this._probationDays = wrapper.readInt();
-        this._avatarOnly = wrapper.readBoolean();
+  constructor(wrapper: IMessageDataWrapper) {
+    this._name = wrapper.readString()
+    this._sanctionLengthInHours = wrapper.readInt()
+    this._probationDays = wrapper.readInt()
+    this._avatarOnly = wrapper.readBoolean()
 
-        if(wrapper.bytesAvailable) this._tradeLockInfo = wrapper.readString();
+    if (wrapper.bytesAvailable) this._tradeLockInfo = wrapper.readString()
 
-        if(wrapper.bytesAvailable) this._machineBanInfo = wrapper.readString();
-    }
+    if (wrapper.bytesAvailable) this._machineBanInfo = wrapper.readString()
+  }
 
-    public get name(): string
-    {
-        return this._name;
-    }
+  private _name: string
 
-    public get sanctionLengthInHours(): number
-    {
-        return this._sanctionLengthInHours;
-    }
+  public get name(): string {
+    return this._name
+  }
 
-    public get avatarOnly(): boolean
-    {
-        return this._avatarOnly;
-    }
+  private _sanctionLengthInHours: number
 
-    public get tradeLockInfo(): string
-    {
-        return this._tradeLockInfo;
-    }
+  public get sanctionLengthInHours(): number {
+    return this._sanctionLengthInHours
+  }
 
-    public get machineBanInfo(): string
-    {
-        return this._machineBanInfo;
-    }
+  private _avatarOnly: boolean
+
+  public get avatarOnly(): boolean {
+    return this._avatarOnly
+  }
+
+  private _tradeLockInfo: string = ''
+
+  public get tradeLockInfo(): string {
+    return this._tradeLockInfo
+  }
+
+  private _machineBanInfo: string = ''
+
+  public get machineBanInfo(): string {
+    return this._machineBanInfo
+  }
 }

@@ -1,30 +1,27 @@
-import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageDataWrapper } from '@/api'
 
-export class OutfitData
-{
-    private _slotId: number;
-    private _figureString: string;
-    private _gender: string;
+export class OutfitData {
+  constructor(wrapper: IMessageDataWrapper) {
+    this._slotId = wrapper.readInt()
+    this._figureString = wrapper.readString()
+    this._gender = wrapper.readString()
+  }
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        this._slotId = wrapper.readInt();
-        this._figureString = wrapper.readString();
-        this._gender = wrapper.readString();
-    }
+  private _slotId: number
 
-    public get slotId(): number
-    {
-        return this._slotId;
-    }
+  public get slotId(): number {
+    return this._slotId
+  }
 
-    public get figureString(): string
-    {
-        return this._figureString;
-    }
+  private _figureString: string
 
-    public get gender(): string
-    {
-        return this._gender;
-    }
+  public get figureString(): string {
+    return this._figureString
+  }
+
+  private _gender: string
+
+  public get gender(): string {
+    return this._gender
+  }
 }

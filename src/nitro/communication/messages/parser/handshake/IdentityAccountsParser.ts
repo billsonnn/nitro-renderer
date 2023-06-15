@@ -1,39 +1,33 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class IdentityAccountsParser implements IMessageParser
-{
-    private _accounts: Map<number, string>;
+export class IdentityAccountsParser implements IMessageParser {
+  private _accounts: Map<number, string>
 
-    public flush(): boolean
-    {
-        if(this._accounts)
-        {
-            this._accounts = new Map();
-        }
+  public get accounts(): Map<number, string> {
+    return this._accounts
+  }
 
-        return true;
+  public flush(): boolean {
+    if (this._accounts) {
+      this._accounts = new Map()
     }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._accounts = new Map();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        let totalCount = wrapper.readInt();
+    this._accounts = new Map()
 
-        while(totalCount > 0)
-        {
-            this._accounts.set(wrapper.readInt(), wrapper.readString());
+    let totalCount = wrapper.readInt()
 
-            totalCount--;
-        }
+    while (totalCount > 0) {
+      this._accounts.set(wrapper.readInt(), wrapper.readString())
 
-        return true;
+      totalCount--
     }
 
-    public get accounts(): Map<number, string>
-    {
-        return this._accounts;
-    }
+    return true
+  }
 }

@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { FlatAccessDeniedMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { FlatAccessDeniedMessageParser } from '@/nitro'
 
-export class FlatAccessDeniedMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, FlatAccessDeniedMessageParser);
-    }
+export class FlatAccessDeniedMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, FlatAccessDeniedMessageParser)
+  }
 
-    public getParser(): FlatAccessDeniedMessageParser
-    {
-        return this.parser as FlatAccessDeniedMessageParser;
-    }
+  public getParser(): FlatAccessDeniedMessageParser {
+    return this.parser as FlatAccessDeniedMessageParser
+  }
 }

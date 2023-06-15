@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class ApproveAllMembershipRequestsMessageComposer implements IMessageComposer<ConstructorParameters<typeof ApproveAllMembershipRequestsMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof ApproveAllMembershipRequestsMessageComposer>;
+export class ApproveAllMembershipRequestsMessageComposer implements IMessageComposer<ConstructorParameters<typeof ApproveAllMembershipRequestsMessageComposer>> {
+  private _data: ConstructorParameters<typeof ApproveAllMembershipRequestsMessageComposer>
 
-    constructor(groupId: number)
-    {
-        this._data = [groupId];
-    }
+  constructor(groupId: number) {
+    this._data = [groupId]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

@@ -1,43 +1,39 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class FriendNotificationParser implements IMessageParser
-{
-    private _typeCode: number;
-    private _avatarId: number;
-    private _message: string;
+export class FriendNotificationParser implements IMessageParser {
+  private _typeCode: number
 
-    public flush(): boolean
-    {
-        this._typeCode = -1;
-        this._avatarId = 0;
-        this._message = null;
+  public get typeCode(): number {
+    return this._typeCode
+  }
 
-        return true;
-    }
+  private _avatarId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get avatarId(): number {
+    return this._avatarId
+  }
 
-        this._typeCode = wrapper.readInt();
-        this._avatarId = wrapper.readInt();
-        this._message = wrapper.readString();
+  private _message: string
 
-        return true;
-    }
+  public get message(): string {
+    return this._message
+  }
 
-    public get typeCode(): number
-    {
-        return this._typeCode;
-    }
+  public flush(): boolean {
+    this._typeCode = -1
+    this._avatarId = 0
+    this._message = null
 
-    public get avatarId(): number
-    {
-        return this._avatarId;
-    }
+    return true
+  }
 
-    public get message(): string
-    {
-        return this._message;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._typeCode = wrapper.readInt()
+    this._avatarId = wrapper.readInt()
+    this._message = wrapper.readString()
+
+    return true
+  }
 }

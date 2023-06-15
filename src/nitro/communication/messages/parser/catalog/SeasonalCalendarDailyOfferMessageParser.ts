@@ -1,36 +1,32 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { CatalogPageMessageOfferData } from './CatalogPageMessageOfferData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { CatalogPageMessageOfferData } from '@/nitro'
 
-export class SeasonalCalendarDailyOfferMessageParser implements IMessageParser
-{
-    private _pageId: number;
-    private _data: CatalogPageMessageOfferData;
+export class SeasonalCalendarDailyOfferMessageParser implements IMessageParser {
+  private _pageId: number
 
-    public flush(): boolean
-    {
-        this._pageId = -1;
-        this._data = null;
+  public get pageId(): number {
+    return this._pageId
+  }
 
-        return true;
-    }
+  private _data: CatalogPageMessageOfferData
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get data(): CatalogPageMessageOfferData {
+    return this._data
+  }
 
-        this._pageId = wrapper.readInt();
-        this._data = new CatalogPageMessageOfferData(wrapper);
+  public flush(): boolean {
+    this._pageId = -1
+    this._data = null
 
-        return true;
-    }
+    return true
+  }
 
-    public get pageId(): number
-    {
-        return this._pageId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get data(): CatalogPageMessageOfferData
-    {
-        return this._data;
-    }
+    this._pageId = wrapper.readInt()
+    this._data = new CatalogPageMessageOfferData(wrapper)
+
+    return true
+  }
 }

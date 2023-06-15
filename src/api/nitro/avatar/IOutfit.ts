@@ -1,5 +1,4 @@
-﻿export interface IOutfit
-{
-    figure: string;
-    gender: string;
+﻿export interface IOutfit {
+  figure: string;
+  gender: string;
 }

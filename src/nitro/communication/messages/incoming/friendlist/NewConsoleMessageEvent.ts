@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { NewConsoleMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { NewConsoleMessageParser } from '@/nitro'
 
-export class NewConsoleMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, NewConsoleMessageParser);
-    }
+export class NewConsoleMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, NewConsoleMessageParser)
+  }
 
-    public getParser(): NewConsoleMessageParser
-    {
-        return this.parser as NewConsoleMessageParser;
-    }
+  public getParser(): NewConsoleMessageParser {
+    return this.parser as NewConsoleMessageParser
+  }
 }

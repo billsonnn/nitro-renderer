@@ -1,35 +1,32 @@
-export class GameAchievementData
-{
-    private _gameTypeId:number;
-    private _achievementId:number;
-    private _achievementName:string;
-    private _levels:number;
+export class GameAchievementData {
+  constructor(gameTypeId: number, achievementId: number, achievementName: string, levels: number) {
+    this._gameTypeId = gameTypeId
+    this._achievementId = achievementId
+    this._achievementName = achievementName
+    this._levels = levels
+  }
 
-    constructor(gameTypeId:number, achievementId:number, achievementName:string, levels:number)
-    {
-        this._gameTypeId = gameTypeId;
-        this._achievementId = achievementId;
-        this._achievementName = achievementName;
-        this._levels = levels;
-    }
+  private _gameTypeId: number
 
-    public get gameTypeId():number
-    {
-        return this._gameTypeId;
-    }
+  public get gameTypeId(): number {
+    return this._gameTypeId
+  }
 
-    public get achievementId():number
-    {
-        return this._achievementId;
-    }
+  private _achievementId: number
 
-    public get achievementName():string
-    {
-        return this._achievementName;
-    }
+  public get achievementId(): number {
+    return this._achievementId
+  }
 
-    public get levels():number
-    {
-        return this._levels;
-    }
+  private _achievementName: string
+
+  public get achievementName(): string {
+    return this._achievementName
+  }
+
+  private _levels: number
+
+  public get levels(): number {
+    return this._levels
+  }
 }

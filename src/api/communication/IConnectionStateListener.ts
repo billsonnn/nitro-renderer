@@ -1,4 +1,3 @@
-export interface IConnectionStateListener
-{
-    connectionInit(socketUrl: string): void;
+export interface IConnectionStateListener {
+  connectionInit(socketUrl: string): void;
 }

@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class FollowFriendFailedParser implements IMessageParser
-{
-    private _errorCode: number;
+export class FollowFriendFailedParser implements IMessageParser {
+  private _errorCode: number
 
-    public flush(): boolean
-    {
-        this._errorCode = 0;
+  public get errorCode(): number {
+    return this._errorCode
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._errorCode = 0
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._errorCode = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._errorCode = wrapper.readInt()
 
-    public get errorCode(): number
-    {
-        return this._errorCode;
-    }
+    return true
+  }
 }

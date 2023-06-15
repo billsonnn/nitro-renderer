@@ -1,40 +1,36 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class QuizResultsMessageParser implements IMessageParser
-{
-    private _quizCode: string;
-    private _questionIdsForWrongAnswers: number[];
+export class QuizResultsMessageParser implements IMessageParser {
+  private _quizCode: string
 
-    public flush(): boolean
-    {
-        this._quizCode = null;
-        this._questionIdsForWrongAnswers = [];
+  public get quizCode(): string {
+    return this._quizCode
+  }
 
-        return true;
-    }
+  private _questionIdsForWrongAnswers: number[]
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get questionIdsForWrongAnswers(): number[] {
+    return this._questionIdsForWrongAnswers
+  }
 
-        this._quizCode = wrapper.readString();
+  public flush(): boolean {
+    this._quizCode = null
+    this._questionIdsForWrongAnswers = []
 
-        const size = wrapper.readInt();
+    return true
+  }
 
-        this._questionIdsForWrongAnswers = [];
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        for(let i = 0; i < size; i++) this._questionIdsForWrongAnswers.push(wrapper.readInt());
+    this._quizCode = wrapper.readString()
 
-        return true;
-    }
+    const size = wrapper.readInt()
 
-    public get quizCode(): string
-    {
-        return this._quizCode;
-    }
+    this._questionIdsForWrongAnswers = []
 
-    public get questionIdsForWrongAnswers(): number[]
-    {
-        return this._questionIdsForWrongAnswers;
-    }
+    for (let i = 0; i < size; i++) this._questionIdsForWrongAnswers.push(wrapper.readInt())
+
+    return true
+  }
 }

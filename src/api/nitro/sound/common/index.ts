@@ -1,1 +1,1 @@
-export * from './ISongInfo';
+export * from './ISongInfo'

@@ -1,1 +1,1 @@
-export * from './PetBreedingMessageEvent';
+export * from './PetBreedingMessageEvent'

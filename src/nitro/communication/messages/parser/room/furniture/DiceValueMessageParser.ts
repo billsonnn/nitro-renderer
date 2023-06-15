@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class DiceValueMessageParser implements IMessageParser
-{
-    private _itemId: number;
-    private _value: number;
+export class DiceValueMessageParser implements IMessageParser {
+  private _itemId: number
 
-    public flush(): boolean
-    {
-        this._itemId = 0;
-        this._value = 0;
+  public get itemId(): number {
+    return this._itemId
+  }
 
-        return true;
-    }
+  private _value: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get value(): number {
+    return this._value
+  }
 
-        this._itemId = wrapper.readInt();
-        this._value = wrapper.readInt();
+  public flush(): boolean {
+    this._itemId = 0
+    this._value = 0
 
-        return true;
-    }
+    return true
+  }
 
-    public get itemId(): number
-    {
-        return this._itemId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get value(): number
-    {
-        return this._value;
-    }
+    this._itemId = wrapper.readInt()
+    this._value = wrapper.readInt()
+
+    return true
+  }
 }

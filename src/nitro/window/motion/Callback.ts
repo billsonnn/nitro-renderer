@@ -1,30 +1,25 @@
-﻿import { Motion } from './Motion';
+﻿import { Motion } from '@/nitro'
 
-export class Callback extends Motion
-{
-    protected _callback: Function;
+export class Callback extends Motion {
+  protected _callback: Function
 
-    constructor(k: Function)
-    {
-        super(null);
+  constructor(k: Function) {
+    super(null)
 
-        this._callback = k;
+    this._callback = k
+  }
+
+  public get running(): boolean {
+    return (this._running && !!this._callback)
+  }
+
+  public tick(k: number): void {
+    super.tick(k)
+
+    if (this._callback) {
+      this._callback()
+
+      this._callback = null
     }
-
-    public get running(): boolean
-    {
-        return (this._running && !!this._callback);
-    }
-
-    public tick(k: number): void
-    {
-        super.tick(k);
-
-        if(this._callback)
-        {
-            this._callback();
-
-            this._callback = null;
-        }
-    }
+  }
 }

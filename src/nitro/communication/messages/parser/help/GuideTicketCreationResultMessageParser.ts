@@ -1,32 +1,28 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GuideTicketCreationResultMessageParser implements IMessageParser
-{
-    public static readonly CREATION_RESULT_OK: number = 0;
-    public static readonly CREATION_RESULT_UNABLE_TO_REPORT: number = 1;
-    public static readonly CREATION_RESULT_NO_CHATLOG_FOUND: number = 2;
-    public static readonly CREATION_RESULT_BULLY_ALREADY_REPORTED: number = 3;
+export class GuideTicketCreationResultMessageParser implements IMessageParser {
+  public static readonly CREATION_RESULT_OK: number = 0
+  public static readonly CREATION_RESULT_UNABLE_TO_REPORT: number = 1
+  public static readonly CREATION_RESULT_NO_CHATLOG_FOUND: number = 2
+  public static readonly CREATION_RESULT_BULLY_ALREADY_REPORTED: number = 3
 
-    private _result: number;
+  private _result: number
 
-    public flush(): boolean
-    {
-        this._result = 0;
+  public get result(): number {
+    return this._result
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._result = 0
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._result = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._result = wrapper.readInt()
 
-    public get result(): number
-    {
-        return this._result;
-    }
+    return true
+  }
 }

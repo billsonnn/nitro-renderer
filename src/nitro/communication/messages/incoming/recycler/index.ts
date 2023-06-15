@@ -1,2 +1,2 @@
-export * from './RecyclerFinishedMessageEvent';
-export * from './RecyclerStatusMessageEvent';
+export * from './RecyclerFinishedMessageEvent'
+export * from './RecyclerStatusMessageEvent'

@@ -1,28 +1,24 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { ConditionDefinition } from './ConditionDefinition';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { ConditionDefinition } from '@/nitro'
 
-export class WiredFurniConditionParser implements IMessageParser
-{
-    private _definition: ConditionDefinition;
+export class WiredFurniConditionParser implements IMessageParser {
+  private _definition: ConditionDefinition
 
-    public flush(): boolean
-    {
-        this._definition = null;
+  public get definition(): ConditionDefinition {
+    return this._definition
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._definition = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._definition = new ConditionDefinition(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._definition = new ConditionDefinition(wrapper)
 
-    public get definition(): ConditionDefinition
-    {
-        return this._definition;
-    }
+    return true
+  }
 }

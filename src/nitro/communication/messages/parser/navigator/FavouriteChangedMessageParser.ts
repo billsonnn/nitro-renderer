@@ -1,32 +1,28 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class FavouriteChangedMessageParser implements IMessageParser
-{
-    private _flatId: number;
-    private _added: boolean;
+export class FavouriteChangedMessageParser implements IMessageParser {
+  private _flatId: number
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get flatId(): number {
+    return this._flatId
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _added: boolean
 
-        this._flatId = wrapper.readInt();
-        this._added = wrapper.readBoolean();
+  public get added(): boolean {
+    return this._added
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    return true
+  }
 
-    public get flatId(): number
-    {
-        return this._flatId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get added(): boolean
-    {
-        return this._added;
-    }
+    this._flatId = wrapper.readInt()
+    this._added = wrapper.readBoolean()
+
+    return true
+  }
 }

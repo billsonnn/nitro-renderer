@@ -1,29 +1,25 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GuildEditFailedMessageParser implements IMessageParser
-{
-    public static readonly INSUFFICIENT_SUBSCRIPTION_LEVEL: number = 2;
+export class GuildEditFailedMessageParser implements IMessageParser {
+  public static readonly INSUFFICIENT_SUBSCRIPTION_LEVEL: number = 2
 
-    private _reason: number;
+  private _reason: number
 
-    public flush(): boolean
-    {
-        this._reason = -1;
+  public get reason(): number {
+    return this._reason
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._reason = -1
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._reason = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._reason = wrapper.readInt()
 
-    public get reason(): number
-    {
-        return this._reason;
-    }
+    return true
+  }
 }

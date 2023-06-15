@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GuildMemberMgmtFailedMessageParser implements IMessageParser
-{
-    private _guildId: number;
-    private _reason: number;
+export class GuildMemberMgmtFailedMessageParser implements IMessageParser {
+  private _guildId: number
 
-    public flush(): boolean
-    {
-        this._guildId = -1;
-        this._reason = -1;
+  public get guildId(): number {
+    return this._guildId
+  }
 
-        return true;
-    }
+  private _reason: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get reason(): number {
+    return this._reason
+  }
 
-        this._guildId = wrapper.readInt();
-        this._reason = wrapper.readInt();
+  public flush(): boolean {
+    this._guildId = -1
+    this._reason = -1
 
-        return true;
-    }
+    return true
+  }
 
-    public get guildId(): number
-    {
-        return this._guildId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get reason(): number
-    {
-        return this._reason;
-    }
+    this._guildId = wrapper.readInt()
+    this._reason = wrapper.readInt()
+
+    return true
+  }
 }

@@ -1,2 +1,2 @@
-export * from './PromoArticlesMessageEvent';
-export * from './votes';
+export * from './PromoArticlesMessageEvent'
+export * from './votes'

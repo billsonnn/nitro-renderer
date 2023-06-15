@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class BuildersClubFurniCountMessageParser implements IMessageParser
-{
-    private _furniCount: number;
+export class BuildersClubFurniCountMessageParser implements IMessageParser {
+  private _furniCount: number
 
-    public flush(): boolean
-    {
-        this._furniCount = 0;
+  public get furniCount(): number {
+    return this._furniCount
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._furniCount = 0
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._furniCount = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._furniCount = wrapper.readInt()
 
-    public get furniCount(): number
-    {
-        return this._furniCount;
-    }
+    return true
+  }
 }

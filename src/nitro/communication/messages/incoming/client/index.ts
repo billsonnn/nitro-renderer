@@ -1,1 +1,1 @@
-export * from './ClientPingEvent';
+export * from './ClientPingEvent'

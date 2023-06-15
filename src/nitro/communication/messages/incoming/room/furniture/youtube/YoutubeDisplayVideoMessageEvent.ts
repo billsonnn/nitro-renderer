@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../../../api';
-import { MessageEvent } from '../../../../../../../events';
-import { YoutubeDisplayVideoMessageParser } from '../../../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { YoutubeDisplayVideoMessageParser } from '@/nitro'
 
-export class YoutubeDisplayVideoMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, YoutubeDisplayVideoMessageParser);
-    }
+export class YoutubeDisplayVideoMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, YoutubeDisplayVideoMessageParser)
+  }
 
-    public getParser(): YoutubeDisplayVideoMessageParser
-    {
-        return this.parser as YoutubeDisplayVideoMessageParser;
-    }
+  public getParser(): YoutubeDisplayVideoMessageParser {
+    return this.parser as YoutubeDisplayVideoMessageParser
+  }
 }

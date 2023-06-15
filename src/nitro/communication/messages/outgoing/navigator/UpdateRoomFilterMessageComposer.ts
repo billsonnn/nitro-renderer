@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class UpdateRoomFilterMessageComposer implements IMessageComposer<ConstructorParameters<typeof UpdateRoomFilterMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof UpdateRoomFilterMessageComposer>;
+export class UpdateRoomFilterMessageComposer implements IMessageComposer<ConstructorParameters<typeof UpdateRoomFilterMessageComposer>> {
+  private _data: ConstructorParameters<typeof UpdateRoomFilterMessageComposer>
 
-    constructor(roomId: number, isAddingWord: boolean, word: string)
-    {
-        this._data = [roomId, isAddingWord, word];
-    }
+  constructor(roomId: number, isAddingWord: boolean, word: string) {
+    this._data = [roomId, isAddingWord, word]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

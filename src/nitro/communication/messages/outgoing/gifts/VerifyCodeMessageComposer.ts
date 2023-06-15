@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class VerifyCodeMessageComposer implements IMessageComposer<ConstructorParameters<typeof VerifyCodeMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof VerifyCodeMessageComposer>;
+export class VerifyCodeMessageComposer implements IMessageComposer<ConstructorParameters<typeof VerifyCodeMessageComposer>> {
+  private _data: ConstructorParameters<typeof VerifyCodeMessageComposer>
 
-    constructor(k: string)
-    {
-        this._data = [k];
-    }
+  constructor(k: string) {
+    this._data = [k]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

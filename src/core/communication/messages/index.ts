@@ -1,1 +1,1 @@
-export * from './MessageClassManager';
+export * from './MessageClassManager'

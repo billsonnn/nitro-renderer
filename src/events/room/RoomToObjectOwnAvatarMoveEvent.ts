@@ -1,5 +1,5 @@
-﻿import { IVector3D } from '../../api';
-import { RoomToObjectEvent } from './RoomToObjectEvent';
+﻿import { IVector3D } from '@/api';
+import { RoomToObjectEvent } from '@/events';
 
 export class RoomToObjectOwnAvatarMoveEvent extends RoomToObjectEvent
 {

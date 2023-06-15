@@ -1,2 +1,2 @@
-export * from './FurnitureMannequinSaveLookComposer';
-export * from './FurnitureMannequinSaveNameComposer';
+export * from './FurnitureMannequinSaveLookComposer'
+export * from './FurnitureMannequinSaveNameComposer'

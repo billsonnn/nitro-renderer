@@ -1,34 +1,29 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class TradingCloseParser implements IMessageParser
-{
-    public static ERROR_WHILE_COMMIT: number = 1;
+export class TradingCloseParser implements IMessageParser {
+  public static ERROR_WHILE_COMMIT: number = 1
 
-    private _userId: number;
-    private _reason: number;
+  private _userId: number
+  private _reason: number
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get reason(): number {
+    return this._reason
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get userID(): number {
+    return this._userId
+  }
 
-        this._userId = wrapper.readInt();
-        this._reason = wrapper.readInt();
+  public flush(): boolean {
+    return true
+  }
 
-        return true;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get userID(): number
-    {
-        return this._userId;
-    }
+    this._userId = wrapper.readInt()
+    this._reason = wrapper.readInt()
 
-    public get reason(): number
-    {
-        return this._reason;
-    }
+    return true
+  }
 }

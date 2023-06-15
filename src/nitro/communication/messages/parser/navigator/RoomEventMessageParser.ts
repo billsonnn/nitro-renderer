@@ -1,23 +1,19 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { RoomEventData } from './utils';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { RoomEventData } from './utils'
 
-export class RoomEventMessageParser implements IMessageParser
-{
-    private _data: RoomEventData;
+export class RoomEventMessageParser implements IMessageParser {
+  private _data: RoomEventData
 
-    flush(): boolean
-    {
-        return true;
-    }
+  public get data(): RoomEventData {
+    return this._data
+  }
 
-    parse(wrapper: IMessageDataWrapper): boolean
-    {
-        this._data = new RoomEventData(wrapper);
-        return true;
-    }
+  flush(): boolean {
+    return true
+  }
 
-    public get data(): RoomEventData
-    {
-        return this._data;
-    }
+  parse(wrapper: IMessageDataWrapper): boolean {
+    this._data = new RoomEventData(wrapper)
+    return true
+  }
 }

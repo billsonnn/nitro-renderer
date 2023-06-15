@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { BonusRareInfoMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { BonusRareInfoMessageParser } from '@/nitro'
 
-export class BonusRareInfoMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, BonusRareInfoMessageParser);
-    }
+export class BonusRareInfoMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, BonusRareInfoMessageParser)
+  }
 
-    public getParser(): BonusRareInfoMessageParser
-    {
-        return this.parser as BonusRareInfoMessageParser;
-    }
+  public getParser(): BonusRareInfoMessageParser {
+    return this.parser as BonusRareInfoMessageParser
+  }
 }

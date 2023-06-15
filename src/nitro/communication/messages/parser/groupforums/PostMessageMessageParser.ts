@@ -1,44 +1,40 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { MessageData } from './MessageData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { MessageData } from '@/nitro'
 
-export class PostMessageMessageParser implements IMessageParser
-{
-    private _groupId: number;
-    private _threadId: number;
-    private _message: MessageData;
+export class PostMessageMessageParser implements IMessageParser {
+  private _groupId: number
 
-    public flush(): boolean
-    {
-        this._groupId = -1;
-        this._threadId = -1;
-        this._message = null;
+  public get groupId(): number {
+    return this._groupId
+  }
 
-        return true;
-    }
+  private _threadId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get threadId(): number {
+    return this._threadId
+  }
 
-        this._groupId = wrapper.readInt();
-        this._threadId = wrapper.readInt();
-        this._message = MessageData.parse(wrapper);
+  private _message: MessageData
 
-        return true;
-    }
+  public get message(): MessageData {
+    return this._message
+  }
 
-    public get groupId(): number
-    {
-        return this._groupId;
-    }
+  public flush(): boolean {
+    this._groupId = -1
+    this._threadId = -1
+    this._message = null
 
-    public get threadId(): number
-    {
-        return this._threadId;
-    }
+    return true
+  }
 
-    public get message(): MessageData
-    {
-        return this._message;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._groupId = wrapper.readInt()
+    this._threadId = wrapper.readInt()
+    this._message = MessageData.parse(wrapper)
+
+    return true
+  }
 }

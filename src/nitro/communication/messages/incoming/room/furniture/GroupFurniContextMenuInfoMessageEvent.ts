@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { GroupFurniContextMenuInfoMessageParser } from '../../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { GroupFurniContextMenuInfoMessageParser } from '@/nitro'
 
-export class GroupFurniContextMenuInfoMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, GroupFurniContextMenuInfoMessageParser);
-    }
+export class GroupFurniContextMenuInfoMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, GroupFurniContextMenuInfoMessageParser)
+  }
 
-    public getParser(): GroupFurniContextMenuInfoMessageParser
-    {
-        return this.parser as GroupFurniContextMenuInfoMessageParser;
-    }
+  public getParser(): GroupFurniContextMenuInfoMessageParser {
+    return this.parser as GroupFurniContextMenuInfoMessageParser
+  }
 }

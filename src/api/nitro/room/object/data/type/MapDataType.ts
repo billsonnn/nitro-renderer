@@ -1,90 +1,82 @@
-import { IMessageDataWrapper } from '../../../../../communication';
-import { IRoomObjectModel } from '../../../../../room';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
-import { IObjectData } from '../IObjectData';
-import { ObjectDataBase } from '../ObjectDataBase';
-import { ObjectDataKey } from '../ObjectDataKey';
+import {
+  IMessageDataWrapper,
+  IObjectData,
+  IRoomObjectModel,
+  ObjectDataBase,
+  ObjectDataKey,
+  RoomObjectVariable
+} from '@/api'
 
-export class MapDataType extends ObjectDataBase
-{
-    public static FORMAT_KEY = ObjectDataKey.MAP_KEY;
+export class MapDataType extends ObjectDataBase {
+  public static FORMAT_KEY = ObjectDataKey.MAP_KEY
 
-    private static STATE: string = 'state';
-    private static RARITY: string = 'rarity';
+  private static STATE: string = 'state'
+  private static RARITY: string = 'rarity'
 
-    private _data: { [index: string]: string };
+  constructor() {
+    super()
 
-    constructor()
-    {
-        super();
+    this._data = {}
+  }
 
-        this._data = {};
-    }
+  private _data: { [index: string]: string }
 
-    public parseWrapper(wrapper: IMessageDataWrapper): void
-    {
-        if(!wrapper) return;
+  // TODO: How to get the keys?
+  public get data() {
+    return this._data
+  }
 
-        this._data = {};
+  public get rarityLevel(): number {
+    if (!this._data) return -1
 
-        const totalSets = wrapper.readInt();
+    const state = this._data[MapDataType.RARITY]
 
-        if(totalSets) for(let i = 0; i < totalSets; i++) this._data[wrapper.readString()] = wrapper.readString();
+    if (state === undefined || state === null) return -1
 
-        super.parseWrapper(wrapper);
-    }
+    return parseInt(state)
+  }
 
-    public initializeFromRoomObjectModel(model: IRoomObjectModel): void
-    {
-        super.initializeFromRoomObjectModel(model);
+  public parseWrapper(wrapper: IMessageDataWrapper): void {
+    if (!wrapper) return
 
-        this._data = model.getValue<{ [index: string]: string }>(RoomObjectVariable.FURNITURE_DATA) || {};
-    }
+    this._data = {}
 
-    public writeRoomObjectModel(model: IRoomObjectModel): void
-    {
-        super.writeRoomObjectModel(model);
+    const totalSets = wrapper.readInt()
 
-        model.setValue(RoomObjectVariable.FURNITURE_DATA_FORMAT, MapDataType.FORMAT_KEY);
-        model.setValue(RoomObjectVariable.FURNITURE_DATA, this._data);
-    }
+    if (totalSets) for (let i = 0; i < totalSets; i++) this._data[wrapper.readString()] = wrapper.readString()
 
-    public getLegacyString(): string
-    {
-        if(!this._data) return '';
+    super.parseWrapper(wrapper)
+  }
 
-        const state = this._data[MapDataType.STATE];
+  public initializeFromRoomObjectModel(model: IRoomObjectModel): void {
+    super.initializeFromRoomObjectModel(model)
 
-        if(state === undefined || state === null) return '';
+    this._data = model.getValue<{ [index: string]: string }>(RoomObjectVariable.FURNITURE_DATA) || {}
+  }
 
-        return state;
-    }
+  public writeRoomObjectModel(model: IRoomObjectModel): void {
+    super.writeRoomObjectModel(model)
 
-    public compare(data: IObjectData): boolean
-    {
-        return false;
-    }
+    model.setValue(RoomObjectVariable.FURNITURE_DATA_FORMAT, MapDataType.FORMAT_KEY)
+    model.setValue(RoomObjectVariable.FURNITURE_DATA, this._data)
+  }
 
-    public getValue(key: string): string
-    {
-        return this._data[key];
-    }
+  public getLegacyString(): string {
+    if (!this._data) return ''
 
-    public get rarityLevel(): number
-    {
-        if(!this._data) return -1;
+    const state = this._data[MapDataType.STATE]
 
-        const state = this._data[MapDataType.RARITY];
+    if (state === undefined || state === null) return ''
 
-        if(state === undefined || state === null) return -1;
+    return state
+  }
 
-        return parseInt(state);
-    }
+  public compare(data: IObjectData): boolean {
+    return false
+  }
 
-    // TODO: How to get the keys?
-    public get data()
-    {
-        return this._data;
-    }
+  public getValue(key: string): string {
+    return this._data[key]
+  }
 
 }

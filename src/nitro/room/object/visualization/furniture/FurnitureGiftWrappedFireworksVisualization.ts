@@ -1,78 +1,68 @@
-import { IRoomGeometry, RoomObjectVariable } from '../../../../../api';
-import { FurnitureFireworksVisualization } from './FurnitureFireworksVisualization';
+import { IRoomGeometry, RoomObjectVariable } from '@/api'
+import { FurnitureFireworksVisualization } from '@/nitro'
 
-export class FurnitureGiftWrappedFireworksVisualization extends FurnitureFireworksVisualization
-{
-    private static PRESENT_DEFAULT_STATE: number = 0;
-    private static MAX_PACKET_TYPE_VALUE: number = 9;
-    private static MAX_RIBBON_TYPE_VALUE: number = 11;
+export class FurnitureGiftWrappedFireworksVisualization extends FurnitureFireworksVisualization {
+  private static PRESENT_DEFAULT_STATE: number = 0
+  private static MAX_PACKET_TYPE_VALUE: number = 9
+  private static MAX_RIBBON_TYPE_VALUE: number = 11
 
-    private _packetType: number = 0;
-    private _ribbonType: number = 0;
-    private _lastAnimationId: number = 0;
+  private _packetType: number = 0
+  private _ribbonType: number = 0
+  private _lastAnimationId: number = 0
 
-    public update(geometry: IRoomGeometry, time: number, update: boolean, skipUpdate: boolean)
-    {
-        this.updatePresentWrap();
+  public update(geometry: IRoomGeometry, time: number, update: boolean, skipUpdate: boolean) {
+    this.updatePresentWrap()
 
-        super.update(geometry, time, update, skipUpdate);
+    super.update(geometry, time, update, skipUpdate)
+  }
+
+  public getFrameNumber(scale: number, layerId: number): number {
+    if (this._lastAnimationId === FurnitureGiftWrappedFireworksVisualization.PRESENT_DEFAULT_STATE) {
+      if (layerId <= 1) return this._packetType
+
+      if (layerId === 2) return this._ribbonType
     }
 
-    private updatePresentWrap(): void
-    {
-        if(!this.object) return;
+    return super.getFrameNumber(scale, layerId)
+  }
 
-        const local3 = 1000;
-        const extras = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_EXTRAS);
+  public getSpriteAssetName(scale: number, layerId: number): string {
+    const size = this.getValidSize(scale)
 
-        const typeIndex = parseInt(extras);
-        const packetType = Math.floor((typeIndex / local3));
-        const ribbonType = (typeIndex % local3);
+    let assetName = this._type
+    let layerCode = ''
 
-        this._packetType = ((packetType > FurnitureGiftWrappedFireworksVisualization.MAX_PACKET_TYPE_VALUE) ? 0 : packetType);
-        this._ribbonType = ((ribbonType > FurnitureGiftWrappedFireworksVisualization.MAX_RIBBON_TYPE_VALUE) ? 0 : ribbonType);
+    if (layerId < (this.spriteCount - 1)) {
+      layerCode = String.fromCharCode(('a'.charCodeAt(0) + layerId))
+    } else {
+      layerCode = 'sd'
     }
 
-    public getFrameNumber(scale: number, layerId: number): number
-    {
-        if(this._lastAnimationId === FurnitureGiftWrappedFireworksVisualization.PRESENT_DEFAULT_STATE)
-        {
-            if(layerId <= 1) return this._packetType;
+    const frameNumber = this.getFrameNumber(scale, layerId)
 
-            if(layerId === 2) return this._ribbonType;
-        }
+    assetName = (assetName + ((((('_' + size) + '_') + layerCode) + '_') + this.direction))
+    assetName = (assetName + ('_' + frameNumber))
 
-        return super.getFrameNumber(scale, layerId);
-    }
+    return assetName
+  }
 
-    public getSpriteAssetName(scale: number, layerId: number): string
-    {
-        const size = this.getValidSize(scale);
+  protected setAnimation(animationId: number): void {
+    this._lastAnimationId = animationId
 
-        let assetName = this._type;
-        let layerCode = '';
+    super.setAnimation(animationId)
+  }
 
-        if(layerId < (this.spriteCount - 1))
-        {
-            layerCode = String.fromCharCode(('a'.charCodeAt(0) + layerId));
-        }
-        else
-        {
-            layerCode = 'sd';
-        }
+  private updatePresentWrap(): void {
+    if (!this.object) return
 
-        const frameNumber = this.getFrameNumber(scale, layerId);
+    const local3 = 1000
+    const extras = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_EXTRAS)
 
-        assetName = (assetName + ((((('_' + size) + '_') + layerCode) + '_') + this.direction));
-        assetName = (assetName + ('_' + frameNumber));
+    const typeIndex = parseInt(extras)
+    const packetType = Math.floor((typeIndex / local3))
+    const ribbonType = (typeIndex % local3)
 
-        return assetName;
-    }
-
-    protected setAnimation(animationId: number): void
-    {
-        this._lastAnimationId = animationId;
-
-        super.setAnimation(animationId);
-    }
+    this._packetType = ((packetType > FurnitureGiftWrappedFireworksVisualization.MAX_PACKET_TYPE_VALUE) ? 0 : packetType)
+    this._ribbonType = ((ribbonType > FurnitureGiftWrappedFireworksVisualization.MAX_RIBBON_TYPE_VALUE) ? 0 : ribbonType)
+  }
 }

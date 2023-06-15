@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { NavigatorSearchParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { NavigatorSearchParser } from '@/nitro'
 
-export class NavigatorSearchEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, NavigatorSearchParser);
-    }
+export class NavigatorSearchEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, NavigatorSearchParser)
+  }
 
-    public getParser(): NavigatorSearchParser
-    {
-        return this.parser as NavigatorSearchParser;
-    }
+  public getParser(): NavigatorSearchParser {
+    return this.parser as NavigatorSearchParser
+  }
 }

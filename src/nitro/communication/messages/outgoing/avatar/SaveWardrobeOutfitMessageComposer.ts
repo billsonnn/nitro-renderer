@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class SaveWardrobeOutfitMessageComposer implements IMessageComposer<ConstructorParameters<typeof SaveWardrobeOutfitMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof SaveWardrobeOutfitMessageComposer>;
+export class SaveWardrobeOutfitMessageComposer implements IMessageComposer<ConstructorParameters<typeof SaveWardrobeOutfitMessageComposer>> {
+  private _data: ConstructorParameters<typeof SaveWardrobeOutfitMessageComposer>
 
-    constructor(slotId: number, look: string, gender: string)
-    {
-        this._data = [slotId, look, gender];
-    }
+  constructor(slotId: number, look: string, gender: string) {
+    this._data = [slotId, look, gender]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

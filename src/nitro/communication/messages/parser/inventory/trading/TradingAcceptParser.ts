@@ -1,35 +1,31 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class TradingAcceptParser implements IMessageParser
-{
-    private _userID: number;
-    private _userAccepts: boolean;
+export class TradingAcceptParser implements IMessageParser {
+  private _userID: number
 
-    public flush(): boolean
-    {
-        this._userID = -1;
-        this._userAccepts = false;
+  public get userID(): number {
+    return this._userID
+  }
 
-        return true;
-    }
+  private _userAccepts: boolean
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get userAccepts(): boolean {
+    return this._userAccepts
+  }
 
-        this._userID = wrapper.readInt();
-        this._userAccepts = (wrapper.readInt() > 0);
+  public flush(): boolean {
+    this._userID = -1
+    this._userAccepts = false
 
-        return true;
-    }
+    return true
+  }
 
-    public get userID(): number
-    {
-        return this._userID;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get userAccepts(): boolean
-    {
-        return this._userAccepts;
-    }
+    this._userID = wrapper.readInt()
+    this._userAccepts = (wrapper.readInt() > 0)
+
+    return true
+  }
 }

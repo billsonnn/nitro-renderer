@@ -1,6 +1,5 @@
-import { IAvatarAddition } from './IAvatarAddition';
+import { IAvatarAddition } from '@/nitro'
 
-export interface IExpressionAddition extends IAvatarAddition
-{
-    type: number;
+export interface IExpressionAddition extends IAvatarAddition {
+  type: number;
 }

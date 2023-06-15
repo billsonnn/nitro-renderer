@@ -1,28 +1,24 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { NavigatorSearchResultSet } from './utils';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { NavigatorSearchResultSet } from './utils'
 
-export class NavigatorSearchParser implements IMessageParser
-{
-    private _result: NavigatorSearchResultSet;
+export class NavigatorSearchParser implements IMessageParser {
+  private _result: NavigatorSearchResultSet
 
-    public flush(): boolean
-    {
-        this._result = null;
+  public get result(): NavigatorSearchResultSet {
+    return this._result
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._result = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._result = new NavigatorSearchResultSet(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._result = new NavigatorSearchResultSet(wrapper)
 
-    public get result(): NavigatorSearchResultSet
-    {
-        return this._result;
-    }
+    return true
+  }
 }

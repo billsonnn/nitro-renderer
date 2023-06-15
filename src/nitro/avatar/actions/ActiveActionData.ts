@@ -1,73 +1,65 @@
-import { IActionDefinition, IActiveActionData } from '../../../api';
+import { IActionDefinition, IActiveActionData } from '@/api'
 
-export class ActiveActionData implements IActiveActionData
-{
-    private _actionType: string;
-    private _actionParameter: string;
-    private _definition: IActionDefinition;
-    private _startFrame: number;
-    private _overridingAction: string;
+export class ActiveActionData implements IActiveActionData {
+  constructor(action: string, parameter: string = '', startFrame: number = 0) {
+    this._actionType = action || ''
+    this._actionParameter = parameter || ''
+    this._definition = null
+    this._startFrame = startFrame || 0
+    this._overridingAction = null
+  }
 
-    constructor(action: string, parameter: string = '', startFrame: number = 0)
-    {
-        this._actionType = action || '';
-        this._actionParameter = parameter || '';
-        this._definition = null;
-        this._startFrame = startFrame || 0;
-        this._overridingAction = null;
-    }
+  private _actionType: string
 
-    public dispose(): void
-    {
-        this._actionType = null;
-        this._actionParameter = null;
-        this._definition = null;
-    }
+  public get actionType(): string {
+    return this._actionType
+  }
 
-    public get id(): string
-    {
-        if(!this._definition) return '';
+  private _actionParameter: string
 
-        return this._definition.id + '_' + this._actionParameter;
-    }
+  public get actionParameter(): string {
+    return this._actionParameter
+  }
 
-    public get actionType(): string
-    {
-        return this._actionType;
-    }
+  public set actionParameter(parameter: string) {
+    this._actionParameter = parameter
+  }
 
-    public get actionParameter(): string
-    {
-        return this._actionParameter;
-    }
+  private _definition: IActionDefinition
 
-    public set actionParameter(parameter: string)
-    {
-        this._actionParameter = parameter;
-    }
+  public get definition(): IActionDefinition {
+    return this._definition
+  }
 
-    public get definition(): IActionDefinition
-    {
-        return this._definition;
-    }
+  public set definition(definition: IActionDefinition) {
+    this._definition = definition
+  }
 
-    public set definition(definition: IActionDefinition)
-    {
-        this._definition = definition;
-    }
+  private _startFrame: number
 
-    public get startFrame(): number
-    {
-        return this._startFrame;
-    }
+  public get startFrame(): number {
+    return this._startFrame
+  }
 
-    public get overridingAction(): string
-    {
-        return this._overridingAction;
-    }
+  private _overridingAction: string
 
-    public set overridingAction(action: string)
-    {
-        this._overridingAction = action;
-    }
+  public get overridingAction(): string {
+    return this._overridingAction
+  }
+
+  public set overridingAction(action: string) {
+    this._overridingAction = action
+  }
+
+  public get id(): string {
+    if (!this._definition) return ''
+
+    return this._definition.id + '_' + this._actionParameter
+  }
+
+  public dispose(): void {
+    this._actionType = null
+    this._actionParameter = null
+    this._definition = null
+  }
 }

@@ -1,28 +1,24 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { FireworkChargeData } from './FireworkChargeData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { FireworkChargeData } from '@/nitro'
 
-export class FireworkChargeDataParser implements IMessageParser
-{
-    private _fireworkChargeData: FireworkChargeData;
+export class FireworkChargeDataParser implements IMessageParser {
+  private _fireworkChargeData: FireworkChargeData
 
-    public flush(): boolean
-    {
-        this._fireworkChargeData = null;
+  public get fireworkChargeData(): FireworkChargeData {
+    return this._fireworkChargeData
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._fireworkChargeData = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._fireworkChargeData = new FireworkChargeData(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._fireworkChargeData = new FireworkChargeData(wrapper)
 
-    public get fireworkChargeData(): FireworkChargeData
-    {
-        return this._fireworkChargeData;
-    }
+    return true
+  }
 }

@@ -1,47 +1,42 @@
-﻿import { IMessageDataWrapper } from '../../../../../api';
-import { Triggerable } from './Triggerable';
+﻿import { IMessageDataWrapper } from '@/api'
+import { Triggerable } from '@/nitro'
 
-export class WiredActionDefinition extends Triggerable
-{
-    private _type: number;
-    private _delayInPulses: number;
-    private _conflictingTriggers: number[];
+export class WiredActionDefinition extends Triggerable {
+  constructor(wrapper: IMessageDataWrapper) {
+    super(wrapper)
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        super(wrapper);
+    this._conflictingTriggers = []
+    this._type = wrapper.readInt()
+    this._delayInPulses = wrapper.readInt()
 
-        this._conflictingTriggers = [];
-        this._type = wrapper.readInt();
-        this._delayInPulses = wrapper.readInt();
+    let count = wrapper.readInt()
 
-        let count = wrapper.readInt();
+    while (count > 0) {
+      this._conflictingTriggers.push(wrapper.readInt())
 
-        while(count > 0)
-        {
-            this._conflictingTriggers.push(wrapper.readInt());
-
-            count--;
-        }
+      count--
     }
+  }
 
-    public get type(): number
-    {
-        return this._type;
-    }
+  private _type: number
 
-    public get code(): number
-    {
-        return this._type;
-    }
+  public get type(): number {
+    return this._type
+  }
 
-    public get delayInPulses(): number
-    {
-        return this._delayInPulses;
-    }
+  private _delayInPulses: number
 
-    public get conflictingTriggers(): number[]
-    {
-        return this._conflictingTriggers;
-    }
+  public get delayInPulses(): number {
+    return this._delayInPulses
+  }
+
+  private _conflictingTriggers: number[]
+
+  public get conflictingTriggers(): number[] {
+    return this._conflictingTriggers
+  }
+
+  public get code(): number {
+    return this._type
+  }
 }

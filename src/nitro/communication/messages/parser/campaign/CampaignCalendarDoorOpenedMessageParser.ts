@@ -1,51 +1,47 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class CampaignCalendarDoorOpenedMessageParser implements IMessageParser
-{
-    private _doorOpened: boolean;
-    private _productName: string;
-    private _customImage: string;
-    private _furnitureClassName: string;
+export class CampaignCalendarDoorOpenedMessageParser implements IMessageParser {
+  private _doorOpened: boolean
 
-    public flush(): boolean
-    {
-        this._doorOpened = false;
-        this._productName = null;
-        this._customImage = null;
-        this._furnitureClassName = null;
+  public get doorOpened(): boolean {
+    return this._doorOpened
+  }
 
-        return true;
-    }
+  private _productName: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get productName(): string {
+    return this._productName
+  }
 
-        this._doorOpened = wrapper.readBoolean();
-        this._productName = wrapper.readString();
-        this._customImage = wrapper.readString();
-        this._furnitureClassName = wrapper.readString();
+  private _customImage: string
 
-        return true;
-    }
+  public get customImage(): string {
+    return this._customImage
+  }
 
-    public get doorOpened(): boolean
-    {
-        return this._doorOpened;
-    }
+  private _furnitureClassName: string
 
-    public get productName(): string
-    {
-        return this._productName;
-    }
+  public get furnitureClassName(): string {
+    return this._furnitureClassName
+  }
 
-    public get customImage(): string
-    {
-        return this._customImage;
-    }
+  public flush(): boolean {
+    this._doorOpened = false
+    this._productName = null
+    this._customImage = null
+    this._furnitureClassName = null
 
-    public get furnitureClassName(): string
-    {
-        return this._furnitureClassName;
-    }
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._doorOpened = wrapper.readBoolean()
+    this._productName = wrapper.readString()
+    this._customImage = wrapper.readString()
+    this._furnitureClassName = wrapper.readString()
+
+    return true
+  }
 }

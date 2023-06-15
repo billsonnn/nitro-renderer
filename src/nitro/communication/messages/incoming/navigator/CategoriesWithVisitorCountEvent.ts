@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { CategoriesWithVisitorCountParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { CategoriesWithVisitorCountParser } from '@/nitro'
 
-export class CategoriesWithVisitorCountEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, CategoriesWithVisitorCountParser);
-    }
+export class CategoriesWithVisitorCountEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, CategoriesWithVisitorCountParser)
+  }
 
-    public getParser(): CategoriesWithVisitorCountParser
-    {
-        return this.parser as CategoriesWithVisitorCountParser;
-    }
+  public getParser(): CategoriesWithVisitorCountParser {
+    return this.parser as CategoriesWithVisitorCountParser
+  }
 }

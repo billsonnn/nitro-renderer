@@ -1,3 +1,3 @@
-export * from './MoodlightSettingsComposer';
-export * from './MoodlightSettingsSaveComposer';
-export * from './MoodlightTogggleStateComposer';
+export * from './MoodlightSettingsComposer'
+export * from './MoodlightSettingsSaveComposer'
+export * from './MoodlightTogggleStateComposer'

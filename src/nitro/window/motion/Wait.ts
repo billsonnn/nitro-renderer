@@ -1,37 +1,32 @@
-﻿import { GetTickerTime } from '../../../pixi-proxy';
-import { Motion } from './Motion';
+﻿import { GetTickerTime } from '@/pixi-proxy'
+import { Motion } from '@/nitro'
 
-export class Wait extends Motion
-{
-    private _startTimeMs: number;
-    private _waitTimeMs: number;
+export class Wait extends Motion {
+  private _startTimeMs: number
+  private _waitTimeMs: number
 
-    constructor(k: number)
-    {
-        super(null);
+  constructor(k: number) {
+    super(null)
 
-        this._waitTimeMs = k;
-    }
+    this._waitTimeMs = k
+  }
 
-    public get running(): boolean
-    {
-        return this._running;
-    }
+  public get running(): boolean {
+    return this._running
+  }
 
-    public start(): void
-    {
-        super.start();
+  public start(): void {
+    super.start()
 
-        this._complete = false;
-        this._startTimeMs = GetTickerTime();
-    }
+    this._complete = false
+    this._startTimeMs = GetTickerTime()
+  }
 
-    public tick(k: number): void
-    {
-        super.tick(k);
+  public tick(k: number): void {
+    super.tick(k)
 
-        this._complete = ((k - this._startTimeMs) >= this._waitTimeMs);
+    this._complete = ((k - this._startTimeMs) >= this._waitTimeMs)
 
-        if(this._complete) this.stop();
-    }
+    if (this._complete) this.stop()
+  }
 }

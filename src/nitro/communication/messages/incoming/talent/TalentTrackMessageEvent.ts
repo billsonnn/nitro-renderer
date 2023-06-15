@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { TalentTrackParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { TalentTrackParser } from '@/nitro'
 
-export class TalentTrackMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, TalentTrackParser);
-    }
+export class TalentTrackMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, TalentTrackParser)
+  }
 
-    public getParser(): TalentTrackParser
-    {
-        return this.parser as TalentTrackParser;
-    }
+  public getParser(): TalentTrackParser {
+    return this.parser as TalentTrackParser
+  }
 }

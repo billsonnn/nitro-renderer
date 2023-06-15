@@ -1,5 +1,5 @@
-﻿import { IPetBreedingResultData, IRoomSession } from '../../api';
-import { RoomSessionEvent } from './RoomSessionEvent';
+﻿import { IPetBreedingResultData, IRoomSession } from '@/api';
+import { RoomSessionEvent } from '@/events';
 
 export class RoomSessionPetBreedingResultEvent extends RoomSessionEvent
 {

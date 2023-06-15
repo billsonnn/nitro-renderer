@@ -1,6 +1,5 @@
-export interface ILandingPageUserEntry
-{
-    userId: number;
-    userName: string;
-    figure: string;
+export interface ILandingPageUserEntry {
+  userId: number;
+  userName: string;
+  figure: string;
 }

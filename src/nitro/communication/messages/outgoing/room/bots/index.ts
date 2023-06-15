@@ -1,1 +1,1 @@
-export * from './RequestBotConfigurationComposer';
+export * from './RequestBotConfigurationComposer'

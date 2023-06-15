@@ -1,16 +1,13 @@
-﻿import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { AvatarEffectAddedParser } from '../../../parser';
+﻿import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { AvatarEffectAddedParser } from '@/nitro'
 
-export class AvatarEffectAddedEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, AvatarEffectAddedParser);
-    }
+export class AvatarEffectAddedEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, AvatarEffectAddedParser)
+  }
 
-    public getParser(): AvatarEffectAddedParser
-    {
-        return this.parser as AvatarEffectAddedParser;
-    }
+  public getParser(): AvatarEffectAddedParser {
+    return this.parser as AvatarEffectAddedParser
+  }
 }

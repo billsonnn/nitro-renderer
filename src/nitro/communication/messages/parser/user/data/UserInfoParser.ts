@@ -1,30 +1,26 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { UserInfoDataParser } from './UserInfoDataParser';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { UserInfoDataParser } from '@/nitro'
 
-export class UserInfoParser implements IMessageParser
-{
-    private _userInfo: UserInfoDataParser;
+export class UserInfoParser implements IMessageParser {
+  private _userInfo: UserInfoDataParser
 
-    public flush(): boolean
-    {
-        this._userInfo = null;
+  public get userInfo(): UserInfoDataParser {
+    return this._userInfo
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._userInfo = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._userInfo = new UserInfoDataParser(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        if(!this._userInfo) return false;
+    this._userInfo = new UserInfoDataParser(wrapper)
 
-        return true;
-    }
+    if (!this._userInfo) return false
 
-    public get userInfo(): UserInfoDataParser
-    {
-        return this._userInfo;
-    }
+    return true
+  }
 }

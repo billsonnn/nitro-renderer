@@ -1,20 +1,17 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { RecyclerStatusMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { RecyclerStatusMessageParser } from '@/nitro'
 
-export class RecyclerStatusMessageEvent extends MessageEvent implements IMessageEvent
-{
-    public static readonly SYSTEM_STATUS_ENABLED: number = 1;
-    public static readonly SYSTEM_STATUS_DISABLED: number = 2;
-    public static readonly SYSTEM_STATUS_TIMEOUT: number = 3;
+export class RecyclerStatusMessageEvent extends MessageEvent implements IMessageEvent {
+  public static readonly SYSTEM_STATUS_ENABLED: number = 1
+  public static readonly SYSTEM_STATUS_DISABLED: number = 2
+  public static readonly SYSTEM_STATUS_TIMEOUT: number = 3
 
-    constructor(callBack: Function)
-    {
-        super(callBack, RecyclerStatusMessageParser);
-    }
+  constructor(callBack: Function) {
+    super(callBack, RecyclerStatusMessageParser)
+  }
 
-    public getParser(): RecyclerStatusMessageParser
-    {
-        return this.parser as RecyclerStatusMessageParser;
-    }
+  public getParser(): RecyclerStatusMessageParser {
+    return this.parser as RecyclerStatusMessageParser
+  }
 }

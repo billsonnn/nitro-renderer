@@ -1,3 +1,3 @@
-export * from './Disposable';
-export * from './EventDispatcher';
-export * from './NitroManager';
+export * from './Disposable'
+export * from './EventDispatcher'
+export * from './NitroManager'

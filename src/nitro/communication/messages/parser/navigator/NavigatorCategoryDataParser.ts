@@ -1,83 +1,78 @@
-import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageDataWrapper } from '@/api'
 
-export class NavigatorCategoryDataParser
-{
-    private _id: number;
-    private _name: string;
-    private _visible: boolean;
-    private _automatic: boolean;
-    private _automaticCategoryKey: string;
-    private _globalCategoryKey: string;
-    private _staffOnly: boolean;
+export class NavigatorCategoryDataParser {
+  constructor(wrapper: IMessageDataWrapper) {
+    if (!wrapper) throw new Error('invalid_wrapper')
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        if(!wrapper) throw new Error('invalid_wrapper');
+    this.flush()
+    this.parse(wrapper)
+  }
 
-        this.flush();
-        this.parse(wrapper);
-    }
+  private _id: number
 
-    public flush(): boolean
-    {
-        this._id = -1;
-        this._name = null;
-        this._visible = false;
-        this._automatic = false;
-        this._automaticCategoryKey = null;
-        this._globalCategoryKey = null;
-        this._staffOnly = false;
+  public get id(): number {
+    return this._id
+  }
 
-        return true;
-    }
+  private _name: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get name(): string {
+    return this._name
+  }
 
-        this._id = wrapper.readInt();
-        this._name = wrapper.readString();
-        this._visible = wrapper.readBoolean();
-        this._automatic = wrapper.readBoolean();
-        this._automaticCategoryKey = wrapper.readString();
-        this._globalCategoryKey = wrapper.readString();
-        this._staffOnly = wrapper.readBoolean();
+  private _visible: boolean
 
-        return true;
-    }
+  public get visible(): boolean {
+    return this._visible
+  }
 
-    public get id(): number
-    {
-        return this._id;
-    }
+  private _automatic: boolean
 
-    public get name(): string
-    {
-        return this._name;
-    }
+  public get automatic(): boolean {
+    return this._automatic
+  }
 
-    public get visible(): boolean
-    {
-        return this._visible;
-    }
+  private _automaticCategoryKey: string
 
-    public get automatic(): boolean
-    {
-        return this._automatic;
-    }
+  public get automaticCategoryKey(): string {
+    return this._automaticCategoryKey
+  }
 
-    public get automaticCategoryKey(): string
-    {
-        return this._automaticCategoryKey;
-    }
+  private _globalCategoryKey: string
 
-    public get globalCategoryKey(): string
-    {
-        return this._globalCategoryKey;
-    }
+  public get globalCategoryKey(): string {
+    return this._globalCategoryKey
+  }
 
-    public get staffOnly(): boolean
-    {
-        return this._staffOnly;
-    }
+  private _staffOnly: boolean
+
+  public get staffOnly(): boolean {
+    return this._staffOnly
+  }
+
+  public flush(): boolean {
+    this._id = -1
+    this._name = null
+    this._visible = false
+    this._automatic = false
+    this._automaticCategoryKey = null
+    this._globalCategoryKey = null
+    this._staffOnly = false
+
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._id = wrapper.readInt()
+    this._name = wrapper.readString()
+    this._visible = wrapper.readBoolean()
+    this._automatic = wrapper.readBoolean()
+    this._automaticCategoryKey = wrapper.readString()
+    this._globalCategoryKey = wrapper.readString()
+    this._staffOnly = wrapper.readBoolean()
+
+    return true
+  }
 }

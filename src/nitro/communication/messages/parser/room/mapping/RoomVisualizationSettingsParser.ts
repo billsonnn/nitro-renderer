@@ -1,50 +1,46 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class RoomVisualizationSettingsParser implements IMessageParser
-{
-    private _hideWalls: boolean;
-    private _thicknessWall: number;
-    private _thicknessFloor: number;
+export class RoomVisualizationSettingsParser implements IMessageParser {
+  private _hideWalls: boolean
 
-    public flush(): boolean
-    {
-        this._hideWalls = false;
-        this._thicknessWall = 0;
-        this._thicknessFloor = 0;
+  public get hideWalls(): boolean {
+    return this._hideWalls
+  }
 
-        return true;
-    }
+  private _thicknessWall: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get thicknessWall(): number {
+    return this._thicknessWall
+  }
 
-        this._hideWalls = wrapper.readBoolean();
+  private _thicknessFloor: number
 
-        let thicknessWall = wrapper.readInt();
-        let thicknessFloor = wrapper.readInt();
+  public get thicknessFloor(): number {
+    return this._thicknessFloor
+  }
 
-        thicknessWall = (thicknessWall < -2) ? -2 : (thicknessWall > 1) ? 1 : thicknessWall;
-        thicknessFloor = (thicknessFloor < -2) ? -2 : (thicknessFloor > 1) ? 1 : thicknessFloor;
+  public flush(): boolean {
+    this._hideWalls = false
+    this._thicknessWall = 0
+    this._thicknessFloor = 0
 
-        this._thicknessWall = Math.pow(2, thicknessWall);
-        this._thicknessFloor = Math.pow(2, thicknessFloor);
+    return true
+  }
 
-        return true;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get hideWalls(): boolean
-    {
-        return this._hideWalls;
-    }
+    this._hideWalls = wrapper.readBoolean()
 
-    public get thicknessWall(): number
-    {
-        return this._thicknessWall;
-    }
+    let thicknessWall = wrapper.readInt()
+    let thicknessFloor = wrapper.readInt()
 
-    public get thicknessFloor(): number
-    {
-        return this._thicknessFloor;
-    }
+    thicknessWall = (thicknessWall < -2) ? -2 : (thicknessWall > 1) ? 1 : thicknessWall
+    thicknessFloor = (thicknessFloor < -2) ? -2 : (thicknessFloor > 1) ? 1 : thicknessFloor
+
+    this._thicknessWall = Math.pow(2, thicknessWall)
+    this._thicknessFloor = Math.pow(2, thicknessFloor)
+
+    return true
+  }
 }

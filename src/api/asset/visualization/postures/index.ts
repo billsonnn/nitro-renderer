@@ -1,1 +1,1 @@
-export * from './IAssetPosture';
+export * from './IAssetPosture'

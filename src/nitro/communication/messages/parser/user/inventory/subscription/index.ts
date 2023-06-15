@@ -1,1 +1,1 @@
-export * from './UserSubscriptionParser';
+export * from './UserSubscriptionParser'

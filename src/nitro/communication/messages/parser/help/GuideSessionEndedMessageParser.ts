@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GuideSessionEndedMessageParser implements IMessageParser
-{
-    private _endReason: number;
+export class GuideSessionEndedMessageParser implements IMessageParser {
+  private _endReason: number
 
-    public flush(): boolean
-    {
-        this._endReason = 0;
+  public get endReason(): number {
+    return this._endReason
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._endReason = 0
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._endReason = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._endReason = wrapper.readInt()
 
-    public get endReason(): number
-    {
-        return this._endReason;
-    }
+    return true
+  }
 }

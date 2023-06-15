@@ -1,44 +1,40 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class InitCameraMessageParser implements IMessageParser
-{
-    private _creditPrice: number = 0;
-    private _ducketPrice: number = 0;
-    private _publishDucketPrice: number = 0;
+export class InitCameraMessageParser implements IMessageParser {
+  private _creditPrice: number = 0
 
-    public flush(): boolean
-    {
-        this._creditPrice = 0;
-        this._ducketPrice = 0;
-        this._publishDucketPrice = 0;
+  public get creditPrice(): number {
+    return this._creditPrice
+  }
 
-        return true;
-    }
+  private _ducketPrice: number = 0
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get ducketPrice(): number {
+    return this._ducketPrice
+  }
 
-        this._creditPrice = wrapper.readInt();
-        this._ducketPrice = wrapper.readInt();
+  private _publishDucketPrice: number = 0
 
-        if(wrapper.bytesAvailable) this._publishDucketPrice = wrapper.readInt();
+  public get publishDucketPrice(): number {
+    return this._publishDucketPrice
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._creditPrice = 0
+    this._ducketPrice = 0
+    this._publishDucketPrice = 0
 
-    public get creditPrice(): number
-    {
-        return this._creditPrice;
-    }
+    return true
+  }
 
-    public get ducketPrice(): number
-    {
-        return this._ducketPrice;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get publishDucketPrice(): number
-    {
-        return this._publishDucketPrice;
-    }
+    this._creditPrice = wrapper.readInt()
+    this._ducketPrice = wrapper.readInt()
+
+    if (wrapper.bytesAvailable) this._publishDucketPrice = wrapper.readInt()
+
+    return true
+  }
 }

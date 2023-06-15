@@ -1,39 +1,36 @@
-import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageDataWrapper } from '@/api'
 
-export class FriendRequestData
-{
-    private _requestId: number;
-    private _requesterName: string;
-    private _requesterUserId: number;
-    private _figureString: string;
+export class FriendRequestData {
+  constructor(wrapper: IMessageDataWrapper) {
+    if (!wrapper) throw new Error('invalid_wrapper')
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        if(!wrapper) throw new Error('invalid_wrapper');
+    this._requestId = wrapper.readInt()
+    this._requesterName = wrapper.readString()
+    this._figureString = wrapper.readString()
+    this._requesterUserId = this._requestId
+  }
 
-        this._requestId = wrapper.readInt();
-        this._requesterName = wrapper.readString();
-        this._figureString = wrapper.readString();
-        this._requesterUserId = this._requestId;
-    }
+  private _requestId: number
 
-    public get requestId(): number
-    {
-        return this._requestId;
-    }
+  public get requestId(): number {
+    return this._requestId
+  }
 
-    public get requesterName(): string
-    {
-        return this._requesterName;
-    }
+  private _requesterName: string
 
-    public get requesterUserId(): number
-    {
-        return this._requesterUserId;
-    }
+  public get requesterName(): string {
+    return this._requesterName
+  }
 
-    public get figureString(): string
-    {
-        return this._figureString;
-    }
+  private _requesterUserId: number
+
+  public get requesterUserId(): number {
+    return this._requesterUserId
+  }
+
+  private _figureString: string
+
+  public get figureString(): string {
+    return this._figureString
+  }
 }

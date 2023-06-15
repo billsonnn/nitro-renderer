@@ -1,44 +1,39 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { OutfitData } from './OutfitData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { OutfitData } from '@/nitro'
 
-export class WardrobeMessageParser implements IMessageParser
-{
-    private _state: number;
-    private _outfits: OutfitData[];
+export class WardrobeMessageParser implements IMessageParser {
+  private _state: number
 
-    public flush(): boolean
-    {
-        this._state = 0;
-        this._outfits = [];
+  public get state(): number {
+    return this._state
+  }
 
-        return true;
+  private _outfits: OutfitData[]
+
+  public get outfits(): OutfitData[] {
+    return this._outfits
+  }
+
+  public flush(): boolean {
+    this._state = 0
+    this._outfits = []
+
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._state = wrapper.readInt()
+
+    let count = wrapper.readInt()
+
+    while (count > 0) {
+      this._outfits.push(new OutfitData(wrapper))
+
+      count--
     }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
-
-        this._state = wrapper.readInt();
-
-        let count = wrapper.readInt();
-
-        while(count > 0)
-        {
-            this._outfits.push(new OutfitData(wrapper));
-
-            count--;
-        }
-
-        return true;
-    }
-
-    public get state(): number
-    {
-        return this._state;
-    }
-
-    public get outfits(): OutfitData[]
-    {
-        return this._outfits;
-    }
+    return true
+  }
 }

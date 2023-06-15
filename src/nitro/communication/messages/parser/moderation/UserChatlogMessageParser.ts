@@ -1,28 +1,24 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { UserChatlogData } from './UserChatlogData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { UserChatlogData } from '@/nitro'
 
-export class UserChatlogMessageParser implements IMessageParser
-{
-    private _data: UserChatlogData;
+export class UserChatlogMessageParser implements IMessageParser {
+  private _data: UserChatlogData
 
-    public flush(): boolean
-    {
-        this._data = null;
+  public get data(): UserChatlogData {
+    return this._data
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._data = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._data = new UserChatlogData(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._data = new UserChatlogData(wrapper)
 
-    public get data(): UserChatlogData
-    {
-        return this._data;
-    }
+    return true
+  }
 }

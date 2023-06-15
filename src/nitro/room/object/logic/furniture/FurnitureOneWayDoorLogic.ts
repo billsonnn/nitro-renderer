@@ -1,19 +1,16 @@
-import { RoomObjectFurnitureActionEvent } from '../../../../../events';
-import { FurnitureLogic } from './FurnitureLogic';
+import { RoomObjectFurnitureActionEvent } from '@/events'
+import { FurnitureLogic } from '@/nitro'
 
-export class FurnitureOneWayDoorLogic extends FurnitureLogic
-{
-    public getEventTypes(): string[]
-    {
-        const types = [RoomObjectFurnitureActionEvent.ENTER_ONEWAYDOOR];
+export class FurnitureOneWayDoorLogic extends FurnitureLogic {
+  public getEventTypes(): string[] {
+    const types = [RoomObjectFurnitureActionEvent.ENTER_ONEWAYDOOR]
 
-        return this.mergeTypes(super.getEventTypes(), types);
-    }
+    return this.mergeTypes(super.getEventTypes(), types)
+  }
 
-    public useObject(): void
-    {
-        if(!this.object || !this.eventDispatcher) return;
+  public useObject(): void {
+    if (!this.object || !this.eventDispatcher) return
 
-        this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.ENTER_ONEWAYDOOR, this.object));
-    }
+    this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.ENTER_ONEWAYDOOR, this.object))
+  }
 }

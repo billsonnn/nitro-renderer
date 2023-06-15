@@ -1,34 +1,30 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { PetData } from './PetData';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { PetData } from '@/nitro'
 
-export class PetAddedToInventoryParser implements IMessageParser
-{
-    private _pet: PetData;
-    private _boughtAsGift: boolean;
+export class PetAddedToInventoryParser implements IMessageParser {
+  private _pet: PetData
 
-    public flush(): boolean
-    {
-        this._pet = null;
-        this._boughtAsGift = false;
+  public get pet(): PetData {
+    return this._pet
+  }
 
-        return true;
-    }
+  private _boughtAsGift: boolean
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        this._pet = new PetData(wrapper);
-        this._boughtAsGift = wrapper.readBoolean();
+  public get boughtAsGift(): boolean {
+    return this._boughtAsGift
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._pet = null
+    this._boughtAsGift = false
 
-    public get pet(): PetData
-    {
-        return this._pet;
-    }
+    return true
+  }
 
-    public get boughtAsGift(): boolean
-    {
-        return this._boughtAsGift;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    this._pet = new PetData(wrapper)
+    this._boughtAsGift = wrapper.readBoolean()
+
+    return true
+  }
 }

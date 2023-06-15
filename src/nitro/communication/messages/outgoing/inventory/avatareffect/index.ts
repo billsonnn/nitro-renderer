@@ -1,2 +1,2 @@
-export * from './AvatarEffectActivatedComposer';
-export * from './AvatarEffectSelectedComposer';
+export * from './AvatarEffectActivatedComposer'
+export * from './AvatarEffectSelectedComposer'

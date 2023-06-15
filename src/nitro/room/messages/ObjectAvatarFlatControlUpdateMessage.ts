@@ -1,18 +1,15 @@
-import { ObjectStateUpdateMessage } from './ObjectStateUpdateMessage';
+import { ObjectStateUpdateMessage } from '@/nitro'
 
-export class ObjectAvatarFlatControlUpdateMessage extends ObjectStateUpdateMessage
-{
-    private _level: number;
+export class ObjectAvatarFlatControlUpdateMessage extends ObjectStateUpdateMessage {
+  constructor(level: number = 0) {
+    super()
 
-    constructor(level: number = 0)
-    {
-        super();
+    this._level = level
+  }
 
-        this._level = level;
-    }
+  private _level: number
 
-    public get level(): number
-    {
-        return this._level;
-    }
+  public get level(): number {
+    return this._level
+  }
 }

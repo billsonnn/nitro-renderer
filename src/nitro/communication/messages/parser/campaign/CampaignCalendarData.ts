@@ -1,114 +1,102 @@
-﻿import { IMessageDataWrapper } from '../../../../../api';
+﻿import { IMessageDataWrapper } from '@/api'
 
-export class CampaignCalendarData
-{
-    private _campaignName: string;
-    private _campaignImage: string;
-    private _currentDay: number;
-    private _campaignDays: number;
-    private _openedDays: number[];
-    private _missedDays: number[];
+export class CampaignCalendarData {
+  private _campaignName: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get campaignName(): string {
+    return this._campaignName
+  }
 
-        this._campaignName = wrapper.readString();
-        this._campaignImage = wrapper.readString();
-        this._currentDay = wrapper.readInt();
-        this._campaignDays = wrapper.readInt();
-        this._openedDays = [];
+  public set campaignName(name: string) {
+    this._campaignName = name
+  }
 
-        let count = wrapper.readInt();
+  private _campaignImage: string
 
-        for(let i = 0; i < count; i++)
-        {
-            this._openedDays.push(wrapper.readInt());
-        }
+  public get campaignImage(): string {
+    return this._campaignImage
+  }
 
-        this._missedDays = [];
+  public set campaignImage(image: string) {
+    this._campaignImage = image
+  }
 
-        count = wrapper.readInt();
+  private _currentDay: number
 
-        for(let i = 0; i < count; i++)
-        {
-            this._missedDays.push(wrapper.readInt());
-        }
+  public get currentDay(): number {
+    return this._currentDay
+  }
 
-        return true;
+  public set currentDay(day: number) {
+    this._currentDay = day
+  }
+
+  private _campaignDays: number
+
+  public get campaignDays(): number {
+    return this._campaignDays
+  }
+
+  public set campaignDays(days: number) {
+    this._campaignDays = days
+  }
+
+  private _openedDays: number[]
+
+  public get openedDays(): number[] {
+    return this._openedDays
+  }
+
+  public set openedDays(days: number[]) {
+    this._openedDays = days
+  }
+
+  private _missedDays: number[]
+
+  public get missedDays(): number[] {
+    return this._missedDays
+  }
+
+  public set missedDays(days: number[]) {
+    this._missedDays = days
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._campaignName = wrapper.readString()
+    this._campaignImage = wrapper.readString()
+    this._currentDay = wrapper.readInt()
+    this._campaignDays = wrapper.readInt()
+    this._openedDays = []
+
+    let count = wrapper.readInt()
+
+    for (let i = 0; i < count; i++) {
+      this._openedDays.push(wrapper.readInt())
     }
 
-    public clone(): CampaignCalendarData
-    {
-        const data = new CampaignCalendarData();
+    this._missedDays = []
 
-        data.campaignDays = this._campaignDays;
-        data.campaignImage = this._campaignImage;
-        data.campaignName = this._campaignName;
-        data.currentDay = this._currentDay;
-        data.missedDays = this._missedDays;
-        data.openedDays = this._openedDays;
+    count = wrapper.readInt()
 
-        return data;
+    for (let i = 0; i < count; i++) {
+      this._missedDays.push(wrapper.readInt())
     }
 
-    public get campaignName(): string
-    {
-        return this._campaignName;
-    }
+    return true
+  }
 
-    public set campaignName(name: string)
-    {
-        this._campaignName = name;
-    }
+  public clone(): CampaignCalendarData {
+    const data = new CampaignCalendarData()
 
-    public get campaignImage(): string
-    {
-        return this._campaignImage;
-    }
+    data.campaignDays = this._campaignDays
+    data.campaignImage = this._campaignImage
+    data.campaignName = this._campaignName
+    data.currentDay = this._currentDay
+    data.missedDays = this._missedDays
+    data.openedDays = this._openedDays
 
-    public set campaignImage(image: string)
-    {
-        this._campaignImage = image;
-    }
-
-    public get currentDay(): number
-    {
-        return this._currentDay;
-    }
-
-    public set currentDay(day: number)
-    {
-        this._currentDay = day;
-    }
-
-    public get campaignDays(): number
-    {
-        return this._campaignDays;
-    }
-
-    public set campaignDays(days: number)
-    {
-        this._campaignDays = days;
-    }
-
-    public get openedDays(): number[]
-    {
-        return this._openedDays;
-    }
-
-    public set openedDays(days: number[])
-    {
-        this._openedDays = days;
-    }
-
-    public get missedDays(): number[]
-    {
-        return this._missedDays;
-    }
-
-    public set missedDays(days: number[])
-    {
-        this._missedDays = days;
-    }
+    return data
+  }
 }

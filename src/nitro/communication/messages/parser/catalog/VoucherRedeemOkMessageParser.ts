@@ -1,34 +1,30 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class VoucherRedeemOkMessageParser implements IMessageParser
-{
-    private _productName: string = '';
-    private _productDescription: string = '';
+export class VoucherRedeemOkMessageParser implements IMessageParser {
+  private _productName: string = ''
 
-    public flush(): boolean
-    {
-        this._productDescription = '';
-        this._productName = '';
-        return true;
-    }
+  public get productName(): string {
+    return this._productName
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _productDescription: string = ''
 
-        this._productDescription = wrapper.readString();
-        this._productName = wrapper.readString();
+  public get productDescription(): string {
+    return this._productDescription
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._productDescription = ''
+    this._productName = ''
+    return true
+  }
 
-    public get productName(): string
-    {
-        return this._productName;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get productDescription(): string
-    {
-        return this._productDescription;
-    }
+    this._productDescription = wrapper.readString()
+    this._productName = wrapper.readString()
+
+    return true
+  }
 }

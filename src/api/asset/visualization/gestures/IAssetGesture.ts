@@ -1,5 +1,4 @@
-export interface IAssetGesture
-{
-    id?: string;
-    animationId?: number;
+export interface IAssetGesture {
+  id?: string;
+  animationId?: number;
 }

@@ -1,1 +1,1 @@
-export * from './AuthenticatedParser';
+export * from './AuthenticatedParser'

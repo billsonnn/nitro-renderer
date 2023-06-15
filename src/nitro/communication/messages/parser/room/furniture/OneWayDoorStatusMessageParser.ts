@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class OneWayDoorStatusMessageParser implements IMessageParser
-{
-    private _itemId: number;
-    private _state: number;
+export class OneWayDoorStatusMessageParser implements IMessageParser {
+  private _itemId: number
 
-    public flush(): boolean
-    {
-        this._itemId = 0;
-        this._state = 0;
+  public get itemId(): number {
+    return this._itemId
+  }
 
-        return true;
-    }
+  private _state: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get state(): number {
+    return this._state
+  }
 
-        this._itemId = wrapper.readInt();
-        this._state = wrapper.readInt();
+  public flush(): boolean {
+    this._itemId = 0
+    this._state = 0
 
-        return true;
-    }
+    return true
+  }
 
-    public get itemId(): number
-    {
-        return this._itemId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get state(): number
-    {
-        return this._state;
-    }
+    this._itemId = wrapper.readInt()
+    this._state = wrapper.readInt()
+
+    return true
+  }
 }

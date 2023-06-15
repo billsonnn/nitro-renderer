@@ -1,72 +1,69 @@
-import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageDataWrapper } from '@/api'
 
-export class ScrKickbackData
-{
-    private _currentHcStreak: number;
-    private _firstSubscriptionDate: string;
-    private _kickbackPercentage: number;
-    private _totalCreditsMissed: number;
-    private _totalCreditsRewarded: number;
-    private _totalCreditsSpent: number;
-    private _creditRewardForStreakBonus: number;
-    private _creditRewardForMonthlySpent: number;
-    private _timeUntilPayday: number;
+export class ScrKickbackData {
+  constructor(k: IMessageDataWrapper) {
+    this._currentHcStreak = k.readInt()
+    this._firstSubscriptionDate = k.readString()
+    this._kickbackPercentage = k.readDouble()
+    this._totalCreditsMissed = k.readInt()
+    this._totalCreditsRewarded = k.readInt()
+    this._totalCreditsSpent = k.readInt()
+    this._creditRewardForStreakBonus = k.readInt()
+    this._creditRewardForMonthlySpent = k.readInt()
+    this._timeUntilPayday = k.readInt()
+  }
 
-    constructor(k: IMessageDataWrapper)
-    {
-        this._currentHcStreak = k.readInt();
-        this._firstSubscriptionDate = k.readString();
-        this._kickbackPercentage = k.readDouble();
-        this._totalCreditsMissed = k.readInt();
-        this._totalCreditsRewarded = k.readInt();
-        this._totalCreditsSpent = k.readInt();
-        this._creditRewardForStreakBonus = k.readInt();
-        this._creditRewardForMonthlySpent = k.readInt();
-        this._timeUntilPayday = k.readInt();
-    }
+  private _currentHcStreak: number
 
-    public get currentHcStreak(): number
-    {
-        return this._currentHcStreak;
-    }
+  public get currentHcStreak(): number {
+    return this._currentHcStreak
+  }
 
-    public get firstSubscriptionDate(): string
-    {
-        return this._firstSubscriptionDate;
-    }
+  private _firstSubscriptionDate: string
 
-    public get kickbackPercentage(): number
-    {
-        return this._kickbackPercentage;
-    }
+  public get firstSubscriptionDate(): string {
+    return this._firstSubscriptionDate
+  }
 
-    public get totalCreditsMissed(): number
-    {
-        return this._totalCreditsMissed;
-    }
+  private _kickbackPercentage: number
 
-    public get totalCreditsRewarded(): number
-    {
-        return this._totalCreditsRewarded;
-    }
+  public get kickbackPercentage(): number {
+    return this._kickbackPercentage
+  }
 
-    public get totalCreditsSpent(): number
-    {
-        return this._totalCreditsSpent;
-    }
+  private _totalCreditsMissed: number
 
-    public get creditRewardForStreakBonus(): number
-    {
-        return this._creditRewardForStreakBonus;
-    }
+  public get totalCreditsMissed(): number {
+    return this._totalCreditsMissed
+  }
 
-    public get creditRewardForMonthlySpent(): number
-    {
-        return this._creditRewardForMonthlySpent;
-    }
+  private _totalCreditsRewarded: number
 
-    public get timeUntilPayday(): number
-    {
-        return this._timeUntilPayday;
-    }
+  public get totalCreditsRewarded(): number {
+    return this._totalCreditsRewarded
+  }
+
+  private _totalCreditsSpent: number
+
+  public get totalCreditsSpent(): number {
+    return this._totalCreditsSpent
+  }
+
+  private _creditRewardForStreakBonus: number
+
+  public get creditRewardForStreakBonus(): number {
+    return this._creditRewardForStreakBonus
+  }
+
+  private _creditRewardForMonthlySpent: number
+
+  public get creditRewardForMonthlySpent(): number {
+    return this._creditRewardForMonthlySpent
+  }
+
+  private _timeUntilPayday: number
+
+  public get timeUntilPayday(): number {
+    return this._timeUntilPayday
+  }
 }

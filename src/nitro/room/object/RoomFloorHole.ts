@@ -1,35 +1,32 @@
-﻿export class RoomFloorHole
-{
-    private _x: number;
-    private _y: number;
-    private _width: number;
-    private _height: number;
+﻿export class RoomFloorHole {
+  constructor(x: number, y: number, width: number, height: number) {
+    this._x = x
+    this._y = y
+    this._width = width
+    this._height = height
+  }
 
-    constructor(x: number, y: number, width: number, height: number)
-    {
-        this._x = x;
-        this._y = y;
-        this._width = width;
-        this._height = height;
-    }
+  private _x: number
 
-    public get x(): number
-    {
-        return this._x;
-    }
+  public get x(): number {
+    return this._x
+  }
 
-    public get y(): number
-    {
-        return this._y;
-    }
+  private _y: number
 
-    public get width(): number
-    {
-        return this._width;
-    }
+  public get y(): number {
+    return this._y
+  }
 
-    public get height(): number
-    {
-        return this._height;
-    }
+  private _width: number
+
+  public get width(): number {
+    return this._width
+  }
+
+  private _height: number
+
+  public get height(): number {
+    return this._height
+  }
 }

@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { CurrentTimingCodeMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { CurrentTimingCodeMessageParser } from '@/nitro'
 
-export class CurrentTimingCodeMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, CurrentTimingCodeMessageParser);
-    }
+export class CurrentTimingCodeMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, CurrentTimingCodeMessageParser)
+  }
 
-    public getParser(): CurrentTimingCodeMessageParser
-    {
-        return this.parser as CurrentTimingCodeMessageParser;
-    }
+  public getParser(): CurrentTimingCodeMessageParser {
+    return this.parser as CurrentTimingCodeMessageParser
+  }
 }

@@ -1,1 +1,1 @@
-export * from './ClientPingParser';
+export * from './ClientPingParser'

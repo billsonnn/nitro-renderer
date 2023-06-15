@@ -1,20 +1,17 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GiftReceiverNotFoundParser implements IMessageParser
-{
+export class GiftReceiverNotFoundParser implements IMessageParser {
 
-    public flush(): boolean
-    {
+  public flush(): boolean {
 
-        return true;
-    }
+    return true
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    return true
+  }
 
 
 }

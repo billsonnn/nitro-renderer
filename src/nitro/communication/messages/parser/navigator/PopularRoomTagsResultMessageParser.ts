@@ -1,28 +1,24 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { PopularRoomTagsData } from './PopularRoomTagsData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { PopularRoomTagsData } from '@/nitro'
 
-export class PopularRoomTagsResultMessageParser implements IMessageParser
-{
-    private _data: PopularRoomTagsData;
+export class PopularRoomTagsResultMessageParser implements IMessageParser {
+  private _data: PopularRoomTagsData
 
-    public flush(): boolean
-    {
-        this._data = null;
+  public get data(): PopularRoomTagsData {
+    return this._data
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._data = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._data = new PopularRoomTagsData(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._data = new PopularRoomTagsData(wrapper)
 
-    public get data(): PopularRoomTagsData
-    {
-        return this._data;
-    }
+    return true
+  }
 }

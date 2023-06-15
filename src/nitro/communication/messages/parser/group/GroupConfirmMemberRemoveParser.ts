@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GroupConfirmMemberRemoveParser implements IMessageParser
-{
-    private _userId: number;
-    private _furnitureCount: number;
+export class GroupConfirmMemberRemoveParser implements IMessageParser {
+  private _userId: number
 
-    flush(): boolean
-    {
-        this._userId = 0;
-        this._furnitureCount = 0;
+  public get userId(): number {
+    return this._userId
+  }
 
-        return true;
-    }
+  private _furnitureCount: number
 
-    parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get furnitureCount(): number {
+    return this._furnitureCount
+  }
 
-        this._userId = wrapper.readInt();
-        this._furnitureCount = wrapper.readInt();
+  flush(): boolean {
+    this._userId = 0
+    this._furnitureCount = 0
 
-        return true;
-    }
+    return true
+  }
 
-    public get userId(): number
-    {
-        return this._userId;
-    }
+  parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get furnitureCount(): number
-    {
-        return this._furnitureCount;
-    }
+    this._userId = wrapper.readInt()
+    this._furnitureCount = wrapper.readInt()
+
+    return true
+  }
 }

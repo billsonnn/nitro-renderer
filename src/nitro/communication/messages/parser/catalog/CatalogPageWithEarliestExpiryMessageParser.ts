@@ -1,43 +1,39 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class CatalogPageWithEarliestExpiryMessageParser implements IMessageParser
-{
-    private _pageName: string;
-    private _secondsToExpiry: number;
-    private _image: string;
+export class CatalogPageWithEarliestExpiryMessageParser implements IMessageParser {
+  private _pageName: string
 
-    public flush(): boolean
-    {
-        this._pageName = null;
-        this._secondsToExpiry = 0;
-        this._image = null;
+  public get pageName(): string {
+    return this._pageName
+  }
 
-        return true;
-    }
+  private _secondsToExpiry: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get secondsToExpiry(): number {
+    return this._secondsToExpiry
+  }
 
-        this._pageName = wrapper.readString();
-        this._secondsToExpiry = wrapper.readInt();
-        this._image = wrapper.readString();
+  private _image: string
 
-        return true;
-    }
+  public get image(): string {
+    return this._image
+  }
 
-    public get pageName(): string
-    {
-        return this._pageName;
-    }
+  public flush(): boolean {
+    this._pageName = null
+    this._secondsToExpiry = 0
+    this._image = null
 
-    public get secondsToExpiry(): number
-    {
-        return this._secondsToExpiry;
-    }
+    return true
+  }
 
-    public get image(): string
-    {
-        return this._image;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._pageName = wrapper.readString()
+    this._secondsToExpiry = wrapper.readInt()
+    this._image = wrapper.readString()
+
+    return true
+  }
 }

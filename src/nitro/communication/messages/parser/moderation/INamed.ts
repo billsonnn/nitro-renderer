@@ -1,4 +1,3 @@
-export interface INamed
-{
-    name: string;
+export interface INamed {
+  name: string;
 }

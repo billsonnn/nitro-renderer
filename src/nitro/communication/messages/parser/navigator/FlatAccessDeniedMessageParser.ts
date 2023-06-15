@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class FlatAccessDeniedMessageParser implements IMessageParser
-{
-    private _userName: string;
+export class FlatAccessDeniedMessageParser implements IMessageParser {
+  private _userName: string
 
-    public flush(): boolean
-    {
-        this._userName = null;
+  public get userName(): string {
+    return this._userName
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._userName = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._userName = wrapper.readString();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._userName = wrapper.readString()
 
-    public get userName(): string
-    {
-        return this._userName;
-    }
+    return true
+  }
 }

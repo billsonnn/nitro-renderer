@@ -1,59 +1,50 @@
-﻿import { AvatarImageBodyPartContainer } from '../AvatarImageBodyPartContainer';
-import { AvatarImagePartContainer } from '../AvatarImagePartContainer';
+﻿import { AvatarImageBodyPartContainer, AvatarImagePartContainer } from '@/nitro'
 
-export class AvatarImageDirectionCache
-{
-    private _partList: AvatarImagePartContainer[];
-    private _images: Map<string, AvatarImageBodyPartContainer>;
+export class AvatarImageDirectionCache {
+  private _partList: AvatarImagePartContainer[]
+  private _images: Map<string, AvatarImageBodyPartContainer>
 
-    constructor(k: AvatarImagePartContainer[])
-    {
-        this._partList = k;
-        this._images = new Map();
-    }
+  constructor(k: AvatarImagePartContainer[]) {
+    this._partList = k
+    this._images = new Map()
+  }
 
-    public dispose(): void
-    {
-        for(const image of this._images.values()) image && image.dispose();
+  public dispose(): void {
+    for (const image of this._images.values()) image && image.dispose()
 
-        this._images = null;
-    }
+    this._images = null
+  }
 
-    public getPartList(): AvatarImagePartContainer[]
-    {
-        return this._partList;
-    }
+  public getPartList(): AvatarImagePartContainer[] {
+    return this._partList
+  }
 
-    public getImageContainer(k: number): AvatarImageBodyPartContainer
-    {
-        const existing = this._images.get(this.getCacheKey(k));
+  public getImageContainer(k: number): AvatarImageBodyPartContainer {
+    const existing = this._images.get(this.getCacheKey(k))
 
-        if(!existing) return null;
+    if (!existing) return null
 
-        return existing;
-    }
+    return existing
+  }
 
-    public updateImageContainer(k: AvatarImageBodyPartContainer, _arg_2: number): void
-    {
-        const name = this.getCacheKey(_arg_2);
+  public updateImageContainer(k: AvatarImageBodyPartContainer, _arg_2: number): void {
+    const name = this.getCacheKey(_arg_2)
 
-        const existing = this._images.get(name);
+    const existing = this._images.get(name)
 
-        if(existing) existing.dispose();
+    if (existing) existing.dispose()
 
-        this._images.set(name, k);
-    }
+    this._images.set(name, k)
+  }
 
-    private getCacheKey(k: number): string
-    {
-        let name = '';
+  private getCacheKey(k: number): string {
+    let name = ''
 
-        for(const part of this._partList) name += (part.getCacheableKey(k) + '/');
+    for (const part of this._partList) name += (part.getCacheableKey(k) + '/')
 
-        return name;
-    }
+    return name
+  }
 
-    private debugInfo(k: string): void
-    {
-    }
+  private debugInfo(k: string): void {
+  }
 }

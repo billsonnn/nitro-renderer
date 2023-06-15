@@ -1,41 +1,37 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class OpenPetPackageResultMessageParser implements IMessageParser
-{
-    private _objectId: number;
-    private _nameValidationStatus: number;
-    private _nameValidationInfo: string;
+export class OpenPetPackageResultMessageParser implements IMessageParser {
+  private _objectId: number
 
-    flush(): boolean
-    {
-        this._objectId = 0;
-        this._nameValidationStatus = 0;
-        this._nameValidationInfo = null;
+  public get objectId(): number {
+    return this._objectId
+  }
 
-        return true;
-    }
+  private _nameValidationStatus: number
 
-    parse(wrapper: IMessageDataWrapper): boolean
-    {
-        this._objectId = wrapper.readInt();
-        this._nameValidationStatus = wrapper.readInt();
-        this._nameValidationInfo = wrapper.readString();
+  public get nameValidationStatus(): number {
+    return this._nameValidationStatus
+  }
 
-        return true;
-    }
+  private _nameValidationInfo: string
 
-    public get objectId(): number
-    {
-        return this._objectId;
-    }
+  public get nameValidationInfo(): string {
+    return this._nameValidationInfo
+  }
 
-    public get nameValidationStatus(): number
-    {
-        return this._nameValidationStatus;
-    }
+  flush(): boolean {
+    this._objectId = 0
+    this._nameValidationStatus = 0
+    this._nameValidationInfo = null
 
-    public get nameValidationInfo(): string
-    {
-        return this._nameValidationInfo;
-    }
+    return true
+  }
+
+  parse(wrapper: IMessageDataWrapper): boolean {
+    this._objectId = wrapper.readInt()
+    this._nameValidationStatus = wrapper.readInt()
+    this._nameValidationInfo = wrapper.readString()
+
+    return true
+  }
 }

@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { MysteryBoxKeysParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { MysteryBoxKeysParser } from '@/nitro'
 
-export class MysteryBoxKeysEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, MysteryBoxKeysParser);
-    }
+export class MysteryBoxKeysEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, MysteryBoxKeysParser)
+  }
 
-    public getParser(): MysteryBoxKeysParser
-    {
-        return this.parser as MysteryBoxKeysParser;
-    }
+  public getParser(): MysteryBoxKeysParser {
+    return this.parser as MysteryBoxKeysParser
+  }
 }

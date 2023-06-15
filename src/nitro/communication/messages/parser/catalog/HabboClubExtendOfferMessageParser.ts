@@ -1,28 +1,24 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { ClubOfferExtendData } from './ClubOfferExtendData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { ClubOfferExtendData } from '@/nitro'
 
-export class HabboClubExtendOfferMessageParser implements IMessageParser
-{
-    private _offer: ClubOfferExtendData;
+export class HabboClubExtendOfferMessageParser implements IMessageParser {
+  private _offer: ClubOfferExtendData
 
-    public flush(): boolean
-    {
-        this._offer = null;
+  public get offer(): ClubOfferExtendData {
+    return this._offer
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._offer = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._offer = new ClubOfferExtendData(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._offer = new ClubOfferExtendData(wrapper)
 
-    public get offer(): ClubOfferExtendData
-    {
-        return this._offer;
-    }
+    return true
+  }
 }

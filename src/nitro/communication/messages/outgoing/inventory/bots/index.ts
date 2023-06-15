@@ -1,1 +1,1 @@
-export * from './GetBotInventoryComposer';
+export * from './GetBotInventoryComposer'

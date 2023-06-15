@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class RespectReceivedParser implements IMessageParser
-{
-    private _userId: number;
-    private _respectsReceived: number;
+export class RespectReceivedParser implements IMessageParser {
+  private _userId: number
 
-    public flush(): boolean
-    {
-        this._userId = 0;
-        this._respectsReceived = 0;
+  public get userId(): number {
+    return this._userId
+  }
 
-        return true;
-    }
+  private _respectsReceived: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get respectsReceived(): number {
+    return this._respectsReceived
+  }
 
-        this._userId = wrapper.readInt();
-        this._respectsReceived = wrapper.readInt();
+  public flush(): boolean {
+    this._userId = 0
+    this._respectsReceived = 0
 
-        return true;
-    }
+    return true
+  }
 
-    public get userId(): number
-    {
-        return this._userId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get respectsReceived(): number
-    {
-        return this._respectsReceived;
-    }
+    this._userId = wrapper.readInt()
+    this._respectsReceived = wrapper.readInt()
+
+    return true
+  }
 }

@@ -1,4 +1,4 @@
-import { IRoomSpriteMouseEvent } from '../../api';
+import { IRoomSpriteMouseEvent } from '@/api';
 
 export class RoomSpriteMouseEvent implements IRoomSpriteMouseEvent
 {

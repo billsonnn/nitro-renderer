@@ -1,3 +1,3 @@
-export * from './PromoArticleData';
-export * from './PromoArticlesMessageParser';
-export * from './votes';
+export * from './PromoArticleData'
+export * from './PromoArticlesMessageParser'
+export * from './votes'

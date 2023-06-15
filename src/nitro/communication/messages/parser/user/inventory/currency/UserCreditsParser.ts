@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class UserCreditsParser implements IMessageParser
-{
-    private _credits: string;
+export class UserCreditsParser implements IMessageParser {
+  private _credits: string
 
-    public flush(): boolean
-    {
-        this._credits = null;
+  public get credits(): string {
+    return this._credits
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._credits = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._credits = wrapper.readString();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._credits = wrapper.readString()
 
-    public get credits(): string
-    {
-        return this._credits;
-    }
+    return true
+  }
 }

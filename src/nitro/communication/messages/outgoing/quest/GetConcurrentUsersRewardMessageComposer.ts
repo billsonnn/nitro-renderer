@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GetConcurrentUsersRewardMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetConcurrentUsersRewardMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof GetConcurrentUsersRewardMessageComposer>;
+export class GetConcurrentUsersRewardMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetConcurrentUsersRewardMessageComposer>> {
+  private _data: ConstructorParameters<typeof GetConcurrentUsersRewardMessageComposer>
 
-    constructor()
-    {
-        this._data = [];
-    }
+  constructor() {
+    this._data = []
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

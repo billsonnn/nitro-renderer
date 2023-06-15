@@ -1,2 +1,2 @@
-export * from './AssetAlias';
-export * from './AssetAliasCollection';
+export * from './AssetAlias'
+export * from './AssetAliasCollection'

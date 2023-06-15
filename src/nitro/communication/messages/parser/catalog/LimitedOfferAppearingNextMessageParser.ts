@@ -1,51 +1,47 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class LimitedOfferAppearingNextMessageParser implements IMessageParser
-{
-    private _appearsInSeconds: number;
-    private _pageId: number;
-    private _offerId: number;
-    private _productType: string;
+export class LimitedOfferAppearingNextMessageParser implements IMessageParser {
+  private _appearsInSeconds: number
 
-    public flush(): boolean
-    {
-        this._appearsInSeconds = -1;
-        this._pageId = -1;
-        this._offerId = -1;
-        this._productType = '';
+  public get appearsInSeconds(): number {
+    return this._appearsInSeconds
+  }
 
-        return true;
-    }
+  private _pageId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get pageId(): number {
+    return this._pageId
+  }
 
-        this._appearsInSeconds = wrapper.readInt();
-        this._pageId = wrapper.readInt();
-        this._offerId = wrapper.readInt();
-        this._productType = wrapper.readString();
+  private _offerId: number
 
-        return true;
-    }
+  public get offerId(): number {
+    return this._offerId
+  }
 
-    public get appearsInSeconds(): number
-    {
-        return this._appearsInSeconds;
-    }
+  private _productType: string
 
-    public get pageId(): number
-    {
-        return this._pageId;
-    }
+  public get productType(): string {
+    return this._productType
+  }
 
-    public get offerId(): number
-    {
-        return this._offerId;
-    }
+  public flush(): boolean {
+    this._appearsInSeconds = -1
+    this._pageId = -1
+    this._offerId = -1
+    this._productType = ''
 
-    public get productType(): string
-    {
-        return this._productType;
-    }
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._appearsInSeconds = wrapper.readInt()
+    this._pageId = wrapper.readInt()
+    this._offerId = wrapper.readInt()
+    this._productType = wrapper.readString()
+
+    return true
+  }
 }

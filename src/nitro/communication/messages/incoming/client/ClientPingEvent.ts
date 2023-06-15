@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { ClientPingParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { ClientPingParser } from '@/nitro'
 
-export class ClientPingEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, ClientPingParser);
-    }
+export class ClientPingEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, ClientPingParser)
+  }
 
-    public getParser(): ClientPingParser
-    {
-        return this.parser as ClientPingParser;
-    }
+  public getParser(): ClientPingParser {
+    return this.parser as ClientPingParser
+  }
 }

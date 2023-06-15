@@ -1,58 +1,54 @@
-import { IFigureDataPart, IFigurePart } from '../../../../api';
+import { IFigureDataPart, IFigurePart } from '@/api'
 
-export class FigurePart implements IFigurePart
-{
-    private _id: number;
-    private _type: string;
-    private _breed: number;
-    private _index: number;
-    private _colorLayerIndex: number;
-    private _paletteMapId: number;
+export class FigurePart implements IFigurePart {
+  private _paletteMapId: number
 
-    constructor(data: IFigureDataPart)
-    {
-        if(!data) throw new Error('invalid_data');
+  constructor(data: IFigureDataPart) {
+    if (!data) throw new Error('invalid_data')
 
-        this._id = data.id;
-        this._type = data.type;
-        this._index = data.index;
-        this._colorLayerIndex = data.colorindex;
-        this._paletteMapId = -1;
-        this._breed = -1;
-    }
+    this._id = data.id
+    this._type = data.type
+    this._index = data.index
+    this._colorLayerIndex = data.colorindex
+    this._paletteMapId = -1
+    this._breed = -1
+  }
 
-    public dispose(): void
-    {
+  private _id: number
 
-    }
+  public get id(): number {
+    return this._id
+  }
 
-    public get id(): number
-    {
-        return this._id;
-    }
+  private _type: string
 
-    public get type(): string
-    {
-        return this._type;
-    }
+  public get type(): string {
+    return this._type
+  }
 
-    public get breed(): number
-    {
-        return this._breed;
-    }
+  private _breed: number
 
-    public get index(): number
-    {
-        return this._index;
-    }
+  public get breed(): number {
+    return this._breed
+  }
 
-    public get colorLayerIndex(): number
-    {
-        return this._colorLayerIndex;
-    }
+  private _index: number
 
-    public get paletteMap(): number
-    {
-        return this._paletteMapId;
-    }
+  public get index(): number {
+    return this._index
+  }
+
+  private _colorLayerIndex: number
+
+  public get colorLayerIndex(): number {
+    return this._colorLayerIndex
+  }
+
+  public get paletteMap(): number {
+    return this._paletteMapId
+  }
+
+  public dispose(): void {
+
+  }
 }

@@ -1,2 +1,2 @@
-export * from './RecyclerFinishedMessageParser';
-export * from './RecyclerStatusMessageParser';
+export * from './RecyclerFinishedMessageParser'
+export * from './RecyclerStatusMessageParser'

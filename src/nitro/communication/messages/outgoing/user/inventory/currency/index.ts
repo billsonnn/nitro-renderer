@@ -1,1 +1,1 @@
-export * from './UserCurrencyComposer';
+export * from './UserCurrencyComposer'

@@ -1,118 +1,99 @@
-import { IActionDefinition, IFigureSetData } from '../../../api';
-import { ActionDefinition } from '../actions';
-import { ActivePartSet, PartDefinition } from './parts';
+import { IActionDefinition, IFigureSetData } from '@/api'
+import { ActionDefinition, ActivePartSet, PartDefinition } from '@/nitro'
 
-export class PartSetsData implements IFigureSetData
-{
-    private _parts: Map<string, PartDefinition>;
-    private _activePartSets: Map<string, ActivePartSet>;
+export class PartSetsData implements IFigureSetData {
+  constructor() {
+    this._parts = new Map()
+    this._activePartSets = new Map()
+  }
 
-    constructor()
-    {
-        this._parts = new Map();
-        this._activePartSets = new Map();
+  private _parts: Map<string, PartDefinition>
+
+  public get parts(): Map<string, PartDefinition> {
+    return this._parts
+  }
+
+  private _activePartSets: Map<string, ActivePartSet>
+
+  public get activePartSets(): Map<string, ActivePartSet> {
+    return this._activePartSets
+  }
+
+  public parse(data: any): boolean {
+    if (data.partSet && (data.partSet.length > 0)) {
+      for (const part of data.partSet) {
+        if (!part) continue
+
+        this._parts.set(part.setType, new PartDefinition(part))
+      }
     }
 
-    public parse(data: any): boolean
-    {
-        if(data.partSet && (data.partSet.length > 0))
-        {
-            for(const part of data.partSet)
-            {
-                if(!part) continue;
+    if (data.activePartSets && (data.activePartSets.length > 0)) {
+      for (const activePart of data.activePartSets) {
+        if (!activePart) continue
 
-                this._parts.set(part.setType, new PartDefinition(part));
-            }
-        }
-
-        if(data.activePartSets && (data.activePartSets.length > 0))
-        {
-            for(const activePart of data.activePartSets)
-            {
-                if(!activePart) continue;
-
-                this._activePartSets.set(activePart.id, new ActivePartSet(activePart));
-            }
-        }
-
-        return true;
+        this._activePartSets.set(activePart.id, new ActivePartSet(activePart))
+      }
     }
 
-    public appendJSON(data: any): boolean
-    {
-        if(data.partSet && (data.partSet.length > 0))
-        {
-            for(const part of data.partSet)
-            {
-                if(!part) continue;
+    return true
+  }
 
-                this._parts.set(part.setType, new PartDefinition(part));
-            }
-        }
+  public appendJSON(data: any): boolean {
+    if (data.partSet && (data.partSet.length > 0)) {
+      for (const part of data.partSet) {
+        if (!part) continue
 
-        if(data.activePartSets && (data.activePartSets.length > 0))
-        {
-            for(const activePart of data.activePartSets)
-            {
-                if(!activePart) continue;
-
-                this._activePartSets.set(activePart.id, new ActivePartSet(activePart));
-            }
-        }
-
-        return false;
+        this._parts.set(part.setType, new PartDefinition(part))
+      }
     }
 
-    public getActiveParts(k: IActionDefinition): string[]
-    {
-        const activePartSet = this._activePartSets.get(k.activePartSet);
+    if (data.activePartSets && (data.activePartSets.length > 0)) {
+      for (const activePart of data.activePartSets) {
+        if (!activePart) continue
 
-        if(!activePartSet) return [];
-
-        return activePartSet.parts;
+        this._activePartSets.set(activePart.id, new ActivePartSet(activePart))
+      }
     }
 
-    public getPartDefinition(part: string): PartDefinition
-    {
-        const existing = this._parts.get(part);
+    return false
+  }
 
-        if(!existing) return null;
+  public getActiveParts(k: IActionDefinition): string[] {
+    const activePartSet = this._activePartSets.get(k.activePartSet)
 
-        return existing;
+    if (!activePartSet) return []
+
+    return activePartSet.parts
+  }
+
+  public getPartDefinition(part: string): PartDefinition {
+    const existing = this._parts.get(part)
+
+    if (!existing) return null
+
+    return existing
+  }
+
+  public addPartDefinition(k: any): PartDefinition {
+    const _local_2 = k.setType as string
+
+    let existing = this._parts.get(_local_2)
+
+    if (!existing) {
+      existing = new PartDefinition(k)
+
+      this._parts.set(_local_2, existing)
     }
 
-    public addPartDefinition(k: any): PartDefinition
-    {
-        const _local_2 = k.setType as string;
+    return existing
+  }
 
-        let existing = this._parts.get(_local_2);
+  public getActivePartSet(k: ActionDefinition): ActivePartSet {
+    const existing = this._activePartSets.get(k.activePartSet)
 
-        if(!existing)
-        {
-            existing = new PartDefinition(k);
+    if (!existing) return null
 
-            this._parts.set(_local_2, existing);
-        }
-
-        return existing;
-    }
-
-    public getActivePartSet(k: ActionDefinition): ActivePartSet
-    {
-        const existing = this._activePartSets.get(k.activePartSet);
-
-        if(!existing) return null;
-
-        return existing;
-    }
-
-    public get parts(): Map<string, PartDefinition>
-    {
-        return this._parts;
-    }
-
-    public get activePartSets(): Map<string, ActivePartSet>
-    {
-        return this._activePartSets;
-    }
+    return existing
+  }
 }

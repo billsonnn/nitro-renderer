@@ -1,23 +1,20 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { ModeratorInitData } from './ModeratorInitData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { ModeratorInitData } from '@/nitro'
 
-export class ModeratorInitMessageParser implements IMessageParser
-{
-    private _data: ModeratorInitData = null;
-    public flush(): boolean
-    {
-        this._data = null;
-        return true;
-    }
+export class ModeratorInitMessageParser implements IMessageParser {
+  private _data: ModeratorInitData = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        this._data = new ModeratorInitData(wrapper);
-        return true;
-    }
+  public get data(): ModeratorInitData {
+    return this._data
+  }
 
-    public get data(): ModeratorInitData
-    {
-        return this._data;
-    }
+  public flush(): boolean {
+    this._data = null
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    this._data = new ModeratorInitData(wrapper)
+    return true
+  }
 }

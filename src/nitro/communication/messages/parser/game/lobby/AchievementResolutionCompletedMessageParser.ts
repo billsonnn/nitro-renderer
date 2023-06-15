@@ -1,32 +1,28 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class AchievementResolutionCompletedMessageParser implements IMessageParser
-{
-    private _stuffCode:string;
-    private _badgeCode:string;
+export class AchievementResolutionCompletedMessageParser implements IMessageParser {
+  private _stuffCode: string
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get stuffCode(): string {
+    return this._stuffCode
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _badgeCode: string
 
-        this._stuffCode = wrapper.readString();
-        this._badgeCode = wrapper.readString();
+  public get badgeCode(): string {
+    return this._badgeCode
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    return true
+  }
 
-    public get stuffCode():string
-    {
-        return this._stuffCode;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get badgeCode():string
-    {
-        return this._badgeCode;
-    }
+    this._stuffCode = wrapper.readString()
+    this._badgeCode = wrapper.readString()
+
+    return true
+  }
 }

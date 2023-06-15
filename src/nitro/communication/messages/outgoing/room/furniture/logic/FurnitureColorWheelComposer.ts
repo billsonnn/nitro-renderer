@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class FurnitureColorWheelComposer implements IMessageComposer<ConstructorParameters<typeof FurnitureColorWheelComposer>>
-{
-    private _data: ConstructorParameters<typeof FurnitureColorWheelComposer>;
+export class FurnitureColorWheelComposer implements IMessageComposer<ConstructorParameters<typeof FurnitureColorWheelComposer>> {
+  private _data: ConstructorParameters<typeof FurnitureColorWheelComposer>
 
-    constructor(itemId: number)
-    {
-        this._data = [itemId];
-    }
+  constructor(itemId: number) {
+    this._data = [itemId]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

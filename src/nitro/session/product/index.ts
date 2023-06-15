@@ -1,2 +1,2 @@
-export * from './ProductData';
-export * from './ProductDataLoader';
+export * from './ProductData'
+export * from './ProductDataLoader'

@@ -1,3 +1,3 @@
-export * from './ClientDeviceCategoryEnum';
-export * from './ClientPlatformEnum';
-export * from './WebSocketEventEnum';
+export * from './ClientDeviceCategoryEnum'
+export * from './ClientPlatformEnum'
+export * from './WebSocketEventEnum'

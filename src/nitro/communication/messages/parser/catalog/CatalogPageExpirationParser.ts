@@ -1,51 +1,47 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class CatalogPageExpirationParser implements IMessageParser
-{
-    private _pageName: string;
-    private _pageId: number;
-    private _secondsToExpiry: number;
-    private _image: string;
+export class CatalogPageExpirationParser implements IMessageParser {
+  private _pageName: string
 
-    public flush(): boolean
-    {
-        this._pageName = null;
-        this._pageId = 0;
-        this._secondsToExpiry = 0;
-        this._image = null;
+  public get pageName(): string {
+    return this._pageName
+  }
 
-        return true;
-    }
+  private _pageId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get pageId(): number {
+    return this._pageId
+  }
 
-        this._pageId = wrapper.readInt();
-        this._pageName = wrapper.readString();
-        this._secondsToExpiry = wrapper.readInt();
-        this._image = wrapper.readString();
+  private _secondsToExpiry: number
 
-        return true;
-    }
+  public get secondsToExpiry(): number {
+    return this._secondsToExpiry
+  }
 
-    public get pageName(): string
-    {
-        return this._pageName;
-    }
+  private _image: string
 
-    public get pageId(): number
-    {
-        return this._pageId;
-    }
+  public get image(): string {
+    return this._image
+  }
 
-    public get secondsToExpiry(): number
-    {
-        return this._secondsToExpiry;
-    }
+  public flush(): boolean {
+    this._pageName = null
+    this._pageId = 0
+    this._secondsToExpiry = 0
+    this._image = null
 
-    public get image(): string
-    {
-        return this._image;
-    }
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._pageId = wrapper.readInt()
+    this._pageName = wrapper.readString()
+    this._secondsToExpiry = wrapper.readInt()
+    this._image = wrapper.readString()
+
+    return true
+  }
 }

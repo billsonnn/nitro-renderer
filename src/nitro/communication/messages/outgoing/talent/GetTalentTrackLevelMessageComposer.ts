@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GetTalentTrackLevelMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetTalentTrackLevelMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof GetTalentTrackLevelMessageComposer>;
+export class GetTalentTrackLevelMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetTalentTrackLevelMessageComposer>> {
+  private _data: ConstructorParameters<typeof GetTalentTrackLevelMessageComposer>
 
-    constructor(name: string)
-    {
-        this._data = [name];
-    }
+  constructor(name: string) {
+    this._data = [name]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

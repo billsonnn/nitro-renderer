@@ -1,69 +1,61 @@
-﻿export class AvatarEffect
-{
-    private _type: number;
-    private _subType: number;
-    private _duration: number;
-    private _inactiveEffectsInInventory: number;
-    private _secondsLeftIfActive: number;
-    private _permanent: boolean;
+﻿export class AvatarEffect {
+  private _permanent: boolean
 
-    public get type(): number
-    {
-        return this._type;
-    }
+  private _type: number
 
-    public set type(k: number)
-    {
-        this._type = k;
-    }
+  public get type(): number {
+    return this._type
+  }
 
-    public get subType(): number
-    {
-        return this._subType;
-    }
+  public set type(k: number) {
+    this._type = k
+  }
 
-    public set subType(k: number)
-    {
-        this._subType = k;
-    }
+  private _subType: number
 
-    public get duration(): number
-    {
-        return this._duration;
-    }
+  public get subType(): number {
+    return this._subType
+  }
 
-    public set duration(k: number)
-    {
-        this._duration = k;
-    }
+  public set subType(k: number) {
+    this._subType = k
+  }
 
-    public get inactiveEffectsInInventory(): number
-    {
-        return this._inactiveEffectsInInventory;
-    }
+  private _duration: number
 
-    public set inactiveEffectsInInventory(k: number)
-    {
-        this._inactiveEffectsInInventory = k;
-    }
+  public get duration(): number {
+    return this._duration
+  }
 
-    public get secondsLeftIfActive(): number
-    {
-        return this._secondsLeftIfActive;
-    }
+  public set duration(k: number) {
+    this._duration = k
+  }
 
-    public set secondsLeftIfActive(k: number)
-    {
-        this._secondsLeftIfActive = k;
-    }
+  private _inactiveEffectsInInventory: number
 
-    public get isPermanent(): boolean
-    {
-        return this._permanent;
-    }
+  public get inactiveEffectsInInventory(): number {
+    return this._inactiveEffectsInInventory
+  }
 
-    public set isPermanent(k: boolean)
-    {
-        this._permanent = k;
-    }
+  public set inactiveEffectsInInventory(k: number) {
+    this._inactiveEffectsInInventory = k
+  }
+
+  private _secondsLeftIfActive: number
+
+  public get secondsLeftIfActive(): number {
+    return this._secondsLeftIfActive
+  }
+
+  public set secondsLeftIfActive(k: number) {
+    this._secondsLeftIfActive = k
+  }
+
+  public get isPermanent(): boolean {
+    return this._permanent
+  }
+
+  public set isPermanent(k: boolean) {
+    this._permanent = k
+  }
 }

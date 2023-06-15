@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class HabboSearchComposer implements IMessageComposer<ConstructorParameters<typeof HabboSearchComposer>>
-{
-    private _data: ConstructorParameters<typeof HabboSearchComposer>;
+export class HabboSearchComposer implements IMessageComposer<ConstructorParameters<typeof HabboSearchComposer>> {
+  private _data: ConstructorParameters<typeof HabboSearchComposer>
 
-    constructor(search: string)
-    {
-        this._data = [search];
-    }
+  constructor(search: string) {
+    this._data = [search]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GroupJoinComposer implements IMessageComposer<ConstructorParameters<typeof GroupJoinComposer>>
-{
-    private _data: ConstructorParameters<typeof GroupJoinComposer>;
+export class GroupJoinComposer implements IMessageComposer<ConstructorParameters<typeof GroupJoinComposer>> {
+  private _data: ConstructorParameters<typeof GroupJoinComposer>
 
-    constructor(groupId: number)
-    {
-        this._data = [groupId];
-    }
+  constructor(groupId: number) {
+    this._data = [groupId]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

@@ -1,48 +1,41 @@
-export class NitroLogger
-{
-    public static LOG_DEBUG: boolean = false;
-    public static LOG_WARN: boolean = false;
-    public static LOG_ERROR: boolean = false;
-    public static LOG_EVENTS: boolean = false;
-    public static LOG_PACKETS: boolean = false;
+export class NitroLogger {
+  public static LOG_DEBUG: boolean = false
+  public static LOG_WARN: boolean = false
+  public static LOG_ERROR: boolean = false
+  public static LOG_EVENTS: boolean = false
+  public static LOG_PACKETS: boolean = false
 
-    public static log(...messages: any[]): void
-    {
-        if(!this.LOG_DEBUG) return;
+  public static log(...messages: any[]): void {
+    if (!this.LOG_DEBUG) return
 
-        console.log(this.logPrefix(), ...messages);
-    }
+    console.log(this.logPrefix(), ...messages)
+  }
 
-    public static warn(...messages: any[]): void
-    {
-        if(!this.LOG_WARN) return;
+  public static warn(...messages: any[]): void {
+    if (!this.LOG_WARN) return
 
-        console.warn(this.logPrefix(), ...messages);
-    }
+    console.warn(this.logPrefix(), ...messages)
+  }
 
-    public static error(...messages: any[]): void
-    {
-        if(!this.LOG_ERROR) return;
+  public static error(...messages: any[]): void {
+    if (!this.LOG_ERROR) return
 
-        console.error(this.logPrefix(), ...messages);
-    }
+    console.error(this.logPrefix(), ...messages)
+  }
 
-    public static events(...messages: any[]): void
-    {
-        if(!this.LOG_EVENTS) return;
+  public static events(...messages: any[]): void {
+    if (!this.LOG_EVENTS) return
 
-        console.log(this.logPrefix(), ...messages);
-    }
+    console.log(this.logPrefix(), ...messages)
+  }
 
-    public static packets(...messages: any[]): void
-    {
-        if(!this.LOG_PACKETS) return;
+  public static packets(...messages: any[]): void {
+    if (!this.LOG_PACKETS) return
 
-        console.log(this.logPrefix(), ...messages);
-    }
+    console.log(this.logPrefix(), ...messages)
+  }
 
-    private static logPrefix(): string
-    {
-        return '[Nitro]';
-    }
+  private static logPrefix(): string {
+    return '[Nitro]'
+  }
 }

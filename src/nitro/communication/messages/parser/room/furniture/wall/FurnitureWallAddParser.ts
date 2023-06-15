@@ -1,29 +1,25 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../../api';
-import { FurnitureWallDataParser } from './FurnitureWallDataParser';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { FurnitureWallDataParser } from '@/nitro'
 
-export class FurnitureWallAddParser implements IMessageParser
-{
-    private _item: FurnitureWallDataParser;
+export class FurnitureWallAddParser implements IMessageParser {
+  private _item: FurnitureWallDataParser
 
-    public flush(): boolean
-    {
-        this._item = null;
+  public get item(): FurnitureWallDataParser {
+    return this._item
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._item = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._item = new FurnitureWallDataParser(wrapper);
-        this._item.username = wrapper.readString();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._item = new FurnitureWallDataParser(wrapper)
+    this._item.username = wrapper.readString()
 
-    public get item(): FurnitureWallDataParser
-    {
-        return this._item;
-    }
+    return true
+  }
 }

@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class UserCurrentBadgesComposer implements IMessageComposer<ConstructorParameters<typeof UserCurrentBadgesComposer>>
-{
-    private _data: ConstructorParameters<typeof UserCurrentBadgesComposer>;
+export class UserCurrentBadgesComposer implements IMessageComposer<ConstructorParameters<typeof UserCurrentBadgesComposer>> {
+  private _data: ConstructorParameters<typeof UserCurrentBadgesComposer>
 
-    constructor(userId: number)
-    {
-        this._data = [userId];
-    }
+  constructor(userId: number) {
+    this._data = [userId]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

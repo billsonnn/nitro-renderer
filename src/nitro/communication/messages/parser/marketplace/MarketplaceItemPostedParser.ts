@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class MarketplaceMakeOfferResultParser implements IMessageParser
-{
-    private _result: number;
+export class MarketplaceMakeOfferResultParser implements IMessageParser {
+  private _result: number
 
-    public flush(): boolean
-    {
-        this._result = 0;
+  public get result(): number {
+    return this._result
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._result = 0
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._result = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._result = wrapper.readInt()
 
-    public get result(): number
-    {
-        return this._result;
-    }
+    return true
+  }
 }

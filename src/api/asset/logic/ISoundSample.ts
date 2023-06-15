@@ -1,5 +1,4 @@
-export interface ISoundSample
-{
-    id?: number;
-    noPitch?: boolean;
+export interface ISoundSample {
+  id?: number;
+  noPitch?: boolean;
 }

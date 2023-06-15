@@ -1,1 +1,1 @@
-export * from './UserCreditsMessageParser';
+export * from './UserCreditsMessageParser'

@@ -1,23 +1,20 @@
-import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageDataWrapper } from '@/api'
 
-export class CraftingResultObjectParser
-{
-    private _recipeName: string;
-    private _itemName: string;
+export class CraftingResultObjectParser {
+  constructor(wrapper: IMessageDataWrapper) {
+    this._recipeName = wrapper.readString()
+    this._itemName = wrapper.readString()
+  }
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        this._recipeName = wrapper.readString();
-        this._itemName = wrapper.readString();
-    }
+  private _recipeName: string
 
-    public get recipeName(): string
-    {
-        return this._recipeName;
-    }
+  public get recipeName(): string {
+    return this._recipeName
+  }
 
-    public get itemName(): string
-    {
-        return this._itemName;
-    }
+  private _itemName: string
+
+  public get itemName(): string {
+    return this._itemName
+  }
 }

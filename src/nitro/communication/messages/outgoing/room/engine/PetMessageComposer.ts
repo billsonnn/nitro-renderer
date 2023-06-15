@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class PetMessageComposer implements IMessageComposer<ConstructorParameters<typeof PetMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof PetMessageComposer>;
+export class PetMessageComposer implements IMessageComposer<ConstructorParameters<typeof PetMessageComposer>> {
+  private _data: ConstructorParameters<typeof PetMessageComposer>
 
-    constructor(id: number)
-    {
-        this._data = [id];
-    }
+  constructor(id: number) {
+    this._data = [id]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

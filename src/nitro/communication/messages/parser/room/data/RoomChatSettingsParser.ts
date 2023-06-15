@@ -1,28 +1,24 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
-import { RoomChatSettings } from '../../roomsettings';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { RoomChatSettings } from '@/nitro'
 
-export class RoomChatSettingsParser implements IMessageParser
-{
-    private _chat: RoomChatSettings;
+export class RoomChatSettingsParser implements IMessageParser {
+  private _chat: RoomChatSettings
 
-    public flush(): boolean
-    {
-        this._chat = null;
+  public get chat(): RoomChatSettings {
+    return this._chat
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._chat = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._chat = new RoomChatSettings(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._chat = new RoomChatSettings(wrapper)
 
-    public get chat(): RoomChatSettings
-    {
-        return this._chat;
-    }
+    return true
+  }
 }

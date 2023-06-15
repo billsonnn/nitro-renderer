@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GetYoutubeDisplayStatusMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetYoutubeDisplayStatusMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof GetYoutubeDisplayStatusMessageComposer>;
+export class GetYoutubeDisplayStatusMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetYoutubeDisplayStatusMessageComposer>> {
+  private _data: ConstructorParameters<typeof GetYoutubeDisplayStatusMessageComposer>
 
-    constructor(k: number)
-    {
-        this._data = [k];
-    }
+  constructor(k: number) {
+    this._data = [k]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

@@ -1,48 +1,42 @@
-import { IMessageDataWrapper, IMessageParser, IObjectData, ObjectDataFactory } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser, IObjectData, ObjectDataFactory } from '@/api'
 
-export class FurnitureDataParser implements IMessageParser
-{
-    private _itemId: number;
-    private _data: IObjectData;
+export class FurnitureDataParser implements IMessageParser {
+  private _itemId: number
+  private _data: IObjectData
 
-    public flush(): boolean
-    {
-        this._itemId = 0;
-        this._data = null;
+  public get furnitureId(): number {
+    return this._itemId
+  }
 
-        return true;
-    }
+  public get objectData(): IObjectData {
+    return this._data
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public static parseObjectData(wrapper: IMessageDataWrapper): IObjectData {
+    if (!wrapper) return null
 
-        this._itemId = parseInt(wrapper.readString());
-        this._data = FurnitureDataParser.parseObjectData(wrapper);
+    const data = ObjectDataFactory.getData(wrapper.readInt())
 
-        return true;
-    }
+    if (!data) return null
 
-    public static parseObjectData(wrapper: IMessageDataWrapper): IObjectData
-    {
-        if(!wrapper) return null;
+    data.parseWrapper(wrapper)
 
-        const data = ObjectDataFactory.getData(wrapper.readInt());
+    return data
+  }
 
-        if(!data) return null;
+  public flush(): boolean {
+    this._itemId = 0
+    this._data = null
 
-        data.parseWrapper(wrapper);
+    return true
+  }
 
-        return data;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get furnitureId(): number
-    {
-        return this._itemId;
-    }
+    this._itemId = parseInt(wrapper.readString())
+    this._data = FurnitureDataParser.parseObjectData(wrapper)
 
-    public get objectData(): IObjectData
-    {
-        return this._data;
-    }
+    return true
+  }
 }

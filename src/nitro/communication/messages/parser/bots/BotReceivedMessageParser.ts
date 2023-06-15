@@ -1,36 +1,32 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { BotData } from './BotData';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { BotData } from '@/nitro'
 
-export class BotReceivedMessageParser implements IMessageParser
-{
-    private _boughtAsGift: boolean;
-    private _item: BotData;
+export class BotReceivedMessageParser implements IMessageParser {
+  private _boughtAsGift: boolean
 
-    public flush(): boolean
-    {
-        this._boughtAsGift = false;
-        this._item = null;
+  public get boughtAsGift(): boolean {
+    return this._boughtAsGift
+  }
 
-        return true;
-    }
+  private _item: BotData
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get item(): BotData {
+    return this._item
+  }
 
-        this._boughtAsGift = wrapper.readBoolean();
-        this._item = new BotData(wrapper);
+  public flush(): boolean {
+    this._boughtAsGift = false
+    this._item = null
 
-        return true;
-    }
+    return true
+  }
 
-    public get boughtAsGift(): boolean
-    {
-        return this._boughtAsGift;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get item(): BotData
-    {
-        return this._item;
-    }
+    this._boughtAsGift = wrapper.readBoolean()
+    this._item = new BotData(wrapper)
+
+    return true
+  }
 }

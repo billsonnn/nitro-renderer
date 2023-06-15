@@ -1,18 +1,15 @@
-import { RoomObjectUpdateMessage } from '../../../room';
+import { RoomObjectUpdateMessage } from '@/room'
 
-export class ObjectItemDataUpdateMessage extends RoomObjectUpdateMessage
-{
-    private _data: string;
+export class ObjectItemDataUpdateMessage extends RoomObjectUpdateMessage {
+  constructor(data: string) {
+    super(null, null)
 
-    constructor(data: string)
-    {
-        super(null, null);
+    this._data = data
+  }
 
-        this._data = data;
-    }
+  private _data: string
 
-    public get data(): string
-    {
-        return this._data;
-    }
+  public get data(): string {
+    return this._data
+  }
 }

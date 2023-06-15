@@ -1,28 +1,23 @@
-import { IMessageComposer } from '../../../../../api';
-import { NewUserExperienceGetGiftsSelection } from './NewUserExperienceGetGiftsSelection';
+import { IMessageComposer } from '@/api'
+import { NewUserExperienceGetGiftsSelection } from '@/nitro'
 
-export class NewUserExperienceGetGiftsComposer implements IMessageComposer<ConstructorParameters<typeof NewUserExperienceGetGiftsComposer>>
-{
-    private _data: any;
+export class NewUserExperienceGetGiftsComposer implements IMessageComposer<ConstructorParameters<typeof NewUserExperienceGetGiftsComposer>> {
+  private _data: any
 
-    constructor(...data: NewUserExperienceGetGiftsSelection[])
-    {
-        this._data = [data.length * 3];
-        data.forEach(entry =>
-        {
-            this._data.push(entry.dayIndex);
-            this._data.push(entry.stepIndex);
-            this._data.push(entry.giftIndex);
-        });
-    }
+  constructor(...data: NewUserExperienceGetGiftsSelection[]) {
+    this._data = [data.length * 3]
+    data.forEach(entry => {
+      this._data.push(entry.dayIndex)
+      this._data.push(entry.stepIndex)
+      this._data.push(entry.giftIndex)
+    })
+  }
 
-    dispose(): void
-    {
-        this._data = null;
-    }
+  dispose(): void {
+    this._data = null
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 }

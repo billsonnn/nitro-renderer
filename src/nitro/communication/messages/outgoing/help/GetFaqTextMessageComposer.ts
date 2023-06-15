@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GetFaqTextMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetFaqTextMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof GetFaqTextMessageComposer>;
+export class GetFaqTextMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetFaqTextMessageComposer>> {
+  private _data: ConstructorParameters<typeof GetFaqTextMessageComposer>
 
-    constructor(questionId: number)
-    {
-        this._data = [questionId];
-    }
+  constructor(questionId: number) {
+    this._data = [questionId]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

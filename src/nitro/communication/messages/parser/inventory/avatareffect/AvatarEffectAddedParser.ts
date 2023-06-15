@@ -1,51 +1,47 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class AvatarEffectAddedParser implements IMessageParser
-{
-    private _type: number;
-    private _subType: number;
-    private _duration: number;
-    private _permanent: boolean;
+export class AvatarEffectAddedParser implements IMessageParser {
+  private _permanent: boolean
 
-    public flush(): boolean
-    {
-        this._type = 0;
-        this._subType = 0;
-        this._duration = 0;
-        this._permanent = false;
+  private _type: number
 
-        return true;
-    }
+  public get type(): number {
+    return this._type
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _subType: number
 
-        this._type = wrapper.readInt();
-        this._subType = wrapper.readInt();
-        this._duration = wrapper.readInt();
-        this._permanent = wrapper.readBoolean();
+  public get subType(): number {
+    return this._subType
+  }
 
-        return true;
-    }
+  private _duration: number
 
-    public get type(): number
-    {
-        return this._type;
-    }
+  public get duration(): number {
+    return this._duration
+  }
 
-    public get subType(): number
-    {
-        return this._subType;
-    }
+  public get isPermanent(): boolean {
+    return this._permanent
+  }
 
-    public get duration(): number
-    {
-        return this._duration;
-    }
+  public flush(): boolean {
+    this._type = 0
+    this._subType = 0
+    this._duration = 0
+    this._permanent = false
 
-    public get isPermanent(): boolean
-    {
-        return this._permanent;
-    }
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._type = wrapper.readInt()
+    this._subType = wrapper.readInt()
+    this._duration = wrapper.readInt()
+    this._permanent = wrapper.readBoolean()
+
+    return true
+  }
 }

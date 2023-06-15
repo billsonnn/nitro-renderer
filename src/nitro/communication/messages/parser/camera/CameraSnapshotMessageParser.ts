@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class CameraSnapshotMessageParser implements IMessageParser
-{
-    private _roomType: string;
-    private _roomId: number;
+export class CameraSnapshotMessageParser implements IMessageParser {
+  private _roomType: string
 
-    public flush(): boolean
-    {
-        this._roomType = null;
-        this._roomId = -1;
+  public get roomType(): string {
+    return this._roomType
+  }
 
-        return true;
-    }
+  private _roomId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get roomId(): number {
+    return this._roomId
+  }
 
-        this._roomType = wrapper.readString();
-        this._roomId = wrapper.readInt();
+  public flush(): boolean {
+    this._roomType = null
+    this._roomId = -1
 
-        return true;
-    }
+    return true
+  }
 
-    public get roomType(): string
-    {
-        return this._roomType;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get roomId(): number
-    {
-        return this._roomId;
-    }
+    this._roomType = wrapper.readString()
+    this._roomId = wrapper.readInt()
+
+    return true
+  }
 }

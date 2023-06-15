@@ -1,53 +1,49 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class DirectSMSClubBuyAvailableMessageParser implements IMessageParser
-{
-    private _available: boolean;
-    private _pricePointUrl: string;
-    private _market: string;
-    private _lengthInDays: number;
+export class DirectSMSClubBuyAvailableMessageParser implements IMessageParser {
+  private _available: boolean
 
-    public flush(): boolean
-    {
-        this._available = false;
-        this._pricePointUrl = null;
-        this._market = null;
-        this._lengthInDays = 0;
+  public get available(): boolean {
+    return this._available
+  }
 
-        return true;
-    }
+  private _pricePointUrl: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get pricePointUrl(): string {
+    return this._pricePointUrl
+  }
 
-        this._pricePointUrl = wrapper.readString();
+  private _market: string
 
-        if(this._pricePointUrl !== '') this._available = true;
+  public get market(): string {
+    return this._market
+  }
 
-        this._market = wrapper.readString();
-        this._lengthInDays = wrapper.readInt();
+  private _lengthInDays: number
 
-        return true;
-    }
+  public get lengthInDays(): number {
+    return this._lengthInDays
+  }
 
-    public get available(): boolean
-    {
-        return this._available;
-    }
+  public flush(): boolean {
+    this._available = false
+    this._pricePointUrl = null
+    this._market = null
+    this._lengthInDays = 0
 
-    public get pricePointUrl(): string
-    {
-        return this._pricePointUrl;
-    }
+    return true
+  }
 
-    public get market(): string
-    {
-        return this._market;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get lengthInDays(): number
-    {
-        return this._lengthInDays;
-    }
+    this._pricePointUrl = wrapper.readString()
+
+    if (this._pricePointUrl !== '') this._available = true
+
+    this._market = wrapper.readString()
+    this._lengthInDays = wrapper.readInt()
+
+    return true
+  }
 }

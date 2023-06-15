@@ -1,179 +1,162 @@
-﻿import { IMessageDataWrapper } from '../../../../../api';
+﻿import { IMessageDataWrapper } from '@/api'
 
-export class MessageData
-{
-    private _groupId: number;
-    private _messageId: number;
-    private _messageIndex: number;
-    private _authorId: number;
-    private _threadId: number;
-    private _creationTime: number;
-    private _messageText: string;
-    private _authorName: string;
-    private _authorFigure: string;
-    private _state: number;
-    private _adminId: number;
-    private _adminName: string;
-    private _adminOperationTimeAsSeccondsAgo: number;
-    private _authorPostCount: number;
+export class MessageData {
+  private _groupId: number
 
-    public static parse(wrapper: IMessageDataWrapper): MessageData
-    {
-        const messageData = new MessageData();
+  public get groupId(): number {
+    return this._groupId
+  }
 
-        messageData._messageId = wrapper.readInt();
-        messageData._messageIndex = wrapper.readInt();
-        messageData._authorId = wrapper.readInt();
-        messageData._authorName = wrapper.readString();
-        messageData._authorFigure = wrapper.readString();
-        messageData._creationTime = wrapper.readInt();
-        messageData._messageText = wrapper.readString();
-        messageData._state = wrapper.readByte();
-        messageData._adminId = wrapper.readInt();
-        messageData._adminName = wrapper.readString();
-        messageData._adminOperationTimeAsSeccondsAgo = wrapper.readInt();
-        messageData._authorPostCount = wrapper.readInt();
+  private _messageId: number
 
-        return messageData;
-    }
+  public get messageId(): number {
+    return this._messageId
+  }
 
-    public get state(): number
-    {
-        return this._state;
-    }
+  public set messageId(id: number) {
+    this._messageId = id
+  }
 
-    public set state(state: number)
-    {
-        this._state = state;
-    }
+  private _messageIndex: number
 
-    public get adminId(): number
-    {
-        return this._adminId;
-    }
+  public get messageIndex(): number {
+    return this._messageIndex
+  }
 
-    public set adminId(id: number)
-    {
-        this._adminId = id;
-    }
+  public set messageIndex(index: number) {
+    this._messageIndex = index
+  }
 
-    public get adminName(): string
-    {
-        return this._adminName;
-    }
+  private _authorId: number
 
-    public set adminName(name: string)
-    {
-        this._adminName = name;
-    }
+  public get authorId(): number {
+    return this._authorId
+  }
 
-    public get adminOperationTimeAsSeccondsAgo(): number
-    {
-        return this._adminOperationTimeAsSeccondsAgo;
-    }
+  public set authorId(id: number) {
+    this._authorId = id
+  }
 
-    public set adminOperationTimeAsSeccondsAgo(time: number)
-    {
-        this._adminOperationTimeAsSeccondsAgo = time;
-    }
+  private _threadId: number
 
-    public get messageId(): number
-    {
-        return this._messageId;
-    }
+  public get threadId(): number {
+    return this._threadId
+  }
 
-    public set messageId(id: number)
-    {
-        this._messageId = id;
-    }
+  public set threadId(id: number) {
+    this._threadId = id
+  }
 
-    public get creationTime(): number
-    {
-        return this._creationTime;
-    }
+  private _creationTime: number
 
-    public set creationTime(time: number)
-    {
-        this._creationTime = time;
-    }
+  public get creationTime(): number {
+    return this._creationTime
+  }
 
-    public get authorName(): string
-    {
-        return this._authorName;
-    }
+  public set creationTime(time: number) {
+    this._creationTime = time
+  }
 
-    public set authorName(name: string)
-    {
-        this._authorName = name;
-    }
+  private _messageText: string
 
-    public get authorFigure(): string
-    {
-        return this._authorFigure;
-    }
+  public get messageText(): string {
+    return this._messageText
+  }
 
-    public set authorFigure(figure: string)
-    {
-        this._authorFigure = figure;
-    }
+  public set messageText(text: string) {
+    this._messageText = text
+  }
 
-    public get threadId(): number
-    {
-        return this._threadId;
-    }
+  private _authorName: string
 
-    public set threadId(id: number)
-    {
-        this._threadId = id;
-    }
+  public get authorName(): string {
+    return this._authorName
+  }
 
-    public get messageIndex(): number
-    {
-        return this._messageIndex;
-    }
+  public set authorName(name: string) {
+    this._authorName = name
+  }
 
-    public set messageIndex(index: number)
-    {
-        this._messageIndex = index;
-    }
+  private _authorFigure: string
 
-    public set groupID(id: number)
-    {
-        this._groupId = id;
-    }
+  public get authorFigure(): string {
+    return this._authorFigure
+  }
 
-    public get groupId(): number
-    {
-        return this._groupId;
-    }
+  public set authorFigure(figure: string) {
+    this._authorFigure = figure
+  }
 
-    public get authorId(): number
-    {
-        return this._authorId;
-    }
+  private _state: number
 
-    public set authorId(id: number)
-    {
-        this._authorId = id;
-    }
+  public get state(): number {
+    return this._state
+  }
 
-    public get messageText(): string
-    {
-        return this._messageText;
-    }
+  public set state(state: number) {
+    this._state = state
+  }
 
-    public set messageText(text: string)
-    {
-        this._messageText = text;
-    }
+  private _adminId: number
 
-    public get authorPostCount(): number
-    {
-        return this._authorPostCount;
-    }
+  public get adminId(): number {
+    return this._adminId
+  }
 
-    public set authorPostCount(count: number)
-    {
-        this._authorPostCount = count;
-    }
+  public set adminId(id: number) {
+    this._adminId = id
+  }
+
+  private _adminName: string
+
+  public get adminName(): string {
+    return this._adminName
+  }
+
+  public set adminName(name: string) {
+    this._adminName = name
+  }
+
+  private _adminOperationTimeAsSeccondsAgo: number
+
+  public get adminOperationTimeAsSeccondsAgo(): number {
+    return this._adminOperationTimeAsSeccondsAgo
+  }
+
+  public set adminOperationTimeAsSeccondsAgo(time: number) {
+    this._adminOperationTimeAsSeccondsAgo = time
+  }
+
+  private _authorPostCount: number
+
+  public get authorPostCount(): number {
+    return this._authorPostCount
+  }
+
+  public set authorPostCount(count: number) {
+    this._authorPostCount = count
+  }
+
+  public set groupID(id: number) {
+    this._groupId = id
+  }
+
+  public static parse(wrapper: IMessageDataWrapper): MessageData {
+    const messageData = new MessageData()
+
+    messageData._messageId = wrapper.readInt()
+    messageData._messageIndex = wrapper.readInt()
+    messageData._authorId = wrapper.readInt()
+    messageData._authorName = wrapper.readString()
+    messageData._authorFigure = wrapper.readString()
+    messageData._creationTime = wrapper.readInt()
+    messageData._messageText = wrapper.readString()
+    messageData._state = wrapper.readByte()
+    messageData._adminId = wrapper.readInt()
+    messageData._adminName = wrapper.readString()
+    messageData._adminOperationTimeAsSeccondsAgo = wrapper.readInt()
+    messageData._authorPostCount = wrapper.readInt()
+
+    return messageData
+  }
 }

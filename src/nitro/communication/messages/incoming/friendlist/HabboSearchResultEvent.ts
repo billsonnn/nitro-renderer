@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { HabboSearchResultParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { HabboSearchResultParser } from '@/nitro'
 
-export class HabboSearchResultEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, HabboSearchResultParser);
-    }
+export class HabboSearchResultEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, HabboSearchResultParser)
+  }
 
-    public getParser(): HabboSearchResultParser
-    {
-        return this.parser as HabboSearchResultParser;
-    }
+  public getParser(): HabboSearchResultParser {
+    return this.parser as HabboSearchResultParser
+  }
 }

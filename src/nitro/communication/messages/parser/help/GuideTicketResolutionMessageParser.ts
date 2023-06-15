@@ -1,31 +1,27 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GuideTicketResolutionMessageParser implements IMessageParser
-{
-    public static readonly RESOLUTION_GUARDIANS_TOOK_ACTION: number = 0;
-    public static readonly RESOLUTION_FORWARDED_TO_MODERATORS: number = 1;
-    public static readonly RESOLUTION_REPORTER_IS_ABUSIVE: number = 2;
+export class GuideTicketResolutionMessageParser implements IMessageParser {
+  public static readonly RESOLUTION_GUARDIANS_TOOK_ACTION: number = 0
+  public static readonly RESOLUTION_FORWARDED_TO_MODERATORS: number = 1
+  public static readonly RESOLUTION_REPORTER_IS_ABUSIVE: number = 2
 
-    private _resolution: number;
+  private _resolution: number
 
-    public flush(): boolean
-    {
-        this._resolution = 0;
+  public get resolution(): number {
+    return this._resolution
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._resolution = 0
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._resolution = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._resolution = wrapper.readInt()
 
-    public get resolution(): number
-    {
-        return this._resolution;
-    }
+    return true
+  }
 }

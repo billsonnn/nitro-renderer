@@ -1,61 +1,53 @@
-import { IAssetData, RoomObjectVariable } from '../../../../../api';
-import { RoomObjectFurnitureActionEvent, RoomObjectWidgetRequestEvent } from '../../../../../events';
-import { RoomObjectUpdateMessage } from '../../../../../room';
-import { ObjectItemDataUpdateMessage } from '../../../messages';
-import { FurnitureLogic } from './FurnitureLogic';
+import { IAssetData, RoomObjectVariable } from '@/api'
+import { RoomObjectFurnitureActionEvent, RoomObjectWidgetRequestEvent } from '@/events'
+import { RoomObjectUpdateMessage } from '@/room'
+import { FurnitureLogic, ObjectItemDataUpdateMessage } from '@/nitro'
 
-export class FurnitureStickieLogic extends FurnitureLogic
-{
-    private static STICKIE_COLORS: string[] = ['9CCEFF', 'FF9CFF', '9CFF9C', 'FFFF33'];
+export class FurnitureStickieLogic extends FurnitureLogic {
+  private static STICKIE_COLORS: string[] = ['9CCEFF', 'FF9CFF', '9CFF9C', 'FFFF33']
 
-    public getEventTypes(): string[]
-    {
-        const types = [
-            RoomObjectWidgetRequestEvent.STICKIE,
-            RoomObjectFurnitureActionEvent.STICKIE
-        ];
+  public getEventTypes(): string[] {
+    const types = [
+      RoomObjectWidgetRequestEvent.STICKIE,
+      RoomObjectFurnitureActionEvent.STICKIE
+    ]
 
-        return this.mergeTypes(super.getEventTypes(), types);
+    return this.mergeTypes(super.getEventTypes(), types)
+  }
+
+  public initialize(asset: IAssetData): void {
+    super.initialize(asset)
+
+    this.updateColor()
+
+    if (this.object) this.object.model.setValue(RoomObjectVariable.FURNITURE_IS_STICKIE, '')
+  }
+
+  public processUpdateMessage(message: RoomObjectUpdateMessage): void {
+    super.processUpdateMessage(message)
+
+    if (message instanceof ObjectItemDataUpdateMessage) {
+      this.eventDispatcher && this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.STICKIE, this.object))
     }
 
-    public initialize(asset: IAssetData): void
-    {
-        super.initialize(asset);
+    this.updateColor()
+  }
 
-        this.updateColor();
+  public useObject(): void {
+    if (!this.object || !this.eventDispatcher) return
 
-        if(this.object) this.object.model.setValue(RoomObjectVariable.FURNITURE_IS_STICKIE, '');
-    }
+    this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.STICKIE, this.object))
+  }
 
-    public processUpdateMessage(message: RoomObjectUpdateMessage): void
-    {
-        super.processUpdateMessage(message);
+  protected updateColor(): void {
+    if (!this.object) return
 
-        if(message instanceof ObjectItemDataUpdateMessage)
-        {
-            this.eventDispatcher && this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.STICKIE, this.object));
-        }
+    const furnitureData = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_DATA)
 
-        this.updateColor();
-    }
+    let colorIndex = FurnitureStickieLogic.STICKIE_COLORS.indexOf(furnitureData)
 
-    protected updateColor(): void
-    {
-        if(!this.object) return;
+    if (colorIndex < 0) colorIndex = 3
 
-        const furnitureData = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_DATA);
-
-        let colorIndex = FurnitureStickieLogic.STICKIE_COLORS.indexOf(furnitureData);
-
-        if(colorIndex < 0) colorIndex = 3;
-
-        this.object.model.setValue(RoomObjectVariable.FURNITURE_COLOR, (colorIndex + 1));
-    }
-
-    public useObject(): void
-    {
-        if(!this.object || !this.eventDispatcher) return;
-
-        this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.STICKIE, this.object));
-    }
+    this.object.model.setValue(RoomObjectVariable.FURNITURE_COLOR, (colorIndex + 1))
+  }
 }

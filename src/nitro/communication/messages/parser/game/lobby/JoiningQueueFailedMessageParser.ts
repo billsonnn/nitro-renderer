@@ -1,34 +1,30 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class JoiningQueueFailedMessageParser implements IMessageParser
-{
-    public static readonly DUPLICATE_MACHINEID = 1;
+export class JoiningQueueFailedMessageParser implements IMessageParser {
+  public static readonly DUPLICATE_MACHINEID = 1
 
-    private _gameTypeId:number;
-    private _reason:number;
+  private _gameTypeId: number
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get gameTypeId(): number {
+    return this._gameTypeId
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _reason: number
 
-        this._gameTypeId = wrapper.readInt();
-        this._reason = wrapper.readInt();
+  public get reason(): number {
+    return this._reason
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    return true
+  }
 
-    public get gameTypeId():number
-    {
-        return this._gameTypeId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get reason():number
-    {
-        return this._reason;
-    }
+    this._gameTypeId = wrapper.readInt()
+    this._reason = wrapper.readInt()
+
+    return true
+  }
 }

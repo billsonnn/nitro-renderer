@@ -1,42 +1,38 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { NodeData } from './NodeData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { NodeData } from '@/nitro'
 
-export class CatalogIndexMessageParser implements IMessageParser
-{
-    private _root: NodeData;
-    private _newAdditionsAvailable: boolean;
-    private _catalogType: string;
+export class CatalogIndexMessageParser implements IMessageParser {
+  private _root: NodeData
 
-    public flush(): boolean
-    {
-        this._root = null;
+  public get root(): NodeData {
+    return this._root
+  }
 
-        return true;
-    }
+  private _newAdditionsAvailable: boolean
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get newAdditionsAvailable(): boolean {
+    return this._newAdditionsAvailable
+  }
 
-        this._root = new NodeData(wrapper);
-        this._newAdditionsAvailable = wrapper.readBoolean();
-        this._catalogType = wrapper.readString();
+  private _catalogType: string
 
-        return true;
-    }
+  public get catalogType(): string {
+    return this._catalogType
+  }
 
-    public get root(): NodeData
-    {
-        return this._root;
-    }
+  public flush(): boolean {
+    this._root = null
 
-    public get newAdditionsAvailable(): boolean
-    {
-        return this._newAdditionsAvailable;
-    }
+    return true
+  }
 
-    public get catalogType(): string
-    {
-        return this._catalogType;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._root = new NodeData(wrapper)
+    this._newAdditionsAvailable = wrapper.readBoolean()
+    this._catalogType = wrapper.readString()
+
+    return true
+  }
 }

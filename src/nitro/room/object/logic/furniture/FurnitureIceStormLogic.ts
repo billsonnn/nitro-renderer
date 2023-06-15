@@ -1,72 +1,61 @@
-import { LegacyDataType } from '../../../../../api';
-import { RoomObjectUpdateMessage } from '../../../../../room';
-import { ObjectDataUpdateMessage } from '../../../messages';
-import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
+import { LegacyDataType } from '@/api'
+import { RoomObjectUpdateMessage } from '@/room'
+import { FurnitureMultiStateLogic, ObjectDataUpdateMessage } from '@/nitro'
 
-export class FurnitureIceStormLogic extends FurnitureMultiStateLogic
-{
-    private _nextState: number;
-    private _nextStateExtra: number;
-    private _nextStateTimestamp: number;
+export class FurnitureIceStormLogic extends FurnitureMultiStateLogic {
+  private _nextState: number
+  private _nextStateExtra: number
+  private _nextStateTimestamp: number
 
-    constructor()
-    {
-        super();
+  constructor() {
+    super()
 
-        this._nextState = 0;
-        this._nextStateTimestamp = 0;
+    this._nextState = 0
+    this._nextStateTimestamp = 0
+  }
+
+  public update(totalTimeRunning: number): void {
+    if ((this._nextStateTimestamp > 0) && (totalTimeRunning >= this._nextStateTimestamp)) {
+      this._nextStateTimestamp = 0
+
+      const data = new LegacyDataType()
+
+      data.setString(this._nextState.toString())
+
+      super.processUpdateMessage(new ObjectDataUpdateMessage(this._nextState, data, this._nextStateExtra))
     }
 
-    public update(totalTimeRunning: number): void
-    {
-        if((this._nextStateTimestamp > 0) && (totalTimeRunning >= this._nextStateTimestamp))
-        {
-            this._nextStateTimestamp = 0;
+    super.update(totalTimeRunning)
+  }
 
-            const data = new LegacyDataType();
+  public processUpdateMessage(message: RoomObjectUpdateMessage): void {
+    if (message instanceof ObjectDataUpdateMessage) {
+      this.processUpdate(message)
 
-            data.setString(this._nextState.toString());
-
-            super.processUpdateMessage(new ObjectDataUpdateMessage(this._nextState, data, this._nextStateExtra));
-        }
-
-        super.update(totalTimeRunning);
+      return
     }
 
-    public processUpdateMessage(message: RoomObjectUpdateMessage): void
-    {
-        if(message instanceof ObjectDataUpdateMessage)
-        {
-            this.processUpdate(message);
+    super.processUpdateMessage(message)
+  }
 
-            return;
-        }
+  private processUpdate(message: ObjectDataUpdateMessage): void {
+    if (!message) return
 
-        super.processUpdateMessage(message);
+    const state = ~~(message.state / 1000)
+    const time = ~~(message.state % 1000)
+
+    if (!time) {
+      this._nextStateTimestamp = 0
+
+      const data = new LegacyDataType()
+
+      data.setString(state.toString())
+
+      super.processUpdateMessage(new ObjectDataUpdateMessage(state, data, message.extra))
+    } else {
+      this._nextState = state
+      this._nextStateExtra = message.extra
+      this._nextStateTimestamp = this.time + time
     }
-
-    private processUpdate(message: ObjectDataUpdateMessage): void
-    {
-        if(!message) return;
-
-        const state = ~~(message.state / 1000);
-        const time = ~~(message.state % 1000);
-
-        if(!time)
-        {
-            this._nextStateTimestamp = 0;
-
-            const data = new LegacyDataType();
-
-            data.setString(state.toString());
-
-            super.processUpdateMessage(new ObjectDataUpdateMessage(state, data, message.extra));
-        }
-        else
-        {
-            this._nextState = state;
-            this._nextStateExtra = message.extra;
-            this._nextStateTimestamp = this.time + time;
-        }
-    }
+  }
 }

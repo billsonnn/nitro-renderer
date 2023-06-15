@@ -1,21 +1,18 @@
-import { RoomObjectWidgetRequestEvent } from '../../../../../events';
-import { FurnitureLogic } from './FurnitureLogic';
+import { RoomObjectWidgetRequestEvent } from '@/events'
+import { FurnitureLogic } from '@/nitro'
 
-export class FurniturePlaceholderLogic extends FurnitureLogic
-{
-    public getEventTypes(): string[]
-    {
-        const types = [
-            RoomObjectWidgetRequestEvent.PLACEHOLDER
-        ];
+export class FurniturePlaceholderLogic extends FurnitureLogic {
+  public getEventTypes(): string[] {
+    const types = [
+      RoomObjectWidgetRequestEvent.PLACEHOLDER
+    ]
 
-        return this.mergeTypes(super.getEventTypes(), types);
-    }
+    return this.mergeTypes(super.getEventTypes(), types)
+  }
 
-    public useObject(): void
-    {
-        if(!this.object || !this.eventDispatcher) return;
+  public useObject(): void {
+    if (!this.object || !this.eventDispatcher) return
 
-        this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.PLACEHOLDER, this.object));
-    }
+    this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.PLACEHOLDER, this.object))
+  }
 }

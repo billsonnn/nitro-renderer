@@ -1,5 +1,5 @@
-import { IRoomObject } from '../../api';
-import { RoomObjectFurnitureActionEvent } from './RoomObjectFurnitureActionEvent';
+import { IRoomObject } from '@/api';
+import { RoomObjectFurnitureActionEvent } from '@/events';
 
 export class RoomObjectPlaySoundIdEvent extends RoomObjectFurnitureActionEvent
 {

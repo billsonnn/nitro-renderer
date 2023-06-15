@@ -1,66 +1,61 @@
-import { IMessageDataWrapper } from '../../../../../communication';
-import { IRoomObjectModel } from '../../../../../room';
-import { RoomObjectVariable } from '../../RoomObjectVariable';
-import { IObjectData } from '../IObjectData';
-import { ObjectDataBase } from '../ObjectDataBase';
-import { ObjectDataKey } from '../ObjectDataKey';
+import {
+  IMessageDataWrapper,
+  IObjectData,
+  IRoomObjectModel,
+  ObjectDataBase,
+  ObjectDataKey,
+  RoomObjectVariable
+} from '@/api'
 
-export class VoteDataType extends ObjectDataBase
-{
-    public static FORMAT_KEY = ObjectDataKey.VOTE_KEY;
+export class VoteDataType extends ObjectDataBase {
+  public static FORMAT_KEY = ObjectDataKey.VOTE_KEY
 
-    private _state: string;
-    private _result: number;
+  private _state: string
 
-    constructor()
-    {
-        super();
+  constructor() {
+    super()
 
-        this._state = '';
-        this._result = 0;
-    }
+    this._state = ''
+    this._result = 0
+  }
 
-    public parseWrapper(wrapper: IMessageDataWrapper): void
-    {
-        if(!wrapper) return;
+  private _result: number
 
-        this._state = wrapper.readString();
-        this._result = wrapper.readInt();
+  public get result(): number {
+    return this._result
+  }
 
-        super.parseWrapper(wrapper);
-    }
+  public parseWrapper(wrapper: IMessageDataWrapper): void {
+    if (!wrapper) return
 
-    public writeRoomObjectModel(model: IRoomObjectModel): void
-    {
-        super.writeRoomObjectModel(model);
+    this._state = wrapper.readString()
+    this._result = wrapper.readInt()
 
-        model.setValue(RoomObjectVariable.FURNITURE_DATA_FORMAT, VoteDataType.FORMAT_KEY);
+    super.parseWrapper(wrapper)
+  }
 
-        const data: { [index: string]: string } = {};
+  public writeRoomObjectModel(model: IRoomObjectModel): void {
+    super.writeRoomObjectModel(model)
 
-        data['S'] = this._state;
-        data['R'] = this._result.toString();
+    model.setValue(RoomObjectVariable.FURNITURE_DATA_FORMAT, VoteDataType.FORMAT_KEY)
 
-        model.setValue(RoomObjectVariable.FURNITURE_DATA, data);
-    }
+    const data: { [index: string]: string } = {}
 
-    public getLegacyString(): string
-    {
-        return this._state;
-    }
+    data['S'] = this._state
+    data['R'] = this._result.toString()
 
-    public compare(data: IObjectData): boolean
-    {
-        return true;
-    }
+    model.setValue(RoomObjectVariable.FURNITURE_DATA, data)
+  }
 
-    public setString(state: string): void
-    {
-        this._state = state;
-    }
+  public getLegacyString(): string {
+    return this._state
+  }
 
-    public get result(): number
-    {
-        return this._result;
-    }
+  public compare(data: IObjectData): boolean {
+    return true
+  }
+
+  public setString(state: string): void {
+    this._state = state
+  }
 }

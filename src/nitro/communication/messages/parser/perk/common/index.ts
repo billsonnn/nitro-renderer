@@ -1,2 +1,2 @@
-export * from './PerkData';
-export * from './PerkEnum';
+export * from './PerkData'
+export * from './PerkEnum'

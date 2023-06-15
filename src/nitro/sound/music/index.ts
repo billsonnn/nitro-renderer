@@ -1,3 +1,3 @@
-export * from './JukeboxPlaylistController';
-export * from './MusicController';
-export * from './MusicPriorities';
+export * from './JukeboxPlaylistController'
+export * from './MusicController'
+export * from './MusicPriorities'

@@ -1,10 +1,9 @@
-import { IDisposable } from './IDisposable';
-import { IEventDispatcher } from './IEventDispatcher';
+import { IDisposable, IEventDispatcher } from '@/api'
 
-export interface INitroManager extends IDisposable
-{
-    init(): void;
-    events: IEventDispatcher;
-    isLoaded: boolean;
-    isLoading: boolean;
+export interface INitroManager extends IDisposable {
+  events: IEventDispatcher;
+  isLoaded: boolean;
+  isLoading: boolean;
+
+  init(): void;
 }

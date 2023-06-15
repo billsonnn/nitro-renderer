@@ -1,1 +1,1 @@
-export * from './RoomObjectLogicBase';
+export * from './RoomObjectLogicBase'

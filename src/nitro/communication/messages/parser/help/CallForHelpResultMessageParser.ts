@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class CallForHelpResultMessageParser implements IMessageParser
-{
-    private _resultType: number;
-    private _messageText: string;
+export class CallForHelpResultMessageParser implements IMessageParser {
+  private _resultType: number
 
-    public flush(): boolean
-    {
-        this._resultType = 0;
-        this._messageText = null;
+  public get resultType(): number {
+    return this._resultType
+  }
 
-        return true;
-    }
+  private _messageText: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get messageText(): string {
+    return this._messageText
+  }
 
-        this._resultType = wrapper.readInt();
-        this._messageText = wrapper.readString();
+  public flush(): boolean {
+    this._resultType = 0
+    this._messageText = null
 
-        return true;
-    }
+    return true
+  }
 
-    public get resultType(): number
-    {
-        return this._resultType;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get messageText(): string
-    {
-        return this._messageText;
-    }
+    this._resultType = wrapper.readInt()
+    this._messageText = wrapper.readString()
+
+    return true
+  }
 }

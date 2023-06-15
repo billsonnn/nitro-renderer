@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class CallForHelpFromPhotoMessageComposer implements IMessageComposer<ConstructorParameters<typeof CallForHelpFromPhotoMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof CallForHelpFromPhotoMessageComposer>;
+export class CallForHelpFromPhotoMessageComposer implements IMessageComposer<ConstructorParameters<typeof CallForHelpFromPhotoMessageComposer>> {
+  private _data: ConstructorParameters<typeof CallForHelpFromPhotoMessageComposer>
 
-    constructor(extraData: string, roomId: number, reportedUserId: number, topicId: number, roomObjectId: number)
-    {
-        this._data = [extraData, roomId, reportedUserId, topicId, roomObjectId];
-    }
+  constructor(extraData: string, roomId: number, reportedUserId: number, topicId: number, roomObjectId: number) {
+    this._data = [extraData, roomId, reportedUserId, topicId, roomObjectId]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

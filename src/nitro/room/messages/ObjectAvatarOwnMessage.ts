@@ -1,4 +1,4 @@
-import { ObjectStateUpdateMessage } from './ObjectStateUpdateMessage';
+import { ObjectStateUpdateMessage } from '@/nitro'
 
-export class ObjectAvatarOwnMessage extends ObjectStateUpdateMessage
-{}
+export class ObjectAvatarOwnMessage extends ObjectStateUpdateMessage {
+}

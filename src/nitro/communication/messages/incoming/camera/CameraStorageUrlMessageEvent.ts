@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { CameraStorageUrlMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { CameraStorageUrlMessageParser } from '@/nitro'
 
-export class CameraStorageUrlMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, CameraStorageUrlMessageParser);
-    }
+export class CameraStorageUrlMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, CameraStorageUrlMessageParser)
+  }
 
-    public getParser(): CameraStorageUrlMessageParser
-    {
-        return this.parser as CameraStorageUrlMessageParser;
-    }
+  public getParser(): CameraStorageUrlMessageParser {
+    return this.parser as CameraStorageUrlMessageParser
+  }
 }

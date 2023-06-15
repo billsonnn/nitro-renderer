@@ -1,4 +1,3 @@
-export interface IFurnitureDataListener
-{
-    loadFurnitureData(): void;
+export interface IFurnitureDataListener {
+  loadFurnitureData(): void;
 }

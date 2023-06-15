@@ -1,2 +1,2 @@
-export * from './UserCreditsParser';
-export * from './UserCurrencyParser';
+export * from './UserCreditsParser'
+export * from './UserCurrencyParser'

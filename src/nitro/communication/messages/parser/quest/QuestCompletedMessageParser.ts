@@ -1,33 +1,29 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { QuestMessageData } from './QuestMessageData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { QuestMessageData } from '@/nitro'
 
-export class QuestCompletedMessageParser implements IMessageParser
-{
-    private _questData: QuestMessageData;
-    private _showDialog: boolean;
+export class QuestCompletedMessageParser implements IMessageParser {
+  private _questData: QuestMessageData
 
-    public flush(): boolean
-    {
-        this._questData = null;
-        return true;
-    }
+  public get questData(): QuestMessageData {
+    return this._questData
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _showDialog: boolean
 
-        this._questData = new QuestMessageData(wrapper);
-        this._showDialog = wrapper.readBoolean();
-        return true;
-    }
+  public get showDialog(): boolean {
+    return this._showDialog
+  }
 
-    public get questData(): QuestMessageData
-    {
-        return this._questData;
-    }
+  public flush(): boolean {
+    this._questData = null
+    return true
+  }
 
-    public get showDialog(): boolean
-    {
-        return this._showDialog;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._questData = new QuestMessageData(wrapper)
+    this._showDialog = wrapper.readBoolean()
+    return true
+  }
 }

@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class MiniMailUnreadCountParser implements IMessageParser
-{
-    private _count: number;
+export class MiniMailUnreadCountParser implements IMessageParser {
+  private _count: number
 
-    public flush(): boolean
-    {
-        this._count = 0;
+  public get count(): number {
+    return this._count
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._count = 0
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._count = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._count = wrapper.readInt()
 
-    public get count(): number
-    {
-        return this._count;
-    }
+    return true
+  }
 }

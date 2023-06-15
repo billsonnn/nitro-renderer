@@ -1,51 +1,46 @@
-import { RoomObjectVariable } from '../../../../../api';
-import { FurnitureDynamicThumbnailVisualization } from './FurnitureDynamicThumbnailVisualization';
+import { RoomObjectVariable } from '@/api'
+import { FurnitureDynamicThumbnailVisualization } from '@/nitro'
 
-export class FurnitureExternalImageVisualization extends FurnitureDynamicThumbnailVisualization
-{
-    private _url: string;
-    private _typePrefix: string;
+export class FurnitureExternalImageVisualization extends FurnitureDynamicThumbnailVisualization {
+  private _url: string
+  private _typePrefix: string
 
-    constructor()
-    {
-        super();
+  constructor() {
+    super()
 
-        this._url = null;
-        this._typePrefix = null;
+    this._url = null
+    this._typePrefix = null
+  }
+
+  protected getThumbnailURL(): string {
+    if (!this.object) return null
+
+    if (this._url) return this._url
+
+    const jsonString = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_DATA)
+
+    if (!jsonString || jsonString === '') return null
+
+    if (this.object.type.indexOf('') >= 0) {
+      this._typePrefix = (this.object.type.indexOf('') >= 0) ? '' : 'postcards/selfie/'
     }
 
-    protected getThumbnailURL(): string
-    {
-        if(!this.object) return null;
+    const json = JSON.parse(jsonString)
 
-        if(this._url) return this._url;
+    let url = (json.w || '')
 
-        const jsonString = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_DATA);
+    url = this.buildThumbnailUrl(url)
 
-        if(!jsonString || jsonString === '') return null;
+    this._url = url
 
-        if(this.object.type.indexOf('') >= 0)
-        {
-            this._typePrefix = (this.object.type.indexOf('') >= 0) ? '' : 'postcards/selfie/';
-        }
+    return this._url
+  }
 
-        const json = JSON.parse(jsonString);
+  private buildThumbnailUrl(url: string): string {
+    url = url.replace('.png', '_small.png')
 
-        let url = (json.w || '');
+    if (url.indexOf('.png') === -1) url = (url + '_small.png')
 
-        url = this.buildThumbnailUrl(url);
-
-        this._url = url;
-
-        return this._url;
-    }
-
-    private buildThumbnailUrl(url: string): string
-    {
-        url = url.replace('.png', '_small.png');
-
-        if(url.indexOf('.png') === -1) url = (url + '_small.png');
-
-        return url;
-    }
+    return url
+  }
 }

@@ -1,1 +1,1 @@
-export * from './OpenPresentComposer';
+export * from './OpenPresentComposer'

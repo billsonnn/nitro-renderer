@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser, RoomControllerLevel } from '../../../../../../../api';
+import { IMessageDataWrapper, IMessageParser, RoomControllerLevel } from '@/api'
 
-export class RoomRightsParser implements IMessageParser
-{
-    private _controllerLevel: number;
+export class RoomRightsParser implements IMessageParser {
+  private _controllerLevel: number
 
-    public flush(): boolean
-    {
-        this._controllerLevel = RoomControllerLevel.NONE;
+  public get controllerLevel(): number {
+    return this._controllerLevel
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._controllerLevel = RoomControllerLevel.NONE
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._controllerLevel = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._controllerLevel = wrapper.readInt()
 
-    public get controllerLevel(): number
-    {
-        return this._controllerLevel;
-    }
+    return true
+  }
 }

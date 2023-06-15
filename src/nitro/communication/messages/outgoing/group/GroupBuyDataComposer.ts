@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GroupBuyDataComposer implements IMessageComposer<ConstructorParameters<typeof GroupBuyDataComposer>>
-{
-    private _data: ConstructorParameters<typeof GroupBuyDataComposer>;
+export class GroupBuyDataComposer implements IMessageComposer<ConstructorParameters<typeof GroupBuyDataComposer>> {
+  private _data: ConstructorParameters<typeof GroupBuyDataComposer>
 
-    constructor()
-    {
-        this._data = [];
-    }
+  constructor() {
+    this._data = []
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

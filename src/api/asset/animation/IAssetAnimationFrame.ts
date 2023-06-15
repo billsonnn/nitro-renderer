@@ -1,8 +1,7 @@
-import { IAssetAnimationFramePart } from './IAssetAnimationFramePart';
+import { IAssetAnimationFramePart } from '@/api'
 
-export interface IAssetAnimationFrame
-{
-    repeats?: number;
-    fxs?: IAssetAnimationFramePart[];
-    bodyparts?: IAssetAnimationFramePart[];
+export interface IAssetAnimationFrame {
+  repeats?: number;
+  fxs?: IAssetAnimationFramePart[];
+  bodyparts?: IAssetAnimationFramePart[];
 }

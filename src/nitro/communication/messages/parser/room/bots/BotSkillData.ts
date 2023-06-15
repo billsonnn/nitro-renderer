@@ -1,23 +1,20 @@
-import { IMessageDataWrapper } from '../../../../../../api';
+import { IMessageDataWrapper } from '@/api'
 
-export class BotSkillData
-{
-    private _id: number;
-    private _data: string;
+export class BotSkillData {
+  constructor(wrapper: IMessageDataWrapper) {
+    this._id = wrapper.readInt()
+    this._data = wrapper.readString()
+  }
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        this._id = wrapper.readInt();
-        this._data = wrapper.readString();
-    }
+  private _id: number
 
-    public get id(): number
-    {
-        return this._id;
-    }
+  public get id(): number {
+    return this._id
+  }
 
-    public get data(): string
-    {
-        return this._data;
-    }
+  private _data: string
+
+  public get data(): string {
+    return this._data
+  }
 }

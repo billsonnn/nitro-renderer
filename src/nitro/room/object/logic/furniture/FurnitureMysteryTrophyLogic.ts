@@ -1,25 +1,21 @@
-import { ContextMenuEnum } from '../../../../../api';
-import { RoomObjectWidgetRequestEvent } from '../../../../../events';
-import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
+import { ContextMenuEnum } from '@/api'
+import { RoomObjectWidgetRequestEvent } from '@/events'
+import { FurnitureMultiStateLogic } from '@/nitro'
 
-export class FurnitureMysteryTrophyLogic extends FurnitureMultiStateLogic
-{
-    public getEventTypes(): string[]
-    {
-        const types = [RoomObjectWidgetRequestEvent.MYSTERYTROPHY_OPEN_DIALOG];
+export class FurnitureMysteryTrophyLogic extends FurnitureMultiStateLogic {
+  public get contextMenu(): string {
+    return ContextMenuEnum.MYSTERY_TROPHY
+  }
 
-        return this.mergeTypes(super.getEventTypes(), types);
-    }
+  public getEventTypes(): string[] {
+    const types = [RoomObjectWidgetRequestEvent.MYSTERYTROPHY_OPEN_DIALOG]
 
-    public useObject(): void
-    {
-        if(!this.object || !this.eventDispatcher) return;
+    return this.mergeTypes(super.getEventTypes(), types)
+  }
 
-        this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.MYSTERYTROPHY_OPEN_DIALOG, this.object));
-    }
+  public useObject(): void {
+    if (!this.object || !this.eventDispatcher) return
 
-    public get contextMenu(): string
-    {
-        return ContextMenuEnum.MYSTERY_TROPHY;
-    }
+    this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.MYSTERYTROPHY_OPEN_DIALOG, this.object))
+  }
 }

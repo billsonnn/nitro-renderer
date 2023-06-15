@@ -1,30 +1,27 @@
-﻿import { IProductData } from '../../../api';
+﻿import { IProductData } from '@/api'
 
-export class ProductData implements IProductData
-{
-    private _type: string;
-    private _name: string;
-    private _description: string;
+export class ProductData implements IProductData {
+  constructor(type: string, name: string, description: string) {
+    this._type = type
+    this._name = name
+    this._description = description
+  }
 
-    constructor(type: string, name: string, description: string)
-    {
-        this._type = type;
-        this._name = name;
-        this._description = description;
-    }
+  private _type: string
 
-    public get type(): string
-    {
-        return this._type;
-    }
+  public get type(): string {
+    return this._type
+  }
 
-    public get name(): string
-    {
-        return this._name;
-    }
+  private _name: string
 
-    public get description(): string
-    {
-        return this._description;
-    }
+  public get name(): string {
+    return this._name
+  }
+
+  private _description: string
+
+  public get description(): string {
+    return this._description
+  }
 }

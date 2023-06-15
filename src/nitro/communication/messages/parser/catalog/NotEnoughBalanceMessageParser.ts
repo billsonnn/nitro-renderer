@@ -1,44 +1,40 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class NotEnoughBalanceMessageParser implements IMessageParser
-{
-    private _notEnoughCredits: boolean = false;
-    private _notEnoughActivityPoints: boolean = false;
-    private _activityPointType: number = 0;
+export class NotEnoughBalanceMessageParser implements IMessageParser {
+  private _notEnoughCredits: boolean = false
 
-    public flush(): boolean
-    {
-        this._notEnoughCredits = false;
-        this._notEnoughActivityPoints = false;
-        this._activityPointType = 0;
+  public get notEnoughCredits(): boolean {
+    return this._notEnoughCredits
+  }
 
-        return true;
-    }
+  private _notEnoughActivityPoints: boolean = false
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get notEnoughActivityPoints(): boolean {
+    return this._notEnoughActivityPoints
+  }
 
-        this._notEnoughCredits = wrapper.readBoolean();
-        this._notEnoughActivityPoints = wrapper.readBoolean();
+  private _activityPointType: number = 0
 
-        if(wrapper.bytesAvailable) this._activityPointType = wrapper.readInt();
+  public get activityPointType(): number {
+    return this._activityPointType
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._notEnoughCredits = false
+    this._notEnoughActivityPoints = false
+    this._activityPointType = 0
 
-    public get notEnoughCredits(): boolean
-    {
-        return this._notEnoughCredits;
-    }
+    return true
+  }
 
-    public get notEnoughActivityPoints(): boolean
-    {
-        return this._notEnoughActivityPoints;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get activityPointType(): number
-    {
-        return this._activityPointType;
-    }
+    this._notEnoughCredits = wrapper.readBoolean()
+    this._notEnoughActivityPoints = wrapper.readBoolean()
+
+    if (wrapper.bytesAvailable) this._activityPointType = wrapper.readInt()
+
+    return true
+  }
 }

@@ -1,51 +1,46 @@
-import { IMessageDataWrapper } from '../../../../../api';
+import { IMessageDataWrapper } from '@/api'
 
-export class NavigatorEventCategoryDataParser
-{
-    private _id: number;
-    private _name: string;
-    private _visible: boolean;
+export class NavigatorEventCategoryDataParser {
+  constructor(wrapper: IMessageDataWrapper) {
+    if (!wrapper) throw new Error('invalid_wrapper')
 
-    constructor(wrapper: IMessageDataWrapper)
-    {
-        if(!wrapper) throw new Error('invalid_wrapper');
+    this.flush()
+    this.parse(wrapper)
+  }
 
-        this.flush();
-        this.parse(wrapper);
-    }
+  private _id: number
 
-    public flush(): boolean
-    {
-        this._id = -1;
-        this._name = null;
-        this._visible = false;
+  public get id(): number {
+    return this._id
+  }
 
-        return true;
-    }
+  private _name: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get name(): string {
+    return this._name
+  }
 
-        this._id = wrapper.readInt();
-        this._name = wrapper.readString();
-        this._visible = wrapper.readBoolean();
+  private _visible: boolean
 
-        return true;
-    }
+  public get visible(): boolean {
+    return this._visible
+  }
 
-    public get id(): number
-    {
-        return this._id;
-    }
+  public flush(): boolean {
+    this._id = -1
+    this._name = null
+    this._visible = false
 
-    public get name(): string
-    {
-        return this._name;
-    }
+    return true
+  }
 
-    public get visible(): boolean
-    {
-        return this._visible;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._id = wrapper.readInt()
+    this._name = wrapper.readString()
+    this._visible = wrapper.readBoolean()
+
+    return true
+  }
 }

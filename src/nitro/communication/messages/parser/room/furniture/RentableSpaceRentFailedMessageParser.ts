@@ -1,25 +1,21 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class RentableSpaceRentFailedMessageParser implements IMessageParser
-{
-    private _reason: number;
+export class RentableSpaceRentFailedMessageParser implements IMessageParser {
+  private _reason: number
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get reason(): number {
+    return this._reason
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public flush(): boolean {
+    return true
+  }
 
-        this._reason = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._reason = wrapper.readInt()
 
-    public get reason(): number
-    {
-        return this._reason;
-    }
+    return true
+  }
 }

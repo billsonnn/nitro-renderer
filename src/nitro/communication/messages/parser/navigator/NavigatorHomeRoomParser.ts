@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class NavigatorHomeRoomParser implements IMessageParser
-{
-    private _homeRoomId: number;
-    private _roomIdToEnter: number;
+export class NavigatorHomeRoomParser implements IMessageParser {
+  private _homeRoomId: number
 
-    public flush(): boolean
-    {
-        this._homeRoomId = -1;
-        this._roomIdToEnter = -1;
+  public get homeRoomId(): number {
+    return this._homeRoomId
+  }
 
-        return true;
-    }
+  private _roomIdToEnter: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get roomIdToEnter(): number {
+    return this._roomIdToEnter
+  }
 
-        this._homeRoomId = wrapper.readInt();
-        this._roomIdToEnter = wrapper.readInt();
+  public flush(): boolean {
+    this._homeRoomId = -1
+    this._roomIdToEnter = -1
 
-        return true;
-    }
+    return true
+  }
 
-    public get homeRoomId(): number
-    {
-        return this._homeRoomId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get roomIdToEnter(): number
-    {
-        return this._roomIdToEnter;
-    }
+    this._homeRoomId = wrapper.readInt()
+    this._roomIdToEnter = wrapper.readInt()
+
+    return true
+  }
 }

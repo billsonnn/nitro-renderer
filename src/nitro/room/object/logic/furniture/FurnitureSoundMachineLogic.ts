@@ -1,89 +1,78 @@
-import { RoomObjectVariable, RoomWidgetEnumItemExtradataParameter } from '../../../../../api';
-import { RoomObjectFurnitureActionEvent } from '../../../../../events';
-import { RoomObjectUpdateMessage } from '../../../../../room';
-import { ObjectDataUpdateMessage } from '../../../messages';
-import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
+import { RoomObjectVariable, RoomWidgetEnumItemExtradataParameter } from '@/api'
+import { RoomObjectFurnitureActionEvent } from '@/events'
+import { RoomObjectUpdateMessage } from '@/room'
+import { FurnitureMultiStateLogic, ObjectDataUpdateMessage } from '@/nitro'
 
-export class FurnitureSoundMachineLogic extends FurnitureMultiStateLogic
-{
-    private _disposeEventsAllowed: boolean = false;
-    private _isInitialized: boolean = false;
-    private _currentState: number = -1;
+export class FurnitureSoundMachineLogic extends FurnitureMultiStateLogic {
+  private _disposeEventsAllowed: boolean = false
+  private _isInitialized: boolean = false
+  private _currentState: number = -1
 
-    public getEventTypes(): string[]
-    {
-        const types = [
-            RoomObjectFurnitureActionEvent.SOUND_MACHINE_START,
-            RoomObjectFurnitureActionEvent.SOUND_MACHINE_STOP,
-            RoomObjectFurnitureActionEvent.SOUND_MACHINE_DISPOSE,
-            RoomObjectFurnitureActionEvent.SOUND_MACHINE_INIT
-        ];
+  public getEventTypes(): string[] {
+    const types = [
+      RoomObjectFurnitureActionEvent.SOUND_MACHINE_START,
+      RoomObjectFurnitureActionEvent.SOUND_MACHINE_STOP,
+      RoomObjectFurnitureActionEvent.SOUND_MACHINE_DISPOSE,
+      RoomObjectFurnitureActionEvent.SOUND_MACHINE_INIT
+    ]
 
-        return this.mergeTypes(super.getEventTypes(), types);
+    return this.mergeTypes(super.getEventTypes(), types)
+  }
+
+  public processUpdateMessage(message: RoomObjectUpdateMessage): void {
+    super.processUpdateMessage(message)
+
+    if (this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) !== 1) return
+
+    if (!this._isInitialized) this.requestInit()
+
+    this.object.model.setValue<string>(RoomWidgetEnumItemExtradataParameter.INFOSTAND_EXTRA_PARAM, RoomWidgetEnumItemExtradataParameter.JUKEBOX)
+
+    if (message instanceof ObjectDataUpdateMessage) {
+      const state = this.object.getState(0)
+
+      if (state !== this._currentState) {
+        this._currentState = state
+
+        if (state === 1) this.requestPlayList()
+        else if (state === 0) this.requestStopPlaying()
+      }
     }
+  }
 
-    protected onDispose(): void
-    {
-        this.requestDispose();
+  protected onDispose(): void {
+    this.requestDispose()
 
-        super.onDispose();
-    }
+    super.onDispose()
+  }
 
-    public processUpdateMessage(message: RoomObjectUpdateMessage): void
-    {
-        super.processUpdateMessage(message);
+  private requestInit(): void {
+    if (!this.object || !this.eventDispatcher) return
 
-        if(this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_REAL_ROOM_OBJECT) !== 1) return;
+    this._disposeEventsAllowed = true
 
-        if(!this._isInitialized) this.requestInit();
+    this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.SOUND_MACHINE_INIT, this.object))
 
-        this.object.model.setValue<string>(RoomWidgetEnumItemExtradataParameter.INFOSTAND_EXTRA_PARAM, RoomWidgetEnumItemExtradataParameter.JUKEBOX);
+    this._isInitialized = true
+  }
 
-        if(message instanceof ObjectDataUpdateMessage)
-        {
-            const state = this.object.getState(0);
+  private requestPlayList(): void {
+    if (!this.object || !this.eventDispatcher) return
 
-            if(state !== this._currentState)
-            {
-                this._currentState = state;
+    this._disposeEventsAllowed = true
 
-                if(state === 1) this.requestPlayList();
-                else if(state === 0) this.requestStopPlaying();
-            }
-        }
-    }
+    this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.SOUND_MACHINE_START, this.object))
+  }
 
-    private requestInit(): void
-    {
-        if(!this.object || !this.eventDispatcher) return;
+  private requestStopPlaying(): void {
+    if (!this.object || !this.eventDispatcher) return
 
-        this._disposeEventsAllowed = true;
+    this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.SOUND_MACHINE_STOP, this.object))
+  }
 
-        this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.SOUND_MACHINE_INIT, this.object));
+  private requestDispose(): void {
+    if (!this._disposeEventsAllowed || !this.object || !this.eventDispatcher) return
 
-        this._isInitialized = true;
-    }
-
-    private requestPlayList(): void
-    {
-        if(!this.object || !this.eventDispatcher) return;
-
-        this._disposeEventsAllowed = true;
-
-        this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.SOUND_MACHINE_START, this.object));
-    }
-
-    private requestStopPlaying(): void
-    {
-        if(!this.object || !this.eventDispatcher) return;
-
-        this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.SOUND_MACHINE_STOP, this.object));
-    }
-
-    private requestDispose(): void
-    {
-        if(!this._disposeEventsAllowed || !this.object || !this.eventDispatcher) return;
-
-        this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.SOUND_MACHINE_DISPOSE, this.object));
-    }
+    this.eventDispatcher.dispatchEvent(new RoomObjectFurnitureActionEvent(RoomObjectFurnitureActionEvent.SOUND_MACHINE_DISPOSE, this.object))
+  }
 }

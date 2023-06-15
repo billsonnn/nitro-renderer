@@ -1,70 +1,60 @@
-﻿import { RenderTexture } from '@pixi/core';
-import { IAssetPlane, IVector3D } from '../../../../../../../api';
-import { PlaneTextureCache } from '../../../../../../../pixi-proxy';
-import { PlaneBitmapData } from '../../utils';
-import { PlaneRasterizer } from './PlaneRasterizer';
-import { WallPlane } from './WallPlane';
+﻿import { RenderTexture } from '@pixi/core'
+import { IAssetPlane, IVector3D } from '@/api'
+import { PlaneTextureCache } from '@/pixi-proxy'
+import { PlaneBitmapData, PlaneRasterizer, WallPlane } from '@/nitro'
 
-export class WallRasterizer extends PlaneRasterizer
-{
-    protected initializePlanes(): void
-    {
-        if(!this.data) return;
+export class WallRasterizer extends PlaneRasterizer {
+  public render(planeId: string, textureCache: PlaneTextureCache, canvas: RenderTexture, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData {
+    let plane = this.getPlane(id) as WallPlane
 
-        const walls = this.data.planes;
+    if (!plane) plane = this.getPlane(PlaneRasterizer.DEFAULT) as WallPlane
 
-        if(walls && walls.length) this.parseWalls(walls);
+    if (!plane) return null
+
+    if (canvas) textureCache.clearAndFillRenderTexture(canvas)
+
+    let graphic = plane.render(planeId, textureCache, canvas, width, height, scale, normal, useTexture)
+
+    if (graphic && (graphic !== canvas)) {
+      graphic = new RenderTexture(graphic.baseTexture)
+
+      if (!graphic) return null
     }
 
-    private parseWalls(k: IAssetPlane[]): void
-    {
-        if(!k) return;
+    return new PlaneBitmapData(graphic, -1)
+  }
 
-        for(const wallIndex in k)
-        {
-            const wall = k[wallIndex];
-
-            if(!wall) continue;
-
-            const id = wall.id;
-            const visualization = wall.visualizations;
-            const plane = new WallPlane();
-
-            this.parseVisualizations(plane, visualization);
-
-            if(!this.addPlane(id, plane)) plane.dispose();
-        }
+  public getTextureIdentifier(k: number, normal: IVector3D): string {
+    if (normal) {
+      return `${ k }_${ normal.x }_${ normal.y }_${ normal.z }`
     }
 
-    public render(planeId: string, textureCache: PlaneTextureCache, canvas: RenderTexture, id: string, width: number, height: number, scale: number, normal: IVector3D, useTexture: boolean, offsetX: number = 0, offsetY: number = 0, maxX: number = 0, maxY: number = 0, timeSinceStartMs: number = 0): PlaneBitmapData
-    {
-        let plane = this.getPlane(id) as WallPlane;
+    return super.getTextureIdentifier(k, normal)
+  }
 
-        if(!plane) plane = this.getPlane(PlaneRasterizer.DEFAULT) as WallPlane;
+  protected initializePlanes(): void {
+    if (!this.data) return
 
-        if(!plane) return null;
+    const walls = this.data.planes
 
-        if(canvas) textureCache.clearAndFillRenderTexture(canvas);
+    if (walls && walls.length) this.parseWalls(walls)
+  }
 
-        let graphic = plane.render(planeId, textureCache, canvas, width, height, scale, normal, useTexture);
+  private parseWalls(k: IAssetPlane[]): void {
+    if (!k) return
 
-        if(graphic && (graphic !== canvas))
-        {
-            graphic = new RenderTexture(graphic.baseTexture);
+    for (const wallIndex in k) {
+      const wall = k[wallIndex]
 
-            if(!graphic) return null;
-        }
+      if (!wall) continue
 
-        return new PlaneBitmapData(graphic, -1);
+      const id = wall.id
+      const visualization = wall.visualizations
+      const plane = new WallPlane()
+
+      this.parseVisualizations(plane, visualization)
+
+      if (!this.addPlane(id, plane)) plane.dispose()
     }
-
-    public getTextureIdentifier(k: number, normal: IVector3D): string
-    {
-        if(normal)
-        {
-            return `${k}_${normal.x}_${normal.y}_${normal.z}`;
-        }
-
-        return super.getTextureIdentifier(k, normal);
-    }
+  }
 }

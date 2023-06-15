@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class WiredRewardResultMessageParser implements IMessageParser
-{
-    private _reason: number;
+export class WiredRewardResultMessageParser implements IMessageParser {
+  private _reason: number
 
-    public flush(): boolean
-    {
-        this._reason = 0;
+  public get reason(): number {
+    return this._reason
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._reason = 0
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._reason = wrapper.readInt();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._reason = wrapper.readInt()
 
-    public get reason(): number
-    {
-        return this._reason;
-    }
+    return true
+  }
 }

@@ -1,33 +1,29 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class IsUserPartOfCompetitionMessageParser implements IMessageParser
-{
-    private _isPartOf: boolean;
-    private _targetId: number;
+export class IsUserPartOfCompetitionMessageParser implements IMessageParser {
+  private _isPartOf: boolean
 
-    public flush(): boolean
-    {
-        this._isPartOf = false;
-        this._targetId = 0;
+  public get isPartOf(): boolean {
+    return this._isPartOf
+  }
 
-        return true;
-    }
+  private _targetId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        this._isPartOf = wrapper.readBoolean();
-        this._targetId = wrapper.readInt();
+  public get targetId(): number {
+    return this._targetId
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._isPartOf = false
+    this._targetId = 0
 
-    public get isPartOf(): boolean
-    {
-        return this._isPartOf;
-    }
+    return true
+  }
 
-    public get targetId(): number
-    {
-        return this._targetId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    this._isPartOf = wrapper.readBoolean()
+    this._targetId = wrapper.readInt()
+
+    return true
+  }
 }

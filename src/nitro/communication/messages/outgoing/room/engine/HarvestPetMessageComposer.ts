@@ -1,9 +1,7 @@
-import { PetMessageComposer } from './PetMessageComposer';
+import { PetMessageComposer } from '@/nitro'
 
-export class HarvestPetMessageComposer extends PetMessageComposer
-{
-    constructor(id: number)
-    {
-        super(id);
-    }
+export class HarvestPetMessageComposer extends PetMessageComposer {
+  constructor(id: number) {
+    super(id)
+  }
 }

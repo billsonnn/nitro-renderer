@@ -1,1 +1,1 @@
-export * from './AvatarLogic';
+export * from './AvatarLogic'

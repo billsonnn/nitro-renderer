@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class CallForHelpMessageComposer implements IMessageComposer<any>
-{
-    private _data: any;
+export class CallForHelpMessageComposer implements IMessageComposer<any> {
+  private _data: any
 
-    constructor(message: string, topicIndex: number, reportedUserId: number, reportedRoomId: number, chatEntries: (string | number)[])
-    {
-        this._data = [message, topicIndex, reportedUserId, reportedRoomId, chatEntries.length / 2, ...chatEntries];
-    }
+  constructor(message: string, topicIndex: number, reportedUserId: number, reportedRoomId: number, chatEntries: (string | number)[]) {
+    this._data = [message, topicIndex, reportedUserId, reportedRoomId, chatEntries.length / 2, ...chatEntries]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

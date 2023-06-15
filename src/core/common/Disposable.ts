@@ -1,40 +1,35 @@
-import { IDisposable } from '../../api';
+import { IDisposable } from '@/api'
 
-export class Disposable implements IDisposable
-{
-    protected _isDisposed: boolean;
-    protected _isDisposing: boolean;
+export class Disposable implements IDisposable {
+  protected _isDisposed: boolean
 
-    constructor()
-    {
-        this._isDisposed = false;
-        this._isDisposing = false;
-    }
+  constructor() {
+    this._isDisposed = false
+    this._isDisposing = false
+  }
 
-    public dispose(): void
-    {
-        if(this._isDisposed || this._isDisposing) return;
+  protected _isDisposing: boolean
 
-        this._isDisposing = true;
+  public get isDisposing(): boolean {
+    return this._isDisposing
+  }
 
-        this.onDispose();
+  public get disposed(): boolean {
+    return this._isDisposed
+  }
 
-        this._isDisposed = true;
-        this._isDisposing = false;
-    }
+  public dispose(): void {
+    if (this._isDisposed || this._isDisposing) return
 
-    protected onDispose(): void
-    {
-        return;
-    }
+    this._isDisposing = true
 
-    public get disposed(): boolean
-    {
-        return this._isDisposed;
-    }
+    this.onDispose()
 
-    public get isDisposing(): boolean
-    {
-        return this._isDisposing;
-    }
+    this._isDisposed = true
+    this._isDisposing = false
+  }
+
+  protected onDispose(): void {
+    return
+  }
 }

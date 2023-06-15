@@ -1,45 +1,42 @@
-import { IMessageDataWrapper } from '../../../../../api';
-import { ChatRecordData } from './ChatRecordData';
+import { IMessageDataWrapper } from '@/api'
+import { ChatRecordData } from '@/nitro'
 
-export class CfhChatlogData
-{
-    private _issueId: number;
-    private _callerUserId: number;
-    private _reportedUserId: number;
-    private _chatRecordId: number;
-    private _chatRecord: ChatRecordData;
+export class CfhChatlogData {
+  constructor(k: IMessageDataWrapper) {
+    this._issueId = k.readInt()
+    this._callerUserId = k.readInt()
+    this._reportedUserId = k.readInt()
+    this._chatRecordId = k.readInt()
+    this._chatRecord = new ChatRecordData(k)
+  }
 
-    constructor(k: IMessageDataWrapper)
-    {
-        this._issueId = k.readInt();
-        this._callerUserId = k.readInt();
-        this._reportedUserId = k.readInt();
-        this._chatRecordId = k.readInt();
-        this._chatRecord = new ChatRecordData(k);
-    }
+  private _issueId: number
 
-    public get issueId(): number
-    {
-        return this._issueId;
-    }
+  public get issueId(): number {
+    return this._issueId
+  }
 
-    public get callerUserId(): number
-    {
-        return this._callerUserId;
-    }
+  private _callerUserId: number
 
-    public get reportedUserId(): number
-    {
-        return this._reportedUserId;
-    }
+  public get callerUserId(): number {
+    return this._callerUserId
+  }
 
-    public get chatRecordId(): number
-    {
-        return this._chatRecordId;
-    }
+  private _reportedUserId: number
 
-    public get chatRecord(): ChatRecordData
-    {
-        return this._chatRecord;
-    }
+  public get reportedUserId(): number {
+    return this._reportedUserId
+  }
+
+  private _chatRecordId: number
+
+  public get chatRecordId(): number {
+    return this._chatRecordId
+  }
+
+  private _chatRecord: ChatRecordData
+
+  public get chatRecord(): ChatRecordData {
+    return this._chatRecord
+  }
 }

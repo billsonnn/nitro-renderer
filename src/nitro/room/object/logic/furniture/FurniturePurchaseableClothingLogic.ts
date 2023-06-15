@@ -1,28 +1,24 @@
-import { ContextMenuEnum } from '../../../../../api';
-import { RoomObjectWidgetRequestEvent } from '../../../../../events';
-import { FurnitureMultiStateLogic } from './FurnitureMultiStateLogic';
+import { ContextMenuEnum } from '@/api'
+import { RoomObjectWidgetRequestEvent } from '@/events'
+import { FurnitureMultiStateLogic } from '@/nitro'
 
-export class FurniturePurchaseableClothingLogic extends FurnitureMultiStateLogic
-{
+export class FurniturePurchaseableClothingLogic extends FurnitureMultiStateLogic {
 
-    public getEventTypes(): string[]
-    {
-        const types = [
-            RoomObjectWidgetRequestEvent.PURCHASABLE_CLOTHING_CONFIRMATION_DIALOG,
-        ];
+  public get contextMenu(): string {
+    return ContextMenuEnum.PURCHASABLE_CLOTHING
+  }
 
-        return this.mergeTypes(super.getEventTypes(), types);
-    }
+  public getEventTypes(): string[] {
+    const types = [
+      RoomObjectWidgetRequestEvent.PURCHASABLE_CLOTHING_CONFIRMATION_DIALOG
+    ]
 
-    public useObject(): void
-    {
-        if(!this.object || !this.eventDispatcher) return;
+    return this.mergeTypes(super.getEventTypes(), types)
+  }
 
-        this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.PURCHASABLE_CLOTHING_CONFIRMATION_DIALOG, this.object));
-    }
+  public useObject(): void {
+    if (!this.object || !this.eventDispatcher) return
 
-    public get contextMenu(): string
-    {
-        return ContextMenuEnum.PURCHASABLE_CLOTHING;
-    }
+    this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.PURCHASABLE_CLOTHING_CONFIRMATION_DIALOG, this.object))
+  }
 }

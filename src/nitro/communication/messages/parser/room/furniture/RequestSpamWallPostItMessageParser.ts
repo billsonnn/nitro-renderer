@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class RequestSpamWallPostItMessageParser implements IMessageParser
-{
-    private _itemId: number;
-    private _location: string;
+export class RequestSpamWallPostItMessageParser implements IMessageParser {
+  private _itemId: number
 
-    public flush(): boolean
-    {
-        this._itemId = -1;
-        this._location = '';
+  public get itemId(): number {
+    return this._itemId
+  }
 
-        return true;
-    }
+  private _location: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get location(): string {
+    return this._location
+  }
 
-        this._itemId = wrapper.readInt();
-        this._location = wrapper.readString();
+  public flush(): boolean {
+    this._itemId = -1
+    this._location = ''
 
-        return true;
-    }
+    return true
+  }
 
-    public get itemId(): number
-    {
-        return this._itemId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get location(): string
-    {
-        return this._location;
-    }
+    this._itemId = wrapper.readInt()
+    this._location = wrapper.readString()
+
+    return true
+  }
 }

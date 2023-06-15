@@ -1,6 +1,6 @@
-﻿import { IRoomSession } from '../../api';
-import { RoomSessionDimmerPresetsEventPresetItem } from './RoomSessionDimmerPresetsEventPresetItem';
-import { RoomSessionEvent } from './RoomSessionEvent';
+﻿import { IRoomSession } from '@/api';
+import { RoomSessionDimmerPresetsEventPresetItem } from '@/events';
+import { RoomSessionEvent } from '@/events';
 
 export class RoomSessionDimmerPresetsEvent extends RoomSessionEvent
 {

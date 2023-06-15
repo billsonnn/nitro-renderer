@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class FlatControllerRemovedParser implements IMessageParser
-{
-    private _roomId: number;
-    private _userId: number;
+export class FlatControllerRemovedParser implements IMessageParser {
+  private _roomId: number
 
-    public flush(): boolean
-    {
-        this._roomId = 0;
-        this._userId = 0;
+  public get roomId(): number {
+    return this._roomId
+  }
 
-        return true;
-    }
+  private _userId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get userId(): number {
+    return this._userId
+  }
 
-        this._roomId = wrapper.readInt();
-        this._userId = wrapper.readInt();
+  public flush(): boolean {
+    this._roomId = 0
+    this._userId = 0
 
-        return true;
-    }
+    return true
+  }
 
-    public get roomId(): number
-    {
-        return this._roomId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get userId(): number
-    {
-        return this._userId;
-    }
+    this._roomId = wrapper.readInt()
+    this._userId = wrapper.readInt()
+
+    return true
+  }
 }

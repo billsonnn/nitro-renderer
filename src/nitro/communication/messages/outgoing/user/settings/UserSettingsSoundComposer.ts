@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class UserSettingsSoundComposer implements IMessageComposer<ConstructorParameters<typeof UserSettingsSoundComposer>>
-{
-    private _data: ConstructorParameters<typeof UserSettingsSoundComposer>;
+export class UserSettingsSoundComposer implements IMessageComposer<ConstructorParameters<typeof UserSettingsSoundComposer>> {
+  private _data: ConstructorParameters<typeof UserSettingsSoundComposer>
 
-    constructor(volumeSystem: number, volumeFurni: number, volumeTrax: number)
-    {
-        this._data = [volumeSystem, volumeFurni, volumeTrax];
-    }
+  constructor(volumeSystem: number, volumeFurni: number, volumeTrax: number) {
+    this._data = [volumeSystem, volumeFurni, volumeTrax]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

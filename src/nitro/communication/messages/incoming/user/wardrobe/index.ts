@@ -1,1 +1,1 @@
-export * from './UserWardrobePageEvent';
+export * from './UserWardrobePageEvent'

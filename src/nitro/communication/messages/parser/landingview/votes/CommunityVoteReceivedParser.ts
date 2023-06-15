@@ -1,23 +1,19 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class CommunityVoteReceivedParser implements IMessageParser
-{
-    private _acknowledged: boolean;
+export class CommunityVoteReceivedParser implements IMessageParser {
+  private _acknowledged: boolean
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get acknowledged(): boolean {
+    return this._acknowledged
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
-        this._acknowledged = wrapper.readBoolean();
-        return true;
-    }
+  public flush(): boolean {
+    return true
+  }
 
-    public get acknowledged(): boolean
-    {
-        return this._acknowledged;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+    this._acknowledged = wrapper.readBoolean()
+    return true
+  }
 }

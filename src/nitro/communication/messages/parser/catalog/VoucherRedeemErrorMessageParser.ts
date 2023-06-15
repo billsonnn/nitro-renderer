@@ -1,26 +1,22 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class VoucherRedeemErrorMessageParser implements IMessageParser
-{
-    private _errorCode: string = '';
+export class VoucherRedeemErrorMessageParser implements IMessageParser {
+  private _errorCode: string = ''
 
-    public flush(): boolean
-    {
-        this._errorCode = '';
-        return true;
-    }
+  public get errorCode(): string {
+    return this._errorCode
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public flush(): boolean {
+    this._errorCode = ''
+    return true
+  }
 
-        this._errorCode = wrapper.readString();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._errorCode = wrapper.readString()
 
-    public get errorCode(): string
-    {
-        return this._errorCode;
-    }
+    return true
+  }
 }

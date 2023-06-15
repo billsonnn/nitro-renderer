@@ -1,1 +1,1 @@
-export * from './GenericErrorEvent';
+export * from './GenericErrorEvent'

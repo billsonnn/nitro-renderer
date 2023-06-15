@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { HabboGroupDeactivatedMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { HabboGroupDeactivatedMessageParser } from '@/nitro'
 
-export class HabboGroupDeactivatedMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, HabboGroupDeactivatedMessageParser);
-    }
+export class HabboGroupDeactivatedMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, HabboGroupDeactivatedMessageParser)
+  }
 
-    public getParser(): HabboGroupDeactivatedMessageParser
-    {
-        return this.parser as HabboGroupDeactivatedMessageParser;
-    }
+  public getParser(): HabboGroupDeactivatedMessageParser {
+    return this.parser as HabboGroupDeactivatedMessageParser
+  }
 }

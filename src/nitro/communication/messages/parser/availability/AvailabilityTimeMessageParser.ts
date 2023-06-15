@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class AvailabilityTimeMessageParser implements IMessageParser
-{
-    private _isOpen: boolean;
-    private _minutesUntilChange: number;
+export class AvailabilityTimeMessageParser implements IMessageParser {
+  private _isOpen: boolean
 
-    public flush(): boolean
-    {
-        this._isOpen = false;
-        this._minutesUntilChange = 0;
+  public get isOpen(): boolean {
+    return this._isOpen
+  }
 
-        return true;
-    }
+  private _minutesUntilChange: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get minutesUntilChange(): number {
+    return this._minutesUntilChange
+  }
 
-        this._isOpen = (wrapper.readInt() > 0);
-        this._minutesUntilChange = wrapper.readInt();
+  public flush(): boolean {
+    this._isOpen = false
+    this._minutesUntilChange = 0
 
-        return true;
-    }
+    return true
+  }
 
-    public get isOpen(): boolean
-    {
-        return this._isOpen;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get minutesUntilChange(): number
-    {
-        return this._minutesUntilChange;
-    }
+    this._isOpen = (wrapper.readInt() > 0)
+    this._minutesUntilChange = wrapper.readInt()
+
+    return true
+  }
 }

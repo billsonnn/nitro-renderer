@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class UserBannedMessageParser implements IMessageParser
-{
-    private _message: string;
+export class UserBannedMessageParser implements IMessageParser {
+  private _message: string
 
-    public flush(): boolean
-    {
-        this._message = '';
+  public get message(): string {
+    return this._message
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._message = ''
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._message = wrapper.readString();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._message = wrapper.readString()
 
-    public get message(): string
-    {
-        return this._message;
-    }
+    return true
+  }
 }

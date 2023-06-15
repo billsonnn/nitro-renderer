@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class PeerUsersClassificationMessageComposer implements IMessageComposer<ConstructorParameters<typeof PeerUsersClassificationMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof PeerUsersClassificationMessageComposer>;
+export class PeerUsersClassificationMessageComposer implements IMessageComposer<ConstructorParameters<typeof PeerUsersClassificationMessageComposer>> {
+  private _data: ConstructorParameters<typeof PeerUsersClassificationMessageComposer>
 
-    constructor(userClassType: string)
-    {
-        this._data = [userClassType];
-    }
+  constructor(userClassType: string) {
+    this._data = [userClassType]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

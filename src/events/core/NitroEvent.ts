@@ -1,4 +1,4 @@
-import { INitroEvent } from '../../api';
+import { INitroEvent } from '@/api';
 
 export class NitroEvent implements INitroEvent
 {

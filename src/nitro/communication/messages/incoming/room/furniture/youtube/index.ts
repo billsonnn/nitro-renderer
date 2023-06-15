@@ -1,3 +1,3 @@
-export * from './YoutubeControlVideoMessageEvent';
-export * from './YoutubeDisplayPlaylistsEvent';
-export * from './YoutubeDisplayVideoMessageEvent';
+export * from './YoutubeControlVideoMessageEvent'
+export * from './YoutubeDisplayPlaylistsEvent'
+export * from './YoutubeDisplayVideoMessageEvent'

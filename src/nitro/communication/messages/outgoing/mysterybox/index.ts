@@ -1,1 +1,1 @@
-export * from './MysteryBoxWaitingCanceledMessageComposer';
+export * from './MysteryBoxWaitingCanceledMessageComposer'

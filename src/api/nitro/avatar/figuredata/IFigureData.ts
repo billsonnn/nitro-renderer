@@ -1,8 +1,6 @@
-import { IFigureDataPalette } from './IFigureDataPalette';
-import { IFigureDataSetType } from './IFigureDataSetType';
+import { IFigureDataPalette, IFigureDataSetType } from '@/api'
 
-export interface IFigureData
-{
-    palettes?: IFigureDataPalette[];
-    setTypes?: IFigureDataSetType[];
+export interface IFigureData {
+  palettes?: IFigureDataPalette[];
+  setTypes?: IFigureDataSetType[];
 }

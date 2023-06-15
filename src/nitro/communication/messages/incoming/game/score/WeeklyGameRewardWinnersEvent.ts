@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../../api';
-import { MessageEvent } from '../../../../../../events';
-import { WeeklyGameRewardWinnersParser } from '../../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { WeeklyGameRewardWinnersParser } from '@/nitro'
 
-export class WeeklyGameRewardWinnersEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, WeeklyGameRewardWinnersParser);
-    }
+export class WeeklyGameRewardWinnersEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, WeeklyGameRewardWinnersParser)
+  }
 
-    public getParser(): WeeklyGameRewardWinnersParser
-    {
-        return this.parser as WeeklyGameRewardWinnersParser;
-    }
+  public getParser(): WeeklyGameRewardWinnersParser {
+    return this.parser as WeeklyGameRewardWinnersParser
+  }
 }

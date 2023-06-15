@@ -1,28 +1,24 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { BundleDiscountRuleset } from './BundleDiscountRuleset';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { BundleDiscountRuleset } from '@/nitro'
 
-export class BundleDiscountRulesetMessageParser implements IMessageParser
-{
-    private _bundleDiscountRuleset: BundleDiscountRuleset;
+export class BundleDiscountRulesetMessageParser implements IMessageParser {
+  private _bundleDiscountRuleset: BundleDiscountRuleset
 
-    public flush(): boolean
-    {
-        this._bundleDiscountRuleset = null;
+  public get bundleDiscountRuleset(): BundleDiscountRuleset {
+    return this._bundleDiscountRuleset
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._bundleDiscountRuleset = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._bundleDiscountRuleset = new BundleDiscountRuleset(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._bundleDiscountRuleset = new BundleDiscountRuleset(wrapper)
 
-    public get bundleDiscountRuleset(): BundleDiscountRuleset
-    {
-        return this._bundleDiscountRuleset;
-    }
+    return true
+  }
 }

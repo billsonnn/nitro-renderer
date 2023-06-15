@@ -1,26 +1,22 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class ElementPointerMessageParser implements IMessageParser
-{
-    private _key: string;
+export class ElementPointerMessageParser implements IMessageParser {
+  private _key: string
 
-    public flush(): boolean
-    {
-        this._key = null;
-        return true;
-    }
+  public get key(): string {
+    return this._key
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public flush(): boolean {
+    this._key = null
+    return true
+  }
 
-        this._key = wrapper.readString();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._key = wrapper.readString()
 
-    public get key(): string
-    {
-        return this._key;
-    }
+    return true
+  }
 }

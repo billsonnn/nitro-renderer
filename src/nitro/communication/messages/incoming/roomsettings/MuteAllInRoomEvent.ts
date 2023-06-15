@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { MuteAllInRoomParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { MuteAllInRoomParser } from '@/nitro'
 
-export class MuteAllInRoomEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, MuteAllInRoomParser);
-    }
+export class MuteAllInRoomEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, MuteAllInRoomParser)
+  }
 
-    public getParser(): MuteAllInRoomParser
-    {
-        return this.parser as MuteAllInRoomParser;
-    }
+  public getParser(): MuteAllInRoomParser {
+    return this.parser as MuteAllInRoomParser
+  }
 }

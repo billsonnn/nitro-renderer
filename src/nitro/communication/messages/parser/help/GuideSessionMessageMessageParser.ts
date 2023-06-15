@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GuideSessionMessageMessageParser implements IMessageParser
-{
-    private _chatMessage: string;
-    private _senderId: number;
+export class GuideSessionMessageMessageParser implements IMessageParser {
+  private _chatMessage: string
 
-    public flush(): boolean
-    {
-        this._chatMessage = null;
-        this._senderId = 0;
+  public get chatMessage(): string {
+    return this._chatMessage
+  }
 
-        return true;
-    }
+  private _senderId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get senderId(): number {
+    return this._senderId
+  }
 
-        this._chatMessage = wrapper.readString();
-        this._senderId = wrapper.readInt();
+  public flush(): boolean {
+    this._chatMessage = null
+    this._senderId = 0
 
-        return true;
-    }
+    return true
+  }
 
-    public get chatMessage(): string
-    {
-        return this._chatMessage;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get senderId(): number
-    {
-        return this._senderId;
-    }
+    this._chatMessage = wrapper.readString()
+    this._senderId = wrapper.readInt()
+
+    return true
+  }
 }

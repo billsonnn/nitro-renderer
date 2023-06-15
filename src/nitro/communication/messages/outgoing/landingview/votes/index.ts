@@ -1,1 +1,1 @@
-export * from './CommunityGoalVoteMessageComposer';
+export * from './CommunityGoalVoteMessageComposer'

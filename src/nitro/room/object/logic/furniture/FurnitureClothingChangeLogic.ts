@@ -1,48 +1,41 @@
-import { IAssetData, RoomObjectVariable } from '../../../../../api';
-import { RoomObjectWidgetRequestEvent } from '../../../../../events';
-import { RoomObjectUpdateMessage } from '../../../../../room';
-import { ObjectDataUpdateMessage } from '../../../messages';
-import { FurnitureLogic } from './FurnitureLogic';
+import { IAssetData, RoomObjectVariable } from '@/api'
+import { RoomObjectWidgetRequestEvent } from '@/events'
+import { RoomObjectUpdateMessage } from '@/room'
+import { FurnitureLogic, ObjectDataUpdateMessage } from '@/nitro'
 
-export class FurnitureClothingChangeLogic extends FurnitureLogic
-{
-    public getEventTypes(): string[]
-    {
-        const types = [RoomObjectWidgetRequestEvent.CLOTHING_CHANGE];
+export class FurnitureClothingChangeLogic extends FurnitureLogic {
+  public getEventTypes(): string[] {
+    const types = [RoomObjectWidgetRequestEvent.CLOTHING_CHANGE]
 
-        return this.mergeTypes(super.getEventTypes(), types);
-    }
+    return this.mergeTypes(super.getEventTypes(), types)
+  }
 
-    public initialize(asset: IAssetData): void
-    {
-        super.initialize(asset);
+  public initialize(asset: IAssetData): void {
+    super.initialize(asset)
 
-        const furniData = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_DATA);
+    const furniData = this.object.model.getValue<string>(RoomObjectVariable.FURNITURE_DATA)
 
-        this.updateClothingData(furniData);
-    }
+    this.updateClothingData(furniData)
+  }
 
-    public processUpdateMessage(message: RoomObjectUpdateMessage): void
-    {
-        super.processUpdateMessage(message);
+  public processUpdateMessage(message: RoomObjectUpdateMessage): void {
+    super.processUpdateMessage(message)
 
-        if(message instanceof ObjectDataUpdateMessage) message.data && this.updateClothingData(message.data.getLegacyString());
-    }
+    if (message instanceof ObjectDataUpdateMessage) message.data && this.updateClothingData(message.data.getLegacyString())
+  }
 
-    private updateClothingData(furnitureData: string): void
-    {
-        if(!furnitureData || !furnitureData.length) return;
+  public useObject(): void {
+    if (!this.object || !this.eventDispatcher) return
 
-        const [boyClothing, girlClothing] = furnitureData.split(',');
+    this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CLOTHING_CHANGE, this.object))
+  }
 
-        if(boyClothing && boyClothing.length) this.object.model.setValue<string>(RoomObjectVariable.FURNITURE_CLOTHING_BOY, boyClothing);
-        if(girlClothing && girlClothing.length) this.object.model.setValue<string>(RoomObjectVariable.FURNITURE_CLOTHING_GIRL, girlClothing);
-    }
+  private updateClothingData(furnitureData: string): void {
+    if (!furnitureData || !furnitureData.length) return
 
-    public useObject(): void
-    {
-        if(!this.object || !this.eventDispatcher) return;
+    const [boyClothing, girlClothing] = furnitureData.split(',')
 
-        this.eventDispatcher.dispatchEvent(new RoomObjectWidgetRequestEvent(RoomObjectWidgetRequestEvent.CLOTHING_CHANGE, this.object));
-    }
+    if (boyClothing && boyClothing.length) this.object.model.setValue<string>(RoomObjectVariable.FURNITURE_CLOTHING_BOY, boyClothing)
+    if (girlClothing && girlClothing.length) this.object.model.setValue<string>(RoomObjectVariable.FURNITURE_CLOTHING_GIRL, girlClothing)
+  }
 }

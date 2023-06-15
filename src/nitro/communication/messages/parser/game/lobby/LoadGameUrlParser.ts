@@ -1,43 +1,39 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class LoadGameUrlParser implements IMessageParser
-{
-    private _gameTypeId: number;
-    private _url: string;
-    private _gameClientId: string;
+export class LoadGameUrlParser implements IMessageParser {
+  private _gameTypeId: number
 
-    public flush(): boolean
-    {
-        this._gameTypeId = 0;
-        this._url = null;
-        this._gameClientId = null;
+  public get gameTypeId(): number {
+    return this._gameTypeId
+  }
 
-        return true;
-    }
+  private _url: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get url(): string {
+    return this._url
+  }
 
-        this._gameTypeId = wrapper.readInt();
-        this._gameClientId = wrapper.readString();
-        this._url = wrapper.readString();
+  private _gameClientId: string
 
-        return true;
-    }
+  public get gameClientId(): string {
+    return this._gameClientId
+  }
 
-    public get gameTypeId(): number
-    {
-        return this._gameTypeId;
-    }
+  public flush(): boolean {
+    this._gameTypeId = 0
+    this._url = null
+    this._gameClientId = null
 
-    public get url(): string
-    {
-        return this._url;
-    }
+    return true
+  }
 
-    public get gameClientId(): string
-    {
-        return this._gameClientId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._gameTypeId = wrapper.readInt()
+    this._gameClientId = wrapper.readString()
+    this._url = wrapper.readString()
+
+    return true
+  }
 }

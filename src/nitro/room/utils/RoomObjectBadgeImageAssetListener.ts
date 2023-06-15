@@ -1,23 +1,20 @@
-import { IRoomObjectController } from '../../../api';
+import { IRoomObjectController } from '@/api'
 
-export class RoomObjectBadgeImageAssetListener
-{
-    private _object: IRoomObjectController;
-    private _groupBadge: boolean;
+export class RoomObjectBadgeImageAssetListener {
+  constructor(object: IRoomObjectController, groupBadge: boolean) {
+    this._object = object
+    this._groupBadge = groupBadge
+  }
 
-    constructor(object: IRoomObjectController, groupBadge: boolean)
-    {
-        this._object = object;
-        this._groupBadge = groupBadge;
-    }
+  private _object: IRoomObjectController
 
-    public get object(): IRoomObjectController
-    {
-        return this._object;
-    }
+  public get object(): IRoomObjectController {
+    return this._object
+  }
 
-    public get groupBadge(): boolean
-    {
-        return this._groupBadge;
-    }
+  private _groupBadge: boolean
+
+  public get groupBadge(): boolean {
+    return this._groupBadge
+  }
 }

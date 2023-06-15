@@ -1,5 +1,5 @@
-﻿import { IPollQuestion, IRoomSession } from '../../api';
-import { RoomSessionEvent } from './RoomSessionEvent';
+﻿import { IPollQuestion, IRoomSession } from '@/api';
+import { RoomSessionEvent } from '@/events';
 
 export class RoomSessionPollEvent extends RoomSessionEvent
 {

@@ -1,64 +1,55 @@
-import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
+import { FurnitureAnimatedVisualization } from '@/nitro'
 
-export class FurnitureHabboWheelVisualization extends FurnitureAnimatedVisualization
-{
-    private static ANIMATION_ID_OFFSET_SLOW1: number = 10;
-    private static ANIMATION_ID_OFFSET_SLOW2: number = 20;
-    private static ANIMATION_ID_START_ROLL: number = 31;
-    private static ANIMATION_ID_ROLL: number = 32;
+export class FurnitureHabboWheelVisualization extends FurnitureAnimatedVisualization {
+  private static ANIMATION_ID_OFFSET_SLOW1: number = 10
+  private static ANIMATION_ID_OFFSET_SLOW2: number = 20
+  private static ANIMATION_ID_START_ROLL: number = 31
+  private static ANIMATION_ID_ROLL: number = 32
 
-    private _stateQueue: number[];
-    private _running: boolean;
+  private _stateQueue: number[]
+  private _running: boolean
 
-    constructor()
-    {
-        super();
+  constructor() {
+    super()
 
-        this._stateQueue = [];
-        this._running = false;
+    this._stateQueue = []
+    this._running = false
+  }
+
+  protected setAnimation(animationId: number): void {
+    if (animationId === -1) {
+      if (!this._running) {
+        this._running = true
+        this._stateQueue = []
+
+        this._stateQueue.push(FurnitureHabboWheelVisualization.ANIMATION_ID_START_ROLL)
+        this._stateQueue.push(FurnitureHabboWheelVisualization.ANIMATION_ID_ROLL)
+
+        return
+      }
     }
 
-    protected setAnimation(animationId: number): void
-    {
-        if(animationId === -1)
-        {
-            if(!this._running)
-            {
-                this._running = true;
-                this._stateQueue = [];
+    if ((animationId > 0) && (animationId <= FurnitureHabboWheelVisualization.ANIMATION_ID_OFFSET_SLOW1)) {
+      if (this._running) {
+        this._running = false
+        this._stateQueue = []
 
-                this._stateQueue.push(FurnitureHabboWheelVisualization.ANIMATION_ID_START_ROLL);
-                this._stateQueue.push(FurnitureHabboWheelVisualization.ANIMATION_ID_ROLL);
+        this._stateQueue.push(FurnitureHabboWheelVisualization.ANIMATION_ID_OFFSET_SLOW1 + animationId)
+        this._stateQueue.push(FurnitureHabboWheelVisualization.ANIMATION_ID_OFFSET_SLOW2 + animationId)
+        this._stateQueue.push(animationId)
 
-                return;
-            }
-        }
+        return
+      }
 
-        if((animationId > 0) && (animationId <= FurnitureHabboWheelVisualization.ANIMATION_ID_OFFSET_SLOW1))
-        {
-            if(this._running)
-            {
-                this._running = false;
-                this._stateQueue = [];
+      super.setAnimation(animationId)
+    }
+  }
 
-                this._stateQueue.push(FurnitureHabboWheelVisualization.ANIMATION_ID_OFFSET_SLOW1 + animationId);
-                this._stateQueue.push(FurnitureHabboWheelVisualization.ANIMATION_ID_OFFSET_SLOW2 + animationId);
-                this._stateQueue.push(animationId);
-
-                return;
-            }
-
-            super.setAnimation(animationId);
-        }
+  protected updateAnimation(scale: number): number {
+    if (this.getLastFramePlayed(1) && this.getLastFramePlayed(2) && this.getLastFramePlayed(3)) {
+      if (this._stateQueue.length) super.setAnimation(this._stateQueue.shift())
     }
 
-    protected updateAnimation(scale: number): number
-    {
-        if(this.getLastFramePlayed(1) && this.getLastFramePlayed(2) && this.getLastFramePlayed(3))
-        {
-            if(this._stateQueue.length) super.setAnimation(this._stateQueue.shift());
-        }
-
-        return super.updateAnimation(scale);
-    }
+    return super.updateAnimation(scale)
+  }
 }

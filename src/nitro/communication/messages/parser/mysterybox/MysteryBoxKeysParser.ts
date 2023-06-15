@@ -1,35 +1,31 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class MysteryBoxKeysParser implements IMessageParser
-{
-    private _boxColor: string;
-    private _keyColor: string;
+export class MysteryBoxKeysParser implements IMessageParser {
+  private _boxColor: string
 
-    public flush(): boolean
-    {
-        this._boxColor = null;
-        this._keyColor = null;
+  public get boxColor(): string {
+    return this._boxColor
+  }
 
-        return true;
-    }
+  private _keyColor: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get keyColor(): string {
+    return this._keyColor
+  }
 
-        this._boxColor = wrapper.readString();
-        this._keyColor = wrapper.readString();
+  public flush(): boolean {
+    this._boxColor = null
+    this._keyColor = null
 
-        return true;
-    }
+    return true
+  }
 
-    public get boxColor(): string
-    {
-        return this._boxColor;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get keyColor(): string
-    {
-        return this._keyColor;
-    }
+    this._boxColor = wrapper.readString()
+    this._keyColor = wrapper.readString()
+
+    return true
+  }
 }

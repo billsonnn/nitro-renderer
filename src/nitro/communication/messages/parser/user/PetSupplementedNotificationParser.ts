@@ -1,43 +1,39 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class PetSupplementedNotificationParser implements IMessageParser
-{
-    private _petId: number;
-    private _userId: number;
-    private _supplementType: number;
+export class PetSupplementedNotificationParser implements IMessageParser {
+  private _petId: number
 
-    public flush(): boolean
-    {
-        this._petId = 0;
-        this._userId = 0;
-        this._supplementType = 0;
+  public get petId(): number {
+    return this._petId
+  }
 
-        return true;
-    }
+  private _userId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get userId(): number {
+    return this._userId
+  }
 
-        this._petId = wrapper.readInt();
-        this._userId = wrapper.readInt();
-        this._supplementType = wrapper.readInt();
+  private _supplementType: number
 
-        return true;
-    }
+  public get supplementType(): number {
+    return this._supplementType
+  }
 
-    public get petId(): number
-    {
-        return this._petId;
-    }
+  public flush(): boolean {
+    this._petId = 0
+    this._userId = 0
+    this._supplementType = 0
 
-    public get userId(): number
-    {
-        return this._userId;
-    }
+    return true
+  }
 
-    public get supplementType(): number
-    {
-        return this._supplementType;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._petId = wrapper.readInt()
+    this._userId = wrapper.readInt()
+    this._supplementType = wrapper.readInt()
+
+    return true
+  }
 }

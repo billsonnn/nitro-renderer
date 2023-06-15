@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { QuestCancelledMessageParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { QuestCancelledMessageParser } from '@/nitro'
 
-export class QuestCancelledMessageEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, QuestCancelledMessageParser);
-    }
+export class QuestCancelledMessageEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, QuestCancelledMessageParser)
+  }
 
-    public getParser(): QuestCancelledMessageParser
-    {
-        return this.parser as QuestCancelledMessageParser;
-    }
+  public getParser(): QuestCancelledMessageParser {
+    return this.parser as QuestCancelledMessageParser
+  }
 }

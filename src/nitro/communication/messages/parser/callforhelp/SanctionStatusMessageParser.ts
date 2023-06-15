@@ -1,114 +1,110 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class SanctionStatusMessageParser implements IMessageParser
-{
-    private _isSanctionNew: boolean;
-    private _isSanctionActive: boolean;
-    private _sanctionName: string;
-    private _sanctionLengthHours: number;
-    private _sanctionReason: string;
-    private _sanctionCreationTime: string;
-    private _probationHoursLeft: number;
-    private _nextSanctionName: string;
-    private _nextSanctionLengthHours: number;
-    private _hasCustomMute: boolean;
-    private _tradeLockExpiryTime: string;
+export class SanctionStatusMessageParser implements IMessageParser {
+  private _isSanctionNew: boolean
 
-    public flush(): boolean
-    {
-        this._isSanctionNew = false;
-        this._isSanctionActive = false;
-        this._sanctionName = null;
-        this._sanctionLengthHours = 0;
-        this._sanctionReason = null;
-        this._sanctionCreationTime = null;
-        this._probationHoursLeft = 0;
-        this._nextSanctionName = null;
-        this._nextSanctionLengthHours = 0;
-        this._hasCustomMute = false;
-        this._tradeLockExpiryTime = null;
+  public get isSanctionNew(): boolean {
+    return this._isSanctionNew
+  }
 
-        return true;
-    }
+  private _isSanctionActive: boolean
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get isSanctionActive(): boolean {
+    return this._isSanctionActive
+  }
 
-        this._isSanctionNew = wrapper.readBoolean();
-        this._isSanctionActive = wrapper.readBoolean();
-        this._sanctionName = wrapper.readString();
-        this._sanctionLengthHours = wrapper.readInt();
+  private _sanctionName: string
 
-        wrapper.readInt();
+  public get sanctionName(): string {
+    return this._sanctionName
+  }
 
-        this._sanctionReason = wrapper.readString();
-        this._sanctionCreationTime = wrapper.readString();
-        this._probationHoursLeft = wrapper.readInt();
-        this._nextSanctionName = wrapper.readString();
-        this._nextSanctionLengthHours = wrapper.readInt();
+  private _sanctionLengthHours: number
 
-        wrapper.readInt();
+  public get sanctionLengthHours(): number {
+    return this._sanctionLengthHours
+  }
 
-        this._hasCustomMute = wrapper.readBoolean();
+  private _sanctionReason: string
 
-        if(wrapper.bytesAvailable) this._tradeLockExpiryTime = wrapper.readString();
+  public get sanctionReason(): string {
+    return this._sanctionReason
+  }
 
-        return true;
-    }
+  private _sanctionCreationTime: string
 
-    public get isSanctionNew(): boolean
-    {
-        return this._isSanctionNew;
-    }
+  public get sanctionCreationTime(): string {
+    return this._sanctionCreationTime
+  }
 
-    public get isSanctionActive(): boolean
-    {
-        return this._isSanctionActive;
-    }
+  private _probationHoursLeft: number
 
-    public get sanctionName(): string
-    {
-        return this._sanctionName;
-    }
+  public get probationHoursLeft(): number {
+    return this._probationHoursLeft
+  }
 
-    public get sanctionLengthHours(): number
-    {
-        return this._sanctionLengthHours;
-    }
+  private _nextSanctionName: string
 
-    public get sanctionReason(): string
-    {
-        return this._sanctionReason;
-    }
+  public get nextSanctionName(): string {
+    return this._nextSanctionName
+  }
 
-    public get sanctionCreationTime(): string
-    {
-        return this._sanctionCreationTime;
-    }
+  private _nextSanctionLengthHours: number
 
-    public get probationHoursLeft(): number
-    {
-        return this._probationHoursLeft;
-    }
+  public get nextSanctionLengthHours(): number {
+    return this._nextSanctionLengthHours
+  }
 
-    public get nextSanctionName(): string
-    {
-        return this._nextSanctionName;
-    }
+  private _hasCustomMute: boolean
 
-    public get nextSanctionLengthHours(): number
-    {
-        return this._nextSanctionLengthHours;
-    }
+  public get hasCustomMute(): boolean {
+    return this._hasCustomMute
+  }
 
-    public get hasCustomMute(): boolean
-    {
-        return this._hasCustomMute;
-    }
+  private _tradeLockExpiryTime: string
 
-    public get tradeLockExpiryTime(): string
-    {
-        return this._tradeLockExpiryTime;
-    }
+  public get tradeLockExpiryTime(): string {
+    return this._tradeLockExpiryTime
+  }
+
+  public flush(): boolean {
+    this._isSanctionNew = false
+    this._isSanctionActive = false
+    this._sanctionName = null
+    this._sanctionLengthHours = 0
+    this._sanctionReason = null
+    this._sanctionCreationTime = null
+    this._probationHoursLeft = 0
+    this._nextSanctionName = null
+    this._nextSanctionLengthHours = 0
+    this._hasCustomMute = false
+    this._tradeLockExpiryTime = null
+
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._isSanctionNew = wrapper.readBoolean()
+    this._isSanctionActive = wrapper.readBoolean()
+    this._sanctionName = wrapper.readString()
+    this._sanctionLengthHours = wrapper.readInt()
+
+    wrapper.readInt()
+
+    this._sanctionReason = wrapper.readString()
+    this._sanctionCreationTime = wrapper.readString()
+    this._probationHoursLeft = wrapper.readInt()
+    this._nextSanctionName = wrapper.readString()
+    this._nextSanctionLengthHours = wrapper.readInt()
+
+    wrapper.readInt()
+
+    this._hasCustomMute = wrapper.readBoolean()
+
+    if (wrapper.bytesAvailable) this._tradeLockExpiryTime = wrapper.readString()
+
+    return true
+  }
 }

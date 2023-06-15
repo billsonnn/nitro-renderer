@@ -1,47 +1,43 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class PetBreedingMessageParser implements IMessageParser
-{
-    public static STATE_CANCEL: number = 1;
-    public static STATE_ACCEPT: number = 2;
-    public static STATE_REQUEST: number = 3;
+export class PetBreedingMessageParser implements IMessageParser {
+  public static STATE_CANCEL: number = 1
+  public static STATE_ACCEPT: number = 2
+  public static STATE_REQUEST: number = 3
 
-    private _state: number;
-    private _ownPetId: number;
-    private _otherPetId: number;
+  private _state: number
 
-    public flush(): boolean
-    {
-        this._state = 0;
-        this._ownPetId = 0;
-        this._otherPetId = 0;
+  public get state(): number {
+    return this._state
+  }
 
-        return true;
-    }
+  private _ownPetId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get ownPetId(): number {
+    return this._ownPetId
+  }
 
-        this._state = wrapper.readInt();
-        this._ownPetId = wrapper.readInt();
-        this._otherPetId = wrapper.readInt();
+  private _otherPetId: number
 
-        return true;
-    }
+  public get otherPetId(): number {
+    return this._otherPetId
+  }
 
-    public get state(): number
-    {
-        return this._state;
-    }
+  public flush(): boolean {
+    this._state = 0
+    this._ownPetId = 0
+    this._otherPetId = 0
 
-    public get ownPetId(): number
-    {
-        return this._ownPetId;
-    }
+    return true
+  }
 
-    public get otherPetId(): number
-    {
-        return this._otherPetId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._state = wrapper.readInt()
+    this._ownPetId = wrapper.readInt()
+    this._otherPetId = wrapper.readInt()
+
+    return true
+  }
 }

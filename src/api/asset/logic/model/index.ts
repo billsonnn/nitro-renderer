@@ -1,2 +1,2 @@
-export * from './IAssetDimension';
-export * from './IAssetLogicModel';
+export * from './IAssetDimension'
+export * from './IAssetLogicModel'

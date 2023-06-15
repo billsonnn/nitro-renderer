@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class Game2GameChatMessageComposer implements IMessageComposer<ConstructorParameters<typeof Game2GameChatMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof Game2GameChatMessageComposer>;
+export class Game2GameChatMessageComposer implements IMessageComposer<ConstructorParameters<typeof Game2GameChatMessageComposer>> {
+  private _data: ConstructorParameters<typeof Game2GameChatMessageComposer>
 
-    constructor(chatLine: string)
-    {
-        this._data = [ chatLine ];
-    }
+  constructor(chatLine: string) {
+    this._data = [chatLine]
+  }
 
-    dispose(): void
-    {
-        this._data = null;
-    }
+  dispose(): void {
+    this._data = null
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 }

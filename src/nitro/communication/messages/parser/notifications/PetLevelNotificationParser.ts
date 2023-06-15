@@ -1,52 +1,48 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { PetFigureDataParser } from '../inventory';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { PetFigureDataParser } from '@/nitro'
 
-export class PetLevelNotificationParser implements IMessageParser
-{
-    private _petId: number;
-    private _petName: string;
-    private _level: number;
-    private _figureData: PetFigureDataParser;
+export class PetLevelNotificationParser implements IMessageParser {
+  private _petId: number
 
-    public flush(): boolean
-    {
-        this._petId = -1;
-        this._petName = null;
-        this._level = 0;
-        this._figureData = null;
+  public get petId(): number {
+    return this._petId
+  }
 
-        return true;
-    }
+  private _petName: string
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get petName(): string {
+    return this._petName
+  }
 
-        this._petId = wrapper.readInt();
-        this._petName = wrapper.readString();
-        this._level = wrapper.readInt();
-        this._figureData = new PetFigureDataParser(wrapper);
+  private _level: number
 
-        return true;
-    }
+  public get level(): number {
+    return this._level
+  }
 
-    public get petId(): number
-    {
-        return this._petId;
-    }
+  private _figureData: PetFigureDataParser
 
-    public get petName(): string
-    {
-        return this._petName;
-    }
+  public get figureData(): PetFigureDataParser {
+    return this._figureData
+  }
 
-    public get level(): number
-    {
-        return this._level;
-    }
+  public flush(): boolean {
+    this._petId = -1
+    this._petName = null
+    this._level = 0
+    this._figureData = null
 
-    public get figureData(): PetFigureDataParser
-    {
-        return this._figureData;
-    }
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._petId = wrapper.readInt()
+    this._petName = wrapper.readString()
+    this._level = wrapper.readInt()
+    this._figureData = new PetFigureDataParser(wrapper)
+
+    return true
+  }
 }

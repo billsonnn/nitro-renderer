@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class TryPhoneNumberMessageComposer implements IMessageComposer<ConstructorParameters<typeof TryPhoneNumberMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof TryPhoneNumberMessageComposer>;
+export class TryPhoneNumberMessageComposer implements IMessageComposer<ConstructorParameters<typeof TryPhoneNumberMessageComposer>> {
+  private _data: ConstructorParameters<typeof TryPhoneNumberMessageComposer>
 
-    constructor(k: string, _arg_2: string)
-    {
-        this._data = [k, _arg_2];
-    }
+  constructor(k: string, _arg_2: string) {
+    this._data = [k, _arg_2]
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 }

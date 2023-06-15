@@ -1,36 +1,32 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { GuildForumThread } from './GuildForumThread';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { GuildForumThread } from '@/nitro'
 
-export class PostThreadMessageParser implements IMessageParser
-{
-    private _groupId: number;
-    private _thread: GuildForumThread;
+export class PostThreadMessageParser implements IMessageParser {
+  private _groupId: number
 
-    public flush(): boolean
-    {
-        this._groupId = -1;
-        this._thread = null;
+  public get groupId(): number {
+    return this._groupId
+  }
 
-        return true;
-    }
+  private _thread: GuildForumThread
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get thread(): GuildForumThread {
+    return this._thread
+  }
 
-        this._groupId = wrapper.readInt();
-        this._thread = GuildForumThread.parse(wrapper);
+  public flush(): boolean {
+    this._groupId = -1
+    this._thread = null
 
-        return true;
-    }
+    return true
+  }
 
-    public get groupId(): number
-    {
-        return this._groupId;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get thread(): GuildForumThread
-    {
-        return this._thread;
-    }
+    this._groupId = wrapper.readInt()
+    this._thread = GuildForumThread.parse(wrapper)
+
+    return true
+  }
 }

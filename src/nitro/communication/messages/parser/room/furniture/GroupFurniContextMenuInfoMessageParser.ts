@@ -1,67 +1,63 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class GroupFurniContextMenuInfoMessageParser implements IMessageParser
-{
-    private _objectId: number;
-    private _guildId: number;
-    private _guildName: string;
-    private _guildHomeRoomId: number;
-    private _userIsMember: boolean;
-    private _guildHasReadableForum: boolean;
+export class GroupFurniContextMenuInfoMessageParser implements IMessageParser {
+  private _objectId: number
 
-    public flush(): boolean
-    {
-        this._objectId = 0;
-        this._guildId = 0;
-        this._guildName = null;
-        this._guildHomeRoomId = 0;
-        this._userIsMember = false;
-        this._guildHasReadableForum = false;
+  public get objectId(): number {
+    return this._objectId
+  }
 
-        return true;
-    }
+  private _guildId: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get guildId(): number {
+    return this._guildId
+  }
 
-        this._objectId = wrapper.readInt();
-        this._guildId = wrapper.readInt();
-        this._guildName = wrapper.readString();
-        this._guildHomeRoomId = wrapper.readInt();
-        this._userIsMember = wrapper.readBoolean();
-        this._guildHasReadableForum = wrapper.readBoolean();
+  private _guildName: string
 
-        return true;
-    }
+  public get guildName(): string {
+    return this._guildName
+  }
 
-    public get objectId(): number
-    {
-        return this._objectId;
-    }
+  private _guildHomeRoomId: number
 
-    public get guildId(): number
-    {
-        return this._guildId;
-    }
+  public get guildHomeRoomId(): number {
+    return this._guildHomeRoomId
+  }
 
-    public get guildName(): string
-    {
-        return this._guildName;
-    }
+  private _userIsMember: boolean
 
-    public get guildHomeRoomId(): number
-    {
-        return this._guildHomeRoomId;
-    }
+  public get userIsMember(): boolean {
+    return this._userIsMember
+  }
 
-    public get userIsMember(): boolean
-    {
-        return this._userIsMember;
-    }
+  private _guildHasReadableForum: boolean
 
-    public get guildHasReadableForum(): boolean
-    {
-        return this._guildHasReadableForum;
-    }
+  public get guildHasReadableForum(): boolean {
+    return this._guildHasReadableForum
+  }
+
+  public flush(): boolean {
+    this._objectId = 0
+    this._guildId = 0
+    this._guildName = null
+    this._guildHomeRoomId = 0
+    this._userIsMember = false
+    this._guildHasReadableForum = false
+
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._objectId = wrapper.readInt()
+    this._guildId = wrapper.readInt()
+    this._guildName = wrapper.readString()
+    this._guildHomeRoomId = wrapper.readInt()
+    this._userIsMember = wrapper.readBoolean()
+    this._guildHasReadableForum = wrapper.readBoolean()
+
+    return true
+  }
 }

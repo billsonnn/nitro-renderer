@@ -1,2 +1,2 @@
-export * from './INitroCommunicationDemo';
-export * from './INitroCommunicationManager';
+export * from './INitroCommunicationDemo'
+export * from './INitroCommunicationManager'

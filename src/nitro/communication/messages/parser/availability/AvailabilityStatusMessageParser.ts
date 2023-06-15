@@ -1,47 +1,42 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class AvailabilityStatusMessageParser implements IMessageParser
-{
-    private _isOpen: boolean;
-    private _onShutdown: boolean;
-    private _isAuthenticUser: boolean;
+export class AvailabilityStatusMessageParser implements IMessageParser {
+  private _isOpen: boolean
 
-    public flush(): boolean
-    {
-        this._isOpen = false;
-        this._onShutdown = false;
-        this._isAuthenticUser = false;
+  public get isOpen(): boolean {
+    return this._isOpen
+  }
 
-        return true;
+  private _onShutdown: boolean
+
+  public get onShutdown(): boolean {
+    return this._onShutdown
+  }
+
+  private _isAuthenticUser: boolean
+
+  public get isAuthenticUser(): boolean {
+    return this._isAuthenticUser
+  }
+
+  public flush(): boolean {
+    this._isOpen = false
+    this._onShutdown = false
+    this._isAuthenticUser = false
+
+    return true
+  }
+
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._isOpen = wrapper.readBoolean()
+    this._onShutdown = wrapper.readBoolean()
+
+    if (wrapper.bytesAvailable) {
+      this._isAuthenticUser = wrapper.readBoolean()
     }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
-
-        this._isOpen = wrapper.readBoolean();
-        this._onShutdown = wrapper.readBoolean();
-
-        if(wrapper.bytesAvailable)
-        {
-            this._isAuthenticUser = wrapper.readBoolean();
-        }
-
-        return true;
-    }
-
-    public get isOpen(): boolean
-    {
-        return this._isOpen;
-    }
-
-    public get onShutdown(): boolean
-    {
-        return this._onShutdown;
-    }
-
-    public get isAuthenticUser(): boolean
-    {
-        return this._isAuthenticUser;
-    }
+    return true
+  }
 }

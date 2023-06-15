@@ -1,6 +1,5 @@
-﻿import { IRoomPlane } from './IRoomPlane';
+﻿import { IRoomPlane } from '@/api'
 
-export interface IPlaneVisualization
-{
-    planes: IRoomPlane[];
+export interface IPlaneVisualization {
+  planes: IRoomPlane[];
 }

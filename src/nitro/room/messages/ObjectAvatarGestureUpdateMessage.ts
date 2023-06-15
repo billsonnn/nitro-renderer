@@ -1,18 +1,15 @@
-import { ObjectStateUpdateMessage } from './ObjectStateUpdateMessage';
+import { ObjectStateUpdateMessage } from '@/nitro'
 
-export class ObjectAvatarGestureUpdateMessage extends ObjectStateUpdateMessage
-{
-    private _gesture: number;
+export class ObjectAvatarGestureUpdateMessage extends ObjectStateUpdateMessage {
+  constructor(gesture: number = 0) {
+    super()
 
-    constructor(gesture: number = 0)
-    {
-        super();
+    this._gesture = gesture
+  }
 
-        this._gesture = gesture;
-    }
+  private _gesture: number
 
-    public get gesture(): number
-    {
-        return this._gesture;
-    }
+  public get gesture(): number {
+    return this._gesture
+  }
 }

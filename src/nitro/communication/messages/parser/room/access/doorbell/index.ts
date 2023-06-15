@@ -1,1 +1,1 @@
-export * from './RoomDoorbellAcceptedParser';
+export * from './RoomDoorbellAcceptedParser'

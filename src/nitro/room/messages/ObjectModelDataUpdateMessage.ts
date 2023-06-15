@@ -1,25 +1,22 @@
-import { RoomObjectUpdateMessage } from '../../../room';
+import { RoomObjectUpdateMessage } from '@/room'
 
-export class ObjectModelDataUpdateMessage extends RoomObjectUpdateMessage
-{
-    private _numberKey: string;
-    private _numberValue: number;
+export class ObjectModelDataUpdateMessage extends RoomObjectUpdateMessage {
+  constructor(numberKey: string, numberValue: number) {
+    super(null, null)
 
-    constructor(numberKey: string, numberValue: number)
-    {
-        super(null, null);
+    this._numberKey = numberKey
+    this._numberValue = numberValue
+  }
 
-        this._numberKey = numberKey;
-        this._numberValue = numberValue;
-    }
+  private _numberKey: string
 
-    public get numberKey(): string
-    {
-        return this._numberKey;
-    }
+  public get numberKey(): string {
+    return this._numberKey
+  }
 
-    public get numberValue(): number
-    {
-        return this._numberValue;
-    }
+  private _numberValue: number
+
+  public get numberValue(): number {
+    return this._numberValue
+  }
 }

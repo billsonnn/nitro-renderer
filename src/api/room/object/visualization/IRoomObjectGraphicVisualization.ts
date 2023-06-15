@@ -1,7 +1,5 @@
-import { IGraphicAssetCollection } from '../../../asset';
-import { IRoomObjectVisualization } from './IRoomObjectVisualization';
+import { IGraphicAssetCollection, IRoomObjectVisualization } from '@/api'
 
-export interface IRoomObjectGraphicVisualization extends IRoomObjectVisualization
-{
-    asset: IGraphicAssetCollection;
+export interface IRoomObjectGraphicVisualization extends IRoomObjectVisualization {
+  asset: IGraphicAssetCollection;
 }

@@ -1,28 +1,24 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { ExtendedForumData } from './ExtendedForumData';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
+import { ExtendedForumData } from '@/nitro'
 
-export class ForumDataMessageParser implements IMessageParser
-{
-    private _extendedForumData: ExtendedForumData;
+export class ForumDataMessageParser implements IMessageParser {
+  private _extendedForumData: ExtendedForumData
 
-    public flush(): boolean
-    {
-        this._extendedForumData = null;
+  public get extendedForumData(): ExtendedForumData {
+    return this._extendedForumData
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._extendedForumData = null
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._extendedForumData = ExtendedForumData.parse(wrapper);
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._extendedForumData = ExtendedForumData.parse(wrapper)
 
-    public get extendedForumData(): ExtendedForumData
-    {
-        return this._extendedForumData;
-    }
+    return true
+  }
 }

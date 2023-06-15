@@ -1,61 +1,55 @@
-﻿import { IAssetAnimationAdd } from '../../../api';
+﻿import { IAssetAnimationAdd } from '@/api'
 
-export class AddDataContainer
-{
-    private _id: string;
-    private _align: string;
-    private _base: string;
-    private _ink: number;
-    private _blend: number;
+export class AddDataContainer {
+  constructor(k: IAssetAnimationAdd) {
+    this._id = k.id || ''
+    this._align = k.align || ''
+    this._base = k.base || ''
+    this._ink = k.ink || 0
+    this._blend = 0
 
-    constructor(k: IAssetAnimationAdd)
-    {
-        this._id = k.id || '';
-        this._align = k.align || '';
-        this._base = k.base || '';
-        this._ink = k.ink || 0;
-        this._blend = 0;
+    const _local_2 = k.blend
 
-        const _local_2 = k.blend;
+    if (_local_2) {
+      if (_local_2.length > 0) {
+        this._blend = parseInt(_local_2)
 
-        if(_local_2)
-        {
-            if(_local_2.length > 0)
-            {
-                this._blend = parseInt(_local_2);
-
-                if(this._blend > 1) this._blend = (this._blend / 100);
-            }
-        }
+        if (this._blend > 1) this._blend = (this._blend / 100)
+      }
     }
+  }
 
-    public get id(): string
-    {
-        return this._id;
-    }
+  private _id: string
 
-    public get align(): string
-    {
-        return this._align;
-    }
+  public get id(): string {
+    return this._id
+  }
 
-    public get base(): string
-    {
-        return this._base;
-    }
+  private _align: string
 
-    public get ink(): number
-    {
-        return this._ink;
-    }
+  public get align(): string {
+    return this._align
+  }
 
-    public get blend(): number
-    {
-        return this._blend;
-    }
+  private _base: string
 
-    public get isBlended(): boolean
-    {
-        return this._blend !== 1;
-    }
+  public get base(): string {
+    return this._base
+  }
+
+  private _ink: number
+
+  public get ink(): number {
+    return this._ink
+  }
+
+  private _blend: number
+
+  public get blend(): number {
+    return this._blend
+  }
+
+  public get isBlended(): boolean {
+    return this._blend !== 1
+  }
 }

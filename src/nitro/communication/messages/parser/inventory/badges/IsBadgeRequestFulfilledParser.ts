@@ -1,32 +1,28 @@
-﻿import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
+﻿import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class IsBadgeRequestFulfilledParser implements IMessageParser
-{
-    private _requestCode: string;
-    private _fulfilled: boolean;
+export class IsBadgeRequestFulfilledParser implements IMessageParser {
+  private _requestCode: string
 
-    public flush(): boolean
-    {
-        return true;
-    }
+  public get requestCode(): string {
+    return this._requestCode
+  }
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  private _fulfilled: boolean
 
-        this._requestCode = wrapper.readString();
-        this._fulfilled = wrapper.readBoolean();
+  public get fulfilled(): boolean {
+    return this._fulfilled
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    return true
+  }
 
-    public get requestCode(): string
-    {
-        return this._requestCode;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-    public get fulfilled(): boolean
-    {
-        return this._fulfilled;
-    }
+    this._requestCode = wrapper.readString()
+    this._fulfilled = wrapper.readBoolean()
+
+    return true
+  }
 }

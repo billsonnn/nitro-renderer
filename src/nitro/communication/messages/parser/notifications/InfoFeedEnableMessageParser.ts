@@ -1,27 +1,23 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class InfoFeedEnableMessageParser implements IMessageParser
-{
-    private _enabled: boolean;
+export class InfoFeedEnableMessageParser implements IMessageParser {
+  private _enabled: boolean
 
-    public flush(): boolean
-    {
-        this._enabled = false;
+  public get enabled(): boolean {
+    return this._enabled
+  }
 
-        return true;
-    }
+  public flush(): boolean {
+    this._enabled = false
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+    return true
+  }
 
-        this._enabled = wrapper.readBoolean();
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
 
-        return true;
-    }
+    this._enabled = wrapper.readBoolean()
 
-    public get enabled(): boolean
-    {
-        return this._enabled;
-    }
+    return true
+  }
 }

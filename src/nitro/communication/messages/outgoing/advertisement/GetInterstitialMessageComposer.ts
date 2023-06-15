@@ -1,21 +1,17 @@
-import { IMessageComposer } from '../../../../../api';
+import { IMessageComposer } from '@/api'
 
-export class GetInterstitialMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetInterstitialMessageComposer>>
-{
-    private _data: ConstructorParameters<typeof GetInterstitialMessageComposer>;
+export class GetInterstitialMessageComposer implements IMessageComposer<ConstructorParameters<typeof GetInterstitialMessageComposer>> {
+  private _data: ConstructorParameters<typeof GetInterstitialMessageComposer>
 
-    constructor()
-    {
-        this._data = [];
-    }
+  constructor() {
+    this._data = []
+  }
 
-    public dispose(): void
-    {
-        return;
-    }
+  public dispose(): void {
+    return
+  }
 
-    public getMessageArray()
-    {
-        return this._data;
-    }
+  public getMessageArray() {
+    return this._data
+  }
 }

@@ -1,1 +1,1 @@
-export * from './PetLogic';
+export * from './PetLogic'

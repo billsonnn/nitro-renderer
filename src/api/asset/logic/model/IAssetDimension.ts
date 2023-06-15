@@ -1,6 +1,5 @@
-export interface IAssetDimension
-{
-    x: number;
-    y: number;
-    z?: number;
+export interface IAssetDimension {
+  x: number;
+  y: number;
+  z?: number;
 }

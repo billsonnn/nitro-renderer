@@ -1,16 +1,13 @@
-import { IMessageEvent } from '../../../../../api';
-import { MessageEvent } from '../../../../../events';
-import { QuestionParser } from '../../parser';
+import { IMessageEvent } from '@/api'
+import { MessageEvent } from '@/events'
+import { QuestionParser } from '@/nitro'
 
-export class QuestionEvent extends MessageEvent implements IMessageEvent
-{
-    constructor(callBack: Function)
-    {
-        super(callBack, QuestionParser);
-    }
+export class QuestionEvent extends MessageEvent implements IMessageEvent {
+  constructor(callBack: Function) {
+    super(callBack, QuestionParser)
+  }
 
-    public getParser(): QuestionParser
-    {
-        return this.parser as QuestionParser;
-    }
+  public getParser(): QuestionParser {
+    return this.parser as QuestionParser
+  }
 }

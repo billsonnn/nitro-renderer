@@ -1,2 +1,2 @@
-export * from './EvaWireDataWrapper';
-export * from './EvaWireFormat';
+export * from './EvaWireDataWrapper'
+export * from './EvaWireFormat'

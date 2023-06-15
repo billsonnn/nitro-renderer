@@ -1,43 +1,39 @@
-import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
+import { IMessageDataWrapper, IMessageParser } from '@/api'
 
-export class ActivityPointNotificationParser implements IMessageParser
-{
-    private _amount: number;
-    private _amountChanged: number;
-    private _type: number;
+export class ActivityPointNotificationParser implements IMessageParser {
+  private _amount: number
 
-    public flush(): boolean
-    {
-        this._amount = 0;
-        this._amountChanged = 0;
-        this._type = -1;
+  public get amount(): number {
+    return this._amount
+  }
 
-        return true;
-    }
+  private _amountChanged: number
 
-    public parse(wrapper: IMessageDataWrapper): boolean
-    {
-        if(!wrapper) return false;
+  public get amountChanged(): number {
+    return this._amountChanged
+  }
 
-        this._amount = wrapper.readInt();
-        this._amountChanged = wrapper.readInt();
-        this._type = wrapper.readInt();
+  private _type: number
 
-        return true;
-    }
+  public get type(): number {
+    return this._type
+  }
 
-    public get amount(): number
-    {
-        return this._amount;
-    }
+  public flush(): boolean {
+    this._amount = 0
+    this._amountChanged = 0
+    this._type = -1
 
-    public get amountChanged(): number
-    {
-        return this._amountChanged;
-    }
+    return true
+  }
 
-    public get type(): number
-    {
-        return this._type;
-    }
+  public parse(wrapper: IMessageDataWrapper): boolean {
+    if (!wrapper) return false
+
+    this._amount = wrapper.readInt()
+    this._amountChanged = wrapper.readInt()
+    this._type = wrapper.readInt()
+
+    return true
+  }
 }
