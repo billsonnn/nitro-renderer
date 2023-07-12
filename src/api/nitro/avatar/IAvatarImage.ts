@@ -2,8 +2,8 @@ import { RenderTexture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { IGraphicAsset } from '../../asset';
 import { IDisposable } from '../../common';
-import { IAnimationLayerData, IAvatarDataContainer, ISpriteDataContainer } from './animation';
 import { IAvatarFigureContainer } from './IAvatarFigureContainer';
+import { IAnimationLayerData, IAvatarDataContainer, ISpriteDataContainer } from './animation';
 import { IPartColor } from './structure';
 
 export interface IAvatarImage extends IDisposable
@@ -17,7 +17,7 @@ export interface IAvatarImage extends IDisposable
     getLayerData(_arg_1: ISpriteDataContainer): IAnimationLayerData;
     getImage(setType: string, hightlight: boolean, scale?: number, cache?: boolean): RenderTexture;
     getImageAsSprite(setType: string, scale?: number): Sprite;
-    getCroppedImage(setType: string, scale?: number): HTMLImageElement;
+    getCroppedImage(setType: string, scale?: number): Promise<HTMLImageElement>;
     getAsset(_arg_1: string): IGraphicAsset;
     getDirection(): number;
     getFigure(): IAvatarFigureContainer;

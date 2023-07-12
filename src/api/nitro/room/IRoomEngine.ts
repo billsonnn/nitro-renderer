@@ -84,7 +84,7 @@ export interface IRoomEngine extends INitroManager
     processRoomObjectPlacement(placementSource: string, id: number, category: number, typeId: number, legacyString?: string, stuffData?: IObjectData, state?: number, frameNumber?: number, posture?: string): boolean;
     dispatchMouseEvent(canvasId: number, x: number, y: number, type: string, altKey: boolean, ctrlKey: boolean, shiftKey: boolean, buttonDown: boolean): void;
     createTextureFromRoom(roomId: number, canvasId?: number, bounds?: Rectangle): RenderTexture;
-    saveTextureAsScreenshot(texture: RenderTexture, saveAsThumbnail?: boolean): void;
+    saveTextureAsScreenshot(texture: RenderTexture, saveAsThumbnail?: boolean): Promise<void>;
     saveBase64AsScreenshot(base64: string, saveAsThumbnail?: boolean): void;
     deleteRoomObject(objectId: number, objectCategory: number): boolean;
     sessionDataManager: ISessionDataManager;

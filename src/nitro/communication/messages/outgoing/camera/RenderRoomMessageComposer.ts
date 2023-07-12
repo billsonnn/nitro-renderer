@@ -21,9 +21,9 @@ export class RenderRoomMessageComposer implements IMessageComposer<ConstructorPa
         this._data = [];
     }
 
-    public assignBitmap(texture: RenderTexture): void
+    public async assignBitmap(texture: RenderTexture): Promise<void>
     {
-        const url = TextureUtils.generateImageUrl(texture);
+        const url = await TextureUtils.generateImageUrl(texture);
 
         if(!url) return;
 

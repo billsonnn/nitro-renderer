@@ -5,5 +5,5 @@ export interface IImageResult
     id: number;
     data: RenderTexture;
     image: HTMLImageElement;
-    getImage(): HTMLImageElement;
+    getImage(): Promise<HTMLImageElement>;
 }

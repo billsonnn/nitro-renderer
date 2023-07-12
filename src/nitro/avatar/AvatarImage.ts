@@ -5,12 +5,12 @@ import { Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
 import { AdvancedMap, AvatarAction, AvatarDirectionAngle, AvatarScaleType, AvatarSetType, IActionDefinition, IActiveActionData, IAdvancedMap, IAnimationLayerData, IAvatarDataContainer, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IGraphicAsset, IPartColor, ISpriteDataContainer } from '../../api';
 import { GetTickerTime, NitroContainer, NitroSprite, PaletteMapFilter, PixiApplicationProxy, TextureUtils } from '../../pixi-proxy';
-import { ActiveActionData } from './actions';
-import { AssetAliasCollection } from './alias';
 import { AvatarFigureContainer } from './AvatarFigureContainer';
 import { AvatarStructure } from './AvatarStructure';
-import { AvatarImageCache } from './cache';
 import { EffectAssetDownloadManager } from './EffectAssetDownloadManager';
+import { ActiveActionData } from './actions';
+import { AssetAliasCollection } from './alias';
+import { AvatarImageCache } from './cache';
 
 export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 {
@@ -543,7 +543,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         return container;
     }
 
-    public getCroppedImage(setType: string, scale: number = 1): HTMLImageElement
+    public async getCroppedImage(setType: string, scale: number = 1): Promise<HTMLImageElement>
     {
         if(!this._mainAction) return null;
 
@@ -604,11 +604,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         const texture = TextureUtils.generateTexture(container, new Rectangle(0, 0, avatarCanvas.width, avatarCanvas.height));
 
-        const image = TextureUtils.generateImage(texture);
-
-        if(!image) return null;
-
-        return image;
+        return await TextureUtils.generateImage(texture);
     }
 
     protected getFullImage(k: string): RenderTexture

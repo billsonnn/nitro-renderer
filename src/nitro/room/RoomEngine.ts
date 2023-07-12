@@ -10,13 +10,13 @@ import { PetFigureData } from '../avatar';
 import { RenderRoomMessageComposer, RenderRoomThumbnailMessageComposer } from '../communication';
 import { FurniId } from '../utils';
 import { ImageResult } from './ImageResult';
-import { ObjectAvatarCarryObjectUpdateMessage, ObjectAvatarChatUpdateMessage, ObjectAvatarDanceUpdateMessage, ObjectAvatarEffectUpdateMessage, ObjectAvatarExperienceUpdateMessage, ObjectAvatarExpressionUpdateMessage, ObjectAvatarFigureUpdateMessage, ObjectAvatarFlatControlUpdateMessage, ObjectAvatarGestureUpdateMessage, ObjectAvatarGuideStatusUpdateMessage, ObjectAvatarMutedUpdateMessage, ObjectAvatarOwnMessage, ObjectAvatarPetGestureUpdateMessage, ObjectAvatarPlayerValueUpdateMessage, ObjectAvatarPlayingGameUpdateMessage, ObjectAvatarPostureUpdateMessage, ObjectAvatarSignUpdateMessage, ObjectAvatarSleepUpdateMessage, ObjectAvatarTypingUpdateMessage, ObjectAvatarUpdateMessage, ObjectAvatarUseObjectUpdateMessage, ObjectDataUpdateMessage, ObjectGroupBadgeUpdateMessage, ObjectHeightUpdateMessage, ObjectItemDataUpdateMessage, ObjectModelDataUpdateMessage, ObjectMoveUpdateMessage, ObjectRoomColorUpdateMessage, ObjectRoomFloorHoleUpdateMessage, ObjectRoomMaskUpdateMessage, ObjectRoomPlanePropertyUpdateMessage, ObjectRoomPlaneVisibilityUpdateMessage, ObjectRoomUpdateMessage, ObjectStateUpdateMessage } from './messages';
-import { RoomLogic, RoomMapData, RoomObjectVisualizationFactory } from './object';
 import { RoomContentLoader } from './RoomContentLoader';
 import { RoomMessageHandler } from './RoomMessageHandler';
 import { RoomObjectEventHandler } from './RoomObjectEventHandler';
 import { RoomObjectLogicFactory } from './RoomObjectLogicFactory';
 import { RoomVariableEnum } from './RoomVariableEnum';
+import { ObjectAvatarCarryObjectUpdateMessage, ObjectAvatarChatUpdateMessage, ObjectAvatarDanceUpdateMessage, ObjectAvatarEffectUpdateMessage, ObjectAvatarExperienceUpdateMessage, ObjectAvatarExpressionUpdateMessage, ObjectAvatarFigureUpdateMessage, ObjectAvatarFlatControlUpdateMessage, ObjectAvatarGestureUpdateMessage, ObjectAvatarGuideStatusUpdateMessage, ObjectAvatarMutedUpdateMessage, ObjectAvatarOwnMessage, ObjectAvatarPetGestureUpdateMessage, ObjectAvatarPlayerValueUpdateMessage, ObjectAvatarPlayingGameUpdateMessage, ObjectAvatarPostureUpdateMessage, ObjectAvatarSignUpdateMessage, ObjectAvatarSleepUpdateMessage, ObjectAvatarTypingUpdateMessage, ObjectAvatarUpdateMessage, ObjectAvatarUseObjectUpdateMessage, ObjectDataUpdateMessage, ObjectGroupBadgeUpdateMessage, ObjectHeightUpdateMessage, ObjectItemDataUpdateMessage, ObjectModelDataUpdateMessage, ObjectMoveUpdateMessage, ObjectRoomColorUpdateMessage, ObjectRoomFloorHoleUpdateMessage, ObjectRoomMaskUpdateMessage, ObjectRoomPlanePropertyUpdateMessage, ObjectRoomPlaneVisibilityUpdateMessage, ObjectRoomUpdateMessage, ObjectStateUpdateMessage } from './messages';
+import { RoomLogic, RoomMapData, RoomObjectVisualizationFactory } from './object';
 import { RoomCamera, RoomData, RoomFurnitureData, RoomInstanceData, RoomObjectBadgeImageAssetListener, SpriteDataCollector } from './utils';
 
 export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreator, IRoomEngineServices, IRoomManagerListener, IRoomContentListener, IUpdateReceiver, IDisposable
@@ -1745,16 +1745,19 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
                         if(icon)
                         {
-                            const image = TextureUtils.generateImage(icon);
-
-                            if(this.events)
+                            (async () =>
                             {
-                                const event = new NitroToolbarAnimateIconEvent(image, screenLocation.x, screenLocation.y);
+                                const image = await TextureUtils.generateImage(icon);
 
-                                event.iconName = ToolbarIconEnum.INVENTORY;
+                                if(this.events)
+                                {
+                                    const event = new NitroToolbarAnimateIconEvent(image, screenLocation.x, screenLocation.y);
 
-                                this.events.dispatchEvent(event);
-                            }
+                                    event.iconName = ToolbarIconEnum.INVENTORY;
+
+                                    this.events.dispatchEvent(event);
+                                }
+                            })();
                         }
                     }
                 }
@@ -1790,16 +1793,19 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
                     if(icon)
                     {
-                        const image = TextureUtils.generateImage(icon);
-
-                        if(this.events)
+                        (async () =>
                         {
-                            const event = new NitroToolbarAnimateIconEvent(image, screenLocation.x, screenLocation.y);
+                            const image = await TextureUtils.generateImage(icon);
 
-                            event.iconName = ToolbarIconEnum.INVENTORY;
+                            if(this.events)
+                            {
+                                const event = new NitroToolbarAnimateIconEvent(image, screenLocation.x, screenLocation.y);
 
-                            this.events.dispatchEvent(event);
-                        }
+                                event.iconName = ToolbarIconEnum.INVENTORY;
+
+                                this.events.dispatchEvent(event);
+                            }
+                        })();
                     }
                 }
             }
@@ -3400,14 +3406,14 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         return texture;
     }
 
-    public saveTextureAsScreenshot(texture: RenderTexture, saveAsThumbnail: boolean = false): void
+    public async saveTextureAsScreenshot(texture: RenderTexture, saveAsThumbnail: boolean = false): Promise<void>
     {
         let composer: RenderRoomMessageComposer = null;
 
         if(saveAsThumbnail) composer = new RenderRoomThumbnailMessageComposer();
         else composer = new RenderRoomMessageComposer();
 
-        composer.assignBitmap(texture);
+        await composer.assignBitmap(texture);
 
         this._communication.connection.send(composer);
     }

@@ -1,7 +1,5 @@
 import { Resource, Texture } from '@pixi/core';
 import { Rectangle } from '@pixi/math';
-import { Sprite } from '@pixi/sprite';
-import { TextureUtils } from '../../pixi-proxy';
 import { IGraphicAsset } from './IGraphicAsset';
 
 export class GraphicAsset implements IGraphicAsset
@@ -64,11 +62,6 @@ export class GraphicAsset implements IGraphicAsset
         this._height = this._texture.height;
 
         this._initialized = true;
-    }
-
-    public getImageUrl(): string
-    {
-        return TextureUtils.generateImageUrl(new Sprite(this._texture));
     }
 
     public get name(): string

@@ -28,14 +28,14 @@ export class TextureUtils
         return Texture.from(image);
     }
 
-    public static generateImage(target: DisplayObject | RenderTexture): HTMLImageElement
+    public static async generateImage(target: DisplayObject | RenderTexture): Promise<HTMLImageElement>
     {
         if(!target) return null;
 
         return this.getExtractor().image(target);
     }
 
-    public static generateImageUrl(target: DisplayObject | RenderTexture): string
+    public static async generateImageUrl(target: DisplayObject | RenderTexture): Promise<string>
     {
         if(!target) return null;
 
