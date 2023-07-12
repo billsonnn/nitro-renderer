@@ -14,7 +14,6 @@ export class LegacyDataType extends ObjectDataBase implements IObjectData
     constructor()
     {
         super();
-
         this._data = '';
     }
 
@@ -45,6 +44,11 @@ export class LegacyDataType extends ObjectDataBase implements IObjectData
     public getLegacyString(): string
     {
         return this._data;
+    }
+
+    public getLegacyStringWithOffset(offset: number)
+    {
+        return this._data.split('\n')[offset];
     }
 
     public compare(data: IObjectData): boolean
