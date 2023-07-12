@@ -1,5 +1,5 @@
 import { IDisposable } from '../../common';
-import { IConnection } from '../../communication';
+import { IConnection } from '../communication';
 import { IRoomModerationSettings } from './IRoomModerationSettings';
 import { IUserDataManager } from './IUserDataManager';
 

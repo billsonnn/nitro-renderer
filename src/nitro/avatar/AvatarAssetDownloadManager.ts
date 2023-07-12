@@ -1,5 +1,5 @@
 import { IAssetManager, IAvatarFigureContainer, IAvatarImageListener, INitroEvent, NitroConfiguration, NitroLogger } from '../../api';
-import { EventDispatcher } from '../../core';
+import { EventDispatcher } from '../../common';
 import { AvatarRenderEvent, AvatarRenderLibraryEvent, NitroEvent } from '../../events';
 import { AvatarAssetDownloadLibrary } from './AvatarAssetDownloadLibrary';
 import { AvatarStructure } from './AvatarStructure';

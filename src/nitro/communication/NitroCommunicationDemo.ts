@@ -1,5 +1,5 @@
 import { IConnection, INitroCommunicationDemo, INitroCommunicationManager, NitroConfiguration, NitroLogger } from '../../api';
-import { NitroManager } from '../../core';
+import { NitroManager } from '../../common';
 import { NitroCommunicationDemoEvent, SocketConnectionEvent } from '../../events';
 import { GetTickerTime } from '../../pixi-proxy';
 import { Nitro } from '../Nitro';

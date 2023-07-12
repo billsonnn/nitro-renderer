@@ -1,4 +1,4 @@
-import { NitroEvent } from '../../events';
+import { NitroEvent } from './NitroEvent';
 
 export class ConfigurationEvent extends NitroEvent
 {

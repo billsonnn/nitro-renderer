@@ -1,4 +1,4 @@
-import { IEventDispatcher, INitroManager } from '../../api';
+import { IEventDispatcher, INitroManager } from '../api';
 import { Disposable } from './Disposable';
 import { EventDispatcher } from './EventDispatcher';
 

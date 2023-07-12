@@ -1,5 +1,5 @@
 import { FurnitureType, IFurnitureData, INitroLocalizationManager, NitroLogger } from '../../../api';
-import { EventDispatcher } from '../../../core';
+import { EventDispatcher } from '../../../common';
 import { NitroEvent } from '../../../events';
 import { FurnitureData } from './FurnitureData';
 

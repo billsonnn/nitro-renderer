@@ -1,5 +1,5 @@
 import { Application } from '@pixi/app';
-import { IAvatarRenderManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager } from '../api';
+import { IAvatarRenderManager, IConfigurationManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager } from '../api';
 
 export interface INitro
 {
@@ -13,7 +13,7 @@ export interface INitro
     removeLinkEventTracker(tracker: ILinkEventTracker): void;
     createLinkEvent(link: string): void;
     application: Application;
-    core: INitroCore;
+    configuration: IConfigurationManager;
     events: IEventDispatcher;
     localization: INitroLocalizationManager;
     communication: INitroCommunicationManager;

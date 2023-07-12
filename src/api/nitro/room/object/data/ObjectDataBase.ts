@@ -1,5 +1,5 @@
-import { IMessageDataWrapper } from '../../../../communication';
 import { IRoomObjectModel } from '../../../../room';
+import { IMessageDataWrapper } from '../../../communication';
 import { RoomObjectVariable } from '../RoomObjectVariable';
 import { IObjectData } from './IObjectData';
 import { ObjectDataFlags } from './ObjectDataFlags';

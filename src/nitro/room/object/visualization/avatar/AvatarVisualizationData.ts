@@ -1,6 +1,6 @@
 import { Resource, Texture } from '@pixi/core';
 import { AvatarScaleType, IAssetData, IAvatarEffectListener, IAvatarImage, IAvatarImageListener, IAvatarRenderManager, IObjectVisualizationData } from '../../../../../api';
-import { Disposable } from '../../../../../core';
+import { Disposable } from '../../../../../common';
 
 export class AvatarVisualizationData extends Disposable implements IObjectVisualizationData
 {

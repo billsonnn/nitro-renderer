@@ -1,19 +1,21 @@
 import { Application, IApplicationOptions } from '@pixi/app';
 import { SCALE_MODES } from '@pixi/constants';
 import { settings } from '@pixi/settings';
-import { IAvatarRenderManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroCore, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager, NitroConfiguration, NitroLogger } from '../api';
-import { ConfigurationEvent, EventDispatcher, NitroCore } from '../core';
-import { NitroEvent, RoomEngineEvent } from '../events';
+import { IAvatarRenderManager, IConfigurationManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager, NitroConfiguration, NitroLogger } from '../api';
+import { EventDispatcher } from '../common';
+import { ConfigurationEvent, NitroEvent, RoomEngineEvent } from '../events';
 import { GetTicker, PixiApplicationProxy } from '../pixi-proxy';
 import { RoomManager } from '../room';
+import { INitro } from './INitro';
+import { NitroVersion } from './NitroVersion';
+import './Plugins';
 import { AvatarRenderManager } from './avatar';
 import { RoomCameraWidgetManager } from './camera';
 import { NitroCommunicationManager } from './communication';
+import { ConfigurationManager } from './configuration';
 import { LegacyExternalInterface } from './externalInterface';
 import { GameMessageHandler } from './game';
-import { INitro } from './INitro';
 import { NitroLocalizationManager } from './localization';
-import './Plugins';
 import { LandscapeRasterizer, RoomEngine } from './room';
 import { RoomSessionManager, SessionDataManager } from './session';
 import { SoundManager } from './sound';
@@ -34,7 +36,7 @@ export class Nitro implements INitro
     private static INSTANCE: INitro = null;
 
     private _application: Application;
-    private _core: INitroCore;
+    private _configuration: IConfigurationManager;
     private _events: IEventDispatcher;
     private _communication: INitroCommunicationManager;
     private _localization: INitroLocalizationManager;
@@ -50,14 +52,14 @@ export class Nitro implements INitro
     private _isReady: boolean;
     private _isDisposed: boolean;
 
-    constructor(core: INitroCore, options?: IApplicationOptions)
+    constructor(options?: IApplicationOptions)
     {
         if(!Nitro.INSTANCE) Nitro.INSTANCE = this;
 
         this._application = new PixiApplicationProxy(options);
-        this._core = core;
+        this._configuration = new ConfigurationManager();
         this._events = new EventDispatcher();
-        this._communication = new NitroCommunicationManager(core.communication);
+        this._communication = new NitroCommunicationManager();
         this._localization = new NitroLocalizationManager(this._communication);
         this._avatar = new AvatarRenderManager();
         this._roomEngine = new RoomEngine(this._communication);
@@ -71,12 +73,14 @@ export class Nitro implements INitro
         this._isReady = false;
         this._isDisposed = false;
 
-        this._core.configuration.events.addEventListener(ConfigurationEvent.LOADED, this.onConfigurationLoadedEvent.bind(this));
+        this._configuration.events.addEventListener(ConfigurationEvent.LOADED, this.onConfigurationLoadedEvent.bind(this));
         this._roomEngine.events.addEventListener(RoomEngineEvent.ENGINE_INITIALIZED, this.onRoomEngineReady.bind(this));
     }
 
     public static bootstrap(): void
     {
+        NitroVersion.sayHello();
+
         if(Nitro.INSTANCE)
         {
             Nitro.INSTANCE.dispose();
@@ -86,7 +90,7 @@ export class Nitro implements INitro
 
         const canvas = document.createElement('canvas');
 
-        const instance = new this(new NitroCore(), {
+        const instance = new this({
             autoDensity: false,
             width: window.innerWidth,
             height: window.innerHeight,
@@ -283,9 +287,9 @@ export class Nitro implements INitro
         return this._application;
     }
 
-    public get core(): INitroCore
+    public get configuration(): IConfigurationManager
     {
-        return this._core;
+        return this._configuration;
     }
 
     public get events(): IEventDispatcher

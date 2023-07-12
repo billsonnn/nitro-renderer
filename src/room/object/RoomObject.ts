@@ -1,5 +1,5 @@
 import { IRoomObjectController, IRoomObjectEventHandler, IRoomObjectModel, IRoomObjectMouseHandler, IRoomObjectUpdateMessage, IRoomObjectVisualization, IVector3D, Vector3d } from '../../api';
-import { Disposable } from '../../core';
+import { Disposable } from '../../common';
 import { RoomObjectModel } from './RoomObjectModel';
 
 export class RoomObject extends Disposable implements IRoomObjectController

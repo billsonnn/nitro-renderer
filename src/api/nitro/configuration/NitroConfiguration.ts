@@ -1,4 +1,4 @@
-import { NitroLogger } from '../common';
+import { NitroLogger } from '../../common';
 
 export class NitroConfiguration
 {

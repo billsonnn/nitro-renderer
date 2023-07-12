@@ -1,5 +1,5 @@
 ﻿import { IProductData } from '../../../api';
-import { EventDispatcher } from '../../../core';
+import { EventDispatcher } from '../../../common';
 import { NitroEvent } from '../../../events';
 import { ProductData } from './ProductData';
 

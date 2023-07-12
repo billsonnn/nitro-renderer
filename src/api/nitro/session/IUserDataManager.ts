@@ -1,4 +1,4 @@
-import { IConnection } from '../../communication';
+import { IConnection } from '../communication';
 import { IRoomUserData } from './IRoomUserData';
 
 export interface IUserDataManager

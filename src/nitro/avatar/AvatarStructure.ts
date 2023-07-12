@@ -1,10 +1,10 @@
 import { Point } from '@pixi/math';
 import { AvatarDirectionAngle, IActionDefinition, IActiveActionData, IAssetAnimation, IAssetManager, IAvatarFigureContainer, IAvatarImage, IAvatarRenderManager, IFigureData, IFigurePartSet, IPartColor, IStructureData } from '../../api';
-import { EventDispatcher } from '../../core';
-import { ActionDefinition, AvatarActionManager } from './actions';
-import { Animation, AnimationManager, AvatarAnimationLayerData } from './animation';
+import { EventDispatcher } from '../../common';
 import { AvatarImagePartContainer } from './AvatarImagePartContainer';
 import { AvatarRenderManager } from './AvatarRenderManager';
+import { ActionDefinition, AvatarActionManager } from './actions';
+import { Animation, AnimationManager, AvatarAnimationLayerData } from './animation';
 import { AvatarModelGeometry } from './geometry';
 import { AnimationAction, AvatarAnimationData, AvatarAnimationFrame, AvatarCanvas, FigureSetData, PartSetsData } from './structure';
 

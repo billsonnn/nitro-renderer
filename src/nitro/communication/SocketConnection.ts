@@ -1,12 +1,11 @@
-import { ICodec, ICommunicationManager, IConnection, IConnectionStateListener, IMessageComposer, IMessageConfiguration, IMessageDataWrapper, IMessageEvent, NitroLogger, WebSocketEventEnum } from '../../api';
+import { ICodec, IConnection, IConnectionStateListener, IMessageComposer, IMessageConfiguration, IMessageDataWrapper, IMessageEvent, NitroLogger, WebSocketEventEnum } from '../../api';
+import { EventDispatcher } from '../../common';
 import { SocketConnectionEvent } from '../../events';
-import { EventDispatcher } from '../common';
 import { EvaWireFormat } from './codec';
 import { MessageClassManager } from './messages';
 
 export class SocketConnection extends EventDispatcher implements IConnection
 {
-    private _communicationManager: ICommunicationManager;
     private _stateListener: IConnectionStateListener;
     private _socket: WebSocket;
     private _messages: MessageClassManager;
@@ -19,11 +18,10 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
     private _isAuthenticated: boolean;
 
-    constructor(communicationManager: ICommunicationManager, stateListener: IConnectionStateListener)
+    constructor(stateListener: IConnectionStateListener)
     {
         super();
 
-        this._communicationManager = communicationManager;
         this._stateListener = stateListener;
         this._socket = null;
         this._messages = new MessageClassManager();
@@ -58,7 +56,6 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
         this.destroySocket();
 
-        this._communicationManager = null;
         this._stateListener = null;
         this._messages = null;
         this._codec = null;

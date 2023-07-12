@@ -1,5 +1,5 @@
 import { IAssetData, IGraphicAssetCollection, IObjectVisualizationData } from '../../../../../api';
-import { Disposable } from '../../../../../core';
+import { Disposable } from '../../../../../common';
 import { PlaneMaskManager } from './mask';
 import { FloorRasterizer, LandscapeRasterizer, WallRasterizer } from './rasterizer';
 

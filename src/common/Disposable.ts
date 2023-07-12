@@ -1,4 +1,4 @@
-import { IDisposable } from '../../api';
+import { IDisposable } from '../api';
 
 export class Disposable implements IDisposable
 {

@@ -1,5 +1,5 @@
 import { AvatarSetType, GetAssetManager, IAssetManager, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IAvatarImageListener, IAvatarRenderManager, IFigureData, IFigurePartSet, IFigureSetData, IGraphicAsset, INitroEvent, IStructureData, NitroConfiguration, NitroLogger } from '../../api';
-import { NitroManager } from '../../core';
+import { NitroManager } from '../../common';
 import { AvatarRenderEvent, NitroEvent } from '../../events';
 import { FigureDataContainer } from '../utils';
 import { AssetAliasCollection } from './alias';

@@ -1,5 +1,5 @@
 import { INitroCommunicationManager, IRoomEngine, IRoomHandlerListener, IRoomSession, IRoomSessionManager } from '../../api';
-import { NitroManager } from '../../core';
+import { NitroManager } from '../../common';
 import { RoomEngineEvent, RoomSessionEvent } from '../../events';
 import { BaseHandler, GenericErrorHandler, PetPackageHandler, PollHandler, RoomChatHandler, RoomDataHandler, RoomDimmerPresetsHandler, RoomPermissionsHandler, RoomPresentHandler, RoomSessionHandler, RoomUsersHandler, WordQuizHandler } from './handler';
 import { RoomSession } from './RoomSession';

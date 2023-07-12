@@ -1,5 +1,5 @@
 import { ClientDeviceCategoryEnum, ClientPlatformEnum, IMessageComposer } from '../../../../../api';
-import { NitroVersion } from '../../../../../core';
+import { NitroVersion } from '../../../../NitroVersion';
 
 export class ClientHelloMessageComposer implements IMessageComposer<ConstructorParameters<typeof ClientHelloMessageComposer>>
 {

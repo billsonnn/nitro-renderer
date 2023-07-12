@@ -1,6 +1,6 @@
 ﻿import { IConfigurationManager, NitroConfiguration } from '../../api';
-import { NitroManager } from '../common';
-import { ConfigurationEvent } from './ConfigurationEvent';
+import { NitroManager } from '../../common';
+import { ConfigurationEvent } from '../../events/core/ConfigurationEvent';
 
 export class ConfigurationManager extends NitroManager implements IConfigurationManager
 {

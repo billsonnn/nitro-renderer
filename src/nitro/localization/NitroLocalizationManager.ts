@@ -1,5 +1,5 @@
 ﻿import { INitroCommunicationManager, INitroLocalizationManager, NitroConfiguration } from '../../api';
-import { NitroManager } from '../../core';
+import { NitroManager } from '../../common';
 import { NitroLocalizationEvent } from '../../events';
 import { BadgePointLimitsEvent } from '../communication';
 import { BadgeBaseAndLevel } from './BadgeBaseAndLevel';

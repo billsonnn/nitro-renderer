@@ -7,6 +7,7 @@ export * from './avatar/pet';
 export * from './avatar/structure';
 export * from './camera';
 export * from './communication';
+export * from './configuration';
 export * from './enums';
 export * from './localization';
 export * from './room';

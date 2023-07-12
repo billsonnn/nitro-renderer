@@ -1,5 +1,6 @@
 import { INitroManager } from '../../common';
-import { IConnection, IMessageEvent } from '../../communication';
+import { IConnection } from './IConnection';
+import { IMessageEvent } from './IMessageEvent';
 import { INitroCommunicationDemo } from './INitroCommunicationDemo';
 
 export interface INitroCommunicationManager extends INitroManager

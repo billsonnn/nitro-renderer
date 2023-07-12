@@ -1,4 +1,4 @@
-import { IDisposable, IEventDispatcher, INitroEvent, NitroLogger } from '../../api';
+import { IDisposable, IEventDispatcher, INitroEvent, NitroLogger } from '../api';
 import { Disposable } from './Disposable';
 
 export class EventDispatcher extends Disposable implements IEventDispatcher, IDisposable

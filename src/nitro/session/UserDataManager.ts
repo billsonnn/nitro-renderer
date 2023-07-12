@@ -1,5 +1,5 @@
 import { IConnection, IRoomUserData } from '../../api';
-import { Disposable } from '../../core';
+import { Disposable } from '../../common';
 import { RequestPetInfoComposer, UserCurrentBadgesComposer } from '../communication';
 
 export class UserDataManager extends Disposable
