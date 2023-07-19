@@ -1,52 +1,30 @@
-import { INitroCommunicationManager, IRoomEngine, IRoomHandlerListener, IRoomSession, IRoomSessionManager } from '../../api';
-import { NitroManager } from '../../common';
-import { RoomEngineEvent, RoomSessionEvent } from '../../events';
+import { ICommunicationManager, IRoomEngine, IRoomHandlerListener, IRoomSession, IRoomSessionManager } from '../../api';
+import { NitroEventDispatcher, RoomSessionEvent } from '../../events';
 import { BaseHandler, GenericErrorHandler, PetPackageHandler, PollHandler, RoomChatHandler, RoomDataHandler, RoomDimmerPresetsHandler, RoomPermissionsHandler, RoomPresentHandler, RoomSessionHandler, RoomUsersHandler, WordQuizHandler } from './handler';
 import { RoomSession } from './RoomSession';
 
-export class RoomSessionManager extends NitroManager implements IRoomSessionManager, IRoomHandlerListener
+export class RoomSessionManager implements IRoomSessionManager, IRoomHandlerListener
 {
-    private _communication: INitroCommunicationManager;
+    private _communication: ICommunicationManager;
     private _roomEngine: IRoomEngine;
 
-    private _handlers: BaseHandler[];
-    private _sessions: Map<string, IRoomSession>;
-    private _pendingSession: IRoomSession;
+    private _handlers: BaseHandler[] = [];
+    private _sessions: Map<string, IRoomSession> = new Map();
+    private _pendingSession: IRoomSession = null;
 
-    private _sessionStarting: boolean;
-    private _viewerSession: IRoomSession;
+    private _sessionStarting: boolean = false;
+    private _viewerSession: IRoomSession = null;
 
-    constructor(communication: INitroCommunicationManager, roomEngine: IRoomEngine)
+    constructor(communication: ICommunicationManager, roomEngine: IRoomEngine)
     {
-        super();
-
         this._communication = communication;
         this._roomEngine = roomEngine;
-
-        this._handlers = [];
-        this._sessions = new Map();
-        this._pendingSession = null;
-
-        this._sessionStarting = false;
-        this._viewerSession = null;
-
-        this.onRoomEngineEvent = this.onRoomEngineEvent.bind(this);
     }
 
-    protected onInit(): void
+    public async init(): Promise<void>
     {
         this.createHandlers();
-
         this.processPendingSession();
-
-        this._roomEngine.events.addEventListener(RoomEngineEvent.ENGINE_INITIALIZED, this.onRoomEngineEvent);
-    }
-
-    protected onDispose(): void
-    {
-        this._roomEngine.events.removeEventListener(RoomEngineEvent.ENGINE_INITIALIZED, this.onRoomEngineEvent);
-
-        super.onDispose();
     }
 
     private createHandlers(): void
@@ -82,14 +60,9 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
         }
     }
 
-    public onRoomEngineEvent(event: RoomEngineEvent): void
-    {
-        this.processPendingSession();
-    }
-
     private processPendingSession(): void
     {
-        if(!this._pendingSession || !this._roomEngine.ready) return;
+        if(!this._pendingSession) return;
 
         this.addSession(this._pendingSession);
 
@@ -117,13 +90,6 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
 
     private addSession(roomSession: IRoomSession): boolean
     {
-        if(!this._roomEngine.ready)
-        {
-            this._pendingSession = roomSession;
-
-            return false;
-        }
-
         this._sessionStarting = true;
 
         if(this._sessions.get(this.getRoomId(roomSession.roomId)))
@@ -135,7 +101,7 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
 
         this._sessions.set(this.getRoomId(roomSession.roomId), roomSession);
 
-        this.events.dispatchEvent(new RoomSessionEvent(RoomSessionEvent.CREATED, roomSession));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionEvent(RoomSessionEvent.CREATED, roomSession));
 
         this._viewerSession = roomSession;
 
@@ -157,7 +123,7 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
             return false;
         }
 
-        this.events.dispatchEvent(new RoomSessionEvent(RoomSessionEvent.STARTED, session));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionEvent(RoomSessionEvent.STARTED, session));
 
         this.setHandlers(session);
 
@@ -172,7 +138,7 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
 
         this._sessions.delete(this.getRoomId(id));
 
-        this.events.dispatchEvent(new RoomSessionEvent(RoomSessionEvent.ENDED, session, openLandingView));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionEvent(RoomSessionEvent.ENDED, session, openLandingView));
 
         session.dispose();
     }
@@ -215,7 +181,7 @@ export class RoomSessionManager extends NitroManager implements IRoomSessionMana
         return 'hard_coded_room_id';
     }
 
-    public get communication(): INitroCommunicationManager
+    public get communication(): ICommunicationManager
     {
         return this._communication;
     }

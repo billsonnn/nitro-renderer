@@ -1,5 +1,5 @@
 import { GenericErrorEnum, IConnection, IRoomHandlerListener } from '../../../api';
-import { RoomSessionErrorMessageEvent } from '../../../events';
+import { NitroEventDispatcher, RoomSessionErrorMessageEvent } from '../../../events';
 import { GenericErrorEvent } from '../../communication';
 import { BaseHandler } from './BaseHandler';
 
@@ -37,6 +37,6 @@ export class GenericErrorHandler extends BaseHandler
 
         if(!type || type.length == 0) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionErrorMessageEvent(type, roomSession));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionErrorMessageEvent(type, roomSession));
     }
 }

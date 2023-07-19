@@ -1,5 +1,5 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
-import { RoomSessionPresentEvent } from '../../../events';
+import { NitroEventDispatcher, RoomSessionPresentEvent } from '../../../events';
 import { PresentOpenedMessageEvent } from '../../communication';
 import { BaseHandler } from './BaseHandler';
 
@@ -26,9 +26,7 @@ export class RoomPresentHandler extends BaseHandler
 
         if(!session) return;
 
-        if(this.listener && this.listener.events) this.listener.events.dispatchEvent(
-            new RoomSessionPresentEvent(RoomSessionPresentEvent.RSPE_PRESENT_OPENED, session, parser.classId, parser.itemType,
-                parser.productCode, parser.placedItemId, parser.placedItemType, parser.placedInRoom, parser.petFigureString));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionPresentEvent(RoomSessionPresentEvent.RSPE_PRESENT_OPENED, session, parser.classId, parser.itemType, parser.productCode, parser.placedItemId, parser.placedItemType, parser.placedInRoom, parser.petFigureString));
 
     }
 

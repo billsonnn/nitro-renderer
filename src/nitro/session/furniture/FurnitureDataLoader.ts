@@ -1,56 +1,33 @@
-import { FurnitureType, IFurnitureData, INitroLocalizationManager, NitroLogger } from '../../../api';
-import { EventDispatcher } from '../../../common';
-import { NitroEvent } from '../../../events';
+import { FurnitureType, IFurnitureData, NitroConfiguration } from '../../../api';
+import { Nitro } from '../../Nitro';
 import { FurnitureData } from './FurnitureData';
 
-export class FurnitureDataLoader extends EventDispatcher
+export class FurnitureDataLoader
 {
-    public static FURNITURE_DATA_READY: string = 'FDP_FURNITURE_DATA_READY';
-    public static FURNITURE_DATA_ERROR: string = 'FDP_FURNITURE_DATA_ERROR';
-
     private _floorItems: Map<number, IFurnitureData>;
     private _wallItems: Map<number, IFurnitureData>;
-    private _localization: INitroLocalizationManager;
 
-    constructor(floorItems: Map<number, IFurnitureData>, wallItems: Map<number, IFurnitureData>, localization: INitroLocalizationManager)
+    constructor(floorItems: Map<number, IFurnitureData>, wallItems: Map<number, IFurnitureData>)
     {
-        super();
-
         this._floorItems = floorItems;
         this._wallItems = wallItems;
-        this._localization = localization;
     }
 
-    public loadFurnitureData(url: string): void
+    public async init(): Promise<void>
     {
-        if(!url) return;
+        const url = NitroConfiguration.getValue<string>('furnidata.url');
 
-        fetch(url)
-            .then(response => response.json())
-            .then(data => this.onFurnitureDataLoaded(data))
-            .catch(err => this.onFurnitureDataError(err));
-    }
+        if(!url || !url.length) throw new Error('invalid furni data url');
 
-    private onFurnitureDataLoaded(data: { [index: string]: any }): void
-    {
-        if(!data) return;
+        const response = await fetch(url);
 
-        if((typeof data.roomitemtypes == 'undefined') || (typeof data.wallitemtypes == 'undefined')) NitroLogger.warn('Could not find `roomitemtypes` or `wallitemtypes` in furnidata.');
+        if(response.status !== 200) throw new Error('Invalid furni data file');
 
-        if(data.roomitemtypes) this.parseFloorItems(data.roomitemtypes);
+        const responseData = await response.json();
 
-        if(data.wallitemtypes) this.parseWallItems(data.wallitemtypes);
+        if(responseData.roomitemtypes) this.parseFloorItems(responseData.roomitemtypes);
 
-        this.dispatchEvent(new NitroEvent(FurnitureDataLoader.FURNITURE_DATA_READY));
-    }
-
-    private onFurnitureDataError(error: Error): void
-    {
-        if(!error) return;
-
-        NitroLogger.error(error);
-
-        this.dispatchEvent(new NitroEvent(FurnitureDataLoader.FURNITURE_DATA_ERROR));
+        if(responseData.wallitemtypes) this.parseWallItems(responseData.wallitemtypes);
     }
 
     private parseFloorItems(data: any): void
@@ -113,17 +90,15 @@ export class FurnitureDataLoader extends EventDispatcher
 
     private updateLocalizations(furniture: FurnitureData): void
     {
-        if(!this._localization) return;
-
         switch(furniture.type)
         {
             case FurnitureType.FLOOR:
-                this._localization.setValue(('roomItem.name.' + furniture.id), furniture.name);
-                this._localization.setValue(('roomItem.desc.' + furniture.id), furniture.description);
+                Nitro.instance.localization.setValue(('roomItem.name.' + furniture.id), furniture.name);
+                Nitro.instance.localization.setValue(('roomItem.desc.' + furniture.id), furniture.description);
                 return;
             case FurnitureType.WALL:
-                this._localization.setValue(('wallItem.name.' + furniture.id), furniture.name);
-                this._localization.setValue(('wallItem.desc.' + furniture.id), furniture.description);
+                Nitro.instance.localization.setValue(('wallItem.name.' + furniture.id), furniture.name);
+                Nitro.instance.localization.setValue(('wallItem.desc.' + furniture.id), furniture.description);
                 return;
         }
     }

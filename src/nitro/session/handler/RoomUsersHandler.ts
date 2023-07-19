@@ -1,5 +1,5 @@
 import { IConnection, IRoomHandlerListener, IRoomUserData } from '../../../api';
-import { RoomSessionConfirmPetBreedingEvent, RoomSessionConfirmPetBreedingResultEvent, RoomSessionDanceEvent, RoomSessionDoorbellEvent, RoomSessionErrorMessageEvent, RoomSessionFavoriteGroupUpdateEvent, RoomSessionFriendRequestEvent, RoomSessionNestBreedingSuccessEvent, RoomSessionPetBreedingEvent, RoomSessionPetBreedingResultEvent, RoomSessionPetFigureUpdateEvent, RoomSessionPetInfoUpdateEvent, RoomSessionPetLevelUpdateEvent, RoomSessionPetStatusUpdateEvent, RoomSessionUserBadgesEvent, RoomSessionUserDataUpdateEvent, RoomSessionUserFigureUpdateEvent } from '../../../events';
+import { NitroEventDispatcher, RoomSessionConfirmPetBreedingEvent, RoomSessionConfirmPetBreedingResultEvent, RoomSessionDanceEvent, RoomSessionDoorbellEvent, RoomSessionErrorMessageEvent, RoomSessionFavoriteGroupUpdateEvent, RoomSessionFriendRequestEvent, RoomSessionNestBreedingSuccessEvent, RoomSessionPetBreedingEvent, RoomSessionPetBreedingResultEvent, RoomSessionPetFigureUpdateEvent, RoomSessionPetInfoUpdateEvent, RoomSessionPetLevelUpdateEvent, RoomSessionPetStatusUpdateEvent, RoomSessionUserBadgesEvent, RoomSessionUserDataUpdateEvent, RoomSessionUserFigureUpdateEvent } from '../../../events';
 import { BotErrorEvent, ConfirmBreedingRequestEvent, ConfirmBreedingResultEvent, DoorbellMessageEvent, FavoriteMembershipUpdateMessageEvent, NestBreedingSuccessEvent, NewFriendRequestEvent, PetBreedingMessageEvent, PetBreedingResultEvent, PetFigureUpdateEvent, PetInfoEvent, PetLevelUpdateMessageEvent, PetPlacingErrorEvent, PetStatusUpdateEvent, RoomUnitDanceEvent, RoomUnitEvent, RoomUnitInfoEvent, RoomUnitRemoveEvent, UserCurrentBadgesEvent, UserNameChangeMessageEvent } from '../../communication';
 import { RoomPetData } from '../RoomPetData';
 import { RoomUserData } from '../RoomUserData';
@@ -82,7 +82,7 @@ export class RoomUsersHandler extends BaseHandler
             }
         }
 
-        this.listener.events.dispatchEvent(new RoomSessionUserDataUpdateEvent(session, usersToAdd));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionUserDataUpdateEvent(session, usersToAdd));
     }
 
     private onRoomUnitInfoEvent(event: RoomUnitInfoEvent): void
@@ -101,7 +101,7 @@ export class RoomUsersHandler extends BaseHandler
         session.userDataManager.updateMotto(parser.unitId, parser.motto);
         session.userDataManager.updateAchievementScore(parser.unitId, parser.achievementScore);
 
-        this.listener.events.dispatchEvent(new RoomSessionUserFigureUpdateEvent(session, parser.unitId, parser.figure, parser.gender, parser.motto, parser.achievementScore));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionUserFigureUpdateEvent(session, parser.unitId, parser.figure, parser.gender, parser.motto, parser.achievementScore));
 
     }
 
@@ -128,7 +128,7 @@ export class RoomUsersHandler extends BaseHandler
 
         if(!session) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionDanceEvent(session, parser.unitId, parser.danceId));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionDanceEvent(session, parser.unitId, parser.danceId));
     }
 
     private onUserCurrentBadgesEvent(event: UserCurrentBadgesEvent): void
@@ -145,7 +145,7 @@ export class RoomUsersHandler extends BaseHandler
 
         session.userDataManager.setUserBadges(parser.userId, parser.badges);
 
-        this.listener.events.dispatchEvent(new RoomSessionUserBadgesEvent(session, parser.userId, parser.badges));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionUserBadgesEvent(session, parser.userId, parser.badges));
     }
 
     private onRoomDoorbellEvent(event: DoorbellMessageEvent): void
@@ -164,7 +164,7 @@ export class RoomUsersHandler extends BaseHandler
 
         if(!session) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionDoorbellEvent(RoomSessionDoorbellEvent.DOORBELL, session, username));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionDoorbellEvent(RoomSessionDoorbellEvent.DOORBELL, session, username));
     }
 
     private onUserNameChangeMessageEvent(event: UserNameChangeMessageEvent): void
@@ -196,7 +196,7 @@ export class RoomUsersHandler extends BaseHandler
 
         const request = parser.request;
 
-        this.listener.events.dispatchEvent(new RoomSessionFriendRequestEvent(session, request.requestId, request.requesterUserId, request.requesterName));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionFriendRequestEvent(session, request.requestId, request.requesterUserId, request.requesterName));
     }
 
     private onPetInfoEvent(event: PetInfoEvent): void
@@ -240,7 +240,7 @@ export class RoomUsersHandler extends BaseHandler
         petData.remainingGrowTime = parser.remainingGrowTime;
         petData.publiclyBreedable = parser.publiclyBreedable;
 
-        this.listener.events.dispatchEvent(new RoomSessionPetInfoUpdateEvent(session, petData));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionPetInfoUpdateEvent(session, petData));
     }
 
     private onPetStatusUpdateEvent(event: PetStatusUpdateEvent): void
@@ -257,7 +257,7 @@ export class RoomUsersHandler extends BaseHandler
 
         session.userDataManager.updatePetBreedingStatus(parser.roomIndex, parser.canBreed, parser.canHarvest, parser.canRevive, parser.hasBreedingPermission);
 
-        this.listener.events.dispatchEvent(new RoomSessionPetStatusUpdateEvent(session, parser.petId, parser.canBreed, parser.canHarvest, parser.canRevive, parser.hasBreedingPermission));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionPetStatusUpdateEvent(session, parser.petId, parser.canBreed, parser.canHarvest, parser.canRevive, parser.hasBreedingPermission));
     }
 
     private onPetBreedingMessageEvent(event: PetBreedingMessageEvent): void
@@ -272,7 +272,7 @@ export class RoomUsersHandler extends BaseHandler
 
         if(!session) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionPetBreedingEvent(session, parser.state, parser.ownPetId, parser.otherPetId));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionPetBreedingEvent(session, parser.state, parser.ownPetId, parser.otherPetId));
     }
 
     private onPetLevelUpdateMessageEvent(event: PetLevelUpdateMessageEvent): void
@@ -289,7 +289,7 @@ export class RoomUsersHandler extends BaseHandler
 
         session.userDataManager.updatePetLevel(parser.roomIndex, parser.level);
 
-        this.listener.events.dispatchEvent(new RoomSessionPetLevelUpdateEvent(session, parser.petId, parser.level));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionPetLevelUpdateEvent(session, parser.petId, parser.level));
     }
 
     private onConfirmBreedingResultEvent(event: ConfirmBreedingResultEvent): void
@@ -304,7 +304,7 @@ export class RoomUsersHandler extends BaseHandler
 
         if(!session) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionConfirmPetBreedingResultEvent(session, parser.breedingNestStuffId, parser.result));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionConfirmPetBreedingResultEvent(session, parser.breedingNestStuffId, parser.result));
     }
 
     private onNestBreedingSuccessEvent(event: NestBreedingSuccessEvent): void
@@ -319,7 +319,7 @@ export class RoomUsersHandler extends BaseHandler
 
         if(!session) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionNestBreedingSuccessEvent(session, parser.petId, parser.rarityCategory));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionNestBreedingSuccessEvent(session, parser.petId, parser.rarityCategory));
     }
 
     private onConfirmBreedingRequestEvent(event: ConfirmBreedingRequestEvent): void
@@ -334,7 +334,7 @@ export class RoomUsersHandler extends BaseHandler
 
         if(!session) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionConfirmPetBreedingEvent(session, parser.nestId, parser.pet1, parser.pet2, parser.rarityCategories, parser.resultPetType));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionConfirmPetBreedingEvent(session, parser.nestId, parser.pet1, parser.pet2, parser.rarityCategories, parser.resultPetType));
     }
 
     private onPetFigureUpdateEvent(event: PetFigureUpdateEvent): void
@@ -353,7 +353,7 @@ export class RoomUsersHandler extends BaseHandler
 
         session.userDataManager.updateFigure(parser.roomIndex, figure, '', parser.hasSaddle, parser.isRiding);
 
-        this.listener.events.dispatchEvent(new RoomSessionPetFigureUpdateEvent(session, parser.petId, figure));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionPetFigureUpdateEvent(session, parser.petId, figure));
     }
 
     private onPetBreedingResultEvent(event: PetBreedingResultEvent): void
@@ -368,7 +368,7 @@ export class RoomUsersHandler extends BaseHandler
 
         if(!session) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionPetBreedingResultEvent(session, parser.resultData, parser.otherResultData));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionPetBreedingResultEvent(session, parser.resultData, parser.otherResultData));
     }
 
     private onPetPlacingError(event: PetPlacingErrorEvent): void
@@ -411,7 +411,7 @@ export class RoomUsersHandler extends BaseHandler
 
         if(!type || type.length == 0) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionErrorMessageEvent(type, session));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionErrorMessageEvent(type, session));
     }
 
     private onBotError(event: BotErrorEvent): void
@@ -451,7 +451,7 @@ export class RoomUsersHandler extends BaseHandler
 
         if(!type || type.length == 0) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionErrorMessageEvent(type, session));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionErrorMessageEvent(type, session));
     }
 
     private onFavoriteMembershipUpdateMessageEvent(event: FavoriteMembershipUpdateMessageEvent): void
@@ -470,6 +470,6 @@ export class RoomUsersHandler extends BaseHandler
         userData.groupId = parser.groupId;
         userData.groupName = parser.groupName;
 
-        this.listener.events.dispatchEvent(new RoomSessionFavoriteGroupUpdateEvent(session, parser.roomIndex, parser.groupId, parser.status, parser.groupName));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionFavoriteGroupUpdateEvent(session, parser.roomIndex, parser.groupId, parser.status, parser.groupName));
     }
 }

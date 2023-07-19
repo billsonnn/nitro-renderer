@@ -1,16 +1,14 @@
 import { Resource, Texture } from '@pixi/core';
-import { INitroManager } from '../../common';
-import { INitroCommunicationManager } from '../communication';
+import { ICommunicationManager } from '../communication';
 import { IFurnitureData } from './IFurnitureData';
-import { IFurnitureDataListener } from './IFurnitureDataListener';
 import { IGroupInformationManager } from './IGroupInformationManager';
 import { IIgnoredUsersManager } from './IIgnoredUsersManager';
 import { IProductData } from './IProductData';
 
-export interface ISessionDataManager extends INitroManager
+export interface ISessionDataManager
 {
-    getAllFurnitureData(listener: IFurnitureDataListener): IFurnitureData[];
-    removePendingFurniDataListener(listener: IFurnitureDataListener): void;
+    init(): Promise<void>;
+    getAllFurnitureData(): IFurnitureData[];
     getFloorItemData(id: number): IFurnitureData;
     getFloorItemDataByName(name: string): IFurnitureData;
     getWallItemData(id: number): IFurnitureData;
@@ -31,7 +29,7 @@ export interface ISessionDataManager extends INitroManager
     unignoreUser(name: string): void;
     isUserIgnored(name: string): boolean;
     getGroupBadge(groupId: number): string;
-    communication: INitroCommunicationManager;
+    communication: ICommunicationManager;
     userId: number;
     userName: string;
     figure: string;

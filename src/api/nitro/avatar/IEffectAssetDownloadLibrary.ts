@@ -1,7 +1,6 @@
 import { IAssetAnimation } from '../../asset';
-import { IEventDispatcher } from '../../common';
 
-export interface IEffectAssetDownloadLibrary extends IEventDispatcher
+export interface IEffectAssetDownloadLibrary
 {
     downloadAsset(): void;
     readonly libraryName: string;

@@ -1,6 +1,6 @@
 import { Resource, Texture } from '@pixi/core';
 import { IAssetManager, IDisposable, IMessageEvent, NitroConfiguration } from '../../../api';
-import { BadgeImageReadyEvent } from '../../../events';
+import { BadgeImageReadyEvent, NitroEventDispatcher } from '../../../events';
 import { NitroContainer, NitroSprite, NitroTexture, TextureUtils } from '../../../pixi-proxy';
 import { GroupBadgePartsEvent } from '../../communication';
 import { SessionDataManager } from './../SessionDataManager';
@@ -116,7 +116,7 @@ export class BadgeImageManager implements IDisposable
 
                     const texture = this._assets.getTexture(url);
 
-                    if(texture && this._sessionDataManager) this._sessionDataManager.events.dispatchEvent(new BadgeImageReadyEvent(badgeName, texture.clone()));
+                    if(texture && this._sessionDataManager) NitroEventDispatcher.dispatchEvent(new BadgeImageReadyEvent(badgeName, texture.clone()));
                 })
                 .catch(err =>
                 {
@@ -230,7 +230,7 @@ export class BadgeImageManager implements IDisposable
         const texture = TextureUtils.generateTexture(container);
         this._assets.setTexture(groupBadge.code, texture);
 
-        if(this._sessionDataManager) this._sessionDataManager.events.dispatchEvent(new BadgeImageReadyEvent(groupBadge.code, texture));
+        if(this._sessionDataManager) NitroEventDispatcher.dispatchEvent(new BadgeImageReadyEvent(groupBadge.code, texture));
     }
 
     private onGroupBadgePartsEvent(event: GroupBadgePartsEvent): void

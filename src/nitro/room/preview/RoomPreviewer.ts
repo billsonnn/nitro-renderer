@@ -3,13 +3,13 @@ import { Container, DisplayObject } from '@pixi/display';
 import { Point, Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
 import { IGetImageListener, IImageResult, IObjectData, IRoomEngine, IRoomObjectController, IRoomRenderingCanvas, IVector3D, LegacyDataType, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, Vector3d } from '../../../api';
-import { RoomEngineEvent, RoomEngineObjectEvent } from '../../../events';
+import { NitroEventDispatcher, RoomEngineEvent, RoomEngineObjectEvent } from '../../../events';
 import { GetTickerTime, NitroSprite } from '../../../pixi-proxy';
 import { RoomId } from '../../../room';
 import { FloorHeightMapMessageParser, RoomEntryTileMessageParser } from '../../communication';
+import { RoomEngine } from '../RoomEngine';
 import { ObjectRoomMapUpdateMessage } from '../messages';
 import { RoomPlaneParser } from '../object/RoomPlaneParser';
-import { RoomEngine } from '../RoomEngine';
 import { LegacyWallGeometry } from '../utils/LegacyWallGeometry';
 
 export class RoomPreviewer
@@ -54,11 +54,11 @@ export class RoomPreviewer
         this.onRoomObjectAdded = this.onRoomObjectAdded.bind(this);
         this.onRoomInitializedonRoomInitialized = this.onRoomInitializedonRoomInitialized.bind(this);
 
-        if(this.isRoomEngineReady && this._roomEngine.events)
+        if(this.isRoomEngineReady && NitroEventDispatcher)
         {
-            this._roomEngine.events.addEventListener(RoomEngineObjectEvent.ADDED, this.onRoomObjectAdded);
-            this._roomEngine.events.addEventListener(RoomEngineObjectEvent.CONTENT_UPDATED, this.onRoomObjectAdded);
-            this._roomEngine.events.addEventListener(RoomEngineEvent.INITIALIZED, this.onRoomInitializedonRoomInitialized);
+            NitroEventDispatcher.addEventListener(RoomEngineObjectEvent.ADDED, this.onRoomObjectAdded);
+            NitroEventDispatcher.addEventListener(RoomEngineObjectEvent.CONTENT_UPDATED, this.onRoomObjectAdded);
+            NitroEventDispatcher.addEventListener(RoomEngineEvent.INITIALIZED, this.onRoomInitializedonRoomInitialized);
         }
 
         this.createRoomForPreview();
@@ -68,11 +68,11 @@ export class RoomPreviewer
     {
         this.reset(true);
 
-        if(this.isRoomEngineReady && this._roomEngine.events)
+        if(this.isRoomEngineReady && NitroEventDispatcher)
         {
-            this._roomEngine.events.removeEventListener(RoomEngineObjectEvent.ADDED, this.onRoomObjectAdded);
-            this._roomEngine.events.removeEventListener(RoomEngineObjectEvent.CONTENT_UPDATED, this.onRoomObjectAdded);
-            this._roomEngine.events.removeEventListener(RoomEngineEvent.INITIALIZED, this.onRoomInitializedonRoomInitialized);
+            NitroEventDispatcher.removeEventListener(RoomEngineObjectEvent.ADDED, this.onRoomObjectAdded);
+            NitroEventDispatcher.removeEventListener(RoomEngineObjectEvent.CONTENT_UPDATED, this.onRoomObjectAdded);
+            NitroEventDispatcher.removeEventListener(RoomEngineEvent.INITIALIZED, this.onRoomInitializedonRoomInitialized);
         }
 
         if(this._backgroundSprite)
@@ -845,7 +845,7 @@ export class RoomPreviewer
 
     public get isRoomEngineReady(): boolean
     {
-        return (this._roomEngine && this._roomEngine.ready);
+        return true;
     }
 
     public get roomId(): number

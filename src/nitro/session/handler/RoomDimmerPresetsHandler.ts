@@ -1,5 +1,5 @@
 ﻿import { IConnection, IRoomHandlerListener } from '../../../api';
-import { RoomSessionDimmerPresetsEvent } from '../../../events';
+import { NitroEventDispatcher, RoomSessionDimmerPresetsEvent } from '../../../events';
 import { RoomDimmerPresetsEvent } from '../../communication';
 import { BaseHandler } from './BaseHandler';
 
@@ -39,6 +39,6 @@ export class RoomDimmerPresetsHandler extends BaseHandler
             i++;
         }
 
-        this.listener && this.listener.events.dispatchEvent(presetEvent);
+        NitroEventDispatcher.dispatchEvent(presetEvent);
     }
 }

@@ -978,7 +978,7 @@ export class RoomMessageHandler extends Disposable
     //             _SafeStr_4231._SafeStr_6766();
     //             return;
     //         case 2:
-    //             this._SafeStr_10592.roomSessionManager.events.dispatchEvent(new _SafeStr_2821(this._SafeStr_10593, -1, true));
+    //             NitroEventDispatcher.dispatchEvent(new _SafeStr_2821(this._SafeStr_10593, -1, true));
     //             return;
     //         case 3:
     //             arrayIndex = 0;

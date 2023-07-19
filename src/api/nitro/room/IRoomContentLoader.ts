@@ -3,14 +3,11 @@ import { IPetColorResult, IRoomContentListener } from '.';
 import { IGraphicAssetCollection, IGraphicAssetGifCollection } from '../../asset';
 import { IEventDispatcher } from '../../common';
 import { IRoomObject } from '../../room';
-import { ISessionDataManager } from '../session';
 
 export interface IRoomContentLoader
 {
-    dispose: () => void;
-    initialize(events: IEventDispatcher): void;
-    setSessionDataManager(sessionData: ISessionDataManager): void;
-    downloadAsset(type: string, events: IEventDispatcher): void;
+    init(): Promise<void>;
+    downloadAsset(type: string): Promise<void>;
     isLoaderType(type: string): boolean;
     getCollection(name: string): IGraphicAssetCollection;
     getPlaceholderName(type: string): string;

@@ -1,4 +1,5 @@
 import { IMessageEvent, IPlaylistController, ISongInfo } from '../../../api';
+import { NitroEventDispatcher } from '../../../events';
 import { GetJukeboxPlayListMessageComposer, JukeboxPlayListFullMessageEvent, JukeboxSongDisksMessageEvent, NowPlayingMessageEvent } from '../../communication';
 import { Nitro } from '../../Nitro';
 import { SongDataEntry } from '../common/SongDataEntry';
@@ -34,7 +35,7 @@ export class JukeboxPlaylistController implements IPlaylistController
     {
         this._messageEvents.forEach(event => Nitro.instance.communication.connection.addMessageEvent(event));
         //this._events.addEventListener(SoundManagerEvent.TRAX_SONG_COMPLETE, this.onSongFinishedPlayingEvent);
-        Nitro.instance.soundManager.events.addEventListener(SongInfoReceivedEvent.SIR_TRAX_SONG_INFO_RECEIVED, this.onSongInfoReceivedEvent);
+        NitroEventDispatcher.addEventListener(SongInfoReceivedEvent.SIR_TRAX_SONG_INFO_RECEIVED, this.onSongInfoReceivedEvent);
     }
 
     public get priority(): number
@@ -62,7 +63,7 @@ export class JukeboxPlaylistController implements IPlaylistController
 
         this._playPosition = parser.currentPosition;
         //Dispatch local event NowPlayingEvent
-        Nitro.instance.soundManager.events.dispatchEvent(new NowPlayingEvent(NowPlayingEvent.NPE_SONG_CHANGED, MusicPriorities.PRIORITY_ROOM_PLAYLIST, parser.currentSongId, parser.currentPosition));
+        NitroEventDispatcher.dispatchEvent(new NowPlayingEvent(NowPlayingEvent.NPE_SONG_CHANGED, MusicPriorities.PRIORITY_ROOM_PLAYLIST, parser.currentSongId, parser.currentPosition));
     }
 
     private onJukeboxSongDisksMessageEvent(event: JukeboxSongDisksMessageEvent): void
@@ -89,13 +90,13 @@ export class JukeboxPlaylistController implements IPlaylistController
         }
         if(this._missingSongInfo.length == 0)
         {
-            Nitro.instance.soundManager.events.dispatchEvent(new PlayListStatusEvent(PlayListStatusEvent.PLUE_PLAY_LIST_UPDATED));
+            NitroEventDispatcher.dispatchEvent(new PlayListStatusEvent(PlayListStatusEvent.PLUE_PLAY_LIST_UPDATED));
         }
     }
 
     private onJukeboxPlayListFullMessageEvent(event: JukeboxPlayListFullMessageEvent): void
     {
-        Nitro.instance.soundManager.events.dispatchEvent(new PlayListStatusEvent(PlayListStatusEvent.PLUE_PLAY_LIST_FULL));
+        NitroEventDispatcher.dispatchEvent(new PlayListStatusEvent(PlayListStatusEvent.PLUE_PLAY_LIST_FULL));
     }
 
     private onSongInfoReceivedEvent(songInfoEvent: SongInfoReceivedEvent): void
@@ -122,7 +123,7 @@ export class JukeboxPlaylistController implements IPlaylistController
         }
         if(this._missingSongInfo.length == 0)
         {
-            Nitro.instance.soundManager.events.dispatchEvent(new PlayListStatusEvent(PlayListStatusEvent.PLUE_PLAY_LIST_UPDATED));
+            NitroEventDispatcher.dispatchEvent(new PlayListStatusEvent(PlayListStatusEvent.PLUE_PLAY_LIST_UPDATED));
         }
     }
 
@@ -183,9 +184,9 @@ export class JukeboxPlaylistController implements IPlaylistController
         {
             this._disposed = true;
             this.stopPlaying();
-            if(Nitro.instance.soundManager.events)
+            if(Nitro.instance.soundManager)
             {
-                Nitro.instance.soundManager.events.removeEventListener(SongInfoReceivedEvent.SIR_TRAX_SONG_INFO_RECEIVED, this.onSongInfoReceivedEvent);
+                NitroEventDispatcher.removeEventListener(SongInfoReceivedEvent.SIR_TRAX_SONG_INFO_RECEIVED, this.onSongInfoReceivedEvent);
             }
             this._messageEvents.forEach(event => Nitro.instance.communication.connection.removeMessageEvent(event));
             this._messageEvents = null;

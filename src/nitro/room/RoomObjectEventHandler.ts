@@ -1,6 +1,6 @@
 import { IFurnitureStackingHeightMap, ILegacyWallGeometry, IObjectData, IRoomCanvasMouseListener, IRoomEngineServices, IRoomGeometry, IRoomObject, IRoomObjectController, IRoomObjectEventManager, ISelectedRoomObjectData, IVector3D, MouseEventType, NitroConfiguration, NitroLogger, RoomObjectCategory, RoomObjectOperationType, RoomObjectPlacementSource, RoomObjectType, RoomObjectUserType, RoomObjectVariable, Vector3d } from '../../api';
 import { Disposable } from '../../common';
-import { RoomEngineDimmerStateEvent, RoomEngineObjectEvent, RoomEngineObjectPlacedEvent, RoomEngineObjectPlacedOnUserEvent, RoomEngineObjectPlaySoundEvent, RoomEngineRoomAdEvent, RoomEngineSamplePlaybackEvent, RoomEngineTriggerWidgetEvent, RoomEngineUseProductEvent, RoomObjectBadgeAssetEvent, RoomObjectDataRequestEvent, RoomObjectDimmerStateUpdateEvent, RoomObjectEvent, RoomObjectFloorHoleEvent, RoomObjectFurnitureActionEvent, RoomObjectHSLColorEnabledEvent, RoomObjectHSLColorEnableEvent, RoomObjectMouseEvent, RoomObjectMoveEvent, RoomObjectPlaySoundIdEvent, RoomObjectRoomAdEvent, RoomObjectSamplePlaybackEvent, RoomObjectSoundMachineEvent, RoomObjectStateChangedEvent, RoomObjectTileMouseEvent, RoomObjectWallMouseEvent, RoomObjectWidgetRequestEvent, RoomSpriteMouseEvent } from '../../events';
+import { NitroEventDispatcher, RoomEngineDimmerStateEvent, RoomEngineObjectEvent, RoomEngineObjectPlacedEvent, RoomEngineObjectPlacedOnUserEvent, RoomEngineObjectPlaySoundEvent, RoomEngineRoomAdEvent, RoomEngineSamplePlaybackEvent, RoomEngineTriggerWidgetEvent, RoomEngineUseProductEvent, RoomObjectBadgeAssetEvent, RoomObjectDataRequestEvent, RoomObjectDimmerStateUpdateEvent, RoomObjectEvent, RoomObjectFloorHoleEvent, RoomObjectFurnitureActionEvent, RoomObjectHSLColorEnabledEvent, RoomObjectHSLColorEnableEvent, RoomObjectMouseEvent, RoomObjectMoveEvent, RoomObjectPlaySoundIdEvent, RoomObjectRoomAdEvent, RoomObjectSamplePlaybackEvent, RoomObjectSoundMachineEvent, RoomObjectStateChangedEvent, RoomObjectTileMouseEvent, RoomObjectWallMouseEvent, RoomObjectWidgetRequestEvent, RoomSpriteMouseEvent } from '../../events';
 import { RoomEnterEffect, RoomId, RoomObjectUpdateMessage } from '../../room';
 import { BotPlaceComposer, FurnitureColorWheelComposer, FurnitureDiceActivateComposer, FurnitureDiceDeactivateComposer, FurnitureFloorUpdateComposer, FurnitureGroupInfoComposer, FurnitureMultiStateComposer, FurnitureOneWayDoorComposer, FurniturePickupComposer, FurniturePlaceComposer, FurniturePostItPlaceComposer, FurnitureRandomStateComposer, FurnitureWallMultiStateComposer, FurnitureWallUpdateComposer, GetItemDataComposer, GetResolutionAchievementsMessageComposer, PetMoveComposer, PetPlaceComposer, RemoveWallItemComposer, RoomUnitLookComposer, RoomUnitWalkComposer, SetItemDataMessageComposer, SetObjectDataMessageComposer } from '../communication';
 import { Nitro } from '../Nitro';
@@ -35,7 +35,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
         this.onRoomEngineObjectEvent = this.onRoomEngineObjectEvent.bind(this);
 
-        this._roomEngine.events.addEventListener(RoomEngineObjectEvent.ADDED, this.onRoomEngineObjectEvent);
+        NitroEventDispatcher.addEventListener(RoomEngineObjectEvent.ADDED, this.onRoomEngineObjectEvent);
     }
 
     public dispose(): void
@@ -45,7 +45,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             this._eventIds = null;
         }
 
-        this._roomEngine.events.removeEventListener(RoomEngineObjectEvent.ADDED, this.onRoomEngineObjectEvent);
+        NitroEventDispatcher.removeEventListener(RoomEngineObjectEvent.ADDED, this.onRoomEngineObjectEvent);
 
         this._roomEngine = null;
     }
@@ -439,9 +439,9 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                             {
                                 if(category === RoomObjectCategory.FLOOR)
                                 {
-                                    if(this._roomEngine.events)
+                                    if(NitroEventDispatcher)
                                     {
-                                        this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.REQUEST_ROTATE, roomId, event.objectId, category));
+                                        NitroEventDispatcher.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.REQUEST_ROTATE, roomId, event.objectId, category));
                                     }
                                 }
                             }
@@ -487,7 +487,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             {
                 this.deselectObject(roomId);
 
-                if(this._roomEngine.events) this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.DESELECTED, roomId, -1, RoomObjectCategory.MINIMUM));
+                if(NitroEventDispatcher) NitroEventDispatcher.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.DESELECTED, roomId, -1, RoomObjectCategory.MINIMUM));
 
                 this.setSelectedAvatar(roomId, 0, false);
             }
@@ -500,9 +500,9 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         const type = event.objectType;
         const category = this._roomEngine.getRoomObjectCategoryForType(type);
 
-        if(this._roomEngine.events)
+        if(NitroEventDispatcher)
         {
-            this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.DOUBLE_CLICK, roomId, id, category));
+            NitroEventDispatcher.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.DOUBLE_CLICK, roomId, id, category));
         }
     }
 
@@ -580,7 +580,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 {
                     if((event.altKey && !event.ctrlKey && !event.shiftKey) || this.decorateModeMove(event))
                     {
-                        if(this._roomEngine.events) this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.REQUEST_MOVE, roomId, event.objectId, category));
+                        if(NitroEventDispatcher) NitroEventDispatcher.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.REQUEST_MOVE, roomId, event.objectId, category));
                     }
                 }
                 return;
@@ -606,7 +606,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 {
                     if((!event.ctrlKey && !event.shiftKey) || this.decorateModeMove(event))
                     {
-                        if(this._roomEngine.events) this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.REQUEST_MANIPULATION, roomId, event.objectId, category));
+                        if(NitroEventDispatcher) NitroEventDispatcher.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.REQUEST_MANIPULATION, roomId, event.objectId, category));
                     }
                 }
                 return;
@@ -619,9 +619,9 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         const type = event.objectType;
         const category = this._roomEngine.getRoomObjectCategoryForType(type);
 
-        if(this._roomEngine.events)
+        if(NitroEventDispatcher)
         {
-            this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.MOUSE_ENTER, roomId, id, category));
+            NitroEventDispatcher.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.MOUSE_ENTER, roomId, id, category));
         }
     }
 
@@ -641,9 +641,9 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             }
         }
 
-        if(this._roomEngine.events)
+        if(NitroEventDispatcher)
         {
-            this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.MOUSE_LEAVE, roomId, id, category));
+            NitroEventDispatcher.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.MOUSE_LEAVE, roomId, id, category));
         }
 
         return;
@@ -671,7 +671,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         switch(event.type)
         {
             case RoomObjectDimmerStateUpdateEvent.DIMMER_STATE:
-                this._roomEngine.events.dispatchEvent(new RoomEngineDimmerStateEvent(roomId, event.state, event.presetId, event.effectId, event.color, event.brightness));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineDimmerStateEvent(roomId, event.state, event.presetId, event.effectId, event.color, event.brightness));
                 return;
         }
     }
@@ -710,124 +710,121 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         const objectId = event.objectId;
         const objectType = event.objectType;
         const objectCategory = this._roomEngine.getRoomObjectCategoryForType(objectType);
-        const eventDispatcher = this._roomEngine.events;
-
-        if(!eventDispatcher) return;
 
         if(RoomId.isRoomPreviewerId(roomId)) return;
 
         switch(event.type)
         {
             case RoomObjectWidgetRequestEvent.OPEN_WIDGET:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.OPEN_WIDGET, roomId, objectId, objectCategory, ((event.object as IRoomObjectController).logic.widget)));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.OPEN_WIDGET, roomId, objectId, objectCategory, ((event.object as IRoomObjectController).logic.widget)));
                 return;
             case RoomObjectWidgetRequestEvent.CLOSE_WIDGET:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.CLOSE_WIDGET, roomId, objectId, objectCategory, ((event.object as IRoomObjectController).logic.widget)));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.CLOSE_WIDGET, roomId, objectId, objectCategory, ((event.object as IRoomObjectController).logic.widget)));
                 return;
             case RoomObjectWidgetRequestEvent.OPEN_FURNI_CONTEXT_MENU:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.OPEN_FURNI_CONTEXT_MENU, roomId, objectId, objectCategory, ((event.object as IRoomObjectController).logic.contextMenu)));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.OPEN_FURNI_CONTEXT_MENU, roomId, objectId, objectCategory, ((event.object as IRoomObjectController).logic.contextMenu)));
                 return;
             case RoomObjectWidgetRequestEvent.CLOSE_FURNI_CONTEXT_MENU:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.CLOSE_FURNI_CONTEXT_MENU, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.CLOSE_FURNI_CONTEXT_MENU, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.PLACEHOLDER:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PLACEHOLDER, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PLACEHOLDER, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.CREDITFURNI:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_CREDITFURNI, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_CREDITFURNI, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.STACK_HEIGHT:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_STACK_HEIGHT, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_STACK_HEIGHT, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.EXTERNAL_IMAGE:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_EXTERNAL_IMAGE, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_EXTERNAL_IMAGE, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.STICKIE:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_STICKIE, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_STICKIE, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.PRESENT:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PRESENT, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PRESENT, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.TROPHY:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_TROPHY, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_TROPHY, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.TEASER:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_TEASER, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_TEASER, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.ECOTRONBOX:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ECOTRONBOX, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ECOTRONBOX, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.DIMMER:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_DIMMER, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_DIMMER, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.WIDGET_REMOVE_DIMMER:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REMOVE_DIMMER, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REMOVE_DIMMER, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.CLOTHING_CHANGE:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_CLOTHING_CHANGE, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_CLOTHING_CHANGE, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.JUKEBOX_PLAYLIST_EDITOR:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PLAYLIST_EDITOR, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PLAYLIST_EDITOR, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.MANNEQUIN:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MANNEQUIN, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MANNEQUIN, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.PET_PRODUCT_MENU:
-                eventDispatcher.dispatchEvent(new RoomEngineUseProductEvent(RoomEngineUseProductEvent.USE_PRODUCT_FROM_ROOM, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineUseProductEvent(RoomEngineUseProductEvent.USE_PRODUCT_FROM_ROOM, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.GUILD_FURNI_CONTEXT_MENU:
                 this._roomEngine.connection.send(new FurnitureGroupInfoComposer(event.objectId, event.object.model.getValue<number>(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_GUILD_ID)));
                 return;
             case RoomObjectWidgetRequestEvent.MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.PURCHASABLE_CLOTHING_CONFIRMATION_DIALOG:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PURCHASABLE_CLOTHING_CONFIRMATION_DIALOG, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_PURCHASABLE_CLOTHING_CONFIRMATION_DIALOG, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.BACKGROUND_COLOR:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_BACKGROUND_COLOR, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_BACKGROUND_COLOR, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.MYSTERYBOX_OPEN_DIALOG:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MYSTERYBOX_OPEN_DIALOG, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MYSTERYBOX_OPEN_DIALOG, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.EFFECTBOX_OPEN_DIALOG:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_EFFECTBOX_OPEN_DIALOG, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_EFFECTBOX_OPEN_DIALOG, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.MYSTERYTROPHY_OPEN_DIALOG:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MYSTERYTROPHY_OPEN_DIALOG, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MYSTERYTROPHY_OPEN_DIALOG, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_OPEN:
                 this._roomEngine.connection.send(new GetResolutionAchievementsMessageComposer(event.objectId, 0));
                 return;
             case RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_ENGRAVING:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ACHIEVEMENT_RESOLUTION_ENGRAVING, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ACHIEVEMENT_RESOLUTION_ENGRAVING, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.ACHIEVEMENT_RESOLUTION_FAILED:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ACHIEVEMENT_RESOLUTION_FAILED, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ACHIEVEMENT_RESOLUTION_FAILED, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.FRIEND_FURNITURE_CONFIRM:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_FRIEND_FURNITURE_CONFIRM, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_FRIEND_FURNITURE_CONFIRM, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.FRIEND_FURNITURE_ENGRAVING:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_FRIEND_FURNITURE_ENGRAVING, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_FRIEND_FURNITURE_ENGRAVING, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.BADGE_DISPLAY_ENGRAVING:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_BADGE_DISPLAY_ENGRAVING, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_BADGE_DISPLAY_ENGRAVING, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.HIGH_SCORE_DISPLAY:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_HIGH_SCORE_DISPLAY, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_HIGH_SCORE_DISPLAY, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.HIDE_HIGH_SCORE_DISPLAY:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_HIDE_HIGH_SCORE_DISPLAY, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_HIDE_HIGH_SCORE_DISPLAY, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.INERNAL_LINK:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_INTERNAL_LINK, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_INTERNAL_LINK, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.ROOM_LINK:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ROOM_LINK, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_ROOM_LINK, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.YOUTUBE:
-                eventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_YOUTUBE, roomId, objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_YOUTUBE, roomId, objectId, objectCategory));
                 return;
         }
     }
@@ -857,16 +854,16 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         switch(event.type)
         {
             case RoomObjectFurnitureActionEvent.SOUND_MACHINE_INIT:
-                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.SOUND_MACHINE_INIT, roomId, event.objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.SOUND_MACHINE_INIT, roomId, event.objectId, objectCategory));
                 return;
             case RoomObjectFurnitureActionEvent.SOUND_MACHINE_START:
-                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.SOUND_MACHINE_SWITCHED_ON, roomId, event.objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.SOUND_MACHINE_SWITCHED_ON, roomId, event.objectId, objectCategory));
                 return;
             case RoomObjectFurnitureActionEvent.SOUND_MACHINE_STOP:
-                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.SOUND_MACHINE_SWITCHED_OFF, roomId, event.objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.SOUND_MACHINE_SWITCHED_OFF, roomId, event.objectId, objectCategory));
                 return;
             case RoomObjectFurnitureActionEvent.SOUND_MACHINE_DISPOSE:
-                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.SOUND_MACHINE_DISPOSE, roomId, event.objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.SOUND_MACHINE_DISPOSE, roomId, event.objectId, objectCategory));
                 return;
         }
     }
@@ -889,16 +886,16 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         switch(event.type)
         {
             case RoomObjectFurnitureActionEvent.JUKEBOX_INIT:
-                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.JUKEBOX_INIT, roomId, event.objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.JUKEBOX_INIT, roomId, event.objectId, objectCategory));
                 return;
             case RoomObjectFurnitureActionEvent.JUKEBOX_START:
-                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.JUKEBOX_SWITCHED_ON, roomId, event.objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.JUKEBOX_SWITCHED_ON, roomId, event.objectId, objectCategory));
                 return;
             case RoomObjectFurnitureActionEvent.JUKEBOX_MACHINE_STOP:
-                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.JUKEBOX_SWITCHED_OFF, roomId, event.objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.JUKEBOX_SWITCHED_OFF, roomId, event.objectId, objectCategory));
                 return;
             case RoomObjectFurnitureActionEvent.JUKEBOX_DISPOSE:
-                this._roomEngine.events.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.JUKEBOX_DISPOSE, roomId, event.objectId, objectCategory));
+                NitroEventDispatcher.dispatchEvent(new RoomObjectSoundMachineEvent(RoomObjectSoundMachineEvent.JUKEBOX_DISPOSE, roomId, event.objectId, objectCategory));
                 return;
         }
     }
@@ -927,7 +924,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         switch(event.type)
         {
             case RoomObjectRoomAdEvent.ROOM_AD_FURNI_CLICK:
-                this._roomEngine.events.dispatchEvent(event);
+                NitroEventDispatcher.dispatchEvent(event);
 
                 if(event.clickUrl && (event.clickUrl.length > 0))
                 {
@@ -957,7 +954,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 break;
         }
 
-        if(eventType) this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(eventType, roomId, event.objectId, this._roomEngine.getRoomObjectCategoryForType(event.objectType)));
+        if(eventType) NitroEventDispatcher.dispatchEvent(new RoomEngineObjectEvent(eventType, roomId, event.objectId, this._roomEngine.getRoomObjectCategoryForType(event.objectType)));
     }
 
     private onRoomObjectBadgeAssetEvent(event: RoomObjectBadgeAssetEvent, roomId: number): void
@@ -991,10 +988,10 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         switch(event.type)
         {
             case RoomObjectPlaySoundIdEvent.PLAY_SOUND:
-                this._roomEngine.events.dispatchEvent(new RoomEngineObjectPlaySoundEvent(RoomEngineObjectPlaySoundEvent.PLAY_SOUND, roomId, event.objectId, objectCategory, event.soundId, event.pitch));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineObjectPlaySoundEvent(RoomEngineObjectPlaySoundEvent.PLAY_SOUND, roomId, event.objectId, objectCategory, event.soundId, event.pitch));
                 return;
             case RoomObjectPlaySoundIdEvent.PLAY_SOUND_AT_PITCH:
-                this._roomEngine.events.dispatchEvent(new RoomEngineObjectPlaySoundEvent(RoomEngineObjectPlaySoundEvent.PLAY_SOUND_AT_PITCH, roomId, event.objectId, objectCategory, event.soundId, event.pitch));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineObjectPlaySoundEvent(RoomEngineObjectPlaySoundEvent.PLAY_SOUND_AT_PITCH, roomId, event.objectId, objectCategory, event.soundId, event.pitch));
                 return;
         }
     }
@@ -1008,16 +1005,16 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         switch(event.type)
         {
             case RoomObjectSamplePlaybackEvent.ROOM_OBJECT_INITIALIZED:
-                this._roomEngine.events.dispatchEvent(new RoomEngineSamplePlaybackEvent(RoomEngineSamplePlaybackEvent.ROOM_OBJECT_INITIALIZED, roomId, event.objectId, objectCategory, event.sampleId, event.pitch));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineSamplePlaybackEvent(RoomEngineSamplePlaybackEvent.ROOM_OBJECT_INITIALIZED, roomId, event.objectId, objectCategory, event.sampleId, event.pitch));
                 break;
             case RoomObjectSamplePlaybackEvent.ROOM_OBJECT_DISPOSED:
-                this._roomEngine.events.dispatchEvent(new RoomEngineSamplePlaybackEvent(RoomEngineSamplePlaybackEvent.ROOM_OBJECT_DISPOSED, roomId, event.objectId, objectCategory, event.sampleId, event.pitch));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineSamplePlaybackEvent(RoomEngineSamplePlaybackEvent.ROOM_OBJECT_DISPOSED, roomId, event.objectId, objectCategory, event.sampleId, event.pitch));
                 break;
             case RoomObjectSamplePlaybackEvent.PLAY_SAMPLE:
-                this._roomEngine.events.dispatchEvent(new RoomEngineSamplePlaybackEvent(RoomEngineSamplePlaybackEvent.PLAY_SAMPLE, roomId, event.objectId, objectCategory, event.sampleId, event.pitch));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineSamplePlaybackEvent(RoomEngineSamplePlaybackEvent.PLAY_SAMPLE, roomId, event.objectId, objectCategory, event.sampleId, event.pitch));
                 break;
             case RoomObjectSamplePlaybackEvent.CHANGE_PITCH:
-                this._roomEngine.events.dispatchEvent(new RoomEngineSamplePlaybackEvent(RoomEngineSamplePlaybackEvent.CHANGE_PITCH, roomId, event.objectId, objectCategory, event.sampleId, event.pitch));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineSamplePlaybackEvent(RoomEngineSamplePlaybackEvent.CHANGE_PITCH, roomId, event.objectId, objectCategory, event.sampleId, event.pitch));
                 break;
         }
     }
@@ -1029,7 +1026,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         switch(event.type)
         {
             case RoomObjectHSLColorEnableEvent.ROOM_BACKGROUND_COLOR:
-                this._roomEngine.events.dispatchEvent(new RoomObjectHSLColorEnabledEvent(RoomObjectHSLColorEnabledEvent.ROOM_BACKGROUND_COLOR, roomId, event.enable, event.hue, event.saturation, event.lightness));
+                NitroEventDispatcher.dispatchEvent(new RoomObjectHSLColorEnabledEvent(RoomObjectHSLColorEnabledEvent.ROOM_BACKGROUND_COLOR, roomId, event.enable, event.hue, event.saturation, event.lightness));
                 return;
         }
     }
@@ -1064,7 +1061,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
     {
         if(!event || !this._roomEngine) return;
 
-        const eventDispatcher = this._roomEngine.events;
+        const eventDispatcher = NitroEventDispatcher;
 
         if(!eventDispatcher) return;
 
@@ -1136,7 +1133,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
     {
         if(!event || !this._roomEngine) return;
 
-        const eventDispatcher = this._roomEngine.events;
+        const eventDispatcher = NitroEventDispatcher;
 
         if(!eventDispatcher) return;
 
@@ -1704,11 +1701,11 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
         this.resetSelectedObjectData(roomId);
 
-        if(this._roomEngine && this._roomEngine.events)
+        if(this._roomEngine && NitroEventDispatcher)
         {
             const placedInRoom = (roomObject && (roomObject.id === selectedData.id));
 
-            this._roomEngine.events.dispatchEvent(new RoomEngineObjectPlacedEvent(RoomEngineObjectEvent.PLACED, roomId, objectId, category, wallLocation, x, y, z, direction, placedInRoom, isTileEvent, isWallEvent, selectedData.instanceData));
+            NitroEventDispatcher.dispatchEvent(new RoomEngineObjectPlacedEvent(RoomEngineObjectEvent.PLACED, roomId, objectId, category, wallLocation, x, y, z, direction, placedInRoom, isTileEvent, isWallEvent, selectedData.instanceData));
         }
     }
 
@@ -1997,16 +1994,16 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
         if(!_local_5) return;
 
-        if(!this._roomEngine || !this._roomEngine.events) return;
+        if(!this._roomEngine || !NitroEventDispatcher) return;
 
-        this._roomEngine.events.dispatchEvent(new RoomEngineObjectPlacedOnUserEvent(RoomEngineObjectEvent.PLACED_ON_USER, roomId, objectId, category, _local_4.id, _local_4.category));
+        NitroEventDispatcher.dispatchEvent(new RoomEngineObjectPlacedOnUserEvent(RoomEngineObjectEvent.PLACED_ON_USER, roomId, objectId, category, _local_4.id, _local_4.category));
     }
 
     public setSelectedObject(roomId: number, objectId: number, category: number): void
     {
         if(!this._roomEngine) return;
 
-        const eventDispatcher = this._roomEngine.events;
+        const eventDispatcher = NitroEventDispatcher;
 
         if(!eventDispatcher) return;
 
@@ -2040,7 +2037,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                     }
                 }
 
-                eventDispatcher.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.SELECTED, roomId, objectId, category));
+                NitroEventDispatcher.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.SELECTED, roomId, objectId, category));
 
                 return;
         }

@@ -1,2 +1,2 @@
 export * from './BadgeBaseAndLevel';
-export * from './NitroLocalizationManager';
+export * from './LocalizationManager';

@@ -1,25 +1,15 @@
-import { IDisposable, IEventDispatcher, INitroEvent, NitroLogger } from '../api';
-import { Disposable } from './Disposable';
+import { IEventDispatcher, INitroEvent, NitroLogger } from '../api';
 
-export class EventDispatcher extends Disposable implements IEventDispatcher, IDisposable
+export class EventDispatcher implements IEventDispatcher
 {
-    private _listeners: Map<string, Function[]>;
+    private _listeners: Map<string, Function[]> = new Map();
 
-    constructor()
-    {
-        super();
-
-        this._listeners = new Map();
-    }
-
-    protected onDispose(): void
+    public dispose(): void
     {
         this.removeAllListeners();
-
-        super.onDispose();
     }
 
-    public addEventListener(type: string, callback: Function): void
+    public addEventListener<T extends INitroEvent>(type: string, callback: (event: T) => void): void
     {
         if(!type || !callback) return;
 
@@ -35,7 +25,7 @@ export class EventDispatcher extends Disposable implements IEventDispatcher, IDi
         existing.push(callback);
     }
 
-    public removeEventListener(type: string, callback: any): void
+    public removeEventListener(type: string, callback: Function): void
     {
         if(!type || !callback) return;
 
@@ -55,7 +45,7 @@ export class EventDispatcher extends Disposable implements IEventDispatcher, IDi
         }
     }
 
-    public dispatchEvent(event: INitroEvent): boolean
+    public dispatchEvent<T extends INitroEvent>(event: T): boolean
     {
         if(!event) return false;
 
@@ -66,7 +56,7 @@ export class EventDispatcher extends Disposable implements IEventDispatcher, IDi
         return true;
     }
 
-    private processEvent(event: INitroEvent): void
+    private processEvent<T extends INitroEvent>(event: T): void
     {
         const existing = this._listeners.get(event.type);
 

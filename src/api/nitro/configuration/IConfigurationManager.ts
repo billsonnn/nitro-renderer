@@ -1,3 +1,6 @@
-﻿import { INitroManager } from '../../common';
-
-export type IConfigurationManager = INitroManager
+﻿
+export interface IConfigurationManager
+{
+    init(): Promise<void>;
+    reloadConfiguration(): Promise<void>;
+}

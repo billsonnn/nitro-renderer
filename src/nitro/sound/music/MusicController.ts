@@ -1,5 +1,5 @@
 import { AdvancedMap, IAdvancedMap, IMessageEvent, IMusicController, IPlaylistController, ISongInfo } from '../../../api';
-import { RoomObjectSoundMachineEvent } from '../../../events';
+import { NitroEventDispatcher, RoomObjectSoundMachineEvent } from '../../../events';
 import { GetNowPlayingMessageComposer, GetSongInfoMessageComposer, GetUserSongDisksMessageComposer, TraxSongInfoMessageEvent, UserSongDisksInventoryMessageEvent } from '../../communication';
 import { Nitro } from '../../Nitro';
 import { SongDataEntry } from '../common/SongDataEntry';
@@ -67,12 +67,11 @@ export class MusicController implements IMusicController
 
         this._messageEvents.forEach(event => Nitro.instance.communication.connection.addMessageEvent(event));
 
-        Nitro.instance.roomEngine.events.addEventListener(RoomObjectSoundMachineEvent.JUKEBOX_INIT, this.onJukeboxInit);
-        Nitro.instance.roomEngine.events.addEventListener(RoomObjectSoundMachineEvent.JUKEBOX_DISPOSE, this.onJukeboxDispose);
-        Nitro.instance.roomEngine.events.addEventListener(RoomObjectSoundMachineEvent.SOUND_MACHINE_INIT, this.onSoundMachineInit);
-        Nitro.instance.roomEngine.events.addEventListener(RoomObjectSoundMachineEvent.SOUND_MACHINE_DISPOSE, this.onSoundMachineDispose);
-
-        Nitro.instance.soundManager.events.addEventListener(SoundManagerEvent.TRAX_SONG_COMPLETE, this.onTraxSongComplete);
+        NitroEventDispatcher.addEventListener(RoomObjectSoundMachineEvent.JUKEBOX_INIT, this.onJukeboxInit);
+        NitroEventDispatcher.addEventListener(RoomObjectSoundMachineEvent.JUKEBOX_DISPOSE, this.onJukeboxDispose);
+        NitroEventDispatcher.addEventListener(RoomObjectSoundMachineEvent.SOUND_MACHINE_INIT, this.onSoundMachineInit);
+        NitroEventDispatcher.addEventListener(RoomObjectSoundMachineEvent.SOUND_MACHINE_DISPOSE, this.onSoundMachineDispose);
+        NitroEventDispatcher.addEventListener(SoundManagerEvent.TRAX_SONG_COMPLETE, this.onTraxSongComplete);
     }
 
     public getRoomItemPlaylist(_arg_1?: number): IPlaylistController
@@ -176,11 +175,11 @@ export class MusicController implements IMusicController
 
         this._messageEvents.forEach(event => Nitro.instance.communication.connection.removeMessageEvent(event));
 
-        Nitro.instance.roomEngine.events.removeEventListener(RoomObjectSoundMachineEvent.JUKEBOX_INIT, this.onJukeboxInit);
-        Nitro.instance.roomEngine.events.removeEventListener(RoomObjectSoundMachineEvent.JUKEBOX_DISPOSE, this.onJukeboxDispose);
-        Nitro.instance.roomEngine.events.removeEventListener(RoomObjectSoundMachineEvent.SOUND_MACHINE_INIT, this.onSoundMachineInit);
-        Nitro.instance.roomEngine.events.removeEventListener(RoomObjectSoundMachineEvent.SOUND_MACHINE_DISPOSE, this.onSoundMachineDispose);
-        Nitro.instance.soundManager.events.removeEventListener(SoundManagerEvent.TRAX_SONG_COMPLETE, this.onTraxSongComplete);
+        NitroEventDispatcher.removeEventListener(RoomObjectSoundMachineEvent.JUKEBOX_INIT, this.onJukeboxInit);
+        NitroEventDispatcher.removeEventListener(RoomObjectSoundMachineEvent.JUKEBOX_DISPOSE, this.onJukeboxDispose);
+        NitroEventDispatcher.removeEventListener(RoomObjectSoundMachineEvent.SOUND_MACHINE_INIT, this.onSoundMachineInit);
+        NitroEventDispatcher.removeEventListener(RoomObjectSoundMachineEvent.SOUND_MACHINE_DISPOSE, this.onSoundMachineDispose);
+        NitroEventDispatcher.removeEventListener(SoundManagerEvent.TRAX_SONG_COMPLETE, this.onTraxSongComplete);
     }
 
     public get samplesIdsInUse(): number[]
@@ -238,7 +237,7 @@ export class MusicController implements IMusicController
             this.playSongWithHighestPriority();
             if(priorityPlaying >= MusicPriorities.PRIORITY_SONG_PLAY)
             {
-                Nitro.instance.soundManager.events.dispatchEvent(new NowPlayingEvent(NowPlayingEvent.NPW_USER_STOP_SONG, priorityPlaying, k.id, -1));
+                NitroEventDispatcher.dispatchEvent(new NowPlayingEvent(NowPlayingEvent.NPW_USER_STOP_SONG, priorityPlaying, k.id, -1));
             }
         }
     }
@@ -268,13 +267,13 @@ export class MusicController implements IMusicController
                 {
                     this.playSongObject(topRequestPriotityIndex, songId);
                 }
-                Nitro.instance.soundManager.events.dispatchEvent(new SongInfoReceivedEvent(SongInfoReceivedEvent.SIR_TRAX_SONG_INFO_RECEIVED, song.id));
+                NitroEventDispatcher.dispatchEvent(new SongInfoReceivedEvent(SongInfoReceivedEvent.SIR_TRAX_SONG_INFO_RECEIVED, song.id));
                 while(this._diskInventoryMissingData.indexOf(song.id) != -1)
                 {
                     this._diskInventoryMissingData.splice(this._diskInventoryMissingData.indexOf(song.id), 1);
                     if(this._diskInventoryMissingData.length === 0)
                     {
-                        Nitro.instance.soundManager.events.dispatchEvent(new SongDiskInventoryReceivedEvent(SongDiskInventoryReceivedEvent.SDIR_SONG_DISK_INVENTORY_RECEIVENT_EVENT));
+                        NitroEventDispatcher.dispatchEvent(new SongDiskInventoryReceivedEvent(SongDiskInventoryReceivedEvent.SDIR_SONG_DISK_INVENTORY_RECEIVENT_EVENT));
                     }
                 }
 
@@ -301,7 +300,7 @@ export class MusicController implements IMusicController
         }
         if(this._diskInventoryMissingData.length === 0)
         {
-            Nitro.instance.soundManager.events.dispatchEvent(new SongDiskInventoryReceivedEvent(SongDiskInventoryReceivedEvent.SDIR_SONG_DISK_INVENTORY_RECEIVENT_EVENT));
+            NitroEventDispatcher.dispatchEvent(new SongDiskInventoryReceivedEvent(SongDiskInventoryReceivedEvent.SDIR_SONG_DISK_INVENTORY_RECEIVENT_EVENT));
         }
     }
 
@@ -430,7 +429,7 @@ export class MusicController implements IMusicController
         this._musicPlayer.preloadSamplesForSong(songData.songData).then(() => this._musicPlayer.play(songData.songData, songData.id, startPos, playLength));
         if(priority > MusicPriorities.PRIORITY_ROOM_PLAYLIST)
         {
-            Nitro.instance.soundManager.events.dispatchEvent(new NowPlayingEvent(NowPlayingEvent.NPE_USER_PLAY_SONG, priority, songData.id, -1));
+            NitroEventDispatcher.dispatchEvent(new NowPlayingEvent(NowPlayingEvent.NPE_USER_PLAY_SONG, priority, songData.id, -1));
         }
         return true;
     }
@@ -441,7 +440,7 @@ export class MusicController implements IMusicController
         const timeNow = Date.now();
         if(((k.length >= _local_2) && ((!(this._previousNotifiedSongId == k.id)) || (timeNow > (this._previousNotificationTime + _local_2)))))
         {
-            Nitro.instance.soundManager.events.dispatchEvent(new NotifyPlayedSongEvent(k.name, k.creator));
+            NitroEventDispatcher.dispatchEvent(new NotifyPlayedSongEvent(k.name, k.creator));
             this._previousNotifiedSongId = k.id;
             this._previousNotificationTime = timeNow;
         }

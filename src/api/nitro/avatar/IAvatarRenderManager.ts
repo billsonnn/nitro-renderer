@@ -1,14 +1,14 @@
 import { AvatarAssetDownloadManager, AvatarStructure } from '../../../nitro';
 import { IAssetManager, IGraphicAsset } from '../../asset';
-import { INitroManager } from '../../common';
 import { IAvatarEffectListener } from './IAvatarEffectListener';
 import { IAvatarFigureContainer } from './IAvatarFigureContainer';
 import { IAvatarImage } from './IAvatarImage';
 import { IAvatarImageListener } from './IAvatarImageListener';
 import { IStructureData } from './structure';
 
-export interface IAvatarRenderManager extends INitroManager
+export interface IAvatarRenderManager
 {
+    init(): Promise<void>;
     createFigureContainer(figure: string): IAvatarFigureContainer;
     isFigureContainerReady(container: IAvatarFigureContainer): boolean;
     createAvatarImage(figure: string, size: string, gender: string, listener?: IAvatarImageListener, effectListener?: IAvatarEffectListener): IAvatarImage;
@@ -19,7 +19,6 @@ export interface IAvatarRenderManager extends INitroManager
     getMandatoryAvatarPartSetIds(k: string, _arg_2: number): string[];
     getAssetByName(name: string): IGraphicAsset;
     assets: IAssetManager;
-    isReady: boolean;
     structure: AvatarStructure;
     structureData: IStructureData;
     downloadManager: AvatarAssetDownloadManager;

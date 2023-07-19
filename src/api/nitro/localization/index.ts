@@ -1,1 +1,1 @@
-export * from './INitroLocalizationManager';
+export * from './ILocalizationManager';

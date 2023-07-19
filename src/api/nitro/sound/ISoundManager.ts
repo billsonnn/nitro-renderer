@@ -1,8 +1,8 @@
-import { INitroManager } from '../../common';
 import { IMusicController } from './IMusicController';
 
-export interface ISoundManager extends INitroManager
+export interface ISoundManager
 {
-    get musicController(): IMusicController;
-    get traxVolume(): number;
+    init(): Promise<void>;
+    musicController: IMusicController;
+    traxVolume: number;
 }

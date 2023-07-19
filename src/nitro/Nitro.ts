@@ -1,23 +1,21 @@
 import { Application, IApplicationOptions } from '@pixi/app';
 import { SCALE_MODES } from '@pixi/constants';
 import { settings } from '@pixi/settings';
-import { IAvatarRenderManager, IConfigurationManager, IEventDispatcher, ILinkEventTracker, INitroCommunicationManager, INitroLocalizationManager, IRoomCameraWidgetManager, IRoomEngine, IRoomManager, IRoomSessionManager, ISessionDataManager, ISoundManager, NitroConfiguration, NitroLogger } from '../api';
+import { AssetManager, IAvatarRenderManager, ICommunicationManager, IConfigurationManager, IEventDispatcher, ILinkEventTracker, ILocalizationManager, IRoomCameraWidgetManager, IRoomEngine, ISessionDataManager, ISoundManager, NitroConfiguration, NitroLogger } from '../api';
 import { EventDispatcher } from '../common';
-import { ConfigurationEvent, NitroEvent, RoomEngineEvent } from '../events';
 import { GetTicker, PixiApplicationProxy } from '../pixi-proxy';
-import { RoomManager } from '../room';
 import { INitro } from './INitro';
 import { NitroVersion } from './NitroVersion';
 import './Plugins';
 import { AvatarRenderManager } from './avatar';
 import { RoomCameraWidgetManager } from './camera';
-import { NitroCommunicationManager } from './communication';
+import { CommunicationManager } from './communication';
 import { ConfigurationManager } from './configuration';
 import { LegacyExternalInterface } from './externalInterface';
 import { GameMessageHandler } from './game';
-import { NitroLocalizationManager } from './localization';
+import { LocalizationManager } from './localization';
 import { LandscapeRasterizer, RoomEngine } from './room';
-import { RoomSessionManager, SessionDataManager } from './session';
+import { SessionDataManager } from './session';
 import { SoundManager } from './sound';
 import { HabboWebTools } from './utils/HabboWebTools';
 
@@ -36,166 +34,74 @@ export class Nitro implements INitro
     private static INSTANCE: INitro = null;
 
     private _application: Application;
-    private _configuration: IConfigurationManager;
-    private _events: IEventDispatcher;
-    private _communication: INitroCommunicationManager;
-    private _localization: INitroLocalizationManager;
-    private _avatar: IAvatarRenderManager;
-    private _roomEngine: IRoomEngine;
-    private _sessionDataManager: ISessionDataManager;
-    private _roomSessionManager: IRoomSessionManager;
-    private _roomManager: IRoomManager;
-    private _cameraManager: IRoomCameraWidgetManager;
-    private _soundManager: ISoundManager;
-    private _linkTrackers: ILinkEventTracker[];
-
-    private _isReady: boolean;
-    private _isDisposed: boolean;
+    private _configuration: IConfigurationManager = new ConfigurationManager();
+    private _events: IEventDispatcher = new EventDispatcher();
+    private _communication: ICommunicationManager = new CommunicationManager();
+    private _localization: ILocalizationManager = new LocalizationManager(this._communication);
+    private _avatar: IAvatarRenderManager = new AvatarRenderManager();
+    private _sessionDataManager: ISessionDataManager = new SessionDataManager(this._communication);
+    private _roomEngine: IRoomEngine = new RoomEngine(this._communication, this._sessionDataManager);
+    private _cameraManager: IRoomCameraWidgetManager = new RoomCameraWidgetManager();
+    private _soundManager: ISoundManager = new SoundManager();
+    private _linkTrackers: ILinkEventTracker[] = [];
 
     constructor(options?: IApplicationOptions)
     {
         if(!Nitro.INSTANCE) Nitro.INSTANCE = this;
 
         this._application = new PixiApplicationProxy(options);
-        this._configuration = new ConfigurationManager();
-        this._events = new EventDispatcher();
-        this._communication = new NitroCommunicationManager();
-        this._localization = new NitroLocalizationManager(this._communication);
-        this._avatar = new AvatarRenderManager();
-        this._roomEngine = new RoomEngine(this._communication);
-        this._sessionDataManager = new SessionDataManager(this._communication);
-        this._roomSessionManager = new RoomSessionManager(this._communication, this._roomEngine);
-        this._roomManager = new RoomManager(this._roomEngine, this._roomEngine.visualizationFactory, this._roomEngine.logicFactory);
-        this._cameraManager = new RoomCameraWidgetManager();
-        this._soundManager = new SoundManager();
-        this._linkTrackers = [];
-
-        this._isReady = false;
-        this._isDisposed = false;
-
-        this._configuration.events.addEventListener(ConfigurationEvent.LOADED, this.onConfigurationLoadedEvent.bind(this));
-        this._roomEngine.events.addEventListener(RoomEngineEvent.ENGINE_INITIALIZED, this.onRoomEngineReady.bind(this));
     }
 
     public static bootstrap(): void
     {
         NitroVersion.sayHello();
 
-        if(Nitro.INSTANCE)
-        {
-            Nitro.INSTANCE.dispose();
-
-            Nitro.INSTANCE = null;
-        }
-
         const canvas = document.createElement('canvas');
 
-        const instance = new this({
+        new this({
             autoDensity: false,
             width: window.innerWidth,
             height: window.innerHeight,
             resolution: window.devicePixelRatio,
             view: canvas
         });
-
-        canvas.addEventListener('webglcontextlost', () => instance.events.dispatchEvent(new NitroEvent(Nitro.WEBGL_CONTEXT_LOST)));
     }
 
-    public init(): void
+    public async init(): Promise<void>
     {
-        if(this._isReady || this._isDisposed) return;
-
-        if(this._avatar) this._avatar.init();
-
-        if(this._soundManager) this._soundManager.init();
-
-        if(this._roomEngine)
+        try
         {
-            this._roomEngine.sessionDataManager = this._sessionDataManager;
-            this._roomEngine.roomSessionManager = this._roomSessionManager;
-            this._roomEngine.roomManager = this._roomManager;
+            await this._configuration.init();
 
-            if(this._sessionDataManager) this._sessionDataManager.init();
-            if(this._roomSessionManager) this._roomSessionManager.init();
+            this.setDefaultConfiguration();
 
-            this._roomEngine.init();
+            await Promise.all([
+                this._localization.init(),
+                AssetManager._INSTANCE.downloadAssets(NitroConfiguration.getValue<string[]>('preload.assets.urls')?.map(url => NitroConfiguration.interpolate(url))),
+                this._communication.init(),
+                this._avatar.init(),
+                this._soundManager.init(),
+                this._sessionDataManager.init()
+            ]);
+
+            await this._roomEngine.init();
+
+            new GameMessageHandler(this._communication.connection);
+
+            if(LegacyExternalInterface.available) LegacyExternalInterface.call('legacyTrack', 'authentication', 'authok', []);
+
+            HabboWebTools.sendHeartBeat();
+
+            setInterval(() => HabboWebTools.sendHeartBeat(), 10000);
         }
 
-        if(!this._communication.connection)
+        catch (err)
         {
-            throw new Error('No connection found');
+            throw new Error(err);
         }
-
-        new GameMessageHandler(this._communication.connection);
-
-        this._isReady = true;
     }
 
-    public dispose(): void
-    {
-        if(this._isDisposed) return;
-
-        if(this._roomManager)
-        {
-            this._roomManager.dispose();
-
-            this._roomManager = null;
-        }
-
-        if(this._roomSessionManager)
-        {
-            this._roomSessionManager.dispose();
-
-            this._roomSessionManager = null;
-        }
-
-        if(this._sessionDataManager)
-        {
-            this._sessionDataManager.dispose();
-
-            this._sessionDataManager = null;
-        }
-
-        if(this._roomEngine)
-        {
-            this._roomEngine.dispose();
-
-            this._roomEngine = null;
-        }
-
-        if(this._avatar)
-        {
-            this._avatar.dispose();
-
-            this._avatar = null;
-        }
-
-        if(this._soundManager)
-        {
-            this._soundManager.dispose();
-
-            this._soundManager = null;
-        }
-
-        if(this._communication)
-        {
-            this._communication.dispose();
-
-            this._communication = null;
-        }
-
-        if(this._application)
-        {
-            this._application.destroy();
-
-            this._application = null;
-        }
-
-        this._isDisposed = true;
-        this._isReady = false;
-    }
-
-    private onConfigurationLoadedEvent(event: ConfigurationEvent): void
+    private setDefaultConfiguration(): void
     {
         GetTicker().maxFPS = NitroConfiguration.getValue<number>('system.fps.max', 24);
 
@@ -206,11 +112,6 @@ export class Nitro implements INitro
         NitroLogger.LOG_PACKETS = NitroConfiguration.getValue<boolean>('system.log.packets', false);
 
         LandscapeRasterizer.LANDSCAPES_ENABLED = NitroConfiguration.getValue<boolean>('room.landscapes.enabled', true);
-    }
-
-    private onRoomEngineReady(event: RoomEngineEvent): void
-    {
-        this.startSendingHeartBeat();
     }
 
     public getConfiguration<T>(key: string, value: T = null): T
@@ -270,18 +171,6 @@ export class Nitro implements INitro
         }
     }
 
-    private startSendingHeartBeat(): void
-    {
-        this.sendHeartBeat();
-
-        setInterval(this.sendHeartBeat, 10000);
-    }
-
-    private sendHeartBeat(): void
-    {
-        HabboWebTools.sendHeartBeat();
-    }
-
     public get application(): Application
     {
         return this._application;
@@ -297,12 +186,12 @@ export class Nitro implements INitro
         return this._events;
     }
 
-    public get localization(): INitroLocalizationManager
+    public get localization(): ILocalizationManager
     {
         return this._localization;
     }
 
-    public get communication(): INitroCommunicationManager
+    public get communication(): ICommunicationManager
     {
         return this._communication;
     }
@@ -320,16 +209,6 @@ export class Nitro implements INitro
     public get sessionDataManager(): ISessionDataManager
     {
         return this._sessionDataManager;
-    }
-
-    public get roomSessionManager(): IRoomSessionManager
-    {
-        return this._roomSessionManager;
-    }
-
-    public get roomManager(): IRoomManager
-    {
-        return this._roomManager;
     }
 
     public get cameraManager(): IRoomCameraWidgetManager
@@ -350,16 +229,6 @@ export class Nitro implements INitro
     public get height(): number
     {
         return this._application.renderer.height;
-    }
-
-    public get isReady(): boolean
-    {
-        return this._isReady;
-    }
-
-    public get isDisposed(): boolean
-    {
-        return this._isDisposed;
     }
 
     public static get instance(): INitro

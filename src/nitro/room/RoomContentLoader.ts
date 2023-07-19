@@ -1,11 +1,11 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Spritesheet } from '@pixi/spritesheet';
-import { FurnitureType, GetAssetManager, GraphicAssetCollection, GraphicAssetGifCollection, IAssetData, IEventDispatcher, IFurnitureData, IFurnitureDataListener, IGraphicAssetCollection, IGraphicAssetGifCollection, IPetColorResult, IRoomContentListener, IRoomContentLoader, IRoomObject, ISessionDataManager, NitroBundle, NitroConfiguration, NitroLogger, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, RoomObjectVisualizationType } from '../../api';
-import { NitroEvent } from '../../events';
+import { FurnitureType, GetAssetManager, GraphicAssetCollection, GraphicAssetGifCollection, IAssetData, IEventDispatcher, IFurnitureData, IGraphicAssetCollection, IGraphicAssetGifCollection, IPetColorResult, IRoomContentListener, IRoomContentLoader, IRoomObject, ISessionDataManager, NitroBundle, NitroConfiguration, NitroLogger, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, RoomObjectVisualizationType } from '../../api';
+import { NitroEventDispatcher } from '../../events';
 import { RoomContentLoadedEvent } from '../../events/room/RoomContentLoadedEvent';
 import { PetColorResult } from './PetColorResult';
 
-export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLoader
+export class RoomContentLoader implements IRoomContentLoader
 {
     private static PLACE_HOLDER: string = 'place_holder';
     private static PLACE_HOLDER_WALL: string = 'place_holder_wall';
@@ -15,111 +15,40 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
     private static TILE_CURSOR: string = 'tile_cursor';
     private static SELECTION_ARROW: string = 'selection_arrow';
 
-    public static LOADER_READY: string = 'RCL_LOADER_READY';
     public static MANDATORY_LIBRARIES: string[] = [RoomContentLoader.PLACE_HOLDER, RoomContentLoader.PLACE_HOLDER_WALL, RoomContentLoader.PLACE_HOLDER_PET, RoomContentLoader.ROOM, RoomContentLoader.TILE_CURSOR, RoomContentLoader.SELECTION_ARROW];
 
-    private _stateEvents: IEventDispatcher;
     private _sessionDataManager: ISessionDataManager;
-    private _waitingForSessionDataManager: boolean;
     private _iconListener: IRoomContentListener;
-    private _collections: Map<string, IGraphicAssetCollection>;
-    private _gifCollections: Map<string, GraphicAssetGifCollection>;
-    private _images: Map<string, HTMLImageElement>;
+    private _collections: Map<string, IGraphicAssetCollection> = new Map();
+    private _gifCollections: Map<string, GraphicAssetGifCollection> = new Map();
+    private _images: Map<string, HTMLImageElement> = new Map();
 
-    private _events: Map<string, IEventDispatcher>;
-    private _activeObjects: { [index: string]: number };
-    private _activeObjectTypes: Map<number, string>;
-    private _activeObjectTypeIds: Map<string, number>;
-    private _objectTypeAdUrls: Map<string, string>;
-    private _wallItems: { [index: string]: number };
-    private _wallItemTypes: Map<number, string>;
-    private _wallItemTypeIds: Map<string, number>;
-    private _furniRevisions: Map<string, number>;
-    private _pets: { [index: string]: number };
-    private _petColors: Map<number, Map<number, IPetColorResult>>;
-    private _objectAliases: Map<string, string>;
-    private _objectOriginalNames: Map<string, string>;
+    private _activeObjects: { [index: string]: number } = {};
+    private _activeObjectTypes: Map<number, string> = new Map();
+    private _activeObjectTypeIds: Map<string, number> = new Map();
+    private _objectTypeAdUrls: Map<string, string> = new Map();
+    private _wallItems: { [index: string]: number } = {};
+    private _wallItemTypes: Map<number, string> = new Map();
+    private _wallItemTypeIds: Map<string, number> = new Map();
+    private _furniRevisions: Map<string, number> = new Map();
+    private _pets: { [index: string]: number } = {};
+    private _petColors: Map<number, Map<number, IPetColorResult>> = new Map();
+    private _objectAliases: Map<string, string> = new Map();
+    private _objectOriginalNames: Map<string, string> = new Map();
 
-    private _pendingContentTypes: string[];
-    private _dataInitialized: boolean;
+    private _pendingContentTypes: string[] = [];
+    private _dataInitialized: boolean = false;
 
-    constructor()
+    constructor(sessionDataManager: ISessionDataManager)
     {
-        this._stateEvents = null;
-        this._sessionDataManager = null;
-        this._waitingForSessionDataManager = false;
-        this._iconListener = null;
-        this._collections = new Map();
-        this._gifCollections = new Map();
-        this._images = new Map();
-
-        this._events = new Map();
-        this._activeObjects = {};
-        this._activeObjectTypes = new Map();
-        this._activeObjectTypeIds = new Map();
-        this._objectTypeAdUrls = new Map();
-        this._wallItems = {};
-        this._wallItemTypes = new Map();
-        this._wallItemTypeIds = new Map();
-        this._furniRevisions = new Map();
-        this._pets = {};
-        this._petColors = new Map();
-        this._objectAliases = new Map();
-        this._objectOriginalNames = new Map();
-
-        this._pendingContentTypes = [];
-        this._dataInitialized = false;
+        this._sessionDataManager = sessionDataManager;
     }
 
-    public initialize(events: IEventDispatcher): void
+    public async init(): Promise<void>
     {
-        this._stateEvents = events;
-
-        this.setFurnitureData();
+        this.processFurnitureData(this._sessionDataManager.getAllFurnitureData());
 
         for(const [index, name] of NitroConfiguration.getValue<string[]>('pet.types').entries()) this._pets[name] = index;
-    }
-
-    public dispose(): void
-    {
-
-    }
-
-    public setSessionDataManager(sessionData: ISessionDataManager): void
-    {
-        this._sessionDataManager = sessionData;
-
-        if(this._waitingForSessionDataManager)
-        {
-            this._waitingForSessionDataManager = false;
-
-            this.setFurnitureData();
-        }
-    }
-
-    public loadFurnitureData(): void
-    {
-        this.setFurnitureData();
-    }
-
-    private setFurnitureData(): void
-    {
-        if(!this._sessionDataManager)
-        {
-            this._waitingForSessionDataManager = true;
-
-            return;
-        }
-
-        const furnitureData = this._sessionDataManager.getAllFurnitureData(this);
-
-        if(!furnitureData) return;
-
-        this._sessionDataManager.removePendingFurniDataListener(this);
-
-        this.processFurnitureData(furnitureData);
-
-        this._stateEvents.dispatchEvent(new NitroEvent(RoomContentLoader.LOADER_READY));
     }
 
     private processFurnitureData(furnitureData: IFurnitureData[]): void
@@ -480,49 +409,41 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
         return false;
     }
 
-    public async downloadAsset(type: string, events: IEventDispatcher): Promise<void>
+    public async downloadAsset(type: string): Promise<void>
     {
         const assetUrl: string = this.getAssetUrls(type)?.[0];
 
         if(!assetUrl || !assetUrl.length) return;
 
-        if((this._pendingContentTypes.indexOf(type) >= 0) || this.getOrRemoveEventDispatcher(type)) return;
+        if((this._pendingContentTypes.indexOf(type) >= 0)) return;
 
         this._pendingContentTypes.push(type);
-        this._events.set(type, events);
 
         try
         {
             const response = await fetch(assetUrl);
+
+            if(response.status !== 200) throw new Error(`${ type } error`);
+
             let contentType = 'application/octet-stream';
 
-            if(response.headers.has('Content-Type'))
+            if(response.headers.has('Content-Type')) contentType = response.headers.get('Content-Type');
+
+            if(contentType === 'application/octet-stream')
             {
-                contentType = response.headers.get('Content-Type');
+                const nitroBundle = new NitroBundle(await response.arrayBuffer());
+
+                await this.processAsset(nitroBundle.baseTexture, (nitroBundle.jsonFile as IAssetData));
+
+                NitroEventDispatcher.dispatchEvent(new RoomContentLoadedEvent(RoomContentLoadedEvent.RCLE_SUCCESS, type));
             }
 
-            switch(contentType)
-            {
-                case 'application/octet-stream': {
-                    const nitroBundle = new NitroBundle(await response.arrayBuffer());
-
-                    await this.processAsset(nitroBundle.baseTexture, (nitroBundle.jsonFile as IAssetData));
-
-                    const events = this._events.get(type);
-
-                    if(!events) return;
-
-                    events.dispatchEvent(new RoomContentLoadedEvent(RoomContentLoadedEvent.RCLE_SUCCESS, type));
-                    break;
-                }
-                default:
-                    throw new Error();
-            }
+            throw new Error('Invalid asset');
         }
 
         catch (err)
         {
-            events.dispatchEvent(new RoomContentLoadedEvent(RoomContentLoadedEvent.RCLE_FAILURE, type));
+            NitroEventDispatcher.dispatchEvent(new RoomContentLoadedEvent(RoomContentLoadedEvent.RCLE_FAILURE, type));
         }
     }
 
@@ -686,15 +607,6 @@ export class RoomContentLoader implements IFurnitureDataListener, IRoomContentLo
         if(!model) return;
 
         model.setValue(RoomObjectVariable.OBJECT_ROOM_ID, roomId);
-    }
-
-    private getOrRemoveEventDispatcher(type: string, remove: boolean = false): IEventDispatcher
-    {
-        const existing = this._events.get(type);
-
-        if(remove) this._events.delete(type);
-
-        return existing;
     }
 
     public setIconListener(listener: IRoomContentListener): void

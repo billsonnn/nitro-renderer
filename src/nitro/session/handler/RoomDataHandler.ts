@@ -1,5 +1,5 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
-import { RoomSessionEvent, RoomSessionPropertyUpdateEvent } from '../../../events';
+import { NitroEventDispatcher, RoomSessionEvent, RoomSessionPropertyUpdateEvent } from '../../../events';
 import { GetGuestRoomResultEvent } from '../../communication';
 import { BaseHandler } from './BaseHandler';
 
@@ -34,7 +34,7 @@ export class RoomDataHandler extends BaseHandler
         roomSession.allowPets = roomData.allowPets;
         roomSession.moderationSettings = parser.moderation;
 
-        this.listener.events.dispatchEvent(new RoomSessionPropertyUpdateEvent(RoomSessionPropertyUpdateEvent.RSDUE_ALLOW_PETS, roomSession));
-        this.listener.events.dispatchEvent(new RoomSessionEvent(RoomSessionEvent.ROOM_DATA, roomSession));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionPropertyUpdateEvent(RoomSessionPropertyUpdateEvent.RSDUE_ALLOW_PETS, roomSession));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionEvent(RoomSessionEvent.ROOM_DATA, roomSession));
     }
 }

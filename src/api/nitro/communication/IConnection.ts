@@ -1,13 +1,11 @@
-import { IEventDispatcher } from '../../common';
 import { IMessageComposer } from './IMessageComposer';
 import { IMessageConfiguration } from './IMessageConfiguration';
 import { IMessageEvent } from './IMessageEvent';
 
-export interface IConnection extends IEventDispatcher
+export interface IConnection
 {
     init(socketUrl: string): void;
-    dispose(): void;
-    onReady(): void;
+    ready(): void;
     authenticated(): void;
     send(...composers: IMessageComposer<unknown[]>[]): void;
     processReceivedData(): void;

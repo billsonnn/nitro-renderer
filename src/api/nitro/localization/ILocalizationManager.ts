@@ -1,7 +1,6 @@
-﻿import { INitroManager } from '../../common';
-
-export interface INitroLocalizationManager extends INitroManager
+﻿export interface ILocalizationManager
 {
+    init(): Promise<void>;
     getRomanNumeral(number: number): string;
     getPreviousLevelBadgeId(badgeName: string): string;
     hasValue(key: string): boolean;

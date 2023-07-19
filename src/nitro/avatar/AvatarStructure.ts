@@ -40,19 +40,6 @@ export class AvatarStructure extends EventDispatcher
 
     }
 
-    public dispose(): void
-    {
-        if(this.disposed) return;
-
-        super.dispose();
-
-        this._renderManager = null;
-        this._figureData = null;
-        this._partSetsData = null;
-        this._animationData = null;
-        this._mandatorySetTypeIds = null;
-    }
-
     public initGeometry(k: any): void
     {
         if(!k) return;

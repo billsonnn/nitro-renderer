@@ -1,6 +1,5 @@
-import { IEventDispatcher } from '../../common';
-import { IConnection } from '../../communication';
 import { IRoomInstance, IRoomObjectController, IRoomRenderingCanvas, IVector3D } from '../../room';
+import { IConnection } from '../communication';
 import { IRoomSessionManager, ISessionDataManager } from '../session';
 import { ISelectedRoomObjectData } from './ISelectedRoomObjectData';
 import { IObjectData } from './object';
@@ -42,6 +41,5 @@ export interface IRoomEngineServices
     sessionDataManager: ISessionDataManager;
     roomSessionManager: IRoomSessionManager;
     activeRoomId: number;
-    events: IEventDispatcher;
     isDecorating: boolean;
 }

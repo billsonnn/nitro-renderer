@@ -1,8 +1,7 @@
-import { IEventDispatcher } from '../../common';
 
-export interface IAvatarAssetDownloadLibrary extends IEventDispatcher
+export interface IAvatarAssetDownloadLibrary
 {
-    downloadAsset(): void;
+    downloadAsset(): Promise<void>;
     readonly libraryName: string;
     readonly isLoaded: boolean;
 }

@@ -1,8 +1,7 @@
 import { IAssetAnimation, IAssetManager, IEffectAssetDownloadLibrary } from '../../api';
-import { EventDispatcher } from '../../common';
-import { AvatarRenderEffectLibraryEvent } from '../../events';
+import { AvatarRenderEffectLibraryEvent, NitroEventDispatcher, NitroEventType } from '../../events';
 
-export class EffectAssetDownloadLibrary extends EventDispatcher implements IEffectAssetDownloadLibrary
+export class EffectAssetDownloadLibrary implements IEffectAssetDownloadLibrary
 {
     public static DOWNLOAD_COMPLETE: string = 'EADL_DOWNLOAD_COMPLETE';
 
@@ -10,60 +9,53 @@ export class EffectAssetDownloadLibrary extends EventDispatcher implements IEffe
     private static LOADING: number = 1;
     private static LOADED: number = 2;
 
-    private _state: number;
+    private _state: number = EffectAssetDownloadLibrary.NOT_LOADED;
     private _libraryName: string;
     private _revision: string;
     private _downloadUrl: string;
-    private _assets: IAssetManager;
-    private _animation: { [index: string]: IAssetAnimation };
+    private _assetManager: IAssetManager;
+    private _animation: { [index: string]: IAssetAnimation } = null;
 
-    constructor(id: string, revision: string, assets: IAssetManager, assetUrl: string)
+    constructor(libraryName: string, revision: string, downloadUrl: string, assetManager: IAssetManager)
     {
-        super();
-
-        this._state = EffectAssetDownloadLibrary.NOT_LOADED;
-        this._libraryName = id;
+        this._libraryName = libraryName;
         this._revision = revision;
-        this._downloadUrl = assetUrl;
-        this._assets = assets;
-        this._animation = null;
+        this._downloadUrl = downloadUrl;
+        this._assetManager = assetManager;
 
         this._downloadUrl = this._downloadUrl.replace(/%libname%/gi, this._libraryName);
         this._downloadUrl = this._downloadUrl.replace(/%revision%/gi, this._revision);
 
-        const asset = this._assets.getCollection(this._libraryName);
-
-        if(asset) this._state = EffectAssetDownloadLibrary.LOADED;
+        this.checkIsLoaded();
     }
 
     public async downloadAsset(): Promise<void>
     {
-        if(!this._assets || (this._state === EffectAssetDownloadLibrary.LOADING) || (this._state === EffectAssetDownloadLibrary.LOADED)) return;
+        if(!this._assetManager || (this._state === EffectAssetDownloadLibrary.LOADING) || (this._state === EffectAssetDownloadLibrary.LOADED)) return;
 
-        const asset = this._assets.getCollection(this._libraryName);
-
-        if(asset)
+        if(!this.checkIsLoaded())
         {
-            this._state = EffectAssetDownloadLibrary.LOADED;
+            this._state = EffectAssetDownloadLibrary.LOADING;
 
-            this.dispatchEvent(new AvatarRenderEffectLibraryEvent(AvatarRenderEffectLibraryEvent.DOWNLOAD_COMPLETE, this));
+            const status = await this._assetManager.downloadAsset(this._downloadUrl);
 
-            return;
+            if(!status) throw new Error('Could not download asset');
         }
 
-        this._state = EffectAssetDownloadLibrary.LOADING;
+        if(this.checkIsLoaded()) NitroEventDispatcher.dispatchEvent(new AvatarRenderEffectLibraryEvent(NitroEventType.AVATAR_EFFECT_DOWNLOADED, this));
+    }
 
-        const status = await this._assets.downloadAsset(this._downloadUrl);
+    private checkIsLoaded(): boolean
+    {
+        const asset = this._assetManager.getCollection(this._libraryName);
 
-        if(!status) return;
+        if(!asset) return false;
 
         this._state = EffectAssetDownloadLibrary.LOADED;
 
-        const collection = this._assets.getCollection(this._libraryName);
+        this._animation = asset.data.animations;
 
-        if(collection) this._animation = collection.data.animations;
-
-        this.dispatchEvent(new AvatarRenderEffectLibraryEvent(AvatarRenderEffectLibraryEvent.DOWNLOAD_COMPLETE, this));
+        return true;
     }
 
     public get libraryName(): string

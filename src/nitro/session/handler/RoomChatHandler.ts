@@ -1,6 +1,6 @@
 import { IConnection, IRoomHandlerListener, SystemChatStyleEnum } from '../../../api';
-import { RoomSessionChatEvent } from '../../../events';
-import { FloodControlEvent, PetRespectNoficationEvent, PetSupplementedNotificationEvent, PetSupplementTypeEnum, RemainingMuteEvent, RespectReceivedEvent, RoomUnitChatEvent, RoomUnitChatShoutEvent, RoomUnitChatWhisperEvent, RoomUnitHandItemReceivedEvent } from '../../communication';
+import { NitroEventDispatcher, RoomSessionChatEvent } from '../../../events';
+import { FloodControlEvent, PetRespectNoficationEvent, PetSupplementTypeEnum, PetSupplementedNotificationEvent, RemainingMuteEvent, RespectReceivedEvent, RoomUnitChatEvent, RoomUnitChatShoutEvent, RoomUnitChatWhisperEvent, RoomUnitHandItemReceivedEvent } from '../../communication';
 import { BaseHandler } from './BaseHandler';
 
 export class RoomChatHandler extends BaseHandler
@@ -39,7 +39,7 @@ export class RoomChatHandler extends BaseHandler
 
         const chatEvent = new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, parser.roomIndex, parser.message, chatType, parser.bubble);
 
-        this.listener.events.dispatchEvent(chatEvent);
+        NitroEventDispatcher.dispatchEvent(chatEvent);
     }
 
     private onRoomUnitHandItemReceivedEvent(event: RoomUnitHandItemReceivedEvent): void
@@ -54,7 +54,7 @@ export class RoomChatHandler extends BaseHandler
 
         if(!parser) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, parser.giverUserId, '', RoomSessionChatEvent.CHAT_TYPE_HAND_ITEM_RECEIVED, SystemChatStyleEnum.GENERIC, null, parser.handItemType));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, parser.giverUserId, '', RoomSessionChatEvent.CHAT_TYPE_HAND_ITEM_RECEIVED, SystemChatStyleEnum.GENERIC, null, parser.handItemType));
     }
 
     private onRespectReceivedEvent(event: RespectReceivedEvent): void
@@ -73,7 +73,7 @@ export class RoomChatHandler extends BaseHandler
 
         if(!userData) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, userData.roomIndex, '', RoomSessionChatEvent.CHAT_TYPE_RESPECT, SystemChatStyleEnum.GENERIC));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, userData.roomIndex, '', RoomSessionChatEvent.CHAT_TYPE_RESPECT, SystemChatStyleEnum.GENERIC));
     }
 
     private onPetRespectNoficationEvent(event: PetRespectNoficationEvent): void
@@ -96,7 +96,7 @@ export class RoomChatHandler extends BaseHandler
 
         if(parser.isTreat) chatType = RoomSessionChatEvent.CHAT_TYPE_PETTREAT;
 
-        this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, petData.roomIndex, '', chatType, SystemChatStyleEnum.GENERIC));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, petData.roomIndex, '', chatType, SystemChatStyleEnum.GENERIC));
     }
 
     private onPetSupplementedNotificationEvent(event: PetSupplementedNotificationEvent): void
@@ -136,7 +136,7 @@ export class RoomChatHandler extends BaseHandler
                 break;
         }
 
-        this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, petData.roomIndex, '', chatType, SystemChatStyleEnum.GENERIC, null, userRoomIndex));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, petData.roomIndex, '', chatType, SystemChatStyleEnum.GENERIC, null, userRoomIndex));
     }
 
     private onFloodControlEvent(event: FloodControlEvent): void
@@ -153,7 +153,7 @@ export class RoomChatHandler extends BaseHandler
 
         const seconds = parser.seconds;
 
-        this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.FLOOD_EVENT, session, -1, seconds.toString(), 0, 0));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.FLOOD_EVENT, session, -1, seconds.toString(), 0, 0));
     }
 
     private onRemainingMuteEvent(event: RemainingMuteEvent): void
@@ -168,6 +168,6 @@ export class RoomChatHandler extends BaseHandler
 
         if(!parser) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, session.ownRoomIndex, '', RoomSessionChatEvent.CHAT_TYPE_MUTE_REMAINING, SystemChatStyleEnum.GENERIC, null, parser.seconds));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionChatEvent(RoomSessionChatEvent.CHAT_EVENT, session, session.ownRoomIndex, '', RoomSessionChatEvent.CHAT_TYPE_MUTE_REMAINING, SystemChatStyleEnum.GENERIC, null, parser.seconds));
     }
 }

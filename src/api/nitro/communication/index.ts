@@ -1,4 +1,5 @@
 export * from './ICodec';
+export * from './ICommunicationManager';
 export * from './IConnection';
 export * from './IConnectionStateListener';
 export * from './IMessageComposer';
@@ -6,6 +7,4 @@ export * from './IMessageConfiguration';
 export * from './IMessageDataWrapper';
 export * from './IMessageEvent';
 export * from './IMessageParser';
-export * from './INitroCommunicationDemo';
-export * from './INitroCommunicationManager';
 export * from './enums';

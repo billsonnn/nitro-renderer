@@ -1,5 +1,5 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
-import { RoomSessionWordQuizEvent } from '../../../events';
+import { NitroEventDispatcher, RoomSessionWordQuizEvent } from '../../../events';
 import { QuestionAnsweredEvent, QuestionEvent, QuestionFinishedEvent } from '../../communication';
 import { BaseHandler } from './BaseHandler';
 
@@ -34,7 +34,7 @@ export class WordQuizHandler extends BaseHandler
         quizEvent.questionId = parser.questionId;
         quizEvent.pollId = parser.pollId;
 
-        this.listener.events.dispatchEvent(quizEvent);
+        NitroEventDispatcher.dispatchEvent(quizEvent);
     }
 
     private onQuestionAnsweredEvent(event: QuestionAnsweredEvent): void
@@ -55,7 +55,7 @@ export class WordQuizHandler extends BaseHandler
         quizEvent.userId = parser.userId;
         quizEvent.answerCounts = parser.answerCounts;
 
-        this.listener.events.dispatchEvent(quizEvent);
+        NitroEventDispatcher.dispatchEvent(quizEvent);
     }
 
     private onQuestionFinishedEvent(event: QuestionFinishedEvent): void
@@ -74,6 +74,6 @@ export class WordQuizHandler extends BaseHandler
         quizEvent.questionId = parser.questionId;
         quizEvent.answerCounts = parser.answerCounts;
 
-        this.listener.events.dispatchEvent(quizEvent);
+        NitroEventDispatcher.dispatchEvent(quizEvent);
     }
 }

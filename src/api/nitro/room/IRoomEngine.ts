@@ -1,7 +1,6 @@
 import { RenderTexture } from '@pixi/core';
 import { DisplayObject } from '@pixi/display';
 import { Point, Rectangle } from '@pixi/math';
-import { INitroManager } from '../../common';
 import { IRoomGeometry, IRoomManager, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRendererFactory, IRoomRenderingCanvas, IVector3D } from '../../room';
 import { IPetCustomPart } from '../avatar';
 import { IRoomSessionManager, ISessionDataManager } from '../session';
@@ -12,10 +11,10 @@ import { IRoomContentLoader } from './IRoomContentLoader';
 import { IRoomObjectEventManager } from './IRoomObjectEventManager';
 import { IObjectData, IRoomMapData } from './object';
 
-export interface IRoomEngine extends INitroManager
+export interface IRoomEngine
 {
+    init(): Promise<void>;
     setActiveRoomId(roomId: number): void;
-    onRoomEngineInitalized(flag: boolean): void;
     disableUpdate(flag: boolean): void;
     runUpdate(): void;
     createRoomInstance(roomId: number, roomMap: IRoomMapData): void;
@@ -96,7 +95,6 @@ export interface IRoomEngine extends INitroManager
     logicFactory: IRoomObjectLogicFactory;
     roomContentLoader: IRoomContentLoader;
     activeRoomId: number;
-    ready: boolean;
     disposed: boolean;
     selectedAvatarId: number;
     isDecorating: boolean;

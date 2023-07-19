@@ -1,79 +1,41 @@
 import { IGraphicAssetCollection, IRoomContentLoader, IRoomInstance, IRoomInstanceContainer, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectManager, IRoomObjectVisualizationFactory, NitroLogger } from '../api';
-import { NitroManager } from '../common';
-import { RoomContentLoadedEvent } from '../events';
+import { NitroEventDispatcher, RoomContentLoadedEvent } from '../events';
 import { RoomContentLoader } from '../nitro/room/RoomContentLoader';
 import { RoomInstance } from './RoomInstance';
 import { RoomObjectManager } from './RoomObjectManager';
 
-export class RoomManager extends NitroManager implements IRoomManager, IRoomInstanceContainer
+export class RoomManager implements IRoomManager, IRoomInstanceContainer
 {
-    public static ROOM_MANAGER_ERROR: number = -1;
-    public static ROOM_MANAGER_LOADING: number = 0;
-    public static ROOM_MANAGER_LOADED: number = 1;
-    public static ROOM_MANAGER_INITIALIZING: number = 2;
-    public static ROOM_MANAGER_INITIALIZED: number = 3;
-    private static CONTENT_PROCESSING_TIME_LIMIT_MILLISECONDS: number = 40;
-
-    private _state: number;
-    private _rooms: Map<string, IRoomInstance>;
-    private _contentLoader: IRoomContentLoader;
-    private _updateCategories: number[];
+    private _rooms: Map<string, IRoomInstance> = new Map();
+    private _contentLoader: IRoomContentLoader = null;
+    private _updateCategories: number[] = [];
 
     private _listener: IRoomManagerListener;
     private _visualizationFactory: IRoomObjectVisualizationFactory;
     private _logicFactory: IRoomObjectLogicFactory;
 
-    private _initialLoadList: string[];
-    private _pendingContentTypes: string[];
-    private _skipContentProcessing: boolean;
+    private _pendingContentTypes: string[] = [];
+    private _skipContentProcessing: boolean = false;
 
-    private _disposed: boolean;
-
-    constructor(listener: IRoomManagerListener, visualizationFactory: IRoomObjectVisualizationFactory, logicFactory: IRoomObjectLogicFactory)
+    constructor(listener: IRoomManagerListener, visualizationFactory: IRoomObjectVisualizationFactory, logicFactory: IRoomObjectLogicFactory, contentLoader: IRoomContentLoader)
     {
-        super();
-
-        this._state = RoomManager.ROOM_MANAGER_LOADED;
-        this._rooms = new Map();
-        this._contentLoader = null;
-        this._updateCategories = [];
-
         this._listener = listener;
         this._visualizationFactory = visualizationFactory;
         this._logicFactory = logicFactory;
-
-        this._initialLoadList = [];
-        this._pendingContentTypes = [];
-        this._skipContentProcessing = false;
-
-        this._disposed = false;
+        this._contentLoader = contentLoader;
 
         this.onRoomContentLoadedEvent = this.onRoomContentLoadedEvent.bind(this);
 
-        this.events.addEventListener(RoomContentLoadedEvent.RCLE_SUCCESS, this.onRoomContentLoadedEvent);
-        this.events.addEventListener(RoomContentLoadedEvent.RCLE_FAILURE, this.onRoomContentLoadedEvent);
-        this.events.addEventListener(RoomContentLoadedEvent.RCLE_CANCEL, this.onRoomContentLoadedEvent);
+        NitroEventDispatcher.addEventListener(RoomContentLoadedEvent.RCLE_SUCCESS, this.onRoomContentLoadedEvent);
+        NitroEventDispatcher.addEventListener(RoomContentLoadedEvent.RCLE_FAILURE, this.onRoomContentLoadedEvent);
+        NitroEventDispatcher.addEventListener(RoomContentLoadedEvent.RCLE_CANCEL, this.onRoomContentLoadedEvent);
     }
 
-    public onInit(): void
+    public async init(): Promise<void>
     {
-        if(this._state >= RoomManager.ROOM_MANAGER_INITIALIZING || !this._contentLoader) return;
+        const promises = RoomContentLoader.MANDATORY_LIBRARIES.map(value => this._contentLoader.downloadAsset(value));
 
-        const mandatoryLibraries = RoomContentLoader.MANDATORY_LIBRARIES;
-
-        for(const library of mandatoryLibraries)
-        {
-            if(!library) continue;
-
-            if(this._initialLoadList.indexOf(library) === -1)
-            {
-                this._contentLoader.downloadAsset(library, this.events);
-
-                this._initialLoadList.push(library);
-            }
-        }
-
-        this._state = RoomManager.ROOM_MANAGER_INITIALIZING;
+        await Promise.all(promises);
     }
 
     public getRoomInstance(roomId: string): IRoomInstance
@@ -137,7 +99,7 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
             {
                 isLoading = true;
 
-                this._contentLoader.downloadAsset(type, this.events);
+                this._contentLoader.downloadAsset(type);
 
                 assetName = this._contentLoader.getPlaceholderName(type);
                 asset = this._contentLoader.getCollection(assetName);
@@ -294,13 +256,6 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
         }
     }
 
-    public setContentLoader(loader: IRoomContentLoader): void
-    {
-        if(this._contentLoader) this._contentLoader.dispose();
-
-        this._contentLoader = loader;
-    }
-
     private processPendingContentTypes(time: number): void
     {
         if(this._skipContentProcessing)
@@ -331,38 +286,6 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
             this.reinitializeRoomObjectsByType(type);
 
             if(this._listener) this._listener.initalizeTemporaryObjectsByType(type, true);
-
-            if(this._initialLoadList.length > 0) this.removeFromInitialLoad(type);
-        }
-    }
-
-    private removeFromInitialLoad(type: string): void
-    {
-        if(!type || this._state === RoomManager.ROOM_MANAGER_ERROR) return;
-
-        if(!this._contentLoader) this._state = RoomManager.ROOM_MANAGER_ERROR;
-
-        if(this._contentLoader.getCollection(type))
-        {
-            const i = this._initialLoadList.indexOf(type);
-
-            if(i >= 0) this._initialLoadList.splice(i, 1);
-
-            if(!this._initialLoadList.length)
-            {
-                this._state = RoomManager.ROOM_MANAGER_INITIALIZED;
-
-                if(this._listener)
-                {
-                    this._listener.onRoomEngineInitalized(true);
-                }
-            }
-        }
-        else
-        {
-            this._state = RoomManager.ROOM_MANAGER_ERROR;
-
-            if(this._listener) this._listener.onRoomEngineInitalized(false);
         }
     }
 
@@ -394,10 +317,5 @@ export class RoomManager extends NitroManager implements IRoomManager, IRoomInst
     public get rooms(): Map<string, IRoomInstance>
     {
         return this._rooms;
-    }
-
-    public get disposed(): boolean
-    {
-        return this._disposed;
     }
 }

@@ -1,8 +1,7 @@
 import { IAssetManager, IAvatarAssetDownloadLibrary } from '../../api';
-import { EventDispatcher } from '../../common';
-import { AvatarRenderLibraryEvent } from '../../events';
+import { AvatarRenderLibraryEvent, NitroEventDispatcher, NitroEventType } from '../../events';
 
-export class AvatarAssetDownloadLibrary extends EventDispatcher implements IAvatarAssetDownloadLibrary
+export class AvatarAssetDownloadLibrary implements IAvatarAssetDownloadLibrary
 {
     public static DOWNLOAD_COMPLETE: string = 'AADL_DOWNLOAD_COMPLETE';
 
@@ -10,54 +9,50 @@ export class AvatarAssetDownloadLibrary extends EventDispatcher implements IAvat
     private static LOADING: number = 1;
     private static LOADED: number = 2;
 
-    private _state: number;
+    private _state: number = AvatarAssetDownloadLibrary.NOT_LOADED;
     private _libraryName: string;
     private _revision: string;
     private _downloadUrl: string;
-    private _assets: IAssetManager;
+    private _assetManager: IAssetManager;
 
-    constructor(id: string, revision: string, assets: IAssetManager, assetUrl: string)
+    constructor(libraryName: string, revision: string, downloadUrl: string, assetManager: IAssetManager)
     {
-        super();
-
-        this._state = AvatarAssetDownloadLibrary.NOT_LOADED;
-        this._libraryName = id;
+        this._libraryName = libraryName;
         this._revision = revision;
-        this._downloadUrl = assetUrl;
-        this._assets = assets;
+        this._downloadUrl = downloadUrl;
+        this._assetManager = assetManager;
 
         this._downloadUrl = this._downloadUrl.replace(/%libname%/gi, this._libraryName);
         this._downloadUrl = this._downloadUrl.replace(/%revision%/gi, this._revision);
 
-        const asset = this._assets.getCollection(this._libraryName);
-
-        if(asset) this._state = AvatarAssetDownloadLibrary.LOADED;
+        this.checkIsLoaded();
     }
 
     public async downloadAsset(): Promise<void>
     {
-        if(!this._assets || (this._state === AvatarAssetDownloadLibrary.LOADING) || (this._state === AvatarAssetDownloadLibrary.LOADED)) return;
+        if(!this._assetManager || (this._state === AvatarAssetDownloadLibrary.LOADING) || (this._state === AvatarAssetDownloadLibrary.LOADED)) return;
 
-        const asset = this._assets.getCollection(this._libraryName);
-
-        if(asset)
+        if(!this.checkIsLoaded())
         {
-            this._state = AvatarAssetDownloadLibrary.LOADED;
+            this._state = AvatarAssetDownloadLibrary.LOADING;
 
-            this.dispatchEvent(new AvatarRenderLibraryEvent(AvatarRenderLibraryEvent.DOWNLOAD_COMPLETE, this));
+            const status = await this._assetManager.downloadAsset(this._downloadUrl);
 
-            return;
+            if(!status) throw new Error('Could not download asset');
         }
 
-        this._state = AvatarAssetDownloadLibrary.LOADING;
+        if(this.checkIsLoaded()) NitroEventDispatcher.dispatchEvent(new AvatarRenderLibraryEvent(NitroEventType.AVATAR_ASSET_DOWNLOADED, this));
+    }
 
-        const status = await this._assets.downloadAsset(this._downloadUrl);
+    private checkIsLoaded(): boolean
+    {
+        const asset = this._assetManager.getCollection(this._libraryName);
 
-        if(!status) return;
+        if(!asset) return false;
 
         this._state = AvatarAssetDownloadLibrary.LOADED;
 
-        this.dispatchEvent(new AvatarRenderLibraryEvent(AvatarRenderLibraryEvent.DOWNLOAD_COMPLETE, this));
+        return true;
     }
 
     public get libraryName(): string

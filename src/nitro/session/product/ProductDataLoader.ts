@@ -1,51 +1,28 @@
-﻿import { IProductData } from '../../../api';
-import { EventDispatcher } from '../../../common';
-import { NitroEvent } from '../../../events';
+﻿import { IProductData, NitroConfiguration } from '../../../api';
 import { ProductData } from './ProductData';
 
-export class ProductDataLoader extends EventDispatcher
+export class ProductDataLoader
 {
-    public static PDP_PRODUCT_DATA_READY: string = 'PDP_PRODUCT_DATA_READY';
-    public static PDP_PRODUCT_DATA_FAILED: string = 'PDP_PRODUCT_DATA_FAILED';
-
     private _products: Map<string, IProductData>;
 
     constructor(products: Map<string, IProductData>)
     {
-        super();
-
         this._products = products;
     }
 
-    public dispose(): void
+    public async init(): Promise<void>
     {
-        this._products = null;
-    }
+        const url = NitroConfiguration.getValue<string>('productdata.url');
 
-    public loadProductData(url: string): void
-    {
-        if(!url) return;
+        if(!url || !url.length) throw new Error('invalid product data url');
 
-        fetch(url)
-            .then(response => response.json())
-            .then(data => this.onProductDataLoadedEvent(data))
-            .catch(err => this.onProductDataError(err));
-    }
+        const response = await fetch(url);
 
-    private onProductDataLoadedEvent(data: { [index: string]: any }): void
-    {
-        if(!data) return;
+        if(response.status !== 200) throw new Error('Invalid product data file');
 
-        this.parseProducts(data.productdata);
+        const responseData = await response.json();
 
-        this.dispatchEvent(new NitroEvent(ProductDataLoader.PDP_PRODUCT_DATA_READY));
-    }
-
-    private onProductDataError(error: Error): void
-    {
-        if(!error) return;
-
-        this.dispatchEvent(new NitroEvent(ProductDataLoader.PDP_PRODUCT_DATA_FAILED));
+        this.parseProducts(responseData.productdata);
     }
 
     private parseProducts(data: { [index: string]: any }): void

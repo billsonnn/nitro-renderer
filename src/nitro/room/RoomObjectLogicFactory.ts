@@ -1,24 +1,15 @@
 import { IEventDispatcher, IRoomObjectEventHandler, IRoomObjectLogicFactory, NitroLogger, RoomObjectLogicType } from '../../api';
 import { EventDispatcher } from '../../common';
+import { RoomObjectEvent } from '../../events';
 import { RoomObjectLogicBase } from '../../room';
 import { AvatarLogic, FurnitureAchievementResolutionLogic, FurnitureBadgeDisplayLogic, FurnitureChangeStateWhenStepOnLogic, FurnitureClothingChangeLogic, FurnitureCounterClockLogic, FurnitureCrackableLogic, FurnitureCraftingGizmoLogic, FurnitureCreditLogic, FurnitureCuckooClockLogic, FurnitureCustomStackHeightLogic, FurnitureDiceLogic, FurnitureEcotronBoxLogic, FurnitureEditableInternalLinkLogic, FurnitureEditableRoomLinkLogic, FurnitureEffectBoxLogic, FurnitureExternalImageLogic, FurnitureFireworksLogic, FurnitureFloorHoleLogic, FurnitureGroupForumTerminalLogic, FurnitureGuildCustomizedLogic, FurnitureHabboWheelLogic, FurnitureHighScoreLogic, FurnitureHockeyScoreLogic, FurnitureHweenLovelockLogic, FurnitureIceStormLogic, FurnitureInternalLinkLogic, FurnitureJukeboxLogic, FurnitureLogic, FurnitureLoveLockLogic, FurnitureMannequinLogic, FurnitureMonsterplantSeedLogic, FurnitureMultiHeightLogic, FurnitureMultiStateLogic, FurnitureMysteryBoxLogic, FurnitureMysteryTrophyLogic, FurnitureOneWayDoorLogic, FurniturePetCustomizationLogic, FurniturePlaceholderLogic, FurniturePlanetSystemLogic, FurniturePresentLogic, FurniturePurchaseableClothingLogic, FurniturePushableLogic, FurnitureRandomStateLogic, FurnitureRandomTeleportLogic, FurnitureRentableSpaceLogic, FurnitureRoomBackgroundColorLogic, FurnitureRoomBackgroundLogic, FurnitureRoomBillboardLogic, FurnitureRoomDimmerLogic, FurnitureScoreLogic, FurnitureSongDiskLogic, FurnitureSoundBlockLogic, FurnitureSoundMachineLogic, FurnitureStickieLogic, FurnitureTrophyLogic, FurnitureVoteCounterLogic, FurnitureVoteMajorityLogic, FurnitureWelcomeGiftLogic, FurnitureWindowLogic, FurnitureYoutubeLogic, PetLogic, RoomLogic, SelectionArrowLogic, TileCursorLogic } from './object';
 
 export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
 {
-    private _events: IEventDispatcher;
-
-    private _cachedEvents: Map<string, boolean>;
-    private _registeredEvents: Map<string, boolean>;
-    private _functions: Function[];
-
-    constructor()
-    {
-        this._events = new EventDispatcher();
-
-        this._cachedEvents = new Map();
-        this._registeredEvents = new Map();
-        this._functions = [];
-    }
+    private _events: IEventDispatcher = new EventDispatcher();
+    private _cachedEvents: Map<string, boolean> = new Map();
+    private _registeredEvents: Map<string, boolean> = new Map();
+    private _functions: ((event: RoomObjectEvent) => void)[] = [];
 
     public getLogic(type: string): IRoomObjectEventHandler
     {
@@ -63,7 +54,7 @@ export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
         }
     }
 
-    public registerEventFunction(func: Function): void
+    public registerEventFunction(func: (event: RoomObjectEvent) => void): void
     {
         if(!func) return;
 
@@ -79,7 +70,7 @@ export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
         }
     }
 
-    public removeEventFunction(func: Function): void
+    public removeEventFunction(func: (event: RoomObjectEvent) => void): void
     {
         if(!func) return;
 

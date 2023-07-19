@@ -1,5 +1,5 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
-import { RoomSessionPetPackageEvent } from '../../../events';
+import { NitroEventDispatcher, RoomSessionPetPackageEvent } from '../../../events';
 import { OpenPetPackageRequestedMessageEvent, OpenPetPackageResultMessageEvent } from '../../communication';
 import { BaseHandler } from './BaseHandler';
 
@@ -25,7 +25,7 @@ export class PetPackageHandler extends BaseHandler
 
         if(!session) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionPetPackageEvent(RoomSessionPetPackageEvent.RSOPPE_OPEN_PET_PACKAGE_REQUESTED, session, parser.objectId, parser.figureData, 0, null));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionPetPackageEvent(RoomSessionPetPackageEvent.RSOPPE_OPEN_PET_PACKAGE_REQUESTED, session, parser.objectId, parser.figureData, 0, null));
     }
 
     private onOpenPetPackageResult(event: OpenPetPackageResultMessageEvent): void
@@ -40,6 +40,6 @@ export class PetPackageHandler extends BaseHandler
 
         if(!session) return;
 
-        this.listener.events.dispatchEvent(new RoomSessionPetPackageEvent(RoomSessionPetPackageEvent.RSOPPE_OPEN_PET_PACKAGE_RESULT, session, parser.objectId, null, parser.nameValidationStatus, parser.nameValidationInfo));
+        NitroEventDispatcher.dispatchEvent(new RoomSessionPetPackageEvent(RoomSessionPetPackageEvent.RSOPPE_OPEN_PET_PACKAGE_RESULT, session, parser.objectId, null, parser.nameValidationStatus, parser.nameValidationInfo));
     }
 }

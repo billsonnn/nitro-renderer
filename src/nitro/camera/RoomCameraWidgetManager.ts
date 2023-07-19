@@ -1,21 +1,18 @@
 import { Texture } from '@pixi/core';
 import { ColorMatrix, ColorMatrixFilter } from '@pixi/filter-color-matrix';
-import { IEventDispatcher, IRoomCameraWidgetEffect, IRoomCameraWidgetManager, IRoomCameraWidgetSelectedEffect, NitroConfiguration } from '../../api';
-import { EventDispatcher } from '../../common';
-import { RoomCameraWidgetManagerEvent } from '../../events';
+import { IRoomCameraWidgetEffect, IRoomCameraWidgetManager, IRoomCameraWidgetSelectedEffect, NitroConfiguration } from '../../api';
+import { NitroEventDispatcher, RoomCameraWidgetManagerEvent } from '../../events';
 import { NitroContainer, NitroSprite, TextureUtils } from '../../pixi-proxy';
 import { RoomCameraWidgetEffect } from './RoomCameraWidgetEffect';
 
 export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
 {
     private _effects: Map<string, IRoomCameraWidgetEffect>;
-    private _events: IEventDispatcher;
     private _isLoaded: boolean;
 
     constructor()
     {
         this._effects = new Map();
-        this._events = new EventDispatcher();
         this._isLoaded = false;
     }
 
@@ -47,7 +44,7 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
             this._effects.set(cameraEffect.name, cameraEffect);
         }
 
-        this.events.dispatchEvent(new RoomCameraWidgetManagerEvent(RoomCameraWidgetManagerEvent.INITIALIZED));
+        NitroEventDispatcher.dispatchEvent(new RoomCameraWidgetManagerEvent(RoomCameraWidgetManagerEvent.INITIALIZED));
     }
 
     public async applyEffects(texture: Texture, selectedEffects: IRoomCameraWidgetSelectedEffect[], isZoomed: boolean): Promise<HTMLImageElement>
@@ -92,11 +89,6 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
     public get effects(): Map<string, IRoomCameraWidgetEffect>
     {
         return this._effects;
-    }
-
-    public get events(): IEventDispatcher
-    {
-        return this._events;
     }
 
     public get isLoaded(): boolean

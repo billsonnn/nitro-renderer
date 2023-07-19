@@ -6,6 +6,13 @@ export class NitroConfiguration
     private static _config: any = {};
     private static _missingKeys: string[] = [];
 
+    public static resetConfiguration(): void
+    {
+        this._definitions.clear();
+        this._config = {};
+        this._missingKeys = [];
+    }
+
     public static parseConfiguration(data: { [index: string]: any }, overrides: boolean = false): boolean
     {
         if(!data) return false;

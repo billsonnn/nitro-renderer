@@ -1,6 +1,6 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
-import { RoomSessionPollEvent, RoomSessionVoteEvent } from '../../../events';
-import { PollContentsEvent, PollErrorEvent, PollOfferEvent, StartRoomPollEvent, RoomPollResultEvent } from '../../communication';
+import { NitroEventDispatcher, RoomSessionPollEvent, RoomSessionVoteEvent } from '../../../events';
+import { PollContentsEvent, PollErrorEvent, PollOfferEvent, RoomPollResultEvent, StartRoomPollEvent } from '../../communication';
 import { BaseHandler } from './BaseHandler';
 
 export class PollHandler extends BaseHandler
@@ -36,7 +36,7 @@ export class PollHandler extends BaseHandler
         pollEvent.questionArray = parser.questionArray;
         pollEvent.npsPoll = parser.npsPoll;
 
-        this.listener.events.dispatchEvent(pollEvent);
+        NitroEventDispatcher.dispatchEvent(pollEvent);
     }
 
     private onPollOfferEvent(event: PollOfferEvent): void
@@ -56,7 +56,7 @@ export class PollHandler extends BaseHandler
         pollEvent.summary = parser.headline;
         pollEvent.summary = parser.summary;
 
-        this.listener.events.dispatchEvent(pollEvent);
+        NitroEventDispatcher.dispatchEvent(pollEvent);
     }
 
     private onPollErrorEvent(event: PollErrorEvent): void
@@ -75,7 +75,7 @@ export class PollHandler extends BaseHandler
         pollEvent.headline = '???';
         pollEvent.summary = '???';
 
-        this.listener.events.dispatchEvent(pollEvent);
+        NitroEventDispatcher.dispatchEvent(pollEvent);
     }
 
     private onStartRoomPollEvent(event: StartRoomPollEvent): void
@@ -92,7 +92,7 @@ export class PollHandler extends BaseHandler
 
         const pollEvent = new RoomSessionVoteEvent(RoomSessionVoteEvent.VOTE_QUESTION, session, parser.question, parser.choices);
 
-        this.listener.events.dispatchEvent(pollEvent);
+        NitroEventDispatcher.dispatchEvent(pollEvent);
     }
 
     private onRoomPollResultEvent(event: RoomPollResultEvent): void
@@ -109,6 +109,6 @@ export class PollHandler extends BaseHandler
 
         const pollEvent = new RoomSessionVoteEvent(RoomSessionVoteEvent.VOTE_RESULT, session, parser.question, parser.choices, parser.SafeStr_7651, parser.SafeStr_7654);
 
-        this.listener.events.dispatchEvent(pollEvent);
+        NitroEventDispatcher.dispatchEvent(pollEvent);
     }
 }

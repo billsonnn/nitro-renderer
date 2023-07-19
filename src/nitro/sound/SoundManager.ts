@@ -1,61 +1,28 @@
 import { AdvancedMap, IAdvancedMap, IMusicController, INitroEvent, ISoundManager, NitroConfiguration, NitroLogger } from '../../api';
-import { NitroManager } from '../../common';
-import { NitroSettingsEvent, NitroSoundEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomEngineSamplePlaybackEvent } from '../../events';
-import { Nitro } from '../Nitro';
+import { NitroEventDispatcher, NitroSettingsEvent, NitroSoundEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomEngineSamplePlaybackEvent } from '../../events';
 import { MusicController } from './music/MusicController';
 
-export class SoundManager extends NitroManager implements ISoundManager
+export class SoundManager implements ISoundManager
 {
-    private _volumeSystem: number;
-    private _volumeFurni: number;
-    private _volumeTrax: number;
+    private _volumeSystem: number = 0.5;
+    private _volumeFurni: number = 0.5;
+    private _volumeTrax: number = 0.5;
 
-    private _internalSamples: IAdvancedMap<string, HTMLAudioElement>;
-    private _furniSamples: IAdvancedMap<number, HTMLAudioElement>;
-    private _furnitureBeingPlayed: IAdvancedMap<number, number>;
+    private _internalSamples: IAdvancedMap<string, HTMLAudioElement> = new AdvancedMap();
+    private _furniSamples: IAdvancedMap<number, HTMLAudioElement> = new AdvancedMap();
+    private _furnitureBeingPlayed: IAdvancedMap<number, number> = new AdvancedMap();
 
-    private _musicController: IMusicController;
+    private _musicController: IMusicController = new MusicController();
 
-    constructor()
-    {
-        super();
-
-        this._volumeSystem = 0.5;
-        this._volumeFurni = 0.5;
-        this._volumeTrax = 0.5;
-
-        this._internalSamples = new AdvancedMap();
-        this._furniSamples = new AdvancedMap();
-        this._furnitureBeingPlayed = new AdvancedMap();
-        this._musicController = new MusicController();
-
-        this.onEvent = this.onEvent.bind(this);
-    }
-
-    public onInit(): void
+    public async init(): Promise<void>
     {
         this._musicController.init();
 
-        Nitro.instance.roomEngine.events.addEventListener(RoomEngineSamplePlaybackEvent.PLAY_SAMPLE, this.onEvent);
-        Nitro.instance.roomEngine.events.addEventListener(RoomEngineObjectEvent.REMOVED, this.onEvent);
-        Nitro.instance.roomEngine.events.addEventListener(RoomEngineEvent.DISPOSED, this.onEvent);
-        Nitro.instance.events.addEventListener(NitroSettingsEvent.SETTINGS_UPDATED, this.onEvent);
-        Nitro.instance.events.addEventListener(NitroSoundEvent.PLAY_SOUND, this.onEvent);
-    }
-
-    public onDispose(): void
-    {
-        if(this._musicController)
-        {
-            this._musicController.dispose();
-            this._musicController = null;
-        }
-
-        Nitro.instance.roomEngine.events.removeEventListener(RoomEngineSamplePlaybackEvent.PLAY_SAMPLE, this.onEvent);
-        Nitro.instance.roomEngine.events.removeEventListener(RoomEngineObjectEvent.REMOVED, this.onEvent);
-        Nitro.instance.roomEngine.events.removeEventListener(RoomEngineEvent.DISPOSED, this.onEvent);
-        Nitro.instance.events.removeEventListener(NitroSettingsEvent.SETTINGS_UPDATED, this.onEvent);
-        Nitro.instance.events.removeEventListener(NitroSoundEvent.PLAY_SOUND, this.onEvent);
+        NitroEventDispatcher.addEventListener<RoomEngineSamplePlaybackEvent>(RoomEngineSamplePlaybackEvent.PLAY_SAMPLE, event => this.onEvent(event));
+        NitroEventDispatcher.addEventListener<RoomEngineObjectEvent>(RoomEngineObjectEvent.REMOVED, event => this.onEvent(event));
+        NitroEventDispatcher.addEventListener<RoomEngineEvent>(RoomEngineEvent.DISPOSED, event => this.onEvent(event));
+        NitroEventDispatcher.addEventListener<NitroSettingsEvent>(NitroSettingsEvent.SETTINGS_UPDATED, event => this.onEvent(event));
+        NitroEventDispatcher.addEventListener<NitroSoundEvent>(NitroSoundEvent.PLAY_SOUND, event => this.onEvent(event));
     }
 
     private onEvent(event: INitroEvent)
@@ -150,20 +117,11 @@ export class SoundManager extends NitroManager implements ISoundManager
 
         if(!this._furnitureBeingPlayed.hasKey(objectId)) this._furnitureBeingPlayed.add(objectId, code);
 
-        sample.onended = (event) =>
-        {
-            this.stopFurniSample(objectId);
-        };
+        sample.onended = event => this.stopFurniSample(objectId);
 
-        sample.onpause = (event) =>
-        {
-            this.stopFurniSample(objectId);
-        };
+        sample.onpause = event => this.stopFurniSample(objectId);
 
-        sample.onerror = (event) =>
-        {
-            this.stopFurniSample(objectId);
-        };
+        sample.onerror = event => this.stopFurniSample(objectId);
 
         this.playSample(sample, this._volumeFurni, pitch);
     }

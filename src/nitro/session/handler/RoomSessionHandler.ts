@@ -1,5 +1,5 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
-import { RoomSessionDoorbellEvent, RoomSessionSpectatorModeEvent } from '../../../events';
+import { NitroEventDispatcher, RoomSessionDoorbellEvent, RoomSessionSpectatorModeEvent } from '../../../events';
 import { DesktopViewEvent, FlatAccessDeniedMessageEvent, GoToFlatMessageComposer, RoomDoorbellAcceptedEvent, RoomEnterEvent, RoomReadyMessageEvent, YouAreSpectatorMessageEvent } from '../../communication';
 import { BaseHandler } from './BaseHandler';
 
@@ -65,14 +65,11 @@ export class RoomSessionHandler extends BaseHandler
         }
         else
         {
-            if(this.listener.events)
-            {
-                const session = this.listener.getSession(this.roomId);
+            const session = this.listener.getSession(this.roomId);
 
-                if(!session) return;
+            if(!session) return;
 
-                this.listener.events.dispatchEvent(new RoomSessionDoorbellEvent(RoomSessionDoorbellEvent.RSDE_ACCEPTED, session, username));
-            }
+            NitroEventDispatcher.dispatchEvent(new RoomSessionDoorbellEvent(RoomSessionDoorbellEvent.RSDE_ACCEPTED, session, username));
         }
     }
 
@@ -92,14 +89,11 @@ export class RoomSessionHandler extends BaseHandler
         }
         else
         {
-            if(this.listener.events)
-            {
-                const session = this.listener.getSession(this.roomId);
+            const session = this.listener.getSession(this.roomId);
 
-                if(!session) return;
+            if(!session) return;
 
-                this.listener.events.dispatchEvent(new RoomSessionDoorbellEvent(RoomSessionDoorbellEvent.RSDE_REJECTED, session, username));
-            }
+            NitroEventDispatcher.dispatchEvent(new RoomSessionDoorbellEvent(RoomSessionDoorbellEvent.RSDE_REJECTED, session, username));
         }
     }
 
@@ -112,7 +106,7 @@ export class RoomSessionHandler extends BaseHandler
             if(!session) return;
 
             session.isSpectator = true;
-            this.listener.events.dispatchEvent(new RoomSessionSpectatorModeEvent(RoomSessionSpectatorModeEvent.SPECTATOR_MODE, session));
+            NitroEventDispatcher.dispatchEvent(new RoomSessionSpectatorModeEvent(RoomSessionSpectatorModeEvent.SPECTATOR_MODE, session));
         }
     }
 }

@@ -1,6 +1,6 @@
 import { Howl, Howler } from 'howler';
 import { NitroLogger } from '../../../api';
-import { Nitro } from '../../Nitro';
+import { NitroEventDispatcher } from '../../../events';
 import { SoundManagerEvent } from '../events';
 import { TraxData } from '../trax/TraxData';
 
@@ -79,7 +79,7 @@ export class MusicPlayer
     {
         const songId = this._currentSongId;
         this.reset();
-        Nitro.instance.soundManager.events.dispatchEvent(new SoundManagerEvent(SoundManagerEvent.TRAX_SONG_COMPLETE, songId));
+        NitroEventDispatcher.dispatchEvent(new SoundManagerEvent(SoundManagerEvent.TRAX_SONG_COMPLETE, songId));
         //this.emit('stopped');
     }
 

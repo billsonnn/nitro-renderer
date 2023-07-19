@@ -1,68 +1,45 @@
-import { ICodec, IConnection, IConnectionStateListener, IMessageComposer, IMessageConfiguration, IMessageDataWrapper, IMessageEvent, NitroLogger, WebSocketEventEnum } from '../../api';
-import { EventDispatcher } from '../../common';
-import { SocketConnectionEvent } from '../../events';
+import { ICodec, IConnection, IMessageComposer, IMessageConfiguration, IMessageDataWrapper, IMessageEvent, NitroLogger, WebSocketEventEnum } from '../../api';
+import { NitroEvent, NitroEventDispatcher, NitroEventType } from '../../events';
 import { EvaWireFormat } from './codec';
 import { MessageClassManager } from './messages';
 
-export class SocketConnection extends EventDispatcher implements IConnection
+export class SocketConnection implements IConnection
 {
-    private _stateListener: IConnectionStateListener;
-    private _socket: WebSocket;
-    private _messages: MessageClassManager;
-    private _codec: ICodec;
-    private _dataBuffer: ArrayBuffer;
-    private _isReady: boolean;
+    private _socket: WebSocket = null;
+    private _messages: MessageClassManager = new MessageClassManager();
+    private _codec: ICodec = new EvaWireFormat();
+    private _dataBuffer: ArrayBuffer = null;
+    private _isReady: boolean = false;
 
-    private _pendingClientMessages: IMessageComposer<unknown[]>[];
-    private _pendingServerMessages: IMessageDataWrapper[];
+    private _pendingClientMessages: IMessageComposer<unknown[]>[] = [];
+    private _pendingServerMessages: IMessageDataWrapper[] = [];
 
-    private _isAuthenticated: boolean;
-
-    constructor(stateListener: IConnectionStateListener)
-    {
-        super();
-
-        this._stateListener = stateListener;
-        this._socket = null;
-        this._messages = new MessageClassManager();
-        this._codec = new EvaWireFormat();
-        this._dataBuffer = null;
-        this._isReady = false;
-
-        this._pendingClientMessages = [];
-        this._pendingServerMessages = [];
-
-        this._isAuthenticated = false;
-
-        this.onOpen = this.onOpen.bind(this);
-        this.onClose = this.onClose.bind(this);
-        this.onError = this.onError.bind(this);
-        this.onMessage = this.onMessage.bind(this);
-    }
+    private _isAuthenticated: boolean = false;
 
     public init(socketUrl: string): void
     {
-        if(this._stateListener)
+        if(!socketUrl || !socketUrl.length) return;
+
+        this._dataBuffer = new ArrayBuffer(0);
+
+        this._socket = new WebSocket(socketUrl);
+        this._socket.binaryType = 'arraybuffer';
+
+        this._socket.addEventListener(WebSocketEventEnum.CONNECTION_OPENED, event => NitroEventDispatcher.dispatchEvent(new NitroEvent(NitroEventType.SOCKET_OPENED)));
+
+        this._socket.addEventListener(WebSocketEventEnum.CONNECTION_CLOSED, event => NitroEventDispatcher.dispatchEvent(new NitroEvent(NitroEventType.SOCKET_CLOSED)));
+
+        this._socket.addEventListener(WebSocketEventEnum.CONNECTION_ERROR, event => NitroEventDispatcher.dispatchEvent(new NitroEvent(NitroEventType.SOCKET_ERROR)));
+
+        this._socket.addEventListener(WebSocketEventEnum.CONNECTION_MESSAGE, (event: MessageEvent) =>
         {
-            this._stateListener.connectionInit(socketUrl);
-        }
+            this._dataBuffer = this.concatArrayBuffers(this._dataBuffer, event.data);
 
-        this.createSocket(socketUrl);
+            this.processReceivedData();
+        });
     }
 
-    protected onDispose(): void
-    {
-        super.onDispose();
-
-        this.destroySocket();
-
-        this._stateListener = null;
-        this._messages = null;
-        this._codec = null;
-        this._dataBuffer = null;
-    }
-
-    public onReady(): void
+    public ready(): void
     {
         if(this._isReady) return;
 
@@ -76,67 +53,6 @@ export class SocketConnection extends EventDispatcher implements IConnection
         this._pendingClientMessages = [];
     }
 
-    private createSocket(socketUrl: string): void
-    {
-        if(!socketUrl) return;
-
-        this.destroySocket();
-
-        this._dataBuffer = new ArrayBuffer(0);
-        this._socket = new WebSocket(socketUrl);
-        this._socket.binaryType = 'arraybuffer';
-
-        this._socket.addEventListener(WebSocketEventEnum.CONNECTION_OPENED, this.onOpen);
-        this._socket.addEventListener(WebSocketEventEnum.CONNECTION_CLOSED, this.onClose);
-        this._socket.addEventListener(WebSocketEventEnum.CONNECTION_ERROR, this.onError);
-        this._socket.addEventListener(WebSocketEventEnum.CONNECTION_MESSAGE, this.onMessage);
-    }
-
-    private destroySocket(): void
-    {
-        if(!this._socket) return;
-
-        this._socket.removeEventListener(WebSocketEventEnum.CONNECTION_OPENED, this.onOpen);
-        this._socket.removeEventListener(WebSocketEventEnum.CONNECTION_CLOSED, this.onClose);
-        this._socket.removeEventListener(WebSocketEventEnum.CONNECTION_ERROR, this.onError);
-        this._socket.removeEventListener(WebSocketEventEnum.CONNECTION_MESSAGE, this.onMessage);
-
-        if(this._socket.readyState === WebSocket.OPEN) this._socket.close();
-
-        this._socket = null;
-    }
-
-    private onOpen(event: Event): void
-    {
-        this.dispatchConnectionEvent(SocketConnectionEvent.CONNECTION_OPENED, event);
-    }
-
-    private onClose(event: CloseEvent): void
-    {
-        this.dispatchConnectionEvent(SocketConnectionEvent.CONNECTION_CLOSED, event);
-    }
-
-    private onError(event: Event): void
-    {
-        this.dispatchConnectionEvent(SocketConnectionEvent.CONNECTION_ERROR, event);
-    }
-
-    private onMessage(event: MessageEvent): void
-    {
-        if(!event) return;
-
-        //this.dispatchConnectionEvent(SocketConnectionEvent.CONNECTION_MESSAGE, event);
-
-        this._dataBuffer = this.concatArrayBuffers(this._dataBuffer, event.data);
-
-        this.processReceivedData();
-    }
-
-    private dispatchConnectionEvent(type: string, event: Event): void
-    {
-        this.dispatchEvent(new SocketConnectionEvent(type, this, event));
-    }
-
     public authenticated(): void
     {
         this._isAuthenticated = true;
@@ -144,14 +60,12 @@ export class SocketConnection extends EventDispatcher implements IConnection
 
     public send(...composers: IMessageComposer<unknown[]>[]): boolean
     {
-        if(this.disposed || !composers) return false;
+        if(!composers) return false;
 
         composers = [...composers];
 
         if(this._isAuthenticated && !this._isReady)
         {
-            if(!this._pendingClientMessages) this._pendingClientMessages = [];
-
             this._pendingClientMessages.push(...composers);
 
             return false;
@@ -271,7 +185,7 @@ export class SocketConnection extends EventDispatcher implements IConnection
         {
             NitroLogger.packets('IncomingMessage', wrapper.header, 'UNREGISTERED', wrapper);
 
-            return;
+            return null;
         }
 
         try

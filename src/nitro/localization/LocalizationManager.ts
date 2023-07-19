@@ -1,84 +1,53 @@
-﻿import { INitroCommunicationManager, INitroLocalizationManager, NitroConfiguration } from '../../api';
-import { NitroManager } from '../../common';
-import { NitroLocalizationEvent } from '../../events';
+﻿import { ICommunicationManager, ILocalizationManager, NitroConfiguration } from '../../api';
+import { NitroEvent, NitroEventDispatcher, NitroEventType } from '../../events';
 import { BadgePointLimitsEvent } from '../communication';
 import { BadgeBaseAndLevel } from './BadgeBaseAndLevel';
 
-export class NitroLocalizationManager extends NitroManager implements INitroLocalizationManager
+export class LocalizationManager implements ILocalizationManager
 {
-    private _communication: INitroCommunicationManager;
-    private _definitions: Map<string, string>;
-    private _parameters: Map<string, Map<string, string>>;
-    private _badgePointLimits: Map<string, number>;
-    private _romanNumerals: string[];
-    private _pendingUrls: string[];
+    private _communication: ICommunicationManager = null;
+    private _definitions: Map<string, string> = new Map();
+    private _parameters: Map<string, Map<string, string>> = new Map();
+    private _badgePointLimits: Map<string, number> = new Map();
+    private _romanNumerals: string[] = [ 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXII', 'XXIII', 'XXIV', 'XXV', 'XXVI', 'XXVII', 'XXVIII', 'XXIX', 'XXX' ];
 
-    constructor(communication: INitroCommunicationManager)
+    constructor(communication: ICommunicationManager)
     {
-        super();
-
         this._communication = communication;
-        this._definitions = new Map();
-        this._parameters = new Map();
-        this._badgePointLimits = new Map();
-        this._romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXII', 'XXIII', 'XXIV', 'XXV', 'XXVI', 'XXVII', 'XXVIII', 'XXIX', 'XXX'];
-        this._pendingUrls = [];
     }
 
-    protected onInit(): void
+    public async init(): Promise<void>
     {
-        this._communication.registerMessageEvent(new BadgePointLimitsEvent(this.onBadgePointLimitsEvent.bind(this)));
-
-        let urls: string[] = NitroConfiguration.getValue<string[]>('external.texts.url');
-
-        if(!Array.isArray(urls))
+        try
         {
-            urls = [NitroConfiguration.getValue<string>('external.texts.url')];
+            const urls = NitroConfiguration.getValue<string[]>('external.texts.url').slice();
+
+            if(!urls || !urls.length) throw new Error('Invalid localization urls');
+
+            for(let url of urls)
+            {
+                if(!url || !url.length) return;
+
+                url = NitroConfiguration.interpolate(url);
+
+                const response = await fetch(url);
+
+                if(response.status !== 200) throw new Error('Invalid localization file');
+
+                this.parseLocalization(await response.json());
+            }
+
+            NitroEventDispatcher.dispatchEvent(new NitroEvent(NitroEventType.LOCALIZATION_LOADED));
+
+            this._communication.registerMessageEvent(new BadgePointLimitsEvent(this.onBadgePointLimitsEvent.bind(this)));
         }
 
-        for(let i = 0; i < urls.length; i++) urls[i] = NitroConfiguration.interpolate(urls[i]);
-
-        this._pendingUrls = urls;
-
-        this.loadNextLocalization();
-    }
-
-    private loadNextLocalization(): void
-    {
-        if(!this._pendingUrls.length)
+        catch (err)
         {
-            this.events && this.events.dispatchEvent(new NitroLocalizationEvent(NitroLocalizationEvent.LOADED));
+            NitroEventDispatcher.dispatchEvent(new NitroEvent(NitroEventType.LOCALIZATION_FAILED));
 
-            return;
+            throw new Error(err);
         }
-
-        this.loadLocalizationFromURL(this._pendingUrls[0]);
-    }
-
-    public loadLocalizationFromURL(url: string): void
-    {
-        fetch(url)
-            .then(response => response.json())
-            .then(data => this.onLocalizationLoaded(data, url))
-            .catch(err => this.onLocalizationFailed(err));
-    }
-
-    private onLocalizationLoaded(data: { [index: string]: any }, url: string): void
-    {
-        if(!data) return;
-
-        if(!this.parseLocalization(data)) throw new Error(`Invalid json data for file ${url}`);
-
-        const index = this._pendingUrls.indexOf(url);
-
-        if(index >= 0) this._pendingUrls.splice(index, 1);
-
-        this.loadNextLocalization();
-    }
-
-    private onLocalizationFailed(error: Error): void
-    {
-        this.events && this.events.dispatchEvent(new NitroLocalizationEvent(NitroLocalizationEvent.FAILED));
     }
 
     private parseLocalization(data: { [index: string]: any }): boolean

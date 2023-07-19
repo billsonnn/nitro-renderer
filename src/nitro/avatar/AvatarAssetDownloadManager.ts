@@ -1,110 +1,65 @@
-import { IAssetManager, IAvatarFigureContainer, IAvatarImageListener, INitroEvent, NitroConfiguration, NitroLogger } from '../../api';
-import { EventDispatcher } from '../../common';
-import { AvatarRenderEvent, AvatarRenderLibraryEvent, NitroEvent } from '../../events';
+import { IAssetManager, IAvatarFigureContainer, IAvatarImageListener, NitroConfiguration } from '../../api';
+import { AvatarRenderLibraryEvent, NitroEvent, NitroEventDispatcher, NitroEventType } from '../../events';
 import { AvatarAssetDownloadLibrary } from './AvatarAssetDownloadLibrary';
 import { AvatarStructure } from './AvatarStructure';
 
-export class AvatarAssetDownloadManager extends EventDispatcher
+export class AvatarAssetDownloadManager
 {
-    public static DOWNLOADER_READY: string = 'AADM_DOWNLOADER_READY';
-    public static LIBRARY_LOADED: string = 'AADM_LIBRARY_LOADED';
-
-    private static MAX_DOWNLOADS: number = 2;
-
     private _assets: IAssetManager;
     private _structure: AvatarStructure;
 
-    private _missingMandatoryLibs: string[];
-    private _figureMap: Map<string, AvatarAssetDownloadLibrary[]>;
-    private _pendingContainers: [IAvatarFigureContainer, IAvatarImageListener][];
-    private _figureListeners: Map<string, IAvatarImageListener[]>;
-    private _incompleteFigures: Map<string, AvatarAssetDownloadLibrary[]>;
-    private _pendingDownloadQueue: AvatarAssetDownloadLibrary[];
-    private _currentDownloads: AvatarAssetDownloadLibrary[];
-    private _libraryNames: string[];
-    private _isReady: boolean;
+    private _missingMandatoryLibs: string[] = [];
+    private _figureMap: Map<string, AvatarAssetDownloadLibrary[]> = new Map();
+    private _figureListeners: Map<string, IAvatarImageListener[]> = new Map();
+    private _incompleteFigures: Map<string, AvatarAssetDownloadLibrary[]> = new Map();
+    private _currentDownloads: AvatarAssetDownloadLibrary[] = [];
+    private _libraryNames: string[] = [];
 
     constructor(assets: IAssetManager, structure: AvatarStructure)
     {
-        super();
-
         this._assets = assets;
         this._structure = structure;
-
-        this._missingMandatoryLibs = NitroConfiguration.getValue<string[]>('avatar.mandatory.libraries');
-        this._figureMap = new Map();
-        this._pendingContainers = [];
-        this._figureListeners = new Map();
-        this._incompleteFigures = new Map();
-        this._pendingDownloadQueue = [];
-        this._currentDownloads = [];
-        this._libraryNames = [];
-        this._isReady = false;
-
-        this.onLibraryLoaded = this.onLibraryLoaded.bind(this);
-        this.onAvatarRenderReady = this.onAvatarRenderReady.bind(this);
-
-        this.loadFigureMap();
-
-        this._structure.renderManager.events.addEventListener(AvatarRenderEvent.AVATAR_RENDER_READY, this.onAvatarRenderReady);
     }
 
-    private loadFigureMap(): void
+    public async init(): Promise<void>
     {
-        const request = new XMLHttpRequest();
+        this._missingMandatoryLibs = NitroConfiguration.getValue<string[]>('avatar.mandatory.libraries');
 
-        try
-        {
-            request.open('GET', NitroConfiguration.getValue<string>('avatar.figuremap.url'));
+        const url = NitroConfiguration.getValue<string>('avatar.figuremap.url');
 
-            request.send();
+        if(!url || !url.length) throw new Error('Invalid figure map url');
 
-            request.onloadend = e =>
-            {
-                if(request.responseText)
-                {
-                    const data = JSON.parse(request.responseText);
+        const response = await fetch(url);
 
-                    this.processFigureMap(data.libraries);
+        if(response.status !== 200) throw new Error('Invalid figure map file');
 
-                    this.processMissingLibraries();
+        const responseData = await response.json();
 
-                    this._isReady = true;
+        this.processFigureMap(responseData.libraries);
 
-                    this.dispatchEvent(new NitroEvent(AvatarAssetDownloadManager.DOWNLOADER_READY));
-                }
-            };
+        NitroEventDispatcher.addEventListener(NitroEventType.AVATAR_ASSET_DOWNLOADED, (event: AvatarRenderLibraryEvent) => this.onLibraryLoaded(event));
 
-            request.onerror = e =>
-            {
-                throw new Error('invalid_avatar_figure_map');
-            };
-        }
-
-        catch (e)
-        {
-            NitroLogger.error(e);
-        }
+        await this.processMissingLibraries();
     }
 
     private processFigureMap(data: any): void
     {
         if(!data) return;
 
+        const downloadUrl = NitroConfiguration.getValue<string>('avatar.asset.url');
+
         for(const library of data)
         {
             if(!library) continue;
 
-            const id = (library.id as string);
+            const libraryName = (library.id as string);
             const revision = (library.revision || '');
 
-            if(this._libraryNames.indexOf(id) >= 0) continue;
+            if(this._libraryNames.indexOf(libraryName) >= 0) continue;
 
-            this._libraryNames.push(id);
+            this._libraryNames.push(libraryName);
 
-            const downloadLibrary = new AvatarAssetDownloadLibrary(id, revision, this._assets, NitroConfiguration.getValue<string>('avatar.asset.url'));
-
-            downloadLibrary.addEventListener(AvatarRenderLibraryEvent.DOWNLOAD_COMPLETE, this.onLibraryLoaded);
+            const downloadLibrary = new AvatarAssetDownloadLibrary(libraryName, revision, downloadUrl, this._assets);
 
             for(const part of library.parts)
             {
@@ -123,16 +78,20 @@ export class AvatarAssetDownloadManager extends EventDispatcher
         }
     }
 
-    private onAvatarRenderReady(event: INitroEvent): void
+    private async processMissingLibraries(): Promise<void>
     {
-        if(!event) return;
+        const promises: Promise<void>[] = [];
 
-        for(const [container, listener] of this._pendingContainers)
+        this._missingMandatoryLibs.forEach(value =>
         {
-            this.downloadAvatarFigure(container, listener);
-        }
+            const libraries = this._figureMap.get(value);
 
-        this._pendingContainers = [];
+            if(libraries) for(const library of libraries) promises.push(library.downloadAsset());
+        });
+
+        this._missingMandatoryLibs = [];
+
+        await Promise.all(promises);
     }
 
     private onLibraryLoaded(event: AvatarRenderLibraryEvent): void
@@ -172,7 +131,7 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
                 this._figureListeners.delete(figure);
 
-                this.dispatchEvent(new NitroEvent(AvatarAssetDownloadManager.LIBRARY_LOADED));
+                NitroEventDispatcher.dispatchEvent(new NitroEvent(NitroEventType.AVATAR_ASSET_LOADED));
             }
         }
 
@@ -198,30 +157,9 @@ export class AvatarAssetDownloadManager extends EventDispatcher
         }
     }
 
-    public processMissingLibraries(): void
-    {
-        const libraries = this._missingMandatoryLibs.slice();
-
-        for(const library of libraries)
-        {
-            if(!library) continue;
-
-            const map = this._figureMap.get(library);
-
-            if(map) for(const avatar of map) avatar && this.downloadLibrary(avatar);
-        }
-    }
-
     public isAvatarFigureContainerReady(container: IAvatarFigureContainer): boolean
     {
-        if(!this._isReady || !this._structure.renderManager.isReady)
-        {
-            return false;
-        }
-
-        const pendingLibraries = this.getAvatarFigurePendingLibraries(container);
-
-        return !pendingLibraries.length;
+        return !this.getAvatarFigurePendingLibraries(container).length;
     }
 
     private getAvatarFigurePendingLibraries(container: IAvatarFigureContainer): AvatarAssetDownloadLibrary[]
@@ -271,13 +209,6 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
     public downloadAvatarFigure(container: IAvatarFigureContainer, listener: IAvatarImageListener): void
     {
-        if(!this._isReady || !this._structure.renderManager.isReady)
-        {
-            this._pendingContainers.push([container, listener]);
-
-            return;
-        }
-
         const figure = container.getFigureString();
         const pendingLibraries = this.getAvatarFigurePendingLibraries(container);
 
@@ -303,35 +234,12 @@ export class AvatarAssetDownloadManager extends EventDispatcher
             {
                 if(!library) continue;
 
-                this.downloadLibrary(library);
+                library.downloadAsset();
             }
         }
         else
         {
             if(listener && !listener.disposed) listener.resetFigure(figure);
-        }
-    }
-
-    private downloadLibrary(library: AvatarAssetDownloadLibrary): void
-    {
-        if(!library || library.isLoaded) return;
-
-        if((this._pendingDownloadQueue.indexOf(library) >= 0) || (this._currentDownloads.indexOf(library) >= 0)) return;
-
-        this._pendingDownloadQueue.push(library);
-
-        this.processDownloadQueue();
-    }
-
-    private processDownloadQueue(): void
-    {
-        while(this._pendingDownloadQueue.length)
-        {
-            const library = this._pendingDownloadQueue[0];
-
-            library.downloadAsset();
-
-            this._currentDownloads.push(this._pendingDownloadQueue.shift());
         }
     }
 }
