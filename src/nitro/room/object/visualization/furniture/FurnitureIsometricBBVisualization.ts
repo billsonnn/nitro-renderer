@@ -1,5 +1,4 @@
-import { RenderTexture, Resource, Texture } from '@pixi/core';
-import { Matrix } from '@pixi/math';
+import { Matrix, RenderTexture, Resource, Texture } from '@pixi/core';
 import { GetAssetManager, IGraphicAsset } from '../../../../../api';
 import { NitroSprite, PixiApplicationProxy } from '../../../../../pixi-proxy';
 import { FurnitureBBVisualization } from './FurnitureBBVisualization';

@@ -1,4 +1,4 @@
-import { Point } from '@pixi/math';
+import { Point } from '@pixi/core';
 import { IRoomGeometry, IVector3D, Vector3d } from '../../api';
 
 export class RoomGeometry implements IRoomGeometry

@@ -1,7 +1,7 @@
 import { BaseTexture, Resource, Texture } from '@pixi/core';
 import { Spritesheet } from '@pixi/spritesheet';
-import { Dict } from '@pixi/utils';
 import { GetTickerTime } from '../../pixi-proxy';
+import { Dict } from '../utils';
 import { GraphicAsset } from './GraphicAsset';
 import { GraphicAssetPalette } from './GraphicAssetPalette';
 import { IAsset } from './IAsset';

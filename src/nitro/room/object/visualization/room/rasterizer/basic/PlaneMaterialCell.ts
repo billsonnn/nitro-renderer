@@ -1,4 +1,4 @@
-﻿import { Matrix, Point } from '@pixi/math';
+﻿import { Matrix, Point } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { TilingSprite } from '@pixi/sprite-tiling';
 import { IGraphicAsset, IVector3D } from '../../../../../../../api';

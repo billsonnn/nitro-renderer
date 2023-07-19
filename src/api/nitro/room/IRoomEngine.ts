@@ -1,6 +1,5 @@
-import { RenderTexture } from '@pixi/core';
+import { Point, Rectangle, RenderTexture } from '@pixi/core';
 import { DisplayObject } from '@pixi/display';
-import { Point, Rectangle } from '@pixi/math';
 import { IRoomGeometry, IRoomManager, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRendererFactory, IRoomRenderingCanvas, IVector3D } from '../../room';
 import { IPetCustomPart } from '../avatar';
 import { IRoomSessionManager, ISessionDataManager } from '../session';

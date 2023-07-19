@@ -1,4 +1,4 @@
-import { Polygon } from '@pixi/math';
+import { Polygon } from '@pixi/core';
 
 export class NitroPolygon extends Polygon
 {}

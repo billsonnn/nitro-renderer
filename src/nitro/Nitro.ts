@@ -1,6 +1,6 @@
 import { Application, IApplicationOptions } from '@pixi/app';
 import { SCALE_MODES } from '@pixi/constants';
-import { settings } from '@pixi/settings';
+import { BaseTexture, TextureGCSystem, settings } from '@pixi/core';
 import { AssetManager, IAvatarRenderManager, ICommunicationManager, IConfigurationManager, IEventDispatcher, ILinkEventTracker, ILocalizationManager, IRoomCameraWidgetManager, IRoomEngine, ISessionDataManager, ISoundManager, NitroConfiguration, NitroLogger } from '../api';
 import { EventDispatcher } from '../common';
 import { GetTicker, PixiApplicationProxy } from '../pixi-proxy';
@@ -21,9 +21,10 @@ import { HabboWebTools } from './utils/HabboWebTools';
 
 LegacyExternalInterface.available;
 
-settings.SCALE_MODE = (!(window.devicePixelRatio % 1)) ? SCALE_MODES.NEAREST : SCALE_MODES.LINEAR;
+BaseTexture.defaultOptions.scaleMode = (!(window.devicePixelRatio % 1)) ? SCALE_MODES.NEAREST : SCALE_MODES.LINEAR;
+TextureGCSystem.defaultMaxIdle = 120;
+
 settings.ROUND_PIXELS = true;
-settings.GC_MAX_IDLE = 120;
 
 export class Nitro implements INitro
 {
@@ -45,7 +46,7 @@ export class Nitro implements INitro
     private _soundManager: ISoundManager = new SoundManager();
     private _linkTrackers: ILinkEventTracker[] = [];
 
-    constructor(options?: IApplicationOptions)
+    constructor(options?: Partial<IApplicationOptions>)
     {
         if(!Nitro.INSTANCE) Nitro.INSTANCE = this;
 

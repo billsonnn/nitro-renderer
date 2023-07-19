@@ -1,5 +1,4 @@
-﻿import { RenderTexture, Resource, Texture } from '@pixi/core';
-import { Point } from '@pixi/math';
+﻿import { Point, RenderTexture, Resource, Texture } from '@pixi/core';
 import { IAssetPlaneMaterial, IAssetPlaneMaterialCellColumn, IAssetPlaneTexture, IAssetPlaneVisualization, IAssetPlaneVisualizationData, IAssetPlaneVisualizationLayer, IGraphicAsset, IGraphicAssetCollection, IRoomGeometry, IVector3D, Vector3d } from '../../../../../../../api';
 import { PlaneTextureCache } from '../../../../../../../pixi-proxy';
 import { Rasterizer, RoomGeometry } from '../../../../../../../room';

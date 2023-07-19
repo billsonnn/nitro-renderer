@@ -1,5 +1,4 @@
-import { Renderer, RenderTexture, Resource, Texture } from '@pixi/core';
-import { Matrix, Point } from '@pixi/math';
+import { Matrix, Point, Renderer, RenderTexture, Resource, Texture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { IRoomGeometry, IRoomPlane, IVector3D, Vector3d } from '../../../../../api';
 import { PixiApplicationProxy, PlaneTextureCache } from '../../../../../pixi-proxy';
@@ -51,7 +50,7 @@ export class RoomPlane implements IRoomPlane
     private _rectangleMasks: RoomPlaneRectangleMask[];
     private _maskChanged: boolean;
     private _maskBitmapData: RenderTexture;
-    private _maskPixels: Uint8Array;
+    private _maskPixels: Uint8Array | Uint8ClampedArray;
     private _bitmapMasksOld: RoomPlaneBitmapMask[];
     private _rectangleMasksOld: RoomPlaneRectangleMask[];
     private _cornerA: Vector3d;
@@ -862,7 +861,7 @@ export class RoomPlane implements IRoomPlane
         this.combineTextureMask(canvas, this._maskPixels);
     }
 
-    private combineTextureMask(canvas: RenderTexture, maskPixels: Uint8Array): void
+    private combineTextureMask(canvas: RenderTexture, maskPixels: Uint8Array | Uint8ClampedArray): void
     {
         if(!canvas || !maskPixels) return;
 

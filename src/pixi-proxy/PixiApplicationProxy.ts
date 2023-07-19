@@ -4,7 +4,7 @@ export class PixiApplicationProxy extends Application
 {
     private static INSTANCE: Application = null;
 
-    constructor(options?: IApplicationOptions)
+    constructor(options?: Partial<IApplicationOptions>)
     {
         super(options);
 

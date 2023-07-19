@@ -1,5 +1,4 @@
-import { Resource, Texture } from '@pixi/core';
-import { Matrix } from '@pixi/math';
+import { Matrix, Resource, Texture } from '@pixi/core';
 import { IGraphicAsset } from '../../../../../api';
 import { NitroSprite, NitroTexture, TextureUtils } from '../../../../../pixi-proxy';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';

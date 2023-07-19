@@ -1,9 +1,8 @@
-import { AbstractRenderer, Renderer, RenderTexture, Texture } from '@pixi/core';
+import { ICanvas, IRenderer, Matrix, Rectangle, RenderTexture, Texture } from '@pixi/core';
 import { DisplayObject } from '@pixi/display';
-import { Extract } from '@pixi/extract';
-import { Matrix, Rectangle } from '@pixi/math';
+import { IExtract } from '@pixi/extract';
 import { Sprite } from '@pixi/sprite';
-import { PixiApplicationProxy } from './PixiApplicationProxy';
+import { TextureUtils } from './TextureUtils';
 
 export class PlaneTextureCache
 {
@@ -87,43 +86,26 @@ export class PlaneTextureCache
 
     public clearAndFillRenderTexture(renderTexture: RenderTexture, color: number = 16777215): RenderTexture
     {
-        if(!renderTexture) return null;
-
-        const sprite = new Sprite(Texture.WHITE);
-
-        sprite.tint = color;
-
-        sprite.width = renderTexture.width;
-        sprite.height = renderTexture.height;
-
-        return this.writeToRenderTexture(sprite, renderTexture);
+        return TextureUtils.clearAndFillRenderTexture(renderTexture, color);
     }
 
     public writeToRenderTexture(displayObject: DisplayObject, renderTexture: RenderTexture, clear: boolean = true, transform: Matrix = null): RenderTexture
     {
-        if(!displayObject || !renderTexture) return null;
-
-        this.getRenderer().render(displayObject, {
-            renderTexture,
-            clear,
-            transform
-        });
-
-        return renderTexture;
+        return TextureUtils.writeToRenderTexture(displayObject, renderTexture, clear, transform);
     }
 
-    public getPixels(displayObject: DisplayObject | RenderTexture, frame: Rectangle = null): Uint8Array
+    public getPixels(displayObject: DisplayObject | RenderTexture, frame: Rectangle = null): Uint8Array | Uint8ClampedArray
     {
-        return this.getExtractor().pixels(displayObject);
+        return TextureUtils.getPixels(displayObject, frame);
     }
 
-    public getRenderer(): Renderer | AbstractRenderer
+    public getRenderer(): IRenderer<ICanvas>
     {
-        return PixiApplicationProxy.instance.renderer;
+        return TextureUtils.getRenderer();
     }
 
-    public getExtractor(): Extract
+    public getExtractor(): IExtract
     {
-        return (this.getRenderer().plugins.extract as Extract);
+        return TextureUtils.getExtractor();
     }
 }

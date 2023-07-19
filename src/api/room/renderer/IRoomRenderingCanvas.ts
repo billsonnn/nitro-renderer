@@ -1,9 +1,8 @@
-import { RenderTexture } from '@pixi/core';
+import { Point, RenderTexture } from '@pixi/core';
 import { DisplayObject } from '@pixi/display';
-import { Point } from '@pixi/math';
 import { IRoomGeometry } from '../IRoomGeometry';
-import { ISortableSprite } from '../object';
 import { RoomObjectSpriteData } from '../RoomObjectSpriteData';
+import { ISortableSprite } from '../object';
 import { IRoomCanvasMouseListener } from './IRoomCanvasMouseListener';
 
 export interface IRoomRenderingCanvas

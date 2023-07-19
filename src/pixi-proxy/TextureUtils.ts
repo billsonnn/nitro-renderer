@@ -1,8 +1,6 @@
-import { AbstractRenderer, Renderer, RenderTexture, Resource, Texture } from '@pixi/core';
+import { ICanvas, IRenderer, Matrix, Rectangle, RenderTexture, Resource, settings, Texture } from '@pixi/core';
 import { DisplayObject } from '@pixi/display';
-import { Extract } from '@pixi/extract';
-import { Matrix, Rectangle } from '@pixi/math';
-import { settings } from '@pixi/settings';
+import { IExtract } from '@pixi/extract';
 import { Sprite } from '@pixi/sprite';
 import { PixiApplicationProxy } from './PixiApplicationProxy';
 
@@ -42,7 +40,7 @@ export class TextureUtils
         return this.getExtractor().base64(target);
     }
 
-    public static generateCanvas(target: DisplayObject | RenderTexture): HTMLCanvasElement
+    public static generateCanvas(target: DisplayObject | RenderTexture): ICanvas
     {
         if(!target) return null;
 
@@ -111,18 +109,18 @@ export class TextureUtils
         return renderTexture;
     }
 
-    public static getPixels(displayObject: DisplayObject | RenderTexture, frame: Rectangle = null): Uint8Array
+    public static getPixels(displayObject: DisplayObject | RenderTexture, frame: Rectangle = null): Uint8Array | Uint8ClampedArray
     {
         return this.getExtractor().pixels(displayObject);
     }
 
-    public static getRenderer(): Renderer | AbstractRenderer
+    public static getRenderer(): IRenderer<ICanvas>
     {
         return PixiApplicationProxy.instance.renderer;
     }
 
-    public static getExtractor(): Extract
+    public static getExtractor(): IExtract
     {
-        return (this.getRenderer().plugins.extract as Extract);
+        return this.getRenderer().extract;
     }
 }

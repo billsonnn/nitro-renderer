@@ -1,6 +1,5 @@
-import { RenderTexture, Resource, Texture } from '@pixi/core';
+import { Matrix, Point, Rectangle, RenderTexture, Resource, Texture } from '@pixi/core';
 import { Container, DisplayObject } from '@pixi/display';
-import { Matrix, Point, Rectangle } from '@pixi/math';
 import { ICommunicationManager, IConnection, IFurnitureStackingHeightMap, IGetImageListener, IImageResult, ILegacyWallGeometry, IMessageComposer, IObjectData, IPetColorResult, IPetCustomPart, IRoomContentListener, IRoomContentLoader, IRoomCreator, IRoomEngine, IRoomEngineServices, IRoomGeometry, IRoomInstance, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRenderer, IRoomRendererFactory, IRoomRenderingCanvas, IRoomSessionManager, ISelectedRoomObjectData, ISessionDataManager, ITileObjectMap, IUpdateReceiver, IVector3D, LegacyDataType, MouseEventType, NitroConfiguration, NitroLogger, ObjectDataFactory, RoomControllerLevel, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, ToolbarIconEnum, Vector3d } from '../../api';
 import { NitroManager } from '../../common';
 import { BadgeImageReadyEvent, NitroEventDispatcher, NitroToolbarAnimateIconEvent, RoomBackgroundColorEvent, RoomDragEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomObjectEvent, RoomObjectFurnitureActionEvent, RoomObjectMouseEvent, RoomSessionEvent, RoomToObjectOwnAvatarMoveEvent } from '../../events';
@@ -398,7 +397,6 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
                 const overlay = new NitroSprite(Texture.EMPTY);
 
                 overlay.name = RoomEngine.OVERLAY;
-                overlay.interactive = false;
 
                 displayObject.addChild(overlay);
             }

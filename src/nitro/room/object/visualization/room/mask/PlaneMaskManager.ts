@@ -1,5 +1,4 @@
-﻿import { RenderTexture } from '@pixi/core';
-import { Matrix, Point } from '@pixi/math';
+﻿import { Matrix, Point, RenderTexture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { IAssetPlaneMaskData, IAssetPlaneTextureBitmap, IGraphicAssetCollection, IVector3D } from '../../../../../../api';
 import { PixiApplicationProxy } from '../../../../../../pixi-proxy';

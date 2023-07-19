@@ -1,6 +1,5 @@
-﻿import { Resource, Texture } from '@pixi/core';
+﻿import { Matrix, Resource, Texture } from '@pixi/core';
 import { Graphics } from '@pixi/graphics';
-import { Matrix } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
 import { PixiApplicationProxy, TextureUtils } from '../../pixi-proxy';
 

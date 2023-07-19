@@ -1,5 +1,4 @@
-import { RenderTexture } from '@pixi/core';
-import { Rectangle } from '@pixi/math';
+import { Rectangle, RenderTexture } from '@pixi/core';
 import { IRoomGeometry } from '../../IRoomGeometry';
 import { IRoomObject } from '../IRoomObject';
 import { IObjectVisualizationData } from './IRoomObjectVisualizationData';

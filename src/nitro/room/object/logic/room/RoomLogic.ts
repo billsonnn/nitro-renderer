@@ -1,4 +1,4 @@
-import { Point } from '@pixi/math';
+import { Point } from '@pixi/core';
 import { IRoomGeometry, IRoomObjectModel, MouseEventType, NitroConfiguration, RoomObjectVariable, Vector3d } from '../../../../../api';
 import { RoomObjectEvent, RoomObjectMouseEvent, RoomObjectTileMouseEvent, RoomObjectWallMouseEvent, RoomSpriteMouseEvent } from '../../../../../events';
 import { ColorConverter, RoomObjectLogicBase, RoomObjectUpdateMessage } from '../../../../../room';

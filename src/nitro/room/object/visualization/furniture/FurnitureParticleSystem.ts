@@ -1,7 +1,6 @@
-import { RenderTexture, Texture } from '@pixi/core';
+import { Matrix, RenderTexture, Texture } from '@pixi/core';
 import { AlphaFilter } from '@pixi/filter-alpha';
 import { Graphics } from '@pixi/graphics';
-import { Matrix } from '@pixi/math';
 import { AdvancedMap, IAdvancedMap, IGraphicAsset, IParticleSystem, IRoomObjectSprite } from '../../../../../api';
 import { NitroPoint, NitroSprite, PixiApplicationProxy } from '../../../../../pixi-proxy';
 import { Vector3D } from '../../../../avatar';

@@ -1,12 +1,11 @@
-import { Texture } from '@pixi/core';
-import { Matrix, Point, Rectangle } from '@pixi/math';
+import { Matrix, Point, Rectangle, Texture } from '@pixi/core';
 import { AvatarDirectionAngle, AvatarFigurePartType, AvatarScaleType, GeometryType, IActiveActionData, IAvatarImage, RoomObjectSpriteData } from '../../../api';
 import { GetTickerTime, NitroContainer, NitroSprite } from '../../../pixi-proxy';
-import { AssetAliasCollection } from '../alias';
-import { AvatarAnimationLayerData } from '../animation';
 import { AvatarImageBodyPartContainer } from '../AvatarImageBodyPartContainer';
 import { AvatarImagePartContainer } from '../AvatarImagePartContainer';
 import { AvatarStructure } from '../AvatarStructure';
+import { AssetAliasCollection } from '../alias';
+import { AvatarAnimationLayerData } from '../animation';
 import { AvatarCanvas } from '../structure';
 import { AvatarImageActionCache } from './AvatarImageActionCache';
 import { AvatarImageBodyPartCache } from './AvatarImageBodyPartCache';

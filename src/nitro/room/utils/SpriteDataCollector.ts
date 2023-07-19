@@ -1,8 +1,8 @@
-﻿import { Point, Rectangle } from '@pixi/math';
+﻿import { Point, Rectangle } from '@pixi/core';
 import { IPlaneDrawingData, IPlaneVisualization, IRoomObjectSpriteVisualization, IRoomPlane, IRoomRenderingCanvas, RoomObjectCategory, RoomObjectSpriteData, Vector3d } from '../../../api';
 import { PixiApplicationProxy } from '../../../pixi-proxy';
-import { PlaneDrawingData } from '../object';
 import { RoomEngine } from '../RoomEngine';
+import { PlaneDrawingData } from '../object';
 
 export class SpriteDataCollector
 {

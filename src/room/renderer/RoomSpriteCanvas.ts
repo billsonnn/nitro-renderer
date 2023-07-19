@@ -1,7 +1,6 @@
-import { RenderTexture } from '@pixi/core';
+import { Matrix, Point, Rectangle, RenderTexture } from '@pixi/core';
 import { Container, DisplayObject } from '@pixi/display';
 import { Graphics } from '@pixi/graphics';
-import { Matrix, Point, Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
 import { IRoomCanvasMouseListener, IRoomGeometry, IRoomObject, IRoomObjectSprite, IRoomObjectSpriteVisualization, IRoomRenderingCanvas, IRoomSpriteCanvasContainer, IRoomSpriteMouseEvent, MouseEventType, RoomObjectSpriteData, RoomObjectSpriteType, Vector3d } from '../../api';
 import { RoomSpriteMouseEvent } from '../../events';
@@ -124,8 +123,6 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         if(!this._master)
         {
             this._master = new NitroSprite();
-
-            this._master.interactiveChildren = false;
         }
 
         if(!this._display)
@@ -237,7 +234,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if(this._master)
         {
-            if(this._master.hitArea)
+            /* if(this._master.hitArea)
             {
                 const hitArea = (this._master.hitArea as Rectangle);
 
@@ -247,7 +244,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             else
             {
                 this._master.hitArea = new Rectangle(0, 0, width, height);
-            }
+            } */
 
             if(this._master.filterArea)
             {

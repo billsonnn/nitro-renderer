@@ -1,7 +1,6 @@
-import { RenderTexture, Texture } from '@pixi/core';
+import { Rectangle, RenderTexture, Texture } from '@pixi/core';
 import { Container } from '@pixi/display';
 import { ColorMatrixFilter } from '@pixi/filter-color-matrix';
-import { Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
 import { AdvancedMap, AvatarAction, AvatarDirectionAngle, AvatarScaleType, AvatarSetType, IActionDefinition, IActiveActionData, IAdvancedMap, IAnimationLayerData, IAvatarDataContainer, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IGraphicAsset, IPartColor, ISpriteDataContainer } from '../../api';
 import { GetTickerTime, NitroContainer, NitroSprite, PaletteMapFilter, PixiApplicationProxy, TextureUtils } from '../../pixi-proxy';

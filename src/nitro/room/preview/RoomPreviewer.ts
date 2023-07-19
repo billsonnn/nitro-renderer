@@ -1,6 +1,5 @@
-import { RenderTexture, Texture } from '@pixi/core';
+import { Point, Rectangle, RenderTexture, Texture } from '@pixi/core';
 import { Container, DisplayObject } from '@pixi/display';
-import { Point, Rectangle } from '@pixi/math';
 import { Sprite } from '@pixi/sprite';
 import { IGetImageListener, IImageResult, IObjectData, IRoomEngine, IRoomObjectController, IRoomRenderingCanvas, IVector3D, LegacyDataType, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, Vector3d } from '../../../api';
 import { NitroEventDispatcher, RoomEngineEvent, RoomEngineObjectEvent } from '../../../events';

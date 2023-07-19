@@ -1,4 +1,4 @@
-import { Rectangle } from '@pixi/math';
+import { Rectangle } from '@pixi/core';
 import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable, Vector3d } from '../../../../../api';
 import { PlaneTextureCache } from '../../../../../pixi-proxy';
 import { RoomObjectSpriteVisualization } from '../../../../../room';

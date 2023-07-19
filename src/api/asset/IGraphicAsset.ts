@@ -1,5 +1,4 @@
-import { Resource, Texture } from '@pixi/core';
-import { Rectangle } from '@pixi/math';
+import { Rectangle, Resource, Texture } from '@pixi/core';
 
 export interface IGraphicAsset
 {

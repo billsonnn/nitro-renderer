@@ -1,5 +1,4 @@
-import { Resource, Texture } from '@pixi/core';
-import { Matrix } from '@pixi/math';
+import { Matrix, Resource, Texture } from '@pixi/core';
 import { IGraphicAsset, IRoomObjectSprite, RoomObjectVariable } from '../../../../../api';
 import { NitroSprite, TextureUtils } from '../../../../../pixi-proxy';
 import { IsometricImageFurniVisualization } from './IsometricImageFurniVisualization';

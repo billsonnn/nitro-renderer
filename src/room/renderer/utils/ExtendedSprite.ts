@@ -1,6 +1,5 @@
 import { BLEND_MODES } from '@pixi/constants';
-import { BaseTexture, Resource, Texture } from '@pixi/core';
-import { Point } from '@pixi/math';
+import { BaseTexture, Point, Resource, Texture } from '@pixi/core';
 import { Sprite } from '@pixi/sprite';
 import { AlphaTolerance } from '../../../api';
 import { TextureUtils } from '../../../pixi-proxy';
