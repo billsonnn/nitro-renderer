@@ -63,7 +63,6 @@ export class Nitro implements INitro
             autoDensity: false,
             width: window.innerWidth,
             height: window.innerHeight,
-            resolution: window.devicePixelRatio,
             view: canvas
         });
     }

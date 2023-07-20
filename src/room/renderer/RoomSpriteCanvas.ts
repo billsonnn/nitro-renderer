@@ -829,7 +829,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         {
             const extendedSprite = this.getExtendedSprite(spriteId);
 
-            if(extendedSprite && extendedSprite.containsPoint(new Point((x - extendedSprite.x), (y - extendedSprite.y))))
+            if(extendedSprite && extendedSprite.containsPixelPerfectPoint(new Point((x - extendedSprite.x), (y - extendedSprite.y))))
             {
                 if(extendedSprite.clickHandling && ((type === MouseEventType.MOUSE_CLICK) || (type === MouseEventType.DOUBLE_CLICK)))
                 {

@@ -65,26 +65,24 @@ export class ExtendedSprite extends Sprite
 
     public containsPoint(point: Point): boolean
     {
-        return ExtendedSprite.containsPoint(this, point);
+        return this.containsPixelPerfectPoint(point);
     }
 
-    public static containsPoint(sprite: ExtendedSprite, point: Point): boolean
+    public containsPixelPerfectPoint(point: Point): boolean
     {
-        if(!sprite || !point || (sprite.alphaTolerance > 255)) return false;
+        if(!point || (this.alphaTolerance > 255)) return false;
 
-        if(!(sprite instanceof Sprite)) return false;
+        if((this.texture === Texture.EMPTY) || (this.blendMode !== BLEND_MODES.NORMAL)) return;
 
-        if((sprite.texture === Texture.EMPTY) || (sprite.blendMode !== BLEND_MODES.NORMAL)) return;
-
-        const texture = sprite.texture;
+        const texture = this.texture;
         const baseTexture = texture.baseTexture;
 
         if(!texture || !baseTexture || !baseTexture.valid) return false;
 
-        const x = (point.x * sprite.scale.x);
-        const y = (point.y * sprite.scale.y);
+        const x = (point.x * this.scale.x);
+        const y = (point.y * this.scale.y);
 
-        if(!sprite.getLocalBounds().contains(x, y)) return false;
+        if(!this.getLocalBounds().contains(x, y)) return false;
 
         //@ts-ignore
         if(!baseTexture.hitMap)
