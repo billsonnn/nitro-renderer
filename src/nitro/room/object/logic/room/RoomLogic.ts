@@ -396,6 +396,12 @@ export class RoomLogic extends RoomObjectLogicBase
 
         if(((((planePosition.x >= 0) && (planePosition.x < leftSideLength)) && (planePosition.y >= 0)) && (planePosition.y < rightSideLength)))
         {
+            console.log('found plane', `
+            tileX: ${ tileX }
+            tileY: ${ tileY }
+            tileZ: ${ tileZ }
+            leftSideLength: ${ leftSideLength }
+            rightSideLength: ${ rightSideLength }`);
             this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_X, tileX);
             this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_Y, tileY);
             this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_Z, tileZ);
@@ -403,6 +409,12 @@ export class RoomLogic extends RoomObjectLogicBase
         }
         else
         {
+            console.log('no found plane', `
+            tileX: ${ tileX }
+            tileY: ${ tileY }
+            tileZ: ${ tileZ }
+            leftSideLength: ${ leftSideLength }
+            rightSideLength: ${ rightSideLength }`);
             this.object.model.setValue(RoomObjectVariable.ROOM_SELECTED_PLANE, 0);
 
             return;
