@@ -46,6 +46,7 @@
     "@pixi/sprite-tiling": "~7.2.4",
     "@pixi/spritesheet": "~7.2.4",
     "@pixi/text": "~7.2.4",
+    "@pixi/utils": "^7.2.4",
     "gifuct-js": "^2.1.2",
     "howler": "^2.2.3",
     "pako": "^2.0.4"
