@@ -1,10 +1,10 @@
-import { IDisposable } from '../../common';
 import { IConnection } from '../communication';
 import { IRoomModerationSettings } from './IRoomModerationSettings';
 import { IUserDataManager } from './IUserDataManager';
 
-export interface IRoomSession extends IDisposable
+export interface IRoomSession
 {
+    dispose(): void;
     openGift(objectId: number): void;
     setConnection(connection: IConnection): void;
     setControllerLevel(level: number): void;

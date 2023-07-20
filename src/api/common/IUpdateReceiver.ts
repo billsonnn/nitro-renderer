@@ -1,6 +1,5 @@
-import { IDisposable } from './IDisposable';
 
-export interface IUpdateReceiver extends IDisposable
+export interface IUpdateReceiver
 {
     update(time: number): void;
 }

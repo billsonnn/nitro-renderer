@@ -1,11 +1,11 @@
-import { IDisposable } from '../../api';
 import { IRoomInstanceContainer } from './IRoomInstanceContainer';
 import { IRoomObjectManager } from './IRoomObjectManager';
 import { IRoomObject, IRoomObjectModel } from './object';
 import { IRoomRendererBase } from './renderer';
 
-export interface IRoomInstance extends IDisposable
+export interface IRoomInstance
 {
+    dispose(): void;
     setRenderer(renderer: IRoomRendererBase): void;
     getManager(category: number): IRoomObjectManager;
     getTotalObjectsForManager(category: number): number;

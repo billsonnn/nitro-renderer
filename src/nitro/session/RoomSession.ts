@@ -1,52 +1,29 @@
 import { IConnection, IRoomSession, RoomControllerLevel, RoomTradingLevelEnum } from '../../api';
-import { Disposable } from '../../common';
 import { RoomSessionEvent } from '../../events';
 import { BotRemoveComposer, ChangeQueueMessageComposer, CompostPlantMessageComposer, FurnitureMultiStateComposer, GetPetCommandsComposer, HarvestPetMessageComposer, MoodlightSettingsComposer, MoodlightSettingsSaveComposer, MoodlightTogggleStateComposer, NewUserExperienceScriptProceedComposer, OpenPetPackageMessageComposer, OpenPresentComposer, PeerUsersClassificationMessageComposer, PetMountComposer, PetRemoveComposer, PollAnswerComposer, PollRejectComposer, PollStartComposer, RemovePetSaddleComposer, RoomAmbassadorAlertComposer, RoomBanUserComposer, RoomDoorbellAccessComposer, RoomEnterComposer, RoomGiveRightsComposer, RoomKickUserComposer, RoomModerationSettings, RoomMuteUserComposer, RoomTakeRightsComposer, RoomUnitActionComposer, RoomUnitChatComposer, RoomUnitChatShoutComposer, RoomUnitChatWhisperComposer, RoomUnitDanceComposer, RoomUnitPostureComposer, RoomUnitSignComposer, RoomUnitTypingStartComposer, RoomUnitTypingStopComposer, RoomUsersClassificationMessageComposer, SetClothingChangeDataMessageComposer, TogglePetBreedingComposer, TogglePetRidingComposer, UsePetProductComposer, UserMottoComposer, VotePollCounterMessageComposer } from '../communication';
 import { UserDataManager } from './UserDataManager';
 
-export class RoomSession extends Disposable implements IRoomSession
+export class RoomSession implements IRoomSession
 {
-    private _connection: IConnection;
-    private _userData: UserDataManager;
+    private _connection: IConnection = null;
+    private _userData: UserDataManager = new UserDataManager();
 
-    private _roomId: number;
-    private _password: string;
-    private _state: string;
-    private _tradeMode: number;
-    private _doorMode: number;
-    private _allowPets: boolean;
-    private _controllerLevel: number;
-    private _ownRoomIndex: number;
-    private _isGuildRoom: boolean;
-    private _isRoomOwner: boolean;
-    private _isDecorating: boolean;
-    private _isSpectator: boolean;
+    private _roomId: number = 0;
+    private _password: string = null;
+    private _state: string = RoomSessionEvent.CREATED;
+    private _tradeMode: number = RoomTradingLevelEnum.NO_TRADING;
+    private _doorMode: number = 0;
+    private _allowPets: boolean = false;
+    private _controllerLevel: number = RoomControllerLevel.NONE;
+    private _ownRoomIndex: number = -1;
+    private _isGuildRoom: boolean = false;
+    private _isRoomOwner: boolean = false;
+    private _isDecorating: boolean = false;
+    private _isSpectator: boolean = false;
 
-    private _moderationSettings: RoomModerationSettings;
+    private _moderationSettings: RoomModerationSettings = null;
 
-    constructor()
-    {
-        super();
-
-        this._connection = null;
-        this._userData = new UserDataManager();
-
-        this._roomId = 0;
-        this._password = null;
-        this._state = RoomSessionEvent.CREATED;
-        this._tradeMode = RoomTradingLevelEnum.NO_TRADING;
-        this._doorMode = 0;
-        this._controllerLevel = RoomControllerLevel.NONE;
-        this._ownRoomIndex = -1;
-        this._isGuildRoom = false;
-        this._isRoomOwner = false;
-        this._isDecorating = false;
-        this._isSpectator = false;
-
-        this._moderationSettings = null;
-    }
-
-    protected onDispose(): void
+    public dispose(): void
     {
         if(this._userData)
         {

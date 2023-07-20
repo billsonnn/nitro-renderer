@@ -1,30 +1,18 @@
 import { IEventDispatcher, IRoomGeometry, IRoomObjectController, IRoomObjectEventHandler, IRoomObjectUpdateMessage } from '../../../api';
-import { Disposable } from '../../../common';
 import { RoomSpriteMouseEvent } from '../../../events';
 
-export class RoomObjectLogicBase extends Disposable implements IRoomObjectEventHandler
+export class RoomObjectLogicBase implements IRoomObjectEventHandler
 {
-    private _events: IEventDispatcher;
-    private _object: IRoomObjectController;
-
-    private _time: number;
-
-    constructor()
-    {
-        super();
-
-        this._object = null;
-        this._events = null;
-
-        this._time = 0;
-    }
+    private _events: IEventDispatcher = null;
+    private _object: IRoomObjectController = null;
+    private _time: number = 0;
 
     public initialize(data: unknown): void
     {
         return;
     }
 
-    protected onDispose(): void
+    public dispose(): void
     {
         this._object = null;
     }

@@ -1,11 +1,12 @@
-import { IDisposable, IEventDispatcher } from '../../../common';
+import { IEventDispatcher } from '../../../common';
 import { IRoomObjectUpdateMessage } from '../../IRoomObjectUpdateMessage';
 import { IRoomObjectController } from '../IRoomObjectController';
 import { IRoomObjectMouseHandler } from './IRoomObjectMouseHandler';
 
-export interface IRoomObjectEventHandler extends IRoomObjectMouseHandler, IDisposable
+export interface IRoomObjectEventHandler extends IRoomObjectMouseHandler
 {
     initialize(data: unknown): void;
+    dispose(): void;
     update(totalTimeRunning: number): void;
     processUpdateMessage(message: IRoomObjectUpdateMessage): void;
     getEventTypes(): string[];

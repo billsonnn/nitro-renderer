@@ -1,29 +1,22 @@
 import { IRoomInstance, IRoomInstanceContainer, IRoomObject, IRoomObjectController, IRoomObjectManager, IRoomObjectModel, IRoomRendererBase } from '../api';
-import { Disposable } from '../common';
 import { RoomObjectModel } from './object';
 
-export class RoomInstance extends Disposable implements IRoomInstance
+export class RoomInstance implements IRoomInstance
 {
     private _id: string;
     private _container: IRoomInstanceContainer;
-    private _renderer: IRoomRendererBase;
-    private _managers: Map<number, IRoomObjectManager>;
-    private _updateCategories: number[];
-    private _model: IRoomObjectModel;
+    private _renderer: IRoomRendererBase = null;
+    private _managers: Map<number, IRoomObjectManager> = new Map();
+    private _updateCategories: number[] = [];
+    private _model: IRoomObjectModel = new RoomObjectModel();
 
     constructor(id: string, container: IRoomInstanceContainer)
     {
-        super();
-
         this._id = id;
         this._container = container;
-        this._renderer = null;
-        this._managers = new Map();
-        this._updateCategories = [];
-        this._model = new RoomObjectModel();
     }
 
-    protected onDispose(): void
+    public dispose(): void
     {
         this.removeAllManagers();
 

@@ -1,32 +1,20 @@
 import { IConnection, IRoomUserData } from '../../api';
-import { Disposable } from '../../common';
 import { RequestPetInfoComposer, UserCurrentBadgesComposer } from '../communication';
 
-export class UserDataManager extends Disposable
+export class UserDataManager
 {
     private static TYPE_USER: number = 1;
     private static TYPE_PET: number = 2;
     private static TYPE_BOT: number = 3;
     private static TYPE_RENTABLE_BOT: number = 4;
 
-    private _connection: IConnection;
+    private _connection: IConnection = null;
 
-    private _userDataByType: Map<number, Map<number, IRoomUserData>>;
-    private _userDataByRoomIndex: Map<number, IRoomUserData>;
-    private _userBadges: Map<number, string[]>;
+    private _userDataByType: Map<number, Map<number, IRoomUserData>> = new Map();
+    private _userDataByRoomIndex: Map<number, IRoomUserData> = new Map();
+    private _userBadges: Map<number, string[]> = new Map();
 
-    constructor()
-    {
-        super();
-
-        this._connection = null;
-
-        this._userDataByType = new Map();
-        this._userDataByRoomIndex = new Map();
-        this._userBadges = new Map();
-    }
-
-    protected onDispose(): void
+    public dispose(): void
     {
         this._connection = null;
     }

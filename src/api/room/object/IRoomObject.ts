@@ -1,11 +1,11 @@
-import { IDisposable } from '../../common';
 import { IVector3D } from '../IVector3D';
 import { IRoomObjectModel } from './IRoomObjectModel';
 import { IRoomObjectMouseHandler } from './logic';
 import { IRoomObjectVisualization } from './visualization';
 
-export interface IRoomObject extends IDisposable
+export interface IRoomObject
 {
+    dispose(): void;
     getLocation(): IVector3D;
     getDirection(): IVector3D;
     getState(index?: number): number;

@@ -1,46 +1,31 @@
 import { IRoomObjectController, IRoomObjectEventHandler, IRoomObjectModel, IRoomObjectMouseHandler, IRoomObjectUpdateMessage, IRoomObjectVisualization, IVector3D, Vector3d } from '../../api';
-import { Disposable } from '../../common';
 import { RoomObjectModel } from './RoomObjectModel';
 
-export class RoomObject extends Disposable implements IRoomObjectController
+export class RoomObject implements IRoomObjectController
 {
     private static OBJECT_COUNTER: number = 0;
 
     private _id: number;
     private _instanceId: number;
     private _type: string;
-    private _model: IRoomObjectModel;
+    private _model: IRoomObjectModel = new RoomObjectModel();
 
-    private _location: IVector3D;
-    private _direction: IVector3D;
-    private _states: number[];
+    private _location: IVector3D = new Vector3d();
+    private _direction: IVector3D = new Vector3d();
+    private _states: number[] = [];
 
-    private _visualization: IRoomObjectVisualization;
-    private _logic: IRoomObjectEventHandler;
-    private _pendingLogicMessages: IRoomObjectUpdateMessage[];
+    private _visualization: IRoomObjectVisualization = null;
+    private _logic: IRoomObjectEventHandler = null;
+    private _pendingLogicMessages: IRoomObjectUpdateMessage[] = [];
 
-    private _updateCounter: number;
-    private _isReady: boolean;
+    private _updateCounter: number = 0;
+    private _isReady: boolean = false;
 
     constructor(id: number, stateCount: number, type: string)
     {
-        super();
-
         this._id = id;
         this._instanceId = RoomObject.OBJECT_COUNTER++;
         this._type = type;
-        this._model = new RoomObjectModel();
-
-        this._location = new Vector3d();
-        this._direction = new Vector3d();
-        this._states = [];
-
-        this._visualization = null;
-        this._logic = null;
-        this._pendingLogicMessages = [];
-
-        this._updateCounter = 0;
-        this._isReady = false;
 
         let i = (stateCount - 1);
 
@@ -52,7 +37,7 @@ export class RoomObject extends Disposable implements IRoomObjectController
         }
     }
 
-    protected onDispose(): void
+    public dispose(): void
     {
         this._pendingLogicMessages = [];
 
@@ -60,8 +45,6 @@ export class RoomObject extends Disposable implements IRoomObjectController
         this.setLogic(null);
 
         if(this._model) this._model.dispose();
-
-        super.onDispose();
     }
 
     public getLocation(): IVector3D

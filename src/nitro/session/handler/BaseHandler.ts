@@ -1,7 +1,6 @@
 import { IConnection, IRoomHandlerListener } from '../../../api';
-import { Disposable } from '../../../common';
 
-export class BaseHandler extends Disposable
+export class BaseHandler
 {
     private _connection: IConnection;
     private _listener: IRoomHandlerListener;
@@ -9,14 +8,12 @@ export class BaseHandler extends Disposable
 
     constructor(connection: IConnection, listener: IRoomHandlerListener)
     {
-        super();
-
         this._connection = connection;
         this._listener = listener;
         this._roomId = 0;
     }
 
-    protected onDispose(): void
+    public dispose(): void
     {
         this._connection = null;
         this._listener = null;

@@ -1,7 +1,6 @@
 import { Matrix, Point, Rectangle, RenderTexture, Resource, Texture } from '@pixi/core';
 import { Container, DisplayObject } from '@pixi/display';
 import { ICommunicationManager, IConnection, IFurnitureStackingHeightMap, IGetImageListener, IImageResult, ILegacyWallGeometry, IMessageComposer, IObjectData, IPetColorResult, IPetCustomPart, IRoomContentListener, IRoomContentLoader, IRoomCreator, IRoomEngine, IRoomEngineServices, IRoomGeometry, IRoomInstance, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRenderer, IRoomRendererFactory, IRoomRenderingCanvas, IRoomSessionManager, ISelectedRoomObjectData, ISessionDataManager, ITileObjectMap, IUpdateReceiver, IVector3D, LegacyDataType, MouseEventType, NitroConfiguration, NitroLogger, ObjectDataFactory, RoomControllerLevel, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, ToolbarIconEnum, Vector3d } from '../../api';
-import { NitroManager } from '../../common';
 import { BadgeImageReadyEvent, NitroEventDispatcher, NitroToolbarAnimateIconEvent, RoomBackgroundColorEvent, RoomDragEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomObjectEvent, RoomObjectFurnitureActionEvent, RoomObjectMouseEvent, RoomSessionEvent, RoomToObjectOwnAvatarMoveEvent } from '../../events';
 import { GetTicker, GetTickerTime, NitroSprite, TextureUtils } from '../../pixi-proxy';
 import { NumberBank, RoomEnterEffect, RoomGeometry, RoomInstance, RoomManager, RoomObjectUpdateMessage, RoomRendererFactory } from '../../room';
@@ -19,7 +18,7 @@ import { ObjectAvatarCarryObjectUpdateMessage, ObjectAvatarChatUpdateMessage, Ob
 import { RoomLogic, RoomMapData, RoomObjectVisualizationFactory } from './object';
 import { RoomCamera, RoomData, RoomFurnitureData, RoomInstanceData, RoomObjectBadgeImageAssetListener, SpriteDataCollector } from './utils';
 
-export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreator, IRoomEngineServices, IRoomManagerListener, IRoomContentListener, IUpdateReceiver
+export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineServices, IRoomManagerListener, IRoomContentListener, IUpdateReceiver
 {
     public static ROOM_OBJECT_ID: number = -1;
     public static ROOM_OBJECT_TYPE: string = 'room';
@@ -70,8 +69,6 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
 
     constructor(communication: ICommunicationManager, sessionDataManager: ISessionDataManager)
     {
-        super();
-
         this._communication = communication;
         this._sessionDataManager = sessionDataManager;
         this._roomSessionManager = new RoomSessionManager(this._communication, this);

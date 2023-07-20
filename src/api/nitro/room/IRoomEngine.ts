@@ -94,7 +94,6 @@ export interface IRoomEngine
     logicFactory: IRoomObjectLogicFactory;
     roomContentLoader: IRoomContentLoader;
     activeRoomId: number;
-    disposed: boolean;
     selectedAvatarId: number;
     isDecorating: boolean;
 }
