@@ -2,7 +2,6 @@
 import typescript from '@rollup/plugin-typescript';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
-import { ViteMinifyPlugin } from 'vite-plugin-minify';
 
 const resolvePath = str => resolve(__dirname, str);
 
@@ -14,8 +13,7 @@ export default defineConfig({
             'declaration': true,
             exclude: resolvePath('./node_modules/**'),
             allowSyntheticDefaultImports: true
-        }),
-        ViteMinifyPlugin()
+        })
     ],
     build: {
         lib: {
