@@ -26,7 +26,7 @@ export class FurnitureRoomBackgroundColorLogic extends FurnitureMultiStateLogic
         return this.mergeTypes(super.getEventTypes(), types);
     }
 
-    protected onDispose(): void
+    public dispose(): void
     {
         if(this._roomColorUpdated)
         {
@@ -43,7 +43,7 @@ export class FurnitureRoomBackgroundColorLogic extends FurnitureMultiStateLogic
             this._roomColorUpdated = false;
         }
 
-        super.onDispose();
+        super.dispose();
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void

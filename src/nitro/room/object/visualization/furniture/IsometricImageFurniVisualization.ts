@@ -1,6 +1,6 @@
 import { Matrix, Resource, Texture } from '@pixi/core';
 import { IGraphicAsset } from '../../../../../api';
-import { NitroSprite, NitroTexture, TextureUtils } from '../../../../../pixi-proxy';
+import { NitroSprite, TextureUtils } from '../../../../../pixi-proxy';
 import { FurnitureAnimatedVisualization } from './FurnitureAnimatedVisualization';
 
 export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualization
@@ -95,7 +95,7 @@ export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualiza
         if(this._hasOutline)
         {
             const container = new NitroSprite();
-            const background = new NitroSprite(NitroTexture.WHITE);
+            const background = new NitroSprite(Texture.WHITE);
 
             background.tint = 0x000000;
             background.width = (texture.width + 40);

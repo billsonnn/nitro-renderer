@@ -26,7 +26,7 @@ export class FurnitureRoomDimmerLogic extends FurnitureLogic
         return this.mergeTypes(super.getEventTypes(), types);
     }
 
-    protected onDispose(): void
+    public dispose(): void
     {
         if(this._roomColorUpdated)
         {
@@ -44,7 +44,7 @@ export class FurnitureRoomDimmerLogic extends FurnitureLogic
             }
         }
 
-        super.onDispose();
+        super.dispose();
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void

@@ -1,22 +1,16 @@
 import { Resource, Texture } from '@pixi/core';
 import { AvatarScaleType, IAssetData, IAvatarEffectListener, IAvatarImage, IAvatarImageListener, IAvatarRenderManager, IObjectVisualizationData } from '../../../../../api';
-import { Disposable } from '../../../../../common';
 
-export class AvatarVisualizationData extends Disposable implements IObjectVisualizationData
+export class AvatarVisualizationData implements IObjectVisualizationData
 {
     private _avatarRenderer: IAvatarRenderManager;
-
-    constructor()
-    {
-        super();
-    }
 
     public initialize(asset: IAssetData): boolean
     {
         return true;
     }
 
-    public onDispose(): void
+    public dispose(): void
     {
         this._avatarRenderer = null;
     }

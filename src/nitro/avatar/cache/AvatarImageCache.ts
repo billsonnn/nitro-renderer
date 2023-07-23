@@ -1,6 +1,7 @@
 import { Matrix, Point, Rectangle, Texture } from '@pixi/core';
+import { Container } from '@pixi/display';
 import { AvatarDirectionAngle, AvatarFigurePartType, AvatarScaleType, GeometryType, IActiveActionData, IAvatarImage, RoomObjectSpriteData } from '../../../api';
-import { GetTickerTime, NitroContainer, NitroSprite } from '../../../pixi-proxy';
+import { GetTickerTime, NitroSprite } from '../../../pixi-proxy';
 import { AvatarImageBodyPartContainer } from '../AvatarImageBodyPartContainer';
 import { AvatarImagePartContainer } from '../AvatarImagePartContainer';
 import { AvatarStructure } from '../AvatarStructure';
@@ -472,7 +473,7 @@ export class AvatarImageCache
         for(const data of k) data && bounds.enlarge(data.offsetRect);
 
         const point = new Point(-(bounds.x), -(bounds.y));
-        const container = new NitroContainer();
+        const container = new Container();
 
         const sprite = new NitroSprite(Texture.EMPTY);
 

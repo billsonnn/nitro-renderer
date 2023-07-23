@@ -131,12 +131,12 @@ export class FurnitureLogic extends MovingObjectLogic
         model.setValue(RoomObjectVariable.FURNITURE_ALPHA_MULTIPLIER, 1);
     }
 
-    protected onDispose(): void
+    public dispose(): void
     {
         this._storedRotateMessage = null;
         this._directions = null;
 
-        super.onDispose();
+        super.dispose();
     }
 
     public setObject(object: IRoomObjectController): void

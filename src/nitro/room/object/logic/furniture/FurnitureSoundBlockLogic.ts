@@ -43,14 +43,14 @@ export class FurnitureSoundBlockLogic extends FurnitureMultiStateLogic
         this.object.model.setValue(RoomObjectVariable.FURNITURE_SOUNDBLOCK_RELATIVE_ANIMATION_SPEED, 1);
     }
 
-    protected onDispose(): void
+    public dispose(): void
     {
         if(this._state !== FurnitureSoundBlockLogic.STATE_UNINITIALIZED)
         {
             this.eventDispatcher.dispatchEvent(new RoomObjectSamplePlaybackEvent(RoomObjectSamplePlaybackEvent.ROOM_OBJECT_DISPOSED, this.object, this._sampleId));
         }
 
-        super.onDispose();
+        super.dispose();
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void

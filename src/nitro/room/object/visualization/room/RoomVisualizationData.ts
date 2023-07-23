@@ -1,26 +1,14 @@
 import { IAssetData, IGraphicAssetCollection, IObjectVisualizationData } from '../../../../../api';
-import { Disposable } from '../../../../../common';
 import { PlaneMaskManager } from './mask';
 import { FloorRasterizer, LandscapeRasterizer, WallRasterizer } from './rasterizer';
 
-export class RoomVisualizationData extends Disposable implements IObjectVisualizationData
+export class RoomVisualizationData implements IObjectVisualizationData
 {
-    private _wallRasterizer: WallRasterizer;
-    private _floorRasterizer: FloorRasterizer;
-    private _landscapeRasterizer: LandscapeRasterizer;
-    private _maskManager: PlaneMaskManager;
-    private _initialized: boolean;
-
-    constructor()
-    {
-        super();
-
-        this._wallRasterizer = new WallRasterizer();
-        this._floorRasterizer = new FloorRasterizer();
-        this._landscapeRasterizer = new LandscapeRasterizer();
-        this._maskManager = new PlaneMaskManager();
-        this._initialized = false;
-    }
+    private _wallRasterizer: WallRasterizer = new WallRasterizer();
+    private _floorRasterizer: FloorRasterizer = new FloorRasterizer();
+    private _landscapeRasterizer: LandscapeRasterizer = new LandscapeRasterizer();
+    private _maskManager: PlaneMaskManager = new PlaneMaskManager();
+    private _initialized: boolean = false;
 
     public initialize(asset: IAssetData): boolean
     {
@@ -45,7 +33,7 @@ export class RoomVisualizationData extends Disposable implements IObjectVisualiz
         return true;
     }
 
-    protected onDispose(): void
+    public dispose(): void
     {
         if(this._wallRasterizer)
         {
@@ -74,8 +62,6 @@ export class RoomVisualizationData extends Disposable implements IObjectVisualiz
 
             this._maskManager = null;
         }
-
-        super.onDispose();
     }
 
     public setGraphicAssetCollection(collection: IGraphicAssetCollection): void

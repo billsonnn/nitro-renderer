@@ -1,8 +1,9 @@
 import { Texture } from '@pixi/core';
+import { Container } from '@pixi/display';
 import { ColorMatrix, ColorMatrixFilter } from '@pixi/filter-color-matrix';
 import { IRoomCameraWidgetEffect, IRoomCameraWidgetManager, IRoomCameraWidgetSelectedEffect, NitroConfiguration } from '../../api';
 import { NitroEventDispatcher, RoomCameraWidgetManagerEvent } from '../../events';
-import { NitroContainer, NitroSprite, TextureUtils } from '../../pixi-proxy';
+import { NitroSprite, TextureUtils } from '../../pixi-proxy';
 import { RoomCameraWidgetEffect } from './RoomCameraWidgetEffect';
 
 export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
@@ -49,7 +50,7 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
 
     public async applyEffects(texture: Texture, selectedEffects: IRoomCameraWidgetSelectedEffect[], isZoomed: boolean): Promise<HTMLImageElement>
     {
-        const container = new NitroContainer();
+        const container = new Container();
         const sprite = new NitroSprite(texture);
 
         container.addChild(sprite);

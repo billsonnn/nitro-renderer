@@ -2,7 +2,7 @@ import { Application, IApplicationOptions } from '@pixi/app';
 import { SCALE_MODES } from '@pixi/constants';
 import { BaseTexture, TextureGCSystem, settings } from '@pixi/core';
 import { AssetManager, IAvatarRenderManager, ICommunicationManager, IConfigurationManager, IEventDispatcher, ILinkEventTracker, ILocalizationManager, IRoomCameraWidgetManager, IRoomEngine, ISessionDataManager, ISoundManager, NitroConfiguration, NitroLogger } from '../api';
-import { EventDispatcher } from '../common';
+import { EventDispatcher } from '../events';
 import { GetTicker, PixiApplicationProxy } from '../pixi-proxy';
 import { INitro } from './INitro';
 import { NitroVersion } from './NitroVersion';

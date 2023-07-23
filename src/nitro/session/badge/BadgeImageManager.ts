@@ -1,7 +1,8 @@
 import { Resource, Texture } from '@pixi/core';
+import { Container } from '@pixi/display';
 import { IAssetManager, IDisposable, IMessageEvent, NitroConfiguration } from '../../../api';
 import { BadgeImageReadyEvent, NitroEventDispatcher } from '../../../events';
-import { NitroContainer, NitroSprite, NitroTexture, TextureUtils } from '../../../pixi-proxy';
+import { NitroSprite, TextureUtils } from '../../../pixi-proxy';
 import { GroupBadgePartsEvent } from '../../communication';
 import { SessionDataManager } from './../SessionDataManager';
 import { BadgeInfo } from './BadgeInfo';
@@ -186,8 +187,8 @@ export class BadgeImageManager implements IDisposable
 
     private renderGroupBadge(groupBadge: GroupBadge): void
     {
-        const container = new NitroContainer();
-        const tempSprite = new NitroSprite(NitroTexture.EMPTY);
+        const container = new Container();
+        const tempSprite = new NitroSprite(Texture.EMPTY);
 
         tempSprite.width = GroupBadgePart.IMAGE_WIDTH;
         tempSprite.height = GroupBadgePart.IMAGE_HEIGHT;

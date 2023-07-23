@@ -1,3 +1,4 @@
+export * from './EventDispatcher';
 export * from './NitroEventDispatcher';
 export * from './NitroEventType';
 export * from './NitroSettingsEvent';

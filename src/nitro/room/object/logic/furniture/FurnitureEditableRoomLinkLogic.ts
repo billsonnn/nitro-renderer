@@ -29,7 +29,7 @@ export class FurnitureEditableRoomLinkLogic extends FurnitureLogic
         }
     }
 
-    protected onDispose(): void
+    public dispose(): void
     {
         if(this._timer)
         {
@@ -38,7 +38,7 @@ export class FurnitureEditableRoomLinkLogic extends FurnitureLogic
             this._timer = null;
         }
 
-        super.onDispose();
+        super.dispose();
     }
 
     private setAutomaticStateIndex(state: number): void

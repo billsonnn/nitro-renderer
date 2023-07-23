@@ -1,7 +1,8 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
+import { Container } from '@pixi/display';
 import { Sprite } from '@pixi/sprite';
 import { Text } from '@pixi/text';
-import { NitroContainer, NitroSprite, PixiApplicationProxy, TextureUtils } from '../../../../../pixi-proxy';
+import { NitroSprite, PixiApplicationProxy, TextureUtils } from '../../../../../pixi-proxy';
 
 export class ExperienceData
 {
@@ -22,7 +23,7 @@ export class ExperienceData
     {
         if(!this._sprite || (this._amount === amount)) return null;
 
-        const container = new NitroContainer();
+        const container = new Container();
 
         container.addChild(this._sprite);
 

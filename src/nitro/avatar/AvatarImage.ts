@@ -3,7 +3,7 @@ import { Container } from '@pixi/display';
 import { ColorMatrixFilter } from '@pixi/filter-color-matrix';
 import { Sprite } from '@pixi/sprite';
 import { AdvancedMap, AvatarAction, AvatarDirectionAngle, AvatarScaleType, AvatarSetType, IActionDefinition, IActiveActionData, IAdvancedMap, IAnimationLayerData, IAvatarDataContainer, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IGraphicAsset, IPartColor, ISpriteDataContainer } from '../../api';
-import { GetTickerTime, NitroContainer, NitroSprite, PaletteMapFilter, PixiApplicationProxy, TextureUtils } from '../../pixi-proxy';
+import { GetTickerTime, NitroSprite, PaletteMapFilter, PixiApplicationProxy, TextureUtils } from '../../pixi-proxy';
 import { AvatarFigureContainer } from './AvatarFigureContainer';
 import { AvatarStructure } from './AvatarStructure';
 import { EffectAssetDownloadManager } from './EffectAssetDownloadManager';
@@ -323,7 +323,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         this._image = null;
 
-        const container = new NitroContainer();
+        const container = new Container();
 
         let isCachable = true;
         let partCount = (_local_6.length - 1);
@@ -358,7 +358,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                     point.x += avatarCanvas.regPoint.x;
                     point.y += avatarCanvas.regPoint.y;
 
-                    const partContainer = new NitroContainer();
+                    const partContainer = new Container();
 
                     partContainer.addChild(partCacheContainer);
 
@@ -526,7 +526,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                     point.x += avatarCanvas.regPoint.x;
                     point.y += avatarCanvas.regPoint.y;
 
-                    const partContainer = new NitroContainer();
+                    const partContainer = new Container();
 
                     partContainer.addChild(partCacheContainer);
 
@@ -553,7 +553,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         if(!avatarCanvas) return null;
 
         const setTypes = this.getBodyParts(setType, this._mainAction.definition.geometryType, this._mainDirection);
-        const container = new NitroContainer();
+        const container = new Container();
 
         let partCount = (setTypes.length - 1);
 
@@ -585,7 +585,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                     point.x += avatarCanvas.regPoint.x;
                     point.y += avatarCanvas.regPoint.y;
 
-                    const partContainer = new NitroContainer();
+                    const partContainer = new Container();
 
                     partContainer.addChild(partCacheContainer);
 

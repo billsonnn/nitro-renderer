@@ -1,53 +1,25 @@
 import { AvatarGuideStatus, IConnection, IRoomCreator, IVector3D, LegacyDataType, ObjectRolling, PetType, RoomObjectType, RoomObjectUserType, RoomObjectVariable, Vector3d } from '../../api';
-import { Disposable } from '../../common';
 import { DiceValueMessageEvent, FloorHeightMapEvent, FurnitureAliasesComposer, FurnitureAliasesEvent, FurnitureDataEvent, FurnitureFloorAddEvent, FurnitureFloorDataParser, FurnitureFloorEvent, FurnitureFloorRemoveEvent, FurnitureFloorUpdateEvent, FurnitureWallAddEvent, FurnitureWallDataParser, FurnitureWallEvent, FurnitureWallRemoveEvent, FurnitureWallUpdateEvent, GetRoomEntryDataMessageComposer, GuideSessionEndedMessageEvent, GuideSessionErrorMessageEvent, GuideSessionStartedMessageEvent, IgnoreResultEvent, ItemDataUpdateMessageEvent, ObjectsDataUpdateEvent, ObjectsRollingEvent, OneWayDoorStatusMessageEvent, PetExperienceEvent, PetFigureUpdateEvent, RoomEntryTileMessageEvent, RoomEntryTileMessageParser, RoomHeightMapEvent, RoomHeightMapUpdateEvent, RoomPaintEvent, RoomReadyMessageEvent, RoomUnitChatEvent, RoomUnitChatShoutEvent, RoomUnitChatWhisperEvent, RoomUnitDanceEvent, RoomUnitEffectEvent, RoomUnitEvent, RoomUnitExpressionEvent, RoomUnitHandItemEvent, RoomUnitIdleEvent, RoomUnitInfoEvent, RoomUnitNumberEvent, RoomUnitRemoveEvent, RoomUnitStatusEvent, RoomUnitTypingEvent, RoomVisualizationSettingsEvent, UserInfoEvent, YouArePlayingGameEvent } from '../communication';
 import { RoomPlaneParser } from './object/RoomPlaneParser';
 import { RoomVariableEnum } from './RoomVariableEnum';
 import { FurnitureStackingHeightMap, LegacyWallGeometry } from './utils';
 
-export class RoomMessageHandler extends Disposable
+export class RoomMessageHandler
 {
-    private _connection: IConnection;
+    private _connection: IConnection = null;
     private _roomCreator: IRoomCreator;
-    private _planeParser: RoomPlaneParser;
-    private _latestEntryTileEvent: RoomEntryTileMessageEvent;
+    private _planeParser: RoomPlaneParser = new RoomPlaneParser();
+    private _latestEntryTileEvent: RoomEntryTileMessageEvent = null;
 
-    private _currentRoomId: number;
-    private _ownUserId: number;
-    private _initialConnection: boolean;
-    private _guideId: number;
-    private _requesterId: number;
+    private _currentRoomId: number = 0;
+    private _ownUserId: number = 0;
+    private _initialConnection: boolean = true;
+    private _guideId: number = -1;
+    private _requesterId: number = -1;
 
     constructor(roomCreator: IRoomCreator)
     {
-        super();
-
-        this._connection = null;
         this._roomCreator = roomCreator;
-        this._planeParser = new RoomPlaneParser();
-        this._latestEntryTileEvent = null;
-
-        this._currentRoomId = 0;
-        this._ownUserId = 0;
-        this._initialConnection = true;
-        this._guideId = -1;
-        this._requesterId = -1;
-    }
-
-    protected onDispose(): void
-    {
-        super.onDispose();
-
-        this._connection = null;
-        this._roomCreator = null;
-        this._latestEntryTileEvent = null;
-
-        if(this._planeParser)
-        {
-            this._planeParser.dispose();
-
-            this._planeParser = null;
-        }
     }
 
     public setConnection(connection: IConnection)

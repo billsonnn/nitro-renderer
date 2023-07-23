@@ -1,5 +1,4 @@
 import { IFurnitureStackingHeightMap, ILegacyWallGeometry, IObjectData, IRoomCanvasMouseListener, IRoomEngineServices, IRoomGeometry, IRoomObject, IRoomObjectController, IRoomObjectEventManager, ISelectedRoomObjectData, IVector3D, MouseEventType, NitroConfiguration, NitroLogger, RoomObjectCategory, RoomObjectOperationType, RoomObjectPlacementSource, RoomObjectType, RoomObjectUserType, RoomObjectVariable, Vector3d } from '../../api';
-import { Disposable } from '../../common';
 import { NitroEventDispatcher, RoomEngineDimmerStateEvent, RoomEngineObjectEvent, RoomEngineObjectPlacedEvent, RoomEngineObjectPlacedOnUserEvent, RoomEngineObjectPlaySoundEvent, RoomEngineRoomAdEvent, RoomEngineSamplePlaybackEvent, RoomEngineTriggerWidgetEvent, RoomEngineUseProductEvent, RoomObjectBadgeAssetEvent, RoomObjectDataRequestEvent, RoomObjectDimmerStateUpdateEvent, RoomObjectEvent, RoomObjectFloorHoleEvent, RoomObjectFurnitureActionEvent, RoomObjectHSLColorEnabledEvent, RoomObjectHSLColorEnableEvent, RoomObjectMouseEvent, RoomObjectMoveEvent, RoomObjectPlaySoundIdEvent, RoomObjectRoomAdEvent, RoomObjectSamplePlaybackEvent, RoomObjectSoundMachineEvent, RoomObjectStateChangedEvent, RoomObjectTileMouseEvent, RoomObjectWallMouseEvent, RoomObjectWidgetRequestEvent, RoomSpriteMouseEvent } from '../../events';
 import { RoomEnterEffect, RoomId, RoomObjectUpdateMessage } from '../../room';
 import { BotPlaceComposer, FurnitureColorWheelComposer, FurnitureDiceActivateComposer, FurnitureDiceDeactivateComposer, FurnitureFloorUpdateComposer, FurnitureGroupInfoComposer, FurnitureMultiStateComposer, FurnitureOneWayDoorComposer, FurniturePickupComposer, FurniturePlaceComposer, FurniturePostItPlaceComposer, FurnitureRandomStateComposer, FurnitureWallMultiStateComposer, FurnitureWallUpdateComposer, GetItemDataComposer, GetResolutionAchievementsMessageComposer, PetMoveComposer, PetPlaceComposer, RemoveWallItemComposer, RoomUnitLookComposer, RoomUnitWalkComposer, SetItemDataMessageComposer, SetObjectDataMessageComposer } from '../communication';
@@ -7,47 +6,23 @@ import { Nitro } from '../Nitro';
 import { ObjectAvatarSelectedMessage, ObjectDataUpdateMessage, ObjectSelectedMessage, ObjectTileCursorUpdateMessage, ObjectVisibilityUpdateMessage } from './messages';
 import { SelectedRoomObjectData } from './utils';
 
-export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMouseListener, IRoomObjectEventManager
+export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomObjectEventManager
 {
     private _roomEngine: IRoomEngineServices;
 
-    private _eventIds: Map<number, Map<string, string>>;
+    private _eventIds: Map<number, Map<string, string>> = new Map();
 
-    private _selectedAvatarId: number;
-    private _selectedObjectId: number;
-    private _selectedObjectCategory: number;
-    private _whereYouClickIsWhereYouGo: boolean;
-    private _objectPlacementSource: string;
+    private _selectedAvatarId: number = -1;
+    private _selectedObjectId: number = -1;
+    private _selectedObjectCategory: number = -2;
+    private _whereYouClickIsWhereYouGo: boolean = true;
+    private _objectPlacementSource: string = null;
 
     constructor(roomEngine: IRoomEngineServices)
     {
-        super();
-
         this._roomEngine = roomEngine;
 
-        this._eventIds = new Map();
-
-        this._selectedAvatarId = -1;
-        this._selectedObjectId = -1;
-        this._selectedObjectCategory = -2;
-        this._whereYouClickIsWhereYouGo = true;
-        this._objectPlacementSource = null;
-
-        this.onRoomEngineObjectEvent = this.onRoomEngineObjectEvent.bind(this);
-
-        NitroEventDispatcher.addEventListener(RoomEngineObjectEvent.ADDED, this.onRoomEngineObjectEvent);
-    }
-
-    public dispose(): void
-    {
-        if(this._eventIds)
-        {
-            this._eventIds = null;
-        }
-
-        NitroEventDispatcher.removeEventListener(RoomEngineObjectEvent.ADDED, this.onRoomEngineObjectEvent);
-
-        this._roomEngine = null;
+        NitroEventDispatcher.addEventListener<RoomEngineObjectEvent>(RoomEngineObjectEvent.ADDED, event => this.onRoomEngineObjectEvent(event));
     }
 
     private onRoomEngineObjectEvent(event: RoomEngineObjectEvent): void

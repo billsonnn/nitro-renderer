@@ -22,11 +22,11 @@ export class FurnitureSoundMachineLogic extends FurnitureMultiStateLogic
         return this.mergeTypes(super.getEventTypes(), types);
     }
 
-    protected onDispose(): void
+    public dispose(): void
     {
         this.requestDispose();
 
-        super.onDispose();
+        super.dispose();
     }
 
     public processUpdateMessage(message: RoomObjectUpdateMessage): void

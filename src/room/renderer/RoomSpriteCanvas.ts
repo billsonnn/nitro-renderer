@@ -1,11 +1,11 @@
 import { Matrix, Point, Rectangle, RenderTexture } from '@pixi/core';
-import { Container, DisplayObject } from '@pixi/display';
+import { Container } from '@pixi/display';
 import { Graphics } from '@pixi/graphics';
 import { Sprite } from '@pixi/sprite';
 import { IRoomCanvasMouseListener, IRoomGeometry, IRoomObject, IRoomObjectSprite, IRoomObjectSpriteVisualization, IRoomRenderingCanvas, IRoomSpriteCanvasContainer, IRoomSpriteMouseEvent, MouseEventType, RoomObjectSpriteData, RoomObjectSpriteType, Vector3d } from '../../api';
 import { RoomSpriteMouseEvent } from '../../events';
 import { Nitro } from '../../nitro/Nitro';
-import { GetTicker, NitroContainer, NitroSprite, PixiApplicationProxy } from '../../pixi-proxy';
+import { GetTicker, NitroSprite, PixiApplicationProxy } from '../../pixi-proxy';
 import { RoomEnterEffect, RoomGeometry, RoomRotatingEffect, RoomShakingEffect } from '../utils';
 import { RoomObjectCache, RoomObjectCacheItem } from './cache';
 import { ExtendedSprite, ObjectMouseData, SortableSprite } from './utils';
@@ -127,7 +127,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if(!this._display)
         {
-            const display = new NitroContainer();
+            const display = new Container();
 
             this._master.addChild(display);
 
@@ -1200,12 +1200,12 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         return this._geometry;
     }
 
-    public get master(): DisplayObject
+    public get master(): Sprite
     {
         return this._master;
     }
 
-    public get display(): DisplayObject
+    public get display(): Container
     {
         return this._display;
     }
