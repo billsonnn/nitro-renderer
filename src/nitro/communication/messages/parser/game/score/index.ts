@@ -1,3 +1,4 @@
+export * from './Game2LeaderboardParser';
 export * from './Game2WeeklyLeaderboardParser';
 export * from './GameRewardWinnerEntry';
 export * from './LeaderboardEntry';
