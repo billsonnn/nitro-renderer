@@ -4,9 +4,9 @@ export class GuideSessionCreateMessageComposer implements IMessageComposer<Const
 {
     private _data: ConstructorParameters<typeof GuideSessionCreateMessageComposer>;
 
-    constructor(k: number, _arg_2: string)
+    constructor(requestType: number, description: string)
     {
-        this._data = [k, _arg_2];
+        this._data = [requestType, description];
     }
 
     public getMessageArray()

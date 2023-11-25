@@ -4,9 +4,9 @@ export class GuideSessionFeedbackMessageComposer implements IMessageComposer<Con
 {
     private _data: ConstructorParameters<typeof GuideSessionFeedbackMessageComposer>;
 
-    constructor(k: boolean)
+    constructor(hasPositiveFeedback: boolean)
     {
-        this._data = [k];
+        this._data = [hasPositiveFeedback];
     }
 
     public getMessageArray()

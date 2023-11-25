@@ -4,9 +4,9 @@ export class SearchFaqsMessageComposer implements IMessageComposer<ConstructorPa
 {
     private _data: ConstructorParameters<typeof SearchFaqsMessageComposer>;
 
-    constructor(k: string)
+    constructor(search: string)
     {
-        this._data = [k];
+        this._data = [search];
     }
 
     public getMessageArray()
