@@ -5,12 +5,12 @@ export class DefaultSanctionMessageComposer implements IMessageComposer<Construc
 {
     private _data: ConstructorParameters<typeof DefaultSanctionMessageComposer>;
 
-    constructor(k: number, _arg_2: number, _arg_3: string, _arg_4: number = -1)
+    constructor(userId: number, selectedTopic: number, message: string, issueState: number = -1)
     {
-        this._data = [k, _arg_2, _arg_3];
-        if(_arg_4 != ModBanMessageComposer.NO_ISSUE_ID)
+        this._data = [userId, selectedTopic, message];
+        if(issueState != ModBanMessageComposer.NO_ISSUE_ID)
         {
-            this._data.push(_arg_4);
+            this._data.push(issueState);
         }
     }
 

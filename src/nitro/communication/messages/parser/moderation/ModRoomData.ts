@@ -8,22 +8,22 @@ export class ModRoomData implements IDisposable
     private _tags: string[];
     private _disposed: boolean;
 
-    constructor(k: IMessageDataWrapper)
+    constructor(wrapper: IMessageDataWrapper)
     {
         this._tags = [];
-        this._exists = k.readBoolean();
+        this._exists = wrapper.readBoolean();
         if(!this.exists)
         {
             return;
         }
-        this._name = k.readString();
-        this._desc = k.readString();
+        this._name = wrapper.readString();
+        this._desc = wrapper.readString();
 
-        const tagCount = k.readInt();
+        const tagCount = wrapper.readInt();
 
         for(let i = 0; i < tagCount; i++)
         {
-            this._tags.push(k.readString());
+            this._tags.push(wrapper.readString());
         }
     }
 

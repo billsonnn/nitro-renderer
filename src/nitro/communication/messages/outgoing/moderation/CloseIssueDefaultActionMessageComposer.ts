@@ -4,9 +4,9 @@ export class CloseIssueDefaultActionMessageComposer implements IMessageComposer<
 {
     private _data: number[];
 
-    constructor(k: number, issueIds: number[], _arg_2: number)
+    constructor(issueId: number, issueIds: number[], topicId: number)
     {
-        this._data = [k, issueIds.length, ...issueIds, _arg_2];
+        this._data = [issueId, issueIds.length, ...issueIds, topicId];
     }
 
     public getMessageArray()

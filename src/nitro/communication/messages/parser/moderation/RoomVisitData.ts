@@ -7,12 +7,12 @@ export class RoomVisitData
     private _enterHour: number;
     private _enterMinute: number;
 
-    constructor(k: IMessageDataWrapper)
+    constructor(wrapper: IMessageDataWrapper)
     {
-        this._roomId = k.readInt();
-        this._roomName = k.readString();
-        this._enterHour = k.readInt();
-        this._enterMinute = k.readInt();
+        this._roomId = wrapper.readInt();
+        this._roomName = wrapper.readString();
+        this._enterHour = wrapper.readInt();
+        this._enterMinute = wrapper.readInt();
     }
 
     public get roomId(): number

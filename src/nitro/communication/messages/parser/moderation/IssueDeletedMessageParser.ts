@@ -9,9 +9,9 @@ export class IssueDeletedMessageParser implements IMessageParser
         return true;
     }
 
-    public parse(k: IMessageDataWrapper): boolean
+    public parse(wrapper: IMessageDataWrapper): boolean
     {
-        this._issueId = parseInt(k.readString());
+        this._issueId = parseInt(wrapper.readString());
         return true;
     }
 

@@ -9,13 +9,13 @@ export class CfhChatlogData
     private _chatRecordId: number;
     private _chatRecord: ChatRecordData;
 
-    constructor(k: IMessageDataWrapper)
+    constructor(wrapper: IMessageDataWrapper)
     {
-        this._issueId = k.readInt();
-        this._callerUserId = k.readInt();
-        this._reportedUserId = k.readInt();
-        this._chatRecordId = k.readInt();
-        this._chatRecord = new ChatRecordData(k);
+        this._issueId = wrapper.readInt();
+        this._callerUserId = wrapper.readInt();
+        this._reportedUserId = wrapper.readInt();
+        this._chatRecordId = wrapper.readInt();
+        this._chatRecord = new ChatRecordData(wrapper);
     }
 
     public get issueId(): number

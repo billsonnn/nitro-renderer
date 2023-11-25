@@ -16,12 +16,12 @@ export class ModeratorToolPreferencesMessageParser implements IMessageParser
         return true;
     }
 
-    public parse(k: IMessageDataWrapper): boolean
+    public parse(wrapper: IMessageDataWrapper): boolean
     {
-        this._windowX = k.readInt();
-        this._windowY = k.readInt();
-        this._windowWidth = k.readInt();
-        this._windowHeight = k.readInt();
+        this._windowX = wrapper.readInt();
+        this._windowY = wrapper.readInt();
+        this._windowWidth = wrapper.readInt();
+        this._windowHeight = wrapper.readInt();
         return true;
     }
 

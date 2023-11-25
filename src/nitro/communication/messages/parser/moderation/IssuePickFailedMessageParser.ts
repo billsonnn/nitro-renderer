@@ -13,23 +13,23 @@ export class IssuePickFailedMessageParser implements IMessageParser
         return true;
     }
 
-    public parse(k: IMessageDataWrapper): boolean
+    public parse(wrapper: IMessageDataWrapper): boolean
     {
         this._issues = [];
 
-        const count = k.readInt();
+        const count = wrapper.readInt();
 
         for(let i = 0; i < count; i++)
         {
-            const _local_4 = k.readInt();
-            const _local_5 = k.readInt();
-            const _local_6 = k.readString();
-            const _local_7 = new IssueMessageData(_local_4, 0, 0, 0, 0, 0, 0, 0, null, 0, null, _local_5, _local_6, null, 0, []);
+            const issueId = wrapper.readInt();
+            const userId = wrapper.readInt();
+            const userName = wrapper.readString();
+            const _local_7 = new IssueMessageData(issueId, 0, 0, 0, 0, 0, 0, 0, null, 0, null, userId, userName, null, 0, []);
             this._issues.push(_local_7);
         }
 
-        this._retryEnabled = k.readBoolean();
-        this._retryCount = k.readInt();
+        this._retryEnabled = wrapper.readBoolean();
+        this._retryCount = wrapper.readInt();
         return true;
     }
 

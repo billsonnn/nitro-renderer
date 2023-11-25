@@ -4,9 +4,9 @@ export class ModToolPreferencesComposer implements IMessageComposer<ConstructorP
 {
     private _data: ConstructorParameters<typeof ModToolPreferencesComposer>;
 
-    constructor(k: number, _arg_2: number, _arg_3: number, _arg_4: number)
+    constructor(lastWindowX: number, lastWindowY: number, lastWindowWidth: number, lastWindowHeight: number)
     {
-        this._data = [k, _arg_2, _arg_3, _arg_4];
+        this._data = [lastWindowX, lastWindowY, lastWindowWidth, lastWindowHeight];
     }
 
     public getMessageArray()

@@ -18,30 +18,30 @@ export class IssueInfoMessageParser implements IMessageParser
         return true;
     }
 
-    public parse(k: IMessageDataWrapper): boolean
+    public parse(wrapper: IMessageDataWrapper): boolean
     {
-        const issueId: number = k.readInt();
-        const state: number = k.readInt();
-        const categoryId: number = k.readInt();
-        const reportedCategoryId: number = k.readInt();
-        const issueAgeInMs: number = k.readInt();
-        const priority: number = k.readInt();
-        const groupingId: number = k.readInt();
-        const reporterUserId: number = k.readInt();
-        const reporterUsername: string = k.readString();
-        const reportedUserId: number = k.readInt();
-        const reportedUsername: string = k.readString();
-        const pickerUserId: number = k.readInt();
-        const pickerUsername: string = k.readString();
-        const message: string = k.readString();
-        const chatRecordId: number = k.readInt();
+        const issueId: number = wrapper.readInt();
+        const state: number = wrapper.readInt();
+        const categoryId: number = wrapper.readInt();
+        const reportedCategoryId: number = wrapper.readInt();
+        const issueAgeInMs: number = wrapper.readInt();
+        const priority: number = wrapper.readInt();
+        const groupingId: number = wrapper.readInt();
+        const reporterUserId: number = wrapper.readInt();
+        const reporterUsername: string = wrapper.readString();
+        const reportedUserId: number = wrapper.readInt();
+        const reportedUsername: string = wrapper.readString();
+        const pickerUserId: number = wrapper.readInt();
+        const pickerUsername: string = wrapper.readString();
+        const message: string = wrapper.readString();
+        const chatRecordId: number = wrapper.readInt();
 
-        const patternsCount: number = k.readInt();
+        const patternsCount: number = wrapper.readInt();
         const patterns: PatternMatchData[] = [];
 
         for(let i = 0; i < patternsCount; i++)
         {
-            patterns.push(new PatternMatchData(k));
+            patterns.push(new PatternMatchData(wrapper));
         }
 
         this._issueData = new IssueMessageData(issueId, state, categoryId, reportedCategoryId, issueAgeInMs,
