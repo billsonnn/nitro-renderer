@@ -4,9 +4,9 @@ export class PurchaseBasicMembershipExtensionComposer implements IMessageCompose
 {
     private _data: ConstructorParameters<typeof PurchaseBasicMembershipExtensionComposer>;
 
-    constructor(k: number)
+    constructor(offerId: number)
     {
-        this._data = [k];
+        this._data = [offerId];
     }
 
     public getMessageArray()

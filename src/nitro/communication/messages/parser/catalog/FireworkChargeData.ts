@@ -4,19 +4,19 @@ export class FireworkChargeData
 {
     private _stuffId: number;
     private _charges: number;
-    private _SafeStr_6935: number;
-    private _SafeStr_6936: number;
-    private _SafeStr_6518: number;
-    private _SafeStr_7875: number;
+    private _credits: number;
+    private _activityPoints: number;
+    private _creditsAndActivityPointsType: number;
+    private _pathSize: number;
 
     constructor(wrapper: IMessageDataWrapper)
     {
         this._stuffId = wrapper.readInt();
         this._charges = wrapper.readInt();
-        this._SafeStr_6935 = wrapper.readInt();
-        this._SafeStr_6936 = wrapper.readInt();
-        this._SafeStr_6518 = wrapper.readInt();
-        this._SafeStr_7875 = wrapper.readInt();
+        this._credits = wrapper.readInt();
+        this._activityPoints = wrapper.readInt();
+        this._creditsAndActivityPointsType = wrapper.readInt();
+        this._pathSize = wrapper.readInt();
     }
 
     public get stuffId(): number
@@ -29,23 +29,23 @@ export class FireworkChargeData
         return this._charges;
     }
 
-    public get _SafeStr_5946(): number
+    public get credits(): number
     {
-        return this._SafeStr_6935;
+        return this._credits;
     }
 
-    public get _SafeStr_5944(): number
+    public get activityPoints(): number
     {
-        return this._SafeStr_6936;
+        return this._activityPoints;
     }
 
-    public get _SafeStr_7876(): number
+    public get pathSize(): number
     {
-        return this._SafeStr_7875;
+        return this._pathSize;
     }
 
-    public get _SafeStr_5945(): number
+    public get creditsAndActivityPointsType(): number
     {
-        return this._SafeStr_6518;
+        return this._creditsAndActivityPointsType;
     }
 }
