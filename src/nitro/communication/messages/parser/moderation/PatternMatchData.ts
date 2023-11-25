@@ -7,11 +7,11 @@ export class PatternMatchData implements IDisposable
     private _endIndex: number;
     private _disposed: boolean = false;
 
-    constructor(k: IMessageDataWrapper)
+    constructor(wrapper: IMessageDataWrapper)
     {
-        this._pattern = k.readString();
-        this._startIndex = k.readInt();
-        this._endIndex = k.readInt();
+        this._pattern = wrapper.readString();
+        this._startIndex = wrapper.readInt();
+        this._endIndex = wrapper.readInt();
     }
 
     public dispose(): void

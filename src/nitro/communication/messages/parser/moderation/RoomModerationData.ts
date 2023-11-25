@@ -11,14 +11,14 @@ export class RoomModerationData implements IDisposable
     private _room: ModRoomData;
     private _disposed: boolean;
 
-    constructor(k: IMessageDataWrapper)
+    constructor(wrapper: IMessageDataWrapper)
     {
-        this._flatId = k.readInt();
-        this._userCount = k.readInt();
-        this._ownerInRoom = k.readBoolean();
-        this._ownerId = k.readInt();
-        this._ownerName = k.readString();
-        this._room = new ModRoomData(k);
+        this._flatId = wrapper.readInt();
+        this._userCount = wrapper.readInt();
+        this._ownerInRoom = wrapper.readBoolean();
+        this._ownerId = wrapper.readInt();
+        this._ownerName = wrapper.readString();
+        this._room = new ModRoomData(wrapper);
     }
 
     public get flatId(): number

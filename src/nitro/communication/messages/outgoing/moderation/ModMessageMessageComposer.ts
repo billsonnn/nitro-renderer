@@ -5,16 +5,16 @@ export class ModMessageMessageComposer implements IMessageComposer<any>
 {
     private _data: any[] = [];
 
-    constructor(k: number, arg2: string, arg3: number, arg4: number = -1)
+    constructor(userId: number, message: string, categoryId: number, issueState: number = -1)
     {
-        this._data.push(k);
-        this._data.push(arg2);
+        this._data.push(userId);
+        this._data.push(message);
         this._data.push('');
         this._data.push('');
-        this._data.push(arg3);
-        if(arg4 != ModBanMessageComposer.NO_ISSUE_ID)
+        this._data.push(categoryId);
+        if(issueState != ModBanMessageComposer.NO_ISSUE_ID)
         {
-            this._data.push(arg4);
+            this._data.push(issueState);
         }
     }
 

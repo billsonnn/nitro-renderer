@@ -5,13 +5,13 @@ export class ModTradingLockMessageComposer implements IMessageComposer<Construct
 {
     private _data: ConstructorParameters<typeof ModTradingLockMessageComposer>;
 
-    constructor(k: number, arg2: string, arg3: number, arg4: number, arg5: number = -1)
+    constructor(userId: number, message: string, numSeconds: number, categoryId: number, issueState: number = -1)
     {
-        this._data = [k, arg2, arg3, arg4];
+        this._data = [userId, message, numSeconds, categoryId];
 
-        if(arg5 != ModBanMessageComposer.NO_ISSUE_ID)
+        if(issueState != ModBanMessageComposer.NO_ISSUE_ID)
         {
-            this._data.push(arg5);
+            this._data.push(issueState);
         }
     }
 
