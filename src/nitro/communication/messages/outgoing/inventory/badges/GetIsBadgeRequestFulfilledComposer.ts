@@ -4,9 +4,9 @@ export class GetIsBadgeRequestFulfilledComposer implements IMessageComposer<Cons
 {
     private _data: ConstructorParameters<typeof GetIsBadgeRequestFulfilledComposer>;
 
-    constructor(k: string)
+    constructor(requestCode: string)
     {
-        this._data = [ k ];
+        this._data = [ requestCode ];
     }
 
     dispose(): void
