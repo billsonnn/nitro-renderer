@@ -4,9 +4,9 @@ export class MakeOfferMessageComposer implements IMessageComposer<ConstructorPar
 {
     private _data: ConstructorParameters<typeof MakeOfferMessageComposer>;
 
-    constructor(credits: number, arg2: number, itemId: number)
+    constructor(credits: number, itemType: number, itemId: number)
     {
-        this._data = [credits, arg2, itemId];
+        this._data = [credits, itemType, itemId];
     }
 
     public getMessageArray()

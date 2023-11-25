@@ -4,9 +4,9 @@ export class GetMarketplaceItemStatsComposer implements IMessageComposer<Constru
 {
     private _data: ConstructorParameters<typeof GetMarketplaceItemStatsComposer>;
 
-    constructor(unknown: number, itemId: number)
+    constructor(itemType: number, itemId: number)
     {
-        this._data = [unknown, itemId];
+        this._data = [itemType, itemId];
     }
 
     public getMessageArray()
