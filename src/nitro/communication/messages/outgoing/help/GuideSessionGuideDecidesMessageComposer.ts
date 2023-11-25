@@ -4,9 +4,9 @@ export class GuideSessionGuideDecidesMessageComposer implements IMessageComposer
 {
     private _data: ConstructorParameters<typeof GuideSessionGuideDecidesMessageComposer>;
 
-    constructor(k: boolean)
+    constructor(hasAccepted: boolean)
     {
-        this._data = [k];
+        this._data = [hasAccepted];
     }
 
     public getMessageArray()

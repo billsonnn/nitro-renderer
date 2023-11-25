@@ -4,9 +4,9 @@ export class GetQuizQuestionsComposer implements IMessageComposer<ConstructorPar
 {
     private _data: ConstructorParameters<typeof GetQuizQuestionsComposer>;
 
-    constructor(k: string)
+    constructor(code: string)
     {
-        this._data = [k];
+        this._data = [code];
     }
 
     public getMessageArray()

@@ -4,9 +4,9 @@ export class CallForHelpFromForumThreadMessageComposer implements IMessageCompos
 {
     private _data: ConstructorParameters<typeof CallForHelpFromForumThreadMessageComposer>;
 
-    constructor(k: number, _arg_2: number, _arg_3: number, _arg_4: string)
+    constructor(groupId: number, threadId: number, cfhTopic: number, message: string)
     {
-        this._data = [k, _arg_2, _arg_3, _arg_4];
+        this._data = [groupId, threadId, cfhTopic, message];
     }
 
     public getMessageArray()

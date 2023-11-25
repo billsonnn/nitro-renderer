@@ -4,9 +4,9 @@ export class ChatReviewSessionCreateMessageComposer implements IMessageComposer<
 {
     private _data: ConstructorParameters<typeof ChatReviewSessionCreateMessageComposer>;
 
-    constructor(k: number, _arg_2: number)
+    constructor(userId: number, roomId: number)
     {
-        this._data = [k, _arg_2];
+        this._data = [userId, roomId];
     }
 
     public getMessageArray()

@@ -4,9 +4,9 @@ export class GuideSessionIsTypingMessageComposer implements IMessageComposer<Con
 {
     private _data: ConstructorParameters<typeof GuideSessionIsTypingMessageComposer>;
 
-    constructor(k: boolean)
+    constructor(isTyping: boolean)
     {
-        this._data = [k];
+        this._data = [isTyping];
     }
 
     public getMessageArray()
