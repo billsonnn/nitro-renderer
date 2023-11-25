@@ -9,9 +9,9 @@ export class SubmitRoomToCompetitionMessageComposer implements IMessageComposer<
 
     private _data: ConstructorParameters<typeof SubmitRoomToCompetitionMessageComposer>;
 
-    constructor(k: string, _arg_2: number)
+    constructor(goalCode: string, confirmLevel: number)
     {
-        this._data = [k, _arg_2];
+        this._data = [goalCode, confirmLevel];
     }
 
     public getMessageArray()

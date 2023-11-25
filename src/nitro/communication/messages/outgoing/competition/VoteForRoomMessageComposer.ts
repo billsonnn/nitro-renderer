@@ -4,9 +4,9 @@ export class VoteForRoomMessageComposer implements IMessageComposer<ConstructorP
 {
     private _data: ConstructorParameters<typeof VoteForRoomMessageComposer>;
 
-    constructor(k: string)
+    constructor(goalCode: string)
     {
-        this._data = [k];
+        this._data = [goalCode];
     }
 
     public getMessageArray()
