@@ -4,9 +4,9 @@ export class GetNextTargetedOfferComposer implements IMessageComposer<Constructo
 {
     private _data: ConstructorParameters<typeof GetNextTargetedOfferComposer>;
 
-    constructor(k: number)
+    constructor(targetedOfferId: number)
     {
-        this._data = [k];
+        this._data = [targetedOfferId];
     }
 
     public getMessageArray()

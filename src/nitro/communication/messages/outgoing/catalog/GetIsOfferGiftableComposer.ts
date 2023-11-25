@@ -4,9 +4,9 @@ export class GetIsOfferGiftableComposer implements IMessageComposer<ConstructorP
 {
     private _data: ConstructorParameters<typeof GetIsOfferGiftableComposer>;
 
-    constructor(k: number)
+    constructor(offerId: number)
     {
-        this._data = [k];
+        this._data = [offerId];
     }
 
     public getMessageArray()

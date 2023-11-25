@@ -4,9 +4,9 @@ export class PurchaseVipMembershipExtensionComposer implements IMessageComposer<
 {
     private _data: ConstructorParameters<typeof PurchaseVipMembershipExtensionComposer>;
 
-    constructor(k: number)
+    constructor(offerId: number)
     {
-        this._data = [k];
+        this._data = [offerId];
     }
 
     public getMessageArray()
