@@ -4,9 +4,9 @@ export class GetCurrentTimingCodeMessageComposer implements IMessageComposer<Con
 {
     private _data: ConstructorParameters<typeof GetCurrentTimingCodeMessageComposer>;
 
-    constructor(k: string)
+    constructor(schedulingStr: string)
     {
-        this._data = [k];
+        this._data = [schedulingStr];
     }
 
     public getMessageArray()

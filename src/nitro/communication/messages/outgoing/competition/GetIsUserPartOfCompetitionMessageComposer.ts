@@ -4,9 +4,9 @@ export class GetIsUserPartOfCompetitionMessageComposer implements IMessageCompos
 {
     private _data: ConstructorParameters<typeof GetIsUserPartOfCompetitionMessageComposer>;
 
-    constructor(k: string)
+    constructor(goalCode: string)
     {
-        this._data = [k];
+        this._data = [goalCode];
     }
 
     public getMessageArray()
