@@ -4,9 +4,9 @@ export class MysteryBoxWaitingCanceledMessageComposer implements IMessageCompose
 {
     private _data: ConstructorParameters<typeof MysteryBoxWaitingCanceledMessageComposer>;
 
-    constructor(k: number)
+    constructor(ownerId: number)
     {
-        this._data = [ k ];
+        this._data = [ ownerId ];
     }
 
     dispose(): void
