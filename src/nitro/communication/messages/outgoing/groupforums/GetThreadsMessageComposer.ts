@@ -4,9 +4,9 @@ export class GetThreadsMessageComposer implements IMessageComposer<ConstructorPa
 {
     private _data: ConstructorParameters<typeof GetThreadsMessageComposer>;
 
-    constructor(k: number, _arg_2: number, _arg_3: number)
+    constructor(mode: number, startIndex: number, pageSize: number)
     {
-        this._data = [k, _arg_2, _arg_3];
+        this._data = [mode, startIndex, pageSize];
     }
 
     public getMessageArray()

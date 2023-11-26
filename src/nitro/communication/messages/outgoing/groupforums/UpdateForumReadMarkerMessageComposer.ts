@@ -9,9 +9,9 @@ export class UpdateForumReadMarkerMessageComposer implements IMessageComposer<an
         this._data = [data.length];
         data.forEach(entry =>
         {
-            this._data.push(entry.k);
-            this._data.push(entry._arg_2);
-            this._data.push(entry._arg_3);
+            this._data.push(entry.groupId);
+            this._data.push(entry.lastReadMessageId);
+            this._data.push(entry.isLastReadMessageId);
         });
     }
 
@@ -28,6 +28,6 @@ export class UpdateForumReadMarkerMessageComposer implements IMessageComposer<an
 
 export class UpdateForumReadMarkerEntry
 {
-    constructor(public k: number, public _arg_2: number, public _arg_3: boolean)
+    constructor(public groupId: number, public lastReadMessageId: number, public isLastReadMessageId: boolean)
     { }
 }

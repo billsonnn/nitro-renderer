@@ -4,9 +4,9 @@ export class PostMessageMessageComposer implements IMessageComposer<ConstructorP
 {
     private _data: ConstructorParameters<typeof PostMessageMessageComposer>;
 
-    constructor(k: number, _arg_2: number, _arg_3: string, _arg_4: string)
+    constructor(groupId: number, threadId: number, subject: string, message: string)
     {
-        this._data = [k, _arg_2, _arg_3, _arg_4];
+        this._data = [groupId, threadId, subject, message];
     }
 
     public getMessageArray()

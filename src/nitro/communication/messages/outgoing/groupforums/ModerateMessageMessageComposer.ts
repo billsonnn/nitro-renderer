@@ -4,9 +4,9 @@ export class ModerateMessageMessageComposer implements IMessageComposer<Construc
 {
     private _data: ConstructorParameters<typeof ModerateMessageMessageComposer>;
 
-    constructor(k: number, _arg_2: number, _arg_3: number, _arg_4: number)
+    constructor(groupId: number, threadId: number, messageId: number, forumState: number)
     {
-        this._data = [k, _arg_2, _arg_3, _arg_4];
+        this._data = [groupId, threadId, messageId, forumState];
     }
 
     public getMessageArray()

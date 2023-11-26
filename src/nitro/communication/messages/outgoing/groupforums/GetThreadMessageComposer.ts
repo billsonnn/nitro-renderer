@@ -4,9 +4,9 @@ export class GetThreadMessageComposer implements IMessageComposer<ConstructorPar
 {
     private _data: ConstructorParameters<typeof GetThreadMessageComposer>;
 
-    constructor(k: number, _arg_2: number)
+    constructor(mode: number, forumState: number)
     {
-        this._data = [k, _arg_2];
+        this._data = [mode, forumState];
     }
 
     public getMessageArray()
