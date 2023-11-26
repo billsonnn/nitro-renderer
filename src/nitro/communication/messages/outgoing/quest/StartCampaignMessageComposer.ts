@@ -4,9 +4,9 @@ export class StartCampaignMessageComposer implements IMessageComposer<Constructo
 {
     private _data: ConstructorParameters<typeof StartCampaignMessageComposer>;
 
-    constructor(k: string)
+    constructor(campaignName: string)
     {
-        this._data = [k];
+        this._data = [campaignName];
     }
 
     public getMessageArray()
