@@ -4,15 +4,15 @@ export class RoomPollResultParser implements IMessageParser
 {
     private _question: string;
     private _choices: string[];
-    private _SafeStr_7651: any[];
-    private _SafeStr_7654: number;
+    private _results: any[];
+    private _timer: number;
 
     flush(): boolean
     {
         this._question = null;
         this._choices = [];
-        this._SafeStr_7651 = [];
-        this._SafeStr_7654 = -1;
+        this._results = [];
+        this._timer = -1;
         return true;
     }
 
@@ -21,18 +21,18 @@ export class RoomPollResultParser implements IMessageParser
         this._question = wrapper.readString();
 
         this._choices = [];
-        this._SafeStr_7651 = [];
+        this._results = [];
 
         let totalChoices = wrapper.readInt();
 
         while(totalChoices > 0)
         {
             this._choices.push(wrapper.readString());
-            this._SafeStr_7651.push(wrapper.readInt());
+            this._results.push(wrapper.readInt());
 
             totalChoices--;
         }
-        this._SafeStr_7654 = wrapper.readInt();
+        this._timer = wrapper.readInt();
 
         return true;
     }
@@ -47,13 +47,13 @@ export class RoomPollResultParser implements IMessageParser
         return this._choices;
     }
 
-    public get SafeStr_7651(): any[]
+    public get results(): any[]
     {
-        return this._SafeStr_7651;
+        return this._results;
     }
 
-    public get SafeStr_7654(): number
+    public get timer(): number
     {
-        return this._SafeStr_7654;
+        return this._timer;
     }
 }

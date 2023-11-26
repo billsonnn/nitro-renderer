@@ -4,9 +4,9 @@ export class PollRejectComposer implements IMessageComposer<ConstructorParameter
 {
     private _data: ConstructorParameters<typeof PollRejectComposer>;
 
-    constructor(k: number)
+    constructor(pollId: number)
     {
-        this._data = [k];
+        this._data = [pollId];
     }
 
     public getMessageArray()
