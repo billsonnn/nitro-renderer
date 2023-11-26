@@ -29,5 +29,4 @@ export class GotMysteryBoxPrizeMessageParser implements IMessageParser
     {
         return this._classId;
     }
-
 }
