@@ -45,21 +45,21 @@ export class PollContentsParser implements IMessageParser
         return true;
     }
 
-    private parsePollQuestion(k: IMessageDataWrapper): PollQuestion
+    private parsePollQuestion(wrapper: IMessageDataWrapper): PollQuestion
     {
         const pollQuestion = new PollQuestion();
-        pollQuestion.questionId = k.readInt();
-        pollQuestion.sortOrder = k.readInt();
-        pollQuestion.questionType = k.readInt();
-        pollQuestion.questionText = k.readString();
-        pollQuestion.questionCategory = k.readInt();
-        pollQuestion.questionAnswerType = k.readInt();
-        pollQuestion.questionAnswerCount = k.readInt();
+        pollQuestion.questionId = wrapper.readInt();
+        pollQuestion.sortOrder = wrapper.readInt();
+        pollQuestion.questionType = wrapper.readInt();
+        pollQuestion.questionText = wrapper.readString();
+        pollQuestion.questionCategory = wrapper.readInt();
+        pollQuestion.questionAnswerType = wrapper.readInt();
+        pollQuestion.questionAnswerCount = wrapper.readInt();
         if(((pollQuestion.questionType == 1) || (pollQuestion.questionType == 2)))
         {
             for(let i = 0; i < pollQuestion.questionAnswerCount; i++)
             {
-                pollQuestion.questionChoices.push(new PollChoice(k.readString(), k.readString(), k.readInt()));
+                pollQuestion.questionChoices.push(new PollChoice(wrapper.readString(), wrapper.readString(), wrapper.readInt()));
             }
         }
         return pollQuestion;
