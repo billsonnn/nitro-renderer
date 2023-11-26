@@ -9,14 +9,14 @@ export class PrizeData
     private _badge: boolean;
     private _localizedName: string;
 
-    constructor(k: IMessageDataWrapper)
+    constructor(wrapper: IMessageDataWrapper)
     {
-        this._communityGoalId = k.readInt();
-        this._communityGoalCode = k.readString();
-        this._userRank = k.readInt();
-        this._rewardCode = k.readString();
-        this._badge = k.readBoolean();
-        this._localizedName = k.readString();
+        this._communityGoalId = wrapper.readInt();
+        this._communityGoalCode = wrapper.readString();
+        this._userRank = wrapper.readInt();
+        this._rewardCode = wrapper.readString();
+        this._badge = wrapper.readBoolean();
+        this._localizedName = wrapper.readString();
     }
 
     public get communityGoalId(): number

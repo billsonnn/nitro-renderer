@@ -42,9 +42,9 @@ export class QuestMessageData
         this._easy = wrapper.readBoolean();
     }
 
-    public static getCampaignLocalizationKeyForCode(k: string): string
+    public static getCampaignLocalizationKeyForCode(code: string): string
     {
-        return 'quests.' + k;
+        return 'quests.' + code;
     }
 
     public get campaignCode(): string
@@ -72,9 +72,9 @@ export class QuestMessageData
         return this._activityPointType;
     }
 
-    public set accepted(k: boolean)
+    public set accepted(isAccepted: boolean)
     {
-        this._accepted = k;
+        this._accepted = isAccepted;
     }
 
     public get accepted(): boolean
@@ -82,9 +82,9 @@ export class QuestMessageData
         return this._accepted;
     }
 
-    public set id(k: number)
+    public set id(id: number)
     {
-        this._id = k;
+        this._id = id;
     }
 
     public get id(): number
@@ -122,9 +122,9 @@ export class QuestMessageData
         return this._completedSteps == this._totalSteps;
     }
 
-    public set waitPeriodSeconds(k: number)
+    public set waitPeriodSeconds(periodSeconds: number)
     {
-        this._waitPeriodSeconds = k;
+        this._waitPeriodSeconds = periodSeconds;
     }
 
     public get waitPeriodSeconds(): number
