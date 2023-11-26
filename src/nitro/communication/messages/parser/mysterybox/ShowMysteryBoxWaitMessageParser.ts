@@ -2,8 +2,6 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
 
 export class ShowMysteryBoxWaitMessageParser implements IMessageParser
 {
-
-
     public flush(): boolean
     {
         return true;
@@ -13,9 +11,6 @@ export class ShowMysteryBoxWaitMessageParser implements IMessageParser
     {
         if(!wrapper) return false;
 
-
-
         return true;
     }
-
 }
