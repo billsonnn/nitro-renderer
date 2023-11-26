@@ -4,9 +4,9 @@ export class RoomAdSearchMessageComposer implements IMessageComposer<Constructor
 {
     private _data: ConstructorParameters<typeof RoomAdSearchMessageComposer>;
 
-    constructor(k: number, _arg_2: number)
+    constructor(adIndex: number, searchState: number)
     {
-        this._data = [k, _arg_2];
+        this._data = [adIndex, searchState];
     }
 
     public getMessageArray()

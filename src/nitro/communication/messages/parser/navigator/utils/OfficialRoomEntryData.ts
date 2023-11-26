@@ -21,30 +21,30 @@ export class OfficialRoomEntryData
     private _open: boolean;
     private _disposed: boolean;
 
-    constructor(k: IMessageDataWrapper)
+    constructor(wrapper: IMessageDataWrapper)
     {
-        this._index = k.readInt();
-        this._popupCaption = k.readString();
-        this._popupDesc = k.readString();
-        this._showDetails = k.readInt() == 1;
-        this._picText = k.readString();
-        this._picRef = k.readString();
-        this._folderId = k.readInt();
-        this._userCount = k.readInt();
-        this._type = k.readInt();
+        this._index = wrapper.readInt();
+        this._popupCaption = wrapper.readString();
+        this._popupDesc = wrapper.readString();
+        this._showDetails = wrapper.readInt() == 1;
+        this._picText = wrapper.readString();
+        this._picRef = wrapper.readString();
+        this._folderId = wrapper.readInt();
+        this._userCount = wrapper.readInt();
+        this._type = wrapper.readInt();
         if(this._type == OfficialRoomEntryData.TYPE_TAG)
         {
-            this._tag = k.readString();
+            this._tag = wrapper.readString();
         }
         else
         {
             if(this._type == OfficialRoomEntryData.TYPE_GUEST_ROOM)
             {
-                this._guestRoomData = new RoomDataParser(k);
+                this._guestRoomData = new RoomDataParser(wrapper);
             }
             else
             {
-                this._open = k.readBoolean();
+                this._open = wrapper.readBoolean();
             }
         }
     }
@@ -55,7 +55,9 @@ export class OfficialRoomEntryData
         {
             return;
         }
+
         this._disposed = true;
+
         if(this._guestRoomData != null)
         {
             this._guestRoomData.flush();
@@ -139,10 +141,12 @@ export class OfficialRoomEntryData
         {
             return 0;
         }
+
         if(this.type == OfficialRoomEntryData.TYPE_GUEST_ROOM)
         {
             return this._guestRoomData.maxUserCount;
         }
+
         return 0;
     }
 }

@@ -4,9 +4,9 @@ export class CompetitionRoomsSearchMessageComposer implements IMessageComposer<C
 {
     private _data: ConstructorParameters<typeof CompetitionRoomsSearchMessageComposer>;
 
-    constructor(k: number, _arg_2: number)
+    constructor(goalId: number, pageIndex: number)
     {
-        this._data = [k, _arg_2];
+        this._data = [goalId, pageIndex];
     }
 
     public getMessageArray()

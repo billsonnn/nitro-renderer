@@ -4,9 +4,9 @@ export class CancelEventMessageComposer implements IMessageComposer<ConstructorP
 {
     private _data: ConstructorParameters<typeof CancelEventMessageComposer>;
 
-    constructor(k: number)
+    constructor(adId: number)
     {
-        this._data = [k];
+        this._data = [adId];
     }
 
     public getMessageArray()

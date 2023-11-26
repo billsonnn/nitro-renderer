@@ -4,9 +4,9 @@ export class DeleteFavouriteRoomMessageComposer implements IMessageComposer<Cons
 {
     private _data: ConstructorParameters<typeof DeleteFavouriteRoomMessageComposer>;
 
-    constructor(k: number)
+    constructor(flatId: number)
     {
-        this._data = [k];
+        this._data = [flatId];
     }
 
     public getMessageArray()

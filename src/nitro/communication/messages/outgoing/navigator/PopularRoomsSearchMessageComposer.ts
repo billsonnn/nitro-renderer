@@ -4,9 +4,9 @@ export class PopularRoomsSearchMessageComposer implements IMessageComposer<Const
 {
     private _data: ConstructorParameters<typeof PopularRoomsSearchMessageComposer>;
 
-    constructor(k: string, _arg_2: number)
+    constructor(search: string, adIndex: number)
     {
-        this._data = [k, _arg_2];
+        this._data = [search, adIndex];
     }
 
     public getMessageArray()

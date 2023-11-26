@@ -4,9 +4,9 @@ export class GetOfficialRoomsMessageComposer implements IMessageComposer<Constru
 {
     private _data: ConstructorParameters<typeof GetOfficialRoomsMessageComposer>;
 
-    constructor(k: number = 0)
+    constructor(adIndex: number = 0)
     {
-        this._data = [k];
+        this._data = [adIndex];
     }
 
     public getMessageArray()

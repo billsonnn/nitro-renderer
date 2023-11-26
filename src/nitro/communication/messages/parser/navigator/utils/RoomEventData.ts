@@ -14,28 +14,35 @@ export class RoomEventData
     private _expirationDate: Date;
     private _disposed: boolean;
 
-    constructor(k: IMessageDataWrapper)
+    constructor(wrapper: IMessageDataWrapper)
     {
-        this._adId = k.readInt();
-        this._ownerAvatarId = k.readInt();
-        this._ownerAvatarName = k.readString();
-        this._flatId = k.readInt();
-        this._eventType = k.readInt();
-        this._eventName = k.readString();
-        this._eventDescription = k.readString();
-        const _local_2 = k.readInt();
-        const _local_3 = k.readInt();
+        this._adId = wrapper.readInt();
+        this._ownerAvatarId = wrapper.readInt();
+        this._ownerAvatarName = wrapper.readString();
+        this._flatId = wrapper.readInt();
+        this._eventType = wrapper.readInt();
+        this._eventName = wrapper.readString();
+        this._eventDescription = wrapper.readString();
+
+        const _local_2 = wrapper.readInt();
+        const _local_3 = wrapper.readInt();
         const _local_4: Date = new Date();
+
         let _local_5 = _local_4.getTime();
         const _local_6 = ((_local_2 * 60) * 1000);
+
         _local_5 = (_local_5 - _local_6);
+
         const _local_7: Date = new Date(_local_5);
         this._creationTime = ((((((((_local_7.getDate() + '-') + _local_7.getMonth()) + '-') + _local_7.getFullYear()) + ' ') + _local_7.getHours()) + ':') + _local_7.getMinutes());
+
         let _local_8 = _local_4.getTime();
         const _local_9 = ((_local_3 * 60) * 1000);
+
         _local_8 = (_local_8 + _local_9);
+
         this._expirationDate = new Date(_local_8);
-        this._categoryId = k.readInt();
+        this._categoryId = wrapper.readInt();
     }
 
     public dispose(): void
