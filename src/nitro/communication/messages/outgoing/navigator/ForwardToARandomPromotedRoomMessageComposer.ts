@@ -4,9 +4,9 @@ export class ForwardToARandomPromotedRoomMessageComposer implements IMessageComp
 {
     private _data: ConstructorParameters<typeof ForwardToARandomPromotedRoomMessageComposer>;
 
-    constructor(k: string)
+    constructor(flatId: string)
     {
-        this._data = [k];
+        this._data = [flatId];
     }
 
     public getMessageArray()

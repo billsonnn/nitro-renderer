@@ -4,9 +4,9 @@ export class RoomsWithHighestScoreSearchMessageComposer implements IMessageCompo
 {
     private _data: ConstructorParameters<typeof RoomsWithHighestScoreSearchMessageComposer>;
 
-    constructor(k: number)
+    constructor(adIndex: number)
     {
-        this._data = [k];
+        this._data = [adIndex];
     }
 
     public getMessageArray()

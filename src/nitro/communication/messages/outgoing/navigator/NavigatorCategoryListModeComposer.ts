@@ -4,9 +4,9 @@ export class NavigatorCategoryListModeComposer implements IMessageComposer<Const
 {
     private _data: ConstructorParameters<typeof NavigatorCategoryListModeComposer>;
 
-    constructor(category: string, listmode: number)
+    constructor(category: string, listMode: number)
     {
-        this._data = [category, listmode];
+        this._data = [category, listMode];
     }
 
     public getMessageArray()

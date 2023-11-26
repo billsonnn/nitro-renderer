@@ -4,9 +4,9 @@ export class RateFlatMessageComposer implements IMessageComposer<ConstructorPara
 {
     private _data: ConstructorParameters<typeof RateFlatMessageComposer>;
 
-    constructor(k: number)
+    constructor(flat: number)
     {
-        this._data = [k];
+        this._data = [flat];
     }
 
     public getMessageArray()

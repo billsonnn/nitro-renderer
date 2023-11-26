@@ -4,9 +4,9 @@ export class SetRoomSessionTagsMessageComposer implements IMessageComposer<Const
 {
     private _data: ConstructorParameters<typeof SetRoomSessionTagsMessageComposer>;
 
-    constructor(k: string, _arg_2: string)
+    constructor(tag1: string, tag2: string)
     {
-        this._data = [k, _arg_2];
+        this._data = [tag1, tag2];
     }
 
     public getMessageArray()

@@ -11,5 +11,4 @@ export class RoomEventCancelMessageParser implements IMessageParser
     {
         return true;
     }
-
 }

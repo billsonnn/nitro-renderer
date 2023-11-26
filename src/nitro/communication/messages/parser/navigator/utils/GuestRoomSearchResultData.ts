@@ -10,20 +10,24 @@ export class GuestRoomSearchResultData
     private _ad: OfficialRoomEntryData;
     private _disposed: boolean;
 
-    constructor(k: IMessageDataWrapper)
+    constructor(wrapper: IMessageDataWrapper)
     {
         this._rooms = [];
-        this._searchType = k.readInt();
-        this._searchParam = k.readString();
-        const count = k.readInt();
+        this._searchType = wrapper.readInt();
+        this._searchParam = wrapper.readString();
+
+        const count = wrapper.readInt();
+
         for(let i = 0; i < count; i++)
         {
-            this._rooms.push(new RoomDataParser(k));
+            this._rooms.push(new RoomDataParser(wrapper));
         }
-        const hasAdditional = k.readBoolean();
+
+        const hasAdditional = wrapper.readBoolean();
+
         if(hasAdditional)
         {
-            this._ad = new OfficialRoomEntryData(k);
+            this._ad = new OfficialRoomEntryData(wrapper);
         }
     }
 
@@ -33,7 +37,9 @@ export class GuestRoomSearchResultData
         {
             return;
         }
+
         this._disposed = true;
+
         if(this._rooms != null)
         {
             for(const k of this._rooms)
@@ -41,11 +47,13 @@ export class GuestRoomSearchResultData
                 k.flush();
             }
         }
+
         if(this._ad != null)
         {
             this._ad.dispose();
             this._ad = null;
         }
+
         this._rooms = null;
     }
 

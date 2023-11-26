@@ -3,11 +3,10 @@ import { GuestRoomSearchResultData } from './utils';
 
 export class GuestRoomSearchResultMessageParser implements IMessageParser
 {
-    _data: GuestRoomSearchResultData;
+    private _data: GuestRoomSearchResultData;
 
     public flush(): boolean
     {
-
         return true;
     }
 

@@ -26,5 +26,4 @@ export class RoomThumbnailUpdateResultMessageParser implements IMessageParser
     {
         return this._resultCode;
     }
-
 }
