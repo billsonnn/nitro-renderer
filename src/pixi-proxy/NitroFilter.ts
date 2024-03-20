@@ -1,4 +1,4 @@
-import { Filter } from '@pixi/core';
+import { Filter } from 'pixi.js';
 
 export class NitroFilter extends Filter
 {}

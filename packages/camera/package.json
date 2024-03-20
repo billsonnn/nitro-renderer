@@ -1,0 +1,23 @@
+{
+  "name": "@nitrots/camera",
+  "description": "Nitro camera module",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "GPL-3.0",
+  "scripts": {
+    "compile": "tsc --project ./tsconfig.json --noEmit false",
+    "eslint": "eslint ./src --fix"
+  },
+  "main": "./index",
+  "dependencies": {
+    "@nitrots/api": "1.0.0",
+    "@nitrots/configuration": "1.0.0",
+    "@nitrots/eslint-config": "1.0.0",
+    "@nitrots/events": "1.0.0",
+    "@nitrots/utils": "1.0.0",
+    "pixi.js": "^8.0.1"
+  },
+  "devDependencies": {
+    "typescript": "~5.4.2"
+  }
+}

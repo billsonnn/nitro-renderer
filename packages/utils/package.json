@@ -1,0 +1,22 @@
+{
+  "name": "@nitrots/utils",
+  "description": "Nitro utils module",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "GPL-3.0",
+  "scripts": {
+    "compile": "tsc --project ./tsconfig.json --noEmit false",
+    "eslint": "eslint ./src --fix"
+  },
+  "main": "./index",
+  "dependencies": {
+    "@nitrots/api": "1.0.0",
+    "@nitrots/eslint-config": "1.0.0",
+    "pako": "^2.1.0",
+    "pixi.js": "^8.0.1"
+  },
+  "devDependencies": {
+    "@types/pako": "^2.0.3",
+    "typescript": "~5.4.2"
+  }
+}

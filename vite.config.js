@@ -22,12 +22,6 @@ export default defineConfig({
             fileName: 'nitro-renderer'
         }
     },
-    resolve: {
-        alias: {
-            '@': resolve(__dirname, 'src'),
-            '~': resolve(__dirname, 'node_modules')
-        }
-    },
     server: {
         host: '127.0.0.1'
     }

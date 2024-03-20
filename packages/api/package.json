@@ -1,0 +1,22 @@
+{
+  "name": "@nitrots/api",
+  "description": "Nitro api module",
+  "version": "1.0.0",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "GPL-3.0",
+  "scripts": {
+    "build": "vite build",
+    "compile": "tsc --project ./tsconfig.json --noEmit false",
+    "eslint": "eslint ./src --fix"
+  },
+  "main": "./index",
+  "dependencies": {
+    "pixi.js": "^8.0.1"
+  },
+  "devDependencies": {
+    "typescript": "~5.4.2"
+  }
+}
