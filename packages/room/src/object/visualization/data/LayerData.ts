@@ -24,8 +24,6 @@ export class LayerData
     {
         if(!layer) return;
 
-        console.log(layer.ink);
-
         this._tag = layer.tag;
         this._ink = layer.ink;
         this._alpha = layer.alpha;

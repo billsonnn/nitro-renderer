@@ -56,7 +56,6 @@ export class SessionDataManager implements ISessionDataManager
 
     public async init(): Promise<void>
     {
-        console.log('do this')
         await this._furnitureData.init();
         await this._productData.init();
 
