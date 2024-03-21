@@ -1,6 +1,8 @@
-import { HelloSystem } from 'pixi.js';
+import { AbstractRenderer, BrowserAdapter, DOMAdapter, HelloSystem } from 'pixi.js';
 
 HelloSystem.defaultOptions.hello = true;
+AbstractRenderer.defaultOptions.failIfMajorPerformanceCaveat = false;
+DOMAdapter.set(BrowserAdapter);
 
 export * from '@nitrots/api';
 export * from '@nitrots/assets';
