@@ -1,3 +1,7 @@
+import { HelloSystem } from 'pixi.js';
+
+HelloSystem.defaultOptions.hello = true;
+
 export * from '@nitrots/api';
 export * from '@nitrots/assets';
 export * from '@nitrots/avatar';

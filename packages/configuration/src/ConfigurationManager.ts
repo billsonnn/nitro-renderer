@@ -1,4 +1,4 @@
-﻿import { NitroLogger } from '@nitrots/utils';
+﻿import { NitroLogger, NitroVersion } from '@nitrots/utils';
 import { IConfigurationManager } from './IConfigurationManager';
 
 export class ConfigurationManager implements IConfigurationManager
@@ -6,6 +6,11 @@ export class ConfigurationManager implements IConfigurationManager
     private _definitions: Map<string, unknown> = new Map();
     private _config: any = {};
     private _missingKeys: string[] = [];
+
+    constructor()
+    {
+        NitroVersion.sayHello();
+    }
 
     public async init(): Promise<void>
     {
