@@ -23,21 +23,26 @@ export class GraphicAssetPalette implements IGraphicAssetPalette
         const pixelOutput = TextureUtils.getPixels(texture);
         const pixels = pixelOutput?.pixels;
 
-        if(pixels)
+        if(!pixels) return texture;
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const imageData = ctx.createImageData(texture.width, texture.height);
+
+        for(let i = 0; i < pixels.length; i += 4)
         {
-            for(let i = 0; i < pixels.length; i += 4)
-            {
-                let paletteColor = this._palette[pixels[i + 1]];
+            let paletteColor = this._palette[pixels[i + 1]];
 
-                if(paletteColor === undefined) paletteColor = [0, 0, 0];
+            if(paletteColor === undefined) paletteColor = [0, 0, 0];
 
-                pixels[i] = paletteColor[0];
-                pixels[i + 1] = paletteColor[1];
-                pixels[i + 2] = paletteColor[2];
-            }
+            imageData.data[i] = paletteColor[0];
+            imageData.data[i + 1] = paletteColor[1];
+            imageData.data[i + 2] = paletteColor[2];
         }
 
-        return Texture.from(pixelOutput);
+        ctx.putImageData(imageData, 0, 0);
+
+        return Texture.from(canvas);
     }
 
     public get primaryColor(): number

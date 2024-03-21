@@ -1,4 +1,5 @@
-﻿import { IConfigurationManager } from './IConfigurationManager';
+﻿import { NitroLogger } from '@nitrots/utils';
+import { IConfigurationManager } from './IConfigurationManager';
 
 export class ConfigurationManager implements IConfigurationManager
 {
@@ -76,7 +77,7 @@ export class ConfigurationManager implements IConfigurationManager
 
         catch (e)
         {
-            console.error(e.stack);
+            NitroLogger.error(e.stack);
 
             return false;
         }
@@ -116,7 +117,7 @@ export class ConfigurationManager implements IConfigurationManager
 
             this._missingKeys.push(key);
 
-            console.warn(`Missing configuration key: ${key}`);
+            NitroLogger.warn(`Missing configuration key: ${key}`);
 
             existing = value;
         }

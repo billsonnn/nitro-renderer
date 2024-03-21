@@ -5,14 +5,11 @@ import { GetEventDispatcher, RoomEngineDimmerStateEvent, RoomEngineObjectEvent, 
 import { GetRoomSessionManager, GetSessionDataManager } from '@nitrots/session';
 import { CreateLinkEvent, NitroLogger, RoomId, Vector3d } from '@nitrots/utils';
 import { RoomEnterEffect, RoomObjectUpdateMessage } from '../../room';
-import { GetRoomEngine } from './GetRoomEngine';
 import { ObjectAvatarSelectedMessage, ObjectDataUpdateMessage, ObjectSelectedMessage, ObjectTileCursorUpdateMessage, ObjectVisibilityUpdateMessage } from './messages';
 import { SelectedRoomObjectData } from './utils';
 
 export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomObjectEventManager
 {
-    private _roomEngine: IRoomEngineServices = GetRoomEngine();
-
     private _eventIds: Map<number, Map<string, string>> = new Map();
 
     private _selectedAvatarId: number = -1;
@@ -21,7 +18,8 @@ export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomOb
     private _whereYouClickIsWhereYouGo: boolean = true;
     private _objectPlacementSource: string = null;
 
-    constructor()
+    constructor(
+        private readonly _roomEngine: IRoomEngineServices)
     {
         GetEventDispatcher().addEventListener<RoomEngineObjectEvent>(RoomEngineObjectEvent.ADDED, event => this.onRoomEngineObjectEvent(event));
     }

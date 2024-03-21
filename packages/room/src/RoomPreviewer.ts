@@ -491,8 +491,10 @@ export class RoomPreviewer
         return this._addViewOffset;
     }
 
-    public updatePreviewObjectBoundingRectangle(point: Point): void
+    public updatePreviewObjectBoundingRectangle(point: Point = null): void
     {
+        if(!point) point = new Point(0, 0);
+        
         const objectBounds = this._roomEngine.getRoomObjectBoundingRectangle(this._previewRoomId, RoomPreviewer.PREVIEW_OBJECT_ID, this._currentPreviewObjectCategory, RoomPreviewer.PREVIEW_CANVAS_ID);
 
         if(objectBounds && point)

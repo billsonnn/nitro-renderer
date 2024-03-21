@@ -145,7 +145,7 @@ export class SizeData
             if(layerId < 0 || (layerId >= this._layerCount)) return false;
 
             // TODO: check the .nitro files for inks
-            if(layer.ink !== undefined) directionData.setLayerInk(layerId, (layer.ink as BLEND_MODES));
+            if(layer.ink !== undefined) directionData.setLayerInk(layerId, (layer.ink?.toLowerCase() as BLEND_MODES));
 
             if(layer.tag !== undefined) directionData.setLayerTag(layerId, layer.tag);
 

@@ -1,4 +1,7 @@
+export * from './GetRoomContentLoader';
 export * from './GetRoomEngine';
+export * from './GetRoomManager';
+export * from './GetRoomMessageHandler';
 export * from './GetRoomObjectLogicFactory';
 export * from './GetRoomObjectVisualizationFactory';
 export * from './ImageResult';

@@ -152,7 +152,7 @@ export class PlaneMaterialCellMatrix
         {
             if(this._cachedBitmapData)
             {
-                if(this._cachedBitmapData.baseTexture && (this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height) && Vector3d.isEqual(this._cachedBitmapNormal, normal))
+                if(this._cachedBitmapData.source && (this._cachedBitmapData.width === width) && (this._cachedBitmapData.height === height) && Vector3d.isEqual(this._cachedBitmapNormal, normal))
                 {
                     if(canvas)
                     {

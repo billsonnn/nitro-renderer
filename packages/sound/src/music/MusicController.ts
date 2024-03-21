@@ -1,4 +1,4 @@
-import { IAdvancedMap, IMessageEvent, IMusicController, IPlaylistController, ISongInfo } from '@nitrots/api';
+import { IAdvancedMap, IMusicController, IPlaylistController, ISongInfo } from '@nitrots/api';
 import { GetCommunication, GetNowPlayingMessageComposer, GetSongInfoMessageComposer, GetUserSongDisksMessageComposer, TraxSongInfoMessageEvent, UserSongDisksInventoryMessageEvent } from '@nitrots/communication';
 import { GetConfiguration } from '@nitrots/configuration';
 import { GetEventDispatcher, NotifyPlayedSongEvent, NowPlayingEvent, RoomObjectSoundMachineEvent, SongDiskInventoryReceivedEvent, SongInfoReceivedEvent, SoundManagerEvent } from '@nitrots/events';
@@ -25,7 +25,6 @@ export class MusicController implements IMusicController
     private _songDiskInventory: IAdvancedMap<number, number> = new AdvancedMap();
     private _priorityPlaying: number = -1;
     private _requestNumberPlaying: number = -1;
-    private _messageEvents: IMessageEvent[];
     private _roomItemPlaylist: IPlaylistController;
     private _musicPlayer: MusicPlayer;
 
@@ -50,8 +49,6 @@ export class MusicController implements IMusicController
 
         this._timerInstance = window.setInterval(this.onTick.bind(this), 1000);
         this._musicPlayer = new MusicPlayer(GetConfiguration().getValue<string>('external.samples.url'));
-
-        this._messageEvents.forEach(event => GetCommunication().registerMessageEvent(event));
 
         GetEventDispatcher().addEventListener(RoomObjectSoundMachineEvent.JUKEBOX_INIT, this.onJukeboxInit);
         GetEventDispatcher().addEventListener(RoomObjectSoundMachineEvent.JUKEBOX_DISPOSE, this.onJukeboxDispose);
@@ -158,8 +155,6 @@ export class MusicController implements IMusicController
             clearInterval(this._timerInstance);
             this._timerInstance = undefined;
         }
-
-        this._messageEvents.forEach(event => GetCommunication().removeMessageEvent(event));
 
         GetEventDispatcher().removeEventListener(RoomObjectSoundMachineEvent.JUKEBOX_INIT, this.onJukeboxInit);
         GetEventDispatcher().removeEventListener(RoomObjectSoundMachineEvent.JUKEBOX_DISPOSE, this.onJukeboxDispose);

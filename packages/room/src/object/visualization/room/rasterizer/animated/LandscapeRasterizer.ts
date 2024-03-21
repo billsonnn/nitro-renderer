@@ -1,7 +1,7 @@
 ﻿import { IAssetPlane, IAssetPlaneVisualizationAnimatedLayer, IAssetPlaneVisualizationLayer, IVector3D } from '@nitrots/api';
 import { GetConfiguration } from '@nitrots/configuration';
 import { TextureUtils } from '@nitrots/utils';
-import { RenderTexture } from 'pixi.js';
+import { RenderTexture, Sprite } from 'pixi.js';
 import { PlaneBitmapData, Randomizer } from '../../utils';
 import { PlaneMaterial, PlaneRasterizer, PlaneVisualizationLayer } from '../basic';
 import { LandscapePlane } from './LandscapePlane';
@@ -206,7 +206,7 @@ export class LandscapeRasterizer extends PlaneRasterizer
 
         if(graphic && (graphic !== canvas))
         {
-            graphic = new RenderTexture(graphic.baseTexture);
+            graphic = TextureUtils.generateTexture(new Sprite(graphic.source));
 
             if(!graphic) return null;
         }

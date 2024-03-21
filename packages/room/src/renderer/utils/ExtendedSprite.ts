@@ -1,6 +1,6 @@
 import { AlphaTolerance } from '@nitrots/api';
 import { TextureUtils } from '@nitrots/utils';
-import { Point, Sprite, Texture, TextureSource } from 'pixi.js';
+import { Point, Sprite, SpriteOptions, Texture, TextureSource } from 'pixi.js';
 
 export class ExtendedSprite extends Sprite
 {
@@ -14,9 +14,9 @@ export class ExtendedSprite extends Sprite
     private _updateId1: number = -1;
     private _updateId2: number = -1;
 
-    constructor(texture: Texture = null)
+    constructor(options?: SpriteOptions | Texture)
     {
-        super(texture);
+        super(options);
 
         this._offsetX = 0;
         this._offsetY = 0;

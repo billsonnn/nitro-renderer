@@ -2,7 +2,7 @@ import { IRoomCanvasMouseListener, IRoomGeometry, IRoomObject, IRoomObjectSprite
 import { GetConfiguration } from '@nitrots/configuration';
 import { RoomSpriteMouseEvent } from '@nitrots/events';
 import { GetTicker, TextureUtils, Vector3d } from '@nitrots/utils';
-import { Container, Graphics, Matrix, Point, Rectangle, Sprite, Texture } from 'pixi.js';
+import { Container, Graphics, Matrix, Point, Rectangle, Texture } from 'pixi.js';
 import { RoomEnterEffect, RoomGeometry, RoomRotatingEffect, RoomShakingEffect } from '../utils';
 import { RoomObjectCache, RoomObjectCacheItem } from './cache';
 import { ExtendedSprite, ObjectMouseData, SortableSprite } from './utils';
@@ -18,7 +18,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     private _totalTimeRunning: number;
     private _lastFrame: number;
 
-    private _master: Sprite;
+    private _master: Container;
     private _display: Container;
     private _mask: Graphics;
 
@@ -115,10 +115,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
     private setupCanvas(): void
     {
-        if(!this._master)
-        {
-            this._master = new Sprite();
-        }
+        if(!this._master) this._master = new Container();
 
         if(!this._display)
         {
@@ -206,9 +203,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             if(!this._mask)
             {
                 this._mask = new Graphics()
-                    .beginFill(0xFF0000)
-                    .drawRect(0, 0, width, height)
-                    .endFill();
+                    .rect(0, 0, width, height)
+                    .fill(0xFF0000);
 
                 if(this._master)
                 {
@@ -221,9 +217,8 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             {
                 this._mask
                     .clear()
-                    .beginFill(0xFF0000)
-                    .drawRect(0, 0, width, height)
-                    .endFill();
+                    .rect(0, 0, width, height)
+                    .fill(0xFF0000);
             }
         }
 
@@ -461,7 +456,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             if(!sprite || !sprite.visible) continue;
 
             const texture = sprite.texture;
-            const baseTexture = texture && texture.baseTexture;
+            const baseTexture = texture && texture.source;
 
             if(!texture || !baseTexture) continue;
 
@@ -631,7 +626,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if(this._spritePool.length > 0) extendedSprite = this._spritePool.pop();
 
-        if(!extendedSprite) extendedSprite = new ExtendedSprite();
+        if(!extendedSprite) extendedSprite = new ExtendedSprite({});
 
         if(extendedSprite.children.length) extendedSprite.removeChildren();
 
@@ -1164,7 +1159,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         return this._geometry;
     }
 
-    public get master(): Sprite
+    public get master(): Container
     {
         return this._master;
     }

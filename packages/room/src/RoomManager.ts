@@ -18,6 +18,11 @@ export class RoomManager implements IRoomManager, IRoomInstanceContainer
     private _pendingContentTypes: string[] = [];
     private _skipContentProcessing: boolean = false;
 
+    constructor()
+    {
+        this.onRoomContentLoadedEvent = this.onRoomContentLoadedEvent.bind(this);
+    }
+
     public async init(listener: IRoomManagerListener): Promise<void>
     {
         this._listener = listener;

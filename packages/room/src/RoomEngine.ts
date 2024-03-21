@@ -40,7 +40,7 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
     private _sessionDataManager: ISessionDataManager = GetSessionDataManager();
     private _roomManager: IRoomManager = GetRoomManager();
 
-    private _roomObjectEventHandler: RoomObjectEventHandler = new RoomObjectEventHandler();
+    private _roomObjectEventHandler: RoomObjectEventHandler = new RoomObjectEventHandler(this);
     private _imageObjectIdBank: NumberBank = new NumberBank(1000);
     private _imageCallbacks: Map<string, IGetImageListener[]> = new Map();
     private _thumbnailObjectIdBank: NumberBank = new NumberBank(1000);
@@ -345,11 +345,11 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
 
             canvas.geometry.setDisplacement(vector, direction);
 
-            const displayObject = (canvas.master as Container);
+            const displayObject = canvas.master;
 
             if(displayObject)
             {
-                const overlay = new Sprite(Texture.EMPTY);
+                const overlay = new Container();
 
                 overlay.label = RoomEngine.OVERLAY;
 
@@ -2474,21 +2474,21 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
         this._roomObjectEventHandler.cancelRoomObjectInsert(this._activeRoomId);
     }
 
-    private addOverlayIconSprite(k: Sprite, _arg_2: string, _arg_3: Texture, scale: number = 1): Sprite
+    private addOverlayIconSprite(container: Container, label: string, texture: Texture, scale: number = 1): Sprite
     {
-        if(!k || !_arg_3) return;
+        if(!container || !texture) return;
 
-        let sprite = this.getOverlayIconSprite(k, _arg_2);
+        let sprite = this.getOverlayIconSprite(container, label);
 
         if(sprite) return null;
 
-        sprite = new Sprite(_arg_3);
+        sprite = new Sprite(texture);
 
-        sprite.label = _arg_2;
+        sprite.label = label;
 
         sprite.scale.set(scale);
 
-        k.addChild(sprite);
+        container.addChild(sprite);
 
         return sprite;
     }
@@ -3006,37 +3006,37 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
 
         if(!canvas) return;
 
-        const sprite = this.getRenderingCanvasOverlay(canvas);
+        const overlayContainer = this.getRenderingCanvasOverlay(canvas);
 
-        this.removeOverlayIconSprite(sprite, RoomEngine.OBJECT_ICON_SPRITE);
+        this.removeOverlayIconSprite(overlayContainer, RoomEngine.OBJECT_ICON_SPRITE);
     }
 
-    private getRenderingCanvasOverlay(k: IRoomRenderingCanvas): Sprite
+    private getRenderingCanvasOverlay(canvas: IRoomRenderingCanvas): Container
     {
-        if(!k) return null;
+        if(!canvas) return null;
 
-        const displayObject = (k.master as Container);
+        const displayObject = canvas.master;
 
         if(!displayObject) return null;
 
-        return ((displayObject.getChildByName(RoomEngine.OVERLAY) as Sprite) || null);
+        return displayObject.getChildByName(RoomEngine.OVERLAY) ?? null;
     }
 
-    private removeOverlayIconSprite(k: Sprite, _arg_2: string): boolean
+    private removeOverlayIconSprite(container: Container, label: string): boolean
     {
-        if(!k) return false;
+        if(!container) return false;
 
-        let index = (k.children.length - 1);
+        let index = (container.children.length - 1);
 
         while(index >= 0)
         {
-            const child = (k.getChildAt(index) as Sprite);
+            const child = (container.getChildAt(index) as Sprite);
 
             if(child)
             {
-                if(child.label === _arg_2)
+                if(child.label === label)
                 {
-                    k.removeChildAt(index);
+                    container.removeChildAt(index);
 
                     if(child.children.length)
                     {
@@ -3057,19 +3057,19 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
         return false;
     }
 
-    private getOverlayIconSprite(k: Sprite, _arg_2: string): Sprite
+    private getOverlayIconSprite(container: Container, label: string): Sprite
     {
-        if(!k) return null;
+        if(!container) return null;
 
-        let index = (k.children.length - 1);
+        let index = (container.children.length - 1);
 
         while(index >= 0)
         {
-            const child = (k.getChildAt(index) as Sprite);
+            const child = (container.getChildAt(index) as Sprite);
 
             if(child)
             {
-                if(child.label === _arg_2) return child;
+                if(child.label === label) return child;
             }
 
             index--;
