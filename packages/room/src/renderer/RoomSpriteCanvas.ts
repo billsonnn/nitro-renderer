@@ -117,9 +117,13 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         if(!this._master) this._master = new Container();
 
+        this._master.cullableChildren = false;
+
         if(!this._display)
         {
             const display = new Container();
+
+            display.cullableChildren = false;
 
             this._master.addChild(display);
 
