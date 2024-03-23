@@ -1099,10 +1099,10 @@ pixi-filters@^6.0.0:
   resolved "https://registry.yarnpkg.com/pixi-filters/-/pixi-filters-6.0.0.tgz#36f480f87b8f66b259db40acb7a6b134e570c473"
   integrity sha512-9wJn4bfQKak+lefyk9BSCenhMBvGQi2t4Uz+BVqw6WK8wM2NgqeTC64mhXRtrdYeCG9gIFX0Lc6q1S8rBqwJbg==
 
-pixi.js@^8.0.1, pixi.js@~8.0.1:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/pixi.js/-/pixi.js-8.0.1.tgz#6d1656c2d32bd547ca51a4d101ef9dab32929e08"
-  integrity sha512-SGtkod644kb/k+hTvSSk9ywpmvgdjiX+gK6NF8He1xyQ0XCRn5ZqN37EPEBsg0ffadjZ40mqtO+2oXyEOLrWzw==
+pixi.js@^8.0.4, pixi.js@~8.0.4:
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/pixi.js/-/pixi.js-8.0.4.tgz#77449a82354d29fb39c78c3ca23602bf6082e136"
+  integrity sha512-UAa3WU5FV4kjwjYosbG3pi1QvTBKSLPH7BOLkw5X4g12+Xxew3YwMiM+V1EQL4/65hDn5Z3jhFC3xVAsHFJcsQ==
   dependencies:
     "@pixi/colord" "^2.9.6"
     "@types/css-font-loading-module" "^0.0.12"

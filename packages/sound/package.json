@@ -13,7 +13,7 @@
     "@nitrots/api": "1.0.0",
     "@nitrots/communication": "1.0.0",
     "@nitrots/eslint-config": "1.0.0",
-    "pixi.js": "^8.0.1"
+    "pixi.js": "^8.0.4"
   },
   "devDependencies": {
     "typescript": "~5.4.2"

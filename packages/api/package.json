@@ -14,7 +14,7 @@
   },
   "main": "./index",
   "dependencies": {
-    "pixi.js": "^8.0.1"
+    "pixi.js": "^8.0.4"
   },
   "devDependencies": {
     "typescript": "~5.4.2"
