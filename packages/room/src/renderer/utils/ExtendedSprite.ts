@@ -1,33 +1,18 @@
 import { AlphaTolerance } from '@nitrots/api';
 import { TextureUtils } from '@nitrots/utils';
-import { Point, Sprite, SpriteOptions, Texture, TextureSource } from 'pixi.js';
+import { Point, Sprite, Texture, TextureSource } from 'pixi.js';
 
 export class ExtendedSprite extends Sprite
 {
     private _offsetX: number = 0;
     private _offsetY: number = 0;
     private _tag: string = '';
-    private _alphaTolerance: number = 128;
+    private _alphaTolerance: number = AlphaTolerance.MATCH_OPAQUE_PIXELS;
     private _varyingDepth: boolean = false;
     private _clickHandling: boolean = false;
 
     private _updateId1: number = -1;
     private _updateId2: number = -1;
-
-    constructor(options?: SpriteOptions | Texture)
-    {
-        super(options);
-
-        this._offsetX = 0;
-        this._offsetY = 0;
-        this._tag = '';
-        this._alphaTolerance = 128;
-        this._varyingDepth = false;
-        this._clickHandling = false;
-
-        this._updateId1 = -1;
-        this._updateId2 = -1;
-    }
 
     public needsUpdate(updateId1: number, updateId2: number): boolean
     {
@@ -56,49 +41,41 @@ export class ExtendedSprite extends Sprite
 
     public containsPoint(point: Point): boolean
     {
-        if(!point || (this.alphaTolerance > 255)) return false;
+        if(!point || (this.alphaTolerance > 255) || !this.texture || (this.texture === Texture.EMPTY) || (this.blendMode !== 'normal')) return false;
 
-        if((this.texture === Texture.EMPTY) || (this.blendMode !== 'normal')) return;
+        point = new Point((point.x * this.scale.x), (point.y * this.scale.y));
+
+        if(!super.containsPoint(point)) return false;
 
         const texture = this.texture;
-        const sourceTexture = texture.source;
-
-        if(!texture || !sourceTexture) return false;
-
-        const x = (point.x * this.scale.x);
-        const y = (point.y * this.scale.y);
-
-        if(!this.getLocalBounds().rectangle.contains(x, y)) return false;
+        const textureSource = this.texture.source;
 
         //@ts-ignore
-        if(!sourceTexture.hitMap)
-        {
-            if(!ExtendedSprite.generateHitMap(sourceTexture)) return false;
-        }
+        if((!textureSource || !textureSource.hitMap) && !ExtendedSprite.generateHitMapForTextureSource(textureSource)) return false;
 
         //@ts-ignore
-        const hitMap = (sourceTexture.hitMap as Uint32Array);
+        const hitMap = (textureSource.hitMap as Uint32Array);
 
-        let dx = (x + texture.frame.x);
-        let dy = (y + texture.frame.y);
+        let dx = (point.x + texture.frame.x);
+        let dy = (point.y + texture.frame.y);
 
-        if(texture.trim)
+        if(this.texture.trim)
         {
             dx -= texture.trim.x;
             dy -= texture.trim.y;
         }
 
-        dx = (Math.round(dx) * sourceTexture.resolution);
-        dy = (Math.round(dy) * sourceTexture.resolution);
+        dx = (Math.round(dx) * textureSource.resolution);
+        dy = (Math.round(dy) * textureSource.resolution);
 
-        const ind = (dx + dy * sourceTexture.pixelWidth);
+        const ind = (dx + dy * textureSource.width);
         const ind1 = ind % 32;
         const ind2 = ind / 32 | 0;
 
         return (hitMap[ind2] & (1 << ind1)) !== 0;
     }
 
-    private static generateHitMap(textureSource: TextureSource): boolean
+    private static generateHitMapForTextureSource(textureSource: TextureSource): boolean
     {
         if(!textureSource) return false;
 
