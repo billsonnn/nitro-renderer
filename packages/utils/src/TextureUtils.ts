@@ -1,5 +1,5 @@
 import { Container, ExtractImageOptions, ExtractOptions, ExtractSystem, GenerateTextureOptions, GetPixelsOutput, ICanvas, Matrix, RenderTexture, Renderer, Sprite, Texture } from 'pixi.js';
-import { GetPixi } from './GetPixi';
+import { GetRenderer } from './GetRenderer';
 
 export class TextureUtils
 {
@@ -125,7 +125,7 @@ export class TextureUtils
 
     public static getRenderer(): Renderer
     {
-        return GetPixi().renderer;
+        return GetRenderer();
     }
 
     public static getExtractor(): ExtractSystem

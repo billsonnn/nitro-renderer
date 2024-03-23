@@ -1,3 +1,3 @@
-import { GetPixi } from './GetPixi';
+import { Ticker } from 'pixi.js';
 
-export const GetTicker = () => GetPixi().ticker;
+export const GetTicker = () => Ticker.shared;

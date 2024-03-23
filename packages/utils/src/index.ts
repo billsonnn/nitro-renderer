@@ -5,6 +5,8 @@ export * from './BinaryWriter';
 export * from './ColorConverter';
 export * from './FurniId';
 export * from './GetPixi';
+export * from './GetRenderer';
+export * from './GetStage';
 export * from './GetTicker';
 export * from './GetTickerFPS';
 export * from './GetTickerTime';

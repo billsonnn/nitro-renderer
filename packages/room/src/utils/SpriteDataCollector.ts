@@ -1,5 +1,5 @@
 ﻿import { IPlaneDrawingData, IPlaneVisualization, IRoomObjectSpriteVisualization, IRoomPlane, IRoomRenderingCanvas, RoomObjectCategory, RoomObjectSpriteData } from '@nitrots/api';
-import { GetPixi, Vector3d } from '@nitrots/utils';
+import { GetStage, Vector3d } from '@nitrots/utils';
 import { Point, Rectangle } from 'pixi.js';
 import { RoomEngine } from '../RoomEngine';
 import { PlaneDrawingData } from '../object';
@@ -389,7 +389,7 @@ export class SpriteDataCollector
         {
             const _local_8 = _arg_2.geometry;
             const _local_9 = this.sortRoomPlanes(visualization.planes, _arg_2, _arg_3);
-            const _local_10 = GetPixi().stage;
+            const _local_10 = GetStage();
 
             for(const _local_11 of _local_9)
             {
@@ -435,13 +435,13 @@ export class SpriteDataCollector
                 {
                     const _local_22 = SpriteDataCollector.sortQuadPoints(_local_15, _local_16, _local_17, _local_18);
 
-                    for(const _local_23 of _local_12.getDrawingDatas(_local_8))
+                    /* for(const _local_23 of _local_12.getDrawingDatas(_local_8))
                     {
                         _local_23.cornerPoints = _local_22;
                         _local_23.z = _local_11.z;
 
                         _local_5.push(_local_23);
-                    }
+                    } */
                 }
             }
 
