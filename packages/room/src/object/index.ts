@@ -19,7 +19,4 @@ export * from './visualization/furniture';
 export * from './visualization/pet';
 export * from './visualization/room';
 export * from './visualization/room/mask';
-export * from './visualization/room/rasterizer';
-export * from './visualization/room/rasterizer/animated';
-export * from './visualization/room/rasterizer/basic';
 export * from './visualization/room/utils';

@@ -7,7 +7,4 @@ export * from './furniture';
 export * from './pet';
 export * from './room';
 export * from './room/mask';
-export * from './room/rasterizer';
-export * from './room/rasterizer/animated';
-export * from './room/rasterizer/basic';
 export * from './room/utils';
