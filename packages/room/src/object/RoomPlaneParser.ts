@@ -1166,7 +1166,7 @@ export class RoomPlaneParser
     private addWall(k: IVector3D, _arg_2: IVector3D, _arg_3: IVector3D, _arg_4: IVector3D, _arg_5: boolean, _arg_6: boolean, _arg_7: boolean): void
     {
         this.addPlane(RoomPlaneData.PLANE_WALL, k, _arg_2, _arg_3, [_arg_4]);
-        this.addPlane(RoomPlaneData.PLANE_LANDSCAPE, k, _arg_2, _arg_3, [_arg_4]);
+        //this.addPlane(RoomPlaneData.PLANE_LANDSCAPE, k, _arg_2, _arg_3, [_arg_4]);
         const _local_8: number = (RoomPlaneParser.WALL_THICKNESS * this._wallThicknessMultiplier);
         const _local_9: number = (RoomPlaneParser.FLOOR_THICKNESS * this._floorThicknessMultiplier);
         const _local_10: Vector3d = Vector3d.crossProduct(_arg_2, _arg_3);

@@ -54,7 +54,7 @@ export class ExtendedSprite extends Sprite
         if((!textureSource || !textureSource.hitMap) && !ExtendedSprite.generateHitMapForTextureSource(textureSource)) return false;
 
         //@ts-ignore
-        const hitMap = (textureSource.hitMap as Uint32Array);
+        const hitMap = (textureSource.hitMap as U8intclampedArray);
 
         let dx = (point.x + texture.frame.x);
         let dy = (point.y + texture.frame.y);
@@ -68,11 +68,16 @@ export class ExtendedSprite extends Sprite
         dx = (Math.round(dx) * textureSource.resolution);
         dy = (Math.round(dy) * textureSource.resolution);
 
-        const ind = (dx + dy * textureSource.width);
-        const ind1 = ind % 32;
-        const ind2 = ind / 32 | 0;
+        const index = (dx + dy * textureSource.width) * 4;
 
-        return (hitMap[ind2] & (1 << ind1)) !== 0;
+        const red = hitMap[index];
+        const green = hitMap[index + 1];
+        const blue = hitMap[index + 2];
+        const alpha = hitMap[index + 3];
+
+        const result = (alpha >= this.alphaTolerance);
+
+        return result;
     }
 
     private static generateHitMapForTextureSource(textureSource: TextureSource): boolean
@@ -80,24 +85,10 @@ export class ExtendedSprite extends Sprite
         if(!textureSource) return false;
 
         const texture = new Texture(textureSource);
-        const sprite = new Sprite(texture);
-        const pixels = TextureUtils.getPixels(sprite);
-        const width = textureSource.width;
-        const height = textureSource.height;
-        const hitmap = new Uint32Array(Math.ceil(width * height / 32));
-
-        for(let i = 0; i < width * height; i++)
-        {
-            const ind1 = i % 32;
-            const ind2 = i / 32 | 0;
-
-            if(pixels.pixels[i * 4 + 3] >= AlphaTolerance.MATCH_OPAQUE_PIXELS) hitmap[ind2] = hitmap[ind2] | (1 << ind1);
-        }
+        const pixels = TextureUtils.getPixels(texture);
 
         //@ts-ignore
-        textureSource.hitMap = hitmap;
-
-        sprite.destroy();
+        textureSource.hitMap = pixels.pixels;
         texture.destroy();
 
         return true;
