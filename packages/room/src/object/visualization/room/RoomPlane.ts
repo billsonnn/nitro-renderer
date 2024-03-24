@@ -1,14 +1,18 @@
 import { IAssetPlaneVisualizationLayer, IAssetRoomVisualizationData, IRoomGeometry, IRoomPlane, IVector3D } from '@nitrots/api';
 import { GetAssetManager } from '@nitrots/assets';
 import { TextureUtils, Vector3d } from '@nitrots/utils';
-import { Matrix, Point, Texture, TilingSprite } from 'pixi.js';
+import { Container, Matrix, Point, Sprite, Texture, TilingSprite } from 'pixi.js';
 import { RoomGeometry } from '../../../utils';
+import { RoomPlaneBitmapMask } from './RoomPlaneBitmapMask';
+import { RoomPlaneRectangleMask } from './RoomPlaneRectangleMask';
+import { PlaneMaskManager } from './mask';
 import { Randomizer } from './utils';
 
 export class RoomPlane implements IRoomPlane
 {
     public static HORIZONTAL_ANGLE_DEFAULT: number = 45;
     public static VERTICAL_ANGLE_DEFAULT: number = 30;
+    public static PLANE_GEOMETRY: IRoomGeometry = new RoomGeometry(64, new Vector3d(RoomPlane.HORIZONTAL_ANGLE_DEFAULT, RoomPlane.VERTICAL_ANGLE_DEFAULT), new Vector3d(-10, 0, 0));
 
     public static TYPE_UNDEFINED: number = 0;
     public static TYPE_WALL: number = 1;
@@ -16,25 +20,26 @@ export class RoomPlane implements IRoomPlane
     public static TYPE_LANDSCAPE: number = 3;
     private static _uniqueIdCounter: number = 1;
 
-    private _disposed: boolean;
+    private _disposed: boolean = false;
     private _randomSeed: number;
-    private _origin: IVector3D;
-    private _location: IVector3D;
-    private _leftSide: IVector3D;
-    private _rightSide: IVector3D;
-    private _normal: IVector3D;
-    private _secondaryNormals: IVector3D[];
+    private _origin: IVector3D = new Vector3d();
+    private _location: IVector3D = new Vector3d();
+    private _leftSide: IVector3D = new Vector3d();
+    private _rightSide: IVector3D = new Vector3d();
+    private _normal: IVector3D = null;
+    private _secondaryNormals: IVector3D[] = [];
     private _type: number;
-    private _isVisible: boolean;
-    private _offset: Point;
-    private _relativeDepth: number;
-    private _color: number;
-    private _id: string;
+    private _isVisible: boolean = false;
+    private _offset: Point = new Point();
+    private _relativeDepth: number = 0;
+    private _color: number = 0;
+    private _maskManager: PlaneMaskManager = null;
+    private _id: string = null;
     private _uniqueId: number;
-    private _cornerA: IVector3D;
-    private _cornerB: IVector3D;
-    private _cornerC: IVector3D;
-    private _cornerD: IVector3D;
+    private _cornerA: IVector3D = new Vector3d();
+    private _cornerB: IVector3D = new Vector3d();
+    private _cornerC: IVector3D = new Vector3d();
+    private _cornerD: IVector3D = new Vector3d();
     private _textureOffsetX: number;
     private _textureOffsetY: number;
     private _textureMaxX: number;
@@ -42,29 +47,27 @@ export class RoomPlane implements IRoomPlane
     private _width: number = 0;
     private _height: number = 0;
     private _hasTexture: boolean = true;
-    private _canBeVisible: boolean;
+    private _canBeVisible: boolean = true;
 
-    private _tilingSprite: TilingSprite = null;
+    private _useMask: boolean;
+    private _bitmapMasks: RoomPlaneBitmapMask[] = [];
+    private _rectangleMasks: RoomPlaneRectangleMask[] = [];
+    private _maskChanged: boolean = false;
+    private _bitmapMasksOld: RoomPlaneBitmapMask[] = [];
+    private _rectangleMasksOld: RoomPlaneRectangleMask[] = [];
+
     private _planeTexture: Texture = null;
 
     constructor(origin: IVector3D, location: IVector3D, leftSide: IVector3D, rightSide: IVector3D, type: number, usesMask: boolean, secondaryNormals: IVector3D[], randomSeed: number, textureOffsetX: number = 0, textureOffsetY: number = 0, textureMaxX: number = 0, textureMaxY: number = 0)
     {
-        this._secondaryNormals = [];
         this._randomSeed = randomSeed;
-        this._origin = new Vector3d();
         this._origin.assign(origin);
-        this._location = new Vector3d();
         this._location.assign(location);
-        this._leftSide = new Vector3d();
         this._leftSide.assign(leftSide);
-        this._rightSide = new Vector3d();
         this._rightSide.assign(rightSide);
         this._normal = Vector3d.crossProduct(this._leftSide, this._rightSide);
 
-        if(this._normal.length > 0)
-        {
-            this._normal.multiply((1 / this._normal.length));
-        }
+        if(this._normal.length > 0) this._normal.multiply((1 / this._normal.length));
 
         if(secondaryNormals != null)
         {
@@ -79,24 +82,13 @@ export class RoomPlane implements IRoomPlane
                 this._secondaryNormals.push(vector);
             }
         }
-        this._disposed = false;
-        this._isVisible = false;
-        this._id = null;
-        this._offset = new Point();
-        this._relativeDepth = 0;
+
         this._type = type;
-        this._color = 0;
-        this._canBeVisible = true;
-        this._cornerA = new Vector3d();
-        this._cornerB = new Vector3d();
-        this._cornerC = new Vector3d();
-        this._cornerD = new Vector3d();
         this._textureOffsetX = textureOffsetX;
         this._textureOffsetY = textureOffsetY;
         this._textureMaxX = textureMaxX;
         this._textureMaxY = textureMaxY;
-        this._width = 0;
-        this._height = 0;
+        this._useMask = usesMask;
         this._uniqueId = ++RoomPlane._uniqueIdCounter;
     }
 
@@ -174,14 +166,9 @@ export class RoomPlane implements IRoomPlane
 
         Randomizer.setSeed(this._randomSeed);
 
-        const horizontalAngle = RoomPlane.HORIZONTAL_ANGLE_DEFAULT;
-        const verticalAngle = RoomPlane.VERTICAL_ANGLE_DEFAULT;
-
-        geometry = new RoomGeometry(64, new Vector3d(horizontalAngle, verticalAngle), new Vector3d(-10, 0, 0));
-
-        let width = (this._leftSide.length * geometry.scale);
-        let height = (this._rightSide.length * geometry.scale);
-        const normal = geometry.getCoordinatePosition(this._normal);
+        let width = (this._leftSide.length * RoomPlane.PLANE_GEOMETRY.scale);
+        let height = (this._rightSide.length * RoomPlane.PLANE_GEOMETRY.scale);
+        const normal = RoomPlane.PLANE_GEOMETRY.getCoordinatePosition(this._normal);
 
         const getTextureAndColorForPlane = (planeId: string, planeType: number) =>
         {
@@ -207,7 +194,7 @@ export class RoomPlane implements IRoomPlane
                 return parseInt(color, 16);
             };
 
-            return { texture, color: getRandomColor() };
+            return { texture, color: planeColor };
         };
 
         const planeData = getTextureAndColorForPlane(this._id, this._type);
@@ -218,9 +205,9 @@ export class RoomPlane implements IRoomPlane
         switch(this._type)
         {
             case RoomPlane.TYPE_FLOOR: {
-                const _local_10 = geometry.getScreenPoint(new Vector3d(0, 0, 0));
-                const _local_11 = geometry.getScreenPoint(new Vector3d(0, (height / geometry.scale), 0));
-                const _local_12 = geometry.getScreenPoint(new Vector3d((width / geometry.scale), 0, 0));
+                const _local_10 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 0));
+                const _local_11 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, (height / RoomPlane.PLANE_GEOMETRY.scale), 0));
+                const _local_12 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d((width / RoomPlane.PLANE_GEOMETRY.scale), 0, 0));
 
                 let x = 0;
                 let y = 0;
@@ -230,7 +217,7 @@ export class RoomPlane implements IRoomPlane
                     width = Math.round(Math.abs((_local_10.x - _local_12.x)));
                     height = Math.round(Math.abs((_local_10.x - _local_11.x)));
 
-                    const _local_15 = (_local_10.x - geometry.getScreenPoint(new Vector3d(1, 0, 0)).x);
+                    const _local_15 = (_local_10.x - RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(1, 0, 0)).x);
 
                     x = (this._textureOffsetX * Math.trunc(Math.abs(_local_15)));
                     y = (this._textureOffsetY * Math.trunc(Math.abs(_local_15)));
@@ -257,9 +244,9 @@ export class RoomPlane implements IRoomPlane
                 break;
             }
             case RoomPlane.TYPE_WALL: {
-                const _local_8 = geometry.getScreenPoint(new Vector3d(0, 0, 0));
-                const _local_9 = geometry.getScreenPoint(new Vector3d(0, 0, (height / geometry.scale)));
-                const _local_10 = geometry.getScreenPoint(new Vector3d(0, (width / geometry.scale), 0));
+                const _local_8 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 0));
+                const _local_9 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, (height / RoomPlane.PLANE_GEOMETRY.scale)));
+                const _local_10 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, (width / RoomPlane.PLANE_GEOMETRY.scale), 0));
 
                 if(_local_8 && _local_9 && _local_10)
                 {
@@ -281,14 +268,14 @@ export class RoomPlane implements IRoomPlane
                 break;
             }
             case RoomPlane.TYPE_LANDSCAPE: {
-                const _local_13 = geometry.getScreenPoint(new Vector3d(0, 0, 0));
-                const _local_14 = geometry.getScreenPoint(new Vector3d(0, 0, 1));
-                const _local_15 = geometry.getScreenPoint(new Vector3d(0, 1, 0));
+                const _local_13 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 0));
+                const _local_14 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 1));
+                const _local_15 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 1, 0));
 
                 if(_local_13 && _local_14 && _local_15)
                 {
-                    width = Math.round(Math.abs((((_local_13.x - _local_15.x) * width) / geometry.scale)));
-                    height = Math.round(Math.abs((((_local_13.y - _local_14.y) * height) / geometry.scale)));
+                    width = Math.round(Math.abs((((_local_13.x - _local_15.x) * width) / RoomPlane.PLANE_GEOMETRY.scale)));
+                    height = Math.round(Math.abs((((_local_13.y - _local_14.y) * height) / RoomPlane.PLANE_GEOMETRY.scale)));
                 }
 
                 const renderMaxX = Math.trunc(this._textureMaxX * Math.abs((_local_13.x - _local_15.x)));
@@ -319,6 +306,8 @@ export class RoomPlane implements IRoomPlane
                 });
             }
         }
+
+        this.updateMask(planeSprite, geometry);
 
         this._planeTexture = TextureUtils.createAndWriteRenderTexture(this._width, this._height, planeSprite, this.getMatrixForDimensions(width, height)) as Texture;
 
@@ -395,6 +384,183 @@ export class RoomPlane implements IRoomPlane
         return matrix;
     }
 
+    public resetBitmapMasks(): void
+    {
+        if(this._disposed || !this._useMask || !this._bitmapMasks.length) return;
+
+        this._maskChanged = true;
+        this._bitmapMasks = [];
+    }
+
+    public addBitmapMask(maskType: string, leftSideLoc: number, rightSideLoc: number): boolean
+    {
+        if(!this._useMask) return false;
+
+        for(const mask of this._bitmapMasks)
+        {
+            if(!mask) continue;
+
+            if((((mask.type === maskType) && (mask.leftSideLoc === leftSideLoc)) && (mask.rightSideLoc === rightSideLoc))) return false;
+        }
+
+        const mask = new RoomPlaneBitmapMask(maskType, leftSideLoc, rightSideLoc);
+
+        this._bitmapMasks.push(mask);
+        this._maskChanged = true;
+
+        return true;
+    }
+
+    public resetRectangleMasks(): void
+    {
+        if(!this._useMask || !this._rectangleMasks.length) return;
+
+        this._maskChanged = true;
+        this._rectangleMasks = [];
+    }
+
+    public addRectangleMask(leftLocation: number, rightLocation: number, leftLength: number, rightLength: number): boolean
+    {
+        if(this._useMask)
+        {
+            for(const mask of this._rectangleMasks)
+            {
+                if(!mask) continue;
+
+                if((((mask.leftSideLoc === leftLocation) && (mask.rightSideLoc === rightLocation)) && (mask.leftSideLength === leftLength)) && (mask.rightSideLength === rightLength)) return false;
+            }
+
+            this._rectangleMasks.push(new RoomPlaneRectangleMask(leftLocation, rightLocation, leftLength, rightLength));
+            this._maskChanged = true;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private updateMaskChangeStatus(): void
+    {
+        if(!this._maskChanged) return;
+
+        let maskChanged = true;
+
+        if(this._bitmapMasks.length === this._bitmapMasksOld.length)
+        {
+            for(const mask of this._bitmapMasks)
+            {
+                if(!mask) continue;
+
+                let _local_6 = false;
+
+                for(const plane of this._bitmapMasksOld)
+                {
+                    if(!plane) continue;
+
+                    if(((plane.type === mask.type) && (plane.leftSideLoc === mask.leftSideLoc)) && (plane.rightSideLoc === mask.rightSideLoc))
+                    {
+                        _local_6 = true;
+
+                        break;
+                    }
+                }
+
+                if(!_local_6)
+                {
+                    maskChanged = false;
+
+                    break;
+                }
+            }
+        }
+        else
+        {
+            maskChanged = false;
+        }
+
+        if(this._rectangleMasks.length > this._rectangleMasksOld.length) maskChanged = false;
+
+        if(maskChanged) this._maskChanged = false;
+    }
+
+    private updateMask(sprite: Container, geometry: IRoomGeometry): void
+    {
+        if(!sprite || !geometry) return;
+
+        if(!this._useMask || ((!this._bitmapMasks.length && !this._rectangleMasks.length) && !this._maskChanged) || !this._maskManager) return;
+
+        this.updateMaskChangeStatus();
+
+        /* if(!this._maskBitmapData || (this._maskBitmapData.width !== width) || (this._maskBitmapData.height !== height))
+        {
+            this._maskBitmapData = this._textureCache.createAndFillRenderTexture(width, height, 'mask');
+            this._maskChanged = true;
+        } */
+
+        if(this._maskChanged)
+        {
+            this._bitmapMasksOld = [];
+            this._rectangleMasksOld = [];
+
+            const normal = geometry.getCoordinatePosition(this._normal);
+
+            let type: string = null;
+            let posX = 0;
+            let posY = 0;
+            let i = 0;
+
+            while(i < this._bitmapMasks.length)
+            {
+                const mask = this._bitmapMasks[i];
+
+                if(mask)
+                {
+                    type = mask.type;
+                    posX = (sprite.width - ((sprite.width * mask.leftSideLoc) / this._leftSide.length));
+                    posY = (sprite.height - ((sprite.height * mask.rightSideLoc) / this._rightSide.length));
+
+                    this._maskManager.updateMask(sprite, type, geometry.scale, normal, posX, posY);
+                    this._bitmapMasksOld.push(new RoomPlaneBitmapMask(type, mask.leftSideLoc, mask.rightSideLoc));
+                }
+
+                i++;
+            }
+
+            i = 0;
+
+            while(i < this._rectangleMasks.length)
+            {
+                const rectMask = this._rectangleMasks[i];
+
+                if(rectMask)
+                {
+                    posX = (sprite.width - ((sprite.width * rectMask.leftSideLoc) / this._leftSide.length));
+                    posY = (sprite.height - ((sprite.height * rectMask.rightSideLoc) / this._rightSide.length));
+
+                    const wd = ((sprite.width * rectMask.leftSideLength) / this._leftSide.length);
+                    const ht = ((sprite.height * rectMask.rightSideLength) / this._rightSide.length);
+
+                    const maskSprite = new Sprite(Texture.WHITE);
+
+                    maskSprite.tint = 0x000000;
+                    maskSprite.width = wd;
+                    maskSprite.height = ht;
+                    maskSprite.position.set((posX - wd), (posY - ht));
+
+                    //this._textureCache.writeToRenderTexture(sprite, this._maskBitmapData, false);
+
+                    this._rectangleMasksOld.push(new RoomPlaneRectangleMask(rectMask.leftSideLength, rectMask.rightSideLoc, rectMask.leftSideLength, rectMask.rightSideLength));
+                }
+
+                i++;
+            }
+
+            this._maskChanged = false;
+        }
+
+        //this.combineTextureMask(canvas, this._maskPixels);
+    }
+
     public get canBeVisible(): boolean
     {
         return this._canBeVisible;
@@ -460,6 +626,11 @@ export class RoomPlane implements IRoomPlane
         if(k === this._id) return;
 
         this._id = k;
+    }
+
+    public set maskManager(k: PlaneMaskManager)
+    {
+        this._maskManager = k;
     }
 
     public get uniqueId(): number

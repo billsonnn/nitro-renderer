@@ -70,14 +70,7 @@ export class ExtendedSprite extends Sprite
 
         const index = (dx + dy * textureSource.width) * 4;
 
-        const red = hitMap[index];
-        const green = hitMap[index + 1];
-        const blue = hitMap[index + 2];
-        const alpha = hitMap[index + 3];
-
-        const result = (alpha >= this.alphaTolerance);
-
-        return result;
+        return (hitMap[index + 3] >= this.alphaTolerance);
     }
 
     private static generateHitMapForTextureSource(textureSource: TextureSource): boolean

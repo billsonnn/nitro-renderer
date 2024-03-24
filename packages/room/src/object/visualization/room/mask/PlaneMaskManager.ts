@@ -1,6 +1,6 @@
 ﻿import { IAssetPlaneMaskData, IAssetPlaneTextureBitmap, IGraphicAssetCollection, IVector3D } from '@nitrots/api';
-import { TextureUtils } from '@nitrots/utils';
-import { Matrix, Point, Sprite, Texture } from 'pixi.js';
+import { CutMaskFilter } from '@nitrots/utils';
+import { Container, Matrix, Point } from 'pixi.js';
 import { PlaneMask } from './PlaneMask';
 import { PlaneMaskVisualization } from './PlaneMaskVisualization';
 
@@ -141,7 +141,7 @@ export class PlaneMaskManager
         return graphicName;
     }
 
-    public updateMask(canvas: Texture, type: string, scale: number, normal: IVector3D, posX: number, posY: number): boolean
+    public updateMask(sprite: Container, type: string, scale: number, normal: IVector3D, posX: number, posY: number): boolean
     {
         const mask = this._masks.get(type);
 
@@ -156,6 +156,14 @@ export class PlaneMaskManager
         if(!texture) return true;
 
         const point = new Point((posX + asset.offsetX), (posY + asset.offsetY));
+
+        const filter = new CutMaskFilter({
+            maskTexture: texture
+        });
+
+        sprite.filters = [filter];
+
+        return true;
 
         const matrix = new Matrix();
 
@@ -185,7 +193,7 @@ export class PlaneMaskManager
         matrix.scale(xScale, ySkew);
         matrix.translate(tx, ty);
 
-        TextureUtils.writeToTexture(new Sprite(texture), canvas, false, matrix);
+        //TextureUtils.writeToTexture(new Sprite(texture), canvas, false, matrix);
 
         return true;
     }

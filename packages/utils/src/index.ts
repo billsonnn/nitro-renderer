@@ -24,4 +24,5 @@ export * from './PointMath';
 export * from './RoomId';
 export * from './TextureUtils';
 export * from './Vector3d';
+export * from './filters';
 export * from './motion';
