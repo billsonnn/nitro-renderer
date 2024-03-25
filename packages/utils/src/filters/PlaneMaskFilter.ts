@@ -1,27 +1,20 @@
 import { Filter, FilterSystem, GlProgram, RenderSurface, Texture } from 'pixi.js';
 
-export interface CutTransparentAreaFilterOptions
+export interface PlaneMaskFilterOptions
 {
-    maskTexture: Texture;
 }
 
-export class CutMaskFilter extends Filter
+export class PlaneMaskFilter extends Filter
 {
-    public static readonly DEFAULT_OPTIONS: CutTransparentAreaFilterOptions = {
-        maskTexture: Texture.WHITE,
+    public static readonly DEFAULT_OPTIONS: PlaneMaskFilterOptions = {
     };
 
     public uniforms: {
-        uColor: Float32Array;
-        uAlpha: number;
-        uDimensions: Float32Array;
     };
 
-    constructor(options: CutTransparentAreaFilterOptions)
+    constructor(options: PlaneMaskFilterOptions)
     {
-        options = { ...CutMaskFilter.DEFAULT_OPTIONS, ...options };
-
-        if(!options.maskTexture) throw Error('No texture provided for mask filter');
+        options = { ...PlaneMaskFilter.DEFAULT_OPTIONS, ...options };
 
         const glProgram = GlProgram.from({
             vertex: `in vec2 aPosition;
@@ -51,32 +44,35 @@ export class CutMaskFilter extends Filter
                 gl_Position = filterVertexPosition();
                 vTextureCoord = filterTextureCoord();
             }`,
-            fragment: `varying vec2 vTextureCoord;
+            fragment: `
+            in vec2 vTextureCoord;
+            out vec4 finalColor;
 
-            uniform sampler2D uSampler; // The sprite's texture
-            uniform sampler2D maskTexture; // The mask texture
-            
+            uniform sampler2D uTexture;
+
             void main(void) {
-                vec4 spriteColor = texture2D(uSampler, vTextureCoord);
-                vec4 maskColor = texture2D(maskTexture, vTextureCoord);
-                
-                // Use mask alpha to determine the transparency
-                float alpha = maskColor.a;
-                
-                // Apply the mask based on its alpha value
-                // You can modify this logic to suit your masking criteria
-                gl_FragColor = vec4(spriteColor.rgb, spriteColor.a * (1.0 - alpha));
-            }`,
-            name: 'cut-mask-filter',
+                vec4 c = texture(uTexture, vTextureCoord);
+
+                if(c.r == 0.0 && c.g == 0.0 && c.b == 0.0) {
+                    finalColor = vec4(0.0, 0.0, 0.0, 0.0);
+                } else {
+                    finalColor = c;
+                }
+            }
+            `,
+            name: 'plane-mask-filter',
         });
 
         super({
             gpuProgram: null,
             glProgram,
             resources: {
-                maskTexture: options.maskTexture
+                planeMaskUniforms: {
+                },
             },
         });
+
+        this.uniforms = this.resources.planeMaskUniforms.uniforms;
 
         Object.assign(this, options);
     }
@@ -88,6 +84,7 @@ export class CutMaskFilter extends Filter
         clearMode: boolean,
     ): void
     {
+
         filterManager.applyFilter(this, input, output, clearMode);
     }
 }

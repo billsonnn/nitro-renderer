@@ -1,1 +1,1 @@
-export * from './CutMaskFilter';
+export * from './PlaneMaskFilter';

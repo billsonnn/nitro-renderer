@@ -1,6 +1,6 @@
 import { IAssetPlaneVisualizationLayer, IAssetRoomVisualizationData, IRoomGeometry, IRoomPlane, IVector3D } from '@nitrots/api';
 import { GetAssetManager } from '@nitrots/assets';
-import { TextureUtils, Vector3d } from '@nitrots/utils';
+import { GetRenderer, PlaneMaskFilter, TextureUtils, Vector3d } from '@nitrots/utils';
 import { Container, Matrix, Point, Sprite, Texture, TilingSprite } from 'pixi.js';
 import { RoomGeometry } from '../../../utils';
 import { RoomPlaneBitmapMask } from './RoomPlaneBitmapMask';
@@ -48,6 +48,7 @@ export class RoomPlane implements IRoomPlane
     private _height: number = 0;
     private _hasTexture: boolean = true;
     private _canBeVisible: boolean = true;
+    private _geometryUpdateId: number = -1;
 
     private _useMask: boolean;
     private _bitmapMasks: RoomPlaneBitmapMask[] = [];
@@ -56,6 +57,7 @@ export class RoomPlane implements IRoomPlane
     private _bitmapMasksOld: RoomPlaneBitmapMask[] = [];
     private _rectangleMasksOld: RoomPlaneRectangleMask[] = [];
 
+    private _planeSprite: TilingSprite = null;
     private _planeTexture: Texture = null;
 
     constructor(origin: IVector3D, location: IVector3D, leftSide: IVector3D, rightSide: IVector3D, type: number, usesMask: boolean, secondaryNormals: IVector3D[], randomSeed: number, textureOffsetX: number = 0, textureOffsetY: number = 0, textureMaxX: number = 0, textureMaxY: number = 0)
@@ -111,205 +113,248 @@ export class RoomPlane implements IRoomPlane
     {
         if(!geometry || this._disposed) return false;
 
-        let cosAngle = 0;
+        let geometryChanged = false;
 
-        cosAngle = Vector3d.cosAngle(geometry.directionAxis, this.normal);
+        if(this._geometryUpdateId != geometry.updateId) geometryChanged = true;
 
-        if(cosAngle > -0.001)
+        if(!geometryChanged || !this._canBeVisible)
         {
-            if(this._isVisible)
-            {
-                this._isVisible = false;
-
-                return true;
-            }
-
-            return false;
+            if(!this.visible) return false;
         }
 
-        let i = 0;
-
-        while(i < this._secondaryNormals.length)
+        if(geometryChanged)
         {
-            cosAngle = Vector3d.cosAngle(geometry.directionAxis, this._secondaryNormals[i]);
+            let cosAngle = 0;
+
+            cosAngle = Vector3d.cosAngle(geometry.directionAxis, this.normal);
 
             if(cosAngle > -0.001)
             {
                 if(this._isVisible)
                 {
                     this._isVisible = false;
+
                     return true;
                 }
 
                 return false;
             }
 
-            i++;
-        }
+            let i = 0;
 
-        this.updateCorners(geometry);
-
-        let relativeDepth = (Math.max(this._cornerA.z, this._cornerB.z, this._cornerC.z, this._cornerD.z) - geometry.getScreenPosition(this._origin).z);
-
-        switch(this._type)
-        {
-            case RoomPlane.TYPE_FLOOR:
-                relativeDepth = (relativeDepth - ((this._location.z + Math.min(0, this._leftSide.z, this._rightSide.z)) * 8));
-                break;
-            case RoomPlane.TYPE_LANDSCAPE:
-                relativeDepth = (relativeDepth + 0.02);
-                break;
-        }
-
-        this._relativeDepth = relativeDepth;
-        this._isVisible = true;
-
-        Randomizer.setSeed(this._randomSeed);
-
-        let width = (this._leftSide.length * RoomPlane.PLANE_GEOMETRY.scale);
-        let height = (this._rightSide.length * RoomPlane.PLANE_GEOMETRY.scale);
-        const normal = RoomPlane.PLANE_GEOMETRY.getCoordinatePosition(this._normal);
-
-        const getTextureAndColorForPlane = (planeId: string, planeType: number) =>
-        {
-            const dataType: keyof IAssetRoomVisualizationData = (planeType === RoomPlane.TYPE_FLOOR) ? 'floorData' : (planeType === RoomPlane.TYPE_WALL) ? 'wallData' : 'landscapeData';
-
-            const roomCollection = GetAssetManager().getCollection('room');
-            const planeVisualizationData = roomCollection?.data?.roomVisualization?.[dataType];
-            const planeVisualization = planeVisualizationData?.planes?.find(plane => (plane.id === planeId))?.visualizations?.[0];
-            const planeLayer = planeVisualization?.allLayers?.[0] as IAssetPlaneVisualizationLayer;
-            const planeMaterialId = planeLayer?.materialId;
-            const planeColor = planeLayer?.color;
-            const planeAssetName = planeVisualizationData?.textures?.find(texture => (texture.id === planeMaterialId))?.bitmaps?.[0]?.assetName;
-            const texture = GetAssetManager().getAsset(planeAssetName)?.texture;
-
-            const getRandomColor = () =>
+            while(i < this._secondaryNormals.length)
             {
-                const letters = '0123456789ABCDEF';
-                let color = '0x';
-                for(let i = 0; i < 6; i++)
+                cosAngle = Vector3d.cosAngle(geometry.directionAxis, this._secondaryNormals[i]);
+
+                if(cosAngle > -0.001)
                 {
-                    color += letters[Math.floor(Math.random() * 16)];
+                    if(this._isVisible)
+                    {
+                        this._isVisible = false;
+                        return true;
+                    }
+
+                    return false;
                 }
-                return parseInt(color, 16);
+
+                i++;
+            }
+
+            this.updateCorners(geometry);
+
+            let relativeDepth = (Math.max(this._cornerA.z, this._cornerB.z, this._cornerC.z, this._cornerD.z) - geometry.getScreenPosition(this._origin).z);
+
+            switch(this._type)
+            {
+                case RoomPlane.TYPE_FLOOR:
+                    relativeDepth = (relativeDepth - ((this._location.z + Math.min(0, this._leftSide.z, this._rightSide.z)) * 8));
+                    break;
+                case RoomPlane.TYPE_LANDSCAPE:
+                    relativeDepth = (relativeDepth + 0.02);
+                    break;
+            }
+
+            this._relativeDepth = relativeDepth;
+            this._isVisible = true;
+            this._geometryUpdateId = geometry.updateId;
+        }
+
+        if(geometryChanged)
+        {
+            Randomizer.setSeed(this._randomSeed);
+
+            let width = (this._leftSide.length * RoomPlane.PLANE_GEOMETRY.scale);
+            let height = (this._rightSide.length * RoomPlane.PLANE_GEOMETRY.scale);
+            const normal = RoomPlane.PLANE_GEOMETRY.getCoordinatePosition(this._normal);
+
+            const getTextureAndColorForPlane = (planeId: string, planeType: number) =>
+            {
+                const dataType: keyof IAssetRoomVisualizationData = (planeType === RoomPlane.TYPE_FLOOR) ? 'floorData' : (planeType === RoomPlane.TYPE_WALL) ? 'wallData' : 'landscapeData';
+
+                const roomCollection = GetAssetManager().getCollection('room');
+                const planeVisualizationData = roomCollection?.data?.roomVisualization?.[dataType];
+                const planeVisualization = planeVisualizationData?.planes?.find(plane => (plane.id === planeId))?.visualizations?.[0];
+                const planeLayer = planeVisualization?.allLayers?.[0] as IAssetPlaneVisualizationLayer;
+                const planeMaterialId = planeLayer?.materialId;
+                const planeColor = planeLayer?.color;
+                const planeAssetName = planeVisualizationData?.textures?.find(texture => (texture.id === planeMaterialId))?.bitmaps?.[0]?.assetName;
+                const texture = GetAssetManager().getAsset(planeAssetName)?.texture;
+
+                const getRandomColor = () =>
+                {
+                    const letters = '0123456789ABCDEF';
+                    let color = '0x';
+                    for(let i = 0; i < 6; i++)
+                    {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                    return parseInt(color, 16);
+                };
+
+                return { texture, color: planeColor };
             };
 
-            return { texture, color: planeColor };
-        };
+            const planeData = getTextureAndColorForPlane(this._id, this._type);
+            const texture = this._hasTexture ? planeData.texture ?? Texture.WHITE : Texture.WHITE;
 
-        const planeData = getTextureAndColorForPlane(this._id, this._type);
-        const texture = this._hasTexture ? planeData.texture ?? Texture.WHITE : Texture.WHITE;
+            switch(this._type)
+            {
+                case RoomPlane.TYPE_FLOOR: {
+                    const _local_10 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 0));
+                    const _local_11 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, (height / RoomPlane.PLANE_GEOMETRY.scale), 0));
+                    const _local_12 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d((width / RoomPlane.PLANE_GEOMETRY.scale), 0, 0));
 
-        let planeSprite: TilingSprite = null;
+                    let x = 0;
+                    let y = 0;
 
-        switch(this._type)
+                    if(_local_10 && _local_11 && _local_12)
+                    {
+                        width = Math.round(Math.abs((_local_10.x - _local_12.x)));
+                        height = Math.round(Math.abs((_local_10.x - _local_11.x)));
+
+                        const _local_15 = (_local_10.x - RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(1, 0, 0)).x);
+
+                        x = (this._textureOffsetX * Math.trunc(Math.abs(_local_15)));
+                        y = (this._textureOffsetY * Math.trunc(Math.abs(_local_15)));
+                    }
+
+                    if((x !== 0) || (y !== 0))
+                    {
+                        while(x < 0) x += texture.width;
+
+                        while(y < 0) y += texture.height;
+                    }
+
+                    this._planeSprite = new TilingSprite({
+                        texture,
+                        width,
+                        height,
+                        tint: planeData.color,
+                        tilePosition: {
+                            x: (x % texture.width) + (this._textureOffsetX * texture.width),
+                            y: (y % texture.height) + (this._textureOffsetY * texture.height)
+                        }
+                    });
+
+                    break;
+                }
+                case RoomPlane.TYPE_WALL: {
+                    const _local_8 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 0));
+                    const _local_9 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, (height / RoomPlane.PLANE_GEOMETRY.scale)));
+                    const _local_10 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, (width / RoomPlane.PLANE_GEOMETRY.scale), 0));
+
+                    if(_local_8 && _local_9 && _local_10)
+                    {
+                        width = Math.round(Math.abs((_local_8.x - _local_10.x)));
+                        height = Math.round(Math.abs((_local_8.y - _local_9.y)));
+                    }
+
+                    this._planeSprite = new TilingSprite({
+                        texture,
+                        width,
+                        height,
+                        tint: planeData.color,
+                        tilePosition: {
+                            x: (this._textureOffsetX * texture.width),
+                            y: (this._textureOffsetY * texture.height)
+                        }
+                    });
+
+                    break;
+                }
+                case RoomPlane.TYPE_LANDSCAPE: {
+                    const _local_13 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 0));
+                    const _local_14 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 1));
+                    const _local_15 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 1, 0));
+
+                    if(_local_13 && _local_14 && _local_15)
+                    {
+                        width = Math.round(Math.abs((((_local_13.x - _local_15.x) * width) / RoomPlane.PLANE_GEOMETRY.scale)));
+                        height = Math.round(Math.abs((((_local_13.y - _local_14.y) * height) / RoomPlane.PLANE_GEOMETRY.scale)));
+                    }
+
+                    const renderMaxX = Math.trunc(this._textureMaxX * Math.abs((_local_13.x - _local_15.x)));
+                    const renderMaxY = Math.trunc(this._textureMaxY * Math.abs((_local_13.y - _local_14.y)));
+
+                    const renderOffsetX = Math.trunc(this._textureOffsetX * Math.abs((_local_13.x - _local_15.x)));
+                    const renderOffsetY = Math.trunc(this._textureOffsetY * Math.abs((_local_13.y - _local_14.y)));
+
+                    this._planeSprite = new TilingSprite({
+                        texture,
+                        width: width,
+                        height: height,
+                        tilePosition: {
+                            x: renderOffsetX,
+                            y: renderOffsetY
+                        },
+                        tint: planeData.color,
+                        applyAnchorToTexture: true
+                    });
+                    break;
+                }
+                default: {
+                    this._planeSprite = new TilingSprite({
+                        texture: Texture.WHITE,
+                        width: width,
+                        height: height,
+                        applyAnchorToTexture: true
+                    });
+                }
+            }
+
+            this._planeSprite.allowChildren = true;
+        }
+
+        const maskChanged = this._maskChanged;
+
+        if(maskChanged)
         {
-            case RoomPlane.TYPE_FLOOR: {
-                const _local_10 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 0));
-                const _local_11 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, (height / RoomPlane.PLANE_GEOMETRY.scale), 0));
-                const _local_12 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d((width / RoomPlane.PLANE_GEOMETRY.scale), 0, 0));
+            this._planeSprite.removeChildren();
 
-                let x = 0;
-                let y = 0;
+            this.updateMask(this._planeSprite, geometry);
+        }
 
-                if(_local_10 && _local_11 && _local_12)
-                {
-                    width = Math.round(Math.abs((_local_10.x - _local_12.x)));
-                    height = Math.round(Math.abs((_local_10.x - _local_11.x)));
+        if(this._planeTexture)
+        {
+            if(this._planeTexture.width !== this._width || this._planeTexture.height !== this._height)
+            {
+                this._planeTexture.destroy(true);
 
-                    const _local_15 = (_local_10.x - RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(1, 0, 0)).x);
-
-                    x = (this._textureOffsetX * Math.trunc(Math.abs(_local_15)));
-                    y = (this._textureOffsetY * Math.trunc(Math.abs(_local_15)));
-                }
-
-                if((x !== 0) || (y !== 0))
-                {
-                    while(x < 0) x += texture.width;
-
-                    while(y < 0) y += texture.height;
-                }
-
-                planeSprite = new TilingSprite({
-                    texture,
-                    width,
-                    height,
-                    tint: planeData.color,
-                    tilePosition: {
-                        x: (x % texture.width) + (this._textureOffsetX * texture.width),
-                        y: (y % texture.height) + (this._textureOffsetY * texture.height)
-                    }
-                });
-
-                break;
-            }
-            case RoomPlane.TYPE_WALL: {
-                const _local_8 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 0));
-                const _local_9 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, (height / RoomPlane.PLANE_GEOMETRY.scale)));
-                const _local_10 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, (width / RoomPlane.PLANE_GEOMETRY.scale), 0));
-
-                if(_local_8 && _local_9 && _local_10)
-                {
-                    width = Math.round(Math.abs((_local_8.x - _local_10.x)));
-                    height = Math.round(Math.abs((_local_8.y - _local_9.y)));
-                }
-
-                planeSprite = new TilingSprite({
-                    texture,
-                    width,
-                    height,
-                    tint: planeData.color,
-                    tilePosition: {
-                        x: (this._textureOffsetX * texture.width),
-                        y: (this._textureOffsetY * texture.height)
-                    }
-                });
-
-                break;
-            }
-            case RoomPlane.TYPE_LANDSCAPE: {
-                const _local_13 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 0));
-                const _local_14 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 1));
-                const _local_15 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 1, 0));
-
-                if(_local_13 && _local_14 && _local_15)
-                {
-                    width = Math.round(Math.abs((((_local_13.x - _local_15.x) * width) / RoomPlane.PLANE_GEOMETRY.scale)));
-                    height = Math.round(Math.abs((((_local_13.y - _local_14.y) * height) / RoomPlane.PLANE_GEOMETRY.scale)));
-                }
-
-                const renderMaxX = Math.trunc(this._textureMaxX * Math.abs((_local_13.x - _local_15.x)));
-                const renderMaxY = Math.trunc(this._textureMaxY * Math.abs((_local_13.y - _local_14.y)));
-
-                const renderOffsetX = Math.trunc(this._textureOffsetX * Math.abs((_local_13.x - _local_15.x)));
-                const renderOffsetY = Math.trunc(this._textureOffsetY * Math.abs((_local_13.y - _local_14.y)));
-
-                planeSprite = new TilingSprite({
-                    texture,
-                    width: width,
-                    height: height,
-                    tilePosition: {
-                        x: renderOffsetX,
-                        y: renderOffsetY
-                    },
-                    tint: planeData.color,
-                    applyAnchorToTexture: true
-                });
-                break;
-            }
-            default: {
-                planeSprite = new TilingSprite({
-                    texture: Texture.WHITE,
-                    width: width,
-                    height: height,
-                    applyAnchorToTexture: true
-                });
+                this._planeTexture = null;
             }
         }
 
-        this.updateMask(planeSprite, geometry);
+        if(!this._planeTexture) this._planeTexture = TextureUtils.createRenderTexture(this._width, this._height);
 
-        this._planeTexture = TextureUtils.createAndWriteRenderTexture(this._width, this._height, planeSprite, this.getMatrixForDimensions(width, height)) as Texture;
+        if(geometryChanged || maskChanged)
+        {
+            GetRenderer().render({
+                target: this._planeTexture,
+                container: this._planeSprite,
+                clear: true,
+                transform: this.getMatrixForDimensions(this._planeSprite.width, this._planeSprite.height)
+            });
+        }
 
         return true;
     }
@@ -483,82 +528,73 @@ export class RoomPlane implements IRoomPlane
         if(maskChanged) this._maskChanged = false;
     }
 
-    private updateMask(sprite: Container, geometry: IRoomGeometry): void
+    private updateMask(container: Container, geometry: IRoomGeometry): void
     {
-        if(!sprite || !geometry) return;
-
-        if(!this._useMask || ((!this._bitmapMasks.length && !this._rectangleMasks.length) && !this._maskChanged) || !this._maskManager) return;
+        if(!container || !geometry || !this._useMask || (!this._bitmapMasks.length && !this._rectangleMasks.length) || !this._maskManager) return;
 
         this.updateMaskChangeStatus();
 
-        /* if(!this._maskBitmapData || (this._maskBitmapData.width !== width) || (this._maskBitmapData.height !== height))
+        this._bitmapMasksOld = [];
+        this._rectangleMasksOld = [];
+
+        const normal = geometry.getCoordinatePosition(this._normal);
+
+        let type: string = null;
+        let posX = 0;
+        let posY = 0;
+        let i = 0;
+
+        while(i < this._bitmapMasks.length)
         {
-            this._maskBitmapData = this._textureCache.createAndFillRenderTexture(width, height, 'mask');
-            this._maskChanged = true;
-        } */
+            const mask = this._bitmapMasks[i];
 
-        if(this._maskChanged)
-        {
-            this._bitmapMasksOld = [];
-            this._rectangleMasksOld = [];
-
-            const normal = geometry.getCoordinatePosition(this._normal);
-
-            let type: string = null;
-            let posX = 0;
-            let posY = 0;
-            let i = 0;
-
-            while(i < this._bitmapMasks.length)
+            if(mask)
             {
-                const mask = this._bitmapMasks[i];
+                type = mask.type;
+                posX = (container.width - ((container.width * mask.leftSideLoc) / this._leftSide.length));
+                posY = (container.height - ((container.height * mask.rightSideLoc) / this._rightSide.length));
 
-                if(mask)
-                {
-                    type = mask.type;
-                    posX = (sprite.width - ((sprite.width * mask.leftSideLoc) / this._leftSide.length));
-                    posY = (sprite.height - ((sprite.height * mask.rightSideLoc) / this._rightSide.length));
-
-                    this._maskManager.updateMask(sprite, type, geometry.scale, normal, posX, posY);
-                    this._bitmapMasksOld.push(new RoomPlaneBitmapMask(type, mask.leftSideLoc, mask.rightSideLoc));
-                }
-
-                i++;
+                this._maskManager.addMaskToContainer(container, type, geometry.scale, normal, posX, posY);
+                this._bitmapMasksOld.push(new RoomPlaneBitmapMask(type, mask.leftSideLoc, mask.rightSideLoc));
             }
 
-            i = 0;
-
-            while(i < this._rectangleMasks.length)
-            {
-                const rectMask = this._rectangleMasks[i];
-
-                if(rectMask)
-                {
-                    posX = (sprite.width - ((sprite.width * rectMask.leftSideLoc) / this._leftSide.length));
-                    posY = (sprite.height - ((sprite.height * rectMask.rightSideLoc) / this._rightSide.length));
-
-                    const wd = ((sprite.width * rectMask.leftSideLength) / this._leftSide.length);
-                    const ht = ((sprite.height * rectMask.rightSideLength) / this._rightSide.length);
-
-                    const maskSprite = new Sprite(Texture.WHITE);
-
-                    maskSprite.tint = 0x000000;
-                    maskSprite.width = wd;
-                    maskSprite.height = ht;
-                    maskSprite.position.set((posX - wd), (posY - ht));
-
-                    //this._textureCache.writeToRenderTexture(sprite, this._maskBitmapData, false);
-
-                    this._rectangleMasksOld.push(new RoomPlaneRectangleMask(rectMask.leftSideLength, rectMask.rightSideLoc, rectMask.leftSideLength, rectMask.rightSideLength));
-                }
-
-                i++;
-            }
-
-            this._maskChanged = false;
+            i++;
         }
 
-        //this.combineTextureMask(canvas, this._maskPixels);
+        i = 0;
+
+        while(i < this._rectangleMasks.length)
+        {
+            const rectMask = this._rectangleMasks[i];
+
+            if(rectMask)
+            {
+                posX = (container.width - ((container.width * rectMask.leftSideLoc) / this._leftSide.length));
+                posY = (container.height - ((container.height * rectMask.rightSideLoc) / this._rightSide.length));
+
+                const wd = ((container.width * rectMask.leftSideLength) / this._leftSide.length);
+                const ht = ((container.height * rectMask.rightSideLength) / this._rightSide.length);
+
+                const maskSprite = new Sprite(Texture.WHITE);
+
+                maskSprite.tint = 0x000000;
+                maskSprite.width = wd;
+                maskSprite.height = ht;
+                maskSprite.position.set((posX - wd), (posY - ht));
+
+                container.addChild(maskSprite);
+
+                this._rectangleMasksOld.push(new RoomPlaneRectangleMask(rectMask.leftSideLength, rectMask.rightSideLoc, rectMask.leftSideLength, rectMask.rightSideLength));
+            }
+
+            i++;
+        }
+
+        this._maskChanged = false;
+
+        container.filterArea = container.getBounds().rectangle;
+
+        container.filters = [ new PlaneMaskFilter({}) ];
     }
 
     public get canBeVisible(): boolean

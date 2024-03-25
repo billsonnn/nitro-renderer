@@ -1,6 +1,6 @@
 ﻿import { IAssetPlaneMaskData, IAssetPlaneTextureBitmap, IGraphicAssetCollection, IVector3D } from '@nitrots/api';
-import { CutMaskFilter } from '@nitrots/utils';
-import { Container, Matrix, Point } from 'pixi.js';
+import { GetRenderer } from '@nitrots/utils';
+import { Container, Matrix, Point, Sprite, Texture } from 'pixi.js';
 import { PlaneMask } from './PlaneMask';
 import { PlaneMaskVisualization } from './PlaneMaskVisualization';
 
@@ -141,7 +141,7 @@ export class PlaneMaskManager
         return graphicName;
     }
 
-    public updateMask(sprite: Container, type: string, scale: number, normal: IVector3D, posX: number, posY: number): boolean
+    public addMaskToContainer(container: Container, type: string, scale: number, normal: IVector3D, posX: number, posY: number): boolean
     {
         const mask = this._masks.get(type);
 
@@ -156,14 +156,6 @@ export class PlaneMaskManager
         if(!texture) return true;
 
         const point = new Point((posX + asset.offsetX), (posY + asset.offsetY));
-
-        const filter = new CutMaskFilter({
-            maskTexture: texture
-        });
-
-        sprite.filters = [filter];
-
-        return true;
 
         const matrix = new Matrix();
 
@@ -193,7 +185,65 @@ export class PlaneMaskManager
         matrix.scale(xScale, ySkew);
         matrix.translate(tx, ty);
 
-        //TextureUtils.writeToTexture(new Sprite(texture), canvas, false, matrix);
+        const sprite = new Sprite(texture);
+
+        sprite.setFromMatrix(matrix);
+
+        container.addChild(sprite);
+
+        return true;
+    }
+
+    public writeMaskToTexture(targetTexture: Texture, type: string, scale: number, normal: IVector3D, posX: number, posY: number): boolean
+    {
+        const mask = this._masks.get(type);
+
+        if(!mask) return true;
+
+        const asset = mask.getGraphicAsset(scale, normal);
+
+        if(!asset) return true;
+
+        const texture = asset.texture;
+
+        if(!texture) return true;
+
+        const point = new Point((posX + asset.offsetX), (posY + asset.offsetY));
+
+        const matrix = new Matrix();
+
+        let xScale = 1;
+        let ySkew = 1;
+        let xSkew = 0;
+        let yScale = 0;
+        let tx = (point.x + xSkew);
+        let ty = (point.y + yScale);
+
+        if(asset.flipH)
+        {
+            xScale = -1;
+            xSkew = texture.width;
+
+            tx = ((point.x + xSkew) - texture.width);
+        }
+
+        if(asset.flipV)
+        {
+            ySkew = -1;
+            yScale = texture.height;
+
+            ty = ((point.y + yScale) - texture.height);
+        }
+
+        matrix.scale(xScale, ySkew);
+        matrix.translate(tx, ty);
+
+        GetRenderer().render({
+            target: targetTexture,
+            container: new Sprite(texture),
+            clear: false,
+            transform: matrix
+        });
 
         return true;
     }
