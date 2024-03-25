@@ -78,7 +78,6 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
         await GetRoomMessageHandler().init();
         await this._roomContentLoader.init();
         await this._roomManager.init(this);
-        await this._roomSessionManager.init();
 
         for(const roomData of this._roomDatas.values())
         {
