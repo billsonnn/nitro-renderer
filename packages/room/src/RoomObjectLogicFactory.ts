@@ -1,12 +1,12 @@
 import { IEventDispatcher, IRoomObjectEventHandler, IRoomObjectLogicFactory, RoomObjectLogicType } from '@nitrots/api';
-import { EventDispatcher, RoomObjectEvent } from '@nitrots/events';
+import { GetEventDispatcher, RoomObjectEvent } from '@nitrots/events';
 import { NitroLogger } from '@nitrots/utils';
 import { RoomObjectLogicBase } from '../../room';
 import { AvatarLogic, FurnitureAchievementResolutionLogic, FurnitureBadgeDisplayLogic, FurnitureChangeStateWhenStepOnLogic, FurnitureClothingChangeLogic, FurnitureCounterClockLogic, FurnitureCrackableLogic, FurnitureCraftingGizmoLogic, FurnitureCreditLogic, FurnitureCuckooClockLogic, FurnitureCustomStackHeightLogic, FurnitureDiceLogic, FurnitureEcotronBoxLogic, FurnitureEditableInternalLinkLogic, FurnitureEditableRoomLinkLogic, FurnitureEffectBoxLogic, FurnitureExternalImageLogic, FurnitureFireworksLogic, FurnitureFloorHoleLogic, FurnitureGroupForumTerminalLogic, FurnitureGuildCustomizedLogic, FurnitureHabboWheelLogic, FurnitureHighScoreLogic, FurnitureHockeyScoreLogic, FurnitureHweenLovelockLogic, FurnitureIceStormLogic, FurnitureInternalLinkLogic, FurnitureJukeboxLogic, FurnitureLogic, FurnitureLoveLockLogic, FurnitureMannequinLogic, FurnitureMonsterplantSeedLogic, FurnitureMultiHeightLogic, FurnitureMultiStateLogic, FurnitureMysteryBoxLogic, FurnitureMysteryTrophyLogic, FurnitureOneWayDoorLogic, FurniturePetCustomizationLogic, FurniturePlaceholderLogic, FurniturePlanetSystemLogic, FurniturePresentLogic, FurniturePurchaseableClothingLogic, FurniturePushableLogic, FurnitureRandomStateLogic, FurnitureRandomTeleportLogic, FurnitureRentableSpaceLogic, FurnitureRoomBackgroundColorLogic, FurnitureRoomBackgroundLogic, FurnitureRoomBillboardLogic, FurnitureRoomDimmerLogic, FurnitureScoreLogic, FurnitureSongDiskLogic, FurnitureSoundBlockLogic, FurnitureSoundMachineLogic, FurnitureStickieLogic, FurnitureTrophyLogic, FurnitureVoteCounterLogic, FurnitureVoteMajorityLogic, FurnitureWelcomeGiftLogic, FurnitureWindowLogic, FurnitureYoutubeLogic, PetLogic, RoomLogic, SelectionArrowLogic, TileCursorLogic } from './object';
 
 export class RoomObjectLogicFactory implements IRoomObjectLogicFactory
 {
-    private _events: IEventDispatcher = new EventDispatcher();
+    private _events: IEventDispatcher = GetEventDispatcher();
     private _cachedEvents: Map<string, boolean> = new Map();
     private _registeredEvents: Map<string, boolean> = new Map();
     private _functions: ((event: RoomObjectEvent) => void)[] = [];

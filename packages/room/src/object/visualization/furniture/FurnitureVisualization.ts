@@ -31,7 +31,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
     protected _updatedLayers: boolean[];
     protected _assetNames: string[];
     protected _spriteTags: string[];
-    protected _spriteInks: BLEND_MODES[];
+    protected _spriteBlendModes: BLEND_MODES[];
     protected _spriteAlphas: number[];
     protected _spriteColors: number[];
     protected _spriteMouseCaptures: boolean[];
@@ -66,7 +66,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         this._updatedLayers = [];
         this._assetNames = [];
         this._spriteTags = [];
-        this._spriteInks = [];
+        this._spriteBlendModes = [];
         this._spriteAlphas = [];
         this._spriteColors = [];
         this._spriteMouseCaptures = [];
@@ -97,7 +97,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         this._updatedLayers = null;
         this._assetNames = null;
         this._spriteTags = null;
-        this._spriteInks = null;
+        this._spriteBlendModes = null;
         this._spriteAlphas = null;
         this._spriteColors = null;
         this._spriteMouseCaptures = null;
@@ -116,7 +116,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         this._updatedLayers = [];
         this._assetNames = [];
         this._spriteTags = [];
-        this._spriteInks = [];
+        this._spriteBlendModes = [];
         this._spriteAlphas = [];
         this._spriteColors = [];
         this._spriteMouseCaptures = [];
@@ -134,7 +134,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         this._updatedLayers = [];
         this._assetNames = [];
         this._spriteTags = [];
-        this._spriteInks = [];
+        this._spriteBlendModes = [];
         this._spriteAlphas = [];
         this._spriteColors = [];
         this._spriteMouseCaptures = [];
@@ -297,7 +297,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
                     sprite.color = this.getLayerColor(scale, layerId, this._selectedColor);
                     sprite.offsetX = (assetData.offsetX + this.getLayerXOffset(scale, this._direction, layerId));
                     sprite.offsetY = (assetData.offsetY + this.getLayerYOffset(scale, this._direction, layerId));
-                    sprite.blendMode = this.getLayerInk(scale, this._direction, layerId);
+                    sprite.blendMode = this.getLayerBlendMode(scale, this._direction, layerId);
                     sprite.alphaTolerance = (this.getLayerIgnoreMouse(scale, this._direction, layerId) ? AlphaTolerance.MATCH_NOTHING : AlphaTolerance.MATCH_OPAQUE_PIXELS);
 
                     relativeDepth = this.getLayerZOffset(scale, this._direction, layerId);
@@ -418,19 +418,19 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         return tag;
     }
 
-    protected getLayerInk(scale: number, direction: number, layerId: number): BLEND_MODES
+    protected getLayerBlendMode(scale: number, direction: number, layerId: number): BLEND_MODES
     {
-        const existing = this._spriteInks[layerId];
+        const existing = this._spriteBlendModes[layerId];
 
         if(existing !== undefined) return existing;
 
-        if(!this._data) return LayerData.DEFAULT_INK;
+        if(!this._data) return LayerData.DEFAULT_BLEND_MODE;
 
-        const ink = this._data.getLayerInk(scale, direction, layerId);
+        const blendMode = this._data.getLayerBlendMode(scale, direction, layerId);
 
-        this._spriteInks[layerId] = ink;
+        this._spriteBlendModes[layerId] = blendMode;
 
-        return ink;
+        return blendMode;
     }
 
     protected getLayerAlpha(scale: number, direction: number, layerId: number): number

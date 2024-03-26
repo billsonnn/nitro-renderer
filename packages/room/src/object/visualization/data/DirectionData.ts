@@ -72,24 +72,24 @@ export class DirectionData
         existing.tag = tag;
     }
 
-    public getLayerInk(layerId: number): BLEND_MODES
+    public getLayerBlendMode(layerId: number): BLEND_MODES
     {
         const existing = this.getLayer(layerId);
 
-        if(!existing) return LayerData.DEFAULT_INK;
+        if(!existing) return LayerData.DEFAULT_BLEND_MODE;
 
-        return existing.ink;
+        return existing.blendMode;
     }
 
-    public setLayerInk(layerId: number, ink: BLEND_MODES): void
+    public setLayerBlendMode(layerId: number, blendMode: BLEND_MODES): void
     {
         const existing = this.getLayer(layerId);
 
         if(!existing) return;
 
-        if(!ink || !ink.length) return;
+        if(!blendMode || !blendMode.length) return;
 
-        existing.ink = ink;
+        existing.blendMode = blendMode;
     }
 
     public getLayerAlpha(layerId: number): number

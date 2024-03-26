@@ -36,6 +36,17 @@ export class RoomObjectSprite implements IRoomObjectSprite
 
     public dispose(): void
     {
+        if(this._spriteType !== RoomObjectSpriteType.DEFAULT)
+        {
+            if(this._texture)
+            {
+                //@ts-ignore
+                if(this._texture?.source?.hitMap) this._texture.source.hitMap = null;
+
+                this._texture.destroy(true);
+            }
+        }
+
         this._texture = null;
         this._width = 0;
         this._height = 0;

@@ -211,13 +211,13 @@ export class FurnitureVisualizationData implements IObjectVisualizationData
         return size.getLayerTag(direction, layerId);
     }
 
-    public getLayerInk(scale: number, direction: number, layerId: number): BLEND_MODES
+    public getLayerBlendMode(scale: number, direction: number, layerId: number): BLEND_MODES
     {
         const size = this.getSizeData(scale);
 
-        if(!size) return LayerData.DEFAULT_INK;
+        if(!size) return LayerData.DEFAULT_BLEND_MODE;
 
-        return size.getLayerInk(direction, layerId);
+        return size.getLayerBlendMode(direction, layerId);
     }
 
     public getLayerAlpha(scale: number, direction: number, layerId: number): number

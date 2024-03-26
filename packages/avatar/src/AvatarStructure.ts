@@ -1,5 +1,4 @@
 import { AvatarDirectionAngle, IActionDefinition, IActiveActionData, IAssetAnimation, IAssetManager, IAvatarFigureContainer, IAvatarImage, IAvatarRenderManager, IFigureData, IFigurePartSet, IPartColor, IStructureData } from '@nitrots/api';
-import { EventDispatcher } from '@nitrots/events';
 import { Point } from 'pixi.js';
 import { AvatarImagePartContainer } from './AvatarImagePartContainer';
 import { AvatarRenderManager } from './AvatarRenderManager';
@@ -8,7 +7,7 @@ import { Animation, AnimationManager, AvatarAnimationLayerData } from './animati
 import { AvatarModelGeometry } from './geometry';
 import { AnimationAction, AvatarAnimationData, AvatarAnimationFrame, AvatarCanvas, FigureSetData, PartSetsData } from './structure';
 
-export class AvatarStructure extends EventDispatcher
+export class AvatarStructure
 {
     private _renderManager: AvatarRenderManager;
     private _geometry: AvatarModelGeometry;
@@ -22,8 +21,6 @@ export class AvatarStructure extends EventDispatcher
 
     constructor(renderManager: AvatarRenderManager)
     {
-        super();
-
         this._renderManager = renderManager;
         this._geometry = null;
         this._figureData = new FigureSetData();

@@ -106,6 +106,10 @@ export class RoomPlane implements IRoomPlane
         this._cornerC = null;
         this._cornerD = null;
 
+        if(this._planeSprite) this._planeSprite.destroy();
+
+        if(this._planeTexture) this._planeTexture = null;
+
         this._disposed = true;
     }
 
@@ -113,16 +117,16 @@ export class RoomPlane implements IRoomPlane
     {
         if(!geometry || this._disposed) return false;
 
-        let geometryChanged = false;
+        let needsUpdate = false;
 
-        if(this._geometryUpdateId != geometry.updateId) geometryChanged = true;
+        if(this._geometryUpdateId !== geometry.updateId) needsUpdate = true;
 
-        if(!geometryChanged || !this._canBeVisible)
+        if(!needsUpdate || !this._canBeVisible)
         {
             if(!this.visible) return false;
         }
 
-        if(geometryChanged)
+        if(needsUpdate)
         {
             let cosAngle = 0;
 
@@ -177,15 +181,23 @@ export class RoomPlane implements IRoomPlane
             this._relativeDepth = relativeDepth;
             this._isVisible = true;
             this._geometryUpdateId = geometry.updateId;
-        }
 
-        if(geometryChanged)
-        {
             Randomizer.setSeed(this._randomSeed);
 
-            let width = (this._leftSide.length * RoomPlane.PLANE_GEOMETRY.scale);
-            let height = (this._rightSide.length * RoomPlane.PLANE_GEOMETRY.scale);
-            const normal = RoomPlane.PLANE_GEOMETRY.getCoordinatePosition(this._normal);
+            let width = (this._leftSide.length * geometry.scale);
+            let height = (this._rightSide.length * geometry.scale);
+            const normal = geometry.getCoordinatePosition(this._normal);
+
+            const getRandomColor = () =>
+            {
+                const letters = '0123456789ABCDEF';
+                let color = '0x';
+                for(let i = 0; i < 6; i++)
+                {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return parseInt(color, 16);
+            };
 
             const getTextureAndColorForPlane = (planeId: string, planeType: number) =>
             {
@@ -193,23 +205,13 @@ export class RoomPlane implements IRoomPlane
 
                 const roomCollection = GetAssetManager().getCollection('room');
                 const planeVisualizationData = roomCollection?.data?.roomVisualization?.[dataType];
-                const planeVisualization = planeVisualizationData?.planes?.find(plane => (plane.id === planeId))?.visualizations?.[0];
+                const plane = planeVisualizationData?.planes?.find(plane => (plane.id === planeId));
+                const planeVisualization = (dataType === 'landscapeData') ? plane?.animatedVisualization?.[0] : plane?.visualizations?.[0];
                 const planeLayer = planeVisualization?.allLayers?.[0] as IAssetPlaneVisualizationLayer;
                 const planeMaterialId = planeLayer?.materialId;
                 const planeColor = planeLayer?.color;
                 const planeAssetName = planeVisualizationData?.textures?.find(texture => (texture.id === planeMaterialId))?.bitmaps?.[0]?.assetName;
                 const texture = GetAssetManager().getAsset(planeAssetName)?.texture;
-
-                const getRandomColor = () =>
-                {
-                    const letters = '0123456789ABCDEF';
-                    let color = '0x';
-                    for(let i = 0; i < 6; i++)
-                    {
-                        color += letters[Math.floor(Math.random() * 16)];
-                    }
-                    return parseInt(color, 16);
-                };
 
                 return { texture, color: planeColor };
             };
@@ -301,14 +303,13 @@ export class RoomPlane implements IRoomPlane
 
                     this._planeSprite = new TilingSprite({
                         texture,
-                        width: width,
-                        height: height,
+                        width,
+                        height,
                         tilePosition: {
                             x: renderOffsetX,
                             y: renderOffsetY
                         },
-                        tint: planeData.color,
-                        applyAnchorToTexture: true
+                        tint: getRandomColor()
                     });
                     break;
                 }
@@ -316,8 +317,7 @@ export class RoomPlane implements IRoomPlane
                     this._planeSprite = new TilingSprite({
                         texture: Texture.WHITE,
                         width: width,
-                        height: height,
-                        applyAnchorToTexture: true
+                        height: height
                     });
                 }
             }
@@ -325,13 +325,11 @@ export class RoomPlane implements IRoomPlane
             this._planeSprite.allowChildren = true;
         }
 
-        const maskChanged = this._maskChanged;
-
-        if(maskChanged)
+        if(needsUpdate || this._maskChanged)
         {
-            this._planeSprite.removeChildren();
-
             this.updateMask(this._planeSprite, geometry);
+
+            needsUpdate = true;
         }
 
         if(this._planeTexture)
@@ -346,12 +344,11 @@ export class RoomPlane implements IRoomPlane
 
         if(!this._planeTexture) this._planeTexture = TextureUtils.createRenderTexture(this._width, this._height);
 
-        if(geometryChanged || maskChanged)
+        if(needsUpdate)
         {
             GetRenderer().render({
                 target: this._planeTexture,
                 container: this._planeSprite,
-                clear: true,
                 transform: this.getMatrixForDimensions(this._planeSprite.width, this._planeSprite.height)
             });
         }
@@ -484,58 +481,11 @@ export class RoomPlane implements IRoomPlane
         return false;
     }
 
-    private updateMaskChangeStatus(): void
+    private updateMask(container: Container, geometry: IRoomGeometry): boolean
     {
-        if(!this._maskChanged) return;
+        if(container.children?.length) container.removeChildren();
 
-        let maskChanged = true;
-
-        if(this._bitmapMasks.length === this._bitmapMasksOld.length)
-        {
-            for(const mask of this._bitmapMasks)
-            {
-                if(!mask) continue;
-
-                let _local_6 = false;
-
-                for(const plane of this._bitmapMasksOld)
-                {
-                    if(!plane) continue;
-
-                    if(((plane.type === mask.type) && (plane.leftSideLoc === mask.leftSideLoc)) && (plane.rightSideLoc === mask.rightSideLoc))
-                    {
-                        _local_6 = true;
-
-                        break;
-                    }
-                }
-
-                if(!_local_6)
-                {
-                    maskChanged = false;
-
-                    break;
-                }
-            }
-        }
-        else
-        {
-            maskChanged = false;
-        }
-
-        if(this._rectangleMasks.length > this._rectangleMasksOld.length) maskChanged = false;
-
-        if(maskChanged) this._maskChanged = false;
-    }
-
-    private updateMask(container: Container, geometry: IRoomGeometry): void
-    {
-        if(!container || !geometry || !this._useMask || (!this._bitmapMasks.length && !this._rectangleMasks.length) || !this._maskManager) return;
-
-        this.updateMaskChangeStatus();
-
-        this._bitmapMasksOld = [];
-        this._rectangleMasksOld = [];
+        if(!container || !geometry || !this._useMask || (!this._bitmapMasks.length && !this._rectangleMasks.length) || !this._maskManager) return false;
 
         const normal = geometry.getCoordinatePosition(this._normal);
 
@@ -555,7 +505,6 @@ export class RoomPlane implements IRoomPlane
                 posY = (container.height - ((container.height * mask.rightSideLoc) / this._rightSide.length));
 
                 this._maskManager.addMaskToContainer(container, type, geometry.scale, normal, posX, posY);
-                this._bitmapMasksOld.push(new RoomPlaneBitmapMask(type, mask.leftSideLoc, mask.rightSideLoc));
             }
 
             i++;
@@ -580,11 +529,9 @@ export class RoomPlane implements IRoomPlane
                 maskSprite.tint = 0x000000;
                 maskSprite.width = wd;
                 maskSprite.height = ht;
-                maskSprite.position.set((posX - wd), (posY - ht));
+                maskSprite.position.set(Math.trunc((posX - wd)), Math.trunc((posY - ht)));
 
                 container.addChild(maskSprite);
-
-                this._rectangleMasksOld.push(new RoomPlaneRectangleMask(rectMask.leftSideLength, rectMask.rightSideLoc, rectMask.leftSideLength, rectMask.rightSideLength));
             }
 
             i++;
@@ -595,6 +542,8 @@ export class RoomPlane implements IRoomPlane
         container.filterArea = container.getBounds().rectangle;
 
         container.filters = [ new PlaneMaskFilter({}) ];
+
+        return true;
     }
 
     public get canBeVisible(): boolean
