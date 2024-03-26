@@ -67,7 +67,7 @@ export class ConfigurationManager implements IConfigurationManager
 
                 if(typeof value === 'string') value = this.interpolate((value as string), regex);
 
-                if(this._definitions.has(key))
+                if(this._definitions.has(key) && this.getValue(key) != null)
                 {
                     if(overrides) this.setValue(key, value);
                 }
