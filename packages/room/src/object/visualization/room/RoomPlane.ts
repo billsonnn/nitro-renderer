@@ -108,7 +108,14 @@ export class RoomPlane implements IRoomPlane
 
         if(this._planeSprite) this._planeSprite.destroy();
 
-        if(this._planeTexture) this._planeTexture = null;
+        if(this._planeTexture)
+        {
+            //@ts-ignore
+            if(this._planeTexture.source?.hitMap) this._planeTexture.source.hitMap = null;
+            this._planeTexture.destroy(true);
+
+            this._planeTexture = null;
+        }
 
         this._disposed = true;
     }
@@ -344,12 +351,15 @@ export class RoomPlane implements IRoomPlane
 
         if(!this._planeTexture) this._planeTexture = TextureUtils.createRenderTexture(this._width, this._height);
 
+        this._planeTexture.source.label = `room_plane_${ this._uniqueId.toString() }`;
+
         if(needsUpdate)
         {
             GetRenderer().render({
                 target: this._planeTexture,
                 container: this._planeSprite,
-                transform: this.getMatrixForDimensions(this._planeSprite.width, this._planeSprite.height)
+                transform: this.getMatrixForDimensions(this._planeSprite.width, this._planeSprite.height),
+                clear: true
             });
         }
 

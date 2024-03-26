@@ -317,10 +317,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                 if(plane) plane.dispose();
 
-                this._planes.pop();
+                this._planes.shift();
             }
 
-            this._planes = [];
             this._planes = [];
         }
 
