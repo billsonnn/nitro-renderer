@@ -5,7 +5,7 @@ export class LayerData
     public static DEFAULT_COUNT: number = 0;
     public static DEFAULT_DIRECTION: number = 0;
     public static DEFAULT_TAG: string = '';
-    public static DEFAULT_INK: BLEND_MODES = 'normal';
+    public static DEFAULT_BLEND_MODE: BLEND_MODES = 'normal';
     public static DEFAULT_ALPHA: number = 255;
     public static DEFAULT_IGNORE_MOUSE: boolean = false;
     public static DEFAULT_XOFFSET: number = 0;
@@ -13,7 +13,7 @@ export class LayerData
     public static DEFAULT_ZOFFSET: number = 0;
 
     private _tag: string = LayerData.DEFAULT_TAG;
-    private _ink: BLEND_MODES = LayerData.DEFAULT_INK;
+    private _blendMode: BLEND_MODES = LayerData.DEFAULT_BLEND_MODE;
     private _alpha: number = LayerData.DEFAULT_ALPHA;
     private _ignoreMouse: boolean = LayerData.DEFAULT_IGNORE_MOUSE;
     private _xOffset: number = LayerData.DEFAULT_XOFFSET;
@@ -25,7 +25,7 @@ export class LayerData
         if(!layer) return;
 
         this._tag = layer.tag;
-        this._ink = layer.ink;
+        this._blendMode = layer.blendMode;
         this._alpha = layer.alpha;
         this._ignoreMouse = layer.ignoreMouse;
         this._xOffset = layer.xOffset;
@@ -43,14 +43,14 @@ export class LayerData
         this._tag = tag;
     }
 
-    public get ink(): BLEND_MODES
+    public get blendMode(): BLEND_MODES
     {
-        return this._ink;
+        return this._blendMode;
     }
 
-    public set ink(ink: BLEND_MODES)
+    public set blendMode(value: BLEND_MODES)
     {
-        this._ink = ink;
+        this._blendMode = value;
     }
 
     public get alpha(): number

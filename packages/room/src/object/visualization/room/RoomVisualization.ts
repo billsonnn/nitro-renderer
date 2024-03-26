@@ -1,5 +1,5 @@
 import { ToInt32, Vector3d } from '@nitrots/utils';
-import { Rectangle } from 'pixi.js';
+import { Rectangle, Texture } from 'pixi.js';
 import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable } from '../../../../../api';
 import { RoomMapData } from '../../RoomMapData';
 import { RoomMapMaskData } from '../../RoomMapMaskData';
@@ -139,8 +139,6 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(this.updateMasks(objectModel)) needsUpdate = true;
 
-        if(!needsUpdate) return;
-
         if(this.updatePlaneTexturesAndVisibilities(objectModel)) needsUpdate = true;
 
         if(this.updatePlanes(geometry, geometryUpdate, time)) needsUpdate = true;
@@ -259,7 +257,13 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         const wallVisibility = (model.getValue<number>(RoomObjectVariable.ROOM_WALL_VISIBILITY) === 1);
         const landscapeVisibility = (model.getValue<number>(RoomObjectVariable.ROOM_LANDSCAPE_VISIBILITY) === 1);
 
-        return (this.updatePlaneTypes(floorType, wallType, landscapeType) || this.updatePlaneVisibility(floorVisibility, wallVisibility, landscapeVisibility));
+        let result = false;
+
+        result = this.updatePlaneTypes(floorType, wallType, landscapeType);
+
+        result = this.updatePlaneVisibility(floorVisibility, wallVisibility, landscapeVisibility) ? true : result;
+
+        return result;
     }
 
     private updateMasks(model: IRoomObjectModel): boolean
@@ -313,10 +317,9 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
                 if(plane) plane.dispose();
 
-                this._planes.pop();
+                this._planes.shift();
             }
 
-            this._planes = [];
             this._planes = [];
         }
 
@@ -559,13 +562,13 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         return true;
     }
 
-    private updatePlaneVisibility(k: boolean, _arg_2: boolean, _arg_3: boolean): boolean
+    private updatePlaneVisibility(floorVisibility: boolean, wallVisibility: boolean, landscapeVisibility: boolean): boolean
     {
-        if((k === this._typeVisibility[RoomPlane.TYPE_FLOOR]) && (_arg_2 === this._typeVisibility[RoomPlane.TYPE_WALL]) && (_arg_3 === this._typeVisibility[RoomPlane.TYPE_LANDSCAPE])) return false;
+        if((floorVisibility === this._typeVisibility[RoomPlane.TYPE_FLOOR]) && (wallVisibility === this._typeVisibility[RoomPlane.TYPE_WALL]) && (landscapeVisibility === this._typeVisibility[RoomPlane.TYPE_LANDSCAPE])) return false;
 
-        this._typeVisibility[RoomPlane.TYPE_FLOOR] = k;
-        this._typeVisibility[RoomPlane.TYPE_WALL] = _arg_2;
-        this._typeVisibility[RoomPlane.TYPE_LANDSCAPE] = _arg_3;
+        this._typeVisibility[RoomPlane.TYPE_FLOOR] = floorVisibility;
+        this._typeVisibility[RoomPlane.TYPE_WALL] = wallVisibility;
+        this._typeVisibility[RoomPlane.TYPE_LANDSCAPE] = landscapeVisibility;
 
         this._visiblePlanes = [];
         this._visiblePlaneSpriteNumbers = [];
@@ -777,7 +780,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         sprite.offsetY = -(offset.y);
         sprite.relativeDepth = relativeDepth;
         sprite.color = plane.color;
-        sprite.texture = plane.planeTexture;
+        sprite.texture = plane.planeTexture ?? Texture.EMPTY;
         sprite.name = ((_arg_3 + '_') + this._assetUpdateCounter);
     }
 

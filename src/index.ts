@@ -2,6 +2,7 @@ import { AbstractRenderer, BrowserAdapter, DOMAdapter, HelloSystem } from 'pixi.
 
 HelloSystem.defaultOptions.hello = true;
 AbstractRenderer.defaultOptions.failIfMajorPerformanceCaveat = false;
+//TextureSource.defaultOptions.scaleMode = 'nearest';
 DOMAdapter.set(BrowserAdapter);
 
 export * from '@nitrots/api';
@@ -16,4 +17,5 @@ export * from '@nitrots/room';
 export * from '@nitrots/session';
 export * from '@nitrots/sound';
 export * from '@nitrots/utils';
+export * from './DevTools';
 export * from './pixi-proxy';

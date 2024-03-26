@@ -43,7 +43,7 @@ export class RoomObjectSpriteVisualization implements IRoomObjectSpriteVisualiza
 
                 if(sprite) sprite.dispose();
 
-                this._sprites.pop();
+                this._sprites.shift();
             }
 
             this._sprites = null;

@@ -19,6 +19,8 @@ export class AssetManager implements IAssetManager
     {
         if(!name || !texture) return;
 
+        texture.label = name;
+
         this._textures.set(name, texture);
     }
 
@@ -147,6 +149,8 @@ export class AssetManager implements IAssetManager
             spritesheet = new Spritesheet(texture, data.spritesheet);
 
             await spritesheet.parse();
+
+            spritesheet.textureSource.label = data.name ?? null;
         }
 
         this.createCollection(data, spritesheet);
