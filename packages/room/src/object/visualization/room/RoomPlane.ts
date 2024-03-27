@@ -1,7 +1,7 @@
 import { IAssetPlaneVisualizationLayer, IAssetRoomVisualizationData, IRoomGeometry, IRoomPlane, IVector3D } from '@nitrots/api';
 import { GetAssetManager } from '@nitrots/assets';
 import { GetRenderer, PlaneMaskFilter, TextureUtils, Vector3d } from '@nitrots/utils';
-import { Container, Matrix, Point, Sprite, Texture, TilingSprite } from 'pixi.js';
+import { Container, Filter, Matrix, Point, Sprite, Texture, TilingSprite } from 'pixi.js';
 import { RoomGeometry } from '../../../utils';
 import { RoomPlaneBitmapMask } from './RoomPlaneBitmapMask';
 import { RoomPlaneRectangleMask } from './RoomPlaneRectangleMask';
@@ -59,6 +59,7 @@ export class RoomPlane implements IRoomPlane
 
     private _planeSprite: TilingSprite = null;
     private _planeTexture: Texture = null;
+    private _maskFilter: Filter = null;
 
     constructor(origin: IVector3D, location: IVector3D, leftSide: IVector3D, rightSide: IVector3D, type: number, usesMask: boolean, secondaryNormals: IVector3D[], randomSeed: number, textureOffsetX: number = 0, textureOffsetY: number = 0, textureMaxX: number = 0, textureMaxY: number = 0)
     {
@@ -126,7 +127,12 @@ export class RoomPlane implements IRoomPlane
 
         let needsUpdate = false;
 
-        if(this._geometryUpdateId !== geometry.updateId) needsUpdate = true;
+        if(this._geometryUpdateId !== geometry.updateId)
+        {
+            this._geometryUpdateId = geometry.updateId;
+
+            needsUpdate = true;
+        }
 
         if(!needsUpdate || !this._canBeVisible)
         {
@@ -187,7 +193,6 @@ export class RoomPlane implements IRoomPlane
 
             this._relativeDepth = relativeDepth;
             this._isVisible = true;
-            this._geometryUpdateId = geometry.updateId;
 
             Randomizer.setSeed(this._randomSeed);
 
@@ -549,9 +554,9 @@ export class RoomPlane implements IRoomPlane
 
         this._maskChanged = false;
 
-        container.filterArea = container.getBounds().rectangle;
+        if(!this._maskFilter) this._maskFilter = new PlaneMaskFilter({});
 
-        container.filters = [ new PlaneMaskFilter({}) ];
+        if(!container.filters) container.filters = [ this._maskFilter ];
 
         return true;
     }
