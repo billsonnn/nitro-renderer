@@ -141,7 +141,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         if(this.updatePlaneTexturesAndVisibilities(objectModel)) needsUpdate = true;
 
-        if(this.updatePlanes(geometry, geometryUpdate, time)) needsUpdate = true;
+        if(this.updatePlanes(geometry, geometryUpdate, time, needsUpdate)) needsUpdate = true;
 
         if(needsUpdate)
         {
@@ -576,7 +576,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         return true;
     }
 
-    protected updatePlanes(geometry: IRoomGeometry, geometryUpdate: boolean, timeSinceStartMs: number): boolean
+    protected updatePlanes(geometry: IRoomGeometry, geometryUpdate: boolean, timeSinceStartMs: number, needsUpdate: boolean = false): boolean
     {
         if(!geometry || !this.object) return false;
 
@@ -614,7 +614,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                 {
                     sprite.id = plane.uniqueId;
 
-                    if(plane.update(geometry, timeSinceStartMs))
+                    if(plane.update(geometry, timeSinceStartMs, needsUpdate))
                     {
                         if(plane.visible)
                         {

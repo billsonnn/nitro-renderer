@@ -13,6 +13,7 @@ export class RoomPlane implements IRoomPlane
     public static HORIZONTAL_ANGLE_DEFAULT: number = 45;
     public static VERTICAL_ANGLE_DEFAULT: number = 30;
     public static PLANE_GEOMETRY: IRoomGeometry = new RoomGeometry(64, new Vector3d(RoomPlane.HORIZONTAL_ANGLE_DEFAULT, RoomPlane.VERTICAL_ANGLE_DEFAULT), new Vector3d(-10, 0, 0));
+    private static LANDSCAPE_COLOR: number = 0x0082F0;
 
     public static TYPE_UNDEFINED: number = 0;
     public static TYPE_WALL: number = 1;
@@ -121,11 +122,9 @@ export class RoomPlane implements IRoomPlane
         this._disposed = true;
     }
 
-    public update(geometry: IRoomGeometry, timeSinceStartMs: number): boolean
+    public update(geometry: IRoomGeometry, timeSinceStartMs: number, needsUpdate: boolean = false): boolean
     {
         if(!geometry || this._disposed) return false;
-
-        let needsUpdate = false;
 
         if(this._geometryUpdateId !== geometry.updateId)
         {
@@ -199,17 +198,6 @@ export class RoomPlane implements IRoomPlane
             let width = (this._leftSide.length * geometry.scale);
             let height = (this._rightSide.length * geometry.scale);
             const normal = geometry.getCoordinatePosition(this._normal);
-
-            const getRandomColor = () =>
-            {
-                const letters = '0123456789ABCDEF';
-                let color = '0x';
-                for(let i = 0; i < 6; i++)
-                {
-                    color += letters[Math.floor(Math.random() * 16)];
-                }
-                return parseInt(color, 16);
-            };
 
             const getTextureAndColorForPlane = (planeId: string, planeType: number) =>
             {
@@ -321,7 +309,7 @@ export class RoomPlane implements IRoomPlane
                             x: renderOffsetX,
                             y: renderOffsetY
                         },
-                        tint: getRandomColor()
+                        tint: RoomPlane.LANDSCAPE_COLOR
                     });
                     break;
                 }
