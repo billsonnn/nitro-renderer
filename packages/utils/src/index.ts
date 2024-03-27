@@ -16,6 +16,7 @@ export * from './LegacyExternalInterface';
 export * from './LinkTracker';
 export * from './Matrix4x4';
 export * from './NitroBundle';
+export * from './NitroConfig';
 export * from './NitroLogger';
 export * from './NitroVersion';
 export * from './Node3D';
