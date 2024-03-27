@@ -1,5 +1,5 @@
 import { AlphaTolerance } from '@nitrots/api';
-import { TextureUtils } from '@nitrots/utils';
+import { GetRenderer } from '@nitrots/utils';
 import { Point, Sprite, Texture, TextureSource } from 'pixi.js';
 
 export class ExtendedSprite extends Sprite
@@ -78,10 +78,12 @@ export class ExtendedSprite extends Sprite
         if(!textureSource) return false;
 
         const texture = new Texture(textureSource);
-        const pixels = TextureUtils.getPixels(texture);
+        const canvas = GetRenderer().texture.generateCanvas(texture);
+        const ctx = canvas.getContext('2d');
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
         //@ts-ignore
-        textureSource.hitMap = pixels.pixels;
+        textureSource.hitMap = imageData.data;
         texture.destroy();
 
         return true;

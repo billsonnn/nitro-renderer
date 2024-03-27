@@ -1,5 +1,5 @@
 import { IGraphicAssetPalette } from '@nitrots/api';
-import { TextureUtils } from '@nitrots/utils';
+import { GetRenderer } from '@nitrots/utils';
 import { Texture } from 'pixi.js';
 
 export class GraphicAssetPalette implements IGraphicAssetPalette
@@ -20,18 +20,13 @@ export class GraphicAssetPalette implements IGraphicAssetPalette
 
     public applyPalette(texture: Texture): Texture
     {
-        const pixelOutput = TextureUtils.getPixels(texture);
-        const pixels = pixelOutput?.pixels;
-
-        if(!pixels) return texture;
-
-        const canvas = document.createElement('canvas');
+        const canvas = GetRenderer().texture.generateCanvas(texture);
         const ctx = canvas.getContext('2d');
-        const imageData = ctx.createImageData(texture.width, texture.height);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-        for(let i = 0; i < pixels.length; i += 4)
+        for(let i = 0; i < imageData.data.length; i += 4)
         {
-            let paletteColor = this._palette[pixels[i + 1]];
+            let paletteColor = this._palette[imageData.data[i + 1]];
 
             if(paletteColor === undefined) paletteColor = [0, 0, 0];
 
@@ -42,7 +37,12 @@ export class GraphicAssetPalette implements IGraphicAssetPalette
 
         ctx.putImageData(imageData, 0, 0);
 
-        return Texture.from(canvas);
+        const newTexture = Texture.from(canvas);
+
+        //@ts-ignore
+        newTexture.source.hitMap = imageData.data;
+
+        return newTexture;
     }
 
     public get primaryColor(): number
