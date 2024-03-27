@@ -4,7 +4,6 @@ import { NitroLogger } from '@nitrots/utils';
 import { GetRoomContentLoader } from './GetRoomContentLoader';
 import { GetRoomObjectLogicFactory } from './GetRoomObjectLogicFactory';
 import { GetRoomObjectVisualizationFactory } from './GetRoomObjectVisualizationFactory';
-import { RoomContentLoader } from './RoomContentLoader';
 import { RoomInstance } from './RoomInstance';
 import { RoomObjectManager } from './RoomObjectManager';
 
@@ -30,10 +29,6 @@ export class RoomManager implements IRoomManager, IRoomInstanceContainer
         GetEventDispatcher().addEventListener(RoomContentLoadedEvent.RCLE_SUCCESS, this.onRoomContentLoadedEvent);
         GetEventDispatcher().addEventListener(RoomContentLoadedEvent.RCLE_FAILURE, this.onRoomContentLoadedEvent);
         GetEventDispatcher().addEventListener(RoomContentLoadedEvent.RCLE_CANCEL, this.onRoomContentLoadedEvent);
-
-        const promises = RoomContentLoader.MANDATORY_LIBRARIES.map(value => GetRoomContentLoader().downloadAsset(value));
-
-        await Promise.all(promises);
     }
 
     public getRoomInstance(roomId: string): IRoomInstance

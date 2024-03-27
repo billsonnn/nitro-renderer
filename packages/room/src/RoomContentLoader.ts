@@ -42,6 +42,8 @@ export class RoomContentLoader implements IRoomContentLoader
         this.processFurnitureData(GetSessionDataManager().getAllFurnitureData());
 
         for(const [index, name] of GetConfiguration().getValue<string[]>('pet.types').entries()) this._pets[name] = index;
+
+        await Promise.all(RoomContentLoader.MANDATORY_LIBRARIES.map(value => this.downloadAsset(value)));
     }
 
     public processFurnitureData(furnitureData: IFurnitureData[]): void

@@ -56,12 +56,13 @@ export class SessionDataManager implements ISessionDataManager
 
     public async init(): Promise<void>
     {
-        await this._furnitureData.init();
-        await this._productData.init();
-
-        this._badgeImageManager.init();
-        this._ignoredUsersManager.init();
-        this._groupInformationManager.init();
+        await Promise.all([
+            this._furnitureData.init(),
+            this._productData.init(),
+            this._badgeImageManager.init(),
+            this._ignoredUsersManager.init(),
+            this._groupInformationManager.init()
+        ]);
 
         GetCommunication().registerMessageEvent(new FigureUpdateEvent((event: FigureUpdateEvent) =>
         {
