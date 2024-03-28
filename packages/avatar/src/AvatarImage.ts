@@ -1,5 +1,5 @@
-import { AvatarAction, AvatarDirectionAngle, AvatarScaleType, AvatarSetType, IActionDefinition, IActiveActionData, IAdvancedMap, IAnimationLayerData, IAvatarDataContainer, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IGraphicAsset, IPartColor, ISpriteDataContainer } from '@nitrots/api';
-import { AdvancedMap, GetTickerTime, TextureUtils } from '@nitrots/utils';
+import { AvatarAction, AvatarDirectionAngle, AvatarScaleType, AvatarSetType, IActionDefinition, IActiveActionData, IAnimationLayerData, IAvatarDataContainer, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IGraphicAsset, IPartColor, ISpriteDataContainer } from '@nitrots/api';
+import { GetRenderer, GetTickerTime, TextureUtils } from '@nitrots/utils';
 import { ColorMatrixFilter, Container, Rectangle, RenderTexture, Sprite, Texture } from 'pixi.js';
 import { AvatarFigureContainer } from './AvatarFigureContainer';
 import { AvatarStructure } from './AvatarStructure';
@@ -46,8 +46,6 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
     private _sortedActions: IActiveActionData[];
     private _lastActionsString: string;
     private _currentActionsString: string;
-    private _fullImageCache: IAdvancedMap<string, Texture>;
-    private _fullImageCacheSize: number = 5;
     protected _isCachedImage: boolean = false;
     private _useFullImageCache: boolean = false;
     private _effectIdInUse: number = -1;
@@ -86,7 +84,6 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         this._defaultAction = new ActiveActionData(AvatarAction.POSTURE_STAND);
         this._defaultAction.definition = this._structure.getActionDefinition(AvatarImage.DEFAULT_ACTION);
         this.resetActions();
-        this._fullImageCache = new AdvancedMap();
         this._animationFrameCount = 0;
     }
 
@@ -119,13 +116,6 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         {
             this._cache.dispose();
             this._cache = null;
-        }
-
-        if(this._fullImageCache)
-        {
-            for(const k of this._fullImageCache.getValues()) (k && k.destroy());
-
-            this._fullImageCache = null;
         }
 
         this._image = null;
@@ -534,7 +524,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         return container;
     }
 
-    public async getCroppedImage(setType: string, scale: number = 1): Promise<HTMLImageElement>
+    public async getCroppedImageUrl(setType: string, scale: number = 1): Promise<string>
     {
         if(!this._mainAction) return null;
 
@@ -546,6 +536,13 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         const setTypes = this.getBodyParts(setType, this._mainAction.definition.geometryType, this._mainDirection);
         const container = new Container();
+
+        /* const sprite = new Sprite(Texture.EMPTY);
+
+        sprite.width = avatarCanvas.width;
+        sprite.height = avatarCanvas.height;
+
+        container.addChild(sprite); */
 
         let partCount = (setTypes.length - 1);
 
@@ -593,10 +590,18 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             partCount--;
         }
 
-        return await TextureUtils.generateImage(TextureUtils.generateTexture({
+        const texture = TextureUtils.generateTexture({
             target: container,
             frame: new Rectangle(0, 0, avatarCanvas.width, avatarCanvas.height)
-        }));
+        });
+        let canvas = GetRenderer().texture.generateCanvas(texture);
+        const base64 = canvas.toDataURL('image/png');
+
+        canvas = null;
+
+        texture.destroy(true);
+
+        return base64;
     }
 
     public getAsset(k: string): IGraphicAsset

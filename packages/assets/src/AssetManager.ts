@@ -1,5 +1,6 @@
 import { IAssetData, IAssetManager, IGraphicAsset, IGraphicAssetCollection } from '@nitrots/api';
-import { ArrayBufferToBase64, NitroBundle, NitroLogger } from '@nitrots/utils';
+import { NitroBundle, NitroLogger } from '@nitrots/utils';
+import '@pixi/gif';
 import { Assets, Spritesheet, SpritesheetData, Texture } from 'pixi.js';
 import { GraphicAssetCollection } from './GraphicAssetCollection';
 
@@ -100,6 +101,15 @@ export class AssetManager implements IAssetManager
         {
             if(!url || !url.length) return false;
 
+            if(url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.gif'))
+            {
+                const texture = await Assets.load<Texture>(url);
+
+                this.setTexture(url, texture);
+
+                return true;
+            }
+
             const response = await fetch(url);
 
             if(response.status !== 200) return false;
@@ -115,16 +125,6 @@ export class AssetManager implements IAssetManager
                     const nitroBundle = await NitroBundle.from(buffer);
 
                     await this.processAsset(nitroBundle.texture, nitroBundle.jsonFile as IAssetData);
-                    break;
-                }
-                case 'image/png':
-                case 'image/jpeg':
-                case 'image/gif': {
-                    const buffer = await response.arrayBuffer();
-                    const base64 = ArrayBufferToBase64(buffer);
-                    const texture = await Assets.load<Texture>(`data:${ contentType };base64,${ base64 }`);
-
-                    this.setTexture(url, texture);
                     break;
                 }
             }

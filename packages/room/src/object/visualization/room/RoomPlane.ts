@@ -1,7 +1,7 @@
 import { IAssetPlaneVisualizationLayer, IAssetRoomVisualizationData, IRoomGeometry, IRoomPlane, IVector3D } from '@nitrots/api';
 import { GetAssetManager } from '@nitrots/assets';
 import { GetRenderer, PlaneMaskFilter, TextureUtils, Vector3d } from '@nitrots/utils';
-import { Container, Matrix, Point, Sprite, Texture, TilingSprite } from 'pixi.js';
+import { Container, Filter, Matrix, Point, Sprite, Texture, TilingSprite } from 'pixi.js';
 import { RoomGeometry } from '../../../utils';
 import { RoomPlaneBitmapMask } from './RoomPlaneBitmapMask';
 import { RoomPlaneRectangleMask } from './RoomPlaneRectangleMask';
@@ -13,6 +13,7 @@ export class RoomPlane implements IRoomPlane
     public static HORIZONTAL_ANGLE_DEFAULT: number = 45;
     public static VERTICAL_ANGLE_DEFAULT: number = 30;
     public static PLANE_GEOMETRY: IRoomGeometry = new RoomGeometry(64, new Vector3d(RoomPlane.HORIZONTAL_ANGLE_DEFAULT, RoomPlane.VERTICAL_ANGLE_DEFAULT), new Vector3d(-10, 0, 0));
+    private static LANDSCAPE_COLOR: number = 0x0082F0;
 
     public static TYPE_UNDEFINED: number = 0;
     public static TYPE_WALL: number = 1;
@@ -59,6 +60,7 @@ export class RoomPlane implements IRoomPlane
 
     private _planeSprite: TilingSprite = null;
     private _planeTexture: Texture = null;
+    private _maskFilter: Filter = null;
 
     constructor(origin: IVector3D, location: IVector3D, leftSide: IVector3D, rightSide: IVector3D, type: number, usesMask: boolean, secondaryNormals: IVector3D[], randomSeed: number, textureOffsetX: number = 0, textureOffsetY: number = 0, textureMaxX: number = 0, textureMaxY: number = 0)
     {
@@ -120,13 +122,16 @@ export class RoomPlane implements IRoomPlane
         this._disposed = true;
     }
 
-    public update(geometry: IRoomGeometry, timeSinceStartMs: number): boolean
+    public update(geometry: IRoomGeometry, timeSinceStartMs: number, needsUpdate: boolean = false): boolean
     {
         if(!geometry || this._disposed) return false;
 
-        let needsUpdate = false;
+        if(this._geometryUpdateId !== geometry.updateId)
+        {
+            this._geometryUpdateId = geometry.updateId;
 
-        if(this._geometryUpdateId !== geometry.updateId) needsUpdate = true;
+            needsUpdate = true;
+        }
 
         if(!needsUpdate || !this._canBeVisible)
         {
@@ -187,24 +192,12 @@ export class RoomPlane implements IRoomPlane
 
             this._relativeDepth = relativeDepth;
             this._isVisible = true;
-            this._geometryUpdateId = geometry.updateId;
 
             Randomizer.setSeed(this._randomSeed);
 
             let width = (this._leftSide.length * geometry.scale);
             let height = (this._rightSide.length * geometry.scale);
             const normal = geometry.getCoordinatePosition(this._normal);
-
-            const getRandomColor = () =>
-            {
-                const letters = '0123456789ABCDEF';
-                let color = '0x';
-                for(let i = 0; i < 6; i++)
-                {
-                    color += letters[Math.floor(Math.random() * 16)];
-                }
-                return parseInt(color, 16);
-            };
 
             const getTextureAndColorForPlane = (planeId: string, planeType: number) =>
             {
@@ -316,7 +309,7 @@ export class RoomPlane implements IRoomPlane
                             x: renderOffsetX,
                             y: renderOffsetY
                         },
-                        tint: getRandomColor()
+                        tint: RoomPlane.LANDSCAPE_COLOR
                     });
                     break;
                 }
@@ -549,9 +542,9 @@ export class RoomPlane implements IRoomPlane
 
         this._maskChanged = false;
 
-        container.filterArea = container.getBounds().rectangle;
+        if(!this._maskFilter) this._maskFilter = new PlaneMaskFilter({});
 
-        container.filters = [ new PlaneMaskFilter({}) ];
+        if(!container.filters) container.filters = [ this._maskFilter ];
 
         return true;
     }

@@ -155,7 +155,7 @@ export class PlaneMaskManager
 
         if(!texture) return true;
 
-        const point = new Point(Math.round(posX) + asset.offsetX, Math.round(posY) + asset.offsetY);
+        const point = new Point((posX + asset.offsetX), (posY + asset.offsetY));
 
         const matrix = new Matrix();
 

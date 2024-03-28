@@ -1,8 +1,8 @@
-import { AbstractRenderer, BrowserAdapter, DOMAdapter, HelloSystem } from 'pixi.js';
+import { AbstractRenderer, BrowserAdapter, DOMAdapter, HelloSystem, TextureSource } from 'pixi.js';
 
 HelloSystem.defaultOptions.hello = true;
 AbstractRenderer.defaultOptions.failIfMajorPerformanceCaveat = false;
-//TextureSource.defaultOptions.scaleMode = 'nearest';
+TextureSource.defaultOptions.scaleMode = (!(window.devicePixelRatio % 1)) ? 'nearest' : 'linear';
 DOMAdapter.set(BrowserAdapter);
 
 export * from '@nitrots/api';

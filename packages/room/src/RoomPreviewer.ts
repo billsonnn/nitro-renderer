@@ -446,7 +446,7 @@ export class RoomPreviewer
 
                 backgroundSprite.width = width;
                 backgroundSprite.height = height;
-                backgroundSprite.tint = this._backgroundColor;
+                //backgroundSprite.tint = this._backgroundColor;
             }
 
             this._roomEngine.setRoomInstanceRenderingCanvasMask(this._previewRoomId, RoomPreviewer.PREVIEW_CANVAS_ID, true);
@@ -494,7 +494,7 @@ export class RoomPreviewer
     public updatePreviewObjectBoundingRectangle(point: Point = null): void
     {
         if(!point) point = new Point(0, 0);
-        
+
         const objectBounds = this._roomEngine.getRoomObjectBoundingRectangle(this._previewRoomId, RoomPreviewer.PREVIEW_OBJECT_ID, this._currentPreviewObjectCategory, RoomPreviewer.PREVIEW_CANVAS_ID);
 
         if(objectBounds && point)

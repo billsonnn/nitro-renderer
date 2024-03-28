@@ -199,6 +199,11 @@
   resolved "https://registry.yarnpkg.com/@pixi/colord/-/colord-2.9.6.tgz#7e4e7851480da6fd3cef4e331f008d60be7e1204"
   integrity sha512-nezytU2pw587fQstUu1AsJZDVEynjskwOL+kibwcdxsMBFqPsFFNA7xl0ii/gXuDi6M0xj3mfRJj8pBSc2jCfA==
 
+"@pixi/gif@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@pixi/gif/-/gif-3.0.0.tgz#dbd3e1bfb2a5d83a84965f5b517cc5dcb8407862"
+  integrity sha512-0am94k1SEwacW6anOiNT9vt3vnefEaiMxkg30nMwvqU3XkIO6sSsFBgQM3UArjDG/quYsujjyZZkyhl7yBF6GQ==
+
 "@rollup/plugin-typescript@^11.1.6":
   version "11.1.6"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-typescript/-/plugin-typescript-11.1.6.tgz#724237d5ec12609ec01429f619d2a3e7d4d1b22b"

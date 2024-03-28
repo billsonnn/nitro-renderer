@@ -157,8 +157,7 @@ export class ConfigurationManager implements IConfigurationManager
 
     public getDefaultConfig(): { [index: string]: any }
     {
-        //@ts-ignore
-        return NitroConfig as { [index: string]: any };
+        return window.NitroConfig;
     }
 
     public get definitions(): Map<string, unknown>
