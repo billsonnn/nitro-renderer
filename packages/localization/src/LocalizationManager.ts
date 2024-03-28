@@ -2,6 +2,7 @@
 import { BadgePointLimitsEvent, GetCommunication } from '@nitrots/communication';
 import { GetConfiguration } from '@nitrots/configuration';
 import { BadgeBaseAndLevel } from './BadgeBaseAndLevel';
+import { GetAssetManager } from '@nitrots/assets';
 
 export class LocalizationManager implements ILocalizationManager
 {
@@ -29,6 +30,20 @@ export class LocalizationManager implements ILocalizationManager
                 if(response.status !== 200) throw new Error('Invalid localization file');
 
                 this.parseLocalization(await response.json());
+            }
+
+            const assetUrls = GetConfiguration().getValue<string[]>('preload.assets.urls');
+
+            for(let url of assetUrls)
+            {
+                if(!url || !url.length) return;
+
+                url = GetConfiguration().interpolate(url);
+
+                const status = await GetAssetManager().downloadAsset(url);
+
+                if(!status) throw new Error('Invalid preload asset file');
+
             }
 
             GetCommunication().registerMessageEvent(new BadgePointLimitsEvent(this.onBadgePointLimitsEvent.bind(this)));
