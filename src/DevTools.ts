@@ -1,6 +1,6 @@
 import { GetRoomEngine, RoomEngine } from '@nitrots/room';
-import { GetRenderer } from '@nitrots/utils';
-import { TextureSource } from 'pixi.js';
+import { GetRenderer, GetTexturePool } from '@nitrots/utils';
+import { Texture, TextureGCSystem, TextureSource } from 'pixi.js';
 export { };
 
 declare global
@@ -9,13 +9,17 @@ declare global
 	{
 		NitroDevTools?:
 		{
-            getRoomEngine(): RoomEngine;
-			showTextureCache(): TextureSource<any>[];
+            roomEngine(): RoomEngine;
+			textureCache(): TextureSource<any>[];
+			texturePool(): { [index: string]: { [index: string]: Texture[] } };
+			textureGC(): TextureGCSystem;
 		};
 	}
 }
 
 window.NitroDevTools = {
-    getRoomEngine: () => GetRoomEngine(),
-    showTextureCache: () => GetRenderer().texture.managedTextures,
+    roomEngine: () => GetRoomEngine(),
+    textureCache: () => GetRenderer().texture.managedTextures,
+	texturePool: () => GetTexturePool().textures,
+	textureGC: () => GetRenderer().textureGC
 };
