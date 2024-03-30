@@ -3,8 +3,6 @@ import { AvatarRenderLibraryEvent, GetEventDispatcher, NitroEventType } from '@n
 
 export class AvatarAssetDownloadLibrary implements IAvatarAssetDownloadLibrary
 {
-    public static DOWNLOAD_COMPLETE: string = 'AADL_DOWNLOAD_COMPLETE';
-
     private static NOT_LOADED: number = 0;
     private static LOADING: number = 1;
     private static LOADED: number = 2;

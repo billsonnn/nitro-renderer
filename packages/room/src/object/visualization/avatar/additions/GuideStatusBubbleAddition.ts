@@ -12,7 +12,8 @@ export class GuideStatusBubbleAddition implements IAvatarAddition
     constructor(
             private _id: number,
             private _visualization: AvatarVisualization,
-            private _status: number) {}
+            private _status: number)
+    {}
 
     public dispose(): void
     {

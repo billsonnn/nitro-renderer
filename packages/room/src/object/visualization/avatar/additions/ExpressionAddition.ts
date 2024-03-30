@@ -7,7 +7,8 @@ export class ExpressionAddition implements IExpressionAddition
     constructor(
         private _id: number,
         private _type: number,
-        private _visualization: AvatarVisualization) {}
+        private _visualization: AvatarVisualization)
+    {}
 
     public dispose(): void
     {

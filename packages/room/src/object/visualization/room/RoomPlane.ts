@@ -114,6 +114,7 @@ export class RoomPlane implements IRoomPlane
         {
             //@ts-ignore
             if(this._planeTexture.source?.hitMap) this._planeTexture.source.hitMap = null;
+
             this._planeTexture.destroy(true);
 
             this._planeTexture = null;

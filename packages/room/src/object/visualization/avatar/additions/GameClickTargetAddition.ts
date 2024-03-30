@@ -13,7 +13,8 @@ export class GameClickTargetAddition implements IAvatarAddition
     private _asset: Texture = null;
 
     constructor(
-        private _id: number) {}
+        private _id: number)
+    {}
 
     public dispose(): void
     {

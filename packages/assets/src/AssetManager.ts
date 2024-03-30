@@ -40,6 +40,8 @@ export class AssetManager implements IAssetManager
             return existing;
         }
 
+        NitroLogger.warn(`AssetManager: Asset not found: ${name}`);
+
         return null;
     }
 
@@ -76,13 +78,9 @@ export class AssetManager implements IAssetManager
     {
         if(!urls || !urls.length) return Promise.resolve(true);
 
-        const promises: Promise<boolean>[] = [];
-
-        for(const url of urls) promises.push(this.downloadAsset(url));
-
         try
         {
-            await Promise.all(promises);
+            await Promise.all(urls.map(url => this.downloadAsset(url)));
 
             return true;
         }
@@ -112,22 +110,12 @@ export class AssetManager implements IAssetManager
 
             const response = await fetch(url);
 
-            if(response.status !== 200) return false;
+            if(response.status !== 200 || !response.headers.has('Content-Type') || response.headers.get('Content-Type') !== 'application/octet-stream') return false;
 
-            let contentType = 'application/octet-stream';
+            const buffer = await response.arrayBuffer();
+            const nitroBundle = await NitroBundle.from(buffer);
 
-            if(response.headers.has('Content-Type')) contentType = response.headers.get('Content-Type');
-
-            switch(contentType)
-            {
-                case 'application/octet-stream': {
-                    const buffer = await response.arrayBuffer();
-                    const nitroBundle = await NitroBundle.from(buffer);
-
-                    await this.processAsset(nitroBundle.texture, nitroBundle.jsonFile as IAssetData);
-                    break;
-                }
-            }
+            await this.processAsset(nitroBundle.texture, nitroBundle.jsonFile as IAssetData);
 
             return true;
         }
