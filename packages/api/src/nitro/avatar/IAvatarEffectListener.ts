@@ -1,6 +1,4 @@
-import { IDisposable } from '../../common';
-
-export interface IAvatarEffectListener extends IDisposable
+export interface IAvatarEffectListener
 {
     resetEffect(effect: number): void;
 }

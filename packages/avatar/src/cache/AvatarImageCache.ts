@@ -1,4 +1,4 @@
-import { AvatarDirectionAngle, AvatarFigurePartType, AvatarScaleType, GeometryType, IActiveActionData, IAvatarImage, RoomObjectSpriteData } from '@nitrots/api';
+import { AvatarDirectionAngle, AvatarFigurePartType, AvatarScaleType, GeometryType, IActiveActionData, IAvatarImage } from '@nitrots/api';
 import { GetTickerTime } from '@nitrots/utils';
 import { Container, Matrix, Point, Rectangle, Sprite, Texture } from 'pixi.js';
 import { AvatarImageBodyPartContainer } from '../AvatarImageBodyPartContainer';
@@ -26,7 +26,6 @@ export class AvatarImageCache
     private _geometryType: string;
     private _unionImages: ImageData[];
     private _matrix: Matrix;
-    private _serverRenderData: RoomObjectSpriteData[];
 
     constructor(k: AvatarStructure, _arg_2: IAvatarImage, _arg_3: AssetAliasCollection, _arg_4: string)
     {
@@ -39,7 +38,6 @@ export class AvatarImageCache
         this._disposed = false;
         this._unionImages = [];
         this._matrix = new Matrix();
-        this._serverRenderData = [];
     }
 
     public dispose(): void
@@ -152,129 +150,91 @@ export class AvatarImageCache
         this._canvas = null;
     }
 
-    public getImageContainer(k: string, frameNumber: number, _arg_3: boolean = false): AvatarImageBodyPartContainer
+    public getImageContainer(key: string, frameNumber: number, forceRefresh: boolean = false): AvatarImageBodyPartContainer
     {
-        let _local_4 = this.getBodyPartCache(k);
+        const bodyPartCache = this.getBodyPartCache(key) || new AvatarImageBodyPartCache();
 
-        if(!_local_4)
+        this._cache.set(key, bodyPartCache);
+
+        let direction = bodyPartCache.getDirection();
+        let action = bodyPartCache.getAction();
+        let adjustedFrameCount = frameNumber;
+
+        if(action.definition.startFromFrameZero) adjustedFrameCount -= action.startFrame;
+
+        let adjustedAction = action;
+        let removeData: string[] = [];
+        let items: Map<string, string> = new Map();
+
+        const positionOffset = new Point();
+
+        if(action.definition.isAnimation)
         {
-            _local_4 = new AvatarImageBodyPartCache();
+            let adjustedDirection = direction;
 
-            this._cache.set(k, _local_4);
-        }
+            const animation = this._structure.getAnimation(((action.definition.state + '.') + action.actionParameter));
+            const animationFrameOffset = (frameNumber - action.startFrame);
 
-        let _local_5 = _local_4.getDirection();
-        let _local_7 = _local_4.getAction();
-        let frameCount = frameNumber;
-
-        if(_local_7.definition.startFromFrameZero) frameCount -= _local_7.startFrame;
-
-        let _local_8 = _local_7;
-        let _local_9: string[] = [];
-        let _local_10: Map<string, string> = new Map();
-        const _local_11 = new Point();
-
-        if(!((!(_local_7)) || (!(_local_7.definition))))
-        {
-            if(_local_7.definition.isAnimation)
+            if(animation)
             {
-                let _local_15 = _local_5;
+                const layerData = animation.getLayerData(animationFrameOffset, key, action.overridingAction);
 
-                const _local_16 = this._structure.getAnimation(((_local_7.definition.state + '.') + _local_7.actionParameter));
-                const _local_17 = (frameNumber - _local_7.startFrame);
-
-                if(_local_16)
+                if(layerData)
                 {
-                    const _local_18 = _local_16.getLayerData(_local_17, k, _local_7.overridingAction);
+                    adjustedDirection = (direction + layerData.dd + 8) % 8;
 
-                    if(_local_18)
+                    positionOffset.x = this._scale === AvatarScaleType.LARGE ? layerData.dx : layerData.dx / 2;
+                    positionOffset.y = this._scale === AvatarScaleType.LARGE ? layerData.dy : layerData.dy / 2;
+
+                    adjustedFrameCount = layerData.animationFrame;
+
+                    if(layerData.action) action = layerData.action;
+
+                    if(layerData.type === AvatarAnimationLayerData.BODYPART)
                     {
-                        _local_15 = (_local_5 + _local_18.dd);
+                        if(layerData.action) adjustedAction = layerData.action;
 
-                        if(_local_18.dd < 0)
-                        {
-                            if(_local_15 < 0)
-                            {
-                                _local_15 = (8 + _local_15);
-                            }
-                            else if(_local_15 > 7) _local_15 = (8 - _local_15);
-                        }
-                        else
-                        {
-                            if(_local_15 < 0)
-                            {
-                                _local_15 = (_local_15 + 8);
-                            }
-                            else if(_local_15 > 7) _local_15 = (_local_15 - 8);
-                        }
-
-                        if(this._scale === AvatarScaleType.LARGE)
-                        {
-                            _local_11.x = _local_18.dx;
-                            _local_11.y = _local_18.dy;
-                        }
-                        else
-                        {
-                            _local_11.x = (_local_18.dx / 2);
-                            _local_11.y = (_local_18.dy / 2);
-                        }
-
-                        frameCount = _local_18.animationFrame;
-
-                        if(_local_18.action)
-                        {
-                            _local_7 = _local_18.action;
-                        }
-
-                        if(_local_18.type === AvatarAnimationLayerData.BODYPART)
-                        {
-                            if(_local_18.action != null)
-                            {
-                                _local_8 = _local_18.action;
-                            }
-
-                            _local_5 = _local_15;
-                        }
-                        else if(_local_18.type === AvatarAnimationLayerData.FX) _local_5 = _local_15;
-
-                        _local_10 = _local_18.items;
+                        direction = adjustedDirection;
                     }
+                    else if(layerData.type === AvatarAnimationLayerData.FX) direction = adjustedDirection;
 
-                    _local_9 = _local_16.removeData;
+                    items = layerData.items;
                 }
+
+                removeData = animation.removeData;
             }
         }
 
-        let _local_12 = _local_4.getActionCache(_local_8);
+        let actionCache = bodyPartCache.getActionCache(adjustedAction);
 
-        if(!_local_12 || _arg_3)
+        if(!actionCache || forceRefresh)
         {
-            _local_12 = new AvatarImageActionCache();
-            _local_4.updateActionCache(_local_8, _local_12);
+            actionCache = new AvatarImageActionCache();
+            bodyPartCache.updateActionCache(adjustedAction, actionCache);
         }
 
-        let _local_13 = _local_12.getDirectionCache(_local_5);
+        let directionCache = actionCache.getDirectionCache(direction);
 
-        if(!_local_13 || _arg_3)
+        if(!directionCache || forceRefresh)
         {
-            const _local_19 = this._structure.getParts(k, this._avatar.getFigure(), _local_8, this._geometryType, _local_5, _local_9, this._avatar, _local_10);
+            const partList = this._structure.getParts(key, this._avatar.getFigure(), adjustedAction, this._geometryType, direction, removeData, this._avatar, items);
 
-            _local_13 = new AvatarImageDirectionCache(_local_19);
+            directionCache = new AvatarImageDirectionCache(partList);
 
-            _local_12.updateDirectionCache(_local_5, _local_13);
+            actionCache.updateDirectionCache(direction, directionCache);
         }
 
-        let _local_14 = _local_13.getImageContainer(frameCount);
+        let imageContainer = directionCache.getImageContainer(adjustedFrameCount);
 
-        if(!_local_14 || _arg_3)
+        if(!imageContainer || forceRefresh)
         {
-            const _local_20 = _local_13.getPartList();
+            const partList = directionCache.getPartList();
 
-            _local_14 = this.renderBodyPart(_local_5, _local_20, frameCount, _local_7, _arg_3);
+            imageContainer = this.renderBodyPart(direction, partList, adjustedFrameCount, action);
 
-            if(_local_14 && !_arg_3)
+            if(imageContainer && !forceRefresh)
             {
-                if(_local_14.isCacheable) _local_13.updateImageContainer(_local_14, frameCount);
+                if(imageContainer.isCacheable) directionCache.updateImageContainer(imageContainer, adjustedFrameCount);
             }
             else
             {
@@ -282,21 +242,14 @@ export class AvatarImageCache
             }
         }
 
-        const offset = this._structure.getFrameBodyPartOffset(_local_8, _local_5, frameCount, k);
+        const offset = this._structure.getFrameBodyPartOffset(adjustedAction, direction, adjustedFrameCount, key);
 
-        _local_11.x += offset.x;
-        _local_11.y += offset.y;
+        positionOffset.x += offset.x;
+        positionOffset.y += offset.y;
 
-        _local_14.offset = _local_11;
+        imageContainer.offset = positionOffset;
 
-        return _local_14;
-    }
-
-    public getServerRenderData(): any[]
-    {
-        this._serverRenderData = [];
-
-        return this._serverRenderData;
+        return imageContainer;
     }
 
     public getBodyPartCache(k: string): AvatarImageBodyPartCache
@@ -313,7 +266,7 @@ export class AvatarImageCache
         return existing;
     }
 
-    private renderBodyPart(direction: number, containers: AvatarImagePartContainer[], frameCount: number, _arg_4: IActiveActionData, renderServerData: boolean = false): AvatarImageBodyPartContainer
+    private renderBodyPart(direction: number, containers: AvatarImagePartContainer[], frameCount: number, action: IActiveActionData): AvatarImageBodyPartContainer
     {
         if(!containers || !containers.length) return null;
 
@@ -325,7 +278,7 @@ export class AvatarImageCache
         }
 
         const isFlipped = AvatarDirectionAngle.DIRECTION_IS_FLIPPED[direction] || false;
-        let assetPartDefinition = _arg_4.definition.assetPartDefinition;
+        let assetPartDefinition = action.definition.assetPartDefinition;
         let isCacheable = true;
         let containerIndex = (containers.length - 1);
 
@@ -397,33 +350,6 @@ export class AvatarImageCache
 
                             if(flipH) offset.x = (offset.x + ((this._scale === AvatarScaleType.LARGE) ? 65 : 31));
 
-                            if(renderServerData)
-                            {
-                                const spriteData = new RoomObjectSpriteData();
-
-                                spriteData.name = this._assets.getAssetName(assetName);
-                                spriteData.x = (-(offset.x) - 33);
-                                spriteData.y = -(offset.y);
-                                spriteData.z = (this._serverRenderData.length * -0.0001);
-                                spriteData.width = asset.rectangle.width;
-                                spriteData.height = asset.rectangle.height;
-                                spriteData.flipH = flipH;
-
-                                if(assetPartDefinition === 'lay') spriteData.x = (spriteData.x + 53);
-
-                                if(isFlipped)
-                                {
-                                    spriteData.flipH = (!(spriteData.flipH));
-
-                                    if(spriteData.flipH) spriteData.x = (-(spriteData.x) - texture.width);
-                                    else spriteData.x = (spriteData.x + 65);
-                                }
-
-                                if(container.isColorable) spriteData.color = `${color}`;
-
-                                this._serverRenderData.push(spriteData);
-                            }
-
                             this._unionImages.push(new ImageData(texture, asset.rectangle, offset, flipH, color));
                         }
                     }
@@ -485,9 +411,6 @@ export class AvatarImageCache
         {
             if(!data) continue;
 
-            const texture = data.texture;
-            const color = data.colorTransform;
-            const flipH = (!(isFlipped && data.flipH) && (isFlipped || data.flipH));
             const regPoint = point.clone();
 
             regPoint.x -= data.regPoint.x;
@@ -495,7 +418,7 @@ export class AvatarImageCache
 
             if(isFlipped) regPoint.x = (container.width - (regPoint.x + data.rect.width));
 
-            if(flipH)
+            if(isFlipped != data.flipH)
             {
                 this._matrix.a = -1;
                 this._matrix.tx = ((data.rect.x + data.rect.width) + regPoint.x);
@@ -508,9 +431,9 @@ export class AvatarImageCache
                 this._matrix.ty = (regPoint.y - data.rect.y);
             }
 
-            const sprite = new Sprite(texture);
+            const sprite = new Sprite(data.texture);
 
-            sprite.tint = color;
+            sprite.tint = data.colorTransform;
             sprite.setFromMatrix(this._matrix);
 
             container.addChild(sprite);

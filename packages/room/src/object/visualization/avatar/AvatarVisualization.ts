@@ -1,4 +1,5 @@
 import { AlphaTolerance, AvatarAction, AvatarGuideStatus, AvatarSetType, IAdvancedMap, IAvatarEffectListener, IAvatarImage, IAvatarImageListener, IGraphicAsset, IObjectVisualizationData, IRoomGeometry, IRoomObject, IRoomObjectModel, RoomObjectSpriteType, RoomObjectVariable } from '@nitrots/api';
+import { GetAssetManager } from '@nitrots/assets';
 import { AdvancedMap } from '@nitrots/utils';
 import { Texture } from 'pixi.js';
 import { RoomObjectSpriteVisualization } from '../RoomObjectSpriteVisualization';
@@ -276,8 +277,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
             if(sprite)
             {
                 const highlightEnabled = ((this.object.model.getValue<number>(RoomObjectVariable.FIGURE_HIGHLIGHT_ENABLE) === 1) && (this.object.model.getValue<number>(RoomObjectVariable.FIGURE_HIGHLIGHT) === 1));
-
-                const avatarImage = this._avatarImage.getImage(AvatarSetType.FULL, highlightEnabled);
+                const avatarImage = this._avatarImage.processAsTexture(AvatarSetType.FULL, highlightEnabled);
 
                 if(avatarImage)
                 {
@@ -411,7 +411,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
                         const assetName = ((((((this._avatarImage.getScale() + '_') + spriteData.member) + '_') + dd) + '_') + frameNumber);
 
-                        const asset = this._avatarImage.getAsset(assetName);
+                        const asset = GetAssetManager().getAsset(assetName);
 
                         if(!asset) continue;
 
@@ -995,6 +995,14 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
 
     private clearAvatar(): void
     {
+        const sprite = this.getSprite(AvatarVisualization.AVATAR_LAYER_ID);
+
+        if(sprite)
+        {
+            sprite.texture = Texture.EMPTY;
+            sprite.alpha = 255;
+        }
+
         for(const avatar of this._cachedAvatars.getValues()) avatar && avatar.dispose();
 
         for(const avatar of this._cachedAvatarEffects.getValues()) avatar && avatar.dispose();
@@ -1003,14 +1011,6 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
         this._cachedAvatarEffects.reset();
 
         this._avatarImage = null;
-
-        const sprite = this.getSprite(AvatarVisualization.AVATAR_LAYER_ID);
-
-        if(sprite)
-        {
-            sprite.texture = Texture.EMPTY;
-            sprite.alpha = 255;
-        }
     }
 
     private getAddition(id: number): IAvatarAddition
@@ -1071,7 +1071,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                 {
                     sprite.libraryAssetName = 'sh_std_sd_1_0_0';
 
-                    this._shadow = this._avatarImage.getAsset(sprite.libraryAssetName);
+                    this._shadow = GetAssetManager().getAsset(sprite.libraryAssetName);
 
                     offsetX = -8;
                     offsetY = ((this._canStandUp) ? 6 : -3);
@@ -1080,7 +1080,7 @@ export class AvatarVisualization extends RoomObjectSpriteVisualization implement
                 {
                     sprite.libraryAssetName = 'h_std_sd_1_0_0';
 
-                    this._shadow = this._avatarImage.getAsset(sprite.libraryAssetName);
+                    this._shadow = GetAssetManager().getAsset(sprite.libraryAssetName);
 
                     offsetX = -17;
                     offsetY = ((this._canStandUp) ? 10 : -7);

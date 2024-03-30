@@ -46,13 +46,6 @@ export class FigurePartSet implements IFigurePartSet
 
     public dispose(): void
     {
-        for(const part of this._parts)
-        {
-            const figurePart = part as FigurePart;
-
-            figurePart.dispose();
-        }
-
         this._parts = null;
         this._hiddenLayers = null;
     }
