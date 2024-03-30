@@ -124,7 +124,7 @@ export class RoomRenderer implements IRoomRenderer, IRoomSpriteCanvasContainer
 
     private createSpriteCanvas(id: number, width: number, height: number, scale: number): IRoomRenderingCanvas
     {
-        return new RoomSpriteCanvas(this, id, width, height, scale);
+        return new RoomSpriteCanvas(id, this, width, height, scale);
     }
 
     public removeCanvas(id: number): void

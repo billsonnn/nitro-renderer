@@ -724,16 +724,6 @@ export class RoomPreviewer
         }
     }
 
-    public set disableUpdate(flag: boolean)
-    {
-        this._disableUpdate = flag;
-    }
-
-    public set disableRoomEngineUpdate(flag: boolean)
-    {
-        if(this.isRoomEngineReady) this._roomEngine.disableUpdate(flag);
-    }
-
     private onRoomInitializedonRoomInitialized(event: RoomEngineEvent): void
     {
         if(!event) return;
@@ -769,11 +759,6 @@ export class RoomPreviewer
                 }
             }
         }
-    }
-
-    public updateRoomEngine(): void
-    {
-        if(this.isRoomEngineReady) this._roomEngine.runUpdate();
     }
 
     public getRenderingCanvas(): IRoomRenderingCanvas

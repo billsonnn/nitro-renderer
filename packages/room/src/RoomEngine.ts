@@ -3,7 +3,7 @@ import { GetCommunication, RenderRoomMessageComposer, RenderRoomThumbnailMessage
 import { GetConfiguration } from '@nitrots/configuration';
 import { BadgeImageReadyEvent, GetEventDispatcher, NitroToolbarAnimateIconEvent, RoomBackgroundColorEvent, RoomDragEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomObjectEvent, RoomObjectFurnitureActionEvent, RoomObjectMouseEvent, RoomSessionEvent, RoomToObjectOwnAvatarMoveEvent } from '@nitrots/events';
 import { GetRoomSessionManager, GetSessionDataManager } from '@nitrots/session';
-import { FurniId, GetTicker, GetTickerTime, NitroLogger, NumberBank, TextureUtils, Vector3d } from '@nitrots/utils';
+import { FurniId, GetTickerTime, NitroLogger, NumberBank, TextureUtils, Vector3d } from '@nitrots/utils';
 import { Container, Matrix, Point, Rectangle, RenderTexture, Sprite, Texture, Ticker } from 'pixi.js';
 import { GetRoomContentLoader } from './GetRoomContentLoader';
 import { GetRoomManager } from './GetRoomManager';
@@ -93,13 +93,6 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
         this._roomManager.addUpdateCategory(RoomObjectCategory.UNIT);
         this._roomManager.addUpdateCategory(RoomObjectCategory.CURSOR);
         this._roomManager.addUpdateCategory(RoomObjectCategory.ROOM);
-
-        GetTicker().add(this.update, this);
-
-        document.addEventListener('visibilitychange', event =>
-        {
-            if(!document.hidden) this.update(GetTicker()); // true
-        });
     }
 
     private onRoomSessionEvent(event: RoomSessionEvent): void
@@ -631,24 +624,6 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
     public isPlayingGame(): boolean
     {
         return this.isRoomIdPlayingGame(this._activeRoomId);
-    }
-
-    public disableUpdate(flag: boolean): void
-    {
-        if(flag)
-        {
-            GetTicker().remove(this.update, this);
-        }
-        else
-        {
-            GetTicker().remove(this.update, this);
-            GetTicker().add(this.update, this);
-        }
-    }
-
-    public runUpdate(): void
-    {
-        this.update(GetTicker());
     }
 
     public update(ticker: Ticker): void
