@@ -73,7 +73,7 @@ export class WiredFilter extends Filter
                 }
             }
             `,
-            name: 'plane-mask-filter',
+            name: 'wired-filter',
         });
 
         super({

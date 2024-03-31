@@ -1,5 +1,5 @@
 import { AvatarAction, AvatarDirectionAngle, AvatarScaleType, AvatarSetType, IActiveActionData, IAnimationLayerData, IAvatarDataContainer, IAvatarEffectListener, IAvatarFigureContainer, IAvatarImage, IPartColor, ISpriteDataContainer } from '@nitrots/api';
-import { GetRenderer, GetTexturePool, GetTickerTime, TextureUtils } from '@nitrots/utils';
+import { GetRenderer, GetTexturePool, GetTickerTime, PaletteMapFilter, TextureUtils } from '@nitrots/utils';
 import { ColorMatrixFilter, Container, RenderTexture, Sprite, Texture } from 'pixi.js';
 import { AvatarFigureContainer } from './AvatarFigureContainer';
 import { AvatarStructure } from './AvatarStructure';
@@ -230,18 +230,29 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
             partCount--;
         }
 
+        container.filters = [];
+
         if(this._avatarSpriteData)
         {
-            if(!Array.isArray(container.filters)) container.filters = [];
-
-            if(this._avatarSpriteData.colorTransform) container.filters.push(this._avatarSpriteData.colorTransform);
+            if(this._avatarSpriteData.colorTransform)
+            {
+                if(container.filters === undefined || container.filters === null) container.filters = [ this._avatarSpriteData.colorTransform ];
+                else if(Array.isArray(container.filters)) container.filters = [ ...container.filters, this._avatarSpriteData.colorTransform ];
+                else container.filters = [ container.filters, this._avatarSpriteData.colorTransform ];
+            }
 
             if(this._avatarSpriteData.paletteIsGrayscale)
             {
                 this.convertToGrayscale(container);
 
-                // TODO: rewrite the palette map filter
-                //container.filters.push(new PaletteMapFilter(this._avatarSpriteData.reds, PaletteMapFilter.CHANNEL_RED));
+                const paletteMapFilter = new PaletteMapFilter({
+                    palette: this._avatarSpriteData.reds,
+                    channel: PaletteMapFilter.CHANNEL_RED
+                });
+
+                if(container.filters === undefined || container.filters === null) container.filters = [ paletteMapFilter ];
+                else if(Array.isArray(container.filters)) container.filters = [ ...container.filters, paletteMapFilter ];
+                else container.filters = [ container.filters, paletteMapFilter ];
             }
         }
 
@@ -721,18 +732,18 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                 break;
         }
 
-        const colorFilter = new ColorMatrixFilter();
+        const filter = new ColorMatrixFilter();
 
-        colorFilter.matrix = [
+        filter.matrix = [
             redWeight, greenWeight, blueWeight, 0, 0, // Red channel
             redWeight, greenWeight, blueWeight, 0, 0, // Green channel
             redWeight, greenWeight, blueWeight, 0, 0, // Blue channel
             0, 0, 0, 1, 0 // Alpha channel
         ];
 
-        if(!Array.isArray(container.filters)) container.filters = [];
-
-        container.filters.push(colorFilter);
+        if(container.filters === undefined || container.filters === null) container.filters = [ filter ];
+        else if(Array.isArray(container.filters)) container.filters = [ ...container.filters, filter ];
+        else container.filters = [ container.filters, filter ];
 
         return container;
     }
