@@ -1,5 +1,5 @@
 import { AlphaTolerance, IRoomObjectSprite } from '@nitrots/api';
-import { TextureUtils } from '@nitrots/utils';
+import { GetTexturePool } from '@nitrots/utils';
 import { Texture } from 'pixi.js';
 import { IAvatarAddition } from './IAvatarAddition';
 
@@ -18,15 +18,19 @@ export class GameClickTargetAddition implements IAvatarAddition
 
     public dispose(): void
     {
-        this._asset = null;
+        if(this._asset)
+        {
+            GetTexturePool().putTexture(this._asset);
+
+            this._asset = null;
+        }
     }
 
-    // TODO: needs testing
     public update(sprite: IRoomObjectSprite, scale: number): void
     {
         if(!sprite) return;
 
-        if(!this._asset) this._asset = TextureUtils.createRenderTexture(GameClickTargetAddition.WIDTH, GameClickTargetAddition.HEIGHT);
+        if(!this._asset) this._asset = GetTexturePool().getTexture(GameClickTargetAddition.WIDTH, GameClickTargetAddition.HEIGHT);
 
         sprite.visible = true;
         sprite.texture = this._asset;

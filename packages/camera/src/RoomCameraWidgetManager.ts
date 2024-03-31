@@ -1,4 +1,5 @@
 import { IRoomCameraWidgetEffect, IRoomCameraWidgetManager, IRoomCameraWidgetSelectedEffect } from '@nitrots/api';
+import { GetAssetManager } from '@nitrots/assets';
 import { GetConfiguration } from '@nitrots/configuration';
 import { GetEventDispatcher, RoomCameraWidgetManagerEvent } from '@nitrots/events';
 import { TextureUtils } from '@nitrots/utils';
@@ -16,7 +17,7 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
         this._isLoaded = false;
     }
 
-    public init(): void
+    public async init(): Promise<void>
     {
         if(this._isLoaded) return;
 
@@ -37,7 +38,11 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
             }
             else
             {
-                cameraEffect.texture = Texture.from(imagesUrl + effect.name + '.png');
+                const url = `${ imagesUrl }${ effect.name }.png`;
+
+                await GetAssetManager().downloadAsset(url);
+
+                cameraEffect.texture = GetAssetManager().getTexture(url);
                 cameraEffect.blendMode = effect.blendMode;
             }
 

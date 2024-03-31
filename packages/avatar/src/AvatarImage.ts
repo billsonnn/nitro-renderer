@@ -295,16 +295,6 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         //@ts-ignore
         this._activeTexture.source.hitMap = null;
 
-        /*
-        if(this._avatarSpriteData)
-        {
-            if(this._avatarSpriteData.paletteIsGrayscale)
-            {
-                this._reusableTexture = this.applyPalette(this._reusableTexture, this._avatarSpriteData.reds, [], []);
-            }
-        }
-        */
-
         this._changes = false;
 
         return this._activeTexture;
