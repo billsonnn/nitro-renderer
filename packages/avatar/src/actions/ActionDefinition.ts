@@ -16,10 +16,10 @@ export class ActionDefinition implements IActionDefinition
     private _startFromFrameZero: boolean;
     private _prevents: string[];
     private _preventHeadTurn: boolean;
-    private _types: Map<number, ActionType>;
-    private _params: Map<string, string>;
-    private _defaultParameterValue: string;
-    private _canvasOffsets: Map<string, Map<number, number[]>>;
+    private _types: Map<number, ActionType> = new Map();
+    private _params: Map<string, string> = new Map();
+    private _defaultParameterValue: string = '';
+    private _canvasOffsets: Map<string, Map<number, number[]>> = new Map();
 
     constructor(data: any)
     {
@@ -36,10 +36,6 @@ export class ActionDefinition implements IActionDefinition
         this._startFromFrameZero = data.startFromFrameZero || false;
         this._prevents = data.prevents || [];
         this._preventHeadTurn = data.preventHeadTurn || false;
-        this._types = new Map();
-        this._params = new Map();
-        this._defaultParameterValue = '';
-        this._canvasOffsets = null;
 
         if(data.params && (data.params.length > 0))
         {

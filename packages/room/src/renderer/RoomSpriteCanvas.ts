@@ -2,48 +2,45 @@ import { IRoomCanvasMouseListener, IRoomGeometry, IRoomObject, IRoomObjectSprite
 import { GetConfiguration } from '@nitrots/configuration';
 import { RoomSpriteMouseEvent } from '@nitrots/events';
 import { GetTicker, TextureUtils, Vector3d } from '@nitrots/utils';
-import { Container, Graphics, Matrix, Point, Rectangle, Texture } from 'pixi.js';
+import { Container, Matrix, Point, Rectangle, Sprite, Texture } from 'pixi.js';
 import { RoomEnterEffect, RoomGeometry, RoomRotatingEffect, RoomShakingEffect } from '../utils';
 import { RoomObjectCache, RoomObjectCacheItem } from './cache';
 import { ExtendedSprite, ObjectMouseData, SortableSprite } from './utils';
 
 export class RoomSpriteCanvas implements IRoomRenderingCanvas
 {
-    private _id: number;
-    private _container: IRoomSpriteCanvasContainer;
-
     private _geometry: RoomGeometry;
     private _animationFPS: number;
-    private _renderTimestamp: number;
-    private _totalTimeRunning: number;
-    private _lastFrame: number;
+    private _renderTimestamp: number = 0;
+    private _totalTimeRunning: number = 0;
+    private _lastFrame: number = 0;
 
-    private _master: Container;
-    private _display: Container;
-    private _mask: Graphics;
+    private _master: Container = null;
+    private _display: Container = null;
+    private _mask: Sprite = null;
 
-    private _sortableSprites: SortableSprite[];
-    private _spriteCount: number;
-    private _activeSpriteCount: number;
-    private _spritePool: ExtendedSprite[];
-    private _skipObjectUpdate: boolean;
-    private _runningSlow: boolean;
+    private _sortableSprites: SortableSprite[] = [];
+    private _spriteCount: number = 0;
+    private _activeSpriteCount: number = 0;
+    private _spritePool: ExtendedSprite[] = [];
+    private _skipObjectUpdate: boolean = false;
+    private _runningSlow: boolean = false;
 
-    private _width: number;
-    private _height: number;
-    private _renderedWidth: number;
-    private _renderedHeight: number;
-    private _screenOffsetX: number;
-    private _screenOffsetY: number;
-    private _mouseLocation: Point;
-    private _mouseOldX: number;
-    private _mouseOldY: number;
-    private _mouseCheckCount: number;
-    private _mouseSpriteWasHit: boolean;
-    private _mouseActiveObjects: Map<string, ObjectMouseData>;
-    private _eventCache: Map<string, IRoomSpriteMouseEvent>;
-    private _eventId: number;
-    private _scale: number;
+    private _width: number = 0;
+    private _height: number = 0;
+    private _renderedWidth: number = 0;
+    private _renderedHeight: number = 0;
+    private _screenOffsetX: number = 0;
+    private _screenOffsetY: number = 0;
+    private _mouseLocation: Point = new Point();
+    private _mouseOldX: number = 0;
+    private _mouseOldY: number = 0;
+    private _mouseCheckCount: number = 0;
+    private _mouseSpriteWasHit: boolean = false;
+    private _mouseActiveObjects: Map<string, ObjectMouseData> = new Map();
+    private _eventCache: Map<string, IRoomSpriteMouseEvent> = new Map();
+    private _eventId: number = 0;
+    private _scale: number = 1;
 
     private _SafeStr_4507: boolean = false;
     private _rotation: number = 0;
@@ -53,61 +50,25 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     private _effectLocation: Vector3d;
     private _SafeStr_795: number = 0;
 
-    private _noSpriteVisibilityChecking: boolean;
-    private _usesExclusionRectangles: boolean;
-    private _usesMask: boolean;
-    private _canvasUpdated: boolean;
+    private _noSpriteVisibilityChecking: boolean = false;
+    private _usesExclusionRectangles: boolean = false;
+    private _usesMask: boolean = true;
+    private _canvasUpdated: boolean = false;
 
     private _objectCache: RoomObjectCache;
 
-    private _mouseListener: IRoomCanvasMouseListener;
+    private _mouseListener: IRoomCanvasMouseListener = null;
 
-    constructor(container: IRoomSpriteCanvasContainer, id: number, width: number, height: number, scale: number)
+    constructor(
+        private _id: number,
+        private _container: IRoomSpriteCanvasContainer,
+        width: number,
+        height: number,
+        scale: number)
     {
-        this._id = id;
-        this._container = container;
-
         this._geometry = new RoomGeometry(scale, new Vector3d(-135, 30, 0), new Vector3d(11, 11, 5), new Vector3d(-135, 0.5, 0));
         this._animationFPS = GetConfiguration().getValue<number>('system.fps.animation', 24);
-        this._renderTimestamp = 0;
-        this._totalTimeRunning = 0;
-        this._lastFrame = 0;
-
-        this._master = null;
-        this._display = null;
-        this._mask = null;
-
-        this._sortableSprites = [];
-        this._spriteCount = 0;
-        this._activeSpriteCount = 0;
-        this._spritePool = [];
-        this._skipObjectUpdate = false;
-        this._runningSlow = false;
-
-        this._width = 0;
-        this._height = 0;
-        this._renderedWidth = 0;
-        this._renderedHeight = 0;
-        this._screenOffsetX = 0;
-        this._screenOffsetY = 0;
-        this._mouseLocation = new Point;
-        this._mouseOldX = 0;
-        this._mouseOldY = 0;
-        this._mouseCheckCount = 0;
-        this._mouseSpriteWasHit = false;
-        this._mouseActiveObjects = new Map();
-        this._eventCache = new Map();
-        this._eventId = 0;
-        this._scale = 1;
-
-        this._noSpriteVisibilityChecking = false;
-        this._usesExclusionRectangles = false;
-        this._usesMask = true;
-        this._canvasUpdated = false;
-
         this._objectCache = new RoomObjectCache(this._container.roomObjectVariableAccurateZ);
-
-        this._mouseListener = null;
 
         this.setupCanvas();
         this.initialize(width, height);
@@ -123,7 +84,12 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         {
             const display = new Container();
 
+            display.isRenderGroup = true;
+
             display.cullableChildren = false;
+
+            display.interactive = false;
+            display.interactiveChildren = false;
 
             this._master.addChild(display);
 
@@ -206,9 +172,11 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         {
             if(!this._mask)
             {
-                this._mask = new Graphics()
-                    .rect(0, 0, width, height)
-                    .fill(0xFF0000);
+                this._mask = new Sprite(Texture.WHITE);
+
+                this._mask.tint = 0xFF0000;
+                this._mask.width = width;
+                this._mask.height = height;
 
                 if(this._master)
                 {
@@ -219,27 +187,13 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             }
             else
             {
-                this._mask
-                    .clear()
-                    .rect(0, 0, width, height)
-                    .fill(0xFF0000);
+                this._mask.width = width;
+                this._mask.height = height;
             }
         }
 
         if(this._master)
         {
-            /* if(this._master.hitArea)
-            {
-                const hitArea = (this._master.hitArea as Rectangle);
-
-                hitArea.width = width;
-                hitArea.height = height;
-            }
-            else
-            {
-                this._master.hitArea = new Rectangle(0, 0, width, height);
-            } */
-
             if(this._master.filterArea)
             {
                 const filterArea = this._master.filterArea;

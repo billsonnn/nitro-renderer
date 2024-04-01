@@ -2,6 +2,8 @@ import { BLEND_MODES, Filter, Texture } from 'pixi.js';
 
 export interface IRoomObjectSprite
 {
+    dispose(): void;
+    increaseUpdateCounter(): void;
     id: number;
     name: string;
     type: string;

@@ -11,7 +11,8 @@ export class TypingBubbleAddition implements IAvatarAddition
 
     constructor(
         private _id: number,
-        private _visualization: AvatarVisualization) {}
+        private _visualization: AvatarVisualization)
+    {}
 
     public dispose(): void
     {

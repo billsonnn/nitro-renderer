@@ -1,23 +1,20 @@
-import { Sprite, Texture } from 'pixi.js';
-import { IGraphicAsset } from '../../asset';
-import { IDisposable } from '../../common';
+import { Container, Texture } from 'pixi.js';
 import { IAvatarFigureContainer } from './IAvatarFigureContainer';
-import { IAnimationLayerData, IAvatarDataContainer, ISpriteDataContainer } from './animation';
+import { IAnimationLayerData, ISpriteDataContainer } from './animation';
 import { IPartColor } from './structure';
 
-export interface IAvatarImage extends IDisposable
+export interface IAvatarImage
 {
-    getServerRenderData(): any;
+    dispose(): void;
     setDirection(_arg_1: string, _arg_2: number): void;
     setDirectionAngle(_arg_1: string, _arg_2: number): void;
     updateAnimationByFrames(_arg_1?: number): void;
     getScale(): string;
     getSprites(): ISpriteDataContainer[];
     getLayerData(_arg_1: ISpriteDataContainer): IAnimationLayerData;
-    getImage(setType: string, hightlight: boolean, scale?: number, cache?: boolean): Texture;
-    getImageAsSprite(setType: string, scale?: number): Sprite;
-    getCroppedImageUrl(setType: string, scale?: number): Promise<string>;
-    getAsset(_arg_1: string): IGraphicAsset;
+    processAsTexture(setType: string, hightlight: boolean, texture?: Texture): Texture;
+    processAsImageUrl(setType: string): string;
+    processAsContainer(setType: string): Container;
     getDirection(): number;
     getFigure(): IAvatarFigureContainer;
     getPartColor(_arg_1: string): IPartColor;
@@ -26,10 +23,7 @@ export interface IAvatarImage extends IDisposable
     initActionAppends(): void;
     endActionAppends(): void;
     appendAction(_arg_1: string, ..._args: any[]): boolean;
-    avatarSpriteData: IAvatarDataContainer;
     isPlaceholder(): boolean;
-    forceActionUpdate(): void;
     animationHasResetOnToggle: boolean;
     resetAnimationFrameCounter(): void;
-    mainAction: string;
 }

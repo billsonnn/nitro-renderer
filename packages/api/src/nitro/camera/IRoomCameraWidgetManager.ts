@@ -4,7 +4,7 @@ import { IRoomCameraWidgetSelectedEffect } from './IRoomCameraWidgetSelectedEffe
 
 export interface IRoomCameraWidgetManager
 {
-    init(): void;
+    init(): Promise<void>;
     applyEffects(texture: Texture, selectedEffects: IRoomCameraWidgetSelectedEffect[], isZoomed: boolean): Promise<HTMLImageElement>;
     effects: Map<string, IRoomCameraWidgetEffect>;
     isLoaded: boolean;

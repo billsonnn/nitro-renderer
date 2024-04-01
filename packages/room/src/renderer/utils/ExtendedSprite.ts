@@ -1,6 +1,8 @@
 import { AlphaTolerance } from '@nitrots/api';
 import { GetRenderer } from '@nitrots/utils';
-import { Point, Sprite, Texture, TextureSource } from 'pixi.js';
+import { GlRenderTarget, Point, Sprite, Texture, TextureSource, WebGLRenderer } from 'pixi.js';
+
+const BYTES_PER_PIXEL = 4;
 
 export class ExtendedSprite extends Sprite
 {
@@ -77,14 +79,31 @@ export class ExtendedSprite extends Sprite
     {
         if(!textureSource) return false;
 
-        const texture = new Texture(textureSource);
-        const canvas = GetRenderer().texture.generateCanvas(texture);
-        const ctx = canvas.getContext('2d');
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const width = Math.max(Math.round(textureSource.width * textureSource.resolution), 1);
+        const height = Math.max(Math.round(textureSource.height * textureSource.resolution), 1);
+        const pixels = new Uint8Array(BYTES_PER_PIXEL * width * height);
+
+        const renderer = GetRenderer() as WebGLRenderer;
+
+        const renderTarget = renderer.renderTarget.getRenderTarget(textureSource);
+        const glRenterTarget = renderer.renderTarget.getGpuRenderTarget(renderTarget) as GlRenderTarget;
+
+        const gl = renderer.gl;
+
+        gl.bindFramebuffer(gl.FRAMEBUFFER, glRenterTarget.resolveTargetFramebuffer);
+
+        gl.readPixels(
+            0,
+            0,
+            width,
+            height,
+            gl.RGBA,
+            gl.UNSIGNED_BYTE,
+            pixels
+        );
 
         //@ts-ignore
-        textureSource.hitMap = imageData.data;
-        texture.destroy();
+        textureSource.hitMap = pixels;
 
         return true;
     }

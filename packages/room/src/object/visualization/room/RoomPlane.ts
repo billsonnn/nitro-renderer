@@ -1,6 +1,6 @@
 import { IAssetPlaneVisualizationLayer, IAssetRoomVisualizationData, IRoomGeometry, IRoomPlane, IVector3D } from '@nitrots/api';
 import { GetAssetManager } from '@nitrots/assets';
-import { GetRenderer, PlaneMaskFilter, TextureUtils, Vector3d } from '@nitrots/utils';
+import { GetRenderer, GetTexturePool, PlaneMaskFilter, Vector3d } from '@nitrots/utils';
 import { Container, Filter, Matrix, Point, Sprite, Texture, TilingSprite } from 'pixi.js';
 import { RoomGeometry } from '../../../utils';
 import { RoomPlaneBitmapMask } from './RoomPlaneBitmapMask';
@@ -112,9 +112,7 @@ export class RoomPlane implements IRoomPlane
 
         if(this._planeTexture)
         {
-            //@ts-ignore
-            if(this._planeTexture.source?.hitMap) this._planeTexture.source.hitMap = null;
-            this._planeTexture.destroy(true);
+            GetTexturePool().putTexture(this._planeTexture);
 
             this._planeTexture = null;
         }
@@ -336,13 +334,13 @@ export class RoomPlane implements IRoomPlane
         {
             if(this._planeTexture.width !== this._width || this._planeTexture.height !== this._height)
             {
-                this._planeTexture.destroy(true);
+                GetTexturePool().putTexture(this._planeTexture);
 
                 this._planeTexture = null;
             }
         }
 
-        if(!this._planeTexture) this._planeTexture = TextureUtils.createRenderTexture(this._width, this._height);
+        if(!this._planeTexture) this._planeTexture = GetTexturePool().getTexture(this._width, this._height);
 
         this._planeTexture.source.label = `room_plane_${ this._uniqueId.toString() }`;
 

@@ -1,5 +1,5 @@
 import { AlphaTolerance, IGraphicAsset, IObjectVisualizationData, IRoomGeometry, IRoomObjectSprite, RoomObjectVariable, RoomObjectVisualizationType } from '@nitrots/api';
-import { BLEND_MODES } from 'pixi.js';
+import { BLEND_MODES, Texture } from 'pixi.js';
 import { RoomObjectSpriteVisualization } from '../RoomObjectSpriteVisualization';
 import { ColorData, LayerData } from '../data';
 import { FurnitureVisualizationData } from './FurnitureVisualizationData';
@@ -279,11 +279,11 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         {
             const assetData = this.getAsset(assetName, layerId);
 
-            if(assetData && assetData.texture)
+            if(assetData)
             {
                 sprite.visible = true;
                 sprite.type = this._type;
-                sprite.texture = assetData.texture;
+                sprite.texture = this.getTexture(scale, layerId, assetData);
                 sprite.flipH = assetData.flipH;
                 sprite.flipV = assetData.flipV;
                 sprite.direction = this._direction;
@@ -575,6 +575,11 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         if(!this.asset) return null;
 
         return this.asset.getAsset(name);
+    }
+
+    public getTexture(scale: number, layerId: number, asset: IGraphicAsset): Texture
+    {
+        return asset?.texture ?? null;
     }
 
     protected get direction(): number

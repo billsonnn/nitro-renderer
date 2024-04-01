@@ -12,8 +12,6 @@ export interface IRoomEngine
 {
     init(): Promise<void>;
     setActiveRoomId(roomId: number): void;
-    disableUpdate(flag: boolean): void;
-    runUpdate(): void;
     createRoomInstance(roomId: number, roomMap: IRoomMapData): void;
     getRoomInstanceDisplay(roomId: number, id: number, width: number, height: number, scale: number): Container;
     setRoomInstanceRenderingCanvasScale(roomId: number, canvasId: number, scale: number, point?: Point, offsetPoint?: Point, override?: boolean, asDelta?: boolean): void;

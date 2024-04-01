@@ -21,11 +21,6 @@ export class FigurePart implements IFigurePart
         this._breed = -1;
     }
 
-    public dispose(): void
-    {
-
-    }
-
     public get id(): number
     {
         return this._id;
