@@ -1,5 +1,11 @@
 ﻿export class AvatarFigurePartType
 {
+    public static MALE: string = 'M';
+    public static FEMALE: string = 'F';
+    public static UNISEX: string = 'U';
+    public static SCALE: string = 'h';
+    public static STD: string = 'std';
+    public static DEFAULT_FRAME: number = 0;
     public static BODY: string = 'bd';
     public static SHOES: string = 'sh';
     public static LEGS: string = 'lg';

@@ -1,25 +1,25 @@
 ﻿export class FigureDataContainer
 {
-    private static MALE: string = 'M';
-    private static FEMALE: string = 'F';
-    private static UNISEX: string = 'U';
-    private static SCALE: string = 'h';
-    private static STD: string = 'std';
-    private static DEFAULT_FRAME: string = '0';
-    private static HD: string = 'hd';
-    private static HAIR: string = 'hr';
-    private static HAT: string = 'ha';
-    private static HEAD_ACCESSORIES: string = 'he';
-    private static EYE_ACCESSORIES: string = 'ea';
-    private static FACE_ACCESSORIES: string = 'fa';
-    private static JACKET: string = 'cc';
-    private static SHIRT: string = 'ch';
-    private static CHEST_ACCESSORIES: string = 'ca';
-    private static CHEST_PRINTS: string = 'cp';
-    private static TROUSERS: string = 'lg';
-    private static SHOES: string = 'sh';
-    private static TROUSER_ACCESSORIES: string = 'wa';
-    private static BLOCKED_FX_TYPES: number[] = [28, 29, 30, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 68];
+    public static MALE: string = 'M';
+    public static FEMALE: string = 'F';
+    public static UNISEX: string = 'U';
+    public static SCALE: string = 'h';
+    public static STD: string = 'std';
+    public static DEFAULT_FRAME: string = '0';
+    public static HD: string = 'hd';
+    public static HAIR: string = 'hr';
+    public static HAT: string = 'ha';
+    public static HEAD_ACCESSORIES: string = 'he';
+    public static EYE_ACCESSORIES: string = 'ea';
+    public static FACE_ACCESSORIES: string = 'fa';
+    public static JACKET: string = 'cc';
+    public static SHIRT: string = 'ch';
+    public static CHEST_ACCESSORIES: string = 'ca';
+    public static CHEST_PRINTS: string = 'cp';
+    public static TROUSERS: string = 'lg';
+    public static SHOES: string = 'sh';
+    public static TROUSER_ACCESSORIES: string = 'wa';
+    public static BLOCKED_FX_TYPES: number[] = [28, 29, 30, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 68];
 
     private _data: Map<string, number>;
     private _colors: Map<string, number[]>;

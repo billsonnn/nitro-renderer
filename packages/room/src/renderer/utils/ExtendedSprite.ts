@@ -1,6 +1,6 @@
 import { AlphaTolerance } from '@nitrots/api';
-import { GetRenderer } from '@nitrots/utils';
-import { GlRenderTarget, Point, Sprite, Texture, TextureSource, WebGLRenderer } from 'pixi.js';
+import { GetRenderer, TextureUtils } from '@nitrots/utils';
+import { GlRenderTarget, Point, RendererType, Sprite, Texture, TextureSource, WebGPURenderer } from 'pixi.js';
 
 const BYTES_PER_PIXEL = 4;
 
@@ -56,7 +56,9 @@ export class ExtendedSprite extends Sprite
         if((!textureSource || !textureSource.hitMap) && !ExtendedSprite.generateHitMapForTextureSource(textureSource)) return false;
 
         //@ts-ignore
-        const hitMap = (textureSource.hitMap as U8intclampedArray);
+        const hitMap = (textureSource.hitMap as Uint8Array);
+
+        if(!hitMap) return false;
 
         let dx = (point.x + texture.frame.x);
         let dy = (point.y + texture.frame.y);
@@ -79,28 +81,40 @@ export class ExtendedSprite extends Sprite
     {
         if(!textureSource) return false;
 
+        const renderer = GetRenderer();
         const width = Math.max(Math.round(textureSource.width * textureSource.resolution), 1);
         const height = Math.max(Math.round(textureSource.height * textureSource.resolution), 1);
-        const pixels = new Uint8Array(BYTES_PER_PIXEL * width * height);
 
-        const renderer = GetRenderer() as WebGLRenderer;
+        let pixels: Uint8ClampedArray = null;
 
-        const renderTarget = renderer.renderTarget.getRenderTarget(textureSource);
-        const glRenterTarget = renderer.renderTarget.getGpuRenderTarget(renderTarget) as GlRenderTarget;
+        if(renderer instanceof WebGPURenderer)
+        {
+            pixels = TextureUtils.getPixels(new Texture(textureSource))?.pixels ?? null;
+        }
 
-        const gl = renderer.gl;
+        else if(renderer.type === RendererType.WEBGL)
+        {
+            pixels = new Uint8ClampedArray(BYTES_PER_PIXEL * width * height);
 
-        gl.bindFramebuffer(gl.FRAMEBUFFER, glRenterTarget.resolveTargetFramebuffer);
+            const renderTarget = renderer.renderTarget.getRenderTarget(textureSource);
+            const glRenderTarget = renderer.renderTarget.getGpuRenderTarget(renderTarget) as GlRenderTarget;
 
-        gl.readPixels(
-            0,
-            0,
-            width,
-            height,
-            gl.RGBA,
-            gl.UNSIGNED_BYTE,
-            pixels
-        );
+            const gl = renderer.gl;
+
+            gl.bindFramebuffer(gl.FRAMEBUFFER, glRenderTarget.resolveTargetFramebuffer);
+
+            gl.readPixels(
+                0,
+                0,
+                width,
+                height,
+                gl.RGBA,
+                gl.UNSIGNED_BYTE,
+                pixels
+            );
+        }
+
+        if(!pixels) return false;
 
         //@ts-ignore
         textureSource.hitMap = pixels;
