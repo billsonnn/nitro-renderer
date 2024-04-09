@@ -6,7 +6,9 @@ export const PrepareRenderer = async (options: Partial<AutoDetectOptions>): Prom
 {
     renderer = await autoDetectRenderer(options);
 
+    renderer.events?.destroy();
+
     return renderer;
-}
+};
 
 export const GetRenderer = () => renderer;

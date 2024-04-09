@@ -88,49 +88,54 @@ export class AvatarDataContainer implements IAvatarDataContainer
 
     private generatePaletteMapForGrayscale(background: number, foreground: number): Map<string, number[]>
     {
-        const alphaBackground = ((background >> 24) & 0xFF);
-        const redBackground = ((background >> 16) & 0xFF);
-        const greenBackground = ((background >> 8) & 0xFF);
-        const blueBackground = ((background >> 0) & 0xFF);
-        const alphaForeground = ((foreground >> 24) & 0xFF);
-        const redForeground = ((foreground >> 16) & 0xFF);
-        const greenForeground = ((foreground >> 8) & 0xFF);
-        const blueForeground = ((foreground >> 0) & 0xFF);
-        const alphaDifference = ((alphaForeground - alphaBackground) / 0xFF);
-        const redDifference = ((redForeground - redBackground) / 0xFF);
-        const greenDifference = ((greenForeground - greenBackground) / 0xFF);
-        const blueDifference = ((blueForeground - blueBackground) / 0xFF);
-        const _local_15: Map<string, number[]> = new Map();
-        const _local_16: number[] = [];
-        const _local_17: number[] = [];
-        const _local_18: number[] = [];
-        const _local_19: number[] = [];
-        let _local_20 = alphaBackground;
-        let _local_21 = redBackground;
-        let _local_22 = greenBackground;
-        let _local_23 = blueBackground;
+        const alphaBackground = (background >> 24) & 0xFF;
+        const redBackground = (background >> 16) & 0xFF;
+        const greenBackground = (background >> 8) & 0xFF;
+        const blueBackground = background & 0xFF;
+
+        const alphaForeground = (foreground >> 24) & 0xFF;
+        const redForeground = (foreground >> 16) & 0xFF;
+        const greenForeground = (foreground >> 8) & 0xFF;
+        const blueForeground = foreground & 0xFF;
+
+        const alphaStep = (alphaForeground - alphaBackground) / 255;
+        const redStep = (redForeground - redBackground) / 255;
+        const greenStep = (greenForeground - greenBackground) / 255;
+        const blueStep = (blueForeground - blueBackground) / 255;
+
+        const paletteMap: Map<string, number[]> = new Map();
+        const gradientColors: number[] = [];
+
+        let currentAlpha = alphaBackground;
+        let currentRed = redBackground;
+        let currentGreen = greenBackground;
+        let currentBlue = blueBackground;
 
         for(let i = 0; i < 256; i++)
         {
-            if((((_local_21 == redBackground) && (_local_22 == greenBackground)) && (_local_23 == blueBackground)))
-            {
-                _local_20 = 0;
-            }
-            _local_20 = (_local_20 + alphaDifference);
-            _local_21 = (_local_21 + redDifference);
-            _local_22 = (_local_22 + greenDifference);
-            _local_23 = (_local_23 + blueDifference);
-            _local_19.push((_local_20 << 24));
-            _local_16.push(((((_local_20 << 24) | (_local_21 << 16)) | (_local_22 << 8)) | _local_23));
-            _local_17.push(((((_local_20 << 24) | (_local_21 << 16)) | (_local_22 << 8)) | _local_23));
-            _local_18.push(((((_local_20 << 24) | (_local_21 << 16)) | (_local_22 << 8)) | _local_23));
+            // Update the current colors by their respective steps
+            currentAlpha += alphaStep;
+            currentRed += redStep;
+            currentGreen += greenStep;
+            currentBlue += blueStep;
+
+            // Clamp the color values between 0 and 255 to ensure valid color values
+            const clampedAlpha = Math.max(0, Math.min(255, Math.round(currentAlpha)));
+            const clampedRed = Math.max(0, Math.min(255, Math.round(currentRed)));
+            const clampedGreen = Math.max(0, Math.min(255, Math.round(currentGreen)));
+            const clampedBlue = Math.max(0, Math.min(255, Math.round(currentBlue)));
+
+            // Combine the color components back into a single integer
+            const color = (clampedAlpha << 24) | (clampedRed << 16) | (clampedGreen << 8) | clampedBlue;
+            gradientColors.push(color);
         }
 
-        _local_15.set('alphas', _local_16);
-        _local_15.set('reds', _local_16);
-        _local_15.set('greens', _local_17);
-        _local_15.set('blues', _local_18);
+        // Since the gradients for all color channels are the same, we use the same array
+        paletteMap.set('alphas', gradientColors);
+        paletteMap.set('reds', gradientColors);
+        paletteMap.set('greens', gradientColors);
+        paletteMap.set('blues', gradientColors);
 
-        return _local_15;
+        return paletteMap;
     }
 }

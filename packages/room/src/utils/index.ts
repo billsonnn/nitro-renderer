@@ -10,5 +10,4 @@ export * from './RoomObjectBadgeImageAssetListener';
 export * from './RoomRotatingEffect';
 export * from './RoomShakingEffect';
 export * from './SelectedRoomObjectData';
-export * from './SpriteDataCollector';
 export * from './TileObjectMap';

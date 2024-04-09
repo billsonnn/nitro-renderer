@@ -117,9 +117,9 @@ export class AvatarStructure
         this._animationManager.registerAnimation(this, data);
     }
 
-    public getPartColor(k: IAvatarFigureContainer, _arg_2: string, _arg_3: number = 0): IPartColor
+    public getPartColor(container: IAvatarFigureContainer, _arg_2: string, _arg_3: number = 0): IPartColor
     {
-        const _local_4 = k.getPartColorIds(_arg_2);
+        const _local_4 = container.getPartColorIds(_arg_2);
 
         if((!(_local_4)) || (_local_4.length < _arg_3)) return null;
 

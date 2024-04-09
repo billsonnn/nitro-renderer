@@ -1,7 +1,6 @@
-import { AbstractRenderer, BrowserAdapter, DOMAdapter, HelloSystem, TextureSource } from 'pixi.js';
+import { BrowserAdapter, DOMAdapter, HelloSystem, TextureSource } from 'pixi.js';
 
 HelloSystem.defaultOptions.hello = true;
-AbstractRenderer.defaultOptions.failIfMajorPerformanceCaveat = false;
 TextureSource.defaultOptions.scaleMode = (!(window.devicePixelRatio % 1)) ? 'nearest' : 'linear';
 DOMAdapter.set(BrowserAdapter);
 

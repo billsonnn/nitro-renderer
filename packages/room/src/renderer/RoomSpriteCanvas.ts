@@ -85,11 +85,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             const display = new Container();
 
             display.isRenderGroup = true;
-
             display.cullableChildren = false;
-
-            display.interactive = false;
-            display.interactiveChildren = false;
 
             this._master.addChild(display);
 
