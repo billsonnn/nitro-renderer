@@ -16,7 +16,7 @@
     "@nitrots/api": "1.0.0",
     "@nitrots/eslint-config": "1.0.0",
     "@nitrots/utils": "1.0.0",
-    "pixi.js": "^8.0.4",
+    "pixi.js": "^8.1.0",
     "@pixi/gif": "^3.0.0"
   },
   "devDependencies": {

@@ -580,7 +580,16 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
         if(this._spritePool.length > 0) extendedSprite = this._spritePool.pop();
 
-        if(!extendedSprite) extendedSprite = new ExtendedSprite({});
+        let textureSet = false;
+
+        if(!extendedSprite)
+        {
+            extendedSprite = new ExtendedSprite({
+                texture: sprite.texture
+            });
+
+            textureSet = true;
+        }
 
         if(extendedSprite.children.length) extendedSprite.removeChildren();
 
@@ -598,7 +607,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         extendedSprite.blendMode = sprite.blendMode;
         extendedSprite.filters = sprite.filters;
 
-        extendedSprite.setTexture(sprite.texture);
+        if(!textureSet) extendedSprite.setTexture(sprite.texture);
 
         if(sprite.flipH) extendedSprite.scale.x = -1;
 
