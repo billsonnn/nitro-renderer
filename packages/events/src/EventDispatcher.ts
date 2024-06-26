@@ -23,6 +23,8 @@ export class EventDispatcher implements IEventDispatcher
             return;
         }
 
+        NitroLogger.events('Added Event Listener', type);
+
         existing.push(callback);
     }
 
@@ -78,7 +80,7 @@ export class EventDispatcher implements IEventDispatcher
 
             try
             {
-                (callback as Function)(event);
+                callback(event);
             }
 
             catch (err)

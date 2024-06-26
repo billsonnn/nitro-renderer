@@ -102,7 +102,7 @@ export class RoomRenderer implements IRoomRenderer, IRoomSpriteCanvasContainer
 
     public createCanvas(id: number, width: number, height: number, scale: number): IRoomRenderingCanvas
     {
-        const existing = this._canvases.get(id) as IRoomRenderingCanvas;
+        const existing = this._canvases.get(id);
 
         if(existing)
         {

@@ -3,12 +3,12 @@ import { IRoomCameraWidgetEffect } from '@nitrots/api';
 export class RoomCameraWidgetSelectedEffect
 {
     private _effect: IRoomCameraWidgetEffect;
-    private _alpha: number;
+    private _strength: number;
 
-    constructor(effect: IRoomCameraWidgetEffect, alpha: number)
+    constructor(effect: IRoomCameraWidgetEffect, strength: number)
     {
         this._effect = effect;
-        this._alpha = alpha;
+        this._strength = strength;
     }
 
     public get effect(): IRoomCameraWidgetEffect
@@ -16,8 +16,8 @@ export class RoomCameraWidgetSelectedEffect
         return this._effect;
     }
 
-    public get alpha(): number
+    public get strength(): number
     {
-        return this._alpha;
+        return this._strength;
     }
 }

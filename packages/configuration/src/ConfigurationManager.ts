@@ -65,7 +65,7 @@ export class ConfigurationManager implements IConfigurationManager
             {
                 let value = data[key];
 
-                if(typeof value === 'string') value = this.interpolate((value as string), regex);
+                if(typeof value === 'string') value = this.interpolate(value, regex);
 
                 if(this._definitions.has(key))
                 {

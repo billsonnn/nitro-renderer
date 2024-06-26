@@ -36,7 +36,7 @@ export class RoomPreviewer
     private _automaticStateChange: boolean;
     private _previousAutomaticStateChangeTime: number;
     private _addViewOffset: Point;
-    private _backgroundColor: number = 305148561;
+    private _backgroundColor: number = 0x000000;
     private _backgroundSprite: Sprite = null;
     private _disableUpdate: boolean = false;
 
@@ -431,7 +431,7 @@ export class RoomPreviewer
     {
         if(this.isRoomEngineReady)
         {
-            const displayObject = (this._roomEngine.getRoomInstanceDisplay(this._previewRoomId, RoomPreviewer.PREVIEW_CANVAS_ID, width, height, this._currentPreviewScale) as Container);
+            const displayObject = this._roomEngine.getRoomInstanceDisplay(this._previewRoomId, RoomPreviewer.PREVIEW_CANVAS_ID, width, height, this._currentPreviewScale);
 
             if(displayObject && (this._backgroundColor !== null))
             {
@@ -446,7 +446,7 @@ export class RoomPreviewer
 
                 backgroundSprite.width = width;
                 backgroundSprite.height = height;
-                //backgroundSprite.tint = this._backgroundColor;
+                backgroundSprite.tint = this._backgroundColor;
             }
 
             this._roomEngine.setRoomInstanceRenderingCanvasMask(this._previewRoomId, RoomPreviewer.PREVIEW_CANVAS_ID, true);

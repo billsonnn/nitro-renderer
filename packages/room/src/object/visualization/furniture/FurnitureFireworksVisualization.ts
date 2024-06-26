@@ -40,6 +40,8 @@ export class FurnitureFireworksVisualization extends FurnitureAnimatedVisualizat
                 {
                     const particleSystem = this._particleSystems.getValue(scale);
 
+                    if(!particleSystem) return false;
+
                     particleSystem.copyStateFrom(this._currentParticleSystem);
 
                     if(this._currentParticleSystem) this._currentParticleSystem.reset();

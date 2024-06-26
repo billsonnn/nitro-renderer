@@ -44,7 +44,7 @@ export class GeometryItem extends Node3D
 
     public toString(): string
     {
-        return ((((this._id + ': ') + this.location) + ' - ') + this.transformedLocation);
+        return `${this._id}: ${this.location.toString()} - ${this.transformedLocation.toString()}`;
     }
 
     public get isDynamic(): boolean

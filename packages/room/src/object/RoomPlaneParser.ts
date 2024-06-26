@@ -1401,26 +1401,27 @@ export class RoomPlaneParser
         return planeData.normalDirection;
     }
 
-    public getPlaneSecondaryNormals(k: number): IVector3D[]
+    public getPlaneSecondaryNormals(count: number): IVector3D[]
     {
-        let _local_3: IVector3D[];
-        let _local_4: number;
-        if(((k < 0) || (k >= this.planeCount)))
+        if((count < 0) || (count >= this.planeCount)) return null;
+
+        const planes = this._planes[count];
+
+        if(planes != null)
         {
-            return null;
-        }
-        const _local_2: RoomPlaneData = (this._planes[k] as RoomPlaneData);
-        if(_local_2 != null)
-        {
-            _local_3 = [];
-            _local_4 = 0;
-            while(_local_4 < _local_2.secondaryNormalCount)
+            const normals: IVector3D[] = [];
+            let i = 0;
+
+            while(i < planes.secondaryNormalCount)
             {
-                _local_3.push(_local_2.getSecondaryNormal(_local_4));
-                _local_4++;
+                normals.push(planes.getSecondaryNormal(i));
+
+                i++;
             }
-            return _local_3;
+
+            return normals;
         }
+
         return null;
     }
 

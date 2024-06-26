@@ -84,7 +84,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         {
             const display = new Container();
 
-            display.isRenderGroup = true;
+            display.isRenderGroup = false;
             display.cullableChildren = false;
 
             this._master.addChild(display);
@@ -475,11 +475,11 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
     {
         if((index < 0) || (index >= this._spriteCount)) return null;
 
-        const sprite = (this._display.getChildAt(index) as ExtendedSprite);
+        const sprite = (this._display.getChildAt(index));
 
         if(!sprite) return null;
 
-        return sprite;
+        return (sprite as ExtendedSprite);
     }
 
     protected getExtendedSpriteIdentifier(sprite: ExtendedSprite): string

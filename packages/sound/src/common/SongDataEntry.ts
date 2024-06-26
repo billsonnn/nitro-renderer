@@ -10,7 +10,8 @@ export class SongDataEntry implements ISongInfo
         public readonly name: string,
         public readonly creator: string,
         public readonly songData: string = ''
-    ) {}
+    )
+    {}
 
     public get diskId(): number
     {

@@ -22,24 +22,28 @@
   "scripts": {
     "build": "vite build",
     "compile": "tsc --project ./tsconfig.json --noEmit false",
-    "eslint": "eslint ./src --fix"
+    "eslint": "eslint ./src ./packages/*/src",
+    "eslint-fix": "eslint ./src --fix"
+
   },
   "main": "./index",
   "dependencies": {
     "howler": "^2.2.4",
     "pako": "^2.1.0",
-    "pixi-filters": "^6.0.0",
-    "pixi.js": "^8.1.0"
+    "pixi-filters": "^6.0.4",
+    "pixi.js": "^8.1.6"
   },
   "devDependencies": {
+    "@eslint/js": "^9.5.0",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@types/eslint__js": "^8.42.3",
     "@types/howler": "^2.2.11",
+    "@types/node": "^20.14.4",
     "@types/pako": "^2.0.3",
-    "@typescript-eslint/eslint-plugin": "^7.1.1",
-    "@typescript-eslint/parser": "^7.1.1",
-    "eslint": "^8.57.0",
+    "eslint": "^9.5.0",
     "tslib": "^2.3.1",
     "typescript": "~5.4.2",
+    "typescript-eslint": "^7.13.1",
     "vite": "^5.1.3"
   }
 }

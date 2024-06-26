@@ -20,6 +20,6 @@ declare global
 window.NitroDevTools = {
     roomEngine: () => GetRoomEngine(),
     textureCache: () => GetRenderer().texture.managedTextures,
-	texturePool: () => GetTexturePool().textures,
-	textureGC: () => GetRenderer().textureGC
+    texturePool: () => GetTexturePool().textures,
+    textureGC: () => GetRenderer().textureGC
 };

@@ -50,8 +50,6 @@ export class SessionDataManager implements ISessionDataManager
     constructor()
     {
         this.resetUserInfo();
-
-        this.onNitroSettingsEvent = this.onNitroSettingsEvent.bind(this);
     }
 
     public async init(): Promise<void>
@@ -86,7 +84,13 @@ export class SessionDataManager implements ISessionDataManager
         GetCommunication().registerMessageEvent(new AccountSafetyLockStatusChangeMessageEvent(this.onAccountSafetyLockStatusChangeMessageEvent.bind(this)));
         GetCommunication().registerMessageEvent(new EmailStatusResultEvent(this.onEmailStatus.bind(this)));
 
-        GetEventDispatcher().addEventListener(NitroSettingsEvent.SETTINGS_UPDATED, this.onNitroSettingsEvent);
+        GetEventDispatcher().addEventListener<NitroSettingsEvent>(NitroSettingsEvent.SETTINGS_UPDATED, event =>
+        {
+            this._isRoomCameraFollowDisabled = event.cameraFollow;
+            this._uiFlags = event.flags;
+
+            GetEventDispatcher().dispatchEvent(new SessionDataPreferencesEvent(this._uiFlags));
+        });
     }
 
     private resetUserInfo(): void
@@ -254,14 +258,6 @@ export class SessionDataManager implements ISessionDataManager
     private onEmailStatus(event: EmailStatusResultEvent): void
     {
         this._isEmailVerified = event?.getParser()?.isVerified ?? false;
-    }
-
-    private onNitroSettingsEvent(event: NitroSettingsEvent): void
-    {
-        this._isRoomCameraFollowDisabled = event.cameraFollow;
-        this._uiFlags = event.flags;
-
-        GetEventDispatcher().dispatchEvent(new SessionDataPreferencesEvent(this._uiFlags));
     }
 
     public getFloorItemData(id: number): IFurnitureData

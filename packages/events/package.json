@@ -5,14 +5,11 @@
   "type": "module",
   "license": "GPL-3.0",
   "scripts": {
-    "build": "vite build",
-    "compile": "tsc --project ./tsconfig.json --noEmit false",
-    "eslint": "eslint ./src --fix"
+    "compile": "tsc --project ./tsconfig.json --noEmit false"
   },
   "main": "./index",
   "dependencies": {
     "@nitrots/api": "1.0.0",
-    "@nitrots/eslint-config": "1.0.0",
     "@nitrots/utils": "1.0.0"
   },
   "devDependencies": {

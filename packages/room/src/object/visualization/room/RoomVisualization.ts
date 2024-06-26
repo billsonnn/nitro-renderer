@@ -1,6 +1,6 @@
+import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable } from '@nitrots/api';
 import { ToInt32, Vector3d } from '@nitrots/utils';
 import { Rectangle, Texture } from 'pixi.js';
-import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable } from '../../../../../api';
 import { RoomMapData } from '../../RoomMapData';
 import { RoomMapMaskData } from '../../RoomMapMaskData';
 import { RoomPlaneBitmapMaskData } from '../../RoomPlaneBitmapMaskData';
@@ -13,16 +13,16 @@ import { RoomVisualizationData } from './RoomVisualizationData';
 
 export class RoomVisualization extends RoomObjectSpriteVisualization implements IPlaneVisualization
 {
-    public static FLOOR_COLOR: number = 0xFFFFFF;
-    public static FLOOR_COLOR_LEFT: number = 0xDDDDDD;
-    public static FLOOR_COLOR_RIGHT: number = 0xBBBBBB;
+    private static FLOOR_COLOR: number = 0xFFFFFF;
+    private static FLOOR_COLOR_LEFT: number = 0xDDDDDD;
+    private static FLOOR_COLOR_RIGHT: number = 0xBBBBBB;
     private static WALL_COLOR_TOP: number = 0xFFFFFF;
     private static WALL_COLOR_SIDE: number = 0xCCCCCC;
     private static WALL_COLOR_BOTTOM: number = 0x999999;
     private static WALL_COLOR_BORDER: number = 0x999999;
-    public static LANDSCAPE_COLOR_TOP: number = 0xFFFFFF;
-    public static LANDSCAPE_COLOR_SIDE: number = 0xCCCCCC;
-    public static LANDSCAPE_COLOR_BOTTOM: number = 0x999999;
+    private static LANDSCAPE_COLOR_TOP: number = 0xFFFFFF;
+    private static LANDSCAPE_COLOR_SIDE: number = 0xCCCCCC;
+    private static LANDSCAPE_COLOR_BOTTOM: number = 0x999999;
     private static ROOM_DEPTH_OFFSET: number = 1000;
 
     protected _data: RoomVisualizationData = null;

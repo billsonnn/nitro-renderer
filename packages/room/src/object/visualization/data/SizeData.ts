@@ -235,7 +235,7 @@ export class SizeData
 
     public getLayerColor(layerId: number, colorId: number): number
     {
-        const existing = this._colors[colorId] as ColorData;
+        const existing = this._colors[colorId];
 
         if(!existing) return ColorData.DEFAULT_COLOR;
 

@@ -135,7 +135,19 @@ export class AvatarActionManager
             validatedActions.push(action);
         }
 
-        validatedActions.sort(this.sortByPrecedence);
+        validatedActions.sort((actionOne: IActiveActionData, actionTwo: IActiveActionData) =>
+        {
+            if(!actionOne || !actionTwo) return 0;
+
+            const precedenceOne = actionOne.definition.precedence;
+            const precedenceTwo = actionTwo.definition.precedence;
+
+            if(precedenceOne < precedenceTwo) return 1;
+
+            if(precedenceOne > precedenceTwo) return -1;
+
+            return 0;
+        });
 
         return validatedActions;
     }
@@ -168,19 +180,5 @@ export class AvatarActionManager
         }
 
         return activeActions;
-    }
-
-    private sortByPrecedence(actionOne: IActiveActionData, actionTwo: IActiveActionData): number
-    {
-        if(!actionOne || !actionTwo) return 0;
-
-        const precedenceOne = actionOne.definition.precedence;
-        const precedenceTwo = actionTwo.definition.precedence;
-
-        if(precedenceOne < precedenceTwo) return 1;
-
-        if(precedenceOne > precedenceTwo) return -1;
-
-        return 0;
     }
 }

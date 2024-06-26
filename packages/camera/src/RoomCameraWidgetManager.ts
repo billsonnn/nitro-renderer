@@ -3,19 +3,13 @@ import { GetAssetManager } from '@nitrots/assets';
 import { GetConfiguration } from '@nitrots/configuration';
 import { GetEventDispatcher, RoomCameraWidgetManagerEvent } from '@nitrots/events';
 import { TextureUtils } from '@nitrots/utils';
-import { BLEND_MODES, ColorMatrix, ColorMatrixFilter, Container, Sprite, Texture } from 'pixi.js';
+import { BLEND_MODES, ColorMatrix, ColorMatrixFilter, Container, Filter, Sprite, Texture } from 'pixi.js';
 import { RoomCameraWidgetEffect } from './RoomCameraWidgetEffect';
 
 export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
 {
-    private _effects: Map<string, IRoomCameraWidgetEffect>;
-    private _isLoaded: boolean;
-
-    constructor()
-    {
-        this._effects = new Map();
-        this._isLoaded = false;
-    }
+    private _effects: Map<string, IRoomCameraWidgetEffect> = new Map();
+    private _isLoaded: boolean = false;
 
     public async init(): Promise<void>
     {
@@ -52,7 +46,7 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
         GetEventDispatcher().dispatchEvent(new RoomCameraWidgetManagerEvent(RoomCameraWidgetManagerEvent.INITIALIZED));
     }
 
-    public async applyEffects(texture: Texture, selectedEffects: IRoomCameraWidgetSelectedEffect[], isZoomed: boolean): Promise<HTMLImageElement>
+    public async applyEffects(texture: Texture, effects: IRoomCameraWidgetSelectedEffect[], isZoomed: boolean): Promise<HTMLImageElement>
     {
         const container = new Container();
         const sprite = new Sprite(texture);
@@ -61,7 +55,34 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
 
         if(isZoomed) sprite.scale.set(2);
 
-        for(const selectedEffect of selectedEffects)
+        const filters: Filter[] = [];
+
+        const getColorMatrixFilter = (matrix: ColorMatrix, flag: boolean, strength: number): ColorMatrixFilter =>
+        {
+            const filter = new ColorMatrixFilter();
+
+            if(flag)
+            {
+                filter.matrix = matrix;
+            }
+            else
+            {
+                //@ts-ignore
+                const newMatrix: ColorMatrix = [];
+                const otherMatrix: ColorMatrix = [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0];
+
+                for(let i = 0; i < matrix.length; i++)
+                {
+                    newMatrix.push((matrix[i] * strength) + (otherMatrix[i] * (1 - strength)));
+                }
+
+                filter.matrix = newMatrix;
+            }
+
+            return filter;
+        };
+
+        for(const selectedEffect of effects)
         {
             const effect = selectedEffect.effect;
 
@@ -69,26 +90,24 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
 
             if(effect.colorMatrix)
             {
-                const filter = new ColorMatrixFilter();
+                const filter = getColorMatrixFilter(effect.colorMatrix, false, selectedEffect.strength);
 
-                filter.matrix = effect.colorMatrix;
-                filter.alpha = selectedEffect.alpha;
-
-                if(!Array.isArray(sprite.filters)) sprite.filters = [];
-
-                sprite.filters.push(filter);
+                filters.push(filter);
             }
             else
             {
                 const effectSprite = new Sprite(effect.texture);
-                effectSprite.alpha = selectedEffect.alpha;
+
+                effectSprite.alpha = selectedEffect.strength;
                 effectSprite.blendMode = effect.blendMode;
 
                 container.addChild(effectSprite);
             }
         }
 
-        return await TextureUtils.generateImage(container);
+        container.filters = filters;
+
+        return await TextureUtils.generateImage(sprite);
     }
 
     public get effects(): Map<string, IRoomCameraWidgetEffect>

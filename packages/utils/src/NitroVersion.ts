@@ -1,4 +1,3 @@
-
 export class NitroVersion
 {
     public static RENDERER_VERSION: string = '2.0.0';

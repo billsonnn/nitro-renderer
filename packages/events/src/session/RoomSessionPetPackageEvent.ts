@@ -14,7 +14,7 @@ export class RoomSessionPetPackageEvent extends RoomSessionEvent
     constructor(petPackageName: string, session: IRoomSession, objectId: number, figureData: PetFigureData, nameValidationStatus: number, nameValidationInfo: string)
     {
         super(petPackageName, session);
-        
+
         this._objectId = objectId;
         this._figureData = figureData;
         this._nameValidationStatus = nameValidationStatus;

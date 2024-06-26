@@ -141,7 +141,7 @@ export class AvatarStructure
 
     public getAnimation(k: string): Animation
     {
-        return this._animationManager.getAnimation(k) as Animation;
+        return this._animationManager.getAnimation(k);
     }
 
     public getActionDefinition(k: string): ActionDefinition
@@ -319,7 +319,7 @@ export class AvatarStructure
         let _local_20: AvatarAnimationFrame[] = [];
         let _local_36: IPartColor = null;
 
-        if(!_arg_3 == null) return [];
+        if(!_arg_3) return [];
 
         const _local_9 = this._partSetsData.getActiveParts(_arg_3.definition);
         const _local_11: AvatarImagePartContainer[] = [];

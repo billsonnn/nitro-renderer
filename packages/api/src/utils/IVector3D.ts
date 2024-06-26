@@ -13,4 +13,5 @@
     y: number;
     z: number;
     length: number;
+    toString(): string;
 }

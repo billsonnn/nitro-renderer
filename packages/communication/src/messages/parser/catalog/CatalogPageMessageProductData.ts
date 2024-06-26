@@ -1,13 +1,8 @@
-import { IMessageDataWrapper } from '@nitrots/api';
+import { FurnitureType, IMessageDataWrapper } from '@nitrots/api';
 
 export class CatalogPageMessageProductData
 {
-    public static I: string = 'i';
-    public static S: string = 's';
-    public static E: string = 'e';
-    public static B: string = 'b';
-
-    private _productType: string;
+    private _productType: FurnitureType;
     private _furniClassId: number;
     private _extraParam: string;
     private _productCount: number;
@@ -38,11 +33,11 @@ export class CatalogPageMessageProductData
 
     public parse(wrapper: IMessageDataWrapper): boolean
     {
-        this._productType = wrapper.readString();
+        this._productType = wrapper.readString().toUpperCase() as FurnitureType;
 
         switch(this._productType)
         {
-            case CatalogPageMessageProductData.B:
+            case FurnitureType.BADGE:
                 this._extraParam = wrapper.readString();
                 this._productCount = 1;
                 return true;
@@ -57,11 +52,12 @@ export class CatalogPageMessageProductData
                     this._uniqueLimitedItemSeriesSize = wrapper.readInt();
                     this._uniqueLimitedItemsLeft = wrapper.readInt();
                 }
+
                 return true;
         }
     }
 
-    public get productType(): string
+    public get productType(): FurnitureType
     {
         return this._productType;
     }

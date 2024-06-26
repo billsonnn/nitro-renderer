@@ -1,6 +1,8 @@
+import { FurnitureType } from './FurnitureType';
+
 export interface IFurnitureData
 {
-    type: string;
+    type: FurnitureType;
     id: number;
     className: string;
     fullName: string;

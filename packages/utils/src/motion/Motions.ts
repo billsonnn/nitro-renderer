@@ -165,7 +165,7 @@ export class Motions
     {
         if(!Motions._TIMER)
         {
-            Motions._TIMER = setInterval(Motions.onTick, Motions.TIMER_TIME);
+            Motions._TIMER = setInterval(() => Motions.onTick(), Motions.TIMER_TIME);
         }
     }
 

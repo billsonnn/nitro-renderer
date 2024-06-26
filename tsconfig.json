@@ -18,14 +18,12 @@
     "noEmit": true,
     "strict": false,
     "strictNullChecks": false,
-    "target": "ES6",
+    "target": "ES2022",
     "lib": [
       "DOM",
       "DOM.Iterable",
       "ESNext"
     ],
-    "module": "ES6"
-  },
-  "include": [
-    "src", "packages/utils/src/FurniId.ts", "packages/room/src/messages", "packages/room/src/utils", "packages/room/src/object/logic", "packages/room/src/object/visualization", "packages/room/src/object/RoomObject.ts", "packages/room/src/object/RoomObjectModel.ts", "packages/utils/src/NumberBank.ts", "packages/utils/src/RoomId.ts", "packages/utils/src/ColorConverter.ts", "packages/utils/src/PointMath.ts", "packages/room/src/renderer/cache", "packages/room/src/renderer/RoomSpriteCanvas.ts", "packages/room/src/renderer/RoomRendererFactory.ts", "packages/room/src/renderer/RoomRenderer.ts", "packages/room/src/RoomInstance.ts", "packages/room/src/RoomManager.ts", "packages/room/src/RoomObjectManager.ts", "packages/room/src/RoomPreviewer.ts", "packages/room/src/object/RoomWallData.ts", "packages/room/src/object/RoomPlaneParser.ts", "packages/room/src/object/RoomPlaneMaskData.ts", "packages/room/src/object/RoomPlaneData.ts", "packages/room/src/object/RoomPlaneBitmapMaskParser.ts", "packages/room/src/object/RoomPlaneBitmapMaskData.ts", "packages/room/src/RoomObjectVisualizationFactory.ts", "packages/room/src/object/RoomMapMaskData.ts", "packages/room/src/object/RoomMapData.ts", "packages/room/src/object/RoomFloorHole.ts", "packages/room/src/RoomVariableEnum.ts", "packages/room/src/RoomObjectLogicFactory.ts", "packages/room/src/RoomObjectEventHandler.ts", "packages/room/src/RoomMessageHandler.ts", "packages/room/src/RoomEngine.ts", "packages/room/src/RoomContentLoader.ts", "packages/room/src/PetColorResult.ts", "packages/room/src/ImageResult.ts", "packages/utils/src/Node3D.ts", "packages/utils/src/Matrix4x4.ts", "packages/utils/src/LegacyExternalInterface.ts", "packages/utils/src/HabboWebTools.ts", "packages/utils/src/motion", "packages/avatar/src/actions", "packages/avatar/animation", "packages/avatar/cache", "packages/avatar/src/data", "packages/avatar/geometry", "packages/avatar/src/pets", "packages/avatar/src/structure/animation", "packages/avatar/src/structure/figure", "packages/avatar/src/structure/parts", "packages/avatar/structure/AvatarAnimationData.ts", "packages/avatar/structure/AvatarCanvas.ts", "packages/avatar/structure/FigureSetData.ts", "packages/avatar/structure/index.ts", "packages/avatar/structure/PartSetsData.ts", "packages/avatar/src/cache/AvatarImageCache.ts", "packages/localization/src/LocalizationManager.ts", "packages/localization/src/GetLocalization.ts", "packages/localization/src/BadgeBaseAndLevel.ts" ]
+    "module": "ES2022"
+  }
 }

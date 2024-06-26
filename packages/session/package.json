@@ -5,8 +5,7 @@
   "type": "module",
   "license": "GPL-3.0",
   "scripts": {
-    "compile": "tsc --project ./tsconfig.json --noEmit false",
-    "eslint": "eslint ./src --fix"
+    "compile": "tsc --project ./tsconfig.json --noEmit false"
   },
   "main": "./index",
   "dependencies": {
@@ -14,10 +13,9 @@
     "@nitrots/assets": "1.0.0",
     "@nitrots/communication": "1.0.0",
     "@nitrots/configuration": "1.0.0",
-    "@nitrots/eslint-config": "1.0.0",
     "@nitrots/events": "1.0.0",
     "@nitrots/localization": "1.0.0",
-    "pixi.js": "^8.1.0"
+    "pixi.js": "^8.1.6"
   },
   "devDependencies": {
     "typescript": "~5.4.2"

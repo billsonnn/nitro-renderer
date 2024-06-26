@@ -17,18 +17,24 @@ export class RoomManager implements IRoomManager, IRoomInstanceContainer
     private _pendingContentTypes: string[] = [];
     private _skipContentProcessing: boolean = false;
 
-    constructor()
-    {
-        this.onRoomContentLoadedEvent = this.onRoomContentLoadedEvent.bind(this);
-    }
-
     public async init(listener: IRoomManagerListener): Promise<void>
     {
         this._listener = listener;
 
-        GetEventDispatcher().addEventListener(RoomContentLoadedEvent.RCLE_SUCCESS, this.onRoomContentLoadedEvent);
-        GetEventDispatcher().addEventListener(RoomContentLoadedEvent.RCLE_FAILURE, this.onRoomContentLoadedEvent);
-        GetEventDispatcher().addEventListener(RoomContentLoadedEvent.RCLE_CANCEL, this.onRoomContentLoadedEvent);
+        const onRoomContentLoadedEvent = (event: RoomContentLoadedEvent) =>
+        {
+            if(!GetRoomContentLoader()) return;
+
+            const contentType = event.contentType;
+
+            if(this._pendingContentTypes.indexOf(contentType) >= 0) return;
+
+            this._pendingContentTypes.push(contentType);
+        };
+
+        GetEventDispatcher().addEventListener(RoomContentLoadedEvent.RCLE_SUCCESS, onRoomContentLoadedEvent);
+        GetEventDispatcher().addEventListener(RoomContentLoadedEvent.RCLE_FAILURE, onRoomContentLoadedEvent);
+        GetEventDispatcher().addEventListener(RoomContentLoadedEvent.RCLE_CANCEL, onRoomContentLoadedEvent);
     }
 
     public getRoomInstance(roomId: string): IRoomInstance
@@ -274,17 +280,6 @@ export class RoomManager implements IRoomManager, IRoomInstanceContainer
 
             if(this._listener) this._listener.initalizeTemporaryObjectsByType(type, true);
         }
-    }
-
-    private onRoomContentLoadedEvent(event: RoomContentLoadedEvent): void
-    {
-        if(!GetRoomContentLoader()) return;
-
-        const contentType = event.contentType;
-
-        if(this._pendingContentTypes.indexOf(contentType) >= 0) return;
-
-        this._pendingContentTypes.push(contentType);
     }
 
     public update(time: number, update: boolean = false): void

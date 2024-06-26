@@ -1,8 +1,8 @@
-import { IFurnitureData } from '@nitrots/api';
+import { FurnitureType, IFurnitureData } from '@nitrots/api';
 
 export class FurnitureData implements IFurnitureData
 {
-    private _type: string;
+    private _type: FurnitureType;
     private _id: number;
     private _className: string;
     private _fullName: string;
@@ -32,7 +32,7 @@ export class FurnitureData implements IFurnitureData
     private _environment: string;
     private _rare: boolean;
 
-    constructor(type: string, id: number, fullName: string, className: string, category: string, localizedName: string, description: string, revision: number, tileSizeX: number, tileSizeY: number, tileSizeZ: number, colors: number[], hadIndexedColor: boolean, colorIndex: number, adUrl: string, purchaseOfferId: number, purchaseCouldBeUsedForBuyout: boolean, rentOfferId: number, rentCouldBeUsedForBuyout: boolean, availableForBuildersClub: boolean, customParams: string, specialType: number, canStandOn: boolean, canSitOn: boolean, canLayOn: boolean, excludedfromDynamic: boolean, furniLine: string, environment: string, rare: boolean)
+    constructor(type: FurnitureType, id: number, fullName: string, className: string, category: string, localizedName: string, description: string, revision: number, tileSizeX: number, tileSizeY: number, tileSizeZ: number, colors: number[], hadIndexedColor: boolean, colorIndex: number, adUrl: string, purchaseOfferId: number, purchaseCouldBeUsedForBuyout: boolean, rentOfferId: number, rentCouldBeUsedForBuyout: boolean, availableForBuildersClub: boolean, customParams: string, specialType: number, canStandOn: boolean, canSitOn: boolean, canLayOn: boolean, excludedfromDynamic: boolean, furniLine: string, environment: string, rare: boolean)
     {
         this._type = type;
         this._id = id;
@@ -65,7 +65,7 @@ export class FurnitureData implements IFurnitureData
         this._rare = rare;
     }
 
-    public get type(): string
+    public get type(): FurnitureType
     {
         return this._type;
     }

@@ -63,14 +63,9 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
     private _mouseCursorUpdate: boolean = false;
     private _badgeListenerObjects: Map<string, RoomObjectBadgeImageAssetListener[]> = new Map();
 
-    constructor()
-    {
-        this.onBadgeImageReadyEvent = this.onBadgeImageReadyEvent.bind(this);
-    }
-
     public async init(): Promise<void>
     {
-        GetRoomObjectLogicFactory().registerEventFunction(this.processRoomObjectEvent.bind(this));
+        GetRoomObjectLogicFactory().registerEventFunction(event => this.processRoomObjectEvent(event));
 
         GetEventDispatcher().addEventListener<RoomSessionEvent>(RoomSessionEvent.STARTED, event => this.onRoomSessionEvent(event));
         GetEventDispatcher().addEventListener<RoomSessionEvent>(RoomSessionEvent.ENDED, event => this.onRoomSessionEvent(event));
@@ -2104,7 +2099,32 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
 
             if(!this._badgeListenerObjects.size)
             {
-                GetEventDispatcher().addEventListener(BadgeImageReadyEvent.IMAGE_READY, this.onBadgeImageReadyEvent);
+                const onBadgeImageReadyEvent = (event: BadgeImageReadyEvent) =>
+                {
+                    const listeners = this._badgeListenerObjects && this._badgeListenerObjects.get(event.badgeId);
+
+                    if(!listeners) return;
+
+                    for(const listener of listeners)
+                    {
+                        if(!listener) continue;
+
+                        this.putBadgeInObjectAssets(listener.object, event.badgeId, listener.groupBadge);
+
+                        const badgeName = (listener.groupBadge) ? this._sessionDataManager.loadGroupBadgeImage(event.badgeId) : this._sessionDataManager.loadBadgeImage(event.badgeId);
+
+                        if(listener.object && listener.object.logic) listener.object.logic.processUpdateMessage(new ObjectGroupBadgeUpdateMessage(event.badgeId, badgeName));
+                    }
+
+                    this._badgeListenerObjects.delete(event.badgeId);
+
+                    if(!this._badgeListenerObjects.size)
+                    {
+                        GetEventDispatcher().removeEventListener(BadgeImageReadyEvent.IMAGE_READY, onBadgeImageReadyEvent);
+                    }
+                };
+
+                GetEventDispatcher().addEventListener(BadgeImageReadyEvent.IMAGE_READY, onBadgeImageReadyEvent);
             }
 
             let listeners = this._badgeListenerObjects.get(badgeId);
@@ -2121,31 +2141,6 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
         }
 
         roomObject.logic.processUpdateMessage(new ObjectGroupBadgeUpdateMessage(badgeId, badgeName));
-    }
-
-    private onBadgeImageReadyEvent(k: BadgeImageReadyEvent): void
-    {
-        const listeners = this._badgeListenerObjects && this._badgeListenerObjects.get(k.badgeId);
-
-        if(!listeners) return;
-
-        for(const listener of listeners)
-        {
-            if(!listener) continue;
-
-            this.putBadgeInObjectAssets(listener.object, k.badgeId, listener.groupBadge);
-
-            const badgeName = (listener.groupBadge) ? this._sessionDataManager.loadGroupBadgeImage(k.badgeId) : this._sessionDataManager.loadBadgeImage(k.badgeId);
-
-            if(listener.object && listener.object.logic) listener.object.logic.processUpdateMessage(new ObjectGroupBadgeUpdateMessage(k.badgeId, badgeName));
-        }
-
-        this._badgeListenerObjects.delete(k.badgeId);
-
-        if(!this._badgeListenerObjects.size)
-        {
-            GetEventDispatcher().removeEventListener(BadgeImageReadyEvent.IMAGE_READY, this.onBadgeImageReadyEvent);
-        }
     }
 
     private putBadgeInObjectAssets(object: IRoomObjectController, badgeId: string, groupBadge: boolean = false): void
@@ -3004,7 +2999,7 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
 
         while(index >= 0)
         {
-            const child = (container.getChildAt(index) as Sprite);
+            const child = (container.getChildAt(index));
 
             if(child)
             {
@@ -3014,7 +3009,7 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
 
                     if(child.children.length)
                     {
-                        const firstChild = (child.getChildAt(0) as Sprite);
+                        const firstChild = (child.getChildAt(0));
 
                         firstChild.parent.removeChild(firstChild);
 
@@ -3039,11 +3034,11 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
 
         while(index >= 0)
         {
-            const child = (container.getChildAt(index) as Sprite);
+            const child = (container.getChildAt(index));
 
             if(child)
             {
-                if(child.label === label) return child;
+                if(child.label === label) return (child as Sprite);
             }
 
             index--;

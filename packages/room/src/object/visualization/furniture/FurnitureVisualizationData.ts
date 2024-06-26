@@ -70,7 +70,7 @@ export class FurnitureVisualizationData implements IObjectVisualizationData
     {
         if(!visualizations) return false;
 
-        for(const visualizationId in visualizations)
+        for(const visualizationId of Object.keys(visualizations))
         {
             const visualization = visualizations[visualizationId];
 

@@ -1955,17 +1955,17 @@ export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomOb
 
     private placeObjectOnUser(roomId: number, objectId: number, category: number): void
     {
-        const _local_4 = this.getSelectedRoomObjectData(roomId);
+        const objectData = this.getSelectedRoomObjectData(roomId);
 
-        if(!_local_4) return;
+        if(!objectData) return;
 
-        const _local_5 = (this._roomEngine.getRoomObject(roomId, objectId, category) as IRoomObjectController);
+        const roomObjectController = this._roomEngine.getRoomObject(roomId, objectId, category);
 
-        if(!_local_5) return;
+        if(!roomObjectController) return;
 
         if(!this._roomEngine || !GetEventDispatcher()) return;
 
-        GetEventDispatcher().dispatchEvent(new RoomEngineObjectPlacedOnUserEvent(RoomEngineObjectEvent.PLACED_ON_USER, roomId, objectId, category, _local_4.id, _local_4.category));
+        GetEventDispatcher().dispatchEvent(new RoomEngineObjectPlacedOnUserEvent(RoomEngineObjectEvent.PLACED_ON_USER, roomId, objectId, category, objectData.id, objectData.category));
     }
 
     public setSelectedObject(roomId: number, objectId: number, category: number): void

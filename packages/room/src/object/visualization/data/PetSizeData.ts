@@ -8,7 +8,7 @@ export class PetSizeData extends AnimationSizeData
     private _posturesToAnimations: Map<string, number> = new Map();
     private _gesturesToAnimations: Map<string, number> = new Map();
     private _defaultPosture: string = null;
-    
+
     public processPostures(postures: { defaultPosture?: string, postures: IAssetPosture[] }): boolean
     {
         if(!postures) return false;
