@@ -26,6 +26,7 @@ export class RoomObjectSprite implements IRoomObjectSprite
     private _varyingDepth: boolean = false;
     private _libraryAssetName: string = '';
     private _clickHandling: boolean = false;
+    private _skipMouseHandling: boolean = false;
     private _visible: boolean = true;
     private _tag: string = '';
     private _posture: string = null;
@@ -351,5 +352,15 @@ export class RoomObjectSprite implements IRoomObjectSprite
     public get updateCounter(): number
     {
         return this._updateCounter;
+    }
+
+    public get skipMouseHandling(): boolean
+    {
+        return this._skipMouseHandling;
+    }
+
+    public set skipMouseHandling(flag: boolean)
+    {
+        this._skipMouseHandling = flag;
     }
 }

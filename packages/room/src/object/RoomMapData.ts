@@ -7,7 +7,7 @@ export class RoomMapData implements IRoomMapData
     private _wallHeight: number;
     private _fixedWallsHeight: number;
     private _tileMap: { height: number }[][];
-    private _holeMap: { id: number, x: number, y: number, width: number, height: number }[];
+    private _holeMap: { id: number, x: number, y: number, width: number, height: number, invert: boolean }[];
     private _doors: { x: number, y: number, z: number, dir: number }[];
     private _dimensions: { minX: number, maxX: number, minY: number, maxY: number };
 
@@ -73,7 +73,7 @@ export class RoomMapData implements IRoomMapData
         return this._tileMap;
     }
 
-    public get holeMap(): { id: number, x: number, y: number, width: number, height: number }[]
+    public get holeMap(): { id: number, x: number, y: number, width: number, height: number, invert: boolean }[]
     {
         return this._holeMap;
     }

@@ -10,6 +10,7 @@ export interface IRoomCreator
     updateRoomInstancePlaneVisibility(roomId: number, wallVisible: boolean, floorVisible?: boolean): boolean;
     updateRoomInstancePlaneThickness(roomId: number, wallThickness: number, floorThickness: number): boolean;
     updateRoomInstancePlaneType(roomId: number, floorType?: string, wallType?: string, landscapeType?: string, _arg_5?: boolean): boolean;
+    updateAreaHide(roomId: number, furniId: number, on: boolean, rootX: number, rootY: number, width: number, length: number, invert: boolean): boolean;
     removeRoomInstance(roomId: number): void;
     createRoomInstance(roomId: number, roomMap: IRoomMapData): void;
     setRoomSessionOwnUser(roomId: number, objectId: number): void;

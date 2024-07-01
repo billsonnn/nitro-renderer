@@ -50,6 +50,8 @@ export class RoomPlane implements IRoomPlane
     private _hasTexture: boolean = true;
     private _canBeVisible: boolean = true;
     private _geometryUpdateId: number = -1;
+    private _extraDepth: number = 0;
+    private _isHighlighter: boolean = false;
 
     private _useMask: boolean;
     private _bitmapMasks: RoomPlaneBitmapMask[] = [];
@@ -569,7 +571,12 @@ export class RoomPlane implements IRoomPlane
 
     public get relativeDepth(): number
     {
-        return this._relativeDepth;
+        return (this._relativeDepth + this._extraDepth);
+    }
+
+    public set extraDepth(value: number)
+    {
+        this._extraDepth = value;
     }
 
     public get color(): number
@@ -632,5 +639,15 @@ export class RoomPlane implements IRoomPlane
     public set hasTexture(flag: boolean)
     {
         this._hasTexture = flag;
+    }
+
+    public get isHighlighter(): boolean
+    {
+        return this._isHighlighter;
+    }
+
+    public set isHighlighter(flag: boolean)
+    {
+        this._isHighlighter = flag;
     }
 }

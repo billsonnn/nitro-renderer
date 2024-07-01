@@ -85,6 +85,13 @@ export class RoomObjectVariable
     public static FURNITURE_ROOM_BACKGROUND_COLOR_HUE: string = 'furniture_room_background_color_hue';
     public static FURNITURE_ROOM_BACKGROUND_COLOR_SATURATION: string = 'furniture_room_background_color_saturation';
     public static FURNITURE_ROOM_BACKGROUND_COLOR_LIGHTNESS: string = 'furniture_room_background_color_lightness';
+    public static FURNITURE_AREA_HIDE_ROOT_X: string = 'furniture_area_hide_root_x';
+    public static FURNITURE_AREA_HIDE_ROOT_Y: string = 'furniture_area_hide_root_y';
+    public static FURNITURE_AREA_HIDE_WIDTH: string = 'furniture_area_hide_width';
+    public static FURNITURE_AREA_HIDE_LENGTH: string = 'furniture_area_hide_length';
+    public static FURNITURE_AREA_HIDE_INVISIBILITY: string = 'furniture_area_hide_invisibility';
+    public static FURNITURE_AREA_HIDE_WALL_ITEMS: string = 'furniture_area_hide_wall_items';
+    public static FURNITURE_AREA_HIDE_INVERT: string = 'furniture_area_hide_invert';
     public static FURNITURE_USES_PLANE_MASK: string = 'furniture_uses_plane_mask';
     public static FURNITURE_PLANE_MASK_TYPE: string = 'furniture_plane_mask_type';
     public static FURNITURE_IS_VARIABLE_HEIGHT: string = 'furniture_is_variable_height';

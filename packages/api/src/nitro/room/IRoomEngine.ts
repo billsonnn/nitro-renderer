@@ -24,6 +24,7 @@ export interface IRoomEngine
     updateRoomInstancePlaneVisibility(roomId: number, wallVisible: boolean, floorVisible?: boolean): boolean;
     updateRoomInstancePlaneThickness(roomId: number, wallThickness: number, floorThickness: number): boolean;
     updateRoomInstancePlaneType(roomId: number, floorType?: string, wallType?: string, landscapeType?: string, _arg_5?: boolean): boolean;
+    updateAreaHide(roomId: number, furniId: number, on: boolean, rootX: number, rootY: number, width: number, length: number, invert: boolean): boolean;
     updateObjectRoomColor(k: number, _arg_2: number, _arg_3: number, _arg_4: boolean): boolean;
     getRoomInstanceGeometry(roomId: number, canvasId?: number): IRoomGeometry;
     getRoomInstanceVariable<T>(roomId: number, key: string): T;
@@ -81,9 +82,12 @@ export interface IRoomEngine
     saveTextureAsScreenshot(texture: RenderTexture, saveAsThumbnail?: boolean): Promise<void>;
     saveBase64AsScreenshot(base64: string, saveAsThumbnail?: boolean): void;
     deleteRoomObject(objectId: number, objectCategory: number): boolean;
-    roomManager: IRoomManager;
-    objectEventHandler: IRoomObjectEventManager;
-    activeRoomId: number;
-    selectedAvatarId: number;
-    isDecorating: boolean;
+    readonly roomManager: IRoomManager;
+    readonly objectEventHandler: IRoomObjectEventManager;
+    readonly activeRoomId: number;
+    readonly selectedAvatarId: number;
+    readonly isDecorating: boolean;
+    moveBlocked: boolean;
+    isAreaSelectionMode(): boolean;
+    whereYouClickIsWhereYouGo(): boolean;
 }

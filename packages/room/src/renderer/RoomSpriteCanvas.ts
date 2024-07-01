@@ -528,6 +528,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
             extendedSprite.label = sprite.name;
             extendedSprite.varyingDepth = objectSprite.varyingDepth;
             extendedSprite.clickHandling = objectSprite.clickHandling;
+            extendedSprite.skipMouseHandling = objectSprite.skipMouseHandling;
             extendedSprite.filters = objectSprite.filters;
 
             const alpha = (objectSprite.alpha / 255);
@@ -604,6 +605,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         extendedSprite.label = sprite.name;
         extendedSprite.varyingDepth = sprite.varyingDepth;
         extendedSprite.clickHandling = sprite.clickHandling;
+        extendedSprite.skipMouseHandling = sprite.skipMouseHandling;
         extendedSprite.blendMode = sprite.blendMode;
         extendedSprite.filters = sprite.filters;
 
@@ -757,61 +759,64 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
 
             if(extendedSprite && extendedSprite.containsPoint(new Point((x - extendedSprite.x), (y - extendedSprite.y))))
             {
-                if(extendedSprite.clickHandling && ((type === MouseEventType.MOUSE_CLICK) || (type === MouseEventType.DOUBLE_CLICK)))
+                if(!extendedSprite.skipMouseHandling)
                 {
-                    //
-                }
-                else
-                {
-                    const identifier = this.getExtendedSpriteIdentifier(extendedSprite);
-
-                    if(checkedSprites.indexOf(identifier) === -1)
+                    if(extendedSprite.clickHandling && ((type === MouseEventType.MOUSE_CLICK) || (type === MouseEventType.DOUBLE_CLICK)))
                     {
-                        const tag = extendedSprite.tag;
+                        //
+                    }
+                    else
+                    {
+                        const identifier = this.getExtendedSpriteIdentifier(extendedSprite);
 
-                        let mouseData = this._mouseActiveObjects.get(identifier);
-
-                        if(mouseData)
+                        if(checkedSprites.indexOf(identifier) === -1)
                         {
-                            if(mouseData.spriteTag !== tag)
-                            {
-                                mouseEvent = this.createMouseEvent(0, 0, 0, 0, MouseEventType.ROLL_OUT, mouseData.spriteTag, altKey, ctrlKey, shiftKey, buttonDown);
+                            const tag = extendedSprite.tag;
 
+                            let mouseData = this._mouseActiveObjects.get(identifier);
+
+                            if(mouseData)
+                            {
+                                if(mouseData.spriteTag !== tag)
+                                {
+                                    mouseEvent = this.createMouseEvent(0, 0, 0, 0, MouseEventType.ROLL_OUT, mouseData.spriteTag, altKey, ctrlKey, shiftKey, buttonDown);
+
+                                    this.bufferMouseEvent(mouseEvent, identifier);
+                                }
+                            }
+
+                            if((type === MouseEventType.MOUSE_MOVE) && (!mouseData || (mouseData.spriteTag !== tag)))
+                            {
+                                mouseEvent = this.createMouseEvent(x, y, (x - extendedSprite.x), (y - extendedSprite.y), MouseEventType.ROLL_OVER, tag, altKey, ctrlKey, shiftKey, buttonDown);
+                            }
+                            else
+                            {
+                                mouseEvent = this.createMouseEvent(x, y, (x - extendedSprite.x), (y - extendedSprite.y), type, tag, altKey, ctrlKey, shiftKey, buttonDown);
+
+                                mouseEvent.spriteOffsetX = extendedSprite.offsetX;
+                                mouseEvent.spriteOffsetY = extendedSprite.offsetY;
+                            }
+
+                            if(!mouseData)
+                            {
+                                mouseData = new ObjectMouseData();
+
+                                mouseData.objectId = identifier;
+                                this._mouseActiveObjects.set(identifier, mouseData);
+                            }
+
+                            mouseData.spriteTag = tag;
+
+                            if(((type !== MouseEventType.MOUSE_MOVE) || (x !== this._mouseOldX)) || (y !== this._mouseOldY))
+                            {
                                 this.bufferMouseEvent(mouseEvent, identifier);
                             }
+
+                            checkedSprites.push(identifier);
                         }
 
-                        if((type === MouseEventType.MOUSE_MOVE) && (!mouseData || (mouseData.spriteTag !== tag)))
-                        {
-                            mouseEvent = this.createMouseEvent(x, y, (x - extendedSprite.x), (y - extendedSprite.y), MouseEventType.ROLL_OVER, tag, altKey, ctrlKey, shiftKey, buttonDown);
-                        }
-                        else
-                        {
-                            mouseEvent = this.createMouseEvent(x, y, (x - extendedSprite.x), (y - extendedSprite.y), type, tag, altKey, ctrlKey, shiftKey, buttonDown);
-
-                            mouseEvent.spriteOffsetX = extendedSprite.offsetX;
-                            mouseEvent.spriteOffsetY = extendedSprite.offsetY;
-                        }
-
-                        if(!mouseData)
-                        {
-                            mouseData = new ObjectMouseData();
-
-                            mouseData.objectId = identifier;
-                            this._mouseActiveObjects.set(identifier, mouseData);
-                        }
-
-                        mouseData.spriteTag = tag;
-
-                        if(((type !== MouseEventType.MOUSE_MOVE) || (x !== this._mouseOldX)) || (y !== this._mouseOldY))
-                        {
-                            this.bufferMouseEvent(mouseEvent, identifier);
-                        }
-
-                        checkedSprites.push(identifier);
+                        didHitSprite = true;
                     }
-
-                    didHitSprite = true;
                 }
             }
 

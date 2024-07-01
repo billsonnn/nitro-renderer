@@ -1,5 +1,5 @@
 import { IFurnitureStackingHeightMap, ILegacyWallGeometry, IObjectData, IRoomCanvasMouseListener, IRoomEngineServices, IRoomGeometry, IRoomObject, IRoomObjectController, IRoomObjectEventManager, ISelectedRoomObjectData, IVector3D, MouseEventType, RoomObjectCategory, RoomObjectOperationType, RoomObjectPlacementSource, RoomObjectType, RoomObjectUserType, RoomObjectVariable } from '@nitrots/api';
-import { BotPlaceComposer, FurnitureColorWheelComposer, FurnitureDiceActivateComposer, FurnitureDiceDeactivateComposer, FurnitureFloorUpdateComposer, FurnitureGroupInfoComposer, FurnitureMultiStateComposer, FurnitureOneWayDoorComposer, FurniturePickupComposer, FurniturePlaceComposer, FurniturePostItPlaceComposer, FurnitureRandomStateComposer, FurnitureWallMultiStateComposer, FurnitureWallUpdateComposer, GetCommunication, GetItemDataComposer, GetResolutionAchievementsMessageComposer, PetMoveComposer, PetPlaceComposer, RemoveWallItemComposer, RoomUnitLookComposer, RoomUnitWalkComposer, SetItemDataMessageComposer, SetObjectDataMessageComposer } from '@nitrots/communication';
+import { BotPlaceComposer, ClickFurniMessageComposer, FurnitureColorWheelComposer, FurnitureDiceActivateComposer, FurnitureDiceDeactivateComposer, FurnitureFloorUpdateComposer, FurnitureGroupInfoComposer, FurnitureMultiStateComposer, FurnitureOneWayDoorComposer, FurniturePickupComposer, FurniturePlaceComposer, FurniturePostItPlaceComposer, FurnitureRandomStateComposer, FurnitureWallMultiStateComposer, FurnitureWallUpdateComposer, GetCommunication, GetItemDataComposer, GetResolutionAchievementsMessageComposer, PetMoveComposer, PetPlaceComposer, RemoveWallItemComposer, RoomUnitLookComposer, RoomUnitWalkComposer, SetItemDataMessageComposer, SetObjectDataMessageComposer } from '@nitrots/communication';
 import { GetConfiguration } from '@nitrots/configuration';
 import { GetEventDispatcher, RoomEngineDimmerStateEvent, RoomEngineObjectEvent, RoomEngineObjectPlacedEvent, RoomEngineObjectPlacedOnUserEvent, RoomEngineObjectPlaySoundEvent, RoomEngineRoomAdEvent, RoomEngineSamplePlaybackEvent, RoomEngineTriggerWidgetEvent, RoomEngineUseProductEvent, RoomObjectBadgeAssetEvent, RoomObjectDataRequestEvent, RoomObjectDimmerStateUpdateEvent, RoomObjectEvent, RoomObjectFloorHoleEvent, RoomObjectFurnitureActionEvent, RoomObjectHSLColorEnableEvent, RoomObjectHSLColorEnabledEvent, RoomObjectMouseEvent, RoomObjectMoveEvent, RoomObjectPlaySoundIdEvent, RoomObjectRoomAdEvent, RoomObjectSamplePlaybackEvent, RoomObjectSoundMachineEvent, RoomObjectStateChangedEvent, RoomObjectTileMouseEvent, RoomObjectWallMouseEvent, RoomObjectWidgetRequestEvent, RoomSpriteMouseEvent } from '@nitrots/events';
 import { GetRoomSessionManager, GetSessionDataManager } from '@nitrots/session';
@@ -185,6 +185,7 @@ export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomOb
             case RoomObjectWidgetRequestEvent.MONSTERPLANT_SEED_PLANT_CONFIRMATION_DIALOG:
             case RoomObjectWidgetRequestEvent.PURCHASABLE_CLOTHING_CONFIRMATION_DIALOG:
             case RoomObjectWidgetRequestEvent.BACKGROUND_COLOR:
+            case RoomObjectWidgetRequestEvent.AREA_HIDE:
             case RoomObjectWidgetRequestEvent.MYSTERYBOX_OPEN_DIALOG:
             case RoomObjectWidgetRequestEvent.EFFECTBOX_OPEN_DIALOG:
             case RoomObjectWidgetRequestEvent.MYSTERYTROPHY_OPEN_DIALOG:
@@ -265,6 +266,11 @@ export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomOb
     {
         if(!event || !event.type) return;
 
+        if(event instanceof RoomObjectTileMouseEvent)
+        {
+            this._roomEngine.areaSelectionManager.handleTileMouseEvent(event);
+        }
+
         switch(event.type)
         {
             case RoomObjectMouseEvent.CLICK:
@@ -291,9 +297,35 @@ export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomOb
         }
     }
 
+    private clickRoomObject(event: RoomObjectMouseEvent): void
+    {
+        if(!event || event.altKey || event.ctrlKey || event.shiftKey) return;
+
+        const objectId = event.objectId;
+        const objectType = event.objectType;
+        const category = this._roomEngine.getRoomObjectCategoryForType(objectType);
+
+        if(category === RoomObjectCategory.FLOOR)
+        {
+            GetCommunication().connection.send(new ClickFurniMessageComposer(objectId, category));
+
+            return;
+        }
+
+        if(category === RoomObjectCategory.WALL)
+        {
+            // This packet only sends a negative number to tell the server that its a wall item
+            GetCommunication().connection.send(new ClickFurniMessageComposer(-Math.abs(objectId), category));
+
+            return;
+        }
+    }
+
     private handleRoomObjectMouseClickEvent(event: RoomObjectMouseEvent, roomId: number): void
     {
         if(!event) return;
+
+        this.clickRoomObject(event);
 
         let operation = RoomObjectOperationType.OBJECT_UNDEFINED;
 
@@ -304,7 +336,7 @@ export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomOb
         let didWalk = false;
         let didMove = false;
 
-        if(this._whereYouClickIsWhereYouGo)
+        if(this.whereYouClickIsWhereYouGo())
         {
             if(!operation || (operation === RoomObjectOperationType.OBJECT_UNDEFINED))
             {
@@ -370,11 +402,20 @@ export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomOb
             case RoomObjectOperationType.OBJECT_UNDEFINED:
                 if(category === RoomObjectCategory.ROOM)
                 {
-                    if(!didWalk && (event instanceof RoomObjectTileMouseEvent)) this.onRoomObjectTileMouseEvent(roomId, event);
+                    if(!didWalk && (event instanceof RoomObjectTileMouseEvent)) this.handleClickOnTile(roomId, event);
                 }
                 else
                 {
-                    this.setSelectedObject(roomId, event.objectId, category);
+                    if(!this._roomEngine.isAreaSelectionMode() || (category === RoomObjectCategory.UNIT))
+                    {
+                        this.setSelectedObject(roomId, event.objectId, category);
+                    }
+                    else
+                    {
+                        this.deselectObject(roomId);
+
+                        GetEventDispatcher().dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.DESELECTED, roomId, -1, RoomObjectCategory.MINIMUM));
+                    }
 
                     didMove = false;
 
@@ -507,7 +548,7 @@ export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomOb
 
                 else if(event.object && (event.object.id !== -1))
                 {
-                    if(this._whereYouClickIsWhereYouGo)
+                    if(this.whereYouClickIsWhereYouGo())
                     {
                         newEvent = this.handleMouseOverObject(category, roomId, event);
                     }
@@ -757,6 +798,9 @@ export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomOb
                 return;
             case RoomObjectWidgetRequestEvent.BACKGROUND_COLOR:
                 GetEventDispatcher().dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_BACKGROUND_COLOR, roomId, objectId, objectCategory));
+                return;
+            case RoomObjectWidgetRequestEvent.AREA_HIDE:
+                GetEventDispatcher().dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_AREA_HIDE, roomId, objectId, objectCategory));
                 return;
             case RoomObjectWidgetRequestEvent.MYSTERYBOX_OPEN_DIALOG:
                 GetEventDispatcher().dispatchEvent(new RoomEngineTriggerWidgetEvent(RoomEngineTriggerWidgetEvent.REQUEST_MYSTERYBOX_OPEN_DIALOG, roomId, objectId, objectCategory));
@@ -1017,13 +1061,15 @@ export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomOb
         }
     }
 
-    private onRoomObjectTileMouseEvent(roomId: number, event: RoomObjectTileMouseEvent): void
+    private handleClickOnTile(roomId: number, event: RoomObjectTileMouseEvent): void
     {
+        if(!this._roomEngine || this._roomEngine.isDecorating) return;
+
         const session = GetRoomSessionManager().getSession(roomId);
 
         if(!session || session.isSpectator) return;
 
-        this.sendWalkUpdate(event.tileXAsInt, event.tileYAsInt);
+        if(!this._roomEngine.moveBlocked) this.sendWalkUpdate(event.tileXAsInt, event.tileYAsInt);
     }
 
     private handleObjectMove(event: RoomObjectMouseEvent, roomId: number): void
@@ -1480,14 +1526,12 @@ export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomOb
 
     private handleMoveTargetFurni(k: number, _arg_2: RoomObjectMouseEvent): boolean
     {
-        if((_arg_2.objectType === RoomObjectUserType.USER) || (_arg_2.objectType === RoomObjectUserType.PET) || (_arg_2.objectType === RoomObjectUserType.BOT) || (_arg_2.objectType === RoomObjectUserType.RENTABLE_BOT) || (_arg_2.objectType === RoomObjectUserType.MONSTER_PLANT)) return;
+        const roomObject = this._roomEngine.getRoomObject(k, _arg_2.objectId, RoomObjectCategory.FLOOR);
+        const point = this.getActiveSurfaceLocation(roomObject, _arg_2);
 
-        const _local_3 = this._roomEngine.getRoomObject(k, _arg_2.objectId, RoomObjectCategory.FLOOR);
-        const _local_4 = this.getActiveSurfaceLocation(_local_3, _arg_2);
-
-        if(_local_4)
+        if(point && !this._roomEngine.moveBlocked)
         {
-            this.sendWalkUpdate(_local_4.x, _local_4.y);
+            this.sendWalkUpdate(point.x, point.y);
 
             return true;
         }
@@ -1548,7 +1592,7 @@ export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomOb
 
     private handleMouseOverTile(k: RoomObjectTileMouseEvent, roomId: number): ObjectTileCursorUpdateMessage
     {
-        if(this._whereYouClickIsWhereYouGo)
+        if(this.whereYouClickIsWhereYouGo())
         {
             return new ObjectTileCursorUpdateMessage(new Vector3d(k.tileXAsInt, k.tileYAsInt, k.tileZAsInt), 0, true, k.eventId);
         }
@@ -2186,5 +2230,10 @@ export class RoomObjectEventHandler implements IRoomCanvasMouseListener, IRoomOb
     public get selectedAvatarId(): number
     {
         return this._selectedAvatarId;
+    }
+
+    public whereYouClickIsWhereYouGo(): boolean
+    {
+        return this._roomEngine.whereYouClickIsWhereYouGo();
     }
 }

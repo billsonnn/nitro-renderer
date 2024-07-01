@@ -29,4 +29,5 @@ export interface IRoomObjectSprite
     alphaTolerance: number;
     filters: Filter[];
     updateCounter: number;
+    skipMouseHandling: boolean;
 }

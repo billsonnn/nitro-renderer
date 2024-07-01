@@ -1,4 +1,5 @@
 export * from './FurnitureAchievementResolutionLogic';
+export * from './FurnitureAreaHideLogic';
 export * from './FurnitureBadgeDisplayLogic';
 export * from './FurnitureChangeStateWhenStepOnLogic';
 export * from './FurnitureClothingChangeLogic';

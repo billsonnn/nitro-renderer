@@ -1,5 +1,9 @@
 export class IncomingHeader
 {
+    // These packets do not belong to this revision, so these are custom packet ids
+    public static AREA_HIDE = 6001;
+
+    // Original packets
     public static ACHIEVEMENT_LIST = 305;
     public static AUTHENTICATED = 2491;
     public static AUTHENTICATION = -1;

@@ -11,8 +11,9 @@ export class ObjectRoomFloorHoleUpdateMessage extends RoomObjectUpdateMessage
     private _y: number;
     private _width: number;
     private _height: number;
+    private _invert: boolean;
 
-    constructor(type: string, id: number, x: number = 0, y: number = 0, width: number = 0, height: number = 0)
+    constructor(type: string, id: number, x: number = 0, y: number = 0, width: number = 0, height: number = 0, invert: boolean = false)
     {
         super(null, null);
 
@@ -22,6 +23,7 @@ export class ObjectRoomFloorHoleUpdateMessage extends RoomObjectUpdateMessage
         this._y = y;
         this._width = width;
         this._height = height;
+        this._invert = invert;
     }
 
     public get type(): string
@@ -52,5 +54,10 @@ export class ObjectRoomFloorHoleUpdateMessage extends RoomObjectUpdateMessage
     public get height(): number
     {
         return this._height;
+    }
+
+    public get invert(): boolean
+    {
+        return this._invert;
     }
 }

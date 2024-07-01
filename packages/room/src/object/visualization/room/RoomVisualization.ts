@@ -1,6 +1,6 @@
 import { AlphaTolerance, IObjectVisualizationData, IPlaneVisualization, IRoomGeometry, IRoomObjectModel, IRoomObjectSprite, IRoomPlane, RoomObjectSpriteType, RoomObjectVariable } from '@nitrots/api';
 import { ToInt32, Vector3d } from '@nitrots/utils';
-import { Rectangle, Texture } from 'pixi.js';
+import { Filter, Rectangle, Texture } from 'pixi.js';
 import { RoomMapData } from '../../RoomMapData';
 import { RoomMapMaskData } from '../../RoomMapMaskData';
 import { RoomPlaneBitmapMaskData } from '../../RoomPlaneBitmapMaskData';
@@ -54,6 +54,13 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
     private _maskData: RoomMapMaskData = null;
     private _isPlaneSet: boolean = false;
 
+    private _highlightAreaX: number = 0;
+    private _highlightAreaY: number = 0;
+    private _highlightAreaWidth: number = 0;
+    private _highlightAreaHeight: number = 0;
+    private _highlightFilter: Filter = null;
+    private _highlightPlaneOffsets: number[] = [];
+
     constructor()
     {
         super();
@@ -86,6 +93,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         this._planes = null;
         this._visiblePlanes = null;
         this._visiblePlaneSpriteNumbers = null;
+        this._highlightPlaneOffsets = [];
 
         if(this._roomPlaneParser)
         {
@@ -321,6 +329,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
             }
 
             this._planes = [];
+            this._highlightPlaneOffsets = [];
         }
 
         this._isPlaneSet = false;
@@ -336,19 +345,29 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
         if(!isNaN(this._floorThickness)) this._roomPlaneParser.floorThicknessMultiplier = this._floorThickness;
         if(!isNaN(this._wallThickness)) this._roomPlaneParser.wallThicknessMultiplier = this._wallThickness;
 
+        this._roomPlaneParser.clearHighlightArea();
+
         const mapData = this.object.model.getValue<RoomMapData>(RoomObjectVariable.ROOM_MAP_DATA);
 
         if(!this._roomPlaneParser.initializeFromMapData(mapData)) return;
 
+        this._roomPlaneParser.initializeHighlightArea(this._highlightAreaX, this._highlightAreaY, this._highlightAreaWidth, this._highlightAreaHeight);
+
+        this.createPlanesAndSprites();
+    }
+
+    private createPlanesAndSprites(offset: number = 0): void
+    {
         const maxX = this.getLandscapeWidth();
         const maxY = this.getLandscapeHeight();
 
         let landscapeOffsetX = 0;
         let randomSeed = this.object.model.getValue<number>(RoomObjectVariable.ROOM_RANDOM_SEED);
-        let index = 0;
+        let index = offset;
 
         while(index < this._roomPlaneParser.planeCount)
         {
+            this._highlightPlaneOffsets[index] = -1;
             const location = this._roomPlaneParser.getPlaneLocation(index);
             const leftSide = this._roomPlaneParser.getPlaneLeftSide(index);
             const rightSide = this._roomPlaneParser.getPlaneRightSide(index);
@@ -414,6 +433,7 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                         i++;
                     }
 
+                    this._highlightPlaneOffsets[index] = this._planes.length;
                     this._planes.push(plane);
                 }
             }
@@ -427,6 +447,53 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
 
         this._isPlaneSet = true;
         this.defineSprites();
+    }
+
+    public initializeHighlightArea(highlightAreaX: number, highlightAreaY: number, highlightAreaWidth: number, highlightAreaHeight: number, highlightFilter: Filter): void
+    {
+        this.clearHighlightArea();
+
+        this._highlightAreaX = highlightAreaX;
+        this._highlightAreaY = highlightAreaY;
+        this._highlightAreaWidth = highlightAreaWidth;
+        this._highlightAreaHeight = highlightAreaHeight;
+        this._highlightFilter = highlightFilter;
+
+        this._roomPlaneParser.initializeHighlightArea(highlightAreaX, highlightAreaY, highlightAreaWidth, highlightAreaHeight);
+
+        this.createPlanesAndSprites(this._planes.length);
+        this.reset();
+    }
+
+    public clearHighlightArea(): void
+    {
+        this._highlightAreaX = 0;
+        this._highlightAreaY = 0;
+        this._highlightAreaWidth = 0;
+        this._highlightAreaHeight = 0;
+
+        const totalHighlightedPlanes = this._roomPlaneParser.clearHighlightArea();
+        let _local_4 = 0;
+
+        let _local_1 = this._roomPlaneParser.planeCount;
+
+        while(_local_1 < (this._roomPlaneParser.planeCount + totalHighlightedPlanes))
+        {
+            const _local_2 = this._highlightPlaneOffsets[_local_1];
+
+            if(_local_2 !== -1)
+            {
+                _local_4 = (_local_4 + 1);
+                this._highlightPlaneOffsets[_local_1] = -1;
+            };
+
+            _local_1 = (_local_1 + 1);
+        };
+
+        this._planes = this._planes.slice(0, (this._planes.length - _local_4));
+        this.createSprites(this._planes.length);
+
+        this.reset();
     }
 
     protected defineSprites(): void
@@ -467,6 +534,22 @@ export class RoomVisualization extends RoomObjectSpriteVisualization implements 
                 }
 
                 sprite.spriteType = RoomObjectSpriteType.ROOM_PLANE;
+
+                if(this._roomPlaneParser.isPlaneTemporaryHighlighter(planeIndex))
+                {
+                    if(this._highlightFilter) sprite.filters = [ this._highlightFilter ];
+
+                    sprite.skipMouseHandling = true;
+                    plane.extraDepth = -100;
+                    plane.isHighlighter = true;
+                }
+                else
+                {
+                    sprite.filters = [];
+                    sprite.skipMouseHandling = false;
+                    plane.extraDepth = 0;
+                    plane.isHighlighter = false;
+                }
             }
 
             planeIndex++;

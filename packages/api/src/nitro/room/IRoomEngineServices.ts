@@ -2,7 +2,7 @@ import { IRoomInstance, IRoomObjectController, IRoomRenderingCanvas } from '../.
 import { IVector3D } from '../../utils';
 import { ISelectedRoomObjectData } from './ISelectedRoomObjectData';
 import { IObjectData } from './object';
-import { IFurnitureStackingHeightMap, ILegacyWallGeometry, ITileObjectMap } from './utils';
+import { IFurnitureStackingHeightMap, ILegacyWallGeometry, IRoomAreaSelectionManager, ITileObjectMap } from './utils';
 
 export interface IRoomEngineServices
 {
@@ -38,4 +38,8 @@ export interface IRoomEngineServices
     isPlayingGame(): boolean;
     activeRoomId: number;
     isDecorating: boolean;
+    moveBlocked: boolean;
+    isAreaSelectionMode(): boolean;
+    whereYouClickIsWhereYouGo(): boolean;
+    areaSelectionManager: IRoomAreaSelectionManager;
 }

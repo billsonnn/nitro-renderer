@@ -1,5 +1,5 @@
 import { AvatarGuideStatus, IConnection, IRoomCreator, IVector3D, LegacyDataType, ObjectRolling, PetType, RoomObjectType, RoomObjectUserType, RoomObjectVariable } from '@nitrots/api';
-import { DiceValueMessageEvent, FloorHeightMapEvent, FurnitureAliasesComposer, FurnitureAliasesEvent, FurnitureDataEvent, FurnitureFloorAddEvent, FurnitureFloorDataParser, FurnitureFloorEvent, FurnitureFloorRemoveEvent, FurnitureFloorUpdateEvent, FurnitureWallAddEvent, FurnitureWallDataParser, FurnitureWallEvent, FurnitureWallRemoveEvent, FurnitureWallUpdateEvent, GetCommunication, GetRoomEntryDataMessageComposer, GuideSessionEndedMessageEvent, GuideSessionErrorMessageEvent, GuideSessionStartedMessageEvent, IgnoreResultEvent, ItemDataUpdateMessageEvent, ObjectsDataUpdateEvent, ObjectsRollingEvent, OneWayDoorStatusMessageEvent, PetExperienceEvent, PetFigureUpdateEvent, RoomEntryTileMessageEvent, RoomEntryTileMessageParser, RoomHeightMapEvent, RoomHeightMapUpdateEvent, RoomPaintEvent, RoomReadyMessageEvent, RoomUnitChatEvent, RoomUnitChatShoutEvent, RoomUnitChatWhisperEvent, RoomUnitDanceEvent, RoomUnitEffectEvent, RoomUnitEvent, RoomUnitExpressionEvent, RoomUnitHandItemEvent, RoomUnitIdleEvent, RoomUnitInfoEvent, RoomUnitNumberEvent, RoomUnitRemoveEvent, RoomUnitStatusEvent, RoomUnitTypingEvent, RoomVisualizationSettingsEvent, UserInfoEvent, YouArePlayingGameEvent } from '@nitrots/communication';
+import { AreaHideMessageEvent, DiceValueMessageEvent, FloorHeightMapEvent, FurnitureAliasesComposer, FurnitureAliasesEvent, FurnitureDataEvent, FurnitureFloorAddEvent, FurnitureFloorDataParser, FurnitureFloorEvent, FurnitureFloorRemoveEvent, FurnitureFloorUpdateEvent, FurnitureWallAddEvent, FurnitureWallDataParser, FurnitureWallEvent, FurnitureWallRemoveEvent, FurnitureWallUpdateEvent, GetCommunication, GetRoomEntryDataMessageComposer, GuideSessionEndedMessageEvent, GuideSessionErrorMessageEvent, GuideSessionStartedMessageEvent, IgnoreResultEvent, ItemDataUpdateMessageEvent, ObjectsDataUpdateEvent, ObjectsRollingEvent, OneWayDoorStatusMessageEvent, PetExperienceEvent, PetFigureUpdateEvent, RoomEntryTileMessageEvent, RoomEntryTileMessageParser, RoomHeightMapEvent, RoomHeightMapUpdateEvent, RoomPaintEvent, RoomReadyMessageEvent, RoomUnitChatEvent, RoomUnitChatShoutEvent, RoomUnitChatWhisperEvent, RoomUnitDanceEvent, RoomUnitEffectEvent, RoomUnitEvent, RoomUnitExpressionEvent, RoomUnitHandItemEvent, RoomUnitIdleEvent, RoomUnitInfoEvent, RoomUnitNumberEvent, RoomUnitRemoveEvent, RoomUnitStatusEvent, RoomUnitTypingEvent, RoomVisualizationSettingsEvent, UserInfoEvent, YouArePlayingGameEvent } from '@nitrots/communication';
 import { GetRoomSessionManager, GetSessionDataManager } from '@nitrots/session';
 import { Vector3d } from '@nitrots/utils';
 import { GetRoomEngine } from './GetRoomEngine';
@@ -47,6 +47,7 @@ export class RoomMessageHandler
         this._connection.addMessageEvent(new FurnitureDataEvent(this.onFurnitureDataEvent.bind(this)));
         this._connection.addMessageEvent(new ItemDataUpdateMessageEvent(this.onItemDataUpdateMessageEvent.bind(this)));
         this._connection.addMessageEvent(new OneWayDoorStatusMessageEvent(this.onOneWayDoorStatusMessageEvent.bind(this)));
+        this._connection.addMessageEvent(new AreaHideMessageEvent(this.onAreaHideMessageEvent.bind(this)));
         this._connection.addMessageEvent(new RoomUnitDanceEvent(this.onRoomUnitDanceEvent.bind(this)));
         this._connection.addMessageEvent(new RoomUnitEffectEvent(this.onRoomUnitEffectEvent.bind(this)));
         this._connection.addMessageEvent(new RoomUnitEvent(this.onRoomUnitEvent.bind(this)));
@@ -553,6 +554,16 @@ export class RoomMessageHandler
         const parser = event.getParser();
 
         this._roomEngine.updateRoomObjectFloor(this._currentRoomId, parser.itemId, null, null, parser.state, new LegacyDataType());
+    }
+
+    private onAreaHideMessageEvent(event: AreaHideMessageEvent): void
+    {
+        if(!(event instanceof AreaHideMessageEvent) || !event.connection || !this._roomEngine) return;
+
+        const parser = event.getParser();
+        const areaData = parser.areaData;
+
+        this._roomEngine.updateAreaHide(this._currentRoomId, areaData.furniId, areaData.on, areaData.rootX, areaData.rootY, areaData.width, areaData.length, areaData.invert);
     }
 
     private onDiceValueMessageEvent(event: DiceValueMessageEvent): void

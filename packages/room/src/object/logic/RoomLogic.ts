@@ -413,12 +413,14 @@ export class RoomLogic extends RoomObjectLogicBase
         let eventType: string = null;
 
         if((event.type === MouseEventType.MOUSE_MOVE) || (event.type === MouseEventType.ROLL_OVER)) eventType = RoomObjectMouseEvent.MOUSE_MOVE;
-        else if((event.type === MouseEventType.MOUSE_CLICK)) eventType = RoomObjectMouseEvent.CLICK;
+        else if(event.type === MouseEventType.MOUSE_CLICK) eventType = RoomObjectMouseEvent.CLICK;
+        else if(event.type === MouseEventType.MOUSE_DOWN) eventType = RoomObjectMouseEvent.MOUSE_DOWN;
 
         switch(event.type)
         {
             case MouseEventType.MOUSE_MOVE:
             case MouseEventType.ROLL_OVER:
+            case MouseEventType.MOUSE_DOWN:
             case MouseEventType.MOUSE_CLICK: {
                 let newEvent: RoomObjectEvent = null;
 

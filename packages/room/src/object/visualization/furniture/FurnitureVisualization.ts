@@ -1,5 +1,5 @@
 import { AlphaTolerance, IGraphicAsset, IObjectVisualizationData, IRoomGeometry, IRoomObjectSprite, RoomObjectVariable, RoomObjectVisualizationType } from '@nitrots/api';
-import { BLEND_MODES, Texture } from 'pixi.js';
+import { BLEND_MODES, Filter, Texture } from 'pixi.js';
 import { RoomObjectSpriteVisualization } from '../RoomObjectSpriteVisualization';
 import { ColorData, LayerData } from '../data';
 import { FurnitureVisualizationData } from './FurnitureVisualizationData';
@@ -38,8 +38,11 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
     protected _spriteXOffsets: number[];
     protected _spriteYOffsets: number[];
     protected _spriteZOffsets: number[];
+    protected _filters: Filter[] = [];
 
     private _animationNumber: number;
+    private _lookThrough: boolean;
+    private _needsLookThroughUpdate: boolean;
 
     constructor()
     {
@@ -75,6 +78,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         this._spriteZOffsets = [];
 
         this._animationNumber = 0;
+        this._lookThrough = false;
     }
 
     public initialize(data: IObjectVisualizationData): boolean
@@ -104,6 +108,7 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         this._spriteXOffsets = null;
         this._spriteYOffsets = null;
         this._spriteZOffsets = null;
+        this._filters = [];
     }
 
     protected reset(): void
@@ -159,6 +164,12 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
         if(this.updateObject(scale, geometry.direction.x)) updateSprites = true;
 
         if(this.updateModel(scale)) updateSprites = true;
+
+        if(this._needsLookThroughUpdate)
+        {
+            updateSprites = true;
+            this._needsLookThroughUpdate = false;
+        }
 
         let number = 0;
 
@@ -313,11 +324,15 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
                     relativeDepth = 1;
                 }
 
+                if(this._lookThrough) sprite.alpha *= 0.2;
+
                 sprite.relativeDepth = (relativeDepth * FurnitureVisualization.DEPTH_MULTIPLIER);
                 sprite.name = assetName;
                 sprite.libraryAssetName = this.getLibraryAssetNameForSprite(assetData, sprite);
                 sprite.posture = this.getPostureForAsset(scale, assetData.source);
                 sprite.clickHandling = this._clickHandling;
+
+                if(sprite.blendMode !== 'add') sprite.filters = this._filters;
             }
             else
             {
@@ -580,6 +595,14 @@ export class FurnitureVisualization extends RoomObjectSpriteVisualization
     public getTexture(scale: number, layerId: number, asset: IGraphicAsset): Texture
     {
         return asset?.texture ?? null;
+    }
+
+    public set lookThrough(flag: boolean)
+    {
+        if(this._lookThrough == flag) return;
+
+        this._lookThrough = flag;
+        this._needsLookThroughUpdate = true;
     }
 
     protected get direction(): number

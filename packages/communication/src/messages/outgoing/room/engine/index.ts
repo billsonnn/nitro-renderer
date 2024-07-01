@@ -1,6 +1,7 @@
 export * from './BotPlaceComposer';
 export * from './BotRemoveComposer';
 export * from './BotSkillSaveComposer';
+export * from './ClickFurniMessageComposer';
 export * from './CompostPlantMessageComposer';
 export * from './GetItemDataComposer';
 export * from './HarvestPetMessageComposer';

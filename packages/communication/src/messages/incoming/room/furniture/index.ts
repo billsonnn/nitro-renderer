@@ -1,6 +1,6 @@
+export * from './AreaHideMessageEvent';
 export * from './CustomUserNotificationMessageEvent';
 export * from './DiceValueMessageEvent';
-export * from './floor';
 export * from './FurniRentOrBuyoutOfferMessageEvent';
 export * from './FurnitureAliasesEvent';
 export * from './FurnitureDataEvent';
@@ -17,6 +17,7 @@ export * from './RentableSpaceStatusMessageEvent';
 export * from './RequestSpamWallPostItMessageEvent';
 export * from './RoomDimmerPresetsMessageEvent';
 export * from './RoomMessageNotificationMessageEvent';
-export * from './wall';
 export * from './WelcomeGiftStatusEvent';
+export * from './floor';
+export * from './wall';
 export * from './youtube';
