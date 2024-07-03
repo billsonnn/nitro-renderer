@@ -47,15 +47,30 @@ export class RoomAreaSelectionManager implements IRoomAreaSelectionManager
 
         const brightenFilter = new ColorMatrixFilter();
 
-        brightenFilter.matrix = [1.5, 0, 0, 0, 0, 0, 1.5, 0, 0, 20, 0, 0, 1.5, 0, 20, 0, 0, 0, 1, 0];
+        brightenFilter.matrix = [
+            1.5, 0, 0, 0,
+            0, 1.5, 0, 0,
+            0, 0, 1.5, 0,
+            0, 0, 0, 1,
+            0, 0.0784, 0.0784, 0];
 
         const blueFilter = new ColorMatrixFilter();
 
-        brightenFilter.matrix = [1.05, 0, 0, 0, 0, 0, 1.3, 0, 0, 8, 0, 0, 1.8, 0, 20, 0, 0, 0, 1, 0];
+        blueFilter.matrix = [
+            1.05, 0, 0, 0,
+            0, 1.3, 0, 0,
+            0, 0, 1.8, 0,
+            0, 0, 0, 1,
+            0, 0.0314, 0.0784, 0];
 
         const darkenFilter = new ColorMatrixFilter();
 
-        brightenFilter.matrix = [0.55, 0, 0, 0, -10, 0, 0.55, 0, 0, -10, 0, 0, 0.55, 0, -10, 0, 0, 0, 1, 0];
+        darkenFilter.matrix = [
+            0.55, 0, 0, 0,
+            0, 0.55, 0, 0,
+            0, 0, 0.55, 0,
+            0, 0, 0, 1,
+            -0.0392, -0.0392, -0.0392, 0];
 
         RoomAreaSelectionManager.HIGHLIGHT_FILTERS[RoomAreaSelectionManager.HIGHLIGHT_DARKEN] = darkenFilter;
         RoomAreaSelectionManager.HIGHLIGHT_FILTERS[RoomAreaSelectionManager.HIGHLIGHT_BRIGHTEN] = brightenFilter;
