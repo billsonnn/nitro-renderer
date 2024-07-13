@@ -12,7 +12,10 @@ export class RoomPlane implements IRoomPlane
 {
     public static HORIZONTAL_ANGLE_DEFAULT: number = 45;
     public static VERTICAL_ANGLE_DEFAULT: number = 30;
-    public static PLANE_GEOMETRY: IRoomGeometry = new RoomGeometry(64, new Vector3d(RoomPlane.HORIZONTAL_ANGLE_DEFAULT, RoomPlane.VERTICAL_ANGLE_DEFAULT), new Vector3d(-10, 0, 0));
+    public static PLANE_GEOMETRY: { [index: number]: IRoomGeometry } = {
+        '32': new RoomGeometry(32, new Vector3d(RoomPlane.HORIZONTAL_ANGLE_DEFAULT, RoomPlane.VERTICAL_ANGLE_DEFAULT), new Vector3d(-10, 0, 0)),
+        '64': new RoomGeometry(64, new Vector3d(RoomPlane.HORIZONTAL_ANGLE_DEFAULT, RoomPlane.VERTICAL_ANGLE_DEFAULT), new Vector3d(-10, 0, 0))
+    };
     private static LANDSCAPE_COLOR: number = 0x0082F0;
 
     public static TYPE_UNDEFINED: number = 0;
@@ -195,6 +198,7 @@ export class RoomPlane implements IRoomPlane
 
             Randomizer.setSeed(this._randomSeed);
 
+            const planeGeometry = RoomPlane.PLANE_GEOMETRY[geometry.scale];
             let width = (this._leftSide.length * geometry.scale);
             let height = (this._rightSide.length * geometry.scale);
             const normal = geometry.getCoordinatePosition(this._normal);
@@ -206,7 +210,7 @@ export class RoomPlane implements IRoomPlane
                 const roomCollection = GetAssetManager().getCollection('room');
                 const planeVisualizationData = roomCollection?.data?.roomVisualization?.[dataType];
                 const plane = planeVisualizationData?.planes?.find(plane => (plane.id === planeId));
-                const planeVisualization = (dataType === 'landscapeData') ? plane?.animatedVisualization?.[0] : plane?.visualizations?.[0];
+                const planeVisualization = ((dataType === 'landscapeData') ? plane?.animatedVisualization : plane?.visualizations)?.find(visualization => (visualization.size === planeGeometry.scale)) ?? null;
                 const planeLayer = planeVisualization?.allLayers?.[0] as IAssetPlaneVisualizationLayer;
                 const planeMaterialId = planeLayer?.materialId;
                 const planeColor = planeLayer?.color;
@@ -222,9 +226,9 @@ export class RoomPlane implements IRoomPlane
             switch(this._type)
             {
                 case RoomPlane.TYPE_FLOOR: {
-                    const _local_10 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 0));
-                    const _local_11 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, (height / RoomPlane.PLANE_GEOMETRY.scale), 0));
-                    const _local_12 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d((width / RoomPlane.PLANE_GEOMETRY.scale), 0, 0));
+                    const _local_10 = planeGeometry.getScreenPoint(new Vector3d(0, 0, 0));
+                    const _local_11 = planeGeometry.getScreenPoint(new Vector3d(0, (height / planeGeometry.scale), 0));
+                    const _local_12 = planeGeometry.getScreenPoint(new Vector3d((width / planeGeometry.scale), 0, 0));
 
                     let x = 0;
                     let y = 0;
@@ -234,7 +238,7 @@ export class RoomPlane implements IRoomPlane
                         width = Math.round(Math.abs((_local_10.x - _local_12.x)));
                         height = Math.round(Math.abs((_local_10.x - _local_11.x)));
 
-                        const _local_15 = (_local_10.x - RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(1, 0, 0)).x);
+                        const _local_15 = (_local_10.x - planeGeometry.getScreenPoint(new Vector3d(1, 0, 0)).x);
 
                         x = (this._textureOffsetX * Math.trunc(Math.abs(_local_15)));
                         y = (this._textureOffsetY * Math.trunc(Math.abs(_local_15)));
@@ -261,9 +265,9 @@ export class RoomPlane implements IRoomPlane
                     break;
                 }
                 case RoomPlane.TYPE_WALL: {
-                    const _local_8 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 0));
-                    const _local_9 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, (height / RoomPlane.PLANE_GEOMETRY.scale)));
-                    const _local_10 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, (width / RoomPlane.PLANE_GEOMETRY.scale), 0));
+                    const _local_8 = planeGeometry.getScreenPoint(new Vector3d(0, 0, 0));
+                    const _local_9 = planeGeometry.getScreenPoint(new Vector3d(0, 0, (height / planeGeometry.scale)));
+                    const _local_10 = planeGeometry.getScreenPoint(new Vector3d(0, (width / planeGeometry.scale), 0));
 
                     if(_local_8 && _local_9 && _local_10)
                     {
@@ -285,19 +289,18 @@ export class RoomPlane implements IRoomPlane
                     break;
                 }
                 case RoomPlane.TYPE_LANDSCAPE: {
-                    const _local_13 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 0));
-                    const _local_14 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 0, 1));
-                    const _local_15 = RoomPlane.PLANE_GEOMETRY.getScreenPoint(new Vector3d(0, 1, 0));
+                    const _local_13 = planeGeometry.getScreenPoint(new Vector3d(0, 0, 0));
+                    const _local_14 = planeGeometry.getScreenPoint(new Vector3d(0, 0, 1));
+                    const _local_15 = planeGeometry.getScreenPoint(new Vector3d(0, 1, 0));
 
                     if(_local_13 && _local_14 && _local_15)
                     {
-                        width = Math.round(Math.abs((((_local_13.x - _local_15.x) * width) / RoomPlane.PLANE_GEOMETRY.scale)));
-                        height = Math.round(Math.abs((((_local_13.y - _local_14.y) * height) / RoomPlane.PLANE_GEOMETRY.scale)));
+                        width = Math.round(Math.abs((((_local_13.x - _local_15.x) * width) / planeGeometry.scale)));
+                        height = Math.round(Math.abs((((_local_13.y - _local_14.y) * height) / planeGeometry.scale)));
                     }
 
                     const renderMaxX = Math.trunc(this._textureMaxX * Math.abs((_local_13.x - _local_15.x)));
                     const renderMaxY = Math.trunc(this._textureMaxY * Math.abs((_local_13.y - _local_14.y)));
-
                     const renderOffsetX = Math.trunc(this._textureOffsetX * Math.abs((_local_13.x - _local_15.x)));
                     const renderOffsetY = Math.trunc(this._textureOffsetY * Math.abs((_local_13.y - _local_14.y)));
 

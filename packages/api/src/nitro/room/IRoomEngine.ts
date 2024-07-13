@@ -14,7 +14,7 @@ export interface IRoomEngine
     setActiveRoomId(roomId: number): void;
     createRoomInstance(roomId: number, roomMap: IRoomMapData): void;
     getRoomInstanceDisplay(roomId: number, id: number, width: number, height: number, scale: number): Container;
-    setRoomInstanceRenderingCanvasScale(roomId: number, canvasId: number, scale: number, point?: Point, offsetPoint?: Point, override?: boolean, asDelta?: boolean): void;
+    setRoomInstanceRenderingCanvasScale(roomId: number, canvasId: number, level: number, point?: Point, offsetPoint?: Point, isFlipForced?: boolean): void;
     setRoomInstanceRenderingCanvasMask(roomId: number, canvasId: number, flag: boolean): void;
     getRoomInstanceRenderingCanvas(roomId: number, canvasId?: number): IRoomRenderingCanvas;
     getRoomInstanceRenderingCanvasOffset(roomId: number, canvasId?: number): Point;

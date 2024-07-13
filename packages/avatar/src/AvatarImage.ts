@@ -271,8 +271,6 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
 
         if(!avatarCanvas) return null;
 
-        const container = this.buildAvatarContainer(avatarCanvas, setType);
-
         if(this._activeTexture && ((this._activeTexture.width !== avatarCanvas.width) || (this._activeTexture.height !== avatarCanvas.height)))
         {
             GetTexturePool().putTexture(this._activeTexture);
@@ -283,6 +281,10 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         if(!this._activeTexture) this._activeTexture = GetTexturePool().getTexture(avatarCanvas.width, avatarCanvas.height);
 
         if(!this._activeTexture) return null;
+
+        this._activeTexture.source.scaleMode = 'nearest';
+
+        const container = this.buildAvatarContainer(avatarCanvas, setType);
 
         GetRenderer().render({
             target: this._activeTexture,
@@ -323,6 +325,7 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         return this.buildAvatarContainer(avatarCanvas, setType);
     }
 
+    // TODO this needs to be added still
     public applyPalette(texture: RenderTexture, reds: number[] = [], greens: number[] = [], blues: number[] = []): RenderTexture
     {
         const textureCanvas = TextureUtils.generateCanvas(texture);

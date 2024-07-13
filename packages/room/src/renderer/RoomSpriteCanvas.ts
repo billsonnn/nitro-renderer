@@ -234,7 +234,7 @@ export class RoomSpriteCanvas implements IRoomRenderingCanvas
         }
     }
 
-    public setScale(scale: number, point: Point = null, offsetPoint: Point = null): void
+    public setScale(scale: number, point: Point = null, offsetPoint: Point = null, isFlipForced: boolean = false): void
     {
         if(!this._master || !this._display) return;
 

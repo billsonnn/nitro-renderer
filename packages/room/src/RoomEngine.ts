@@ -356,16 +356,19 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
         if(roomCanvas) roomCanvas.setMask(flag);
     }
 
-    public setRoomInstanceRenderingCanvasScale(roomId: number, canvasId: number, scale: number, point: Point = null, offsetPoint: Point = null, override: boolean = false, asDelta: boolean = false): void
+    public setRoomInstanceRenderingCanvasScale(roomId: number, canvasId: number, level: number, point: Point = null, offsetPoint: Point = null, isFlipForced: boolean = false, flag: boolean = false): void
     {
+        if(!GetConfiguration().getValue('room.zoom.enabled', true)) return;
+
+        if(!flag) level = ((isFlipForced) ? -1 : ((level) < 1) ? 0.5 : Math.floor(level));
+
         const roomCanvas = this.getRoomInstanceRenderingCanvas(roomId, canvasId);
 
-        if(roomCanvas)
-        {
-            roomCanvas.setScale(scale, point, offsetPoint, override, asDelta);
+        if(!roomCanvas) return;
 
-            GetEventDispatcher().dispatchEvent(new RoomEngineEvent(RoomEngineEvent.ROOM_ZOOMED, roomId));
-        }
+        roomCanvas.setScale(level, point, offsetPoint, isFlipForced);
+
+        GetEventDispatcher().dispatchEvent(new RoomEngineEvent(RoomEngineEvent.ROOM_ZOOMED, roomId));
     }
 
     public getRoomInstanceRenderingCanvas(roomId: number, canvasId: number = -1): IRoomRenderingCanvas

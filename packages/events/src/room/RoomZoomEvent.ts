@@ -5,16 +5,14 @@ export class RoomZoomEvent extends RoomEngineEvent
     public static ROOM_ZOOM: string = 'REE_ROOM_ZOOM';
 
     private _level: number;
-    private _forceFlip: boolean;
-    private _asDelta: boolean;
+    private _isFlipForced: boolean;
 
-    constructor(roomId: number, level: number, forceFlip: boolean = false, asDelta: boolean = false)
+    constructor(roomId: number, level: number, isFlipForced: boolean = false)
     {
         super(RoomZoomEvent.ROOM_ZOOM, roomId);
 
         this._level = level;
-        this._forceFlip = forceFlip;
-        this._asDelta = asDelta;
+        this._isFlipForced = isFlipForced;
     }
 
     public get level(): number
@@ -22,13 +20,8 @@ export class RoomZoomEvent extends RoomEngineEvent
         return this._level;
     }
 
-    public get forceFlip(): boolean
+    public get isFlipForced(): boolean
     {
-        return this._forceFlip;
-    }
-
-    public get asDelta(): boolean
-    {
-        return this._asDelta;
+        return this._isFlipForced;
     }
 }

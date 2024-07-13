@@ -9,7 +9,7 @@ export interface IRoomRenderingCanvas
     dispose(): void;
     initialize(width: number, height: number): void;
     setMask(flag: boolean): void;
-    setScale(scale: number, point?: Point, offsetPoint?: Point, override?: boolean, asDelta?: boolean): void;
+    setScale(scale: number, point?: Point, offsetPoint?: Point, isFlipForced?: boolean): void;
     render(time: number, update?: boolean): void;
     update(): void;
     setMouseListener(listener: IRoomCanvasMouseListener): void;
