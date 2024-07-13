@@ -12,6 +12,7 @@ export interface IAssetManager
     getAsset(name: string): IGraphicAsset;
     getCollection(name: string): IGraphicAssetCollection;
     createCollection(data: IAssetData, spritesheet: Spritesheet): IGraphicAssetCollection;
+    loadTextureFromUrl(url: string, name?: string): Promise<Texture>
     downloadAssets(urls: string[]): Promise<boolean>;
     downloadAsset(url: string): Promise<boolean>;
     readonly collections: Map<string, IGraphicAssetCollection>;

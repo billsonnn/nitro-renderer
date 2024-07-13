@@ -74,6 +74,27 @@ export class AssetManager implements IAssetManager
         return collection;
     }
 
+    public async loadTextureFromUrl(url: string, name: string = null): Promise<Texture>
+    {
+        if(!url || !url.length) return null;
+
+        try
+        {
+            const texture = await Assets.load<Texture>(url);
+
+            if(!texture) return null;
+
+            this.setTexture(name ?? url, texture);
+
+            return texture;
+        }
+
+        catch (err)
+        {
+            NitroLogger.error(err);
+        }
+    }
+
     public async downloadAssets(urls: string[]): Promise<boolean>
     {
         if(!urls || !urls.length) return Promise.resolve(true);
