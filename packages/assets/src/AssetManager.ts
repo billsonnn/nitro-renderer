@@ -78,9 +78,15 @@ export class AssetManager implements IAssetManager
     {
         if(!url || !url.length) return null;
 
+        let texture = this.getTexture(name);
+
+        if(!texture) texture = this.getTexture(url);
+
+        if(texture) return texture;
+
         try
         {
-            const texture = await Assets.load<Texture>(url);
+            texture = await Assets.load<Texture>(url);
 
             if(!texture) return null;
 
