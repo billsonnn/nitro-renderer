@@ -105,7 +105,8 @@ export class IsometricImageFurniVisualization extends FurnitureAnimatedVisualiza
             const offsetX = ((background.width - sprite.width) / 2);
             const offsetY = ((background.height - sprite.height) / 2);
 
-            sprite.position.set(offsetX, offsetY);
+            sprite.x = Math.floor(offsetX);
+            sprite.y = Math.floor(offsetY);
 
             container.addChild(background, sprite);
 

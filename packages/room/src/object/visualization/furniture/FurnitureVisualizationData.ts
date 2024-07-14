@@ -1,5 +1,6 @@
 import { IAssetData, IAssetVisualizationData, IObjectVisualizationData } from '@nitrots/api';
 import { BLEND_MODES } from 'pixi.js';
+import { RoomGeometry } from '../../../utils';
 import { ColorData, LayerData, SizeData } from '../data';
 
 export class FurnitureVisualizationData implements IObjectVisualizationData
@@ -105,9 +106,31 @@ export class FurnitureVisualizationData implements IObjectVisualizationData
             this._sizes.push(size);
         }
 
+        this.removeInvalidSizes();
+
         this._sizes.sort();
 
         return true;
+    }
+
+    private removeInvalidSizes(): void
+    {
+        if(!this._sizes || !this._sizes.length) return;
+
+        const zoomedIn = this._sizeDatas.get(RoomGeometry.SCALE_ZOOMED_IN);
+        const zoomedOut = this._sizeDatas.get(RoomGeometry.SCALE_ZOOMED_OUT);
+
+        if(zoomedIn && zoomedOut)
+        {
+            if(zoomedIn.layerCount !== zoomedOut.layerCount)
+            {
+                this._sizeDatas.delete(RoomGeometry.SCALE_ZOOMED_OUT);
+
+                const index = this._sizes.indexOf(RoomGeometry.SCALE_ZOOMED_OUT);
+
+                if(index >= 0) this._sizes.splice(index, 1);
+            }
+        }
     }
 
     protected processVisualElement(sizeData: SizeData, key: string, data: any): boolean

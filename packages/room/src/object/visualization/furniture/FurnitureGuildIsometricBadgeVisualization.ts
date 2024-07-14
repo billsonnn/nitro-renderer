@@ -73,7 +73,8 @@ export class FurnitureGuildIsometricBadgeVisualization extends IsometricImageFur
 
         sprite.setFromMatrix(matrix);
 
-        sprite.position.set(0);
+        sprite.x = 0;
+        sprite.y = 0;
 
         return TextureUtils.generateTexture(sprite);
 

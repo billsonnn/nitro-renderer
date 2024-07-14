@@ -221,7 +221,8 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
                     point.x += avatarCanvas.regPoint.x;
                     point.y += avatarCanvas.regPoint.y;
 
-                    partContainer.position.set(point.x, point.y);
+                    partContainer.x = Math.floor(point.x);
+                    partContainer.y = Math.floor(point.y);
 
                     container.addChild(partContainer);
                 }
@@ -281,8 +282,6 @@ export class AvatarImage implements IAvatarImage, IAvatarEffectListener
         if(!this._activeTexture) this._activeTexture = GetTexturePool().getTexture(avatarCanvas.width, avatarCanvas.height);
 
         if(!this._activeTexture) return null;
-
-        this._activeTexture.source.scaleMode = 'nearest';
 
         const container = this.buildAvatarContainer(avatarCanvas, setType);
 
