@@ -1,5 +1,4 @@
 import { BufferImageSource, Filter, FilterSystem, GlProgram, RenderSurface, Texture } from 'pixi.js';
-import { TextureUtils } from '../TextureUtils';
 
 export interface PaletteMapFilterOptions
 {
@@ -97,11 +96,6 @@ export class PaletteMapFilter extends Filter
                 height: 1
             })
         });
-
-        (async () =>
-        {
-            console.log(await TextureUtils.generateImageUrl(lutTexture));
-        })();
 
         super({
             gpuProgram: null,

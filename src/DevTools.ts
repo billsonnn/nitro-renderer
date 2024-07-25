@@ -9,17 +9,17 @@ declare global
 	{
 		NitroDevTools?:
 		{
-            roomEngine(): RoomEngine;
-			textureCache(): TextureSource<any>[];
-			texturePool(): { [index: string]: { [index: string]: Texture[] } };
-			textureGC(): TextureGCSystem;
+            roomEngine: RoomEngine;
+			textureCache: TextureSource<any>[];
+			texturePool: { [index: string]: { [index: string]: Texture[] } };
+			textureGC: TextureGCSystem;
 		};
 	}
 }
 
 window.NitroDevTools = {
-    roomEngine: () => GetRoomEngine(),
-    textureCache: () => GetRenderer().texture.managedTextures,
-    texturePool: () => GetTexturePool().textures,
-    textureGC: () => GetRenderer().textureGC
+    roomEngine: GetRoomEngine(),
+    textureCache: GetRenderer().texture.managedTextures,
+    texturePool: GetTexturePool().textures,
+    textureGC: GetRenderer().textureGC
 };
