@@ -75,8 +75,8 @@ export const HabboAvatarGeometry = {
                         'id': 'swim',
                         'width': 64,
                         'height': 70,
-                        'dx': 25,
-                        'dy': 10
+                        'dx': 0,
+                        'dy': 0
                     }
                 ]
             }
@@ -1708,6 +1708,46 @@ export const HabboAvatarGeometry = {
                                 'y': 0,
                                 'z': 0,
                                 'radius': 0.03,
+                                'nx': 0,
+                                'ny': 0,
+                                'nz': -1,
+                                'double': false
+                            }
+                        ]
+                    },
+                    {
+                        'id': 'leftarm',
+                        'x': -1,
+                        'y': 0,
+                        'z': 0.0,
+                        'radius': 0.6,
+                        'items': [
+                            {
+                                'id': 'lhs',
+                                'x': 0,
+                                'y': 0,
+                                'z': 0,
+                                'radius': 0.01,
+                                'nx': 0,
+                                'ny': 0,
+                                'nz': -1,
+                                'double': false
+                            }
+                        ]
+                    },
+                    {
+                        'id': 'rightarm',
+                        'x': 1,
+                        'y': 0,
+                        'z': 0.0,
+                        'radius': 0.6,
+                        'items': [
+                            {
+                                'id': 'rhs',
+                                'x': 0,
+                                'y': 0,
+                                'z': 0,
+                                'radius': 0.01,
                                 'nx': 0,
                                 'ny': 0,
                                 'nz': -1,

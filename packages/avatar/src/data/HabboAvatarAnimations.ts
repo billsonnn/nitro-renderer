@@ -822,6 +822,224 @@ export const HabboAvatarAnimations = {
                     }
                 ]
             }
-        }
+        },
+        {
+            'id': 'Swim',
+            'parts': [
+                {
+                    'setType': 'bds',
+                    'frames': [
+                        {
+                            'number': 0,
+                            'assetPartDefinition': 'swm'
+                        },
+                        {
+                            'number': 1,
+                            'assetPartDefinition': 'swm'
+                        },
+                        {
+                            'number': 2,
+                            'assetPartDefinition': 'swm'
+                        },
+                        {
+                            'number': 3,
+                            'assetPartDefinition': 'swm'
+                        }
+                    ]
+                },
+                {
+                    'setType': 'ss',
+                    'frames': [
+                        {
+                            'number': 0,
+                            'assetPartDefinition': 'swm'
+                        },
+                        {
+                            'number': 1,
+                            'assetPartDefinition': 'swm'
+                        },
+                        {
+                            'number': 2,
+                            'assetPartDefinition': 'swm'
+                        },
+                        {
+                            'number': 3,
+                            'assetPartDefinition': 'swm'
+                        }
+                    ]
+                },
+                {
+                    'setType': 'lhs',
+                    'frames': [
+                        {
+                            'number': 0,
+                            'assetPartDefinition': 'swm'
+                        },
+                        {
+                            'number': 1,
+                            'assetPartDefinition': 'swm'
+                        },
+                        {
+                            'number': 2,
+                            'assetPartDefinition': 'swm'
+                        },
+                        {
+                            'number': 3,
+                            'assetPartDefinition': 'swm'
+                        }
+                    ]
+                },
+                {
+                    'setType': 'rhs',
+                    'frames': [
+                        {
+                            'number': 0,
+                            'assetPartDefinition': 'swm'
+                        },
+                        {
+                            'number': 1,
+                            'assetPartDefinition': 'swm'
+                        },
+                        {
+                            'number': 2,
+                            'assetPartDefinition': 'swm'
+                        },
+                        {
+                            'number': 3,
+                            'assetPartDefinition': 'swm'
+                        }
+                    ]
+                },
+            ]
+        },
+        {
+            'id': 'Float',
+            'parts': [
+                {
+                    'setType': 'bds',
+                    'frames': [
+                        {
+                            'number': 3,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 3,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 2,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 1,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 0,
+                            'assetPartDefinition': 'sws'
+                        }
+                    ]
+                },
+                {
+                    'setType': 'ss',
+                    'frames': [
+                        {
+                            'number': 0,
+                            'assetPartDefinition': 'sws'
+                        }
+                    ]
+                },
+                {
+                    'setType': 'lhs',
+                    'frames': [
+                        {
+                            'number': 0,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 0,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 1,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 1,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 2,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 3,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 3,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 2,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 1,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 1,
+                            'assetPartDefinition': 'sws'
+                        }
+                    ]
+                },
+                {
+                    'setType': 'rhs',
+                    'frames': [
+                        {
+                            'number': 0,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 0,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 1,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 1,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 2,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 3,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 3,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 2,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 1,
+                            'assetPartDefinition': 'sws'
+                        },
+                        {
+                            'number': 1,
+                            'assetPartDefinition': 'sws'
+                        }
+                    ]
+                },
+            ]
+        },
     ]
 };

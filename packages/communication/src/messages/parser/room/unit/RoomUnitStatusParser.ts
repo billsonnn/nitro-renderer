@@ -103,9 +103,9 @@ export class RoomUnitStatusParser implements IMessageParser
                             break;
                         }
                     }
-
-                    statusActions.push(new RoomUnitStatusAction(parts[0], parts[1]));
                 }
+
+                statusActions.push(new RoomUnitStatusAction(parts[0], parts[1]));
             }
 
             this._statuses.push(new RoomUnitStatusMessage(unitId, x, y, z, height, headDirection, direction, targetX, targetY, targetZ, didMove, canStandUp, statusActions));

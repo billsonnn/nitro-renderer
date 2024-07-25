@@ -712,6 +712,8 @@ export class RoomMessageHandler
             let postureUpdate = false;
             let postureType = RoomObjectVariable.STD;
             let parameter = '';
+            let moveUpdate = false;
+            let swimUpdate = false;
 
             if(status.actions && status.actions.length)
             {
@@ -736,6 +738,13 @@ export class RoomMessageHandler
                             break;
                         case 'wav':
                         case 'mv':
+                            moveUpdate = true;
+                            postureUpdate = true;
+                            postureType = action.action;
+                            parameter = action.value;
+                            break;
+                        case 'swim':
+                            swimUpdate = true;
                             postureUpdate = true;
                             postureType = action.action;
                             parameter = action.value;
@@ -748,6 +757,12 @@ export class RoomMessageHandler
                             break;
                     }
                 }
+            }
+
+            if(!moveUpdate && swimUpdate)
+            {
+                postureUpdate = true;
+                postureType = 'float';
             }
 
             if(postureUpdate) this._roomEngine.updateRoomObjectUserPosture(this._currentRoomId, status.id, postureType, parameter);
