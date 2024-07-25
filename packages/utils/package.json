@@ -11,10 +11,10 @@
   "dependencies": {
     "@nitrots/api": "1.0.0",
     "pako": "^2.1.0",
-    "pixi.js": "^8.1.6"
+    "pixi.js": "^8.2.5"
   },
   "devDependencies": {
     "@types/pako": "^2.0.3",
-    "typescript": "~5.4.2"
+    "typescript": "~5.5.4"
   }
 }
