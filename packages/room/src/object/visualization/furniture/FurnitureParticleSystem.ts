@@ -75,8 +75,6 @@ export class FurnitureParticleSystem
         this._particleColorTransform = null;
         this._identityMatrix = null;
         this._translationMatrix = null;
-
-        console.log('Dispose particle system');
     }
 
     public reset(): void
