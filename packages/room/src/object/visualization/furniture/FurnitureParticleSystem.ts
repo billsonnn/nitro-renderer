@@ -26,6 +26,7 @@ export class FurnitureParticleSystem
     private _blend: number = 1;
     private _bgColor: number = 0xFF000000;
     private _emptySprite: Sprite;
+    private _particleSprite: Sprite;
     private _isDone: boolean = false;
 
     constructor(visualization: FurnitureAnimatedVisualization)
@@ -37,6 +38,7 @@ export class FurnitureParticleSystem
         this._particleColorTransform = new AlphaFilter();
         this._identityMatrix = new Matrix();
         this._translationMatrix = new Matrix();
+        this._particleSprite = new Sprite();
     }
 
     public dispose(): void
@@ -61,6 +63,12 @@ export class FurnitureParticleSystem
         {
             this._emptySprite.destroy();
             this._emptySprite = null;
+        }
+
+        if (this._particleSprite)
+        {
+            this._particleSprite.destroy();
+            this._particleSprite = null;
         }
 
         this._blackOverlayAlphaTransform = null;
@@ -101,7 +109,11 @@ export class FurnitureParticleSystem
         {
             if((this._roomSprite.width <= 1) || (this._roomSprite.height <= 1)) return;
 
-            if(this._canvasTexture && ((this._canvasTexture.width !== this._roomSprite.width) || (this._canvasTexture.height !== this._roomSprite.height))) this._canvasTexture = null;
+            if(this._canvasTexture && ((this._canvasTexture.width !== this._roomSprite.width) || (this._canvasTexture.height !== this._roomSprite.height))) 
+            {
+                this._canvasTexture.destroy();
+                this._canvasTexture = null;
+            }
 
             this.clearCanvas();
 
@@ -172,43 +184,50 @@ export class FurnitureParticleSystem
                 const ty = ((this._centerY - offsetY) + ((((particle.y + ((particle.x + particle.z) / 2)) * k) / 10) * this._scaleMultiplier));
                 const asset = particle.getAsset();
 
+                this._particleSprite.texture = null;
+                this._particleSprite.tint = 0xFFFFFF;
+                this._particleSprite.width = 1;
+                this._particleSprite.height = 1;
+                this._particleSprite.x = 0;
+                this._particleSprite.y = 0;
+                this._particleSprite.filters = [];
+
                 if(asset && asset.texture)
                 {
+                    this._particleSprite.texture = asset.texture;
+                    this._particleSprite.width = asset.texture.width;
+                    this._particleSprite.height = asset.texture.height;
+
                     if(particle.fade && (particle.alphaMultiplier < 1))
                     {
                         this._translationMatrix.identity();
                         this._translationMatrix.translate((tx + asset.offsetX), (ty + asset.offsetY));
 
-                        const sprite = new Sprite(asset.texture);
-
                         this._particleColorTransform.alpha = particle.alphaMultiplier;
 
-                        sprite.filters = [this._particleColorTransform];
+                        this._particleSprite.filters = [this._particleColorTransform];
 
-                        TextureUtils.writeToTexture(sprite, this._canvasTexture, false, this._translationMatrix);
+                        TextureUtils.writeToTexture(this._particleSprite, this._canvasTexture, false, this._translationMatrix);
                     }
                     else
                     {
                         const point = new Point((tx + asset.offsetX), (ty + asset.offsetY));
-                        const sprite = new Sprite(asset.texture);
+                        
+                        this._particleSprite.x = point.x;
+                        this._particleSprite.y = point.y;
 
-                        sprite.x = point.x;
-                        sprite.y = point.y;
-
-                        TextureUtils.writeToTexture(sprite, this._canvasTexture, false);
+                        TextureUtils.writeToTexture(this._particleSprite, this._canvasTexture, false);
                     }
                 }
                 else
                 {
-                    const sprite = new Sprite(Texture.WHITE);
+                    this._particleSprite.tint = 0xFFFFFF;
+                    this._particleSprite.x = (tx - 1);
+                    this._particleSprite.y = (ty - 1);
+                    this._particleSprite.width = 2;
+                    this._particleSprite.height = 2;
 
-                    sprite.tint = 0xFFFFFF;
-                    sprite.x = (tx - 1);
-                    sprite.y = (ty - 1);
-                    sprite.width = 2;
-                    sprite.height = 2;
-
-                    TextureUtils.writeToTexture(sprite, this._canvasTexture, false);
+                    TextureUtils.writeToTexture(this._particleSprite, this._canvasTexture, false);
                 }
             }
 
@@ -289,7 +308,10 @@ export class FurnitureParticleSystem
 
         if(this._currentEmitter) this._currentEmitter.copyStateFrom(particleSystem._currentEmitter, (particleSystem._size / this._size));
 
-        this._canvasTexture = null;
+        if (this._canvasTexture) {
+            this._canvasTexture.destroy();
+            this._canvasTexture = null;
+        }
     }
 
     private clearCanvas(): void
@@ -297,7 +319,6 @@ export class FurnitureParticleSystem
         if(!this._emptySprite)
         {
             this._emptySprite = new Sprite(Texture.EMPTY);
-
             this._emptySprite.alpha = 0;
         }
 

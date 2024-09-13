@@ -30,8 +30,8 @@
   "dependencies": {
     "howler": "^2.2.4",
     "pako": "^2.1.0",
-    "pixi-filters": "^6.0.4",
-    "pixi.js": "^8.3.1"
+    "pixi-filters": "^6.0.5",
+    "pixi.js": "^8.4.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
