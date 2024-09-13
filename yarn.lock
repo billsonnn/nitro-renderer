@@ -1099,10 +1099,10 @@ picomatch@^2.3.1:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
-pixi-filters@^6.0.4:
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/pixi-filters/-/pixi-filters-6.0.4.tgz#e6a02730210ff438519d3a888a2fe1c8cdaa6c94"
-  integrity sha512-W9SjOTF4yo+v9t5YOBtsWhJoFLLRM6DsIk1C2YBNiQhdyX7J/5UIJtPlTMhZ7wQKoFUiyeUAaCzTEdmw/TVD6w==
+pixi-filters@^6.0.5:
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/pixi-filters/-/pixi-filters-6.0.5.tgz#89d23091dc4e6341b8aa2112ebfcb5240bfb3223"
+  integrity sha512-M7F+Xu4Ysp2iy7bNZxt6U4hxO+X8c3msVKOQAq/tf3sLt99XOiY54iH2Ixj5VRIesmjdLWA5CaUQ+TUfyBVe2g==
   dependencies:
     "@types/gradient-parser" "^0.1.2"
 
@@ -1121,10 +1121,10 @@ pixi.js@^8.2.5:
     ismobilejs "^1.1.1"
     parse-svg-path "^0.1.2"
 
-pixi.js@^8.3.1:
-  version "8.3.1"
-  resolved "https://registry.yarnpkg.com/pixi.js/-/pixi.js-8.3.1.tgz#9f3955cc78c2806b2eff2ee7840106ce71ecbb04"
-  integrity sha512-QjLl526+Wd2oNxZZrHY82gJamy3pl9YFUTBGvbTqHTjK9BM/8B+sx6ipvPYPd5i83gJC+cxaMjhJxmR8DMXZJg==
+pixi.js@^8.4.0:
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/pixi.js/-/pixi.js-8.4.0.tgz#a08b48bdaca6e60a1380d3adab9c7afc8149e3c3"
+  integrity sha512-IM0YDv7G9XATtD/sPgbEi6FoLg82+XSqejzeCWg575vEyuQGs4RrdVFSV/K/i2PeXr/sLxiHRJDOGuotBUlldA==
   dependencies:
     "@pixi/colord" "^2.9.6"
     "@types/css-font-loading-module" "^0.0.12"
