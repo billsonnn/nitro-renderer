@@ -14,7 +14,7 @@
   "dependencies": {
     "@nitrots/api": "1.0.0",
     "@nitrots/utils": "1.0.0",
-    "pixi.js": "^8.2.5",
+    "pixi.js": "^8.5.1",
     "@pixi/gif": "^3.0.0"
   },
   "devDependencies": {
