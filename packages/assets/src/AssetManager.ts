@@ -1,6 +1,5 @@
 import { IAssetData, IAssetManager, IGraphicAsset, IGraphicAssetCollection } from '@nitrots/api';
 import { NitroBundle, NitroLogger } from '@nitrots/utils';
-import '@pixi/gif';
 import { Assets, Spritesheet, SpritesheetData, Texture } from 'pixi.js';
 import { GraphicAssetCollection } from './GraphicAssetCollection';
 

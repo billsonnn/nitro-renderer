@@ -2519,7 +2519,7 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
                 {
                     if(!listener) continue;
 
-                    listener.imageReady(id, null, image);
+                    listener.imageReady(new ImageResult(id, null, image));
                 }
             }
         }
@@ -2980,7 +2980,7 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
                         {
                             if(!imageListener) continue;
 
-                            if(texture) imageListener.imageReady(objectId, texture);
+                            if(texture) imageListener.imageReady(new ImageResult(objectId, texture));
                             else imageListener.imageFailed(objectId);
                         }
                     }

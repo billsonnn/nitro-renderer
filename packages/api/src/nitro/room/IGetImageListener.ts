@@ -1,7 +1,7 @@
-﻿import { Texture } from 'pixi.js';
+﻿import { IImageResult } from './IImageResult';
 
 export interface IGetImageListener
 {
-    imageReady(id: number, texture: Texture, image?: HTMLImageElement): void;
+    imageReady(result: IImageResult): void;
     imageFailed(id: number): void;
 }

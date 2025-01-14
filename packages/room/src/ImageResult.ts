@@ -4,9 +4,11 @@ import { Texture } from 'pixi.js';
 
 export class ImageResult implements IImageResult
 {
-    public id: number = 0;
-    public data: Texture = null;
-    public image: HTMLImageElement = null;
+    constructor(
+        public id: number = 0,
+        public data: Texture = null,
+        public image: HTMLImageElement = null)
+    {}
 
     public async getImage(): Promise<HTMLImageElement>
     {
