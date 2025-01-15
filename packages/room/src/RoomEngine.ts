@@ -3230,7 +3230,7 @@ export class RoomEngine implements IRoomEngine, IRoomCreator, IRoomEngineService
 
     public isRoomContentTypeLoaded(name: string): boolean
     {
-        return (this._roomContentLoader.getCollection(name) !== null);
+        return !!this._roomContentLoader.getCollection(name);
     }
 
     public getPetColorResult(petIndex: number, paletteIndex: number): IPetColorResult

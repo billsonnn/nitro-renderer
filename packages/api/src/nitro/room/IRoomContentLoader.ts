@@ -10,6 +10,7 @@ export interface IRoomContentLoader
 {
     init(): Promise<void>;
     processFurnitureData(furnitureData: IFurnitureData[]): void;
+    downloadAssetSync(type: string): void
     downloadAsset(type: string): Promise<void>;
     isLoaderType(type: string): boolean;
     getCollection(name: string): IGraphicAssetCollection;

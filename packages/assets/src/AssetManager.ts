@@ -57,7 +57,7 @@ export class AssetManager implements IAssetManager
     {
         if(!name) return null;
 
-        return this._collections.get(name);
+        return this._collections.get(name) ?? null;
     }
 
     public createCollection(data: IAssetData, spritesheet: Spritesheet): IGraphicAssetCollection

@@ -98,7 +98,7 @@ export class RoomManager implements IRoomManager, IRoomInstanceContainer
             {
                 isLoading = true;
 
-                GetRoomContentLoader().downloadAsset(type);
+                GetRoomContentLoader().downloadAssetSync(type);
 
                 assetName = GetRoomContentLoader().getPlaceholderName(type);
                 asset = GetRoomContentLoader().getCollection(assetName);
