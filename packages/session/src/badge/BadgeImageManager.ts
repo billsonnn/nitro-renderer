@@ -2,7 +2,7 @@ import { GetAssetManager } from '@nitrots/assets';
 import { GetCommunication, GroupBadgePartsEvent } from '@nitrots/communication';
 import { GetConfiguration } from '@nitrots/configuration';
 import { BadgeImageReadyEvent, GetEventDispatcher } from '@nitrots/events';
-import { TextureUtils } from '@nitrots/utils';
+import { NitroLogger, TextureUtils } from '@nitrots/utils';
 import { Container, Sprite, Texture } from 'pixi.js';
 import { BadgeInfo } from './BadgeInfo';
 import { GroupBadge } from './GroupBadge';
@@ -20,7 +20,7 @@ export class BadgeImageManager
     private _groupBadgesQueue: Map<string, boolean> = new Map();
     private _readyToGenerateGroupBadges: boolean = false;
 
-    public init(): void
+    public async init(): Promise<void>
     {
         GetCommunication().registerMessageEvent(new GroupBadgePartsEvent(this.onGroupBadgePartsEvent.bind(this)));
     }
@@ -60,11 +60,19 @@ export class BadgeImageManager
         {
             const loadBadge = async () =>
             {
-                await GetAssetManager().downloadAsset(url);
+                try
+                {
+                    if(!await GetAssetManager().downloadAsset(url)) return;
 
-                const texture = GetAssetManager().getTexture(url);
+                    const texture = GetAssetManager().getTexture(url);
 
-                if(texture) GetEventDispatcher().dispatchEvent(new BadgeImageReadyEvent(badgeName, texture));
+                    if(texture) GetEventDispatcher().dispatchEvent(new BadgeImageReadyEvent(badgeName, texture));
+                }
+
+                catch (err)
+                {
+                    NitroLogger.error(err);
+                }
             };
 
             loadBadge();

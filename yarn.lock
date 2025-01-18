@@ -214,10 +214,10 @@
   resolved "https://registry.yarnpkg.com/@pixi/colord/-/colord-2.9.6.tgz#7e4e7851480da6fd3cef4e331f008d60be7e1204"
   integrity sha512-nezytU2pw587fQstUu1AsJZDVEynjskwOL+kibwcdxsMBFqPsFFNA7xl0ii/gXuDi6M0xj3mfRJj8pBSc2jCfA==
 
-"@pixi/gif@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@pixi/gif/-/gif-3.0.0.tgz#dbd3e1bfb2a5d83a84965f5b517cc5dcb8407862"
-  integrity sha512-0am94k1SEwacW6anOiNT9vt3vnefEaiMxkg30nMwvqU3XkIO6sSsFBgQM3UArjDG/quYsujjyZZkyhl7yBF6GQ==
+"@pixi/gif@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@pixi/gif/-/gif-3.0.1.tgz#2709d6559d316161cde1821b0f29cc2c05f88794"
+  integrity sha512-oGl0nkbFAe1vaRLyIvGbJc3fcIrS8vF1E00cwjiV+9f1pYe072D+yijJxHsgYnXs6jdzERh+D0MqSrEag0jRzg==
 
 "@rollup/plugin-typescript@^11.1.6":
   version "11.1.6"

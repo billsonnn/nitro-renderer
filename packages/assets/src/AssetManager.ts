@@ -1,5 +1,6 @@
 import { IAssetData, IAssetManager, IGraphicAsset, IGraphicAssetCollection } from '@nitrots/api';
 import { NitroBundle, NitroLogger } from '@nitrots/utils';
+import { AnimatedGIF } from '@pixi/gif';
 import { Assets, Spritesheet, SpritesheetData, Texture } from 'pixi.js';
 import { GraphicAssetCollection } from './GraphicAssetCollection';
 
@@ -73,33 +74,6 @@ export class AssetManager implements IAssetManager
         return collection;
     }
 
-    public async loadTextureFromUrl(url: string, name: string = null): Promise<Texture>
-    {
-        if(!url || !url.length) return null;
-
-        let texture = this.getTexture(name);
-
-        if(!texture) texture = this.getTexture(url);
-
-        if(texture) return texture;
-
-        try
-        {
-            texture = await Assets.load<Texture>(url);
-
-            if(!texture) return null;
-
-            this.setTexture(name ?? url, texture);
-
-            return texture;
-        }
-
-        catch (err)
-        {
-            NitroLogger.error(err);
-        }
-    }
-
     public async downloadAssets(urls: string[]): Promise<boolean>
     {
         if(!urls || !urls.length) return Promise.resolve(true);
@@ -125,23 +99,37 @@ export class AssetManager implements IAssetManager
         {
             if(!url || !url.length) return false;
 
-            if(url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.gif'))
-            {
-                const texture = await Assets.load<Texture>(url);
-
-                this.setTexture(url, texture);
-
-                return true;
-            }
-
             const response = await fetch(url);
 
-            if(response.status !== 200 || !response.headers.has('Content-Type') || response.headers.get('Content-Type') !== 'application/octet-stream') return false;
+            if(!response || response.status !== 200) return false;
 
-            const buffer = await response.arrayBuffer();
-            const nitroBundle = await NitroBundle.from(buffer);
+            const contentType = response.headers.get('Content-Type');
 
-            await this.processAsset(nitroBundle.texture, nitroBundle.jsonFile as IAssetData);
+            switch(contentType)
+            {
+                case 'application/octet-stream': {
+                    const buffer = await response.arrayBuffer();
+                    const nitroBundle = await NitroBundle.from(buffer);
+
+                    await this.processAsset(nitroBundle.texture, nitroBundle.jsonFile as IAssetData);
+                    break;
+                }
+                case 'image/png':
+                case 'image/jpeg': {
+                    const texture = await Assets.load<Texture>(url);
+
+                    if(texture) this.setTexture(url, texture);
+                    break;
+                }
+                case 'image/gif': {
+                    const buffer = await response.arrayBuffer();
+                    const animatedGif = AnimatedGIF.fromBuffer(buffer);
+                    const texture = animatedGif.texture;
+
+                    if(texture) this.setTexture(url, texture);
+                    break;
+                }
+            }
 
             return true;
         }
