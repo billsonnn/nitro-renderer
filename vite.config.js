@@ -3,23 +3,22 @@ import typescript from '@rollup/plugin-typescript';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
-const resolvePath = str => resolve(__dirname, str);
-
 export default defineConfig({
     plugins: [
         typescript({
             'target': 'es6',
-            'rootDir': resolvePath('./src'),
+            'rootDir': './src',
             'declaration': true,
-            exclude: resolvePath('./node_modules/**'),
+            exclude: './node_modules/**',
             allowSyntheticDefaultImports: true
         })
     ],
     build: {
         lib: {
-            entry: resolve(__dirname, 'src/index.ts'),
+            entry: resolve('./src/index.ts'),
             name: 'nitro-renderer',
-            fileName: 'nitro-renderer'
+            formats: ['es', 'cjs'],
+            fileName: format => `nitro-renderer.${format}.js`
         }
     },
     server: {

@@ -5,6 +5,8 @@
     "outDir": "./dist",
     "sourceMap": false,
     "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
     "experimentalDecorators": true,
     "moduleResolution": "Node",
     "esModuleInterop": true,

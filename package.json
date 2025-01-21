@@ -26,7 +26,18 @@
     "eslint-fix": "eslint ./src --fix"
 
   },
-  "main": "./index",
+  "main": "./dist/nitro-renderer.cjs.js",
+  "module": "./dist/nitro-renderer.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/nitro-renderer.es.js",
+      "require": "./dist/nitro-renderer.cjs.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "howler": "^2.2.4",
     "pako": "^2.1.0",
