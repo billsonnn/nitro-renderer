@@ -107,7 +107,7 @@ export class RoomCameraWidgetManager implements IRoomCameraWidgetManager
 
         container.filters = filters;
 
-        return await TextureUtils.generateImage(sprite);
+        return await TextureUtils.generateImage(container);
     }
 
     public get effects(): Map<string, IRoomCameraWidgetEffect>
