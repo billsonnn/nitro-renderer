@@ -99,36 +99,33 @@ export class AssetManager implements IAssetManager
         {
             if(!url || !url.length) return false;
 
-            const response = await fetch(url);
-
-            if(!response || response.status !== 200) return false;
-
-            const contentType = response.headers.get('Content-Type');
-
-            switch(contentType)
+            if(url.endsWith('.nitro') || url.endsWith('.gif'))
             {
-                case 'application/octet-stream': {
-                    const buffer = await response.arrayBuffer();
-                    const nitroBundle = await NitroBundle.from(buffer);
+                const response = await fetch(url);
+
+                if(!response || response.status !== 200) return false;
+
+                const arrayBuffer = await response.arrayBuffer();
+
+                if(url.endsWith('.nitro'))
+                {
+                    const nitroBundle = await NitroBundle.from(arrayBuffer);
 
                     await this.processAsset(nitroBundle.texture, nitroBundle.jsonFile as IAssetData);
-                    break;
                 }
-                case 'image/png':
-                case 'image/jpeg': {
-                    const texture = await Assets.load<Texture>(url);
-
-                    if(texture) this.setTexture(url, texture);
-                    break;
-                }
-                case 'image/gif': {
-                    const buffer = await response.arrayBuffer();
-                    const animatedGif = AnimatedGIF.fromBuffer(buffer);
+                else
+                {
+                    const animatedGif = AnimatedGIF.fromBuffer(arrayBuffer);
                     const texture = animatedGif.texture;
 
                     if(texture) this.setTexture(url, texture);
-                    break;
                 }
+            }
+            else
+            {
+                const texture = await Assets.load<Texture>(url);
+
+                if(texture) this.setTexture(url, texture);
             }
 
             return true;

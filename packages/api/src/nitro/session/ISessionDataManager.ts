@@ -1,5 +1,4 @@
 import { Texture } from 'pixi.js';
-import { ICommunicationManager } from '../../communication';
 import { IFurnitureData } from './IFurnitureData';
 import { IGroupInformationManager } from './IGroupInformationManager';
 import { IIgnoredUsersManager } from './IIgnoredUsersManager';
@@ -29,7 +28,6 @@ export interface ISessionDataManager
     unignoreUser(name: string): void;
     isUserIgnored(name: string): boolean;
     getGroupBadge(groupId: number): string;
-    communication: ICommunicationManager;
     userId: number;
     userName: string;
     figure: string;

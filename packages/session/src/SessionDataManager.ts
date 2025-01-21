@@ -1,4 +1,4 @@
-import { ICommunicationManager, IFurnitureData, IGroupInformationManager, IMessageComposer, IProductData, ISessionDataManager, NoobnessLevelEnum, SecurityLevel } from '@nitrots/api';
+import { IFurnitureData, IGroupInformationManager, IMessageComposer, IProductData, ISessionDataManager, NoobnessLevelEnum, SecurityLevel } from '@nitrots/api';
 import { AccountSafetyLockStatusChangeMessageEvent, AccountSafetyLockStatusChangeParser, AvailabilityStatusMessageEvent, ChangeUserNameResultMessageEvent, EmailStatusResultEvent, FigureUpdateEvent, GetCommunication, GetUserTagsComposer, InClientLinkEvent, MysteryBoxKeysEvent, NoobnessLevelMessageEvent, PetRespectComposer, PetScratchFailedMessageEvent, RoomReadyMessageEvent, RoomUnitChatComposer, UserInfoEvent, UserNameChangeMessageEvent, UserPermissionsEvent, UserRespectComposer, UserTagsMessageEvent } from '@nitrots/communication';
 import { GetConfiguration } from '@nitrots/configuration';
 import { GetEventDispatcher, MysteryBoxKeysUpdateEvent, NitroSettingsEvent, SessionDataPreferencesEvent, UserNameUpdateEvent } from '@nitrots/events';
@@ -399,11 +399,6 @@ export class SessionDataManager implements ISessionDataManager
     public send(composer: IMessageComposer<unknown[]>): void
     {
         GetCommunication().connection.send(composer);
-    }
-
-    public get communication(): ICommunicationManager
-    {
-        return GetCommunication();
     }
 
     public get userId(): number
