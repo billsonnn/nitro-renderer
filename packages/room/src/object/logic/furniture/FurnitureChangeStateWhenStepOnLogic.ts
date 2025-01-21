@@ -37,7 +37,7 @@ export class FurnitureChangeStateWhenStepOnLogic extends FurnitureLogic
         let sizeX = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_SIZE_X);
         let sizeY = this.object.model.getValue<number>(RoomObjectVariable.FURNITURE_SIZE_Y);
 
-        const direction = (((Math.floor(this.object.getDirection().x) + 45) % 360) / 90);
+        const direction = Math.floor(((this.object.getDirection().x + 45) % 360) / 90);
 
         if((direction === 1) || (direction === 3)) [sizeX, sizeY] = [sizeY, sizeX];
 
