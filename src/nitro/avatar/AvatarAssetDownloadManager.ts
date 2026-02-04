@@ -106,7 +106,7 @@ export class AvatarAssetDownloadManager extends EventDispatcher
 
             downloadLibrary.addEventListener(AvatarRenderLibraryEvent.DOWNLOAD_COMPLETE, this.onLibraryLoaded);
 
-            for(const part of library.parts)
+            for(const part of (library.parts || []))
             {
                 const id = (part.id as string);
                 const type = (part.type as string);

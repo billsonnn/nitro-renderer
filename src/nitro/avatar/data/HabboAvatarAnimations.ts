@@ -1,6 +1,476 @@
 export const HabboAvatarAnimations = {
     'animations': [
         {
+            'id': 'Default',
+            'parts': [
+                {
+                    'setType': 'bd',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'bds',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'lg',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'sh',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'ch',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'cc',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'lc',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'rc',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'lh',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'lhs',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'rh',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'rhs',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'ls',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'rs',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'he',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                },
+                {
+                    'setType': 'wa',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                }
+            ]
+        },
+        {
+            'id': 'Sit',
+            'parts': [
+                {
+                    'setType': 'bd',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'sit' },
+                        { 'number': 1, 'assetPartDefinition': 'sit' },
+                        { 'number': 2, 'assetPartDefinition': 'sit' },
+                        { 'number': 3, 'assetPartDefinition': 'sit' },
+                        { 'number': 4, 'assetPartDefinition': 'sit' },
+                        { 'number': 5, 'assetPartDefinition': 'sit' },
+                        { 'number': 6, 'assetPartDefinition': 'sit' },
+                        { 'number': 7, 'assetPartDefinition': 'sit' }
+                    ]
+                },
+                {
+                    'setType': 'bds',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'sit' },
+                        { 'number': 1, 'assetPartDefinition': 'sit' },
+                        { 'number': 2, 'assetPartDefinition': 'sit' },
+                        { 'number': 3, 'assetPartDefinition': 'sit' },
+                        { 'number': 4, 'assetPartDefinition': 'sit' },
+                        { 'number': 5, 'assetPartDefinition': 'sit' },
+                        { 'number': 6, 'assetPartDefinition': 'sit' },
+                        { 'number': 7, 'assetPartDefinition': 'sit' }
+                    ]
+                },
+                {
+                    'setType': 'lg',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'sit' },
+                        { 'number': 1, 'assetPartDefinition': 'sit' },
+                        { 'number': 2, 'assetPartDefinition': 'sit' },
+                        { 'number': 3, 'assetPartDefinition': 'sit' },
+                        { 'number': 4, 'assetPartDefinition': 'sit' },
+                        { 'number': 5, 'assetPartDefinition': 'sit' },
+                        { 'number': 6, 'assetPartDefinition': 'sit' },
+                        { 'number': 7, 'assetPartDefinition': 'sit' }
+                    ]
+                },
+                {
+                    'setType': 'sh',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'sit' },
+                        { 'number': 1, 'assetPartDefinition': 'sit' },
+                        { 'number': 2, 'assetPartDefinition': 'sit' },
+                        { 'number': 3, 'assetPartDefinition': 'sit' },
+                        { 'number': 4, 'assetPartDefinition': 'sit' },
+                        { 'number': 5, 'assetPartDefinition': 'sit' },
+                        { 'number': 6, 'assetPartDefinition': 'sit' },
+                        { 'number': 7, 'assetPartDefinition': 'sit' }
+                    ]
+                },
+                {
+                    'setType': 'ch',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'sit' },
+                        { 'number': 1, 'assetPartDefinition': 'sit' },
+                        { 'number': 2, 'assetPartDefinition': 'sit' },
+                        { 'number': 3, 'assetPartDefinition': 'sit' },
+                        { 'number': 4, 'assetPartDefinition': 'sit' },
+                        { 'number': 5, 'assetPartDefinition': 'sit' },
+                        { 'number': 6, 'assetPartDefinition': 'sit' },
+                        { 'number': 7, 'assetPartDefinition': 'sit' }
+                    ]
+                },
+                {
+                    'setType': 'cc',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'sit' },
+                        { 'number': 1, 'assetPartDefinition': 'sit' },
+                        { 'number': 2, 'assetPartDefinition': 'sit' },
+                        { 'number': 3, 'assetPartDefinition': 'sit' },
+                        { 'number': 4, 'assetPartDefinition': 'sit' },
+                        { 'number': 5, 'assetPartDefinition': 'sit' },
+                        { 'number': 6, 'assetPartDefinition': 'sit' },
+                        { 'number': 7, 'assetPartDefinition': 'sit' }
+                    ]
+                },
+                {
+                    'setType': 'lc',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'sit' },
+                        { 'number': 1, 'assetPartDefinition': 'sit' },
+                        { 'number': 2, 'assetPartDefinition': 'sit' },
+                        { 'number': 3, 'assetPartDefinition': 'sit' },
+                        { 'number': 4, 'assetPartDefinition': 'sit' },
+                        { 'number': 5, 'assetPartDefinition': 'sit' },
+                        { 'number': 6, 'assetPartDefinition': 'sit' },
+                        { 'number': 7, 'assetPartDefinition': 'sit' }
+                    ]
+                },
+                {
+                    'setType': 'rc',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'sit' },
+                        { 'number': 1, 'assetPartDefinition': 'sit' },
+                        { 'number': 2, 'assetPartDefinition': 'sit' },
+                        { 'number': 3, 'assetPartDefinition': 'sit' },
+                        { 'number': 4, 'assetPartDefinition': 'sit' },
+                        { 'number': 5, 'assetPartDefinition': 'sit' },
+                        { 'number': 6, 'assetPartDefinition': 'sit' },
+                        { 'number': 7, 'assetPartDefinition': 'sit' }
+                    ]
+                },
+                {
+                    'setType': 'wa',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'std' },
+                        { 'number': 1, 'assetPartDefinition': 'std' },
+                        { 'number': 2, 'assetPartDefinition': 'std' },
+                        { 'number': 3, 'assetPartDefinition': 'std' },
+                        { 'number': 4, 'assetPartDefinition': 'std' },
+                        { 'number': 5, 'assetPartDefinition': 'std' },
+                        { 'number': 6, 'assetPartDefinition': 'std' },
+                        { 'number': 7, 'assetPartDefinition': 'std' }
+                    ]
+                }
+            ]
+        },
+        {
+            'id': 'Lay',
+            'parts': [
+                {
+                    'setType': 'bd',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'lay' },
+                        { 'number': 1, 'assetPartDefinition': 'lay' },
+                        { 'number': 2, 'assetPartDefinition': 'lay' },
+                        { 'number': 3, 'assetPartDefinition': 'lay' },
+                        { 'number': 4, 'assetPartDefinition': 'lay' },
+                        { 'number': 5, 'assetPartDefinition': 'lay' },
+                        { 'number': 6, 'assetPartDefinition': 'lay' },
+                        { 'number': 7, 'assetPartDefinition': 'lay' }
+                    ]
+                },
+                {
+                    'setType': 'bds',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'lay' },
+                        { 'number': 1, 'assetPartDefinition': 'lay' },
+                        { 'number': 2, 'assetPartDefinition': 'lay' },
+                        { 'number': 3, 'assetPartDefinition': 'lay' },
+                        { 'number': 4, 'assetPartDefinition': 'lay' },
+                        { 'number': 5, 'assetPartDefinition': 'lay' },
+                        { 'number': 6, 'assetPartDefinition': 'lay' },
+                        { 'number': 7, 'assetPartDefinition': 'lay' }
+                    ]
+                },
+                {
+                    'setType': 'lg',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'lay' },
+                        { 'number': 1, 'assetPartDefinition': 'lay' },
+                        { 'number': 2, 'assetPartDefinition': 'lay' },
+                        { 'number': 3, 'assetPartDefinition': 'lay' },
+                        { 'number': 4, 'assetPartDefinition': 'lay' },
+                        { 'number': 5, 'assetPartDefinition': 'lay' },
+                        { 'number': 6, 'assetPartDefinition': 'lay' },
+                        { 'number': 7, 'assetPartDefinition': 'lay' }
+                    ]
+                },
+                {
+                    'setType': 'sh',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'lay' },
+                        { 'number': 1, 'assetPartDefinition': 'lay' },
+                        { 'number': 2, 'assetPartDefinition': 'lay' },
+                        { 'number': 3, 'assetPartDefinition': 'lay' },
+                        { 'number': 4, 'assetPartDefinition': 'lay' },
+                        { 'number': 5, 'assetPartDefinition': 'lay' },
+                        { 'number': 6, 'assetPartDefinition': 'lay' },
+                        { 'number': 7, 'assetPartDefinition': 'lay' }
+                    ]
+                },
+                {
+                    'setType': 'ch',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'lay' },
+                        { 'number': 1, 'assetPartDefinition': 'lay' },
+                        { 'number': 2, 'assetPartDefinition': 'lay' },
+                        { 'number': 3, 'assetPartDefinition': 'lay' },
+                        { 'number': 4, 'assetPartDefinition': 'lay' },
+                        { 'number': 5, 'assetPartDefinition': 'lay' },
+                        { 'number': 6, 'assetPartDefinition': 'lay' },
+                        { 'number': 7, 'assetPartDefinition': 'lay' }
+                    ]
+                },
+                {
+                    'setType': 'cc',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'lay' },
+                        { 'number': 1, 'assetPartDefinition': 'lay' },
+                        { 'number': 2, 'assetPartDefinition': 'lay' },
+                        { 'number': 3, 'assetPartDefinition': 'lay' },
+                        { 'number': 4, 'assetPartDefinition': 'lay' },
+                        { 'number': 5, 'assetPartDefinition': 'lay' },
+                        { 'number': 6, 'assetPartDefinition': 'lay' },
+                        { 'number': 7, 'assetPartDefinition': 'lay' }
+                    ]
+                },
+                {
+                    'setType': 'lc',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'lay' },
+                        { 'number': 1, 'assetPartDefinition': 'lay' },
+                        { 'number': 2, 'assetPartDefinition': 'lay' },
+                        { 'number': 3, 'assetPartDefinition': 'lay' },
+                        { 'number': 4, 'assetPartDefinition': 'lay' },
+                        { 'number': 5, 'assetPartDefinition': 'lay' },
+                        { 'number': 6, 'assetPartDefinition': 'lay' },
+                        { 'number': 7, 'assetPartDefinition': 'lay' }
+                    ]
+                },
+                {
+                    'setType': 'rc',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'lay' },
+                        { 'number': 1, 'assetPartDefinition': 'lay' },
+                        { 'number': 2, 'assetPartDefinition': 'lay' },
+                        { 'number': 3, 'assetPartDefinition': 'lay' },
+                        { 'number': 4, 'assetPartDefinition': 'lay' },
+                        { 'number': 5, 'assetPartDefinition': 'lay' },
+                        { 'number': 6, 'assetPartDefinition': 'lay' },
+                        { 'number': 7, 'assetPartDefinition': 'lay' }
+                    ]
+                },
+                {
+                    'setType': 'wa',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'lay' },
+                        { 'number': 1, 'assetPartDefinition': 'lay' },
+                        { 'number': 2, 'assetPartDefinition': 'lay' },
+                        { 'number': 3, 'assetPartDefinition': 'lay' },
+                        { 'number': 4, 'assetPartDefinition': 'lay' },
+                        { 'number': 5, 'assetPartDefinition': 'lay' },
+                        { 'number': 6, 'assetPartDefinition': 'lay' },
+                        { 'number': 7, 'assetPartDefinition': 'lay' }
+                    ]
+                },
+                {
+                    'setType': 'he',
+                    'frames': [
+                        { 'number': 0, 'assetPartDefinition': 'lay' },
+                        { 'number': 1, 'assetPartDefinition': 'lay' },
+                        { 'number': 2, 'assetPartDefinition': 'lay' },
+                        { 'number': 3, 'assetPartDefinition': 'lay' },
+                        { 'number': 4, 'assetPartDefinition': 'lay' },
+                        { 'number': 5, 'assetPartDefinition': 'lay' },
+                        { 'number': 6, 'assetPartDefinition': 'lay' },
+                        { 'number': 7, 'assetPartDefinition': 'lay' }
+                    ]
+                }
+            ]
+        },
+        {
             'id': 'Move',
             'parts': [
                 {
