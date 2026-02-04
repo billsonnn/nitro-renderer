@@ -25,6 +25,7 @@ export class AvatarImageCache
     private _canvas: AvatarCanvas;
     private _disposed: boolean;
     private _geometryType: string;
+    private _defaultAction: string = 'std';
     private _unionImages: ImageData[];
     private _matrix: Matrix;
     private _serverRenderData: RoomObjectSpriteData[];
@@ -143,6 +144,7 @@ export class AvatarImageCache
         {
             this._geometryType = k;
             this._canvas = null;
+            this._defaultAction = (k === GeometryType.HORIZONTAL) ? 'lay' : 'std';
 
             return;
         }
@@ -151,6 +153,7 @@ export class AvatarImageCache
 
         this._geometryType = k;
         this._canvas = null;
+        this._defaultAction = (k === GeometryType.HORIZONTAL) ? 'lay' : 'std';
     }
 
     public getImageContainer(k: string, frameNumber: number, _arg_3: boolean = false): AvatarImageBodyPartContainer
@@ -376,9 +379,24 @@ export class AvatarImageCache
                     let assetName = (this._scale + '_' + assetPartDefinition + '_' + partType + '_' + partId + '_' + assetDirection + '_' + frameNumber);
                     let asset = this._assets.getAsset(assetName);
 
+                    // Fallback 1: frame 0 for action
                     if(!asset)
                     {
-                        assetName = (this._scale + '_std_' + partType + '_' + partId + '_' + assetDirection + '_0');
+                        assetName = (this._scale + '_' + assetPartDefinition + '_' + partType + '_' + partId + '_' + assetDirection + '_0');
+                        asset = this._assets.getAsset(assetName);
+                    }
+
+                    // Fallback 2: same frame from default action (std or lay)
+                    if(!asset)
+                    {
+                        assetName = (this._scale + '_' + this._defaultAction + '_' + partType + '_' + partId + '_' + assetDirection + '_' + frameNumber);
+                        asset = this._assets.getAsset(assetName);
+                    }
+
+                    // Fallback 3: default fram 0
+                    if(!asset)
+                    {
+                        assetName = (this._scale + '_' + this._defaultAction + '_' + partType + '_' + partId + '_' + assetDirection + '_0');
                         asset = this._assets.getAsset(assetName);
                     }
 
